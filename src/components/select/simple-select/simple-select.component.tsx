@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
+import type { HTMLAttributes } from "react";
 
 import {
   filterOutStyledSystemSpacingProps,
@@ -14,6 +15,10 @@ import StyledSelect from "../select.style";
 import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
+import { CommonTextboxProps } from "../../textbox";
+import { NON_FUNCTIONING_PROPS } from "../../textbox/textbox.component";
+import type { TextInputProps } from "../../textbox/__internal__/__next__/text-input.component";
+import filterPropsByName from "../../../__internal__/utils/helpers/filter-props";
 import SelectList, {
   ListPlacement,
   SelectListProps,
@@ -31,7 +36,20 @@ export interface CustomSelectChangeEvent
 }
 
 export interface SimpleSelectProps
-  extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
+  extends Omit<
+    FormInputPropTypes,
+    | "align"
+    | "defaultValue"
+    | "value"
+    | "leftChildren"
+    | "inert"
+    | "onChangeDeferred"
+    | "deferTimeout"
+    | "iconOnClick"
+    | "iconOnMouseDown"
+    | "iconTabIndex"
+    | "inputIcon"
+  > {
   /** Prop to specify the aria-describedby property of the component input */
   "aria-describedby"?: string;
   /** Prop to specify the aria-label attribute of the component input */
@@ -42,7 +60,53 @@ export interface SimpleSelectProps
   children: React.ReactNode;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
-  /** When true component will work in multi column mode.
+  /**
+   * @deprecated `onChangeDeferred` has been deprecated.
+   * Deferred callback to be called after the onChange event
+   */
+  onChangeDeferred?: CommonTextboxProps["onChangeDeferred"];
+  /**
+   * @deprecated `deferTimeout` has been deprecated.
+   * Integer to determine a timeout for the deferred callback
+   */
+  deferTimeout?: CommonTextboxProps["deferTimeout"];
+  /**
+   * @deprecated `iconOnClick` has been deprecated.
+   * Optional handler for click event on Textbox icon
+   */
+  iconOnClick?: CommonTextboxProps["iconOnClick"];
+  /**
+   * @deprecated `iconOnMouseDown` has been deprecated.
+   * Optional handler for mouse down event on Textbox icon
+   */
+  iconOnMouseDown?: CommonTextboxProps["iconOnMouseDown"];
+  /**
+   * @deprecated `iconTabIndex` has been deprecated.
+   * Overrides the default tabindex of the component
+   */
+  iconTabIndex?: CommonTextboxProps["iconTabIndex"];
+  /**
+   * @deprecated `inputIcon` has been deprecated.
+   * Type of the icon that will be rendered next to the input
+   */
+  inputIcon?: CommonTextboxProps["inputIcon"];
+  /**
+   * @deprecated `align` has been deprecated.
+   * Sets the input's text alignment. Does not affect the position of the input's prefix or suffix icons.
+   */
+  align?: TextInputProps["align"];
+  /**
+   * @private
+   * @ignore
+   */
+  leftChildren?: TextInputProps["leftChildren"];
+  /**
+   * @deprecated `inert` has been deprecated.
+   */
+  inert?: HTMLAttributes<HTMLInputElement>["inert"];
+  /**
+   * @deprecated `multiColumn` has been deprecated.
+   * When true component will work in multi column mode.
    * Children should consist of OptionRow components in this mode
    */
   multiColumn?: boolean;
@@ -52,15 +116,25 @@ export interface SimpleSelectProps
   onOpen?: () => void;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
-  /** SelectList table header, should consist of multiple th elements.
+  /**
+   * @deprecated `tableHeader` has been deprecated.
+   * SelectList table header, should consist of multiple th elements.
    * Works only in multiColumn mode
    */
   tableHeader?: React.ReactNode;
-  /** If true the component input has no border and is transparent */
+  /**
+   * @deprecated `transparent` has been deprecated. Use `variant="subtle"` instead.
+   * If true the component input has no border and is transparent.
+   */
   transparent?: boolean;
+  /** The visual variant of the component */
+  variant?: "typical" | "subtle";
   /** The selected value(s) */
   value: string | Record<string, unknown>;
-  /** [Legacy] Overrides the default tooltip position */
+  /**
+   * @deprecated `tooltipPosition` has been deprecated.
+   * [Legacy] Overrides the default tooltip position
+   */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
@@ -75,7 +149,10 @@ export interface SimpleSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
-  /** Flag to configure component as mandatory */
+  /**
+   * @deprecated `isRequired` has been deprecated.
+   * Flag to configure component as mandatory
+   */
   isRequired?: boolean;
   /** Specify a callback triggered on change */
   onChange: (
@@ -84,6 +161,29 @@ export interface SimpleSelectProps
   /** Override the default width of the list element. Number passed is converted into pixel value */
   listWidth?: number;
 }
+
+const LOCAL_NON_FUNCTIONING_PROPS = new Set([
+  "align",
+  "onChangeDeferred",
+  "deferTimeout",
+  "iconOnClick",
+  "iconOnMouseDown",
+  "iconTabIndex",
+  "inputIcon",
+  "inert",
+  "transparent",
+  "multiColumn",
+  "tableHeader",
+  "isRequired",
+]);
+
+const inheritedNonFunctioningProps = Array.from(NON_FUNCTIONING_PROPS);
+
+// inherits all of the non-functioning props from Textbox, plus the local ones that are not applicable to SimpleSelect
+const SIMPLE_SELECT_NON_FUNCTIONING_PROPS = new Set([
+  ...inheritedNonFunctioningProps,
+  ...LOCAL_NON_FUNCTIONING_PROPS,
+]);
 
 export const SimpleSelect = React.forwardRef<
   HTMLInputElement,
@@ -103,6 +203,7 @@ export const SimpleSelect = React.forwardRef<
       children,
       transparent,
       openOnFocus = false,
+      variant = "typical",
       onOpen,
       onChange,
       onClick,
@@ -113,8 +214,6 @@ export const SimpleSelect = React.forwardRef<
       listMaxHeight,
       onListScrollBottom,
       tableHeader,
-      multiColumn,
-      tooltipPosition,
       "data-element": dataElement,
       "data-role": dataRole,
       listPlacement = "bottom",
@@ -310,12 +409,6 @@ export const SimpleSelect = React.forwardRef<
       });
     }
 
-    function handleDropdownIconClick(
-      event: React.MouseEvent<HTMLInputElement>,
-    ) {
-      handleTextboxClick(event);
-    }
-
     function handleListMouseDown() {
       isMouseDownReported.current = true;
     }
@@ -423,6 +516,8 @@ export const SimpleSelect = React.forwardRef<
       [ref],
     );
 
+    const isSubtle = variant === "subtle" || transparent;
+
     function getTextboxProps() {
       return {
         id: inputId.current,
@@ -432,19 +527,18 @@ export const SimpleSelect = React.forwardRef<
         selectedValue,
         formattedValue: textValue,
         onClick: handleTextboxClick,
-        iconOnClick: handleDropdownIconClick as (
-          ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-        ) => void,
         label,
         labelId,
         onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
         onKeyDown: handleTextboxKeydown,
         onBlur: handleTextboxBlur,
-        tooltipPosition,
         required,
-        transparent,
-        ...filterOutStyledSystemSpacingProps(props),
+        ...(isSubtle && { variant: "subtle" as const }),
+        ...filterPropsByName(
+          filterOutStyledSystemSpacingProps(props) as Record<string, unknown>,
+          SIMPLE_SELECT_NON_FUNCTIONING_PROPS,
+        ),
         "data-component": undefined,
       };
     }
@@ -475,8 +569,6 @@ export const SimpleSelect = React.forwardRef<
         listMaxHeight={listMaxHeight}
         isLoading={isLoading}
         onListScrollBottom={onListScrollBottom}
-        tableHeader={tableHeader}
-        multiColumn={multiColumn}
         listPlacement={listWidth !== undefined ? placement : listPlacement}
         flipEnabled={flipEnabled}
         isOpen={isOpen}
@@ -492,7 +584,7 @@ export const SimpleSelect = React.forwardRef<
 
     return (
       <StyledSelect
-        transparent={transparent}
+        className="simple-select"
         disabled={disabled}
         readOnly={readOnly}
         data-component="simple-select"

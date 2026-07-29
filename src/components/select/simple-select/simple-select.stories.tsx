@@ -1,13 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import {
-  Select,
-  Option,
-  OptionRow,
-  OptionGroupHeader,
-  CustomSelectChangeEvent,
-} from "..";
+import { Select, Option, OptionGroupHeader, CustomSelectChangeEvent } from "..";
 import Button from "../../button";
 import Icon, { IconType } from "../../icon";
 import Box from "../../box";
@@ -202,6 +196,7 @@ export const Sizes: Story = () => {
         id="size-small"
         label="Small"
         size="small"
+        prefix="foo"
         mb={2}
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
@@ -215,6 +210,7 @@ export const Sizes: Story = () => {
         id="size-medium"
         label="Medium"
         size="medium"
+        prefix="foo"
         mb={2}
         value={value2}
         onChange={(ev) => setValue2(ev.target.value)}
@@ -228,6 +224,7 @@ export const Sizes: Story = () => {
         id="size-large"
         label="Large"
         size="large"
+        prefix="foo"
         value={value3}
         onChange={(ev) => setValue3(ev.target.value)}
       >
@@ -536,66 +533,6 @@ export const Readonly: Story = () => {
 };
 Readonly.storyName = "Readonly";
 
-export const Transparent: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250} width={200}>
-      <Select
-        name="transparent"
-        id="transparent"
-        placeholder="Please select a colour"
-        transparent
-        label="Choose a colour"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-Transparent.storyName = "Transparent";
-
-export const TransparentDisabled: Story = () => {
-  const [value, setValue] = useState("4");
-  return (
-    <Box height={250} width={150}>
-      <Select
-        name="transparent"
-        id="transparent"
-        transparent
-        label="Choose a colour"
-        disabled
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-TransparentDisabled.storyName = "Transparent disabled";
-
 export const CustomOptionChildren: Story = () => {
   const [value, setValue] = useState("");
 
@@ -650,56 +587,6 @@ export const CustomOptionChildren: Story = () => {
   );
 };
 CustomOptionChildren.storyName = "Custom Option Children";
-
-export const WithMultipleColumns: Story = () => {
-  const [value, setValue] = useState("2");
-  return (
-    <Box height={250}>
-      <Select
-        name="withMultipleColumns"
-        id="withMultipleColumns"
-        multiColumn
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
-        }
-        label="With multiple columns"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <OptionRow id="1" value="1" text="John Doe">
-          <td>John</td>
-          <td>Doe</td>
-          <td>Welder</td>
-        </OptionRow>
-        <OptionRow id="2" value="2" text="Joe Vick">
-          <td>Joe</td>
-          <td>Vick</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="3" value="3" text="Jane Poe">
-          <td>Jane</td>
-          <td>Poe</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="4" value="4" text="Jill Moe">
-          <td>Jill</td>
-          <td>Moe</td>
-          <td>Engineer</td>
-        </OptionRow>
-        <OptionRow id="5" value="5" text="Bill Zoe">
-          <td>Bill</td>
-          <td>Zoe</td>
-          <td>Astronaut</td>
-        </OptionRow>
-      </Select>
-    </Box>
-  );
-};
-WithMultipleColumns.storyName = "With Multiple Columns";
 
 export const OptionGroups: Story = () => {
   const [value, setValue] = useState("");
@@ -827,47 +714,6 @@ export const Virtualised: Story = () => {
   );
 };
 Virtualised.storyName = "Virtualised";
-
-export const WithMultipleColumnsAndVirtualisation: Story = () => {
-  const [value, setValue] = useState("2");
-  return (
-    <Box height={250}>
-      <Select
-        name="withMultipleColumnsAndVirtualisation"
-        id="withMultipleColumnsAndVirtualisation"
-        label="choose an option"
-        multiColumn
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-        enableVirtualScroll
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
-        }
-      >
-        {Array(500)
-          .fill(undefined)
-          .map((_, index) => (
-            <OptionRow
-              key={`option-${index + 1}`}
-              id={`option-row-${index}`}
-              value={`${index}`}
-              text={`Option ${index + 1}`}
-            >
-              <td>{`John ${index + 1}`}</td>
-              <td>{`Doe ${index + 1}`}</td>
-              <td>{`Welder ${index + 1}`}</td>
-            </OptionRow>
-          ))}
-      </Select>
-    </Box>
-  );
-};
-WithMultipleColumnsAndVirtualisation.storyName =
-  "With Multiple Columns and Virtualisation";
 
 export const SelectionConfirmedStory: Story = () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);

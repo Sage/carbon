@@ -193,39 +193,30 @@ export const searchNewStyleOverrides = css`
 /**
  * Overrides for input when part of Select component
  */
-const selectTransparentStyles = (
-  $isDisabled?: boolean,
-  $isReadOnly?: boolean,
-) => css`
-  &[data-is-transparent="true"] {
-    &&& {
+const simpleSelectSubtleStyles = () => css`
+  .simple-select & {
+    &[data-is-subtle="true"],
+    &[class*="subtle"] {
       background: transparent;
-      border: none;
+      border-color: transparent;
+
+      --simple-select-text-color: var(--input-dropdown-label-default);
+      --simple-select-caret-color: var(--input-dropdown-label-default);
+
+      .input-text-container[class*="disabled"] {
+        --simple-select-text-color: var(--input-dropdown-label-disabled);
+        --simple-select-caret-color: var(--input-dropdown-label-disabled);
+      }
     }
-    ${!$isDisabled &&
-    !$isReadOnly &&
-    css`
-      cursor: pointer;
 
-      * {
-        cursor: pointer;
-      }
-    `}
-
-    input {
-      text-align: right;
-      position: absolute;
-      padding: var(--global-space-none);
-
-      &::placeholder {
-        color: var(--colorsUtilityYin100);
-      }
+    [data-role="select-text"][class*="subtle"] {
+      background: transparent;
     }
   }
 `;
 
 const selectNoTypingStyles = css`
-  [data-role="select-textbox"] &[data-is-transparent="false"] {
+  [data-role="select-textbox"] &[data-is-subtle="false"] {
     .input-text-container {
       position: relative;
 
@@ -246,12 +237,22 @@ const selectNoTypingStyles = css`
 const selectTypingAllowedStyles = css`
   .multi-select &,
   .filterable-select & {
+    .input-text-container [data-element="textbox-prefix"] {
+      font-weight: 500;
+    }
+
     .input-text-container:not(.disabled):not(.read-only) {
       cursor: text;
 
       input {
         cursor: text;
       }
+    }
+  }
+
+  .filterable-select & {
+    .input-text-container [data-element="textbox-prefix"] {
+      margin-left: var(--global-space-comp-m);
     }
   }
 `;
@@ -288,30 +289,97 @@ const mulitiSelectInputStyles = ($size?: string) => css`
   }
 `;
 
-const simpleSelectStyles = css`
-  [data-element="simple-select-input"] & {
-    input {
+const simpleSelectStyles = ($size?: string) => css`
+  .simple-select & {
+    --simple-select-prefix-color: var(--input-typical-txt-default);
+    --simple-select-text-color: var(--input-typical-txt-default);
+    --simple-select-caret-color: var(--input-typical-icon-default);
+
+    .input-text-container [data-role="select-text"] ~ input {
       opacity: 0;
     }
 
-    input {
-      cursor: pointer;
-    }
+    ${$size === "small" &&
+    css`
+      padding: var(--global-space-comp-xs) var(--global-space-comp-s);
+      max-height: var(--global-size-s);
+      [data-element="textbox-prefix"] {
+        font: var(--global-font-static-comp-medium-s);
+      }
+      [data-role="select-text"] .select-text-children-wrapper {
+        font: var(--global-font-static-comp-regular-s);
+      }
+      [role="presentation"] {
+        gap: var(--global-space-comp-xs);
+      }
+    `}
+    ${$size === "medium" &&
+    css`
+      padding: var(--global-space-comp-s) var(--global-space-comp-m);
+      max-height: var(--global-size-m);
+
+      [data-element="textbox-prefix"] {
+        font: var(--global-font-static-comp-medium-m);
+      }
+      [data-role="select-text"] .select-text-children-wrapper {
+        font: var(--global-font-static-comp-regular-m);
+      }
+      [role="presentation"] {
+        gap: var(--global-space-comp-s);
+      }
+    `}
+    ${$size === "large" &&
+    css`
+      padding: var(--global-space-comp-m) var(--global-space-comp-l);
+      max-height: var(--global-size-l);
+      [data-element="textbox-prefix"] {
+        font: var(--global-font-static-comp-medium-l);
+      }
+      [data-role="select-text"] .select-text-children-wrapper {
+        font: var(--global-font-static-comp-regular-l);
+      }
+      [role="presentation"] {
+        gap: var(--global-space-comp-m);
+      }
+    `}
 
     [data-element="textbox-prefix"] {
-      margin-left: var(--global-space-comp-none);
-      margin-right: var(--global-space-comp-m);
+      color: var(--simple-select-prefix-color);
+    }
+
+    [data-element="dropdown"] {
+      color: var(--simple-select-caret-color);
+    }
+
+    .input-text-container:is([class*="read-only"], [class*="disabled"]) {
+      --simple-select-caret-color: var(--input-typical-icon-disabled);
+    }
+
+    [data-role="select-text"] {
+      display: flex;
+      align-items: center;
+      gap: var(--global-space-comp-xs);
+      flex: 1 0 0;
+
+      .select-text-children-wrapper {
+        color: var(--simple-select-text-color);
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        flex: 1 0 0;
+      }
+    }
+
+    .input-text-container[class*="disabled"] {
+      --simple-select-prefix-color: var(--input-typical-txt-disabled);
+      --simple-select-text-color: var(--input-typical-txt-disabled);
     }
   }
 `;
 
-export const selectStyleOverrides = (
-  $size?: string,
-  $isDisabled?: boolean,
-  $isReadOnly?: boolean,
-) => css`
-  ${simpleSelectStyles}
-  ${selectTransparentStyles($isDisabled, $isReadOnly)}
+export const selectStyleOverrides = ($size?: string) => css`
+  ${simpleSelectStyles($size)}
+  ${simpleSelectSubtleStyles()}
   ${selectNoTypingStyles}
   ${selectTypingAllowedStyles}
   ${mulitiSelectInputStyles($size)}
