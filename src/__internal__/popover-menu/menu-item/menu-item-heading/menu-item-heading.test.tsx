@@ -33,6 +33,21 @@ test("renders the heading icon when icon is provided", () => {
   expect(icon).toBeVisible();
 });
 
+test("renders custom heading content when provided", () => {
+  render(
+    <ul>
+      <MenuItemHeading text="Heading" headingContent={<h4>Custom heading</h4>}>
+        <li>item</li>
+      </MenuItemHeading>
+    </ul>,
+  );
+
+  expect(
+    screen.getByRole("heading", { name: "Custom heading", level: 4 }),
+  ).toBeVisible();
+  expect(screen.queryByText("Heading")).not.toBeInTheDocument();
+});
+
 test.each([
   ["small", "var(--global-space-comp-2-xs)"],
   ["medium", "var(--global-space-comp-xs)"],

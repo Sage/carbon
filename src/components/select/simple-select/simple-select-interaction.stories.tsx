@@ -1,12 +1,12 @@
 import { StoryObj } from "@storybook/react-vite";
-import { userEvent, screen, within, expect } from "storybook/test";
+import { userEvent, screen, within, expect, waitFor } from "storybook/test";
 import React, { useState } from "react";
 
 import SimpleSelect, {
   CustomSelectChangeEvent,
   SimpleSelectProps,
 } from "./simple-select.component";
-import { Select, Option, OptionRow } from "..";
+import { Select, Option } from "..";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 
 import Box from "../../box";
@@ -67,29 +67,17 @@ export const OpenComplexList: Story = {
         name="complex"
         id="complex"
         label="Employee"
-        multiColumn
         enableVirtualScroll
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
-        }
       >
         {Array(500)
           .fill(undefined)
           .map((_, index) => (
-            <OptionRow
+            <Option
               key={`option-${index + 1}`}
-              id={`option-row-${index}`}
+              id={`option-${index}`}
               value={`${index}`}
-              text={`Option ${index + 1}`}
-            >
-              <td>{`John ${index + 1}`}</td>
-              <td>{`Doe ${index + 1}`}</td>
-              <td>{`Welder ${index + 1}`}</td>
-            </OptionRow>
+              text={`John Doe ${index + 1} — Welder ${index + 1}`}
+            />
           ))}
       </Select>
     </Box>
@@ -101,7 +89,9 @@ export const OpenComplexList: Story = {
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox", { name: "Employee" });
     await userEvent.click(select, { delay: 200 });
-    const nameOption = within(document.body).getByText("John 1");
+    const nameOption = canvas.getByRole("option", {
+      name: /John Doe 1(?!\d)/,
+    });
     await expect(nameOption).toBeVisible();
   },
   decorators: [
@@ -146,10 +136,11 @@ export const HighlightedItem: Story = {
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select);
 
-    const highlightedOption = canvas.getByRole("option", { name: "Green" });
-    await userEvent.click(highlightedOption);
+    await userEvent.click(canvas.getByRole("option", { name: "Green" }));
     await userEvent.click(select, { delay: 200 });
-    await expect(highlightedOption).toBeVisible();
+    await expect(
+      canvas.getByRole("option", { name: "Green", selected: true }),
+    ).toHaveAttribute("data-has-focus", "true");
   },
   decorators: [
     (StoryToRender) => (
@@ -175,6 +166,9 @@ export const Prefix: Story = {
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
       </InteractiveComponent>
     </Box>
   ),
@@ -186,9 +180,7 @@ export const Prefix: Story = {
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select, { delay: 100 });
 
-    await expect(
-      within(document.body).getByRole("option", { name: "Amber" }),
-    ).toBeVisible();
+    await expect(canvas.getByRole("option", { name: "Amber" })).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -217,7 +209,7 @@ export const SelectedItemHover: Story = {
         {undefined}
         {null}
         {false}
-        <Option text="Green" value="5" />
+        <Option text="Green" value="5" data-role="selected-hover-option" />
         <Option text="Orange" value="6" />
         <Option text="Pink" value="7" />
         <Option text="Purple" value="8" />
@@ -235,10 +227,11 @@ export const SelectedItemHover: Story = {
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select);
 
-    const highlightedOption = canvas.getByRole("option", { name: "Green" });
-    await userEvent.click(highlightedOption);
+    await userEvent.click(canvas.getByRole("option", { name: "Green" }));
     await userEvent.click(select);
-    await expect(select).toHaveFocus();
+    await expect(
+      canvas.getByRole("option", { name: "Green", selected: true }),
+    ).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -252,7 +245,7 @@ export const SelectedItemHover: Story = {
 SelectedItemHover.storyName = "Selected Item Hover";
 SelectedItemHover.parameters = {
   pseudo: {
-    hover: "[data-index='4']",
+    hover: "[data-role='selected-hover-option']",
   },
 };
 
@@ -267,7 +260,7 @@ export const NonSelectedItemHover: Story = {
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
+        <Option text="Blue" value="3" data-role="hover-option" />
         <Option text="Brown" value="4" />
         <Option text="Green" value="5" />
         <Option text="Orange" value="6" />
@@ -287,10 +280,9 @@ export const NonSelectedItemHover: Story = {
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select);
 
-    const highlightedOption = canvas.getByRole("option", { name: "Green" });
-    await userEvent.click(highlightedOption);
+    await userEvent.click(canvas.getByRole("option", { name: "Green" }));
     await userEvent.click(select, { delay: 200 });
-    await expect(highlightedOption).toBeVisible();
+    await expect(canvas.getByRole("option", { name: "Blue" })).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -304,7 +296,7 @@ export const NonSelectedItemHover: Story = {
 NonSelectedItemHover.storyName = "Non-Selected Item Hover";
 NonSelectedItemHover.parameters = {
   pseudo: {
-    hover: "[data-index='2']",
+    hover: "[data-role='hover-option']",
   },
 };
 
@@ -387,10 +379,11 @@ export const FocusTransparentWithSelection: Story = {
 
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select);
-    const highlightedOption = canvas.getByRole("option", { name: "Green" });
-    await userEvent.click(highlightedOption);
+    await userEvent.click(canvas.getByRole("option", { name: "Green" }));
     await userEvent.click(select, { delay: 100 });
-    await expect(highlightedOption).toBeVisible();
+    await expect(
+      canvas.getByRole("option", { name: "Green", selected: true }),
+    ).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -415,9 +408,6 @@ export const OptionGroupHeaders: Story = {
           id="groupHeader1"
           label="Group one"
           icon="individual"
-          data-component="group-header"
-          data-role="group-header"
-          data-element="group-header"
         />
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -469,12 +459,11 @@ export const ComplexOptions: Story = {
         value="value"
         isLoading={false}
         readOnly={false}
-        placeholder="placeholder"
         onChange={() => {}}
         onOpen={() => {}}
         onListScrollBottom={() => {}}
       >
-        <Option>
+        <Option id="load-error-message">
           <Box
             width="100%"
             display="flex"
@@ -537,6 +526,8 @@ export const NestedInDialog: Story = {
           <Option value="opt2" text="green" />
           <Option value="opt3" text="blue" />
           <Option value="opt4" text="black" />
+          <Option value="opt5" text="white" />
+          <Option value="opt6" text="yellow" />
         </InteractiveComponent>
         <Typography>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
@@ -560,9 +551,15 @@ export const NestedInDialog: Story = {
     }
 
     const dialog = await screen.findByRole("dialog");
+    await waitFor(() =>
+      expect(dialog.contains(document.activeElement)).toBe(true),
+    );
+
     const combobox = within(dialog).getByRole("combobox");
     await userEvent.click(combobox, { delay: 100 });
-    await expect(await within(document.body).findByText("red")).toBeVisible();
+    await expect(
+      await within(dialog).findByRole("option", { name: "red" }),
+    ).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -589,6 +586,7 @@ export const OpenWithValidationBelow: Story = {
         <Option text="Blue" value="3" />
         <Option text="Brown" value="4" />
         <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
       </InteractiveComponent>
     </Box>
   ),
@@ -600,7 +598,7 @@ export const OpenWithValidationBelow: Story = {
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select, { delay: 100 });
     await expect(
-      await within(document.body).findByRole("option", { name: "Amber" }),
+      await canvas.findByRole("option", { name: "Amber" }),
     ).toBeVisible();
   },
   decorators: [

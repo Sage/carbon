@@ -10,6 +10,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import SelectList, { SelectListProps } from "./select-list.component";
+import ActionOption from "../../action-option";
 import Option from "../../option";
 import OptionRow from "../../option-row";
 import setupSelectMocks from "../../setup-select-mocks";
@@ -61,6 +62,28 @@ const SelectListWithInput = ({
 };
 
 describe("rendered content", () => {
+  it("includes an ActionOption in the option set and preserves its `li` element", async () => {
+    const onClick = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <SelectListWithInput>
+        <ActionOption
+          id="add-item"
+          value="add"
+          text="Add an item"
+          onClick={onClick}
+        />
+      </SelectListWithInput>,
+    );
+
+    const action = screen.getByRole("option", { name: "Add an item" });
+    expect(action.tagName).toBe("LI");
+    expect(action).toHaveAttribute("aria-setsize", "1");
+
+    await user.click(action);
+    expect(onClick).toHaveBeenCalledWith("add");
+  });
+
   it("renders custom action button when listActionButton prop is provided", () => {
     render(
       <SelectListWithInput

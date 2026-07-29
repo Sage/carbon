@@ -1,16 +1,16 @@
 ---
-name: carbon-component-option
-description: Carbon Option component props and usage examples.
+name: carbon-component-action-option
+description: Carbon ActionOption component props and usage examples.
 ---
 
-# Option
+# ActionOption
 
 ## Import
-`import { Option } from "carbon-react/lib/components/select";`
+`import { ActionOption } from "carbon-react/lib/components/select";`
 
 ## Source
 - Export: `./components/select`
-- Props interface: `OptionProps`
+- Props interface: `ActionOptionProps`
 
 ## Props
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
@@ -319,13 +319,4 @@ description: Carbon Option component props and usage examples.
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### Default
-
-**Args**
-
-```tsx
-{
-    children: [],
-  }
-```
-
+No Storybook examples found.
