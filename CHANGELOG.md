@@ -1,3 +1,9 @@
+## [161.7.3](https://github.com/Sage/carbon/compare/v161.7.2...v161.7.3) (2026-07-29)
+
+### Bug Fixes
+
+* **textbox:** support input type and pattern props ([5df37dd](https://github.com/Sage/carbon/commit/5df37ddf9d315c2117f910fc8999fb36e096d0a3)), closes [#8087](https://github.com/Sage/carbon/issues/8087)
+
 ## [161.7.2](https://github.com/Sage/carbon/compare/v161.7.1...v161.7.2) (2026-07-29)
 
 ### Bug Fixes

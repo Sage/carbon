@@ -299,6 +299,7 @@ description: Carbon MultiSelect component props and usage examples.
 | title | string \| undefined | No |  |  |  |  |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  |  |  | [Legacy] Overrides the default tooltip position |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
+| type | HTMLInputTypeAttribute \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
