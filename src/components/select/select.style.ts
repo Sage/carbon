@@ -9,13 +9,16 @@ export interface StyledSelectProps
   extends Pick<SimpleSelectProps, "disabled" | "readOnly" | "transparent"> {
   hasTextCursor?: boolean;
   isOpen: boolean;
+  /** Removes the positioning context so the popover menu's height is not constrained by this wrapper */
+  $staticPosition?: boolean;
 }
 
 const StyledSelect = styled.div.attrs(applyBaseTheme)<StyledSelectProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin}
 
-  position: relative;
+  position: ${({ $staticPosition }) =>
+    $staticPosition ? "static" : "relative"};
 
   ${InputIconToggleStyle} {
     margin-right: 0;
