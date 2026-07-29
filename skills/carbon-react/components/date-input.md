@@ -279,6 +279,7 @@ description: Carbon DateInput component props and usage examples.
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
+| type | HTMLInputTypeAttribute \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
