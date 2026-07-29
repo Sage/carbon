@@ -31,15 +31,27 @@ interface StyledCheckboxProps {
   $error?: boolean;
   $checked?: boolean;
   $indeterminate?: boolean;
+  $isInGroup?: boolean;
 }
 
 export const StyledCheckbox = styled.div.attrs(
   applyBaseTheme,
 )<StyledCheckboxProps>`
-  margin-bottom: var(--fieldSpacing);
-  ${margin};
+  ${({
+    $isDisabled,
+    $size,
+    $error,
+    $checked,
+    $indeterminate,
+    $isInGroup,
+  }) => css`
+    ${!$isInGroup &&
+    css`
+      margin-bottom: var(--fieldSpacing);
+    `}
 
-  ${({ $isDisabled, $size, $error, $checked, $indeterminate }) => css`
+    ${margin};
+
     [data-role="checkable-input-svg-wrapper"] {
       display: flex;
       justify-content: center;
