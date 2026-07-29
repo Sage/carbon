@@ -26,7 +26,7 @@ Before changing code:
 
 Phase 0 permits Phase 1 with `complete-with-deferred-work`. The candidate
 `159.0.0 → 161.7.0` interval is approved for implementation and pilot only, not
-as a public support promise. `PLAN-001` and `P0-D6` require independent
+as a public support promise. The current plan and `P0-D6` require independent
 upgrade and deprecation tracks.
 
 ## Objective
@@ -81,7 +81,7 @@ optional deprecation migrations, and rejects unsupported path gaps.
   conflict handling.
 - Phase 4 CI integration, publication ownership, dependency refresh, or final
   maintainer workflow.
-- Phase 5 pilot evidence, public baseline, support promise, publication, or
+- Phase 6 pilot evidence, public baseline, support promise, publication, or
   release approval.
 - Historical catalogue backfill, untested interval chaining, wrappers,
   re-export graphs, dynamic imports, computed JSX, or runtime-generated props.

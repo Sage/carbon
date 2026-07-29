@@ -89,13 +89,12 @@ Do not begin the next phase before the formal gate permits it.
 
 Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
 
-- Record every change with a stable `PLAN-<number>` ID.
-- Keep rejected and superseded change records only when they remain relevant to
-  the active implementation; detailed obsolete comparison material belongs in
-  Git history.
+- Document proposed changes while they are reviewed, then update this ledger
+  and the single current plan with the accepted result.
+- Remove obsolete comparison wording; Git history retains prior revisions.
 - Do not weaken exit criteria or move required work merely to complete a phase.
 - Re-run gates whose evidence or completion claim changes.
-- Generate later prompts only from the approved current plan and handoff.
+- Generate later prompts only from the current plan and handoff.
 
 ## Overall status
 
@@ -263,11 +262,11 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
   support.
 - Risk if unresolved: customers could receive an unvalidated support promise.
 - Effect on current exit criteria: none.
-- Target phase: Phase 5
+- Target phase: Phase 6
 - Owner or required ownership area: current implementor, product/support/release
   and pilot reviewers
-- Dependencies or unblock condition: implementation, CI, documentation, and a
-  representative pilot are complete.
+- Dependencies or unblock condition: implementation, CI, reviewed candidate
+  interval coverage, documentation, and a representative pilot are complete.
 - Planned verification: complete pilot and release gate.
 - Status: open
 - Resolution evidence: not-applicable; unresolved.
@@ -280,7 +279,7 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
   ownership or support commitments.
 - Risk if unresolved: an unowned package could be published.
 - Effect on current exit criteria: none.
-- Target phase: Phase 5
+- Target phase: Phase 6
 - Owner or required ownership area: current implementor, tooling/security/release
   owner
 - Dependencies or unblock condition: production package structure and
@@ -296,34 +295,9 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
 
 - Prototype dependencies were kept outside production package configuration.
 
-#### PLAN-001: Candidate baseline and two-track catalogue
-
-- Classification: material-revision
-- Status: approved
-- Trigger and evidence: the candidate path contains required manual work and
-  useful deterministic deprecation cleanup with different applicability
-  semantics.
-- Existing plan assumption: one migration set represented both upgrade work and
-  deterministic examples.
-- Approved change: retain `159.0.0` as the implementation/pilot baseline;
-  require reliable `requiredBy` for upgrade records; use a separate optional
-  cleanup track with `deprecatedIn`; never substitute the fields.
-- Affected phases: all phases.
-- Customer effect: upgrade commands list required work; deprecation commands
-  list optional cleanup.
-- Safety impact: prevents optional cleanup from being misrepresented as
-  mandatory work.
-- Ownership boundary: implementation and pilot approved; publication, public
-  support, and release remain later decisions.
-- Estimate impact: Phase 0 and Phase 1 include additional two-track work.
-- Required verification: plan, decisions, handoff, catalogue schema, CLI output,
-  fixtures, and pilot preserve track separation.
-- Decision: approved.
-
 ### Estimate changes
 
-- Phase 1 includes additional work for two catalogue tracks and reporting
-  semantics.
+None recorded.
 
 ### Next action
 
@@ -419,7 +393,7 @@ packages/carbon-react-migrate/tsconfig.json` — initial run failed on the two
 | Correctness and safety       | pass   | Track-specific selector return types compile without casts; runtime behavior, ordering, exact intermediate path, schema validation, topology, and historical binding remain tested. |
 | Documentation and provenance | pass   | Stable anchors validate; the provisional ancestor-installation model and npm prerequisite are documented as maintainer-only; no upstream source was copied.                         |
 | Ownership and approvals      | pass   | Implementation/pilot scope is approved; publication, support, dependency/security refresh, and pilot approval remain accepted later-phase work.                                     |
-| Leftovers and plan health    | pass   | P0-L2 is resolved; P0-L3/P0-L7 remain accepted in Phase 4 and P0-L6 in Phase 5; no blocker or plan change exists.                                                                   |
+| Leftovers and plan health    | pass   | P0-L2 is resolved; P0-L3/P0-L7 remain accepted in Phase 4 and P0-L6 in Phase 6; no blocker or plan change exists.                                                                   |
 | Repository state             | pass   | Required package tests, validation, final formatting check, handoff links, and `git diff --check` pass; package-lock is unchanged and no Phase 2 implementation exists.             |
 
 ##### Exit-criterion evidence
@@ -458,7 +432,7 @@ packages/carbon-react-migrate/tsconfig.json` — initial run failed on the two
   - Target phase: Phase 4 (`P0-L7`)
 - Action: pilot and decide public support.
   - Owner or ownership area: product/support/release and pilot reviewers
-  - Target phase: Phase 5 (`P0-L6`)
+  - Target phase: Phase 6 (`P0-L6`)
 
 ### Decisions
 
@@ -587,8 +561,8 @@ separate task. Phase 2 may begin, but was not implemented here.
 | Exit criteria                | pass   | Every Phase 2 exit criterion is listed below with reproducible evidence; actual reports from all three commands validate.                                                                            |
 | Correctness and safety       | pass   | Strict arguments, exits 0–4, exact paths, ambiguity, malformed input, byte stability, no-write hashes, JSON exit 1, and negative schemas are tested.                                                 |
 | Documentation and provenance | pass   | Clean JSON commands, schema boundary, link-metadata decision, limitations, dependencies, and initial insufficient gate are recorded; no source was copied.                                           |
-| Ownership and approvals      | pass   | Implementation/pilot scope remains approved; documentation-link extraction, publication/security/support, and pilot approval remain assigned to Phases 4/5.                                          |
-| Leftovers and plan health    | pass   | P2-L2 is resolved; P2-L1 and P2-L3 have accepted later targets; P0-L3/P0-L7 remain Phase 4 and P0-L6 Phase 5; no blocker or plan revision remains.                                                   |
+| Ownership and approvals      | pass   | Implementation/pilot scope remains approved; documentation-link extraction remains assigned to Phase 4, while publication/security/support and pilot approval remain assigned to Phase 6.            |
+| Leftovers and plan health    | pass   | P2-L2 is resolved; P2-L1 and P2-L3 have accepted later targets; P0-L3/P0-L7 remain Phase 4 and P0-L6 Phase 6; no blocker or plan revision remains.                                                   |
 | Repository state             | pass   | Required tests, catalogue validation, direct Ajv dependency check, lint, formatting, 11 handoff links, and diff check pass; lock changes cover the reviewed jscodeshift tooling and Ajv declaration. |
 
 ##### Exit-criterion evidence
@@ -855,7 +829,7 @@ migration-tooling/handoffs/PHASE_3.md` — pass.
 | Correctness and safety       | pass   | Only registered safe rules edit; unsupported files are quarantined; all outputs validate before writing; source drift aborts; atomic replacement, rollback, dirty-tree refusal, equivalence, conflicts, and idempotency are tested. |
 | Documentation and provenance | pass   | README, schema, prompt, handoff, limitations, decisions, and opt-in verification guidance agree; no upstream source was copied.                                                                                                     |
 | Ownership and approvals      | pass   | Implementation/pilot scope remains approved; codemod/API review areas are named; publication, dependency/security, richer-link, support, and pilot approvals remain accepted later-phase work.                                      |
-| Leftovers and plan health    | pass   | `P2-L1` is resolved; `P0-L3`, `P0-L7`, and `P2-L3` remain accepted in Phase 4 and `P0-L6` in Phase 5; no blocker or plan revision remains.                                                                                          |
+| Leftovers and plan health    | pass   | `P2-L1` is resolved; `P0-L3`, `P0-L7`, and `P2-L3` remain accepted in Phase 4 and `P0-L6` in Phase 6; no blocker or plan revision remains.                                                                                          |
 | Repository state             | pass   | Final 37-test suite, catalogue validation, lint, formatting, handoff links, and diff integrity pass; unrelated repository files remain untouched.                                                                                   |
 
 ##### Exit-criterion evidence
@@ -904,7 +878,7 @@ migration-tooling/handoffs/PHASE_3.md` — pass.
   - Target phase: Phase 4 (`P2-L3`)
 - Action: pilot and decide the public support boundary.
   - Owner or ownership area: product/support/release and pilot reviewers
-  - Target phase: Phase 5 (`P0-L6`)
+  - Target phase: Phase 6 (`P0-L6`)
 
 #### Phase 3 P1 symlink review finding
 
@@ -971,7 +945,7 @@ migration-tooling/handoffs/PHASE_3.md` — pass.
 ##### Blocking or follow-up actions
 
 - The accepted `P0-L3`, `P0-L7`, and `P2-L3` Phase 4 follow-ups and `P0-L6`
-  Phase 5 follow-up are unchanged. None blocks the corrected Phase 3
+  Phase 6 follow-up are unchanged. None blocks the corrected Phase 3
   deliverable or Phase 4 prerequisites.
 
 ### Decisions
@@ -1002,7 +976,7 @@ migration-tooling/handoffs/PHASE_3.md` — pass.
 
 ### Estimate changes
 
-- None; Phase 4 and Phase 5 estimates remain credible.
+- None; later-phase estimates remain credible.
 
 ### Next action
 
@@ -1012,15 +986,15 @@ migration-tooling/handoffs/PHASE_3.md` — pass.
 ## Phase 4: Maintainer workflow and CI
 
 - Plan reference: [Phase 4](./PLAN.md#phase-4-maintainer-workflow-and-ci)
-- Status: in-progress
-- Phase-gate outcome: `remain-in-phase`
+- Status: complete
+- Phase-gate outcome: `complete-with-deferred-work`
 - Owner: current project implementor
 
 ### Implemented
 
 - Added root `generate:migration-register` and read-only
-  `validate:migrations` contracts and a commented pull-request CI placeholder
-  pending team review of the POC.
+  `validate:migrations` contracts and prepared a commented pull-request CI entry
+  point for later activation by repository CI owners.
 - Added deterministic catalogue-derived register generation, stale-output
   validation, documentation/changelog/skill anchor checks, bidirectional rule
   registration checks, schema and transform-fixture presence checks, provenance
@@ -1056,6 +1030,10 @@ Commands run:
 - `npm run validate:migrations` passed: maintainer validation scanned 320
   explicit markers across 1,637 source files and the package suite passed
   51/51.
+- `.github/workflows/ci.yml` contains the reviewed CI-ready invocation of the
+  same root `npm run validate:migrations` contract; it remains commented because
+  the current implementor cannot change CI.
+- Local validation changed no tracked migration artifacts.
 - `npm audit --omit=dev --offline --json` reported zero known production
   vulnerabilities, subject to the offline-data limitation.
 - `npm ls jscodeshift semver recast --all --prefix packages/carbon-react-migrate`
@@ -1082,48 +1060,50 @@ findings with regressions.
   exemptions fail independently, explicit annotation/runtime/breaking markers
   remain enforced, and stale provenance or empty notices fail automated tests.
 
-#### Formal phase gate after CI deferral
+#### Formal phase gate after CI ownership clarification
 
 - Reviewer: current implementor with AI evidence review
-- Outcome: `remain-in-phase`
+- Outcome: `complete-with-deferred-work`
 
 | Check                        | Result                                      | Evidence or reason                                                                                                                                                                       |
 | ---------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Scope                        | pass                                        | Phase 4 maintainer workflow only; no Phase 5 prompt or implementation.                                                                                                                   |
-| Deliverable                  | fail                                        | The local command is complete, but the required PR CI entry point is commented out pending team review.                                                                                  |
-| Exit criteria                | fail                                        | All failure modes pass locally, but the plan explicitly requires stale records, broken anchors, and missing migration records to fail CI; inactive CI cannot prove that criterion.       |
+| Scope                        | pass                                        | Phase 4 maintainer workflow only; no later-phase prompt or implementation.                                                                                                               |
+| Deliverable                  | pass                                        | The read-only local command is active and a reviewed CI-ready entry point invokes the same root contract without regeneration.                                                           |
+| Exit criteria                | pass                                        | Adversarial tests prove stale records, broken anchors, and unregistered public changes fail deterministic local validation; the guide covers safe and manual migrations.                 |
 | Correctness and safety       | pass                                        | Validation is deterministic and read-only; ordinary wording/test files avoid false positives; exemptions always validate; Phase 1–3 interfaces and application safeguards remain intact. |
 | Documentation and provenance | pass                                        | Generated register, maintainer guide, authoritative local links, machine-bound dependency evidence, notice disposition, and honest limitations are present.                              |
 | Ownership and approvals      | pass with deferred publication prerequisite | Implementation ownership is recorded; accountable organizational owners remain unconfirmed and no publication approval is claimed.                                                       |
-| Leftovers and plan health    | fail                                        | `P4-L1` remains required Phase 4 work; P0-L3/P2-L3 are resolved, while P0-L7 and P0-L6 remain correctly assigned to Phase 5.                                                             |
+| Leftovers and plan health    | pass with deferred work                     | `P4-L1` is accepted Phase 6 CI-owner work; P0-L3/P2-L3 are resolved, while P0-L7 and P0-L6 remain assigned to the Phase 6 release decision.                                              |
 | Repository state             | pass                                        | Relevant tests/lint/format, generated checks, links, read-only comparison, and diff check pass; unrelated prompt artifact preserved and included.                                        |
 
 ##### Exit-criterion evidence
 
-- Criterion: stale record or broken anchor fails CI.
-  - Result: fail
+- Criterion: stale record or broken anchor fails local validation.
+  - Result: pass
   - Evidence: catalogue/reference validation and adversarial tests pass
-    locally, but the CI invocation is intentionally commented out.
-- Criterion: new deprecation without record or exemption fails CI.
-  - Result: fail
+    locally; the CI-ready invocation uses the identical command.
+- Criterion: new deprecation without record or exemption fails local
+  validation.
+  - Result: pass
   - Evidence: marker enforcement adversarial tests pass locally, including
-    intentional breaking-change markers, but CI does not invoke them yet.
+    intentional breaking-change markers.
 - Criterion: guide covers one safe and one manual migration.
   - Result: pass
   - Evidence: `migration-tooling/MAINTAINER_WORKFLOW.md`.
 
 ##### Blocking or follow-up actions
 
-- Action: complete team review of the POC and enable the existing
-  `npm run validate:migrations` pull-request CI step.
-  - Owner or ownership area: current implementor and CI/review owners
-  - Target phase: Phase 4 (`P4-L1`)
+- Action: obtain CI-owner approval, activate the prepared
+  `npm run validate:migrations` step, and record a passing PR result before
+  release.
+  - Owner or ownership area: CI/review and release owners
+  - Target phase: Phase 6 (`P4-L1`)
 - Action: assign accountable security/license, release publication, and support owners and obtain required approvals before publication.
   - Owner or ownership area: tooling/security/release/support
-  - Target phase: Phase 5 (`P0-L7`)
+  - Target phase: Phase 6 (`P0-L7`)
 - Action: conduct the pilot and make the public baseline/support decision.
   - Owner or ownership area: product/support/release and pilot reviewers
-  - Target phase: Phase 5 (`P0-L6`)
+  - Target phase: Phase 6 (`P0-L6`)
 
 ### Decisions
 
@@ -1141,20 +1121,19 @@ findings with regressions.
 
 ### Leftovers
 
-- `P4-L1`: enable pull-request migration validation after team review.
+- `P4-L1`: activate migration validation in pull-request CI.
   - Classification: required-follow-up
-  - Reason: the prepared CI step is intentionally commented out while the POC
-    receives team review.
-  - Risk: stale registers, broken references, and unregistered public
-    deprecations can merge because local validation is not enforced by CI.
-  - Effect on exit criteria: blocks the two CI-specific Phase 4 exit criteria
-    and the required CI deliverable.
-  - Target phase: Phase 4
-  - Owner or ownership area: current implementor and CI/review owners
-  - Dependencies or unblock condition: team agrees to enable the existing
-    workflow step.
-  - Planned verification: uncomment the step, validate workflow formatting,
-    run `npm run validate:migrations`, and obtain a passing PR CI run.
+  - Reason: the current implementor cannot change repository CI; the exact
+    entry point is prepared and reviewed but remains commented.
+  - Risk: migration maintenance remains dependent on developers running local
+    validation until CI owners activate enforcement.
+  - Effect on exit criteria: none for the Phase 4 POC; blocks release readiness
+    if still unresolved.
+  - Target phase: Phase 6
+  - Owner or ownership area: CI/review and release owners
+  - Dependencies or unblock condition: CI-owner authorization.
+  - Planned verification: activate the step and record the passing PR check for
+    `Validate deterministic migration tooling`.
   - Status: open
   - Resolution evidence: not applicable; unresolved.
 - `P0-L3` resolved by `PHASE_4_EVIDENCE.md`, with explicit limitations and no
@@ -1162,9 +1141,9 @@ findings with regressions.
 - `P2-L3` resolved by authoritative local changelog/skill metadata and
   backward-compatible schema fixtures.
 - `P0-L7` implementation/provenance evidence is complete; accountable
-  publication/support ownership remains open for Phase 5 because repository
+  publication/support ownership remains open for Phase 6 because repository
   evidence cannot name it.
-- `P0-L6` remains open for Phase 5. Phase 4 confirms that `159.0.0 → 161.7.0`
+- `P0-L6` remains open for Phase 6. Phase 4 confirms that `159.0.0 → 161.7.0`
   is still implementation/pilot scope only.
 
 ### Deviations from plan
@@ -1177,15 +1156,16 @@ None recorded.
 
 ### Next action
 
-Complete team review, enable the prepared PR CI step, obtain CI evidence, and
-reevaluate the Phase 4 gate. Do not start Phase 5 while `P4-L1` is open.
+Start Phase 5 from the current plan and prompt. Keep `P4-L1` visible as required
+Phase 6 release-readiness work.
 
-## Phase 5: Pilot and release decision
+## Phase 5: Migration discovery and catalogue backfill
 
-- Plan reference: [Phase 5](./PLAN.md#phase-5-pilot-and-release-decision)
+- Plan reference:
+  [Phase 5](./PLAN.md#phase-5-migration-discovery-and-catalogue-backfill)
 - Status: not-started
 - Phase-gate outcome: not evaluated
-- Owner: current project implementor
+- Owner: current project implementor with Carbon API and release reviewers
 
 ### Implemented
 
@@ -1205,7 +1185,7 @@ None recorded.
 
 ### Leftovers
 
-- Accept `P0-L6` as required Phase 5 work.
+None recorded.
 
 ### Deviations from plan
 
@@ -1217,22 +1197,65 @@ None recorded.
 
 ### Next action
 
+Wait for the Phase 4 gate to pass. Use the Phase 5 prompt only after `P4-L1` is
+resolved.
+
+## Phase 6: Pilot and release decision
+
+- Plan reference: [Phase 6](./PLAN.md#phase-6-pilot-and-release-decision)
+- Status: not-started
+- Phase-gate outcome: not evaluated
+- Owner: current project implementor with product/support/release and pilot
+  reviewers
+
+### Implemented
+
 None recorded.
+
+### Handoff artifacts
+
+None recorded.
+
+### Verification
+
+None recorded.
+
+### Decisions
+
+None recorded.
+
+### Leftovers
+
+- Accept `P0-L6` and the narrowed `P0-L7` as required Phase 6 work.
+
+### Deviations from plan
+
+None recorded.
+
+### Estimate changes
+
+None recorded.
+
+### Next action
+
+Wait for Phase 5 to complete its formal gate and provide reviewed catalogue and
+coverage evidence.
 
 ## Additional or remediation phases
 
 None recorded.
 
-## Cross-phase decisions
+## Cross-phase requirements
 
-- `PLAN-001` applies to all phases: preserve separate required-upgrade and
-  optional-deprecation tracks.
+- Keep required-upgrade and optional-deprecation tracks separate.
+- Complete deterministic discovery and reviewed catalogue backfill in Phase 5
+  before the Phase 6 pilot and release decision.
 
 ## Cross-phase leftovers
 
 - `P0-L2` → resolved in Phase 1.
-- `P0-L3` and `P0-L7` → Phase 4.
-- `P0-L6` → Phase 5.
+- `P0-L3` → resolved in Phase 4.
+- `P0-L6` and the narrowed `P0-L7` → Phase 6.
 - `P2-L1` → resolved in Phase 3.
 - `P2-L2` → resolved in Phase 2.
-- `P2-L3` → Phase 4.
+- `P2-L3` → resolved in Phase 4.

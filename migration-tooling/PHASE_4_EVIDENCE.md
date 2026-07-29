@@ -48,5 +48,5 @@ generated register states honestly when optional metadata is absent.
 Implementation and CI configuration are owned by the current implementor.
 Accountable Carbon API/catalogue, codemod, documentation, security/license,
 release publication, and support owners are not confirmed in repository
-evidence. Their assignment is a Phase 5 publication prerequisite; it does not
+evidence. Their assignment is a Phase 6 publication prerequisite; it does not
 invalidate the private Phase 4 maintainer workflow.

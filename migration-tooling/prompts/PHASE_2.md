@@ -90,7 +90,7 @@ network access, or source-file modification.
   to Phase 3.
 - Phase 4 CI integration, workspace/publication strategy, dependency refresh,
   final package ownership, or maintainer enforcement.
-- Phase 5 customer pilot, public baseline, support promise, or release.
+- Phase 6 customer pilot, public baseline, support promise, or release.
 - Complete historical migration backfill.
 - Executing customer code, configuration files, build scripts, or application
   tests as part of detection.

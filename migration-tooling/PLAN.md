@@ -9,7 +9,8 @@ detailed prompt before the preceding gate permits it.
 ## Controlled plan evolution
 
 Implementation evidence may require this plan to change. Plan evolution is
-allowed, but it must be explicit, evidence-backed, reviewed, and recorded.
+allowed, but it must be explicit, evidence-backed, and reviewed. `PLAN.md`
+remains the single authoritative plan.
 
 No implementation agent may silently change phase scope, exit criteria,
 architecture, supported customer behavior, safety guarantees, ownership,
@@ -39,8 +40,8 @@ Do not change the plan merely to make incomplete implementation appear complete.
 A clarification improves wording without changing required behavior, scope,
 deliverables, exit criteria, ownership, phase order, or estimates.
 
-It may be applied during the current phase, but it must still be recorded under
-the phase's decisions or deviations.
+It may be applied during the current phase, but the current phase status must
+describe its effect.
 
 #### Minor adjustment
 
@@ -48,7 +49,7 @@ A minor adjustment changes implementation detail within the existing goal and
 phase boundary, does not change a public interface or safety guarantee, affects
 only one phase, and is expected to require no more than two working days.
 
-It may be proposed and applied in the current phase after recording evidence,
+It may be proposed and applied in the current phase after documenting evidence,
 impact, and verification. The formal phase gate must review it.
 
 #### Material revision
@@ -71,38 +72,24 @@ A material revision requires `plan-revision-required` or
 revision is reviewed and the plan, status ledger, and relevant prompt are
 updated.
 
-### Required change record
+### Change proposal
 
-Record every proposed plan change in the applicable phase's `### Decisions` or
-`### Deviations from plan` section in `IMPLEMENTATION_STATUS.md`:
+While a change is under review, document its classification, trigger, evidence,
+affected phases, customer and safety effects, ownership, estimate impact, and
+required verification in the current phase's `### Decisions` or
+`### Deviations from plan` section in `IMPLEMENTATION_STATUS.md`.
 
-```md
-#### PLAN-<number>: <Change title>
-
-- Classification: clarification | minor-adjustment | material-revision
-- Status: proposed | approved | rejected | superseded
-- Trigger and evidence:
-- Existing plan text or assumption:
-- Proposed change:
-- Reason:
-- Affected phases:
-- Effect on customer behavior or public interfaces:
-- Safety, security, accessibility, licensing, and compliance impact:
-- Ownership or approval required:
-- Estimate impact:
-- Required verification:
-- Decision:
-```
-
-Use a stable ID and retain rejected or superseded records. Do not erase the
-history of why the plan changed.
+After approval, incorporate the result into this plan, update every affected
+status, handoff, prompt, estimate, and leftover, and remove obsolete comparison
+wording. Git history retains the review history; committed documentation
+describes one current plan.
 
 ### Change procedure
 
 1. Stop work that depends on the disputed assumption when continuing could
    create rework or safety risk.
-2. Record the trigger, evidence, classification, affected phases, risks, owners,
-   and estimate impact.
+2. Document the trigger, evidence, classification, affected phases, risks,
+   owners, and estimate impact while the proposal is reviewed.
 3. Decide whether unaffected work can continue safely.
 4. For a clarification or minor adjustment, update this plan and the status
    ledger, then verify the change during the current phase gate.
@@ -111,11 +98,11 @@ history of why the plan changed.
 6. Obtain required human or organizational decisions. An AI agent may recommend
    a change but cannot invent product, API, design, accessibility, security,
    legal/compliance, support, or release approval.
-7. Apply the approved plan change.
+7. Apply the approved change to this single current plan.
 8. Update affected phase references, prerequisites, tasks, deliverables, exit
    criteria, estimates, leftovers, and prompts.
 9. Re-run the formal gate for any phase whose completion claim was affected.
-10. Generate later phase prompts only from the approved current plan.
+10. Generate later phase prompts only from the current plan.
 
 ### Additional and remediation phases
 
@@ -124,7 +111,7 @@ Define its objective, prerequisites, tasks, out-of-scope work, deliverable, exit
 criteria, estimate, ownership, and effect on later phases.
 
 Creating an additional phase must not silently defer an existing exit criterion.
-The change record must explain whether affected work was moved, split, added, or
+The proposal must explain whether affected work is moved, split, added, or
 removed and why.
 
 ### Approval boundary
@@ -170,7 +157,7 @@ Each handoff must record:
 - delivered artifacts and their stability;
 - interfaces, schemas, commands, formats, and failure behavior exposed to later
   phases;
-- decisions and controlled plan changes by stable ID;
+- decisions and any current-plan deviations;
 - every exit criterion and its verification evidence;
 - supported scope, unsupported scope, and limitations;
 - every open leftover by stable ID, classification, risk, target phase, and
@@ -199,7 +186,7 @@ Each handoff must record:
 - Preserve prior decisions and limitations; mark superseded information rather
   than silently deleting its history.
 - The handoff, status ledger, plan, and formal gate must agree.
-- Generate the next phase prompt from the approved plan, status ledger, and
+- Generate the next phase prompt from the current plan, status ledger, and
   handoff—not from chat history.
 
 ### Completion boundary
@@ -291,11 +278,10 @@ covering manual migrations for which no codemod is safe.
 The MVP is a vertical slice, not a complete reconstruction of Carbon's migration
 history.
 
-Use `carbon-react@159.0.0` as the candidate initial customer baseline and the
-repository/current release as the target (`161.7.0` when PLAN-001 was
-approved). This is an implementation and pilot candidate, not a public support
-promise. Phase 5 customer evidence and the release decision determine whether
-it becomes the published baseline.
+Use `carbon-react@159.0.0` as the candidate initial customer baseline and
+`161.7.0` as the candidate target. This is an implementation and pilot
+candidate, not a public support promise. Phase 6 customer evidence and the
+release decision determine whether it becomes the published baseline.
 
 The MVP slice has two deliberately separate tracks:
 
@@ -318,9 +304,9 @@ The selected cleanup examples are:
 
 - `StepSequenceItem.ariaLabel` to native `aria-label`, deprecated in `161.7.0`,
   for the supported direct-import/direct-JSX subset; and
-- documented component-path `DialogFullScreen` to `Dialog
-  size="fullscreen"`, deprecated in `156.2.0`, for the supported conflict-free
-  subset.
+- documented component-path `DialogFullScreen` to
+  `Dialog size="fullscreen"`, deprecated in `156.2.0`, for the supported
+  conflict-free subset.
 
 The selection must have enough source, release-note, package-configuration,
 documentation, and Git-history evidence to define its track, applicability,
@@ -759,6 +745,8 @@ Tasks:
   deprecation annotation or an intentional breaking-change marker.
 - Document how to author and review a migration.
 - Document how source annotations and runtime warnings reference migration IDs.
+- Prepare a pull-request CI entry point for the same validation command, but do
+  not activate it without repository CI-owner authorization.
 - Name owners for catalogue review, codemod review, documentation, and release
   publication.
 - Require dependency and license review when transformation tooling or copied
@@ -766,12 +754,13 @@ Tasks:
 
 Deliverable:
 
-- One local command and one pull-request CI entry point.
+- One deterministic local validation command and a documented CI-ready entry
+  point for later activation by repository CI owners.
 
 Exit criteria:
 
-- A deliberately stale record or broken anchor fails CI.
-- A new deprecation without a record or exemption fails CI.
+- A deliberately stale record or broken anchor fails local validation.
+- A new deprecation without a record or exemption fails local validation.
 - Maintainer documentation walks through adding one safe and one manual
   migration.
 
@@ -782,7 +771,68 @@ Estimate:
   scaffolding.
 - Elapsed with collaboration: 3-4 days.
 
-### Phase 5: Pilot and release decision
+### Phase 5: Migration discovery and catalogue backfill
+
+Tasks:
+
+- Add `npm run discover:migrations -- --from <version> --to <version>`.
+- Inspect changelog sections, release tags, public API changes, explicit
+  deprecation/runtime-warning markers, removals, package requirements, and
+  intentional breaking-change markers for the requested interval.
+- Generate deterministic JSON and Markdown candidate inventories that are
+  clearly labelled `needs-review` and are never consumed as approved customer
+  migrations.
+- Record source, changelog, tag/diff, documentation, and version evidence for
+  every candidate, plus confidence and missing required information.
+- Add `npm run create:migration` to scaffold a draft typed catalogue record for
+  a new public change without inventing replacement guidance, risk, or
+  automation safety.
+- Require reviewers to approve, reject, merge, exempt, or request more evidence
+  for every candidate, with durable reasons.
+- Add approved candidates to the authoritative catalogue and regenerate the
+  migration register.
+- Produce a coverage report for the candidate `159.0.0 → 161.7.0` interval,
+  separating reviewed records, rejected/internal-only candidates, exemptions,
+  unresolved gaps, and areas the discovery mechanisms cannot inspect.
+- Preserve the rule that developers update the catalogue, while the register is
+  generated output.
+- Keep discovery and scaffolding deterministic and independent of AI. AI may
+  assist reviewers but cannot approve customer migration semantics.
+
+Deliverable:
+
+- A reviewed catalogue and coverage report for the candidate
+  `159.0.0 → 161.7.0` interval, supported by deterministic discovery and record
+  scaffolding.
+
+Exit criteria:
+
+- Every release boundary in the candidate interval has recorded changelog,
+  tag/diff, public API, and marker discovery evidence or a documented reason it
+  could not be inspected.
+- Running discovery twice produces byte-identical candidate output.
+- Candidate output is visibly non-authoritative and is never selected by
+  `plan`, `check`, or `apply`.
+- Every discovered candidate has a durable review decision and evidence.
+- Every approved record contains reviewed applicability, version,
+  replacement/removal guidance, automation status, risks, and manual checks.
+- Rejected, merged, internal-only, and exempted candidates retain reasons.
+- `create:migration` produces a schema-valid draft and clearly reports every
+  field that still requires human review.
+- The official generated register contains only approved catalogue records.
+- The coverage report lists unresolved and unsupported areas without claiming
+  completeness.
+- No unresolved high-risk catalogue gap blocks a representative customer pilot.
+
+Estimate:
+
+- Developer: 5-9 days.
+- AI assistance: 1.5-3 days equivalent for evidence correlation, candidate
+  grouping, and review scaffolding.
+- Carbon API/release reviewer participation: 2-5 days distributed.
+- Elapsed: 1.5-3 weeks depending on candidate volume and reviewer availability.
+
+### Phase 6: Pilot and release decision
 
 Tasks:
 
@@ -823,11 +873,12 @@ Estimate:
 For one developer familiar with Carbon, with AI used as an implementation and
 review assistant:
 
-| Scope | Developer effort | AI-assisted work equivalent | Expected elapsed time |
-| --- | ---: | ---: | ---: |
-| Read-only vertical slice through Phase 2 | 12-17 days | 4-6 days | 2.5-3.5 weeks |
-| Practical MVP through safe application and CI | 19-27 days | 6-9 days | 4-5.5 weeks |
-| Pilot and release readiness | 22-32 days | 7-10 days | 5-7 weeks |
+| Scope                                                 | Developer effort | AI-assisted work equivalent | Expected elapsed time |
+| ----------------------------------------------------- | ---------------: | --------------------------: | --------------------: |
+| Read-only vertical slice through Phase 2              |       12-17 days |                    4-6 days |         2.5-3.5 weeks |
+| Practical MVP through safe application and CI         |       19-27 days |                    6-9 days |           4-5.5 weeks |
+| Reviewed candidate-interval catalogue through Phase 5 |       24-36 days |                 7.5-12 days |         5.5-8.5 weeks |
+| Pilot and release readiness through Phase 6           |       27-41 days |                 8.5-13 days |          6.5-10 weeks |
 
 AI work-equivalent estimates are not additional staffing days and must not be
 subtracted mechanically from the developer estimate. They describe tasks where
@@ -885,7 +936,7 @@ a success measure.
 
 Defer until usage evidence justifies it:
 
-- Complete historical catalogue backfill.
+- Catalogue backfill outside the selected candidate interval.
 - Arbitrary wrapper and higher-order-component analysis.
 - General re-export graph resolution.
 - Automatic dependency and lockfile updates.

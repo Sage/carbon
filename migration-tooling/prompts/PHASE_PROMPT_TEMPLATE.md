@@ -75,8 +75,8 @@ an earlier exit criterion. Record that work as a deviation or leftover in
 - Keep open-source reuse provenance and required notices current.
 - Do not silently change `PLAN.md`. If implementation invalidates a plan
   assumption, follow the complete Controlled plan evolution protocol in
-  `PLAN.md`, create a stable change record, and determine whether a plan revision
-  or an additional phase is required.
+  `PLAN.md`, document the proposal while it is reviewed, and determine whether a
+  plan revision or an additional phase is required.
 - Do not start the next phase.
 
 ## Required deliverable

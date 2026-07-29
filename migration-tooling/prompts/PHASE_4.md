@@ -29,10 +29,10 @@ Before changing code:
    managed by the repository root unless the repository explicitly proves
    otherwise.
 7. Accept `P0-L3`, `P0-L7`, and `P2-L3` as required Phase 4 work. Reassess
-   `P0-L6` but leave its pilot/public-support decision in Phase 5.
+   `P0-L6` but leave its pilot/public-support decision in Phase 6.
 8. Preserve all Phase 1–3 interfaces, including catalogue semantics, selection
    tracks, schema compatibility, exit codes, shared detector evidence,
-   application safeguards, and `PLAN-001`.
+   application safeguards, and current plan requirements.
 
 The candidate `159.0.0 → 161.7.0` interval remains implementation and pilot
 scope, not a public support promise.
@@ -121,7 +121,7 @@ regenerate and accept stale output.
 
 ## Out of scope
 
-- Phase 5 customer-style pilot, public baseline decision, publication, or
+- Phase 6 customer-style pilot, public baseline decision, publication, or
   support promise.
 - Adding new customer transformations solely to demonstrate the authoring
   workflow.
@@ -157,7 +157,7 @@ regenerate and accept stale output.
 - Preserve JSON consumer compatibility. Treat any schema-contract change as a
   reviewed interface decision with fixtures.
 - Do not silently change `PLAN.md`. If evidence contradicts the plan, follow
-  Controlled plan evolution with a stable change record and appropriate gate
+  Controlled plan evolution with a documented proposal and appropriate gate
   outcome.
 - Do not start Phase 5.
 
@@ -227,7 +227,7 @@ as passing.
   documentation, security/license, CI, release publication, and support.
 - Missing accountable ownership or required organizational approval must be
   reported honestly and may require a blocked or complete-with-deferred-work
-  gate depending on whether it invalidates the Phase 4 deliverable or Phase 5
+  gate depending on whether it invalidates the Phase 4 deliverable or Phase 6
   prerequisite.
 
 ## Status and formal gate
@@ -239,7 +239,7 @@ Before finishing:
    `migration-tooling/IMPLEMENTATION_STATUS.md`.
 3. Resolve `P0-L3`, `P0-L7`, and `P2-L3` only with durable evidence; otherwise
    carry or block them accurately according to the leftover rules.
-4. Reassess `P0-L6` for Phase 5 without making the public support decision.
+4. Reassess `P0-L6` for Phase 6 without making the public support decision.
 5. Record implementation, artifacts, commands, verification, decisions,
    deviations, plan changes, estimate changes, risks, ownership, and next
    action.

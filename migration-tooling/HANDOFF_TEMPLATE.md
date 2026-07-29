@@ -16,9 +16,9 @@ phase can rely on.
 
 ## Delivered artifacts
 
-| Artifact | Purpose | Stability | Owner |
-| --- | --- | --- | --- |
-|  |  | draft \| internal \| public \| generated |  |
+| Artifact | Purpose | Stability                                | Owner |
+| -------- | ------- | ---------------------------------------- | ----- |
+|          |         | draft \| internal \| public \| generated |       |
 
 Use repository-relative links. Include implementation, schemas, decision
 records, generated output, fixtures, documentation, and provenance records
@@ -48,18 +48,16 @@ Reference stable decision IDs from `IMPLEMENTATION_STATUS.md`.
 
 ## Controlled plan changes
 
-Reference stable `PLAN-<number>` records.
+State whether the phase deviated from the current plan.
 
-- None, or:
-  - Change ID:
-  - Status:
+- None, or summarize the accepted current-plan effect and link to its evidence.
   - Affected phases:
 
 ## Verification evidence
 
-| Requirement or exit criterion | Result | Command, review, or evidence |
-| --- | --- | --- |
-|  | pass \| fail \| blocked \| not-applicable |  |
+| Requirement or exit criterion | Result                                    | Command, review, or evidence |
+| ----------------------------- | ----------------------------------------- | ---------------------------- |
+|                               | pass \| fail \| blocked \| not-applicable |                              |
 
 Include the formal phase-gate record by reference. Do not replace exact
 verification evidence with a summary.
@@ -77,9 +75,9 @@ unverified. Avoid claims of complete migration coverage.
 
 Reference every open leftover by its stable ID.
 
-| ID | Classification | Risk | Target phase | Owner or ownership area |
-| --- | --- | --- | --- | --- |
-|  |  |  |  |  |
+| ID  | Classification | Risk | Target phase | Owner or ownership area |
+| --- | -------------- | ---- | ------------ | ----------------------- |
+|     |                |      |              |                         |
 
 Write `None` only when the status ledger has no applicable open leftovers.
 
@@ -108,7 +106,7 @@ after the plan, phase gates, and status ledger.
 - [ ] All links resolve.
 - [ ] Delivered artifacts exist.
 - [ ] Status and gate outcome match `IMPLEMENTATION_STATUS.md`.
-- [ ] Decisions, plan changes, and leftovers use stable IDs.
+- [ ] Decisions and leftovers use stable IDs.
 - [ ] Verification evidence is reproducible.
 - [ ] Unsupported scope and risks are explicit.
 - [ ] Required approvals are recorded and not inferred.

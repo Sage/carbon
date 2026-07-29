@@ -137,7 +137,7 @@ recorded elsewhere.
 
 Do not change later-phase architecture silently. If the evidence invalidates the
 plan, follow the complete Controlled plan evolution protocol in `PLAN.md`,
-create a stable change record, update the status ledger with
+document the proposal while it is reviewed, update the status ledger with
 `plan-revision-required`, and explain the specific necessary revision.
 
 ## Required verification

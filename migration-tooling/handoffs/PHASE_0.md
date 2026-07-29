@@ -14,23 +14,23 @@
 
 ## Outcome
 
-PLAN-001 is approved and applied. The candidate `159.0.0 → 161.7.0` path has
-three required upgrade/compatibility records, while two deterministic examples
-are optional deprecation cleanup. `deprecatedIn` is never `requiredBy`.
-`159.0.0` is approved for implementation and pilot, not as a public support
-promise. Phase 1 may consume the revised slice and explicit follow-ups.
+The candidate `159.0.0 → 161.7.0` path has three required
+upgrade/compatibility records, while two deterministic examples are optional
+deprecation cleanup. `deprecatedIn` is never `requiredBy`. `159.0.0` is
+approved for implementation and pilot, not as a public support promise. Phase
+1 may consume the defined slice and explicit follow-ups.
 
 ## Delivered artifacts
 
-| Artifact | Purpose | Stability | Owner |
-| --- | --- | --- | --- |
-| [Decision record](../PHASE_0_DECISIONS.md) | Candidate evidence, selected path, tooling, provenance, risks | approved for implementation and pilot; public release pending | current project implementor |
-| [Prototype](../prototypes/phase-0/run-experiments.cjs) | Reproducible parser/transform experiment | internal prototype | `@Sage/carbon-dev` |
-| [Prototype results](../prototypes/phase-0/results.json) | Captured versions, cases, idempotency, and timing | generated evidence | `@Sage/carbon-dev` |
-| [Candidate-path audit](../prototypes/phase-0/current-interval-audit.json) | Tagged boundaries and compatibility evidence for `159.0.0 → 161.7.0` | generated evidence | `@Sage/carbon-dev` |
-| [Revised-slice prototype](../prototypes/phase-0/run-revised-slice-experiments.cjs) | Optional prop/component cleanup experiments | internal prototype | `@Sage/carbon-dev` |
-| [Revised-slice results](../prototypes/phase-0/revised-slice-results.json) | Stable summary of the prototype assertions | generated evidence | `@Sage/carbon-dev` |
-| [Status ledger](../IMPLEMENTATION_STATUS.md) | Formal gate and leftovers | durable | `@Sage/carbon` |
+| Artifact                                                                           | Purpose                                                              | Stability                                                     | Owner                       |
+| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------- | --------------------------- |
+| [Decision record](../PHASE_0_DECISIONS.md)                                         | Candidate evidence, selected path, tooling, provenance, risks        | approved for implementation and pilot; public release pending | current project implementor |
+| [Prototype](../prototypes/phase-0/run-experiments.cjs)                             | Reproducible parser/transform experiment                             | internal prototype                                            | `@Sage/carbon-dev`          |
+| [Prototype results](../prototypes/phase-0/results.json)                            | Captured versions, cases, idempotency, and timing                    | generated evidence                                            | `@Sage/carbon-dev`          |
+| [Candidate-path audit](../prototypes/phase-0/current-interval-audit.json)          | Tagged boundaries and compatibility evidence for `159.0.0 → 161.7.0` | generated evidence                                            | `@Sage/carbon-dev`          |
+| [Revised-slice prototype](../prototypes/phase-0/run-revised-slice-experiments.cjs) | Optional prop/component cleanup experiments                          | internal prototype                                            | `@Sage/carbon-dev`          |
+| [Revised-slice results](../prototypes/phase-0/revised-slice-results.json)          | Stable summary of the prototype assertions                           | generated evidence                                            | `@Sage/carbon-dev`          |
+| [Status ledger](../IMPLEMENTATION_STATUS.md)                                       | Formal gate and leftovers                                            | durable                                                       | `@Sage/carbon`              |
 
 ## Interfaces and contracts
 
@@ -46,25 +46,23 @@ for the other. The candidate baseline is not public support approval.
 - `P0-D3`: reference upstream patterns without copying source.
 - `P0-D4`: recommend an in-repository `packages/carbon-react-migrate` location.
 - `P0-D6`: do not substitute `deprecatedIn` for unknown `requiredBy`.
-- `P0-D7`: approved two-track revised slice.
+- `P0-D7`: use the two-track catalogue slice.
 
 ## Controlled plan changes
 
-- `PLAN-001`: approved and applied material revision. It retains `159.0.0` as
-  the candidate baseline, separates required work from optional cleanup, and
-  preserves `requiredBy` semantics.
+None. This handoff follows the current `PLAN.md`.
 
 ## Verification evidence
 
-| Requirement or exit criterion | Result | Command, review, or evidence |
-| --- | --- | --- |
-| Required path boundaries | pass | CSS `160.0.0`, Button ref `161.0.0`, npm engine `161.3.0` |
-| Optional cleanup applicability | pass | Dialog `deprecatedIn: 156.2.0`; StepSequenceItem `deprecatedIn: 161.7.0`; neither has inferred `requiredBy` |
-| Deterministic cleanup subsets | pass | Revised prototype covers prop and component/import examples |
-| Manual guidance scope | pass | Accountable approval covers required reporting; Phase 5 validates it in a representative pilot |
-| JS/JSX/TS/TSX experiments | pass | Prototype `results.json` |
-| License/compliance path | pass | Reuse inventory; no copied/adapted source proposed |
-| Formal gate | pass | [Final Phase 0 gate](../IMPLEMENTATION_STATUS.md#formal-phase-gate) |
+| Requirement or exit criterion  | Result | Command, review, or evidence                                                                                |
+| ------------------------------ | ------ | ----------------------------------------------------------------------------------------------------------- |
+| Required path boundaries       | pass   | CSS `160.0.0`, Button ref `161.0.0`, npm engine `161.3.0`                                                   |
+| Optional cleanup applicability | pass   | Dialog `deprecatedIn: 156.2.0`; StepSequenceItem `deprecatedIn: 161.7.0`; neither has inferred `requiredBy` |
+| Deterministic cleanup subsets  | pass   | Revised prototype covers prop and component/import examples                                                 |
+| Manual guidance scope          | pass   | Accountable approval covers required reporting; Phase 6 validates it in a representative pilot              |
+| JS/JSX/TS/TSX experiments      | pass   | Prototype `results.json`                                                                                    |
+| License/compliance path        | pass   | Reuse inventory; no copied/adapted source proposed                                                          |
+| Formal gate                    | pass   | [Final Phase 0 gate](../IMPLEMENTATION_STATUS.md#formal-phase-gate)                                         |
 
 ## Supported scope
 
@@ -81,12 +79,12 @@ tooling fixtures, not proof of whole-project coverage.
 
 ## Open leftovers
 
-| ID | Classification | Risk | Target phase | Owner or ownership area |
-| --- | --- | --- | --- | --- |
-| `P0-L2` | required-follow-up | contradictory Dialog cleanup guidance | Phase 1 | Carbon API/docs owner |
-| `P0-L3` | required-follow-up | dependency evidence can become stale | Phase 4 | security/release owner |
-| `P0-L6` | required-follow-up | candidate baseline/guidance needs pilot and release decision | Phase 5 | product/support/release and pilot reviewers |
-| `P0-L7` | required-follow-up | package publication owner/support commitment absent | Phase 4 | tooling/security/release owners |
+| ID      | Classification     | Risk                                                         | Target phase | Owner or ownership area                     |
+| ------- | ------------------ | ------------------------------------------------------------ | ------------ | ------------------------------------------- |
+| `P0-L2` | required-follow-up | contradictory Dialog cleanup guidance                        | Phase 1      | Carbon API/docs owner                       |
+| `P0-L3` | required-follow-up | dependency evidence can become stale                         | Phase 4      | security/release owner                      |
+| `P0-L6` | required-follow-up | candidate baseline/guidance needs pilot and release decision | Phase 6      | product/support/release and pilot reviewers |
+| `P0-L7` | required-follow-up | package publication owner/support commitment absent          | Phase 4      | tooling/security/release owners             |
 
 These required follow-ups have accepted owning phases and do not invalidate
 Phase 0 completion.
@@ -100,7 +98,7 @@ Phase 0 completion.
 
 ## Recommended next action
 
-Generate the Phase 1 prompt in a separate requested task from the approved plan,
+Generate the Phase 1 prompt in a separate requested task from the current plan,
 status ledger, and this handoff.
 
 ## Files to read first
@@ -117,7 +115,7 @@ status ledger, and this handoff.
 - [x] All links resolve.
 - [x] Delivered artifacts exist.
 - [x] Status and gate outcome match `IMPLEMENTATION_STATUS.md`.
-- [x] Decisions, plan changes, and leftovers use stable IDs.
+- [x] Decisions and leftovers use stable IDs.
 - [x] Verification evidence is reproducible.
 - [x] Unsupported scope and risks are explicit.
 - [x] Required approvals are recorded and not inferred.

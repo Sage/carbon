@@ -90,7 +90,7 @@ unsupported case unchanged with deterministic reporting.
 - Phase 4 maintainer validation, CI entry points, generated migration indexes,
   deprecation enforcement, authoring documentation, final dependency review,
   publication ownership, or release workflow.
-- Phase 5 pilot, public baseline, customer support promise, or release.
+- Phase 6 pilot, public baseline, customer support promise, or release.
 - Automatic application of manual or partial upgrade records, including CSS
   compatibility, Button ref/type migration, and npm engine changes.
 - Expansion to wrappers, higher-order components, arbitrary re-export graphs,
@@ -122,13 +122,13 @@ unsupported case unchanged with deterministic reporting.
   not knowingly leave an unvalidated or partially replaced target file.
 - Dirty-tree override must be explicit, narrow, documented, and tested; never
   silently bypass protection.
-- Treat `requiredBy` and `deprecatedIn` as independent and preserve
-  `PLAN-001`.
+- Treat `requiredBy` and `deprecatedIn` as independent, as required by the
+  current plan.
 - Keep the zero-findings disclaimer and remaining-manual-work guidance.
 - Keep open-source provenance current; do not copy unreviewed upstream source.
 - Add tests proportional to each safety guarantee and failure mode.
 - Do not silently change `PLAN.md`. If evidence contradicts the plan, use the
-  Controlled plan evolution process with a stable change record and gate
+  Controlled plan evolution process with a documented proposal and gate
   outcome rather than weakening safety.
 - Do not implement or generate Phase 4.
 

@@ -102,8 +102,7 @@ target.
 
 ## Controlled plan changes
 
-- `PLAN-001` remains preserved.
-- No Phase 3 plan change was required.
+None. This handoff follows the current `PLAN.md`.
 
 ## Verification evidence
 
@@ -150,7 +149,7 @@ file-level subset applied. The package remains private and provisional.
 | ID      | Classification     | Risk                                          | Target phase | Owner or ownership area            |
 | ------- | ------------------ | --------------------------------------------- | ------------ | ---------------------------------- |
 | `P0-L3` | required-follow-up | dependency evidence can stale                 | Phase 4      | security/release owner             |
-| `P0-L6` | required-follow-up | no pilot/public-support decision              | Phase 5      | product/support/release reviewers  |
+| `P0-L6` | required-follow-up | no pilot/public-support decision              | Phase 6      | product/support/release reviewers  |
 | `P0-L7` | required-follow-up | publication ownership absent                  | Phase 4      | tooling/security/release owners    |
 | `P2-L3` | required-follow-up | richer links require authoritative extraction | Phase 4      | Carbon API/docs owner, implementor |
 
@@ -185,7 +184,7 @@ here.
 - [x] All links resolve.
 - [x] Delivered artifacts exist.
 - [x] Status and gate outcome match `IMPLEMENTATION_STATUS.md`.
-- [x] Decisions, plan changes, and leftovers use stable IDs.
+- [x] Decisions and leftovers use stable IDs.
 - [x] Verification evidence is reproducible.
 - [x] Unsupported scope and risks are explicit.
 - [x] Required approvals are recorded and not inferred.
