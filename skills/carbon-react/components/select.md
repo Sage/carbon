@@ -26,6 +26,7 @@ No props metadata found.
   return (
     <Box height={250}>
       <Select
+        prefix="hello "
         name="simple"
         id="simple"
         label="Color"
@@ -216,6 +217,7 @@ No props metadata found.
         id="size-small"
         label="Small"
         size="small"
+        prefix="foo"
         mb={2}
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
@@ -229,6 +231,7 @@ No props metadata found.
         id="size-medium"
         label="Medium"
         size="medium"
+        prefix="foo"
         mb={2}
         value={value2}
         onChange={(ev) => setValue2(ev.target.value)}
@@ -242,6 +245,7 @@ No props metadata found.
         id="size-large"
         label="Large"
         size="large"
+        prefix="foo"
         value={value3}
         onChange={(ev) => setValue3(ev.target.value)}
       >
@@ -593,78 +597,6 @@ No props metadata found.
 ```
 
 
-### Transparent
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250} width={200}>
-      <Select
-        name="transparent"
-        id="transparent"
-        placeholder="Please select a colour"
-        transparent
-        label="Choose a colour"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Transparent disabled
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("4");
-  return (
-    <Box height={250} width={150}>
-      <Select
-        name="transparent"
-        id="transparent"
-        transparent
-        label="Choose a colour"
-        disabled
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
 ### Custom Option Children
 
 **Render**
@@ -719,62 +651,6 @@ No props metadata found.
             {option.text}
           </Option>
         ))}
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### With Multiple Columns
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("2");
-  return (
-    <Box height={250}>
-      <Select
-        name="withMultipleColumns"
-        id="withMultipleColumns"
-        multiColumn
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
-        }
-        label="With multiple columns"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <OptionRow id="1" value="1" text="John Doe">
-          <td>John</td>
-          <td>Doe</td>
-          <td>Welder</td>
-        </OptionRow>
-        <OptionRow id="2" value="2" text="Joe Vick">
-          <td>Joe</td>
-          <td>Vick</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="3" value="3" text="Jane Poe">
-          <td>Jane</td>
-          <td>Poe</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="4" value="4" text="Jill Moe">
-          <td>Jill</td>
-          <td>Moe</td>
-          <td>Engineer</td>
-        </OptionRow>
-        <OptionRow id="5" value="5" text="Bill Zoe">
-          <td>Bill</td>
-          <td>Zoe</td>
-          <td>Astronaut</td>
-        </OptionRow>
       </Select>
     </Box>
   );
@@ -932,52 +808,6 @@ No props metadata found.
 ```
 
 
-### With Multiple Columns and Virtualisation
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("2");
-  return (
-    <Box height={250}>
-      <Select
-        name="withMultipleColumnsAndVirtualisation"
-        id="withMultipleColumnsAndVirtualisation"
-        label="choose an option"
-        multiColumn
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-        enableVirtualScroll
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
-        }
-      >
-        {Array(500)
-          .fill(undefined)
-          .map((_, index) => (
-            <OptionRow
-              key={`option-${index + 1}`}
-              id={`option-row-${index}`}
-              value={`${index}`}
-              text={`Option ${index + 1}`}
-            >
-              <td>{`John ${index + 1}`}</td>
-              <td>{`Doe ${index + 1}`}</td>
-              <td>{`Welder ${index + 1}`}</td>
-            </OptionRow>
-          ))}
-      </Select>
-    </Box>
-  );
-}
-```
-
-
 ### Selection Confirmed
 
 **Render**
@@ -1056,6 +886,53 @@ No props metadata found.
             key={opt}
           />
         ))}
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### New SelectList Features
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Box height={400}>
+      <Select
+        name="features"
+        id="features"
+        label="Features"
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option
+          text="Item with an icon"
+          value="1"
+          leading={<Icon type="favourite" />}
+        />
+        <Option text="Item with a divider" value="2" divider />
+        <OptionGroupHeader label="Grouped items" icon="settings" />
+        <Option text="Item under a header" value="3" />
+        <Option text="Item with a prefix" value="4" prefix="Prefix" />
+        <Option
+          text="Item with subtext"
+          value="5"
+          subtext="Some helpful subtext"
+        />
+        <Option
+          text="Item with an icon and a portrait"
+          value="6"
+          leading={
+            <>
+              <Icon type="individual" />
+              <Portrait initials="JD" size="XS" />
+            </>
+          }
+        />
       </Select>
     </Box>
   );

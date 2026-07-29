@@ -114,25 +114,6 @@ This prop will be called every time a user scrolls to the bottom of the list.
 
 <Canvas of={SimpleSelectStories.Readonly} />
 
-### Transparent
-
-<Canvas of={SimpleSelectStories.Transparent} />
-
-### Transparent Disabled
-
-<Canvas of={SimpleSelectStories.TransparentDisabled} />
-
-### Custom Option content
-
-The `Option` component accepts any valid React node as children, which allows for custom content to be rendered inside the option.
-The `text` value will be used as the displayed value in the input field when selected. You can also use the `leftChildren` prop to render a node to the left of the option text.
-
-<Canvas of={SimpleSelectStories.CustomOptionChildren} />
-
-### With multiple columns
-
-<Canvas of={SimpleSelectStories.WithMultipleColumns} />
-
 ### Option groups
 
 <Canvas of={SimpleSelectStories.OptionGroups} />
@@ -158,10 +139,6 @@ By default this will render 5 not-currently-visible options into the DOM on eith
 be customised if desired using the `virtualScrollOverscan` prop. Higher values will make scrolling smoother but may negatively impact performance.
 
 <Canvas of={SimpleSelectStories.Virtualised} />
-
-### With multiple columns and virtualisation
-
-<Canvas of={SimpleSelectStories.WithMultipleColumnsAndVirtualisation} />
 
 ### Selection confirmed
 
@@ -226,11 +203,24 @@ describe("Select tests", () => {
 
 ### Select
 
-<ArgTypes of={SimpleSelectStories} />
+<ArgTypes of={SimpleSelectStories} exclude={["leftChildren"]} />
 
 Due to the `Textbox` component being used internally by the `SimpleSelect` component, most of the `Textbox` props are applicable to `SimpleSelect`
 
-<ArgTypes of={SelectTextboxStories} />
+<ArgTypes
+  of={SelectTextboxStories}
+  exclude={[
+     "inert",
+     "leftChildren",
+    "align",
+    "onChangeDeferred",
+    "deferTimeout",
+    "iconOnClick",
+    "iconOnMouseDown",
+    "iconTabIndex",
+    "inputIcon",
+  ]}
+/>
 
 **Any other supplied props will be provided to the underlying HTML input element**
 

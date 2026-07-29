@@ -933,3 +933,254 @@ export const WithAriaDescribedby = () => {
 };
 
 WithAriaDescribedby.storyName = "With aria-describedby";
+
+const selectOptions = [
+  <Option key="option-1" text="Option 1" value="1" />,
+  <Option key="option-2" text="Option 2" value="2" />,
+  <Option key="option-3" text="Option 3" value="3" />,
+];
+
+const sharedSelectProps = {
+  label: "Label",
+  required: true,
+  inputHint: "Hint text",
+  prefix: "Prefix",
+};
+
+const sizes = ["medium", "small", "large"] as const;
+
+export const DropdownSimple = () => {
+  const [value, setValue] = useState("1");
+
+  return (
+    <Box
+      p={4}
+      display="grid"
+      gridTemplateColumns="repeat(3, 1fr)"
+      gap="24px 16px"
+    >
+      {sizes.map((size) => (
+        <Select
+          key={`simple-${size}`}
+          {...sharedSelectProps}
+          name={`simple-${size}`}
+          id={`simple-${size}`}
+          size={size}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+        >
+          {selectOptions}
+        </Select>
+      ))}
+      {sizes.map((size) => (
+        <Select
+          key={`simple-error-${size}`}
+          {...sharedSelectProps}
+          name={`simple-error-${size}`}
+          id={`simple-error-${size}`}
+          size={size}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          error="Error message (fix is required)"
+        >
+          {selectOptions}
+        </Select>
+      ))}
+      {sizes.map((size) => (
+        <Select
+          key={`simple-warning-${size}`}
+          {...sharedSelectProps}
+          name={`simple-warning-${size}`}
+          id={`simple-warning-${size}`}
+          size={size}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          warning="Caution message (fix is optional)"
+        >
+          {selectOptions}
+        </Select>
+      ))}
+      {sizes.map((size) => (
+        <Select
+          key={`simple-readonly-${size}`}
+          {...sharedSelectProps}
+          name={`simple-readonly-${size}`}
+          id={`simple-readonly-${size}`}
+          size={size}
+          value="2"
+          onChange={() => {}}
+          readOnly
+        >
+          {selectOptions}
+        </Select>
+      ))}
+      {sizes.map((size) => (
+        <Select
+          key={`simple-disabled-${size}`}
+          {...sharedSelectProps}
+          name={`simple-disabled-${size}`}
+          id={`simple-disabled-${size}`}
+          size={size}
+          value="3"
+          onChange={() => {}}
+          disabled
+        >
+          {selectOptions}
+        </Select>
+      ))}
+    </Box>
+  );
+};
+DropdownSimple.storyName = "Dropdown: simple";
+
+export const DropdownInline = () => {
+  const [value, setValue] = useState("1");
+
+  return (
+    <Box
+      p={4}
+      display="grid"
+      gridTemplateColumns="repeat(3, 1fr)"
+      gap="24px 16px"
+    >
+      {sizes.map((size) => (
+        <Select
+          key={`inline-${size}`}
+          {...sharedSelectProps}
+          name={`inline-${size}`}
+          id={`inline-${size}`}
+          size={size}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          labelInline
+        >
+          {selectOptions}
+        </Select>
+      ))}
+      {sizes.map((size) => (
+        <Select
+          key={`inline-error-${size}`}
+          {...sharedSelectProps}
+          name={`inline-error-${size}`}
+          id={`inline-error-${size}`}
+          size={size}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          labelInline
+          error="Error message (fix is required)"
+        >
+          {selectOptions}
+        </Select>
+      ))}
+      {sizes.map((size) => (
+        <Select
+          key={`inline-warning-${size}`}
+          {...sharedSelectProps}
+          name={`inline-warning-${size}`}
+          id={`inline-warning-${size}`}
+          size={size}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          labelInline
+          warning="Caution message (fix is optional)"
+        >
+          {selectOptions}
+        </Select>
+      ))}
+      {sizes.map((size) => (
+        <Select
+          key={`inline-readonly-${size}`}
+          {...sharedSelectProps}
+          name={`inline-readonly-${size}`}
+          id={`inline-readonly-${size}`}
+          size={size}
+          value="2"
+          onChange={() => {}}
+          labelInline
+          readOnly
+        >
+          {selectOptions}
+        </Select>
+      ))}
+      {sizes.map((size) => (
+        <Select
+          key={`inline-disabled-${size}`}
+          {...sharedSelectProps}
+          name={`inline-disabled-${size}`}
+          id={`inline-disabled-${size}`}
+          size={size}
+          value="3"
+          onChange={() => {}}
+          labelInline
+          disabled
+        >
+          {selectOptions}
+        </Select>
+      ))}
+    </Box>
+  );
+};
+DropdownInline.storyName = "Dropdown: inline";
+
+const subtleSelectOptions = [
+  <Option
+    key="subtle-option-selected"
+    text="Selected option>"
+    value="selected"
+  />,
+  <Option key="subtle-option-alt" text="Option 2" value="option-2" />,
+  <Option key="subtle-option-extra" text="Option 3" value="option-3" />,
+];
+
+export const DropdownSubtle = () => {
+  const [value, setValue] = useState("selected");
+
+  return (
+    <Box p={4}>
+      <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" mb={3}>
+        <Typography variant="b">M</Typography>
+        <Typography variant="b">S</Typography>
+        <Typography variant="b">L</Typography>
+      </Box>
+      <Box
+        p={4}
+        display="grid"
+        gridTemplateColumns="repeat(3, 1fr)"
+        gap="24px 16px"
+      >
+        {sizes.map((size) => (
+          <Select
+            key={`subtle-default-${size}`}
+            name={`subtle-default-${size}`}
+            id={`subtle-default-${size}`}
+            aria-label={`subtle-default-${size}`}
+            size={size}
+            variant="subtle"
+            prefix="<"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+          >
+            {subtleSelectOptions}
+          </Select>
+        ))}
+        {sizes.map((size) => (
+          <Select
+            key={`subtle-disabled-${size}`}
+            name={`subtle-disabled-${size}`}
+            id={`subtle-disabled-${size}`}
+            aria-label={`subtle-disabled-${size}`}
+            size={size}
+            variant="subtle"
+            prefix="<"
+            value="selected"
+            onChange={() => {}}
+            disabled
+          >
+            {subtleSelectOptions}
+          </Select>
+        ))}
+      </Box>
+    </Box>
+  );
+};
+DropdownSubtle.storyName = "Dropdown: subtle";
