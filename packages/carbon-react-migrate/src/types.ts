@@ -6,6 +6,11 @@ export interface DocumentationReference {
   anchor: string;
 }
 
+export interface OptionalReference {
+  file: string;
+  anchor?: string;
+}
+
 export interface ApiReference {
   path: string;
   symbol?: string;
@@ -25,6 +30,10 @@ export interface MigrationBase {
   guidance: {
     summary: string;
     documentation: DocumentationReference;
+    changelog?: OptionalReference;
+    migrationSkill?: OptionalReference;
+    replacement?: string;
+    removal?: string;
     manualChecks: string[];
     risks: MigrationRisk[];
   };

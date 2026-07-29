@@ -40,6 +40,50 @@ const isObject = (value: unknown): value is Record<string, unknown> =>
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === "string" && value.trim().length > 0;
 
+function hasAnchor(document: string, anchor: string): boolean {
+  if (document.includes(`<a id="${anchor}"></a>`)) return true;
+  return document.split("\n").some((line) => {
+    const heading = line.match(/^#{1,6}\s+(.+)$/)?.[1] ?? "";
+    const visibleHeading = heading.match(/^\[([^\]]+)\]/)?.[1] ?? heading;
+    const normalized = visibleHeading
+      .toLowerCase()
+      .replace(/<[^>]+>/g, "")
+      .replace(/[^\p{Letter}\p{Number}\s-]/gu, "")
+      .trim()
+      .replace(/\s+/g, "-");
+    return normalized === anchor;
+  });
+}
+
+function validateReference(
+  value: unknown,
+  field: string,
+  repositoryRoot: string,
+  errors: string[],
+  anchorRequired: boolean,
+): void {
+  if (
+    !isObject(value) ||
+    !isNonEmptyString(value.file) ||
+    (anchorRequired && !isNonEmptyString(value.anchor)) ||
+    (value.anchor !== undefined && !isNonEmptyString(value.anchor))
+  ) {
+    errors.push(
+      `${field}: expected ${anchorRequired ? "file and anchor" : "a file and optional anchor"}`,
+    );
+    return;
+  }
+  let document = "";
+  try {
+    document = readFileSync(resolve(repositoryRoot, value.file), "utf8");
+  } catch {
+    errors.push(`${field}: file not found "${value.file}"`);
+    return;
+  }
+  if (isNonEmptyString(value.anchor) && !hasAnchor(document, value.anchor))
+    errors.push(`${field}: stable anchor "${value.anchor}" not found`);
+}
+
 function validateStringArray(
   value: unknown,
   field: string,
@@ -217,34 +261,22 @@ export function validateCatalogue(
       }
     }
 
-    if (
-      !isObject(record.guidance.documentation) ||
-      !isNonEmptyString(record.guidance.documentation.file) ||
-      !isNonEmptyString(record.guidance.documentation.anchor)
-    ) {
-      errors.push(`${prefix}.guidance.documentation: expected file and anchor`);
-      continue;
-    }
-    const documentPath = resolve(
+    validateReference(
+      record.guidance.documentation,
+      `${prefix}.guidance.documentation`,
       repositoryRoot,
-      record.guidance.documentation.file,
+      errors,
+      true,
     );
-    let document = "";
-    try {
-      document = readFileSync(documentPath, "utf8");
-    } catch {
-      errors.push(
-        `${prefix}.guidance.documentation: file not found "${record.guidance.documentation.file}"`,
-      );
-    }
-    if (
-      document &&
-      !document.includes(`<a id="${record.guidance.documentation.anchor}"></a>`)
-    ) {
-      errors.push(
-        `${prefix}.guidance.documentation: stable anchor "${record.guidance.documentation.anchor}" not found`,
-      );
-    }
+    for (const field of ["changelog", "migrationSkill"] as const)
+      if (record.guidance[field] !== undefined)
+        validateReference(
+          record.guidance[field],
+          `${prefix}.guidance.${field}`,
+          repositoryRoot,
+          errors,
+          false,
+        );
 
     if (!Array.isArray(record.apiReferences)) {
       errors.push(`${prefix}.apiReferences: expected an array`);

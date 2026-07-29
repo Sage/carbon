@@ -4,6 +4,11 @@ const docs = (anchor: string) => ({
   file: "migration-tooling/CATALOGUE_GUIDANCE.md",
   anchor,
 });
+const changelog = (version: string) => ({
+  file: "CHANGELOG.md",
+  anchor: version.replaceAll(".", ""),
+});
+const migrationSkill = { file: "skills/carbon-react/SKILL.md" };
 
 export const migrations: readonly MigrationRecord[] = [
   {
@@ -16,6 +21,8 @@ export const migrations: readonly MigrationRecord[] = [
       summary:
         "Review selectors, snapshots, overrides, and visual differences for version-prefixed generated CSS classes.",
       documentation: docs("css-package-version-prefix"),
+      changelog: changelog("160.0.0"),
+      migrationSkill,
       manualChecks: [
         "Run visual regression tests, including mixed-version applications.",
       ],
@@ -42,6 +49,10 @@ export const migrations: readonly MigrationRecord[] = [
       summary:
         "Replace ButtonHandle/focusButton() with a forwarded DOM ref and focus() after selecting the correct element type.",
       documentation: docs("button-next-dom-ref"),
+      changelog: changelog("161.0.0"),
+      migrationSkill,
+      replacement:
+        "Use a forwarded DOM ref and call focus() on the selected element.",
       manualChecks: [
         "Verify button and link variants, nullability, and focus behaviour.",
       ],
@@ -73,6 +84,8 @@ export const migrations: readonly MigrationRecord[] = [
     guidance: {
       summary: "Use npm >=11.18.0 before installing this target path.",
       documentation: docs("npm-engine-11-18"),
+      changelog: changelog("161.3.0"),
+      migrationSkill,
       manualChecks: [
         "Update local, CI, container, and package-manager pins, then reinstall normally.",
       ],
@@ -98,6 +111,9 @@ export const migrations: readonly MigrationRecord[] = [
     guidance: {
       summary: 'Replace DialogFullScreen with Dialog size="fullscreen".',
       documentation: docs("dialog-full-screen-component"),
+      changelog: changelog("156.2.0"),
+      migrationSkill,
+      replacement: 'Use Dialog size="fullscreen".',
       manualChecks: [
         "Verify focus, layout, header/footer behaviour, visuals, and accessible naming.",
       ],
@@ -128,6 +144,9 @@ export const migrations: readonly MigrationRecord[] = [
       summary:
         "Replace StepSequenceItem ariaLabel with the native aria-label attribute.",
       documentation: docs("step-sequence-item-aria-label"),
+      changelog: changelog("161.7.0"),
+      migrationSkill,
+      replacement: "Use the native aria-label attribute.",
       manualChecks: ["Verify the computed accessible name."],
       risks: ["accessibility"],
     },

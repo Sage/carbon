@@ -249,8 +249,11 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
   layout exist.
 - Planned verification: locked dependency audit, Node matrix, representative
   benchmark, license/notice review, and package-size measurement.
-- Status: open
-- Resolution evidence: not-applicable; unresolved.
+- Status: resolved
+- Resolution evidence: `migration-tooling/PHASE_4_EVIDENCE.md` records locked
+  production dependency versions, offline audit limitations, licenses, Node
+  compatibility, installed size, and measured repository validation runtime;
+  provenance and notice files are enforced by `validate:migrations`.
 
 #### P0-L6: Pilot validation and public support decision
 
@@ -277,15 +280,17 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
   ownership or support commitments.
 - Risk if unresolved: an unowned package could be published.
 - Effect on current exit criteria: none.
-- Target phase: Phase 4
+- Target phase: Phase 5
 - Owner or required ownership area: current implementor, tooling/security/release
   owner
 - Dependencies or unblock condition: production package structure and
   dependency evidence exist.
 - Planned verification: ownership, security, provenance, publication, and
   support review.
-- Status: open
-- Resolution evidence: not-applicable; unresolved.
+- Status: open (Phase 4 implementation/provenance evidence complete;
+  accountable publication and support assignment remains)
+- Resolution evidence: `migration-tooling/PHASE_4_EVIDENCE.md` and the Phase 4
+  handoff record the missing accountable ownership without inventing approval.
 
 ### Deviations from plan
 
@@ -704,8 +709,11 @@ separate task. Phase 2 may begin, but was not implemented here.
   generated-documentation workflow.
 - Planned verification: extracted link/anchor validation and schema
   compatibility tests; derive any date from release or Git metadata.
-- Status: open
-- Resolution evidence: not-applicable; unresolved.
+- Status: resolved
+- Resolution evidence: catalogue records now carry authoritative local
+  changelog and Migration Skill references; validation checks files and
+  anchors, schema v1 accepts the optional fields backward-compatibly, actual
+  report fixtures pass, and unavailable link types remain absent.
 
 ### Deviations from plan
 
@@ -1004,29 +1012,160 @@ migration-tooling/handoffs/PHASE_3.md` — pass.
 ## Phase 4: Maintainer workflow and CI
 
 - Plan reference: [Phase 4](./PLAN.md#phase-4-maintainer-workflow-and-ci)
-- Status: not-started
-- Phase-gate outcome: not evaluated
+- Status: in-progress
+- Phase-gate outcome: `remain-in-phase`
 - Owner: current project implementor
 
 ### Implemented
 
-None recorded.
+- Added root `generate:migration-register` and read-only
+  `validate:migrations` contracts and a commented pull-request CI placeholder
+  pending team review of the POC.
+- Added deterministic catalogue-derived register generation, stale-output
+  validation, documentation/changelog/skill anchor checks, bidirectional rule
+  registration checks, schema and transform-fixture presence checks, provenance
+  checks, and locked-production-dependency checks.
+- Added hash-bound reviewed exemptions and enforcement for public
+  `@deprecated` annotations, production `Logger.deprecate(...)` calls, and
+  explicit `migration-breaking-change` markers. New markers use
+  `migration-id: <catalogue-id>`; ordinary wording, `__internal__`
+  implementation source, and test/story/Playwright files are excluded.
+- Added safe/manual authoring documentation, ownership and dependency/license
+  review rules, provenance/notices, richer backward-compatible schema v1
+  metadata, and adversarial tests.
+- Corrected the Phase 4 P1 review findings by validating exemptions
+  unconditionally, rejecting stale/unused or non-exact scopes, narrowing marker
+  extraction to explicit conventions, and binding provenance/notices to
+  declared and root-lock-resolved dependency evidence.
 
 ### Handoff artifacts
 
-None recorded.
+- [Phase 4 handoff](./handoffs/PHASE_4.md)
+- [Generated migration register](./generated/MIGRATION_REGISTER.md)
+- [Maintainer workflow](./MAINTAINER_WORKFLOW.md)
+- [Phase 4 evidence](./PHASE_4_EVIDENCE.md)
 
 ### Verification
 
-None recorded.
+Commands run:
+
+- `node migration-tooling/scripts/validate-handoff-links.cjs migration-tooling/handoffs/PHASE_3.md`
+  passed (12 links), confirming the Phase 3 prerequisite.
+- `npm run generate:migration-register` passed (5 records); a second generation
+  produced no diff.
+- `npm run validate:migrations` passed: maintainer validation scanned 320
+  explicit markers across 1,637 source files and the package suite passed
+  51/51.
+- `npm audit --omit=dev --offline --json` reported zero known production
+  vulnerabilities, subject to the offline-data limitation.
+- `npm ls jscodeshift semver recast --all --prefix packages/carbon-react-migrate`
+  and package metadata/license/engine review passed.
+- Relevant ESLint, Prettier, handoff links, read-only state comparison,
+  generated-output determinism, and `git diff --check` passed.
+
+Failures encountered and corrected: initial generation failed because the
+generated directory did not exist; generation now creates it. Review then
+exposed ordinary-word false positives, malformed exemptions bypassing
+validation when no unreferenced markers remained, and stale provenance passing
+existence-only checks. Explicit marker conventions, unconditional exact-scope
+exemption validation, and machine-bound dependency evidence resolve those
+findings with regressions.
+
+#### Phase 4 P1 review findings
+
+- Result: `remain-in-phase`
+- Findings: ordinary deprecation wording was treated as a public marker;
+  malformed exemptions could pass when no unreferenced marker existed; and
+  provenance validation checked file existence without binding recorded
+  dependency versions or licenses to package metadata and the root lockfile.
+- Correction evidence: targeted reproductions now pass, invalid/stale/unused
+  exemptions fail independently, explicit annotation/runtime/breaking markers
+  remain enforced, and stale provenance or empty notices fail automated tests.
+
+#### Formal phase gate after CI deferral
+
+- Reviewer: current implementor with AI evidence review
+- Outcome: `remain-in-phase`
+
+| Check                        | Result                                      | Evidence or reason                                                                                                                                                                       |
+| ---------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Scope                        | pass                                        | Phase 4 maintainer workflow only; no Phase 5 prompt or implementation.                                                                                                                   |
+| Deliverable                  | fail                                        | The local command is complete, but the required PR CI entry point is commented out pending team review.                                                                                  |
+| Exit criteria                | fail                                        | All failure modes pass locally, but the plan explicitly requires stale records, broken anchors, and missing migration records to fail CI; inactive CI cannot prove that criterion.       |
+| Correctness and safety       | pass                                        | Validation is deterministic and read-only; ordinary wording/test files avoid false positives; exemptions always validate; Phase 1–3 interfaces and application safeguards remain intact. |
+| Documentation and provenance | pass                                        | Generated register, maintainer guide, authoritative local links, machine-bound dependency evidence, notice disposition, and honest limitations are present.                              |
+| Ownership and approvals      | pass with deferred publication prerequisite | Implementation ownership is recorded; accountable organizational owners remain unconfirmed and no publication approval is claimed.                                                       |
+| Leftovers and plan health    | fail                                        | `P4-L1` remains required Phase 4 work; P0-L3/P2-L3 are resolved, while P0-L7 and P0-L6 remain correctly assigned to Phase 5.                                                             |
+| Repository state             | pass                                        | Relevant tests/lint/format, generated checks, links, read-only comparison, and diff check pass; unrelated prompt artifact preserved and included.                                        |
+
+##### Exit-criterion evidence
+
+- Criterion: stale record or broken anchor fails CI.
+  - Result: fail
+  - Evidence: catalogue/reference validation and adversarial tests pass
+    locally, but the CI invocation is intentionally commented out.
+- Criterion: new deprecation without record or exemption fails CI.
+  - Result: fail
+  - Evidence: marker enforcement adversarial tests pass locally, including
+    intentional breaking-change markers, but CI does not invoke them yet.
+- Criterion: guide covers one safe and one manual migration.
+  - Result: pass
+  - Evidence: `migration-tooling/MAINTAINER_WORKFLOW.md`.
+
+##### Blocking or follow-up actions
+
+- Action: complete team review of the POC and enable the existing
+  `npm run validate:migrations` pull-request CI step.
+  - Owner or ownership area: current implementor and CI/review owners
+  - Target phase: Phase 4 (`P4-L1`)
+- Action: assign accountable security/license, release publication, and support owners and obtain required approvals before publication.
+  - Owner or ownership area: tooling/security/release/support
+  - Target phase: Phase 5 (`P0-L7`)
+- Action: conduct the pilot and make the public baseline/support decision.
+  - Owner or ownership area: product/support/release and pilot reviewers
+  - Target phase: Phase 5 (`P0-L6`)
 
 ### Decisions
 
-None recorded.
+- `P4-D1`: keep schema v1 and add only backward-compatible optional changelog
+  and Migration Skill links sourced from repository files.
+- `P4-D2`: bind the legacy marker exemption to a normalized inventory digest;
+  require exact digest-bound scope, reject stale/unused exemptions, and have
+  new explicit markers reference catalogue IDs directly.
+- `P4-D3`: keep register generation explicit while validation compares expected
+  content in memory and never rewrites it.
+- `P4-D4`: recognize only public `@deprecated`, production
+  `Logger.deprecate(...)`, and explicit `migration-breaking-change` markers;
+  machine-bind dependency provenance to package declarations and root-lock
+  versions/licenses.
 
 ### Leftovers
 
-- Accept `P0-L3`, `P0-L7`, and `P2-L3` as required Phase 4 work.
+- `P4-L1`: enable pull-request migration validation after team review.
+  - Classification: required-follow-up
+  - Reason: the prepared CI step is intentionally commented out while the POC
+    receives team review.
+  - Risk: stale registers, broken references, and unregistered public
+    deprecations can merge because local validation is not enforced by CI.
+  - Effect on exit criteria: blocks the two CI-specific Phase 4 exit criteria
+    and the required CI deliverable.
+  - Target phase: Phase 4
+  - Owner or ownership area: current implementor and CI/review owners
+  - Dependencies or unblock condition: team agrees to enable the existing
+    workflow step.
+  - Planned verification: uncomment the step, validate workflow formatting,
+    run `npm run validate:migrations`, and obtain a passing PR CI run.
+  - Status: open
+  - Resolution evidence: not applicable; unresolved.
+- `P0-L3` resolved by `PHASE_4_EVIDENCE.md`, with explicit limitations and no
+  invented security approval.
+- `P2-L3` resolved by authoritative local changelog/skill metadata and
+  backward-compatible schema fixtures.
+- `P0-L7` implementation/provenance evidence is complete; accountable
+  publication/support ownership remains open for Phase 5 because repository
+  evidence cannot name it.
+- `P0-L6` remains open for Phase 5. Phase 4 confirms that `159.0.0 → 161.7.0`
+  is still implementation/pilot scope only.
 
 ### Deviations from plan
 
@@ -1038,7 +1177,8 @@ None recorded.
 
 ### Next action
 
-None recorded.
+Complete team review, enable the prepared PR CI step, obtain CI evidence, and
+reevaluate the Phase 4 gate. Do not start Phase 5 while `P4-L1` is open.
 
 ## Phase 5: Pilot and release decision
 

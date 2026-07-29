@@ -1,0 +1,10 @@
+[
+  {
+    "id": "LEGACY-MARKERS-001",
+    "inventoryDigest": "b8d8e2cc2a1b7d011bb9926ba6b73e91651ed601c3fdc495b6d7b08d82e4afd5",
+    "reason": "Existing source deprecation and intentional breaking-change wording predates Phase 4 enforcement and is not evidence that the MVP catalogue covers every historical API.",
+    "scope": "unreferenced-marker-inventory:b8d8e2cc2a1b7d011bb9926ba6b73e91651ed601c3fdc495b6d7b08d82e4afd5",
+    "owner": "Carbon API/catalogue review ownership area (accountable team unconfirmed)",
+    "reviewEvidence": "Phase 4 repository marker inventory and digest review"
+  }
+]

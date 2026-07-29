@@ -1,11 +1,26 @@
 # carbon-react-migrate (provisional)
 
 This private package contains Carbon's deterministic migration catalogue,
-read-only diagnosis, and Phase 3 safe application. It is locally executable for
+read-only diagnosis, safe application, and maintainer validation. It is locally executable for
 implementation and pilot work; it is not published, and `159.0.0` is not a
 public support baseline.
 
 ## Maintainer commands
+
+For catalogue or public API changes, use the repository-level workflow:
+
+```sh
+npm run generate:migration-register
+npm run validate:migrations
+git diff --check
+```
+
+Commit the API change, catalogue record or reviewed exemption, and
+`migration-tooling/generated/MIGRATION_REGISTER.md` together. The same
+read-only validation command is prepared for CI but remains commented out
+pending team review of the POC. See
+[`migration-tooling/MAINTAINER_WORKFLOW.md`](../../migration-tooling/MAINTAINER_WORKFLOW.md)
+for safe/manual authoring, stable migration IDs, review, and ownership.
 
 Run these from the repository root after the normal root installation:
 
@@ -86,12 +101,11 @@ positional path and default to `.`. Deprecation commands reject `--from` and
 options, missing option values, unknown options, and excess positional
 arguments are invalid input.
 
-Schema v1 exposes the repository-owned stable migration-guidance link. Public
-component/prop documentation, changelog, Migration Skill, replacement/removal,
-and release-date metadata are not invented in Phase 2. Phase 4 will add
-reviewed extracted links through backward-compatible optional fields or a new
-schema version. `deprecatedIn` remains authoritative; any date must be derived
-from release or Git metadata rather than manually maintained.
+Schema v1 now exposes optional, backward-compatible `changelog` and
+`migrationSkill` links where authoritative repository files exist. Missing
+link types remain absent rather than receiving invented URLs. `deprecatedIn`
+remains authoritative and independent from `requiredBy`; the register does not
+maintain calendar dates.
 
 ## Exit codes
 

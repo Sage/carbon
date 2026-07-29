@@ -10,6 +10,8 @@
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test dist/**/*.test.js",
     "validate:catalogue": "npm run build && node dist/validate-catalogue.js",
+    "generate:register": "npm run build && node dist/generate-register.js",
+    "validate:maintainer": "npm run build && node dist/validate-maintainer.js",
     "migrate": "npm run build && node dist/cli.js"
   },
   "dependencies": {

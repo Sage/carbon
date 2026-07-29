@@ -24,6 +24,8 @@
     "clean-lib": "rimraf ./lib && rimraf ./esm",
     "commit": "node ./scripts/commit/commit.mjs",
     "generate-metadata": "node ./scripts/generate_metadata/index.mjs",
+    "generate:migration-register": "npm run generate:register --prefix packages/carbon-react-migrate",
+    "validate:migrations": "npm run validate:maintainer --prefix packages/carbon-react-migrate && npm run test --prefix packages/carbon-react-migrate",
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch",
     "build:types": "tsc -p tsconfig-build.json --outDir ./lib && tsc -p tsconfig-build.json --outDir ./esm",

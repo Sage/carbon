@@ -39,6 +39,8 @@ export interface MigrationSummary {
   automationStatus: MigrationRecord["automation"]["status"];
   summary: string;
   documentation: string;
+  changelog?: string;
+  migrationSkill?: string;
   manualChecks: string[];
   risks: string[];
   limitations: string[];
@@ -77,6 +79,10 @@ export function documentationUrl(record: MigrationRecord): string {
   const { file, anchor } = record.guidance.documentation;
   return `${file}#${anchor}`;
 }
+const optionalUrl = (reference?: { file: string; anchor?: string }) =>
+  reference
+    ? `${reference.file}${reference.anchor ? `#${reference.anchor}` : ""}`
+    : undefined;
 
 export function summarize(
   record: MigrationRecord,
@@ -97,6 +103,8 @@ export function summarize(
     automationStatus: record.automation.status,
     summary: record.guidance.summary,
     documentation: documentationUrl(record),
+    changelog: optionalUrl(record.guidance.changelog),
+    migrationSkill: optionalUrl(record.guidance.migrationSkill),
     manualChecks: [...record.guidance.manualChecks],
     risks: [...record.guidance.risks],
     limitations,

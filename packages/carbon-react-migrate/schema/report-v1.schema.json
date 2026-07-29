@@ -81,6 +81,8 @@
           },
           "summary": { "type": "string", "minLength": 1 },
           "documentation": { "type": "string", "minLength": 1 },
+          "changelog": { "type": "string", "minLength": 1 },
+          "migrationSkill": { "type": "string", "minLength": 1 },
           "manualChecks": {
             "type": "array",
             "items": { "type": "string", "minLength": 1 }
