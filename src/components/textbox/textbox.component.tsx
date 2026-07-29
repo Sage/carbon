@@ -11,6 +11,7 @@ import InputIconToggle from "../../__internal__/input-icon-toggle";
 import useCharacterCount from "../../hooks/useCharacterCount";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import combineRefs from "../../__internal__/utils/helpers/combine-refs";
+import filterPropsByName from "../../__internal__/utils/helpers/filter-props";
 
 export const SIZE_DEFAULT = "medium";
 export const LABEL_WIDTH_DEFAULT = 30;
@@ -125,7 +126,7 @@ export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
   characterLimit?: number;
 }
 
-const NON_FUNCTIONING_PROPS = new Set([
+export const NON_FUNCTIONING_PROPS = new Set([
   "adaptiveLabelBreakpoint",
   "info",
   "helpAriaLabel",
@@ -138,18 +139,6 @@ const NON_FUNCTIONING_PROPS = new Set([
   "tooltipId",
   "validationOnLabel",
 ]);
-
-/*
- * Filters out props that are not supported by the TextInput component to avoid React warnings about unknown props.
- * These props are still accepted by the Textbox component for backwards compatibility, but are not passed down to the TextInput component.
- */
-const filterNonFunctioningProps = (
-  props: Record<string, unknown>,
-): Record<string, unknown> => {
-  return Object.fromEntries(
-    Object.entries(props).filter(([key]) => !NON_FUNCTIONING_PROPS.has(key)),
-  );
-};
 
 /*
  * This component is an adapter that maps the legacy Textbox props to the new TextInput component.
@@ -305,7 +294,7 @@ export const Textbox = React.forwardRef(
     return (
       <>
         <TextInput
-          {...filterNonFunctioningProps(rest)}
+          {...filterPropsByName(rest, NON_FUNCTIONING_PROPS)}
           id={uniqueId}
           label={label || ""}
           labelInline={labelInline}
