@@ -140,7 +140,14 @@ const esES: Partial<Locale> = {
     },
   },
   pager: {
+    firstAriaLabel: () => "Ir a primera página",
+    lastAriaLabel: () => "Ir a última página",
+    nextAriaLabel: () => "Ir a página siguiente",
+    previousAriaLabel: () => "Ir a página anterior",
     pageX: (currentPage?: number | string) => `Página ${currentPage}`,
+    ofTotalPages: (totalPages: number | string) => `de ${totalPages} páginas`,
+    itemsPerPage: () => "Elementos por página",
+    ariaLabel: () => "Paginación",
   },
   password: {
     buttonLabelHide: () => "Ocultar",
