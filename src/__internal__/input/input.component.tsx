@@ -51,7 +51,7 @@ export interface InputProps
   /**
    * @private @internal @ignore
    */
-  "data-is-transparent"?: boolean;
+  "data-is-subtle"?: boolean;
   /**
    * @private @internal @ignore
    */
@@ -88,7 +88,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       autoFocus,
       containerRef,
       error,
-      "data-is-transparent": dataIsTransparent,
+      "data-is-subtle": dataIsSubtle,
       "data-is-open": dataIsOpen,
       children,
       disabled,
@@ -140,9 +140,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         data-role="input-container"
         $error={error}
         $size={size}
+        $isSimpleSelect={selectType === "simple"}
         $isDisabled={disabled}
         $isReadOnly={readOnly}
-        data-is-transparent={dataIsTransparent}
+        data-is-subtle={dataIsSubtle}
         data-is-open={dataIsOpen}
       >
         <div
