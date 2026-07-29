@@ -1,3 +1,9 @@
+## [161.8.0](https://github.com/Sage/carbon/compare/v161.7.3...v161.8.0) (2026-07-29)
+
+### Features
+
+* **pager:** add non-english translations ([2d23622](https://github.com/Sage/carbon/commit/2d236225be46d43bf059cc6a791229b7608eb5f1))
+
 ## [161.7.3](https://github.com/Sage/carbon/compare/v161.7.2...v161.7.3) (2026-07-29)
 
 ### Bug Fixes
