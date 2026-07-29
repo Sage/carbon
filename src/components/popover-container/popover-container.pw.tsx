@@ -20,7 +20,7 @@ test.describe("Check props of Popover Container component", () => {
     const popoverContainer = page.getByRole("dialog", {
       name: "select example",
     });
-    const select = page.getByText("Please Select...", { exact: true });
+    const select = page.getByRole("combobox");
     await select.click();
     const greenOption = page.getByRole("option", { name: "green" });
     await greenOption.click();
@@ -39,7 +39,7 @@ test.describe("Check props of Popover Container component", () => {
     const popoverContainer = page.getByRole("dialog", {
       name: "select example",
     });
-    const select = page.getByText("Please Select...", { exact: true });
+    const select = page.getByRole("combobox");
     await select.click();
     await select.press("Escape");
 
@@ -57,7 +57,7 @@ test.describe("Check props of Popover Container component", () => {
     const popoverContainer = page.getByRole("dialog", {
       name: "select example",
     });
-    const select = page.getByText("Please Select...", { exact: true });
+    const select = page.getByRole("combobox");
     await select.focus();
     await popoverContainer.press("Escape");
 

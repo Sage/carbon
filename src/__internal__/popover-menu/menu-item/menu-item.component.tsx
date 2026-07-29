@@ -10,10 +10,16 @@ import {
 import guid from "../../utils/helpers/guid";
 import Icon from "../../../components/icon";
 import { buttonMenuItemQuerySelector } from "../utils";
+import combineRefs from "../../utils/helpers/combine-refs";
 
-export interface MenuItemProps {
+export interface MenuItemProps
+  extends Omit<React.LiHTMLAttributes<HTMLLIElement>, "children" | "onClick"> {
   children: React.ReactNode;
+  /** @internal Callback used to measure virtualized menu items. */
+  measureElement?: React.RefCallback<HTMLLIElement>;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  /** @internal Applies the Select ActionOption colour treatment. */
+  action?: boolean;
   selected?: boolean;
   disabled?: boolean;
   id?: string;
@@ -28,6 +34,7 @@ interface StyledMenuItemProps {
   $size?: PopoverMenuContextProps["size"];
   $disabled?: boolean;
   $isButtonMenu?: boolean;
+  $action?: boolean;
 }
 
 interface SubmenuControlProps extends PopoverControlProps {
@@ -191,6 +198,27 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       }
     `}
   `}
+
+  ${({ $action, $disabled }) =>
+    $action &&
+    !$disabled &&
+    css`
+      background-color: var(--button-typical-secondary-bg-default);
+      color: var(--button-typical-secondary-label-default);
+
+      * {
+        color: var(--button-typical-secondary-label-default);
+      }
+
+      &:not(:active):hover {
+        background-color: var(--button-typical-secondary-bg-hover);
+        color: var(--button-typical-secondary-label-hover);
+
+        * {
+          color: var(--button-typical-secondary-label-hover);
+        }
+      }
+    `}
 `;
 
 const SubmenuParentWrapper = styled.div`
@@ -255,6 +283,7 @@ const focusFirstSubmenuItem = (
 const MenuItem = ({
   children,
   onClick,
+  action,
   selected,
   disabled,
   submenu,
@@ -263,9 +292,11 @@ const MenuItem = ({
   onSubmenuClose,
   submenuWidth,
   id,
+  measureElement,
   ...rest
 }: MenuItemProps) => {
   const ref = useRef<HTMLLIElement | null>(null);
+  const combinedRef = combineRefs(ref, measureElement);
   const {
     size,
     isButtonMenu,
@@ -356,7 +387,7 @@ const MenuItem = ({
       control: (controlProps: PopoverControlProps) => {
         return (
           <StyledMenuItem
-            ref={ref}
+            ref={combinedRef}
             id={itemId}
             data-component="popover-menu-item"
             className={`popover-menu-item${isDisabled ? "-disabled" : ""}`}
@@ -379,7 +410,7 @@ const MenuItem = ({
 
   return (
     <StyledMenuItem
-      ref={ref}
+      ref={combinedRef}
       id={itemId}
       data-component={`popover-${isSubmenu ? "submenu" : "menu"}-item`}
       className={`popover-menu-item${isDisabled ? "-disabled" : ""}`}
@@ -392,6 +423,7 @@ const MenuItem = ({
       aria-disabled={!isButtonMenu ? isDisabled : undefined}
       $disabled={isDisabled}
       $isButtonMenu={isButtonMenu}
+      $action={action}
       {...rest}
       aria-describedby={headingId}
     >
