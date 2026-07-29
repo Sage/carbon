@@ -1,21 +1,30 @@
 import React, {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   forwardRef,
   useState,
   useContext,
+  useMemo,
 } from "react";
 import styled, { css } from "styled-components";
 import type { CSSObject } from "styled-components";
+import {
+  useVirtualizer,
+  defaultRangeExtractor,
+  type Range,
+} from "@tanstack/react-virtual";
 import Popover, { PopoverProps } from "../popover";
 import { flip, offset, size, hide } from "@floating-ui/dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
+import { MenuItem } from "./menu-item";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import {
   useHandleDropdownMenuKeyDown,
   setFocus,
   type TypeaheadHandler,
+  PAGE_NAVIGATION_SIZE,
 } from "./hooks";
 import guid from "../utils/helpers/guid";
 import {
@@ -39,6 +48,7 @@ interface ListProps {
   $size: PopoverMenuContextProps["size"];
   $maxHeight?: string;
   $isButtonMenu?: PopoverMenuContextProps["isButtonMenu"];
+  $virtualHeight?: number;
 }
 
 export const List = styled.ul<ListProps>`
@@ -58,6 +68,14 @@ export const List = styled.ul<ListProps>`
       -webkit-overflow-scrolling: touch;
       max-height: ${$maxHeight ??
       `calc(5 * var(--global-size-${$size.charAt(0)}))`};
+    `}
+
+  ${({ $virtualHeight }) =>
+    $virtualHeight !== undefined &&
+    css`
+      display: block;
+      position: relative;
+      height: ${$virtualHeight}px;
     `}
 `;
 
@@ -163,22 +181,52 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   listRef?: React.Ref<HTMLUListElement>;
   /** Callback for handling typeahead keyboard navigation */
   typeahead?: (args: TypeaheadHandler) => void;
+  /** Whether the menu may flip to the opposite placement when space is limited. */
+  flipEnabled?: boolean;
+  /** Data element applied to the menu wrapper. */
+  menuWrapperDataElement?: string;
+  /** Tab index applied to the listbox/menu element. */
+  listTabIndex?: number;
+  /** Set this prop to only render the currently-visible items into the DOM. Only supported for listbox menus
+   * whose children are all `MenuItem`s (no headings or dividers). */
+  enableVirtualScroll?: boolean;
+  /** The number of items to render into the DOM at once, either side of the currently-visible ones.
+   * Only used if the `enableVirtualScroll` prop is set. */
+  virtualScrollOverscan?: number;
+  /** Index of the item to scroll into view when the menu opens. Only used if the `enableVirtualScroll` prop is set. */
+  initialScrollIndex?: number;
+  /** When set, keyboard navigation stops at the first/last item instead of looping around. */
+  disableNavigationLoop?: boolean;
+  /** When set, PageUp and PageDown move the focus by a fixed number of items. */
+  enablePageNavigation?: boolean;
+  /** When set, Space and Tab confirm the currently-focused item (single-select listbox behaviour). */
+  selectOnSpaceAndTab?: boolean;
+  /** When set, the option marked as `aria-selected` is scrolled into view on open.
+   * Does not affect virtualised menus, which use `initialScrollIndex`. */
+  focusSelectedOnOpen?: boolean;
+  /** When set, closes a listbox menu when focus leaves its control. */
+  closeOnFocusOut?: boolean;
 }
 
 const OFFSET = 8;
 const SUBMENU_OFFSET = 0;
 
-const menuPopoverMiddleware = (
+export const menuPopoverMiddleware = (
   width?: string,
   isButtonMenu?: boolean,
   isSubmenu?: boolean,
   matchReferenceWidth?: boolean,
   hideWhenReferenceHidden?: boolean,
+  flipEnabled = true,
 ) => [
   offset(isSubmenu ? SUBMENU_OFFSET : OFFSET),
-  flip({
-    fallbackStrategy: "initialPlacement",
-  }),
+  ...(flipEnabled
+    ? [
+        flip({
+          fallbackStrategy: "initialPlacement",
+        }),
+      ]
+    : []),
   size({
     apply({ rects, elements }) {
       if (isButtonMenu && !matchReferenceWidth && !width) return;
@@ -210,6 +258,9 @@ interface MenuProps {
   listboxAriaLabel?: string;
   maxHeight?: string;
   popoverStrategy?: PopoverProps["popoverStrategy"];
+  virtualHeight?: number;
+  menuWrapperDataElement?: string;
+  listTabIndex?: number;
 }
 
 const Menu = ({
@@ -230,6 +281,9 @@ const Menu = ({
   portalTarget,
   maxHeight,
   popoverStrategy,
+  virtualHeight,
+  menuWrapperDataElement,
+  listTabIndex,
 }: MenuProps) => {
   return (
     <Popover
@@ -246,6 +300,7 @@ const Menu = ({
         $size={size}
         onKeyDown={onKeyDown}
         data-role="menu-wrapper"
+        data-element={menuWrapperDataElement}
         onMouseDown={(e) => e.preventDefault()}
         $isButtonMenu={isButtonMenu}
       >
@@ -259,6 +314,8 @@ const Menu = ({
             $isButtonMenu={isButtonMenu}
             aria-label={listboxAriaLabel}
             $maxHeight={maxHeight}
+            $virtualHeight={virtualHeight}
+            tabIndex={listTabIndex}
           >
             {children}
           </List>
@@ -344,6 +401,17 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     controlWrapperStyle,
     maxHeight,
     typeahead,
+    enableVirtualScroll = false,
+    virtualScrollOverscan = 5,
+    initialScrollIndex,
+    disableNavigationLoop = false,
+    enablePageNavigation = false,
+    selectOnSpaceAndTab = false,
+    focusSelectedOnOpen = false,
+    closeOnFocusOut = false,
+    flipEnabled = true,
+    menuWrapperDataElement,
+    listTabIndex,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -357,7 +425,10 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const listId = useRef(id ?? `popover-menu-wrapper-${guid()}`);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const combinedWrapperRef = combineRefs(wrapperRef, ref);
-  const wrappedChildren = wrapChildrenInItem(children);
+  const wrappedChildren = useMemo(
+    () => wrapChildrenInItem(children),
+    [children],
+  );
   const controlRef = useRef<TRef>(null);
   const lastClickAwayEvent = useRef<Event | null>(null);
   const handleClickAway = useCallback(
@@ -370,12 +441,270 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   );
   const handleClickInside = useClickAwayListener(handleClickAway);
   const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
+
+  const itemsArray = useMemo(
+    () => (wrappedChildren ?? []) as React.ReactElement[],
+    [wrappedChildren],
+  );
+  const canVirtualize =
+    enableVirtualScroll &&
+    !isButtonMenu &&
+    itemsArray.length > 0 &&
+    itemsArray.every((child) => child.type === MenuItem);
+
+  const itemKeyForIndex = useCallback(
+    (index: number) =>
+      itemsArray[index].props.id ?? (itemsArray[index].key as React.Key),
+    [itemsArray],
+  );
+  const enabledIndexes = useMemo(
+    () =>
+      itemsArray.reduce<number[]>((indexes, item, index) => {
+        const ariaDisabled = item.props["aria-disabled"];
+        if (
+          !item.props.disabled &&
+          ariaDisabled !== true &&
+          ariaDisabled !== "true"
+        ) {
+          indexes.push(index);
+        }
+        return indexes;
+      }, []),
+    [itemsArray],
+  );
+
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const resolvedActiveIndex = enabledIndexes.includes(activeIndex)
+    ? activeIndex
+    : -1;
+  const virtualizer = useVirtualizer({
+    count: canVirtualize ? itemsArray.length : 0,
+    getScrollElement: () =>
+      open && canVirtualize ? internalListRef.current : null,
+    estimateSize: () => 40,
+    getItemKey: itemKeyForIndex,
+    overscan: virtualScrollOverscan,
+    // Ensure the currently-active and selected items are always rendered so keyboard navigation
+    // and `aria-activedescendant` always reference a real element.
+    rangeExtractor: (range: Range) => {
+      const indexes = new Set(defaultRangeExtractor(range));
+      if (resolvedActiveIndex >= 0) {
+        indexes.add(resolvedActiveIndex);
+      }
+      if (initialScrollIndex !== undefined && initialScrollIndex >= 0) {
+        indexes.add(initialScrollIndex);
+      }
+      return [...indexes].sort((a, b) => a - b);
+    },
+  });
+
+  const virtualItems = canVirtualize ? virtualizer.getVirtualItems() : [];
+  const virtualHeight = canVirtualize ? virtualizer.getTotalSize() : undefined;
+
+  const optionIdForIndex = useCallback(
+    (index: number) =>
+      itemsArray[index]?.props.id ??
+      `${listId.current}-option-${encodeURIComponent(
+        String(itemKeyForIndex(index)),
+      )}`,
+    [itemKeyForIndex, itemsArray],
+  );
+
+  const renderedChildren = canVirtualize
+    ? [
+        ...virtualItems.map((virtualItem) =>
+          React.cloneElement(itemsArray[virtualItem.index], {
+            key: virtualItem.key,
+            id: optionIdForIndex(virtualItem.index),
+            "data-index": virtualItem.index,
+            "data-has-focus":
+              resolvedActiveIndex === virtualItem.index ? "true" : undefined,
+            measureElement: virtualizer.measureElement,
+            style: {
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              transform: `translateY(${virtualItem.start}px)`,
+            },
+          }),
+        ),
+        // In-flow spacer establishes the listbox's scroll range; the options above
+        // are absolutely positioned and cannot size the scroll container themselves.
+        <li
+          key="virtual-scroll-spacer"
+          data-role="virtual-scroll-spacer"
+          role="presentation"
+          aria-hidden="true"
+          style={{
+            display: "block",
+            height: virtualHeight,
+            margin: 0,
+            padding: 0,
+            listStyle: "none",
+            pointerEvents: "none",
+          }}
+        />,
+      ]
+    : wrappedChildren;
+
+  const resolvedActivedescendant = canVirtualize
+    ? resolvedActiveIndex >= 0
+      ? optionIdForIndex(resolvedActiveIndex)
+      : ""
+    : ariaActivedescendant;
+
+  useLayoutEffect(() => {
+    if (!open) {
+      if (canVirtualize) {
+        setActiveIndex(-1);
+        virtualizer.measure();
+      }
+      return;
+    }
+
+    if (canVirtualize) {
+      if (initialScrollIndex !== undefined && initialScrollIndex >= 0) {
+        virtualizer.scrollToIndex(initialScrollIndex, { align: "center" });
+      }
+      return;
+    }
+
+    if (focusSelectedOnOpen) {
+      internalListRef.current
+        ?.querySelector('[aria-selected="true"]')
+        ?.scrollIntoView?.({ block: "nearest" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, canVirtualize, initialScrollIndex, focusSelectedOnOpen]);
+
+  const moveActiveIndex = useCallback(
+    (nextIndex: number) => {
+      setActiveIndex(nextIndex);
+      virtualizer.scrollToIndex(nextIndex, { align: "auto" });
+    },
+    [virtualizer],
+  );
+
+  const handleVirtualKeyDown = useCallback(
+    (ev: React.KeyboardEvent<HTMLElement>) => {
+      const count = enabledIndexes.length;
+      /* istanbul ignore if */
+      if (count === 0) return;
+
+      const lastPosition = count - 1;
+      const activePosition = enabledIndexes.indexOf(resolvedActiveIndex);
+      const initialPosition = enabledIndexes.indexOf(initialScrollIndex ?? -1);
+      const moveToPosition = (position: number) =>
+        moveActiveIndex(enabledIndexes[position]);
+      const confirmActiveItem = () =>
+        document.getElementById(optionIdForIndex(resolvedActiveIndex))?.click();
+
+      switch (ev.key) {
+        case "ArrowDown":
+          ev.preventDefault();
+          ev.stopPropagation();
+          moveToPosition(
+            activePosition < 0
+              ? Math.max(initialPosition, 0)
+              : disableNavigationLoop
+                ? Math.min(activePosition + 1, lastPosition)
+                : (activePosition + 1) % count,
+          );
+          break;
+        case "ArrowUp":
+          ev.preventDefault();
+          ev.stopPropagation();
+          moveToPosition(
+            activePosition < 0
+              ? initialPosition >= 0
+                ? initialPosition
+                : lastPosition
+              : disableNavigationLoop
+                ? Math.max(activePosition - 1, 0)
+                : (activePosition - 1 + count) % count,
+          );
+          break;
+        case "Home":
+          ev.preventDefault();
+          moveToPosition(0);
+          break;
+        case "End":
+          ev.preventDefault();
+          moveToPosition(lastPosition);
+          break;
+        case "PageUp":
+          if (!enablePageNavigation) break;
+          ev.preventDefault();
+          moveToPosition(
+            Math.max(
+              (activePosition < 0
+                ? initialPosition >= 0
+                  ? initialPosition
+                  : lastPosition
+                : activePosition) - PAGE_NAVIGATION_SIZE,
+              0,
+            ),
+          );
+          break;
+        case "PageDown":
+          if (!enablePageNavigation) break;
+          ev.preventDefault();
+          moveToPosition(
+            Math.min(
+              (activePosition < 0
+                ? Math.max(initialPosition, 0)
+                : activePosition) + PAGE_NAVIGATION_SIZE,
+              lastPosition,
+            ),
+          );
+          break;
+        case "Enter":
+          /* istanbul ignore else */
+          if (resolvedActiveIndex >= 0) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            confirmActiveItem();
+          }
+          break;
+        case " ":
+          if (selectOnSpaceAndTab && resolvedActiveIndex >= 0) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            confirmActiveItem();
+          }
+          break;
+        case "Tab":
+          if (selectOnSpaceAndTab && resolvedActiveIndex >= 0) {
+            confirmActiveItem();
+          }
+          onClose(ev.nativeEvent);
+          break;
+        /* istanbul ignore next */
+        default:
+          break;
+      }
+    },
+    [
+      enabledIndexes,
+      resolvedActiveIndex,
+      initialScrollIndex,
+      disableNavigationLoop,
+      enablePageNavigation,
+      selectOnSpaceAndTab,
+      moveActiveIndex,
+      optionIdForIndex,
+      onClose,
+    ],
+  );
+
   const computedMiddleware = menuPopoverMiddleware(
     width,
     isButtonMenu,
     isSubmenu,
     matchReferenceWidth,
     hideWhenReferenceHidden,
+    flipEnabled,
   );
   const direction = useRef<"up" | "down" | null>(null);
 
@@ -440,11 +769,47 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     {
       isButtonMenu,
       isSubmenu,
+      disableNavigationLoop,
+      enablePageNavigation,
+      selectOnSpaceAndTab,
     },
     typeahead,
   );
 
   const { isInTable } = useContext(TableBodyContext);
+  const handleListKeyDown = canVirtualize
+    ? handleVirtualKeyDown
+    : handleDropdownMenuKeyDown;
+
+  const handleMenuKeyDown = useCallback(
+    (ev: React.KeyboardEvent<HTMLElement>) => {
+      handleListKeyDown(ev);
+    },
+    [handleListKeyDown],
+  );
+
+  useEffect(() => {
+    if (!open || !closeOnFocusOut || isSubmenu || isButtonMenu) {
+      return undefined;
+    }
+
+    const isAllowedFocusTarget = (target: EventTarget | null) =>
+      target instanceof Node && controlWrapperRef.current?.contains(target);
+
+    const handleFocusOut = (ev: FocusEvent) => {
+      if (
+        isAllowedFocusTarget(ev.target) &&
+        !isAllowedFocusTarget(ev.relatedTarget)
+      ) {
+        onClose(ev);
+      }
+    };
+
+    document.addEventListener("focusout", handleFocusOut);
+    return () => {
+      document.removeEventListener("focusout", handleFocusOut);
+    };
+  }, [open, closeOnFocusOut, isSubmenu, isButtonMenu, onClose]);
 
   const handleControlKeyDown: React.KeyboardEventHandler<HTMLElement> =
     useCallback(
@@ -453,7 +818,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           open &&
           controlWrapperRef.current?.contains(document.activeElement)
         ) {
-          handleDropdownMenuKeyDown(ev);
+          handleMenuKeyDown(ev);
 
           return;
         } else if (!open && isButtonMenu && !isInTable && !isSubmenu) {
@@ -560,7 +925,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         onKeyDown={handleControlKeyDown}
         listId={listId.current}
         aria-activedescendant={
-          open && ariaActivedescendant ? ariaActivedescendant : undefined
+          open && resolvedActivedescendant
+            ? resolvedActivedescendant
+            : undefined
         }
       />
       <PopoverMenuContext.Provider
@@ -583,7 +950,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             listboxAriaLabelledBy={listboxAriaLabelledBy}
             listboxAriaLabel={listboxAriaLabel}
             isButtonMenu={isButtonMenu}
-            onKeyDown={handleDropdownMenuKeyDown}
+            onKeyDown={handleMenuKeyDown}
             middleware={computedMiddleware}
             scrollRef={scrollRef}
             listId={listId.current}
@@ -591,8 +958,11 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             portalTarget={isSubmenu ? controlReference?.current : undefined}
             maxHeight={maxHeight}
             popoverStrategy={popoverStrategy}
+            virtualHeight={virtualHeight}
+            menuWrapperDataElement={menuWrapperDataElement}
+            listTabIndex={listTabIndex}
           >
-            {wrappedChildren}
+            {renderedChildren}
           </Menu>
         )}
       </PopoverMenuContext.Provider>

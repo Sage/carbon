@@ -1,8 +1,6 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
-import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as OptionStories from "../option/option.stories";
-import * as SelectTextboxStories from "../__internal__/select-textbox/select-textbox.stories";
 import * as SimpleSelectStories from "./simple-select.stories";
 
 <Meta of={SimpleSelectStories} />
@@ -11,144 +9,67 @@ import * as SimpleSelectStories from "./simple-select.stories";
 
 <a
   target="_blank"
-  href="https://designsystem.sage.com/fusion/latest/pages/components/dropdowns/simple-dropdown/"
+  href="https://designsystem.sage.com/fusion/pages/components/dropdowns/simple-dropdown"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
   Product Design System component
 </a>
 
-Select one of available options from the drop-down menu. Simple Select is a Carbon styled equivalent of HTML Select Element.
+Select one of available options from the drop-down menu.
 
 ## Contents
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
-- [Validation states](#validation-states)
+- [Keyboard interaction](#keyboard-interaction)
 - [Testing](#testing)
 - [Props](#props)
-- [Translation keys](#translation-keys)
 
 ## Quick Start
 
 ```javascript
-import { Select, Option } from "carbon-react/lib/components/select";
+import {
+  Select,
+  Option,
+  ActionOption,
+  OptionGroupHeader,
+} from "carbon-react/lib/components/select";
 ```
 
-Always insert `Option` Components inside the `Select`, analogous to the original `<select>` and `<option>` HTML Elements.
+`Select` is controlled: pass the selected `value` and update it from `onChange`. Typeahead emits an unconfirmed change as it moves
+to a matching option; pointer and keyboard selection emit a change with `selectionConfirmed: true`. Use this flag when an operation
+should run only after explicit confirmation.
+
+Build the list from `Option` children, use `OptionGroupHeader` to create labelled sections, and use `ActionOption` for an action that
+does not change the selected value. Give dynamically-generated options stable React keys so their identity and accessible IDs remain
+stable when the list changes. Supply an explicit `id` only when an integration requires a stable DOM ID.
 
 ## Examples
 
-### Default
+### Playground
 
-<Canvas of={SimpleSelectStories.Default} />
+Use the controls below the example to explore supported sizes, variants, validation states, loading, positioning and virtualisation.
 
-### Required
+<Canvas of={SimpleSelectStories.Playground} />
 
-You can use the `required` prop to indicate if the field is mandatory.
+<Controls of={SimpleSelectStories.Playground} />
 
-<Canvas of={SimpleSelectStories.Required} />
+### Complex compositions
 
-### List placement
+`Option`s support rich content such as leading icons, prefixes, subtext and portraits, as well as dividers between
+items. You can also pass a composed layout to the `OptionGroupHeader` via its `children` prop, which overrides any
+values passed to the `icon` and `label` props.
 
-By default, the placement of the select list is below the input element and will automatically adjust its position if there is not enough space.
-However, you can use `listPlacement` prop to manually set the initial position of the select list relative to the input element.
-
-<Canvas of={SimpleSelectStories.ListPlacement} />
-
-### List height
-
-You can use `listMaxHeight` prop to override default max height value of select list.
-
-<Canvas of={SimpleSelectStories.ListHeight} />
-
-### List width
-
-You can use `listWidth` prop to override the width of the select list. By default the list
-will have the same width as the input.
-
-<Canvas of={SimpleSelectStories.ListWidth} />
-
-### Sizes
-
-The `size` prop can be used to set the size of the select input. The default value is `medium`.
-
-<Canvas of={SimpleSelectStories.Sizes} />
-
-### With object as value
-
-Option values could be passed as objects, useful when custom data is associated with an option.
-When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
-If there is no `id` prop specified on an object, then the exact objects will be compared.
-
-<Canvas of={SimpleSelectStories.WithObjectAsValue} />
-
-### With custom maxWidth
-
-In this example the `maxWidth` prop is 100%.
-
-<Canvas of={SimpleSelectStories.WithCustomMaxWidth} />
-
-### With isLoading prop
-
-When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
-
-<Canvas of={SimpleSelectStories.WithIsLoadingProp} />
+<Canvas of={SimpleSelectStories.ComplexCompositions} />
 
 ### Infinite scroll example
 
 The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
-This prop will be called every time a user scrolls to the bottom of the list.
+The callback is invoked whenever the open list is scrolled to its bottom. Guard against starting duplicate requests while a request
+is already in progress. The example also demonstrates using the forwarded input ref to restore focus after loading completes.
 
 <Canvas of={SimpleSelectStories.WithInfiniteScroll} />
-
-### Open on focus
-
-<Canvas of={SimpleSelectStories.OpenOnFocus} />
-
-### Disabled
-
-<Canvas of={SimpleSelectStories.Disabled} />
-
-### Read Only
-
-<Canvas of={SimpleSelectStories.Readonly} />
-
-### Transparent
-
-<Canvas of={SimpleSelectStories.Transparent} />
-
-### Transparent Disabled
-
-<Canvas of={SimpleSelectStories.TransparentDisabled} />
-
-### Custom Option content
-
-The `Option` component accepts any valid React node as children, which allows for custom content to be rendered inside the option.
-The `text` value will be used as the displayed value in the input field when selected. You can also use the `leftChildren` prop to render a node to the left of the option text.
-
-<Canvas of={SimpleSelectStories.CustomOptionChildren} />
-
-### With multiple columns
-
-<Canvas of={SimpleSelectStories.WithMultipleColumns} />
-
-### Option groups
-
-<Canvas of={SimpleSelectStories.OptionGroups} />
-
-It is also possible to use the `children` prop to pass a composed layout to the
-`OptionGroupHeader`. It should be noted it will override any values passed to the
-`icon` and `label` props. When using the `children` prop, it is recommended to 
-wrap any text in a `<span>` element which will apply the specific styling defined for the `OptionGroupHeader`.
-
-<Canvas of={SimpleSelectStories.OptionGroupsWithComposedChildren} />
-
-### Enabling the adaptive behaviour
-
-The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
-
-<Canvas of={SimpleSelectStories.EnablingAdaptiveBehaviour} />
 
 ### Virtual scrolling
 
@@ -160,46 +81,47 @@ be customised if desired using the `virtualScrollOverscan` prop. Higher values w
 
 <Canvas of={SimpleSelectStories.Virtualised} />
 
-### With multiple columns and virtualisation
-
-<Canvas of={SimpleSelectStories.WithMultipleColumnsAndVirtualisation} />
-
 ### Selection confirmed
 
-A change event is emitted each time an option is navigated via keyboard as it sets the value of the
-Select input. For those that need to trigger further actions when the user makes a selection, there is
-a `selectionConfirmed` property on the emitted event when the enter key is pressed or an option is clicked.
+Arrow, Home, End, Page Up and Page Down move the active option without changing the controlled value. Confirming an option with
+Enter, Space, Tab or a pointer emits `onChange` with `selectionConfirmed: true`. Typeahead changes emit
+`selectionConfirmed: false`, which allows consumers to distinguish matching from an explicit confirmation.
 
 <Canvas of={SimpleSelectStories.SelectionConfirmedStory} />
 
 ### Dynamically adding options, and the importance of the `key` property
 
-You must take care if you want to dynamically add `Option` children to the select, particularly if you are adding them to the start
-of the list. The component uses the
+Provide stable keys when dynamically adding or reordering `Option` children. The component uses the
 [aria-activedescendant attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant)
-to expose the currently-selected option to assistive technologies such as screen readers, and this ties in to the HTML `id` of the
-option. Each option gets a randomly-generated guid as its id (if one is not explicitly provided as a prop), but to ensure that each
-option keeps its id in its dynamically-changing context, a hint needs to be provided to React to keep the option's identity the same,
-and not rerender it with a new guid.
-
-This can be done by providing an appropriate [key](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key) to
-each item in the list which unique identifies it, as in the example below which simply uses the option text. This is our recommendation
-for most circumstances.
-
-An alternative solution that works is to provide an explicit `id` prop for each option.
-
-If you do not either provide explicit ids or set keys appropriately, the `aria-activedescendant` property will get out of sync with
-the selected option, generating errors with automated accessibility-testing tools, and more importantly, making the component unusable
-for users who rely on assistive technology.
+to expose the active option to assistive technologies. Stable React keys allow each rendered option to retain that identity as the
+list changes. An explicit `id` can also be supplied when a stable DOM ID is required by an integration.
 
 <Canvas
   name="dynamically adding options"
   of={SimpleSelectStories.SelectWithDynamicallyAddedOption}
 />
 
-## Validation States
+### Adding an option from a dialog
 
-This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+`ActionOption` accepts the same props and renders the same option element as `Option`, with a distinct action treatment. Its `onClick`
+callback runs without changing the Select's value. This example opens a dialog, adds the submitted value with a stable key, and uses
+the Select's forwarded input ref to restore focus when the dialog closes. The flow can be repeated to add multiple options.
+
+<Canvas of={SimpleSelectStories.AddOptionFromDialog} />
+
+## Keyboard interaction
+
+- Enter, Space, Arrow Up, Arrow Down, Home and End open a closed Select.
+- Arrow keys move through enabled options. Navigation loops by default; set `disableNavigationLoop` to stop at the ends.
+- Home and End move to the first and last enabled options. Page Up and Page Down move by ten options.
+- Enter or Space confirms the active option and returns focus to the input.
+- Tab confirms an active option and allows focus to continue to the next control. If nothing is active, it closes without selecting.
+- Escape closes the list and restores focus to the input.
+- Printable characters perform typeahead selection using each Option's `text` value.
+
+Typeahead selects the next option whose `text` starts with the buffered sequence. The `typeaheadTimeout` prop controls how long the
+component waits between characters before starting a new sequence and defaults to `1500` milliseconds. Use the `text` prop even when
+an Option has custom children: it supplies both the selected display text and typeahead value.
 
 ## Testing
 
@@ -220,37 +142,31 @@ describe("Select tests", () => {
   test("should render", () => {
     // your test code here
   });
-})
+});
 ```
 
 ## Props
 
 ### Select
 
-<ArgTypes of={SimpleSelectStories} />
+<ArgTypes of={SimpleSelectStories} exclude={["leftChildren"]} />
 
-Due to the `Textbox` component being used internally by the `SimpleSelect` component, most of the `Textbox` props are applicable to `SimpleSelect`
-
-<ArgTypes of={SelectTextboxStories} />
-
-**Any other supplied props will be provided to the underlying HTML input element**
+Standard supported input attributes are forwarded to the underlying input. Deprecated props remain type-compatible for migration
+but have no effect, except `transparent`, which remains a compatibility alias for `variant="subtle"`.
 
 ### Props of the Option Component
 
-<ArgTypes of={OptionStories} />
-
-## Translation keys
-
-The following keys are available to override the translations for this component by passing in a custom locale object to the
-[i18nProvider](../?path=/docs/documentation-i18n--docs).
-
-<TranslationKeysTable
-  translationData={[
-    {
-      name: "select.placeholder",
-      description: "The text for the input component placeholder",
-      type: "func",
-      returnType: "string",
-    },
+<ArgTypes
+  of={OptionStories}
+  include={[
+    "children",
+    "disabled",
+    "divider",
+    "id",
+    "leading",
+    "prefix",
+    "subtext",
+    "text",
+    "value",
   ]}
 />

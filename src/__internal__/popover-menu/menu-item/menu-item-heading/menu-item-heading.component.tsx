@@ -37,39 +37,56 @@ const MenuItemHeading = ({
   children,
   text,
   icon,
+  headingContent,
+  semanticGroup = false,
 }: {
   children: React.ReactNode;
   text: string;
   icon?: React.ReactNode;
+  headingContent?: React.ReactNode;
+  /** @internal Render the heading and its options as one labelled listbox group. */
+  semanticGroup?: boolean;
 }) => {
   const { size } = useContext(PopoverMenuContext);
   const headingId = useRef(`popover-menu-heading-${guid()}`);
 
   const textProps = { "data-element": "text", id: headingId.current };
 
+  const heading =
+    headingContent || icon ? (
+      <StyledMenuHeadingWithIcon
+        data-role="text-with-icon"
+        $size={size}
+        {...textProps}
+      >
+        {headingContent || icon}
+        {!headingContent && text}
+      </StyledMenuHeadingWithIcon>
+    ) : (
+      <div {...textProps}>{text}</div>
+    );
+
+  const items = (
+    <MenuHeadingContext.Provider value={{ headingId: headingId.current }}>
+      <ul
+        role={semanticGroup ? "presentation" : "listbox"}
+        aria-label={semanticGroup ? undefined : text}
+      >
+        {children}
+      </ul>
+    </MenuHeadingContext.Provider>
+  );
+
   return (
     <StyledMenuHeading
+      as={semanticGroup ? "div" : undefined}
       data-component="popover-menu-item-heading"
       $size={size}
-      role="option"
+      role={semanticGroup ? "group" : "option"}
+      aria-labelledby={semanticGroup ? headingId.current : undefined}
     >
-      {icon ? (
-        <StyledMenuHeadingWithIcon
-          data-role="text-with-icon"
-          $size={size}
-          {...textProps}
-        >
-          {icon}
-          {text}
-        </StyledMenuHeadingWithIcon>
-      ) : (
-        <div {...textProps}>{text}</div>
-      )}
-      <MenuHeadingContext.Provider value={{ headingId: headingId.current }}>
-        <ul role="listbox" aria-label={text}>
-          {children}
-        </ul>
-      </MenuHeadingContext.Provider>
+      {heading}
+      {items}
     </StyledMenuHeading>
   );
 };

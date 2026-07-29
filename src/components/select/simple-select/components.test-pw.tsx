@@ -14,6 +14,7 @@ import Box from "../../box";
 import Dialog from "../../dialog";
 import Button from "../../button";
 import Icon from "../../icon";
+import Form from "../../form";
 
 export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
   const [value, setValue] = useState("");
@@ -153,7 +154,9 @@ export const SimpleSelectObjectAsValueComponent = (
   );
 };
 
-export const WithVirtualScrolling = () => {
+export const WithVirtualScrolling = (
+  props: Partial<SimpleSelectProps> = {},
+) => {
   const [value, setValue] = useState("");
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
@@ -168,6 +171,7 @@ export const WithVirtualScrolling = () => {
       label="Choose an option"
       enableVirtualScroll
       virtualScrollOverscan={1}
+      {...props}
     >
       {Array(20)
         .fill(undefined)
@@ -208,6 +212,36 @@ export const SimpleSelectNestedInDialog = ({
         <Option value="opt3" text="blue" />
         <Option value="opt4" text="black" />
       </SimpleSelect>
+    </Dialog>
+  );
+};
+
+export const SimpleSelectNestedInDialogWithStickyFooter = () => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Dialog open>
+      <Form
+        stickyFooter
+        saveButton={<Button buttonType="primary">Accept</Button>}
+      >
+        <Box mt="40px">
+          <SimpleSelect
+            name="dialogSelect"
+            id="dialogSelect"
+            label="Color"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+          >
+            <Option text="Red" value="red" />
+            <Option text="Blue" value="blue" />
+            <Option text="Green" value="green" />
+            <Option text="Yellow" value="yellow" />
+            <Option text="Black" value="black" />
+            <Option text="White" value="white" />
+          </SimpleSelect>
+        </Box>
+      </Form>
     </Dialog>
   );
 };
@@ -287,6 +321,45 @@ export const SelectionConfirmed = () => {
         <Option value="8" text="Eight" />
         <Option value="9" text="Nine" />
       </Select>
+
+      {confirmedSelection ? (
+        <span data-element={`confirmed-selection-${confirmedSelection}`}>
+          {confirmedSelection}
+        </span>
+      ) : null}
+    </>
+  );
+};
+
+export const SelectionConfirmedManyOptions = () => {
+  const [value, setValue] = useState("");
+  const [confirmedSelection, setConfirmedSelection] = useState("");
+  const handleChange = (event: CustomSelectChangeEvent) => {
+    setValue(event.target.value);
+    if (event.selectionConfirmed) {
+      setConfirmedSelection(event.target.value);
+    }
+  };
+  return (
+    <>
+      <Select
+        name="testing"
+        value={value}
+        onChange={handleChange}
+        openOnFocus
+        label="Test"
+        placeholder=" "
+      >
+        {Array.from({ length: 20 }, (_, index) => (
+          <Option
+            key={index + 1}
+            value={`${index + 1}`}
+            text={`Option ${index + 1}`}
+          />
+        ))}
+      </Select>
+
+      <Button data-role="next-focusable">Next</Button>
 
       {confirmedSelection ? (
         <span data-element={`confirmed-selection-${confirmedSelection}`}>
