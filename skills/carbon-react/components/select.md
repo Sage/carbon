@@ -16,381 +16,84 @@ description: Carbon Select component props and usage examples.
 No props metadata found.
 
 ## Examples
-### Default
+### Playground
 
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250}>
-      <Select
-        name="simple"
-        id="simple"
-        label="Color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Required
-
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Box height={250}>
-      <Select
-        name="required-select"
-        id="required-select"
-        label="Foreground Color"
-        required
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### List Placement
-
-**Render**
-
-```tsx
-() => {
-  const [listPlacement, setListPlacement] =
-    useState<SimpleSelectProps["listPlacement"]>("bottom-end");
-  const [value, setValue] = useState("");
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(ev.target.value);
-  };
-  return (
-    <>
-      <Button mr={1} onClick={() => setListPlacement("top-end")}>
-        Top end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("bottom-end")}>
-        Bottom end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("top-start")}>
-        Top start
-      </Button>
-      <Button onClick={() => setListPlacement("bottom-start")}>
-        Bottom Start
-      </Button>
-      <Box my="150px" ml="200px" width="200px">
-        <Select
-          name="listWidth"
-          id="listWidth"
-          label="color"
-          labelInline
-          listWidth={350}
-          listPlacement={listPlacement}
-          value={value}
-          onChange={handleChange}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-        </Select>
-      </Box>
-    </>
-  );
-}
-```
-
-
-### List Height
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={500}>
-      <Select
-        listMaxHeight={2000}
-        name="list height"
-        id="list-height"
-        label="List height"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### List Width
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(ev.target.value);
-  };
-  return (
-    <Box height={200} width={200}>
-      <Select
-        name="listWidth"
-        id="listWidth"
-        label="color"
-        listWidth={350}
-        listPlacement="bottom-start"
-        value={value}
-        onChange={handleChange}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  const [value2, setValue2] = useState("");
-  const [value3, setValue3] = useState("");
-  return (
-    <Box height={350}>
-      <Select
-        name="size-small"
-        id="size-small"
-        label="Small"
-        size="small"
-        mb={2}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </Select>
-      <Select
-        name="size-medium"
-        id="size-medium"
-        label="Medium"
-        size="medium"
-        mb={2}
-        value={value2}
-        onChange={(ev) => setValue2(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </Select>
-      <Select
-        name="size-large"
-        id="size-large"
-        label="Large"
-        size="large"
-        value={value3}
-        onChange={(ev) => setValue3(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### With Object as Value
-
-**Render**
-
-```tsx
-() => {
-  const optionListValues = [
-    { id: "Amber", value: 1, text: "Amber" },
-    { id: "Black", value: 2, text: "Black" },
-    { id: "Blue", value: 3, text: "Blue" },
-    { id: "Brown", value: 4, text: "Brown" },
-    { id: "Green", value: 5, text: "Green" },
-    { id: "Orange", value: 6, text: "Orange" },
-    { id: "Pink", value: 7, text: "Pink" },
-    { id: "Purple", value: 8, text: "Purple" },
-    { id: "Red", value: 9, text: "Red" },
-    { id: "White", value: 10, text: "White" },
-    { id: "Yellow", value: 11, text: "Yellow" },
-  ];
-
-  const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4],
-  );
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    if (typeof event.target.value === "object") {
-      setValue(event.target.value);
-    }
+{
+    label: "Color",
+    size: "medium",
+    variant: "typical",
+    disabled: false,
+    readOnly: false,
+    required: false,
+    isLoading: false,
+    openOnFocus: false,
+    labelInline: false,
+    enableVirtualScroll: false,
+    virtualScrollOverscan: 5,
+    value: "select",
   }
-  function clearValue() {
-    setValue({});
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearValue} mb={2}>
-        clear
-      </Button>
-      <Select
-        id="with-object"
-        name="with-object"
-        value={value}
-        onChange={onChangeHandler}
-        label="color"
-      >
-        {optionListValues.map((option) => (
-          <Option key={option.id} text={option.text} value={option} />
-        ))}
-      </Select>
-    </Box>
-  );
-}
 ```
-
-
-### With Custom Max Width
 
 **Render**
 
 ```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250}>
-      <Select
-        name="simple"
-        id="simple"
-        label="color"
-        maxWidth="100%"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
+(args) => <PlaygroundStory {...args} />
 ```
 
 
-### With isLoading prop
+### Lazy Loading
 
 **Render**
 
 ```tsx
 () => {
   const preventLoading = useRef(false);
-  const [value, setValue] = useState("black");
+  const [value, setValue] = useState("select");
   const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = useState([
-    <Option text="Black" value="black" key="Black" />,
-  ]);
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+
   function loadList() {
     if (preventLoading.current) {
       return;
     }
+
     preventLoading.current = true;
     setIsLoading(true);
     setTimeout(() => {
+      setOptionList([
+        <Option text="Select an option" value="select" key="Select" />,
+        <Option text="Amber" value="amber" key="Amber" />,
+        <Option text="Black" value="black" key="Black" />,
+        <Option text="Blue" value="blue" key="Blue" />,
+        <Option text="Brown" value="brown" key="Brown" />,
+        <Option text="Green" value="green" key="Green" />,
+      ]);
       setIsLoading(false);
-      setOptionList(asyncList);
     }, 2000);
   }
-  function clearData() {
-    setOptionList([<Option text="Black" value="black" key="Black" />]);
-    setValue("black");
+
+  function reset() {
+    setOptionList([]);
+    setValue("select");
+    setIsLoading(true);
     preventLoading.current = false;
   }
+
   return (
     <Box height={300}>
-      <Button onClick={clearData} mb={2}>
-        reset
+      <Button onClick={reset} mb={2}>
+        Reset
       </Button>
       <Select
-        name="isLoading"
-        id="isLoading"
-        label="color"
+        name="lazyLoading"
+        id="lazyLoading"
+        label="Color"
         value={value}
         onChange={(event) => setValue(event.target.value)}
-        onOpen={() => loadList()}
+        onOpen={loadList}
         isLoading={isLoading}
       >
         {optionList}
@@ -410,9 +113,10 @@ No props metadata found.
   const preventLoading = useRef(false);
   const preventLazyLoading = useRef(false);
   const lazyLoadingCounter = useRef(0);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("select");
   const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
+    <Option text="Select an option" value="select" key="Select" />,
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
     <Option text="Blue" value="blue" key="Blue" />,
@@ -439,7 +143,9 @@ No props metadata found.
       />,
     ];
   };
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([
+    <Option text="Select an option" value="select" key="Select" />,
+  ]);
   function loadList() {
     if (preventLoading.current) {
       return;
@@ -466,7 +172,7 @@ No props metadata found.
   }
   function clearData() {
     setOptionList([]);
-    setValue("");
+    setValue("select");
     preventLoading.current = false;
   }
   return (
@@ -903,7 +609,7 @@ No props metadata found.
 
 ```tsx
 () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("0");
   return (
     <Box height={220}>
       <Select
@@ -922,7 +628,7 @@ No props metadata found.
             <Option
               key={`option-${index + 1}`}
               value={`${index}`}
-              text={`Option ${index + 1}`}
+              text={index === 0 ? "Select an option" : `Option ${index + 1}`}
             />
           ))}
       </Select>
@@ -932,46 +638,50 @@ No props metadata found.
 ```
 
 
-### With Multiple Columns and Virtualisation
+### With List Action Button
 
 **Render**
 
 ```tsx
 () => {
-  const [value, setValue] = useState("2");
+  const [value, setValue] = useState("select");
+  const [optionList, setOptionList] = useState([
+    <Option text="Select an option" value="select" key="Select" />,
+    <Option text="Amber" value="1" key="Amber" />,
+    <Option text="Black" value="2" key="Black" />,
+    <Option text="Blue" value="3" key="Blue" />,
+    <Option text="Brown" value="4" key="Brown" />,
+    <Option text="Green" value="5" key="Green" />,
+    <Option text="Orange" value="6" key="Orange" />,
+  ]);
+  function addNewOption() {
+    setOptionList((list) => [
+      ...list,
+      <Option
+        text={`New Option ${list.length + 1}`}
+        value={`${list.length + 1}`}
+        key={`New Option ${list.length + 1}`}
+      />,
+    ]);
+  }
   return (
-    <Box height={250}>
+    <Box height={350}>
       <Select
-        name="withMultipleColumnsAndVirtualisation"
-        id="withMultipleColumnsAndVirtualisation"
-        label="choose an option"
-        multiColumn
+        name="listActionButton"
+        id="listActionButton"
+        label="color"
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
-        enableVirtualScroll
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
+        listActionButton={
+          <Button iconType="add" iconPosition="after">
+            Add a New Element
+          </Button>
         }
+        onListAction={addNewOption}
       >
-        {Array(500)
-          .fill(undefined)
-          .map((_, index) => (
-            <OptionRow
-              key={`option-${index + 1}`}
-              id={`option-row-${index}`}
-              value={`${index}`}
-              text={`Option ${index + 1}`}
-            >
-              <td>{`John ${index + 1}`}</td>
-              <td>{`Doe ${index + 1}`}</td>
-              <td>{`Welder ${index + 1}`}</td>
-            </OptionRow>
-          ))}
+        {optionList}
       </Select>
+      <input style={{marginTop: "1000px"}} value="Brian Brobbey" />
     </Box>
   );
 }
@@ -985,7 +695,7 @@ No props metadata found.
 ```tsx
 () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("select");
   return (
     <Box height={280}>
       <Typography variant="strong">
@@ -1006,6 +716,7 @@ No props metadata found.
         id="selection confirmed"
         label="color"
       >
+        <Option text="Select an option" value="select" />
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -1031,9 +742,11 @@ No props metadata found.
 ```tsx
 () => {
   const [optionsList, setOptionsList] = useState(options);
-  const [currentOption, setCurrentOption] = useState<string | null>(null);
+  const [currentOption, setCurrentOption] = useState<string | null>(
+    "Select an option",
+  );
   useEffect(() => {
-    if (currentOption) {
+    if (currentOption && currentOption !== "Select an option") {
       setOptionsList([...allOptions, ...options]);
     }
   }, [currentOption]);
@@ -1056,6 +769,54 @@ No props metadata found.
             key={opt}
           />
         ))}
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### Complex Compositions
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("select");
+  return (
+    <Box height={350}>
+      <Select
+        name="complexCompositions"
+        id="complexCompositions"
+        label="Option compositions"
+        listMaxHeight={400}
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Select an option" value="select" />
+        <Option
+          text="Option with an icon"
+          value="1"
+          leading={<Icon type="favourite" />}
+        />
+        <Option text="Option with a divider" value="2" divider />
+        <OptionGroupHeader label="Option heading" />
+        <Option text="Option with a prefix" value="3" prefix="New " />
+        <Option
+          text="Option with subtext"
+          value="4"
+          subtext="Some helpful subtext"
+        />
+        <Option
+          text="Option with an icon and portrait"
+          value="5"
+          leading={
+            <>
+              <Icon type="individual" />
+              <Portrait initials="JD" size="XS" />
+            </>
+          }
+        />
       </Select>
     </Box>
   );

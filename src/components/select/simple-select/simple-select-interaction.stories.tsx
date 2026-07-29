@@ -175,6 +175,9 @@ export const Prefix: Story = {
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
       </InteractiveComponent>
     </Box>
   ),
@@ -499,6 +502,11 @@ export const ComplexOptions: Story = {
             </Box>
           </Box>
         </Option>
+        <Option text="Retry" value="retry" />
+        <Option text="Cancel" value="cancel" />
+        <Option text="Contact support" value="contact-support" />
+        <Option text="Try again later" value="try-again-later" />
+        <Option text="Return" value="return" />
       </Select>
     </Box>
   ),
@@ -537,6 +545,8 @@ export const NestedInDialog: Story = {
           <Option value="opt2" text="green" />
           <Option value="opt3" text="blue" />
           <Option value="opt4" text="black" />
+          <Option value="opt5" text="white" />
+          <Option value="opt6" text="yellow" />
         </InteractiveComponent>
         <Typography>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
@@ -589,6 +599,7 @@ export const OpenWithValidationBelow: Story = {
         <Option text="Blue" value="3" />
         <Option text="Brown" value="4" />
         <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
       </InteractiveComponent>
     </Box>
   ),
