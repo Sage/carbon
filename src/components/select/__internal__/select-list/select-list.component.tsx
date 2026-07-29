@@ -36,6 +36,7 @@ import isNavigationKey from "../utils/is-navigation-key";
 import ListActionButton from "../list-action-button";
 import Loader from "../../../loader";
 import Option, { OptionProps } from "../../option";
+import ActionOption from "../../action-option";
 import SelectListContext from "./select-list.context";
 
 type OnSelectData = {
@@ -302,7 +303,9 @@ const SelectList = React.forwardRef(
         childrenList.filter((child) => {
           return (
             React.isValidElement(child) &&
-            (child.type === Option || child.type === OptionRow)
+            (child.type === Option ||
+              child.type === ActionOption ||
+              child.type === OptionRow)
           );
         }),
       [childrenList],
@@ -346,7 +349,9 @@ const SelectList = React.forwardRef(
           "data-index": index,
         };
 
-        return child !== undefined ? React.cloneElement(child, newProps) : null;
+        return child !== undefined
+          ? React.cloneElement(child, newProps)
+          : /* istanbul ignore next */ null;
       })
       .filter((el) => el !== null);
 
@@ -354,7 +359,9 @@ const SelectList = React.forwardRef(
       childrenList,
       (child) =>
         React.isValidElement(child) &&
-        (child.type === Option || child.type === OptionRow),
+        (child.type === Option ||
+          child.type === ActionOption ||
+          child.type === OptionRow),
     );
 
     const getNextHighlightableItemIndex = useCallback(
