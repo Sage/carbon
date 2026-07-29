@@ -19,7 +19,9 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider";
 import Textbox from "../textbox";
 import Link from "../link";
-import { Form, Note, Button } from "../..";
+import Form from "../form";
+import Note from "../note";
+import Button from "../button/__next__";
 
 const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
@@ -73,6 +75,74 @@ export const Validation: Story = () => {
 };
 Validation.storyName = "Validation";
 Validation.parameters = { chromatic: { disableSnapshot: false } };
+
+export const Sizes: Story = () => {
+  return (
+    <Box m={2}>
+      <TextEditor
+        namespace="storybook-small"
+        labelText="Text Editor - Small"
+        inputHint="Hint text"
+        error="error"
+        size="small"
+        characterLimit={100}
+        mb={2}
+      />
+      <TextEditor
+        namespace="storybook-medium"
+        labelText="Text Editor - Medium"
+        inputHint="Hint text"
+        error="error"
+        size="medium"
+        characterLimit={100}
+        mb={2}
+      />
+      <TextEditor
+        namespace="storybook-large"
+        labelText="Text Editor - Large"
+        inputHint="Hint text"
+        error="error"
+        size="large"
+        characterLimit={100}
+        mb={2}
+      />
+      <TextEditor
+        namespace="storybook-small-header-footer"
+        labelText="Text Editor - Small with Header and Footer"
+        inputHint="Hint text"
+        error="error"
+        size="small"
+        characterLimit={100}
+        header={<Button variant="gradient">Button</Button>}
+        footer="Footer text"
+        mb={2}
+      />
+      <TextEditor
+        namespace="storybook-medium-header-footer"
+        labelText="Text Editor - Medium with Header and Footer"
+        inputHint="Hint text"
+        error="error"
+        size="medium"
+        characterLimit={100}
+        header={<Button variant="gradient">Button</Button>}
+        footer="Footer text"
+        mb={2}
+      />
+      <TextEditor
+        namespace="storybook-large-header-footer"
+        labelText="Text Editor - Large with Header and Footer"
+        inputHint="Hint text"
+        error="error"
+        size="large"
+        characterLimit={100}
+        header={<Button variant="gradient">Button</Button>}
+        footer="Footer text"
+        mb={2}
+      />
+    </Box>
+  );
+};
+Sizes.storyName = "Sizes";
 
 export const MultipleInputs: Story = () => {
   const defaultHTML = `<a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" ><span data-lexical-text="true">Carbon</span></a>`;
@@ -209,13 +279,10 @@ export const ReadOnlyEditorForNotes = () => {
       </Typography>
       <Box p={1} display="flex" gap={2} flexDirection="column">
         <Box p={1} backgroundColor="lightgray">
-          <ReadOnlyEditor
-            initialValue={defaultValue}
-            useBackgroundColor={false}
-          />
+          <ReadOnlyEditor initialValue={defaultValue} />
         </Box>
         <Box p={1} backgroundColor="lightgray">
-          <ReadOnlyEditor initialValue={htmlValue} useBackgroundColor={false} />
+          <ReadOnlyEditor initialValue={htmlValue} />
         </Box>
       </Box>
     </Box>

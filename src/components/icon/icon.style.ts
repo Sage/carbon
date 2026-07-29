@@ -102,6 +102,10 @@ const styleOverrides = css`
     width: inherit;
     height: inherit;
   }
+
+  .editor-dropdown && {
+    color: currentColor;
+  }
 `;
 
 const StyledIcon = styled.span.attrs(applyBaseTheme)<

@@ -106,11 +106,7 @@ export const Note = ({
               ) : (
                 <StyledTitleWrapper>{title}</StyledTitleWrapper>
               ))}
-            <ReadOnlyEditor
-              aria-label={ariaLabel}
-              initialValue={noteContent}
-              useBackgroundColor={false}
-            />
+            <ReadOnlyEditor aria-label={ariaLabel} initialValue={noteContent} />
           </StyledNoteContent>
           {inlineControl && (
             <StyledInlineControl>{inlineControl}</StyledInlineControl>
