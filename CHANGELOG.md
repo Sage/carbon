@@ -1,3 +1,9 @@
+## [161.7.2](https://github.com/Sage/carbon/compare/v161.7.1...v161.7.2) (2026-07-29)
+
+### Bug Fixes
+
+* **checkbox:** ensure fieldSpacing is not applied to grouped checkboxes ([e1b18f6](https://github.com/Sage/carbon/commit/e1b18f6f4ce32320430f93ee29f7ef6f103c9774))
+
 ## [161.7.1](https://github.com/Sage/carbon/compare/v161.7.0...v161.7.1) (2026-07-27)
 
 ### Bug Fixes
