@@ -5,25 +5,27 @@ import StyledStepSequence from "./step-sequence.style";
 import { StepSequenceProvider } from "./__internal__/step-sequence.context";
 
 export interface StepSequenceProps extends SpaceProps, TagProps {
-  /** Step sequence items to be rendered */
+  /** Step sequence items to be rendered. */
   children: React.ReactNode;
-  /** The direction that step sequence items should be rendered */
+  /** Orientation of the component. */
   orientation?: "horizontal" | "vertical";
+  /** The size of the component. */
+  size?: "small" | "medium";
 }
 
 export const StepSequence = ({
   children,
   orientation = "horizontal",
+  size = "medium",
   ...props
 }: StepSequenceProps) => {
   return (
     <StyledStepSequence
-      orientation={orientation}
-      p={0}
+      $orientation={orientation}
       {...props}
       {...tagComponent("step-sequence", props)}
     >
-      <StepSequenceProvider value={{ orientation }}>
+      <StepSequenceProvider value={{ orientation, size }}>
         {children}
       </StepSequenceProvider>
     </StyledStepSequence>
