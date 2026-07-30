@@ -1,3 +1,9 @@
+## [161.9.0](https://github.com/Sage/carbon/compare/v161.8.0...v161.9.0) (2026-07-30)
+
+### Features
+
+* **search:** add suggestions menu support ([2e26ef2](https://github.com/Sage/carbon/commit/2e26ef29d0a9377a767061c68fae2ab473acd742))
+
 ## [161.8.0](https://github.com/Sage/carbon/compare/v161.7.3...v161.8.0) (2026-07-29)
 
 ### Features
