@@ -9,7 +9,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../carbon-provider";
-import Dialog, { DialogHandle, DialogProps } from ".";
+import Dialog, { DialogHandle, DialogProps, withDialogHeader } from ".";
 import Logger from "../../__internal__/utils/logger";
 
 beforeEach(() => {
@@ -580,4 +580,34 @@ test("removes content padding when disableContentPadding is true", () => {
     "padding",
     "0px",
   );
+});
+
+describe("withDialogHeader HOC", () => {
+  test("wraps Dialog component and renders with custom heading", () => {
+    const DialogWithCustomHeading = withDialogHeader(Dialog);
+
+    render(
+      <DialogWithCustomHeading
+        open
+        title="Custom Title"
+        subtitle="Custom Subtitle"
+        renderHeading={(title, subtitle) => (
+          <div data-role="custom-heading">
+            <h1>{title}</h1>
+            <p>{subtitle}</p>
+          </div>
+        )}
+      />,
+    );
+
+    const customHeading = screen.getByTestId("custom-heading");
+    expect(customHeading).toBeVisible();
+    expect(
+      within(customHeading).getByRole("heading", {
+        level: 1,
+        name: /Custom Title/i,
+      }),
+    ).toBeVisible();
+    expect(customHeading).toHaveTextContent("Custom Subtitle");
+  });
 });
