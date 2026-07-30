@@ -3,6 +3,48 @@
 The migration catalogue is the source of truth. The generated register is a
 review aid, never an independently edited database.
 
+Use
+[`CATALOGUE_RECORD_REFERENCE.md`](./CATALOGUE_RECORD_REFERENCE.md)
+for every allowed scope, kind, subject, guidance, risk, automation, and API
+reference variant, with selection rules and copyable examples.
+
+## Discover and review possible work
+
+Run `npm run discover:migrations -- --from <version> --to <version>` while
+preparing a release or auditing an interval. It reads local changelog sections,
+explicit public markers, current package requirements, and catalogue
+correlations. It does not use the network, customer code, telemetry, or AI.
+Outputs under `migration-tooling/discovery/` are non-authoritative and
+byte-stable. Confidence describes evidence correlation, not correctness.
+Missing evidence and unsupported mechanisms remain explicit.
+
+Review discovery work using the shared ownership, batching, decision, and AI
+boundaries in
+[`discovery/README.md`](./discovery/README.md). The complete inventory is not
+assigned to the tooling implementor alone.
+
+The generated candidate inventory is a POC review input, not a decision store.
+Reviewers add only approved, complete migrations to the authoritative
+catalogue. AI may correlate evidence but cannot approve semantics.
+
+Current-tree markers without reliable changelog, tag/diff, catalogue, or other
+version evidence are reported as `current-snapshot-unbounded`; they are useful
+inventory leads but are not qualified for the requested interval. Explicit
+internal-only wording and styled/private implementation subjects cannot
+independently create customer migration candidates.
+
+Use `npm run create:migration -- --id <id> [--scope upgrade|deprecation]
+[--required-by <version>] [--deprecated-in <version>] [--evidence <value>]`
+to create a reviewable draft. `requiredBy` and `deprecatedIn` are independent.
+The scaffold never invents missing semantics or edits `catalogue.ts`.
+
+After accountable review, a developer manually adds only an approved and
+complete typed record to `catalogue.ts`, adds rule/tests when applicable, and
+regenerates the register. No Git hook inserts or approves migrations because
+approval requires human semantic responsibility. `npm run
+validate:migrations` detects stale discovery artifacts as well as the
+existing catalogue, register, marker, provenance, and fixture failures.
+
 ## Add a safe migration
 
 1. Add one typed catalogue record with a stable lowercase migration ID,

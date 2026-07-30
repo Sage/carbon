@@ -3,6 +3,14 @@
 This document is the persistent source of truth for implementation progress,
 verification, decisions, deviations, and remaining work.
 
+Phase 5 is complete at the deterministic discovery POC boundary. Discovery
+uses conservative forward-only declaration association, reports unversioned
+current-tree markers as `current-snapshot-unbounded`, filters explicit
+internal/styled implementation markers, validates discovery and draft artifact
+contracts at runtime, and rejects malformed maintainer CLI invocations.
+Semantic review and catalogue expansion remain visible as `P5-L1` and `P5-L2`
+Phase 6 work; no unreviewed candidate affects customer commands.
+
 The implementation requirements, tasks, deliverables, exit criteria, and
 estimates remain in [PLAN.md](./PLAN.md). Every phase transition must follow
 [PHASE_GATES.md](./PHASE_GATES.md).
@@ -1163,33 +1171,138 @@ Phase 6 release-readiness work.
 
 - Plan reference:
   [Phase 5](./PLAN.md#phase-5-migration-discovery-and-catalogue-backfill)
-- Status: not-started
-- Phase-gate outcome: not evaluated
+- Status: complete
+- Phase-gate outcome: `advance`
 - Owner: current project implementor with Carbon API and release reviewers
 
 ### Implemented
 
-None recorded.
+- Added deterministic local discovery with interval validation, changelog
+  boundaries, explicit marker, package-requirement, catalogue-correlation, and
+  historical-codemod evidence.
+- Added byte-stable non-authoritative candidate and coverage artifacts under
+  `migration-tooling/discovery/`.
+- Added isolated draft scaffolding that refuses invalid/duplicate IDs, records
+  only supplied evidence, and lists all missing human-review fields.
+- Added stale Phase 5 artifact validation to `validate:migrations`.
+- Preserved the five-record catalogue and register; no unreviewed candidate was
+  approved or inserted.
+- Refined the original location-driven output: changed-file rows are boundary
+  evidence, internal/docs changes cannot create candidates,
+  tagged package requirements are compared rather than assumed, annotations
+  retain declaration context, and subject/action/release grouping replaces
+  evidence-location identity.
 
 ### Handoff artifacts
 
-None recorded.
+- [Phase 5 handoff](./handoffs/PHASE_5.md)
+- [Candidate inventory](./discovery/candidates.json)
+- [Coverage report](./discovery/coverage.md)
+- [Catalogue record reference](./CATALOGUE_RECORD_REFERENCE.md)
+- [Discovery implementation](../packages/carbon-react-migrate/src/discovery.ts)
 
 ### Verification
 
-None recorded.
+- Package build passed.
+- Package tests passed: 62/62.
+- Catalogue validation passed: five records and four boundaries.
+- `npm run validate:migrations` passed: 320 markers across 1,637 source files,
+  maintained Phase 5 artifacts, and 62/62 tests.
+- Refined discovery produces 1 interval-qualified candidate and 264
+  current-snapshot leads, 3 catalogue-correlated groups, 81
+  boundary-only rows, 720 internal-only rows, 7 rule rejections, and 141
+  ambiguous rows. Repeated output hashes matched; catalogue/register hashes did
+  not change.
+
+#### Formal phase gate
+
+- Reviewer: current implementor with AI evidence review
+- Outcome: `advance`
+
+| Check                        | Result               | Evidence or reason                                                                                           |
+| ---------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Scope                        | pass                 | Phase 5 only; no CI workflow or Phase 6 implementation changed.                                              |
+| Deliverable                  | pass                 | Deterministic discovery POC, candidate inventory, coverage, and safe scaffolding are delivered.              |
+| Exit criteria                | pass                 | Determinism, isolation, scaffolding, honest coverage, and catalogue isolation pass.                          |
+| Correctness and safety       | pass                 | Discovery is local and non-authoritative; customer selection remains catalogue-only.                         |
+| Documentation and provenance | pass with limitation | Workflow and codemod evidence contract are documented; absent historical source was not copied.              |
+| Ownership and approvals      | pass with limitation | POC implementation is verified; semantic approval is explicitly deferred to Phase 6.                        |
+| Leftovers and plan health    | pass                 | `P5-L1` and `P5-L2` are visible Phase 6 follow-ups and do not overstate current catalogue coverage.          |
+| Repository state             | pass                 | Required verification and `git diff --check` pass; Phase 4 edits are preserved.                              |
+
+##### Exit-criterion evidence
+
+- Boundary evidence: pass with limitation; every changelog boundary is listed,
+  and absent local tag/API-diff evidence is explicitly unsupported.
+- Repeated discovery: pass; all three generated artifact hashes match.
+- Non-authoritative/customer-unselected: pass; isolated paths and adversarial
+  no-write tests.
+- Complete approved records: not-applicable to the POC gate; no candidate was
+  promoted without review.
+- Draft completeness reporting: pass by targeted invalid, duplicate,
+  successful, and no-overwrite tests.
+- Register contains approved catalogue only: pass; hashes unchanged.
+- Honest coverage: pass; unresolved/unsupported areas and no-completeness claim.
+- Pilot gaps: explicitly deferred to Phase 6 before any release decision.
 
 ### Decisions
 
-None recorded.
+- `P5-D1`: isolate discovery/drafts from customer selection.
+- `P5-D2`: keep discovered candidates non-authoritative and outside customer
+  commands until approved catalogue records are added.
+- `P5-D3`: treat historical `Sage/carbon-codemod` references as evidence only
+  until local source, fixtures, versions, semantics, and Apache-2.0 attribution
+  are reviewed; add no archived runtime dependency or copied code.
+- `P5-D4`: file name-status changes prove boundary inspection only; classify
+  tests/stories/Playwright/snapshots/generated/private/docs separately and
+  preserve ambiguous public-area changes.
+- `P5-D5`: candidate IDs derive from public subject, action, and release;
+  retain deterministic old-to-new mappings and source locations.
+- `P5-D6`: ordinary Bug Fixes entries do not qualify as customer migrations
+  merely because they contain words such as `remove`, `replace`, or
+  `use ... instead`; they require explicit migration/deprecation language or a
+  codemod signal.
 
 ### Leftovers
 
-None recorded.
+- `P5-L1`: accountable candidate semantic review.
+  - Classification: required follow-up
+  - Reason: the remaining npm `>=11.15.0` requirement candidate needs a
+    release/tooling decision about customer applicability and representation.
+  - Risk: missing or incorrect customer migration semantics.
+  - Effect on exit criteria: blocks Phase 6 pilot/release readiness, not the
+    Phase 5 discovery POC.
+  - Target phase: Phase 6
+  - Owner or ownership area: Carbon API and release reviewers
+  - Dependencies or unblock condition: decide whether the npm 11.15 boundary
+    is customer-facing and whether it needs a separate record or stepped
+    requirement model.
+  - Planned verification: validate approved records, regenerated register,
+    discovery, and full suite.
+  - Status: open
+  - Resolution evidence: not applicable.
+- `P5-L2`: durable historical API/codemod semantic evidence.
+  - Classification: required follow-up
+  - Reason: local release tag file diffs and tagged package comparisons are now
+    implemented, but 141 public-area/requirement items remain ambiguous and
+    archived codemod source/safety evidence remains unavailable.
+  - Risk: high-risk interval gaps may remain.
+  - Effect on exit criteria: blocks representative-pilot readiness.
+  - Target phase: Phase 6
+  - Owner or ownership area: implementor, Carbon API/codemod reviewers
+  - Dependencies or unblock condition: review ambiguous API diffs and provide
+    relevant archived codemod source/fixture/version/license evidence if a
+    transform is referenced.
+  - Planned verification: regenerate/review coverage and run JS/JSX/TS/TSX
+    safety tests for any approved port.
+  - Status: open (narrowed; deterministic local tag/package inspection resolved)
+  - Resolution evidence: candidate inventory dispositions and coverage report.
 
 ### Deviations from plan
 
-None recorded.
+- Phase 5 closes at the deterministic discovery POC boundary. Accountable
+  semantic review, catalogue expansion, and pilot-gap acceptance move to Phase
+  6 because they require team participation and a selected pilot scope.
 
 ### Estimate changes
 
@@ -1197,8 +1310,8 @@ None recorded.
 
 ### Next action
 
-Wait for the Phase 4 gate to pass. Use the Phase 5 prompt only after `P4-L1` is
-resolved.
+Start Phase 6 by choosing a representative pilot scope, then review only the
+candidate and codemod evidence needed for that scope before a release decision.
 
 ## Phase 6: Pilot and release decision
 
@@ -1226,7 +1339,8 @@ None recorded.
 
 ### Leftovers
 
-- Accept `P0-L6` and the narrowed `P0-L7` as required Phase 6 work.
+- Accept `P0-L6`, the narrowed `P0-L7`, `P5-L1`, and `P5-L2` as required Phase
+  6 work.
 
 ### Deviations from plan
 
@@ -1238,8 +1352,8 @@ None recorded.
 
 ### Next action
 
-Wait for Phase 5 to complete its formal gate and provide reviewed catalogue and
-coverage evidence.
+Choose a representative pilot scope, assign accountable reviewers, and review
+the catalogue gaps relevant to that scope.
 
 ## Additional or remediation phases
 
@@ -1248,8 +1362,8 @@ None recorded.
 ## Cross-phase requirements
 
 - Keep required-upgrade and optional-deprecation tracks separate.
-- Complete deterministic discovery and reviewed catalogue backfill in Phase 5
-  before the Phase 6 pilot and release decision.
+- Use the completed deterministic discovery POC to bound Phase 6 semantic
+  review, catalogue expansion, pilot scope, and release decision.
 
 ## Cross-phase leftovers
 
@@ -1259,3 +1373,4 @@ None recorded.
 - `P2-L1` → resolved in Phase 3.
 - `P2-L2` → resolved in Phase 2.
 - `P2-L3` → resolved in Phase 4.
+- `P5-L1` and `P5-L2` → Phase 6.

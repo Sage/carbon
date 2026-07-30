@@ -787,13 +787,12 @@ Tasks:
 - Add `npm run create:migration` to scaffold a draft typed catalogue record for
   a new public change without inventing replacement guidance, risk, or
   automation safety.
-- Require reviewers to approve, reject, merge, exempt, or request more evidence
-  for every candidate, with durable reasons.
-- Add approved candidates to the authoritative catalogue and regenerate the
-  migration register.
+- Leave candidate semantic review and catalogue expansion for the pilot/release
+  decision when accountable reviewers are available.
 - Produce a coverage report for the candidate `159.0.0 → 161.7.0` interval,
-  separating reviewed records, rejected/internal-only candidates, exemptions,
-  unresolved gaps, and areas the discovery mechanisms cannot inspect.
+  separating approved catalogue correlations, qualified and unbounded
+  candidates, internal or rejected evidence, unresolved gaps, and areas the
+  discovery mechanisms cannot inspect.
 - Preserve the rule that developers update the catalogue, while the register is
   generated output.
 - Keep discovery and scaffolding deterministic and independent of AI. AI may
@@ -801,9 +800,9 @@ Tasks:
 
 Deliverable:
 
-- A reviewed catalogue and coverage report for the candidate
-  `159.0.0 → 161.7.0` interval, supported by deterministic discovery and record
-  scaffolding.
+- A deterministic discovery POC, non-authoritative candidate inventory,
+  coverage report, and record scaffolding for the candidate
+  `159.0.0 → 161.7.0` interval.
 
 Exit criteria:
 
@@ -813,16 +812,13 @@ Exit criteria:
 - Running discovery twice produces byte-identical candidate output.
 - Candidate output is visibly non-authoritative and is never selected by
   `plan`, `check`, or `apply`.
-- Every discovered candidate has a durable review decision and evidence.
-- Every approved record contains reviewed applicability, version,
-  replacement/removal guidance, automation status, risks, and manual checks.
-- Rejected, merged, internal-only, and exempted candidates retain reasons.
+- The generated candidate inventory is reproducible and clearly
+  non-authoritative; only reviewed, complete records enter the catalogue.
 - `create:migration` produces a schema-valid draft and clearly reports every
   field that still requires human review.
 - The official generated register contains only approved catalogue records.
 - The coverage report lists unresolved and unsupported areas without claiming
   completeness.
-- No unresolved high-risk catalogue gap blocks a representative customer pilot.
 
 Estimate:
 
@@ -836,6 +832,10 @@ Estimate:
 
 Tasks:
 
+- Review the Phase 5 candidates in accountable, manageable batches and decide
+  which records should enter the authoritative catalogue.
+- Review ambiguous public API and historical codemod evidence; add only
+  complete, approved records and regenerate the migration register.
 - Run the CLI against at least one representative customer-style project or
   approved realistic fixture application.
 - Exercise relevant application flows and compare runtime deprecation warnings
@@ -853,6 +853,8 @@ Deliverable:
 
 Exit criteria:
 
+- Candidate review needed for the chosen pilot scope is complete, and remaining
+  catalogue gaps are explicitly accepted, deferred, or release-blocking.
 - No known destructive or incorrect edit remains in the supported subset.
 - Limitations are visible before application.
 - Differences between static findings and observed runtime warnings are

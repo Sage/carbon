@@ -5,15 +5,128 @@ read-only diagnosis, safe application, and maintainer validation. It is locally 
 implementation and pilot work; it is not published, and `159.0.0` is not a
 public support baseline.
 
-## Maintainer commands
+## What the migration register is worth
 
-For catalogue or public API changes, use the repository-level workflow:
+The generated
+[`MIGRATION_REGISTER.md`](../../migration-tooling/generated/MIGRATION_REGISTER.md)
+is a trustworthy report of the migrations already approved in
+`src/catalogue.ts`. It is useful for maintainers and customers to see:
+
+- which version boundary activates each approved migration;
+- whether the tool can apply it safely or only provide manual guidance;
+- the affected component or prop, replacement guidance, risks, and checks;
+- and the documentation, changelog, or migration-skill links that are actually
+  available.
+
+It is not a complete history of every Carbon change from `159.0.0`. It does not
+automatically gain entries from discovery, and it does not prove that a project
+has no other migration work. At this POC stage it covers only the approved
+catalogue records. Customer `plan`, `check`, and `apply` commands deliberately
+use that smaller authoritative catalogue—not the larger candidate inventory.
+
+The discovery artifacts have a different value: they show where future
+catalogue work may exist and make review reproducible. A developer must verify
+a candidate’s public semantics, versions, guidance, and automation safety
+before adding a catalogue record and regenerating the register.
+The
+[catalogue record reference](../../migration-tooling/CATALOGUE_RECORD_REFERENCE.md)
+lists every allowed record variant and explains how to choose it.
+
+## Developer POC workflow
+
+Run the following commands from the Carbon repository root. For the current
+POC branch:
+
+```sh
+git switch FE-7710-carbon-migration-tooling
+npm ci
+npm run build --prefix packages/carbon-react-migrate
+```
+
+`npm ci` installs the exact dependency versions in `package-lock.json` without
+updating the lockfile. After the branch is merged or renamed, switch to the
+branch or commit containing this package instead of the POC branch name above.
+
+Generate the local, non-authoritative discovery inventory:
+
+```sh
+npm run discover:migrations -- \
+  --from 159.0.0 \
+  --to 161.7.0
+```
+
+Review:
+
+- `migration-tooling/discovery/candidates.md` for the human-readable candidate
+  list;
+- `migration-tooling/discovery/candidates.json` for deterministic
+  machine-readable evidence;
+- and `migration-tooling/discovery/coverage.md` for unresolved and unsupported
+  areas.
+
+Discovery uses only repository-local evidence and writes byte-stable JSON and
+Markdown under `migration-tooling/discovery/`. Results distinguish
+`interval-qualified` evidence from `current-snapshot-unbounded` markers that
+still need reliable version evidence. Every result remains non-authoritative
+and is excluded from customer commands.
+
+After reviewing a candidate, scaffold only the facts already supported by
+evidence. For a required upgrade:
+
+```sh
+npm run create:migration -- \
+  --id <stable-migration-id> \
+  --scope upgrade \
+  --required-by <version> \
+  --evidence <repository-file:line>
+```
+
+For optional deprecation cleanup:
+
+```sh
+npm run create:migration -- \
+  --id <stable-migration-id> \
+  --scope deprecation \
+  --deprecated-in <version> \
+  --evidence <repository-file:line>
+```
+
+The scaffold is written under `migration-tooling/drafts/`. It records supplied
+metadata and lists missing human-review fields; it never edits or approves
+`catalogue.ts`. Use the
+[catalogue record reference](../../migration-tooling/CATALOGUE_RECORD_REFERENCE.md)
+to complete an approved typed record manually. Add and register a deterministic
+rule with positive, negative, ambiguous, and idempotency tests only when the
+supported transformation is demonstrably safe.
+
+Regenerate the Markdown register from the authoritative catalogue, validate the
+workflow, and inspect exactly what changed:
 
 ```sh
 npm run generate:migration-register
 npm run validate:migrations
 git diff --check
+
+git diff -- \
+  packages/carbon-react-migrate/src/catalogue.ts \
+  packages/carbon-react-migrate/src \
+  migration-tooling/generated/MIGRATION_REGISTER.md \
+  migration-tooling/discovery
 ```
+
+Developers edit `catalogue.ts`; they never edit the generated register
+directly. Discovery candidates do not enter the catalogue or register
+automatically.
+
+Maintainer argument parsing is strict: duplicate or unknown options, missing
+values, stray/excess positional arguments, and scope/version combinations that
+contradict each other return exit code 2.
+
+Candidate semantics and codemod safety are reviewed as shared team work. See
+the
+[migration discovery team review guide](../../migration-tooling/discovery/README.md)
+for reviewer responsibilities, batching, and the boundary between AI
+assistance and accountable human approval.
 
 Commit the API change, catalogue record or reviewed exemption, and
 `migration-tooling/generated/MIGRATION_REGISTER.md` together. The same
@@ -22,14 +135,53 @@ pending team review of the POC. See
 [`migration-tooling/MAINTAINER_WORKFLOW.md`](../../migration-tooling/MAINTAINER_WORKFLOW.md)
 for safe/manual authoring, stable migration IDs, review, and ownership.
 
-Run these from the repository root after the normal root installation:
+## Customer-style POC workflow
+
+The package is currently private and unpublished, so these commands exercise a
+local customer project from the Carbon repository. Replace
+`<customer-project-path>` with a clean Git worktree or protected test copy.
+
+First inspect required upgrade work without modifying customer files:
 
 ```sh
-npm run migrate --prefix packages/carbon-react-migrate -- plan --from 159.0.0 --to 160.0.0
-npm run migrate --prefix packages/carbon-react-migrate -- check --from 160.0.0 --to 161.0.0 <path>
-npm run migrate --prefix packages/carbon-react-migrate -- check-deprecations <path>
-npm run migrate --prefix packages/carbon-react-migrate -- apply --from 160.0.0 --to 161.0.0 <path>
-npm run migrate --prefix packages/carbon-react-migrate -- apply-deprecations <path>
+npm run migrate --prefix packages/carbon-react-migrate -- \
+  plan --from 159.0.0 --to 160.0.0
+
+npm run migrate --prefix packages/carbon-react-migrate -- \
+  check --from 159.0.0 --to 160.0.0 <customer-project-path>
+```
+
+Inspect optional proactive deprecation cleanup separately:
+
+```sh
+npm run migrate --prefix packages/carbon-react-migrate -- \
+  check-deprecations <customer-project-path>
+```
+
+Preview safe required-upgrade edits:
+
+```sh
+npm run migrate --prefix packages/carbon-react-migrate -- \
+  apply --from 159.0.0 --to 160.0.0 \
+  <customer-project-path> --dry-run
+```
+
+After reviewing the report, ensuring the customer worktree is clean or
+otherwise protected, and accepting the supported edits:
+
+```sh
+npm run migrate --prefix packages/carbon-react-migrate -- \
+  apply --from 159.0.0 --to 160.0.0 <customer-project-path>
+```
+
+Optional deprecation edits have their own preview and application:
+
+```sh
+npm run migrate --prefix packages/carbon-react-migrate -- \
+  apply-deprecations <customer-project-path> --dry-run
+
+npm run migrate --prefix packages/carbon-react-migrate -- \
+  apply-deprecations <customer-project-path>
 ```
 
 Add `--format json` for the version 1 report defined by

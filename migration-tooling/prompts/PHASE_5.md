@@ -138,25 +138,12 @@ Choose the least risky output contract supported by the repository. Prefer a
 reviewable draft artifact over unsafe automatic source editing unless
 repository evidence and tests justify a narrow edit.
 
-### 4. Durable review workflow
+### 4. Non-authoritative review input
 
-Define and implement a durable review-decision format for every candidate:
-
-- approved;
-- rejected;
-- merged into another candidate;
-- internal-only;
-- exempted;
-- or needs-more-evidence.
-
-Every decision must retain its reason and evidence. Only approved, complete
-records may be added to the authoritative catalogue. AI may help correlate
-evidence but cannot approve migration semantics.
-
-Do not automatically mark all discovered candidates approved. If the current
-task lacks accountable review for candidate semantics, leave candidates
-`needs-review` and record that as a Phase 5 gate blocker rather than fabricating
-completion.
+Generate a reproducible candidate inventory for later team review. Do not
+create or maintain a separate review-decision database. Only approved,
+complete records may be added to the authoritative catalogue. AI may help
+correlate evidence but cannot approve migration semantics.
 
 ### 5. Candidate-interval coverage report
 

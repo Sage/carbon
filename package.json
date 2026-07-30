@@ -25,6 +25,8 @@
     "commit": "node ./scripts/commit/commit.mjs",
     "generate-metadata": "node ./scripts/generate_metadata/index.mjs",
     "generate:migration-register": "npm run generate:register --prefix packages/carbon-react-migrate",
+    "discover:migrations": "npm --prefix packages/carbon-react-migrate run discover:migrations --",
+    "create:migration": "npm --prefix packages/carbon-react-migrate run create:migration --",
     "validate:migrations": "npm run validate:maintainer --prefix packages/carbon-react-migrate && npm run test --prefix packages/carbon-react-migrate",
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch",
