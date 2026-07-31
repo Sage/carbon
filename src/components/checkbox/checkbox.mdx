@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as CheckboxStories from "./checkbox.stories";
 
@@ -31,6 +31,26 @@ Checkbox provides a way to check an individual option are selected, or check mul
 import { Checkbox } from "carbon-react/lib/components/checkbox";
 ```
 
+## Playground
+
+Use this interactive example to explore Checkbox props with Storybook controls.
+
+<Canvas of={CheckboxStories.Playground} />
+
+<Controls
+  of={CheckboxStories.Playground}
+  include={[
+    "label",
+    "inputHint",
+    "disabled",
+    "required",
+    "size",
+    "indeterminate",
+    "error",
+    "progressiveDisclosure",
+  ]}
+/>
+
 ## Related Components
 
 - Choosing one option from a longer list? [Try Radio Button](../?path=/docs/radio-button--docs).
@@ -39,27 +59,9 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
 
 ## Examples
 
-### With Label
-
-Pass the `label` prop to `Checkbox` to set a label.
-
-<Canvas of={CheckboxStories.WithLabel} />
-
-### With Input Hint
-
-To add a hint to a `Checkbox`, pass the `inputHint` prop.
-
-<Canvas of={CheckboxStories.WithInputHint} />
-
-### Sizes
-
-The size of the component can be changed by passing the `size` prop to `Checkbox`. Available options are `small`, `medium`, and `large`.
-
-<Canvas of={CheckboxStories.Sizes} />
-
 ### Progressive Disclosure
 
-`Checkbox` can be used to conditionally reveal additional content when selected. 
+`Checkbox` can be used to conditionally reveal additional content when selected.
 This can be achieved by passing the content to the `progressiveDisclosure` prop in `Checkbox`, which accepts any valid ReactNode.
 
 It is recommended that you provide limited amounts of content within conditionally revealed sections, if you need to disclose larger amounts of content, please consider using a different pattern.
@@ -68,34 +70,11 @@ It is recommended that you provide limited amounts of content within conditional
 
 <Canvas of={CheckboxStories.ProgressiveDisclosure} />
 
-### Indeterminate State
-
-The indeterminate state is useful for parent-child selection patterns, such as a "Select All" checkbox that controls a list of related checkboxes.
-Set the parent checkbox's `indeterminate` prop to `true` when some, but not all, child checkboxes are selected.
-
-When using this pattern, you should also set `aria-controls` on the parent checkbox to a space-separated list of the child checkbox IDs so assistive technologies can understand the relationship.
-
-<Canvas of={CheckboxStories.IndeterminateState} />
-
 ### With Custom Labels
 
 The `label` prop in `Checkbox` accepts a ReactNode, which allows for custom content to be displayed as the label.
 
 <Canvas of={CheckboxStories.WithCustomLabel} />
-
-### Required
-
-`Checkbox` can be marked as required by passing the `required` prop.
-
-<Canvas of={CheckboxStories.Required} />
-
-### Disabled
-
-`Checkbox` can be disabled using the `disabled` prop.
-
-**Please Note**: Even though Carbon does support disabled checkboxes, their use is not generally recommended by Design System.
-
-<Canvas of={CheckboxStories.Disabled} />
 
 ## Props
 
