@@ -323,3 +323,160 @@ LinkComponentWithAnImage.parameters = {
     focus: '[data-role="target"] a',
   },
 };
+
+// Documentation regression stories moved from the public docs.
+
+export const DocumentationDefault: Story = {
+  render: (args) => <Link {...args}>{args.children}</Link>,
+  args: {
+    children: "This is an anchor link",
+    href: "https://carbon.sage.com",
+  },
+};
+
+export const WithUnderlineOnlyOnHover: Story = {
+  ...DocumentationDefault,
+  args: {
+    ...DocumentationDefault.args,
+    children: "This is an anchor link with an underline applied on hover",
+    underline: "hover",
+  },
+};
+
+export const WithNoUnderline: Story = {
+  ...DocumentationDefault,
+  args: {
+    ...DocumentationDefault.args,
+    children: "This is an anchor link with no underline",
+    underline: "never",
+  },
+};
+
+export const WithIcon: Story = {
+  render: (args) => (
+    <>
+      <Typography>
+        <Link iconAlign="left" {...args}>
+          Link with left icon
+        </Link>
+      </Typography>
+      <Typography>
+        <Link iconAlign="right" {...args}>
+          Link with right icon
+        </Link>
+      </Typography>
+    </>
+  ),
+  args: {
+    href: "https://carbon.sage.com",
+    icon: "settings",
+  },
+  decorators: [
+    (Story) => (
+      <Box display="flex" flexDirection="row" gap={4}>
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const LinkSize: Story = {
+  render: (args) => (
+    <>
+      <Typography>
+        <Link linkSize="medium" {...args}>
+          This is a medium link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link linkSize="large" {...args}>
+          This is a large link
+        </Link>
+      </Typography>
+    </>
+  ),
+  args: {
+    href: "https://carbon.sage.com",
+  },
+  decorators: [
+    (Story) => (
+      <Box display="flex" flexDirection="row" gap={4}>
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const Bold: Story = {
+  ...DocumentationDefault,
+  args: {
+    ...DocumentationDefault.args,
+    children: "This is a bold link",
+    bold: true,
+  },
+};
+
+export const Variants: Story = {
+  render: (args) => (
+    <>
+      <Typography>
+        <Link variant="typical" {...args}>
+          This is a typical link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="negative" {...args}>
+          This is a negative link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="subtle" {...args}>
+          This is a subtle link
+        </Link>
+      </Typography>
+    </>
+  ),
+  args: {
+    href: "https://carbon.sage.com",
+  },
+  decorators: [
+    (Story) => (
+      <Box display="flex" flexDirection="row" gap={4}>
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const Inverse: Story = {
+  render: (args) => (
+    <>
+      <Typography>
+        <Link variant="typical" {...args}>
+          This is an inverse typical link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="negative" {...args}>
+          This is an inverse negative link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="subtle" {...args}>
+          This is an inverse subtle link
+        </Link>
+      </Typography>
+    </>
+  ),
+  args: {
+    href: "https://carbon.sage.com",
+    inverse: true,
+  },
+  decorators: [
+    (Story) => (
+      <Box p={2} display="flex" flexDirection="row" gap={4} bg="#000">
+        <Story />
+      </Box>
+    ),
+  ],
+};
