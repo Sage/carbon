@@ -537,6 +537,8 @@ function resolvePropsDefinition(
           "**/*.stories.*",
           "**/*.pw.*",
           "**/*.mdx",
+          "**/__internal__/**",
+          "**/__next__/**",
         ],
       }).sort();
 
@@ -584,7 +586,10 @@ function moduleHasDefaultExport(projectInstance, modulePath) {
  */
 function extractPropsFromDefinition(propsDefinition, defaultsMap) {
   const type = propsDefinition.node.getType();
-  return type.getProperties().map((symbol) => {
+  return type
+    .getProperties()
+    .filter((symbol) => !shouldExcludePropSymbol(symbol))
+    .map((symbol) => {
     const declaration = symbol
       .getDeclarations()
       .find(
@@ -625,6 +630,54 @@ function extractPropsFromDefinition(propsDefinition, defaultsMap) {
       deprecationReason: deprecationInfo.reason,
     };
   });
+}
+
+/**
+ * Determine whether a prop symbol should be excluded from generated docs.
+ * @param {import("ts-morph").Symbol} symbol
+ * @returns {boolean}
+ */
+function shouldExcludePropSymbol(symbol) {
+  const declarations = symbol
+    .getDeclarations()
+    .filter(
+      (declaration) =>
+        declaration.isKind(SyntaxKind.PropertySignature) ||
+        declaration.isKind(SyntaxKind.PropertyDeclaration),
+    );
+
+  if (!declarations.length) {
+    return false;
+  }
+
+  // Only exclude when every contributing declaration is explicitly internal/private.
+  // This avoids removing public props that share a symbol across legacy and internal types.
+  return declarations.every((declaration) => {
+    const jsDocs = getJsDocsFromNode(declaration);
+    return hasExcludedVisibilityTag(jsDocs);
+  });
+}
+
+/**
+ * Detect JSDoc visibility tags that should hide a prop from generated docs.
+ * @param {import("ts-morph").JSDoc[]} jsDocs
+ * @returns {boolean}
+ */
+function hasExcludedVisibilityTag(jsDocs) {
+  for (const doc of jsDocs) {
+    for (const tag of doc.getTags()) {
+      const tagName = tag.getTagName().toLowerCase();
+      if (
+        tagName === "private" ||
+        tagName === "ignore" ||
+        tagName === "internal" ||
+        tagName === "hidden"
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 /**

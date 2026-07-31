@@ -21,9 +21,6 @@ description: Carbon PicklistGroup component props and usage examples.
 | onChange | () => void | Yes |  | Handler invoked when add/remove button is clicked or when space/enter is pressed on the whole item |  |
 | title | React.ReactNode | Yes |  | Group title |  |
 | type | "add" \| "remove" | Yes | add \| remove | Define if item is of type add or remove |  |
-| index | number \| undefined | No |  |  |  |
-| isLastGroup | boolean \| undefined | No |  |  |  |
-| listIndex | number \| undefined | No |  |  |  |
 
 ## Examples
 No Storybook examples found.

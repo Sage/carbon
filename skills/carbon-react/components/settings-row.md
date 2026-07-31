@@ -18,7 +18,6 @@ description: Carbon SettingsRow component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | Content to be rendered inside the component. |  |
-| className | string \| undefined | No |  |  |  |
 | description | React.ReactNode | No |  | A string or JSX object that provides a short description about the group of settings. |  |
 | divider | boolean \| undefined | No |  | Shows a divider below the component. | true |
 | headingType | HeadingType \| undefined | No |  | Defines the HTML heading element of the `title` within the component. | "h3" |

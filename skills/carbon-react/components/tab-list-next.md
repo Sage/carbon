@@ -17,7 +17,6 @@ description: Carbon TabListNext component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | ariaLabel | string | Yes |  | The label read out when the tab list gains focus |  |
 | children | React.ReactNode | No |  | The tabs to be shown in the tab list |  |
-| headerWidth | string \| undefined | No |  |  |  |
 | onTabChange | ((tabId: string) => void) \| undefined | No |  | A callback for when the active tab is changed |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

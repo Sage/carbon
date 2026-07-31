@@ -17,8 +17,6 @@ description: Carbon DraggableItem component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | The content of the component. |  |
 | id | string \| number | Yes |  | The id of the `DraggableItem`. Use this prop to make `Draggable` work |  |
-| flexDirection | "row" \| "row-reverse" \| undefined | No |  |  |  |
-| index | number \| undefined | No |  |  |  |
 | p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
 | padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
 | paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
