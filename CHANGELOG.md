@@ -1,3 +1,15 @@
+## [161.9.2](https://github.com/Sage/carbon/compare/v161.9.1...v161.9.2) (2026-07-31)
+
+### Bug Fixes
+
+* **advanced-color-picker:** generate valid html ids for colour inputs ([dd7a618](https://github.com/Sage/carbon/commit/dd7a61808df0c038c1d3a36926cc8c0ffafac11b))
+
+## [161.9.1](https://github.com/Sage/carbon/compare/v161.9.0...v161.9.1) (2026-07-31)
+
+### Bug Fixes
+
+* **loader:** use inverse outer-arc token ([c1f8ea0](https://github.com/Sage/carbon/commit/c1f8ea0cf3c3c6589bb03cc14a841633e8e39920))
+
 ## [161.9.0](https://github.com/Sage/carbon/compare/v161.8.0...v161.9.0) (2026-07-30)
 
 ### Features

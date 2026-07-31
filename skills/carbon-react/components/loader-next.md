@@ -17,7 +17,7 @@ description: Carbon LoaderNext component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | animationTime | number \| undefined | No |  | Specify a custom animation time for the loader |  |
 | hasMotion | boolean \| undefined | No |  | If set to `false` all motion will be suspended | true |
-| inverse | boolean \| undefined | No |  | Toggle the inverse color scheme | false |
+| inverse | boolean \| undefined | No |  | Toggle the inverse color scheme |  |
 | isError | boolean \| undefined | No |  | Enable the error state for the ring loader when it is tracked | false |
 | isSuccess | boolean \| undefined | No |  | Enable the success state for the ring loader when it is tracked | false |
 | isTracked | boolean \| undefined | No |  | If set to `true` the animation type will become tracked, this is used specifically for when wait times are predictable | false |
