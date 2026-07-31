@@ -25,6 +25,25 @@ const meta: Meta<typeof Search> = {
 export default meta;
 type Story = StoryObj<typeof Search>;
 
+export const Playground: Story = {
+  render: (args) => {
+    const [value, setValue] = useState("");
+    return (
+      <Search
+        {...args}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    );
+  },
+  args: {
+    placeholder: "Search",
+    searchButton: false,
+    variant: "default",
+  },
+};
+Playground.storyName = "Playground";
+
 export const Default: Story = () => {
   const [value, setValue] = useState("");
 
