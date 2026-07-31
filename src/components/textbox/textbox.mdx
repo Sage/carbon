@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as TextboxStories from "./textbox.stories";
@@ -32,6 +32,33 @@ Captures a single line of text.
 import Textbox from "carbon-react/lib/components/textbox";
 ```
 
+## Playground
+
+Use this interactive example to explore Textbox props with Storybook controls.
+
+<Canvas of={TextboxStories.Playground} />
+
+<Controls
+  of={TextboxStories.Playground}
+  include={[
+    "label",
+    "placeholder",
+    "inputHint",
+    "disabled",
+    "readOnly",
+    "required",
+    "size",
+    "prefix",
+    "inputIcon",
+    "inputWidth",
+    "maxWidth",
+    "labelInline",
+    "characterLimit",
+    "error",
+    "warning",
+  ]}
+/>
+
 ## Designer Notes
 
 - Use placeholder text to give the user examples of data formats (e.g. AB123456C for a UK National Insurance number).
@@ -41,24 +68,6 @@ import Textbox from "carbon-react/lib/components/textbox";
 - Use wider fields for longer data (e.g. an address line), and narrower fields for shorter data (e.g. a postcode), to give the user a clue about the data expected.
 
 ## Examples
-
-### Default
-
-<Canvas of={TextboxStories.Default} />
-
-### With inputHint
-
-When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
-before any other announcements, this well help screen reader users understand the hint fully.
-
-<Canvas of={TextboxStories.WithInputHint} />
-
-### Character counter
-
-If you use the `inputHint` prop to provide the user with a hint before the input, please use a full stop `.` at the end,
-as it forces a pause before any other announcements, this well help screen reader users understand the hint fully.
-
-<Canvas of={TextboxStories.CharacterCounter} />
 
 ### Character counter with translations
 
@@ -70,52 +79,6 @@ is over/under the set `characterLimit`. Please see below how this has been achie
 Include the formatted number count wherever makes sense for the language you're translating too.
 
 <Canvas of={TextboxStories.CharacterCounterTranslations} />
-
-### Prefix
-
-<Canvas of={TextboxStories.Prefix} />
-
-### Sizes
-
-<Canvas of={TextboxStories.Sizes} />
-
-### Margins
-
-<Canvas of={TextboxStories.Margins} />
-
-### Disabled
-
-<Canvas of={TextboxStories.Disabled} />
-
-### ReadOnly
-
-<Canvas of={TextboxStories.ReadOnly} />
-
-### With custom maxWidth
-
-<Canvas of={TextboxStories.WithCustomMaxWidth} />
-
-### Required
-
-You can use the `required` prop to indicate if the field is mandatory.
-
-<Canvas of={TextboxStories.Required} />
-
-### With labelInline
-
-Use the `labelInline` prop to display the label on the same horizontal row as the input.
-
-<Canvas of={TextboxStories.WithLabelInline} />
-
-### With custom labelWidth and inputWidth
-
-<Canvas of={TextboxStories.WithCustomLabelWidthAndInputWidth} />
-
-### With fieldHelp (legacy)
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
-
-<Canvas of={TextboxStories.WithFieldHelp} />
 
 ## Validation States
 
