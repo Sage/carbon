@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as SearchStories from "./search.stories";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -33,11 +33,28 @@ it provides a familiar input pattern with a built-in search button.
 import Search, { type SearchHandle, type SearchListGroup, type SearchListData } from "carbon-react/lib/components/search";
 ```
 
+## Playground
+
+Use this interactive example to explore Search props with Storybook controls.
+
+<Canvas of={SearchStories.Playground} />
+
+<Controls
+  of={SearchStories.Playground}
+  include={[
+    "label",
+    "inputHint",
+    "size",
+    "inputWidth",
+    "maxWidth",
+    "required",
+    "triggerOnClear",
+    "inverse",
+    "error",
+  ]}
+/>
+
 ## Examples
-
-### Default
-
-<Canvas of={SearchStories.Default} />
 
 ### With Dropdown
 
@@ -49,8 +66,7 @@ This is controlled via these props on `Search`:
 - **`maxHeight`** — an optional max-height value for the dropdown list. Use this to override the default
   size-based list height.
 - **`minQueryLength`** — minimum number of typed characters used by the built-in results announcement logic.
-  Defaults to `3`. If dropdown visibility depends on query length, use the same threshold for
-  `minQueryLength` so screen-reader announcements match when results are displayed.
+  Defaults to `3`.
 - **`listData`** — an array of `SearchListGroup` objects that define the grouped content of the dropdown.
 - **`onListItemSelect`** — a callback fired when the user chooses an item. It receives the item's `value`
   string, which you can use to update the input value.
@@ -87,46 +103,6 @@ Each item within a group has the following shape:
 Search `"term"` below to see the dropdown in action.
 
 <Canvas of={SearchStories.WithDropdown} />
-
-### With Label and Hint Text
-
-You can pass a visible label and hint text to the `Search` component via the `label` & `inputHint` props.
-
-When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
-before any other announcements, which helps screen reader users understand the hint fully.
-
-<Canvas of={SearchStories.WithLabelAndInputHint} />
-
-### Sizes
-
-The `Search` component supports three size options: `"small"`, `"medium"`, and `"large"`.
-The size prop controls the height and spacing of both the input and button.
-
-<Canvas of={SearchStories.Sizes} />
-
-### Sizes with Dropdown
-
-Each size prop also controls the default max-height of the dropdown. Search `"term"` in any of the inputs below to see the dropdown in action.
-
-<Canvas of={SearchStories.SizesWithDropdown} />
-
-### Custom Width & Max Width
-
-You can set a custom width for the `Search` input by using `inputWidth` prop, or set a custom max-width using the `maxWidth` prop.
-
-<Canvas of={SearchStories.CustomWidths} />
-
-### Inverse
-
-The `inverse` prop applies the inverse colour scheme to the `Search` component.
-
-<Canvas of={SearchStories.Inverse} />
-
-### Label Inline
-
-You can render the label inline with the input by passing the `labelInline` prop.
-
-<Canvas of={SearchStories.LabelInline} />
 
 ## Props
 
