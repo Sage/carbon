@@ -182,8 +182,8 @@ const ToolbarDropdown = ({
     <Box
       position="relative"
       display="inline-block"
-      minWidth={"150px"}
-      marginRight="spacing05"
+      minWidth={size === "large" ? "180px" : "166px"}
+      data-role="toolbar-dropdown-wrapper"
     >
       <StyledButton
         ref={buttonRef}
@@ -197,7 +197,7 @@ const ToolbarDropdown = ({
         aria-label={locale.textEditor.typography.selectAria()}
         onKeyDown={handleKeyDown}
         onClick={handleButtonClick}
-        className="toolbar-button"
+        className="toolbar-button editor-dropdown"
         tabIndex={isFirstButton ? 0 : -1}
         data-role={`${namespace}-typography-dropdown`}
         id={`${namespace}-typography-dropdown`}
@@ -235,7 +235,7 @@ const ToolbarDropdown = ({
                   e.preventDefault();
                   handleOptionClick(option);
                 }}
-                isFocused={options[focusedIndex]?.id === option.id}
+                size={size}
               >
                 {ariaLabel}
               </StyledMenuItem>

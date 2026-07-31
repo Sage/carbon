@@ -33,6 +33,7 @@ description: Carbon Password component props and usage examples.
 | children | ReactNode | No |  |  |  |  |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
+| containerRef | React.Ref<HTMLDivElement> \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
 | contentEditable | "inherit" \| Booleanish \| "plaintext-only" \| undefined | No |  |  |  |  |  |
 | contextMenu | string \| undefined | No |  |  |  |  |  |

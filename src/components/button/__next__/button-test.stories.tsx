@@ -6,6 +6,7 @@ import Textbox from "../../textbox";
 import { action } from "storybook/actions";
 import Typography from "../../typography";
 import Icon from "../../icon";
+import { Loader } from "../../loader/__next__/loader.component";
 import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 
 const meta: Meta<typeof Button> = {
@@ -932,6 +933,49 @@ export const InverseVariants: Story = () => {
 InverseVariants.storyName = "Inverse Variants";
 InverseVariants.parameters = {
   chromatic: { disableSnapshot: true },
+};
+
+export const Loading: Story = () => {
+  return (
+    <Box display="flex" flexDirection="column" gap={2}>
+      <Button variantType="primary">
+        <Loader
+          variant="inline"
+          loaderType="ring"
+          size="extra-small"
+          hasMotion={false}
+        />
+      </Button>
+      <Button variantType="secondary">
+        <Loader
+          variant="inline"
+          loaderType="ring"
+          size="extra-small"
+          hasMotion={false}
+        />
+      </Button>
+      <Button variantType="tertiary">
+        <Loader
+          variant="inline"
+          loaderType="ring"
+          size="extra-small"
+          hasMotion={false}
+        />
+      </Button>
+      <Button variantType="subtle">
+        <Loader
+          variant="inline"
+          loaderType="ring"
+          size="extra-small"
+          hasMotion={false}
+        />
+      </Button>
+    </Box>
+  );
+};
+Loading.storyName = "Loading";
+Loading.parameters = {
+  chromatic: { disableSnapshot: false },
 };
 
 const FocusAndHoverStateButtons = () => (

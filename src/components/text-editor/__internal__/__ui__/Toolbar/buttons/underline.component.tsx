@@ -13,7 +13,12 @@ const UnderlineButton = React.forwardRef<
   FormattingButtonProps
 >(
   (
-    { isActive, isFirstButton = false, namespace, size }: FormattingButtonProps,
+    {
+      isActive,
+      isFirstButton = false,
+      namespace,
+      size = "medium",
+    }: FormattingButtonProps,
     ref,
   ) => {
     // Get the editor instance

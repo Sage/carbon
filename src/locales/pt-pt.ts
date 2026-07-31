@@ -143,17 +143,14 @@ const ptPT: Partial<Locale> = {
     },
   },
   pager: {
-    show: () => "Mostrar",
-    records: (count, showNumber = true) => {
-      const noun = isSingular(count) ? "item" : "itens";
-      return showNumber ? `${count} ${noun}` : noun;
-    },
-    first: () => "Primeira",
-    last: () => "Última",
-    next: () => "Seguinte",
-    previous: () => "Anterior",
-    pageX: () => "Página",
-    ofY: (count) => `de ${count}`,
+    firstAriaLabel: () => "Aceder à primeira página",
+    lastAriaLabel: () => "Aceder à última página",
+    nextAriaLabel: () => "Aceder à página seguinte",
+    previousAriaLabel: () => "Aceder à página anterior",
+    pageX: (currentPage?: number | string) => `Página ${currentPage}`,
+    ofTotalPages: (totalPages: number | string) => `de ${totalPages} páginas`,
+    itemsPerPage: () => "Resultados por página",
+    ariaLabel: () => "Paginação",
   },
   password: {
     buttonLabelHide: () => "Ocultar",

@@ -1,3 +1,39 @@
+## [161.9.1](https://github.com/Sage/carbon/compare/v161.9.0...v161.9.1) (2026-07-31)
+
+### Bug Fixes
+
+* **loader:** use inverse outer-arc token ([c1f8ea0](https://github.com/Sage/carbon/commit/c1f8ea0cf3c3c6589bb03cc14a841633e8e39920))
+
+## [161.9.0](https://github.com/Sage/carbon/compare/v161.8.0...v161.9.0) (2026-07-30)
+
+### Features
+
+* **search:** add suggestions menu support ([2e26ef2](https://github.com/Sage/carbon/commit/2e26ef29d0a9377a767061c68fae2ab473acd742))
+
+## [161.8.0](https://github.com/Sage/carbon/compare/v161.7.3...v161.8.0) (2026-07-29)
+
+### Features
+
+* **pager:** add non-english translations ([2d23622](https://github.com/Sage/carbon/commit/2d236225be46d43bf059cc6a791229b7608eb5f1))
+
+## [161.7.3](https://github.com/Sage/carbon/compare/v161.7.2...v161.7.3) (2026-07-29)
+
+### Bug Fixes
+
+* **textbox:** support input type and pattern props ([5df37dd](https://github.com/Sage/carbon/commit/5df37ddf9d315c2117f910fc8999fb36e096d0a3)), closes [#8087](https://github.com/Sage/carbon/issues/8087)
+
+## [161.7.2](https://github.com/Sage/carbon/compare/v161.7.1...v161.7.2) (2026-07-29)
+
+### Bug Fixes
+
+* **checkbox:** ensure fieldSpacing is not applied to grouped checkboxes ([e1b18f6](https://github.com/Sage/carbon/commit/e1b18f6f4ce32320430f93ee29f7ef6f103c9774))
+
+## [161.7.1](https://github.com/Sage/carbon/compare/v161.7.0...v161.7.1) (2026-07-27)
+
+### Bug Fixes
+
+* **batch-selection:** improve contrast and add aria-disabled ([80c9e52](https://github.com/Sage/carbon/commit/80c9e522854743bae0d503ba4d2f0e5aff4e6a1f))
+
 ## [161.7.0](https://github.com/Sage/carbon/compare/v161.6.0...v161.7.0) (2026-07-24)
 
 ### Features

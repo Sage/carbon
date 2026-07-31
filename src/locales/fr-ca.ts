@@ -142,7 +142,14 @@ const frCA: Partial<Locale> = {
     },
   },
   pager: {
+    firstAriaLabel: () => "Aller à la première page",
+    lastAriaLabel: () => "Aller à la dernière page",
+    nextAriaLabel: () => "Aller à la page suivante",
+    previousAriaLabel: () => "Aller à la page précédente",
     pageX: (currentPage?: number | string) => `Page ${currentPage}`,
+    ofTotalPages: (totalPages: number | string) => `sur ${totalPages} pages`,
+    itemsPerPage: () => "Éléments par page",
+    ariaLabel: () => "Pagination",
   },
   password: {
     buttonLabelHide: () => "Masquer",

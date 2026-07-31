@@ -98,6 +98,7 @@ test("`Link` children should be automatically disabled via context", () => {
 
   // eslint-disable-next-line jest-dom/prefer-enabled-disabled
   expect(link).toHaveAttribute("disabled");
+  expect(link).toHaveAttribute("aria-disabled", "true");
 });
 
 test("`Link` children rendered as a button should be automatically disabled via context", () => {
@@ -112,6 +113,7 @@ test("`Link` children rendered as a button should be automatically disabled via 
   });
 
   expect(linkButton).toBeDisabled();
+  expect(linkButton).toHaveAttribute("aria-disabled", "true");
 });
 
 test.each([
