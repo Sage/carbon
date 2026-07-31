@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as IconStories from "./icon.stories";
 
@@ -22,8 +22,7 @@ Many other components allow you to specify one of the standard Carbon icons to a
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Examples](#examples)
-- [Color presets](#color-presets)
+- [Playground](#playground)
 - [Icon naming conventions](#icon-naming-conventions)
 - [List of icons](#list-of-icons)
 - [Props](#props)
@@ -34,9 +33,9 @@ Many other components allow you to specify one of the standard Carbon icons to a
 import Icon from "carbon-react/lib/components/icon";
 ```
 
-## Examples
+## Playground
 
-### Default
+Use this interactive example to explore Icon props with Storybook controls.
 
 Use `aria-hidden` when an icon is decorative or its meaning is already provided by adjacent text.
 
@@ -65,6 +64,16 @@ The `inverse` prop applies inverse styling to the Icon.
 Use the `color` prop to apply one of the supported semantic icon colors: `neutral`, `subtle`, `caution`, `info`, `negative`, or `positive`.
 
 <Canvas of={IconStories.ColorPresets} />
+
+The `color` control supports the semantic presets `neutral`, `subtle`,
+`caution`, `info`, `negative`, and `positive`.
+
+<Canvas of={IconStories.Playground} />
+
+<Controls
+  of={IconStories.Playground}
+  include={["type", "size", "color", "inverse"]}
+/>
 
 ## Icon naming conventions
 
