@@ -2,13 +2,44 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useRef, useState } from "react";
 import Button, { ButtonProps } from "./button.component";
 import Box from "../../box";
-import Icon from "../../icon";
-import { Loader } from "../../loader/__next__/loader.component";
 
 const meta: Meta<typeof Button> = {
   title: "Button",
   component: Button,
   parameters: { chromatic: { disableSnapshot: true } },
+  argTypes: {
+    children: {
+      control: "text",
+    },
+    variant: {
+      options: ["default", "destructive", "gradient"],
+      control: { type: "radio" },
+    },
+    variantType: {
+      options: ["primary", "secondary", "tertiary", "subtle"],
+      control: { type: "radio" },
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    disabled: {
+      control: "boolean",
+    },
+    fullWidth: {
+      control: "boolean",
+    },
+    inverse: {
+      control: "boolean",
+    },
+    noWrap: {
+      control: "boolean",
+    },
+    type: {
+      options: ["button", "submit", "reset"],
+      control: { type: "radio" },
+    },
+  },
   args: {
     children: "Button",
     disabled: false,
@@ -30,33 +61,39 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = (args: ButtonProps) => {
-  return <Button {...args}>Button</Button>;
+export const Playground: Story = {
+  render: (args: ButtonProps) => <Button {...args}>{args.children}</Button>,
+  args: {
+    children: "Button",
+    variant: "default",
+    variantType: "primary",
+    size: "medium",
+    disabled: false,
+    fullWidth: false,
+    inverse: false,
+    noWrap: true,
+    type: "button",
+    href: undefined,
+    target: undefined,
+    rel: undefined,
+  },
+  decorators: [
+    (Story, { args }) => (
+      <Box
+        minHeight="80px"
+        p={2}
+        backgroundColor={
+          args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)"
+        }
+      >
+        <Story />
+      </Box>
+    ),
+  ],
 };
-Default.storyName = "Default";
-
-export const ButtonContent: Story = () => {
-  return (
-    <Box display={"flex"} gap={2}>
-      <Button aria-label="Return to the home page">
-        <Icon type="home" />
-      </Button>
-      <Button>
-        <>
-          <Icon type="home" />
-          Return to the home page
-        </>
-      </Button>
-      <Button>
-        <>
-          Return to the home page
-          <Icon type="home" />
-        </>
-      </Button>
-    </Box>
-  );
-};
-ButtonContent.storyName = "Button Content";
+Playground.storyName = "Playground";
 
 export const ClickHandler: Story = () => {
   const [value, setValue] = useState(0);
@@ -67,168 +104,6 @@ export const ClickHandler: Story = () => {
   );
 };
 ClickHandler.storyName = "Click Handler";
-
-export const Variations: Story = (args: ButtonProps) => {
-  return (
-    <Box display="flex" flexDirection="row" gap="24px" alignItems="flex-start">
-      <Box display="flex" flexDirection="column" alignItems="flex-start">
-        <h1>Default</h1>
-        <h2>Primary</h2>
-        <>
-          <Button {...args} variant="default" variantType="primary" />
-        </>
-        <h2>Secondary</h2>
-        <>
-          <Button {...args} variant="default" variantType="secondary" />
-        </>
-        <h2>Tertiary</h2>
-        <>
-          <Button {...args} variant="default" variantType="tertiary" />
-        </>
-        <h2>Subtle</h2>
-        <>
-          <Button {...args} variant="default" variantType="subtle" />
-        </>
-      </Box>
-      <Box display="flex" flexDirection="column" alignItems="flex-start">
-        <h1>Destructive</h1>
-        <h2>Primary</h2>
-        <>
-          <Button {...args} variant="destructive" variantType="primary" />
-        </>
-        <h2>Secondary</h2>
-        <>
-          <Button {...args} variant="destructive" variantType="secondary" />
-        </>
-      </Box>
-      <Box display="flex" flexDirection="column" alignItems="flex-start">
-        <h1>Gradient</h1>
-        <h2>Secondary</h2>
-        <>
-          <Button {...args} variant="gradient" variantType="secondary" />
-        </>
-      </Box>
-    </Box>
-  );
-};
-Variations.storyName = "Variations";
-
-export const Sizes: Story = () => {
-  return (
-    <Box display="flex" gap={3} flexDirection="row" alignItems={"flex-start"}>
-      <Button size="xs">XS</Button>
-      <Button size="small">Small</Button>
-      <Button>Medium</Button>
-      <Button size="large">Large</Button>
-    </Box>
-  );
-};
-Sizes.storyName = "Sizes";
-
-export const Disabled: Story = () => {
-  return <Button disabled>Button</Button>;
-};
-Disabled.storyName = "Disabled";
-
-export const FullWidth: Story = () => {
-  return (
-    <Box width="500px" display={"flex"} flexDirection={"column"} gap={1}>
-      <Button fullWidth>Full-Width Button</Button>
-      <br />
-      <br />
-      <Button>Normal Button</Button>
-    </Box>
-  );
-};
-FullWidth.storyName = "Full-Width";
-
-export const Inverse: Story = () => {
-  return (
-    <Box
-      backgroundColor="#333"
-      p={2}
-      display="flex"
-      flexDirection="row"
-      gap={1}
-      alignItems="flex-start"
-    >
-      <Button variant="default" variantType="primary" size="medium" inverse>
-        Primary Medium
-      </Button>
-      <Button variant="default" variantType="secondary" size="medium" inverse>
-        Secondary Medium
-      </Button>
-      <Button variant="default" variantType="tertiary" size="medium" inverse>
-        Tertiary Medium
-      </Button>
-      <Button variant="default" variantType="subtle" size="medium" inverse>
-        Subtle Medium
-      </Button>
-    </Box>
-  );
-};
-Inverse.storyName = "Inverse";
-
-export const Loading: Story = () => {
-  return (
-    <Box display={"flex"} flexDirection={"column"} gap={2}>
-      <Button>
-        <Loader variant="inline" loaderType="ring" size="extra-small" />
-      </Button>
-      <Button>
-        <Loader
-          variant="inline"
-          loaderType="ring"
-          loaderLabel="Chargement..."
-          size="extra-small"
-        />
-      </Button>
-    </Box>
-  );
-};
-Loading.storyName = "Loading";
-
-export const WrappingText: Story = () => {
-  return (
-    <Box width="80px" display={"flex"} alignItems="flex-start" gap={2}>
-      <Button noWrap>No Wrapping</Button>
-      <Button noWrap={false}>With Wrapping</Button>
-    </Box>
-  );
-};
-WrappingText.storyName = "Wrapping Text";
-
-export const HTMLButtonType: Story = () => {
-  return (
-    <Box width="80px" display={"flex"} gap={2}>
-      <Button type="button">Button</Button>
-      <Button type="reset">Reset</Button>
-      <Button type="submit">Submit</Button>
-    </Box>
-  );
-};
-HTMLButtonType.storyName = "HTML Button Types";
-
-export const ButtonAsALink: Story = () => {
-  return (
-    <Box>
-      <Button ml={2} mt={2} variantType="primary" href="/">
-        I&#39;m a link
-      </Button>
-      <Button
-        mt={2}
-        variantType="primary"
-        href="/"
-        target="_blank"
-        rel="noopener noreferrer"
-        ml={4}
-      >
-        I&#39;m a link that opens in a new tab
-      </Button>
-    </Box>
-  );
-};
-ButtonAsALink.storyName = "As a Link";
 
 export const ProgrammaticFocus: Story = () => {
   const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
