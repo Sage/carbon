@@ -65,6 +65,15 @@ const meta: Meta<typeof Typography> = {
 export default meta;
 type Story = StoryObj<typeof Typography>;
 
+export const Playground: Story = {
+  render: (args) => <Typography {...args}>{args.children}</Typography>,
+  args: {
+    children: "Typography content",
+    variant: "p",
+  },
+};
+Playground.storyName = "Playground";
+
 export const VariantsStory: Story = () => (
   <Box display="flex" flexDirection="column" gap={2}>
     <Typography variant="p">Paragraph (Default)</Typography>
