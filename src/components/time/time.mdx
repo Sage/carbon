@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
@@ -30,6 +30,17 @@ import * as TimeStories from "./time.stories";
 ```javascript
 import { Time, type TimeHandle } from "carbon-react/lib/components/time";
 ```
+
+## Playground
+
+Use this interactive example to explore Time props with Storybook controls.
+
+<Canvas of={TimeStories.Playground} />
+
+<Controls
+  of={TimeStories.Playground}
+  include={["label", "disabled", "readOnly", "required", "size"]}
+/>
 
 ### Validation
 
@@ -141,7 +152,7 @@ to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
 
 `Time`'s forwarded ref exposes the following imperative methods:
 
-| Method Name             | Description                                     |
-| ----------------------- | ----------------------------------------------- |
-| `focusHoursInput()`   | Programmatically focuses the hours input.       |
-| `focusMinutesInput()` | Programmatically focuses the minutes input.     |
+| Method Name           | Description                                 |
+| --------------------- | ------------------------------------------- |
+| `focusHoursInput()`   | Programmatically focuses the hours input.   |
+| `focusMinutesInput()` | Programmatically focuses the minutes input. |

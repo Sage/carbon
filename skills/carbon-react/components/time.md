@@ -49,6 +49,42 @@ description: Carbon Time component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    label: "Time",
+    disabled: false,
+    readOnly: false,
+    required: false,
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    const [value, setValue] = useState<TimeValue>({
+      hours: "",
+      minutes: "",
+    });
+
+    const handleChange = (ev: TimeInputEvent) => {
+      setValue(ev.target.value);
+    };
+
+    return (
+      <Box p={2}>
+        <Time {...args} value={value} onChange={handleChange} />
+      </Box>
+    );
+  }
+```
+
+
 ### Default
 
 **Render**
