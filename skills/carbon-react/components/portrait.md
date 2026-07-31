@@ -16,7 +16,6 @@ description: Carbon Portrait component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | alt | string \| undefined | No |  |  |  | The `alt` HTML string. |  |
-| className | string \| undefined | No |  |  |  |  |  |
 | iconType | IconType \| undefined | No |  |  |  | Icon to be rendered as a fallback. | "individual" |
 | initials | string \| undefined | No |  |  |  | The initials to render in the Portrait. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -33,7 +32,6 @@ description: Carbon Portrait component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| name | string \| undefined | No |  |  |  |  |  |
 | onClick | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Prop for `onClick` events. |  |
 | shape | PortraitShapes \| undefined | No |  |  |  | The shape of the Portrait. | "circle" |
 | size | PortraitSizes \| undefined | No |  |  |  | The size of the Portrait. | "M" |

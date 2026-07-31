@@ -25,7 +25,6 @@ description: Carbon ButtonToggle component props and usage examples.
 | pressed | boolean \| undefined | No |  |  |  | Set the pressed state of the toggle button when used outside of a group. |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | ButtonToggle size | "medium" |
 | value | string \| undefined | No |  |  |  | An optional string by which to identify the button in an onChange handler on the parent ButtonToggleGroup. |  |
-| data-component | string \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-label | string \| undefined | No |  |  |  | Prop to specify the aria-label of the component |  |

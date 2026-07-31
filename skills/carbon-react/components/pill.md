@@ -38,8 +38,6 @@ description: Carbon Pill component props and usage examples.
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onClick | ((ev: React.MouseEvent<HTMLSpanElement>) => void) \| undefined | No |  |  |  | Callback function for when the pill is clicked. |  |
 | onDelete | ((ev?: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback fired when the remove button is activated. Receives the click event. |  |
-| theme | Partial<ThemeObject> \| undefined | No |  |  |  |  |  |
-| title | string \| undefined | No |  |  |  |  |  |
 | variant | "grey" \| "green" \| "red" \| "orange" \| "blue" \| "purple" \| "teal" \| "lime" \| "pink" \| "slate" \| undefined | No |  |  |  | Sets the colour variant of a status pill. |  |
 | wrapText | boolean \| undefined | No |  |  |  | Allow the text within pill to wrap. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

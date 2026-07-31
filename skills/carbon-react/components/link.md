@@ -18,7 +18,6 @@ description: Carbon Link component props and usage examples.
 | ariaLabel | string \| undefined | No |  |  |  | Aria label for accessibility purposes |  |
 | bold | boolean \| undefined | No |  |  |  | Sets the link style to bold |  |
 | children | React.ReactNode | No |  |  |  | Child content to render in the link. |  |
-| className | string \| undefined | No |  |  |  |  |  |
 | download | any | No |  |  |  |  |  |
 | hasFocus | boolean \| undefined | No |  |  |  |  |  |
 | href | string \| undefined | No |  |  |  | An href for an anchor tag. |  |
@@ -31,7 +30,6 @@ description: Carbon Link component props and usage examples.
 | onKeyDown | ((ev: React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Function called when a key is pressed. |  |
 | onMouseDown | ((ev: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Function called when a mouse down event triggers. |  |
 | rel | string \| undefined | No |  |  |  | allows to set rel property in <a> tag |  |
-| removeAriaLabelOnIcon | boolean \| undefined | No |  |  |  |  |  |
 | target | string \| undefined | No |  |  |  | Target property in which link should open ie: _blank, _self, _parent, _top |  |
 | underline | "always" \| "hover" \| "never" \| undefined | No |  |  |  | Specifies when the link underline should be displayed. |  |
 | variant | Variants \| undefined | No |  |  |  | Allows link styling to be updated for light or dark backgrounds |  |

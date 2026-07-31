@@ -263,7 +263,7 @@ description: Carbon Decimal component props and usage examples.
 | popoverContainerContent | React.ReactNode | No |  |  |  | Content to render inside a PopoverContainer, displayed via a button at the right of the input |  |
 | popoverPosition | ("left" \| "right" \| "center") \| undefined | No |  |  |  | Sets the position of the PopoverContainer dialog relative to its trigger button |  |
 | popoverTriggerAriaLabel | string \| undefined | No |  |  |  | Sets the aria-label on the popover trigger button |  |
-| precision | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12 \| 13 \| 14 \| 15 \| undefined | No |  |  |  | The decimal precision of the value in the input |  |
+| precision | 0 \| 9 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 10 \| 11 \| 12 \| 13 \| 14 \| 15 \| undefined | No |  |  |  | The decimal precision of the value in the input |  |
 | prefix | string \| undefined | No |  |  |  | Emphasized part of the displayed text |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |

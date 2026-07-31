@@ -17,7 +17,6 @@ description: Carbon FlatTableRow component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. |  |
 | bgColor | string \| undefined | No |  | Overrides default cell color, provide design token, any color from palette or any valid css color value. |  |
-| draggableProps | { index: number; } \| undefined | No |  |  |  |
 | expandable | boolean \| undefined | No |  | Allows the row to be expanded, must be used with the `subRows` prop. |  |
 | expandableArea | "wholeRow" \| "firstColumn" \| undefined | No |  | Area to click to open sub rows when expandable. Default is `wholeRow` |  |
 | expanded | boolean \| undefined | No |  | Sets an expandable row to be expanded on start |  |

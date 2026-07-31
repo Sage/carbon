@@ -17,7 +17,6 @@ description: Carbon SimpleColor component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | value | string | Yes |  | the value of the color that is represented by this SimpleColor |  |
 | checked | boolean \| undefined | No |  | determines if this color option is selected or unselected |  |
-| className | string \| undefined | No |  |  |  |
 | defaultChecked | boolean \| undefined | No |  | determines if this color option is selected or unselected when component is used as uncontrolled |  |
 | disabled | boolean \| undefined | No |  | if true, input will be disabled |  |
 | id | string \| undefined | No |  | the input id |  |
