@@ -20,6 +20,11 @@ export interface AdvancedColor {
   value: string;
 }
 
+const colorToId = (value: string) =>
+  `advanced-color-picker-color-${value
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")}`;
+
 export interface AdvancedColorPickerProps
   extends MarginProps,
     Pick<ModalProps, "restoreFocusOnClose">,
@@ -275,7 +280,7 @@ export const AdvancedColorPicker = ({
               value={value}
               key={value}
               aria-label={label}
-              id={value}
+              id={colorToId(value)}
               checked={value === selectedColor}
             />
           ))}
