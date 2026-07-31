@@ -7,12 +7,17 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
+// import {
+//   FlexboxProps,
+//   LayoutProps,
+//   MaxWidthProps,
+//   PaddingProps,
+// } from "styled-system";
 import {
   FlexboxProps,
   LayoutProps,
-  MaxWidthProps,
   PaddingProps,
-} from "styled-system";
+} from "../../dips-box/utils/spacing-types";
 import invariant from "invariant";
 
 import { defaultFocusableSelectors as focusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
@@ -91,7 +96,7 @@ interface MenuItemBaseProps
    * Sets the maxWidth of the MenuItem, setting this on a non-submenu
    * item will truncate any text/content that may overflow
    * */
-  maxWidth?: MaxWidthProps["maxWidth"];
+  maxWidth?: LayoutProps["maxWidth"];
   /**
    * @private @ignore
    * Renders MenuItem as a div element
@@ -363,7 +368,16 @@ export const MenuItem = forwardRef<
       );
     }
 
-    const paddingProps = filterStyledSystemPaddingProps(rest);
+    // We won't have to do this if we implement the POC using TypeScript.
+    const paddingPropsRaw = filterStyledSystemPaddingProps(rest);
+    // Remove any null values from paddingProps to ensure type compatibility
+    const paddingProps = Object.fromEntries(
+      Object.entries(paddingPropsRaw).filter(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        ([_, paddingValue]) => paddingValue !== null,
+      ),
+    );
+
     const hasInput = !!ref?.querySelector<HTMLElement>(
       "[data-element='input']",
     );

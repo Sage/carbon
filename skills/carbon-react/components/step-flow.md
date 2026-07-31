@@ -19,20 +19,18 @@ description: Carbon StepFlow component props and usage examples.
 | title | React.ReactNode | Yes |  | The title of the current step, this can be a string or a valid React node which contains the `<StepFlowTitle />` component as a descendant. |  |
 | totalSteps | Steps | Yes | 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 | The total steps in the user journey. |  |
 | category | string \| undefined | No |  | A category for the user journey. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
+| m | string \| number \| undefined | No |  | Short hand `margin` property |  |
+| margin | string \| number \| undefined | No |  | Margin property |  |
+| marginBottom | string \| number \| undefined | No |  | Margin bottom property |  |
+| marginLeft | string \| number \| undefined | No |  | Margin left property |  |
+| marginRight | string \| number \| undefined | No |  | Margin right property |  |
+| marginTop | string \| number \| undefined | No |  | Margin top property |  |
+| mb | string \| number \| undefined | No |  | Short hand `margin-bottom` property |  |
+| ml | string \| number \| undefined | No |  | Short hand `margin-left` property |  |
+| mr | string \| number \| undefined | No |  | Short hand `margin-right` property |  |
+| mt | string \| number \| undefined | No |  | Short hand `margin-top` property |  |
+| mx | string \| number \| undefined | No |  | Short hand `margin x-axis` property |  |
+| my | string \| number \| undefined | No |  | Short hand `margin y-axis` property |  |
 | onDismiss | ((e: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  | function runs when user click dismiss button |  |
 | showCloseIcon | boolean \| undefined | No |  | Determines if the close icon button is shown |  |
 | showProgressIndicator | boolean \| undefined | No |  | Determines if the progress indicator is shown. |  |

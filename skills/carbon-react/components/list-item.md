@@ -22,7 +22,6 @@ You can use the `as` prop on Typography to inherit list styling while using Typo
 | as | React.ElementType<any, keyof React.JSX.IntrinsicElements> \| undefined | No |  |  |  | Override the variant component |  |
 | children | React.ReactNode | No |  |  |  |  |  |
 | className | string \| undefined | No |  |  |  |  |  |
-| color | string \| undefined | No |  |  |  | Override the text color using typography token options. Supported values are: `neutral`, `subtle`, `caution`, `info`, `negative`, and `positive`. Legacy aliases `"default"` and `"alt"` map to `"neutral"` and `"subtle"` respectively. |  |
 | display | string \| undefined | No |  |  |  | Override the variant display |  |
 | fluid | boolean \| undefined | No |  |  |  | When set to `true`, uses fluid typography with CSS clamp() values for responsive sizing. |  |
 | id | string \| undefined | No |  |  |  | Set the ID attribute of the Typography component |  |
@@ -63,6 +62,7 @@ You can use the `as` prop on Typography to inherit list styling while using Typo
 | textDecoration | string \| undefined | No |  |  |  | Override the variant text-decoration |  |
 | textOverflow | string \| undefined | No |  |  |  | Override the text-overflow |  |
 | textTransform | string \| undefined | No |  |  |  | Override the variant text-transform |  |
+| tint | "default" \| "alt" \| undefined | No |  |  |  | The color tint to apply to text. Accepts "default" for standard text color or "alt" for alternative text color. Only available for non-heading variants. |  |
 | weight | "medium" \| "regular" \| undefined | No |  |  |  | The font weight to apply to text. Only available for non-heading variants. Note: Has no effect on "strong" or "b" variants as they have fixed medium weight. |  |
 | whiteSpace | string \| undefined | No |  |  |  | Override the white-space |  |
 | wordBreak | string \| undefined | No |  |  |  | Override the word-break |  |
@@ -74,13 +74,13 @@ You can use the `as` prop on Typography to inherit list styling while using Typo
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Make the element an aria-live region |  |
 | backgroundColor | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the backgroundColor style |  |  |
 | bg | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the bg value shorthand for backgroundColor |  |  |
+| color | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the color style. If a white colour is needed, use the `inverse` prop instead. |  |  |
 | fontSize | string \| undefined | No |  | Yes | Use the new `size` prop for paragraphs or choose the appropriate variant for other variants. This prop will eventually be removed. Override the variant font-size |  |  |
 | fontWeight | string \| undefined | No |  | Yes | Use the new `weight` prop for paragraphs or choose the appropriate variant for other variants. This prop will eventually be removed. Override the variant font-weight |  |  |
 | isDisabled | boolean \| undefined | No |  | Yes |  |  |  |
 | lineHeight | string \| undefined | No |  | Yes | Choose the appropriate variant for your use case, as each variant has its own line-height. This prop will eventually be removed. Override the variant line-height |  |  |
 | listStyleType | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the list-style-type |  |  |
 | opacity | string \| number \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the opacity value |  |  |
-| tint | "default" \| "alt" \| undefined | No |  | Yes | Use `color` instead. |  |  |
 | truncate | boolean \| undefined | No |  | Yes | Use `textOverflow` and `whiteSpace` props instead. This prop will eventually be removed. Apply truncation |  |  |
 
 ## Examples
