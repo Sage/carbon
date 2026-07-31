@@ -42,6 +42,32 @@ description: Carbon Badge component props and usage examples.
 | aria-label | string \| undefined | No |  | Yes | Prop to specify an aria-label for the component |  |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    counter: 99,
+    size: "medium",
+    variant: "typical",
+    inverse: false,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    return (
+      <Box mb={1}>
+        <Badge id="badge-playground" {...args} counter={args.counter ?? 0} />
+      </Box>
+    );
+  }
+```
+
+
 ### Default
 
 **Render**

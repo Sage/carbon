@@ -1,4 +1,4 @@
-import { ArgTypes, Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { ArgTypes, Meta, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as BadgeStories from "./badge.stories";
 
@@ -28,6 +28,17 @@ To use Badge component, import `Badge` and use as a standalone component or wrap
 ```javascript
 import Badge from "carbon-react/lib/components/badge";
 ```
+
+## Playground
+
+Use this interactive example to explore Badge props with Storybook controls.
+
+<Canvas of={BadgeStories.Playground} />
+
+<Controls
+  of={BadgeStories.Playground}
+  include={["counter", "size", "variant", "inverse"]}
+/>
 
 ## Examples
 

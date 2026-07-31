@@ -19,8 +19,16 @@ const meta: Meta<typeof Badge> = {
     ...styledSystemProps,
     counter: {
       control: {
-        type: "text",
+        type: "number",
       },
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    variant: {
+      options: ["typical", "subtle"],
+      control: { type: "radio" },
     },
   },
   decorators: [
@@ -40,6 +48,23 @@ const meta: Meta<typeof Badge> = {
 
 export default meta;
 type Story = StoryObj<typeof Badge>;
+
+export const Playground: Story = {
+  render: (args) => {
+    return (
+      <Box mb={1}>
+        <Badge id="badge-playground" {...args} counter={args.counter ?? 0} />
+      </Box>
+    );
+  },
+  args: {
+    counter: 99,
+    size: "medium",
+    variant: "typical",
+    inverse: false,
+  },
+};
+Playground.storyName = "Playground";
 
 export const Default: Story = ({ ...args }) => {
   return (
