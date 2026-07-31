@@ -53,6 +53,25 @@ description: Carbon Icon component props and usage examples.
 | tooltipVisible | boolean \| undefined | No |  | Yes |  |  |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    type: "add",
+    size: "medium",
+    inverse: false,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => <Icon {...args} />
+```
+
+
 ### Default
 
 **Render**
