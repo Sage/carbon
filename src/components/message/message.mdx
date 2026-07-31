@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as MessageStories from "./message.stories";
@@ -22,11 +22,22 @@ Presents a static message which stays on screen.
 import Message from "carbon-react/lib/components/message";
 ```
 
+## Playground
+
+Use this interactive example to explore Message props with Storybook controls.
+
+<Canvas of={MessageStories.Playground} />
+
+<Controls
+  of={MessageStories.Playground}
+  include={["variant", "title", "showCloseIcon", "transparent"]}
+/>
+
 ## Examples
 
 ### Default
 
-To use `Message`, you can pass any valid content as children. 
+To use `Message`, you can pass any valid content as children.
 
 <Canvas of={MessageStories.Default} />
 
@@ -135,5 +146,5 @@ The following keys are available to override the translations for this component
       returnType: "string",
     },
 
-  ]}
+]}
 />

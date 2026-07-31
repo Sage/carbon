@@ -30,6 +30,17 @@ const meta: Meta<typeof Message> = {
 export default meta;
 type Story = StoryObj<typeof Message>;
 
+export const Playground: Story = {
+  render: (args) => <Message {...args}>Some custom message</Message>,
+  args: {
+    variant: "info",
+    title: "",
+    showCloseIcon: false,
+    transparent: false,
+  },
+};
+Playground.storyName = "Playground";
+
 export const Default: Story = {
   render: (args) => <Message {...args}>Some custom message</Message>,
 };

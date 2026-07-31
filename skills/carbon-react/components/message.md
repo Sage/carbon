@@ -44,6 +44,26 @@ description: Carbon Message component props and usage examples.
 | transparent | boolean \| undefined | No |  | Yes | The transparent prop is deprecated and will be removed in a future release, please use the subtle variants instead. | Set transparent styling. |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    variant: "info",
+    title: "",
+    showCloseIcon: false,
+    transparent: false,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => <Message {...args}>Some custom message</Message>
+```
+
+
 ### Default
 
 **Render**
