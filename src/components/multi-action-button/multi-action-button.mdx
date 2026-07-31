@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as ButtonStories from "../button/button.stories.tsx";
 import * as MultiActionButtonStories from "./multi-action-button.stories.tsx";
@@ -29,6 +29,17 @@ import * as MultiActionButtonStories from "./multi-action-button.stories.tsx";
 import MultiActionButton, { type MultiActionButtonHandle } from "carbon-react/lib/components/multi-action-button";
 ```
 
+## Playground
+
+Use this interactive example to explore MultiActionButton props with Storybook controls.
+
+<Canvas of={MultiActionButtonStories.Playground} />
+
+<Controls
+  of={MultiActionButtonStories.Playground}
+  include={["text", "disabled"]}
+/>
+
 ## Examples
 
 ### Default
@@ -37,7 +48,7 @@ import MultiActionButton, { type MultiActionButtonHandle } from "carbon-react/li
 
 ### Focusing Main Button Programmatically
 
-The `MultiActionButtonHandle` type provides an imperative handle for programmatic control over `MultiActionButton`. 
+The `MultiActionButtonHandle` type provides an imperative handle for programmatic control over `MultiActionButton`.
 Using a `ref`, you can access its `focusMainButton()` method to set focus on the main button as needed.
 
 <Canvas of={MultiActionButtonStories.ProgrammaticFocus} />
@@ -75,7 +86,7 @@ Use the `align` prop to change the alignment of the text in the menu Buttons.
 
 ### Menu position
 
-By default, the menu will open aligned to the "left" of the main button, but you can use the `position` prop to change this to the "right". 
+By default, the menu will open aligned to the "left" of the main button, but you can use the `position` prop to change this to the "right".
 
 Note: The position of the menu will also be automatically adjusted to fit within the viewport.
 
@@ -124,6 +135,6 @@ Subtext only works when `size` is `large`
 
 `MultiActionButton`'s forwarded ref exposes the following imperative methods:
 
-| Method Name           | Description                               |
-| --------------------- | ----------------------------------------- |
+| Method Name         | Description                               |
+| ------------------- | ----------------------------------------- |
 | `focusMainButton()` | Programmatically focuses the main button. |
