@@ -1,3 +1,9 @@
+## [161.9.1](https://github.com/Sage/carbon/compare/v161.9.0...v161.9.1) (2026-07-31)
+
+### Bug Fixes
+
+* **loader:** use inverse outer-arc token ([c1f8ea0](https://github.com/Sage/carbon/commit/c1f8ea0cf3c3c6589bb03cc14a841633e8e39920))
+
 ## [161.9.0](https://github.com/Sage/carbon/compare/v161.8.0...v161.9.0) (2026-07-30)
 
 ### Features
