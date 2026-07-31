@@ -32,6 +32,48 @@ description: Carbon ButtonToggle component props and usage examples.
 | buttonIconSize | "small" \| "large" \| undefined | No |  | Yes | `buttonIconSize` is no longer supported. | Sets the size of the buttonIcon |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    label: "Label",
+    inputHint: "",
+    fullWidth: false,
+    allowDeselect: false,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    const [selectedButton, setSelectedButton] = useState("playground-2");
+
+    const handleOnChange = (
+      ev: React.MouseEvent<HTMLButtonElement>,
+      selectedValue?: string,
+    ) => {
+      setSelectedButton(selectedValue as string);
+    };
+
+    return (
+      <ButtonToggleGroup
+        {...args}
+        id="playground"
+        value={selectedButton}
+        onChange={handleOnChange}
+      >
+        <ButtonToggle value="playground-1">Button 1</ButtonToggle>
+        <ButtonToggle value="playground-2">Button 2</ButtonToggle>
+        <ButtonToggle value="playground-3">Button 3</ButtonToggle>
+      </ButtonToggleGroup>
+    );
+  }
+```
+
+
 ### Default
 
 **Args**

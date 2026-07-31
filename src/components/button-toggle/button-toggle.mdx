@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as ButtonToggleStories from "./button-toggle.stories";
 
@@ -15,7 +15,7 @@ import * as ButtonToggleStories from "./button-toggle.stories";
   Product Design System component
 </a>
 
- Press one of the buttons to make a selection. This component can be used when the user has to make a choice between a small number of options.
+Press one of the buttons to make a selection. This component can be used when the user has to make a choice between a small number of options.
 
 ## Contents
 
@@ -31,6 +31,17 @@ import {
   ButtonToggleGroup,
 } from "carbon-react/lib/components/button-toggle";
 ```
+
+## Playground
+
+Use this interactive example to explore ButtonToggleGroup props with Storybook controls.
+
+<Canvas of={ButtonToggleStories.Playground} />
+
+<Controls
+  of={ButtonToggleStories.Playground}
+  include={["label", "inputHint", "fullWidth", "allowDeselection"]}
+/>
 
 ## Examples
 
@@ -52,7 +63,7 @@ To provide an additional hint text string, use the `inputHint` prop.
 
 ### Single
 
-`ButtonToggle` can be used individually to act as a switch to turn something on and off. 
+`ButtonToggle` can be used individually to act as a switch to turn something on and off.
 Control the state of the button using the `pressed` prop available.
 
 <Canvas of={ButtonToggleStories.Single} />
@@ -61,16 +72,16 @@ Control the state of the button using the `pressed` prop available.
 
 To render an `Icon` within a `ButtonToggle`, just pass it as a child of the component.
 
-See our [Icon documentation](../?path=/docs/icon--docs) for more information. 
+See our [Icon documentation](../?path=/docs/icon--docs) for more information.
 
 <Canvas of={ButtonToggleStories.WithIcon} />
 
 ### Loading
 
-To render a `Loader` within a `ButtonToggle`, just pass it as a child of the component. 
+To render a `Loader` within a `ButtonToggle`, just pass it as a child of the component.
 When doing this, please ensure to prevent any interaction with the button if selected while in a loading state.
 
-See our [Loader documentation](../?path=/docs/loader--docs) for more information. 
+See our [Loader documentation](../?path=/docs/loader--docs) for more information.
 
 <Canvas of={ButtonToggleStories.Loading} />
 
@@ -80,7 +91,7 @@ See our [Loader documentation](../?path=/docs/loader--docs) for more information
 
 The size of a group can be changed by passing the `size` prop to `ButtonToggleGroup`. Available sizes are `"small"`, `"medium"` (default) and `"large"`.
 
-**Note:** Do not make use of icons when using the `"small"` size, please limit the content of the buttons to only text. 
+**Note:** Do not make use of icons when using the `"small"` size, please limit the content of the buttons to only text.
 
 <Canvas of={ButtonToggleStories.SizesGrouped} />
 
@@ -100,7 +111,7 @@ Please ensure to provide accessible names using `aria-label` to any buttons with
 
 #### Grouped
 
-**Note:** Do not make use of icons when using the `"small"` size, icon-only groups are only available in sizes `"medium"` or `"large"`. 
+**Note:** Do not make use of icons when using the `"small"` size, icon-only groups are only available in sizes `"medium"` or `"large"`.
 
 <Canvas of={ButtonToggleStories.IconOnlyGrouped} />
 
@@ -110,7 +121,7 @@ Please ensure to provide accessible names using `aria-label` to any buttons with
 
 ### Allow Deselect
 
-By default, the active `ButtonToggle` can only be deselected when another button in the group is selected. 
+By default, the active `ButtonToggle` can only be deselected when another button in the group is selected.
 
 The `allowDeselect` prop allows users to deselect the currently active button without having to select another.
 
@@ -118,8 +129,8 @@ The `allowDeselect` prop allows users to deselect the currently active button wi
 
 ### Full Width
 
-By default, the button wrapper will hug its content. 
-You can set the `fullWidth` prop to allow the buttons to expand the full width of their container. 
+By default, the button wrapper will hug its content.
+You can set the `fullWidth` prop to allow the buttons to expand the full width of their container.
 
 <Canvas of={ButtonToggleStories.FullWidth} />
 
