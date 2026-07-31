@@ -64,6 +64,38 @@ description: Carbon Switch component props and usage examples.
 | warning | string \| boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    label: "Toggle notifications",
+    inputHint: "Hint text",
+    disabled: false,
+    loading: false,
+    reverse: false,
+    required: false,
+    size: "small",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    const [checked, setChecked] = useState(false);
+    return (
+      <Switch
+        {...args}
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+      />
+    );
+  }
+```
+
+
 ### Default
 
 **Render**
