@@ -14,6 +14,15 @@ test.describe("Accessibility tests for StepFlow component", () => {
     await checkAccessibility(page);
   });
 
+  test("should pass accessibility checks when 'title' prop is a node", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<StepFlowComponent title={<span>Step title</span>} />);
+
+    await checkAccessibility(page);
+  });
+
   test("should pass accessibility checks when 'showProgressIndicator' is true and there are completed, not completed and in-progress indicator steps", async ({
     mount,
     page,
