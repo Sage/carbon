@@ -2,8 +2,6 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useRef, useState } from "react";
 import Button, { ButtonProps } from "./button.component";
 import Box from "../../box";
-import Icon from "../../icon";
-import { Loader } from "../../loader/__next__/loader.component";
 
 const darkGreyBackground: React.CSSProperties = {
   padding: "var(--global-space-layout-2-xs)",
@@ -18,6 +16,39 @@ const meta: Meta<typeof Button> = {
   title: "Button",
   component: Button,
   parameters: { chromatic: { disableSnapshot: true } },
+  argTypes: {
+    children: {
+      control: "text",
+    },
+    variant: {
+      options: ["default", "destructive", "gradient"],
+      control: { type: "radio" },
+    },
+    variantType: {
+      options: ["primary", "secondary", "tertiary", "subtle"],
+      control: { type: "radio" },
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    disabled: {
+      control: "boolean",
+    },
+    fullWidth: {
+      control: "boolean",
+    },
+    inverse: {
+      control: "boolean",
+    },
+    noWrap: {
+      control: "boolean",
+    },
+    type: {
+      options: ["button", "submit", "reset"],
+      control: { type: "radio" },
+    },
+  },
   args: {
     children: "Button",
     disabled: false,
@@ -39,33 +70,39 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = (args: ButtonProps) => {
-  return <Button {...args}>Button</Button>;
+export const Playground: Story = {
+  render: (args: ButtonProps) => <Button {...args}>{args.children}</Button>,
+  args: {
+    children: "Button",
+    variant: "default",
+    variantType: "primary",
+    size: "medium",
+    disabled: false,
+    fullWidth: false,
+    inverse: false,
+    noWrap: true,
+    type: "button",
+    href: undefined,
+    target: undefined,
+    rel: undefined,
+  },
+  decorators: [
+    (Story, { args }) => (
+      <Box
+        minHeight="80px"
+        p={2}
+        backgroundColor={
+          args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)"
+        }
+      >
+        <Story />
+      </Box>
+    ),
+  ],
 };
-Default.storyName = "Default";
-
-export const ButtonContent: Story = () => {
-  return (
-    <Box display={"flex"} gap={2}>
-      <Button aria-label="Return to the home page">
-        <Icon type="home" />
-      </Button>
-      <Button>
-        <>
-          <Icon type="home" />
-          Return to the home page
-        </>
-      </Button>
-      <Button>
-        <>
-          Return to the home page
-          <Icon type="home" />
-        </>
-      </Button>
-    </Box>
-  );
-};
-ButtonContent.storyName = "Button Content";
+Playground.storyName = "Playground";
 
 export const ClickHandler: Story = () => {
   const [value, setValue] = useState(0);
