@@ -15,11 +15,35 @@ const meta: Meta<typeof Decimal> = {
   component: Decimal,
   argTypes: {
     ...styledSystemProps,
+    precision: {
+      control: { type: "number" },
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Decimal>;
+
+export const Playground: Story = {
+  render: (args: DecimalProps) => {
+    const [state, setState] = useState("0.01");
+    const setValue = ({ target }: CustomEvent) => {
+      setState(target.value.rawValue);
+    };
+    return <Decimal {...args} value={state} onChange={setValue} />;
+  },
+  args: {
+    label: "Decimal",
+    required: false,
+    disabled: false,
+    readOnly: false,
+    size: "medium",
+    prefix: "",
+    suffix: "",
+    precision: 2,
+  },
+};
+Playground.storyName = "Playground";
 
 /* TODO: we really need a better of having a reusable default story that can show state
  * I've checked how it used to be and you couldn't see the state setting at that point either
