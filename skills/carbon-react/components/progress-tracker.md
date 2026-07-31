@@ -44,6 +44,25 @@ description: Carbon ProgressTracker component props and usage examples.
 | error | boolean \| undefined | No |  | Yes | Please use variant="error" instead. | Flag to control error state. |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    progress: 50,
+    description: "",
+    labelsPosition: "bottom",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => <ProgressTracker {...args} />
+```
+
+
 ### Default
 
 **Args**

@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as ProgressTrackerStories from "./progress-tracker.stories";
@@ -33,11 +33,22 @@ In general, place a `ProgressTracker` in the centre and middle of the page or co
 import ProgressTracker from "carbon-react/lib/components/progress-tracker";
 ```
 
+## Playground
+
+Use this interactive example to explore ProgressTracker props with Storybook controls.
+
+<Canvas of={ProgressTrackerStories.Playground} />
+
+<Controls
+  of={ProgressTrackerStories.Playground}
+  include={["progress", "description", "labelsPosition"]}
+/>
+
 ## Examples
 
 ### Default
 
-To use this component pass the `progress` prop to set a progress value as a percentage. 
+To use this component pass the `progress` prop to set a progress value as a percentage.
 
 By default, the component will display a label with the provided percentage progress out of 100%.
 
@@ -59,7 +70,7 @@ To customize the "of" text, you can pass a custom string to the `customValuePrep
 
 ### Custom Length
 
-By default, the length of the component is "256px". However, you can use the `length` prop to override this with any valid css string. 
+By default, the length of the component is "256px". However, you can use the `length` prop to override this with any valid css string.
 
 <Canvas of={ProgressTrackerStories.CustomLength} />
 
