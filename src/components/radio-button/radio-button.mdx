@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as RadioButtonGroupStories from "./radio-button.stories";
 
@@ -33,41 +33,32 @@ import {
 } from "carbon-react/lib/components/radio-button";
 ```
 
+## Playground
+
+Use this interactive example to explore RadioButtonGroup props with Storybook controls.
+
+<Canvas of={RadioButtonGroupStories.Playground} />
+
+<Controls
+  of={RadioButtonGroupStories.Playground}
+  include={[
+    "legend",
+    "legendHint",
+    "inline",
+    "disabled",
+    "required",
+    "size",
+    "error",
+    "inputHint",
+    "progressiveDisclosure",
+  ]}
+/>
+
 ## Examples
-
-### With Legend
-
-A legend can be set on the group by passing the `legend` prop to `RadioButtonGroup` with a string value.
-
-<Canvas of={RadioButtonGroupStories.WithLegend} />
-
-### With Legend Hint
-
-To add a hint below the legend, pass the `legendHint` prop to `RadioButtonGroup` with a string value.
-
-<Canvas of={RadioButtonGroupStories.WithLegendHint} />
-
-### With Input Hint
-
-To add a hint to an individual radio button, pass the `inputHint` prop to `RadioButton` with a string value.
-
-<Canvas of={RadioButtonGroupStories.WithInputHint} />
-
-### Inline
-
-`RadioButton` children can be displayed inline by passing the `inline` prop to `RadioButtonGroup`.
-
-<Canvas of={RadioButtonGroupStories.InlineRadioButtons} />
-
-### Sizes
-
-The size of the component can be changed by passing the `size` prop to `RadioButtonGroup`. Available options are `small`, `medium`, and `large`.
-
-<Canvas of={RadioButtonGroupStories.Sizes} />
 
 ### Progressive Disclosure
 
-`RadioButton` can be used to conditionally reveal additional content when selected. 
+`RadioButton` can be used to conditionally reveal additional content when selected.
 This can be achieved by passing the content to the `progressiveDisclosure` prop in `RadioButton`, which accepts any valid ReactNode.
 
 It is recommended that you provide limited amounts of content within conditionally revealed sections, if you need to disclose larger amounts of content, please consider using a different pattern.
@@ -81,20 +72,6 @@ It is recommended that you provide limited amounts of content within conditional
 The `label` prop in `RadioButton` accepts a ReactNode, which allows for custom content to be displayed as the label.
 
 <Canvas of={RadioButtonGroupStories.WithCustomLabels} />
-
-### Required
-
-`RadioButtonGroup` can be marked as required by passing the `required` prop.
-
-<Canvas of={RadioButtonGroupStories.Required} />
-
-### Disabled
-
-`RadioButton`s can be disabled using the `disabled` prop either on the `RadioButtonGroup` to disable all radio buttons, or on individual `RadioButton`s to disable them individually.
-
-**Please Note**: Even though Carbon does support disabled radio buttons, their use is not generally recommended by Design System.
-
-<Canvas of={RadioButtonGroupStories.Disabled} />
 
 ## Validation States
 
