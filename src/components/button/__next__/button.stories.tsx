@@ -9,6 +9,38 @@ const meta: Meta<typeof Button> = {
   title: "Button",
   component: Button,
   parameters: { chromatic: { disableSnapshot: true } },
+  argTypes: {
+    children: {
+      control: "text",
+    },
+    variant: {
+      options: ["default", "destructive", "gradient"],
+      control: { type: "radio" },
+    },
+    variantType: {
+      options: ["primary", "secondary", "tertiary", "subtle"],
+      control: { type: "radio" },
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    disabled: {
+      control: "boolean",
+    },
+    destructive: {
+      control: "boolean",
+    },
+    fullWidth: {
+      control: "boolean",
+    },
+    inverse: {
+      control: "boolean",
+    },
+    noWrap: {
+      control: "boolean",
+    },
+  },
   args: {
     children: "Button",
     disabled: false,
@@ -29,6 +61,22 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 type Story = StoryObj<typeof Button>;
+
+export const Playground: Story = {
+  render: (args: ButtonProps) => <Button {...args}>{args.children}</Button>,
+  args: {
+    children: "Button",
+    variant: "default",
+    variantType: "primary",
+    size: "medium",
+    disabled: false,
+    destructive: false,
+    fullWidth: false,
+    inverse: false,
+    noWrap: true,
+  },
+};
+Playground.storyName = "Playground";
 
 export const Default: Story = (args: ButtonProps) => {
   return <Button {...args}>Button</Button>;
