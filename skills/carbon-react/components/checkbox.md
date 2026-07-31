@@ -575,6 +575,36 @@ description: Carbon Checkbox component props and usage examples.
 ```
 
 
+### Playground
+
+**Args**
+
+```tsx
+{
+    label: "Checkbox",
+    disabled: false,
+    reverse: false,
+    required: false,
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    const [isChecked, setIsChecked] = useState(false);
+    return (
+      <Checkbox
+        {...args}
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
+    );
+  }
+```
+
+
 ### WithLabel
 
 **Args**
