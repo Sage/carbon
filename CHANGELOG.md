@@ -1,3 +1,9 @@
+## [161.10.0](https://github.com/Sage/carbon/compare/v161.9.2...v161.10.0) (2026-07-31)
+
+### Features
+
+* **step-flow:** align with Fusion DS ([f970762](https://github.com/Sage/carbon/commit/f970762452f639f3fb431afb4789ed68b777a893))
+
 ## [161.9.2](https://github.com/Sage/carbon/compare/v161.9.1...v161.9.2) (2026-07-31)
 
 ### Bug Fixes
