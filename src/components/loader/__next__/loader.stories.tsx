@@ -16,61 +16,71 @@ const meta: Meta<typeof Loader> = {
   title: "Loader",
   component: Loader,
   parameters: { chromatic: { disableSnapshot: true } },
+  argTypes: {
+    loaderType: {
+      options: ["standalone", "ring", "star"],
+      control: { type: "radio" },
+    },
+    variant: {
+      options: [
+        "typical",
+        "ai",
+        "stacked",
+        "inline",
+        "ai-stacked",
+        "ai-inline",
+      ],
+      control: { type: "select" },
+    },
+    size: {
+      options: ["extra-small", "small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    inverse: {
+      control: "boolean",
+    },
+    showLabel: {
+      control: "boolean",
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Loader>;
 
-export const Default: Story = {
+export const Playground: Story = {
   render: (args: LoaderProps) => (
     <Box>
       <Loader {...args} />
     </Box>
   ),
-};
-Default.storyName = "Default";
-
-export const Standalone: Story = {
-  render: () => (
-    <Box>
-      <Loader loaderType="standalone" />
-    </Box>
-  ),
-};
-Standalone.storyName = "Standalone";
-
-export const Ring: Story = {
-  render: () => (
-    <Box>
-      <Loader loaderType="ring" />
-    </Box>
-  ),
-};
-Ring.storyName = "Ring";
-
-export const Star: Story = {
-  render: () => (
-    <Box>
-      <Loader loaderType="star" />
-    </Box>
-  ),
-};
-Star.storyName = "Star";
-
-export const StandaloneSizes: Story = {
-  render: () => (
-    <>
-      <Box>
-        <Loader loaderType="standalone" size="small" />
+  args: {
+    loaderType: "standalone",
+    variant: "typical",
+    size: "medium",
+    inverse: false,
+    showLabel: true,
+    loaderLabel: "Loading",
+    hasMotion: true,
+    isTracked: false,
+    animationTime: 3,
+    isSuccess: false,
+    isError: false,
+  },
+  decorators: [
+    (Story, { args }) => (
+      <Box
+        p={2}
+        backgroundColor={
+          args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)"
+        }
+      >
+        <Story />
       </Box>
-      <Box>
-        <Loader loaderType="standalone" size="medium" />
-      </Box>
-      <Box>
-        <Loader loaderType="standalone" size="large" />
-      </Box>
-    </>
-  ),
+    ),
+  ],
 };
 StandaloneSizes.storyName = "Standalone Sizes";
 
@@ -248,6 +258,7 @@ export const DisabledMotion: Story = {
   ),
 };
 DisabledMotion.storyName = "Disabled Motion";
+Playground.storyName = "Playground";
 
 export const InsideButtons: Story = {
   render: () => (
