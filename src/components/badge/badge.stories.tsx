@@ -26,7 +26,11 @@ const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
 
-const meta: Meta<typeof Badge> = {
+type BadgeStoryArgs = React.ComponentProps<typeof Badge> & {
+  withButton?: boolean;
+};
+
+const meta: Meta<BadgeStoryArgs> = {
   title: "Badge",
   component: Badge,
   argTypes: {
@@ -48,6 +52,59 @@ const meta: Meta<typeof Badge> = {
 
 export default meta;
 type Story = StoryObj<typeof Badge>;
+
+export const Playground: StoryObj<BadgeStoryArgs> = {
+  render: (args) => {
+    const { withButton, ...badgeProps } = args;
+    return (
+      <div style={lightGreyBackground}>
+        <Badge
+          id="badge-playground"
+          {...badgeProps}
+          counter={badgeProps.counter ?? 0}
+        >
+          {withButton && (
+            <Button
+              inverse={badgeProps.inverse}
+              buttonType="secondary"
+              aria-describedby="badge-playground"
+            >
+              Filter
+            </Button>
+          )}
+        </Badge>
+      </div>
+    );
+  },
+  args: {
+    counter: 99,
+    size: "medium",
+    variant: "typical",
+    inverse: false,
+    withButton: false,
+  },
+  argTypes: {
+    withButton: {
+      control: { type: "boolean" },
+      description: "Render Badge with a Button child",
+    },
+  },
+  decorators: [
+    (Story, { args }) => (
+      <div
+        style={{
+          ...lightGreyBackground,
+          backgroundColor: args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)",
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
+};
+Playground.storyName = "Playground";
 
 export const Default: Story = ({ ...args }) => {
   return (
