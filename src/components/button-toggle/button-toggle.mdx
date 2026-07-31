@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as ButtonToggleStories from "./button-toggle.stories";
 
@@ -15,7 +15,7 @@ import * as ButtonToggleStories from "./button-toggle.stories";
   Product Design System component
 </a>
 
- Press one of the buttons to make a selection. This component can be used when the user has to make a choice between a small number of options.
+Press one of the buttons to make a selection. This component can be used when the user has to make a choice between a small number of options.
 
 ## Contents
 
@@ -32,103 +32,42 @@ import {
 } from "carbon-react/lib/components/button-toggle";
 ```
 
+## Playground
+
+Use this interactive example to explore ButtonToggleGroup props with Storybook controls.
+
+<Canvas of={ButtonToggleStories.Playground} />
+
+<Controls
+  of={ButtonToggleStories.Playground}
+  include={[
+    "label",
+    "inputHint",
+    "inputWidth",
+    "fullWidth",
+    "allowDeselect",
+    "disabled",
+    "size",
+  ]}
+/>
+
 ## Examples
-
-### Grouped
-
-Pass `ButtonToggle` buttons as children of `ButtonToggleGroup` to render them in a group.
-Control the state of the selected values by making use of the `value` and `onChange` props available in `ButtonToggleGroup`.
-
-If using this component without a visible label, please ensure to provide an accessible label to the group using the `aria-label` prop.
-
-<Canvas of={ButtonToggleStories.Default} />
-
-### With Label and Hint Text
-
-The `label` prop can be used to set a visible label for the group.
-To provide an additional hint text string, use the `inputHint` prop.
-
-<Canvas of={ButtonToggleStories.WithLabelAndHint} />
 
 ### Single
 
-`ButtonToggle` can be used individually to act as a switch to turn something on and off. 
+`ButtonToggle` can be used individually to act as a switch to turn something on and off.
 Control the state of the button using the `pressed` prop available.
 
 <Canvas of={ButtonToggleStories.Single} />
 
-### With Icons
-
-To render an `Icon` within a `ButtonToggle`, just pass it as a child of the component.
-
-See our [Icon documentation](../?path=/docs/icon--docs) for more information. 
-
-<Canvas of={ButtonToggleStories.WithIcon} />
-
 ### Loading
 
-To render a `Loader` within a `ButtonToggle`, just pass it as a child of the component. 
+To render a `Loader` within a `ButtonToggle`, just pass it as a child of the component.
 When doing this, please ensure to prevent any interaction with the button if selected while in a loading state.
 
-See our [Loader documentation](../?path=/docs/loader--docs) for more information. 
+See our [Loader documentation](../?path=/docs/loader--docs) for more information.
 
 <Canvas of={ButtonToggleStories.Loading} />
-
-### Sizes
-
-#### Grouped
-
-The size of a group can be changed by passing the `size` prop to `ButtonToggleGroup`. Available sizes are `"small"`, `"medium"` (default) and `"large"`.
-
-**Note:** Do not make use of icons when using the `"small"` size, please limit the content of the buttons to only text. 
-
-<Canvas of={ButtonToggleStories.SizesGrouped} />
-
-#### Single
-
-The size of a button can be changed by passing the `size` prop to `ButtonToggle`. Available sizes are `"small"`, `"medium"` (default) and `"large"`.
-
-**Note:** This will only be applied when `ButtonToggle` is used in isolation, if used within a group this prop will have no effect.
-
-<Canvas of={ButtonToggleStories.SizesSingle} />
-
-### Icon Only
-
-`ButtonToggle` can be rendered as an icon-only button when only `Icon` children are passed.
-
-Please ensure to provide accessible names using `aria-label` to any buttons with no visible label.
-
-#### Grouped
-
-**Note:** Do not make use of icons when using the `"small"` size, icon-only groups are only available in sizes `"medium"` or `"large"`. 
-
-<Canvas of={ButtonToggleStories.IconOnlyGrouped} />
-
-#### Single
-
-<Canvas of={ButtonToggleStories.IconOnlySingle} />
-
-### Allow Deselect
-
-By default, the active `ButtonToggle` can only be deselected when another button in the group is selected. 
-
-The `allowDeselect` prop allows users to deselect the currently active button without having to select another.
-
-<Canvas of={ButtonToggleStories.AllowDeselect} />
-
-### Full Width
-
-By default, the button wrapper will hug its content. 
-You can set the `fullWidth` prop to allow the buttons to expand the full width of their container. 
-
-<Canvas of={ButtonToggleStories.FullWidth} />
-
-### Disabled
-
-The component can be disabled by passing the `disabled` prop to `ButtonToggleGroup`.
-Individual `ButtonToggle` buttons can also be disabled by passing the `disabled` prop.
-
-<Canvas of={ButtonToggleStories.Disabled} />
 
 ## Props
 

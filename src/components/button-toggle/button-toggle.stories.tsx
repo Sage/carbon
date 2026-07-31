@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { ButtonToggle, ButtonToggleGroup, ButtonToggleGroupProps } from ".";
-import Icon from "../icon";
 import { Loader } from "../loader/__next__/loader.component";
-import Box from "../box";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -16,6 +14,22 @@ const meta: Meta<typeof ButtonToggleGroup> = {
   subcomponents: { ButtonToggle },
   argTypes: {
     ...styledSystemProps,
+    label: {
+      control: "text",
+    },
+    inputHint: {
+      control: "text",
+    },
+    fullWidth: {
+      control: "boolean",
+    },
+    allowDeselect: {
+      control: "boolean",
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -28,55 +42,41 @@ const meta: Meta<typeof ButtonToggleGroup> = {
 export default meta;
 type Story = StoryObj<typeof ButtonToggleGroup>;
 
-const ControlledButtonToggleGroup = ({
-  id = "default",
-  children,
-  value,
-  ...args
-}: Omit<ButtonToggleGroupProps, "onChange">) => {
-  const [selectedButton, setSelectedButton] = useState(value);
+export const Playground: Story = {
+  render: (args) => {
+    const [selectedButton, setSelectedButton] = useState("playground-2");
 
-  const handleOnChange = (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) => {
-    setSelectedButton(selectedValue as string);
-  };
+    const handleOnChange = (
+      ev: React.MouseEvent<HTMLButtonElement>,
+      selectedValue?: string,
+    ) => {
+      setSelectedButton(selectedValue as string);
+    };
 
-  return (
-    <ButtonToggleGroup
-      {...args}
-      id={id}
-      value={selectedButton}
-      onChange={handleOnChange}
-    >
-      <ButtonToggle value={`${id}-1`}>Button 1</ButtonToggle>
-      <ButtonToggle value={`${id}-2`}>Button 2</ButtonToggle>
-      <ButtonToggle value={`${id}-3`}>Button 3</ButtonToggle>
-    </ButtonToggleGroup>
-  );
-};
-
-export const Default: Story = {
-  render: ControlledButtonToggleGroup,
-  args: {
-    "aria-label": "Button Toggle Group",
-    value: "default-2",
+    return (
+      <ButtonToggleGroup
+        {...args}
+        id="playground"
+        value={selectedButton}
+        onChange={handleOnChange}
+      >
+        <ButtonToggle value="playground-1">Button 1</ButtonToggle>
+        <ButtonToggle value="playground-2">Button 2</ButtonToggle>
+        <ButtonToggle value="playground-3">Button 3</ButtonToggle>
+      </ButtonToggleGroup>
+    );
   },
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
-};
-
-export const WithLabelAndHint: Story = {
-  ...Default,
   args: {
-    id: "with-label",
     label: "Label",
-    inputHint: "Hint Text",
-    value: "with-label-2",
+    inputHint: "",
+    fullWidth: false,
+    allowDeselect: false,
+    disabled: false,
+    size: "medium",
+    inputWidth: 100,
   },
 };
+Playground.storyName = "Playground";
 
 export const Single: Story = () => {
   const [isPressed, setIsPressed] = useState(true);
@@ -92,63 +92,6 @@ export const Single: Story = () => {
   );
 };
 Single.storyName = "Single";
-
-export const WithIcon: Story = ({ ...args }: ButtonToggleGroupProps) => {
-  const [leftValue, setLeftValue] = useState("icon-left-1");
-  const [rightValue, setRightValue] = useState("icon-right-1");
-
-  const handleOnChangeLeft = (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) => {
-    setLeftValue(selectedValue as string);
-  };
-
-  const handleOnChangeRight = (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) => {
-    setRightValue(selectedValue as string);
-  };
-
-  return (
-    <>
-      <ButtonToggleGroup
-        {...args}
-        id="icon-left"
-        value={leftValue}
-        onChange={handleOnChangeLeft}
-        mb={2}
-      >
-        <ButtonToggle value="icon-left-1">
-          <Icon aria-hidden type="placeholder" />
-          Button 1
-        </ButtonToggle>
-        <ButtonToggle value="icon-left-2">
-          <Icon aria-hidden type="placeholder" />
-          Button 2
-        </ButtonToggle>
-      </ButtonToggleGroup>
-      <ButtonToggleGroup
-        {...args}
-        id="icon-right"
-        value={rightValue}
-        onChange={handleOnChangeRight}
-        mb={2}
-      >
-        <ButtonToggle value="icon-right-1">
-          Button 1
-          <Icon aria-hidden type="placeholder" />
-        </ButtonToggle>
-        <ButtonToggle value="icon-right-2">
-          Button 2
-          <Icon aria-hidden type="placeholder" />
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </>
-  );
-};
-WithIcon.storyName = "With Icon";
 
 export const Loading: Story = ({ ...args }: ButtonToggleGroupProps) => {
   const [value, setValue] = useState("");
@@ -183,279 +126,3 @@ export const Loading: Story = ({ ...args }: ButtonToggleGroupProps) => {
   );
 };
 Loading.storyName = "Loading";
-
-export const SizesGrouped: Story = ({ ...args }: ButtonToggleGroupProps) => {
-  const [valueSmall, setValueSmall] = useState("small-2");
-  const [valueMedium, setValueMedium] = useState("medium-2");
-  const [valueLarge, setValueLarge] = useState("large-2");
-
-  const handleOnChangeSmall = (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) => {
-    setValueSmall(selectedValue as string);
-  };
-
-  const handleOnChangeMedium = (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) => {
-    setValueMedium(selectedValue as string);
-  };
-
-  const handleOnChangeLarge = (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) => {
-    setValueLarge(selectedValue as string);
-  };
-
-  return (
-    <>
-      <ButtonToggleGroup
-        {...args}
-        id="small"
-        label="Small ButtonToggleGroup"
-        value={valueSmall}
-        onChange={handleOnChangeSmall}
-        size="small"
-        mb={2}
-      >
-        <ButtonToggle value="small-1">Button 1</ButtonToggle>
-        <ButtonToggle value="small-2">Button 2</ButtonToggle>
-        <ButtonToggle value="small-3">Button 3</ButtonToggle>
-      </ButtonToggleGroup>
-
-      <ButtonToggleGroup
-        {...args}
-        id="medium"
-        label="Medium ButtonToggleGroup"
-        value={valueMedium}
-        onChange={handleOnChangeMedium}
-        size="medium"
-        mb={2}
-      >
-        <ButtonToggle value="medium-1">
-          <Icon aria-hidden type="placeholder" />
-          Button 1
-        </ButtonToggle>
-        <ButtonToggle value="medium-2">
-          <Icon aria-hidden type="placeholder" />
-          Button 2
-        </ButtonToggle>
-        <ButtonToggle value="medium-3">
-          <Icon aria-hidden type="placeholder" />
-          Button 3
-        </ButtonToggle>
-      </ButtonToggleGroup>
-
-      <ButtonToggleGroup
-        {...args}
-        id="large"
-        label="Large ButtonToggleGroup"
-        value={valueLarge}
-        onChange={handleOnChangeLarge}
-        size="large"
-      >
-        <ButtonToggle value="large-1">
-          <Icon aria-hidden type="placeholder" />
-          Button 1
-        </ButtonToggle>
-        <ButtonToggle value="large-2">
-          <Icon aria-hidden type="placeholder" />
-          Button 2
-        </ButtonToggle>
-        <ButtonToggle value="large-3">
-          <Icon aria-hidden type="placeholder" />
-          Button 3
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </>
-  );
-};
-SizesGrouped.storyName = "Sizes - Grouped";
-
-export const SizesSingle: Story = () => {
-  const [isPressedSmall, setIsPressedSmall] = useState(true);
-  const [isPressedMedium, setIsPressedMedium] = useState(true);
-  const [isPressedLarge, setIsPressedLarge] = useState(true);
-
-  const handleClickSmall = () => {
-    setIsPressedSmall(!isPressedSmall);
-  };
-
-  const handleClickMedium = () => {
-    setIsPressedMedium(!isPressedMedium);
-  };
-
-  const handleClickLarge = () => {
-    setIsPressedLarge(!isPressedLarge);
-  };
-
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ButtonToggle
-        pressed={isPressedSmall}
-        onClick={handleClickSmall}
-        size="small"
-      >
-        <Icon aria-hidden type="placeholder" /> Small ButtonToggle
-      </ButtonToggle>
-      <ButtonToggle
-        pressed={isPressedMedium}
-        onClick={handleClickMedium}
-        size="medium"
-      >
-        <Icon aria-hidden type="placeholder" /> Medium ButtonToggle
-      </ButtonToggle>
-      <ButtonToggle
-        pressed={isPressedLarge}
-        onClick={handleClickLarge}
-        size="large"
-      >
-        <Icon aria-hidden type="placeholder" /> Large ButtonToggle
-      </ButtonToggle>
-    </Box>
-  );
-};
-SizesSingle.storyName = "Sizes - Single";
-
-export const IconOnlyGrouped: Story = ({ ...args }: ButtonToggleGroupProps) => {
-  const [valueMedium, setValueMedium] = useState("medium-2");
-  const [valueLarge, setValueLarge] = useState("large-2");
-
-  const handleOnChangeMedium = (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) => {
-    setValueMedium(selectedValue as string);
-  };
-
-  const handleOnChangeLarge = (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) => {
-    setValueLarge(selectedValue as string);
-  };
-
-  return (
-    <>
-      <ButtonToggleGroup
-        {...args}
-        id="medium"
-        label="Medium"
-        value={valueMedium}
-        onChange={handleOnChangeMedium}
-        size="medium"
-        mb={2}
-      >
-        <ButtonToggle value="medium-1">
-          <Icon ariaLabel="Placeholder 1" type="placeholder" />
-        </ButtonToggle>
-        <ButtonToggle value="medium-2">
-          <Icon ariaLabel="Placeholder 2" type="placeholder" />
-        </ButtonToggle>
-        <ButtonToggle value="medium-3">
-          <Icon ariaLabel="Placeholder 3" type="placeholder" />
-        </ButtonToggle>
-      </ButtonToggleGroup>
-
-      <ButtonToggleGroup
-        {...args}
-        id="large"
-        label="Large"
-        value={valueLarge}
-        onChange={handleOnChangeLarge}
-        size="large"
-      >
-        <ButtonToggle value="large-1">
-          <Icon ariaLabel="Placeholder 1" type="placeholder" />
-        </ButtonToggle>
-        <ButtonToggle value="large-2">
-          <Icon ariaLabel="Placeholder 2" type="placeholder" />
-        </ButtonToggle>
-        <ButtonToggle value="large-3">
-          <Icon ariaLabel="Placeholder 3" type="placeholder" />
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </>
-  );
-};
-IconOnlyGrouped.storyName = "Icon Only - Grouped";
-
-export const IconOnlySingle: Story = () => {
-  const [isPressedSmall, setIsPressedSmall] = useState(true);
-  const [isPressedMedium, setIsPressedMedium] = useState(true);
-  const [isPressedLarge, setIsPressedLarge] = useState(true);
-
-  const handleClickSmall = () => {
-    setIsPressedSmall(!isPressedSmall);
-  };
-
-  const handleClickMedium = () => {
-    setIsPressedMedium(!isPressedMedium);
-  };
-
-  const handleClickLarge = () => {
-    setIsPressedLarge(!isPressedLarge);
-  };
-
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ButtonToggle
-        pressed={isPressedSmall}
-        onClick={handleClickSmall}
-        size="small"
-      >
-        <Icon ariaLabel="Placeholder 1" type="placeholder" />
-      </ButtonToggle>
-      <ButtonToggle
-        pressed={isPressedMedium}
-        onClick={handleClickMedium}
-        size="medium"
-      >
-        <Icon ariaLabel="Placeholder 2" type="placeholder" />
-      </ButtonToggle>
-      <ButtonToggle
-        pressed={isPressedLarge}
-        onClick={handleClickLarge}
-        size="large"
-      >
-        <Icon ariaLabel="Placeholder 3" type="placeholder" />
-      </ButtonToggle>
-    </Box>
-  );
-};
-IconOnlySingle.storyName = "Icon Only - Single";
-
-export const AllowDeselect: Story = {
-  ...Default,
-  args: {
-    id: "allow-deselect",
-    value: "allow-deselect-2",
-    allowDeselect: true,
-  },
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
-};
-
-export const FullWidth: Story = {
-  ...Default,
-  args: {
-    id: "full-width",
-    value: "full-width-2",
-    fullWidth: true,
-  },
-};
-
-export const Disabled: Story = {
-  ...Default,
-  args: {
-    id: "disabled",
-    label: "Disabled",
-    inputHint: "Hint Text",
-    value: "disabled-2",
-    disabled: true,
-  },
-};
