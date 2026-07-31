@@ -11,10 +11,53 @@ const meta: Meta<typeof Loader> = {
   title: "Loader",
   component: Loader,
   parameters: { chromatic: { disableSnapshot: true } },
+  argTypes: {
+    loaderType: {
+      options: ["standalone", "ring", "star"],
+      control: { type: "radio" },
+    },
+    variant: {
+      options: [
+        "typical",
+        "ai",
+        "stacked",
+        "inline",
+        "ai-stacked",
+        "ai-inline",
+      ],
+      control: { type: "select" },
+    },
+    size: {
+      options: ["extra-small", "small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    inverse: {
+      control: "boolean",
+    },
+    showLabel: {
+      control: "boolean",
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Loader>;
+
+export const Playground: Story = {
+  render: (args: LoaderProps) => (
+    <Box>
+      <Loader {...args} />
+    </Box>
+  ),
+  args: {
+    loaderType: "standalone",
+    variant: "typical",
+    size: "medium",
+    inverse: false,
+    showLabel: true,
+  },
+};
+Playground.storyName = "Playground";
 
 export const Default: Story = {
   render: (args: LoaderProps) => (

@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
 
 import * as LoaderStories from "./loader.stories";
@@ -32,6 +32,17 @@ Import `Loader` into the project.
 ```javascript
 import Loader from "carbon-react/lib/components/loader/__next__";
 ```
+
+## Playground
+
+Use this interactive example to explore Loader props with Storybook controls.
+
+<Canvas of={LoaderStories.Playground} />
+
+<Controls
+  of={LoaderStories.Playground}
+  include={["loaderType", "variant", "size", "inverse", "showLabel"]}
+/>
 
 ## Examples
 
@@ -90,6 +101,7 @@ The `ring` loader type comes with four variants: `stacked` (default), `inline`, 
 The `Loader` component offers size flexibility based on the selected loader type: the Standalone loader supports three sizes—Small, Medium, and Large—while the Ring loader provides four options—Extra Small, Small, Medium, and Large. The Star loader type has a single default size, ensuring a consistent appearance across use cases.
 
 #### Standalone loader sizes
+
 <Canvas of={LoaderStories.StandaloneSizes} />
 
 #### Ring loader sizes
