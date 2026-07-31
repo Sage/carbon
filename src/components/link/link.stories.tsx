@@ -25,59 +25,38 @@ const meta: Meta<typeof Link> = {
 export default meta;
 type Story = StoryObj<typeof Link>;
 
-export const Default: Story = {
+export const Playground: Story = {
   render: (args) => <Link {...args}>{args.children}</Link>,
   args: {
-    children: "This is an anchor link",
+    children: "This is a link",
     href: "https://carbon.sage.com",
-  },
-};
-
-export const WithUnderlineOnlyOnHover: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    children: "This is an anchor link with an underline applied on hover",
-    underline: "hover",
-  },
-};
-
-export const WithNoUnderline: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    children: "This is an anchor link with no underline",
-    underline: "never",
-  },
-};
-
-export const WithIcon: Story = {
-  render: (args) => (
-    <>
-      <Typography>
-        <Link iconAlign="left" {...args}>
-          Link with left icon
-        </Link>
-      </Typography>
-      <Typography>
-        <Link iconAlign="right" {...args}>
-          Link with right icon
-        </Link>
-      </Typography>
-    </>
-  ),
-  args: {
-    href: "https://carbon.sage.com",
-    icon: "settings",
+    underline: "always",
+    isSkipLink: false,
+    icon: undefined,
+    iconAlign: "left",
+    variant: "typical",
+    linkSize: "medium",
+    inverse: false,
+    bold: false,
+    target: undefined,
+    rel: undefined,
   },
   decorators: [
-    (Story) => (
-      <Box display="flex" flexDirection="row" gap={4}>
+    (Story, { args }) => (
+      <Box
+        p={2}
+        backgroundColor={
+          args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)"
+        }
+      >
         <Story />
       </Box>
     ),
   ],
 };
+Playground.storyName = "Playground";
 
 export const AsSkipLink: Story = () => {
   return (
