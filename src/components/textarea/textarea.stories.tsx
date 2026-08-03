@@ -7,6 +7,7 @@ import I18nProvider from "../i18n-provider";
 
 import Textarea from ".";
 import useMultiInput from "../../hooks/use-multi-input";
+import { CarbonProvider } from "../..";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -40,6 +41,8 @@ export const DisabledStory: Story = () => {
       disabled
       value={value}
       onChange={({ target }) => setValue(target.value)}
+      required
+      characterLimit={20}
     />
   );
 };
@@ -97,14 +100,24 @@ ExpandableStory.parameters = { chromatic: { disableSnapshot: true } };
 export const CharacterLimitStory: Story = () => {
   const [value, setValue] = useState("");
   return (
-    <Textarea
-      label="Textarea"
-      inputHint="Hint text (optional)."
-      expandable
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-      characterLimit={50}
-    />
+    <>
+      <Textarea
+        label="Textarea"
+        expandable
+        value={value}
+        onChange={({ target }) => setValue(target.value)}
+        characterLimit={50}
+      />
+      <br />
+      <Textarea
+        label="Textarea"
+        labelInline
+        expandable
+        value={value}
+        onChange={({ target }) => setValue(target.value)}
+        characterLimit={50}
+      />
+    </>
   );
 };
 CharacterLimitStory.storyName = "Character Limit";
@@ -169,19 +182,6 @@ export const CustomWidthStory: Story = () => {
   );
 };
 CustomWidthStory.storyName = "Custom Width";
-
-export const FieldHelpStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      fieldHelp="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-};
-FieldHelpStory.storyName = "Field Help";
 
 export const MaxWidthStory: Story = () => {
   const [value, setValue] = useState("");
@@ -332,3 +332,110 @@ export const BorderlessExample: Story = () => {
   );
 };
 BorderlessExample.storyName = "Borderless Example";
+
+export const ResizeStory: Story = () => {
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <>
+      <CarbonProvider validationRedesignOptIn>
+        <Textarea
+          inputHint="this is a hint"
+          characterLimit={200}
+          label="Textarea with resize"
+          value={state}
+          onChange={setValue}
+          resize="both"
+          validationMessagePositionTop={false}
+          mb={2}
+        />
+        <Textarea
+          labelInline
+          label="Textarea with resize"
+          value={state}
+          onChange={setValue}
+          resize="both"
+          validationMessagePositionTop={false}
+          mb={2}
+        />
+      </CarbonProvider>
+    </>
+  );
+};
+ResizeStory.storyName = "Resize";
+
+export const SizeStory: Story = () => {
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <>
+      <CarbonProvider validationRedesignOptIn>
+        <Textarea
+          label="Textarea small"
+          inputHint="this is a hint"
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          characterLimit={100}
+          size="small"
+        />
+
+        <Textarea
+          label="Textarea medium"
+          inputHint="this is a hint"
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          characterLimit={100}
+          size="medium"
+        />
+
+        <Textarea
+          label="Textarea large"
+          inputHint="this is a hint"
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          characterLimit={100}
+          size="large"
+        />
+
+        <Textarea
+          label="Textarea small"
+          labelInline
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          size="small"
+        />
+        <Textarea
+          label="Textarea medium"
+          labelInline
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          size="medium"
+        />
+        <Textarea
+          label="Textarea large"
+          labelInline
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          size="large"
+        />
+      </CarbonProvider>
+    </>
+  );
+};
+SizeStory.storyName = "Size";
