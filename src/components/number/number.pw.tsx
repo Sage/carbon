@@ -138,7 +138,7 @@ test.describe("check props for Number component", () => {
     const elementInput = commonDataElementInputPreview(page);
     await elementInput.fill("12345678901");
     await expect(characterLimit(page)).toHaveText("1 character too many");
-    await expect(characterLimit(page)).toHaveCSS("color", "rgb(203, 55, 74)");
+    await expect(characterLimit(page)).toHaveCSS("color", "rgb(219, 0, 78)");
   });
 
   test("should display 3 characters too many when input exceeds the character limit by 3", async ({
@@ -150,7 +150,7 @@ test.describe("check props for Number component", () => {
     const elementInput = commonDataElementInputPreview(page);
     await elementInput.fill("12345678901");
     await expect(characterLimit(page)).toHaveText("3 characters too many");
-    await expect(characterLimit(page)).toHaveCSS("color", "rgb(203, 55, 74)");
+    await expect(characterLimit(page)).toHaveCSS("color", "rgb(219, 0, 78)");
   });
 
   test("should render with data-element prop", async ({ mount, page }) => {

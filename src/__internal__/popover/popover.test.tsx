@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Popover, { PopoverProps } from "./popover.component";
 import Dialog from "../../components/dialog";
@@ -170,4 +170,51 @@ test("does not render a backdrop when disableBackgroundUI is false", () => {
   );
 
   expect(screen.queryByTestId("popup-backdrop")).not.toBeInTheDocument();
+});
+
+const PopoverInThemedWrapper = (
+  props: Omit<PopoverProps, "children" | "reference">,
+) => {
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  return (
+    <div data-carbon-theme="dark" data-role="themed-wrapper">
+      <button ref={buttonRef} type="button">
+        Reference
+      </button>
+      <Popover reference={buttonRef} {...props}>
+        <div>I float!</div>
+      </Popover>
+    </div>
+  );
+};
+
+test("applies the nearest ancestor's carbon theme to the portalled content", async () => {
+  render(<PopoverInThemedWrapper />);
+
+  await waitFor(() =>
+    expect(
+      screen.getByTestId("carbon-portal-scoped-tokens-provider"),
+    ).toHaveAttribute("data-carbon-theme", "dark"),
+  );
+});
+
+test("updates the theme when the ancestor's data-carbon-theme changes, and clears it when removed", async () => {
+  render(<PopoverInThemedWrapper />);
+  const wrapper = screen.getByTestId("themed-wrapper");
+  const provider = screen.getByTestId("carbon-portal-scoped-tokens-provider");
+
+  await waitFor(() =>
+    expect(provider).toHaveAttribute("data-carbon-theme", "dark"),
+  );
+
+  // fires the MutationObserver callback
+  act(() => wrapper.setAttribute("data-carbon-theme", "light"));
+  await waitFor(() =>
+    expect(provider).toHaveAttribute("data-carbon-theme", "light"),
+  );
+
+  act(() => wrapper.removeAttribute("data-carbon-theme"));
+  await waitFor(() =>
+    expect(provider).not.toHaveAttribute("data-carbon-theme"),
+  );
 });

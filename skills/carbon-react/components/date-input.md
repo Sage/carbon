@@ -61,7 +61,6 @@ description: Carbon DateInput component props and usage examples.
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
-| inputName | InputName \| undefined | No |  |  |  |  |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
@@ -279,6 +278,7 @@ description: Carbon DateInput component props and usage examples.
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
+| type | HTMLInputTypeAttribute \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |

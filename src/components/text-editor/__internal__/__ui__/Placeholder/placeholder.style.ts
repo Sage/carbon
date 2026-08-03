@@ -4,7 +4,7 @@ const StyledPlaceholder = styled.div`
   pointer-events: none;
   position: absolute;
   top: 12px;
-  color: var(--colorsUtilityYin055);
+  color: var(--input-typical-txt-alt);
   left: 14px;
   user-select: none;
 `;

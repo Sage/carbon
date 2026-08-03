@@ -19,7 +19,6 @@ description: Carbon Picklist component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | List of PicklistItem elements |  |
 | disabled | boolean \| undefined | No |  | Indicate if component is disabled |  |
-| index | number \| undefined | No |  |  |  |
 | placeholder | React.ReactNode | No |  | Placeholder to be rendered when list is empty |  |
 
 ## Examples

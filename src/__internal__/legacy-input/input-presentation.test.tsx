@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import InputPresentation from "./input-presentation.component";
 import Input from "./input.component";
 import { InputContext, InputGroupContext } from "../input-behaviour";
+import CarbonProvider from "../../components/carbon-provider";
 
 test("renders presentational div and presentation container elements", () => {
   render(<InputPresentation>Children</InputPresentation>);
@@ -131,4 +132,21 @@ test("applies the custom `maxWidth` when prop is passed a value", () => {
   const inputPresentation = screen.getByTestId("input-presentation-container");
 
   expect(inputPresentation).toHaveStyle("max-width: 500px");
+});
+
+test("applies correct color when validationRedesignOptIn is true", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn={true}>
+      <InputPresentation maxWidth="500px" warning="Warning message">
+        <Input value="" />
+      </InputPresentation>
+    </CarbonProvider>,
+  );
+
+  const presentationStyle = screen.getByRole("presentation");
+
+  expect(presentationStyle).toHaveStyleRule(
+    "border-color",
+    "var(--colorsUtilityMajor300) !important",
+  );
 });

@@ -10,7 +10,12 @@ import { TEXT_EDITOR_ACTION_TYPES } from "../../../__utils__/constants";
 // The `ItalicButton` component is a button that applies italic formatting to the selected text in the editor.
 const ItalicButton = React.forwardRef<HTMLButtonElement, FormattingButtonProps>(
   (
-    { isActive, isFirstButton = false, namespace, size }: FormattingButtonProps,
+    {
+      isActive,
+      isFirstButton = false,
+      namespace,
+      size = "medium",
+    }: FormattingButtonProps,
     ref,
   ) => {
     // Get the editor instance

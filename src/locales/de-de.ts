@@ -133,7 +133,14 @@ const deDE: Partial<Locale> = {
     },
   },
   pager: {
+    firstAriaLabel: () => "Zur ersten Seite",
+    lastAriaLabel: () => "Zur letzten Seite",
+    nextAriaLabel: () => "Zur nächsten Seite",
+    previousAriaLabel: () => "Zur vorherigen Seite",
     pageX: (currentPage?: number | string) => `Seite ${currentPage}`,
+    ofTotalPages: (totalPages: number | string) => `von ${totalPages} Seiten`,
+    itemsPerPage: () => "Einträge pro Seite",
+    ariaLabel: () => "Seitennavigation",
   },
   password: {
     buttonLabelHide: () => "Ausblenden",

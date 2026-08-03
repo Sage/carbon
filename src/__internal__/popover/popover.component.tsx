@@ -1,4 +1,10 @@
-import React, { MutableRefObject, useContext, useRef, RefObject } from "react";
+import React, {
+  MutableRefObject,
+  useContext,
+  useRef,
+  RefObject,
+  useEffect,
+} from "react";
 import { createPortal } from "react-dom";
 import { flip, Placement, Middleware } from "@floating-ui/dom";
 
@@ -7,6 +13,7 @@ import { StyledBackdrop, StyledPopoverContent } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import ModalContext, { ModalContextProps } from "../modal/modal.context";
 import useIsBrowser from "../../hooks/__internal__/useIsBrowser";
+import TokensWrapperContext from "../../components/tokens-wrapper/__internal__/context";
 
 export interface PopoverProps {
   /**
@@ -113,8 +120,31 @@ const PopoverRoot = ({
 const Popover = ({ disablePortal, ...props }: PopoverProps) => {
   const { isBrowser } = useIsBrowser();
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
+  const { wrapperId } = useContext(TokensWrapperContext);
   const closestDialog =
     props.reference.current?.closest<HTMLElement>("[role='dialog']");
+  const [mode, setMode] = React.useState<string | undefined>();
+
+  useEffect(() => {
+    const wrapper = props.reference.current?.closest("[data-carbon-theme]");
+    if (!wrapper) return;
+
+    setMode(
+      wrapper.getAttribute("data-carbon-theme") ??
+        /* istanbul ignore next */ undefined,
+    );
+
+    const observer = new MutationObserver(() => {
+      setMode(wrapper.getAttribute("data-carbon-theme") ?? undefined);
+    });
+
+    observer.observe(wrapper, {
+      attributes: true,
+      attributeFilter: ["data-carbon-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, [props.reference]);
 
   if (disablePortal) {
     return <PopoverRoot {...props} />;
@@ -125,7 +155,12 @@ const Popover = ({ disablePortal, ...props }: PopoverProps) => {
   }
 
   return createPortal(
-    <CarbonScopedTokensProvider className="carbon-portal-scoped-tokens-provider">
+    <CarbonScopedTokensProvider
+      className="carbon-portal-scoped-tokens-provider"
+      data-role="carbon-portal-scoped-tokens-provider"
+      data-tokens-wrapper-id={wrapperId}
+      {...(mode && { "data-carbon-theme": mode })}
+    >
       <PopoverRoot {...props} />
     </CarbonScopedTokensProvider>,
     isInModal && closestDialog ? closestDialog : document.body,

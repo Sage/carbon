@@ -54,4 +54,79 @@ describe("TokensWrapper", () => {
       "var(--badge-bg-default)",
     );
   });
+
+  describe("modeOverride prop", () => {
+    it("applies light mode when modeOverride is 'light'", () => {
+      render(
+        <TokensWrapper modeOverride="light" modeSupportOptIn>
+          <div>Light Mode Child</div>
+        </TokensWrapper>,
+      );
+
+      const wrapper = screen.getByTestId("tokens-wrapper");
+      expect(wrapper).toHaveClass("carbon-light-mode");
+      expect(wrapper).toHaveAttribute("data-carbon-theme", "light");
+    });
+
+    it("applies dark mode when modeOverride is 'dark'", () => {
+      render(
+        <TokensWrapper modeOverride="dark" modeSupportOptIn>
+          <div>Dark Mode Child</div>
+        </TokensWrapper>,
+      );
+
+      const wrapper = screen.getByTestId("tokens-wrapper");
+      expect(wrapper).toHaveClass("carbon-dark-mode");
+      expect(wrapper).toHaveAttribute("data-carbon-theme", "dark");
+    });
+
+    it("applies mode classes when modeOverride is 'auto'", () => {
+      render(
+        <TokensWrapper modeOverride="auto" modeSupportOptIn>
+          <div>Auto Mode Child</div>
+        </TokensWrapper>,
+      );
+
+      const wrapper = screen.getByTestId("tokens-wrapper");
+      expect(wrapper).toHaveClass("carbon-light-mode");
+      expect(wrapper).not.toHaveClass("carbon-dark-mode");
+      expect(wrapper).toHaveAttribute("data-carbon-theme", "light");
+    });
+
+    it("does not apply any mode classes when modeSupportOptIn is false", () => {
+      render(
+        <TokensWrapper modeOverride="light" modeSupportOptIn={false}>
+          <div>No Mode Child</div>
+        </TokensWrapper>,
+      );
+
+      const wrapper = screen.getByTestId("tokens-wrapper");
+      expect(wrapper).not.toHaveClass("carbon-light-mode");
+      expect(wrapper).not.toHaveClass("carbon-dark-mode");
+      expect(wrapper).not.toHaveAttribute("data-carbon-theme");
+    });
+  });
+
+  it("does not set the data-tokens-wrapper-id attribute when overrides are not provided", () => {
+    render(
+      <TokensWrapper>
+        <div>Test Child</div>
+      </TokensWrapper>,
+    );
+
+    expect(screen.getByTestId("tokens-wrapper")).not.toHaveAttribute(
+      "data-tokens-wrapper-id",
+    );
+  });
+
+  it("sets the data-tokens-wrapper-id attribute when overrides are provided", () => {
+    render(
+      <TokensWrapper overrides={{ light: { primaryBrand: "#000000" } }}>
+        <div>Test Child</div>
+      </TokensWrapper>,
+    );
+
+    const wrapper = screen.getByTestId("tokens-wrapper");
+    expect(wrapper).toHaveAttribute("data-tokens-wrapper-id");
+  });
 });

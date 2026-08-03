@@ -205,6 +205,10 @@ interface Locale {
   };
   search: {
     searchButtonText: () => string;
+    assistiveHint?: () => string;
+    queryTooShort?: (minQueryLength: number) => string;
+    noResults?: () => string;
+    results?: (length: number) => string;
   };
   select: {
     actionButtonText: () => string;

@@ -55,10 +55,7 @@ const ReadOnlyEditor = ({
   initialValue,
   namespace = "carbon-rte-readonly",
   size = "medium",
-  useBackgroundColor = true,
-}: Partial<TextEditorProps> & {
-  useBackgroundColor?: boolean;
-}) => {
+}: Partial<TextEditorProps>) => {
   const initialConfig = useMemo<InitialConfigType>(() => {
     return {
       namespace,
@@ -71,12 +68,7 @@ const ReadOnlyEditor = ({
   }, [namespace, initialValue]);
 
   return (
-    <StyledContentEditable
-      namespace={namespace}
-      readOnly
-      size={size}
-      useBackgroundColor={useBackgroundColor}
-    >
+    <StyledContentEditable namespace={namespace} readOnly size={size}>
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextPlugin
           contentEditable={

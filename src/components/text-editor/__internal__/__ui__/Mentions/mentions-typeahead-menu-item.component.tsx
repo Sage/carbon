@@ -37,6 +37,7 @@ export const MentionsTypeaheadMenuItem = ({
   onMouseEnter,
   option,
   currentQueryString,
+  size = "medium",
   ...rest
 }: {
   index: number;
@@ -45,6 +46,7 @@ export const MentionsTypeaheadMenuItem = ({
   onMouseEnter: () => void;
   option: MentionTypeaheadOption;
   currentQueryString?: string;
+  size?: "small" | "medium" | "large";
 }) => {
   const className = "item mentions-list-item" + (isSelected ? " selected" : "");
 
@@ -61,6 +63,7 @@ export const MentionsTypeaheadMenuItem = ({
       onClick={onClick}
       onKeyDown={onClick}
       aria-label={option.name}
+      $size={size}
       {...rest}
     >
       <Portrait

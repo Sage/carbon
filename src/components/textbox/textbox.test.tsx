@@ -99,7 +99,7 @@ describe(`when the characterLimit prop is passed`, () => {
       screen.getByText("1 character too many", {
         selector: '[aria-hidden="true"]',
       }),
-    ).toHaveStyleRule("color", "var(--colorsSemanticNegative500)");
+    ).toHaveStyleRule("color", "var(--input-validation-label-error)");
   });
 });
 
@@ -108,6 +108,23 @@ test("accepts ref as a ref object", () => {
   render(<Textbox value="foo" onChange={() => {}} ref={ref} />);
 
   expect(ref.current).toBe(screen.getByRole("textbox"));
+});
+
+test("forwards type and pattern to the input", () => {
+  render(
+    <Textbox
+      value="foo"
+      onChange={() => {}}
+      type="email"
+      pattern={".+@example\\.com"}
+    />,
+  );
+
+  expect(screen.getByRole("textbox")).toHaveAttribute("type", "email");
+  expect(screen.getByRole("textbox")).toHaveAttribute(
+    "pattern",
+    ".+@example\\.com",
+  );
 });
 
 test("accepts ref as a ref callback", () => {

@@ -14,7 +14,6 @@ describe("Hyperlink button", () => {
     render(<TextEditor labelText="Test Editor" namespace="test" />);
     const linkButton = screen.getByTestId(`test-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
-    expect(linkButton).toHaveStyleRule("background-color", "transparent");
   });
 
   it("should render the dialog correctly when the button is clicked", async () => {

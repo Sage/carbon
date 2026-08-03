@@ -280,6 +280,7 @@ description: Carbon Textbox component props and usage examples.
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
+| type | HTMLInputTypeAttribute \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
@@ -287,7 +288,6 @@ description: Carbon Textbox component props and usage examples.
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
-| data-component | string \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |

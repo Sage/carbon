@@ -3,4 +3,6 @@ export type {
   SearchProps,
   SearchEvent,
   SearchHandle,
+  SearchListGroup,
+  SearchListData,
 } from "./search.component";

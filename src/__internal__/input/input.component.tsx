@@ -45,6 +45,11 @@ export interface InputProps
   align?: "left" | "right";
   /**
    * @private @internal @ignore
+   * Ref passed to the input container element.
+   */
+  containerRef?: React.Ref<HTMLDivElement>;
+  /**
+   * @private @internal @ignore
    */
   "data-is-transparent"?: boolean;
   /**
@@ -81,6 +86,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       "aria-describedby": ariaDescribedBy,
       "aria-labelledby": ariaLabelledBy,
       autoFocus,
+      containerRef,
       error,
       "data-is-transparent": dataIsTransparent,
       "data-is-open": dataIsOpen,
@@ -129,6 +135,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <InputContainer
+        ref={containerRef}
         $align={align}
         data-role="input-container"
         $error={error}

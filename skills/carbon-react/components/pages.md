@@ -20,7 +20,6 @@ description: Carbon Pages component props and usage examples.
 | children | React.ReactNode | No |  | Individual Page components |  |
 | initialpageIndex | string \| number \| undefined | No |  | The selected tab on page load | 0 |
 | pageIndex | string \| number \| undefined | No |  | The current page's index |  |
-| theme | Partial<ThemeObject> \| undefined | No |  |  |  |
 | transition | string \| undefined | No |  | Controls which transition to use (fade or slide). | "slide" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
