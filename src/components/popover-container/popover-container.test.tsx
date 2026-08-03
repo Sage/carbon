@@ -10,8 +10,11 @@ import { Select, Option } from "../select";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
 
-import Button from "../button";
+import LegacyButton from "../button";
+import Button from "../button/__next__";
+
 import RadioButton, { RadioButtonGroup } from "../radio-button";
+import I18nProvider from "../i18n-provider";
 
 jest.mock("../../hooks/useMediaQuery");
 jest.mock("../global-header/__internal__/global-header.context");
@@ -78,9 +81,9 @@ describe("open button", () => {
     render(
       <PopoverContainer
         renderOpenComponent={({ ref, "aria-haspopup": ariaHasPopup }) => (
-          <button type="button" ref={ref} aria-haspopup={ariaHasPopup}>
+          <LegacyButton type="button" ref={ref} aria-haspopup={ariaHasPopup}>
             Custom Open Button
-          </button>
+          </LegacyButton>
         )}
       >
         Ta da!
@@ -95,9 +98,9 @@ describe("open button", () => {
     render(
       <PopoverContainer
         renderOpenComponent={({ ref, "aria-expanded": ariaExpanded }) => (
-          <button type="button" ref={ref} aria-expanded={ariaExpanded}>
+          <LegacyButton type="button" ref={ref} aria-expanded={ariaExpanded}>
             Custom Open Button
-          </button>
+          </LegacyButton>
         )}
       >
         Ta da!
@@ -171,7 +174,7 @@ test("popover renders with the correct default border radius", () => {
   render(<PopoverContainer open>Ta da!</PopoverContainer>);
 
   expect(screen.getByRole("dialog")).toHaveStyle({
-    borderRadius: "var(--borderRadius100)",
+    borderRadius: "var(--global-radius-action-m)",
   });
 });
 
@@ -681,9 +684,9 @@ test("when content is navigated via keyboard, the next focusable item should be 
       <PopoverContainer
         position="left"
         renderOpenComponent={({ ref, onClick }) => (
-          <Button aria-label="open button" ref={ref} onClick={onClick}>
+          <LegacyButton aria-label="open button" ref={ref} onClick={onClick}>
             Open
-          </Button>
+          </LegacyButton>
         )}
       >
         <RadioButtonGroup name="bar" value="1" onChange={() => {}}>
@@ -700,7 +703,6 @@ test("when content is navigated via keyboard, the next focusable item should be 
   await user.tab(); // tab to close icon
   await user.tab(); // tab to RadioButtonGroup
   await user.tab(); // tab to Example Button (outside of popup)
-
   const popup = await screen.findByRole("dialog");
   await waitFor(() => expect(popup).not.toBeVisible());
 
@@ -856,4 +858,129 @@ test("should render with a z-index of 10000 if within global header", () => {
   });
 
   mockedUseGlobalHeader.mockReset();
+});
+
+test("should support overriding the open button text via the I18nProvider", async () => {
+  render(
+    <I18nProvider
+      locale={{
+        popoverContainer: {
+          openButton: {
+            text: () => "Foo",
+          },
+        },
+      }}
+    >
+      <PopoverContainer>Content</PopoverContainer>
+    </I18nProvider>,
+  );
+  const openButton = screen.getByRole("button", { name: "Foo" });
+
+  expect(openButton).toBeVisible();
+});
+
+// coverage likely can be deleted
+test("should call the exposed `focusButton` method and focus the legacy open button", async () => {
+  const MockComponent = () => {
+    const handle = useRef<PopoverContainerHandle>(null);
+
+    return (
+      <>
+        <Button
+          onClick={() => {
+            handle.current?.focusButton();
+          }}
+        >
+          Focus
+        </Button>
+        <PopoverContainer
+          ref={handle}
+          renderOpenComponent={({
+            ref,
+            "aria-haspopup": ariaHasPopup,
+            ...rest
+          }) => (
+            <LegacyButton
+              type="button"
+              ref={ref}
+              aria-haspopup={ariaHasPopup}
+              {...rest}
+            >
+              Legacy Button
+            </LegacyButton>
+          )}
+        >
+          Content
+        </PopoverContainer>
+      </>
+    );
+  };
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(<MockComponent />);
+
+  await user.click(screen.getByRole("button", { name: "Focus" }));
+
+  const openButton = screen.getByRole("button", { name: "Legacy Button" });
+  expect(openButton).toHaveFocus();
+});
+
+test("should focus the legacy open button when the close button is clicked", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <PopoverContainer
+      renderOpenComponent={({
+        ref,
+        "aria-haspopup": ariaHasPopup,
+        ...rest
+      }) => (
+        <LegacyButton
+          type="button"
+          ref={ref}
+          aria-haspopup={ariaHasPopup}
+          {...rest}
+        >
+          Legacy Button
+        </LegacyButton>
+      )}
+    >
+      Content
+    </PopoverContainer>,
+  );
+  const openButton = screen.getByRole("button", { name: "Legacy Button" });
+  await user.click(openButton);
+  const closeButton = await screen.findByRole("button", { name: "close" });
+  await user.click(closeButton);
+
+  expect(openButton).toHaveFocus();
+});
+
+test("should focus the legacy open button when the user tabs until the popover closes", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <PopoverContainer
+      renderOpenComponent={({
+        ref,
+        "aria-haspopup": ariaHasPopup,
+        ...rest
+      }) => (
+        <LegacyButton
+          type="button"
+          ref={ref}
+          aria-haspopup={ariaHasPopup}
+          {...rest}
+        >
+          Legacy Button
+        </LegacyButton>
+      )}
+    >
+      Content
+    </PopoverContainer>,
+  );
+  const openButton = screen.getByRole("button", { name: "Legacy Button" });
+  await user.click(openButton);
+  await user.tab(); // close focused
+  await user.tab(); // closes popover and should focus back on open button
+
+  expect(openButton).toHaveFocus();
 });

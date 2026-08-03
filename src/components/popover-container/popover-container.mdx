@@ -1,4 +1,5 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as RenderOpenStories from "./render-open/render-open.stories";
 import * as RenderCloseStories from "./render-close/render-close.stories";
@@ -14,6 +15,7 @@ import * as PopoverContainerStories from "./popover-container.stories";
 - [Examples](#examples)
 - [Props](#props)
 - [Ref methods](#ref-methods)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -139,3 +141,19 @@ It is possible to disable the animations applied to the `PopoverContainer` by se
 | Method Name      | Description                                  |
 | ---------------- | -------------------------------------------- |
 | `focusButton()` | Programmatically focuses the open button.    |
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "popoverContainer.openButton.text",
+      description: "The text for the button that opens the popover container",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

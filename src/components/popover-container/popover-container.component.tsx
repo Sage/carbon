@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, {
   useCallback,
   useEffect,
@@ -17,9 +19,8 @@ import {
   PopoverContainerWrapperStyle,
   PopoverContainerHeaderStyle,
   PopoverContainerContentStyle,
-  PopoverContainerCloseIcon,
   PopoverContainerTitleStyle,
-  PopoverContainerOpenIcon,
+  PopoverContainerCloseWrapper,
 } from "./popover-container.style";
 import Icon from "../icon";
 import Popover from "../../__internal__/popover";
@@ -38,9 +39,10 @@ import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-t
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
 import MenuContext from "../menu/__internal__/menu.context";
+import Button from "../button/__next__";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface RenderOpenProps {
-  tabIndex: number;
   isOpen?: boolean;
   "data-element"?: string;
   onClick: (
@@ -52,10 +54,10 @@ export interface RenderOpenProps {
   "aria-expanded": boolean;
   "aria-haspopup": "dialog";
   "data-popover-container-button"?: string;
+  children: React.ReactNode;
 }
 
 export const renderOpen = ({
-  tabIndex,
   onClick,
   "data-element": dataElement,
   ref,
@@ -63,10 +65,10 @@ export const renderOpen = ({
   id,
   "aria-expanded": ariaExpanded,
   "aria-haspopup": ariaHasPopup,
+  children,
 }: RenderOpenProps) => {
   return (
-    <PopoverContainerOpenIcon
-      tabIndex={tabIndex}
+    <Button
       onClick={onClick}
       data-element={dataElement}
       ref={ref}
@@ -74,9 +76,11 @@ export const renderOpen = ({
       aria-haspopup={ariaHasPopup}
       aria-expanded={ariaExpanded}
       id={id}
+      variant="default"
+      variantType="secondary"
     >
-      <Icon type="settings" />
-    </PopoverContainerOpenIcon>
+      {children}
+    </Button>
   );
 };
 
@@ -93,27 +97,33 @@ export interface RenderCloseProps {
 
 export const renderClose = ({
   "data-element": dataElement,
-  tabIndex,
   onClick,
   ref,
   "aria-label": ariaLabel,
   closeButtonDataProps,
-}: RenderCloseProps) => (
-  <PopoverContainerCloseIcon
-    tabIndex={tabIndex}
-    onClick={onClick}
-    ref={ref}
-    aria-label={ariaLabel}
-    {...tagComponent("close", {
-      "data-element": dataElement,
-      ...closeButtonDataProps,
-    })}
-  >
-    <Icon type="close" />
-  </PopoverContainerCloseIcon>
-);
+}: RenderCloseProps) => {
+  return (
+    <Button
+      onClick={onClick}
+      ref={ref}
+      aria-label={ariaLabel}
+      variantType="subtle"
+      size="small"
+      {...tagComponent("close", {
+        "data-element": dataElement,
+        ...closeButtonDataProps,
+      })}
+    >
+      <Icon type="close" />
+    </Button>
+  );
+};
 
-type Position = "left" | "right" | "center";
+type Position =
+  | "left"
+  | "right"
+  /** @deprecated "center" is deprecated and will be removed in a future release */
+  | "center";
 
 export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** A function that will render the open component
@@ -125,18 +135,20 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** A function that will render the close component
    *
    * `({data-element, tabIndex, onClick, ref, aria-label}) => ()`
-   *
    */
   renderCloseComponent?: (args: RenderCloseProps) => JSX.Element;
   /** The content of the popover-container */
   children?: React.ReactNode;
-  /** Sets rendering position of dialog */
+  /** Sets rendering position of dialog*/
   position?: Position;
   /** The popover offset from the reference element */
   offset?: number;
   /** Sets the popover container dialog header name */
   title?: string;
-  /** Sets the border radius of the popover container */
+  /**
+   * Sets the border radius of the popover container
+   * @deprecated the `borderRadius` prop is being deprecated and will be removed in a future release.
+   * */
   borderRadius?: BoxProps["borderRadius"];
   /** Callback fires when close icon clicked */
   onClose?: (
@@ -158,9 +170,13 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   ariaDescribedBy?: string;
   /** Open button aria label */
   openButtonAriaLabel?: string;
-  /** Close button aria label */
+  /**
+   * Close button aria label
+   * */
   closeButtonAriaLabel?: string;
-  /** Data tag prop bag for close Button */
+  /**
+   * Data tag prop bag for close Button
+   */
   closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
   /** Container aria label */
   containerAriaLabel?: string;
@@ -225,7 +241,6 @@ export const PopoverContainer = forwardRef<
   ) => {
     const isControlled = open !== undefined;
     const [isOpenInternal, setIsOpenInternal] = useState(false);
-
     const closeButtonRef = useRef<HTMLButtonElement>(null);
     const openButtonRef = useRef<HTMLButtonElement>(null);
     const popoverReference = useRef<HTMLDivElement>(null);
@@ -234,6 +249,7 @@ export const PopoverContainer = forwardRef<
     const popoverContainerId = title
       ? `PopoverContainer_${guid.current}`
       : undefined;
+    const locale = useLocale();
 
     const isOpen = isControlled ? open : isOpenInternal;
 
@@ -262,6 +278,7 @@ export const PopoverContainer = forwardRef<
           | React.KeyboardEvent<HTMLElement>
           | React.FocusEvent<HTMLElement>
           | KeyboardEvent,
+        shouldFocusOpenButton = true,
       ) => {
         /* istanbul ignore else */
         if (!isControlled) setIsOpenInternal(false);
@@ -269,7 +286,9 @@ export const PopoverContainer = forwardRef<
         onClose?.(ev);
 
         /* istanbul ignore else */
-        if (isOpen) openButtonRef.current?.focus();
+        if (isOpen && shouldFocusOpenButton) {
+          openButtonRef.current?.focus();
+        }
       },
       [isControlled, isOpen, onClose],
     );
@@ -332,6 +351,10 @@ export const PopoverContainer = forwardRef<
 
     const onFocusNextElement = useCallback(
       (ev: React.FocusEvent<HTMLElement>) => {
+        /* istanbul ignore if */
+        if (!openButtonRef.current) {
+          return;
+        }
         const allFocusableElements: HTMLElement[] = Array.from(
           document.querySelectorAll(defaultFocusableSelectors) ||
             /* istanbul ignore next */ [],
@@ -339,16 +362,14 @@ export const PopoverContainer = forwardRef<
         const filteredElements = allFocusableElements.filter(
           (el) => el === openButtonRef.current || Number(el.tabIndex) !== -1,
         );
-
         const openButtonRefIndex = filteredElements.indexOf(
-          openButtonRef.current as HTMLElement,
+          openButtonRef.current,
         );
 
         filteredElements[openButtonRefIndex + 1].focus();
-        closePopover(ev);
+        closePopover(ev, false);
       },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [],
+      [closePopover],
     );
 
     const handleFocusGuard = (
@@ -362,7 +383,9 @@ export const PopoverContainer = forwardRef<
       }
 
       // istanbul ignore else
-      if (direction === "prev") openButtonRef.current?.focus();
+      if (direction === "prev") {
+        (openButtonRef.current as HTMLButtonElement)?.focus();
+      }
     };
 
     const renderOpenComponentProps = {
@@ -376,6 +399,12 @@ export const PopoverContainer = forwardRef<
       "aria-label": openButtonAriaLabel || title,
       id: isOpen ? undefined : popoverContainerId,
       "data-popover-container-button": "true",
+      children: (
+        <>
+          {locale.popoverContainer.openButton.text()}
+          <Icon type="ellipsis_vertical" />
+        </>
+      ),
     };
 
     const renderCloseComponentProps = {
@@ -433,7 +462,9 @@ export const PopoverContainer = forwardRef<
                 {title}
               </PopoverContainerTitleStyle>
             )}
-            {renderCloseComponent(renderCloseComponentProps)}
+            <PopoverContainerCloseWrapper>
+              {renderCloseComponent(renderCloseComponentProps)}
+            </PopoverContainerCloseWrapper>
           </PopoverContainerHeaderStyle>
           {children}
         </MenuContext.Provider>
@@ -451,14 +482,12 @@ export const PopoverContainer = forwardRef<
         <>
           <div
             data-element="tab-guard-top"
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
             onFocus={(ev) => handleFocusGuard("prev", ev)}
           />
           {popover()}
           <div
             data-element="tab-guard-bottom"
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
             onFocus={(ev) => handleFocusGuard("next", ev)}
           />
@@ -468,7 +497,7 @@ export const PopoverContainer = forwardRef<
     return (
       <PopoverContainerWrapperStyle
         onMouseDown={handleClick}
-        hasFullWidth={hasFullWidth}
+        $hasFullWidth={hasFullWidth}
         {...tagComponent("popover-container", rest)}
       >
         <div ref={popoverReference}>

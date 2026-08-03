@@ -7,7 +7,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 
 import PopoverContainer from "./popover-container.component";
 import Box from "../box";
-import Button from "../button";
+import Button from "../button/__next__";
 import Link from "../link";
 import Divider from "../divider";
 import useMediaQuery from "../../hooks/useMediaQuery";
