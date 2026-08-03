@@ -87,6 +87,16 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas of={TextareaStories.RequiredStory} />
 
+### Size
+Use the `size` prop to specify the `Textarea` size. This influences the typography settings and the spacing of the component's internal elements.
+
+<Canvas of={TextareaStories.SizeStory} />
+
+### Resize
+Use the `resize` prop to enable resizing of the `Textarea`.
+
+<Canvas of={TextareaStories.ResizeStory} />
+
 #### Customer Border Radius
 
 The `borderRadius` prop accepts either a single design token, or an array of them, that will be applied as the CSS `border-radius` property.
@@ -100,28 +110,14 @@ If you want to remove the borders from the component, you can use the `hideBorde
 
 <Canvas of={TextareaStories.BorderlessExample} />
 
-### With labelInline (legacy)
+### With labelInline
 
 Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and
 `labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
-
 <Canvas of={TextareaStories.LabelInlineStory} />
 
 <Canvas of={TextareaStories.LabelAlignStory} />
-
-### With labelHelp (legacy)
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
-
-<Canvas of={TextareaStories.LabelHelpStory} />
-
-### With fieldHelp (legacy)
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
-
-<Canvas of={TextareaStories.FieldHelpStory} />
 
 ## Validation States
 

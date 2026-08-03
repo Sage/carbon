@@ -99,7 +99,7 @@ describe(`when the characterLimit prop is passed`, () => {
       screen.getByText("1 character too many", {
         selector: '[aria-hidden="true"]',
       }),
-    ).toHaveStyleRule("color", "var(--colorsSemanticNegative500)");
+    ).toHaveStyleRule("color", "var(--input-validation-label-error)");
   });
 });
 
