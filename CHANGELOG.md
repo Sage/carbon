@@ -1,3 +1,9 @@
+## [161.12.0](https://github.com/Sage/carbon/compare/v161.11.0...v161.12.0) (2026-08-03)
+
+### Features
+
+* **tokens-wrapper:** add support for white-labelling ([09068e7](https://github.com/Sage/carbon/commit/09068e7795d3b75ee1b8fa10c1f6a2d9f67ee264))
+
 ## [161.11.0](https://github.com/Sage/carbon/compare/v161.10.0...v161.11.0) (2026-08-03)
 
 ### Features
