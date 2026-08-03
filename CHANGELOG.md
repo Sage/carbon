@@ -1,3 +1,9 @@
+## [161.12.1](https://github.com/Sage/carbon/compare/v161.12.0...v161.12.1) (2026-08-03)
+
+### Bug Fixes
+
+* **action-popover:** fix popover z-index ([3ee5752](https://github.com/Sage/carbon/commit/3ee575270abe99379cbc40b7193f8d82151337ec)), closes [#8076](https://github.com/Sage/carbon/issues/8076)
+
 ## [161.12.0](https://github.com/Sage/carbon/compare/v161.11.0...v161.12.0) (2026-08-03)
 
 ### Features
