@@ -1,3 +1,9 @@
+## [161.11.0](https://github.com/Sage/carbon/compare/v161.10.0...v161.11.0) (2026-08-03)
+
+### Features
+
+* **textarea:** align component with Fusion DS ([77b3d94](https://github.com/Sage/carbon/commit/77b3d945eb4704c0d41ac4f254303650cb46b68b))
+
 ## [161.10.0](https://github.com/Sage/carbon/compare/v161.9.2...v161.10.0) (2026-07-31)
 
 ### Features
