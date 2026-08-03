@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import { getWindow } from "../../../../__internal__/dom/globals";
 
-export default (modeOverride?: "light" | "dark") => {
-  const [modePreference, setModePreference] = useState<"light" | "dark">(
-    modeOverride || "light",
+export default (modeOverride?: "light" | "dark" | "auto") => {
+  let override: "light" | "dark" | undefined;
+  if (modeOverride && modeOverride !== "auto") {
+    override = modeOverride;
+  }
+  const [systemPreference, setSystemPreference] = useState<"light" | "dark">(
+    "light",
   );
 
   useEffect(() => {
-    if (modeOverride) {
-      setModePreference(modeOverride);
+    if (override) {
       return;
     }
 
@@ -17,10 +20,10 @@ export default (modeOverride?: "light" | "dark") => {
     /* istanbul ignore if */
     if (!mediaQuery) return;
 
-    setModePreference(mediaQuery.matches ? "dark" : "light");
+    setSystemPreference(mediaQuery.matches ? "dark" : "light");
 
     const handleChange = (e: MediaQueryListEvent) => {
-      setModePreference(e.matches ? "dark" : "light");
+      setSystemPreference(e.matches ? "dark" : "light");
     };
 
     mediaQuery.addEventListener("change", handleChange);
@@ -31,7 +34,7 @@ export default (modeOverride?: "light" | "dark") => {
 
       mediaQuery.removeEventListener("change", handleChange);
     };
-  }, [modeOverride]);
+  }, [override]);
 
-  return modePreference;
+  return override ?? systemPreference;
 };
