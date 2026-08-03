@@ -491,12 +491,27 @@ export const PopoverInGlobalHeader: StoryObj = {
               </Button>
             )}
           >
-            <Box p={2}>Popover Content</Box>
+            <Box p={2}>
+              <ActionPopover>
+                <ActionPopoverItem icon="csv">Item 1</ActionPopoverItem>
+              </ActionPopover>
+            </Box>
           </PopoverContainer>
         </MenuItem>
       </Menu>
     </GlobalHeader>
   ),
+  play: async () => {
+    if (!allowInteractions()) return;
+
+    const actions = await screen.findByRole("button", { name: /actions/i });
+    await userEvent.click(actions);
+
+    const item = await screen.findByRole("button", {
+      name: /Item 1/i,
+    });
+    expect(item).toBeVisible();
+  },
   decorators: [
     (StoryToRender) => (
       <DefaultDecorator>
