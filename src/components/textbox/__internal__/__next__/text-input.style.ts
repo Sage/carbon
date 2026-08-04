@@ -55,13 +55,15 @@ const StyledTextInput = styled.div.attrs(applyBaseTheme)<StyledTextInputProps>`
     }
   }};
 
-  .fieldset-content & {
+  .fieldset-content &,
+  .numeral-date-wrapper & {
     gap: var(--global-space-comp-xs);
   }
 
   .time & {
     gap: unset;
   }
+
   .legacy-search & {
     flex: 1 1 0%;
   }
