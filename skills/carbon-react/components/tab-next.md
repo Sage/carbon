@@ -19,9 +19,6 @@ description: Carbon TabNext component props and usage examples.
 | id | string | Yes |  |  |  | The ID of the tab |  |
 | label | React.ReactNode | Yes |  |  |  | The label shown on the tab |  |
 | error | string \| boolean \| undefined | No |  |  |  | The error state of the tab | false |
-| hasCustomLayout | boolean \| undefined | No |  |  |  |  |  |
-| headerWidth | string \| undefined | No |  |  |  |  |  |
-| href | string \| undefined | No |  |  |  |  |  |
 | leftSlot | React.ReactNode | No |  |  |  | The item shown to the left of the label |  |
 | rightSlot | React.ReactNode | No |  |  |  | The item shown to the right of the label |  |
 | warning | string \| boolean \| undefined | No |  |  |  | The warning state of the tab | false |

@@ -23,12 +23,9 @@ description: Carbon Tooltip component props and usage examples.
 | flipOverrides | TooltipPositions[] \| undefined | No |  | Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see <a href="https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements" target="_blank">Popper.js documentation</a>) |  |
 | fontColor | string \| undefined | No |  | Override font color of the Tooltip, provide any color from palette or any valid css color value. |  |
 | id | string \| undefined | No |  | The id attribute to use for the tooltip |  |
-| inputSize | InputSizes \| undefined | No |  |  |  |
-| isPartOfInput | boolean \| undefined | No |  |  |  |
 | isVisible | boolean \| undefined | No |  | Whether to to show the Tooltip |  |
 | position | TooltipPositions \| undefined | No |  | Sets position of the tooltip |  |
 | size | "medium" \| "large" \| undefined | No |  | Defines the size of the tooltip content |  |
-| target | HTMLElement \| undefined | No |  |  |  |
 | type | string \| undefined | No |  | Defines the message type |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

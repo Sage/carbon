@@ -17,9 +17,7 @@ description: Carbon Dialog component props and usage examples.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | open | boolean | Yes |  |  |  | Sets the open state of the modal |  |
 | ariaRole | string \| undefined | No |  |  |  | The ARIA role to be applied to the modal |  |
-| bespokeFocusTrap | ((ev: KeyboardEvent, firstElement?: HTMLElement, lastElement?: HTMLElement) => void) \| undefined | No |  |  |  | Function to replace focus trap |  |
 | children | React.ReactNode | No |  |  |  | Child elements |  |
-| className | string \| undefined | No |  |  |  |  |  |
 | closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  |  |  | Data tag prop bag for close Button |  |
 | contentPadding | ContentPaddingInterface \| undefined | No |  |  |  | Padding to be set on the Dialog content |  |
 | contentRef | React.ForwardedRef<HTMLDivElement> \| undefined | No |  |  |  | Reference to the scrollable content element |  |
@@ -41,12 +39,11 @@ description: Carbon Dialog component props and usage examples.
 | restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
 | role | string \| undefined | No |  |  |  | The ARIA role to be applied to the Dialog container |  |
 | showCloseIcon | boolean \| undefined | No |  |  |  | Determines if the close icon is shown |  |
-| size | "auto" \| "extra-small" \| Size \| "medium-small" \| "medium-large" \| "extra-large" \| "maximise" \| undefined | No |  |  |  | Size — accepts both legacy values (extra-small, medium-small, etc.) and new values (small, medium, large, fullscreen). |  |
+| size | "auto" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| "maximise" \| Size \| undefined | No |  |  |  | Size — accepts both legacy values (extra-small, medium-small, etc.) and new values (small, medium, large, fullscreen). |  |
 | stickyFooter | boolean \| undefined | No |  |  |  | Makes the footer stick to the bottom of the dialog when content scrolls |  |
 | subtitle | React.ReactNode | No |  |  |  | Subtitle displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to subtitle prop. |  |
 | title | React.ReactNode | No |  |  |  | Title displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to title prop. |  |
 | topModalOverride | boolean \| undefined | No |  |  |  | Manually override the internal modal stacking order to set this as top |  |
-| data-component | string \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-describedby | string \| undefined | No |  |  |  | Prop to specify the aria-describedby property of the Dialog component |  |

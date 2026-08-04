@@ -40,7 +40,6 @@ description: Carbon ButtonToggleGroup component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the ButtonToggleGroup | "medium" |
-| data-component | string \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-label | string \| undefined | No |  |  |  | Sets an aria-label for the group, must be provided if there is no visible label. |  |

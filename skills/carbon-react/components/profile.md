@@ -17,7 +17,6 @@ description: Carbon Profile component props and usage examples.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | alt | string \| undefined | No |  |  |  | The `alt` HTML string. |  |
 | children | React.ReactNode | No |  |  |  | Custom content rendered below the right side Profile content. |  |
-| className | string \| undefined | No |  |  |  |  |  |
 | email | string \| undefined | No |  |  |  | Define the email to use. |  |
 | initials | string \| undefined | No |  |  |  | Define initials to display image. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |

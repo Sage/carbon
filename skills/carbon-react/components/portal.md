@@ -16,7 +16,6 @@ description: Carbon Portal component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | The content of the portal. |  |
-| className | string \| undefined | No |  |  |  |
 | id | string \| undefined | No |  | Id attribute attached to portal container. |  |
 | inertOptOut | boolean \| undefined | No |  | A flag to ensure the portal content will remain interactive with by both mouse users and screenreader users, even if a modal is opened outside of or on top of the portal. To be used with caution. |  |
 | onReposition | (() => void) \| undefined | No |  | Callback function triggered when parent element is scrolled or window resized. |  |

@@ -18,12 +18,8 @@ description: Carbon Tab component props and usage examples.
 | controls | string | Yes |  |  |  | The tab panel that this tab controls |  |
 | id | string | Yes |  |  |  | The ID of the tab |  |
 | label | React.ReactNode | Yes |  |  |  | The label shown on the tab |  |
-| ariaLabelledby | string \| undefined | No |  |  |  |  |  |
 | children | React.ReactNode | No |  |  |  | The child elements of Tab component. |  |
 | error | string \| boolean \| undefined | No |  |  |  | The error state of the tab |  |
-| hasCustomLayout | boolean \| undefined | No |  |  |  |  |  |
-| headerWidth | string \| undefined | No |  |  |  |  |  |
-| isTabSelected | boolean \| undefined | No |  |  |  |  |  |
 | leftSlot | React.ReactNode | No |  |  |  | The item shown to the left of the label |  |
 | p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
 | padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
@@ -40,9 +36,7 @@ description: Carbon Tab component props and usage examples.
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | rightSlot | React.ReactNode | No |  |  |  | The item shown to the right of the label |  |
-| role | string \| undefined | No |  |  |  |  |  |
 | titleProps | { "data-role"?: string; } \| undefined | No |  |  |  | Additional props to be passed to the Tab's corresponding title. |  |
-| validationStatusOverride | { error?: boolean; warning?: boolean; info?: boolean; } \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | The warning state of the tab |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

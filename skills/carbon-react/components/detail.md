@@ -18,7 +18,6 @@ description: Carbon Detail component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | The rendered children of the component. |  |
-| className | string \| undefined | No |  |  |  |
 | footnote | string \| undefined | No |  | A small detail to display under the main content. |  |
 | icon | IconType \| undefined | No |  | The type of icon to use. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |

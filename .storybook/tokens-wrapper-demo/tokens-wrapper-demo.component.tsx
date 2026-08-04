@@ -1,32 +1,14 @@
-/* This is a temporary wrapper to allow Storybook to switch between light and dark mode */
 import React from "react";
 
 import TokensWrapper from "../../src/components/tokens-wrapper";
-import useModeSwitcher from "../../src/components/tokens-wrapper/__internal__/hooks";
 
 interface TokensWrapperDemoProps {
   children?: React.ReactNode;
-  modeOverride?: "light" | "dark";
 }
 
-const TokensWrapperDemo = ({
-  children,
-  modeOverride,
-}: TokensWrapperDemoProps) => {
-  const modePreference = useModeSwitcher(modeOverride);
-
-  return (
-    <TokensWrapper>
-      <div
-        // this div is added to demo dark mode in storybook
-        data-component="tokens-wrapper-demo"
-        className={`carbon-${modePreference}-mode`}
-        data-carbon-theme={modePreference === "dark" ? "dark" : "light"}
-      >
-        {children}
-      </div>
-    </TokensWrapper>
-  );
+// prevents the light/dark mode switching as most of the components aren't wired up for it
+const TokensWrapperDemo = ({ children }: TokensWrapperDemoProps) => {
+  return <TokensWrapper modeOverride="light">{children}</TokensWrapper>;
 };
 
 export default TokensWrapperDemo;
