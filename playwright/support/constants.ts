@@ -9,7 +9,7 @@ export const SIZE = {
 } as const;
 
 export const VALIDATION = {
-  ERROR: "rgb(203, 55, 74)",
+  ERROR: "rgb(219, 0, 78)",
   WARNING: "rgb(239, 103, 0)",
   INFO: "rgb(0, 96, 167)",
 } as const;

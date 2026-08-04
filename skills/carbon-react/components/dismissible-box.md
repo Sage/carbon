@@ -27,7 +27,6 @@ description: Carbon DismissibleBox component props and usage examples.
 | boxShadow | BoxShadowsType \| undefined | No |  | Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. |  |
 | boxSizing | BoxSizing \| undefined | No |  | Set the box-sizing attribute of the Box component |  |
 | children | React.ReactNode | No |  | The content to render in the component |  |
-| className | string \| undefined | No |  |  |  |
 | closeButtonDataProps | TagProps \| undefined | No |  | Data tag prop bag for close Button |  |
 | color | string \| undefined | No |  | Set the color attribute of the Box component |  |
 | columnGap | Gap \| undefined | No |  | Column gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." |  |
@@ -98,12 +97,10 @@ description: Carbon DismissibleBox component props and usage examples.
 | rowGap | Gap \| undefined | No |  | Row gap an integer multiplier of the base spacing constant (8px) or any valid CSS string." |  |
 | scrollVariant | ScrollVariant \| undefined | No |  | Scroll styling attribute |  |
 | size | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  |
-| tabIndex | number \| undefined | No |  |  |  |
 | top | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/top) |  |
 | variant | "dark" \| "light" \| undefined | No |  | Set the base color variant |  |
 | verticalAlign | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The vertical-align CSS property specifies sets vertical alignment of an inline or table-cell box. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align) |  |
 | width | string \| number \| undefined | No |  | Use this prop to override the default width. Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values. String values are passed as raw CSS values. And arrays are converted to responsive width styles. If theme.sizes is defined, the width prop will attempt to pick up values from the theme. Please note this component has a minWidth of 600px |  |
-| data-component | string \| undefined | No |  |  |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-atomic | "true" \| "false" \| undefined | No |  | Indicates whether AT will announce all, or only parts of, the changed region |  |

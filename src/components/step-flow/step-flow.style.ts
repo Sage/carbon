@@ -1,64 +1,62 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
-const StyledStepFlow = styled.div`
+export const StyledStepFlow = styled.div`
+  display: flex;
+  gap: var(--global-space-comp-l);
+  align-items: flex-start;
+
   ${margin}
 `;
 
-const StyledStepContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: var(--sizing200);
-`;
-
-const StyledStepContentText = styled.div`
+export const StyledStepContent = styled.div`
   display: flex;
   flex-direction: column;
+  gap: var(--global-space-comp-xs);
+  flex: 1 0 0;
 `;
 
-const StyledTitleFocusWrapper = styled.div``;
-
-const StyledStepLabelAndProgress = styled.div`
-  margin-top: var(--sizing125);
-`;
-
-const StyledProgressIndicatorBar = styled.div`
+export const StyledProgressIndicatorWrapper = styled.div`
   display: flex;
-  margin-top: var(--sizing100);
+  padding: var(--global-space-comp-xs) 0;
+  gap: var(--global-space-comp-l);
+`;
+
+export const StyledStepLabel = styled.span`
+  color: var(--progress-label-alt);
+  font: var(--global-font-static-body-regular-l);
 `;
 
 interface StyledProgressIndicatorProps {
-  isCompleted: boolean;
-  isInProgress: boolean;
+  $isCompleted: boolean;
+  $isInProgress: boolean;
 }
 
-function calculateProgressIndicatorColor({
-  isCompleted,
-  isInProgress,
-}: StyledProgressIndicatorProps) {
-  if (isInProgress) {
-    return "var(--colorsUtilityYin090)";
-  }
-  if (isCompleted) {
-    return "var(--colorsSemanticPositive500)";
-  }
-  return "var(--colorsActionDisabled600)";
-}
+export const StyledProgressIndicator = styled.div<StyledProgressIndicatorProps>`
+  ${({ $isCompleted, $isInProgress }) => css`
+    width: 100%;
+    height: var(--global-size-4-xs);
+    border-radius: var(--global-radius-container-xs);
 
-const StyledProgressIndicator = styled.span<StyledProgressIndicatorProps>`
-  background-color: ${calculateProgressIndicatorColor};
-  width: 100%;
-  height: 8px;
-  border-radius: 8px;
-  margin-right: 12px;
+    ${!$isCompleted &&
+    !$isInProgress &&
+    css`
+      background: var(--progress-stepflow-bg-default);
+      box-shadow: inset 0 0 0 var(--global-borderwidth-xs)
+        var(--progress-stepflow-border-default);
+    `}
+
+    ${$isInProgress &&
+    css`
+      background-color: var(--progress-stepflow-bg-active);
+      outline: var(--global-borderwidth-s) solid
+        var(--progress-stepindicator-border-active-outer);
+      outline-offset: var(--global-borderwidth-s);
+    `}
+
+    ${$isCompleted &&
+    css`
+      background-color: var(--progress-stepflow-bg-complete);
+    `}
+  `}
 `;
-
-export {
-  StyledStepFlow,
-  StyledStepContent,
-  StyledStepContentText,
-  StyledTitleFocusWrapper,
-  StyledStepLabelAndProgress,
-  StyledProgressIndicatorBar,
-  StyledProgressIndicator,
-};

@@ -26,7 +26,6 @@ description: Carbon Box component props and usage examples.
 | boxShadow | BoxShadowsType \| undefined | No |  | Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. |  |
 | boxSizing | BoxSizing \| undefined | No |  | Set the box-sizing attribute of the Box component |  |
 | children | React.ReactNode | No |  | Content to be rendered inside the Box component |  |
-| className | string \| undefined | No |  |  |  |
 | color | string \| undefined | No |  | Set the color attribute of the Box component |  |
 | columnGap | Gap \| undefined | No |  | Column gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." |  |
 | display | ResponsiveValue<CSS.Property.Display, ThemeType> \| undefined | No |  | The display CSS property defines the display type of an element, which consists of the two basic qualities of how an element generates boxes — the outer display type defining how the box participates in flow layout, and the inner display type defining how the children of the box are laid out. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/display) |  |
@@ -97,11 +96,9 @@ description: Carbon Box component props and usage examples.
 | rowGap | Gap \| undefined | No |  | Row gap an integer multiplier of the base spacing constant (8px) or any valid CSS string." |  |
 | scrollVariant | ScrollVariant \| undefined | No |  | Scroll styling attribute |  |
 | size | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  |
-| tabIndex | number \| undefined | No |  |  |  |
 | top | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/top) |  |
 | verticalAlign | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The vertical-align CSS property specifies sets vertical alignment of an inline or table-cell box. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align) |  |
 | width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
-| data-component | string \| undefined | No |  |  |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-atomic | "true" \| "false" \| undefined | No |  | Indicates whether AT will announce all, or only parts of, the changed region |  |

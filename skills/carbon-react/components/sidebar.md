@@ -16,9 +16,7 @@ description: Carbon Sidebar component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | open | boolean | Yes |  | Sets the open state of the modal |  |
-| bespokeFocusTrap | ((ev: KeyboardEvent, firstElement?: HTMLElement, lastElement?: HTMLElement) => void) \| undefined | No |  | Function to replace focus trap |  |
 | children | React.ReactNode | No |  | Modal content |  |
-| className | string \| undefined | No |  |  |  |
 | closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  | Data tag prop bag for close Button |  |
 | disableAutoFocus | boolean \| undefined | No |  |  |  |
 | disableEscKey | boolean \| undefined | No |  | Determines if the Esc Key closes the modal |  |
@@ -29,7 +27,6 @@ description: Carbon Sidebar component props and usage examples.
 | header | React.ReactNode | No |  | Node that will be used as sidebar header. |  |
 | headerPadding | PaddingProps | No |  | Padding to be set on the Sidebar header |  |
 | headerVariant | "dark" \| "light" \| undefined | No |  | Header background variant for the sidebar. |  |
-| hidden | boolean \| undefined | No |  |  |  |
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | A custom close event handler |  |
 | p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
 | padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |

@@ -34,7 +34,6 @@ description: Carbon Page component props and usage examples.
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | role | string \| undefined | No |  | The ARIA role to be applied to the component |  |
 | title | React.ReactNode | No |  | The title for the page, normally a Heading component. |  |
-| transitionName | (() => string) \| undefined | No |  |  |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

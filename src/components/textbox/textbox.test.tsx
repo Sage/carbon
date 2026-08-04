@@ -99,7 +99,7 @@ describe(`when the characterLimit prop is passed`, () => {
       screen.getByText("1 character too many", {
         selector: '[aria-hidden="true"]',
       }),
-    ).toHaveStyleRule("color", "var(--colorsSemanticNegative500)");
+    ).toHaveStyleRule("color", "var(--input-validation-label-error)");
   });
 });
 
@@ -700,4 +700,11 @@ describe("when validation message changes", () => {
 test("applies autoFocus to the input", () => {
   render(<Textbox value="foo" onChange={() => {}} label="Textbox" autoFocus />);
   expect(screen.getByRole("textbox")).toHaveFocus();
+});
+
+// Added for coverage after NumeralDate converted to use TextInput
+test("handles no defined value correctly", () => {
+  render(<Textbox value={undefined} onChange={() => {}} />);
+
+  expect(screen.getByRole("textbox")).toHaveValue("");
 });
