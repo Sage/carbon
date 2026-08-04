@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.context";
 import Event from "../../../__internal__/utils/helpers/events";
-import guid from "../../../__internal__/utils/helpers/guid";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import Icon from "../../icon";
@@ -42,7 +41,6 @@ export const Sort = ({
     accessibleNameWarning = true;
   }
 
-  const id = useRef(guid());
   const locale = useLocale();
 
   const onKeyDown = (
@@ -71,7 +69,6 @@ export const Sort = ({
 
   return (
     <StyledSortButton
-      aria-describedby={id.current}
       colorTheme={colorTheme}
       data-component="sort"
       data-element={dataElement}
