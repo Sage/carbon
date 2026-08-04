@@ -1,3 +1,9 @@
+## [161.13.1](https://github.com/Sage/carbon/compare/v161.13.0...v161.13.1) (2026-08-04)
+
+### Bug Fixes
+
+* **flat-table:** remove orphaned aria-describedby from sort header ([28e5c6a](https://github.com/Sage/carbon/commit/28e5c6a034c55f490528deedf054248ecf7ee12b))
+
 ## [161.13.0](https://github.com/Sage/carbon/compare/v161.12.1...v161.13.0) (2026-08-04)
 
 ### Features
