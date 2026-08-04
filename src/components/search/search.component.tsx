@@ -26,8 +26,8 @@ import {
   MenuItemLabel,
   MenuItemLeading,
   MenuItemSubtext,
+  type PopoverControlProps,
 } from "../../__internal__/popover-menu";
-import type { PopoverControlProps } from "../../__internal__/popover-menu/popover-menu.component";
 import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import { Search as LegacySearch } from "./__internal__/legacy/search.component";
 import ResultsAnnouncement from "./__internal__/results-announcement.component";
@@ -360,6 +360,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           return;
         }
 
+        /* istanbul ignore else */
         if (event.key === "End") {
           setHighlightedItemValue(enabledItems[enabledItems.length - 1].value);
         }

@@ -8,3 +8,4 @@ export {
   MenuItemHeading,
 } from "./menu-item";
 export type { PopoverMenuProps } from "./popover-menu.component";
+export type { PopoverControlProps } from "./contexts";

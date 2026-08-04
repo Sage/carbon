@@ -1,11 +1,19 @@
 import { useCallback, MutableRefObject } from "react";
+import { itemQuerySelector, buttonMenuItemQuerySelector } from "../utils";
 
-export const itemQuerySelector =
-  "li[data-component='popover-menu-item']:not([aria-disabled='true'])";
+export const setFocus = (
+  el?: HTMLElement,
+  highlightedItem?: HTMLElement,
+  isButtonMenu?: boolean,
+) => {
+  if (isButtonMenu) {
+    el?.focus();
 
-export const setFocus = (el?: HTMLElement) => {
+    return;
+  }
+
+  highlightedItem?.setAttribute("data-has-focus", "false");
   el?.setAttribute("data-has-focus", "true");
-
   el?.scrollIntoView?.({
     block: "nearest",
     inline: "nearest",
@@ -15,17 +23,39 @@ export const setFocus = (el?: HTMLElement) => {
 export const useHandleDropdownMenuKeyDown = (
   ref: MutableRefObject<HTMLUListElement | null>,
   setAriaActivedescendant: React.Dispatch<React.SetStateAction<string>>,
+  onClose: (e?: Event) => void,
+  submenuOptions: {
+    isButtonMenu?: boolean;
+    isSubmenu?: boolean;
+    controlReference?: React.RefObject<HTMLLIElement>;
+  },
 ) =>
   useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
+      const activeScrollWrapper = (document.activeElement as Element)?.closest(
+        '[data-component="scroll-wrapper"]',
+      );
+
+      // short-circuit if focus is inside a nested scroll wrapper (e.g. an open submenu)
+      if (activeScrollWrapper && !activeScrollWrapper.contains(ref.current)) {
+        return;
+      }
+
+      const { isButtonMenu, isSubmenu } = submenuOptions;
+
       const items = Array.from(
-        ref.current?.querySelectorAll(itemQuerySelector) ||
-          /* istanbul ignore next */ [],
+        ref.current?.querySelectorAll(
+          isButtonMenu
+            ? buttonMenuItemQuerySelector(isSubmenu)
+            : itemQuerySelector(isSubmenu),
+        ) || /* istanbul ignore next */ [],
       );
       const firstItem = items[0] as HTMLElement | undefined;
       const lastItem = items[items.length - 1] as HTMLElement | undefined;
-      const highlightedItem = items.find(
-        (item) => item.getAttribute("data-has-focus") === "true",
+      const highlightedItem = (
+        isButtonMenu
+          ? items.find((item) => item.contains(document.activeElement as Node))
+          : items.find((item) => item.getAttribute("data-has-focus") === "true")
       ) as HTMLElement | undefined;
       const selectedItem = items.find(
         (item) => item.getAttribute("aria-selected") === "true",
@@ -33,72 +63,72 @@ export const useHandleDropdownMenuKeyDown = (
 
       if (ev.key === "ArrowDown") {
         ev.preventDefault();
+        ev.stopPropagation();
 
         if (!highlightedItem) {
           const itemToFocus = selectedItem ?? firstItem;
           setAriaActivedescendant(
             itemToFocus?.id ?? /* istanbul ignore next */ "",
           );
-          setFocus(itemToFocus);
+          setFocus(itemToFocus, highlightedItem, isButtonMenu);
 
           return;
         }
 
-        highlightedItem.setAttribute("data-has-focus", "false");
-
-        if (lastItem === highlightedItem) {
+        if (!isButtonMenu && lastItem === highlightedItem) {
           setAriaActivedescendant(
             firstItem?.id ?? /* istanbul ignore next */ "",
           );
-          setFocus(firstItem);
+          setFocus(firstItem, highlightedItem, isButtonMenu);
 
           return;
         }
 
         const currentIndex = items.indexOf(highlightedItem);
-        const itemToFocus = items[(currentIndex + 1) % items.length] as
-          | HTMLElement
-          | undefined;
+        const nextIndex = isButtonMenu
+          ? Math.min(currentIndex + 1, items.length - 1)
+          : (currentIndex + 1) % items.length;
+        const itemToFocus = items[nextIndex] as HTMLElement | undefined;
         setAriaActivedescendant(
           itemToFocus?.id ?? /* istanbul ignore next */ "",
         );
-        setFocus(itemToFocus);
+        setFocus(itemToFocus, highlightedItem, isButtonMenu);
 
         return;
       }
 
       if (ev.key === "ArrowUp") {
         ev.preventDefault();
+        ev.stopPropagation();
 
         if (!highlightedItem) {
           const itemToFocus = selectedItem ?? lastItem;
           setAriaActivedescendant(
             itemToFocus?.id ?? /* istanbul ignore next */ "",
           );
-          setFocus(itemToFocus);
+          setFocus(itemToFocus, highlightedItem, isButtonMenu);
 
           return;
         }
 
-        highlightedItem.setAttribute("data-has-focus", "false");
-
-        if (firstItem === highlightedItem) {
+        if (!isButtonMenu && firstItem === highlightedItem) {
           setAriaActivedescendant(
             lastItem?.id ?? /* istanbul ignore next */ "",
           );
-          setFocus(lastItem);
+          setFocus(lastItem, highlightedItem, isButtonMenu);
 
           return;
         }
 
         const currentIndex = items.indexOf(highlightedItem);
-        const itemToFocus = items[
-          (currentIndex - 1 + items.length) % items.length
-        ] as HTMLElement | undefined;
+        const prevIndex = isButtonMenu
+          ? Math.max(currentIndex - 1, 0)
+          : (currentIndex - 1 + items.length) % items.length;
+        const itemToFocus = items[prevIndex] as HTMLElement | undefined;
         setAriaActivedescendant(
           itemToFocus?.id ?? /* istanbul ignore next */ "",
         );
-        setFocus(itemToFocus);
+        setFocus(itemToFocus, highlightedItem, isButtonMenu);
 
         return;
       }
@@ -106,8 +136,7 @@ export const useHandleDropdownMenuKeyDown = (
       if (ev.key === "Home") {
         ev.preventDefault();
         setAriaActivedescendant(firstItem?.id ?? /* istanbul ignore next */ "");
-        highlightedItem?.setAttribute("data-has-focus", "false");
-        setFocus(firstItem);
+        setFocus(firstItem, highlightedItem, isButtonMenu);
 
         return;
       }
@@ -115,13 +144,12 @@ export const useHandleDropdownMenuKeyDown = (
       if (ev.key === "End") {
         ev.preventDefault();
         setAriaActivedescendant(lastItem?.id ?? /* istanbul ignore next */ "");
-        highlightedItem?.setAttribute("data-has-focus", "false");
-        setFocus(lastItem);
+        setFocus(lastItem, highlightedItem, isButtonMenu);
 
         return;
       }
 
-      if (ev.key === "Enter") {
+      if (ev.key === "Enter" && !isButtonMenu) {
         /* istanbul ignore else */
         if (highlightedItem) {
           ev.preventDefault();
@@ -129,6 +157,13 @@ export const useHandleDropdownMenuKeyDown = (
           highlightedItem.click();
         }
       }
+
+      // covered in playwright
+      /* istanbul ignore next */
+      if (ev.key === "Tab") {
+        onClose(ev.nativeEvent);
+        return;
+      }
     },
-    [ref, setAriaActivedescendant],
+    [ref, setAriaActivedescendant, onClose, submenuOptions],
   );
