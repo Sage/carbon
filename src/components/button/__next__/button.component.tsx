@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode } from "react";
+import React, { forwardRef, ReactNode, useContext } from "react";
 import { SpaceProps } from "styled-system";
 
 import { ButtonProps as LegacyButtonProps } from "../button.component";
@@ -11,6 +11,10 @@ import { Size, Variant, VariantType } from "./button.config";
 import isIconOnly from "./__internal__/utils/is-icon-only";
 import Icon from "../../icon";
 import ButtonContext from "./button.context";
+import {
+  PopoverMenuContext,
+  MenuItemContext,
+} from "../../../__internal__/popover-menu/contexts";
 
 type ButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
@@ -172,8 +176,12 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
     ref,
   ) => {
     const hasChildren = children !== undefined && children !== false;
-
     const iconOnly = (!!iconType && !hasChildren) || isIconOnly(children);
+    const { size: menuItemSize, isButtonMenu } = useContext(PopoverMenuContext);
+    const { isDisabled: isMenuItemDisabled } =
+      useContext(MenuItemContext) ?? /* istanbul ignore next */ {};
+    const computedSize = isButtonMenu ? menuItemSize : size;
+    const isDisabled = disabled || isMenuItemDisabled;
 
     const allowMotion = useMediaQuery(
       "screen and (prefers-reduced-motion: no-preference)",
@@ -243,7 +251,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
     };
 
     const propsForLink =
-      href && !disabled
+      href && !isDisabled
         ? {
             href,
             target: rest.target,
@@ -261,7 +269,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
-        disabled={disabled}
+        disabled={isDisabled}
         $fullWidth={fullWidth}
         form={form}
         $inverse={inverse || buttonType === "darkBackground" || isWhite}
@@ -270,7 +278,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
         $noWrap={noWrap}
         onClick={handleClick}
         ref={setForwardedRef}
-        $size={size}
+        $size={computedSize}
         $variant={computedVariant}
         $variantType={computedVariantType}
         $iconOnly={iconOnly}
