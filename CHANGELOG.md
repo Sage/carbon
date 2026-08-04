@@ -1,3 +1,33 @@
+## [161.12.1](https://github.com/Sage/carbon/compare/v161.12.0...v161.12.1) (2026-08-03)
+
+### Bug Fixes
+
+* **action-popover:** fix popover z-index ([3ee5752](https://github.com/Sage/carbon/commit/3ee575270abe99379cbc40b7193f8d82151337ec)), closes [#8076](https://github.com/Sage/carbon/issues/8076)
+
+## [161.12.0](https://github.com/Sage/carbon/compare/v161.11.0...v161.12.0) (2026-08-03)
+
+### Features
+
+* **tokens-wrapper:** add support for white-labelling ([09068e7](https://github.com/Sage/carbon/commit/09068e7795d3b75ee1b8fa10c1f6a2d9f67ee264))
+
+## [161.11.0](https://github.com/Sage/carbon/compare/v161.10.0...v161.11.0) (2026-08-03)
+
+### Features
+
+* **textarea:** align component with Fusion DS ([77b3d94](https://github.com/Sage/carbon/commit/77b3d945eb4704c0d41ac4f254303650cb46b68b))
+
+## [161.10.0](https://github.com/Sage/carbon/compare/v161.9.2...v161.10.0) (2026-07-31)
+
+### Features
+
+* **step-flow:** align with Fusion DS ([f970762](https://github.com/Sage/carbon/commit/f970762452f639f3fb431afb4789ed68b777a893))
+
+## [161.9.2](https://github.com/Sage/carbon/compare/v161.9.1...v161.9.2) (2026-07-31)
+
+### Bug Fixes
+
+* **advanced-color-picker:** generate valid html ids for colour inputs ([dd7a618](https://github.com/Sage/carbon/commit/dd7a61808df0c038c1d3a36926cc8c0ffafac11b))
+
 ## [161.9.1](https://github.com/Sage/carbon/compare/v161.9.0...v161.9.1) (2026-07-31)
 
 ### Bug Fixes

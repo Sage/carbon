@@ -20,7 +20,6 @@ description: Carbon Modal component props and usage examples.
 | open | boolean | Yes |  | Sets the open state of the modal |  |
 | ariaRole | string \| undefined | No |  | The ARIA role to be applied to the modal |  |
 | children | React.ReactNode | No |  | Modal content |  |
-| className | string \| undefined | No |  |  |  |
 | disableClose | boolean \| undefined | No |  | Determines if the Dialog can be closed |  |
 | disableEscKey | boolean \| undefined | No |  | Determines if the Esc Key closes the modal |  |
 | enableBackgroundUI | boolean \| undefined | No |  | Determines if the background is disabled when the modal is open |  |

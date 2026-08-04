@@ -18,7 +18,6 @@ description: Carbon Button component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  |  |  | The text the button displays |  |
-| className | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | Apply disabled state to the button |  |
 | fullWidth | boolean \| undefined | No |  |  |  | Apply fullWidth style to the button |  |
 | iconPosition | ButtonIconPosition \| undefined | No |  |  |  | Defines an Icon position related to the children: "before" \| "after" |  |

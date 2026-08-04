@@ -2,7 +2,6 @@ import React from "react";
 import Typography from "../../typography";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import { useStepFlowContext } from "../__internal__/step-flow.context";
-import { StyledTitleFocusWrapper } from "../step-flow.style";
 
 export interface StepFlowTitleProps {
   /** The title of the current step.  */
@@ -33,27 +32,18 @@ export const StepFlowTitle = ({
   } = useStepFlowContext();
 
   return (
-    <StyledTitleFocusWrapper
+    <div
       data-role="title-text-wrapper"
       data-element="title-text-wrapper"
       tabIndex={-1}
       ref={titleRef}
     >
       <Typography
-        variant={titleVariant || titleVariantContext || "h1"}
+        variant="h2"
+        as={titleVariant || titleVariantContext || "h1"}
         data-element="title-text"
       >
-        <Typography
-          fontWeight="700"
-          fontSize="var(--fontSizes600)"
-          lineHeight="var(--sizing375)"
-          variant="span"
-          aria-hidden="true"
-          data-element="visible-title-text"
-          data-role="visible-title-text"
-        >
-          {titleString}
-        </Typography>
+        <span aria-hidden="true">{titleString}</span>
         {validatedCurrentStep && totalSteps && (
           <Typography
             variant="span"
@@ -70,7 +60,7 @@ export const StepFlowTitle = ({
           </Typography>
         )}
       </Typography>
-    </StyledTitleFocusWrapper>
+    </div>
   );
 };
 

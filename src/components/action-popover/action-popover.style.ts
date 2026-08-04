@@ -43,8 +43,7 @@ const Menu = styled.ul.attrs(applyBaseTheme)<{
   position: absolute;
   border-radius: var(--borderRadius100);
   background-color: var(--colorsUtilityYang100);
-  z-index: ${({ theme }) =>
-    `${theme.zIndex?.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
+  z-index: 10000;
 
   &[data-submenu-placement="top"] & {
     bottom: calc(-1 * var(--spacing100));

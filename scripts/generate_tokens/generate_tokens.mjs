@@ -127,7 +127,7 @@ if (includeDarkMode) {
   staticTokensCSS = `
 ${lightCSS}
 ${zIndexTokens}
-.carbon-dark-mode, [data-carbon-theme="dark"] {
+&.carbon-dark-mode, &[data-carbon-theme="dark"] {
   ${darkCSS}
 }
 `;
@@ -167,6 +167,23 @@ const componentTokenConfigs = [
           "containerSizeDialogMaxwidthS",
           "containerSizeDialogMaxwidthM",
           "containerSizeDialogMaxwidthL",
+        ],
+      },
+    ],
+  },
+    {
+    component: "textarea",
+    targetDir: "src/components/textarea/__internal__/tokens/",
+    imports: [
+      {
+        module: "@sage/design-tokens-fusion/js/es6/global.js",
+        names: [
+          "globalFontStaticCompRegularS",
+          "globalFontStaticCompRegularM",
+          "globalFontStaticCompRegularL",
+          "globalSpaceCompXs",
+          "globalSpaceCompS",
+          "globalSpaceCompM",
         ],
       },
     ],

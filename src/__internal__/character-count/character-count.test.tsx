@@ -126,7 +126,29 @@ test("renders with expected styles when `isLarge` is true", () => {
   render(<CharacterCount isLarge value={5} limit={10} isOverLimit={false} />);
 
   expect(screen.getByTestId("character-count")).toHaveStyleRule(
-    "font-size",
-    "var(--fontSizes200)",
+    "font",
+    "var(--global-font-static-comp-regular-l)",
+  );
+});
+
+// coverage
+test("renders with expected styles when `size` is large", () => {
+  render(
+    <CharacterCount size="large" value={5} limit={10} isOverLimit={false} />,
+  );
+
+  expect(screen.getByTestId("character-count")).toHaveStyleRule(
+    "margin",
+    "var(--global-space-comp-s) 0px",
+  );
+});
+
+test("disabled character count uses correct color token", () => {
+  render(<CharacterCount disabled value={10} limit={5} isOverLimit={false} />);
+
+  const visibleCharacterCount = screen.getByTestId("character-count");
+  expect(visibleCharacterCount).toHaveStyleRule(
+    "color",
+    "var(--input-typical-txt-disabled)",
   );
 });
