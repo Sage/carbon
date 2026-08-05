@@ -1,3 +1,9 @@
+## [161.13.2](https://github.com/Sage/carbon/compare/v161.13.1...v161.13.2) (2026-08-05)
+
+### Bug Fixes
+
+* **popover-container:** render behind adaptive sidebar ([4762d8b](https://github.com/Sage/carbon/commit/4762d8b74c0345cf3977a89acda585b24bffd458))
+
 ## [161.13.1](https://github.com/Sage/carbon/compare/v161.13.0...v161.13.1) (2026-08-04)
 
 ### Bug Fixes
