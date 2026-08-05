@@ -33,6 +33,11 @@ const TestComponent = ({ ...args }) => {
   );
 };
 
+beforeEach(() => {
+  // scrollIntoView is not implemented in jsdom but hasn't been marked as such
+  Element.prototype.scrollIntoView = jest.fn();
+});
+
 test("shows a warning when slots are used with a non-string label", () => {
   const jestWarnSpy = jest.spyOn(console, "warn").mockImplementation();
   const slotContent = <Icon type="blocked_square" />;
