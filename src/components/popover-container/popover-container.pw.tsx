@@ -5,6 +5,7 @@ import {
   PopoverContainerWithSelect,
   Default,
   CoverButton,
+  PopoverContainerOverlappingAdaptiveSidebar,
 } from "../popover-container/components.test-pw";
 
 test.describe("Check props of Popover Container component", () => {
@@ -61,6 +62,23 @@ test.describe("Check props of Popover Container component", () => {
     await popoverContainer.press("Escape");
 
     await expect(popoverContainer).toBeHidden();
+  });
+
+  test("should render an adaptive sidebar above an overlapping open popover container when the sidebar is a modal", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<PopoverContainerOverlappingAdaptiveSidebar />);
+
+    const popoverZIndex = await page
+      .locator('[data-element="popover-container-content"]')
+      .evaluate((element) => parseInt(getComputedStyle(element).zIndex, 10));
+
+    const sidebarZIndex = await page
+      .locator('[data-role="adaptive-sidebar-modal-view"]')
+      .evaluate((element) => parseInt(getComputedStyle(element).zIndex, 10));
+
+    expect(sidebarZIndex).toBeGreaterThan(popoverZIndex);
   });
 
   test.describe("Accessibility tests", () => {
