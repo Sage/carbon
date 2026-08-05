@@ -126,7 +126,7 @@ const Card = ({
         {header}
         {draggable && (
           <StyledDragRow spacing={spacing}>
-            <StyledDragHandle>
+            <StyledDragHandle data-role="drag-handle">
               <Icon type="drag" />
             </StyledDragHandle>
             {rightChildren}

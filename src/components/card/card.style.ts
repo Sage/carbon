@@ -177,7 +177,11 @@ export const StyledDragRow = styled.div<{
 `;
 
 export const StyledDragHandle = styled.div`
-  cursor: move;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
 `;
 
 export { StyledCard, StyledCardContent };

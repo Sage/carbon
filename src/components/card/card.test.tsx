@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Card, CardProps, CardFooter } from ".";
-import { StyledCard } from "./card.style";
+import { StyledCard, StyledDragHandle } from "./card.style";
 
 test("renders with correct data attributes", () => {
   render(
@@ -272,3 +272,21 @@ test.each<CardProps["roundness"]>(["moderate", "curved"])(
     expect(contentEl).toHaveStyleRule("border-bottom-right-radius", radius);
   },
 );
+
+test("drag handle has grab cursor on hover", () => {
+  render(<StyledDragHandle data-role="drag-handle" />);
+
+  const dragHandle = screen.getByTestId("drag-handle");
+
+  expect(dragHandle).toHaveStyleRule("cursor", "grab");
+});
+
+test("drag handle has grabbing cursor when active", () => {
+  render(<StyledDragHandle data-role="drag-handle" />);
+
+  const dragHandle = screen.getByTestId("drag-handle");
+
+  expect(dragHandle).toHaveStyleRule("cursor", "grabbing", {
+    modifier: ":active",
+  });
+});
