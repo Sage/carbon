@@ -81,7 +81,7 @@ test("should render with the overridden `aria-roledescription` attribute", () =>
   );
 });
 
-test("should render with the overridden `aria-describedby` and `aria-roledescription` attribute via the I18nProvider", () => {
+test("should render with the overridden `aria-roledescription` attribute via the I18nProvider", () => {
   render(
     <I18nProvider
       locale={{

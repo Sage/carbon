@@ -1,3 +1,21 @@
+## [161.13.2](https://github.com/Sage/carbon/compare/v161.13.1...v161.13.2) (2026-08-05)
+
+### Bug Fixes
+
+* **popover-container:** render behind adaptive sidebar ([4762d8b](https://github.com/Sage/carbon/commit/4762d8b74c0345cf3977a89acda585b24bffd458))
+
+## [161.13.1](https://github.com/Sage/carbon/compare/v161.13.0...v161.13.1) (2026-08-04)
+
+### Bug Fixes
+
+* **flat-table:** remove orphaned aria-describedby from sort header ([28e5c6a](https://github.com/Sage/carbon/commit/28e5c6a034c55f490528deedf054248ecf7ee12b))
+
+## [161.13.0](https://github.com/Sage/carbon/compare/v161.12.1...v161.13.0) (2026-08-04)
+
+### Features
+
+* **numeral-date:** align with Fusion DS ([73d61f0](https://github.com/Sage/carbon/commit/73d61f0fcaf77ce2250b39a80d4af7f930e5db4e))
+
 ## [161.12.1](https://github.com/Sage/carbon/compare/v161.12.0...v161.12.1) (2026-08-03)
 
 ### Bug Fixes
