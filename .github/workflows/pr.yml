@@ -2,7 +2,9 @@ name: PR checks
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   trigger-chromatic:
@@ -10,7 +12,33 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
+      - name: Check approvals
+        id: check_approvals
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          pull_number: ${{ github.event.pull_request.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Count org-member approvals
+        id: count_approvals
+        env:
+          REVIEWS_DATA: ${{ steps.check_approvals.outputs.data }}
+        run: |
+          APPROVALS=$(echo "$REVIEWS_DATA" | jq '
+            [ group_by(.user.login)[]
+              | sort_by(.submitted_at) | last
+              | select(.state == "APPROVED")
+              | select(.author_association == "MEMBER" or .author_association == "OWNER") ]
+            | length')
+          echo "count=$APPROVALS" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch Chromatic
+        uses: octokit/request-action@v2.x
+        if: ${{ fromJSON(steps.count_approvals.outputs.count) >= 2 && contains(github.event.pull_request.labels.*.name, 'Passed Review') }}
         id: dispatch_chromatic
         with:
           route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
