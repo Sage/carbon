@@ -1,5 +1,4 @@
-import React, { forwardRef, useRef } from "react";
-import { DialogProps, DialogHandle } from "../dialog.component";
+import React, { forwardRef, useRef, useContext } from "react";
 import { StyledSubtitle } from "../dialog.style";
 import Box from "../../../../box";
 import Icon, { IconColor } from "../../../../icon";
@@ -7,17 +6,22 @@ import { IconType } from "../../../../icon/icon-type";
 import Typography from "../../../../typography";
 import createGuid from "../../../../../__internal__/utils/helpers/guid";
 
+/** @internal Context for passing IDs from Dialog to DialogHeader */
+export const DialogHeaderContext = React.createContext<{
+  titleId?: string;
+  subtitleId?: string;
+} | null>(null);
+
 /** Allowed status variants for the dialog heading icon. */
-export type DialogHeadingStatus =
+export type DialogHeading =
   | "subtle"
   | "positive"
   | "negative"
   | "caution"
   | "info";
 
-/** Map each status to its icon type and colour token. */
 const STATUS_CONFIG: Record<
-  DialogHeadingStatus,
+  DialogHeading,
   { iconType: IconType; color: IconColor }
 > = {
   subtle: {
@@ -42,136 +46,63 @@ const STATUS_CONFIG: Record<
   },
 };
 
-// Define the extra props the HOC injects
-interface WithCustomHeadingProps {
-  /** Custom heading renderer — receives the original title and subtitle */
-  renderHeading?: (
-    title: React.ReactNode,
-    subtitle: React.ReactNode,
-  ) => React.ReactNode;
-  /** Renders a status icon to the left of the title */
-  statusIcon?: DialogHeadingStatus;
+export interface DialogHeaderProps {
+  title: React.ReactNode;
+  subtitle?: React.ReactNode;
+  status: DialogHeading;
 }
 
-type EnhancedDialogProps = Omit<DialogProps, "title" | "subtitle"> &
-  WithCustomHeadingProps & {
-    title?: React.ReactNode;
-    subtitle?: React.ReactNode;
-  };
+const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(
+  ({ title, subtitle, status }, ref) => {
+    const { iconType, color } = STATUS_CONFIG[status];
+    const context = useContext(DialogHeaderContext);
 
-function withDialogHeader(
-  WrappedDialog: React.ForwardRefExoticComponent<
-    DialogProps & React.RefAttributes<DialogHandle>
-  >,
-) {
-  const Enhanced = forwardRef<DialogHandle, EnhancedDialogProps>(
-    (
-      {
-        renderHeading,
-        statusIcon,
-        title,
-        subtitle,
-        "aria-labelledby": propAriaLabelledBy,
-        "aria-describedby": propAriaDescribedBy,
-        "aria-label": propAriaLabel,
-        ...rest
-      },
-      ref,
-    ) => {
-      const statusTitleId = useRef(createGuid()).current;
-      const statusSubtitleId = useRef(createGuid()).current;
+    // Always call hooks unconditionally at the top level
+    const generatedTitleId = useRef(createGuid()).current;
+    const generatedSubtitleId = useRef(createGuid()).current;
 
-      let resolvedTitle: React.ReactNode = title;
-      let passSubtitle = true;
-      let ariaLabelledBy: string | undefined = propAriaLabelledBy;
-      let ariaDescribedBy: string | undefined = propAriaDescribedBy;
-      let ariaLabel: string | undefined = propAriaLabel;
+    // Use context IDs if available, otherwise use generated ones
+    const titleId = context?.titleId || generatedTitleId;
+    const subtitleId = context?.subtitleId || generatedSubtitleId;
 
-      if (renderHeading) {
-        resolvedTitle = renderHeading(title, subtitle);
-        passSubtitle = false;
-
-        // istanbul ignore next: This is a dev-time warning to encourage accessibility best practices.
-        if (!propAriaLabelledBy && !propAriaLabel) {
-          // eslint-disable-next-line no-console
-          console.warn(
-            "Dialog withDialogHeader: When using `renderHeading`, you must provide " +
-              "`aria-labelledby` or `aria-label` so the dialog has an accessible name.",
-          );
-        }
-      } else if (statusIcon) {
-        const { iconType, color } = STATUS_CONFIG[statusIcon];
-
-        resolvedTitle = (
-          <Box
-            data-role="status-heading"
-            display="flex"
-            flexWrap="wrap"
-            alignItems="center"
-          >
-            <Icon
-              type={iconType}
-              color={color}
-              fontSize="medium"
-              aria-hidden={true}
-              ml="-4px"
-            />
-            <Typography
-              variant="h1"
-              ml="var(--global-space-comp-L, 16px)"
-              data-element="dialog-title"
-              id={statusTitleId}
-            >
-              {title}
-            </Typography>
-            {subtitle && (
-              <StyledSubtitle
-                data-element="subtitle"
-                data-role="subtitle"
-                id={statusSubtitleId}
-                mb="0"
-              >
-                {subtitle}
-              </StyledSubtitle>
-            )}
-          </Box>
-        );
-        passSubtitle = false;
-
-        // Point aria-labelledby at the id we generated (only when consumer didn't provide one)
-        ariaLabelledBy ??= statusTitleId;
-        // Also set aria-label as a belt-and-suspenders fallback
-        // (aria-labelledby takes precedence when both are present,
-        // but aria-label alone satisfies axe if the id ref fails)
-        // istanbul ignore else
-        if (typeof title === "string") {
-          ariaLabel = ariaLabel ?? title;
-        }
-        if (subtitle) {
-          ariaDescribedBy ??= statusSubtitleId;
-        }
-      }
-
-      return (
-        <WrappedDialog
-          {...rest}
-          title={resolvedTitle}
-          {...(passSubtitle ? { subtitle } : {})}
-          aria-labelledby={ariaLabelledBy}
-          aria-describedby={ariaDescribedBy}
-          aria-label={ariaLabel}
-          ref={ref}
+    return (
+      <Box
+        ref={ref}
+        data-role="status-heading"
+        display="flex"
+        flexWrap="wrap"
+        alignItems="center"
+      >
+        <Icon
+          type={iconType}
+          color={color}
+          fontSize="medium"
+          aria-hidden
+          ml="-4px"
         />
-      );
-    },
-  );
+        <Typography
+          variant="h1"
+          ml="var(--global-space-comp-l)"
+          data-element="dialog-title"
+          id={titleId}
+        >
+          {title}
+        </Typography>
+        {subtitle && (
+          <StyledSubtitle
+            data-element="subtitle"
+            data-role="subtitle"
+            id={subtitleId}
+            mb="0"
+          >
+            {subtitle}
+          </StyledSubtitle>
+        )}
+      </Box>
+    );
+  },
+);
 
-  Enhanced.displayName = `withDialogHeader(${
-    WrappedDialog.displayName || WrappedDialog.name || "Component"
-  })`;
+DialogHeader.displayName = "DialogHeader";
 
-  return Enhanced;
-}
-
-export default withDialogHeader;
-export type { EnhancedDialogProps };
+export default DialogHeader;
