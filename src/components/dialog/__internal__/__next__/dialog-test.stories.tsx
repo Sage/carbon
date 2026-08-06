@@ -8,9 +8,8 @@ import Button from "../../../button/__next__/";
 import Typography from "../../../typography";
 import Textbox from "../../../textbox";
 
-import Dialog, { withDialogHeader } from "./dialog.component";
-
-const DialogWithHeadingVariant = withDialogHeader(Dialog);
+import Dialog from "./dialog.component";
+import DialogHeader from "./dialog-header/dialog-header.component";
 
 const meta: Meta<typeof Dialog> = {
   title: "Dialog/Test",
@@ -124,82 +123,102 @@ export const SizeFullScreen: Story = {
   ),
 };
 
-export const HeadingSubtle: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingSubtle: StoryObj<typeof Dialog> = {
   name: "Heading Subtle",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with subtle icon"
-      subtitle="Subheading"
-      statusIcon="subtle"
+      title={
+        <DialogHeader
+          title="Dialog with subtle icon"
+          subtitle="Subheading"
+          status="subtle"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
 };
 
-export const HeadingPositive: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingPositive: StoryObj<typeof Dialog> = {
   name: "Heading Positive",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with positive icon"
-      subtitle="Subheading"
-      statusIcon="positive"
+      title={
+        <DialogHeader
+          title="Dialog with positive icon"
+          subtitle="Subheading"
+          status="positive"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
 };
 
-export const HeadingNegative: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingNegative: StoryObj<typeof Dialog> = {
   name: "Heading Negative",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with negative icon"
-      subtitle="Subheading"
-      statusIcon="negative"
+      title={
+        <DialogHeader
+          title="Dialog with negative icon"
+          subtitle="Subheading"
+          status="negative"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
 };
 
-export const HeadingCaution: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingCaution: StoryObj<typeof Dialog> = {
   name: "Heading Caution",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with caution icon"
-      subtitle="Subheading"
-      statusIcon="caution"
+      title={
+        <DialogHeader
+          title="Dialog with caution icon"
+          subtitle="Subheading"
+          status="caution"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
 };
 
-export const HeadingInfo: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingInfo: StoryObj<typeof Dialog> = {
   name: "Heading Info",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with info icon"
-      subtitle="Subheading"
-      statusIcon="info"
+      title={
+        <DialogHeader
+          title="Dialog with info icon"
+          subtitle="Subheading"
+          status="info"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
 };
