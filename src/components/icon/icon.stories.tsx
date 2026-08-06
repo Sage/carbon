@@ -17,11 +17,46 @@ const meta: Meta<typeof Icon> = {
   component: Icon,
   argTypes: {
     ...styledSystemProps,
+    type: {
+      options: Object.keys(ICONS),
+      control: { type: "select" },
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    color: {
+      control: "text",
+    },
+    bg: {
+      control: "text",
+    },
+    bgShape: {
+      options: ["circle", "rounded-rect", "square"],
+      control: { type: "radio" },
+    },
+    bgSize: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    inverse: {
+      control: "boolean",
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Icon>;
+
+export const Playground: Story = {
+  render: (args) => <Icon {...args} />,
+  args: {
+    type: "add",
+    size: "medium",
+    inverse: false,
+  },
+};
+Playground.storyName = "Playground";
 
 export const Default: Story = () => {
   return <Icon type="add" />;

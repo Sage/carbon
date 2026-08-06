@@ -315,6 +315,32 @@ description: Carbon MultiActionButton component props and usage examples.
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    text: "Multi Action Button",
+    disabled: false,
+  }
+```
+
+**Render**
+
+```tsx
+(args: MultiActionButtonProps) => {
+    return (
+      <MultiActionButton {...args}>
+        <Button href="#">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </MultiActionButton>
+    );
+  }
+```
+
+
 ### DefaultStory
 
 **Args**

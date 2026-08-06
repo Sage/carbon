@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as TextboxStories from "./textbox.stories";
@@ -31,6 +31,17 @@ Captures a single line of text.
 ```javascript
 import Textbox from "carbon-react/lib/components/textbox";
 ```
+
+## Playground
+
+Use this interactive example to explore Textbox props with Storybook controls.
+
+<Canvas of={TextboxStories.Playground} />
+
+<Controls
+  of={TextboxStories.Playground}
+  include={["label", "placeholder", "disabled", "readOnly", "required", "size"]}
+/>
 
 ## Designer Notes
 
@@ -113,7 +124,7 @@ Use the `labelInline` prop to display the label on the same horizontal row as th
 
 ### With fieldHelp (legacy)
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is _false_.
 
 <Canvas of={TextboxStories.WithFieldHelp} />
 

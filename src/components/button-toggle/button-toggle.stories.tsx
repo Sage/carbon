@@ -16,6 +16,18 @@ const meta: Meta<typeof ButtonToggleGroup> = {
   subcomponents: { ButtonToggle },
   argTypes: {
     ...styledSystemProps,
+    label: {
+      control: "text",
+    },
+    inputHint: {
+      control: "text",
+    },
+    fullWidth: {
+      control: "boolean",
+    },
+    allowDeselect: {
+      control: "boolean",
+    },
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -27,6 +39,39 @@ const meta: Meta<typeof ButtonToggleGroup> = {
 
 export default meta;
 type Story = StoryObj<typeof ButtonToggleGroup>;
+
+export const Playground: Story = {
+  render: (args) => {
+    const [selectedButton, setSelectedButton] = useState("playground-2");
+
+    const handleOnChange = (
+      ev: React.MouseEvent<HTMLButtonElement>,
+      selectedValue?: string,
+    ) => {
+      setSelectedButton(selectedValue as string);
+    };
+
+    return (
+      <ButtonToggleGroup
+        {...args}
+        id="playground"
+        value={selectedButton}
+        onChange={handleOnChange}
+      >
+        <ButtonToggle value="playground-1">Button 1</ButtonToggle>
+        <ButtonToggle value="playground-2">Button 2</ButtonToggle>
+        <ButtonToggle value="playground-3">Button 3</ButtonToggle>
+      </ButtonToggleGroup>
+    );
+  },
+  args: {
+    label: "Label",
+    inputHint: "",
+    fullWidth: false,
+    allowDeselect: false,
+  },
+};
+Playground.storyName = "Playground";
 
 const ControlledButtonToggleGroup = ({
   id = "default",

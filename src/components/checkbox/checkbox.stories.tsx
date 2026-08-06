@@ -15,6 +15,22 @@ const meta = {
   component: Checkbox,
   argTypes: {
     ...styledSystemProps,
+    label: {
+      control: "text",
+    },
+    disabled: {
+      control: "boolean",
+    },
+    reverse: {
+      control: "boolean",
+    },
+    required: {
+      control: "boolean",
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
   },
   parameters: {
     chromatic: { disableSnapshot: true },
@@ -26,6 +42,27 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof Checkbox>;
+
+export const Playground: Story = {
+  render: (args) => {
+    const [isChecked, setIsChecked] = useState(false);
+    return (
+      <Checkbox
+        {...args}
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
+    );
+  },
+  args: {
+    label: "Checkbox",
+    disabled: false,
+    reverse: false,
+    required: false,
+    size: "medium",
+  },
+};
+Playground.storyName = "Playground";
 
 const ControlledCheckbox = ({
   ...args

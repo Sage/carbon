@@ -18,6 +18,18 @@ const meta: Meta<typeof Link> = {
 export default meta;
 type Story = StoryObj<typeof Link>;
 
+export const Playground: Story = {
+  render: (args) => <Link {...args}>{args.children}</Link>,
+  args: {
+    children: "This is a link",
+    href: "https://carbon.sage.com",
+    disabled: false,
+    underline: "always",
+    isSkipLink: false,
+  },
+};
+Playground.storyName = "Playground";
+
 export const Default: Story = {
   render: (args) => <Link {...args}>{args.children}</Link>,
   args: {

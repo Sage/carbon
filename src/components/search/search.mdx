@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as SearchStories from "./search.stories";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -32,6 +32,17 @@ it provides a familiar input pattern with a built-in search button.
 ```javascript
 import Search, { type SearchHandle, type SearchListGroup, type SearchListData } from "carbon-react/lib/components/search";
 ```
+
+## Playground
+
+Use this interactive example to explore Search props with Storybook controls.
+
+<Canvas of={SearchStories.Playground} />
+
+<Controls
+  of={SearchStories.Playground}
+  include={["placeholder", "searchButton", "variant"]}
+/>
 
 ## Examples
 
@@ -71,17 +82,17 @@ Each group in `listData` has the following shape:
 
 Each item within a group has the following shape:
 
-| Property      | Type              | Required | Description                                              |
-| ------------- | ----------------- | -------- | -------------------------------------------------------- |
-| `value`       | `string`          | Yes      | The value passed to `onListItemSelect` when chosen.      |
-| `label`       | `string`          | Yes      | The primary display text for the item.                   |
-| `labelPrefix` | `string`          | No       | An optional prefix rendered before the label.            |
-| `subtext`     | `string`          | No       | Secondary text rendered below the label.                 |
-| `selectedIcon`| `boolean`         | No       | Enables selected-state tick icon behavior for that item. |
-| `leading`     | `React.ReactNode` | No       | Optional leading slot content, e.g. an icon or avatar.  |
-| `disabled`    | `boolean`         | No       | When `true`, the item is non-interactive.                |
-| `id`          | `string`          | No       | Optional `id` attribute for the list item element.       |
-| `onClick`     | `(event, value) => void` | No | Optional per-item click handler.                         |
+| Property       | Type                     | Required | Description                                              |
+| -------------- | ------------------------ | -------- | -------------------------------------------------------- |
+| `value`        | `string`                 | Yes      | The value passed to `onListItemSelect` when chosen.      |
+| `label`        | `string`                 | Yes      | The primary display text for the item.                   |
+| `labelPrefix`  | `string`                 | No       | An optional prefix rendered before the label.            |
+| `subtext`      | `string`                 | No       | Secondary text rendered below the label.                 |
+| `selectedIcon` | `boolean`                | No       | Enables selected-state tick icon behavior for that item. |
+| `leading`      | `React.ReactNode`        | No       | Optional leading slot content, e.g. an icon or avatar.   |
+| `disabled`     | `boolean`                | No       | When `true`, the item is non-interactive.                |
+| `id`           | `string`                 | No       | Optional `id` attribute for the list item element.       |
+| `onClick`      | `(event, value) => void` | No       | Optional per-item click handler.                         |
 
 Search `"term"` below to see the dropdown in action.
 
@@ -142,7 +153,8 @@ to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
   translationData={[
     {
       name: "search.searchButtonText",
-      description: "The text for the `Search` button (now only used as the default accessible name for the Search button if no `ariaLabel` prop is provided).",
+      description:
+        "The text for the `Search` button (now only used as the default accessible name for the Search button if no `ariaLabel` prop is provided).",
       type: "func",
       returnType: "string",
     },

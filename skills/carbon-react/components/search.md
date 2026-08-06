@@ -69,6 +69,34 @@ description: Carbon Search component props and usage examples.
 | warning | string \| boolean \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. |  |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    placeholder: "Search",
+    searchButton: false,
+    variant: "default",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    const [value, setValue] = useState("");
+    return (
+      <Search
+        {...args}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    );
+  }
+```
+
+
 ### Default
 
 **Render**

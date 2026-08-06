@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as DecimalStories from "./decimal.stories";
@@ -32,6 +32,26 @@ Captures a number with a decimal point, or a currency value.
 import Decimal from "carbon-react/lib/components/decimal";
 ```
 
+## Playground
+
+Use this interactive example to explore Decimal props with Storybook controls.
+
+<Canvas of={DecimalStories.Playground} />
+
+<Controls
+  of={DecimalStories.Playground}
+  include={[
+    "label",
+    "required",
+    "disabled",
+    "readOnly",
+    "size",
+    "prefix",
+    "suffix",
+    "precision",
+  ]}
+/>
+
 ## Examples
 
 ### Default
@@ -64,7 +84,9 @@ import Decimal from "carbon-react/lib/components/decimal";
 
 Use the `popoverContainerContent` prop to render content inside a [PopoverContainer](../?path=/docs/popover-container--docs) accessible via a button at the right of the input. Use the `popoverPosition` prop to control the position of the popover dialog relative to the trigger button.
 
-<Canvas of={DecimalStories.WithPopoverContainer} /> If both props are supplied, only the prefix will be rendered and a console warning will be logged. Use one or the other.
+<Canvas of={DecimalStories.WithPopoverContainer} /> If both props are supplied,
+only the prefix will be rendered and a console warning will be logged. Use one
+or the other.
 
 ### ReadOnly
 
@@ -97,14 +119,14 @@ In this example, `align` has been assigned the value `left`.
 
 ### With labelInline
 
-Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and 
+Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and
 `labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
 
 <Canvas of={DecimalStories.LabelInline} />
 
 ### With fieldHelp (legacy)
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is _false_.
 
 <Canvas of={DecimalStories.WithFieldHelp} />
 

@@ -35,6 +35,33 @@ const meta: Meta<typeof Time> = {
 export default meta;
 type Story = StoryObj<typeof Time>;
 
+export const Playground: Story = {
+  render: (args) => {
+    const [value, setValue] = useState<TimeValue>({
+      hours: "",
+      minutes: "",
+    });
+
+    const handleChange = (ev: TimeInputEvent) => {
+      setValue(ev.target.value);
+    };
+
+    return (
+      <Box p={2}>
+        <Time {...args} value={value} onChange={handleChange} />
+      </Box>
+    );
+  },
+  args: {
+    label: "Time",
+    disabled: false,
+    readOnly: false,
+    required: false,
+    size: "medium",
+  },
+};
+Playground.storyName = "Playground";
+
 export const Default: Story = ({ ...args }) => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",

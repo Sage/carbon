@@ -28,6 +28,25 @@ const meta: Meta<typeof Textbox> = {
 export default meta;
 type Story = StoryObj<typeof Textbox>;
 
+export const Playground: Story = {
+  render: (args) => {
+    const [state, setState] = useState("");
+    const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+      setState(target.value);
+    };
+    return <Textbox {...args} value={state} onChange={setValue} />;
+  },
+  args: {
+    label: "Textbox",
+    placeholder: "Placeholder",
+    disabled: false,
+    readOnly: false,
+    required: false,
+    size: "medium",
+  },
+};
+Playground.storyName = "Playground";
+
 export const Default: Story = () => {
   const [state, setState] = useState("");
 

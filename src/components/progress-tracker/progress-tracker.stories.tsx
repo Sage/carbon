@@ -37,6 +37,16 @@ const meta: Meta<typeof ProgressTracker> = {
 export default meta;
 type Story = StoryObj<typeof ProgressTracker>;
 
+export const Playground: Story = {
+  render: (args) => <ProgressTracker {...args} />,
+  args: {
+    progress: 50,
+    description: "",
+    labelsPosition: "bottom",
+  },
+};
+Playground.storyName = "Playground";
+
 export const Default: Story = {
   render: (args) => <ProgressTracker {...args} />,
   args: {

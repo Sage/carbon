@@ -359,6 +359,34 @@ description: Carbon Textbox component props and usage examples.
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    label: "Textbox",
+    placeholder: "Placeholder",
+    disabled: false,
+    readOnly: false,
+    required: false,
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    const [state, setState] = useState("");
+    const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+      setState(target.value);
+    };
+    return <Textbox {...args} value={state} onChange={setValue} />;
+  }
+```
+
+
 ### Default
 
 **Render**

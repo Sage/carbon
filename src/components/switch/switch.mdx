@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as SwitchStories from "./switch.stories.tsx";
@@ -30,6 +30,25 @@ A Switch lets a user toggle a single setting on or off. It gives an immediate re
 ```javascript
 import Switch from "carbon-react/lib/components/switch";
 ```
+
+## Playground
+
+Use this interactive example to explore Switch props with Storybook controls.
+
+<Canvas of={SwitchStories.Playground} />
+
+<Controls
+  of={SwitchStories.Playground}
+  include={[
+    "label",
+    "inputHint",
+    "disabled",
+    "loading",
+    "reverse",
+    "required",
+    "size",
+  ]}
+/>
 
 ## Examples
 
@@ -130,8 +149,7 @@ The following keys are available to override the translations for this component
     },
     {
       name: "switch.processingLabel",
-      description:
-        "The text to display to indicate action is processing",
+      description: "The text to display to indicate action is processing",
       type: "func",
       returnType: "string",
     },

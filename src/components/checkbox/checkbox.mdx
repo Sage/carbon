@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as CheckboxStories from "./checkbox.stories";
 
@@ -31,6 +31,17 @@ Checkbox provides a way to check an individual option are selected, or check mul
 import { Checkbox } from "carbon-react/lib/components/checkbox";
 ```
 
+## Playground
+
+Use this interactive example to explore Checkbox props with Storybook controls.
+
+<Canvas of={CheckboxStories.Playground} />
+
+<Controls
+  of={CheckboxStories.Playground}
+  include={["label", "disabled", "reverse", "required", "size"]}
+/>
+
 ## Related Components
 
 - Choosing one option from a longer list? [Try Radio Button](../?path=/docs/radio-button--docs).
@@ -59,7 +70,7 @@ The size of the component can be changed by passing the `size` prop to `Checkbox
 
 ### Progressive Disclosure
 
-`Checkbox` can be used to conditionally reveal additional content when selected. 
+`Checkbox` can be used to conditionally reveal additional content when selected.
 This can be achieved by passing the content to the `progressiveDisclosure` prop in `Checkbox`, which accepts any valid ReactNode.
 
 It is recommended that you provide limited amounts of content within conditionally revealed sections, if you need to disclose larger amounts of content, please consider using a different pattern.

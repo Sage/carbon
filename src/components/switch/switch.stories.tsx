@@ -12,6 +12,28 @@ const meta: Meta<typeof Switch> = {
   component: Switch,
   argTypes: {
     ...styledSystemProps,
+    size: {
+      options: ["small", "large"],
+      control: { type: "radio" },
+    },
+    label: {
+      control: "text",
+    },
+    inputHint: {
+      control: "text",
+    },
+    disabled: {
+      control: "boolean",
+    },
+    loading: {
+      control: "boolean",
+    },
+    reverse: {
+      control: "boolean",
+    },
+    required: {
+      control: "boolean",
+    },
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -21,6 +43,29 @@ const meta: Meta<typeof Switch> = {
 
 export default meta;
 type Story = StoryObj<typeof Switch>;
+
+export const Playground: Story = {
+  render: (args) => {
+    const [checked, setChecked] = useState(false);
+    return (
+      <Switch
+        {...args}
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+      />
+    );
+  },
+  args: {
+    label: "Toggle notifications",
+    inputHint: "Hint text",
+    disabled: false,
+    loading: false,
+    reverse: false,
+    required: false,
+    size: "small",
+  },
+};
+Playground.storyName = "Playground";
 
 export const Default: Story = () => {
   const [checked, setChecked] = useState(false);

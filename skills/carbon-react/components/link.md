@@ -94,6 +94,27 @@ description: Carbon Link component props and usage examples.
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    children: "This is a link",
+    href: "https://carbon.sage.com",
+    disabled: false,
+    underline: "always",
+    isSkipLink: false,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => <Link {...args}>{args.children}</Link>
+```
+
+
 ### Default
 
 **Args**

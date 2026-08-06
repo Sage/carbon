@@ -76,6 +76,31 @@ description: Carbon Button component props and usage examples.
 | target | string \| undefined | No |  | Yes | HTML target attribute |  |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    children: "Button",
+    variant: "default",
+    variantType: "primary",
+    size: "medium",
+    disabled: false,
+    destructive: false,
+    fullWidth: false,
+    inverse: false,
+    noWrap: true,
+  }
+```
+
+**Render**
+
+```tsx
+(args: ButtonProps) => <Button {...args}>{args.children}</Button>
+```
+
+
 ### Default
 
 **Render**

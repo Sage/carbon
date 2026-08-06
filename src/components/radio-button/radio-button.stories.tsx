@@ -33,6 +33,29 @@ const meta: Meta<typeof RadioButtonGroup> = {
 export default meta;
 type Story = StoryObj<typeof RadioButtonGroup>;
 
+export const Playground: Story = {
+  render: (args) => {
+    const [value, setValue] = useState("");
+    return (
+      <RadioButtonGroup
+        {...args}
+        name="playground-group"
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <RadioButton id="playground-1" value="radio1" label="Radio Option 1" />
+        <RadioButton id="playground-2" value="radio2" label="Radio Option 2" />
+        <RadioButton id="playground-3" value="radio3" label="Radio Option 3" />
+      </RadioButtonGroup>
+    );
+  },
+  args: {
+    legend: "RadioButtonGroup Legend",
+    legendSpacing: 2,
+  },
+};
+Playground.storyName = "Playground";
+
 interface TemplateProps
   extends Omit<
     RadioButtonGroupProps,

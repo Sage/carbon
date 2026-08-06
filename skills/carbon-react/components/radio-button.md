@@ -331,6 +331,38 @@ description: Carbon RadioButton component props and usage examples.
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    legend: "RadioButtonGroup Legend",
+    legendSpacing: 2,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    const [value, setValue] = useState("");
+    return (
+      <RadioButtonGroup
+        {...args}
+        name="playground-group"
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <RadioButton id="playground-1" value="radio1" label="Radio Option 1" />
+        <RadioButton id="playground-2" value="radio2" label="Radio Option 2" />
+        <RadioButton id="playground-3" value="radio3" label="Radio Option 3" />
+      </RadioButtonGroup>
+    );
+  }
+```
+
+
 ### WithLegend
 
 **Args**
