@@ -388,6 +388,7 @@ export const PopoverContainer = forwardRef<
         tabIndex={-1}
         disableAnimation={disableAnimation || reduceMotion}
         zIndex={isWithinGlobalHeader ? 10000 : 2000}
+        $inMenu={inMenu}
         {...filterStyledSystemPaddingProps(rest)}
       >
         <MenuContext.Provider value={{ inMenu: false }}>
