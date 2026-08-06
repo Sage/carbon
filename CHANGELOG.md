@@ -1,3 +1,9 @@
+## [161.14.0](https://github.com/Sage/carbon/compare/v161.13.2...v161.14.0) (2026-08-06)
+
+### Features
+
+* **anchor-navigation:** align with fusion ds ([e97ba58](https://github.com/Sage/carbon/commit/e97ba5803811cea4388baaea9b292e67e1f1e9d5))
+
 ## [161.13.2](https://github.com/Sage/carbon/compare/v161.13.1...v161.13.2) (2026-08-05)
 
 ### Bug Fixes
