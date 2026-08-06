@@ -1,4 +1,5 @@
 import React, {
+  type AriaAttributes,
   useState,
   useRef,
   useEffect,
@@ -13,6 +14,7 @@ import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-t
 import Event from "../../__internal__/utils/helpers/events";
 import {
   StyledAnchorNavigation,
+  StyledNavigationWrapper,
   StyledNavigation,
   StyledContent,
 } from "./anchor-navigation.style";
@@ -20,7 +22,9 @@ import AnchorNavigationItem, {
   AnchorNavigationItemProps,
 } from "./anchor-navigation-item/anchor-navigation-item.component";
 
-export interface AnchorNavigationProps extends TagProps {
+export interface AnchorNavigationProps
+  extends TagProps,
+    Pick<AriaAttributes, "aria-label" | "aria-labelledby"> {
   /** Child elements */
   children?: React.ReactNode;
   /** The AnchorNavigationItems components to be rendered in the sticky navigation.
@@ -32,9 +36,33 @@ export interface AnchorNavigationProps extends TagProps {
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
 
+const flattenNavigationChildren = (
+  children: React.ReactNode,
+): React.ReactElement[] => {
+  const result: React.ReactElement[] = [];
+
+  React.Children.forEach(children, (child) => {
+    if (!React.isValidElement(child)) return;
+
+    if (child.type === React.Fragment) {
+      const fragment = child as React.ReactElement<{
+        children?: React.ReactNode;
+      }>;
+      result.push(...flattenNavigationChildren(fragment.props.children));
+      return;
+    }
+
+    result.push(child);
+  });
+
+  return result;
+};
+
 const AnchorNavigation = ({
   children,
   stickyNavigation,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
   "data-element": dataElement,
   "data-role": dataRole,
 }: AnchorNavigationProps): JSX.Element => {
@@ -44,19 +72,21 @@ const AnchorNavigation = ({
     "`stickyNavigation` prop in `AnchorNavigation` should be a React Fragment.",
   );
 
+  const navigationChildren = useMemo(
+    () => flattenNavigationChildren(stickyNavigation.props.children),
+    [stickyNavigation],
+  );
+
   const hasCorrectItemStructure = useMemo(() => {
-    const incorrectChild = React.Children.toArray(
-      stickyNavigation.props.children,
-    ).find((child: React.ReactNode) => {
+    const incorrectChild = navigationChildren.find((child) => {
       return (
-        !React.isValidElement(child) ||
         (child.type as React.FunctionComponent).displayName !==
-          "AnchorNavigationItem"
+        "AnchorNavigationItem"
       );
     });
 
     return !incorrectChild;
-  }, [stickyNavigation]);
+  }, [navigationChildren]);
 
   invariant(
     hasCorrectItemStructure,
@@ -65,16 +95,17 @@ const AnchorNavigation = ({
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const sectionRefs = useRef<React.RefObject<HTMLElement>[]>(
-    React.Children.map(
-      stickyNavigation.props.children,
+  const sectionRefs = useRef<(React.RefObject<HTMLElement> | undefined)[]>([]);
+  // Keep the targets in sync when conditional navigation items are added,
+  // removed or reordered after the initial render.
+  sectionRefs.current = navigationChildren.map(
+    (child) =>
       (
-        child: React.ReactElement<
+        child as React.ReactElement<
           AnchorNavigationItemProps,
           typeof AnchorNavigationItem
-        >,
-      ) => child.props.target,
-    ),
+        >
+      ).props.target,
   );
 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -91,28 +122,28 @@ const AnchorNavigation = ({
     if (navigationRef.current === null) return;
 
     const offsetsWithIndexes = sectionRefs.current
-      .map(({ current }, index) => [
+      .map((sectionRef, index) => [
         index,
-        current?.getBoundingClientRect().top,
+        sectionRef?.current?.getBoundingClientRect().top,
       ])
       .filter(
         (offsetWithIndex): offsetWithIndex is [number, number] =>
           offsetWithIndex[1] !== undefined,
       );
 
+    if (offsetsWithIndexes.length === 0) return;
+
     const { top: navTopOffset } = navigationRef.current.getBoundingClientRect();
 
-    const indexOfSmallestNegativeTopOffset = offsetsWithIndexes.reduce(
-      (currentTopIndex, offsetWithIndex) => {
-        const [index, offset] = offsetWithIndex;
+    const [indexOfSmallestNegativeTopOffset] = offsetsWithIndexes.reduce(
+      (currentTop, offsetWithIndex) => {
+        const [, offset] = offsetWithIndex;
 
         if (offset - SECTION_VISIBILITY_OFFSET > navTopOffset)
-          return currentTopIndex;
-        return offset > offsetsWithIndexes[currentTopIndex][1]
-          ? index
-          : currentTopIndex;
+          return currentTop;
+        return offset > currentTop[1] ? offsetWithIndex : currentTop;
       },
-      offsetsWithIndexes[0][0],
+      offsetsWithIndexes[0],
     );
 
     setSelectedIndex(indexOfSmallestNegativeTopOffset);
@@ -141,30 +172,29 @@ const AnchorNavigation = ({
     return () => window.removeEventListener("scroll", scrollHandler, true);
   }, [scrollHandler]);
 
-  const focusSection = (section: HTMLElement) => {
-    if (!section.matches(defaultFocusableSelectors)) {
-      section.setAttribute("tabindex", "-1");
+  const focusSectionHeading = (section: HTMLElement) => {
+    const heading = section.querySelector<HTMLElement>(
+      "h1, h2, h3, h4, h5, h6",
+    );
+    const focusTarget = heading ?? section;
+
+    if (!focusTarget.matches(defaultFocusableSelectors)) {
+      focusTarget.setAttribute("tabindex", "-1");
     }
 
-    section.focus({ preventScroll: true });
+    if (!focusTarget.dataset.carbonAnchornavRef) {
+      focusTarget.dataset.carbonAnchornavRef = "true";
+    }
+
+    focusTarget.focus({ preventScroll: true });
   };
 
   const scrollToSection = (index: number): void => {
-    const sectionToScroll = sectionRefs.current[index].current;
+    const sectionToScroll = sectionRefs.current[index]?.current;
 
-    // istanbul ignore if
-    // function is called only after component is rendered, so ref cannot hold a null value
-    if (sectionToScroll === null) return;
+    if (!sectionToScroll) return;
 
-    // ensure section has the appropriate element to remove the default focus styles.
-    // Can ignore else branch because there's no harm in setting this to "true" twice (it can't hold any other value),
-    // but it's probably more efficient not to.
-    // istanbul ignore else
-    if (!sectionToScroll.dataset.carbonAnchornavRef) {
-      sectionToScroll.dataset.carbonAnchornavRef = "true";
-    }
-
-    focusSection(sectionToScroll);
+    focusSectionHeading(sectionToScroll);
 
     // workaround due to preventScroll focus method option on firefox not working consistently
     window.setTimeout(() => {
@@ -202,21 +232,29 @@ const AnchorNavigation = ({
       data-element={dataElement}
       data-role={dataRole}
     >
-      <StyledNavigation
-        ref={navigationRef}
-        data-element="anchor-sticky-navigation"
+      <StyledNavigationWrapper
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledby}
       >
-        {React.Children.map(stickyNavigation.props.children, (child, index) =>
-          React.cloneElement(child, {
-            href: child.props.href || "#", // need to pass an href to ensure the link is tabbable by default
-            isSelected: index === selectedIndex,
-            onClick: (event: React.MouseEvent<HTMLAnchorElement>) =>
-              handleClick(event, index),
-            onKeyDown: (event: React.KeyboardEvent<HTMLAnchorElement>) =>
-              handleKeyDown(event, index),
-          }),
-        )}
-      </StyledNavigation>
+        {/* role="list" is explicit to restore list semantics in VoiceOver when list-style: none is applied */}
+        <StyledNavigation
+          ref={navigationRef}
+          role="list"
+          data-element="anchor-sticky-navigation"
+        >
+          {navigationChildren.map((child, index) =>
+            React.cloneElement(child, {
+              key: child.key ?? index,
+              href: child.props.href || "#", // need to pass an href to ensure the link is tabbable by default
+              isSelected: index === selectedIndex,
+              onClick: (event: React.MouseEvent<HTMLAnchorElement>) =>
+                handleClick(event, index),
+              onKeyDown: (event: React.KeyboardEvent<HTMLAnchorElement>) =>
+                handleKeyDown(event, index),
+            }),
+          )}
+        </StyledNavigation>
+      </StyledNavigationWrapper>
       <StyledContent>{children}</StyledContent>
     </StyledAnchorNavigation>
   );
