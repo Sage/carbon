@@ -125,7 +125,7 @@ const Card = ({
       <CardProvider value={{ roundness, spacing }}>
         {header}
         {draggable && (
-          <StyledDragRow spacing={spacing}>
+          <StyledDragRow $spacing={spacing}>
             <StyledDragHandle data-role="drag-handle">
               <Icon type="drag" />
             </StyledDragHandle>
@@ -139,8 +139,8 @@ const Card = ({
           rel={!draggable && href ? rel : undefined}
           target={!draggable && href ? target : undefined}
           $interactive={interactive}
-          spacing={spacing}
-          roundness={roundness}
+          $spacing={spacing}
+          $roundness={roundness}
           $hasHeader={!!header}
           $hasFooter={!!footer}
           ref={setContentRef}

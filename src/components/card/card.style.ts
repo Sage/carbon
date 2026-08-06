@@ -85,10 +85,11 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
   `}
 `;
 
-interface StyledCardContentProps
-  extends Pick<CardContextProps, "roundness" | "spacing"> {
+interface StyledCardContentProps {
   $interactive?: boolean;
   href?: string;
+  $spacing: CardContextProps["spacing"];
+  $roundness: CardContextProps["roundness"];
   $hasHeader: boolean;
   $hasFooter: boolean;
   target?: string;
@@ -129,14 +130,14 @@ const StyledCardContent = styled.div
   border: none;
   padding: 0;
 
-  ${({ spacing }) => `
-    padding: ${paddingSizes[spacing]};
-    margin: ${marginSizes[spacing]};
-    ${spacing === "extra-small" ? "display: flex; flex-direction: column; align-items: stretch; align-self: stretch;" : ""}
+  ${({ $spacing }) => `
+    padding: ${paddingSizes[$spacing]};
+    margin: ${marginSizes[$spacing]};
+    ${$spacing === "extra-small" ? "display: flex; flex-direction: column; align-items: stretch; align-self: stretch;" : ""}
   `}
 
-  ${({ roundness, $hasHeader, $hasFooter }) => css`
-    ${(roundness === "moderate" || roundness === "default") &&
+  ${({ $roundness, $hasHeader, $hasFooter }) => css`
+    ${($roundness === "moderate" || $roundness === "default") &&
     css`
       ${!$hasHeader &&
       css`
@@ -150,7 +151,7 @@ const StyledCardContent = styled.div
       `}
     `}
 
-    ${(roundness === "curved" || roundness === "large") &&
+    ${($roundness === "curved" || $roundness === "large") &&
     css`
       ${!$hasHeader &&
       css`
@@ -167,13 +168,13 @@ const StyledCardContent = styled.div
 `;
 
 export const StyledDragRow = styled.div<{
-  spacing: CardContextProps["spacing"];
+  $spacing: CardContextProps["spacing"];
 }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: ${({ spacing }) => paddingSizes[spacing]};
+  margin-top: ${({ $spacing }) => paddingSizes[$spacing]};
 `;
 
 export const StyledDragHandle = styled.div`
