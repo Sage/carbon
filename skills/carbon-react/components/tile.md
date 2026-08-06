@@ -15,7 +15,7 @@ description: Carbon Tile component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| borderVariant | "default" \| "info" \| "selected" \| "negative" \| "positive" \| "caution" \| undefined | No |  | Sets the border variant that should be used |  |
+| borderVariant | "default" \| "info" \| "selected" \| "caution" \| "negative" \| "positive" \| undefined | No |  | Sets the border variant that should be used |  |
 | borderWidth | "borderWidth100" \| "borderWidth200" \| "borderWidth300" \| "borderWidth400" \| "borderWidth600" \| "borderWidth000" \| undefined | No |  | Sets the border width by using these design tokens |  |
 | children | React.ReactNode | No |  | The content to render within the tile. Each child will be wrapped with a TileContent wrapper, which allows any individual child component to take a percentage-based width prop, dictating the percentage of the tile width it will take up. Width will have no effect on a child component if the tile orientation is set to 'vertical'. |  |
 | height | string \| number \| undefined | No |  | Set a percentage-based height for the whole Tile component, relative to its parent. |  |
