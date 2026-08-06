@@ -1,3 +1,9 @@
+## [161.15.0](https://github.com/Sage/carbon/compare/v161.14.0...v161.15.0) (2026-08-06)
+
+### Features
+
+* **icon:** use color preset for color prop ([810f230](https://github.com/Sage/carbon/commit/810f230a93912da4436026d0576db5171c81c64d))
+
 ## [161.14.0](https://github.com/Sage/carbon/compare/v161.13.2...v161.14.0) (2026-08-06)
 
 ### Features
