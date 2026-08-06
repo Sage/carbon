@@ -7,7 +7,7 @@ import {
   ICON_TOOLTIP_POSITIONS,
   ICON_FONT_SIZES,
 } from "./icon-config";
-import Icon from ".";
+import Icon, { ICON_COLOR_TYPES } from ".";
 
 export default {
   title: "Icon/Test",
@@ -51,7 +51,6 @@ export const Default = ({ ...args }) => {
           fontSize: "small",
           ml: 0,
           mr: 0,
-          color: "",
           bg: "",
           bgSize: "small",
           bgShape: "circle",
@@ -88,17 +87,15 @@ export const All = () => (
         });
       }),
     )}
-    {/* Custom colors */}
-    <Icon type="add" color="blackOpacity65" />
-    <Icon type="add" color="brilliantGreenShade20" />
-    <Icon type="add" color="red" />
-    <Icon type="add" color="#123456" />
-    <Icon type="add" color="rgb(0, 123, 10)" />
-    <Icon type="add" color="white" bg="blackOpacity65" />
+    {/* Color presets */}
+    {ICON_COLOR_TYPES.map((color) => (
+      <Icon type="add" color={color} key={color} />
+    ))}
+    <Icon type="add" inverse bg="blackOpacity65" />
     <Icon type="add" bg="brilliantGreenShade20" />
     <Icon type="add" bg="red" />
-    <Icon type="add" color="white" bg="#123456" />
-    <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
+    <Icon type="add" inverse bg="#123456" />
+    <Icon type="add" inverse bg="rgb(0, 123, 10)" />
   </>
 );
 

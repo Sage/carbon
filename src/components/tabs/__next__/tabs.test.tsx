@@ -325,7 +325,7 @@ test("shows an error icon when the `error` prop is specified", async () => {
 
   const icon = screen.getByTestId("icon-error");
   expect(icon).toBeInTheDocument();
-  expect(icon).toHaveStyle("color: rgb(219, 0, 78)");
+  expect(icon).toHaveStyle("color: var(--page-content-negative-icon)");
 });
 
 test("includes error description in tab accessible name when `error` prop is specified", () => {
@@ -358,7 +358,7 @@ test("shows a warning icon when the `warning` prop is specified", async () => {
 
   const icon = screen.getByTestId("icon-warning");
   expect(icon).toBeInTheDocument();
-  expect(icon).toHaveStyle("color: rgb(214, 67, 9)");
+  expect(icon).toHaveStyle("color: var(--page-content-caution-icon)");
 });
 
 test("includes warning description in tab accessible name when `warning` prop is specified", () => {
@@ -391,7 +391,7 @@ test("shows an info icon when the `info` prop is specified", async () => {
 
   const icon = screen.getByTestId("icon-info");
   expect(icon).toBeInTheDocument();
-  expect(icon).toHaveStyle("color: rgb(0, 96, 167)");
+  expect(icon).toHaveStyle("color: var(--page-content-info-icon)");
 });
 
 test("includes info description in tab accessible name when `info` prop is specified", () => {
@@ -458,11 +458,11 @@ test("shows the validation icons regardless of whether tab panels are active", a
 
   const errorIcon = within(tab2).getByTestId("icon-error");
   expect(errorIcon).toBeInTheDocument();
-  expect(errorIcon).toHaveStyle("color: rgb(219, 0, 78)");
+  expect(errorIcon).toHaveStyle("color: var(--page-content-negative-icon)");
 
   const warningIcon = within(tab3).getByTestId("icon-warning");
   expect(warningIcon).toBeInTheDocument();
-  expect(warningIcon).toHaveStyle("color: rgb(214, 67, 9)");
+  expect(warningIcon).toHaveStyle("color: var(--page-content-caution-icon)");
 });
 
 test("renders correctly when a default tab is specified", () => {
