@@ -77,6 +77,24 @@ description: Carbon Typography component props and usage examples.
 | truncate | boolean \| undefined | No |  | Yes | Use `textOverflow` and `whiteSpace` props instead. This prop will eventually be removed. Apply truncation |  | false |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    children: "Typography content",
+    variant: "p",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => <Typography {...args}>{args.children}</Typography>
+```
+
+
 ### Variants
 
 **Render**
