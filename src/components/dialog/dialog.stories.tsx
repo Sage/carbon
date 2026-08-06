@@ -12,6 +12,7 @@ import Textbox from "../textbox";
 import Loader from "../loader/__next__";
 import Toast from "../toast";
 import Message from "../message";
+import Icon from "../icon";
 
 import type { DialogProps } from ".";
 import Dialog from ".";
@@ -946,5 +947,197 @@ export const WithContentPaddingCustom: Story = {
   args: {
     ...DefaultStory.args,
     contentPadding: { py: 5, px: 8 },
+  },
+};
+
+export const WithHeaderIcon: Story = {
+  name: "With Header Icon - Subtle",
+  args: {
+    open: isChromatic(),
+    title: "Dialog title with subtle icon",
+    subtitle: "Subheading",
+    size: "medium",
+  },
+  render: function WithHeaderIconSubtleRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={<Icon size="medium" type="info" color="subtle" />}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithHeaderIconPositive: Story = {
+  name: "With Header Icon - Positive",
+  args: {
+    open: isChromatic(),
+    title: "Dialog title with positive icon",
+    subtitle: "Subheading",
+    size: "medium",
+  },
+  render: function WithHeaderIconPositiveRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={
+            <Icon size="medium" type="tick_circle" color="positive" />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithHeaderIconNegative: Story = {
+  name: "With Header Icon - Negative",
+  args: {
+    open: isChromatic(),
+    title: "Dialog title with negative icon",
+    subtitle: "Subheading",
+    size: "medium",
+  },
+  render: function WithHeaderIconNegativeRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={<Icon size="medium" type="error" color="negative" />}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithHeaderIconCaution: Story = {
+  name: "With Header Icon - Caution",
+  args: {
+    open: isChromatic(),
+    title: "Dialog title with caution icon",
+    subtitle: "Subheading",
+    size: "medium",
+  },
+  render: function WithHeaderIconCautionRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={<Icon size="medium" type="warning" color="caution" />}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithHeaderIconInfo: Story = {
+  name: "With Header Icon - Info",
+  args: {
+    open: isChromatic(),
+    title: "Dialog title with info icon",
+    subtitle: "Subheading",
+    size: "medium",
+  },
+  render: function WithHeaderIconInfoRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={<Icon size="medium" type="info" color="info" />}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
   },
 };

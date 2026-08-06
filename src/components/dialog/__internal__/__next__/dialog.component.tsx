@@ -29,6 +29,7 @@ import tagComponent, {
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import useModalAria from "../../../../hooks/__internal__/useModalAria/useModalAria";
 import Button from "../../../button/__next__";
+import Box from "../../../box";
 
 import { Size, ContentPaddingInterface } from "./dialog.config";
 
@@ -90,6 +91,8 @@ export interface DialogProps extends ModalProps, TagProps {
   greyBackground?: boolean;
   /** Container for components to be displayed in the header */
   headerChildren?: React.ReactNode;
+  /** Icon to display before the title, typically used for status indication */
+  headerIcon?: React.ReactNode;
   /** Allows developers to specify a specific height for the dialog. */
   height?: string;
   /** Adds Help tooltip to Header */
@@ -165,6 +168,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       bespokeFocusTrap,
       disableClose,
       help,
+      headerIcon,
       gradientKeyLine = false,
       role = "dialog",
       contentPadding,
@@ -224,51 +228,93 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     );
 
     const dialogTitle = () => {
+      // Common props for Typography component
+      const titleTypographyProps = {
+        wordWrap: "break-word" as const,
+        wordBreak: "normal" as const,
+        variant: "h1" as const,
+        "data-element": "dialog-title",
+        id: titleId,
+      };
+
+      // Helper to render subtitle
+      const renderSubtitle = () => (
+        <StyledSubtitle
+          as="div"
+          data-element="subtitle"
+          data-role="subtitle"
+          id={subtitleId}
+        >
+          {subtitle}
+        </StyledSubtitle>
+      );
+
+      // Render title content based on type and props
+      const renderTitleContent = () => {
+        // Non-string title renders as-is
+        if (typeof title !== "string") {
+          return title;
+        }
+
+        // String title with headerIcon
+        if (headerIcon) {
+          return (
+            <Box
+              data-element="dialog-title-help-wrapper"
+              data-role="dialog-title-help-wrapper"
+              display="flex"
+              flexWrap="wrap"
+              alignItems="center"
+            >
+              <Box
+                data-element="header-icon"
+                data-role="header-icon"
+                // I have assumed that the icon is decorative, so we can hide it from screen readers.
+                aria-hidden="true"
+                ml="-4px"
+              >
+                {headerIcon}
+              </Box>
+              <Typography
+                {...titleTypographyProps}
+                ml="var(--global-space-comp-l)"
+              >
+                {title}
+              </Typography>
+              {subtitle && (
+                <Box width="100%" mb={0}>
+                  {renderSubtitle()}
+                </Box>
+              )}
+            </Box>
+          );
+        }
+
+        // String title with help
+        if (help) {
+          return (
+            <div data-element="dialog-title-help-wrapper">
+              <Typography
+                {...titleTypographyProps}
+                marginRight="var(--global-space-comp-l)"
+              >
+                {title}
+              </Typography>
+              <StyledHeaderHelp data-element="help" tooltipPosition="right">
+                {help}
+              </StyledHeaderHelp>
+            </div>
+          );
+        }
+
+        // String title only
+        return <Typography {...titleTypographyProps}>{title}</Typography>;
+      };
+
       const renderTitle = (
         <div data-element="dialog-title-container">
-          {typeof title === "string" ? (
-            <>
-              {help ? (
-                <div data-element="dialog-title-help-wrapper">
-                  <Typography
-                    wordWrap="break-word"
-                    wordBreak="normal"
-                    variant="h1"
-                    marginRight="16px"
-                    data-element="dialog-title"
-                    id={titleId}
-                  >
-                    {title}
-                  </Typography>
-                  <StyledHeaderHelp data-element="help" tooltipPosition="right">
-                    {help}
-                  </StyledHeaderHelp>
-                </div>
-              ) : (
-                <Typography
-                  wordWrap="break-word"
-                  wordBreak="normal"
-                  variant="h1"
-                  data-element="dialog-title"
-                  id={titleId}
-                >
-                  {title}
-                </Typography>
-              )}
-            </>
-          ) : (
-            title
-          )}
-          {subtitle && (
-            <StyledSubtitle
-              as="div"
-              data-element="subtitle"
-              data-role="subtitle"
-              id={subtitleId}
-            >
-              {subtitle}
-            </StyledSubtitle>
-          )}
+          {renderTitleContent()}
+          {subtitle && !headerIcon && renderSubtitle()}
         </div>
       );
 

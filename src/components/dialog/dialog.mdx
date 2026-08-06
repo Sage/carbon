@@ -111,6 +111,30 @@ Use the `headerChildren` prop to render additional content — such as action bu
 
 <Canvas of={DialogStories.WithHeaderChildren} />
 
+### With header icon
+
+Use the `headerIcon` prop to render a status icon before the dialog title. This is commonly used to indicate the status or severity of the dialog content. The icon is automatically marked as `aria-hidden="true"` since it's decorative and the status should be conveyed through the title text itself for accessibility.
+
+#### Subtle
+
+<Canvas of={DialogStories.WithHeaderIcon} />
+
+#### Positive
+
+<Canvas of={DialogStories.WithHeaderIconPositive} />
+
+#### Negative
+
+<Canvas of={DialogStories.WithHeaderIconNegative} />
+
+#### Caution
+
+<Canvas of={DialogStories.WithHeaderIconCaution} />
+
+#### Info
+
+<Canvas of={DialogStories.WithHeaderIconInfo} />
+
 ### Gradient keyline
 
 Setting `gradientKeyLine` adds a decorative gradient keyline below the dialog header.

@@ -264,7 +264,7 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
 
   [data-element="dialog-title-help-wrapper"] {
     display: inline-flex;
-    align-items: baseline;
+    // align-items: baseline;
   }
 
   [data-element="dialog-title-container"] {

@@ -35,6 +35,7 @@ description: Carbon Alert component props and usage examples.
 | gradientKeyLine | boolean \| undefined | No |  |  |  | Adds a gradient keyline to the dialog header |  |
 | greyBackground | boolean \| undefined | No |  |  |  | Change the background color of the content to grey |  |
 | headerChildren | React.ReactNode | No |  |  |  | Container for components to be displayed in the header |  |
+| headerIcon | React.ReactNode | No |  |  |  | Icon to display before the title, typically used for status indication |  |
 | height | string \| undefined | No |  |  |  | Allows developers to specify a specific height for the dialog. |  |
 | help | string \| undefined | No |  |  |  | Adds Help tooltip to Header |  |
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |

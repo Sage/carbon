@@ -33,6 +33,7 @@ description: Carbon Dialog component props and usage examples.
 | gradientKeyLine | boolean \| undefined | No |  |  |  | Adds a gradient keyline to the dialog header |  |
 | greyBackground | boolean \| undefined | No |  |  |  | Change the background color of the content to grey |  |
 | headerChildren | React.ReactNode | No |  |  |  | Container for components to be displayed in the header |  |
+| headerIcon | React.ReactNode | No |  |  |  | Icon to display before the title, typically used for status indication |  |
 | height | string \| undefined | No |  |  |  | Allows developers to specify a specific height for the dialog. |  |
 | help | string \| undefined | No |  |  |  | Adds Help tooltip to Header |  |
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
@@ -1022,6 +1023,265 @@ function WithHeaderChildrenRender({
 ```
 
 
+### WithHeaderIcon
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    title: "Dialog title with subtle icon",
+    subtitle: "Subheading",
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithHeaderIconSubtleRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={
+            <Icon
+              size="medium"
+              type="info"
+              color="subtle"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
+### WithHeaderIconPositive
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    title: "Dialog title with positive icon",
+    subtitle: "Subheading",
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithHeaderIconPositiveRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={
+            <Icon
+              size="medium"
+              type="tick_circle"
+              color="positive"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
+### WithHeaderIconNegative
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    title: "Dialog title with negative icon",
+    subtitle: "Subheading",
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithHeaderIconNegativeRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={
+            <Icon
+              size="medium"
+              type="error"
+              color="negative"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
+### WithHeaderIconCaution
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    title: "Dialog title with caution icon",
+    subtitle: "Subheading",
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithHeaderIconCautionRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={
+            <Icon
+              size="medium"
+              type="warning"
+              color="caution"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
+### WithHeaderIconInfo
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    title: "Dialog title with info icon",
+    subtitle: "Subheading",
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithHeaderIconInfoRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          headerIcon={<Icon size="medium" type="info" color="info" />}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
 ### MDX Example 1
 
 **Args**
@@ -1104,6 +1364,30 @@ Use the `height` prop to set a fixed height on the dialog.
 Use the `headerChildren` prop to render additional content — such as action buttons — in the dialog header.
 
 <Canvas of={DialogStories.WithHeaderChildren} />
+
+### With header icon
+
+Use the `headerIcon` prop to render a status icon before the dialog title. This is commonly used to indicate the status or severity of the dialog content. The icon is automatically marked as `aria-hidden="true"` since it's decorative and the status should be conveyed through the title text itself for accessibility.
+
+#### Subtle
+
+<Canvas of={DialogStories.WithHeaderIcon} />
+
+#### Positive
+
+<Canvas of={DialogStories.WithHeaderIconPositive} />
+
+#### Negative
+
+<Canvas of={DialogStories.WithHeaderIconNegative} />
+
+#### Caution
+
+<Canvas of={DialogStories.WithHeaderIconCaution} />
+
+#### Info
+
+<Canvas of={DialogStories.WithHeaderIconInfo} />
 
 ### Gradient keyline
 

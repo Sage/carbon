@@ -122,6 +122,53 @@ describe("Modal Dialog", () => {
     expect(help).toBeVisible();
   });
 
+  test("header icon is displayed when headerIcon prop is passed", () => {
+    render(
+      <Dialog open title="My dialog" headerIcon={<span>StatusIcon</span>} />,
+    );
+
+    const dialog = screen.getByRole("dialog");
+    const icon = within(dialog).getByText("StatusIcon");
+
+    expect(icon).toBeVisible();
+  });
+
+  test("header icon is marked as aria-hidden", () => {
+    render(
+      <Dialog open title="My dialog" headerIcon={<span>StatusIcon</span>} />,
+    );
+
+    const dialog = screen.getByRole("dialog");
+    const iconContainer = within(dialog).getByTestId("header-icon");
+
+    expect(iconContainer).toHaveAttribute("aria-hidden", "true");
+    expect(iconContainer).toHaveAttribute("data-element", "header-icon");
+  });
+
+  test("header icon renders with subtitle inline in flex container", () => {
+    render(
+      <Dialog
+        open
+        title="My dialog"
+        subtitle="My subtitle"
+        headerIcon={<span>StatusIcon</span>}
+      />,
+    );
+
+    const dialog = screen.getByRole("dialog");
+    const wrapper = within(dialog).getByTestId("dialog-title-help-wrapper");
+
+    // Verify the wrapper has flex display
+    expect(wrapper).toHaveAttribute(
+      "data-element",
+      "dialog-title-help-wrapper",
+    );
+    // Verify subtitle is inside the same flex container
+    const subtitle = within(dialog).getByText("My subtitle");
+    expect(subtitle).toBeVisible();
+    expect(wrapper).toContainElement(subtitle);
+  });
+
   test("close button is displayed when onCancel prop is passed", () => {
     render(<Dialog open title="My dialog" onCancel={() => {}} />);
 

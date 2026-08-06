@@ -44,6 +44,7 @@ description: Carbon Confirm component props and usage examples.
 | gradientKeyLine | boolean \| undefined | No |  |  |  | Adds a gradient keyline to the dialog header |  |
 | greyBackground | boolean \| undefined | No |  |  |  | Change the background color of the content to grey |  |
 | headerChildren | React.ReactNode | No |  |  |  | Container for components to be displayed in the header |  |
+| headerIcon | React.ReactNode | No |  |  |  | Icon to display before the title, typically used for status indication |  |
 | height | string \| undefined | No |  |  |  | Allows developers to specify a specific height for the dialog. |  |
 | iconType | "error" \| "warning" \| undefined | No |  |  |  | Defines an Icon type within the button (see Icon for options) |  |
 | isLoadingConfirm | boolean \| undefined | No |  |  |  | Adds isLoading state into confirm button |  |
