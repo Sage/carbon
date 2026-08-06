@@ -214,6 +214,19 @@ const esES: Partial<Locale> = {
   },
   search: {
     searchButtonText: () => "Buscar",
+    assistiveHint: () =>
+      "Usa las flechas arriba y abajo para explorar las sugerencias de búsqueda y pulsa Intro para seleccionarlas. En pantallas táctiles, toca o desliza el dedo para navegar.",
+    queryTooShort: (minQueryLength) =>
+      `Escribe al menos ${minQueryLength} caracteres para obtener resultados.`,
+    noResults: () => "No se ha encontrado ningún resultado",
+    results: (length) => {
+      const words = {
+        result: length === 1 ? "resultado" : "resultados",
+        available: 1 === 1 ? "disponible" : "disponibles",
+      };
+
+      return `${length} ${words.result} ${words.available}.`;
+    },
   },
   select: {
     actionButtonText: () => "Añadir elemento",
