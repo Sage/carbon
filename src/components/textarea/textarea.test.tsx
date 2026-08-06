@@ -9,7 +9,6 @@ import {
 import Textarea, { TextareaProps } from ".";
 import { EnterKeyHintTypes } from "../../__internal__/legacy-input";
 import guid from "../../__internal__/utils/helpers/guid";
-import StyledInput from "../../__internal__/legacy-input/input.style";
 import StyledHintText from "../../__internal__/hint-text/hint-text.style";
 import Logger from "../../__internal__/utils/logger";
 import { parseValueUnit } from "./textarea.component";
@@ -96,7 +95,7 @@ test.each([
     expect(screen.getByTestId("icon-test")).toHaveStyleRule(
       "padding-right",
       "var(--spacing500)",
-      { modifier: `& ${StyledInput}` },
+      { modifier: '& textarea[data-element="input"]' },
     );
   },
 );

@@ -1,12 +1,8 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
-import StyledInput from "../../__internal__/legacy-input/input.style";
 import StyledHintText from "../../__internal__/hint-text/hint-text.style";
 import InputPresentationStyle from "../../__internal__/legacy-input/input-presentation.style";
-import StyledLabel, {
-  StyledLabelContainer,
-} from "../../__internal__/legacy-label/label.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
@@ -38,6 +34,19 @@ export interface StyledTextAreaProps
   $inputWidth?: number | undefined;
   $hideBorders?: boolean;
   $labelAlign?: "left" | "right";
+  $labelInline?: boolean;
+}
+
+interface StyledTextareaLabelContainerProps {
+  $labelInline?: boolean;
+  $labelAlign?: "left" | "right";
+  $labelSpacing?: 1 | 2;
+  $labelWidth: number;
+  $size: TextAreaSize;
+}
+
+interface StyledTextareaFieldLineProps {
+  $labelInline?: boolean;
 }
 
 const InputSizes = {
@@ -109,14 +118,17 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin};
 
-  ${StyledLabel} {
-    ${({ labelInline }) => labelInline && `text-align: right;`};
-  }
-
-  ${StyledInput} {
+  textarea[data-element="input"] {
+    background: transparent;
+    border: none;
     ${({ $size }) => getFont($size, "regular")}
     box-sizing: border-box;
     color: var(--input-typical-txt-default);
+    display: block;
+    flex-grow: 1;
+    margin: 0;
+    min-width: 0;
+    outline: none;
     border-radius: ${({ borderRadius }) =>
       !borderRadius && "var(--global-radius-action-m)"};
     resize: ${({ $resize }) => $resize};
@@ -125,7 +137,8 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
     padding: ${({ $size }) =>
       `${InputSizes[$size].verticalPadding} ${InputSizes[$size].horizontalPadding}`};
     width: ${({ $resize, labelInline, $labelWidth, $inputWidth }) =>
-      `${getResizeWidth({ $resize, labelInline, $labelWidth, $inputWidth })}`};
+      getResizeWidth({ $resize, labelInline, $labelWidth, $inputWidth }) ||
+      "100%"};
     ${({ $resize, $maxWidth }) =>
       $resize !== "none" && $maxWidth && `max-width: ${$maxWidth};`};
 
@@ -178,15 +191,14 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
     }
   }
 
-  ${StyledLabelContainer} {
+  [data-role="textarea-label-container"] {
     ${({ $hasHint, $size }) => getMarginBottom(!!$hasHint, $size)}
   }
 
   ${({ labelInline, $labelSpacing, $size }) =>
     labelInline &&
     css`
-      ${StyledLabelContainer} {
-        align-items: flex-start;
+      [data-role="textarea-label-container"] {
         padding-top: ${$size === "small"
           ? "var(--global-space-comp-xs)"
           : "var(--global-space-comp-s)"};
@@ -196,7 +208,7 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
       }
     `}
 
-  ${StyledLabel} {
+  [data-component="label"] {
     color: ${({ $disabled }) =>
       $disabled
         ? "var(--input-labelset-label-disabled)"
@@ -292,6 +304,49 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
       `}
   }
 `;
+
+export const StyledTextareaFieldLine = styled.div<StyledTextareaFieldLineProps>`
+  display: ${({ $labelInline }) => ($labelInline ? "flex" : "block")};
+`;
+
+export const StyledTextareaLabelContainer = styled.div<StyledTextareaLabelContainerProps>`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--global-space-comp-s);
+  ${({ $labelInline, $labelAlign, $labelSpacing, $labelWidth, $size }) => {
+    const resolvedAlign = $labelInline
+      ? ($labelAlign ?? "right")
+      : ($labelAlign ?? "left");
+
+    const resolvedSpacing = $labelInline
+      ? $labelSpacing
+        ? `var(${$labelSpacing === 1 ? "--spacing100" : "--spacing200"})`
+        : $size === "large"
+          ? "var(--global-space-comp-xl)"
+          : "var(--global-space-comp-l)"
+      : undefined;
+
+    return css`
+      align-items: ${resolvedAlign !== "right" ? "flex-start" : "flex-end"};
+
+      [data-component="label"],
+      ${StyledHintText} {
+        width: 100%;
+        text-align: ${resolvedAlign !== "right" ? "left" : "right"};
+      }
+
+      ${$labelInline &&
+      css`
+        box-sizing: border-box;
+        margin-bottom: 0;
+        width: ${$labelWidth}%;
+        padding-right: ${resolvedSpacing};
+      `}
+    `;
+  }}
+`;
+
+export const StyledTextareaInput = styled.textarea``;
 
 export const StyledTextareaValidationContainer = styled.div<{
   labelInline?: boolean;
