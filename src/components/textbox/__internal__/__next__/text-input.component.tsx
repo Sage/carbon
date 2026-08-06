@@ -111,6 +111,11 @@ export interface TextInputProps
   type?: string;
   /**
    * @private @internal @ignore
+   * Ref passed to the input container element.
+   */
+  containerRef?: React.Ref<HTMLDivElement>;
+  /**
+   * @private @internal @ignore
    * If true, the validation message will be rendered above the input, otherwise it will be rendered below.
    */
   validationMessagePositionTop?: boolean;
@@ -127,6 +132,7 @@ export const TextInput = React.forwardRef(
       "aria-labelledby": ariaLabelledBy,
       children,
       className,
+      containerRef,
       "data-component": dataComponent = "text-input",
       "data-element": dataElement,
       "data-is-open": dataIsOpen,
@@ -309,6 +315,7 @@ export const TextInput = React.forwardRef(
             onChange={onChange}
             error={hasError}
             inputIcon={inputIcon}
+            containerRef={containerRef}
             size={actualSize}
             prefix={prefix}
             prefixId={inputPrefixId}

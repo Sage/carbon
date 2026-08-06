@@ -21,7 +21,6 @@ description: Carbon Password component props and usage examples.
 | about | string \| undefined | No |  |  |  |  |  |
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| align | "left" \| "right" \| undefined | No |  |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
 | autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoComplete | HTMLInputAutoCompleteAttribute \| undefined | No |  |  |  |  |  |
@@ -58,7 +57,6 @@ description: Carbon Password component props and usage examples.
 | id | string \| undefined | No |  |  |  | Sets the input's id attribute, is not set a unique id will be generated and used. The label's htmlFor attribute will be set to match the input's id to ensure they are properly associated. |  |
 | inlist | any | No |  |  |  |  |  |
 | inputHint | React.ReactNode | No |  |  |  | A hint element rendered before the input but after the label. Intended to describe the purpose or content of the input |  |
-| inputIcon | React.ReactNode | No |  |  |  |  |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage (e.g., 50 for 50%) |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
@@ -276,13 +274,10 @@ description: Carbon Password component props and usage examples.
 | type | string \| undefined | No |  |  |  | The type of the input, e.g., "text", "email", "password". This prop is passed directly to the underlying input element, so any valid HTML input type is accepted. The default value is "text". |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
-| validationMessagePositionTop | boolean \| undefined | No |  |  |  |  |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-is-open | boolean \| undefined | No |  |  |  |  |  |
-| data-is-transparent | boolean \| undefined | No |  |  |  |  |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |
 | aria-atomic | Booleanish \| undefined | No |  |  |  | Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. |  |

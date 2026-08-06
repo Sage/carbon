@@ -5,7 +5,7 @@ export const NumeralDateComponent = (props: Partial<NumeralDateProps>) => {
   return (
     <NumeralDate
       value={{ dd: "01", mm: "01", yyyy: "2001" }}
-      label="Default"
+      legend="Default"
       onChange={() => {}}
       {...props}
     />
@@ -31,7 +31,7 @@ export const NumeralDateControlled = (
     <NumeralDate
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      label="Controlled"
+      legend="Controlled"
       {...props}
     />
   );

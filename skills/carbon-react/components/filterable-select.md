@@ -20,7 +20,6 @@ description: Carbon FilterableSelect component props and usage examples.
 | value | string \| Record<string, unknown> | Yes |  |  |  | The selected value(s) |  |
 | about | string \| undefined | No |  |  |  |  |  |
 | accept | string \| undefined | No |  |  |  |  |  |
-| accessibilityLabelId | string \| undefined | No |  |  |  | Id of the element containing the currently displayed value to be read by voice readers |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
 | align | "left" \| "right" \| undefined | No |  |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
@@ -80,7 +79,6 @@ description: Carbon FilterableSelect component props and usage examples.
 | itemType | string \| undefined | No |  |  |  |  |  |
 | label | string \| undefined | No |  |  |  | Label content |  |
 | labelHelp | React.ReactNode | No |  |  |  | [Legacy] A message that the Help component will display |  |
-| labelId | string \| undefined | No |  |  |  | Label id passed from Select component |  |
 | labelInline | boolean \| undefined | No |  |  |  | [Legacy] When true label is inline |  |
 | labelWidth | number \| undefined | No |  |  |  | [Legacy] Label width |  |
 | lang | string \| undefined | No |  |  |  |  |  |
@@ -302,6 +300,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | title | string \| undefined | No |  |  |  |  |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  |  |  | [Legacy] Overrides the default tooltip position |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
+| type | HTMLInputTypeAttribute \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |

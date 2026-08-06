@@ -51,7 +51,6 @@ description: Carbon Option component props and usage examples.
 | height | string \| number \| undefined | No |  |  |  |  |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
 | id | string \| undefined | No |  |  |  | Unique identifier for the component. Will use a randomly generated GUID if none is provided. |  |
-| index | number \| undefined | No |  |  |  |  |  |
 | inlist | any | No |  |  |  |  |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
@@ -89,7 +88,6 @@ description: Carbon Option component props and usage examples.
 | onCanPlayThroughCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onChange | ChangeEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onChangeCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onClick | ((value: string \| Record<string, unknown>) => void) \| undefined | No |  |  |  |  |  |
 | onClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEnd | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEndCapture | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -199,7 +197,6 @@ description: Carbon Option component props and usage examples.
 | onSeekedCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onSeeking | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onSeekingCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onSelect | ((target: OptionData) => void) \| undefined | No |  |  |  |  |  |
 | onSelectCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onStalled | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onStalledCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |

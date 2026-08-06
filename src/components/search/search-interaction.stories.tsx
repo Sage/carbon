@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { StoryObj, StoryFn } from "@storybook/react-vite";
-import { userEvent } from "storybook/test";
+import { userEvent, within } from "storybook/test";
 
 import Box from "../box";
-import Search from ".";
 import Card from "../card";
+import Search from ".";
+import Icon from "../icon";
 import Typography from "../typography";
+import { SearchListGroup } from "./search.component";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
@@ -63,3 +65,93 @@ export const SearchIsCovered: Story = {
   },
 };
 SearchIsCovered.storyName = "Search is covered by sticky item";
+
+const listData: SearchListGroup[] = [
+  {
+    heading: "Recent searches",
+    icon: <Icon type="refresh_clock" />,
+    items: [
+      {
+        value: "Selected option with bolded search term",
+        label: "Selected option with bolded search term",
+        selectedIcon: true,
+      },
+      {
+        value: "Standard option with bolded search term",
+        label: "Standard option with bolded search term",
+      },
+    ],
+  },
+];
+
+const OpenWithInlineLabelAndErrorStory = () => {
+  const [value, setValue] = useState("search term");
+  const [dismissed, setDismissed] = useState(false);
+
+  const shouldOpen = value.length > 0 && !dismissed;
+
+  return (
+    <Box width="900px" p={4} display="flex" flexDirection="column" gap={3}>
+      <Search
+        label="Search"
+        labelInline
+        error="Error message"
+        inputWidth={75}
+        open={shouldOpen}
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+          setDismissed(false);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setValue("");
+            setDismissed(true);
+          }
+        }}
+        onFocus={() => setDismissed(false)}
+        onListItemSelect={(selected) => {
+          setValue(selected);
+          setDismissed(true);
+        }}
+        onClose={() => setDismissed(true)}
+        listData={listData}
+        aria-label="Search dropdown open with error message and inline label"
+      />
+      <Search
+        label="Search with a much longer inline label"
+        labelInline
+        error="Error message"
+        inputWidth={75}
+        open={false}
+        value="search term"
+        onChange={() => {}}
+        onFocus={() => {}}
+        onListItemSelect={() => {}}
+        onClose={() => {}}
+        listData={listData}
+        aria-label="Search with long inline label and error message"
+      />
+    </Box>
+  );
+};
+
+export const SelectedIconInlineErrorInteraction: Story = {
+  render: () => <OpenWithInlineLabelAndErrorStory />,
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) return;
+
+    const canvas = within(canvasElement);
+    const searchInput = canvas.getByRole("combobox", {
+      name: "Search dropdown open with error message and inline label",
+    });
+
+    await userEvent.click(searchInput);
+    await userEvent.keyboard("{ArrowDown}");
+  },
+};
+SelectedIconInlineErrorInteraction.storyName =
+  "Selected Icon Inline Error Interaction";
+SelectedIconInlineErrorInteraction.parameters = {
+  chromatic: { disableSnapshot: false },
+};

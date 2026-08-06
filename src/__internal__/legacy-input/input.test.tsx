@@ -263,6 +263,18 @@ test("sets the provided `aria-describedby` to the accessible description of the 
   expect(input).toHaveAttribute("aria-describedby", "description");
 });
 
+test("sets the provided `aria-describedby` attribute", async () => {
+  render(
+    <InputContext.Provider value={{ hasFocus: true }}>
+      <Input aria-describedby="description" validationIconId="test" value="" />
+    </InputContext.Provider>,
+  );
+
+  const input = screen.getByRole("textbox");
+  await userEvent.setup().click(input);
+  expect(input).toHaveAttribute("aria-describedby", "description test");
+});
+
 test("does not call onClick handler when input is disabled and is clicked", async () => {
   const onClickMock = jest.fn();
   const user = userEvent.setup();

@@ -3,11 +3,11 @@ import { render, screen, within } from "@testing-library/react";
 import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 import { StepSequence, StepSequenceItem } from ".";
 
-test("renders with provided children", () => {
+test("renders with provided title", () => {
   render(
     <StepSequence>
-      <StepSequenceItem indicator="1">Step 1</StepSequenceItem>
-      <StepSequenceItem indicator="2">Step 2</StepSequenceItem>
+      <StepSequenceItem indicator="1" title="Step 1" />
+      <StepSequenceItem indicator="2" title="Step 2" />
     </StepSequence>,
   );
 
@@ -20,8 +20,8 @@ test("renders with provided children", () => {
 test("renders with `orientation` prop set to 'vertical'", () => {
   render(
     <StepSequence orientation="vertical">
-      <StepSequenceItem indicator="1">Step 1</StepSequenceItem>
-      <StepSequenceItem indicator="2">Step 2</StepSequenceItem>
+      <StepSequenceItem indicator="1" title="Step 1" />
+      <StepSequenceItem indicator="2" title="Step 2" />
     </StepSequence>,
   );
 
@@ -34,7 +34,7 @@ test("renders with `orientation` prop set to 'vertical'", () => {
 test("renders with provided data- attributes", () => {
   render(
     <StepSequence data-element="bar" data-role="baz">
-      <StepSequenceItem indicator="1">Step 1</StepSequenceItem>
+      <StepSequenceItem indicator="1" title="Step 1" />
     </StepSequence>,
   );
 

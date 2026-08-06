@@ -18,13 +18,11 @@ description: Carbon ButtonMinor component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  |  |  | The text the button displays |  |
-| className | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | Apply disabled state to the button |  |
 | fullWidth | boolean \| undefined | No |  |  |  | Apply fullWidth style to the button |  |
 | iconPosition | ButtonIconPosition \| undefined | No |  |  |  | Defines an Icon position related to the children: "before" \| "after" |  |
 | iconType | IconType \| undefined | No |  |  |  | Defines an Icon type within the button |  |
 | id | string \| undefined | No |  |  |  | id attribute |  |
-| isInPassword | boolean \| undefined | No |  |  |  |  |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |

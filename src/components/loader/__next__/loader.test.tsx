@@ -123,6 +123,20 @@ test("when the user disallows animations, alternative loading text is rendered w
   );
 });
 
+test("when the user disallows animations and loader is inside a primary `Button`, alternative loading text is rendered with inverse colour", () => {
+  mockUseMediaQuery.mockReturnValueOnce(false);
+  render(
+    <Button buttonType="primary" onClick={() => {}}>
+      <Loader />
+    </Button>,
+  );
+
+  expect(screen.getByText("Loading...")).toHaveStyleRule(
+    "color",
+    "var(--progress-inverse-label-alt)",
+  );
+});
+
 test("when the user disallows animations or their preference cannot be determined, alternative loading text is rendered", () => {
   mockUseMediaQuery.mockReturnValueOnce(undefined);
   render(<Loader />);
@@ -379,6 +393,34 @@ test("renders correctly with the expected background color when `loaderType` is 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-inverse-bg-default)",
+    { modifier: "circle[data-role='outer-arc']" },
+  );
+});
+
+test("uses inverse outer arc token when ring loader is rendered inside a primary `Button`", () => {
+  render(
+    <Button buttonType="primary" onClick={() => {}}>
+      <Loader loaderType="ring" variant="inline" size="extra-small" showLabel />
+    </Button>,
+  );
+
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "stroke",
+    "var(--progress-loader-inverse-bg-default)",
+    { modifier: "circle[data-role='outer-arc']" },
+  );
+});
+
+test("keeps default outer arc token when ring loader is rendered inside a secondary `Button`", () => {
+  render(
+    <Button buttonType="secondary" onClick={() => {}}>
+      <Loader loaderType="ring" variant="inline" size="extra-small" showLabel />
+    </Button>,
+  );
+
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "stroke",
+    "var(--progress-loader-bg-default)",
     { modifier: "circle[data-role='outer-arc']" },
   );
 });

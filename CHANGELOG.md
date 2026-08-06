@@ -1,3 +1,99 @@
+## [161.14.0](https://github.com/Sage/carbon/compare/v161.13.2...v161.14.0) (2026-08-06)
+
+### Features
+
+* **anchor-navigation:** align with fusion ds ([e97ba58](https://github.com/Sage/carbon/commit/e97ba5803811cea4388baaea9b292e67e1f1e9d5))
+
+## [161.13.2](https://github.com/Sage/carbon/compare/v161.13.1...v161.13.2) (2026-08-05)
+
+### Bug Fixes
+
+* **popover-container:** render behind adaptive sidebar ([4762d8b](https://github.com/Sage/carbon/commit/4762d8b74c0345cf3977a89acda585b24bffd458))
+
+## [161.13.1](https://github.com/Sage/carbon/compare/v161.13.0...v161.13.1) (2026-08-04)
+
+### Bug Fixes
+
+* **flat-table:** remove orphaned aria-describedby from sort header ([28e5c6a](https://github.com/Sage/carbon/commit/28e5c6a034c55f490528deedf054248ecf7ee12b))
+
+## [161.13.0](https://github.com/Sage/carbon/compare/v161.12.1...v161.13.0) (2026-08-04)
+
+### Features
+
+* **numeral-date:** align with Fusion DS ([73d61f0](https://github.com/Sage/carbon/commit/73d61f0fcaf77ce2250b39a80d4af7f930e5db4e))
+
+## [161.12.1](https://github.com/Sage/carbon/compare/v161.12.0...v161.12.1) (2026-08-03)
+
+### Bug Fixes
+
+* **action-popover:** fix popover z-index ([3ee5752](https://github.com/Sage/carbon/commit/3ee575270abe99379cbc40b7193f8d82151337ec)), closes [#8076](https://github.com/Sage/carbon/issues/8076)
+
+## [161.12.0](https://github.com/Sage/carbon/compare/v161.11.0...v161.12.0) (2026-08-03)
+
+### Features
+
+* **tokens-wrapper:** add support for white-labelling ([09068e7](https://github.com/Sage/carbon/commit/09068e7795d3b75ee1b8fa10c1f6a2d9f67ee264))
+
+## [161.11.0](https://github.com/Sage/carbon/compare/v161.10.0...v161.11.0) (2026-08-03)
+
+### Features
+
+* **textarea:** align component with Fusion DS ([77b3d94](https://github.com/Sage/carbon/commit/77b3d945eb4704c0d41ac4f254303650cb46b68b))
+
+## [161.10.0](https://github.com/Sage/carbon/compare/v161.9.2...v161.10.0) (2026-07-31)
+
+### Features
+
+* **step-flow:** align with Fusion DS ([f970762](https://github.com/Sage/carbon/commit/f970762452f639f3fb431afb4789ed68b777a893))
+
+## [161.9.2](https://github.com/Sage/carbon/compare/v161.9.1...v161.9.2) (2026-07-31)
+
+### Bug Fixes
+
+* **advanced-color-picker:** generate valid html ids for colour inputs ([dd7a618](https://github.com/Sage/carbon/commit/dd7a61808df0c038c1d3a36926cc8c0ffafac11b))
+
+## [161.9.1](https://github.com/Sage/carbon/compare/v161.9.0...v161.9.1) (2026-07-31)
+
+### Bug Fixes
+
+* **loader:** use inverse outer-arc token ([c1f8ea0](https://github.com/Sage/carbon/commit/c1f8ea0cf3c3c6589bb03cc14a841633e8e39920))
+
+## [161.9.0](https://github.com/Sage/carbon/compare/v161.8.0...v161.9.0) (2026-07-30)
+
+### Features
+
+* **search:** add suggestions menu support ([2e26ef2](https://github.com/Sage/carbon/commit/2e26ef29d0a9377a767061c68fae2ab473acd742))
+
+## [161.8.0](https://github.com/Sage/carbon/compare/v161.7.3...v161.8.0) (2026-07-29)
+
+### Features
+
+* **pager:** add non-english translations ([2d23622](https://github.com/Sage/carbon/commit/2d236225be46d43bf059cc6a791229b7608eb5f1))
+
+## [161.7.3](https://github.com/Sage/carbon/compare/v161.7.2...v161.7.3) (2026-07-29)
+
+### Bug Fixes
+
+* **textbox:** support input type and pattern props ([5df37dd](https://github.com/Sage/carbon/commit/5df37ddf9d315c2117f910fc8999fb36e096d0a3)), closes [#8087](https://github.com/Sage/carbon/issues/8087)
+
+## [161.7.2](https://github.com/Sage/carbon/compare/v161.7.1...v161.7.2) (2026-07-29)
+
+### Bug Fixes
+
+* **checkbox:** ensure fieldSpacing is not applied to grouped checkboxes ([e1b18f6](https://github.com/Sage/carbon/commit/e1b18f6f4ce32320430f93ee29f7ef6f103c9774))
+
+## [161.7.1](https://github.com/Sage/carbon/compare/v161.7.0...v161.7.1) (2026-07-27)
+
+### Bug Fixes
+
+* **batch-selection:** improve contrast and add aria-disabled ([80c9e52](https://github.com/Sage/carbon/commit/80c9e522854743bae0d503ba4d2f0e5aff4e6a1f))
+
+## [161.7.0](https://github.com/Sage/carbon/compare/v161.6.0...v161.7.0) (2026-07-24)
+
+### Features
+
+* **step-sequence:** align with Fusion DS ([6d38110](https://github.com/Sage/carbon/commit/6d381104c506421b61961b3c4be0fe6348947faf))
+
 ## [161.6.0](https://github.com/Sage/carbon/compare/v161.5.0...v161.6.0) (2026-07-23)
 
 ### Features

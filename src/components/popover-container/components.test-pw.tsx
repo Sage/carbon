@@ -1,10 +1,30 @@
 import React, { useState } from "react";
 import Box from "../box";
 import { Select, Option } from "../select";
+import AdaptiveSidebar from "../adaptive-sidebar";
+import { GlobalHeaderProvider } from "../global-header/__internal__/global-header.context";
 import PopoverContainer from "./popover-container.component";
 
 export const Default = ({ title, open }: { title?: string; open: boolean }) => (
   <PopoverContainer title={title} open={open} />
+);
+
+export const PopoverContainerOverlappingAdaptiveSidebar = () => (
+  <Box height="100vh">
+    <GlobalHeaderProvider>
+      <PopoverContainer
+        title="notifications"
+        containerAriaLabel="notifications"
+        openButtonAriaLabel="open"
+        open
+      >
+        Notifications content
+      </PopoverContainer>
+    </GlobalHeaderProvider>
+    <AdaptiveSidebar open renderAsModal aria-label="sidebar">
+      Sidebar content
+    </AdaptiveSidebar>
+  </Box>
 );
 
 export const PopoverContainerWithSelect = () => {

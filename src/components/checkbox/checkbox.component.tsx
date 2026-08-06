@@ -190,7 +190,7 @@ export const Checkbox = React.forwardRef(
       if (internalInputRef.current) {
         internalInputRef.current.indeterminate = isIndeterminate;
       }
-    }, [indeterminate]);
+    }, [isIndeterminate]);
 
     const validationMessage = () => {
       if (error || warning) {
@@ -242,6 +242,7 @@ export const Checkbox = React.forwardRef(
         $error={actualError}
         $checked={!!checked}
         $indeterminate={isIndeterminate}
+        $isInGroup={isInGroup}
         {...filterStyledSystemMarginProps(rest)}
         {...tagComponent("checkbox", {
           "data-element": dataElement,
