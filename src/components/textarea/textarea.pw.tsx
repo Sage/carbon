@@ -467,7 +467,7 @@ test.describe("Props tests for Textarea component", () => {
       mount,
       page,
     }) => {
-      await mount(<TextareaComponent align={align} />);
+      await mount(<TextareaComponent style={{ textAlign: align }} />);
 
       await expect(textareaChildren(page)).toHaveCSS("text-align", align);
     });

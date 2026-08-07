@@ -347,7 +347,7 @@ description: Carbon Textarea component props and usage examples.
 ```tsx
 () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return <Textarea label="Textarea" value={state} onChange={setValue} />;
@@ -659,16 +659,18 @@ description: Carbon Textarea component props and usage examples.
   const [stateTwo, setStateTwo] = useState("");
   const [stateThree, setStateThree] = useState("");
   const [stateFour, setStateFour] = useState("");
-  const setValueOne = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueOne = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateOne(target.value);
   };
-  const setValueTwo = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueTwo = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateTwo(target.value);
   };
-  const setValueThree = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueThree = ({
+    target,
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateThree(target.value);
   };
-  const setValueFour = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueFour = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateFour(target.value);
   };
   return (
@@ -721,7 +723,7 @@ description: Carbon Textarea component props and usage examples.
 ```tsx
 () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (
@@ -752,7 +754,7 @@ description: Carbon Textarea component props and usage examples.
 ```tsx
 () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (
@@ -791,7 +793,7 @@ description: Carbon Textarea component props and usage examples.
 ```tsx
 () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (

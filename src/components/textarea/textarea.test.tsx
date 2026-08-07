@@ -12,6 +12,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import StyledHintText from "../../__internal__/hint-text/hint-text.style";
 import Logger from "../../__internal__/utils/logger";
 import { parseValueUnit } from "./textarea.component";
+import { StyledTextareaInput } from "./textarea.style";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -776,7 +777,7 @@ test("should render component with the `width` equal to `70vw` when `resize` and
   render(<MockComponent labelInline resize="both" data-role="test-textarea" />);
 
   expect(screen.getByTestId("test-textarea")).toHaveStyleRule("width", "70vw", {
-    modifier: `${StyledInput}`,
+    modifier: `${StyledTextareaInput}`,
   });
 });
 
