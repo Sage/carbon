@@ -511,6 +511,23 @@ test("when labelInline prop is set, and size is large, correct paddingRight is a
   });
 });
 
+test.each<[1 | 2, string]>([
+  [1, "var(--spacing100)"],
+  [2, "var(--spacing200)"],
+])(
+  "when labelInline is set and labelSpacing is %s, the correct paddingRight is applied",
+  (labelSpacing, expected) => {
+    render(
+      <MockComponent label="foo" labelInline labelSpacing={labelSpacing} />,
+    );
+
+    expect(screen.getByTestId("textarea-label-container")).toHaveStyleRule(
+      "padding-right",
+      expected,
+    );
+  },
+);
+
 test("when labelInline prop is set and resize prop is set, the input width should adjust accordingly", () => {
   render(<MockComponent label="foo" labelInline resize="both" size="small" />);
 
