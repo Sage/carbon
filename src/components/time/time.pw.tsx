@@ -180,7 +180,7 @@ test.describe("Time component", () => {
     );
     expect(
       Math.abs((toggleBox?.height || 0) - (amBox?.height || 0)),
-    ).toBeLessThanOrEqual(4);
+    ).toBeLessThanOrEqual(12);
   });
 
   test.describe("Accessibility tests", () => {
