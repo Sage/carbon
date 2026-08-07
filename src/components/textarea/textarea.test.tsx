@@ -482,6 +482,14 @@ test("renders a label that is linked to the TextArea, if the label prop is promo
   );
 });
 
+test("renders correctly when adaptiveLabelBreakpoint is provided", () => {
+  render(
+    <MockComponent label="Adaptive label" adaptiveLabelBreakpoint={400} />,
+  );
+
+  expect(screen.getByLabelText("Adaptive label")).toBeInTheDocument();
+});
+
 test("when labelInline prop is set, the input label should accommodate for input internal padding", () => {
   render(<MockComponent label="foo" labelInline />);
 
