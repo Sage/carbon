@@ -114,12 +114,12 @@ describe("Modal Dialog", () => {
     );
   });
 
-  test("help icon is displayed when help prop is passed", () => {
+  test("help icon is not displayed when deprecated help prop is passed", () => {
     render(<Dialog open title="My dialog" help="Help text" />);
 
-    const help = screen.getByLabelText("help");
+    const help = screen.queryByLabelText("help");
 
-    expect(help).toBeVisible();
+    expect(help).not.toBeInTheDocument();
   });
 
   test("header icon is displayed when headerIcon prop is passed", () => {

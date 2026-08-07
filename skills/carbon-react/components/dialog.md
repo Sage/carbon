@@ -35,7 +35,6 @@ description: Carbon Dialog component props and usage examples.
 | headerChildren | React.ReactNode | No |  |  |  | Container for components to be displayed in the header |  |
 | headerIcon | React.ReactNode | No |  |  |  | Icon to display before the title, typically used for status indication |  |
 | height | string \| undefined | No |  |  |  | Allows developers to specify a specific height for the dialog. |  |
-| help | string \| undefined | No |  |  |  | Adds Help tooltip to Header |  |
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
 | restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
 | role | string \| undefined | No |  |  |  | The ARIA role to be applied to the Dialog container |  |
@@ -53,6 +52,7 @@ description: Carbon Dialog component props and usage examples.
 | disableClose | boolean \| undefined | No |  | Yes | Use `showCloseIcon={false}` instead. |  |  |
 | disableContentPadding | boolean \| undefined | No |  | Yes | Use `contentPadding` instead. |  |  |
 | fullscreen | boolean \| undefined | No |  | Yes | Use `size="fullscreen"` instead. |  |  |
+| help | string \| undefined | No |  | Yes | This prop no longer has any effect and will be removed in a future release. | Adds Help tooltip to Header. |  |
 | highlightVariant | string \| undefined | No |  | Yes | Use `gradientKeyLine` instead. |  |  |
 | pagesStyling | boolean \| undefined | No |  | Yes | PagesStyling is now deprecated and will be removed in a future release |  |  |
 
@@ -1059,13 +1059,7 @@ function WithHeaderIconSubtleRender({
             setOpen(false);
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
-          headerIcon={
-            <Icon
-              size="medium"
-              type="info"
-              color="subtle"
-            />
-          }
+          headerIcon={<Icon size="medium" type="info" color="subtle" />}
           footer={<Buttons />}
         >
           {dialogContent}
@@ -1113,11 +1107,7 @@ function WithHeaderIconPositiveRender({
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           headerIcon={
-            <Icon
-              size="medium"
-              type="tick_circle"
-              color="positive"
-            />
+            <Icon size="medium" type="tick_circle" color="positive" />
           }
           footer={<Buttons />}
         >
@@ -1165,13 +1155,7 @@ function WithHeaderIconNegativeRender({
             setOpen(false);
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
-          headerIcon={
-            <Icon
-              size="medium"
-              type="error"
-              color="negative"
-            />
-          }
+          headerIcon={<Icon size="medium" type="error" color="negative" />}
           footer={<Buttons />}
         >
           {dialogContent}
@@ -1218,13 +1202,7 @@ function WithHeaderIconCautionRender({
             setOpen(false);
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
-          headerIcon={
-            <Icon
-              size="medium"
-              type="warning"
-              color="caution"
-            />
-          }
+          headerIcon={<Icon size="medium" type="warning" color="caution" />}
           footer={<Buttons />}
         >
           {dialogContent}

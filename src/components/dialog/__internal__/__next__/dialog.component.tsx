@@ -14,7 +14,6 @@ import {
   StyledSubtitle,
 } from "./dialog.style";
 
-import { StyledHeaderHelp } from "../../../heading/heading.style";
 import Icon from "../../../icon";
 import Typography from "../../../typography";
 import Modal, { ModalProps } from "../../../../__internal__/modal";
@@ -95,7 +94,10 @@ export interface DialogProps extends ModalProps, TagProps {
   headerIcon?: React.ReactNode;
   /** Allows developers to specify a specific height for the dialog. */
   height?: string;
-  /** Adds Help tooltip to Header */
+  /**
+   * Adds Help tooltip to Header.
+   * @deprecated This prop no longer has any effect and will be removed in a future release.
+   */
   help?: string;
   /** Adds a gradient keyline to the dialog header */
   gradientKeyLine?: boolean;
@@ -287,23 +289,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
                 </Box>
               )}
             </Box>
-          );
-        }
-
-        // String title with help
-        if (help) {
-          return (
-            <div data-element="dialog-title-help-wrapper">
-              <Typography
-                {...titleTypographyProps}
-                marginRight="var(--global-space-comp-l)"
-              >
-                {title}
-              </Typography>
-              <StyledHeaderHelp data-element="help" tooltipPosition="right">
-                {help}
-              </StyledHeaderHelp>
-            </div>
           );
         }
 
