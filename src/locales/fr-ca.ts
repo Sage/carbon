@@ -216,6 +216,20 @@ const frCA: Partial<Locale> = {
   },
   search: {
     searchButtonText: () => "Chercher",
+    assistiveHint: () =>
+      "Lorsque des suggestions de recherche sont disponibles, utilisez les touches fléchées haut et bas pour parcourir les résultats et la touche Entrée pour sélectionner. Sur les appareils tactiles, explorez les résultats en touchant l’écran ou en utilisant des gestes de balayage.",
+    queryTooShort: (minQueryLength) =>
+      `Saisissez au moins ${minQueryLength} caractères pour voir des résultats`,
+    noResults: () => "Aucun résultat",
+    results: (length) => {
+      const words = {
+        result: length === 1 ? "résultat" : "résultats",
+        is: length === 1 ? "est" : "sont",
+        available: length === 1 ? "disponible" : "disponibles",
+      };
+
+      return `${length} ${words.result} ${words.is} ${words.available}.`;
+    },
   },
   select: {
     actionButtonText: () => "Ajouter un nouvel élément",

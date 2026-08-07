@@ -207,6 +207,18 @@ const deDE: Partial<Locale> = {
   },
   search: {
     searchButtonText: () => "Suchen",
+    assistiveHint: () =>
+      "Navigieren Sie mit den Pfeiltasten durch die Suchvorschläge und wählen Sie einen Eintrag mit der Eingabetaste aus. Auf Touch-Geräten können Sie die Ergebnisse per Berührung oder Wischgeste durchsuchen.",
+    queryTooShort: (minQueryLength) =>
+      `Geben Sie mindestens ${minQueryLength} Zeichen ein, um Ergebnisse anzuzeigen.`,
+    noResults: () => "Keine Ergebnisse gefunden",
+    results: (length) => {
+      const words = {
+        result: length === 1 ? "Ergebnis" : "Ergebnisse",
+      };
+
+      return `${length} ${words.result} verfügbar.`;
+    },
   },
   select: {
     actionButtonText: () => "Neues Element hinzufügen",
