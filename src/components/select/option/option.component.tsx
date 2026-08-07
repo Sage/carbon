@@ -14,7 +14,7 @@ type OptionData = {
 export interface OptionProps
   extends Omit<
       React.InputHTMLAttributes<HTMLLIElement>,
-      "value" | "onSelect" | "onClick"
+      "value" | "onSelect" | "onClick" | "inert"
     >,
     TagProps {
   /**
@@ -39,6 +39,10 @@ export interface OptionProps
   fill?: boolean;
   /** If true, the component will be disabled */
   disabled?: boolean;
+  /**
+   * @deprecated `inert` has been deprecated.
+   */
+  inert?: React.HTMLAttributes<HTMLLIElement>["inert"];
   /**
    * @private
    * @ignore
