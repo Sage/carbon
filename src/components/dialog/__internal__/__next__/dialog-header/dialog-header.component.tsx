@@ -174,4 +174,4 @@ function withDialogHeader(
 }
 
 export default withDialogHeader;
-export type { EnhancedDialogProps };
+export type { EnhancedDialogProps, WithCustomHeadingProps };

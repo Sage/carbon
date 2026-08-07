@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import Dialog, { withDialogHeader } from ".";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import isChromatic from "../../../.storybook/isChromatic";
@@ -14,7 +15,8 @@ import Toast from "../toast";
 import Message from "../message";
 
 import type { DialogProps } from ".";
-import Dialog from ".";
+
+const DialogWithHeadingVariant = withDialogHeader(Dialog);
 
 const meta: Meta<typeof Dialog> = {
   title: "Dialog",
@@ -946,5 +948,145 @@ export const WithContentPaddingCustom: Story = {
   args: {
     ...DefaultStory.args,
     contentPadding: { py: 5, px: 8 },
+  },
+};
+
+export const HeadingSubtle: StoryObj<typeof DialogWithHeadingVariant> = {
+  name: "Heading with Subtle Status Icon",
+  render: function HeadingSubtleRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with subtle icon"
+          subtitle="Subheading"
+          statusIcon="subtle"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
+  },
+};
+
+export const HeadingPositive: StoryObj<typeof DialogWithHeadingVariant> = {
+  name: "Heading with Positive Status Icon",
+  render: function HeadingPositiveRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with positive icon"
+          subtitle="Subheading"
+          statusIcon="positive"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
+  },
+};
+
+export const HeadingNegative: StoryObj<typeof DialogWithHeadingVariant> = {
+  name: "Heading with Negative Status Icon",
+  render: function HeadingNegativeRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with negative icon"
+          subtitle="Subheading"
+          statusIcon="negative"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
+  },
+};
+
+export const HeadingCaution: StoryObj<typeof DialogWithHeadingVariant> = {
+  name: "Heading with Caution Status Icon",
+  render: function HeadingCautionRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with caution icon"
+          subtitle="Subheading"
+          statusIcon="caution"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
+  },
+};
+
+export const HeadingInfo: StoryObj<typeof DialogWithHeadingVariant> = {
+  name: "Heading with Info Status Icon",
+  render: function HeadingInfoRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with info icon"
+          subtitle="Subheading"
+          statusIcon="info"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
   },
 };

@@ -1022,6 +1022,166 @@ function WithHeaderChildrenRender({
 ```
 
 
+### HeadingSubtle
+
+**Render**
+
+```tsx
+function HeadingSubtleRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with subtle icon"
+          subtitle="Subheading"
+          statusIcon="subtle"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
+  }
+```
+
+
+### HeadingPositive
+
+**Render**
+
+```tsx
+function HeadingPositiveRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with positive icon"
+          subtitle="Subheading"
+          statusIcon="positive"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
+  }
+```
+
+
+### HeadingNegative
+
+**Render**
+
+```tsx
+function HeadingNegativeRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with negative icon"
+          subtitle="Subheading"
+          statusIcon="negative"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
+  }
+```
+
+
+### HeadingCaution
+
+**Render**
+
+```tsx
+function HeadingCautionRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with caution icon"
+          subtitle="Subheading"
+          statusIcon="caution"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
+  }
+```
+
+
+### HeadingInfo
+
+**Render**
+
+```tsx
+function HeadingInfoRender() {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(defaultOpenState);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <DialogWithHeadingVariant
+          open={open}
+          title="Dialog with info icon"
+          subtitle="Subheading"
+          statusIcon="info"
+          onCancel={() => {
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </DialogWithHeadingVariant>
+      </>
+    );
+  }
+```
+
+
 ### MDX Example 1
 
 **Args**
@@ -1111,6 +1271,37 @@ Setting `gradientKeyLine` adds a decorative gradient keyline below the dialog he
 
 <Canvas of={DialogStories.GradientKeyLine} />
 
+## Header variations
+
+The `withDialogHeader` Higher Order Component (HOC) enhances the Dialog with a styled header and status icon. Wrap the Dialog component with `withDialogHeader` to create a variant that accepts a `statusIcon` prop for displaying contextual icons.
+```
+
+
+### MDX Example 2
+
+**Args**
+
+```tsx
+### Subtle
+
+<Canvas of={DialogStories.HeadingSubtle} />
+
+### Positive
+
+<Canvas of={DialogStories.HeadingPositive} />
+
+### Negative
+
+<Canvas of={DialogStories.HeadingNegative} />
+
+### Caution
+
+<Canvas of={DialogStories.HeadingCaution} />
+
+### Info
+
+<Canvas of={DialogStories.HeadingInfo} />
+
 ### Overriding content padding
 
 Use the `contentPadding` prop to override the default padding applied to the dialog content area.
@@ -1142,7 +1333,7 @@ To achieve this, forward a custom ref handle to the `Dialog` component using the
 ```
 
 
-### MDX Example 2
+### MDX Example 3
 
 **Args**
 

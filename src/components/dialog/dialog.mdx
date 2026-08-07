@@ -117,6 +117,38 @@ Setting `gradientKeyLine` adds a decorative gradient keyline below the dialog he
 
 <Canvas of={DialogStories.GradientKeyLine} />
 
+## Header variations
+
+The `withDialogHeader` Higher Order Component (HOC) enhances the Dialog with a styled header and status icon. Wrap the Dialog component with `withDialogHeader` to create a variant that accepts a `statusIcon` prop for displaying contextual icons.
+
+```jsx
+// For dialogs with status icons in the header
+import Dialog, { withDialogHeader } from "carbon-react/lib/components/dialog";
+
+// Creates a new component that wraps the Dialog component with the `withDialogHeader` HOC
+const DialogWithHeadingVariant = withDialogHeader(Dialog);
+```
+
+### Subtle
+
+<Canvas of={DialogStories.HeadingSubtle} />
+
+### Positive
+
+<Canvas of={DialogStories.HeadingPositive} />
+
+### Negative
+
+<Canvas of={DialogStories.HeadingNegative} />
+
+### Caution
+
+<Canvas of={DialogStories.HeadingCaution} />
+
+### Info
+
+<Canvas of={DialogStories.HeadingInfo} />
+
 ### Overriding content padding
 
 Use the `contentPadding` prop to override the default padding applied to the dialog content area.

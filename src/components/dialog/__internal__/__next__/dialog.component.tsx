@@ -403,4 +403,5 @@ export { default as withDialogHeader } from "./dialog-header/dialog-header.compo
 export type {
   EnhancedDialogProps,
   DialogHeadingStatus,
+  WithCustomHeadingProps,
 } from "./dialog-header/dialog-header.component";

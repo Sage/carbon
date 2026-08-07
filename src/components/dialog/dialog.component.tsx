@@ -5,7 +5,10 @@ import type {
   ContentPaddingInterface,
   Size,
 } from "./__internal__/__next__/dialog.component";
-import { Dialog as NextDialog } from "./__internal__/__next__/dialog.component";
+import {
+  Dialog as NextDialog,
+  withDialogHeader as nextWithDialogHeader,
+} from "./__internal__/__next__/dialog.component";
 import Logger from "../../__internal__/utils/logger";
 import type { DialogSizes } from "./dialog.config";
 
@@ -140,3 +143,21 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 Dialog.displayName = "Dialog";
 export default Dialog;
 export type { DialogHandle, ContentPaddingInterface };
+
+// Re-export dialog header types
+export type {
+  EnhancedDialogProps,
+  DialogHeadingStatus,
+  WithCustomHeadingProps,
+} from "./__internal__/__next__/dialog.component";
+
+export const withDialogHeader = (
+  WrappedDialog: React.ForwardRefExoticComponent<
+    DialogProps & React.RefAttributes<DialogHandle>
+  >,
+) =>
+  nextWithDialogHeader(
+    WrappedDialog as React.ForwardRefExoticComponent<
+      NextDialogProps & React.RefAttributes<DialogHandle>
+    >,
+  );
