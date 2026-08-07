@@ -15,24 +15,20 @@ description: Carbon Textarea component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| onChange | (ev: React.ChangeEvent<HTMLInputElement>) => void | Yes |  |  |  | Callback fired when the user types in the Textarea |  |
+| onChange | (ev: React.ChangeEvent<HTMLTextAreaElement>) => void | Yes |  |  |  | Callback fired when the user types in the Textarea |  |
 | value | string | Yes |  |  |  | The value of the Textbox |  |
 | about | string \| undefined | No |  |  |  |  |  |
-| accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| align | "left" \| "right" \| undefined | No |  |  |  |  |  |
-| alt | string \| undefined | No |  |  |  |  |  |
 | autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
-| autoComplete | HTMLInputAutoCompleteAttribute \| undefined | No |  |  |  |  |  |
+| autoComplete | string \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  | Automatically focus the input on component mount |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
-| capture | boolean \| "user" \| "environment" \| undefined | No |  |  |  |  |  |
 | characterLimit | number \| undefined | No |  |  |  | Character limit of the textarea |  |
-| checked | boolean \| undefined | No |  |  |  |  |  |
 | children | React.ReactNode | No |  |  |  | Type of the icon that will be rendered next to the input |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
+| cols | number \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
 | contentEditable | "inherit" \| Booleanish \| "plaintext-only" \| undefined | No |  |  |  |  |  |
 | contextMenu | string \| undefined | No |  |  |  |  |  |
@@ -41,6 +37,7 @@ description: Carbon Textarea component props and usage examples.
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
 | defaultValue | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
+| dirName | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
@@ -48,16 +45,9 @@ description: Carbon Textarea component props and usage examples.
 | expandable | boolean \| undefined | No |  |  |  | Allows the Textareas Height to change based on user input |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
 | form | string \| undefined | No |  |  |  |  |  |
-| formAction | string \| undefined | No |  |  |  |  |  |
-| formEncType | string \| undefined | No |  |  |  |  |  |
-| formMethod | string \| undefined | No |  |  |  |  |  |
-| formNoValidate | boolean \| undefined | No |  |  |  |  |  |
-| formTarget | string \| undefined | No |  |  |  |  |  |
-| height | string \| number \| undefined | No |  |  |  |  |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
 | id | string \| undefined | No |  |  |  | id of the input |  |
 | inlist | any | No |  |  |  |  |  |
-| inputBorderRadius | BorderRadiusType \| BorderRadiusType[] \| undefined | No |  |  |  | Specify a custom border radius for the input. Any valid border-radius design token, or an array of border-radius design tokens. |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputIcon | IconType \| undefined | No |  |  |  | <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a> Icon to display inside of the Textarea |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
@@ -70,7 +60,6 @@ description: Carbon Textarea component props and usage examples.
 | label | string \| undefined | No |  |  |  | The content of the label for the input |  |
 | labelInline | boolean \| undefined | No |  |  |  | When true, label is placed in line an input |  |
 | lang | string \| undefined | No |  |  |  |  |  |
-| list | string \| undefined | No |  |  |  |  |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
@@ -79,18 +68,15 @@ description: Carbon Textarea component props and usage examples.
 | marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| max | string \| number \| undefined | No |  |  |  |  |  |
 | maxLength | number \| undefined | No |  |  |  |  |  |
 | maxRows | number \| undefined | No |  |  |  | Specifies the number of visible text lines. When set, the textarea expands up to this maximum height. |  |
 | maxWidth | string \| undefined | No |  |  |  | Prop for specifying the max width of the input. Leaving the `maxWidth` prop with no value will default the width to '100%' |  |
 | mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| min | string \| number \| undefined | No |  |  |  |  |  |
 | minHeight | number \| undefined | No |  |  |  | Specify the minimum height. This property is only applied if rows is not set. |  |
 | minLength | number \| undefined | No |  |  |  |  |  |
 | ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
 | mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| multiple | boolean \| undefined | No |  |  |  |  |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  |  |  | Name of the input |  |
@@ -107,14 +93,14 @@ description: Carbon Textarea component props and usage examples.
 | onAuxClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBeforeInput | InputEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBeforeInputCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on blur |  |
+| onBlur | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBlurCapture | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlay | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayThrough | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayThroughCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onChangeCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onClick | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on click |  |
+| onClick | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEnd | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEndCapture | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -156,7 +142,7 @@ description: Carbon Textarea component props and usage examples.
 | onEndedCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onError | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onErrorCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on focus |  |
+| onFocus | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onFocusCapture | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onGotPointerCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onGotPointerCaptureCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -164,7 +150,7 @@ description: Carbon Textarea component props and usage examples.
 | onInputCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onInvalid | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onInvalidCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onKeyDown | ((ev: React.KeyboardEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on keyDown |  |
+| onKeyDown | KeyboardEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onKeyDownCapture | KeyboardEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onKeyUp | KeyboardEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onKeyUpCapture | KeyboardEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -251,14 +237,13 @@ description: Carbon Textarea component props and usage examples.
 | onWheel | WheelEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onWheelCapture | WheelEventHandler<T> \| undefined | No |  |  |  |  |  |
 | part | string \| undefined | No |  |  |  |  |  |
-| pattern | string \| undefined | No |  |  |  |  |  |
 | placeholder | string \| undefined | No |  |  |  | Placeholder text for the component |  |
 | prefix | string \| undefined | No |  |  |  |  |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |
 | readOnly | boolean \| undefined | No |  |  |  | Adds readOnly property |  |
 | rel | string \| undefined | No |  |  |  |  |  |
-| required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
+| required | boolean \| undefined | No |  |  |  |  |  |
 | resize | "none" \| "horizontal" \| "vertical" \| "both" \| undefined | No |  |  |  | Specify the resize behavior of the textarea |  |
 | resource | string \| undefined | No |  |  |  |  |  |
 | results | number \| undefined | No |  |  |  |  |  |
@@ -269,22 +254,18 @@ description: Carbon Textarea component props and usage examples.
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the textarea. |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
-| src | string \| undefined | No |  |  |  |  |  |
-| step | string \| number \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
 | suppressContentEditableWarning | boolean \| undefined | No |  |  |  |  |  |
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
-| type | HTMLInputTypeAttribute \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
-| validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textarea when validationRedesignOptIn flag is set |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. Pass string to display icon, tooltip and orange border. Pass true boolean to only display orange border. |  |
-| width | string \| number \| undefined | No |  |  |  |  |  |
+| wrap | string \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |
@@ -300,7 +281,7 @@ description: Carbon Textarea component props and usage examples.
 | aria-colspan | number \| undefined | No |  |  |  | Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid. |  |
 | aria-controls | string \| undefined | No |  |  |  | Identifies the element (or elements) whose contents or presence are controlled by the current element. |  |
 | aria-current | boolean \| "location" \| "page" \| "time" \| "true" \| "false" \| "step" \| "date" \| undefined | No |  |  |  | Indicates the element that represents the current item within a container or set of related elements. |  |
-| aria-describedby | string \| undefined | No |  |  |  | The ID of the input's description, is set along with hint text and error message. |  |
+| aria-describedby | string \| undefined | No |  |  |  | Identifies the element (or elements) that describes the object. |  |
 | aria-description | string \| undefined | No |  |  |  | Defines a string value that describes or annotates the current element. |  |
 | aria-details | string \| undefined | No |  |  |  | Identifies the element that provides a detailed, extended description for the object. |  |
 | aria-disabled | Booleanish \| undefined | No |  |  |  | Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable. |  |
@@ -366,7 +347,7 @@ description: Carbon Textarea component props and usage examples.
 ```tsx
 () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return <Textarea label="Textarea" value={state} onChange={setValue} />;
@@ -678,16 +659,18 @@ description: Carbon Textarea component props and usage examples.
   const [stateTwo, setStateTwo] = useState("");
   const [stateThree, setStateThree] = useState("");
   const [stateFour, setStateFour] = useState("");
-  const setValueOne = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueOne = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateOne(target.value);
   };
-  const setValueTwo = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueTwo = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateTwo(target.value);
   };
-  const setValueThree = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueThree = ({
+    target,
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateThree(target.value);
   };
-  const setValueFour = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueFour = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateFour(target.value);
   };
   return (
@@ -740,7 +723,7 @@ description: Carbon Textarea component props and usage examples.
 ```tsx
 () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (
@@ -771,7 +754,7 @@ description: Carbon Textarea component props and usage examples.
 ```tsx
 () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (
@@ -810,7 +793,7 @@ description: Carbon Textarea component props and usage examples.
 ```tsx
 () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (

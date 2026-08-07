@@ -9,7 +9,6 @@ import {
 import Textarea, { TextareaProps } from ".";
 import { EnterKeyHintTypes } from "../../__internal__/legacy-input";
 import guid from "../../__internal__/utils/helpers/guid";
-import StyledInput from "../../__internal__/legacy-input/input.style";
 import StyledHintText from "../../__internal__/hint-text/hint-text.style";
 import Logger from "../../__internal__/utils/logger";
 import { parseValueUnit } from "./textarea.component";
@@ -96,7 +95,7 @@ test.each([
     expect(screen.getByTestId("icon-test")).toHaveStyleRule(
       "padding-right",
       "var(--spacing500)",
-      { modifier: `& ${StyledInput}` },
+      { modifier: '& textarea[data-element="input"]' },
     );
   },
 );
@@ -222,18 +221,23 @@ test.each(["warning", "error"])(
 );
 
 test("renders the hint when inputHint prop is provided", () => {
-  render(<MockComponent inputHint="foo" />);
+  render(<MockComponent label="Textarea" inputHint="foo" />);
   expect(screen.getByText("foo")).toBeInTheDocument();
 });
 
 test("assigns the input hint as the accessible description of the textarea", () => {
-  render(<MockComponent inputHint="bar" />);
+  render(<MockComponent label="Textarea" inputHint="bar" />);
   expect(screen.getByRole("textbox")).toHaveAccessibleDescription("bar");
 });
 
 test("inputHint should have priority over labelHelp when both are passed", () => {
   render(
-    <MockComponent labelHelp="labelHelp" inputHint="inputHint" error="foo" />,
+    <MockComponent
+      label="Textarea"
+      labelHelp="labelHelp"
+      inputHint="inputHint"
+      error="foo"
+    />,
   );
   expect(screen.getByText("inputHint")).toBeInTheDocument();
   expect(screen.queryByText("labelHelp")).not.toBeInTheDocument();
@@ -294,7 +298,11 @@ test("appends the provided `aria-describedby` to the accessible description", ()
   const Component = () => (
     <>
       <p id="test">description</p>
-      <MockComponent inputHint="hint text" aria-describedby="test" />
+      <MockComponent
+        label="Textarea"
+        inputHint="hint text"
+        aria-describedby="test"
+      />
     </>
   );
   render(<Component />);
@@ -474,22 +482,51 @@ test("renders a label that is linked to the TextArea, if the label prop is promo
   );
 });
 
+test("renders correctly when adaptiveLabelBreakpoint is provided", () => {
+  render(
+    <MockComponent label="Adaptive label" adaptiveLabelBreakpoint={400} />,
+  );
+
+  expect(screen.getByLabelText("Adaptive label")).toBeInTheDocument();
+});
+
 test("when labelInline prop is set, the input label should accommodate for input internal padding", () => {
   render(<MockComponent label="foo" labelInline />);
 
-  expect(screen.getByTestId("label-container")).toHaveStyle({
-    paddingTop: "var(--global-space-comp-s)",
-    alignItems: "flex-start",
-  });
+  expect(screen.getByTestId("textarea-label-container")).toHaveStyleRule(
+    "align-items",
+    "flex-end",
+  );
+  expect(screen.getByTestId("textarea-label-container")).toHaveStyleRule(
+    "padding-right",
+    "var(--global-space-comp-l)",
+  );
 });
 
 test("when labelInline prop is set, and size is large, correct paddingRight is applied", () => {
   render(<MockComponent label="foo" labelInline size="large" />);
 
-  expect(screen.getByTestId("label-container")).toHaveStyle({
+  expect(screen.getByTestId("textarea-label-container")).toHaveStyle({
     paddingRight: "var(--global-space-comp-xl)",
   });
 });
+
+test.each<[1 | 2, string]>([
+  [1, "var(--spacing100)"],
+  [2, "var(--spacing200)"],
+])(
+  "when labelInline is set and labelSpacing is %s, the correct paddingRight is applied",
+  (labelSpacing, expected) => {
+    render(
+      <MockComponent label="foo" labelInline labelSpacing={labelSpacing} />,
+    );
+
+    expect(screen.getByTestId("textarea-label-container")).toHaveStyleRule(
+      "padding-right",
+      expected,
+    );
+  },
+);
 
 test("when labelInline prop is set and resize prop is set, the input width should adjust accordingly", () => {
   render(<MockComponent label="foo" labelInline resize="both" size="small" />);
@@ -608,6 +645,7 @@ describe("when rendered with new validations", () => {
     (validationType) => {
       render(
         <MockComponent
+          label="Textarea"
           inputHint="Hint"
           {...{ [validationType]: "Validation" }}
         />,
@@ -624,6 +662,7 @@ describe("when rendered with new validations", () => {
     (validationType) => {
       render(
         <MockComponent
+          label="Textarea"
           inputHint="Hint"
           {...{ [validationType]: "Validation" }}
           validationMessagePositionTop={false}
@@ -637,7 +676,7 @@ describe("when rendered with new validations", () => {
   );
 
   it("renders the hint text with the correct styling when the labelHelp prop is passed", () => {
-    render(<MockComponent labelHelp="Example hint text" />);
+    render(<MockComponent label="Textarea" labelHelp="Example hint text" />);
     const hintText = screen.getByText("Example hint text");
     expect(hintText).toBeInTheDocument();
     expect(hintText).toHaveStyleRule(
@@ -678,7 +717,7 @@ test("sets ref to empty after unmount", () => {
 
 test("renders with the expected default border radius styling", () => {
   render(<MockComponent />);
-  expect(screen.getByRole("textbox")).toHaveStyleRule(
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
     "border-radius",
     "var(--borderRadius050)",
   );
@@ -686,7 +725,7 @@ test("renders with the expected default border radius styling", () => {
 
 test("renders with the expected custom border radius styling", () => {
   render(<MockComponent borderRadius="borderRadius200" />);
-  expect(screen.getByRole("textbox")).toHaveStyleRule(
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
     "border-radius",
     "var(--borderRadius200)",
   );
@@ -703,7 +742,7 @@ test("renders with the expected custom border radius styling as an array", () =>
       ]}
     />,
   );
-  expect(screen.getByRole("textbox")).toHaveStyleRule(
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
     "border-radius",
     "var(--borderRadius050) var(--borderRadius100) var(--borderRadius200) var(--borderRadius400)",
   );
@@ -774,11 +813,9 @@ test("should render component with the `width` equal to `100%` when `resize` is 
 });
 
 test("should render component with the `width` equal to `70vw` when `resize` and `labelInline` are set", () => {
-  render(<MockComponent labelInline resize="both" data-role="test-textarea" />);
+  render(<MockComponent labelInline resize="both" />);
 
-  expect(screen.getByTestId("test-textarea")).toHaveStyleRule("width", "70vw", {
-    modifier: `${StyledInput}`,
-  });
+  expect(screen.getByRole("textbox")).toHaveStyle({ width: "70vw" });
 });
 
 test("hint text should be aligned with the label when `labelAlign` is set", () => {
