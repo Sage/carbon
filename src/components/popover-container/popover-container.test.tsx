@@ -351,8 +351,11 @@ test("popup allows outside focus when shouldCoverButton prop is false", async ()
     </PopoverContainer>,
   );
 
-  await user.tab();
   const closeButton = screen.getByRole("button", { name: "close" });
+
+  await user.tab();
+  await user.tab();
+
   expect(closeButton).toHaveFocus();
 
   await user.tab();

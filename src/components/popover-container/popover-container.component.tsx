@@ -231,7 +231,9 @@ export const PopoverContainer = forwardRef<
 
     const closeButtonRef = useRef<HTMLButtonElement>(null);
     const openButtonRef = useRef<HTMLButtonElement>(null);
-    const popoverReference = useRef<HTMLDivElement>(null);
+    const [popoverReference, setPopoverReference] =
+      useState<HTMLDivElement | null>(null);
+    const [altTarget, setAltTarget] = useState<HTMLElement | null>(null);
     const guid = useRef(createGuid());
     const popoverContentNodeRef = useRef<HTMLDivElement>(null);
     const popoverContainerId = title
@@ -441,22 +443,24 @@ export const PopoverContainer = forwardRef<
         </>
       );
 
-    const altTarget = useRef<HTMLElement | null>(null);
-
     useEffect(() => {
       if (inMenu) {
-        altTarget.current =
-          popoverReference.current?.closest(
-            "[data-component='global-header']",
-          ) ??
-          popoverReference.current?.closest("[data-component='menu']") ??
-          /* istanbul ignore next */ null;
+        const closestHeader = popoverReference?.closest(
+          "[data-component='global-header']",
+        ) as HTMLElement | null;
+        const closestMenu = popoverReference?.closest(
+          "[data-component='menu']",
+        ) as HTMLElement | null;
+
+        setAltTarget(
+          closestHeader ?? closestMenu ?? /* istanbul ignore next */ null,
+        );
       }
-    }, [inMenu]);
+    }, [inMenu, popoverReference]);
 
     // if the popover is in a menu, we want to anchor the popover to the closest global header or menu,
     // otherwise we will use the popover reference as the target
-    const popoverTarget = altTarget.current ?? popoverReference.current;
+    const popoverTarget = altTarget ?? popoverReference;
 
     return (
       <PopoverContainerWrapperStyle
@@ -464,7 +468,7 @@ export const PopoverContainer = forwardRef<
         hasFullWidth={hasFullWidth}
         {...tagComponent("popover-container", rest)}
       >
-        <div ref={popoverReference}>
+        <div ref={setPopoverReference}>
           {renderOpenComponent(renderOpenComponentProps)}
         </div>
         <CSSTransition
@@ -484,7 +488,7 @@ export const PopoverContainer = forwardRef<
           }
         >
           <Popover
-            reference={popoverReference}
+            reference={{ current: popoverReference }}
             placement={getPlacement()}
             popoverStrategy={
               disableAnimation || reduceMotion ? "fixed" : "absolute"
