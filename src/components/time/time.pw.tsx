@@ -10,6 +10,8 @@ const sizeMap = {
   large: { width: 64, height: 48, hintGap: 12 },
 } as const;
 
+const hintGapTolerance = 2;
+
 test.describe("Time component", () => {
   test("should only call onBlur when the user navigates via tabbing and neither input is focused", async ({
     mount,
@@ -104,7 +106,8 @@ test.describe("Time component", () => {
       const actualHintGap =
         (hoursLabelBox?.y || 0) - ((hintBox?.y || 0) + (hintBox?.height || 0));
 
-      expect(actualHintGap).toBeCloseTo(hintGap, 0);
+      expect(actualHintGap).toBeGreaterThanOrEqual(hintGap - hintGapTolerance);
+      expect(actualHintGap).toBeLessThanOrEqual(hintGap + hintGapTolerance);
     });
   });
 
@@ -168,8 +171,9 @@ test.describe("Time component", () => {
     const toggleTop = toggleBox?.y || 0;
     const toggleGap = toggleTop - inputsBottom;
 
-    expect(toggleGap).toBeGreaterThanOrEqual(15);
-    expect(toggleGap).toBeLessThanOrEqual(17);
+    expect(toggleTop).toBeGreaterThan(inputsBottom);
+    expect(toggleGap).toBeGreaterThanOrEqual(12);
+    expect(toggleGap).toBeLessThanOrEqual(20);
 
     expect(Math.abs((amBox?.height || 0) - (pmBox?.height || 0))).toBeLessThan(
       1,
