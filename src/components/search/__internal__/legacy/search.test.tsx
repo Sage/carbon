@@ -145,7 +145,9 @@ test("when the `searchButton` prop is not passed, no button with is shown, and a
 test("the search button text can be overridden via the locale context", () => {
   render(
     <I18nProvider
-      locale={{ search: { searchButtonText: () => "text override" } }}
+      locale={{
+        search: { ...enGB.search, searchButtonText: () => "text override" },
+      }}
     >
       <Search searchButton value="" onChange={jest.fn} />
     </I18nProvider>,

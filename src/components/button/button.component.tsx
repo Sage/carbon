@@ -141,7 +141,6 @@ interface RenderChildrenProps
     | "subtext"
     | "children"
     | "disabled"
-    | "buttonType"
     | "destructive"
   > {
   buttonType: ButtonTypes;

@@ -132,10 +132,7 @@ const MenuFullscreenRoot = ({
                 onClick={onClose}
                 data-element="close"
               >
-                <Icon
-                  type="close"
-                  color={isDarkVariant ? "--colorsYang100" : undefined}
-                />
+                <Icon type="close" inverse={isDarkVariant} />
               </IconButton>
             </StyledMenuFullscreenHeader>
             <Box
