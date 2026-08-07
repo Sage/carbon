@@ -233,7 +233,12 @@ test("assigns the input hint as the accessible description of the textarea", () 
 
 test("inputHint should have priority over labelHelp when both are passed", () => {
   render(
-    <MockComponent labelHelp="labelHelp" inputHint="inputHint" error="foo" />,
+    <MockComponent
+      label="Textarea"
+      labelHelp="labelHelp"
+      inputHint="inputHint"
+      error="foo"
+    />,
   );
   expect(screen.getByText("inputHint")).toBeInTheDocument();
   expect(screen.queryByText("labelHelp")).not.toBeInTheDocument();

@@ -92,9 +92,9 @@ test.describe("Props tests for Textarea component", () => {
   test("should render with labelInline prop", async ({ mount, page }) => {
     await mount(<TextareaComponent labelInline />);
 
-    const labelElementParent = getDataElementByValue(page, "label").locator(
-      "..",
-    );
+    const labelElementParent = getDataElementByValue(page, "label")
+      .locator("..")
+      .locator("..");
 
     await expect(labelElementParent).toHaveCSS("justify-content", "flex-end");
   });
@@ -111,9 +111,9 @@ test.describe("Props tests for Textarea component", () => {
     }) => {
       await mount(<TextareaComponent labelInline labelAlign={labelAlign} />);
 
-      const labelElementParent = getDataElementByValue(page, "label").locator(
-        "..",
-      );
+      const labelElementParent = getDataElementByValue(page, "label")
+        .locator("..")
+        .locator("..");
 
       await expect(labelElementParent).toHaveCSS("justify-content", cssValue);
     });
