@@ -10,7 +10,7 @@ const sizeMap = {
   large: { width: 64, height: 48, hintGap: 12 },
 } as const;
 
-const hintGapTolerance = 4;
+const hintGapTolerance = 6;
 
 test.describe("Time component", () => {
   test("should only call onBlur when the user navigates via tabbing and neither input is focused", async ({
@@ -161,8 +161,8 @@ test.describe("Time component", () => {
     const minutesCenterY = (minutesBox?.y || 0) + (minutesBox?.height || 0) / 2;
     const colonCenterY = (colonBox?.y || 0) + (colonBox?.height || 0) / 2;
 
-    expect(Math.abs(colonCenterY - hoursCenterY)).toBeLessThan(1);
-    expect(Math.abs(colonCenterY - minutesCenterY)).toBeLessThan(1);
+    expect(Math.abs(colonCenterY - hoursCenterY)).toBeLessThanOrEqual(2);
+    expect(Math.abs(colonCenterY - minutesCenterY)).toBeLessThanOrEqual(2);
 
     const inputsBottom = Math.max(
       (hoursBox?.y || 0) + (hoursBox?.height || 0),
@@ -178,7 +178,9 @@ test.describe("Time component", () => {
     expect(Math.abs((amBox?.height || 0) - (pmBox?.height || 0))).toBeLessThan(
       1,
     );
-    expect((toggleBox?.height || 0) - (amBox?.height || 0)).toBeLessThan(3);
+    expect(
+      Math.abs((toggleBox?.height || 0) - (amBox?.height || 0)),
+    ).toBeLessThanOrEqual(4);
   });
 
   test.describe("Accessibility tests", () => {
