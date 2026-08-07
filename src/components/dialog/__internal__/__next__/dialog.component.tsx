@@ -230,15 +230,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     );
 
     const dialogTitle = () => {
-      // Common props for Typography component
-      const titleTypographyProps = {
-        wordWrap: "break-word" as const,
-        wordBreak: "normal" as const,
-        variant: "h1" as const,
-        "data-element": "dialog-title",
-        id: titleId,
-      };
-
       // Helper to render subtitle
       const renderSubtitle = () => (
         <StyledSubtitle
@@ -278,7 +269,11 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
                 {headerIcon}
               </Box>
               <Typography
-                {...titleTypographyProps}
+                wordWrap="break-word"
+                wordBreak="normal"
+                variant="h1"
+                data-element="dialog-title"
+                id={titleId}
                 ml="var(--global-space-comp-l)"
               >
                 {title}
@@ -293,7 +288,17 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         }
 
         // String title only
-        return <Typography {...titleTypographyProps}>{title}</Typography>;
+        return (
+          <Typography
+            wordWrap="break-word"
+            wordBreak="normal"
+            variant="h1"
+            data-element="dialog-title"
+            id={titleId}
+          >
+            {title}
+          </Typography>
+        );
       };
 
       const renderTitle = (
