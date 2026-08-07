@@ -10,6 +10,8 @@ export interface StyledCardRowProps extends CardRowProps {
 }
 
 const paddingSizes = {
+  none: "var(--spacing000)",
+  "extra-small": "var(--spacing100)",
   small: "var(--spacing200)",
   medium: "var(--spacing300)",
   large: "var(--spacing400)",
