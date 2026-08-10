@@ -56,7 +56,7 @@ const StyledTimeLayout = styled.div<StyledTimeLayoutProps>`
     align-items: flex-end;
     flex-wrap: wrap;
     row-gap: var(--global-space-comp-m);
-    column-gap: ${$hasToggle ? "var(--global-space-comp-m)" : "0px"};
+    column-gap: ${$hasToggle ? "var(--global-space-comp-l)" : "0px"};
 
     @media screen and (max-width: 480px) {
       [data-role="time-toggle-wrapper"] {
