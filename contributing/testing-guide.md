@@ -90,9 +90,9 @@ A typical `*.pw.tsx` file may look like the following:
 
 ```tsx
 // inside src/components/button/button.pw.tsx
-import { test, expect } from "../../__spec_helper__/base-test";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import Button from "./button.component";
-import { buttonComponent } from "../../../playwright/component/button/index";
+import { buttonDataComponent } from "../../../playwright/components/button";
 
 test.describe("Check props for Button component", async () => {
   test("should render Button label when passed to the component", async ({
@@ -103,12 +103,12 @@ test.describe("Check props for Button component", async () => {
 
     await mount(<Button>{label}</Button>);
 
-    await expect(buttonComponent(page)).toHaveText(label);
+    await expect(buttonDataComponent(page)).toHaveText(label);
   });
 });
 ```
 
-Where `mount` renders the component in the real browser (`chromium`/`webkit`/`firefox`/`opera`) and `buttonComponent` is a _locator_ that returns the DOM element we want to test.
+Where `mount` renders the component in the real browser (`chromium` — the only project configured in `playwright-ct.config.ts`) and `buttonDataComponent` is a _locator_ that returns the DOM element we want to test.
 
 ### Locators
 
