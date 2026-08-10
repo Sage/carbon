@@ -313,6 +313,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const handleMouseDown = () => {
+      handleClickInside();
+
       if (setInputRefMap) {
         isBlurBlocked.current = true;
       }
@@ -335,6 +337,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const handleTriggerMouseDown = () => {
+      handleClickInside();
+
       if (disabled || readOnly) {
         return;
       }
@@ -344,6 +348,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const handlePickerMouseDown = () => {
+      handleClickInside();
       isBlurBlocked.current = true;
     };
 
@@ -389,7 +394,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           "data-element": dataElement,
           "data-role": dataRole,
         })}
-        onMouseDown={handleClickInside}
         className={`date date-${variant}`}
       >
         <TextInput

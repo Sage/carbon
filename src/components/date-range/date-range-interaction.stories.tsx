@@ -128,16 +128,21 @@ export const MinMaxDateRange: Story = {
     const startInput = canvas.getByRole("textbox", { name: /start date/i });
     const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
-    // Navigate to previous month — all days there are before minDate ("2025-07-14"),
-    // so pressing Enter on a disabled day should not commit a new value.
     await userEvent.click(startCalendarButton);
-    await userEvent.keyboard("{PageUp}{End}{Enter}");
+    const dateBeforeMinimum = canvas.getByRole("button", {
+      name: /Sunday, July 13th, 2025/i,
+    });
+    await expect(dateBeforeMinimum).toBeDisabled();
+    await userEvent.click(dateBeforeMinimum);
     await expect(startInput).toHaveValue("17/07/2025");
+    await userEvent.click(startCalendarButton);
 
-    // Navigate to next month — all days there are after maxDate ("2025-07-30"),
-    // so pressing Enter on a disabled day should not commit a new value.
     await userEvent.click(endCalendarButton);
-    await userEvent.keyboard("{PageDown}{Home}{Enter}");
+    const dateAfterMaximum = canvas.getByRole("button", {
+      name: /Thursday, July 31st, 2025/i,
+    });
+    await expect(dateAfterMaximum).toBeDisabled();
+    await userEvent.click(dateAfterMaximum);
     await expect(endInput).toHaveValue("20/07/2025");
   },
 };
@@ -169,13 +174,24 @@ export const DisabledDaysDateRange: Story = {
       "button",
       { name: "Open calendar" },
     );
+    const startInput = canvas.getByRole("textbox", { name: /start date/i });
     const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
     await userEvent.click(startCalendarButton);
-    await userEvent.keyboard("{ArrowLeft}{Enter}");
+    const disabledRangeDate = canvas.getByRole("button", {
+      name: /Wednesday, July 16th, 2025/i,
+    });
+    await expect(disabledRangeDate).toBeDisabled();
+    await userEvent.click(disabledRangeDate);
+    await expect(startInput).toHaveValue("10/07/2025");
+    await userEvent.click(startCalendarButton);
 
     await userEvent.click(endCalendarButton);
-    await userEvent.keyboard("{ArrowRight}{ArrowDown}");
+    const disabledWeekendDate = canvas.getByRole("button", {
+      name: /Saturday, July 26th, 2025/i,
+    });
+    await expect(disabledWeekendDate).toBeDisabled();
+    await userEvent.click(disabledWeekendDate);
     await expect(endInput).toHaveValue("25/07/2025");
   },
 };
@@ -199,13 +215,6 @@ export const FocusStateDateRange: Story = {
     await userEvent.click(startCalendarButton);
 
     const selectedDayBtn = canvas.getByRole("button", { name: /selected$/i });
-
-    // The picker's internal tab order depth is variable, so we tab up to 6 times
-    // until focus lands on the selected day button.
-    const doc = canvasElement.ownerDocument as Document;
-    for (let i = 0; i < 6 && doc.activeElement !== selectedDayBtn; i += 1) {
-      await userEvent.tab();
-    }
 
     await expect(selectedDayBtn).toHaveFocus();
   },
@@ -269,6 +278,7 @@ export const LocaleDeDateRange: Story = {
           ariaLabels: {
             previousMonthButton: () => "de-DE-previous",
             nextMonthButton: () => "de-DE-next",
+            chooseMonth: () => "de-DE-month",
           },
         },
       }}
@@ -290,9 +300,13 @@ export const LocaleDeDateRange: Story = {
     });
     await userEvent.click(startCalendarButton);
 
-    const prevMonth = canvas.getByRole("button", { name: /de-DE-previous/i });
-    await userEvent.click(prevMonth);
-    await expect(prevMonth).toHaveFocus();
+    const monthSelect = canvas.getByRole("combobox", {
+      name: /de-DE-month/i,
+    });
+    await userEvent.selectOptions(monthSelect, "5");
+    await expect(monthSelect).toHaveValue("5");
+    await expect(monthSelect).toHaveDisplayValue("Juni");
+    await expect(monthSelect).toHaveFocus();
   },
 };
 
@@ -337,14 +351,17 @@ export const MonthYearNavigationDateRange: Story = {
   ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
-    const c = within(canvasElement);
-    const [startCalendarButton] = c.getAllByRole("button", {
+    const canvas = within(canvasElement);
+    const [startCalendarButton] = canvas.getAllByRole("button", {
       name: "Open calendar",
     });
     await userEvent.click(startCalendarButton);
-    const next = c.getByRole("button", { name: /next month/i });
-    await userEvent.click(next);
-    await expect(next).toHaveFocus();
+    const monthSelect = canvas.getByRole("combobox", {
+      name: "Choose the month",
+    });
+    await userEvent.selectOptions(monthSelect, "7");
+    await expect(monthSelect).toHaveValue("7");
+    await expect(monthSelect).toHaveFocus();
   },
 };
 MonthYearNavigationDateRange.parameters = {

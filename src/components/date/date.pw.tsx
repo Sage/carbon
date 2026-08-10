@@ -136,6 +136,59 @@ test.describe("Functionality tests", () => {
     await expect(page.getByRole("dialog")).toBeHidden();
   });
 
+  [true, false].forEach((disablePortal) => {
+    test(`closes the typical ${
+      disablePortal ? "non-portalled" : "portalled"
+    } date picker when clicking outside the input and picker after keyboard navigation`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <DateInputTypicalControlled
+          value="01/05/2022"
+          disablePortal={disablePortal}
+        />,
+      );
+
+      await page.getByRole("button", { name: "Open calendar" }).click();
+
+      const datePicker = page.getByTestId("date-picker");
+      await expect(datePicker).toBeVisible();
+
+      const selectedDay = page.getByRole("button", {
+        name: "Sunday, May 1st, 2022, selected",
+      });
+      await expect(selectedDay).toBeFocused();
+      for (const key of [
+        "ArrowDown",
+        "ArrowDown",
+        "ArrowDown",
+        "ArrowDown",
+        "ArrowUp",
+        "ArrowLeft",
+      ]) {
+        await page.keyboard.press(key);
+      }
+
+      const dateWrapper = page.locator('[data-component="date"]');
+      const wrapperBox = (await dateWrapper.boundingBox()) as {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+      };
+      // Click near the bottom-right edge of the wrapper — inside the wrapper
+      // boundary but outside the text input and picker, to verify the
+      // click-away handler closes the picker in this scenario.
+      await page.mouse.click(
+        wrapperBox.x + wrapperBox.width - 8,
+        wrapperBox.y + wrapperBox.height - 8,
+      );
+
+      await expect(datePicker).toBeHidden();
+    });
+  });
+
   [
     ["bottom", 0],
     ["top", 400],
