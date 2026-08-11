@@ -1,3 +1,9 @@
+## [161.17.0](https://github.com/Sage/carbon/compare/v161.16.0...v161.17.0) (2026-08-11)
+
+### Features
+
+* **card:** align component with fusion design system ([0b74155](https://github.com/Sage/carbon/commit/0b741555d8dc61e58e9fe6033cf578099dfea676))
+
 ## [161.16.0](https://github.com/Sage/carbon/compare/v161.15.0...v161.16.0) (2026-08-06)
 
 ### Features
