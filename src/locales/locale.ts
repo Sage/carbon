@@ -102,6 +102,9 @@ interface Locale {
     ai: () => string;
     callout?: () => string;
   };
+  note: {
+    created: () => string;
+  };
   numeralDate: {
     validation: {
       day: (month?: string, daysInMonth?: string) => string;

@@ -1,127 +1,176 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import { StyledLinkPreview } from "../link-preview/link-preview.style";
+import {
+  StyledLinkPreview,
+  StyledPreviewWrapper,
+  StyledTitle,
+  StyledUrl,
+} from "../link-preview/link-preview.style";
 import { VARIANT_TYPES } from "../typography/typography.component";
 
 const StyledNoteContent = styled.div<{
-  hasPreview?: boolean;
+  $hasTitlelessControl?: boolean;
+  $hasPreviews?: boolean;
+  $isBody?: boolean;
 }>`
   position: relative;
-  width: 100%;
 
-  ${({ hasPreview }) =>
-    hasPreview &&
+  ${({ $isBody }) =>
+    $isBody &&
     css`
-      margin-top: var(--spacing200);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: var(--global-space-comp-l);
+      min-width: 0;
+      padding: var(--global-space-comp-xl);
+
+      > div[readonly] {
+        padding: var(--global-space-none);
+      }
     `}
 
-  &:last-of-type:not(:first-of-type) {
-    border-top: solid 1px var(--colorsUtilityMajor050);
-  }
+  ${({ $hasPreviews }) =>
+    $hasPreviews &&
+    css`
+      margin-top: var(--global-space-comp-l);
+    `}
+
+  ${({ $hasTitlelessControl }) =>
+    $hasTitlelessControl &&
+    css`
+      [role="article"] {
+        padding-inline-end: calc(
+          var(--global-size-m) + var(--global-space-comp-l)
+        );
+      }
+    `}
 
   a:not([data-component="link-preview"]) {
-    color: var(--colorsActionMajor500);
+    color: var(--link-typical-label-default);
 
     &:hover {
       cursor: pointer;
-      color: var(--colorsActionMajor600);
+      color: var(--link-typical-label-hover);
     }
 
     &:focus {
       outline: none;
       text-decoration: none;
-      color: var(--colorsActionMajorYin090);
-      background-color: var(--colorsSemanticFocus250);
-      border-radius: var(--borderRadius025);
-      box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
+      color: var(--focus-label);
+      background-color: var(--focus-bg);
+      border-radius: var(--global-radius-action-xs);
+      box-shadow: 0 var(--global-size-5-xs) 0 0 var(--focus-borderalt);
     }
   }
 `;
 
 const StyledNoteMain = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: var(--spacing300);
+  [role="article"] {
+    color: var(--container-standard-txt-default);
+    font: var(--global-font-static-body-regular-l);
+
+    > :last-child {
+      margin-bottom: var(--global-space-none);
+    }
+  }
 `;
 
-const StyledInlineControl = styled.div`
-  display: inline-block;
+const StyledNoteTitle = styled.h3`
+  color: var(--container-standard-txt-default);
+  font: var(--global-font-static-heading-m);
+  margin: var(--global-space-none);
+`;
+
+const StyledInlineControl = styled.div<{ $isTitleless?: boolean }>`
+  display: inline-flex;
+  flex: 0 0 var(--global-size-m);
+  height: var(--global-size-m);
   min-width: fit-content;
+  width: var(--global-size-m);
+
+  ${({ $isTitleless }) =>
+    $isTitleless &&
+    css`
+      inset-inline-end: var(--global-space-comp-xl);
+      position: absolute;
+      top: var(--global-space-comp-xl);
+    `}
+`;
+
+const StyledTitleRow = styled.div`
+  align-items: flex-start;
+  display: flex;
+  gap: var(--global-space-comp-l);
+  justify-content: flex-end;
+  min-width: 0;
+  width: 100%;
+
+  > :not(${StyledInlineControl}) {
+    flex: 1;
+    min-width: 0;
+    padding-top: var(--global-space-comp-xs);
+  }
 `;
 
 const StyledTitleWrapper = styled.div`
   ${VARIANT_TYPES.map(
     (variant) => `
       ${variant}{
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 21px;
-        padding-bottom: 16px;
+        font: var(--global-font-static-heading-m);
       }
     `,
   )}
 `;
 
-const StyledFooterContent = styled.div<{ hasName: boolean }>`
-  line-height: 21px;
-  align-items: baseline;
-  font-weight: 500;
+const StyledFooterContent = styled.div<{ $isName?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  gap: var(--global-space-comp-xs);
 
-  ${({ hasName }) => css`
-    margin-top: var(--spacing200);
+  > span {
+    color: var(--container-standard-txt-default);
+    font: var(--global-font-static-comp-medium-m);
+  }
 
-    ${hasName &&
+  ${({ $isName }) =>
+    $isName &&
     css`
-      &:first-of-type {
-        font-size: 14px;
-      }
-
-      &:nth-of-type(2) {
-        font-size: 12px;
-        color: var(--colorsUtilityYin065);
-        margin-left: var(--spacing200);
-      }
-
-      &:last-of-type:not(:nth-of-type(2)) {
-        font-size: 12px;
-        color: var(--colorsUtilityYin065);
-        cursor: pointer;
-        margin-left: var(--spacing300);
-      }
+      color: var(--container-standard-txt-default);
+      font: var(--global-font-static-section-heading-s);
     `}
 
-    ${!hasName &&
-    css`
-      &:first-of-type {
-        font-size: 12px;
-        color: var(--colorsUtilityYin065);
-      }
-
-      &:last-of-type:not(:first-of-type) {
-        font-size: 12px;
-        color: var(--colorsUtilityYin065);
-        cursor: pointer;
-        margin-left: var(--spacing300);
-      }
-    `}
-  `}
+  time {
+    color: var(--container-standard-txt-alt);
+    font: var(--global-font-static-comp-regular-xs);
+  }
 `;
 
 const StyledFooter = styled.div`
   display: flex;
-  margin-bottom: calc(-1 * var(--spacing100));
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: var(--global-space-comp-s);
+  padding: var(--global-space-comp-l) var(--global-space-none)
+    var(--global-space-comp-xl);
+`;
+
+const StyledTimestamps = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--global-space-comp-xl);
 `;
 
 const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
   ${({ width }) => css`
-    background-color: var(--colorsUtilityYang100);
-    border: 1px solid var(--colorsUtilityMajor100);
-    border-radius: var(--borderRadius100);
+    background-color: var(--container-standard-bg-default);
+    border: var(--global-borderwidth-xs) solid
+      var(--container-standard-border-default);
+    border-radius: var(--global-radius-action-m);
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    min-width: 288px;
+    padding: var(--global-space-none);
     position: relative;
     width: ${width}%;
     box-sizing: border-box;
@@ -133,11 +182,37 @@ const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
   `}
 
   ${StyledLinkPreview} {
-    margin: 0px;
+    margin: var(--global-space-none);
+    min-width: 0;
+    overflow: hidden;
+
+    ${StyledPreviewWrapper} {
+      min-width: 0;
+    }
+
+    ${StyledTitle},
+    ${StyledUrl} {
+      overflow: hidden;
+    }
 
     :not(:first-of-type) {
-      margin-top: 8px;
+      margin-top: var(--global-space-comp-s);
     }
+  }
+
+  > [data-role="note-metadata"] {
+    border-radius: var(--global-radius-action-xs) var(--global-radius-action-xs)
+      var(--global-radius-none) var(--global-radius-none);
+    border-top-color: var(--container-standard-border-default);
+    border-top-style: solid;
+    border-top-width: var(--global-borderwidth-xs);
+    margin-left: var(--global-space-comp-xl);
+    margin-right: var(--global-space-comp-xl);
+  }
+
+  > [data-role="note-previews"] {
+    padding: var(--global-space-none) var(--global-space-comp-xl)
+      var(--global-space-comp-xl);
   }
 
   .textBold {
@@ -150,6 +225,10 @@ const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
     text-decoration: underline;
   }
 
+  .mention {
+    cursor: default !important;
+  }
+
   ${margin}
 `;
 
@@ -158,7 +237,10 @@ export {
   StyledNoteContent,
   StyledNoteMain,
   StyledInlineControl,
+  StyledNoteTitle,
+  StyledTitleRow,
   StyledTitleWrapper,
   StyledFooter,
   StyledFooterContent,
+  StyledTimestamps,
 };
