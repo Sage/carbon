@@ -89,13 +89,17 @@ const StyledColonWrapper = styled.div<StyledTimeSizeProps>`
   ${({ $size }) => css`
     display: flex;
     flex-direction: column;
-    margin-left: var(--global-space-comp-s);
-    margin-right: var(--global-space-comp-s);
+    align-items: center;
+    flex: 0 0 var(--global-space-comp-l);
+    width: var(--global-space-comp-l);
+    min-width: var(--global-space-comp-l);
+    max-width: var(--global-space-comp-l);
 
     [data-role="time-colon-input-row"] {
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
       min-height: ${inputHeightBySize[$size]};
       height: ${inputHeightBySize[$size]};
     }
