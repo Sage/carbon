@@ -6,17 +6,25 @@ import {
   StyledNoteContent,
   StyledNoteMain,
   StyledInlineControl,
+  StyledNoteTitle,
+  StyledTitleRow,
   StyledTitleWrapper,
   StyledFooter,
   StyledFooterContent,
+  StyledTimestamps,
 } from "./note.style";
-import StatusIcon from "./__internal__/status-icon";
-import { ActionPopover } from "../action-popover";
+import {
+  ActionPopover,
+  ActionPopoverProps,
+  RenderButtonProps,
+} from "../action-popover";
+import Button from "../button/__next__";
 import ReadOnlyEditor from "../text-editor/__internal__/__ui__/ReadOnlyEditor/read-only-rte.component";
 import TextEditorContext from "../text-editor/text-editor.context";
 import LinkPreview, { LinkPreviewProps } from "../link-preview";
-import Typography from "../typography";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import useLocale from "../../hooks/__internal__/useLocale";
+import isValidISOString from "./note.utils";
 
 export interface NoteProps extends MarginProps, TagProps {
   /** The aria-label to be used when no title is present */
@@ -33,7 +41,7 @@ export interface NoteProps extends MarginProps, TagProps {
   onLinkAdded?: (url: string) => void;
   /** The previews to display of any links added to the Editor */
   previews?: React.ReactNode;
-  /** Adds a status and tooltip to the Note footer */
+  /** Adds a status and timestamp below the created details */
   status?: {
     text: string;
     timeStamp: string;
@@ -64,6 +72,7 @@ export const Note = ({
   width = 100,
   ...rest
 }: NoteProps) => {
+  const locale = useLocale();
   invariant(width > 0, "<Note> width must be greater than 0");
   invariant(
     !inlineControl ||
@@ -72,71 +81,123 @@ export const Note = ({
     "<Note> inlineControl must be an instance of <ActionPopover>",
   );
 
-  const renderStatus = () => {
-    if (!status) {
-      return null;
-    }
+  const renderActionButton = ({
+    tabIndex,
+    "data-element": dataElement,
+    ariaAttributes,
+  }: RenderButtonProps) => (
+    <Button
+      {...ariaAttributes}
+      {...{ tabIndex }}
+      data-element={dataElement}
+      iconType="ellipsis_vertical"
+      size="medium"
+      variant="default"
+      variantType="subtle"
+    />
+  );
 
-    const { text, timeStamp } = status;
+  const actionPopoverElement = React.isValidElement<ActionPopoverProps>(
+    inlineControl,
+  )
+    ? inlineControl
+    : undefined;
 
-    return (
-      <StyledFooterContent hasName={!!name} data-component="note-status">
-        <StatusIcon tooltipMessage={timeStamp}>{text}</StatusIcon>
-      </StyledFooterContent>
-    );
-  };
+  const actionPopover = actionPopoverElement
+    ? React.cloneElement<ActionPopoverProps>(actionPopoverElement, {
+        renderButton:
+          actionPopoverElement.props.renderButton || renderActionButton,
+      })
+    : undefined;
 
   return (
     <TextEditorContext.Provider value={{ onLinkAdded }}>
       <StyledNote width={width} {...rest} {...tagComponent("note", rest)}>
-        <StyledNoteMain>
-          <StyledNoteContent>
-            {title &&
-              (typeof title === "string" ? (
-                <Typography
-                  data-role="note-title"
-                  fontWeight="700"
-                  fontSize="16px"
-                  lineHeight="21px"
-                  paddingBottom="16px"
-                  variant="h3"
-                >
-                  {title}
-                </Typography>
-              ) : (
-                <StyledTitleWrapper>{title}</StyledTitleWrapper>
-              ))}
+        <StyledNoteMain data-role="note-main">
+          <StyledNoteContent
+            $hasTitlelessControl={!title && !!actionPopover}
+            $isBody
+            data-role="note-body"
+          >
+            {title && (
+              <StyledTitleRow data-role="note-title-row">
+                {typeof title === "string" ? (
+                  <StyledNoteTitle data-role="note-title">
+                    {title}
+                  </StyledNoteTitle>
+                ) : (
+                  <StyledTitleWrapper data-role="note-title-wrapper">
+                    {title}
+                  </StyledTitleWrapper>
+                )}
+                {actionPopover && (
+                  <StyledInlineControl data-role="note-inline-control">
+                    {actionPopover}
+                  </StyledInlineControl>
+                )}
+              </StyledTitleRow>
+            )}
             <ReadOnlyEditor aria-label={ariaLabel} initialValue={noteContent} />
+            {!title && actionPopover && (
+              <StyledInlineControl $isTitleless data-role="note-inline-control">
+                {actionPopover}
+              </StyledInlineControl>
+            )}
           </StyledNoteContent>
-          {inlineControl && (
-            <StyledInlineControl>{inlineControl}</StyledInlineControl>
-          )}
         </StyledNoteMain>
 
-        <StyledNoteContent>
-          {React.Children.map(previews, (preview) =>
-            React.isValidElement(preview) &&
-            hasExpectedDisplayName(preview, LinkPreview.displayName)
-              ? React.cloneElement<LinkPreviewProps>(
-                  preview as React.ReactElement<LinkPreviewProps>,
-                  { as: "a", onClose: undefined },
-                )
-              : preview,
-          )}
-        </StyledNoteContent>
+        {!!React.Children.count(previews) && (
+          <StyledNoteContent data-role="note-previews">
+            {React.Children.map(previews, (preview) =>
+              React.isValidElement(preview) &&
+              hasExpectedDisplayName(preview, LinkPreview.displayName)
+                ? React.cloneElement<LinkPreviewProps>(
+                    preview as React.ReactElement<LinkPreviewProps>,
+                    { as: "a", onClose: undefined },
+                  )
+                : preview,
+            )}
+          </StyledNoteContent>
+        )}
 
         {createdDate && (
-          <StyledNoteContent hasPreview={!!React.Children.count(previews)}>
-            <StyledFooter data-element="note-footer">
+          <StyledNoteContent
+            data-role="note-metadata"
+            $hasPreviews={!!React.Children.count(previews)}
+          >
+            <StyledFooter data-element="note-footer" data-role="note-footer">
               {name && (
-                <StyledFooterContent hasName={!!name}>
-                  {name}
-                </StyledFooterContent>
+                <StyledFooterContent $isName>{name}</StyledFooterContent>
               )}
-              <StyledFooterContent hasName={!!name}>
-                {createdDate}
-              </StyledFooterContent>
-              {renderStatus()}
+              <StyledTimestamps data-role="note-timestamps">
+                <StyledFooterContent data-role="note-created-block">
+                  <span>{locale.note.created()}</span>
+                  <time
+                    dateTime={
+                      isValidISOString(createdDate) ? createdDate : undefined
+                    }
+                  >
+                    {createdDate}
+                  </time>
+                </StyledFooterContent>
+                {status && (
+                  <StyledFooterContent
+                    data-component="note-status"
+                    data-role="note-updated-block"
+                  >
+                    <span>{status.text}</span>
+                    <time
+                      dateTime={
+                        isValidISOString(status.timeStamp)
+                          ? status.timeStamp
+                          : undefined
+                      }
+                    >
+                      {status.timeStamp}
+                    </time>
+                  </StyledFooterContent>
+                )}
+              </StyledTimestamps>
             </StyledFooter>
           </StyledNoteContent>
         )}
