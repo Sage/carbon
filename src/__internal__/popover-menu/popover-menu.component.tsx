@@ -47,12 +47,13 @@ export const List = styled.ul<ListProps>`
   list-style-type: "";
   list-style: none;
 
-  ${({ $isButtonMenu, $size }) =>
+  ${({ $isButtonMenu, $size, $maxHeight }) =>
     !$isButtonMenu &&
     css`
       overflow: hidden auto;
       -webkit-overflow-scrolling: touch;
-      max-height: calc(5 * var(--global-size-${$size.charAt(0)}));
+      max-height: ${$maxHeight ??
+      `calc(5 * var(--global-size-${$size.charAt(0)}))`};
     `}
 `;
 
