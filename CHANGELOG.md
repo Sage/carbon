@@ -1,3 +1,15 @@
+## [161.17.1](https://github.com/Sage/carbon/compare/v161.17.0...v161.17.1) (2026-08-12)
+
+### Bug Fixes
+
+* **texteditor:** correctly apply bold/italic when inside styled span ([7b99c05](https://github.com/Sage/carbon/commit/7b99c05a85186f1adef6d5b666fa5f734911e307)), closes [#8056](https://github.com/Sage/carbon/issues/8056)
+
+## [161.17.0](https://github.com/Sage/carbon/compare/v161.16.0...v161.17.0) (2026-08-11)
+
+### Features
+
+* **card:** align component with fusion design system ([0b74155](https://github.com/Sage/carbon/commit/0b741555d8dc61e58e9fe6033cf578099dfea676))
+
 ## [161.16.0](https://github.com/Sage/carbon/compare/v161.15.0...v161.16.0) (2026-08-06)
 
 ### Features
