@@ -65,6 +65,14 @@ test("should not render a placeholder if disabled", () => {
   expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "");
 });
 
+test("should render a placeholder when provided", () => {
+  render(<MockComponent placeholder="Enter text here" />);
+  expect(screen.getByRole("textbox")).toHaveAttribute(
+    "placeholder",
+    "Enter text here",
+  );
+});
+
 testStyledSystemMargin(
   (props) => <MockComponent data-role="textarea-wrapper" {...props} />,
   () => screen.getByTestId("textarea-wrapper"),
