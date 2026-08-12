@@ -1,3 +1,9 @@
+## [161.17.2](https://github.com/Sage/carbon/compare/v161.17.1...v161.17.2) (2026-08-12)
+
+### Bug Fixes
+
+* **search:** ensure maxHeight prop overrides pre-set size based heights ([d2feaad](https://github.com/Sage/carbon/commit/d2feaad59b26f9a919867ddfd8e212ccf8dfeaac))
+
 ## [161.17.1](https://github.com/Sage/carbon/compare/v161.17.0...v161.17.1) (2026-08-12)
 
 ### Bug Fixes
