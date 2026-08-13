@@ -27,7 +27,7 @@ const dimensions = ({
     : ""}
 `;
 
-export const StyledTableWrapper = styled.div.attrs(applyBaseTheme)<{
+export const StyledDataGridViewport = styled.div.attrs(applyBaseTheme)<{
   height?: number | string;
   width?: number | string;
 }>`
