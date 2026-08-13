@@ -86,6 +86,25 @@ export type { ConfirmProps } from "./components/confirm";
 export { default as Content } from "./components/content";
 export type { ContentProps } from "./components/content";
 
+export { DataGrid } from "./components/data-grid";
+export type {
+  DataGridActionColumn,
+  DataGridApi,
+  DataGridCellParams,
+  DataGridCellType,
+  DataGridCellWeight,
+  DataGridCheckboxColumn,
+  DataGridColumn,
+  DataGridDropdownColumn,
+  DataGridHandle,
+  DataGridOption,
+  DataGridProps,
+  DataGridRowChange,
+  DataGridRowId,
+  DataGridRowInsertion,
+  DataGridTextColumn,
+} from "./components/data-grid";
+
 export { default as DateRange } from "./components/date-range";
 export type {
   DateRangeContextProps,
