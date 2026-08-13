@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import type { CSSObject } from "styled-components";
+import React, { useCallback, useMemo } from "react";
+import styled, { type CSSObject } from "styled-components";
 
 import {
   PopoverMenu,
@@ -10,11 +10,14 @@ import {
   MenuItemDivider,
   MenuItemHeading,
   type PopoverControlProps,
+  type PopoverMenuProps,
 } from "../../../../../__internal__/popover-menu";
 import Option, { OptionProps } from "../../../option";
 import OptionGroupHeader, {
   OptionGroupHeaderProps,
 } from "../../../option-group-header";
+import Button, { ButtonProps } from "../../../../button";
+import useLocale from "../../../../../hooks/__internal__/useLocale";
 import Icon from "../../../../icon";
 import isExpectedOption from "../../utils/is-expected-option";
 
@@ -59,6 +62,16 @@ export interface NextSelectListProps {
   onSelect: (data: SelectListOnSelectData) => void;
   /** A callback for when the list should be closed */
   onClose: (event?: Event, value?: string) => void;
+  /** Set this prop to only render the currently-visible options into the DOM. If not used then all options
+   * will be in the DOM at all times, which may cause performance problems on very large lists */
+  enableVirtualScroll?: boolean;
+  /** The number of options to render into the DOM at once, either side of the currently-visible ones.
+   * Only used if the `enableVirtualScroll` prop is set. */
+  virtualScrollOverscan?: number;
+  /** True for default text button or a Button Component to be rendered */
+  listActionButton?: boolean | React.ReactElement<ButtonProps>;
+  /** A callback for when the list action button is triggered */
+  onListAction?: () => void;
 }
 
 const isOptionElement = (
@@ -86,6 +99,10 @@ const SelectList = ({
   listboxAriaLabel,
   onSelect,
   onClose,
+  enableVirtualScroll,
+  virtualScrollOverscan,
+  listActionButton,
+  onListAction,
 }: NextSelectListProps) => {
   const mappedChildren = useMemo(() => {
     const renderOption = (option: React.ReactElement<OptionProps>) => {
@@ -143,12 +160,18 @@ const SelectList = ({
       }
 
       if (groupHeader) {
-        const { label, icon, id: headerId } = groupHeader.props;
+        const {
+          label,
+          icon,
+          id: headerId,
+          children: headerChildren,
+        } = groupHeader.props;
         output.push(
           <MenuItemHeading
             key={headerId ?? label}
             text={label ?? ""}
             icon={icon ? <Icon type={icon} /> : undefined}
+            headingContent={headerChildren}
           >
             {groupItems}
           </MenuItemHeading>,
@@ -178,6 +201,49 @@ const SelectList = ({
     return output;
   }, [children, selectedValue, onSelect, onClose]);
 
+  const initialScrollIndex = useMemo(() => {
+    let index = -1;
+    let optionIndex = 0;
+    React.Children.forEach(children, (child) => {
+      if (isOptionElement(child)) {
+        if (isExpectedOption(child, selectedValue)) {
+          index = optionIndex;
+        }
+        optionIndex += 1;
+      }
+    });
+    return index;
+  }, [children, selectedValue]);
+
+  const handleListAction = useCallback(() => {
+    onClose();
+    onListAction?.();
+  }, [onClose, onListAction]);
+
+  const locale = useLocale();
+
+  const footer = useMemo(() => {
+    if (listActionButton === undefined) return undefined;
+
+    if (listActionButton === true) {
+      return (
+        <Button
+          onClick={handleListAction}
+          iconType="add"
+          iconPosition="after"
+        >
+          {locale.select.actionButtonText()}
+        </Button>
+      );
+    }
+
+    if (!React.isValidElement(listActionButton)) return undefined;
+
+    return React.cloneElement(listActionButton, {
+      onClick: handleListAction,
+    });
+  }, [listActionButton, handleListAction, locale]);
+
   return (
     <PopoverMenu<HTMLInputElement>
       open={open}
@@ -191,6 +257,10 @@ const SelectList = ({
       listboxAriaLabel={listboxAriaLabel}
       onClose={onClose}
       popoverControl={popoverControl}
+      enableVirtualScroll={enableVirtualScroll}
+      virtualScrollOverscan={virtualScrollOverscan}
+      initialScrollIndex={initialScrollIndex}
+      footer={footer}
     >
       {mappedChildren}
     </PopoverMenu>

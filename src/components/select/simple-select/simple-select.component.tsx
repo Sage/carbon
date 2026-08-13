@@ -6,6 +6,7 @@ import React, {
   useMemo,
 } from "react";
 import type { HTMLAttributes } from "react";
+import invariant from "invariant";
 
 import {
   filterOutStyledSystemSpacingProps,
@@ -16,6 +17,7 @@ import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
 import { CommonTextboxProps } from "../../textbox";
+import { ButtonProps } from "../../button";
 import { NON_FUNCTIONING_PROPS } from "../../textbox/textbox.component";
 import type { TextInputProps } from "../../textbox/__internal__/__next__/text-input.component";
 import filterPropsByName from "../../../__internal__/utils/helpers/filter-props";
@@ -115,6 +117,10 @@ export interface SimpleSelectProps
   onListScrollBottom?: () => void;
   /** A custom callback for when the dropdown menu opens */
   onOpen?: () => void;
+  /** True for default text button or a Button Component to be rendered */
+  listActionButton?: boolean | React.ReactElement<ButtonProps>;
+  /** A callback for when the list action button is triggered */
+  onListAction?: () => void;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
   /**
@@ -139,7 +145,10 @@ export interface SimpleSelectProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
-  /** Placement of the select list in relation to the input element */
+  /**
+   * @deprecated `listPlacement` has been deprecated. The select list is positioned automatically.
+   * Placement of the select list in relation to the input element.
+   */
   listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
@@ -159,7 +168,10 @@ export interface SimpleSelectProps
   onChange: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
-  /** Override the default width of the list element. Number passed is converted into pixel value */
+  /**
+   * @deprecated `listWidth` has been deprecated.
+   * Override the default width of the list element. Number passed is converted into pixel value
+   */
   listWidth?: number;
 }
 
@@ -222,6 +234,8 @@ export const SimpleSelect = React.forwardRef<
       flipEnabled,
       enableVirtualScroll,
       virtualScrollOverscan,
+      listActionButton,
+      onListAction,
       required,
       listWidth,
       ...props
@@ -392,6 +406,13 @@ export const SimpleSelect = React.forwardRef<
         window.clearTimeout(focusTimer.current);
       };
     }, []);
+
+    useEffect(() => {
+      invariant(
+        listActionButton === undefined || onListAction !== undefined,
+        "onListAction prop required when using listActionButton prop",
+      );
+    }, [listActionButton, onListAction]);
 
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
       isMouseDownReported.current = false;
@@ -568,6 +589,10 @@ export const SimpleSelect = React.forwardRef<
           selectedValue={selectedValue}
           listboxAriaLabel={ariaLabel}
           controlReference={containerRef}
+          enableVirtualScroll={enableVirtualScroll}
+          virtualScrollOverscan={virtualScrollOverscan}
+          listActionButton={listActionButton}
+          onListAction={onListAction}
           controlWrapperStyle={
             mappedInputWidth !== undefined
               ? { width: `${mappedInputWidth}%` }
