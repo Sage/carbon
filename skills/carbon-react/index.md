@@ -35,6 +35,7 @@
 - [Confirm](components/confirm.md) (deprecated)
 - [Content](components/content.md) (deprecated)
 - [Crumb](components/crumb.md)
+- [DataGrid](components/data-grid.md)
 - [DateInput](components/date-input.md)
 - [DateRange](components/date-range.md)
 - [Dd](components/dd.md)
