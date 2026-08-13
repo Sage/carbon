@@ -41,6 +41,8 @@
     "build:generate-package-json-files": "node ./scripts/generate_package_json_files/index.js",
     "build:move-svg": "node ./scripts/copy_svg/index.js",
     "build:skills": "node ./scripts/skills/build_skills.mjs",
+    "validate:mdx": "node ./scripts/validate-mdx/index.mjs",
+    "test:validate-mdx": "node --test ./scripts/validate-mdx/*.test.mjs",
     "generate-tokens": "rimraf ./src/components/tokens-wrapper/static-tokens && node ./scripts/generate_tokens/generate_tokens.mjs --include-dark"
   },
   "repository": {
