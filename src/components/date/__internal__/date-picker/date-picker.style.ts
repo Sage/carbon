@@ -270,11 +270,11 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
     position: absolute;
     z-index: 2;
     left: 50%;
-    bottom: calc(var(--global-size-4-xs) - var(--global-borderwidth-s));
+    bottom: var(--global-space-comp-s);
     transform: translateX(-50%);
     width: var(--global-size-3-xs);
     height: var(--global-size-5-xs);
-    background: var(--input-calendar-bg-active);
+    background: var(--input-calendar-txt-default);
     border-radius: var(--global-radius-action-circle);
     pointer-events: none;
   }

@@ -18,13 +18,7 @@ const CalendarWeekday = ({
 }: CalendarWeekdayProps) => (
   <StyledWeekday className={className} scope="col">
     <StyledWeekdayText aria-hidden="true">
-      <StyledWeekdayTypography
-        as="span"
-        variant="p"
-        weight="medium"
-        size="M"
-        m={0}
-      >
+      <StyledWeekdayTypography as="span" variant="p" m={0}>
         {children}
       </StyledWeekdayTypography>
     </StyledWeekdayText>

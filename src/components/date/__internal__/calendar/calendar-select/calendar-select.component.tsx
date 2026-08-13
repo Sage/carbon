@@ -10,7 +10,6 @@ import {
   StyledSelect,
   StyledWrapper,
 } from "./calendar-select.style";
-import { CalendarSelectSize } from "./calendar-select.config";
 import useCustomizableSelectMarkup from "./useCustomizableSelectMarkup";
 
 export interface CalendarSelectOption {
@@ -26,7 +25,6 @@ export interface CalendarSelectProps
     >,
     TagProps {
   options?: CalendarSelectOption[];
-  size?: CalendarSelectSize;
 }
 
 export const CalendarSelect = forwardRef<
@@ -38,7 +36,6 @@ export const CalendarSelect = forwardRef<
       className,
       disabled,
       options,
-      size = "medium",
       value,
       "data-element": dataElement,
       "data-role": dataRole,
@@ -61,7 +58,6 @@ export const CalendarSelect = forwardRef<
       >
         <StyledSelect
           ref={selectRef}
-          $size={size}
           disabled={disabled}
           {...valueProps}
           {...rest}
@@ -76,7 +72,7 @@ export const CalendarSelect = forwardRef<
             </option>
           ))}
         </StyledSelect>
-        <StyledIcon aria-hidden $size={size} $disabled={disabled}>
+        <StyledIcon aria-hidden $disabled={disabled}>
           <Icon type="caret_down" />
         </StyledIcon>
       </StyledWrapper>

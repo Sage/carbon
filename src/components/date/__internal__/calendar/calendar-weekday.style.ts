@@ -24,6 +24,7 @@ export const StyledWeekdayText = styled.span`
 
 export const StyledWeekdayTypography = styled(Typography)<TypographyProps>`
   && {
+    font: var(--global-font-static-comp-medium-s);
     color: var(--input-calendar-txt-alt);
   }
 `;

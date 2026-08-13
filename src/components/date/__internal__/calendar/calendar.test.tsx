@@ -31,7 +31,6 @@ test("falls back to numeric month labels without a localizer", () => {
       monthSelectId="month"
       yearSelectId="year"
       years={[2025]}
-      size="medium"
       onMonthChange={noop}
       onYearChange={noop}
     />,

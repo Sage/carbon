@@ -12,7 +12,6 @@ interface CalendarNavigationProps {
   monthSelectId: string;
   yearSelectId: string;
   years: number[];
-  size: "small" | "medium" | "large";
   localize?: {
     month: (month: DateFnsMonth, options?: { width?: "wide" }) => string;
   };
@@ -27,7 +26,6 @@ const CalendarNavigation = ({
   monthSelectId,
   yearSelectId,
   years,
-  size,
   localize,
   onMonthChange,
   onYearChange,
@@ -49,7 +47,6 @@ const CalendarNavigation = ({
 
   return (
     <CalendarNavigationContainer
-      $size={size}
       data-component="date-picker-navigation"
       data-element="date-picker-navigation"
       data-role="date-picker-navigation"
@@ -59,7 +56,6 @@ const CalendarNavigation = ({
         data-element="date-picker-month-selector"
         data-role="date-picker-month-selector"
         aria-label={locale.date.ariaLabels.chooseMonth?.()}
-        size={size}
         options={monthOptions}
         value={displayedMonth.getMonth()}
         onChange={onMonthChange}
@@ -70,7 +66,6 @@ const CalendarNavigation = ({
         data-element="date-picker-year-selector"
         data-role="date-picker-year-selector"
         aria-label={locale.date.ariaLabels.chooseYear?.()}
-        size={size}
         options={years.map((year) => ({ value: year, label: String(year) }))}
         value={displayedYear}
         onChange={onYearChange}

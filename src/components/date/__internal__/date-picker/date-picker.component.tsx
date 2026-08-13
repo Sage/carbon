@@ -41,7 +41,6 @@ export const DatePicker = ({
   ariaLabel: datePickerAriaLabel,
   ariaLabelledBy: datePickerAriaLabelledBy,
   pickerId,
-  size = "medium",
 }: DatePickerProps) => {
   if (!deprecateDisablePortalWarnTriggered && disablePortal) {
     deprecateDisablePortalWarnTriggered = true;
@@ -182,7 +181,6 @@ export const DatePicker = ({
           monthSelectId={monthSelectId}
           yearSelectId={yearSelectId}
           years={years}
-          size={size}
           localize={localize}
           onMonthChange={handleMonthChange}
           onYearChange={handleYearChange}

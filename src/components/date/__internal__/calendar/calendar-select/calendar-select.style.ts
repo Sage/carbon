@@ -1,11 +1,5 @@
 import styled, { css } from "styled-components";
-import { propsForSize as buttonSizeConfig } from "../../../../button/__next__/button.config";
 import addFocusStyling from "../../../../../style/utils/add-focus-styling";
-
-import {
-  calendarSelectSizeConfig,
-  CalendarSelectSize,
-} from "./calendar-select.config";
 
 export const StyledWrapper = styled.div<{ $disabled?: boolean }>`
   position: relative;
@@ -22,9 +16,7 @@ export const StyledWrapper = styled.div<{ $disabled?: boolean }>`
     `}
 `;
 
-export const StyledSelect = styled.select<{
-  $size: CalendarSelectSize;
-}>`
+export const StyledSelect = styled.select`
   appearance: none;
   -webkit-appearance: none;
   display: inline-flex;
@@ -35,17 +27,16 @@ export const StyledSelect = styled.select<{
   border: none;
   outline: none;
   border-radius: var(--global-radius-container-m);
-  padding: ${({ $size }) => calendarSelectSizeConfig[$size].blockPadding}
+  padding: var(--global-space-comp-xs)
     calc(
-      ${({ $size }) => calendarSelectSizeConfig[$size].inlinePadding} +
-        var(--global-size-2-xs) + var(--global-space-comp-xs)
+      var(--global-space-comp-m) + var(--global-size-2-xs) +
+        var(--global-space-comp-xs)
     )
-    ${({ $size }) => calendarSelectSizeConfig[$size].blockPadding}
-    ${({ $size }) => calendarSelectSizeConfig[$size].inlinePadding};
-  min-height: ${({ $size }) => buttonSizeConfig[$size].height};
+    var(--global-space-comp-xs) var(--global-space-comp-m);
+  min-height: var(--global-size-s);
   min-width: var(--global-size-4-xl);
   width: auto;
-  font: ${({ $size }) => calendarSelectSizeConfig[$size].controlFont};
+  font: var(--global-font-static-comp-medium-s);
   color: inherit;
   text-align: left;
 
@@ -70,18 +61,18 @@ export const StyledSelect = styled.select<{
     align-items: center;
     gap: 0;
     box-sizing: border-box;
-    height: ${({ $size }) => buttonSizeConfig[$size].height};
-    min-height: ${({ $size }) => buttonSizeConfig[$size].height};
+    height: var(--global-size-s);
+    min-height: var(--global-size-s);
     padding: var(--global-space-none);
     padding-inline-end: var(--global-space-comp-m);
-    font: ${({ $size }) => calendarSelectSizeConfig[$size].optionFont};
+    font: var(--global-font-static-comp-regular-s);
     background: var(--popover-bg-default);
     color: var(--input-dropdown-label-default);
     text-align: left;
   }
 
   option:checked {
-    color: var(--input-dropdown-label-default);
+    color: var(--input-dropdown-label-alt);
   }
 
   option:disabled {
@@ -128,8 +119,8 @@ export const StyledSelect = styled.select<{
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      width: ${({ $size }) => calendarSelectSizeConfig[$size].checkmarkWidth};
-      height: 20px;
+      width: var(--global-size-2-xs);
+      height: var(--global-size-2-xs);
       margin: 0;
       color: var(--input-dropdown-label-alt);
       font-family: CarbonIcons, sans-serif;
@@ -157,13 +148,9 @@ export const StyledSelect = styled.select<{
   }
 `;
 
-export const StyledIcon = styled.span<{
-  $size: CalendarSelectSize;
-  $disabled?: boolean;
-}>`
+export const StyledIcon = styled.span<{ $disabled?: boolean }>`
   position: absolute;
-  inset-inline-end: ${({ $size }) =>
-    calendarSelectSizeConfig[$size].inlinePadding};
+  inset-inline-end: var(--global-space-comp-m);
   z-index: 3;
   display: flex;
   align-items: center;

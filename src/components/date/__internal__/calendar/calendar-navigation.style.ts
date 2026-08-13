@@ -1,15 +1,12 @@
 import styled from "styled-components";
 
-import { propsForSize as buttonSizeConfig } from "../../../button/__next__/button.config";
-import type { DatePickerSize } from "../date-picker";
-
-const CalendarNavigation = styled.div<{ $size: DatePickerSize }>`
+const CalendarNavigation = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: var(--date-picker-grid-width);
   max-width: 100%;
-  min-height: ${({ $size }) => buttonSizeConfig[$size].height};
+  min-height: var(--global-size-s);
   margin: 0 auto;
 `;
 
