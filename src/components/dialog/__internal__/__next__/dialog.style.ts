@@ -394,7 +394,6 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
               min-width: ${DIALOG_MIN_WIDTH};
             }
           `}
- 
           ${$size === "large" &&
           css`
             min-width: 850px;
