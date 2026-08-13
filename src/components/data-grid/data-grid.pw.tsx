@@ -1,0 +1,598 @@
+import React from "react";
+import type { Page } from "@playwright/test";
+
+import { expect, test } from "../../../playwright/helpers/base-test";
+import { checkAccessibility } from "../../../playwright/support/helper";
+import DataGridComponent from "./components.test-pw";
+
+const cell = (page: Page, rowId: number, field: string) =>
+  page.locator(`[data-element="data-grid-cell-${String(rowId)}-${field}"]`);
+
+test("passes accessibility checks with mixed cell states and types", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await checkAccessibility(page, page.getByRole("grid"));
+});
+
+test("edits a text cell and moves to the next cell with Tab", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const nameCell = cell(page, 1, "name");
+  const typeCell = cell(page, 1, "type");
+  await nameCell.click();
+  await page.keyboard.press("Enter");
+
+  const editor = page.getByRole("textbox", { name: "Name, row 1" });
+  await expect(editor).toBeFocused();
+  await editor.fill("Updated line");
+  await page.keyboard.press("Tab");
+
+  await expect(nameCell).toContainText("Updated line");
+  await expect(typeCell).toBeFocused();
+});
+
+test("shows navigational focus after clicking without entering edit mode", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const nameCell = cell(page, 1, "name");
+  await nameCell.click();
+
+  await expect(nameCell).toBeFocused();
+  await expect(page.getByRole("textbox", { name: "Name, row 1" })).toHaveCount(
+    0,
+  );
+  await expect
+    .poll(() =>
+      nameCell.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .not.toBe("none");
+});
+
+test("supports row and grid edge navigation with Home and End", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await cell(page, 2, "quantity").click();
+
+  await page.keyboard.press("Home");
+  await expect(cell(page, 2, "name")).toBeFocused();
+
+  await page.keyboard.press("End");
+  await expect(cell(page, 2, "actions")).toBeFocused();
+
+  await page.keyboard.press("Control+Home");
+  await expect(cell(page, 1, "name")).toBeFocused();
+
+  await page.keyboard.press("Control+End");
+  await expect(cell(page, 6, "actions")).toBeFocused();
+});
+
+test("opens a dropdown with one click without changing its typography or padding", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const typeCell = cell(page, 2, "type");
+  const restingContent = typeCell.locator(":scope > div");
+  const restingText = restingContent.locator(":scope > span").first();
+  const restingStyles = await Promise.all([
+    restingContent.evaluate(
+      (element) => getComputedStyle(element).paddingInlineStart,
+    ),
+    restingText.evaluate((element) => getComputedStyle(element).font),
+  ]);
+
+  await typeCell.click();
+
+  const select = page.getByRole("combobox", { name: "Type, row 2" });
+  const inputContainer = typeCell.locator('[data-role="input-container"]');
+  const activeText = typeCell.locator(
+    '[data-role="select-text"] .select-text-children-wrapper',
+  );
+  await expect(select).toBeFocused();
+  await expect(
+    page.locator('[data-element="select-list-wrapper"]'),
+  ).toBeVisible();
+  await expect
+    .poll(async () =>
+      Promise.all([
+        inputContainer.evaluate(
+          (element) => getComputedStyle(element).paddingInlineStart,
+        ),
+        activeText.evaluate((element) => getComputedStyle(element).font),
+      ]),
+    )
+    .toEqual(restingStyles);
+});
+
+test("opens and commits a dropdown with Space without scrolling vertically", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const grid = page.getByRole("grid");
+  const typeCell = cell(page, 2, "type");
+  await grid.evaluate((element) => {
+    element.scrollTop = 40;
+  });
+  await cell(page, 2, "name").click();
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("Space");
+
+  const select = page.getByRole("combobox", { name: "Type, row 2" });
+  await expect(select).toBeFocused();
+  const list = page.locator('[data-element="select-list-wrapper"]');
+  await expect(list).toBeVisible();
+  await expect
+    .poll(async () => {
+      const [cellBox, listBox] = await Promise.all([
+        typeCell.boundingBox(),
+        list.boundingBox(),
+      ]);
+
+      if (!cellBox || !listBox) return false;
+
+      return listBox.y >= cellBox.y + cellBox.height;
+    })
+    .toBe(true);
+  const options = page.getByRole("option");
+  const optionGeometryBeforeNavigation = await options.evaluateAll((elements) =>
+    elements.map((element) => {
+      const { height, y } = element.getBoundingClientRect();
+      return { height, y };
+    }),
+  );
+  const serviceOption = page.getByRole("option", { name: "Service" });
+  const productOption = page.getByRole("option", { name: "Product" });
+  await expect(
+    productOption.locator('[data-role="selected-icon-wrapper"]'),
+  ).toBeVisible();
+  await expect(
+    serviceOption.locator('[data-role="selected-icon-wrapper"]'),
+  ).toBeHidden();
+  await expect
+    .poll(async () =>
+      Promise.all([
+        select.evaluate((element) => getComputedStyle(element).fontSize),
+        serviceOption.evaluate((element) => getComputedStyle(element).fontSize),
+      ]),
+    )
+    .toEqual(["14px", "14px"]);
+  await page.keyboard.press("ArrowUp");
+  await expect(serviceOption).toHaveAttribute("data-has-focus", "true");
+  await expect(serviceOption).toHaveAttribute("aria-selected", "false");
+  await expect(
+    productOption.locator('[data-role="selected-icon-wrapper"]'),
+  ).toBeVisible();
+  await expect(
+    serviceOption.locator('[data-role="selected-icon-wrapper"]'),
+  ).toBeHidden();
+  await expect
+    .poll(() =>
+      options.evaluateAll((elements) =>
+        elements.map((element) => {
+          const { height, y } = element.getBoundingClientRect();
+          return { height, y };
+        }),
+      ),
+    )
+    .toEqual(optionGeometryBeforeNavigation);
+  await page.keyboard.press("Enter");
+
+  await expect(typeCell).toContainText("Service");
+  await expect(typeCell).toBeFocused();
+  await expect(select).toHaveCount(0);
+  await expect
+    .poll(() => grid.evaluate((element) => element.scrollTop))
+    .toBe(40);
+
+  await page.keyboard.press("Tab");
+  await expect(cell(page, 2, "quantity")).toBeFocused();
+  await expect(page.getByRole("combobox", { name: "Type, row 2" })).toHaveCount(
+    0,
+  );
+  await expect
+    .poll(() =>
+      typeCell.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .toBe("none");
+});
+
+test("restores grid focus when a Carbon dropdown closes by blurring", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const typeCell = cell(page, 2, "type");
+  await typeCell.click();
+
+  const select = page.getByRole("combobox", { name: "Type, row 2" });
+  await select.blur();
+
+  await expect(typeCell).toContainText("Product");
+  await expect(typeCell).toBeFocused();
+});
+
+test("returns focus to the cell when an open dropdown is dismissed with Escape", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const typeCell = cell(page, 2, "type");
+  await typeCell.click();
+
+  await expect(page.getByRole("option", { name: "Service" })).toBeVisible();
+  await page.keyboard.press("Escape");
+
+  await expect(page.getByRole("combobox", { name: "Type, row 2" })).toHaveCount(
+    0,
+  );
+  await expect(typeCell).toBeFocused();
+  await expect(typeCell).toContainText("Product");
+});
+
+test("filters and commits a FilterableSelect dropdown", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent filterableDropdown />);
+
+  const typeCell = cell(page, 2, "type");
+  await typeCell.click();
+
+  const select = page.getByRole("combobox", { name: "Type, row 2" });
+  await expect(select).toBeFocused();
+  await select.fill("Serv");
+  await expect(page.getByRole("option", { name: "Service" })).toBeVisible();
+  await page.getByRole("option", { name: "Service" }).click();
+
+  await expect(typeCell).toContainText("Service");
+  await expect(typeCell).toBeFocused();
+  await expect(select).toHaveCount(0);
+});
+
+test("toggles a checkbox with one click and with Space", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const checkboxCell = cell(page, 1, "selected");
+  const checkbox = checkboxCell.getByRole("checkbox");
+
+  await checkboxCell.click();
+  await expect(checkbox).toBeChecked();
+  await expect(checkboxCell).toBeFocused();
+  await expect
+    .poll(() =>
+      checkboxCell.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .not.toBe("none");
+
+  await page.keyboard.press("Space");
+  await expect(checkbox).not.toBeChecked();
+});
+
+test("opens an action popover with Space without scrolling vertically", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const grid = page.getByRole("grid");
+  const actionCell = cell(page, 2, "actions");
+  await grid.evaluate((element) => {
+    element.scrollTop = 40;
+  });
+  await actionCell.click({ position: { x: 4, y: 4 } });
+  const trigger = page.getByRole("button", { name: "Actions for row 2" });
+  await page.keyboard.press("Space");
+
+  const duplicateAction = page.getByRole("button", { name: "Duplicate" });
+  await expect(duplicateAction).toBeFocused();
+  await expect
+    .poll(async () => {
+      const [triggerBox, itemBox] = await Promise.all([
+        trigger.boundingBox(),
+        duplicateAction.boundingBox(),
+      ]);
+      return !!triggerBox && !!itemBox && itemBox.height > triggerBox.height;
+    })
+    .toBe(true);
+  await expect
+    .poll(() => grid.evaluate((element) => element.scrollTop))
+    .toBe(40);
+});
+
+test("reveals a non-sticky header when navigating to the first row", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent stickyHeader={false} />);
+
+  const grid = page.getByRole("grid");
+  await grid.evaluate((element) => {
+    element.scrollTop = 80;
+  });
+
+  await cell(page, 2, "name").click();
+  await page.keyboard.press("ArrowUp");
+
+  await expect(cell(page, 1, "name")).toBeFocused();
+  await expect
+    .poll(() => grid.evaluate((element) => element.scrollTop))
+    .toBe(0);
+});
+
+test("applies read-only behavior to each cell variation", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const nameCell = cell(page, 3, "name");
+  const typeCell = cell(page, 3, "type");
+  const checkboxCell = cell(page, 3, "selected");
+  const actionCell = cell(page, 3, "actions");
+
+  await expect(nameCell).toHaveAttribute("aria-readonly", "true");
+  await expect(typeCell).toHaveAttribute("aria-readonly", "true");
+  await expect(checkboxCell).toHaveAttribute("aria-readonly", "true");
+  await expect(actionCell).toHaveAttribute("aria-readonly", "true");
+  await expect(checkboxCell.getByRole("checkbox")).toBeDisabled();
+  await expect(typeCell.locator('[data-element="dropdown"]')).toHaveCount(0);
+
+  await typeCell.click();
+  await expect(page.getByRole("combobox", { name: "Type, row 3" })).toHaveCount(
+    0,
+  );
+
+  await actionCell.click({ position: { x: 4, y: 4 } });
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+});
+
+test("scrolls horizontally during keyboard navigation while keeping edge columns visible", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const grid = page.getByRole("grid");
+  const nameCell = cell(page, 1, "name");
+  const quantityCell = cell(page, 1, "quantity");
+  const actionCell = cell(page, 1, "actions");
+
+  await nameCell.click();
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("ArrowRight");
+
+  await expect(quantityCell).toBeFocused();
+  await expect
+    .poll(() => grid.evaluate((element) => element.scrollLeft))
+    .toBeGreaterThan(0);
+
+  const gridBounds = await grid.boundingBox();
+  const nameBounds = await nameCell.boundingBox();
+  const actionBounds = await actionCell.boundingBox();
+  expect(nameBounds?.x).toBeCloseTo(gridBounds?.x ?? 0, 0);
+  expect((actionBounds?.x ?? 0) + (actionBounds?.width ?? 0)).toBeCloseTo(
+    (gridBounds?.x ?? 0) + (gridBounds?.width ?? 0),
+    0,
+  );
+});
+
+test("the imperative edit action focuses the invalid cell editor", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await page.getByRole("button", { name: "Edit first error" }).click();
+
+  await expect(
+    page.getByRole("textbox", { name: "Name, row 2" }),
+  ).toBeFocused();
+  await expect(
+    page.getByRole("textbox", { name: "Name, row 2" }),
+  ).toHaveAccessibleDescription("Enter a name");
+});
+
+test("duplicates and deletes rows through the action popover", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await page.getByRole("button", { name: "Actions for row 1" }).click();
+  await page.getByRole("button", { name: "Duplicate" }).click();
+  await expect(page.getByText("Line 1", { exact: true })).toHaveCount(2);
+  await expect(cell(page, 7, "name")).toBeFocused();
+
+  await page.getByRole("button", { name: "Actions for row 7" }).click();
+  await page.getByRole("button", { name: "Delete" }).click();
+  await expect(page.getByText("Line 1", { exact: true })).toHaveCount(1);
+  await expect(cell(page, 2, "name")).toBeFocused();
+});
+
+test("focuses the first cell of a row added from an external control", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await page.getByRole("button", { name: "Add line" }).click();
+
+  await expect(cell(page, 7, "name")).toBeFocused();
+});
+
+test("does not navigate away from an open action popover", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const actionCell = cell(page, 1, "actions");
+  const selectedCell = cell(page, 1, "selected");
+  await actionCell.click({ position: { x: 4, y: 4 } });
+  await page.keyboard.press("Enter");
+
+  const duplicate = page.getByRole("button", { name: "Duplicate" });
+  await expect(duplicate).toBeFocused();
+  const stickyHeader = page.locator('[data-component="data-grid-header"]');
+  await expect
+    .poll(async () => {
+      const [cellZIndex, headerZIndex] = await Promise.all([
+        actionCell.evaluate((element) =>
+          Number(getComputedStyle(element).zIndex),
+        ),
+        stickyHeader.evaluate((element) =>
+          Number(getComputedStyle(element).zIndex),
+        ),
+      ]);
+
+      return cellZIndex > headerZIndex;
+    })
+    .toBe(true);
+  await page.keyboard.press("ArrowLeft");
+  await expect(duplicate).toBeFocused();
+  await expect(page.getByRole("list")).toBeVisible();
+
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("list")).toHaveCount(0);
+  const actionTrigger = page.getByRole("button", {
+    name: "Actions for row 1",
+  });
+  await expect(actionTrigger).toBeFocused();
+  await expect
+    .poll(() =>
+      actionCell.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .not.toBe("none");
+  await expect
+    .poll(() =>
+      actionTrigger.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .toBe("none");
+
+  const [cellBounds, triggerBounds] = await Promise.all([
+    actionCell.boundingBox(),
+    actionTrigger.boundingBox(),
+  ]);
+  expect(triggerBounds?.height).toBeLessThan(cellBounds?.height ?? 0);
+
+  await page.keyboard.press("ArrowDown");
+  await expect(cell(page, 2, "actions")).toBeFocused();
+  await expect(page.getByRole("list")).toHaveCount(0);
+
+  await page.keyboard.press("ArrowUp");
+  await expect(actionCell).toBeFocused();
+
+  await page.keyboard.press("ArrowLeft");
+  await expect(selectedCell).toBeFocused();
+});
+
+test("keeps focus on a cell clicked while an action popover is open", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await page.getByRole("button", { name: "Actions for row 1" }).click();
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+
+  const nextCell = cell(page, 2, "name");
+  await nextCell.click();
+
+  await expect(page.getByRole("list")).toHaveCount(0);
+  await expect(nextCell).toBeFocused();
+  await expect(
+    page.getByRole("button", { name: "Actions for row 1" }),
+  ).not.toBeFocused();
+});
+
+test("closes an open action popover before opening another", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const firstAction = page.getByRole("button", { name: "Actions for row 1" });
+  const secondAction = page.getByRole("button", { name: "Actions for row 2" });
+
+  await firstAction.click();
+  await expect(firstAction).toHaveAttribute("aria-expanded", "true");
+
+  await secondAction.click();
+
+  await expect(firstAction).toHaveAttribute("aria-expanded", "false");
+  await expect(secondAction).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByRole("list")).toHaveCount(1);
+});
+
+test("portals a pinned action popover beyond the grid scroll container", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await page.getByRole("button", { name: "Actions for row 5" }).click();
+
+  const menu = page.getByRole("list");
+  await expect(menu).toBeVisible();
+  await expect(
+    page.getByTestId("data-grid").locator('[role="list"]'),
+  ).toHaveCount(0);
+});
+
+test("tabs from an open action popover to the first cell of the next row", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const actionCell = cell(page, 1, "actions");
+  await actionCell.click({ position: { x: 4, y: 4 } });
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+
+  await page.keyboard.press("Tab");
+
+  await expect(page.getByRole("list")).toHaveCount(0);
+  await expect(cell(page, 2, "name")).toBeFocused();
+});
+
+test("virtualizes a constrained large grid and keeps its header sticky", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent rowCount={100} maxHeight="200px" />);
+
+  const grid = page.getByRole("grid");
+  const headers = page.getByRole("columnheader");
+  expect(await page.getByRole("gridcell").count()).toBeLessThan(500);
+
+  await grid.evaluate((element) => {
+    element.scrollTop = 2000;
+  });
+  await expect(cell(page, 50, "name")).toBeVisible();
+
+  const gridBounds = await grid.boundingBox();
+  const headerBounds = await headers.first().boundingBox();
+  expect(headerBounds?.y).toBeCloseTo(gridBounds?.y ?? 0, 0);
+});
