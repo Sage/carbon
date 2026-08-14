@@ -12,6 +12,7 @@ import {
   continuePressingSHIFTTAB,
   continuePressingTAB,
   waitForAnimationEnd,
+  waitForElementFocus,
 } from "../../../playwright/support/helper";
 import {
   Default,
@@ -200,13 +201,13 @@ test.describe("Browser-specific rendering", () => {
   });
 
   test.describe("Check background scroll when tabbing", () => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing forward through the sidebar and back to the start should not make the background scroll to the bottom", async ({
+    test("tabbing forward through the sidebar and back to the start should not make the background scroll to the bottom", async ({
       mount,
       page,
     }) => {
       await mount(<SidebarBackgroundScrollTestComponent />);
 
+      await waitForElementFocus(page, sidebarPreview(page));
       await continuePressingTAB(page, 3);
       const closeIconButtonElement = closeIconButton(page);
 
