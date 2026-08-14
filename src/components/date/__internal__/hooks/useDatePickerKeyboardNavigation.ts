@@ -112,8 +112,8 @@ const useDatePickerKeyboardNavigation = ({
   const handleKeyUp = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (open && Events.isEscKey(event)) {
-        onEscape();
         event.stopPropagation();
+        onEscape();
       }
     },
     [onEscape, open],
