@@ -233,15 +233,15 @@ test.describe("Browser-specific rendering", () => {
       await expect(boxElement).not.toBeInViewport();
     });
 
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing forward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", async ({
+    test("tabbing forward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", async ({
       mount,
       page,
     }) => {
       await mount(<SidebarBackgroundScrollWithOtherFocusableContainers />);
 
-      await continuePressingTAB(page, 6);
+      await waitForElementFocus(page, sidebarPreview(page));
       await waitForAnimationEnd(sidebarPreview(page));
+      await continuePressingTAB(page, 5);
       const closeIconButtonElement = closeIconButton(page).nth(0);
 
       await expect(closeIconButtonElement).toBeFocused();
