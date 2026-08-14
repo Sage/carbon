@@ -102,6 +102,8 @@
 - [Option](components/option.md)
 - [OptionGroupHeader](components/option-group-header.md)
 - [OptionRow](components/option-row.md)
+- [OptionTile](components/option-tile.md)
+- [OptionTileGroup](components/option-tile-group.md)
 - [Page](components/page.md) (deprecated)
 - [Pager](components/pager.md)
 - [Pages](components/pages.md) (deprecated)
