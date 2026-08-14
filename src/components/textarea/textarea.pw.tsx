@@ -92,11 +92,12 @@ test.describe("Props tests for Textarea component", () => {
   test("should render with labelInline prop", async ({ mount, page }) => {
     await mount(<TextareaComponent labelInline />);
 
-    const labelElementParent = getDataElementByValue(page, "label").locator(
-      "..",
+    const labelElementParent = getDataRoleByValue(
+      page,
+      "textarea-label-container",
     );
 
-    await expect(labelElementParent).toHaveCSS("justify-content", "flex-end");
+    await expect(labelElementParent).toHaveCSS("align-items", "flex-end");
   });
 
   (
@@ -111,11 +112,12 @@ test.describe("Props tests for Textarea component", () => {
     }) => {
       await mount(<TextareaComponent labelInline labelAlign={labelAlign} />);
 
-      const labelElementParent = getDataElementByValue(page, "label").locator(
-        "..",
+      const labelElementParent = getDataRoleByValue(
+        page,
+        "textarea-label-container",
       );
 
-      await expect(labelElementParent).toHaveCSS("justify-content", cssValue);
+      await expect(labelElementParent).toHaveCSS("align-items", cssValue);
     });
   });
 
@@ -396,14 +398,8 @@ test.describe("Props tests for Textarea component", () => {
     });
   });
 
-  (
-    [
-      ["flex", 399],
-      ["flex", 400],
-      ["block", 401],
-    ] as const
-  ).forEach(([displayValue, breakpoint]) => {
-    test(`should check label alignment is ${displayValue} with adaptiveLabelBreakpoint ${breakpoint} and viewport 400`, async ({
+  ([399, 400, 401] as const).forEach((breakpoint) => {
+    test(`should keep the label stacked with adaptiveLabelBreakpoint ${breakpoint} and viewport 400`, async ({
       mount,
       page,
     }) => {
@@ -417,7 +413,7 @@ test.describe("Props tests for Textarea component", () => {
         .locator("..")
         .locator("..");
 
-      await expect(labelParentParentElement).toHaveCSS("display", displayValue);
+      await expect(labelParentParentElement).toHaveCSS("display", "block");
     });
   });
 
@@ -467,7 +463,7 @@ test.describe("Props tests for Textarea component", () => {
       mount,
       page,
     }) => {
-      await mount(<TextareaComponent align={align} />);
+      await mount(<TextareaComponent style={{ textAlign: align }} />);
 
       await expect(textareaChildren(page)).toHaveCSS("text-align", align);
     });

@@ -123,6 +123,24 @@ test.each(["left", "right"])(
   },
 );
 
+test("applies focus styling when `hasFocus` is set in the input context provider", () => {
+  render(
+    <InputContext.Provider value={{ hasFocus: true }}>
+      <InputPresentation>
+        <Input value="" />
+      </InputPresentation>
+    </InputContext.Provider>,
+  );
+
+  const inputPresentation = screen.getByRole("presentation");
+
+  expect(inputPresentation).toHaveStyleRule(
+    "box-shadow",
+    "var(--focus-shadow-default)",
+    { modifier: "&" },
+  );
+});
+
 test("applies the custom `maxWidth` when prop is passed a value", () => {
   render(
     <InputPresentation maxWidth="500px">
