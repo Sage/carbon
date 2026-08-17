@@ -1,3 +1,9 @@
+## [161.18.0](https://github.com/Sage/carbon/compare/v161.17.2...v161.18.0) (2026-08-17)
+
+### Features
+
+* **divider:** align component with fusion DS ([2242875](https://github.com/Sage/carbon/commit/22428758273078f84b113872555eb655e5a9436b))
+
 ## [161.17.2](https://github.com/Sage/carbon/compare/v161.17.1...v161.17.2) (2026-08-12)
 
 ### Bug Fixes
