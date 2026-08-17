@@ -6,7 +6,7 @@ description: "Use for implementation work in this repository. Covers setup, work
 
 # Carbon React — Shared implementation instructions
 
-- Use the Node version in `.nvmrc` and npm 11.18.0 or newer. For a clean setup, run `nvm use && npm run setup`; do not replace the lockfile-based install with another package manager.
+- Use the Node version in `.nvmrc` and an npm version satisfying `package.json#engines`. For a clean setup, run `nvm use`, verify the npm requirement, then run `npm run setup`; do not replace the lockfile-based install with another package manager.
 - Inspect the relevant implementation, tests, stories, docs, and nearby components before editing. Keep changes minimal and do not resolve or overwrite unrelated worktree changes.
 - Do not commit `lib/`, `esm/`, `coverage/`, `storybook-static/`, `bundle-stats/`, Playwright result/cache/coverage directories, or `src/components/tokens-wrapper/static-tokens/`.
 - Do not add unused `eslint-disable` directives or raise lint warning ceilings. Use Conventional Commits. Adding a public deprecation is non-breaking; removing or renaming that deprecated API is breaking and requires a `BREAKING CHANGE:` footer with migration guidance.

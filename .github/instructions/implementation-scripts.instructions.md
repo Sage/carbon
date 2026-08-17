@@ -6,5 +6,4 @@ description: "Use for implementation or edits in scripts. Covers conventions rel
 
 # carbon-react — Implementation Instructions
 
-- Keep edits minimal and local.
 - No `console.*` in source unless the script explicitly requires CLI output.
