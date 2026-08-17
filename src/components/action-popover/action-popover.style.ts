@@ -219,6 +219,16 @@ const MenuButtonOverrideWrapper = styled.div`
         color: inherit;
       }
     }
+
+    &[aria-expanded="true"] {
+      ${addFocusStyling()}
+      background-color: var(--colorsActionMajorTransparent);
+      color: var(--colorsActionMajor600);
+
+      [data-component="icon"] {
+        color: inherit;
+      }
+    }
   }
 `;
 

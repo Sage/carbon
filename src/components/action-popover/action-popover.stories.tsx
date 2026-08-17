@@ -5,7 +5,6 @@ import {
   ActionPopoverDivider,
   ActionPopoverItem,
   ActionPopoverMenu,
-  ActionPopoverMenuButton,
   RenderButtonProps,
   ActionPopoverHandle,
 } from ".";
@@ -23,6 +22,7 @@ import Confirm from "../confirm";
 import { Accordion } from "../accordion";
 import Dialog from "../dialog";
 import Button from "../button";
+import ButtonNext from "../button/__next__";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -210,22 +210,22 @@ export const CustomMenuButton: Story = () => {
     <Box height={250}>
       <ActionPopover
         renderButton={({
-          tabIndex,
+          tabIndex: _tabIndex,
           "data-element": dataElement,
           ariaAttributes,
         }) => (
-          <ActionPopoverMenuButton
-            buttonType="tertiary"
+          <ButtonNext
+            variant="default"
+            variantType="subtle"
             iconType="dropdown"
             iconPosition="after"
             size="small"
-            tabIndex={tabIndex}
             data-element={dataElement}
-            ariaAttributes={ariaAttributes}
+            {...ariaAttributes}
             aria-label={undefined}
           >
-            More
-          </ActionPopoverMenuButton>
+            Action
+          </ButtonNext>
         )}
       >
         <ActionPopoverItem icon="email" onClick={() => {}}>
@@ -238,18 +238,19 @@ export const CustomMenuButton: Story = () => {
       </ActionPopover>
       <ActionPopover
         renderButton={({
-          tabIndex,
+          tabIndex: _tabIndex,
           "data-element": dataElement,
           ariaAttributes,
         }) => (
-          <ActionPopoverMenuButton
-            buttonType="tertiary"
+          <ButtonNext
+            variant="default"
+            variantType="subtle"
             iconType="dropdown"
             iconPosition="after"
             size="small"
-            tabIndex={tabIndex}
             data-element={dataElement}
-            ariaAttributes={ariaAttributes}
+            {...ariaAttributes}
+            aria-label="actions"
           />
         )}
       >
@@ -280,6 +281,40 @@ export const CustomMenuButton: Story = () => {
   );
 };
 CustomMenuButton.storyName = "Custom Menu Button";
+
+export const CustomMenuButtonWithoutText: Story = () => {
+  return (
+    <Box height={250}>
+      <ActionPopover
+        renderButton={({
+          tabIndex: _tabIndex,
+          "data-element": dataElement,
+          ariaAttributes,
+        }) => (
+          <ButtonNext
+            variant="default"
+            variantType="subtle"
+            iconType="dropdown"
+            iconPosition="after"
+            size="small"
+            data-element={dataElement}
+            {...ariaAttributes}
+            aria-label="actions"
+          />
+        )}
+      >
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  );
+};
+CustomMenuButtonWithoutText.storyName = "Custom Menu Button Without Text";
 
 export const Submenu: Story = () => {
   return (
@@ -691,9 +726,17 @@ export const OpeningAModal: Story = () => {
       <Box>
         <ActionPopover
           renderButton={({ ...props }) => (
-            <ActionPopoverMenuButton {...props}>
+            <ButtonNext
+              variant="default"
+              variantType="subtle"
+              iconType="dropdown"
+              iconPosition="after"
+              size="small"
+              {...props.ariaAttributes}
+              data-element={props["data-element"]}
+            >
               Open Actions
-            </ActionPopoverMenuButton>
+            </ButtonNext>
           )}
         >
           <ActionPopoverItem
@@ -748,16 +791,18 @@ export const FocusButtonProgrammatically = () => {
   const refMore = useRef<ActionPopoverHandle>(null);
 
   const renderButton = (props: RenderButtonProps) => (
-    <ActionPopoverMenuButton
-      buttonType="tertiary"
+    <ButtonNext
+      variant="default"
+      variantType="subtle"
       iconType="ellipsis_vertical"
       iconPosition="after"
       size="small"
-      aria-label={undefined}
-      {...props}
+      aria-label="more"
+      {...props.ariaAttributes}
+      data-element={props["data-element"]}
     >
       More
-    </ActionPopoverMenuButton>
+    </ButtonNext>
   );
 
   return (

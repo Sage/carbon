@@ -13,36 +13,36 @@ description: Carbon ActionPopover component props and usage examples.
 - Props interface: `ActionPopoverProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| children | React.ReactNode | No |  | Children for popover component |  |
-| horizontalAlignment | Alignment \| undefined | No |  | Horizontal alignment of menu items content |  |
-| id | string \| undefined | No |  | Unique ID |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| onClose | (() => void) \| undefined | No |  | Callback to be called on menu close |  |
-| onOpen | (() => void) \| undefined | No |  | Callback to be called on menu open |  |
-| placement | "bottom" \| "top" \| undefined | No |  | Set whether the menu should open above or below the button |  |
-| renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  | Render a custom menu button to override default ellipsis icon |  |
-| rightAlignMenu | boolean \| undefined | No |  | Boolean to control whether menu should align to right |  |
-| submenuPosition | Alignment \| undefined | No |  | Sets submenu position |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| aria-describedby | string \| undefined | No |  | Prop to specify an aria-describedby for the component |  |
-| aria-label | string \| undefined | No |  | Prop to specify an aria-label for the component |  |
-| aria-labelledby | string \| undefined | No |  | Prop to specify an aria-labelledby for the component |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| children | React.ReactNode | No |  |  |  | Children for popover component |  |
+| id | string \| undefined | No |  |  |  | Unique ID |  |
+| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| onClose | (() => void) \| undefined | No |  |  |  | Callback to be called on menu close |  |
+| onOpen | (() => void) \| undefined | No |  |  |  | Callback to be called on menu open |  |
+| renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  |  |  | Render a custom menu button to override default ellipsis icon |  |
+| rightAlignMenu | boolean \| undefined | No |  |  |  | Boolean to control whether menu should align to right |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-describedby | string \| undefined | No |  |  |  | Prop to specify an aria-describedby for the component |  |
+| aria-label | string \| undefined | No |  |  |  | Prop to specify an aria-label for the component |  |
+| aria-labelledby | string \| undefined | No |  |  |  | Prop to specify an aria-labelledby for the component |  |
+| horizontalAlignment | Alignment \| undefined | No |  | Yes | This prop will be removed in a future major release. Horizontal alignment is now inferred from menu placement. |  |  |
+| placement | "bottom" \| "top" \| undefined | No |  | Yes | This prop will be removed in a future major release. The menu now opens with adaptive placement and flips when space is constrained. |  |  |
+| submenuPosition | Alignment \| undefined | No |  | Yes | This prop will be removed in a future major release. Submenus now default to opening on the right and automatically flip when space is constrained. |  |  |
 
 ## Examples
 ### Default
@@ -254,22 +254,22 @@ description: Carbon ActionPopover component props and usage examples.
     <Box height={250}>
       <ActionPopover
         renderButton={({
-          tabIndex,
+          tabIndex: _tabIndex,
           "data-element": dataElement,
           ariaAttributes,
         }) => (
-          <ActionPopoverMenuButton
-            buttonType="tertiary"
+          <ButtonNext
+            variant="default"
+            variantType="subtle"
             iconType="dropdown"
             iconPosition="after"
             size="small"
-            tabIndex={tabIndex}
             data-element={dataElement}
-            ariaAttributes={ariaAttributes}
+            {...ariaAttributes}
             aria-label={undefined}
           >
-            More
-          </ActionPopoverMenuButton>
+            Action
+          </ButtonNext>
         )}
       >
         <ActionPopoverItem icon="email" onClick={() => {}}>
@@ -282,18 +282,19 @@ description: Carbon ActionPopover component props and usage examples.
       </ActionPopover>
       <ActionPopover
         renderButton={({
-          tabIndex,
+          tabIndex: _tabIndex,
           "data-element": dataElement,
           ariaAttributes,
         }) => (
-          <ActionPopoverMenuButton
-            buttonType="tertiary"
+          <ButtonNext
+            variant="default"
+            variantType="subtle"
             iconType="dropdown"
             iconPosition="after"
             size="small"
-            tabIndex={tabIndex}
             data-element={dataElement}
-            ariaAttributes={ariaAttributes}
+            {...ariaAttributes}
+            aria-label="actions"
           />
         )}
       >
@@ -310,6 +311,46 @@ description: Carbon ActionPopover component props and usage examples.
           <Link onClick={() => {}} data-element={dataElement}>
             More
           </Link>
+        )}
+      >
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  );
+}
+```
+
+
+### Custom Menu Button Without Text
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box height={250}>
+      <ActionPopover
+        renderButton={({
+          tabIndex: _tabIndex,
+          "data-element": dataElement,
+          ariaAttributes,
+        }) => (
+          <ButtonNext
+            variant="default"
+            variantType="subtle"
+            iconType="dropdown"
+            iconPosition="after"
+            size="small"
+            data-element={dataElement}
+            {...ariaAttributes}
+            aria-label="actions"
+          />
         )}
       >
         <ActionPopoverItem icon="email" onClick={() => {}}>
@@ -805,9 +846,17 @@ description: Carbon ActionPopover component props and usage examples.
       <Box>
         <ActionPopover
           renderButton={({ ...props }) => (
-            <ActionPopoverMenuButton {...props}>
+            <ButtonNext
+              variant="default"
+              variantType="subtle"
+              iconType="dropdown"
+              iconPosition="after"
+              size="small"
+              {...props.ariaAttributes}
+              data-element={props["data-element"]}
+            >
               Open Actions
-            </ActionPopoverMenuButton>
+            </ButtonNext>
           )}
         >
           <ActionPopoverItem
@@ -874,16 +923,18 @@ description: Carbon ActionPopover component props and usage examples.
   const refMore = useRef<ActionPopoverHandle>(null);
 
   const renderButton = (props: RenderButtonProps) => (
-    <ActionPopoverMenuButton
-      buttonType="tertiary"
+    <ButtonNext
+      variant="default"
+      variantType="subtle"
       iconType="ellipsis_vertical"
       iconPosition="after"
       size="small"
-      aria-label={undefined}
-      {...props}
+      aria-label="more"
+      {...props.ariaAttributes}
+      data-element={props["data-element"]}
     >
       More
-    </ActionPopoverMenuButton>
+    </ButtonNext>
   );
 
   return (
