@@ -14,6 +14,10 @@ export interface ButtonToggleProps extends TagProps {
   "aria-labelledby"?: string;
   /** Content to display within the button. */
   children?: React.ReactNode;
+  /** Additional class name to merge with the component's own class. */
+  className?: string;
+  /** Override the auto-generated id on the button element. */
+  id?: string;
   /** Callback triggered by blur event on the button. */
   onBlur?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
   /** Callback triggered by focus event on the button. */
@@ -47,7 +51,9 @@ export const ButtonToggle = ({
   buttonIcon,
   buttonIconSize,
   children,
+  className,
   disabled,
+  id,
   onBlur,
   onFocus,
   onClick,
@@ -118,14 +124,12 @@ export const ButtonToggle = ({
 
   return (
     <StyledButtonToggle
-      className="button-toggle"
       data-button-toggle-internal
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       aria-describedby={hintTextId}
       aria-pressed={!!isPressed}
       disabled={disabled || isDisabled}
-      id={inputGuid.current}
       $size={displaySize}
       $active={!!isPressed}
       $iconOnly={iconOnly}
@@ -139,6 +143,8 @@ export const ButtonToggle = ({
       ref={callbackRef}
       {...rest}
       {...tagComponent(dataComponent || "button-toggle", rest)}
+      className={["button-toggle", className].filter(Boolean).join(" ")}
+      id={id ?? inputGuid.current}
     >
       {buttonIcon && displaySize !== "extraSmall" && (
         <Icon aria-hidden type={buttonIcon} />
