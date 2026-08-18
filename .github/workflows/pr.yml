@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Check approvals
         id: check_approvals
-        uses: octokit/request-action@v2.x
+        uses: octokit/request-action@v3.x
         with:
           route: GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews
           owner: ${{ github.event.repository.owner.login }}
@@ -37,7 +37,7 @@ jobs:
           echo "count=$APPROVALS" >> "$GITHUB_OUTPUT"
 
       - name: Dispatch Chromatic
-        uses: octokit/request-action@v2.x
+        uses: octokit/request-action@v3.x
         if: ${{ fromJSON(steps.count_approvals.outputs.count) >= 2 && contains(github.event.pull_request.labels.*.name, 'Passed Review') }}
         id: dispatch_chromatic
         with:
