@@ -1228,7 +1228,7 @@ test.describe("Scrollable tests", () => {
   }) => {
     await mount(<FlatTableStickyFooterActionPopoverComponent />);
 
-    const actionPopover = page.getByRole("button", { name: "actions" });
+    const actionPopover = page.getByRole("button", { name: "Action" });
 
     await actionPopover.click();
     const buttonList = page.getByRole("list");

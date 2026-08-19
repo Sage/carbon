@@ -58,7 +58,7 @@ export const flatTableCaption = (page: Page) =>
   flatTable(page).locator("caption");
 
 export const flatTablePageSizeSelect = (page: Page) =>
-  page.locator(FLAT_TABLE_PAGE_SIZE_SELECT);
+  flatTablePager(page).locator(FLAT_TABLE_PAGE_SIZE_SELECT);
 export const flatTablePageSelectListPosition = (page: Page) =>
   page.locator(FLAT_TABLE_PAGE_SELECT_LIST);
 export const pageSelectElement = (page: Page) => page.locator(PAGE_SELECT);

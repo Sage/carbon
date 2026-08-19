@@ -253,11 +253,7 @@ description: Carbon ActionPopover component props and usage examples.
   return (
     <Box height={250}>
       <ActionPopover
-        renderButton={({
-          tabIndex: _tabIndex,
-          "data-element": dataElement,
-          ariaAttributes,
-        }) => (
+        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
           <ButtonNext
             variant="default"
             variantType="subtle"
@@ -281,11 +277,7 @@ description: Carbon ActionPopover component props and usage examples.
         </ActionPopoverItem>
       </ActionPopover>
       <ActionPopover
-        renderButton={({
-          tabIndex: _tabIndex,
-          "data-element": dataElement,
-          ariaAttributes,
-        }) => (
+        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
           <ButtonNext
             variant="default"
             variantType="subtle"
@@ -336,11 +328,7 @@ description: Carbon ActionPopover component props and usage examples.
   return (
     <Box height={250}>
       <ActionPopover
-        renderButton={({
-          tabIndex: _tabIndex,
-          "data-element": dataElement,
-          ariaAttributes,
-        }) => (
+        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
           <ButtonNext
             variant="default"
             variantType="subtle"

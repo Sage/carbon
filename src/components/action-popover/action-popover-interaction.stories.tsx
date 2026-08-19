@@ -74,11 +74,7 @@ export const SubmenuHoverAndFocus: Story = {
       <Box mt={10} height={10}>
         <ActionPopover
           data-role="target"
-          renderButton={({
-            tabIndex: _tabIndex,
-            "data-element": dataElement,
-            ariaAttributes,
-          }) => (
+          renderButton={({ "data-element": dataElement, ariaAttributes }) => (
             <Button
               variant="default"
               variantType="subtle"

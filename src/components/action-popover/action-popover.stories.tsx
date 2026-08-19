@@ -209,11 +209,7 @@ export const CustomMenuButton: Story = () => {
   return (
     <Box height={250}>
       <ActionPopover
-        renderButton={({
-          tabIndex: _tabIndex,
-          "data-element": dataElement,
-          ariaAttributes,
-        }) => (
+        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
           <ButtonNext
             variant="default"
             variantType="subtle"
@@ -237,11 +233,7 @@ export const CustomMenuButton: Story = () => {
         </ActionPopoverItem>
       </ActionPopover>
       <ActionPopover
-        renderButton={({
-          tabIndex: _tabIndex,
-          "data-element": dataElement,
-          ariaAttributes,
-        }) => (
+        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
           <ButtonNext
             variant="default"
             variantType="subtle"
@@ -286,11 +278,7 @@ export const CustomMenuButtonWithoutText: Story = () => {
   return (
     <Box height={250}>
       <ActionPopover
-        renderButton={({
-          tabIndex: _tabIndex,
-          "data-element": dataElement,
-          ariaAttributes,
-        }) => (
+        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
           <ButtonNext
             variant="default"
             variantType="subtle"
