@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { OptionTile, OptionTileGroup } from ".";
 
@@ -142,7 +142,7 @@ test("marks checkbox decoration as hidden from accessibility tree", () => {
   expect(tile).toBeVisible();
   expect(tile).toHaveAttribute("tabindex", "0");
   expect(screen.getAllByRole("checkbox", { hidden: true })).toHaveLength(1);
-  expect(tile.querySelector('[data-role="option-tile-checkbox"]')).toHaveAttribute(
+  expect(within(tile).getByRole("checkbox", { hidden: true })).toHaveAttribute(
     "aria-hidden",
     "true",
   );
