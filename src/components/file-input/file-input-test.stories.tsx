@@ -67,17 +67,23 @@ export const AllStatuses = (args: Partial<FileInputProps>) => {
       message: "oops, that's not right",
     },
   ];
-  return statuses.map((status, index) => (
-    <FileInput
-      key={`status-${status?.status ?? "none"}-${index}`}
-      my={20}
-      label="test"
-      inputHint="hint"
-      uploadStatus={status}
-      onChange={() => {}}
-      {...args}
-    />
-  ));
+  return statuses.map((status, index) => {
+    const statusType = Array.isArray(status)
+      ? "multiple"
+      : (status?.status ?? "none");
+
+    return (
+      <FileInput
+        key={`status-${statusType}-${index}`}
+        my={20}
+        label="test"
+        inputHint="hint"
+        uploadStatus={status}
+        onChange={() => {}}
+        {...args}
+      />
+    );
+  });
 };
 
 export const LongFilenameStatus = (args: Partial<FileInputProps>) => {
