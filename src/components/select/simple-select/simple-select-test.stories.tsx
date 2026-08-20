@@ -544,3 +544,12 @@ export const DropdownSubtle = () => {
   );
 };
 DropdownSubtle.storyName = "Dropdown: subtle";
+
+export const LocalRegressionCheck = () => {
+  return (
+      <Select label="Colour" onChange={() => {}} openOnFocus value="">
+        <Option text="amber" value="amber" />
+      </Select>
+  );
+};
+LocalRegressionCheck.storyName = "Local regression check";
