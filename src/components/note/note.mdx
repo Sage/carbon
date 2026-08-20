@@ -7,12 +7,12 @@ import * as NoteStories from "./note.stories";
 # Note
 
 <a
-	target="_blank"
-	href="https://designsystem.sage.com/fusion/latest/pages/components/note/"
-	style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
-	rel="noreferrer"
+  target="_blank"
+  href="https://designsystem.sage.com/fusion/latest/pages/components/note/"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
 >
-	Product Design System component
+  Product Design System component
 </a>
 
 The `Note` was created using the `lexical` framework which allows rich text content to be rendered. For further documentation on this component, please read [our documentation regarding Lexical](../?path=/docs/documentation-using-lexical--docs)
@@ -61,9 +61,16 @@ Optional inline controls can be provided using the `inlineControl` prop. This sh
 
 ### With status
 
-An optional status can be provided using the `status` prop.
+An optional status can be provided using the `status` prop. It is displayed with
+its timestamp below the author and created details.
 
 <Canvas of={NoteStories.WithStatus} />
+
+### With @mentions
+
+Mentions saved by the Text Editor are rendered as read-only pills in a Note.
+
+<Canvas of={NoteStories.WithMention} />
 
 ### With previews
 
