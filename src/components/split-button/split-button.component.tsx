@@ -4,40 +4,39 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useEffect,
-  useMemo,
+  useState,
+  useCallback,
 } from "react";
 import { MarginProps } from "styled-system";
-import { flip, offset } from "@floating-ui/dom";
-
-import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Icon, { IconType } from "../icon";
-import Button from "../button";
-import StyledSplitButton from "./split-button.style";
+import Button from "../button/__next__";
+import StyledSplitButton, {
+  StyledPopoverMenuWrapper,
+  StyledBackdrop,
+} from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
-import StyledSplitButtonChildrenContainer from "./split-button-children.style";
-import guid from "../../__internal__/utils/helpers/guid";
-import Popover from "../../__internal__/popover";
+import { PopoverMenu } from "../../__internal__/popover-menu";
+import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import {
   filterStyledSystemMarginProps,
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
-import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import SplitButtonContext from "./__internal__/split-button.context";
 import useLocale from "../../hooks/__internal__/useLocale";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-const CONTENT_WIDTH_RATIO = 0.75;
-
 export interface SplitButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     MarginProps,
     TagProps {
-  /** Set align of the rendered content */
+  /**
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   * Set align of the rendered content */
   align?: "left" | "right";
-  /** Button type: "primary" | "secondary" */
-  buttonType?: "primary" | "secondary";
+  /** Button type. SplitButton only supports the primary variant. */
+  buttonType?: "primary";
   /** The additional button to display. */
   children: React.ReactNode;
   /** Prop to specify an aria-label for the component */
@@ -48,16 +47,20 @@ export interface SplitButtonProps
   iconPosition?: "before" | "after";
   /** Defines an Icon type within the button */
   iconType?: IconType;
+  /** Set the width of the menu. Defaults to the width of the SplitButton. */
+  menuWidth?: string;
   /** The size of the buttons. */
   size?: "small" | "medium" | "large";
-  /** Second text child, renders under main text, only when size is "large" */
+  /**
+   * @deprecated This prop is no longer supported on this component.
+   * Second text child, renders under main text, only when size is "large" */
   subtext?: string;
   /** The text to be displayed in the main button. */
   text: string;
-  /** Sets rendering position of menu */
+  /**
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   * Sets the alignment of the rendered content */
   position?: "left" | "right";
-  /** Renders the white variant of the secondary split button */
-  isWhite?: boolean;
 }
 
 export type SplitButtonHandle = {
@@ -70,35 +73,34 @@ export type SplitButtonHandle = {
 export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
   (
     {
-      align = "left",
+      align: _align = "left", // eslint-disable-line @typescript-eslint/no-unused-vars -- deprecated, kept for backwards compatibility
       position = "right",
-      buttonType = "secondary",
+      buttonType = "primary",
       children,
       disabled = false,
       iconPosition = "before",
       iconType,
+      menuWidth,
       onClick,
       size = "medium",
-      subtext,
+      subtext: _subtext,
       text,
       "data-element": dataElement,
       "data-role": dataRole,
       "aria-label": ariaLabel,
-      isWhite = false,
       ...rest
     },
     ref,
   ) => {
     const locale = useLocale();
-    const buttonLabelId = useRef(guid());
-    const submenuId = useRef(guid());
+    const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
 
     const mainButtonRef = useRef<HTMLButtonElement>(null);
     const toggleButtonRef = useRef<HTMLButtonElement>(null);
+    const buttonNode = useRef<HTMLDivElement>(null);
+    const toggleWrapperRef = useRef<HTMLDivElement>(null);
 
     const { isInFlatTable } = useContext(FlatTableContext);
-
-    const shouldRenderIsWhiteVariant = buttonType === "secondary" && isWhite;
 
     useImperativeHandle<SplitButtonHandle, SplitButtonHandle>(
       ref,
@@ -113,15 +115,13 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       [],
     );
 
-    const {
-      showAdditionalButtons,
-      showButtons,
-      hideButtons,
-      buttonNode,
-      handleToggleButtonKeyDown,
-      wrapperProps,
-      contextValue,
-    } = useChildButtons(toggleButtonRef, CONTENT_WIDTH_RATIO);
+    const hideButtons = useCallback(() => {
+      setShowAdditionalButtons(false);
+    }, []);
+
+    const showButtons = useCallback(() => {
+      setShowAdditionalButtons(true);
+    }, []);
 
     useEffect(() => {
       if (!isInFlatTable) return;
@@ -160,99 +160,92 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       }
     };
 
+    const handleChildButtonClick = useCallback(
+      (childOnClick?: React.MouseEventHandler<HTMLButtonElement>) =>
+        (ev: React.MouseEvent<HTMLButtonElement>) => {
+          childOnClick?.(ev);
+          hideButtons();
+          toggleButtonRef.current?.focus();
+        },
+      [hideButtons],
+    );
+
     useAdaptiveSidebarModalFocus(() => hideButtons());
 
-    const renderMainButton = () => (
-      <>
-        <Button
-          data-element="main-button"
-          key="main-button"
-          id={buttonLabelId.current}
-          ref={mainButtonRef}
-          isWhite={shouldRenderIsWhiteVariant}
-          subtext={subtext}
-          size={size}
-          iconType={iconType}
-          disabled={disabled}
-          buttonType={buttonType}
-          iconPosition={iconPosition}
-          onClick={handleMainClick}
-          {...filterOutStyledSystemSpacingProps(rest)}
-        >
-          {text}
-        </Button>
-        <StyledSplitButtonToggle
-          aria-expanded={showAdditionalButtons}
-          aria-controls={submenuId.current}
-          aria-label={ariaLabel || locale.splitButton.ariaLabel()}
-          data-element="toggle-button"
-          key="toggle-button"
-          type="button"
-          ref={toggleButtonRef}
-          isWhite={shouldRenderIsWhiteVariant}
-          disabled={disabled}
-          displayed={showAdditionalButtons}
-          buttonType={buttonType}
-          size={size}
-          onKeyDown={handleToggleButtonKeyDown}
-          onClick={handleToggleClick}
-        >
-          <Icon type="dropdown" color="inherit" bg="transparent" />
-        </StyledSplitButtonToggle>
-      </>
-    );
-
-    const floatingMiddleware = useMemo(
-      () => [
-        offset(6),
-        flip({
-          fallbackStrategy: "initialPlacement",
-        }),
-      ],
-      [],
-    );
-
-    const renderAdditionalButtons = () => (
-      <Popover
-        isOpen={showAdditionalButtons}
-        disableBackgroundUI={isInFlatTable && showAdditionalButtons}
-        disablePortal
-        placement={
-          position === "left"
-            ? /* istanbul ignore next */ "bottom-start"
-            : "bottom-end"
-        }
-        popoverStrategy="fixed"
-        reference={buttonNode}
-        middleware={floatingMiddleware}
-      >
-        <StyledSplitButtonChildrenContainer
-          data-role="split-button-children-container"
-          id={submenuId.current}
-          {...wrapperProps}
-          align={align}
-          hidden={!showAdditionalButtons}
-        >
-          <SplitButtonContext.Provider value={contextValue}>
-            {React.Children.map(children, (child) => (
-              <li>{child}</li>
-            ))}
-          </SplitButtonContext.Provider>
-        </StyledSplitButtonChildrenContainer>
-      </Popover>
-    );
+    const contextValue = {
+      inSplitButton: true,
+      onChildButtonClick: handleChildButtonClick,
+    };
 
     return (
       <StyledSplitButton
         data-component="split-button"
         data-element={dataElement}
         data-role={dataRole}
-        onClick={useClickAwayListener(hideButtons)}
         ref={buttonNode}
         {...filterStyledSystemMarginProps(rest)}
       >
-        {renderMainButton()}
-        {renderAdditionalButtons()}
+        {isInFlatTable && showAdditionalButtons && (
+          <StyledBackdrop
+            data-role="popup-backdrop"
+            data-testid="popup-backdrop"
+          />
+        )}
+        <Button
+          data-element="main-button"
+          ref={mainButtonRef}
+          size={size}
+          iconType={iconType}
+          disabled={disabled}
+          variantType={buttonType}
+          iconPosition={iconPosition}
+          onClick={handleMainClick}
+          {...filterOutStyledSystemSpacingProps(rest)}
+        >
+          {text}
+        </Button>
+        <SplitButtonContext.Provider value={contextValue}>
+          <StyledPopoverMenuWrapper ref={toggleWrapperRef}>
+            <PopoverMenu<HTMLButtonElement>
+              open={showAdditionalButtons}
+              onOpen={showButtons}
+              onClose={hideButtons}
+              size={size}
+              placement={
+                position === "left"
+                  ? /* istanbul ignore next */ "bottom-start"
+                  : "bottom-end"
+              }
+              isButtonMenu
+              controlReference={buttonNode}
+              matchReferenceWidth
+              popoverStrategy="fixed"
+              width={menuWidth}
+              popoverControl={(ref, props) => {
+                const combinedRef = combineRefs(ref, toggleButtonRef);
+                return (
+                  <StyledSplitButtonToggle
+                    {...props}
+                    aria-label={ariaLabel || locale.splitButton.ariaLabel()}
+                    data-element="toggle-button"
+                    type="button"
+                    ref={combinedRef}
+                    disabled={disabled}
+                    $displayed={showAdditionalButtons}
+                    $size={size}
+                    $variant="default"
+                    $variantType={buttonType}
+                    onClick={handleToggleClick}
+                  >
+                    <Icon type="dropdown" />
+                  </StyledSplitButtonToggle>
+                );
+              }}
+            >
+              {children}
+            </PopoverMenu>
+          </StyledPopoverMenuWrapper>
+        </SplitButtonContext.Provider>
       </StyledSplitButton>
     );
   },

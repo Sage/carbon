@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import StyledButton from "../button/button.style";
+import { StyledButton } from "../button/__next__/button.style";
 import StyledIcon from "../icon/icon.style";
 
 const horizontalPaddingSizes = {
@@ -9,101 +9,74 @@ const horizontalPaddingSizes = {
 };
 
 type StyledSplitButtonToggleProps = {
-  buttonType: "primary" | "secondary";
-  disabled: boolean;
-  displayed: boolean;
-  size: "small" | "medium" | "large";
-  isWhite?: boolean;
+  $displayed: boolean;
+  $size: "small" | "medium" | "large";
 };
 
 const StyledSplitButtonToggle = styled(
   StyledButton,
 )<StyledSplitButtonToggleProps>`
-  ${({ buttonType, disabled, displayed, size, isWhite }) => css`
-    border-top-left-radius: var(--borderRadius000);
-    border-bottom-left-radius: var(--borderRadius000);
+  ${({ $displayed, $size }) => css`
+    border-top-left-radius: var(--global-size-none);
+    border-bottom-left-radius: var(--global-size-none);
 
-    ${!disabled && displayed && !isWhite
-      ? css`
-          background-color: var(--colorsActionMajor500);
-          border-color: var(--colorsActionMajor500);
-
-          &,
-          ${StyledIcon} {
-            color: var(--colorsActionMajorYang100);
-          }
-
-          &:focus {
-            border-left-color: var(--colorsSemanticFocus500);
-          }
-        `
-      : ""}
-
-    ${!disabled && displayed && isWhite
-      ? css`
-          background-color: var(--colorsActionMajorYang100);
-          border-color: var(--colorsActionMajorYang100);
-
-          &,
-          ${StyledIcon} {
-            color: var(--colorsYin100);
-          }
-
-          &:focus {
-            border-left-color: var(--colorsSemanticFocus500);
-          }
-        `
-      : ""}
-
-    ${!disabled &&
-    buttonType === "primary" &&
-    `
-      position: relative;
-      &::before {
-        content: '';
-        width: 2px;
-        height: 100%;
-        background: var(--colorsActionMajorYang100);
-        position: absolute;
-        left: -2px;
-        z-index: 2;
-      }  
-    `}
-
-    ${buttonType === "secondary" && "border-left-width: 0;"}
-    padding: 0 ${horizontalPaddingSizes[size]}px;
-
-    ${StyledButton} + & {
-      margin-left: 0;
-    }
-
-    ${StyledButton} + & ${StyledIcon} {
-      margin-left: 0;
-    }
-
-    &:focus {
-      background-color: var(--colorsActionMajor700);
-      border-color: var(--colorsActionMajor700);
+    &:disabled {
+      && {
+        background-color: var(--button-typical-primary-bg-disabled) !important;
+      }
 
       &,
       ${StyledIcon} {
-        color: var(--colorsActionMajorYang100);
+        color: var(--button-typical-primary-label-disabled);
       }
+
+      cursor: not-allowed;
     }
 
-    ${!disabled &&
-    isWhite &&
-    `
-      &:focus {
-        background-color: var(--colorsActionMajorYang100);
-        border-color: var(--colorsActionMajorYang100);
+    ${$displayed
+      ? css`
+          &:not(:disabled) {
+            background-color: var(--button-typical-primary-bg-active);
+            border-color: var(--button-typical-primary-bg-active);
 
-        &,
-        ${StyledIcon} {
-          color: var(--colorsYin100);
-        }
+            &,
+            ${StyledIcon} {
+              color: var(--button-typical-primary-label-active);
+            }
+          }
+        `
+      : ""}
+
+    position: relative;
+    &::before {
+      content: "";
+      width: 2px;
+      height: 100%;
+      background: var(--button-typical-primary-label-default);
+      position: absolute;
+      left: -2px;
+      z-index: 2;
+    }
+
+    padding: var(--global-space-none) ${horizontalPaddingSizes[$size]}px;
+
+    ${StyledButton} + & {
+      margin-left: var(--global-space-none);
+    }
+
+    ${StyledButton} + & ${StyledIcon} {
+      margin-left: var(--global-space-none);
+    }
+
+    &:not(:disabled):focus {
+      background-color: var(--button-typical-primary-bg-default);
+      border-color: var(--button-typical-primary-bg-default);
+
+      &,
+      ${StyledIcon} {
+        color: var(--button-typical-primary-label-default);
       }
-    `}
+    }
   `}
 `;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { action } from "storybook/actions";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import { ICONS } from "../icon/icon-config";
 import {
@@ -11,6 +11,7 @@ import {
   SPLIT_BUTTON_POSITIONS,
 } from "./split-button.config";
 import SplitButton, { SplitButtonProps } from "./split-button.component";
+import { Accordion } from "../..";
 
 export default {
   title: "Split Button/Test",
@@ -43,6 +44,11 @@ export default {
       options: SPLIT_BUTTON_SIZES,
       control: {
         type: "select",
+      },
+    },
+    menuWidth: {
+      control: {
+        type: "text",
       },
     },
     align: {
@@ -85,7 +91,7 @@ SplitButtonStory.story = {
   args: {
     iconType: "",
     iconPosition: "before",
-    buttonType: "secondary",
+    buttonType: "primary",
     dataElement: "data-element",
     dataRole: "",
     disabled: false,
@@ -95,3 +101,17 @@ SplitButtonStory.story = {
     subtext: "",
   },
 };
+
+export const InOverflowHiddenContainer = () => (
+  <Accordion title="Heading">
+    <Box p={4}>
+      <SplitButton size="large" text="Split button">
+        <Button size="large">Button 1</Button>
+        <Button size="large">Button 2</Button>
+        <Button size="large">Button 3</Button>
+      </SplitButton>
+    </Box>
+  </Accordion>
+);
+InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
+InOverflowHiddenContainer.parameters = { chromatic: { disableSnapshot: true } };
