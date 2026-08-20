@@ -16,6 +16,7 @@ import {
   StyledFormFooter,
 } from "../../../form/form.style";
 import StyledFullScreenHeading from "../../../../__internal__/full-screen-heading/full-screen-heading.style";
+import { paddingPropertyNames } from "../../../../style/utils/filter-styled-system-padding-props";
 
 const dialogSizes = {
   small: DIALOG_SIZE_CONFIG.small.maxWidth,
@@ -81,27 +82,8 @@ const applyDefaultPadding = () => css`
   }
 `;
 
-const contentPaddingKeys = [
-  "p",
-  "padding",
-  "px",
-  "paddingX",
-  "py",
-  "paddingY",
-  "pt",
-  "paddingTop",
-  "pr",
-  "paddingRight",
-  "pb",
-  "paddingBottom",
-  "pl",
-  "paddingLeft",
-];
-
 const hasContentPadding = (props: PaddingProps) =>
-  contentPaddingKeys.some(
-    (key) => (props as Record<string, unknown>)[key] !== undefined,
-  );
+  paddingPropertyNames.some((key) => props[key] !== undefined);
 
 // istanbul ignore next
 const applyContentPadding =
