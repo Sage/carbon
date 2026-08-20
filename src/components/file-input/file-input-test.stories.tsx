@@ -67,8 +67,9 @@ export const AllStatuses = (args: Partial<FileInputProps>) => {
       message: "oops, that's not right",
     },
   ];
-  return statuses.map((status) => (
+  return statuses.map((status, index) => (
     <FileInput
+      key={`status-${status?.status ?? "none"}-${index}`}
       my={20}
       label="test"
       inputHint="hint"
