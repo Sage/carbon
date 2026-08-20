@@ -230,7 +230,6 @@ export const SimpleSelect = React.forwardRef<
       tableHeader,
       "data-element": dataElement,
       "data-role": dataRole,
-      listPlacement = "bottom",
       flipEnabled,
       enableVirtualScroll,
       virtualScrollOverscan,
@@ -357,20 +356,20 @@ export const SimpleSelect = React.forwardRef<
     );
 
     const handleGlobalClick = useCallback((event: MouseEvent) => {
-      const notInContainer =
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node);
-      const notInList =
-        listboxRef.current &&
-        !listboxRef.current.contains(event.target as Node);
+        const notInContainer =
+          containerRef.current &&
+          !containerRef.current.contains(event.target as Node);
+        const notInList =
+          listboxRef.current &&
+          !listboxRef.current.contains(event.target as Node);
 
-      isMouseDownReported.current = false;
+        isMouseDownReported.current = false;
 
-      if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
-        setOpenState(false);
-      }
+        if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
+          setOpenState(false);
+        }
 
-      isClickTriggeredBySelect.current = false;
+        isClickTriggeredBySelect.current = false;
     }, []);
 
     useEffect(() => {
@@ -548,19 +547,6 @@ export const SimpleSelect = React.forwardRef<
       };
     }
 
-    let placement: ListPlacement;
-
-    switch (listPlacement) {
-      case "top":
-        placement = "top-end";
-        break;
-      case "bottom":
-        placement = "bottom-end";
-        break;
-      default:
-        placement = listPlacement;
-    }
-
     const marginProps = filterStyledSystemMarginProps(props);
 
     const mappedInputWidth = props.inputWidth;
@@ -585,7 +571,7 @@ export const SimpleSelect = React.forwardRef<
           maxHeight={
             listMaxHeight !== undefined ? `${listMaxHeight}px` : undefined
           }
-          placement={placement}
+          placement="bottom-end"
           selectedValue={selectedValue}
           listboxAriaLabel={ariaLabel}
           controlReference={containerRef}
