@@ -57,13 +57,13 @@ export const flatTableSubrowFirstCell = (page: Page, index: number) =>
 export const flatTableCaption = (page: Page) =>
   flatTable(page).locator("caption");
 
+export const flatTablePager = (page: Page) => page.locator(FLAT_TABLE_PAGER);
 export const flatTablePageSizeSelect = (page: Page) =>
   flatTablePager(page).locator(FLAT_TABLE_PAGE_SIZE_SELECT);
 export const flatTablePageSelectListPosition = (page: Page) =>
   page.locator(FLAT_TABLE_PAGE_SELECT_LIST);
 export const pageSelectElement = (page: Page) => page.locator(PAGE_SELECT);
 export const pageSelectInput = (page: Page) => page.locator(PAGE_SELECT_INPUT);
-export const flatTablePager = (page: Page) => page.locator(FLAT_TABLE_PAGER);
 export const flatTablePageSelectNext = (page: Page) =>
   page.locator(FLAT_TABLE_PAGE_SELECT_NEXT);
 export const flatTablePageSelectPrevious = (page: Page) =>

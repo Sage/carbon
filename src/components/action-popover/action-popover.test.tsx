@@ -1879,6 +1879,138 @@ describe("when the submenuPosition prop is set to 'right'", () => {
     expect(parentItem).toHaveFocus();
   });
 });
+describe("when the submenuPosition prop is set to 'left'", () => {
+  it("renders a chevron icon that points left", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <ActionPopover submenuPosition="left">
+        <ActionPopoverItem>example item 1</ActionPopoverItem>
+        <ActionPopoverItem>example item 2</ActionPopoverItem>
+        <ActionPopoverItem
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
+              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          example item with submenu
+        </ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    await user.click(screen.getByRole("button"));
+
+    const chevronIcon = screen.getByTestId("chevron-icon");
+    expect(chevronIcon).toHaveStyleRule(
+      "content",
+      `"${iconUnicodes.chevron_left_thick}"`,
+      { modifier: "&::before" },
+    );
+  });
+
+  it("opens the submenu and focuses the first item when left arrow key is pressed", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <ActionPopover submenuPosition="left">
+        <ActionPopoverItem>example item 1</ActionPopoverItem>
+        <ActionPopoverItem>example item 2</ActionPopoverItem>
+        <ActionPopoverItem
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
+              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          example item with submenu
+        </ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    await user.click(screen.getByRole("button"));
+    jest.runOnlyPendingTimers();
+
+    screen.getByRole("button", { name: "example item with submenu" }).focus();
+    await user.keyboard("{ArrowLeft}");
+    jest.runOnlyPendingTimers();
+
+    const firstItem = screen.getByRole("button", { name: "submenu item 1" });
+    expect(firstItem).toBeVisible();
+    expect(firstItem).toHaveFocus();
+  });
+
+  it("closes the submenu and returns focus to parent item when the submenu is open and the right arrow key is pressed", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <ActionPopover submenuPosition="left">
+        <ActionPopoverItem>example item 1</ActionPopoverItem>
+        <ActionPopoverItem>example item 2</ActionPopoverItem>
+        <ActionPopoverItem
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
+              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          example item with submenu
+        </ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    await user.click(screen.getByRole("button"));
+
+    const parentItem = screen.getByRole("button", {
+      name: "example item with submenu",
+    });
+
+    parentItem.focus();
+    await user.keyboard("{ArrowLeft}");
+
+    expect(
+      screen.getByRole("button", { name: "submenu item 1" }),
+    ).toBeVisible();
+
+    await user.keyboard("{ArrowRight}");
+
+    expect(
+      screen.queryByRole("button", { name: "submenu item 1" }),
+    ).not.toBeInTheDocument();
+    expect(parentItem).toHaveFocus();
+  });
+
+  it("leaves the submenu closed when a key other than left, enter or right is pressed", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <ActionPopover submenuPosition="left">
+        <ActionPopoverItem>example item 1</ActionPopoverItem>
+        <ActionPopoverItem
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          example item with submenu
+        </ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    await user.click(screen.getByRole("button"));
+
+    screen.getByRole("button", { name: "example item with submenu" }).focus();
+    await user.keyboard("{Escape}");
+
+    expect(
+      screen.queryByRole("button", { name: "submenu item 1" }),
+    ).not.toBeInTheDocument();
+  });
+});
 
 describe("when the submenuPosition prop is set to 'right' and there isn't enough space on the screen to render a submenu on the right", () => {
   let getBoundingClientRectSpy: jest.SpyInstance;
