@@ -11,14 +11,14 @@ import * as SimpleSelectStories from "./simple-select.stories";
 
 <a
   target="_blank"
-  href="https://designsystem.sage.com/fusion/latest/pages/components/dropdowns/simple-dropdown/"
+  href="https://designsystem.sage.com/fusion/pages/components/dropdowns/simple-dropdown"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
   Product Design System component
 </a>
 
-Select one of available options from the drop-down menu. Simple Select is a Carbon styled equivalent of HTML Select Element.
+Select one of available options from the drop-down menu.
 
 ## Contents
 
@@ -39,61 +39,17 @@ Always insert `Option` Components inside the `Select`, analogous to the original
 
 ## Examples
 
-### Default
+### Playground
 
-<Canvas of={SimpleSelectStories.Default} />
+<Canvas of={SimpleSelectStories.Playground} />
 
-### Required
+### Complex compositions
 
-You can use the `required` prop to indicate if the field is mandatory.
+`Option`s support rich content such as leading icons, prefixes, subtext and portraits, as well as dividers between
+items. You can also pass a composed layout to the `OptionGroupHeader` via its `children` prop, which overrides any
+values passed to the `icon` and `label` props.
 
-<Canvas of={SimpleSelectStories.Required} />
-
-### List placement
-
-By default, the placement of the select list is below the input element and will automatically adjust its position if there is not enough space.
-However, you can use `listPlacement` prop to manually set the initial position of the select list relative to the input element.
-
-<Canvas of={SimpleSelectStories.ListPlacement} />
-
-### List height
-
-You can use `listMaxHeight` prop to override default max height value of select list.
-
-<Canvas of={SimpleSelectStories.ListHeight} />
-
-### List width
-
-You can use `listWidth` prop to override the width of the select list. By default the list
-will have the same width as the input.
-
-<Canvas of={SimpleSelectStories.ListWidth} />
-
-### Sizes
-
-The `size` prop can be used to set the size of the select input. The default value is `medium`.
-
-<Canvas of={SimpleSelectStories.Sizes} />
-
-### With object as value
-
-Option values could be passed as objects, useful when custom data is associated with an option.
-When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
-If there is no `id` prop specified on an object, then the exact objects will be compared.
-
-<Canvas of={SimpleSelectStories.WithObjectAsValue} />
-
-### With custom maxWidth
-
-In this example the `maxWidth` prop is 100%.
-
-<Canvas of={SimpleSelectStories.WithCustomMaxWidth} />
-
-### With isLoading prop
-
-When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
-
-<Canvas of={SimpleSelectStories.WithIsLoadingProp} />
+<Canvas of={SimpleSelectStories.ComplexCompositions} />
 
 ### Infinite scroll example
 
@@ -101,53 +57,6 @@ The `isLoading` prop in combination with the `onListScrollBottom` prop can be us
 This prop will be called every time a user scrolls to the bottom of the list.
 
 <Canvas of={SimpleSelectStories.WithInfiniteScroll} />
-
-### Open on focus
-
-<Canvas of={SimpleSelectStories.OpenOnFocus} />
-
-### Disabled
-
-<Canvas of={SimpleSelectStories.Disabled} />
-
-### Read Only
-
-<Canvas of={SimpleSelectStories.Readonly} />
-
-### Transparent
-
-<Canvas of={SimpleSelectStories.Transparent} />
-
-### Transparent Disabled
-
-<Canvas of={SimpleSelectStories.TransparentDisabled} />
-
-### Custom Option content
-
-The `Option` component accepts any valid React node as children, which allows for custom content to be rendered inside the option.
-The `text` value will be used as the displayed value in the input field when selected. You can also use the `leftChildren` prop to render a node to the left of the option text.
-
-<Canvas of={SimpleSelectStories.CustomOptionChildren} />
-
-### With multiple columns
-
-<Canvas of={SimpleSelectStories.WithMultipleColumns} />
-
-### Option groups
-
-<Canvas of={SimpleSelectStories.OptionGroups} />
-
-It is also possible to use the `children` prop to pass a composed layout to the
-`OptionGroupHeader`. It should be noted it will override any values passed to the
-`icon` and `label` props.
-
-<Canvas of={SimpleSelectStories.OptionGroupsWithComposedChildren} />
-
-### Enabling the adaptive behaviour
-
-The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
-
-<Canvas of={SimpleSelectStories.EnablingAdaptiveBehaviour} />
 
 ### Virtual scrolling
 
@@ -159,9 +68,13 @@ be customised if desired using the `virtualScrollOverscan` prop. Higher values w
 
 <Canvas of={SimpleSelectStories.Virtualised} />
 
-### With multiple columns and virtualisation
+### List action button
 
-<Canvas of={SimpleSelectStories.WithMultipleColumnsAndVirtualisation} />
+A button can be rendered at the bottom of the list by passing the `listActionButton` prop. Set it to `true` to render
+the default button, or pass a custom `Button` component. The `onListAction` callback is required and is triggered when
+the button is actioned.
+
+<Canvas of={SimpleSelectStories.WithListActionButton} />
 
 ### Selection confirmed
 
@@ -219,18 +132,31 @@ describe("Select tests", () => {
   test("should render", () => {
     // your test code here
   });
-})
+});
 ```
 
 ## Props
 
 ### Select
 
-<ArgTypes of={SimpleSelectStories} />
+<ArgTypes of={SimpleSelectStories} exclude={["leftChildren"]} />
 
 Due to the `Textbox` component being used internally by the `SimpleSelect` component, most of the `Textbox` props are applicable to `SimpleSelect`
 
-<ArgTypes of={SelectTextboxStories} />
+<ArgTypes
+  of={SelectTextboxStories}
+  exclude={[
+    "inert",
+    "leftChildren",
+    "align",
+    "onChangeDeferred",
+    "deferTimeout",
+    "iconOnClick",
+    "iconOnMouseDown",
+    "iconTabIndex",
+    "inputIcon",
+  ]}
+/>
 
 **Any other supplied props will be provided to the underlying HTML input element**
 
