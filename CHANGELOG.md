@@ -1,3 +1,9 @@
+## [161.18.1](https://github.com/Sage/carbon/compare/v161.18.0...v161.18.1) (2026-08-20)
+
+### Bug Fixes
+
+* **tabs:** ensure focused tab is fully visible ([ce19463](https://github.com/Sage/carbon/commit/ce19463267cdde0ec87b2434eb2f642cb575d55d)), closes [#8093](https://github.com/Sage/carbon/issues/8093)
+
 ## [161.18.0](https://github.com/Sage/carbon/compare/v161.17.2...v161.18.0) (2026-08-17)
 
 ### Features
