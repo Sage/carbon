@@ -47,50 +47,6 @@ export const PrimarySplitButton: Story = {
   },
 };
 
-export const SecondarySplitButton: Story = {
-  render: () => (
-    <SplitButton buttonType="secondary" text="Split button - secondary">
-      <Button>Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </SplitButton>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-    const canvas = within(canvasElement);
-
-    const secondaryToggle = canvas.getByRole("button", { name: /show more/i });
-
-    await userEvent.click(secondaryToggle);
-    expect(secondaryToggle).toHaveAttribute("aria-expanded", "true");
-  },
-};
-
-export const WhiteSecondarySplitButton: Story = {
-  render: () => (
-    <Box p={2} width="298px" backgroundColor="#000">
-      <SplitButton
-        buttonType="secondary"
-        text="Split button - secondary - white"
-        isWhite
-      >
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-    </Box>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-    const canvas = within(canvasElement);
-
-    const whiteToggle = canvas.getByRole("button", { name: /show more/i });
-
-    await userEvent.click(whiteToggle);
-    await expect(whiteToggle).toHaveAttribute("aria-expanded", "true");
-  },
-};
-
 export const SmallSplitButton: Story = {
   render: () => (
     <SplitButton size="small" text="Split button - small">

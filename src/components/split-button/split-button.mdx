@@ -9,6 +9,8 @@ import * as SplitButtonStories from "./split-button.stories";
 
 # Split Button
 
+SplitButton supports the primary variant only. The legacy secondary styling and white variant are no longer supported.
+
 <a
   target="_blank"
   href="https://designsystem.sage.com/fusion/latest/pages/components/buttons/split-button/"
@@ -40,7 +42,7 @@ import SplitButton, { type SplitButtonHandle } from "carbon-react/lib/components
 
 ### Focusing Main and Toggle Buttons Programmatically
 
-The `SplitButtonHandle` type provides an imperative handle for programmatic control over `SplitButton`. 
+The `SplitButtonHandle` type provides an imperative handle for programmatic control over `SplitButton`.
 Using a `ref`, you can access its `focusMainButton()` and `focusToggleButton()` methods to set focus on the respective buttons as needed.
 
 <Canvas of={SplitButtonStories.ProgrammaticFocus} />
@@ -48,10 +50,6 @@ Using a `ref`, you can access its `focusMainButton()` and `focusToggleButton()` 
 ### Disabled
 
 <Canvas of={SplitButtonStories.Disabled} />
-
-### Button types
-
-<Canvas of={SplitButtonStories.ButtonTypes} />
 
 ### Child button types
 
@@ -63,6 +61,12 @@ Buttons used as a content of `SplitButton` can be of any type.
 
 <Canvas of={SplitButtonStories.Sizes} />
 
+### Menu width
+
+By default, the menu is the same width as the `SplitButton`. Use the `menuWidth` prop to set a custom width with any valid CSS width value.
+
+<Canvas of={SplitButtonStories.CustomMenuWidth} />
+
 ### Button text alignment
 
 Use the `align` prop to change the alignment of the text in the menu Buttons.
@@ -71,7 +75,7 @@ Use the `align` prop to change the alignment of the text in the menu Buttons.
 
 ### Menu position
 
-By default, the menu will open aligned to the "right" of the button, but you can use the `position` prop to change this to the "left". 
+By default, the menu will open aligned to the "right" of the button, but you can use the `position` prop to change this to the "left".
 
 Note: The position of the menu will also be automatically adjusted to fit within the viewport.
 
@@ -128,11 +132,10 @@ The following keys are available to override the translations for this component
   translationData={[
     {
       name: "splitButton.ariaLabel",
-      description:
-        "The text for the toggle button's aria-label attribute.",
+      description: "The text for the toggle button's aria-label attribute.",
       type: "func",
       returnType: "string",
-    }
+    },
   ]}
 />
 
@@ -140,7 +143,7 @@ The following keys are available to override the translations for this component
 
 `SplitButton`'s forwarded ref exposes the following imperative methods:
 
-| Method Name             | Description                                  |
-| ----------------------- | -------------------------------------------- |
-| `focusMainButton()`   | Programmatically focuses the main button.    |
-| `focusToggleButton()` | Programmatically focuses the toggle button.  |
+| Method Name           | Description                                 |
+| --------------------- | ------------------------------------------- |
+| `focusMainButton()`   | Programmatically focuses the main button.   |
+| `focusToggleButton()` | Programmatically focuses the toggle button. |

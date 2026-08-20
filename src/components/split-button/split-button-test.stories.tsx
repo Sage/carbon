@@ -45,6 +45,11 @@ export default {
         type: "select",
       },
     },
+    menuWidth: {
+      control: {
+        type: "text",
+      },
+    },
     align: {
       options: SPLIT_BUTTON_ALIGNMENTS,
       control: {
@@ -85,7 +90,7 @@ SplitButtonStory.story = {
   args: {
     iconType: "",
     iconPosition: "before",
-    buttonType: "secondary",
+    buttonType: "primary",
     dataElement: "data-element",
     dataRole: "",
     disabled: false,
