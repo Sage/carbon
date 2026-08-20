@@ -377,7 +377,7 @@ description: Carbon Portrait component props and usage examples.
           value={variant}
         >
           {availableVariants.map(({ label, value }) => (
-            <Option text={label} value={value} />
+            <Option key={value} text={label} value={value} />
           ))}
         </Select>
       </Box>
