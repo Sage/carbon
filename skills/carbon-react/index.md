@@ -113,7 +113,7 @@
 - [PicklistGroup](components/picklist-group.md) (deprecated)
 - [PicklistItem](components/picklist-item.md) (deprecated)
 - [PicklistPlaceholder](components/picklist-placeholder.md) (deprecated)
-- [Pill](components/pill.md)
+- [Pill](components/pill.md) — A compact visual indicator used to label, categorise, or show the status of an item.
 - [Pod](components/pod.md) (deprecated)
 - [PopoverContainer](components/popover-container.md)
 - [Portal](components/portal.md)

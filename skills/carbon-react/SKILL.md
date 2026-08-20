@@ -1,12 +1,14 @@
 ---
 name: carbon-react
-description: Carbon component catalog with typed props, Storybook usage examples, and curated docs references. Use when answering questions about Carbon components, props, and usage guidance.
+description: Carbon component selection guidance, typed props, curated usage examples, and documentation references. Use when choosing or implementing Carbon React components, checking props or deprecations, and applying Carbon-specific usage guidance.
 ---
 
 # Carbon Component Catalog
 
-Use `index.md` to find the component file.
-Use `components/*.md` to read props and examples.
+Start with `index.md` to select a component. Read only the relevant file in `components/`, then open linked files in `examples/` as needed. Do not load every component or example.
+
+Component files combine human-authored selection guidance with imports, props, defaults, and deprecations derived from source code. Curated examples are derived from Storybook stories; playground stories remain optimized for interactive documentation and are not included unless explicitly selected.
+
 Use these docs references:
 - `references/docs/usage.md`
 - `references/docs/installation.md`
