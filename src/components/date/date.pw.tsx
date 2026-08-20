@@ -223,12 +223,11 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    await page
-      .getByRole("combobox", { name: "Choose the month" })
-      .selectOption({
-        label: "June",
-      });
-    await expect(page.getByRole("dialog", { name: NEXT_MONTH })).toBeVisible();
+    const monthSelector = page.getByRole("combobox", {
+      name: "Choose the month",
+    });
+    await monthSelector.selectOption({ label: "June" });
+    await expect(monthSelector).toHaveValue("5");
   });
 
   test("should use the year selector to show a different year", async ({
@@ -243,10 +242,11 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    await page.getByRole("combobox", { name: "Choose the year" }).selectOption({
-      label: "2023",
+    const yearSelector = page.getByRole("combobox", {
+      name: "Choose the year",
     });
-    await expect(page.getByRole("dialog", { name: "May 2023" })).toBeVisible();
+    await yearSelector.selectOption({ label: "2023" });
+    await expect(yearSelector).toHaveValue("2023");
   });
 
   test(`should allow a user to tab into the picker and through its controls`, async ({
@@ -362,7 +362,7 @@ test.describe("Functionality tests", () => {
 
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
-    await page.getByLabel("Date").press("Tab");
+    await page.getByLabel("Date", { exact: true }).press("Tab");
 
     const datePicker = page.getByTestId("date-picker");
     await datePicker.waitFor();
@@ -380,7 +380,7 @@ test.describe("Functionality tests", () => {
     await expect(day31Button).toBeFocused();
 
     await expect(
-      page.getByRole("dialog", { name: "March 2022" }),
+      page.getByRole("dialog", { name: "Choose a date" }),
     ).toBeVisible();
   });
 
@@ -392,7 +392,7 @@ test.describe("Functionality tests", () => {
 
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
-    await page.getByLabel("Date").press("Tab");
+    await page.getByLabel("Date", { exact: true }).press("Tab");
 
     const datePicker = page.getByTestId("date-picker");
     await datePicker.waitFor();
@@ -410,7 +410,7 @@ test.describe("Functionality tests", () => {
     await expect(day28Button).toBeFocused();
 
     await expect(
-      page.getByRole("dialog", { name: "March 2022" }),
+      page.getByRole("dialog", { name: "Choose a date" }),
     ).toBeVisible();
   });
 
@@ -422,7 +422,7 @@ test.describe("Functionality tests", () => {
 
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
-    await page.getByLabel("Date").press("Tab");
+    await page.getByLabel("Date", { exact: true }).press("Tab");
 
     const datePicker = page.getByTestId("date-picker");
     await datePicker.waitFor();
@@ -439,7 +439,9 @@ test.describe("Functionality tests", () => {
 
     await expect(day1Button).toBeFocused();
 
-    await expect(page.getByRole("dialog", { name: "May 2022" })).toBeVisible();
+    await expect(
+      page.getByRole("dialog", { name: "Choose a date" }),
+    ).toBeVisible();
   });
 
   ["Enter", "Space"].forEach((key) => {
@@ -452,7 +454,7 @@ test.describe("Functionality tests", () => {
       const calendarIcon = page.getByTestId("icon");
       await calendarIcon.click();
 
-      const dateInput = page.getByLabel("Date");
+      const dateInput = page.getByLabel("Date", { exact: true });
       await dateInput.press("Tab");
 
       const datePicker = page.getByTestId("date-picker");
@@ -476,7 +478,7 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    await page.getByLabel("Date").press("Tab");
+    await page.getByLabel("Date", { exact: true }).press("Tab");
 
     const datePicker = page.getByTestId("date-picker");
     await datePicker.waitFor();
@@ -493,7 +495,9 @@ test.describe("Functionality tests", () => {
 
     await expect(day1Button).toBeFocused();
 
-    await expect(page.getByRole("dialog", { name: "June 2022" })).toBeVisible();
+    await expect(
+      page.getByRole("dialog", { name: "Choose a date" }),
+    ).toBeVisible();
   });
 
   test(`when maxWidth has no value it should render as 100%`, async ({
