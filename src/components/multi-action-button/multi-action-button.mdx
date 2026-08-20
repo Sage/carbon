@@ -16,6 +16,10 @@ import * as MultiActionButtonStories from "./multi-action-button.stories.tsx";
   Product Design System component
 </a>
 
+A button with a dropdown list of secondary actions. Clicking the main label triggers the primary action. Clicking the chevron opens a menu of additional child buttons.
+
+**Category:** Actions
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -33,16 +37,20 @@ import MultiActionButton, { type MultiActionButtonHandle } from "carbon-react/li
 
 ### Default
 
+A `MultiActionButton` with a primary label and a dropdown of secondary actions rendered as child `Button` components.
+
 <Canvas of={MultiActionButtonStories.DefaultStory} />
 
 ### Focusing Main Button Programmatically
 
-The `MultiActionButtonHandle` type provides an imperative handle for programmatic control over `MultiActionButton`. 
+The `MultiActionButtonHandle` type provides an imperative handle for programmatic control over `MultiActionButton`.
 Using a `ref`, you can access its `focusMainButton()` method to set focus on the main button as needed.
 
 <Canvas of={MultiActionButtonStories.ProgrammaticFocus} />
 
 ### Disabled
+
+Use the `disabled` prop to prevent both the main button and the dropdown from being triggered.
 
 <Canvas of={MultiActionButtonStories.Disabled} />
 
@@ -55,15 +63,19 @@ String values are passed as raw CSS values. `size` prop can still be used to set
 
 ### Button types
 
+The main button supports all `buttonType` values (`primary`, `secondary`, `tertiary`, `darkBackground`). Use `buttonType` to style the trigger.
+
 <Canvas of={MultiActionButtonStories.ButtonTypes} />
 
 ### Child Button types
 
-Buttons used as a content of `MultiActionButton` can be of any type.
+Buttons passed as children can be of any `buttonType`, allowing each secondary action to have its own styling.
 
 <Canvas of={MultiActionButtonStories.ChildButtonTypes} />
 
 ### Sizes
+
+Available sizes: `small`, `medium` (default) and `large`. Set via the `size` prop on `MultiActionButton`.
 
 <Canvas of={MultiActionButtonStories.Sizes} />
 
@@ -75,7 +87,7 @@ Use the `align` prop to change the alignment of the text in the menu Buttons.
 
 ### Menu position
 
-By default, the menu will open aligned to the "left" of the main button, but you can use the `position` prop to change this to the "right". 
+By default, the menu will open aligned to the "left" of the main button, but you can use the `position` prop to change this to the "right".
 
 Note: The position of the menu will also be automatically adjusted to fit within the viewport.
 
@@ -83,11 +95,13 @@ Note: The position of the menu will also be automatically adjusted to fit within
 
 ### Subtext
 
-Subtext only works when `size` is `large`
+Use the `subtext` prop to add a secondary line of text below the main label. Only supported when `size="large"`.
 
 <Canvas of={MultiActionButtonStories.Subtext} />
 
 ## When children buttons render icons
+
+Child buttons with icons render correctly inside the dropdown. The icon appears before or after the text based on `iconPosition`.
 
 <Canvas of={MultiActionButtonStories.WithChildrenButtonsWithIcons} />
 
@@ -124,6 +138,6 @@ Subtext only works when `size` is `large`
 
 `MultiActionButton`'s forwarded ref exposes the following imperative methods:
 
-| Method Name           | Description                               |
-| --------------------- | ----------------------------------------- |
+| Method Name         | Description                               |
+| ------------------- | ----------------------------------------- |
 | `focusMainButton()` | Programmatically focuses the main button. |

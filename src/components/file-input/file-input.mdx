@@ -17,7 +17,9 @@ import * as FileInputStories from "./file-input.stories";
   Product Design System component
 </a>
 
-Allows a single file to be uploaded.
+A file input uploads a single file or multiple files selected by a user as part of a form.
+
+**Category:** Inputs
 
 ## Contents
 
@@ -37,9 +39,13 @@ import FileInput from "carbon-react/lib/components/file-input";
 
 ### Default
 
+Basic file upload input with a drag-and-drop area and a "Select file" button. Use `onChange` to receive the selected `File` object.
+
 <Canvas of={FileInputStories.Default} />
 
 ### With inputHint
+
+Use the `inputHint` prop to display a hint text (e.g. accepted formats or max file size) below the upload area.
 
 <Canvas of={FileInputStories.WithInputHint} />
 
@@ -72,15 +78,15 @@ Note that any valid CSS values can be used for these props, and that you can the
 
 #### Responsive width example
 
-You can use the CSS `min` function to set the width to grow to fill the available space if the container is wider than `280px`. This is useful for responsive 
-designs where the component should grow to fill the available space. You may also set the `minWidth` prop to allow the component to shrink to a smaller width 
+You can use the CSS `min` function to set the width to grow to fill the available space if the container is wider than `280px`. This is useful for responsive
+designs where the component should grow to fill the available space. You may also set the `minWidth` prop to allow the component to shrink to a smaller width
 if the container is narrower than `280px`.
 
 <Canvas of={FileInputStories.ResponsiveWidth} />
 
 #### Vertical layout
 
-One common variation is to have the text vertically stacked below the button, which can be achieved by setting the `isVertical` boolean prop to `true`. 
+One common variation is to have the text vertically stacked below the button, which can be achieved by setting the `isVertical` boolean prop to `true`.
 Note that this will automatically be the case if the button and text no longer fit onto a single line, even if the `isVertical` prop is set to `false`.
 
 <Canvas of={FileInputStories.Vertical} />
@@ -106,11 +112,11 @@ file.
 
 ### Tracking upload status
 
-The `uploadStatus` prop is used to indicate when a file has been added, as well as to display the current status or progress of its upload — 
-including options to cancel or remove the uploaded file. You must provide this prop (as a `FileUploadStatusProps` object) in order for users 
+The `uploadStatus` prop is used to indicate when a file has been added, as well as to display the current status or progress of its upload —
+including options to cancel or remove the uploaded file. You must provide this prop (as a `FileUploadStatusProps` object) in order for users
 to see any visual indication of the uploaded file.
 
-Note, that this component supports uploading a single file at a time. While the `uploadStatus` prop accepts an array, this is intended for 
+Note, that this component supports uploading a single file at a time. While the `uploadStatus` prop accepts an array, this is intended for
 reuse of the component across uploads — not for handling multiple files in a single selection.
 
 For this reason the `onChange` function prop is mandatory - without providing an implementation for this event handler that updates the
@@ -163,6 +169,8 @@ to the appropriate status(es) as described below.
 Note in particular that, other than the 3 props noted above, and the `message` and `progress` props, all others are the same as the props of
 the [Link component](../?path=/docs/link--docs), to override the props of the link to the uploaded file. There is one exception here however,
 in that the `href` prop is mandatory. Note that none of these `Link` props can be given except for the statuses `completed` and `previously`.
+
+### File Upload Status
 
 <ArgTypes of={FileUploadStatusStories} />
 

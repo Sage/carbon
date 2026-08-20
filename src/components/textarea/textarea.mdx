@@ -20,6 +20,8 @@ import * as TextareaStories from "./textarea.stories";
 - If content in a textarea is read-only, remove the field border so it appears as static text.
 - Use placeholder text to give the user context or examples of what to write.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -38,17 +40,25 @@ import Textarea from "carbon-react/lib/components/textarea";
 
 ### Default
 
+A multi-line text input. Provide a `label` and wire up `value` and `onChange` for controlled behaviour. Supports the standard form field props: `labelInline`, `labelWidth`, `inputWidth`, `fieldHelp`, and validation.
+
 <Canvas of={TextareaStories.DefaultStory} />
 
 ### Disabled
+
+Set `disabled` to prevent user interaction. The field is visually dimmed and not focusable.
 
 <Canvas of={TextareaStories.DisabledStory} />
 
 ### ReadOnly
 
+Set `readOnly` to display the value as non-editable text within the field boundary. Unlike `disabled`, the value can still be selected and copied.
+
 <Canvas of={TextareaStories.ReadOnlyStory} />
 
 ### Expandable
+
+Set `expandable` to allow the textarea to grow in height as the user types. The field starts at a fixed height and expands to accommodate additional content.
 
 <Canvas of={TextareaStories.ExpandableStory} />
 
@@ -71,6 +81,8 @@ Include the formatted number count wherever makes sense for the language you're 
 <Canvas of={TextareaStories.TranslationsCharacterLimitStory} />
 
 ### With custom maxWidth
+
+Set `maxWidth` to constrain the component width using any valid CSS value (e.g. `"300px"` or `"50%"`).
 
 <Canvas of={TextareaStories.MaxWidthStory} />
 

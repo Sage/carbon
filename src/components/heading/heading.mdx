@@ -13,6 +13,10 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 Heading has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#heading">our deprecation migration docs</a> for an alternative pattern.
 </DeprecationWarning>
 
+A deprecated page or section heading component that combines a title, optional subheader, pills, help icon, back link and a horizontal divider. Use `Typography` in new implementations.
+
+**Category:** UI presentation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -30,6 +34,8 @@ import Heading from "carbon-react/lib/components/heading";
 
 ### Default
 
+A heading with a title and a horizontal divider below it.
+
 <Canvas of={HeadingStories.Default} />
 
 ### Heading with headingType
@@ -40,33 +46,49 @@ The `headingType` prop sets the HTML heading element which is rendered on the pa
 
 ### Heading without Divider
 
+Use `divider={false}` to remove the horizontal line below the heading.
+
 <Canvas of={HeadingStories.WithoutDivider} />
 
 ### Heading with Subheader
+
+Use the `subheader` prop to display secondary text below the title.
 
 <Canvas of={HeadingStories.WithSubheader} />
 
 ### Heading with Pill
 
+Pass a `Pill` component via the `pills` prop to display a status badge next to the title.
+
 <Canvas of={HeadingStories.WithPill} />
 
 ### Heading with multiple Pills
+
+Pass an array of `Pill` components via the `pills` prop to display multiple status badges.
 
 <Canvas of={HeadingStories.WithMultiplePills} />
 
 ### Heading with Pill and Subheader
 
+Combines a `Pill` badge next to the title and a `subheader` below it.
+
 <Canvas of={HeadingStories.WithPillAndSubheader} />
 
 ### Heading with Subheader and Separator
+
+A subheader displayed alongside a vertical separator using the `separator` prop.
 
 <Canvas of={HeadingStories.WithSubheaderSeperator} />
 
 ### Heading with Pill, Subheader and Separator
 
+All three: pill badge, subheader text and a vertical separator combined.
+
 <Canvas of={HeadingStories.WithPillSubheaderSeperator} />
 
 ### Heading with Subheader and Children
+
+Arbitrary React nodes can be passed as `children` to render additional content below the heading row.
 
 <Canvas of={HeadingStories.WithSubheaderChildren} />
 
@@ -78,17 +100,25 @@ In this example, the Heading component has the Tile component and the Definition
 
 ### Heading with Help
 
+Pass `help` text to display a help icon (?). Hovering the icon shows a tooltip with the help message.
+
 <Canvas of={HeadingStories.WithHelp} />
 
 ### Heading with Help and Pill
+
+Combines a help icon tooltip with a `Pill` badge next to the title.
 
 <Canvas of={HeadingStories.WithHelpPill} />
 
 ### Heading with Help and Help Link
 
+Combines a `help` tooltip with a `helpLink` that links to more documentation.
+
 <Canvas of={HeadingStories.WithHelpLink} />
 
 ### Heading with Back Link
+
+Use the `backLink` prop to render a navigational back arrow link above the heading.
 
 <Canvas of={HeadingStories.WithBackLink} />
 

@@ -12,6 +12,10 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 GroupedCharacter has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#grouped-character">our deprecation migration docs</a> for an alternative pattern.
 </DeprecationWarning>
 
+A deprecated masked text input that formats user input into segmented character groups (e.g. `12-34-56`). Configure segment lengths with the `groups` array prop and the delimiter with `separator`. Use `Textbox` in new implementations.
+
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -29,6 +33,8 @@ import GroupedCharacter from "carbon-react/lib/components/grouped-character";
 
 ### Default
 
+Basic grouped character input with a `groups` array and a `separator` character. Input is automatically segmented as the user types.
+
 <Canvas of={GroupedCharacterStories.DefaultStory} />
 
 ### With Input Hint
@@ -40,21 +46,31 @@ before any other announcements, this well help screen reader users understand th
 
 ### Sizes
 
+Three size variants: `small`, `medium` (default), and `large`, set via the `size` prop.
+
 <Canvas of={GroupedCharacterStories.Sizes} />
 
 ### Disabled
+
+Use the `disabled` prop to prevent user interaction.
 
 <Canvas of={GroupedCharacterStories.Disabled} />
 
 ### Various separators
 
+Examples showing different `separator` values (e.g. `-`, ` `, `/`) used between character groups.
+
 <Canvas of={GroupedCharacterStories.VariousSeparators} />
 
 ### Various groups
 
+Examples showing different `groups` array configurations (e.g. `[2,2,3]`) to format input into custom segment lengths.
+
 <Canvas of={GroupedCharacterStories.VariousGroups} />
 
 ### With custom maxWidth
+
+Use the `maxWidth` prop to constrain the input to a specific maximum width.
 
 <Canvas of={GroupedCharacterStories.WithCustomMaxWidth} />
 

@@ -11,6 +11,10 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 Icon Button has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
 </DeprecationWarning>
 
+A deprecated icon-only clickable button. Wrap a Carbon `Icon` as children to render an accessible button without visible text. Use `Button` with an icon-only composition in new implementations.
+
+**Category:** Actions
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -27,13 +31,19 @@ import IconButton from "carbon-react/lib/components/icon-button";
 
 ### Default
 
+An `IconButton` wrapping a Carbon `Icon`. The `onClick` handler is triggered on click or keyboard Enter/Space.
+
 <Canvas of={IconButtonStories.Default} />
 
 ### With tooltip
 
+Attach a `Tooltip` to the `IconButton` to provide a visible label on hover/focus for accessibility.
+
 <Canvas of={IconButtonStories.WithTooltip} />
 
 ### Disabled
+
+Use the `disabled` prop to prevent interaction with the icon button.
 
 <Canvas of={IconButtonStories.Disabled} />
 

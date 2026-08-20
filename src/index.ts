@@ -252,7 +252,7 @@ export type {
   MenuDividerProps,
   MenuWithIcon,
   MenuWithChildren,
-  MenuTitleProps,
+  MenuSegmentTitleProps,
   ScrollableBlockProps,
 } from "./components/menu";
 

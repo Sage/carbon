@@ -1,15 +1,26 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 
 import * as ContentStories from "./content.stories.tsx";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={ContentStories} />
 
 # Content
 
 <DeprecationWarning>
-Content has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#content">our deprecation migration docs</a> for an alternative pattern.
+  Content has been deprecated, if this pattern is still needed please see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#content"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for an alternative pattern.
 </DeprecationWarning>
+
+A deprecated layout component that renders a labelled block of content with a title and body. It supports primary and secondary visual variants as well as an inline mode where the title and body sit side-by-side.
+
+**Category:** UI presentation
 
 ## Contents
 
@@ -27,17 +38,25 @@ import Content from "carbon-react/lib/components/content";
 
 ### Default content
 
+Renders a `Content` block with a string title and body text using the default `primary` variant.
+
 <Canvas of={ContentStories.DefaultStory} />
 
 ### Inline content
+
+Set `inline` to `true` to display the title and body side-by-side on the same line instead of stacked vertically.
 
 <Canvas of={ContentStories.InlineContent} />
 
 ### Custom title
 
+Pass a React node to the `title` prop to customise its appearance — for example, using a `Typography` component with a specific colour.
+
 <Canvas of={ContentStories.CustomTitle} />
 
 ### Secondary styling
+
+Use `variant="secondary"` to apply a lighter, secondary visual style to the content block.
 
 <Canvas of={ContentStories.SecondaryStyling} />
 

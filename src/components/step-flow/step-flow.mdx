@@ -23,6 +23,8 @@ This component has a specific start and end point, as well as showing the curren
 
 Use a step flow to help a user complete tasks in a specific order, based on their needs.
 
+**Category:** Navigation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -34,7 +36,7 @@ Use a step flow to help a user complete tasks in a specific order, based on thei
 ## Quick Start
 
 ```js
-import { 
+import {
   StepFlow,
   StepFlowTitle,
   type StepFlowHandle,
@@ -52,7 +54,7 @@ To use this component, you must provide a `title`, `currentStep` and `totalSteps
 
 ### Title as a Node
 
-To allow a compositional approach, the `title` prop accepts a node. 
+To allow a compositional approach, the `title` prop accepts a node.
 It is recommended to pass the `StepFlowTitle` component as a child of the node to ensure the correct styles and functionality are applied.
 
 The `screenReaderOnlyTitle` prop can be used to pass a custom screen reader only title to the `StepFlowTitle`.
@@ -62,7 +64,7 @@ This is useful for providing screen reader users with necessary information or c
 
 ### Title Variant
 
-By default, the title is rendered as an `h1`, but this can be changed to `h2` by passing the `titleVariant` prop. 
+By default, the title is rendered as an `h1`, but this can be changed to `h2` by passing the `titleVariant` prop.
 The `StepFlowTitle` component can also be used to set the title variant.
 
 <Canvas of={StepFlowStories.TitleVariant} />
@@ -75,7 +77,7 @@ You can set the `showProgressIndicator` prop to `true` to render the progress in
 
 ### With Close Icon
 
-You can set the `showCloseIcon` prop to `true` to render a close icon within the component. 
+You can set the `showCloseIcon` prop to `true` to render a close icon within the component.
 You can also use the `onDismiss` prop to pass in a function which is called when a user clicks on the close icon.
 
 <Canvas of={StepFlowStories.ShowCloseIcon} />
@@ -83,7 +85,7 @@ You can also use the `onDismiss` prop to pass in a function which is called when
 ### Example Implementation
 
 Please see below an example implementation of how the component can be used within the `Dialog` component to follow the recommended DS pattern for this component.
-Use `Button` to advance through the user journey and `Typography` to display the additional Step Heading and descriptions as required. 
+Use `Button` to advance through the user journey and `Typography` to display the additional Step Heading and descriptions as required.
 
 When advancing through the journey, call the `focus()` method exposed by the `StepFlow` component's forwarded ref via the `StepFlowHandle` imperative handle.
 It is **strongly recommended** to call this method when advancing through the journey to ensure that the `StepFlow` component is focused and the screen reader users are informed of the current step in the journey.
@@ -92,7 +94,7 @@ It is **strongly recommended** to call this method when advancing through the jo
 
 ## Props
 
-### Content
+### StepFlow
 
 <ArgTypes of={StepFlowStories} />
 
@@ -134,4 +136,3 @@ The following keys are available to override the translations for this component
 | Method Name | Description                                              |
 | ----------- | -------------------------------------------------------- |
 | `focus()`   | Programmatically focuses the root container of StepFlow. |
-

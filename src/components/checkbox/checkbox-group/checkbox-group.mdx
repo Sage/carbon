@@ -17,6 +17,8 @@ import * as CheckboxGroupStories from "./checkbox-group.stories";
 
 CheckboxGroup provides a way to check one or more items from a list of options.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -34,7 +36,7 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 ### Default
 
-To use this component, pass the `Checkbox` inputs as children of `CheckboxGroup`.
+A `CheckboxGroup` with a visible legend grouping multiple `Checkbox` inputs. Manage selection state by passing `checked` and `onChange` to each checkbox.
 
 <Canvas of={CheckboxGroupStories.Default} />
 
@@ -69,13 +71,11 @@ Note that any size set on individual `Checkbox` children will be overridden.
 
 <Canvas of={CheckboxGroupStories.Required} />
 
-
 ### Disabled
 
 `CheckboxGroup` can be disabled using the `disabled` prop.
 
 **Please Note**: Even though Carbon does support disabled checkboxes, their use is not generally recommended by Design System.
-
 
 <Canvas of={CheckboxGroupStories.Disabled} />
 

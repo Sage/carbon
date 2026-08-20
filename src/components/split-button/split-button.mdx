@@ -18,6 +18,10 @@ import * as SplitButtonStories from "./split-button.stories";
   Product Design System component
 </a>
 
+A button that combines a primary action (left side) with a dropdown of secondary actions (right side, opened via a chevron). Use when a primary action has closely related secondary options.
+
+**Category:** Actions
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -36,6 +40,8 @@ import SplitButton, { type SplitButtonHandle } from "carbon-react/lib/components
 
 ### Default
 
+A `SplitButton` with a primary label and a chevron that opens a dropdown of child `Button` actions.
+
 <Canvas of={SplitButtonStories.Default} />
 
 ### Focusing Main and Toggle Buttons Programmatically
@@ -47,9 +53,13 @@ Using a `ref`, you can access its `focusMainButton()` and `focusToggleButton()` 
 
 ### Disabled
 
+Use the `disabled` prop to prevent interaction with both the main button and the dropdown.
+
 <Canvas of={SplitButtonStories.Disabled} />
 
 ### Button types
+
+The main button supports all `buttonType` values. Use `buttonType` on `SplitButton` to style the trigger.
 
 <Canvas of={SplitButtonStories.ButtonTypes} />
 
@@ -60,6 +70,8 @@ Buttons used as a content of `SplitButton` can be of any type.
 <Canvas of={SplitButtonStories.ChildButtonTypes} />
 
 ### Sizes
+
+Available sizes: `small`, `medium` (default) and `large`. Set via the `size` prop.
 
 <Canvas of={SplitButtonStories.Sizes} />
 
@@ -79,15 +91,19 @@ Note: The position of the menu will also be automatically adjusted to fit within
 
 ### Subtext
 
-Subtext only works when `size` is `large`
+Use the `subtext` prop to add a secondary line below the main label. Only supported when `size="large"`.
 
 <Canvas of={SplitButtonStories.Subtext} />
 
 ### With icon
 
+Use the `iconType` and `iconPosition` props to add an icon to the main button label.
+
 <Canvas of={SplitButtonStories.WithIcon} />
 
 ### In overflow: hidden container
+
+Demonstrates that the `SplitButton` dropdown renders correctly even inside a container with `overflow: hidden`, escaping the overflow boundary.
 
 <Canvas of={SplitButtonStories.InOverflowHiddenContainer} />
 
