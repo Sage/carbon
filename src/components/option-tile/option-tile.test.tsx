@@ -142,7 +142,7 @@ test("marks checkbox decoration as hidden from accessibility tree", () => {
   expect(tile).toBeVisible();
   expect(tile).toHaveAttribute("tabindex", "0");
   expect(screen.getAllByRole("checkbox", { hidden: true })).toHaveLength(1);
-  expect(screen.getByTestId("option-tile-checkbox")).toHaveAttribute(
+  expect(tile.querySelector('[data-role="option-tile-checkbox"]')).toHaveAttribute(
     "aria-hidden",
     "true",
   );
