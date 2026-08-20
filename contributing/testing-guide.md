@@ -47,7 +47,7 @@ Snapshots are left up to the developer to be used where there is value. If you d
 
 GitHub Actions runs component tests for a particular Pull Request when it is created and on every commit push. You can manually run these steps with:
 
-1. `npm format` - run prettier to format code under `/src`.
+1. `npm run format` - run Prettier on JavaScript and TypeScript files under `/src` and `/playwright`.
 2. `npm run lint` - run linter on code under `/src`.
 3. `npm run type-check` - run TypeScript compiler to check for type errors.
 4. `npm test` - runs unit tests.
@@ -90,11 +90,11 @@ A typical `*.pw.tsx` file may look like the following:
 
 ```tsx
 // inside src/components/button/button.pw.tsx
-import { test, expect } from "../../__spec_helper__/base-test";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import Button from "./button.component";
-import { buttonComponent } from "../../../playwright/component/button/index";
+import { buttonDataComponent } from "../../../playwright/components/button";
 
-test.describe("Check props for Button component", async () => {
+test.describe("Check props for Button component", () => {
   test("should render Button label when passed to the component", async ({
     mount,
     page,
@@ -103,12 +103,12 @@ test.describe("Check props for Button component", async () => {
 
     await mount(<Button>{label}</Button>);
 
-    await expect(buttonComponent(page)).toHaveText(label);
+    await expect(buttonDataComponent(page)).toHaveText(label);
   });
 });
 ```
 
-Where `mount` renders the component in the real browser (`chromium`/`webkit`/`firefox`/`opera`) and `buttonComponent` is a _locator_ that returns the DOM element we want to test.
+Where `mount` renders the component in Chromium and `buttonDataComponent` is a _locator_ that returns the DOM element we want to test.
 
 ### Locators
 
@@ -146,9 +146,9 @@ We also have custom locators for many of our components. These locators typicall
 ```ts
 /* in index.ts */
 import type { Page } from "@playwright/test";
-import { BUTTON_DATA_COMPONENT, BUTTON_SUBTEXT } from "./locators";
+import {  BUTTON_DATA_COMPONENT,  BUTTON_SUBTEXT,} from "./locators";
 
-const buttonComponent = (page: Page) => {
+const buttonDataComponent = (page: Page) => {
   return page.locator(BUTTON_DATA_COMPONENT);
 };
 
@@ -156,7 +156,7 @@ const buttonSubtext = (page: Page) => {
   return page.locator(BUTTON_SUBTEXT);
 };
 
-export { buttonComponent, buttonSubtext };
+export { buttonDataComponent, buttonSubtext };
 ```
 
 `playwright/components/<component-name>/locators.ts`
@@ -164,17 +164,18 @@ export { buttonComponent, buttonSubtext };
 ```ts
 /* locators.ts */
 // `data-component` prop is typically reserved for the root element of the component. Whereas `data-element` is for specific elements.
-export const BUTTON_COMPONENT = '[data-component="button"]';
+export const BUTTON_DATA_COMPONENT = '[data-component="button"]';
 export const BUTTON_SUBTEXT = '[data-element="subtext"]';
 ```
+
 ### Code Coverage
 
 Currently, we do not enforce a code coverage threshold for our browser-based component tests; however, this policy may change in the future.
 
-We leverage Playwright's built-in code coverage capabilities to analyze the JavaScript and CSS executed during test runs. 
-In order to generate the JSON data, we use [monocart-coverage-reports](https://www.npmjs.com/package/monocart-coverage-reports) and then finally [nyc](https://www.npmjs.com/package/nyc) to produce the formatted HTML report. 
+We leverage Playwright's built-in code coverage capabilities to analyze the JavaScript and CSS executed during test runs. Coverage is collected by our custom base test fixture whenever Playwright component tests run.
+We use [monocart-coverage-reports](https://www.npmjs.com/package/monocart-coverage-reports) to generate the JSON data and [nyc](https://www.npmjs.com/package/nyc) to produce the formatted HTML report.
 
-To collect code coverage for the whole Playwright test suite, please run `npm run test:ct:coverage` (Note: This process may take a significant amount of time to complete.). For collecting code coverage data for a specific component, use the following command `npm run test:ct:coverage -- component.pw`. To generate the code coverage report run `npm run pw:coverage:report`. This will generate an `index.html` in the `playwright/coverage` directory. Since this directory is hidden by default, you will need to run the command `open playwright/coverage/index.html` if you are using an Apple device or `start playwright/coverage/index.html` if you are using Windows to open the report in your browser.
+To clear existing coverage data and collect fresh coverage for the whole Playwright test suite, run `npm run test:ct:coverage` (note that this process may take a significant amount of time to complete). To collect fresh coverage data for a specific component, run `npm run test:ct:coverage -- component.pw`. To generate the coverage report, run `npm run pw:coverage:report`. This generates `playwright/coverage/index.html`. Run `open playwright/coverage/index.html` on macOS or `start playwright/coverage/index.html` on Windows to open the report in your browser.
 
 ## Visual Testing
 
@@ -198,12 +199,12 @@ Carbon automatically enables snapshots for all stories, though be wary that this
 
 ```tsx
 // Button.stories.tsx
-import Button from "./button":
+import Button from ".";
 import type { Meta } from "@storybook/react";
 
 const meta: Meta<typeof Button> = {
   title: "Button",
-  component: ActionPopover,
+  component: Button,
   // 👇 Disables snapshots for all stories in this file
   parameters: { chromatic: { disableSnapshot: true } },
 };
@@ -215,7 +216,7 @@ If required, you can explicitly enable snapshots for a story via its own paramet
 
 ```tsx
 // Button.stories.tsx
-import { Button } from "./Button";
+import Button from ".";
 import type { StoryObj } from "@storybook/react";
 
 type Story = StoryObj<typeof Button>;
