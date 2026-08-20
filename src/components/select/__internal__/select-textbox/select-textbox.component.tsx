@@ -93,6 +93,8 @@ export interface SelectTextboxProps
   activeDescendantId?: string;
   /** Specify a callback triggered on change */
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** @private @ignore */
+  onIconClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /**
    * Sets the type of select, which determines the behaviour of the textbox.
    * If "simple", the textbox does not allow typing and functions as a standard select.
@@ -118,6 +120,7 @@ const SelectTextbox = React.forwardRef(
       size = "medium",
       variant,
       onClick,
+      onIconClick,
       onFocus,
       onBlur,
       formattedValue = "",
@@ -167,11 +170,18 @@ const SelectTextbox = React.forwardRef(
     function handleDropdownIconClick(
       event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) {
+      event.preventDefault();
+      event.stopPropagation();
+
       if (disabled || readOnly) {
         return;
       }
 
-      onClick?.(event as React.MouseEvent<HTMLInputElement>);
+      if (onIconClick) {
+        onIconClick(event as React.MouseEvent<HTMLElement>);
+      } else {
+        onClick?.(event as React.MouseEvent<HTMLInputElement>);
+      }
     }
 
     const textboxProps = {

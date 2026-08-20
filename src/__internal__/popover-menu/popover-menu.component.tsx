@@ -670,25 +670,35 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   );
 
   useEffect(() => {
-    if (!open || isSubmenu) return undefined;
+    if (!open || isSubmenu || isButtonMenu) return undefined;
+
+    const isAllowedFocusTarget = (target: EventTarget | null) =>
+      target instanceof Node &&
+      (controlWrapperRef.current?.contains(target) ||
+        footerRef.current?.contains(target));
 
     const handleFocusIn = (ev: FocusEvent) => {
-      const path = ev.composedPath();
-      const controlEl = controlWrapperRef.current;
-      const footerEl = footerRef.current;
-      const wrapperEl = wrapperRef.current;
-      const insideMenu = path.some(
-        (node) =>
-          node === controlEl || node === footerEl || node === wrapperEl,
-      );
-      if (!insideMenu) {
+      if (!isAllowedFocusTarget(ev.target)) {
+        onClose(ev);
+      }
+    };
+
+    const handleFocusOut = (ev: FocusEvent) => {
+      if (
+        isAllowedFocusTarget(ev.target) &&
+        !isAllowedFocusTarget(ev.relatedTarget)
+      ) {
         onClose(ev);
       }
     };
 
     document.addEventListener("focusin", handleFocusIn);
-    return () => document.removeEventListener("focusin", handleFocusIn);
-  }, [open, isSubmenu, onClose]);
+    document.addEventListener("focusout", handleFocusOut);
+    return () => {
+      document.removeEventListener("focusin", handleFocusIn);
+      document.removeEventListener("focusout", handleFocusOut);
+    };
+  }, [open, isSubmenu, isButtonMenu, onClose]);
 
   const handleControlKeyDown: React.KeyboardEventHandler<HTMLElement> =
     useCallback(

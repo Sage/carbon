@@ -115,6 +115,8 @@ const SelectList = ({
         subtext,
         divider,
         id: optionId,
+        "data-element": dataElement,
+        "data-role": dataRole,
       } = option.props;
 
       const selected = isExpectedOption(option, selectedValue);
@@ -124,6 +126,8 @@ const SelectList = ({
         <MenuItem
           key={optionId ?? String(value) ?? text}
           id={optionId}
+          data-element={dataElement}
+          data-role={dataRole}
           disabled={disabled}
           selected={selected}
           onClick={() => {

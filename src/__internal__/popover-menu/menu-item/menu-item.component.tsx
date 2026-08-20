@@ -13,6 +13,8 @@ import { buttonMenuItemQuerySelector } from "../utils";
 
 export interface MenuItemProps {
   children: React.ReactNode;
+  "data-element"?: string;
+  "data-role"?: string;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   selected?: boolean;
   disabled?: boolean;
