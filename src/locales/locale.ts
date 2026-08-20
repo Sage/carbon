@@ -42,6 +42,10 @@ interface Locale {
       chooseYear?: () => string;
       /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
       closeButton?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      openCalendarDescription?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      chooseDate?: () => string;
     };
     dateFormatOverride?: string;
   };

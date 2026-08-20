@@ -116,13 +116,25 @@ export interface DateRangeProps
   required?: boolean;
   /** Date format string to be applied to the date inputs */
   dateFormatOverride?: string;
-  /** Prop to specify the aria-label attribute of the start date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerStartAriaLabel?: string;
-  /** Prop to specify the aria-labelledby attribute of the start date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerStartAriaLabelledBy?: string;
-  /** Prop to specify the aria-label attribute of the end date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerEndAriaLabel?: string;
-  /** Prop to specify the aria-labelledby attribute of the end date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerEndAriaLabelledBy?: string;
   /** Render the ValidationMessage above the Date inputs when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;

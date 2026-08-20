@@ -31,10 +31,6 @@ export interface DatePickerProps {
   onRequestPickerClose: () => void;
   /** Id passed to the tab guard element. */
   pickerTabGuardId?: string;
-  /** aria-label for the date picker. */
-  ariaLabel?: string;
-  /** aria-labelledby for the date picker. */
-  ariaLabelledBy?: string;
   /** Id for the date picker container. */
   pickerId?: string;
   /** Size of the associated date input. */

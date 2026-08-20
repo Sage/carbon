@@ -6,6 +6,7 @@ import { propsForSize as buttonSizeConfig } from "../../../button/__next__/butto
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
 import type { DatePickerSize } from "../date-picker";
 import legacyInputSizes from "../../../../__internal__/legacy-input/input-sizes.style";
+import visuallyHidden from "../../../../style/utils/visually-hidden";
 
 const DatePickerTriggerContainer = styled.span`
   align-self: stretch;
@@ -148,10 +149,15 @@ const DatePickerTriggerButton = styled(Button)<DatePickerTriggerButtonProps>`
   }
 `;
 
+const DatePickerTriggerDescription = styled.span`
+  ${visuallyHidden}
+`;
+
 export {
   DatePickerTriggerContainer,
   DatePickerTriggerDividerWrapper,
   DatePickerTriggerDivider,
   DatePickerTriggerButton,
   LegacyDatePickerTrigger,
+  DatePickerTriggerDescription,
 };

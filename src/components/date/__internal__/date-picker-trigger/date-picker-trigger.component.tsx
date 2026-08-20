@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   DatePickerTriggerButton,
@@ -6,9 +6,11 @@ import {
   DatePickerTriggerDivider,
   DatePickerTriggerDividerWrapper,
   LegacyDatePickerTrigger,
+  DatePickerTriggerDescription,
 } from "./date-picker-trigger.style";
 import Icon from "../../../icon";
 import useLocale from "../../../../hooks/__internal__/useLocale";
+import guid from "../../../../__internal__/utils/helpers/guid";
 
 interface DatePickerTriggerProps {
   disabled?: boolean;
@@ -32,6 +34,9 @@ const DatePickerTrigger = ({
   onMouseDown,
 }: DatePickerTriggerProps) => {
   const locale = useLocale();
+  const [triggerDescriptionId] = useState(
+    () => `date-picker-trigger-description-${guid()}`,
+  );
 
   if (variant === "legacy") {
     return (
@@ -66,6 +71,7 @@ const DatePickerTrigger = ({
         onClick={onClick}
         disabled={disabled || readOnly}
         aria-label={locale.date.ariaLabels.openCalendarButton?.()}
+        aria-describedby={triggerDescriptionId}
         aria-haspopup="dialog"
         aria-controls={open ? pickerId : undefined}
         aria-expanded={open}
@@ -77,6 +83,9 @@ const DatePickerTrigger = ({
         iconType="calendar_today"
         m={0}
       />
+      <DatePickerTriggerDescription id={triggerDescriptionId}>
+        {locale.date.ariaLabels.openCalendarDescription?.()}
+      </DatePickerTriggerDescription>
     </DatePickerTriggerContainer>
   );
 };

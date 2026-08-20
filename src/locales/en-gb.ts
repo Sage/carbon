@@ -50,6 +50,8 @@ const enGB: Locale = {
       chooseMonth: () => "Choose the month",
       chooseYear: () => "Choose the year",
       closeButton: () => "Close",
+      openCalendarDescription: () => "Instructions on how to use",
+      chooseDate: () => "Choose a date",
     },
     dateFormatOverride: undefined,
   },

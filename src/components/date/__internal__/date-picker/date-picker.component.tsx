@@ -9,7 +9,6 @@ import Calendar from "../calendar/calendar.component";
 import CalendarCloseButton from "../calendar/calendar-close-button.component";
 import CalendarNavigation from "../calendar/calendar-navigation.component";
 import type { DatePickerProps } from "./date-picker.types";
-import useDatePickerAccessibility from "../hooks/useDatePickerAccessibility";
 import useDatePickerFocus from "../hooks/useDatePickerFocus";
 import useDatePickerInFlatTable from "../hooks/useDatePickerInFlatTable";
 import useDatePickerKeyboardNavigation from "../hooks/useDatePickerKeyboardNavigation";
@@ -38,8 +37,6 @@ export const DatePicker = ({
   open,
   onRequestPickerClose,
   pickerTabGuardId,
-  ariaLabel: datePickerAriaLabel,
-  ariaLabelledBy: datePickerAriaLabelledBy,
   pickerId,
 }: DatePickerProps) => {
   if (!deprecateDisablePortalWarnTriggered && disablePortal) {
@@ -53,6 +50,7 @@ export const DatePicker = ({
     selectedDate || new Date(),
   );
   const {
+    datePickerDialogAriaLabel,
     closeButtonLabel,
     localize,
     weekStartsOn,
@@ -65,10 +63,6 @@ export const DatePicker = ({
     monthSelectId: `date-picker-month-${guid()}`,
     yearSelectId: `date-picker-year-${guid()}`,
   }));
-  const defaultPickerAriaLabelledBy = `${monthSelectId} ${yearSelectId}`;
-  const pickerAriaLabelledBy =
-    datePickerAriaLabelledBy ||
-    (datePickerAriaLabel ? undefined : defaultPickerAriaLabelledBy);
 
   const closePickerAndRestoreFocus = useCallback(() => {
     inputContainerRef.current?.querySelector("input")?.focus();
@@ -128,12 +122,6 @@ export const DatePicker = ({
     getPickerDayFocusTarget,
     resetChangedSelector,
   });
-  useDatePickerAccessibility({
-    ref: pickerRef,
-    open,
-    focusedMonth: displayedMonth,
-    labelledBy: defaultPickerAriaLabelledBy,
-  });
   const { isInFlatTable } = useDatePickerInFlatTable(open);
 
   if (!open) return null;
@@ -160,8 +148,7 @@ export const DatePicker = ({
         onKeyUp={handleKeyUp}
         onKeyDown={handleKeyDown}
         role="dialog"
-        aria-label={datePickerAriaLabel}
-        aria-labelledby={pickerAriaLabelledBy}
+        aria-label={datePickerDialogAriaLabel}
       >
         {/* When portaled, redirects Tab focus from the input into the calendar. */}
         {!disablePortal && (

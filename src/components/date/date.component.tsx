@@ -94,9 +94,15 @@ export interface DateInputProps
   onPickerClose?: () => void;
   /** Date format string to be applied to the date inputs */
   dateFormatOverride?: string;
-  /** Prop to specify the aria-label attribute of the date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerAriaLabel?: string;
-  /** Prop to specify the aria-labelledby attribute of the date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerAriaLabelledBy?: string;
   /** Date input presentation. Typical is the default; legacy retains its icon trigger. */
   variant?: "legacy" | "typical";
@@ -149,8 +155,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       onPickerClose,
       onPickerOpen,
       dateFormatOverride: dateFormatOverrideProp,
-      datePickerAriaLabel,
-      datePickerAriaLabelledBy,
+      datePickerAriaLabel: _datePickerAriaLabel,
+      datePickerAriaLabelledBy: _datePickerAriaLabelledBy,
       validationMessagePositionTop = true,
       validationIconId: _validationIconId,
       validationOnLabel: _validationOnLabel,
@@ -452,8 +458,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           open={open}
           onRequestPickerClose={closePicker}
           pickerTabGuardId={pickerTabGuardId}
-          ariaLabel={datePickerAriaLabel}
-          ariaLabelledBy={datePickerAriaLabelledBy}
           pickerId={pickerId}
           size={actualSize}
         />

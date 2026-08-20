@@ -83,25 +83,15 @@ test("renders month and year selects instead of navigation buttons", () => {
   ).not.toBeInTheDocument();
 });
 
-test("labels every grid in a multi-month picker", () => {
+test("renders the calendar dialog with a static aria-label from locale", () => {
   render(
-    <DatePickerWithInput
-      onRequestPickerClose={() => {}}
-      open
-      disablePortal
-      dayPickerProps={{ numberOfMonths: 2 }}
-    />,
+    <DatePickerWithInput onRequestPickerClose={() => {}} open disablePortal />,
   );
 
-  const dialog = screen.getByRole("dialog");
-  const labelledBy = dialog.getAttribute("aria-labelledby");
-
-  expect(screen.getAllByRole("grid")).toHaveLength(2);
-  screen
-    .getAllByRole("grid")
-    .forEach((grid) =>
-      expect(grid).toHaveAttribute("aria-labelledby", labelledBy),
-    );
+  expect(screen.getByRole("dialog")).toHaveAttribute(
+    "aria-label",
+    "Choose a date",
+  );
 });
 
 test("renders a Close button that closes the picker and refocuses the input", async () => {

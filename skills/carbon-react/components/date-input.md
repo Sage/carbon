@@ -39,8 +39,6 @@ description: Carbon DateInput component props and usage examples.
 | dangerouslySetInnerHTML | { __html: string \| TrustedHTML; } \| undefined | No |  |  |  |  |  |
 | datatype | string \| undefined | No |  |  |  |  |  |
 | dateFormatOverride | string \| undefined | No |  |  |  | Date format string to be applied to the date inputs |  |
-| datePickerAriaLabel | string \| undefined | No |  |  |  | Prop to specify the aria-label attribute of the date picker |  |
-| datePickerAriaLabelledBy | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby attribute of the date picker |  |
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
@@ -341,6 +339,8 @@ description: Carbon DateInput component props and usage examples.
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | adaptiveLabelBreakpoint | number \| undefined | No |  | Yes | `adaptiveLabelBreakpoint` has been deprecated, the functionality will no longer work. |  |  |
+| datePickerAriaLabel | string \| undefined | No |  | Yes | The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`). Remove this prop; it has no effect. |  |  |
+| datePickerAriaLabelledBy | string \| undefined | No |  | Yes | The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`). Remove this prop; it has no effect. |  |  |
 | fieldHelp | React.ReactNode | No |  | Yes | `fieldHelp` has been deprecated, `inputHint` should be used instead. [Legacy] Help content to be displayed under an input. |  |  |
 | helpAriaLabel | string \| undefined | No |  | Yes | `helpAriaLabel` has been deprecated, the functionality will no longer work. |  |  |
 | info | string \| boolean \| undefined | No |  | Yes | `info` has been deprecated, the functionality will no longer work. |  |  |

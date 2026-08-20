@@ -299,7 +299,7 @@ test("should open picker and focus a day when calendar button is clicked", async
   });
 });
 
-test("should wire dialog and calendar labelling to month and year selectors", async () => {
+test("should label the dialog with a static locale-derived aria-label", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <TypicalDateInput
@@ -317,39 +317,9 @@ test("should wire dialog and calendar labelling to month and year selectors", as
 
   const dialog = screen.getByRole("dialog");
 
-  const monthSelector = within(dialog).getByRole("combobox", {
-    name: "Choose the month",
-  });
-  const yearSelector = within(dialog).getByRole("combobox", {
-    name: "Choose the year",
-  });
-  const labelledBy = dialog.getAttribute("aria-labelledby");
-  const labelledByIds = labelledBy?.split(" ") || [];
+  expect(dialog).toHaveAttribute("aria-label", "Choose a date");
 
-  expect(labelledByIds).toContain(monthSelector.getAttribute("id"));
-  expect(labelledByIds).toContain(yearSelector.getAttribute("id"));
-
-  const grid = within(dialog).getByRole("grid");
-  expect(grid).toHaveAttribute("aria-labelledby", labelledBy);
-});
-
-test("should use the provided aria-label as the dialog accessible name", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <TypicalDateInput
-      datePickerAriaLabel="Choose a date"
-      label="Date"
-      name="typical-date"
-      onChange={() => {}}
-      value=""
-    />,
-  );
-
-  await user.click(screen.getByRole("button", { name: "Open calendar" }));
-
-  expect(
-    screen.getByRole("dialog", { name: "Choose a date" }),
-  ).not.toHaveAttribute("aria-labelledby");
+  within(dialog).getByRole("grid");
 });
 
 test("should render date buttons with type button and hidden full date text", async () => {

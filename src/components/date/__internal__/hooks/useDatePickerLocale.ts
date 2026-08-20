@@ -27,6 +27,7 @@ const useDatePickerLocale = () => {
   }, [localeLanguage, localize]);
 
   return {
+    datePickerDialogAriaLabel: locale.date.ariaLabels.chooseDate?.(),
     closeButtonLabel: locale.date.ariaLabels.closeButton?.(),
     localize,
     weekStartsOn: options?.weekStartsOn,

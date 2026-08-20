@@ -15,6 +15,7 @@ const mockLocale = (dateFnsLocale: typeof enGB | typeof de | typeof pl) => {
       dateFnsLocale: () => dateFnsLocale,
       ariaLabels: {
         closeButton: () => "Close picker",
+        chooseDate: () => "Choose a date",
       },
     },
   } as ReturnType<typeof useLocale>);
@@ -25,6 +26,7 @@ test("provides all locale values needed by the date picker", () => {
 
   const { result } = renderHook(() => useDatePickerLocale());
 
+  expect(result.current.datePickerDialogAriaLabel).toBe("Choose a date");
   expect(result.current.closeButtonLabel).toBe("Close picker");
   expect(result.current.localize).toBe(enGB.localize);
   expect(result.current.weekStartsOn).toBe(1);

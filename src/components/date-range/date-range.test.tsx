@@ -684,56 +684,6 @@ test("should close the open 'start' picker when the user moves focus to the `end
   expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
 });
 
-test("should apply aria-label and aria-labelledby to the date picker dialog", async () => {
-  const user = userEvent.setup();
-  render(
-    <DateRange
-      startLabel="start"
-      endLabel="end"
-      value={["10/10/2016", "11/11/2016"]}
-      onChange={() => {}}
-      startDateProps={{ disablePortal: true, "data-role": "start" }}
-      endDateProps={{ disablePortal: true, "data-role": "end" }}
-      datePickerStartAriaLabel="start aria-label"
-      datePickerStartAriaLabelledBy="start aria-labelledby"
-      datePickerEndAriaLabel="end aria-label"
-      datePickerEndAriaLabelledBy="end aria-labelledby"
-    />,
-  );
-  const startDate = screen.getByTestId("start");
-  const endDate = screen.getByTestId("end");
-
-  const startCalendarButton = within(startDate).getByRole("button", {
-    name: "Open calendar",
-  });
-  await user.click(startCalendarButton);
-
-  expect(within(startDate).getByRole("dialog")).toBeVisible();
-  expect(within(startDate).getByRole("dialog")).toHaveAttribute(
-    "aria-label",
-    "start aria-label",
-  );
-  expect(within(startDate).getByRole("dialog")).toHaveAttribute(
-    "aria-labelledby",
-    expect.stringContaining("start aria-labelledby"),
-  );
-
-  const endCalendarButton = within(endDate).getByRole("button", {
-    name: "Open calendar",
-  });
-  await user.click(endCalendarButton);
-
-  expect(within(endDate).getByRole("dialog")).toBeVisible();
-  expect(within(endDate).getByRole("dialog")).toHaveAttribute(
-    "aria-label",
-    "end aria-label",
-  );
-  expect(within(endDate).getByRole("dialog")).toHaveAttribute(
-    "aria-labelledby",
-    expect.stringContaining("end aria-labelledby"),
-  );
-});
-
 test("should close the open 'end' picker when the user moves focus to the `start` input", async () => {
   const user = userEvent.setup();
   render(
