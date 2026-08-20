@@ -321,6 +321,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         size={size}
         isRequired={required}
         isDisabled={disabled}
+        isReadOnly={readOnly}
         name={name}
         error={error}
         warning={warning}
