@@ -14,7 +14,7 @@ import Toast from "../toast";
 import Message from "../message";
 
 import type { DialogProps } from ".";
-import Dialog from ".";
+import Dialog, { DialogHeader } from ".";
 
 const meta: Meta<typeof Dialog> = {
   title: "Dialog",
@@ -946,5 +946,215 @@ export const WithContentPaddingCustom: Story = {
   args: {
     ...DefaultStory.args,
     contentPadding: { py: 5, px: 8 },
+  },
+};
+
+export const WithStatusHeaderSubtle: Story = {
+  name: "With Status Header - Subtle",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  render: function WithStatusHeaderSubtleRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeader
+              title="Dialog with subtle status"
+              subtitle="Subheading"
+              status="subtle"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithStatusHeaderPositive: Story = {
+  name: "With Status Header - Positive",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  render: function WithStatusHeaderPositiveRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeader
+              title="Dialog with positive status"
+              subtitle="Subheading"
+              status="positive"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithStatusHeaderNegative: Story = {
+  name: "With Status Header - Negative",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  render: function WithStatusHeaderNegativeRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeader
+              title="Dialog with negative status"
+              subtitle="Subheading"
+              status="negative"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithStatusHeaderCaution: Story = {
+  name: "With Status Header - Caution",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  render: function WithStatusHeaderCautionRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeader
+              title="Dialog with caution status"
+              subtitle="Subheading"
+              status="caution"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithStatusHeaderInfo: Story = {
+  name: "With Status Header - Info",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  render: function WithStatusHeaderInfoRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeader
+              title="Dialog with info status"
+              subtitle="Subheading"
+              status="info"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
   },
 };

@@ -9,7 +9,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../../../carbon-provider";
-import Dialog from ".";
+import Dialog, { DialogHeader } from ".";
 import { DialogHandle, DialogProps } from "./dialog.component";
 import Form from "../../../form";
 import { DIALOG_SIZE_CONFIG } from "./dialog.config";
@@ -114,12 +114,43 @@ describe("Modal Dialog", () => {
     );
   });
 
-  test("help icon is displayed when help prop is passed", () => {
+  test("when DialogHeader is used with a subtitle, the subtitle ID is set for aria-describedby", () => {
+    render(
+      <Dialog
+        open
+        title={
+          <DialogHeader
+            title="Header with subtitle"
+            subtitle="This is a subtitle"
+            status="info"
+          />
+        }
+      />,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveAccessibleName("Header with subtitle");
+    expect(dialog).toHaveAccessibleDescription("This is a subtitle");
+  });
+
+  test("when DialogHeader is used without a subtitle, aria-describedby is not set by DialogHeader", () => {
+    render(
+      <Dialog
+        open
+        title={<DialogHeader title="Header without subtitle" status="info" />}
+      />,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveAccessibleName("Header without subtitle");
+    // Dialog should not have an accessible description from DialogHeader
+    expect(dialog).not.toHaveAttribute("aria-describedby");
+  });
+
+  test("help icon is not displayed when deprecated help prop is passed", () => {
     render(<Dialog open title="My dialog" help="Help text" />);
 
-    const help = screen.getByLabelText("help");
+    const help = screen.queryByLabelText("help");
 
-    expect(help).toBeVisible();
+    expect(help).not.toBeInTheDocument();
   });
 
   test("close button is displayed when onCancel prop is passed", () => {

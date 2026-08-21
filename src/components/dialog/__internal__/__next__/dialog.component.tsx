@@ -14,7 +14,6 @@ import {
   StyledSubtitle,
 } from "./dialog.style";
 
-import { StyledHeaderHelp } from "../../../heading/heading.style";
 import Icon from "../../../icon";
 import Typography from "../../../typography";
 import Modal, { ModalProps } from "../../../../__internal__/modal";
@@ -29,6 +28,9 @@ import tagComponent, {
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import useModalAria from "../../../../hooks/__internal__/useModalAria/useModalAria";
 import Button from "../../../button/__next__";
+import DialogHeaderComponent, {
+  DialogHeaderContext,
+} from "./dialog-header/dialog-header.component";
 
 import { Size, ContentPaddingInterface } from "./dialog.config";
 
@@ -92,7 +94,10 @@ export interface DialogProps extends ModalProps, TagProps {
   headerChildren?: React.ReactNode;
   /** Allows developers to specify a specific height for the dialog. */
   height?: string;
-  /** Adds Help tooltip to Header */
+  /**
+   * Adds Help tooltip to Header.
+   * @deprecated This prop no longer has any effect and will be removed in a future release.
+   */
   help?: string;
   /** Adds a gradient keyline to the dialog header */
   gradientKeyLine?: boolean;
@@ -209,6 +214,21 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       [],
     );
 
+    // Check if title is a DialogHeader component
+    const isDialogHeader =
+      title &&
+      React.isValidElement(title) &&
+      title.type === DialogHeaderComponent;
+
+    let dialogHeaderTitleId: string | undefined;
+    let dialogHeaderSubtitleId: string | undefined;
+
+    if (isDialogHeader) {
+      // Generate IDs for DialogHeader
+      dialogHeaderTitleId = titleId; // Reuse the existing titleId from the Dialog
+      dialogHeaderSubtitleId = title.props.subtitle ? subtitleId : undefined;
+    }
+
     const closeIcon = showCloseIcon && onCancel && (
       <Button
         aria-label={locale.dialog.ariaLabels.close()}
@@ -224,52 +244,58 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     );
 
     const dialogTitle = () => {
-      const renderTitle = (
+      // Helper to render subtitle
+      const renderSubtitle = () => (
+        <StyledSubtitle
+          as="div"
+          data-element="subtitle"
+          data-role="subtitle"
+          id={subtitleId}
+        >
+          {subtitle}
+        </StyledSubtitle>
+      );
+
+      // Render title content based on type and props
+      const renderTitleContent = () => {
+        // Non-string title renders as-is
+        if (typeof title !== "string") {
+          return title;
+        }
+
+        // String title only
+        return (
+          <Typography
+            wordWrap="break-word"
+            wordBreak="normal"
+            variant="h1"
+            data-element="dialog-title"
+            id={titleId}
+          >
+            {title}
+          </Typography>
+        );
+      };
+
+      const titleContent = (
         <div data-element="dialog-title-container">
-          {typeof title === "string" ? (
-            <>
-              {help ? (
-                <div data-element="dialog-title-help-wrapper">
-                  <Typography
-                    wordWrap="break-word"
-                    wordBreak="normal"
-                    variant="h1"
-                    marginRight="16px"
-                    data-element="dialog-title"
-                    id={titleId}
-                  >
-                    {title}
-                  </Typography>
-                  <StyledHeaderHelp data-element="help" tooltipPosition="right">
-                    {help}
-                  </StyledHeaderHelp>
-                </div>
-              ) : (
-                <Typography
-                  wordWrap="break-word"
-                  wordBreak="normal"
-                  variant="h1"
-                  data-element="dialog-title"
-                  id={titleId}
-                >
-                  {title}
-                </Typography>
-              )}
-            </>
-          ) : (
-            title
-          )}
-          {subtitle && (
-            <StyledSubtitle
-              as="div"
-              data-element="subtitle"
-              data-role="subtitle"
-              id={subtitleId}
-            >
-              {subtitle}
-            </StyledSubtitle>
-          )}
+          {renderTitleContent()}
+          {subtitle && renderSubtitle()}
         </div>
+      );
+
+      // Wrap in context provider if title is DialogHeader
+      const renderTitle = isDialogHeader ? (
+        <DialogHeaderContext.Provider
+          value={{
+            titleId: dialogHeaderTitleId,
+            subtitleId: dialogHeaderSubtitleId,
+          }}
+        >
+          {titleContent}
+        </DialogHeaderContext.Provider>
+      ) : (
+        titleContent
       );
 
       return isFullScreen ? (
@@ -317,10 +343,14 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
     const ariaProps = {
       "aria-describedby":
-        subtitle && typeof subtitle === "string" ? subtitleId : ariaDescribedBy,
+        dialogHeaderSubtitleId ||
+        (subtitle && typeof subtitle === "string"
+          ? subtitleId
+          : ariaDescribedBy),
       "aria-label": ariaLabel,
       "aria-labelledby":
-        title && typeof title === "string" ? titleId : ariaLabelledBy,
+        dialogHeaderTitleId ||
+        (title && typeof title === "string" ? titleId : ariaLabelledBy),
     };
 
     return (
@@ -399,8 +429,8 @@ Dialog.displayName = "Dialog";
 
 export default Dialog;
 
-export { default as withDialogHeader } from "./dialog-header/dialog-header.component";
+export { default as DialogHeader } from "./dialog-header/dialog-header.component";
 export type {
-  EnhancedDialogProps,
-  DialogHeadingStatus,
+  DialogHeaderProps,
+  DialogHeading,
 } from "./dialog-header/dialog-header.component";
