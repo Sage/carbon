@@ -16,6 +16,7 @@ import {
   StyledFormFooter,
 } from "../../../form/form.style";
 import StyledFullScreenHeading from "../../../../__internal__/full-screen-heading/full-screen-heading.style";
+import { paddingPropertyNames } from "../../../../style/utils/filter-styled-system-padding-props";
 
 const dialogSizes = {
   small: DIALOG_SIZE_CONFIG.small.maxWidth,
@@ -81,6 +82,9 @@ const applyDefaultPadding = () => css`
   }
 `;
 
+const hasContentPadding = (props: PaddingProps) =>
+  paddingPropertyNames.some((key) => props[key] !== undefined);
+
 // istanbul ignore next
 const applyContentPadding =
   (disableContentPadding = false) =>
@@ -92,7 +96,7 @@ const applyContentPadding =
     }
 
     return css`
-      ${applyDefaultPadding()}
+      ${!hasContentPadding(props) && applyDefaultPadding()}
 
       ${paddingFn(props)}
     `;
@@ -372,7 +376,6 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
               min-width: ${DIALOG_MIN_WIDTH};
             }
           `}
-
           ${$size === "large" &&
           css`
             min-width: 850px;
@@ -383,7 +386,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
               min-width: ${DIALOG_MIN_WIDTH};
             }
           `}
-
+ 
           ${$gradientKeyLine &&
           css`
             &::before {
@@ -404,7 +407,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
                 var(--global-radius-container-xl) 0 0;
             }
           `}
-
+ 
           @media screen and (max-width: ${dialogSizes[$size]}) {
             max-width: calc(100% - var(--global-space-comp-2-xl));
           }
