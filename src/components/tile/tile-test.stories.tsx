@@ -115,7 +115,7 @@ export const GreyWithTextArea = () => {
     "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
   ];
   const [textAreaValue, setTextAreaValue] = useState("");
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextAreaValue(e.target.value);
   };
   const buttonAction = () => {
