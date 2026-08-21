@@ -2,9 +2,7 @@ name: PR checks
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review, labeled]
-  pull_request_review:
-    types: [submitted]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   trigger-chromatic:
@@ -38,7 +36,7 @@ jobs:
 
       - name: Dispatch Chromatic
         uses: octokit/request-action@v3.x
-        if: ${{ fromJSON(steps.count_approvals.outputs.count) >= 2 && contains(github.event.pull_request.labels.*.name, 'Passed Review') }}
+        if: ${{ fromJSON(steps.count_approvals.outputs.count) >= 2 }}
         id: dispatch_chromatic
         with:
           route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
