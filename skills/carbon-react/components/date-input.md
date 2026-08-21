@@ -39,8 +39,6 @@ description: Carbon DateInput component props and usage examples.
 | dangerouslySetInnerHTML | { __html: string \| TrustedHTML; } \| undefined | No |  |  |  |  |  |
 | datatype | string \| undefined | No |  |  |  |  |  |
 | dateFormatOverride | string \| undefined | No |  |  |  | Date format string to be applied to the date inputs |  |
-| datePickerAriaLabel | string \| undefined | No |  |  |  | Prop to specify the aria-label attribute of the date picker |  |
-| datePickerAriaLabelledBy | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby attribute of the date picker |  |
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
@@ -283,6 +281,7 @@ description: Carbon DateInput component props and usage examples.
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set |  |
+| variant | "typical" \| "legacy" \| undefined | No |  |  |  | Date input presentation. Typical is the default; legacy retains its icon trigger. |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
@@ -340,6 +339,8 @@ description: Carbon DateInput component props and usage examples.
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | adaptiveLabelBreakpoint | number \| undefined | No |  | Yes | `adaptiveLabelBreakpoint` has been deprecated, the functionality will no longer work. |  |  |
+| datePickerAriaLabel | string \| undefined | No |  | Yes | The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`). Remove this prop; it has no effect. |  |  |
+| datePickerAriaLabelledBy | string \| undefined | No |  | Yes | The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`). Remove this prop; it has no effect. |  |  |
 | fieldHelp | React.ReactNode | No |  | Yes | `fieldHelp` has been deprecated, `inputHint` should be used instead. [Legacy] Help content to be displayed under an input. |  |  |
 | helpAriaLabel | string \| undefined | No |  | Yes | `helpAriaLabel` has been deprecated, the functionality will no longer work. |  |  |
 | info | string \| boolean \| undefined | No |  | Yes | `info` has been deprecated, the functionality will no longer work. |  |  |
@@ -363,17 +364,29 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("04/04/2019");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
+  const [typicalValue, setTypicalValue] = useState(storyDateValue);
+  const [legacyValue, setLegacyValue] = useState(storyDateValue);
+
   return (
-    <DateInput
-      label="Date"
-      name="date-input"
-      value={state}
-      onChange={setValue}
-    />
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="var(--global-space-layout-xs)"
+    >
+      <DateInput
+        label="Typical date"
+        name="date-input-typical"
+        value={typicalValue}
+        onChange={(event) => setTypicalValue(event.target.value.formattedValue)}
+      />
+      <DateInput
+        variant="legacy"
+        label="Legacy date"
+        name="date-input-legacy"
+        value={legacyValue}
+        onChange={(event) => setLegacyValue(event.target.value.formattedValue)}
+      />
+    </Box>
   );
 }
 ```
@@ -385,19 +398,7 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("04/04/2019");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput
-      label="Date"
-      inputHint="Hint text"
-      name="date-input"
-      value={state}
-      onChange={setValue}
-    />
-  );
+  return <PairedDateInputs inputHint="Hint text" />;
 }
 ```
 
@@ -408,23 +409,16 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
   return (
-    <>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="var(--global-space-layout-s)"
+    >
       {(["small", "medium", "large"] as const).map((size) => (
-        <DateInput
-          key={`Date - ${size}`}
-          label={`Date - ${size}`}
-          value={state}
-          onChange={setValue}
-          size={size}
-          mb={2}
-        />
+        <PairedDateInputs key={size} size={size} />
       ))}
-    </>
+    </Box>
   );
 }
 ```
@@ -436,11 +430,7 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return <DateInput label="Date" value={state} onChange={setValue} disabled />;
+  return <PairedDateInputs disabled />;
 }
 ```
 
@@ -451,11 +441,7 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return <DateInput label="Date" value={state} onChange={setValue} readOnly />;
+  return <PairedDateInputs readOnly />;
 }
 ```
 
@@ -466,90 +452,77 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
+  const [typicalValue, setTypicalValue] = useState("");
+  const [legacyValue, setLegacyValue] = useState("");
+
+  const setValues = (value: string) => {
+    setTypicalValue(value);
+    setLegacyValue(value);
   };
+
   return (
     <>
       <Box mb={2}>
-        <Button onClick={() => setState("")}>Set empty date</Button>
-        <Button onClick={() => setState("01/04/2019")} ml={2}>
-          Set 2019-04-01
+        <Button onClick={() => setValues("")}>Set empty dates</Button>
+        <Button onClick={() => setValues(storyDateValue)} ml={2}>
+          Set dates to yesterday
         </Button>
       </Box>
-      <DateInput
-        label="Date"
-        name="dateinput"
-        value={state}
-        onChange={setValue}
-        allowEmptyValue
-      />
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap="var(--global-space-layout-xs)"
+      >
+        <DateInput
+          label="Typical date"
+          name="date-input-typical"
+          value={typicalValue}
+          onChange={(event) =>
+            setTypicalValue(event.target.value.formattedValue)
+          }
+          allowEmptyValue
+        />
+        <DateInput
+          variant="legacy"
+          label="Legacy date"
+          name="date-input-legacy"
+          value={legacyValue}
+          onChange={(event) =>
+            setLegacyValue(event.target.value.formattedValue)
+          }
+          allowEmptyValue
+        />
+      </Box>
     </>
   );
 }
 ```
 
 
-### Disabled Dates
-
-**Render**
-
-```tsx
-({ onChange, ...args }: DateInputProps) => {
-  const [state, setState] = useState("04/04/2019");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput
-      {...args}
-      label="Date"
-      name="date-input"
-      value={state}
-      minDate="2019-04-04"
-      maxDate="2019-05-31"
-      onChange={(ev) => {
-        setValue(ev);
-        onChange?.(ev);
-      }}
-    />
-  );
-}
-```
-
-
-### Disabled Dates using pickerProps
+### Disabled Dates in Calendar
 
 **Render**
 
 ```tsx
 () => {
-  const [state, setState] = useState("04/04/2019");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-
   const isWeekend = (day: Date) => [0, 6].includes(day.getDay());
 
   return (
-    <DateInput
-      label="Date"
-      name="date-input"
-      value={state}
-      onChange={setValue}
-      pickerProps={{
-        disabled: [
-          isWeekend,
-          {
-            from: new Date(2019, 3, 1),
-            to: new Date(2019, 3, 15),
-          },
-          { before: new Date(2019, 2, 15) },
-          { after: new Date(2019, 4, 15) },
-        ],
-      }}
-    />
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="var(--global-space-layout-xs)"
+    >
+      <Typography variant="p">
+        Saturdays and Sundays are disabled in both calendars.
+      </Typography>
+      <PairedDateInputs
+        labelDetail="weekends disabled"
+        pickerProps={{
+          disabled: [isWeekend],
+        }}
+      />
+    </Box>
   );
 }
 ```
@@ -561,19 +534,7 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput
-      label="Date"
-      value={state}
-      onChange={setValue}
-      labelInline
-      name="dateinput"
-    />
-  );
+  return <PairedDateInputs labelInline />;
 }
 ```
 
@@ -584,59 +545,83 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput
-      label="Date"
-      value={state}
-      onChange={setValue}
-      maxWidth="300px"
-    />
-  );
+  return <PairedDateInputs maxWidth="300px" />;
 }
 ```
 
 
-### With Field Help
+### With Error
 
 **Render**
 
 ```tsx
 () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
   return (
-    <DateInput
-      label="Date"
-      value={state}
-      onChange={setValue}
-      fieldHelp="Help"
-      name="dateinput"
-    />
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="var(--global-space-layout-s)"
+    >
+      <PairedDateInputs
+        labelDetail="error above"
+        inputHint="Date must be in DD/MM/YYYY format"
+        error="Enter a valid date"
+      />
+      <PairedDateInputs
+        labelDetail="error below"
+        validationMessagePositionTop={false}
+        inputHint="Date must be in DD/MM/YYYY format"
+        error="Enter a valid date"
+      />
+    </Box>
   );
 }
 ```
 
 
-### With Disabled Portal
+### With Caution
 
 **Render**
 
 ```tsx
-() => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput label="Date" value={state} onChange={setValue} disablePortal />
-  );
-}
+() => (
+  <Box display="flex" flexDirection="column" gap="var(--global-space-layout-s)">
+    <PairedDateInputs
+      labelDetail="caution above"
+      inputHint="Check that the date is correct"
+      warning="Caution message (fix is optional)"
+    />
+    <PairedDateInputs
+      labelDetail="caution below"
+      validationMessagePositionTop={false}
+      inputHint="Check that the date is correct"
+      warning="Caution message (fix is optional)"
+    />
+  </Box>
+)
+```
+
+
+### Without Portal (Deprecated)
+
+**Render**
+
+```tsx
+() => (
+  <Box
+    display="flex"
+    flexDirection="column"
+    gap="var(--global-space-layout-xs)"
+  >
+    <Typography variant="p">
+      Deprecated compatibility behavior: disablePortal renders the calendar in
+      the Date Input&apos;s local DOM tree instead of through a portal. Existing
+      legacy and typical consumers remain supported, but new implementations
+      should not adopt this prop.
+    </Typography>
+    <PairedDateInputs disablePortal />
+  </Box>
+)
 ```
 
 
@@ -646,11 +631,7 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return <DateInput label="Date" value={state} onChange={setValue} required />;
+  return <PairedDateInputs required />;
 }
 ```
 
@@ -661,16 +642,17 @@ description: Carbon DateInput component props and usage examples.
 
 ```tsx
 () => {
-  const [state, setState] = useState("2022-04-05");
-  const handleChange = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  const [state2, setState2] = useState("2022-04-05");
-  const handleChange2 = (ev: DateChangeEvent) => {
-    setState2(ev.target.value.formattedValue);
-  };
   return (
-    <Box display="flex" justifyContent="space-around">
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="var(--global-space-layout-m)"
+    >
+      <Typography variant="p">
+        Locale values are merged with en-GB. Applications should supply approved
+        translations for their users through I18nProvider; omitted accessibility
+        labels fall back to en-GB.
+      </Typography>
       <I18nProvider
         locale={{
           locale: () => "de-DE",
@@ -683,11 +665,7 @@ description: Carbon DateInput component props and usage examples.
           },
         }}
       >
-        <DateInput
-          label="Date `DE` locale"
-          value={state}
-          onChange={handleChange}
-        />
+        <PairedDateInputs initialValue="2022-04-05" labelDetail="DE locale" />
       </I18nProvider>
       <I18nProvider
         locale={{
@@ -701,10 +679,43 @@ description: Carbon DateInput component props and usage examples.
           },
         }}
       >
-        <DateInput
-          label="Date `zh-CN` locale"
-          value={state2}
-          onChange={handleChange2}
+        <PairedDateInputs
+          initialValue="2022-04-05"
+          labelDetail="zh-CN locale"
+        />
+      </I18nProvider>
+      <I18nProvider
+        locale={{
+          locale: () => "pl-PL",
+          date: {
+            dateFnsLocale: () => pl,
+            ariaLabels: {
+              previousMonthButton: () => "Poprzedni miesiąc",
+              nextMonthButton: () => "Następny miesiąc",
+            },
+          },
+        }}
+      >
+        <PairedDateInputs
+          initialValue="2022-04-05"
+          labelDetail="pl-PL locale"
+        />
+      </I18nProvider>
+      <I18nProvider
+        locale={{
+          locale: () => "en-GB",
+          date: {
+            dateFnsLocale: () => enGB,
+            ariaLabels: {
+              previousMonthButton: () => "Previous month",
+              nextMonthButton: () => "Next month",
+            },
+          },
+        }}
+      >
+        <PairedDateInputs
+          initialValue="2022-04-05"
+          labelDetail="en-GB locale"
         />
       </I18nProvider>
     </Box>
@@ -733,7 +744,16 @@ description: Carbon DateInput component props and usage examples.
   };
 
   return (
-    <Box display="flex" justifyContent="space-around">
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="var(--global-space-layout-s)"
+    >
+      <Typography variant="p">
+        Both fields use the German locale. The first uses the locale translation
+        key, so it displays YYYY-MM-DD. The second passes dateFormatOverride
+        directly, so that prop takes precedence and displays DD/MM/YYYY.
+      </Typography>
       <I18nProvider
         locale={{
           locale: () => "de-DE",
@@ -749,7 +769,8 @@ description: Carbon DateInput component props and usage examples.
       >
         <DateInput
           {...args}
-          label="With dateFormatOverride translation key"
+          variant="typical"
+          label="Translation key format (YYYY-MM-DD)"
           value={stateKey}
           onChange={(ev) => {
             handleChangeKey(ev);
@@ -760,7 +781,8 @@ description: Carbon DateInput component props and usage examples.
 
         <DateInput
           {...args}
-          label="With dateFormatOverride prop"
+          variant="typical"
+          label="Prop override format (DD/MM/YYYY)"
           value={stateProp}
           onChange={(ev) => {
             handleChangeProp(ev);
