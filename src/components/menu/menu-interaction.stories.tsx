@@ -258,14 +258,21 @@ export const WithSearch: Story = {
       name: "Menu Item black",
     });
 
+    menuItemWhite.focus();
+    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard("{ArrowDown}");
+    const [searchInput] = canvas.getAllByRole("textbox", { name: "Search" });
+    await expect(searchInput).toHaveFocus();
+    await userEvent.keyboard("{ArrowDown}");
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(searchInput).toHaveFocus();
+    await userEvent.keyboard("{Escape}");
+
     await userEvent.hover(menuItemWhite);
     await userEvent.hover(menuItemLight);
     await userEvent.hover(menuItemDark);
     await userEvent.hover(menuItemBlack);
-
-    const search = canvas.getAllByRole("textbox", { name: "Search" });
-    search[0].focus();
-    await expect(search[0]).toHaveFocus();
+    await userEvent.keyboard("{ArrowDown}");
   },
   decorators: [
     (StoryToRender) => (
