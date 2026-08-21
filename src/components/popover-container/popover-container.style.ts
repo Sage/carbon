@@ -52,6 +52,7 @@ type PopoverContainerContentStyleProps = {
   zIndex?: number;
   $borderRadius?: BoxProps["borderRadius"];
   $popoverOffset?: number;
+  $inMenu?: boolean;
 };
 
 const PopoverContainerContentStyle = styled.div.attrs(
@@ -60,6 +61,13 @@ const PopoverContainerContentStyle = styled.div.attrs(
   ${padding}
 
   background: var(--colorsUtilityYang100);
+
+  ${({ $inMenu }) =>
+    $inMenu &&
+    css`
+      color: var(--page-content-txt-default);
+    `}
+
   ${({ $borderRadius = "borderRadius100" }) => {
     const radiusValues = $borderRadius.split(" ").filter(Boolean);
     return css`

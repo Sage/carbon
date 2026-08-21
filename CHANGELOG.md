@@ -1,3 +1,21 @@
+## [161.19.0](https://github.com/Sage/carbon/compare/v161.18.2...v161.19.0) (2026-08-21)
+
+### Features
+
+* **button:** add support for inverse focus styling ([df4df1a](https://github.com/Sage/carbon/commit/df4df1ad3df3ac8d865f4d3323a16edc5dbdd7a8))
+
+## [161.18.2](https://github.com/Sage/carbon/compare/v161.18.1...v161.18.2) (2026-08-20)
+
+### Bug Fixes
+
+* ensure popover components anchor within the same local tree as the trigger ([547d9e7](https://github.com/Sage/carbon/commit/547d9e73ac4db7a02e9cee05d10afc00c39f1bd3)), closes [#7789](https://github.com/Sage/carbon/issues/7789)
+
+## [161.18.1](https://github.com/Sage/carbon/compare/v161.18.0...v161.18.1) (2026-08-20)
+
+### Bug Fixes
+
+* **tabs:** ensure focused tab is fully visible ([ce19463](https://github.com/Sage/carbon/commit/ce19463267cdde0ec87b2434eb2f642cb575d55d)), closes [#8093](https://github.com/Sage/carbon/issues/8093)
+
 ## [161.18.0](https://github.com/Sage/carbon/compare/v161.17.2...v161.18.0) (2026-08-17)
 
 ### Features
