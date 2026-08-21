@@ -157,8 +157,9 @@ const Popover = ({ disablePortal, portalTarget, ...props }: PopoverProps) => {
   }
 
   const target =
-    portalTarget ??
-    (isInModal && closestDialog ? closestDialog : document.body);
+    isInModal && closestDialog
+      ? closestDialog
+      : (portalTarget ?? document.body);
 
   return createPortal(
     <CarbonScopedTokensProvider

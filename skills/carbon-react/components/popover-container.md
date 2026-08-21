@@ -65,6 +65,7 @@ description: Carbon PopoverContainer component props and usage examples.
       >
         Contents
       </PopoverContainer>
+      <button type="button">Outside</button>
     </Box>
   );
 }
