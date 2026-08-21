@@ -1,3 +1,21 @@
+## [161.18.2](https://github.com/Sage/carbon/compare/v161.18.1...v161.18.2) (2026-08-20)
+
+### Bug Fixes
+
+* ensure popover components anchor within the same local tree as the trigger ([547d9e7](https://github.com/Sage/carbon/commit/547d9e73ac4db7a02e9cee05d10afc00c39f1bd3)), closes [#7789](https://github.com/Sage/carbon/issues/7789)
+
+## [161.18.1](https://github.com/Sage/carbon/compare/v161.18.0...v161.18.1) (2026-08-20)
+
+### Bug Fixes
+
+* **tabs:** ensure focused tab is fully visible ([ce19463](https://github.com/Sage/carbon/commit/ce19463267cdde0ec87b2434eb2f642cb575d55d)), closes [#8093](https://github.com/Sage/carbon/issues/8093)
+
+## [161.18.0](https://github.com/Sage/carbon/compare/v161.17.2...v161.18.0) (2026-08-17)
+
+### Features
+
+* **divider:** align component with fusion DS ([2242875](https://github.com/Sage/carbon/commit/22428758273078f84b113872555eb655e5a9436b))
+
 ## [161.17.2](https://github.com/Sage/carbon/compare/v161.17.1...v161.17.2) (2026-08-12)
 
 ### Bug Fixes
