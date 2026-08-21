@@ -1,3 +1,9 @@
+## [161.19.0](https://github.com/Sage/carbon/compare/v161.18.2...v161.19.0) (2026-08-21)
+
+### Features
+
+* **button:** add support for inverse focus styling ([df4df1a](https://github.com/Sage/carbon/commit/df4df1ad3df3ac8d865f4d3323a16edc5dbdd7a8))
+
 ## [161.18.2](https://github.com/Sage/carbon/compare/v161.18.1...v161.18.2) (2026-08-20)
 
 ### Bug Fixes
