@@ -18,7 +18,9 @@ description: Carbon ButtonToggle component props and usage examples.
 | allowDeselect | boolean \| undefined | No |  |  |  | Allow a selected button to be deselected. |  |
 | buttonIcon | IconType \| undefined | No |  |  |  | Icon rendered within the button. Will not be rendered if size is small. |  |
 | children | React.ReactNode | No |  |  |  | Content to display within the button. |  |
+| className | string \| undefined | No |  |  |  | Additional class name to merge with the component's own class. |  |
 | disabled | boolean \| undefined | No |  |  |  | Disable the ButtonToggle. |  |
+| id | string \| undefined | No |  |  |  | Override the auto-generated id on the button element. |  |
 | onBlur | ((ev: React.FocusEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered by blur event on the button. |  |
 | onClick | ((ev: React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered by click event on the button. |  |
 | onFocus | ((ev: React.FocusEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered by focus event on the button. |  |
