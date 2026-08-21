@@ -7,10 +7,9 @@ import {
   ActionPopoverDivider,
   ActionPopoverItem,
   ActionPopoverMenu,
-  ActionPopoverMenuButton,
 } from ".";
-
 import Box from "../box";
+import Button from "../button/__next__";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import { ActionPopoverWithIconsAndNoSubmenus } from "./components.test-pw";
@@ -75,19 +74,16 @@ export const SubmenuHoverAndFocus: Story = {
       <Box mt={10} height={10}>
         <ActionPopover
           data-role="target"
-          renderButton={({
-            tabIndex,
-            "data-element": dataElement,
-            ariaAttributes,
-          }) => (
-            <ActionPopoverMenuButton
-              buttonType="tertiary"
+          renderButton={({ "data-element": dataElement, ariaAttributes }) => (
+            <Button
+              variant="default"
+              variantType="subtle"
               iconType="dropdown"
               iconPosition="after"
               size="small"
-              tabIndex={tabIndex}
               data-element={dataElement}
-              ariaAttributes={ariaAttributes}
+              {...ariaAttributes}
+              aria-label="actions"
             />
           )}
         >

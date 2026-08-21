@@ -8,7 +8,7 @@
 - [ActionPopoverDivider](components/action-popover-divider.md)
 - [ActionPopoverItem](components/action-popover-item.md)
 - [ActionPopoverMenu](components/action-popover-menu.md)
-- [ActionPopoverMenuButton](components/action-popover-menu-button.md)
+- [ActionPopoverMenuButton](components/action-popover-menu-button.md) (deprecated)
 - [AdaptiveSidebar](components/adaptive-sidebar.md)
 - [AdvancedColorPicker](components/advanced-color-picker.md)
 - [Alert](components/alert.md) (deprecated)

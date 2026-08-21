@@ -144,7 +144,7 @@ test("should render with `ActionPopover` when passed via the `inlineControl` pro
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "actions" }));
+  await user.click(screen.getByRole("button", { name: "Action" }));
 
   expect(screen.getByRole("button", { name: "Copy" })).toBeVisible();
   expect(screen.getByRole("button", { name: "Edit" })).toBeVisible();
