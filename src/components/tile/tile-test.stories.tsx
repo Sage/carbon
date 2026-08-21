@@ -8,7 +8,7 @@ import {
 } from "./tile.config";
 import Box from "../box";
 import Textarea from "../textarea";
-import Button from "../button";
+import Button from "../button/__next__";
 
 export default {
   title: "Tile/Test",
@@ -87,7 +87,7 @@ export const DefaultStory = ({
     ) : undefined,
   ];
   return (
-    <Tile p={8} {...args}>
+    <Tile p={8} {...args} outline radius="moderate">
       {tileContent}
     </Tile>
   );
@@ -122,14 +122,7 @@ export const GreyWithTextArea = () => {
     setTextAreaValue(dummyText[Math.floor(Math.random() * dummyText.length)]);
   };
   return (
-    <Tile
-      p={0}
-      mx={1}
-      orientation="vertical"
-      variant="grey"
-      width="50%"
-      roundness="small"
-    >
+    <Tile p={0} mx={1} variant="grey" width="50%" radius="moderate" outline>
       <TileContent>
         <TileHeader pl={3} py={1} variant="grey">
           <Button iconType="settings" onClick={buttonAction}>
@@ -144,8 +137,8 @@ export const GreyWithTextArea = () => {
             borderRadius={[
               "borderRadius000",
               "borderRadius000",
-              "borderRadius050",
-              "borderRadius050",
+              "borderRadius200",
+              "borderRadius200",
             ]}
           />
         </Box>
@@ -157,12 +150,7 @@ export const GreyWithTextArea = () => {
 export const MultipleTiles = () => {
   return (
     <Box p={2} display="flex" flexDirection="column" gap="20px">
-      <Tile>
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <Tile orientation="vertical">
+      <Tile outline radius="moderate">
         <TileContent>Test Body One</TileContent>
         <TileContent>Test Body Two</TileContent>
         <TileContent>Test Body Three</TileContent>
