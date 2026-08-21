@@ -20,9 +20,8 @@ import {
   PopoverContainerWrapperStyle,
   PopoverContainerHeaderStyle,
   PopoverContainerContentStyle,
-  PopoverContainerCloseIcon,
   PopoverContainerTitleStyle,
-  PopoverContainerOpenIcon,
+  PopoverContainerCloseWrapper,
 } from "./popover-container.style";
 import Icon from "../icon";
 import Popover from "../../__internal__/popover";
@@ -42,8 +41,13 @@ import { BoxProps } from "../box";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
 import MenuContext from "../menu/__internal__/menu.context";
+import Button from "../button/__next__";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface RenderOpenProps {
+  /**
+   * @deprecated
+   */
   tabIndex: number;
   isOpen?: boolean;
   "data-element"?: string;
@@ -56,31 +60,31 @@ export interface RenderOpenProps {
   "aria-expanded": boolean;
   "aria-haspopup": "dialog";
   "data-popover-container-button"?: string;
+  children: React.ReactNode;
 }
 
 export const renderOpen = ({
-  tabIndex,
   onClick,
   "data-element": dataElement,
   ref,
-  "aria-label": ariaLabel,
   id,
   "aria-expanded": ariaExpanded,
   "aria-haspopup": ariaHasPopup,
+  children,
 }: RenderOpenProps) => {
   return (
-    <PopoverContainerOpenIcon
-      tabIndex={tabIndex}
+    <Button
       onClick={onClick}
       data-element={dataElement}
       ref={ref}
-      aria-label={ariaLabel}
       aria-haspopup={ariaHasPopup}
       aria-expanded={ariaExpanded}
       id={id}
+      variant="default"
+      variantType="secondary"
     >
-      <Icon type="settings" />
-    </PopoverContainerOpenIcon>
+      {children}
+    </Button>
   );
 };
 
@@ -100,27 +104,33 @@ const useIsomorphicLayoutEffect =
 
 export const renderClose = ({
   "data-element": dataElement,
-  tabIndex,
   onClick,
   ref,
   "aria-label": ariaLabel,
   closeButtonDataProps,
-}: RenderCloseProps) => (
-  <PopoverContainerCloseIcon
-    tabIndex={tabIndex}
-    onClick={onClick}
-    ref={ref}
-    aria-label={ariaLabel}
-    {...tagComponent("close", {
-      "data-element": dataElement,
-      ...closeButtonDataProps,
-    })}
-  >
-    <Icon type="close" />
-  </PopoverContainerCloseIcon>
-);
+}: RenderCloseProps) => {
+  return (
+    <Button
+      onClick={onClick}
+      ref={ref}
+      aria-label={ariaLabel}
+      variantType="subtle"
+      size="small"
+      {...tagComponent("close", {
+        "data-element": dataElement,
+        ...closeButtonDataProps,
+      })}
+    >
+      <Icon type="close" />
+    </Button>
+  );
+};
 
-type Position = "left" | "right" | "center";
+type Position =
+  | "left"
+  | "right"
+  /** @deprecated "center" is deprecated and will be removed in a future release */
+  | "center";
 
 export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** A function that will render the open component
@@ -132,18 +142,20 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** A function that will render the close component
    *
    * `({data-element, tabIndex, onClick, ref, aria-label}) => ()`
-   *
    */
   renderCloseComponent?: (args: RenderCloseProps) => JSX.Element;
   /** The content of the popover-container */
   children?: React.ReactNode;
-  /** Sets rendering position of dialog */
+  /** Sets rendering position of dialog*/
   position?: Position;
   /** The popover offset from the reference element */
   offset?: number;
   /** Sets the popover container dialog header name */
   title?: string;
-  /** Sets the border radius of the popover container */
+  /**
+   * Sets the border radius of the popover container
+   * @deprecated the `borderRadius` prop is being deprecated and will be removed in a future release.
+   * */
   borderRadius?: BoxProps["borderRadius"];
   /** Callback fires when close icon clicked */
   onClose?: (
@@ -163,11 +175,20 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   shouldCoverButton?: boolean;
   /** The id of the element that describe the dialog. */
   ariaDescribedBy?: string;
-  /** Open button aria label */
+  /**
+   * @deprecated
+   * Accessible label passed to custom open button renderers. The default open button is named by its visible text.
+   * Please note this prop is no longer passed as the default button has text. If you are using an icon only button,
+   * set the aria-label on your custom button instead.
+   * */
   openButtonAriaLabel?: string;
-  /** Close button aria label */
+  /**
+   * Close button aria label
+   * */
   closeButtonAriaLabel?: string;
-  /** Data tag prop bag for close Button */
+  /**
+   * Data tag prop bag for close Button
+   */
   closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
   /** Container aria label */
   containerAriaLabel?: string;
@@ -232,7 +253,6 @@ export const PopoverContainer = forwardRef<
   ) => {
     const isControlled = open !== undefined;
     const [isOpenInternal, setIsOpenInternal] = useState(false);
-
     const closeButtonRef = useRef<HTMLButtonElement>(null);
     const openButtonRef = useRef<HTMLButtonElement>(null);
     const [popoverReference, setPopoverReference] =
@@ -244,6 +264,7 @@ export const PopoverContainer = forwardRef<
       ? `PopoverContainer_${guid.current}`
       : undefined;
     const { inMenu } = useContext(MenuContext);
+    const locale = useLocale();
     const isOpen = isControlled ? open : isOpenInternal;
 
     const reduceMotion = !useMediaQuery(
@@ -346,9 +367,14 @@ export const PopoverContainer = forwardRef<
       "data-element": "popover-container-open-component",
       onClick: handleOpenButtonClick,
       ref: openButtonRef,
-      "aria-label": openButtonAriaLabel || title,
       id: isOpen ? undefined : popoverContainerId,
       "data-popover-container-button": "true",
+      children: (
+        <>
+          {locale.popoverContainer.openButton.text()}
+          <Icon type="ellipsis_vertical" />
+        </>
+      ),
     };
 
     const renderCloseComponentProps = {
@@ -407,7 +433,9 @@ export const PopoverContainer = forwardRef<
                 {title}
               </PopoverContainerTitleStyle>
             )}
-            {renderCloseComponent(renderCloseComponentProps)}
+            <PopoverContainerCloseWrapper>
+              {renderCloseComponent(renderCloseComponentProps)}
+            </PopoverContainerCloseWrapper>
           </PopoverContainerHeaderStyle>
           {children}
         </MenuContext.Provider>
@@ -468,7 +496,7 @@ export const PopoverContainer = forwardRef<
     return (
       <PopoverContainerWrapperStyle
         onMouseDown={handleClick}
-        hasFullWidth={hasFullWidth}
+        $hasFullWidth={hasFullWidth}
         {...tagComponent("popover-container", rest)}
       >
         <div ref={setPopoverReference}>

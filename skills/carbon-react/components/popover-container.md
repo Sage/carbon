@@ -13,42 +13,42 @@ description: Carbon PopoverContainer component props and usage examples.
 - Props interface: `PopoverContainerProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| ariaDescribedBy | string \| undefined | No |  | The id of the element that describe the dialog. |  |
-| borderRadius | BoxProps["borderRadius"] | No |  | Sets the border radius of the popover container |  |
-| children | React.ReactNode | No |  | The content of the popover-container |  |
-| closeButtonAriaLabel | string \| undefined | No |  | Close button aria label |  |
-| closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  | Data tag prop bag for close Button |  |
-| containerAriaLabel | string \| undefined | No |  | Container aria label |  |
-| disableAnimation | boolean \| undefined | No |  | Disables the animation for the component |  |
-| hasFullWidth | boolean \| undefined | No |  | Flag to enable fullWidth Button styles |  |
-| offset | number \| undefined | No |  | The popover offset from the reference element |  |
-| onClose | ((ev: React.KeyboardEvent<HTMLElement> \| React.MouseEvent<HTMLElement> \| React.FocusEvent<HTMLElement> \| Event) => void) \| undefined | No |  | Callback fires when close icon clicked |  |
-| onOpen | ((ev: React.KeyboardEvent<HTMLElement> \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | Callback fires when open component is clicked |  |
-| open | boolean \| undefined | No |  | if `true` the popover-container is open |  |
-| openButtonAriaLabel | string \| undefined | No |  | Open button aria label |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| position | Position \| undefined | No |  | Sets rendering position of dialog |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| renderCloseComponent | ((args: RenderCloseProps) => JSX.Element) \| undefined | No |  | A function that will render the close component `({data-element, tabIndex, onClick, ref, aria-label}) => ()` |  |
-| renderOpenComponent | ((args: RenderOpenProps) => JSX.Element) \| undefined | No |  | A function that will render the open component `({tabIndex, isOpen, data-element, onClick, ref, aria-label}) => ()` |  |
-| shouldCoverButton | boolean \| undefined | No |  | if `true` the popover-container will cover open button |  |
-| title | string \| undefined | No |  | Sets the popover container dialog header name |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ariaDescribedBy | string \| undefined | No |  |  |  | The id of the element that describe the dialog. |  |
+| children | React.ReactNode | No |  |  |  | The content of the popover-container |  |
+| closeButtonAriaLabel | string \| undefined | No |  |  |  | Close button aria label |  |
+| closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  |  |  | Data tag prop bag for close Button |  |
+| containerAriaLabel | string \| undefined | No |  |  |  | Container aria label |  |
+| disableAnimation | boolean \| undefined | No |  |  |  | Disables the animation for the component |  |
+| hasFullWidth | boolean \| undefined | No |  |  |  | Flag to enable fullWidth Button styles |  |
+| offset | number \| undefined | No |  |  |  | The popover offset from the reference element |  |
+| onClose | ((ev: React.KeyboardEvent<HTMLElement> \| React.MouseEvent<HTMLElement> \| React.FocusEvent<HTMLElement> \| Event) => void) \| undefined | No |  |  |  | Callback fires when close icon clicked |  |
+| onOpen | ((ev: React.KeyboardEvent<HTMLElement> \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Callback fires when open component is clicked |  |
+| open | boolean \| undefined | No |  |  |  | if `true` the popover-container is open |  |
+| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
+| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
+| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
+| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
+| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
+| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
+| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
+| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
+| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
+| position | Position \| undefined | No |  |  |  | Sets rendering position of dialog |  |
+| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
+| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
+| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
+| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| renderCloseComponent | ((args: RenderCloseProps) => JSX.Element) \| undefined | No |  |  |  | A function that will render the close component `({data-element, tabIndex, onClick, ref, aria-label}) => ()` |  |
+| renderOpenComponent | ((args: RenderOpenProps) => JSX.Element) \| undefined | No |  |  |  | A function that will render the open component `({tabIndex, isOpen, data-element, onClick, ref, aria-label}) => ()` |  |
+| shouldCoverButton | boolean \| undefined | No |  |  |  | if `true` the popover-container will cover open button |  |
+| title | string \| undefined | No |  |  |  | Sets the popover container dialog header name |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| borderRadius | BoxProps["borderRadius"] | No |  | Yes | the `borderRadius` prop is being deprecated and will be removed in a future release. | Sets the border radius of the popover container |  |
+| openButtonAriaLabel | string \| undefined | No |  | Yes | Accessible label passed to custom open button renderers. The default open button is named by its visible text. Please note this prop is no longer passed as the default button has text. If you are using an icon only button, set the aria-label on your custom button instead. |  |  |
 
 ## Examples
 ### Default
@@ -248,8 +248,6 @@ description: Carbon PopoverContainer component props and usage examples.
           "aria-haspopup": ariaHasPopup,
         }) => (
           <Button
-            iconType={!isOpen ? "filter_new" : "close"}
-            iconPosition="after"
             data-element={dataElement}
             aria-label={ariaLabel}
             aria-haspopup={ariaHasPopup}
@@ -259,6 +257,7 @@ description: Carbon PopoverContainer component props and usage examples.
             onClick={onClick}
           >
             Filter
+            <Icon type={!isOpen ? "filter_new" : "close"} />
           </Button>
         )}
         renderCloseComponent={({
@@ -491,14 +490,14 @@ description: Carbon PopoverContainer component props and usage examples.
           <Badge counter={filters.length} onClick={handleBadgeClose}>
             <Button
               mr={0}
-              buttonType={isOpen ? "primary" : "darkBackground"}
-              iconPosition="after"
-              iconType={!isOpen ? "filter_new" : "close"}
+              variantType={"primary"}
+              inverse={!isOpen}
               size="small"
               ref={ref}
               {...rest}
             >
               Filter
+              {<Icon type={!isOpen ? "filter_new" : "close"} />}
             </Button>
           </Badge>
         )}
@@ -558,14 +557,10 @@ description: Carbon PopoverContainer component props and usage examples.
       open={isPopOverOpen}
       onOpen={() => setIsPopOverOpen(true)}
       onClose={() => setIsPopOverOpen(false)}
-      renderOpenComponent={({ ...props }) => (
-        <Button
-          size="small"
-          buttonType="secondary"
-          iconType="settings"
-          {...props}
-        >
-          popover
+      renderOpenComponent={({ ref, ...props }) => (
+        <Button size="small" variantType="primary" ref={ref} {...props}>
+          <Icon type="settings" />
+          Popover
         </Button>
       )}
       renderCloseComponent={() => <></>}
@@ -575,7 +570,7 @@ description: Carbon PopoverContainer component props and usage examples.
         onSubmit={() => {}}
         leftSideButtons={<Button onClick={() => handleCancel()}>Cancel</Button>}
         saveButton={
-          <Button buttonType="primary" type="submit">
+          <Button variantType="primary" type="submit">
             Save
           </Button>
         }
