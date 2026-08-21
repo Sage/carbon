@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return the correct focus styling for default focus 1`] = `
+"
+    -webkit-box-shadow: var(--focus-shadow-default);
+    box-shadow: var(--focus-shadow-default);
+
+    outline: transparent 3px solid;
+  "
+`;
+
+exports[`should return the correct focus styling for inset and inverse focus 1`] = `
+"
+    -webkit-box-shadow: var(--focus-shadow-inset-inverse);
+    box-shadow: var(--focus-shadow-inset-inverse);
+
+    outline: transparent 3px solid;
+  "
+`;
+
+exports[`should return the correct focus styling for inset focus 1`] = `
+"
+    -webkit-box-shadow: var(--focus-shadow-inset);
+    box-shadow: var(--focus-shadow-inset);
+
+    outline: transparent 3px solid;
+  "
+`;
+
+exports[`should return the correct focus styling for inverse focus 1`] = `
+"
+    -webkit-box-shadow: var(--focus-shadow-inverse-default);
+    box-shadow: var(--focus-shadow-inverse-default);
+
+    outline: transparent 3px solid;
+  "
+`;

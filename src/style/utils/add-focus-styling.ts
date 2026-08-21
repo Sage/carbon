@@ -1,8 +1,12 @@
-export default (inset = false) => {
-  let focusStyling = "var(--focus-shadow-default)";
+export default (inset = false, inverse = false) => {
+  let focusStyling = inverse
+    ? "var(--focus-shadow-inverse-default)"
+    : "var(--focus-shadow-default)";
 
   if (inset) {
-    focusStyling = "var(--focus-shadow-inset)";
+    focusStyling = inverse
+      ? "var(--focus-shadow-inset-inverse)"
+      : "var(--focus-shadow-inset)";
   }
 
   return `
