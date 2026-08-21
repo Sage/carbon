@@ -34,11 +34,12 @@ export const StyledFieldset = styled.fieldset.attrs(applyBaseTheme)`
 export type StyledLegendProps = {
   $isRequired?: boolean;
   $isDisabled?: boolean;
+  $isReadOnly?: boolean;
   $size: "small" | "medium" | "large";
 };
 
 export const StyledLegend = styled.legend<StyledLegendProps>`
-  ${({ $isRequired, $isDisabled, $size }) => css`
+  ${({ $isRequired, $isDisabled, $isReadOnly, $size }) => css`
     display: flex;
     align-items: center;
     padding: 0;
@@ -55,6 +56,14 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
       }
     `}
 
+    ${$isReadOnly &&
+    css`
+      color: var(--input-labelset-label-read-only);
+      ::after {
+        color: var(--input-labelset-label-read-only);
+      }
+    `}
+ 
     ${$isDisabled &&
     css`
       color: var(--input-labelset-label-disabled);
