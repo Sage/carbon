@@ -333,7 +333,13 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         <FieldsetValidationContext.Provider
           value={{ disableErrorBorder: true }}
         >
-          <StyledTimeLayout className="time" $hasToggle={showToggle}>
+          <StyledTimeLayout
+            className="time"
+            $hasToggle={showToggle}
+            $size={size}
+            $isDisabled={disabled}
+            $isReadOnly={readOnly}
+          >
             <StyledTimeInputs>
               <StyledTimeInputField $size={size}>
                 <Label

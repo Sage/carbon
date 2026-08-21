@@ -13,26 +13,6 @@ const getFontToken = (size: "small" | "medium" | "large") => {
   }
 };
 
-const getTimeFontToken = (size: "small" | "medium" | "large") => {
-  switch (size) {
-    case "small":
-      return "var(--global-font-static-comp-regular-s)";
-    case "large":
-      return "var(--global-font-static-comp-regular-l)";
-    default:
-      return "var(--global-font-static-comp-regular-m)";
-  }
-};
-
-const getTimeColourToken = (disabled?: boolean, readOnly?: boolean) => {
-  if (disabled) {
-    return "var(--input-typical-txt-disabled)";
-  }
-  if (readOnly) {
-    return "var(--input-typical-txt-read-only)";
-  }
-  return "var(--input-typical-txt-default)";
-};
 interface StyledLabelProps {
   $size: "small" | "medium" | "large";
   $isRequired?: boolean;
@@ -78,13 +58,6 @@ const StyledLabel = styled.label<StyledLabelProps>`
       }
     `}
 
-  ${({ $size, $disabled, $readOnly }) => css`
-    .time & {
-      font: ${getTimeFontToken($size)};
-      color: ${getTimeColourToken($disabled, $readOnly)};
-    }
-  `}
- 
   ${labelStyleOverrides}
   .fieldset-required-input & {
     ::after {
