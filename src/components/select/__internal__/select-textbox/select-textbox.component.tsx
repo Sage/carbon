@@ -221,6 +221,7 @@ const SelectTextbox = React.forwardRef(
           data-element={`${selectType ?? ""}-select-input`}
           data-role="select-textbox"
           inputIcon="dropdown"
+          {...(selectType === "simple" && { inputMode: "none" })}
           autoComplete="off"
           size={size}
           formattedValue={formattedValue}
