@@ -8,6 +8,7 @@ import {
 import Form from "./form.component";
 import Button from "../button";
 import Dialog from "../dialog";
+import SidebarContext from "../sidebar/__internal__/sidebar.context";
 
 testStyledSystemSpacing(
   (props) => <Form aria-label="form-example" {...props} />,
@@ -213,6 +214,24 @@ test("applies overflow styling when `stickyFooter` is set and form is in a Dialo
   expect(screen.getByTestId("form-content")).toHaveStyle({
     overflowY: "auto",
   });
+  expect(screen.getByTestId("form-content")).toHaveAttribute("tabindex", "-1");
+});
+
+test("makes sticky Form content tabbable only when it is in a small-screen Sidebar", () => {
+  render(
+    <Dialog open>
+      <SidebarContext.Provider
+        value={{
+          isInSidebar: true,
+          isStickyContentFocusable: true,
+        }}
+      >
+        <Form stickyFooter saveButton={<Button>Save</Button>} />
+      </SidebarContext.Provider>
+    </Dialog>,
+  );
+
+  expect(screen.getByTestId("form-content")).toHaveAttribute("tabindex", "0");
 });
 
 // for coverage - `footerPadding` prop is covered by Chromatic

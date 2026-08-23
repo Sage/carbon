@@ -121,6 +121,28 @@ test.describe("Component properties", () => {
     expect(sidebar).not.toBeNull();
   });
 
+  test("preserves its modal presentation below the adaptive breakpoint", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 600, height: 600 });
+    await mount(<DefaultAdaptiveSidebar aria-label="Adaptive sidebar" />);
+
+    const button = page.getByTestId("adaptive-sidebar-control-button");
+    await button.click();
+    const sidebar = page.getByRole("dialog");
+    const sidebarBounds = await sidebar.boundingBox();
+
+    if (!sidebarBounds) {
+      throw new Error("Expected the adaptive sidebar modal to be visible");
+    }
+
+    expect(sidebarBounds.width).toBeLessThan(600);
+    await expect(page.getByTestId("modal-background")).toBeVisible();
+
+    await checkAccessibility(page, undefined, "color-contrast");
+  });
+
   test.describe("Accessibility tests for Adaptive Sidebar", () => {
     ["app", "black", "white"].forEach((color) => {
       test(`should pass accessibility tests for Adaptive Sidebar with a ${color} background`, async ({
