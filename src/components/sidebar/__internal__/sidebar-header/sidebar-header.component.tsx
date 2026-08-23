@@ -1,6 +1,8 @@
 import React from "react";
 import { PaddingProps } from "styled-system";
+import Typography from "../../../typography";
 import StyledSidebarHeader, {
+  StyledSidebarHeaderDivider,
   StyledSidebarSubHeader,
 } from "./sidebar-header.style";
 
@@ -9,10 +11,12 @@ export interface SidebarHeaderProps extends PaddingProps {
   children?: React.ReactNode;
   /** A custom id. */
   id: string;
-  /** Close icon button to be rendered */
-  closeIcon?: React.ReactNode;
+  /** Close button to be rendered. */
+  closeButton?: React.ReactNode;
   /** Header background variant for the sidebar. */
-  headerVariant?: "light" | "dark";
+  headerVariant?: "typical" | "inverse" | "light" | "dark";
+  /** Adds the Carbon AI gradient keyline to the header. */
+  gradientKeyLine?: boolean;
 }
 
 export interface SidebarSubHeaderProps extends PaddingProps {
@@ -25,29 +29,48 @@ export interface SidebarSubHeaderProps extends PaddingProps {
 const SidebarHeader = ({
   children,
   id,
-  closeIcon,
+  closeButton,
   headerVariant,
+  gradientKeyLine,
   ...rest
 }: SidebarHeaderProps) => (
   <StyledSidebarHeader
-    hasClose={!!closeIcon}
+    $hasCloseButton={!!closeButton}
     data-component="sidebar-header"
     data-role="sidebar-header"
-    p="27px 32px 32px"
-    headerVariant={headerVariant}
+    p="var(--global-space-comp-xl)"
+    $headerVariant={headerVariant}
+    $gradientKeyLine={gradientKeyLine}
     {...rest}
   >
     <div data-element="sidebar-heading" id={id}>
-      {children}
+      {typeof children === "string" ? (
+        <Typography
+          as="h1"
+          data-element="sidebar-title"
+          variant="h2"
+          wordBreak="normal"
+          wordWrap="break-word"
+        >
+          {children}
+        </Typography>
+      ) : (
+        children
+      )}
     </div>
-    {closeIcon}
+    {closeButton}
+    <StyledSidebarHeaderDivider
+      aria-hidden="true"
+      data-element="sidebar-header-divider"
+      $gradientKeyLine={gradientKeyLine}
+    />
   </StyledSidebarHeader>
 );
 
 const SidebarSubHeader = ({ children, id, ...rest }: SidebarSubHeaderProps) => (
   <StyledSidebarSubHeader
     data-component="sidebar-subheader"
-    p="var(--sizing100) var(--sizing400)"
+    p="var(--global-space-comp-s) var(--global-space-comp-2-xl)"
     id={id}
     {...rest}
   >

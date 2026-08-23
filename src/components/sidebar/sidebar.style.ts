@@ -5,13 +5,21 @@ import computeSizing from "../../style/utils/element-sizing";
 import { SidebarProps } from "./sidebar.component";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIconButton from "../icon-button/icon-button.style";
+import StyledIcon from "../icon/icon.style";
 
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
-import { StyledForm, StyledFormContent } from "../form/form.style";
+import {
+  StyledForm,
+  StyledFormContent,
+  StyledFormFooter,
+} from "../form/form.style";
+import Modal from "../../__internal__/modal";
+
+const smallScreenBreakpoint = "768px";
 
 type StyledSidebarProps = Pick<
   SidebarProps,
-  "onCancel" | "position" | "size" | "width" | "widthAnimation"
+  "position" | "size" | "width" | "widthAnimation"
 >;
 
 const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
@@ -20,9 +28,11 @@ const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
     outline: none;
   }
 
-  ${({ onCancel, position, size, theme, width, widthAnimation }) => css`
-    background: var(--colorsUtilityYang100);
-    border-radius: 1px;
+  ${({ position, size, theme, width, widthAnimation }) => css`
+    background: var(--container-standard-bg-default);
+    border-radius: ${position === "left"
+      ? "var(--global-radius-none) var(--global-radius-container-xl) var(--global-radius-container-xl) var(--global-radius-none)"
+      : "var(--global-radius-container-xl) var(--global-radius-none) var(--global-radius-none) var(--global-radius-container-xl)"};
     bottom: 0;
     position: fixed;
     display: flex;
@@ -30,13 +40,18 @@ const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
     top: 0;
     z-index: ${theme.zIndex.fullScreenModal};
     max-width: 100vw;
+    overflow: hidden;
 
-    ${!width &&
-    size &&
+    ${(!size || width) &&
     css`
-      width: ${SIDEBAR_SIZES_CSS[size]};
+      min-width: 288px;
     `}
-    ${width && computeSizing({ width })}
+
+    ${width
+      ? computeSizing({ width })
+      : css`
+          width: ${size ? SIDEBAR_SIZES_CSS[size] : "30vw"};
+        `}
 
     ${widthAnimation &&
     css`
@@ -45,19 +60,33 @@ const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
 
     ${position &&
     css`
-      box-shadow: var(--boxShadow300);
+      box-shadow: var(--global-depth-lvl3);
       ${position}: 0;
     `}
 
-    ${onCancel &&
-    css`
-      > ${StyledIconButton}:first-of-type {
-        position: absolute;
-        z-index: 1;
-        right: 25px;
-        top: 25px;
+    > ${StyledIconButton}:first-of-type {
+      border-radius: var(--global-radius-action-circle);
+      height: var(--global-size-s);
+      min-width: var(--global-size-s);
+      position: absolute;
+      right: var(--global-space-comp-xl);
+      top: var(--global-space-comp-xl);
+      width: var(--global-size-s);
+      z-index: 1;
+
+      ${StyledIcon} {
+        height: var(--global-size-2-xs);
+        width: var(--global-size-2-xs);
       }
-    `}
+    }
+
+    @media screen and (max-width: ${smallScreenBreakpoint}) {
+      border-radius: var(--global-radius-none);
+      height: 100%;
+      min-width: 100%;
+      overflow-y: auto;
+      width: 100%;
+    }
   `}
 `;
 
@@ -67,7 +96,9 @@ const StyledSidebarContent = styled.div<PaddingProps>`
   overflow-y: auto;
   flex-grow: 1;
 
-  padding: var(--spacing300) var(--spacing400) var(--spacing400);
+  color: var(--container-standard-txt-default);
+  font: var(--global-font-static-body-regular-m);
+  padding: var(--global-space-comp-xl);
   ${paddingFn}
 
   &:has(${StyledForm}.sticky) {
@@ -78,11 +109,54 @@ const StyledSidebarContent = styled.div<PaddingProps>`
 
     ${StyledForm}.sticky {
       ${StyledFormContent} {
-        padding: var(--spacing300) var(--spacing400) var(--spacing400);
+        padding: var(--global-space-comp-xl);
         ${paddingFn}
+      }
+
+      ${StyledFormFooter} {
+        background: var(--container-standard-bg-default);
+        border-top: var(--global-borderwidth-xs) solid
+          var(--container-standard-border-default);
+        gap: var(--global-space-layout-2-xs);
+        padding: var(--global-space-comp-l) var(--global-space-comp-xl);
+      }
+    }
+  }
+
+  @media screen and (max-width: ${smallScreenBreakpoint}) {
+    flex-grow: 0;
+    overflow-y: visible;
+
+    &:has(${StyledForm}.sticky) {
+      overflow-y: visible;
+
+      ${StyledForm}.sticky {
+        height: auto;
+
+        ${StyledFormContent} {
+          overflow-y: visible;
+        }
+
+        ${StyledFormFooter} {
+          box-shadow: none;
+          position: static;
+        }
       }
     }
   }
 `;
 
-export { StyledSidebar, StyledSidebarContent };
+const StyledSidebarModal = styled(Modal)`
+  @media screen and (max-width: ${smallScreenBreakpoint}) {
+    [data-element="modal-background"] {
+      display: none;
+    }
+  }
+`;
+
+export {
+  StyledSidebar,
+  StyledSidebarContent,
+  StyledSidebarModal,
+  smallScreenBreakpoint,
+};
