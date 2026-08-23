@@ -206,6 +206,28 @@ test("should render the AdaptiveSidebar component as a modal", async () => {
   expect(screen.getByTestId("modal-background")).toBeInTheDocument();
 });
 
+test("preserves modal presentation below its adaptive breakpoint", async () => {
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+  const user = userEvent.setup();
+
+  render(<MockApp />);
+
+  await user.click(screen.getByTestId("adaptive-sidebar-control-button"));
+
+  const media = "screen and (max-width: 768px)";
+  const sidebar = screen.getByRole("dialog");
+
+  expect(sidebar).not.toHaveStyleRule("width", "100%", { media });
+  expect(sidebar).not.toHaveStyleRule("min-width", "100%", { media });
+  expect(screen.getByTestId("modal-background")).not.toHaveStyleRule(
+    "display",
+    "none",
+    { media },
+  );
+
+  mockUseIsAboveBreakpoint.mockReturnValue(true);
+});
+
 test("when rendered as a modal, the accessible name of the modal is set via `aria-label`", async () => {
   const user = userEvent.setup();
 

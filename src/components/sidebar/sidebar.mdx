@@ -30,7 +30,11 @@ import * as SidebarStories from "./sidebar.stories.tsx";
 import Sidebar from "carbon-react/lib/components/sidebar";
 ```
 
-- Sidebar is positioned on the right hand screen of the window by default. To position the sidebar on the left hand side pass `position='left'` to the component.
+- Sidebar is positioned on the right and uses a fluid `30vw` width with a `288px` minimum by default. At 768px and below it occupies the full viewport width without a dimmer.
+
+- Set `disableStickyOnSmallScreen` to allow all Sidebar content to scroll together on small screens, improving access to content.
+
+- The `position` and preset `size` props are deprecated. Existing explicit values remain supported during migration; use `width` for desktop width customisation.
 
 - The background behind the sidebar is disabled by default. To allow the user to interact with all the UI pass `enableBackgroundUI={ true }` to the component
 
@@ -48,6 +52,18 @@ to ensure behaviour is consistent across all browsers.
 
 <Canvas of={SidebarStories.DefaultStory} />
 
+### Responsive behavior
+
+Sidebar adapts to different viewport sizes. On small screens, set `disableStickyOnSmallScreen` to allow all Sidebar content to scroll together, improving access to content.
+
+<Canvas of={SidebarStories.ResponsiveBehavior} />
+
+### Small screen behavior
+
+Although `stickyFooter` is enabled,`disableStickyOnSmallScreen` disbles sticky behaviour at 768px and below. The header, content, and custom footer then scroll together.
+
+<Canvas of={SidebarStories.SmallScreenBehavior} />
+
 ### Preventing focus from being restored when Sidebar closes
 
 When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `Sidebar` was opened.
@@ -55,17 +71,30 @@ Focus can instead be programmatically applied to another element if appropriate.
 
 <Canvas of={SidebarStories.RestoreFocusOnCloseStory} />
 
-### Custom padding around content
+### Content padding
+
+Use the `p` prop to override the default `var(--global-space-comp-xl)` content
+padding. Set `p="var(--global-space-comp-none)"` for edge-to-edge content.
 
 <Canvas of={SidebarStories.CustomPaddingAroundContent} />
 
 ### With header
 
+String headers are rendered as an `h1`. String and custom React node headers are automatically associated with the dialog. Use `aria-labelledby` or `aria-label` to provide an explicit accessible name instead.
+
 <Canvas of={SidebarStories.WithHeader} />
 
-### With dark header
+### With inverse header
 
-<Canvas of={SidebarStories.WithDarkHeader} />
+Use `headerVariant="inverse"` for the dark treatment. The legacy `dark` and `light` values remain supported as deprecated aliases for `inverse` and `typical`.
+
+<Canvas of={SidebarStories.WithInverseHeader} />
+
+### With gradient keyline
+
+Setting `gradientKeyLine` adds the Carbon AI gradient keyline without changing the header's accessible name.
+
+<Canvas of={SidebarStories.WithGradientKeyLine} />
 
 ### With header and subheader
 
@@ -77,28 +106,45 @@ If sidebar content does not fit the sidebar, scroll will appear. Default scroll 
 
 <Canvas of={SidebarStories.WithScroll} />
 
-### With Typography
+### Custom footer
 
-<Canvas of={SidebarStories.WithTypography} />
+Use the `footer` prop to render actions at the bottom of the Sidebar. Set
+`stickyFooter` to keep it visible while the content scrolls.
+Do not combine this with a sticky `Form` footer; choose one footer owner.
+
+<Canvas of={SidebarStories.CustomFooter} />
+
+Omit `stickyFooter` to make the footer scroll with the content.
+
+<Canvas of={SidebarStories.NonStickyCustomFooter} />
 
 ### Allowing other elements to be focused
 
 Using the `focusableContainers` prop allows elements that are not DOM children of the Sidebar to be reachable with the keyboard while the Sidebar is open.
-This may occasionally be useful with things like Toasts where they persist on the page until dismissed by clicking a close icon.
-(In the example below, try clicking the cancel and/or save buttons and notice how you can navigate across one or both toasts as well as the sidebar using the keyboard.)
+This may occasionally be useful with things like Messages where they persist on the page until dismissed by clicking a close icon.
+(In the example below, try clicking the cancel and/or save buttons and notice how you can navigate across one or both messages as well as the sidebar using the keyboard.)
 
 <Canvas of={SidebarStories.OtherFocusableContainers} />
 
 ### Custom width
 
 It is possible to set a custom width for the `Sidebar` via the `width` [prop](#props).
-Setting this prop will override the preset width value defined via the `size` prop.
+The custom width applies above 768px and cannot reduce the rendered width below 288px.
 
 <Canvas of={SidebarStories.CustomWidth} />
 
-### With header and footer padding overridden
+### Header padding
 
-<Canvas of={SidebarStories.WithHeaderAndFooterPadding} />
+Use `headerPadding` to customize the header independently. Sidebar content
+retains its default padding unless it is overridden with the `p` prop.
+
+<Canvas of={SidebarStories.CustomHeaderPadding} />
+
+### Custom header and content padding
+
+Use `headerPadding` and  `p` together when the header and content need independent spacing.
+
+<Canvas of={SidebarStories.CustomHeaderAndContentPadding} />
 
 ### Top modal override
 
