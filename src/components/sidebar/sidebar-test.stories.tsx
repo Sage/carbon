@@ -5,7 +5,6 @@ import isChromatic from "../../../.storybook/isChromatic";
 import allModes from "../../../.storybook/modes";
 
 import Box from "../box";
-import Icon from "../icon";
 import Button from "../button";
 import Form from "../form";
 import Sidebar, { SidebarProps } from ".";
@@ -93,6 +92,19 @@ const meta: Meta<typeof Sidebar> = {
 
 export default meta;
 
+const InteractiveSidebar = ({ children, ...props }: Partial<SidebarProps>) => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar {...props} open={isOpen} onCancel={() => setIsOpen(false)}>
+        {children}
+      </Sidebar>
+    </>
+  );
+};
+
 export const Default = (args: Partial<SidebarProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const onCancel = () => {
@@ -118,8 +130,6 @@ export const Default = (args: Partial<SidebarProps>) => {
 
 Default.storyName = "default";
 Default.args = {
-  position: "right",
-  size: "medium",
   enableBackgroundUI: false,
   disableEscKey: false,
 };
@@ -131,12 +141,7 @@ Default.parameters = {
 
 export const WithStickyForm: StoryObj<typeof Sidebar> = {
   render: (args) => (
-    <Sidebar
-      {...args}
-      header={<Typography variant="h3">With sticky form</Typography>}
-      open
-      onCancel={() => {}}
-    >
+    <InteractiveSidebar {...args} header="With sticky form">
       <Form
         fieldSpacing={2}
         leftSideButtons={<Button buttonType="tertiary">Cancel</Button>}
@@ -152,18 +157,13 @@ export const WithStickyForm: StoryObj<typeof Sidebar> = {
         <Textbox label="Textbox" value="" onChange={() => {}} />
         <Textbox label="Textbox" value="" onChange={() => {}} />
       </Form>
-    </Sidebar>
+    </InteractiveSidebar>
   ),
 };
 
 export const WithForm: StoryObj<typeof Sidebar> = {
   render: (args) => (
-    <Sidebar
-      {...args}
-      header={<Typography variant="h3">With form</Typography>}
-      open
-      onCancel={() => {}}
-    >
+    <InteractiveSidebar {...args} header="With form">
       <Form
         fieldSpacing={2}
         leftSideButtons={<Button buttonType="tertiary">Cancel</Button>}
@@ -178,7 +178,7 @@ export const WithForm: StoryObj<typeof Sidebar> = {
         <Textbox label="Textbox" value="" onChange={() => {}} />
         <Textbox label="Textbox" value="" onChange={() => {}} />
       </Form>
-    </Sidebar>
+    </InteractiveSidebar>
   ),
 };
 WithForm.parameters = { chromatic: { disableSnapshot: true } };
@@ -236,15 +236,7 @@ export const WithStepFlow: StoryObj<typeof Sidebar> = {
   },
 };
 
-export const DarkHeaderExampleImplementation = () => {
-  const headerNode = (
-    <Box display="flex" alignItems="center" gap="8px">
-      <Icon type="chat" inverse />
-      <Typography variant="h2" inverse>
-        Sidebar header
-      </Typography>
-    </Box>
-  );
+export const InverseHeaderExampleImplementation = () => {
   const footerNode = (
     <Box>
       <Typography>
@@ -258,40 +250,35 @@ export const DarkHeaderExampleImplementation = () => {
   );
 
   return (
-    <Sidebar
-      header={headerNode}
-      headerVariant="dark"
+    <InteractiveSidebar
+      header="Sidebar header"
+      headerVariant="inverse"
       subHeader={
         <Button iconType="chevron_left_thick" buttonType="tertiary">
           Action
         </Button>
       }
-      open
-      onCancel={() => {}}
     >
       <Form
         stickyFooterVariant="grey"
         footerChildren={footerNode}
         stickyFooter
       />
-    </Sidebar>
+    </InteractiveSidebar>
   );
 };
 
 export const WithLongHeader = () => {
-  const headerNode = (
-    <Typography variant="h2">
-      Really long header that should not overlap with the close button
-    </Typography>
-  );
-
   return (
-    <Sidebar header={headerNode} open onCancel={() => {}} width="460px">
+    <InteractiveSidebar
+      header="Really long header that should not overlap with the close button"
+      width="460px"
+    >
       Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint iure
       assumenda recusandae veniam deleniti adipisci dicta exercitationem
       delectus atque, quidem, eaque facilis dignissimos rem, minus cupiditate ad
       sed dolorem minima?
-    </Sidebar>
+    </InteractiveSidebar>
   );
 };
 
@@ -307,19 +294,17 @@ const DynamicWidthAfterMountComponent = (args: Partial<SidebarProps>) => {
   }, []);
 
   return (
-    <Sidebar
+    <InteractiveSidebar
       {...args}
       aria-label="sidebar"
-      header={<Typography variant="h2">Dynamic width after mount</Typography>}
-      open
-      onCancel={() => {}}
+      header="Dynamic width after mount"
       width={width}
     >
       <Typography variant="p">
         This story updates the sidebar width a little bit after the initial
         mount.
       </Typography>
-    </Sidebar>
+    </InteractiveSidebar>
   );
 };
 
