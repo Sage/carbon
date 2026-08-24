@@ -44,7 +44,7 @@ type SelectedRow = keyof SelectedRows;
 type HighlightedRow = "one" | "two" | "three" | "four" | "";
 
 const meta: Meta<typeof FlatTable> = {
-  title: "Flat Table",
+  title: "Deprecated/Flat Table",
   component: FlatTable,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -301,7 +301,6 @@ export const WithMultipleRowHeaders: Story = () => {
   );
 };
 WithMultipleRowHeaders.storyName = "With Multiple Row Headers";
-WithMultipleRowHeaders.parameters = { chromatic: { disableSnapshot: false } };
 
 export const HorizontalScrolling: Story = () => {
   return (
@@ -1912,7 +1911,6 @@ export const WithDisabledCheckboxes: Story = () => {
   );
 };
 WithDisabledCheckboxes.storyName = "With Disabled Checkboxes";
-WithDisabledCheckboxes.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHighlightableRows: Story = () => {
   const [highlightedRow, setHighlightedRow] = useState("");
@@ -2881,7 +2879,6 @@ export const Sizes: Story = () => {
   );
 };
 Sizes.storyName = "Sizes";
-Sizes.parameters = { chromatic: { disableSnapshot: false } };
 
 export const WithDraggableRows: Story = () => {
   const rows = [
