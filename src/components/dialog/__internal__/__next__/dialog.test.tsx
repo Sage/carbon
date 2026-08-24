@@ -9,7 +9,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../../../carbon-provider";
-import Dialog, { DialogHeader } from ".";
+import Dialog, { DialogHeadingStatus } from ".";
 import { DialogHandle, DialogProps } from "./dialog.component";
 import Form from "../../../form";
 import { DIALOG_SIZE_CONFIG } from "./dialog.config";
@@ -119,7 +119,7 @@ describe("Modal Dialog", () => {
       <Dialog
         open
         title={
-          <DialogHeader
+          <DialogHeadingStatus
             title="Header with subtitle"
             subtitle="This is a subtitle"
             status="info"
@@ -136,7 +136,9 @@ describe("Modal Dialog", () => {
     render(
       <Dialog
         open
-        title={<DialogHeader title="Header without subtitle" status="info" />}
+        title={
+          <DialogHeadingStatus title="Header without subtitle" status="info" />
+        }
       />,
     );
     const dialog = screen.getByRole("dialog");

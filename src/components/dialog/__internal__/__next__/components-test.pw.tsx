@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
 import Textbox from "../../../textbox";
 import Button from "../../../button";
-import Dialog, { DialogHeader, DialogProps } from "./dialog.component";
+import Dialog, { type DialogProps } from "./dialog.component";
+import DialogHeadingStatus, {
+  DialogHeadingStatusProps,
+} from "./dialog-header/dialog-header.component";
 
 export const DialogComponent = (props: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -55,13 +58,13 @@ export const DialogFullscreen = (props: Partial<DialogProps>) => {
 };
 
 export const DialogWithHeadingVariantPositive = (
-  props: Partial<DialogProps>,
+  props: Partial<DialogProps & DialogHeadingStatusProps>,
 ) => {
   return (
     <Dialog
       open
       title={
-        <DialogHeader
+        <DialogHeadingStatus
           title="Dialog with positive icon"
           subtitle="Subheading"
           status="positive"
@@ -82,7 +85,7 @@ export const DialogWithHeadingVariantSubtle = (props: Partial<DialogProps>) => {
     <Dialog
       open
       title={
-        <DialogHeader
+        <DialogHeadingStatus
           title="Dialog with subtle icon"
           subtitle="Subheading"
           status="subtle"
@@ -105,7 +108,7 @@ export const DialogWithHeadingVariantNegative = (
     <Dialog
       open
       title={
-        <DialogHeader
+        <DialogHeadingStatus
           title="Dialog with negative icon"
           subtitle="Subheading"
           status="negative"
@@ -128,7 +131,7 @@ export const DialogWithHeadingVariantCaution = (
     <Dialog
       open
       title={
-        <DialogHeader
+        <DialogHeadingStatus
           title="Dialog with caution icon"
           subtitle="Subheading"
           status="caution"
@@ -149,7 +152,7 @@ export const DialogWithHeadingVariantInfo = (props: Partial<DialogProps>) => {
     <Dialog
       open
       title={
-        <DialogHeader
+        <DialogHeadingStatus
           title="Dialog with info icon"
           subtitle="Subheading"
           status="info"
@@ -169,7 +172,9 @@ export const DialogWithHeadingNoSubtitle = (props: Partial<DialogProps>) => {
   return (
     <Dialog
       open
-      title={<DialogHeader title="Dialog with info icon" status="info" />}
+      title={
+        <DialogHeadingStatus title="Dialog with info icon" status="info" />
+      }
       onCancel={() => {}}
       {...props}
     >

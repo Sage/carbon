@@ -1057,9 +1057,9 @@ function WithStatusHeaderSubtleRender({
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with subtle status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="Information: Please review the details below"
+              subtitle="This is an informational message"
               status="subtle"
             />
           }
@@ -1108,9 +1108,9 @@ function WithStatusHeaderPositiveRender({
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with positive status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="Success: Your changes have been saved"
+              subtitle="All data has been successfully updated"
               status="positive"
             />
           }
@@ -1159,9 +1159,9 @@ function WithStatusHeaderNegativeRender({
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with negative status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="Error: Unable to complete the action"
+              subtitle="Please check your input and try again"
               status="negative"
             />
           }
@@ -1210,9 +1210,9 @@ function WithStatusHeaderCautionRender({
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with caution status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="Warning: This action cannot be undone"
+              subtitle="Please confirm before proceeding"
               status="caution"
             />
           }
@@ -1261,9 +1261,9 @@ function WithStatusHeaderInfoRender({
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with info status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="New feature available"
+              subtitle="Learn about the latest updates"
               status="info"
             />
           }

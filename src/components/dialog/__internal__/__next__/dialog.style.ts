@@ -262,11 +262,6 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
 
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
 
-  [data-element="dialog-title-help-wrapper"] {
-    display: inline-flex;
-    // align-items: baseline;
-  }
-
   [data-element="dialog-title-container"] {
     [data-element="dialog-title"] {
       color: var(--container-standard-txt-default, rgba(0, 0, 0, 0.95));

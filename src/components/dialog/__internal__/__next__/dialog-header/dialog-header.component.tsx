@@ -7,13 +7,13 @@ import Typography from "../../../../typography";
 import createGuid from "../../../../../__internal__/utils/helpers/guid";
 
 /** @internal Context for passing IDs from Dialog to DialogHeader */
-export const DialogHeaderContext = React.createContext<{
+export const DialogHeadingStatusContext = React.createContext<{
   titleId?: string;
   subtitleId?: string;
 } | null>(null);
 
 /** Allowed status variants for the dialog heading icon. */
-export type DialogHeading =
+export type DialogHeadingStatus =
   | "subtle"
   | "positive"
   | "negative"
@@ -21,7 +21,7 @@ export type DialogHeading =
   | "info";
 
 const STATUS_CONFIG: Record<
-  DialogHeading,
+  DialogHeadingStatus,
   { iconType: IconType; color: IconColor }
 > = {
   subtle: {
@@ -46,63 +46,64 @@ const STATUS_CONFIG: Record<
   },
 };
 
-export interface DialogHeaderProps {
+export interface DialogHeadingStatusProps {
   title: React.ReactNode;
   subtitle?: React.ReactNode;
-  status: DialogHeading;
+  status: DialogHeadingStatus;
 }
 
-const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(
-  ({ title, subtitle, status }, ref) => {
-    const { iconType, color } = STATUS_CONFIG[status];
-    const context = useContext(DialogHeaderContext);
+const DialogHeadingStatus = forwardRef<
+  HTMLDivElement,
+  DialogHeadingStatusProps
+>(({ title, subtitle, status }, ref) => {
+  const { iconType, color } = STATUS_CONFIG[status];
+  const context = useContext(DialogHeadingStatusContext);
 
-    // Always call hooks unconditionally at the top level
-    const generatedTitleId = useRef(createGuid()).current;
-    const generatedSubtitleId = useRef(createGuid()).current;
+  // Always call hooks unconditionally at the top level
+  const generatedTitleId = useRef(context?.titleId || createGuid()).current;
+  const generatedSubtitleId = useRef(createGuid()).current;
 
-    // Use context IDs if available, otherwise use generated ones
-    const titleId = context?.titleId || generatedTitleId;
-    const subtitleId = context?.subtitleId || generatedSubtitleId;
+  // Use context IDs if available, otherwise use generated ones
+  const titleId = context?.titleId || generatedTitleId;
+  const subtitleId = context?.subtitleId || generatedSubtitleId;
 
-    return (
-      <Box
-        ref={ref}
-        data-role="status-heading"
-        display="flex"
-        flexWrap="wrap"
-        alignItems="center"
+  return (
+    <Box
+      ref={ref}
+      data-role="status-heading"
+      display="flex"
+      flexWrap="wrap"
+      alignItems="center"
+    >
+      <Icon
+        type={iconType}
+        color={color}
+        fontSize="medium"
+        aria-hidden
+        ml="-4px"
+      />
+      <Typography
+        variant="h1"
+        ml="var(--global-space-comp-l)"
+        data-element="dialog-title"
+        id={titleId}
       >
-        <Icon
-          type={iconType}
-          color={color}
-          fontSize="medium"
-          aria-hidden
-          ml="-4px"
-        />
-        <Typography
-          variant="h1"
-          ml="var(--global-space-comp-l)"
-          data-element="dialog-title"
-          id={titleId}
+        {title}
+      </Typography>
+      {subtitle && (
+        <StyledSubtitle
+          data-element="subtitle"
+          data-role="subtitle"
+          id={subtitleId}
+          mb="0"
         >
-          {title}
-        </Typography>
-        {subtitle && (
-          <StyledSubtitle
-            data-element="subtitle"
-            data-role="subtitle"
-            id={subtitleId}
-            mb="0"
-          >
-            {subtitle}
-          </StyledSubtitle>
-        )}
-      </Box>
-    );
-  },
-);
+          {subtitle}
+        </StyledSubtitle>
+      )}
+    </Box>
+  );
+});
 
-DialogHeader.displayName = "DialogHeader";
+DialogHeadingStatus.displayName = "DialogHeadingStatus";
 
-export default DialogHeader;
+export default DialogHeadingStatus;

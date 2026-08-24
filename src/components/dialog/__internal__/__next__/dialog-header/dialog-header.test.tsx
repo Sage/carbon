@@ -2,7 +2,7 @@ import React, { createRef } from "react";
 import { render, screen, within } from "@testing-library/react";
 
 import Dialog from "../dialog.component";
-import DialogHeader from "./dialog-header.component";
+import DialogHeadingStatus from "./dialog-header.component";
 
 beforeEach(() => {
   jest.useFakeTimers();
@@ -24,7 +24,7 @@ describe("DialogHeader", () => {
     "renders the %s status icon with the correct icon type",
     (status, expectedIconType) => {
       render(
-        <DialogHeader
+        <DialogHeadingStatus
           title={`${status} Title`}
           subtitle="Subheading"
           status={status}
@@ -41,7 +41,7 @@ describe("DialogHeader", () => {
 
   test("renders the title text inside the status heading", () => {
     render(
-      <DialogHeader
+      <DialogHeadingStatus
         title="Dialog title with positive icon"
         status="positive"
       />,
@@ -58,7 +58,11 @@ describe("DialogHeader", () => {
 
   test("renders the subtitle inside the status heading", () => {
     render(
-      <DialogHeader title="Title" subtitle="Subheading" status="negative" />,
+      <DialogHeadingStatus
+        title="Title"
+        subtitle="Subheading"
+        status="negative"
+      />,
     );
 
     const statusHeading = screen.getByTestId("status-heading");
@@ -66,7 +70,7 @@ describe("DialogHeader", () => {
   });
 
   test("renders without subtitle when subtitle is not provided", () => {
-    render(<DialogHeader title="Title Only" status="info" />);
+    render(<DialogHeadingStatus title="Title Only" status="info" />);
 
     const statusHeading = screen.getByTestId("status-heading");
     expect(statusHeading).toBeVisible();
@@ -78,7 +82,7 @@ describe("DialogHeader", () => {
   test("forwards ref to the container element", () => {
     const ref = createRef<HTMLDivElement>();
 
-    render(<DialogHeader title="Title" status="positive" ref={ref} />);
+    render(<DialogHeadingStatus title="Title" status="positive" ref={ref} />);
 
     expect(ref.current).not.toBeNull();
     expect(ref.current?.tagName).toBe("DIV");
@@ -89,7 +93,7 @@ describe("DialogHeader", () => {
       <Dialog
         open
         title={
-          <DialogHeader
+          <DialogHeadingStatus
             title="Dialog with status"
             subtitle="Subtitle text"
             status="positive"
@@ -111,6 +115,6 @@ describe("DialogHeader", () => {
   });
 
   test("displayName is set correctly", () => {
-    expect(DialogHeader.displayName).toBe("DialogHeader");
+    expect(DialogHeadingStatus.displayName).toBe("DialogHeadingStatus");
   });
 });

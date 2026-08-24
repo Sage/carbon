@@ -14,7 +14,7 @@ import Toast from "../toast";
 import Message from "../message";
 
 import type { DialogProps } from ".";
-import Dialog, { DialogHeader } from ".";
+import Dialog, { DialogHeadingStatus } from ".";
 
 const meta: Meta<typeof Dialog> = {
   title: "Dialog",
@@ -976,9 +976,9 @@ export const WithStatusHeaderSubtle: Story = {
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with subtle status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="Information: Please review the details below"
+              subtitle="This is an informational message"
               status="subtle"
             />
           }
@@ -1018,9 +1018,9 @@ export const WithStatusHeaderPositive: Story = {
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with positive status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="Success: Your changes have been saved"
+              subtitle="All data has been successfully updated"
               status="positive"
             />
           }
@@ -1060,9 +1060,9 @@ export const WithStatusHeaderNegative: Story = {
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with negative status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="Error: Unable to complete the action"
+              subtitle="Please check your input and try again"
               status="negative"
             />
           }
@@ -1102,9 +1102,9 @@ export const WithStatusHeaderCaution: Story = {
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with caution status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="Warning: This action cannot be undone"
+              subtitle="Please confirm before proceeding"
               status="caution"
             />
           }
@@ -1144,9 +1144,9 @@ export const WithStatusHeaderInfo: Story = {
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           title={
-            <DialogHeader
-              title="Dialog with info status"
-              subtitle="Subheading"
+            <DialogHeadingStatus
+              title="New feature available"
+              subtitle="Learn about the latest updates"
               status="info"
             />
           }

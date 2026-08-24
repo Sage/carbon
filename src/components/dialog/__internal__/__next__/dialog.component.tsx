@@ -28,8 +28,8 @@ import tagComponent, {
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import useModalAria from "../../../../hooks/__internal__/useModalAria/useModalAria";
 import Button from "../../../button/__next__";
-import DialogHeaderComponent, {
-  DialogHeaderContext,
+import DialogHeadingStatus, {
+  DialogHeadingStatusContext,
 } from "./dialog-header/dialog-header.component";
 
 import { Size, ContentPaddingInterface } from "./dialog.config";
@@ -218,7 +218,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const isDialogHeader =
       title &&
       React.isValidElement(title) &&
-      title.type === DialogHeaderComponent;
+      title.type === DialogHeadingStatus;
 
     let dialogHeaderTitleId: string | undefined;
     let dialogHeaderSubtitleId: string | undefined;
@@ -286,14 +286,14 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
       // Wrap in context provider if title is DialogHeader
       const renderTitle = isDialogHeader ? (
-        <DialogHeaderContext.Provider
+        <DialogHeadingStatusContext.Provider
           value={{
             titleId: dialogHeaderTitleId,
             subtitleId: dialogHeaderSubtitleId,
           }}
         >
           {titleContent}
-        </DialogHeaderContext.Provider>
+        </DialogHeadingStatusContext.Provider>
       ) : (
         titleContent
       );
@@ -430,7 +430,5 @@ Dialog.displayName = "Dialog";
 export default Dialog;
 
 export { default as DialogHeader } from "./dialog-header/dialog-header.component";
-export type {
-  DialogHeaderProps,
-  DialogHeading,
-} from "./dialog-header/dialog-header.component";
+export { default as DialogHeadingStatus } from "./dialog-header/dialog-header.component";
+export type { DialogHeadingStatusProps } from "./dialog-header/dialog-header.component";

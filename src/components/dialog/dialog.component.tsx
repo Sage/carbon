@@ -143,6 +143,6 @@ export type { DialogHandle, ContentPaddingInterface };
 
 export {
   DialogHeader,
-  type DialogHeaderProps,
-  type DialogHeading,
+  DialogHeadingStatus,
 } from "./__internal__/__next__/dialog.component";
+export type { DialogHeadingStatusProps } from "./__internal__/__next__/dialog.component";
