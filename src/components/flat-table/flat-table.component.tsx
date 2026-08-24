@@ -64,6 +64,9 @@ export interface FlatTableProps extends MarginProps, TagProps {
 const FOCUSABLE_ROW_AND_CELL_QUERY =
   "tbody tr[tabindex], tbody tr td[tabindex], tbody tr th[tabindex]";
 
+/**
+ * @deprecated Use the new `Table` component instead.
+ */
 export const FlatTable = ({
   caption,
   children,

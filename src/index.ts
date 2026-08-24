@@ -178,6 +178,23 @@ export type {
   SortProps,
 } from "./components/flat-table";
 
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableFoot,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./components/table";
+export type {
+  TableBodyProps,
+  TableCellProps,
+  TableHeaderProps,
+  TableProps,
+  TableRowProps,
+} from "./components/table";
+
 export { default as Form, RequiredFieldsIndicator } from "./components/form";
 export type { FormProps } from "./components/form";
 
