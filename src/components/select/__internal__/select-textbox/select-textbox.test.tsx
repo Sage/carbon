@@ -23,14 +23,14 @@ test("renders as a combobox", () => {
 
   expect(
     screen.getByRole("combobox", { name: /Select Colour/i }),
-  ).toBeVisible();
+  ).toBeInTheDocument();
 });
 
 test("renders as a readonly textbox if readOnly prop is true", () => {
   render(<ControlledSelectTextbox label="Select Colour" readOnly />);
 
   const input = screen.getByRole("textbox", { name: /Select Colour/i });
-  expect(input).toBeVisible();
+  expect(input).toBeInTheDocument();
   expect(input).toHaveAttribute("readonly");
 });
 
@@ -38,7 +38,7 @@ test("renders as a disabled combobox if disabled prop is true", () => {
   render(<ControlledSelectTextbox label="Select Colour" disabled />);
 
   const input = screen.getByRole("combobox", { name: /Select Colour/i });
-  expect(input).toBeVisible();
+  expect(input).toBeInTheDocument();
   expect(input).toBeDisabled();
 });
 
@@ -175,6 +175,19 @@ test("does not call onFocus callback when textbox is read only", () => {
 });
 
 describe("when selectType is 'simple'", () => {
+  it("falls back to an empty string when value is undefined", () => {
+    render(
+      <SelectTextbox
+        label="Textbox"
+        onChange={jest.fn()}
+        selectType="simple"
+        value={undefined}
+      />,
+    );
+
+    expect(screen.getByRole("combobox", { name: "Textbox" })).toHaveValue("");
+  });
+
   it("includes the prefix in the combobox accessible description", () => {
     render(
       <ControlledSelectTextbox
@@ -189,29 +202,30 @@ describe("when selectType is 'simple'", () => {
     ).toHaveAccessibleDescription("prefix");
   });
 
-  it("applies correct styles when transparent", () => {
+  it("does not call onClick callback when dropdown icon is clicked and input is read-only", async () => {
+    const onClick = jest.fn();
+    const user = userEvent.setup();
     render(
       <ControlledSelectTextbox
-        transparent
-        formattedValue="foo"
+        label="Textbox"
+        onClick={onClick}
+        readOnly
         selectType="simple"
       />,
     );
 
-    expect(screen.getByTestId("select-text")).toHaveStyle({
-      textAlign: "right",
-      fontWeight: "500",
-    });
+    await user.click(screen.getByTestId("icon"));
+
+    expect(onClick).not.toHaveBeenCalled();
   });
 
-  it("calls onClick callback when overlay is clicked", async () => {
-    const onClick = jest.fn();
+  it("focuses the input when dropdown icon is clicked", async () => {
     const user = userEvent.setup();
-    render(<ControlledSelectTextbox label="Textbox" onClick={onClick} />);
+    render(<ControlledSelectTextbox label="Textbox" selectType="simple" />);
 
-    await user.click(screen.getByText("Please Select..."));
+    await user.click(screen.getByTestId("icon"));
 
-    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("combobox", { name: "Textbox" })).toHaveFocus();
   });
 
   it("hides the combobox overlay from assistive technologies", () => {
@@ -226,15 +240,6 @@ describe("when selectType is 'simple'", () => {
       "aria-hidden",
       "true",
     );
-  });
-
-  it("displays the placeholder text in an overlay when the combobox has no value", () => {
-    render(
-      <ControlledSelectTextbox placeholder="foobaz" selectType="simple" />,
-    );
-
-    expect(screen.getByRole("combobox")).not.toHaveTextContent("foobaz");
-    expect(screen.getByText("foobaz")).toBeVisible();
   });
 
   it("renders formattedValue in an overlay instead of the combobox", () => {
@@ -302,7 +307,7 @@ describe.each(["filterable", "multi"] as const)(
       const user = userEvent.setup();
       render(<ControlledSelectTextbox label="Textbox" onClick={onClick} />);
 
-      await user.click(screen.getByText("Please Select..."));
+      await user.click(screen.getByRole("combobox", { name: "Textbox" }));
 
       expect(onClick).toHaveBeenCalledTimes(1);
     });

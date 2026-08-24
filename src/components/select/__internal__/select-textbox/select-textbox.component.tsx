@@ -1,16 +1,14 @@
 import React, { useRef } from "react";
 
-import {
-  StyledSelectText,
-  StyledSelectTextChildrenWrapper,
-} from "./select-textbox.style";
-
-import Textbox, { CommonTextboxProps } from "../../../textbox";
+import LegacyTextbox, { CommonTextboxProps } from "../../../textbox";
+import TextInput from "../../../textbox/__internal__/__next__/text-input.component";
+import InputIconToggle from "../../../../__internal__/input-icon-toggle";
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import { ValidationProps } from "../../../../__internal__/validations";
 import combineRefs from "../../../../__internal__/utils/helpers/combine-refs";
 import SelectTextboxContext from "./__internal__/select-textbox.context";
 import guid from "../../../../__internal__/utils/helpers/guid";
+import type { SimpleSelectProps } from "../../simple-select";
 
 export interface FormInputPropTypes
   extends ValidationProps,
@@ -75,9 +73,13 @@ export interface FormInputPropTypes
   labelId?: string;
 }
 
-export interface SelectTextboxProps extends FormInputPropTypes {
+export interface SelectTextboxProps
+  extends FormInputPropTypes,
+    Pick<SimpleSelectProps, "variant"> {
   /** Id attribute of the select list */
   "aria-controls"?: string;
+  /** Ref forwarded to the input's container element, used to anchor the dropdown */
+  containerRef?: React.Ref<HTMLDivElement>;
   /** Value to be displayed in the Textbox */
   formattedValue?: string;
   /** If true, the list is displayed */
@@ -88,11 +90,11 @@ export interface SelectTextboxProps extends FormInputPropTypes {
     | Record<string, unknown>
     | (string | Record<string, unknown>)[];
   /** @private @ignore */
-  transparent?: boolean;
-  /** @private @ignore */
   activeDescendantId?: string;
   /** Specify a callback triggered on change */
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** @private @ignore */
+  onIconClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /**
    * Sets the type of select, which determines the behaviour of the textbox.
    * If "simple", the textbox does not allow typing and functions as a standard select.
@@ -116,14 +118,15 @@ const SelectTextbox = React.forwardRef(
       readOnly = false,
       placeholder: customPlaceholder,
       size = "medium",
+      variant,
       onClick,
+      onIconClick,
       onFocus,
       onBlur,
       formattedValue = "",
       selectedValue,
       required,
       selectType,
-      transparent = false,
       activeDescendantId,
       onKeyDown,
       onChange,
@@ -135,10 +138,17 @@ const SelectTextbox = React.forwardRef(
     const l = useLocale();
     const localRef = useRef<HTMLInputElement>(null);
     const placeholder = customPlaceholder || l.select.placeholder();
-    const showPlaceholder = !disabled && !readOnly && !formattedValue;
+    // placeholders have been marked as deprecated in Simple Select
     const shouldRenderInput =
       selectType === "filterable" || selectType === "multi";
     const combinedRefs = combineRefs(ref, localRef);
+
+    function focusTextboxInput() {
+      /* istanbul ignore else */
+      if (localRef.current && document.activeElement !== localRef.current) {
+        localRef.current.focus();
+      }
+    }
 
     function handleTextboxClick(
       event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
@@ -147,10 +157,7 @@ const SelectTextbox = React.forwardRef(
         return;
       }
 
-      /* istanbul ignore else */
-      if (localRef.current && document.activeElement !== localRef.current) {
-        localRef.current.focus();
-      }
+      focusTextboxInput();
 
       if (readOnly) {
         return;
@@ -164,6 +171,37 @@ const SelectTextbox = React.forwardRef(
       onFocus?.(event);
     }
 
+    function handleDropdownIconClick(
+      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (disabled || readOnly) {
+        return;
+      }
+
+      focusTextboxInput();
+
+      if (onIconClick) {
+        onIconClick(event as React.MouseEvent<HTMLElement>);
+      } else {
+        onClick?.(event as React.MouseEvent<HTMLInputElement>);
+      }
+    }
+
+    function handleDropdownIconMouseDown(
+      event: React.MouseEvent<HTMLElement>,
+    ) {
+      if (disabled || readOnly) {
+        return;
+      }
+
+      event.preventDefault();
+      restProps.onMouseDown?.(event);
+      focusTextboxInput();
+    }
+
     const textboxProps = {
       disabled,
       id,
@@ -172,7 +210,6 @@ const SelectTextbox = React.forwardRef(
       onClick: handleTextboxClick,
       onFocus: handleTextboxFocus,
       onBlur,
-      labelId,
       type: "text",
       ref: combinedRefs,
       onKeyDown,
@@ -199,84 +236,101 @@ const SelectTextbox = React.forwardRef(
       role: readOnly ? undefined : "combobox",
     };
 
-    const hasStringValue =
-      typeof selectedValue === "string" ||
-      (Array.isArray(selectedValue) && typeof selectedValue[0] === "string");
-
     const classNames = [shouldRenderInput ? "select-allows-typing" : undefined]
       .filter(Boolean)
       .join(" ");
 
+    const isSimpleSelect = selectType === "simple";
     const internalPrefixId = useRef(guid());
     const contextPrefixId =
-      selectType === "simple" && prefix ? internalPrefixId.current : undefined;
+      isSimpleSelect && prefix ? internalPrefixId.current : undefined;
+
+    const dropdwonIcon = (
+      <InputIconToggle
+        inputIcon="dropdown"
+        onClick={handleDropdownIconClick}
+        onMouseDown={handleDropdownIconMouseDown}
+        readOnly={readOnly}
+        size={size}
+        blockFocusStyling
+      />
+    );
+
+    const sharedProps = {
+      "aria-describedby": ariaDescribedBy,
+      "aria-label": ariaLabel,
+      "data-element": `${selectType ?? ""}-select-input`,
+      "data-role": "select-textbox",
+      inputIcon: isSimpleSelect ? dropdwonIcon : "dropdown",
+      autoComplete: "off",
+      size,
+      placeholder: shouldRenderInput ? placeholder : undefined,
+      ...inputAriaAttributes,
+      ...textboxProps,
+      className: classNames,
+      "data-is-open": isOpen,
+      // prevent uncontrolled warning being fired
+      onChange,
+      // prevents any form spacing being applied
+      my: 0,
+      ...(selectType !== "simple" && {
+        prefix,
+      }),
+      leftChildren: !shouldRenderInput ? (
+        <span
+          aria-hidden
+          aria-disabled={disabled || undefined}
+          data-element="select-text"
+          data-role="select-text"
+          onClick={handleTextboxClick}
+          className={[
+            "select-text",
+            disabled && "disabled",
+            readOnly && "read-only",
+            `size-${size}`,
+            variant && `variant-${variant}`,
+          ]
+            .filter(Boolean)
+            .join("-")}
+        >
+          {prefix && (
+            <span id={internalPrefixId.current} data-element="textbox-prefix">
+              {prefix}
+            </span>
+          )}
+          <span
+            className={[
+              "select-text-children-wrapper",
+              disabled && "disabled",
+              readOnly && "read-only",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+          >
+            {formattedValue}
+          </span>
+        </span>
+      ) : (
+        leftChildren
+      ),
+      ...filteredRestProps,
+    };
 
     return (
       <SelectTextboxContext.Provider
         value={{ prefixId: contextPrefixId, selectType }}
       >
-        <Textbox
-          aria-describedby={ariaDescribedBy}
-          aria-label={ariaLabel}
-          data-element={`${selectType ?? ""}-select-input`}
-          data-role="select-textbox"
-          inputIcon="dropdown"
-          autoComplete="off"
-          size={size}
-          formattedValue={formattedValue}
-          placeholder={shouldRenderInput ? placeholder : undefined}
-          {...inputAriaAttributes}
-          {...textboxProps}
-          className={classNames}
-          data-is-transparent={transparent}
-          data-is-open={isOpen}
-          // prevent uncontrolled warning being fired
-          onChange={onChange}
-          // ensure value is properly controlled
-          value={
-            hasStringValue ? (selectedValue as string | string[]) : undefined
-          }
-          // prevents any form spacing being applied
-          my={0}
-          {...(selectType !== "simple" && {
-            prefix,
-          })}
-          leftChildren={
-            !shouldRenderInput ? (
-              <StyledSelectText
-                aria-hidden
-                aria-disabled={disabled || undefined}
-                data-element="select-text"
-                data-role="select-text"
-                $disabled={disabled}
-                $hasPlaceholder={showPlaceholder}
-                onClick={handleTextboxClick}
-                $readOnly={readOnly}
-                $size={size}
-                $transparent={transparent}
-                className={`select-text ${disabled ? "disabled" : ""} ${readOnly ? "read-only" : ""}`}
-                {...filteredRestProps}
-              >
-                {prefix && (
-                  <span
-                    id={internalPrefixId.current}
-                    data-element="textbox-prefix"
-                  >
-                    {prefix}
-                  </span>
-                )}
-                <StyledSelectTextChildrenWrapper
-                  $isDisabled={disabled}
-                  $readOnly={readOnly}
-                >
-                  {showPlaceholder ? placeholder : formattedValue}
-                </StyledSelectTextChildrenWrapper>
-              </StyledSelectText>
-            ) : (
-              leftChildren
-            )
-          }
-        />
+        {isSimpleSelect ? (
+          <TextInput
+            {...sharedProps}
+            inputMode="none"
+            {...(variant === "subtle" && { "data-is-subtle": true })}
+            label={restProps.label ?? ""}
+            value={restProps.value ?? ""}
+          />
+        ) : (
+          <LegacyTextbox {...sharedProps} formattedValue={formattedValue} />
+        )}
       </SelectTextboxContext.Provider>
     );
   },

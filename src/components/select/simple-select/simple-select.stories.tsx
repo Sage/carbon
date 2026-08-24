@@ -1,17 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import {
-  Select,
-  Option,
-  OptionRow,
-  OptionGroupHeader,
-  CustomSelectChangeEvent,
-} from "..";
+import { Select, Option, OptionGroupHeader, CustomSelectChangeEvent } from "..";
 import Button from "../../button";
-import Icon, { IconType } from "../../icon";
+import Icon from "../../icon";
 import Box from "../../box";
 import Typography from "../../typography";
+import Portrait from "../../portrait";
 import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
 import SimpleSelect, { SimpleSelectProps } from "./simple-select.component";
@@ -37,328 +32,134 @@ const meta: Meta<typeof SimpleSelect> = {
 export default meta;
 type Story = StoryObj<typeof SimpleSelect>;
 
-export const Default: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250}>
-      <Select
-        name="simple"
-        id="simple"
-        label="Color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-Default.storyName = "Default";
+const PlaygroundStory = (args: Partial<SimpleSelectProps>) => {
+  const [value, setValue] = useState(args.value ?? "select");
 
-export const Required: Story = () => {
-  const [value, setValue] = useState("");
+  useEffect(() => {
+    setValue(args.value ?? "select");
+  }, [args.value]);
 
   return (
     <Box height={250}>
       <Select
-        name="required-select"
-        id="required-select"
-        label="Foreground Color"
-        required
+        {...args}
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
       >
+        <Option text="Select an option" value="select" />
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
+        <Option text="Green" value="4" />
+        <Option text="Orange" value="5" />
       </Select>
     </Box>
   );
 };
-Required.storyName = "Required";
 
-export const ListPlacement: Story = () => {
-  const [listPlacement, setListPlacement] =
-    useState<SimpleSelectProps["listPlacement"]>("bottom-end");
-  const [value, setValue] = useState("");
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(ev.target.value);
-  };
-  return (
-    <>
-      <Button mr={1} onClick={() => setListPlacement("top-end")}>
-        Top end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("bottom-end")}>
-        Bottom end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("top-start")}>
-        Top start
-      </Button>
-      <Button onClick={() => setListPlacement("bottom-start")}>
-        Bottom Start
-      </Button>
-      <Box my="150px" ml="200px" width="200px">
-        <Select
-          name="listWidth"
-          id="listWidth"
-          label="color"
-          labelInline
-          listWidth={350}
-          listPlacement={listPlacement}
-          value={value}
-          onChange={handleChange}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-        </Select>
-      </Box>
-    </>
-  );
+export const Playground: Story = {
+  render: (args) => <PlaygroundStory {...args} />,
+  args: {
+    label: "Color",
+    size: "medium",
+    variant: "typical",
+    disabled: false,
+    readOnly: false,
+    required: false,
+    isLoading: false,
+    openOnFocus: false,
+    labelInline: false,
+    enableVirtualScroll: false,
+    virtualScrollOverscan: 5,
+    disableNavigationLoop: false,
+    value: "select",
+  },
+  parameters: {
+    controls: {
+      include: [
+        "validationMessagePositionTop",
+        "maxWidth",
+        "inputWidth",
+        "formattedValue",
+        "inputHint",
+        "prefix",
+        "autoFocus",
+        "warning",
+        "error",
+        "required",
+        "value",
+        "virtualScrollOverscan",
+        "enableVirtualScroll",
+        "disableNavigationLoop",
+        "labelInline",
+        "openOnFocus",
+        "isLoading",
+        "readOnly",
+        "disabled",
+        "variant",
+        "size",
+        "label",
+      ],
+    },
+  },
+  argTypes: {
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    variant: {
+      options: ["typical", "subtle"],
+      control: { type: "radio" },
+    },
+  },
 };
-ListPlacement.storyName = "List Placement";
+Playground.storyName = "Playground";
 
-export const ListHeight: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={500}>
-      <Select
-        listMaxHeight={2000}
-        name="list height"
-        id="list-height"
-        label="List height"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-ListHeight.storyName = "List Height";
-
-export const ListWidth: Story = () => {
-  const [value, setValue] = useState("");
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(ev.target.value);
-  };
-  return (
-    <Box height={200} width={200}>
-      <Select
-        name="listWidth"
-        id="listWidth"
-        label="color"
-        listWidth={350}
-        listPlacement="bottom-start"
-        value={value}
-        onChange={handleChange}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </Select>
-    </Box>
-  );
-};
-ListWidth.storyName = "List Width";
-
-export const Sizes: Story = () => {
-  const [value, setValue] = useState("");
-  const [value2, setValue2] = useState("");
-  const [value3, setValue3] = useState("");
-  return (
-    <Box height={350}>
-      <Select
-        name="size-small"
-        id="size-small"
-        label="Small"
-        size="small"
-        mb={2}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </Select>
-      <Select
-        name="size-medium"
-        id="size-medium"
-        label="Medium"
-        size="medium"
-        mb={2}
-        value={value2}
-        onChange={(ev) => setValue2(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </Select>
-      <Select
-        name="size-large"
-        id="size-large"
-        label="Large"
-        size="large"
-        value={value3}
-        onChange={(ev) => setValue3(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </Select>
-    </Box>
-  );
-};
-Sizes.storyName = "Sizes";
-
-export const WithObjectAsValue: Story = () => {
-  const optionListValues = [
-    { id: "Amber", value: 1, text: "Amber" },
-    { id: "Black", value: 2, text: "Black" },
-    { id: "Blue", value: 3, text: "Blue" },
-    { id: "Brown", value: 4, text: "Brown" },
-    { id: "Green", value: 5, text: "Green" },
-    { id: "Orange", value: 6, text: "Orange" },
-    { id: "Pink", value: 7, text: "Pink" },
-    { id: "Purple", value: 8, text: "Purple" },
-    { id: "Red", value: 9, text: "Red" },
-    { id: "White", value: 10, text: "White" },
-    { id: "Yellow", value: 11, text: "Yellow" },
-  ];
-
-  const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4],
-  );
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    if (typeof event.target.value === "object") {
-      setValue(event.target.value);
-    }
-  }
-  function clearValue() {
-    setValue({});
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearValue} mb={2}>
-        clear
-      </Button>
-      <Select
-        id="with-object"
-        name="with-object"
-        value={value}
-        onChange={onChangeHandler}
-        label="color"
-      >
-        {optionListValues.map((option) => (
-          <Option key={option.id} text={option.text} value={option} />
-        ))}
-      </Select>
-    </Box>
-  );
-};
-WithObjectAsValue.storyName = "With Object as Value";
-
-export const WithCustomMaxWidth: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250}>
-      <Select
-        name="simple"
-        id="simple"
-        label="color"
-        maxWidth="100%"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-WithCustomMaxWidth.storyName = "With Custom Max Width";
-
-export const WithIsLoadingProp: Story = () => {
+export const LazyLoading: Story = () => {
   const preventLoading = useRef(false);
-  const [value, setValue] = useState("black");
+  const [value, setValue] = useState("select");
   const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = useState([
-    <Option text="Black" value="black" key="Black" />,
-  ]);
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+
   function loadList() {
     if (preventLoading.current) {
       return;
     }
+
     preventLoading.current = true;
     setIsLoading(true);
     setTimeout(() => {
+      setOptionList([
+        <Option text="Select an option" value="select" key="Select" />,
+        <Option text="Amber" value="amber" key="Amber" />,
+        <Option text="Black" value="black" key="Black" />,
+        <Option text="Blue" value="blue" key="Blue" />,
+        <Option text="Brown" value="brown" key="Brown" />,
+        <Option text="Green" value="green" key="Green" />,
+      ]);
       setIsLoading(false);
-      setOptionList(asyncList);
     }, 2000);
   }
-  function clearData() {
-    setOptionList([<Option text="Black" value="black" key="Black" />]);
-    setValue("black");
+
+  function reset() {
+    setOptionList([]);
+    setValue("select");
+    setIsLoading(true);
     preventLoading.current = false;
   }
+
   return (
     <Box height={300}>
-      <Button onClick={clearData} mb={2}>
-        reset
+      <Button onClick={reset} mb={2}>
+        Reset
       </Button>
       <Select
-        name="isLoading"
-        id="isLoading"
-        label="color"
+        name="lazyLoading"
+        id="lazyLoading"
+        label="Color"
         value={value}
         onChange={(event) => setValue(event.target.value)}
-        onOpen={() => loadList()}
+        onOpen={loadList}
         isLoading={isLoading}
       >
         {optionList}
@@ -366,15 +167,16 @@ export const WithIsLoadingProp: Story = () => {
     </Box>
   );
 };
-WithIsLoadingProp.storyName = "With isLoading prop";
+LazyLoading.storyName = "Lazy Loading";
 
 export const WithInfiniteScroll: Story = () => {
   const preventLoading = useRef(false);
   const preventLazyLoading = useRef(false);
   const lazyLoadingCounter = useRef(0);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("select");
   const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
+    <Option text="Select an option" value="select" key="Select" />,
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
     <Option text="Blue" value="blue" key="Blue" />,
@@ -401,7 +203,9 @@ export const WithInfiniteScroll: Story = () => {
       />,
     ];
   };
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([
+    <Option text="Select an option" value="select" key="Select" />,
+  ]);
   function loadList() {
     if (preventLoading.current) {
       return;
@@ -428,7 +232,7 @@ export const WithInfiniteScroll: Story = () => {
   }
   function clearData() {
     setOptionList([]);
-    setValue("");
+    setValue("select");
     preventLoading.current = false;
   }
   return (
@@ -453,354 +257,8 @@ export const WithInfiniteScroll: Story = () => {
 };
 WithInfiniteScroll.storyName = "With infinite scroll";
 
-export const OpenOnFocus: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250}>
-      <Select
-        name="openOnFocus"
-        id="openOnFocus"
-        openOnFocus
-        label="color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-OpenOnFocus.storyName = "Open on Focus";
-
-export const Disabled: Story = () => {
-  const [value, setValue] = useState("3");
-  return (
-    <Select
-      aria-label="disabled"
-      name="disabled"
-      id="disabled"
-      disabled
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  );
-};
-Disabled.storyName = "Disabled";
-
-export const Readonly: Story = () => {
-  const [value, setValue] = useState("4");
-  return (
-    <Select
-      aria-label="readonly"
-      name="readonly"
-      id="readonly"
-      readOnly
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  );
-};
-Readonly.storyName = "Readonly";
-
-export const Transparent: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250} width={200}>
-      <Select
-        name="transparent"
-        id="transparent"
-        placeholder="Please select a colour"
-        transparent
-        label="Choose a colour"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-Transparent.storyName = "Transparent";
-
-export const TransparentDisabled: Story = () => {
-  const [value, setValue] = useState("4");
-  return (
-    <Box height={250} width={150}>
-      <Select
-        name="transparent"
-        id="transparent"
-        transparent
-        label="Choose a colour"
-        disabled
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-TransparentDisabled.storyName = "Transparent disabled";
-
-export const CustomOptionChildren: Story = () => {
-  const [value, setValue] = useState("");
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-
-  const options = [
-    { value: "1", text: "Orange", iconType: "favourite", iconColor: "orange" },
-    { value: "2", text: "Black", iconType: "bin", iconColor: "black" },
-    { value: "3", text: "Blue", iconType: "individual", iconColor: "blue" },
-    { value: "4", text: "Green", iconType: "tick_circle", iconColor: "green" },
-  ];
-
-  const renderLeftChildren = () => {
-    const option = options.find((opt) => opt.value === value);
-    return (
-      option && (
-        <Icon type={option.iconType as IconType} color={option.iconColor} />
-      )
-    );
-  };
-
-  return (
-    <Box height={250}>
-      <Select
-        name="customOptionChildren"
-        id="customOptionChildren"
-        label="Pick your favourite color"
-        value={value}
-        onChange={onChangeHandler}
-        leftChildren={
-          value && (
-            <Box display="flex" alignItems="center" ml={1}>
-              {renderLeftChildren()}
-            </Box>
-          )
-        }
-      >
-        {options.map((option) => (
-          <Option key={option.value} text={option.text} value={option.value}>
-            <Icon
-              type={option.iconType as IconType}
-              color={option.iconColor}
-              mr={1}
-            />
-            {option.text}
-          </Option>
-        ))}
-      </Select>
-    </Box>
-  );
-};
-CustomOptionChildren.storyName = "Custom Option Children";
-
-export const WithMultipleColumns: Story = () => {
-  const [value, setValue] = useState("2");
-  return (
-    <Box height={250}>
-      <Select
-        name="withMultipleColumns"
-        id="withMultipleColumns"
-        multiColumn
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
-        }
-        label="With multiple columns"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <OptionRow id="1" value="1" text="John Doe">
-          <td>John</td>
-          <td>Doe</td>
-          <td>Welder</td>
-        </OptionRow>
-        <OptionRow id="2" value="2" text="Joe Vick">
-          <td>Joe</td>
-          <td>Vick</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="3" value="3" text="Jane Poe">
-          <td>Jane</td>
-          <td>Poe</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="4" value="4" text="Jill Moe">
-          <td>Jill</td>
-          <td>Moe</td>
-          <td>Engineer</td>
-        </OptionRow>
-        <OptionRow id="5" value="5" text="Bill Zoe">
-          <td>Bill</td>
-          <td>Zoe</td>
-          <td>Astronaut</td>
-        </OptionRow>
-      </Select>
-    </Box>
-  );
-};
-WithMultipleColumns.storyName = "With Multiple Columns";
-
-export const OptionGroups: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250}>
-      <Select
-        name="optGroups"
-        id="optGroups"
-        label="color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <OptionGroupHeader label="Group one" icon="individual" />
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <OptionGroupHeader label="Group two" icon="shop" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <OptionGroupHeader label="Group three" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-OptionGroups.storyName = "Option Groups";
-
-export const OptionGroupsWithComposedChildren: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250}>
-      <Select
-        name="optGroups"
-        id="optGroups"
-        label="color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <OptionGroupHeader>
-          <Icon type="individual" /> <h4>Group One Composed</h4>
-        </OptionGroupHeader>
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <OptionGroupHeader>
-          <Icon type="shop" /> <h4>Group Two Composed</h4>
-        </OptionGroupHeader>
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <OptionGroupHeader>
-          <h4>Group Three Composed</h4>
-        </OptionGroupHeader>
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-OptionGroupsWithComposedChildren.storyName =
-  "Option Groups with composed children";
-
-export const EnablingAdaptiveBehaviour: Story = () => {
-  const [value, setValue] = useState("4");
-  return (
-    <Box height={220}>
-      <Select
-        name="adaptive"
-        id="adaptive"
-        label="color"
-        adaptiveLabelBreakpoint={960}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-EnablingAdaptiveBehaviour.storyName = "Enabling Adaptive Behaviour";
-
 export const Virtualised: Story = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("0");
   return (
     <Box height={220}>
       <Select
@@ -819,7 +277,7 @@ export const Virtualised: Story = () => {
             <Option
               key={`option-${index + 1}`}
               value={`${index}`}
-              text={`Option ${index + 1}`}
+              text={index === 0 ? "Select an option" : `Option ${index + 1}`}
             />
           ))}
       </Select>
@@ -828,50 +286,53 @@ export const Virtualised: Story = () => {
 };
 Virtualised.storyName = "Virtualised";
 
-export const WithMultipleColumnsAndVirtualisation: Story = () => {
-  const [value, setValue] = useState("2");
+export const WithListActionButton: Story = () => {
+  const [value, setValue] = useState("select");
+  const [optionList, setOptionList] = useState([
+    <Option text="Select an option" value="select" key="Select" />,
+    <Option text="Amber" value="1" key="Amber" />,
+    <Option text="Black" value="2" key="Black" />,
+    <Option text="Blue" value="3" key="Blue" />,
+    <Option text="Brown" value="4" key="Brown" />,
+    <Option text="Green" value="5" key="Green" />,
+    <Option text="Orange" value="6" key="Orange" />,
+  ]);
+  function addNewOption() {
+    setOptionList((list) => [
+      ...list,
+      <Option
+        text={`New Option ${list.length + 1}`}
+        value={`${list.length + 1}`}
+        key={`New Option ${list.length + 1}`}
+      />,
+    ]);
+  }
   return (
-    <Box height={250}>
+    <Box height={350}>
       <Select
-        name="withMultipleColumnsAndVirtualisation"
-        id="withMultipleColumnsAndVirtualisation"
-        label="choose an option"
-        multiColumn
+        name="listActionButton"
+        id="listActionButton"
+        label="color"
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
-        enableVirtualScroll
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
+        listActionButton={
+          <Button iconType="add" iconPosition="after">
+            Add a New Element
+          </Button>
         }
+        onListAction={addNewOption}
       >
-        {Array(500)
-          .fill(undefined)
-          .map((_, index) => (
-            <OptionRow
-              key={`option-${index + 1}`}
-              id={`option-row-${index}`}
-              value={`${index}`}
-              text={`Option ${index + 1}`}
-            >
-              <td>{`John ${index + 1}`}</td>
-              <td>{`Doe ${index + 1}`}</td>
-              <td>{`Welder ${index + 1}`}</td>
-            </OptionRow>
-          ))}
+        {optionList}
       </Select>
+      <input style={{marginTop: "1000px"}} value="Brian Brobbey" />
     </Box>
   );
 };
-WithMultipleColumnsAndVirtualisation.storyName =
-  "With Multiple Columns and Virtualisation";
+WithListActionButton.storyName = "With List Action Button";
 
 export const SelectionConfirmedStory: Story = () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("select");
   return (
     <Box height={280}>
       <Typography variant="strong">
@@ -892,6 +353,7 @@ export const SelectionConfirmedStory: Story = () => {
         id="selection confirmed"
         label="color"
       >
+        <Option text="Select an option" value="select" />
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -909,14 +371,16 @@ export const SelectionConfirmedStory: Story = () => {
 };
 SelectionConfirmedStory.storyName = "Selection Confirmed";
 
-const options = ["A", "B", "C"];
+const options = ["Select an option", "A", "B", "C", "D", "E"];
 const allOptions = ["All"];
 
 export const SelectWithDynamicallyAddedOption: Story = () => {
   const [optionsList, setOptionsList] = useState(options);
-  const [currentOption, setCurrentOption] = useState<string | null>(null);
+  const [currentOption, setCurrentOption] = useState<string | null>(
+    "Select an option",
+  );
   useEffect(() => {
-    if (currentOption) {
+    if (currentOption && currentOption !== "Select an option") {
       setOptionsList([...allOptions, ...options]);
     }
   }, [currentOption]);
@@ -944,3 +408,45 @@ export const SelectWithDynamicallyAddedOption: Story = () => {
   );
 };
 SelectWithDynamicallyAddedOption.storyName = "Dynamically Adding Options";
+
+export const ComplexCompositions: Story = () => {
+  const [value, setValue] = useState("select");
+  return (
+    <Box height={350}>
+      <Select
+        name="complexCompositions"
+        id="complexCompositions"
+        label="Option compositions"
+        listMaxHeight={400}
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Select an option" value="select" />
+        <Option
+          text="Option with an icon"
+          value="1"
+          leading={<Icon type="favourite" />}
+        />
+        <Option text="Option with a divider" value="2" divider />
+        <OptionGroupHeader label="Option heading" />
+        <Option text="Option with a prefix" value="3" prefix="New " />
+        <Option
+          text="Option with subtext"
+          value="4"
+          subtext="Some helpful subtext"
+        />
+        <Option
+          text="Option with an icon and portrait"
+          value="5"
+          leading={
+            <>
+              <Icon type="individual" />
+              <Portrait initials="JD" size="XS" />
+            </>
+          }
+        />
+      </Select>
+    </Box>
+  );
+};
+ComplexCompositions.storyName = "Complex Compositions";
