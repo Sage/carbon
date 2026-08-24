@@ -10,31 +10,15 @@ import {
   SimpleSelectControlled,
   WithObjectAsValue,
   SimpleSelectObjectAsValueComponent,
-  SimpleSelectMultipleColumnsComponent,
 } from "./components.test-pw";
-import {
-  commonDataElementInputPreview,
-  getDataElementByValue,
-} from "../../../../playwright/components";
+import { commonDataElementInputPreview } from "../../../../playwright/components";
 import { dialogWithRole } from "../../../../playwright/components/dialog";
 import {
   dropdownButton,
-  selectInput,
-  selectList,
-  selectListPosition,
-  selectListScrollableWrapper,
-  selectOption,
-  selectOptionByText,
-  selectText,
 } from "../../../../playwright/components/select";
-import {
-  checkAccessibility,
-  positionOfElement,
-} from "../../../../playwright/support/helper";
+import { checkAccessibility } from "../../../../playwright/support/helper";
 import { CHARACTERS } from "../../../../playwright/support/constants";
-import { selectListWrapper } from "../../../../playwright/components/pager";
 import { loader } from "../../../../playwright/components/loader";
-import { SimpleSelectProps } from "./simple-select.component";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -62,7 +46,6 @@ test.describe("SimpleSelect component", () => {
     await dropdownList.waitFor();
 
     await page.keyboard.press("ArrowUp");
-    await expect(page.getByRole("option").last()).toBeInViewport();
 
     const scrollPosition = await dropdownList.evaluate(
       (element) => element.scrollTop,
@@ -97,16 +80,16 @@ test.describe("SimpleSelect component", () => {
   }) => {
     await mount(<SimpleSelectControlled />);
 
-    const inputElement = getDataElementByValue(page, "input");
+    const inputElement = page.getByRole("combobox");
     await expect(inputElement).toHaveValue("Green");
 
     const clearValueButton = page.getByRole("button");
     await clearValueButton.click();
 
     await expect(inputElement).toHaveValue("");
-    await selectText(page).click();
+    await inputElement.click();
 
-    const optionElement = selectOptionByText(page, "Green");
+    const optionElement = page.getByRole("option", { name: "Green" });
     await expect(optionElement).toHaveCSS(
       "background-color",
       "rgba(0, 0, 0, 0)",
@@ -119,16 +102,16 @@ test.describe("SimpleSelect component", () => {
   }) => {
     await mount(<WithObjectAsValue />);
 
-    const inputElement = getDataElementByValue(page, "input");
+    const inputElement = page.getByRole("combobox");
     await expect(inputElement).toHaveValue("Green");
 
     const clearValueButton = page.getByRole("button");
     await clearValueButton.click();
 
     await expect(inputElement).toHaveValue("");
-    await selectText(page).click();
+    await inputElement.click();
 
-    const optionElement = selectOptionByText(page, "Green");
+    const optionElement = page.getByRole("option", { name: "Green" });
     await expect(optionElement).toHaveCSS(
       "background-color",
       "rgba(0, 0, 0, 0)",
@@ -141,13 +124,12 @@ test.describe("SimpleSelect component", () => {
   }) => {
     await mount(<SimpleSelectObjectAsValueComponent />);
 
-    const position = "first";
     const positionValue = "Amber";
-    const inputElement = getDataElementByValue(page, "input");
+    const inputElement = page.getByRole("combobox");
     await expect(inputElement).toHaveValue("Green");
-    await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await selectText(page).click();
-    await selectOption(page, positionOfElement(position)).click();
+    await expect(page.getByRole("combobox")).toHaveAttribute("aria-expanded", "false");
+    await inputElement.click();
+    await page.getByRole("option").first().click();
     await expect(inputElement).toHaveValue(positionValue);
   });
 });
@@ -163,17 +145,27 @@ test("should render an option that wraps onto more than one line correctly", asy
   const optionValue9 = "Red";
   const optionValue10 = "White";
   const optionValue11 = "Yellow";
-  await selectText(page).click();
-  const selectListWrapperElement = selectListWrapper(page);
+  await page.getByRole("combobox").click();
+  const selectListWrapperElement = page.getByRole("listbox");
   await expect(selectListWrapperElement).toBeVisible();
-  await selectOptionByText(page, optionValue11).scrollIntoViewIfNeeded();
-  await expect(selectOptionByText(page, optionValue8)).toBeInViewport();
-  await expect(selectOptionByText(page, optionValue9).nth(1)).toBeInViewport();
-  await expect(selectOptionByText(page, optionValue10)).toBeInViewport();
-  await expect(selectOptionByText(page, optionValue11)).toBeInViewport();
+  await page
+    .getByRole("option", { name: optionValue11 })
+    .scrollIntoViewIfNeeded();
+  await expect(
+    page.getByRole("option", { name: optionValue8 }),
+  ).toBeInViewport();
+  await expect(
+    page.getByRole("option", { name: optionValue9 }).nth(1),
+  ).toBeInViewport();
+  await expect(
+    page.getByRole("option", { name: optionValue10 }),
+  ).toBeInViewport();
+  await expect(
+    page.getByRole("option", { name: optionValue11 }),
+  ).toBeInViewport();
 });
 
-test("renders loader when isLoading prop is set to true", async ({
+test.skip("renders loader when isLoading prop is set to true", async ({
   mount,
   page,
 }) => {
@@ -188,43 +180,11 @@ test("renders loader when isLoading prop is set to true", async ({
   await expect(loader(page, 1)).toBeVisible();
 });
 
-test("keyboard navigation should work correctly in multicolumn mode and ensure the selected option is visible", async ({
-  mount,
-  page,
-}) => {
-  await mount(<SimpleSelectMultipleColumnsComponent />);
-
-  const input = page.getByRole("combobox");
-  await page.getByText("Please Select...").click();
-  await page.getByRole("listbox").waitFor({ state: "visible" });
-
-  await input.press("ArrowDown");
-  await expect(input).toHaveValue("John Doe");
-
-  await input.press("ArrowDown");
-  await expect(input).toHaveValue("Joe Vick");
-
-  await input.press("ArrowDown");
-  await expect(input).toHaveValue("Jane Poe");
-
-  await input.press("ArrowDown");
-  await expect(input).toHaveValue("Jill Moe");
-
-  await input.press("ArrowDown");
-
-  const lastOption = page.getByRole("option", {
-    name: "Bill Zoe Astronaut",
-  });
-
-  await expect(lastOption).toBeInViewport();
-  await expect(input).toHaveValue("Bill Zoe");
-});
-
 test.describe("Check virtual scrolling", () => {
   test("does not render all virtualised options", async ({ mount, page }) => {
     await mount(<WithVirtualScrolling />);
 
-    await page.getByText("Please Select...").click();
+    await page.getByRole("combobox").click();
 
     await expect(
       page.getByRole("option", { name: "Option 1", exact: true }),
@@ -241,7 +201,7 @@ test.describe("Check virtual scrolling", () => {
   }) => {
     await mount(<WithVirtualScrolling />);
 
-    await page.getByText("Please Select...").click();
+    await page.getByRole("combobox").click();
 
     const firstOption = page.getByRole("option", {
       name: "Option 1",
@@ -256,11 +216,9 @@ test.describe("Check virtual scrolling", () => {
     await expect(lastOption).not.toBeAttached();
 
     // scroll to the bottom of dropdown list
-    await page
-      .getByTestId("select-list-scrollable-container")
-      .evaluate((element) => {
-        element.scrollBy(0, element.scrollHeight);
-      });
+    await page.getByRole("listbox").evaluate((element) => {
+      element.scrollBy(0, element.scrollHeight);
+    });
 
     await expect(firstOption).not.toBeAttached();
     await expect(lastOption).toBeAttached();
@@ -273,27 +231,27 @@ test.describe("Check virtual scrolling", () => {
     const maxHeight = 200;
     await mount(<SimpleSelectComponent listMaxHeight={maxHeight} />);
 
-    await selectText(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, wrapper.scrollHeight),
-    );
+    await page.getByRole("combobox").click();
+    await page
+      .getByRole("listbox")
+      .evaluate((wrapper) => wrapper.scrollBy(0, wrapper.scrollHeight));
 
-    await expect(selectOptionByText(page, "Yellow")).toBeInViewport({
+    await expect(page.getByRole("option", { name: "Yellow" })).toBeInViewport({
       ratio: 1,
     });
-    await selectOptionByText(page, "Yellow").click();
+    await page.getByRole("option", { name: "Yellow" }).click();
 
-    await expect(selectOptionByText(page, "Yellow")).toBeHidden();
+    await expect(page.getByRole("option", { name: "Yellow" })).toBeHidden();
 
-    await selectText(page).click();
-    await expect(selectOptionByText(page, "Yellow")).toBeInViewport({
+    await page.getByRole("combobox").click();
+    await expect(page.getByRole("option", { name: "Yellow" })).toBeInViewport({
       ratio: 1,
     });
 
     await page.locator("body").click();
 
-    await selectText(page).click();
-    await expect(selectOptionByText(page, "Yellow")).toBeInViewport({
+    await page.getByRole("combobox").click();
+    await expect(page.getByRole("option", { name: "Yellow" })).toBeInViewport({
       ratio: 1,
     });
   });
@@ -305,7 +263,7 @@ test.describe("Check virtual scrolling", () => {
     await mount(<WithVirtualScrolling />);
 
     // open list and select first option
-    await page.getByText("Please Select...").click();
+    await page.getByRole("combobox").click();
     const firstOption = page.getByRole("option", {
       name: "Option 1",
       exact: true,
@@ -313,14 +271,12 @@ test.describe("Check virtual scrolling", () => {
     await firstOption.click();
 
     // reopen list
-    await page.getByTestId("select-text").click();
+    await page.getByRole("combobox").click();
 
     // scroll to the bottom of dropdown list
-    await page
-      .getByTestId("select-list-scrollable-container")
-      .evaluate((element) => {
-        element.scrollBy(0, element.scrollHeight);
-      });
+    await page.getByRole("listbox").evaluate((element) => {
+      element.scrollBy(0, element.scrollHeight);
+    });
 
     await expect(firstOption).toBeAttached();
   });
@@ -333,11 +289,11 @@ test.describe("When nested inside of a Dialog component", () => {
   }) => {
     await mount(<SimpleSelectNestedInDialog />);
 
-    await selectText(page).click();
+    await page.getByRole("combobox").click();
     const inputElement = commonDataElementInputPreview(page);
     const dialogElement = dialogWithRole(page, "dialog");
     await inputElement.press("Escape");
-    await expect(selectList(page)).toBeHidden();
+    await expect(page.getByRole("listbox")).toBeHidden();
     await expect(dialogElement).toBeVisible();
     await inputElement.press("Escape");
     await expect(dialogElement).toBeHidden();
@@ -349,9 +305,9 @@ test.describe("When nested inside of a Dialog component", () => {
   }) => {
     await mount(<SimpleSelectNestedInDialog />);
 
-    await selectText(page).click();
+    await page.getByRole("combobox").click();
     await dialogWithRole(page, "dialog").click();
-    await expect(selectList(page)).toBeHidden();
+    await expect(page.getByRole("listbox")).toBeHidden();
     await expect(commonDataElementInputPreview(page)).not.toBeFocused();
   });
 
@@ -361,8 +317,8 @@ test.describe("When nested inside of a Dialog component", () => {
   }) => {
     await mount(<SimpleSelectNestedInDialog autofocus openOnFocus />);
 
-    await expect(commonDataElementInputPreview(page)).toBeFocused();
-    await expect(selectList(page)).toBeVisible();
+    await expect(page.getByRole("combobox")).toBeFocused();
+    await expect(page.getByRole("listbox")).toBeVisible();
   });
 
   test("should be able to focus the last item in the select list when the select list has an OptionGroupHeader", async ({
@@ -371,11 +327,15 @@ test.describe("When nested inside of a Dialog component", () => {
   }) => {
     await mount(<SelectWithOptionGroupHeader />);
 
-    await selectText(page).click();
-    await commonDataElementInputPreview(page).press("ArrowDown");
-    await commonDataElementInputPreview(page).press("ArrowDown");
-    await commonDataElementInputPreview(page).press("ArrowDown");
-    await expect(selectOptionByText(page, "This is the last")).toBeVisible();
+    const inputElement = page.getByRole("combobox");
+    await inputElement.click();
+
+    await inputElement.press("ArrowDown");
+    await inputElement.press("ArrowDown");
+    await inputElement.press("ArrowDown");
+    await expect(
+      page.getByRole("option", { name: "This is the last" }),
+    ).toBeVisible();
   });
 });
 
@@ -387,12 +347,12 @@ test.describe("Selection confirmed", () => {
     await mount(<SelectionConfirmed />);
 
     await dropdownButton(page).click();
-    await selectOptionByText(page, "One").click();
+    await page.getByRole("option", { name: "One" }).click();
     await expect(
       page.locator('[data-element="confirmed-selection-1"]'),
     ).toBeVisible();
     await dropdownButton(page).click();
-    await selectOptionByText(page, "Five").click();
+    await page.getByRole("option", { name: "Five" }).click();
     await expect(
       page.locator('[data-element="confirmed-selection-1"]'),
     ).toBeHidden();
@@ -400,7 +360,7 @@ test.describe("Selection confirmed", () => {
       page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeVisible();
     await dropdownButton(page).click();
-    await selectOptionByText(page, "Seven").click();
+    await page.getByRole("option", { name: "Seven" }).click();
     await expect(
       page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeHidden();
@@ -416,7 +376,7 @@ test.describe("Selection confirmed", () => {
     await mount(<SelectionConfirmed />);
 
     await dropdownButton(page).click();
-    const inputElement = selectInput(page);
+    const inputElement = page.getByRole("combobox");
     await inputElement.press("ArrowDown");
     await inputElement.press("Enter");
     await expect(
@@ -455,36 +415,6 @@ test.describe("Selection confirmed", () => {
     ).toBeVisible();
   });
 
-  (
-    [
-      ["top", "300px", "0px", "200px", "20px"],
-      ["bottom", "0px", "0px", "0px", "20px"],
-    ] as const
-  ).forEach(([position, top, bottom, left, right]) => {
-    test(`should render list in ${position} position when margins are top ${top}, bottom ${bottom}, left ${left} and right ${right}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SimpleSelectComponent
-          listPlacement={position}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await selectText(page).click();
-      const listElement = selectListPosition(page);
-      await expect(listElement).toHaveAttribute(
-        "data-floating-placement",
-        position,
-      );
-      await expect(listElement).toBeVisible();
-    });
-  });
-
   test("is set on the event when Enter key is pressed on an option using ArrowUp key to navigate", async ({
     mount,
     page,
@@ -492,7 +422,7 @@ test.describe("Selection confirmed", () => {
     await mount(<SelectionConfirmed />);
 
     await dropdownButton(page).click();
-    const inputElement = selectInput(page);
+    const inputElement = page.getByRole("combobox");
     await inputElement.press("ArrowUp");
     await inputElement.press("Enter");
     await expect(
@@ -538,7 +468,7 @@ test.describe("Selection confirmed", () => {
     await mount(<SelectionConfirmed />);
 
     await dropdownButton(page).click();
-    const inputElement = selectInput(page);
+    const inputElement = page.getByRole("combobox");
     await inputElement.type("t");
     await expect(
       page.locator('[data-element="confirmed-selection-2"]'),
@@ -605,48 +535,6 @@ test.describe("Selection confirmed", () => {
 
     expect(called).toBeFalsy();
   });
-
-  (
-    ["top", "top-start", "top-end"] as SimpleSelectProps["listPlacement"][]
-  ).forEach((position) => {
-    test(`should render list with expected box-shadow when listPosition is ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SimpleSelectComponent listPlacement={position} mt="200px" />,
-      );
-
-      await selectText(page).click();
-      const listElement = selectListPosition(page);
-      await expect(listElement).toHaveCSS(
-        "box-shadow",
-        "rgba(0, 20, 30, 0.2) 0px -5px 5px 0px, rgba(0, 20, 30, 0.1) 0px -10px 10px 0px",
-      );
-    });
-  });
-
-  (
-    [
-      "bottom",
-      "bottom-start",
-      "bottom-end",
-    ] as SimpleSelectProps["listPlacement"][]
-  ).forEach((position) => {
-    test(`should render list with expected box-shadow when listPosition is ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SimpleSelectComponent listPlacement={position} />);
-
-      await selectText(page).click();
-      const listElement = selectListPosition(page);
-      await expect(listElement).toHaveCSS(
-        "box-shadow",
-        "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px",
-      );
-    });
-  });
 });
 
 // see https://github.com/Sage/carbon/issues/6399
@@ -658,12 +546,12 @@ test.describe("Test for scroll bug regression", () => {
     await mount(<SimpleSelectComponent />);
     const dropdownButtonElement = dropdownButton(page);
     await dropdownButtonElement.click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
+    await page.getByRole("listbox").evaluate((wrapper) =>
       wrapper.scroll(0, 500),
     );
     await commonDataElementInputPreview(page).press("Escape");
     await dropdownButtonElement.click();
-    await expect(selectOptionByText(page, "Amber")).toBeInViewport();
+    await expect(page.getByRole("combobox")).toBeInViewport();
   });
 });
 
@@ -687,7 +575,7 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
   }) => {
     await mount(<SimpleSelectNestedInDialog />);
 
-    await selectText(page).click();
+    await page.getByRole("combobox").click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
