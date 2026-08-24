@@ -236,7 +236,7 @@ test("positions the dropdown at bottom-end by default", async () => {
   await user.click(screen.getByRole("combobox"));
 
   expect(
-    screen.getByRole("listbox").parentElement?.parentElement,
+    screen.getByTestId("menu-wrapper"),
   ).toHaveAttribute("data-floating-placement", "bottom-end");
 });
 
@@ -256,7 +256,7 @@ test("ignores the deprecated listPlacement prop", async () => {
   await user.click(screen.getByRole("combobox"));
 
   expect(
-    screen.getByRole("listbox").parentElement?.parentElement,
+    screen.getByTestId("menu-wrapper"),
   ).toHaveAttribute("data-floating-placement", "bottom-end");
 });
 
@@ -587,7 +587,7 @@ describe("dropdown list", () => {
     );
 
     await waitFor(() => {
-      expect(screen.queryByRole("listbox")).toBeNull();
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
   });
 

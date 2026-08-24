@@ -1181,7 +1181,7 @@ test("renders the list container with the expected max-height when size is small
 
   expect(listbox).toHaveStyleRule(
     "max-height",
-    "calc(5 * var(--global-size-s))",
+    "calc(5.5 * var(--global-size-s))",
   );
 });
 
@@ -1191,7 +1191,7 @@ test("renders the list container with the expected max-height when size is mediu
 
   expect(listbox).toHaveStyleRule(
     "max-height",
-    "calc(5 * var(--global-size-m))",
+    "calc(5.5 * var(--global-size-m))",
   );
 });
 
@@ -1201,7 +1201,7 @@ test("renders the list container with the expected max-height when size is large
 
   expect(listbox).toHaveStyleRule(
     "max-height",
-    "calc(5 * var(--global-size-l))",
+    "calc(5.5 * var(--global-size-l))",
   );
 });
 

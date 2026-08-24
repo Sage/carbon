@@ -143,6 +143,13 @@ const SelectTextbox = React.forwardRef(
       selectType === "filterable" || selectType === "multi";
     const combinedRefs = combineRefs(ref, localRef);
 
+    function focusTextboxInput() {
+      /* istanbul ignore else */
+      if (localRef.current && document.activeElement !== localRef.current) {
+        localRef.current.focus();
+      }
+    }
+
     function handleTextboxClick(
       event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) {
@@ -150,10 +157,7 @@ const SelectTextbox = React.forwardRef(
         return;
       }
 
-      /* istanbul ignore else */
-      if (localRef.current && document.activeElement !== localRef.current) {
-        localRef.current.focus();
-      }
+      focusTextboxInput();
 
       if (readOnly) {
         return;
@@ -177,11 +181,25 @@ const SelectTextbox = React.forwardRef(
         return;
       }
 
+      focusTextboxInput();
+
       if (onIconClick) {
         onIconClick(event as React.MouseEvent<HTMLElement>);
       } else {
         onClick?.(event as React.MouseEvent<HTMLInputElement>);
       }
+    }
+
+    function handleDropdownIconMouseDown(
+      event: React.MouseEvent<HTMLElement>,
+    ) {
+      if (disabled || readOnly) {
+        return;
+      }
+
+      event.preventDefault();
+      restProps.onMouseDown?.(event);
+      focusTextboxInput();
     }
 
     const textboxProps = {
@@ -231,6 +249,7 @@ const SelectTextbox = React.forwardRef(
       <InputIconToggle
         inputIcon="dropdown"
         onClick={handleDropdownIconClick}
+        onMouseDown={handleDropdownIconMouseDown}
         readOnly={readOnly}
         size={size}
         blockFocusStyling
@@ -304,6 +323,7 @@ const SelectTextbox = React.forwardRef(
         {isSimpleSelect ? (
           <TextInput
             {...sharedProps}
+            inputMode="none"
             {...(variant === "subtle" && { "data-is-subtle": true })}
             label={restProps.label ?? ""}
             value={restProps.value ?? ""}

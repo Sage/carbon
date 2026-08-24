@@ -67,6 +67,8 @@ export interface NextSelectListProps {
   /** The number of options to render into the DOM at once, either side of the currently-visible ones.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
+  /** When set, keyboard navigation stops at the first/last option instead of looping around. */
+  disableNavigationLoop?: boolean;
   /** True for default text button or a Button Component to be rendered */
   listActionButton?: boolean | React.ReactElement<ButtonProps>;
   /** A callback for when the list action button is triggered */
@@ -100,6 +102,7 @@ const SelectList = ({
   onClose,
   enableVirtualScroll,
   virtualScrollOverscan,
+  disableNavigationLoop,
   listActionButton,
   onListAction,
 }: NextSelectListProps) => {
@@ -258,6 +261,7 @@ const SelectList = ({
       popoverControl={popoverControl}
       enableVirtualScroll={enableVirtualScroll}
       virtualScrollOverscan={virtualScrollOverscan}
+      disableNavigationLoop={disableNavigationLoop}
       initialScrollIndex={initialScrollIndex}
       footer={footer}
     >
