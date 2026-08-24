@@ -159,6 +159,8 @@ export interface SimpleSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
+  /** When set, keyboard navigation stops at the first/last option instead of looping back around to the other end. */
+  disableNavigationLoop?: boolean;
   /**
    * @deprecated `isRequired` has been deprecated.
    * Flag to configure component as mandatory
@@ -188,6 +190,7 @@ const LOCAL_NON_FUNCTIONING_PROPS = new Set([
   "multiColumn",
   "tableHeader",
   "isRequired",
+  "listPlacement",
 ]);
 
 const inheritedNonFunctioningProps = Array.from(NON_FUNCTIONING_PROPS);
@@ -233,6 +236,7 @@ export const SimpleSelect = React.forwardRef<
       flipEnabled,
       enableVirtualScroll,
       virtualScrollOverscan,
+      disableNavigationLoop = false,
       listActionButton,
       onListAction,
       required,
@@ -356,20 +360,20 @@ export const SimpleSelect = React.forwardRef<
     );
 
     const handleGlobalClick = useCallback((event: MouseEvent) => {
-        const notInContainer =
-          containerRef.current &&
-          !containerRef.current.contains(event.target as Node);
-        const notInList =
-          listboxRef.current &&
-          !listboxRef.current.contains(event.target as Node);
+      const notInContainer =
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node);
+      const notInList =
+        listboxRef.current &&
+        !listboxRef.current.contains(event.target as Node);
 
-        isMouseDownReported.current = false;
+      isMouseDownReported.current = false;
 
-        if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
-          setOpenState(false);
-        }
+      if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
+        setOpenState(false);
+      }
 
-        isClickTriggeredBySelect.current = false;
+      isClickTriggeredBySelect.current = false;
     }, []);
 
     useEffect(() => {
@@ -388,6 +392,26 @@ export const SimpleSelect = React.forwardRef<
 
       setTextValue(newText);
     }, [selectedValue, childOptions]);
+
+    // Keep the selected option highlighted while the list is open so the keyboard
+    // cursor starts from it: Enter confirms it (e.g. after typeahead) and the first
+    // arrow key moves past it. This mirrors the legacy SimpleSelect behaviour
+    // without altering the shared PopoverMenu navigation used by other components.
+    useEffect(() => {
+      if (!isOpen) return;
+
+      const listbox = document.getElementById(selectListId.current);
+      const selectedOption = listbox?.querySelector<HTMLElement>(
+        '[aria-selected="true"]',
+      );
+
+      if (!selectedOption) return;
+
+      listbox
+        ?.querySelector<HTMLElement>('[data-has-focus="true"]')
+        ?.setAttribute("data-has-focus", "false");
+      selectedOption.setAttribute("data-has-focus", "true");
+    }, [isOpen, selectedValue]);
 
     useEffect(() => {
       const clickEvent = "click";
@@ -577,6 +601,7 @@ export const SimpleSelect = React.forwardRef<
           controlReference={containerRef}
           enableVirtualScroll={enableVirtualScroll}
           virtualScrollOverscan={virtualScrollOverscan}
+          disableNavigationLoop={disableNavigationLoop}
           listActionButton={listActionButton}
           onListAction={onListAction}
           controlWrapperStyle={

@@ -219,6 +219,15 @@ describe("when selectType is 'simple'", () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
+  it("focuses the input when dropdown icon is clicked", async () => {
+    const user = userEvent.setup();
+    render(<ControlledSelectTextbox label="Textbox" selectType="simple" />);
+
+    await user.click(screen.getByTestId("icon"));
+
+    expect(screen.getByRole("combobox", { name: "Textbox" })).toHaveFocus();
+  });
+
   it("hides the combobox overlay from assistive technologies", () => {
     render(
       <ControlledSelectTextbox

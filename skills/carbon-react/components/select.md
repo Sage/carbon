@@ -33,6 +33,7 @@ No props metadata found.
     labelInline: false,
     enableVirtualScroll: false,
     virtualScrollOverscan: 5,
+    disableNavigationLoop: false,
     value: "select",
   }
 ```

@@ -71,6 +71,7 @@ export const Playground: Story = {
     labelInline: false,
     enableVirtualScroll: false,
     virtualScrollOverscan: 5,
+    disableNavigationLoop: false,
     value: "select",
   },
   parameters: {
@@ -89,6 +90,7 @@ export const Playground: Story = {
         "value",
         "virtualScrollOverscan",
         "enableVirtualScroll",
+        "disableNavigationLoop",
         "labelInline",
         "openOnFocus",
         "isLoading",

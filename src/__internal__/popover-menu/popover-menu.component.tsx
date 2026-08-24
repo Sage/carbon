@@ -210,6 +210,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   virtualScrollOverscan?: number;
   /** Index of the item to scroll into view when the menu opens. Only used if the `enableVirtualScroll` prop is set. */
   initialScrollIndex?: number;
+  /** When set, keyboard navigation stops at the first/last item instead of looping around. */
+  disableNavigationLoop?: boolean;
   /** Content rendered below the scrollable list, inside the menu (e.g. an action button). */
   footer?: React.ReactNode;
 }
@@ -403,6 +405,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     enableVirtualScroll = false,
     virtualScrollOverscan = 5,
     initialScrollIndex,
+    disableNavigationLoop = false,
     footer,
     ...rest
   }: PopoverMenuProps<TRef>,
@@ -443,18 +446,15 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     // Ensure the currently-active and selected items are always rendered so keyboard navigation
     // and `aria-activedescendant` always reference a real element.
     rangeExtractor: (range: Range) => {
-      const indexes = defaultRangeExtractor(range);
-      if (activeIndex >= 0 && !indexes.includes(activeIndex)) {
-        indexes.push(activeIndex);
+      const indexes = new Set(defaultRangeExtractor(range));
+      if (activeIndex >= 0) {
+        indexes.add(activeIndex);
       }
-      if (
-        initialScrollIndex !== undefined &&
-        initialScrollIndex >= 0 &&
-        !indexes.includes(initialScrollIndex)
-      ) {
-        indexes.push(initialScrollIndex);
+      if (initialScrollIndex !== undefined && initialScrollIndex >= 0) {
+        indexes.add(initialScrollIndex);
       }
-      return indexes;
+      // TanStack requires the returned indexes to be sorted ascending.
+      return [...indexes].sort((a, b) => a - b);
     },
   });
 
@@ -466,23 +466,68 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     [],
   );
 
+  // Selected/active items must stay mounted even when scrolled outside the virtual window.
+  const retainedIndexes: number[] = [];
+  if (initialScrollIndex !== undefined && initialScrollIndex >= 0) {
+    retainedIndexes.push(initialScrollIndex);
+  }
+  if (activeIndex >= 0 && activeIndex !== initialScrollIndex) {
+    retainedIndexes.push(activeIndex);
+  }
+  const renderedIndexes = new Set(virtualItems.map((item) => item.index));
+
   const renderedChildren = canVirtualize
-    ? virtualItems.map((virtualItem: VirtualItem) =>
-        React.cloneElement(itemsArray[virtualItem.index], {
-          key: virtualItem.key,
-          id: optionIdForIndex(virtualItem.index),
-          "data-index": virtualItem.index,
-          "data-has-focus":
-            activeIndex === virtualItem.index ? "true" : undefined,
-          style: {
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            transform: `translateY(${virtualItem.start}px)`,
-          },
-        }),
-      )
+    ? [
+        ...virtualItems.map((virtualItem: VirtualItem) =>
+          React.cloneElement(itemsArray[virtualItem.index], {
+            key: virtualItem.key,
+            id: optionIdForIndex(virtualItem.index),
+            "data-index": virtualItem.index,
+            "data-has-focus":
+              activeIndex === virtualItem.index ? "true" : undefined,
+            style: {
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              transform: `translateY(${virtualItem.start}px)`,
+            },
+          }),
+        ),
+        ...retainedIndexes
+          .filter((index) => !renderedIndexes.has(index))
+          .map((index) =>
+            React.cloneElement(itemsArray[index], {
+              key: `retained-${index}`,
+              id: optionIdForIndex(index),
+              "data-index": index,
+              "data-has-focus": activeIndex === index ? "true" : undefined,
+              style: {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                transform: `translateY(${index * rowSize}px)`,
+              },
+            }),
+          ),
+        // In-flow spacer establishes the listbox's scroll range; the options above
+        // are absolutely positioned and cannot size the scroll container themselves.
+        <li
+          key="virtual-scroll-spacer"
+          data-role="virtual-scroll-spacer"
+          role="presentation"
+          aria-hidden="true"
+          style={{
+            display: "block",
+            height: virtualHeight,
+            margin: 0,
+            padding: 0,
+            listStyle: "none",
+            pointerEvents: "none",
+          }}
+        />,
+      ]
     : wrappedChildren;
 
   const resolvedActivedescendant = canVirtualize
@@ -503,12 +548,17 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
 
   // Reset the active item and scroll the selected item into view whenever the menu opens/closes.
   useEffect(() => {
-    if (!canVirtualize) return;
     if (open) {
-      if (initialScrollIndex !== undefined && initialScrollIndex >= 0) {
-        virtualizer.scrollToIndex(initialScrollIndex, { align: "center" });
+      if (canVirtualize) {
+        if (initialScrollIndex !== undefined && initialScrollIndex >= 0) {
+          virtualizer.scrollToIndex(initialScrollIndex, { align: "center" });
+        }
+      } else {
+        internalListRef.current
+          ?.querySelector('[aria-selected="true"]')
+          ?.scrollIntoView?.({ block: "nearest" });
       }
-    } else {
+    } else if (canVirtualize) {
       setActiveIndex(-1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -538,7 +588,11 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           ev.preventDefault();
           ev.stopPropagation();
           moveActiveIndex(
-            activeIndex < 0 ? fallback : (activeIndex + 1) % count,
+            activeIndex < 0
+              ? fallback
+              : disableNavigationLoop
+                ? Math.min(activeIndex + 1, count - 1)
+                : (activeIndex + 1) % count,
           );
           break;
         case "ArrowUp":
@@ -549,7 +603,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
               ? initialScrollIndex !== undefined && initialScrollIndex >= 0
                 ? initialScrollIndex
                 : count - 1
-              : (activeIndex - 1 + count) % count,
+              : disableNavigationLoop
+                ? Math.max(activeIndex - 1, 0)
+                : (activeIndex - 1 + count) % count,
           );
           break;
         case "Home":
@@ -580,6 +636,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       itemsArray.length,
       activeIndex,
       initialScrollIndex,
+      disableNavigationLoop,
       moveActiveIndex,
       optionIdForIndex,
       onClose,
@@ -653,6 +710,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     {
       isButtonMenu,
       isSubmenu,
+      disableNavigationLoop,
     },
   );
 

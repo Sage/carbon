@@ -28,6 +28,7 @@ export const useHandleDropdownMenuKeyDown = (
     isButtonMenu?: boolean;
     isSubmenu?: boolean;
     controlReference?: React.RefObject<HTMLLIElement>;
+    disableNavigationLoop?: boolean;
   },
 ) =>
   useCallback(
@@ -41,7 +42,7 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      const { isButtonMenu, isSubmenu } = submenuOptions;
+      const { isButtonMenu, isSubmenu, disableNavigationLoop } = submenuOptions;
 
       const items = Array.from(
         ref.current?.querySelectorAll(
@@ -76,6 +77,8 @@ export const useHandleDropdownMenuKeyDown = (
         }
 
         if (!isButtonMenu && lastItem === highlightedItem) {
+          // stay on the last item instead of wrapping when looping is disabled
+          if (disableNavigationLoop) return;
           setAriaActivedescendant(
             firstItem?.id ?? /* istanbul ignore next */ "",
           );
@@ -112,6 +115,8 @@ export const useHandleDropdownMenuKeyDown = (
         }
 
         if (!isButtonMenu && firstItem === highlightedItem) {
+          // stay on the first item instead of wrapping when looping is disabled
+          if (disableNavigationLoop) return;
           setAriaActivedescendant(
             lastItem?.id ?? /* istanbul ignore next */ "",
           );
