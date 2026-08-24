@@ -11,6 +11,9 @@ export interface CardColumnProps
   children: React.ReactNode;
 }
 
+/**
+ * @deprecated `CardColumn` has been deprecated.
+ */
 const CardColumn = ({
   align = "center",
   children,

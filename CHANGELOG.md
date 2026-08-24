@@ -1,3 +1,45 @@
+## [161.19.0](https://github.com/Sage/carbon/compare/v161.18.2...v161.19.0) (2026-08-21)
+
+### Features
+
+* **button:** add support for inverse focus styling ([df4df1a](https://github.com/Sage/carbon/commit/df4df1ad3df3ac8d865f4d3323a16edc5dbdd7a8))
+
+## [161.18.2](https://github.com/Sage/carbon/compare/v161.18.1...v161.18.2) (2026-08-20)
+
+### Bug Fixes
+
+* ensure popover components anchor within the same local tree as the trigger ([547d9e7](https://github.com/Sage/carbon/commit/547d9e73ac4db7a02e9cee05d10afc00c39f1bd3)), closes [#7789](https://github.com/Sage/carbon/issues/7789)
+
+## [161.18.1](https://github.com/Sage/carbon/compare/v161.18.0...v161.18.1) (2026-08-20)
+
+### Bug Fixes
+
+* **tabs:** ensure focused tab is fully visible ([ce19463](https://github.com/Sage/carbon/commit/ce19463267cdde0ec87b2434eb2f642cb575d55d)), closes [#8093](https://github.com/Sage/carbon/issues/8093)
+
+## [161.18.0](https://github.com/Sage/carbon/compare/v161.17.2...v161.18.0) (2026-08-17)
+
+### Features
+
+* **divider:** align component with fusion DS ([2242875](https://github.com/Sage/carbon/commit/22428758273078f84b113872555eb655e5a9436b))
+
+## [161.17.2](https://github.com/Sage/carbon/compare/v161.17.1...v161.17.2) (2026-08-12)
+
+### Bug Fixes
+
+* **search:** ensure maxHeight prop overrides pre-set size based heights ([d2feaad](https://github.com/Sage/carbon/commit/d2feaad59b26f9a919867ddfd8e212ccf8dfeaac))
+
+## [161.17.1](https://github.com/Sage/carbon/compare/v161.17.0...v161.17.1) (2026-08-12)
+
+### Bug Fixes
+
+* **texteditor:** correctly apply bold/italic when inside styled span ([7b99c05](https://github.com/Sage/carbon/commit/7b99c05a85186f1adef6d5b666fa5f734911e307)), closes [#8056](https://github.com/Sage/carbon/issues/8056)
+
+## [161.17.0](https://github.com/Sage/carbon/compare/v161.16.0...v161.17.0) (2026-08-11)
+
+### Features
+
+* **card:** align component with fusion design system ([0b74155](https://github.com/Sage/carbon/commit/0b741555d8dc61e58e9fe6033cf578099dfea676))
+
 ## [161.16.0](https://github.com/Sage/carbon/compare/v161.15.0...v161.16.0) (2026-08-06)
 
 ### Features

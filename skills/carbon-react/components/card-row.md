@@ -11,6 +11,8 @@ description: Carbon CardRow component props and usage examples.
 ## Source
 - Export: `./components/card`
 - Props interface: `CardRowProps`
+- Deprecated: Yes
+- Deprecation reason: `CardRow` has been deprecated.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |
