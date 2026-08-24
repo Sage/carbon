@@ -11,6 +11,8 @@ description: Carbon FlatTable component props and usage examples.
 ## Source
 - Export: `./components/flat-table`
 - Props interface: `FlatTableProps`
+- Deprecated: Yes
+- Deprecation reason: Use the new `Table` component instead.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |
@@ -3168,6 +3170,232 @@ description: Carbon FlatTable component props and usage examples.
     </FlatTable>
   );
 }
+```
+
+
+### MDX Example 1
+
+**Args**
+
+```tsx
+import {
+  FlatTable,
+  FlatTableBody,
+  FlatTableCell,
+  FlatTableHead,
+  FlatTableHeader,
+  FlatTableRow,
+} from "carbon-react/lib/components/flat-table";
+
+<FlatTable caption="Products">
+  <FlatTableHead>
+    <FlatTableRow>
+      <FlatTableHeader>Product</FlatTableHeader>
+      <FlatTableHeader>Price</FlatTableHeader>
+    </FlatTableRow>
+  </FlatTableHead>
+  <FlatTableBody>
+    <FlatTableRow id="product-1">
+      <FlatTableCell>Product A</FlatTableCell>
+      <FlatTableCell align="right">£12.00</FlatTableCell>
+    </FlatTableRow>
+  </FlatTableBody>
+</FlatTable>;
+```
+
+
+### MDX Example 2
+
+**Args**
+
+```tsx
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "carbon-react/lib/components/table";
+
+<Table>
+  <caption>Products</caption>
+  <TableHead>
+    <TableRow id="products-header">
+      <TableHeader>Product</TableHeader>
+      <TableHeader align="right">Price</TableHeader>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow id="product-1">
+      <TableCell>Product A</TableCell>
+      <TableCell align="right">£12.00</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>;
+```
+
+
+### MDX Example 3
+
+**Args**
+
+```tsx
+<Table
+  size="medium"
+  variant="subtle-white"
+  isZebraStriped
+  outerBorders="small"
+  horizontalBorderThickness="small"
+  verticalBorderThickness="small"
+>
+  {/* table content */}
+</Table>
+```
+
+
+### MDX Example 4
+
+**Args**
+
+```tsx
+<TableRow id={row.id} isSelected={selectedIds.includes(row.id)}>
+  <TableCell>
+    <Checkbox
+      aria-label={`Select ${row.product}`}
+      checked={selectedIds.includes(row.id)}
+      onChange={() => toggleSelected(row.id)}
+    />
+  </TableCell>
+  <TableCell>{row.product}</TableCell>
+</TableRow>
+```
+
+
+### MDX Example 5
+
+**Args**
+
+```tsx
+<FlatTableHeader>
+  <Sort sortType={sortType} onClick={handleSort}>
+    Product
+  </Sort>
+</FlatTableHeader>
+```
+
+
+### MDX Example 6
+
+**Args**
+
+```tsx
+<TableHeader
+  sortType={sortType === undefined ? "unsorted" : sortType}
+  onSort={handleSort}
+>
+  Product
+</TableHeader>
+```
+
+
+### MDX Example 7
+
+**Args**
+
+```tsx
+<TableRow
+  id="product-a"
+  isExpanded={expanded}
+  subRows={
+    <TableRow id="product-a-child">
+      <TableCell>Product A1</TableCell>
+      <TableCell>Child data</TableCell>
+    </TableRow>
+  }
+>
+  <TableCell>Product A</TableCell>
+  <TableCell>Parent data</TableCell>
+</TableRow>
+```
+
+
+### MDX Example 8
+
+**Args**
+
+```tsx
+<FlatTable>
+  <FlatTableBodyDraggable getOrder={handleOrderChange}>
+    {rows.map((row) => (
+      <FlatTableRow id={row.id} key={row.id}>
+        {/* cells */}
+      </FlatTableRow>
+    ))}
+  </FlatTableBodyDraggable>
+</FlatTable>
+```
+
+
+### MDX Example 9
+
+**Args**
+
+```tsx
+<Table isDraggable>
+  <TableBody getOrder={handleOrderChange}>
+    {rows.map((row) => (
+      <TableRow id={row.id} key={row.id}>
+        {/* cells */}
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+```
+
+
+### MDX Example 10
+
+**Args**
+
+```tsx
+// hasStickyHead
+<Table stickyRow="header">{/* content */}</Table>
+
+// hasStickyFooter
+<Table stickyRow="footer">{/* content */}</Table>
+
+// both legacy props
+<Table stickyRow="both">{/* content */}</Table>
+```
+
+
+### MDX Example 11
+
+**Args**
+
+```tsx
+<Table maxWidth="600px" stickyColumn="both">
+  {/* content wider than 600px */}
+</Table>
+```
+
+
+### MDX Example 12
+
+**Args**
+
+```tsx
+<Table pagination={<Pager {...pagerProps} />}>
+  <TableHead>{/* headers */}</TableHead>
+  <TableBody>{/* data */}</TableBody>
+  <TableFoot>
+    <TableRow id="table-summary">
+      <TableCell>Total</TableCell>
+      <TableCell align="right">£120.00</TableCell>
+    </TableRow>
+  </TableFoot>
+</Table>
 ```
 
 
