@@ -59,6 +59,26 @@ test("applies focused presentation styling when textarea is focused", () => {
   expect(screen.getByRole("presentation")).toHaveStyleRule("z-index", "2");
 });
 
+test("calls onFocus and onBlur when the textarea gains and loses focus", () => {
+  const onFocus = jest.fn();
+  const onBlur = jest.fn();
+  render(<MockComponent onFocus={onFocus} onBlur={onBlur} />);
+
+  const textarea = screen.getByRole("textbox");
+
+  act(() => {
+    textarea.focus();
+  });
+
+  expect(onFocus).toHaveBeenCalledTimes(1);
+
+  act(() => {
+    textarea.blur();
+  });
+
+  expect(onBlur).toHaveBeenCalledTimes(1);
+});
+
 test("should not render character counter if no characterLimit prop is given", () => {
   render(<MockComponent />);
   expect(screen.queryByText(/you can enter up to/i)).not.toBeInTheDocument();

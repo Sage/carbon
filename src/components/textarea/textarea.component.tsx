@@ -13,8 +13,8 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { InputPresentation } from "../../__internal__/legacy-input";
 import useCharacterCount from "../../hooks/useCharacterCount";
 
-import { InputBehaviour } from "../../__internal__/input-behaviour";
 import {
+  InputBehaviour,
   InputContext,
   InputGroupContext,
 } from "../../__internal__/input-behaviour";
