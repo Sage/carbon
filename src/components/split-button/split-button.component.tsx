@@ -32,8 +32,8 @@ export interface SplitButtonProps
     MarginProps,
     TagProps {
   /**
-   * @deprecated This prop is deprecated and will be removed in a future release.
-   * Set align of the rendered content */
+   * @deprecated This prop is deprecated and has no effect. It will be removed in a future release.
+   * Use the `position` prop to control menu alignment. */
   align?: "left" | "right";
   /** Button type. SplitButton only supports the primary variant. */
   buttonType?: "primary";
@@ -161,8 +161,12 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     };
 
     const handleChildButtonClick = useCallback(
-      (childOnClick?: React.MouseEventHandler<HTMLButtonElement>) =>
-        (ev: React.MouseEvent<HTMLButtonElement>) => {
+      (
+        childOnClick?: React.MouseEventHandler<
+          HTMLButtonElement | HTMLAnchorElement
+        >,
+      ) =>
+        (ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
           childOnClick?.(ev);
           hideButtons();
           toggleButtonRef.current?.focus();
