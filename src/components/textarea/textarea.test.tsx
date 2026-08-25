@@ -49,6 +49,16 @@ test("should render a textarea element", () => {
   expect(textarea.tagName).toEqual("TEXTAREA");
 });
 
+test("applies focused presentation styling when textarea is focused", () => {
+  render(<MockComponent />);
+
+  act(() => {
+    screen.getByRole("textbox").focus();
+  });
+
+  expect(screen.getByRole("presentation")).toHaveStyleRule("z-index", "2");
+});
+
 test("should not render character counter if no characterLimit prop is given", () => {
   render(<MockComponent />);
   expect(screen.queryByText(/you can enter up to/i)).not.toBeInTheDocument();

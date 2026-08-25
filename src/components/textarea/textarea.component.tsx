@@ -14,6 +14,10 @@ import { InputPresentation } from "../../__internal__/legacy-input";
 import useCharacterCount from "../../hooks/useCharacterCount";
 
 import { InputBehaviour } from "../../__internal__/input-behaviour";
+import {
+  InputContext,
+  InputGroupContext,
+} from "../../__internal__/input-behaviour";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../__internal__/utils/helpers/guid";
 import StyledTextarea, {
@@ -336,16 +340,28 @@ export const Textarea = React.forwardRef(
 
     // This block of code has been covered in a Playwright test.
     // istanbul ignore next
-    const handleFocus = (ev: React.FocusEvent<HTMLTextAreaElement>) => {
+    const handleFocus = (
+      ev: React.FocusEvent<HTMLTextAreaElement>,
+      inputOnFocus?: () => void,
+      groupOnFocus?: () => void,
+    ) => {
       if (characterLimit) setCharacterCountAriaLive("polite");
       onFocus?.(ev);
+      inputOnFocus?.();
+      groupOnFocus?.();
     };
 
     // This block of code has been covered in a Playwright test.
     // istanbul ignore next
-    const handleBlur = (ev: React.FocusEvent<HTMLTextAreaElement>) => {
+    const handleBlur = (
+      ev: React.FocusEvent<HTMLTextAreaElement>,
+      inputOnBlur?: () => void,
+      groupOnBlur?: () => void,
+    ) => {
       if (characterLimit) setCharacterCountAriaLive("off");
       onBlur?.(ev);
+      inputOnBlur?.();
+      groupOnBlur?.();
     };
 
     if (
@@ -483,27 +499,38 @@ export const Textarea = React.forwardRef(
         borderRadius={borderRadius}
         hideBorders={hideBorders}
       >
-        <StyledTextareaInput
-          aria-invalid={!!error || fieldsetError}
-          aria-labelledby={ariaLabelledBy}
-          aria-describedby={combinedAriaDescribedBy}
-          autoFocus={autoFocus}
-          name={name}
-          value={value}
-          ref={callbackRef}
-          onChange={onChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          disabled={disabled}
-          readOnly={readOnly}
-          placeholder={disabled ? "" : placeholder}
-          rows={rows}
-          id={id}
-          data-element="input"
-          data-role="input"
-          required={required || fieldsetRequired}
-          {...rest}
-        />
+        <InputGroupContext.Consumer>
+          {({ onFocus: groupOnFocus, onBlur: groupOnBlur }) => (
+            <InputContext.Consumer>
+              {({ onFocus: inputOnFocus, onBlur: inputOnBlur, inputRef }) => (
+                <StyledTextareaInput
+                  aria-invalid={!!error || fieldsetError}
+                  aria-labelledby={ariaLabelledBy}
+                  aria-describedby={combinedAriaDescribedBy}
+                  autoFocus={autoFocus}
+                  name={name}
+                  value={value}
+                  ref={(element) => {
+                    callbackRef(element);
+                    inputRef?.({ current: element });
+                  }}
+                  onChange={onChange}
+                  onFocus={(ev) => handleFocus(ev, inputOnFocus, groupOnFocus)}
+                  onBlur={(ev) => handleBlur(ev, inputOnBlur, groupOnBlur)}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                  placeholder={disabled ? "" : placeholder}
+                  rows={rows}
+                  id={id}
+                  data-element="input"
+                  data-role="input"
+                  required={required || fieldsetRequired}
+                  {...rest}
+                />
+              )}
+            </InputContext.Consumer>
+          )}
+        </InputGroupContext.Consumer>
         {children}
         <InputIconToggle
           disabled={disabled}
