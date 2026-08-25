@@ -109,9 +109,9 @@ export type TimeHandle = {
 } | null;
 
 const SIZES = {
-  small: "48px",
-  medium: "56px",
-  large: "64px",
+  small: "var(--global-size-l)",
+  medium: "var(--global-size-xl)",
+  large: "var(--global-size-2-xl)",
 };
 
 const Time = React.forwardRef<TimeHandle, TimeProps>(
@@ -333,13 +333,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         <FieldsetValidationContext.Provider
           value={{ disableErrorBorder: true }}
         >
-          <StyledTimeLayout
-            className="time"
-            $hasToggle={showToggle}
-            $size={size}
-            $isDisabled={disabled}
-            $isReadOnly={readOnly}
-          >
+          <StyledTimeLayout className="time" $hasToggle={showToggle}>
             <StyledTimeInputs>
               <StyledTimeInputField $size={size}>
                 <Label

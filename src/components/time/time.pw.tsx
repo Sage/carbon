@@ -10,6 +10,12 @@ const sizeMap = {
   large: { width: 64, height: 48, hintGap: 12 },
 } as const;
 
+const labelTokenMap = {
+  small: { fontSize: "14px", lineHeight: "21px" },
+  medium: { fontSize: "14px", lineHeight: "21px" },
+  large: { fontSize: "16px", lineHeight: "24px" },
+} as const;
+
 const hintGapTolerance = 6;
 const colonGapPx = 16;
 const colonGapTolerance = 1;
@@ -118,6 +124,49 @@ test.describe("Time component", () => {
       expect(actualHintGap).toBeLessThanOrEqual(hintGap + hintGapTolerance);
     });
   });
+
+  (Object.keys(labelTokenMap) as Array<keyof typeof labelTokenMap>).forEach(
+    (size) => {
+      test(`should render the ${size} hours and minutes labels with the design system label tokens`, async ({
+        mount,
+        page,
+      }) => {
+        const { fontSize, lineHeight } = labelTokenMap[size];
+
+        await mount(
+          <TimeComponent
+            label="Time"
+            size={size}
+            value={{ hours: "12", minutes: "30" }}
+            onChange={() => {}}
+          />,
+        );
+
+        const legend = page.locator("legend");
+        const legendColour = await legend.evaluate(
+          (el) => getComputedStyle(el).color,
+        );
+
+        for (const text of ["Hours", "Minutes"]) {
+          const label = page.getByText(text, { exact: true });
+          const styles = await label.evaluate((el) => {
+            const cs = getComputedStyle(el);
+            return {
+              fontWeight: cs.fontWeight,
+              fontSize: cs.fontSize,
+              lineHeight: cs.lineHeight,
+              color: cs.color,
+            };
+          });
+
+          expect(styles.fontWeight).toBe("500");
+          expect(styles.fontSize).toBe(fontSize);
+          expect(styles.lineHeight).toBe(lineHeight);
+          expect(styles.color).toBe(legendColour);
+        }
+      });
+    },
+  );
 
   test("should keep the colon vertically centered and place the AM/PM toggle below inputs on narrow screens", async ({
     mount,

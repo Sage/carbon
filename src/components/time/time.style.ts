@@ -32,9 +32,6 @@ const StyledColon = styled.span<StyledColonProps>`
 
 type StyledTimeLayoutProps = {
   $hasToggle: boolean;
-  $size: "small" | "medium" | "large";
-  $isDisabled?: boolean;
-  $isReadOnly?: boolean;
 };
 
 type StyledTimeSizeProps = {
@@ -42,45 +39,24 @@ type StyledTimeSizeProps = {
 };
 
 const inputWidthBySize = {
-  small: "48px",
-  medium: "56px",
-  large: "64px",
+  small: "var(--global-size-l)",
+  medium: "var(--global-size-xl)",
+  large: "var(--global-size-2-xl)",
 };
 
 const inputHeightBySize = {
-  small: "32px",
-  medium: "40px",
-  large: "48px",
-};
-
-const labelFontBySize = {
-  small: "var(--global-font-static-comp-regular-s)",
-  medium: "var(--global-font-static-comp-regular-m)",
-  large: "var(--global-font-static-comp-regular-l)",
-};
-
-const getLabelColour = ($isDisabled?: boolean, $isReadOnly?: boolean) => {
-  if ($isDisabled) {
-    return "var(--input-typical-txt-disabled)";
-  }
-  if ($isReadOnly) {
-    return "var(--input-typical-txt-read-only)";
-  }
-  return "var(--input-typical-txt-default)";
+  small: "var(--global-size-s)",
+  medium: "var(--global-size-m)",
+  large: "var(--global-size-l)",
 };
 
 const StyledTimeLayout = styled.div<StyledTimeLayoutProps>`
-  ${({ $hasToggle, $size, $isDisabled, $isReadOnly }) => css`
+  ${({ $hasToggle }) => css`
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
     row-gap: var(--global-space-comp-m);
     column-gap: ${$hasToggle ? "var(--global-space-comp-l)" : "0px"};
-
-    [data-component="label"] {
-      font: ${labelFontBySize[$size]};
-      color: ${getLabelColour($isDisabled, $isReadOnly)};
-    }
 
     @media screen and (max-width: 480px) {
       [data-role="time-toggle-wrapper"] {

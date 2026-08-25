@@ -935,9 +935,9 @@ test("should apply 4px gap between label and input for hours and minutes fields"
 });
 
 it.each([
-  ["small", "48px"],
-  ["medium", "56px"],
-  ["large", "64px"],
+  ["small", "var(--global-size-l)"],
+  ["medium", "var(--global-size-xl)"],
+  ["large", "var(--global-size-2-xl)"],
 ] as const)(
   "should apply %s input wrapper width for hours and minutes",
   (size, expectedWidth) => {
