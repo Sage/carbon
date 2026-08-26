@@ -9,7 +9,7 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../../../carbon-provider";
-import Dialog, { DialogHeadingStatus } from ".";
+import Dialog, { DialogHeadingStatus, DialogHeadingStatusProps } from ".";
 import { DialogHandle, DialogProps } from "./dialog.component";
 import Form from "../../../form";
 import { DIALOG_SIZE_CONFIG } from "./dialog.config";
@@ -163,6 +163,64 @@ describe("Modal Dialog", () => {
     );
     const dialog = screen.getByRole("dialog");
     expect(dialog).toHaveAccessibleName("Memoized Header");
+    expect(dialog).toHaveAccessibleDescription("This is a subtitle");
+  });
+
+  test("when DialogHeader is wrapped with marker directly on wrapper, it is detected correctly", () => {
+    // Simulate styled-components or similar wrapper with marker copied to wrapper
+    const StyledWrapper = (props: DialogHeadingStatusProps) => {
+      return <DialogHeadingStatus {...props} />;
+    };
+    // Set marker directly on the wrapper (not nested in a type property)
+    (
+      StyledWrapper as React.FC<DialogHeadingStatusProps> & {
+        $$carbonDialogHeadingStatus: boolean;
+      }
+    ).$$carbonDialogHeadingStatus = true;
+
+    render(
+      <Dialog
+        open
+        title={
+          <StyledWrapper
+            title="Styled Header"
+            subtitle="Styled subtitle"
+            status="positive"
+          />
+        }
+      />,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveAccessibleName("Styled Header");
+    expect(dialog).toHaveAccessibleDescription("Styled subtitle");
+  });
+
+  test("when DialogHeader is wrapped in a custom HOC, it is still detected correctly", () => {
+    // Custom HOC that creates a wrapper without the marker directly on it
+    const CustomWrapper = (props: DialogHeadingStatusProps) => {
+      return <DialogHeadingStatus {...props} />;
+    };
+    // Simulate a wrapper structure where the marker is on a nested type property
+    (
+      CustomWrapper as React.FC<DialogHeadingStatusProps> & {
+        type: typeof DialogHeadingStatus;
+      }
+    ).type = DialogHeadingStatus;
+
+    render(
+      <Dialog
+        open
+        title={
+          <CustomWrapper
+            title="Wrapped Header"
+            subtitle="This is a subtitle"
+            status="info"
+          />
+        }
+      />,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveAccessibleName("Wrapped Header");
     expect(dialog).toHaveAccessibleDescription("This is a subtitle");
   });
 
