@@ -20,6 +20,9 @@ const esES: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
+    ariaLabels: {
+      close: () => "Cerrar",
+    },
     selected: (count) => `Registros seleccionados: ${count}`,
   },
   breadcrumbs: {

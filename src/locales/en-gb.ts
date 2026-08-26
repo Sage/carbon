@@ -20,7 +20,10 @@ const enGB: Locale = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} selected`,
+    ariaLabels: {
+      close: () => "Close",
+    },
+    selected: (count, total) => `${count} of ${total} items selected`,
   },
   breadcrumbs: {
     ariaLabel: () => "breadcrumbs",

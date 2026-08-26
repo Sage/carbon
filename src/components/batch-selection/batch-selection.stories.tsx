@@ -2,110 +2,121 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import BatchSelection from ".";
-import IconButton from "../icon-button";
 import Icon from "../icon";
-import Button from "../button";
-import Link from "../link";
+import Button from "../button/__next__";
+import Divider from "../divider";
+import Box from "../box";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 const meta: Meta<typeof BatchSelection> = {
   title: "Batch Selection",
   component: BatchSelection,
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof BatchSelection>;
 
-export const Default: Story = () => {
-  return (
-    <BatchSelection selectedCount={0}>
-      <Button size="small" mx={1} buttonType="secondary">
-        Select All 38 items
+export const Default: Story = {
+  render: (args) => (
+    <BatchSelection {...args}>
+      <Button variantType="tertiary">Button 1</Button>
+      <Button variantType="tertiary">Button 2</Button>
+      <Button variantType="tertiary">Button 3</Button>
+    </BatchSelection>
+  ),
+  args: {
+    selectedCount: 1,
+    totalItems: 10,
+    onDismiss: () => {},
+  },
+};
+
+export const SmallScreen: Story = {
+  render: (args) => (
+    <BatchSelection {...args}>
+      <Button variantType="tertiary">Button 1</Button>
+      <Button variantType="tertiary">Button 2</Button>
+    </BatchSelection>
+  ),
+  args: {
+    smallScreen: true,
+    selectedCount: 1,
+    totalItems: 10,
+    onDismiss: () => {},
+  },
+  decorators: [
+    (Story) => (
+      <Box width="288px">
+        <Story />
+      </Box>
+    ),
+  ],
+  globals: {
+    viewport: { value: "mobile" },
+  },
+};
+
+export const ExampleImplementation: Story = {
+  render: (args) => {
+    const isSmallScreen = useMediaQuery("(max-width: 680px)");
+    const isLargeScreen = useMediaQuery("(min-width: 840px)");
+
+    const smallScreenActions = (
+      <Button variantType="subtle">
+        Actions
+        <Icon type="caret_down" />
       </Button>
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  );
-};
-Default.storyName = "Default";
+    );
 
-export const Dark: Story = () => {
-  return (
-    <BatchSelection selectedCount={1} colorTheme="dark">
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  );
-};
-Dark.storyName = "Dark";
+    const mediumScreenActions = (
+      <>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 1
+        </Button>
+        <Button variantType="tertiary">
+          <Icon type="ellipsis_horizontal" />
+          More
+        </Button>
+      </>
+    );
 
-export const Light: Story = () => {
-  return (
-    <BatchSelection selectedCount={2} colorTheme="light">
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  );
-};
-Light.storyName = "Light";
+    const largeScreenActions = (
+      <>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 1
+        </Button>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 2
+        </Button>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 3
+        </Button>
+      </>
+    );
 
-export const White: Story = () => {
-  return (
-    <BatchSelection selectedCount={3} colorTheme="white">
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  );
+    return (
+      <BatchSelection smallScreen={isSmallScreen} {...args}>
+        <Button variantType="subtle">
+          <Icon type="check_none" />
+          Select All
+        </Button>
+        {!isSmallScreen && <Divider p={0} height="40px" />}
+        {isSmallScreen && smallScreenActions}
+        {isLargeScreen && largeScreenActions}
+        {!isSmallScreen && !isLargeScreen && mediumScreenActions}
+      </BatchSelection>
+    );
+  },
+  args: {
+    selectedCount: 1,
+    totalItems: 10,
+    onDismiss: () => {},
+  },
 };
-White.storyName = "White";
-
-export const Disabled: Story = () => {
-  return (
-    <BatchSelection selectedCount={4} disabled>
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-      <Button iconType="home" mr="3px">
-        Button
-      </Button>
-      <Link icon="admin">This is a link</Link>
-      <Link icon="admin" onClick={() => {}}>
-        This is actually a button but looks like a link
-      </Link>
-    </BatchSelection>
-  );
-};
-Disabled.storyName = "Disabled";

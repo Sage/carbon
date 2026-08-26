@@ -22,6 +22,9 @@ const ptPT: Partial<Locale> = {
   batchSelection: {
     selected: (count) =>
       count === 1 ? `${count} selecionado` : `${count} selecionados`,
+    ariaLabels: {
+      close: () => "Fechar",
+    },
   },
   breadcrumbs: {
     ariaLabel: () => "caminho de navegação",

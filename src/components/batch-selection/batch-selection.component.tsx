@@ -3,55 +3,104 @@ import React from "react";
 import useLocale from "../../hooks/__internal__/useLocale";
 import {
   StyledBatchSelection,
-  StyledSelectionCount,
+  StyledWrapper,
+  StyledContent,
+  StyledHeaderWrapper,
 } from "./batch-selection.style";
-import BatchSelectionContext from "./__internal__/batch-selection.context";
-import { TagProps } from "../../__internal__/utils/helpers/tags";
+import Typography from "../typography";
+import { Tile } from "../tile";
+import Button from "../button/__next__";
+import Icon from "../icon";
+import Divider from "../divider";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export interface BatchSelectionProps extends TagProps {
-  /** Content to be rendered after selected count */
+  /** Content to be rendered after selected count. */
   children: React.ReactNode;
-  /** Color of the background, transparent if not defined */
+  /**
+   * @deprecated Changing the color theme of this component is no longer supported.
+   */
   colorTheme?: "dark" | "light" | "white" | "transparent";
-  /** If true disables all user interaction */
+  /**
+   * @deprecated Disabling this component is no longer supported.
+   */
   disabled?: boolean;
-  /** Hidden if true */
+  /** If true, the component is hidden. */
   hidden?: boolean;
-  /** Number of selected elements */
+  /** Number of selected items */
   selectedCount: number;
+  /** Total number of items */
+  totalItems?: number;
+  /** Flag to adjust layout for small screens */
+  smallScreen?: boolean;
+  /** Callback called when the close button is clicked. Renders the close button when provided. */
+  onDismiss?: () => void;
 }
 
 export const BatchSelection = ({
-  disabled = false,
+  disabled,
   children,
-  colorTheme = "transparent",
+  colorTheme,
   selectedCount,
+  // TODO: Make totalItems required and remove default value
+  totalItems = 0,
   hidden,
-  "data-element": dataElement,
-  "data-role": dataRole,
+  smallScreen,
+  onDismiss,
+  ...rest
 }: BatchSelectionProps) => {
   const l = useLocale();
 
+  const content = (
+    <StyledContent $smallScreen={smallScreen}>{children}</StyledContent>
+  );
+
+  const selectedLabel = (
+    <Typography weight="medium" m={0}>
+      {l.batchSelection.selected(selectedCount, totalItems)}
+    </Typography>
+  );
+
+  const closeButton = onDismiss && (
+    <Button
+      aria-label={l.batchSelection.ariaLabels.close()}
+      onClick={onDismiss}
+      variantType="subtle"
+      size={smallScreen ? "small" : "medium"}
+    >
+      <Icon type="cross" />
+    </Button>
+  );
+
+  const smallScreenContent = (
+    <>
+      <StyledHeaderWrapper>
+        {selectedLabel}
+        {closeButton}
+      </StyledHeaderWrapper>
+      <Divider m={0} type="horizontal" />
+      {content}
+    </>
+  );
+
   return (
     <StyledBatchSelection
-      colorTheme={colorTheme}
-      data-component="batch-selection"
-      data-element={dataElement}
-      data-role={dataRole}
-      disabled={disabled}
-      hidden={hidden}
+      $hidden={hidden}
+      {...tagComponent("batch-selection", rest)}
     >
-      <StyledSelectionCount
-        data-element="selection-count"
-        aria-disabled={disabled || undefined}
-      >
-        {l.batchSelection.selected(selectedCount)}
-      </StyledSelectionCount>
-      <BatchSelectionContext.Provider
-        value={{ batchSelectionDisabled: disabled }}
-      >
-        {children}
-      </BatchSelectionContext.Provider>
+      <Tile p={0}>
+        <StyledWrapper $smallScreen={smallScreen}>
+          {smallScreen ? (
+            smallScreenContent
+          ) : (
+            <>
+              {selectedLabel}
+              {content}
+              {closeButton}
+            </>
+          )}
+        </StyledWrapper>
+      </Tile>
     </StyledBatchSelection>
   );
 };
