@@ -398,7 +398,20 @@ export const PopoverContainer = forwardRef<
         {...filterStyledSystemPaddingProps(rest)}
       >
         <MenuContext.Provider value={{ inMenu: false }}>
-          <PopoverContainerHeaderStyle>
+          <PopoverContainerHeaderStyle
+            onKeyDown={(e) => {
+              if (
+                !shouldCoverButton &&
+                e.key === "Tab" &&
+                e.shiftKey &&
+                closeButtonRef.current === document.activeElement
+              ) {
+                e.preventDefault();
+                closePopover(e);
+                openButtonRef.current?.focus();
+              }
+            }}
+          >
             {title && (
               <PopoverContainerTitleStyle
                 id={popoverContainerId}
@@ -448,21 +461,29 @@ export const PopoverContainer = forwardRef<
       );
 
     useIsomorphicLayoutEffect(() => {
-      if (inMenu) {
-        const closestHeader = popoverReference?.closest(
-          "[data-component='global-header']",
-        ) as HTMLElement | null;
-        const closestMenu = popoverReference?.closest("[data-component='menu']")
-          ?.parentElement as HTMLElement | null;
+      const closestHeader = inMenu
+        ? (popoverReference?.closest(
+            "[data-component='global-header']",
+          ) as HTMLElement | null)
+        : null;
+      const closestMenu = inMenu
+        ? (popoverReference?.closest("[data-component='menu']")
+            ?.parentElement as HTMLElement | null)
+        : null;
+      const tokensWrapper = popoverReference?.closest(
+        "[data-component='tokens-wrapper']",
+      ) as HTMLElement | null;
 
-        setAltTarget(
-          closestHeader ?? closestMenu ?? /* istanbul ignore next */ null,
-        );
-      }
+      setAltTarget(
+        closestHeader ??
+          closestMenu ??
+          tokensWrapper ??
+          /* istanbul ignore next */ null,
+      );
     }, [inMenu, popoverReference]);
 
-    // if the popover is in a menu, we want to anchor the popover to the closest global header or menu,
-    // otherwise we will use the popover reference as the target
+    // Prefer the closest global header or menu, then a tokens wrapper, before
+    // falling back to the popover reference itself.
     const popoverTarget = altTarget ?? popoverReference;
 
     return (
