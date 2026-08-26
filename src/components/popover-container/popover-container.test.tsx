@@ -14,6 +14,7 @@ import Button from "../button";
 import RadioButton, { RadioButtonGroup } from "../radio-button";
 import GlobalHeader from "../global-header";
 import { Menu, MenuItem } from "../menu";
+import TokensWrapper from "../tokens-wrapper";
 
 jest.mock("../../hooks/useMediaQuery");
 jest.mock("../global-header/__internal__/global-header.context", () => {
@@ -959,6 +960,27 @@ test("renders popover content under the trigger tree instead of mounting to body
   const expectedPortalTarget = screen.getByTestId("root");
 
   expect(expectedPortalTarget).toContainElement(dialog);
+});
+
+test("uses the TokensWrapper as the popover portal target when present", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <TokensWrapper>
+      <PopoverContainer>Content</PopoverContainer>
+    </TokensWrapper>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  await screen.findByRole("dialog");
+
+  const tokensWrapper = screen.getByTestId("tokens-wrapper");
+  const portalProvider = screen.getByTestId(
+    "carbon-portal-scoped-tokens-provider",
+  );
+
+  // eslint-disable-next-line testing-library/no-node-access
+  expect(portalProvider.parentElement).toBe(tokensWrapper);
 });
 
 test("renders popover content under the global header tree instead of mounting to body root", async () => {
