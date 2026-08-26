@@ -36,6 +36,21 @@ import { Size, ContentPaddingInterface } from "./dialog.config";
 
 export type { Size, ContentPaddingInterface };
 
+const canHaveProperties = (value: unknown): value is object =>
+  value !== null &&
+  (typeof value === "object" || typeof value === "function");
+
+const hasDialogHeadingStatusMarker = (value: unknown) =>
+  canHaveProperties(value) &&
+  "$$carbonDialogHeadingStatus" in value &&
+  value.$$carbonDialogHeadingStatus === true;
+
+const isDialogHeadingStatusComponent = (componentType: unknown) =>
+  hasDialogHeadingStatusMarker(componentType) ||
+  (canHaveProperties(componentType) &&
+    "type" in componentType &&
+    hasDialogHeadingStatusMarker(componentType.type));
+
 export interface DialogProps extends ModalProps, TagProps {
   /** Prop to specify the aria-describedby property of the Dialog component */
   "aria-describedby"?: string;
@@ -225,33 +240,20 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         return true;
       }
 
-      // Check for static marker
-      const componentType = title.type as {
-        $$carbonDialogHeadingStatus?: boolean;
-        type?: { $$carbonDialogHeadingStatus?: boolean };
-      };
-      if (componentType?.$$carbonDialogHeadingStatus) {
-        return true;
-      }
-
-      // Check wrapped components (memo, forwardRef, etc.)
-      // React.memo wraps the component in an object with a 'type' property
-      if (componentType?.type?.$$carbonDialogHeadingStatus) {
-        return true;
-      }
-
-      return false;
+      return isDialogHeadingStatusComponent(title.type);
     }, [title]);
 
-    let dialogHeaderTitleId: string | undefined;
-    let dialogHeaderSubtitleId: string | undefined;
+    // let dialogHeaderTitleId: string | undefined;
+    // let dialogHeaderSubtitleId: string | undefined;
 
-    if (isDialogHeader && title && React.isValidElement(title)) {
-      // Generate IDs for DialogHeader
-      dialogHeaderTitleId = titleId; // Reuse the existing titleId from the Dialog
-      const props = title.props as { subtitle?: React.ReactNode };
-      dialogHeaderSubtitleId = props.subtitle ? subtitleId : undefined;
-    }
+    const isValidDialogHeader = isDialogHeader && React.isValidElement<{ subtitle?: React.ReactNode }>(title);
+
+    // if (isDialogHeader && React.isValidElement<{ subtitle?: React.ReactNode }>(title)) {
+    //   // Generate IDs for DialogHeader
+    //   dialogHeaderTitleId = titleId; // Reuse the existing titleId from the Dialog
+    //   const {subtitle} = title.props;
+    //   dialogHeaderSubtitleId = subtitle ? subtitleId : undefined;
+    // }
 
     const closeIcon = showCloseIcon && onCancel && (
       <Button
@@ -269,7 +271,9 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
     const dialogTitle = () => {
       // Helper to render subtitle
-      const renderSubtitle = () => (
+      const renderSubtitle = () => {
+        if (!subtitle) return null;
+        return (
         <StyledSubtitle
           as="div"
           data-element="subtitle"
@@ -278,7 +282,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         >
           {subtitle}
         </StyledSubtitle>
-      );
+        );
+      };
 
       // Render title content based on type and props
       const renderTitleContent = () => {
@@ -304,7 +309,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       const titleContent = (
         <div data-element="dialog-title-container">
           {renderTitleContent()}
-          {subtitle && renderSubtitle()}
+          {renderSubtitle()}
         </div>
       );
 
@@ -312,8 +317,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       const renderTitle = isDialogHeader ? (
         <DialogHeadingStatusContext.Provider
           value={{
-            titleId: dialogHeaderTitleId,
-            subtitleId: dialogHeaderSubtitleId,
+            titleId,
+            subtitleId,
           }}
         >
           {titleContent}
@@ -367,14 +372,12 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
     const ariaProps = {
       "aria-describedby":
-        dialogHeaderSubtitleId ||
-        (subtitle && typeof subtitle === "string"
+        (isValidDialogHeader && title.props.subtitle) || (subtitle && typeof subtitle === "string")
           ? subtitleId
-          : ariaDescribedBy),
+          : ariaDescribedBy,
       "aria-label": ariaLabel,
       "aria-labelledby":
-        dialogHeaderTitleId ||
-        (title && typeof title === "string" ? titleId : ariaLabelledBy),
+        (isValidDialogHeader || (title && typeof title === "string")) ? titleId : ariaLabelledBy,
     };
 
     return (
