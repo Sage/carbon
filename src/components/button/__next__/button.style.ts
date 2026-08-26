@@ -338,7 +338,7 @@ export const StyledButton = styled.button<
   `}
 
   &:focus {
-    ${addFocusStyling()}
+    ${({ $inverse }) => addFocusStyling(false, $inverse)}
     position: relative;
     z-index: 1;
   }

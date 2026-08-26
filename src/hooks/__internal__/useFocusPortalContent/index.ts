@@ -1,1 +1,1 @@
-export { default } from "./useFocusPortalContent";
+export { default, nextElementToFocus } from "./useFocusPortalContent";

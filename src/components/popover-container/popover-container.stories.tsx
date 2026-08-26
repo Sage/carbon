@@ -60,6 +60,7 @@ export const Default: Story = () => {
       >
         Contents
       </PopoverContainer>
+      <button type="button">Outside</button>
     </Box>
   );
 };

@@ -336,6 +336,21 @@ export const ActionPopover = forwardRef<
 
     const parentID = id || `ActionPopoverButton_${guid}`;
     const menuID = `ActionPopoverMenu_${guid}`;
+    const [popoverTarget, setPopoverTarget] = useState<HTMLElement | null>(
+      null,
+    );
+
+    useEffect(() => {
+      setPopoverTarget(
+        (buttonRef.current?.closest<HTMLElement>(
+          "[data-component='tokens-wrapper']",
+        ) as HTMLElement) || buttonRef.current,
+      );
+
+      return () => {
+        setPopoverTarget(null);
+      };
+    }, []);
 
     return (
       <MenuButton
@@ -361,6 +376,7 @@ export const ActionPopover = forwardRef<
               placement={mappedPlacement}
               reference={buttonRef}
               disableBackgroundUI={isInFlatTable}
+              portalTarget={popoverTarget}
             >
               <ActionPopoverMenu
                 data-component="action-popover"
