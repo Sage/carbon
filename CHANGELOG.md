@@ -1,3 +1,9 @@
+## [161.19.1](https://github.com/Sage/carbon/compare/v161.19.0...v161.19.1) (2026-08-26)
+
+### Bug Fixes
+
+* ensure popovers are not clipped by parent overflows ([b8ed46f](https://github.com/Sage/carbon/commit/b8ed46ffdad9d60fba152b51f5e7e8ab97b289cf)), closes [#8148](https://github.com/Sage/carbon/issues/8148)
+
 ## [161.19.0](https://github.com/Sage/carbon/compare/v161.18.2...v161.19.0) (2026-08-21)
 
 ### Features
