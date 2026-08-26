@@ -15,7 +15,10 @@ interface Locale {
     currentColorAssigned: (currentColor: string) => string;
   };
   batchSelection: {
-    selected: (count: number | string) => string;
+    ariaLabels: {
+      close: () => string;
+    };
+    selected: (count: number | string, total?: number | string) => string;
   };
   breadcrumbs: {
     ariaLabel: () => string;
