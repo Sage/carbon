@@ -135,10 +135,16 @@ interface Locale {
     pageX: (currentPage?: number | string) => string;
     ofTotalPages?: (totalPages: string | number) => string;
     itemsPerPage?: () => string;
-    firstAriaLabel?: () => string;
-    lastAriaLabel?: () => string;
-    nextAriaLabel?: () => string;
-    previousAriaLabel?: () => string;
+    firstAriaLabel?: (totalPages: string | number) => string;
+    lastAriaLabel?: (totalPages: string | number) => string;
+    nextAriaLabel?: (
+      currentPage: number | string,
+      totalPages: string | number,
+    ) => string;
+    previousAriaLabel?: (
+      currentPage: number | string,
+      totalPages: string | number,
+    ) => string;
   };
   password: {
     buttonLabelHide?: () => string;
