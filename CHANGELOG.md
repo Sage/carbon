@@ -1,3 +1,9 @@
+## [161.19.2](https://github.com/Sage/carbon/compare/v161.19.1...v161.19.2) (2026-08-26)
+
+### Bug Fixes
+
+* **simple-select:** add inputMode none to input ([6355a1f](https://github.com/Sage/carbon/commit/6355a1f03f27a1a7acbc4183515fc81d1ac397ee)), closes [#7786](https://github.com/Sage/carbon/issues/7786)
+
 ## [161.19.1](https://github.com/Sage/carbon/compare/v161.19.0...v161.19.1) (2026-08-26)
 
 ### Bug Fixes
