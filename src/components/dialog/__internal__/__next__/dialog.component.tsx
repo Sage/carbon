@@ -215,18 +215,42 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     );
 
     // Check if title is a DialogHeader component
-    const isDialogHeader =
-      title &&
-      React.isValidElement(title) &&
-      title.type === DialogHeadingStatus;
+    const isDialogHeader = React.useMemo(() => {
+      if (!title || !React.isValidElement(title)) {
+        return false;
+      }
+
+      // Check direct type match
+      if (title.type === DialogHeadingStatus) {
+        return true;
+      }
+
+      // Check for static marker
+      const componentType = title.type as {
+        $$carbonDialogHeadingStatus?: boolean;
+        type?: { $$carbonDialogHeadingStatus?: boolean };
+      };
+      if (componentType?.$$carbonDialogHeadingStatus) {
+        return true;
+      }
+
+      // Check wrapped components (memo, forwardRef, etc.)
+      // React.memo wraps the component in an object with a 'type' property
+      if (componentType?.type?.$$carbonDialogHeadingStatus) {
+        return true;
+      }
+
+      return false;
+    }, [title]);
 
     let dialogHeaderTitleId: string | undefined;
     let dialogHeaderSubtitleId: string | undefined;
 
-    if (isDialogHeader) {
+    if (isDialogHeader && title && React.isValidElement(title)) {
       // Generate IDs for DialogHeader
       dialogHeaderTitleId = titleId; // Reuse the existing titleId from the Dialog
-      dialogHeaderSubtitleId = title.props.subtitle ? subtitleId : undefined;
+      const props = title.props as { subtitle?: React.ReactNode };
+      dialogHeaderSubtitleId = props.subtitle ? subtitleId : undefined;
     }
 
     const closeIcon = showCloseIcon && onCancel && (

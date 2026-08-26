@@ -106,4 +106,16 @@ const DialogHeadingStatus = forwardRef<
 
 DialogHeadingStatus.displayName = "DialogHeadingStatus";
 
+// Static marker to identify this component even when wrapped in memo/styled-components
+interface DialogHeadingStatusComponent
+  extends React.ForwardRefExoticComponent<
+    DialogHeadingStatusProps & React.RefAttributes<HTMLDivElement>
+  > {
+  $$carbonDialogHeadingStatus?: boolean;
+}
+
+(
+  DialogHeadingStatus as DialogHeadingStatusComponent
+).$$carbonDialogHeadingStatus = true;
+
 export default DialogHeadingStatus;

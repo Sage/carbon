@@ -147,6 +147,25 @@ describe("Modal Dialog", () => {
     expect(dialog).not.toHaveAttribute("aria-describedby");
   });
 
+  test("when DialogHeader is wrapped in React.memo, it is still detected correctly", () => {
+    const MemoizedDialogHeader = React.memo(DialogHeadingStatus);
+    render(
+      <Dialog
+        open
+        title={
+          <MemoizedDialogHeader
+            title="Memoized Header"
+            subtitle="This is a subtitle"
+            status="positive"
+          />
+        }
+      />,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveAccessibleName("Memoized Header");
+    expect(dialog).toHaveAccessibleDescription("This is a subtitle");
+  });
+
   test("help icon is not displayed when deprecated help prop is passed", () => {
     render(<Dialog open title="My dialog" help="Help text" />);
 
