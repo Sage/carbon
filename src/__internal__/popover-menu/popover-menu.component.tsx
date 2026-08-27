@@ -151,6 +151,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   isSubmenu?: boolean;
   /** Ref to the listbox/menu element */
   listRef?: React.Ref<HTMLUListElement>;
+  /** Render the menu above a modal overlay, trapping interaction to the menu */
+  disableBackgroundUI?: boolean;
 }
 
 const OFFSET = 8;
@@ -194,6 +196,7 @@ interface MenuProps {
   portalTarget?: HTMLElement | null;
   listboxAriaLabel?: string;
   maxHeight?: string;
+  disableBackgroundUI?: boolean;
 }
 
 const Menu = ({
@@ -213,6 +216,7 @@ const Menu = ({
   disablePortal,
   portalTarget,
   maxHeight,
+  disableBackgroundUI,
 }: MenuProps) => {
   return (
     <Popover
@@ -224,6 +228,7 @@ const Menu = ({
       disablePortal={disablePortal}
       portalTarget={portalTarget}
       popoverStrategy="absolute"
+      disableBackgroundUI={disableBackgroundUI}
     >
       <MenuWrapper
         $size={size}
@@ -323,6 +328,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     listRef,
     controlWrapperStyle,
     maxHeight,
+    disableBackgroundUI,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -543,6 +549,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             disablePortal={!isSubmenu}
             portalTarget={isSubmenu ? controlReference?.current : undefined}
             maxHeight={maxHeight}
+            disableBackgroundUI={disableBackgroundUI}
           >
             {wrappedChildren}
           </Menu>

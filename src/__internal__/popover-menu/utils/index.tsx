@@ -24,6 +24,14 @@ export const wrapChildrenInItem = (
       return child;
     }
 
+    // Components that render their own MenuItem(s) (e.g. ActionPopoverItem) opt out of
+    // wrapping by setting this static, otherwise they would be nested in a second li
+    if (
+      (child.type as { skipMenuItemWrapping?: boolean })?.skipMenuItemWrapping
+    ) {
+      return child;
+    }
+
     return <MenuItem>{child}</MenuItem>;
   })
     ?.flat()
@@ -33,5 +41,8 @@ export const wrapChildrenInItem = (
 export const itemQuerySelector = (isSubmenu?: boolean) =>
   `li[data-component='popover-${isSubmenu ? "submenu" : "menu"}-item']:not([aria-disabled='true'])`;
 
+const enabledControl = (tag: string) =>
+  `${tag}:not([disabled]):not([aria-disabled='true'])`;
+
 export const buttonMenuItemQuerySelector = (isSubmenu?: boolean) =>
-  `${itemQuerySelector(isSubmenu)} button:not([disabled]), ${itemQuerySelector(isSubmenu)} a:not([disabled])`;
+  `${itemQuerySelector(isSubmenu)} ${enabledControl("button")}, ${itemQuerySelector(isSubmenu)} ${enabledControl("a")}`;

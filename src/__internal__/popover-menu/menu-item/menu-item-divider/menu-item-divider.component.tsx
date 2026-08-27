@@ -11,9 +11,17 @@ const StyledMenuItemDivider = styled.li`
   }
 `;
 
-const MenuItemDivider = () => (
+const MenuItemDivider = ({
+  "data-element": dataElement,
+  "data-role": dataRole,
+}: {
+  "data-element"?: string;
+  "data-role"?: string;
+}) => (
   <StyledMenuItemDivider
     data-component="popover-menu-divider"
+    data-element={dataElement}
+    data-role={dataRole}
     aria-hidden="true"
   >
     <Divider m={0} type="horizontal" />

@@ -149,6 +149,43 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
+      // Any printable character: focus the next item whose label starts with that
+      // character, wrapping to the start of the list when there is no later match
+      if (
+        isButtonMenu &&
+        ev.key.length === 1 &&
+        !ev.ctrlKey &&
+        !ev.metaKey &&
+        !ev.altKey &&
+        ev.key.trim().length > 0
+      ) {
+        const character = ev.key.toLowerCase();
+        const matches = items.filter((item) =>
+          (item.textContent ?? /* istanbul ignore next */ "")
+            .trim()
+            .toLowerCase()
+            .startsWith(character),
+        ) as HTMLElement[];
+
+        if (!matches.length) {
+          return;
+        }
+
+        ev.stopPropagation();
+
+        const currentIndex = highlightedItem
+          ? items.indexOf(highlightedItem)
+          : -1;
+        const itemToFocus =
+          matches.find((item) => items.indexOf(item) > currentIndex) ??
+          matches[0];
+
+        setAriaActivedescendant(itemToFocus.id);
+        setFocus(itemToFocus, highlightedItem, isButtonMenu);
+
+        return;
+      }
+
       if (ev.key === "Enter" && !isButtonMenu) {
         /* istanbul ignore else */
         if (highlightedItem) {

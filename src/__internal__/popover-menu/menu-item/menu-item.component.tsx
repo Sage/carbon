@@ -22,6 +22,10 @@ export interface MenuItemProps {
   submenuOpen?: boolean;
   onSubmenuOpen?: () => void;
   onSubmenuClose?: () => void;
+  /** Fired when the pointer enters the item, used to open submenus on hover */
+  onMouseEnter?: (event: React.MouseEvent<HTMLLIElement>) => void;
+  /** Fired when the pointer leaves the item, used to close submenus on hover */
+  onMouseLeave?: (event: React.MouseEvent<HTMLLIElement>) => void;
 }
 
 interface StyledMenuItemProps {
@@ -51,7 +55,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         : `
           color: var(--input-dropdown-label-alt);
           cursor: pointer;
-
+ 
           :hover {
             * {
               color: var(--input-dropdown-label-hover);
@@ -76,7 +80,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         * {
           color: var(--input-dropdown-label-disabled);
         }
-
+ 
         & > button, & > a {
           background-color: transparent;
         }
@@ -84,18 +88,18 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       `
       : `
         cursor: pointer;
-
+ 
         ${
           $isButtonMenu
             ? `
               color: var(--popover-label-default);
-
+ 
               & > button:active,
               & > a:active {
                 background-color: var(--popover-bg-active);
                 color: var(--popover-label-active);
               }
-
+ 
               & > button:not(:active):hover,
               & > a:not(:active):hover {
                 color: var(--popover-label-hover);
@@ -104,7 +108,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
             `
             : `
               color: var(--input-dropdown-label-alt);
-
+ 
               &:not(:active):hover {
                 * {
                   color: var(--input-dropdown-label-hover);
@@ -129,23 +133,23 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         }
     `}
   `}
-
+ 
   ${({ $size, $isButtonMenu }) => css`
     ${$size === "small" &&
     `
       &:not(:has(button)):not(:has(a)) {
         padding: var(--global-space-comp-xs) 0;
-
+ 
         &:not(:has(.menu-item-subtext)) {
           min-height: var(--global-size-s);
         }
       }
-
+ 
       button, a {
         width: 100%;
         padding: var(--global-space-comp-xs) var(--global-space-comp-m) var(--global-space-comp-xs) var(--global-space-comp-m);
       }
-
+ 
       *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
         font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-s);
       }
@@ -155,17 +159,17 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
     `
       &:not(:has(button)):not(:has(a)) {
         padding: var(--global-space-comp-s) 0;
-
+ 
         &:not(:has(.menu-item-subtext)) {
           min-height: var(--global-size-m);
         }
       }
-
+ 
       button, a {
         width: 100%;
         padding: var(--global-space-comp-s) var(--global-space-comp-m) var(--global-space-comp-s) var(--global-space-comp-m);
       }
-
+ 
       *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
         font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-m);
       }
@@ -175,7 +179,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
     `
       &:not(:has(button)):not(:has(a)) {
         padding: var(--global-space-comp-m) 0;
-
+ 
         &:not(:has(.menu-item-subtext)) {
           min-height: var(--global-size-l);
         }
@@ -185,7 +189,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         width: 100%;
         padding: var(--global-space-comp-m) var(--global-space-comp-m) var(--global-space-comp-m) var(--global-space-comp-m);
       }
-
+ 
       *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
         font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-l);
       }
@@ -215,7 +219,13 @@ const cloneSubmenuParent = (
     children: (
       <SubmenuParentWrapper data-element="submenu-parent-wrapper">
         {(children as React.ReactElement).props.children}
-        <Icon type="caret_right" data-element="submenu-icon" ml={3} />
+        <Icon
+          type="caret_right"
+          data-element="submenu-icon"
+          data-role="submenu-icon"
+          aria-hidden
+          ml={3}
+        />
       </SubmenuParentWrapper>
     ),
     ...submenuControlProps,
@@ -263,6 +273,8 @@ const MenuItem = ({
   onSubmenuClose,
   submenuWidth,
   id,
+  onMouseEnter,
+  onMouseLeave,
   ...rest
 }: MenuItemProps) => {
   const ref = useRef<HTMLLIElement | null>(null);
@@ -366,6 +378,8 @@ const MenuItem = ({
             onKeyDown={!isDisabled ? handleKeydown : undefined}
             $disabled={isDisabled}
             $isButtonMenu={isButtonMenu}
+            onMouseEnter={!isDisabled ? onMouseEnter : undefined}
+            onMouseLeave={!isDisabled ? onMouseLeave : undefined}
           >
             {clonedSubmenuParentItem({
               ...controlProps,
@@ -387,6 +401,8 @@ const MenuItem = ({
       onClick={!isDisabled ? onClick : undefined}
       onMouseDown={!isDisabled ? (ev) => ev.preventDefault() : undefined}
       onKeyDown={handleSubmenuClose}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       role={isButtonMenu ? undefined : "option"}
       aria-selected={!isButtonMenu ? selected && !isDisabled : undefined}
       aria-disabled={!isButtonMenu ? isDisabled : undefined}
