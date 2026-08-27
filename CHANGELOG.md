@@ -1,3 +1,9 @@
+## [161.19.3](https://github.com/Sage/carbon/compare/v161.19.2...v161.19.3) (2026-08-27)
+
+### Bug Fixes
+
+* **dialog:** honour contentPadding on fullscreen dialogs above 600px ([c595385](https://github.com/Sage/carbon/commit/c5953852f0e770d086bba25fd323d3cd92c42a35))
+
 ## [161.19.2](https://github.com/Sage/carbon/compare/v161.19.1...v161.19.2) (2026-08-26)
 
 ### Bug Fixes
