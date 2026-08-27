@@ -1,3 +1,9 @@
+## [161.19.4](https://github.com/Sage/carbon/compare/v161.19.3...v161.19.4) (2026-08-27)
+
+### Bug Fixes
+
+* **search:** add validationMessagePositionTop to interface ([4dfde68](https://github.com/Sage/carbon/commit/4dfde6843cafe035ff63a0078bec5c9b41002bb3))
+
 ## [161.19.3](https://github.com/Sage/carbon/compare/v161.19.2...v161.19.3) (2026-08-27)
 
 ### Bug Fixes
