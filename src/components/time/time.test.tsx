@@ -319,6 +319,19 @@ test("should apply the custom id on the minutes input when `minutesInputProps` h
   expect(minutesInput).toHaveAttribute("id", "foo");
 });
 
+test("should apply numeric input mode hints to the hours and minutes inputs", () => {
+  render(<Time value={{ hours: "12", minutes: "30" }} onChange={() => {}} />);
+
+  expect(screen.getByDisplayValue("12")).toHaveAttribute(
+    "inputmode",
+    "numeric",
+  );
+  expect(screen.getByDisplayValue("30")).toHaveAttribute(
+    "inputmode",
+    "numeric",
+  );
+});
+
 test("should call onChange when a user types in the hours input and toggle is rendered", async () => {
   const onChangeMock = jest.fn();
   render(
