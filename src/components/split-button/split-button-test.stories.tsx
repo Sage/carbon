@@ -3,13 +3,7 @@ import { action } from "storybook/actions";
 import Button from "../button/__next__";
 import Box from "../box";
 import { ICONS } from "../icon/icon-config";
-import {
-  SPLIT_BUTTON_ALIGNMENTS,
-  SPLIT_BUTTON_ICON_POSITIONS,
-  SPLIT_BUTTON_SIZES,
-  SPLIT_BUTTON_THEMES,
-  SPLIT_BUTTON_POSITIONS,
-} from "./split-button.config";
+
 import SplitButton, { SplitButtonProps } from "./split-button.component";
 import { Accordion } from "../..";
 
@@ -29,19 +23,19 @@ export default {
       },
     },
     iconPosition: {
-      options: SPLIT_BUTTON_ICON_POSITIONS,
+      options: ["before", "after"],
       control: {
         type: "select",
       },
     },
     buttonType: {
-      options: SPLIT_BUTTON_THEMES,
+      options: ["primary", "secondary"],
       control: {
         type: "select",
       },
     },
     size: {
-      options: SPLIT_BUTTON_SIZES,
+      options: ["small", "medium", "large"],
       control: {
         type: "select",
       },
@@ -52,13 +46,13 @@ export default {
       },
     },
     align: {
-      options: SPLIT_BUTTON_ALIGNMENTS,
+      options: ["left", "right"],
       control: {
         type: "select",
       },
     },
     position: {
-      options: SPLIT_BUTTON_POSITIONS,
+      options: ["left", "right"],
       control: {
         type: "select",
       },

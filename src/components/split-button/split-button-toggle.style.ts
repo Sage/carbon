@@ -3,9 +3,9 @@ import { StyledButton } from "../button/__next__/button.style";
 import StyledIcon from "../icon/icon.style";
 
 const horizontalPaddingSizes = {
-  small: 5,
-  medium: 10,
-  large: 14,
+  small: "var(--global-space-comp-xs)",
+  medium: "var(--global-space-comp-m)",
+  large: "var(--global-space-comp-l)",
 };
 
 type StyledSplitButtonToggleProps = {
@@ -19,19 +19,6 @@ const StyledSplitButtonToggle = styled(
   ${({ $displayed, $size }) => css`
     border-top-left-radius: var(--global-size-none);
     border-bottom-left-radius: var(--global-size-none);
-
-    &:disabled {
-      && {
-        background-color: var(--button-typical-primary-bg-disabled) !important;
-      }
-
-      &,
-      ${StyledIcon} {
-        color: var(--button-typical-primary-label-disabled);
-      }
-
-      cursor: not-allowed;
-    }
 
     ${$displayed
       ? css`
@@ -58,25 +45,7 @@ const StyledSplitButtonToggle = styled(
       z-index: 2;
     }
 
-    padding: var(--global-space-none) ${horizontalPaddingSizes[$size]}px;
-
-    ${StyledButton} + & {
-      margin-left: var(--global-space-none);
-    }
-
-    ${StyledButton} + & ${StyledIcon} {
-      margin-left: var(--global-space-none);
-    }
-
-    &:not(:disabled):focus {
-      background-color: var(--button-typical-primary-bg-default);
-      border-color: var(--button-typical-primary-bg-default);
-
-      &,
-      ${StyledIcon} {
-        color: var(--button-typical-primary-label-default);
-      }
-    }
+    padding: var(--global-space-none) ${horizontalPaddingSizes[$size]};
   `}
 `;
 

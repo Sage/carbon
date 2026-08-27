@@ -23,7 +23,6 @@ description: Carbon SplitButton component props and usage examples.
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  |  |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
-| buttonType | "primary" \| undefined | No |  |  |  | Button type. SplitButton only supports the primary variant. |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
@@ -307,7 +306,9 @@ description: Carbon SplitButton component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| align | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. Use the `position` prop to control menu alignment. |  |  |
+| align | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. |  |  |
+| buttonType | "primary" \| "secondary" \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. SplitButton only supports the primary variant. |  |  |
+| isWhite | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Renders the white variant of the secondary split button |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | position | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Sets the alignment of the rendered content |  |  |

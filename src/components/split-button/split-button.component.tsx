@@ -33,10 +33,12 @@ export interface SplitButtonProps
     TagProps {
   /**
    * @deprecated This prop is deprecated and has no effect. It will be removed in a future release.
-   * Use the `position` prop to control menu alignment. */
+   */
   align?: "left" | "right";
-  /** Button type. SplitButton only supports the primary variant. */
-  buttonType?: "primary";
+  /**
+   * @deprecated This prop is deprecated and has no effect. It will be removed in a future release.
+   * SplitButton only supports the primary variant. */
+  buttonType?: "primary" | "secondary";
   /** The additional button to display. */
   children: React.ReactNode;
   /** Prop to specify an aria-label for the component */
@@ -59,6 +61,10 @@ export interface SplitButtonProps
   text: string;
   /**
    * @deprecated This prop is deprecated and will be removed in a future release.
+   * Renders the white variant of the secondary split button */
+  isWhite?: boolean;
+  /**
+   * @deprecated This prop is deprecated and will be removed in a future release.
    * Sets the alignment of the rendered content */
   position?: "left" | "right";
 }
@@ -73,7 +79,7 @@ export type SplitButtonHandle = {
 export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
   (
     {
-      align: _align = "left", // eslint-disable-line @typescript-eslint/no-unused-vars -- deprecated, kept for backwards compatibility
+      align: _align,
       position = "right",
       buttonType = "primary",
       children,
@@ -88,6 +94,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       "data-element": dataElement,
       "data-role": dataRole,
       "aria-label": ariaLabel,
+      isWhite,
       ...rest
     },
     ref,
@@ -204,6 +211,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
           variantType={buttonType}
           iconPosition={iconPosition}
           onClick={handleMainClick}
+          isWhite={isWhite}
           {...filterOutStyledSystemSpacingProps(rest)}
         >
           {text}
