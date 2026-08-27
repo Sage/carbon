@@ -1,7 +1,6 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
-import * as ActionPopoverMenuButtonStories from "./action-popover-menu-button/action-popover-menu-button.stories";
 import * as ActionPopoverItemStories from "./action-popover-item/action-popover-item.stories";
 import * as ActionPopoverMenuStories from "./action-popover-menu/action-popover-menu.stories";
 import * as ActionPopoverStories from "./action-popover.stories";
@@ -20,7 +19,7 @@ import * as ActionPopoverStories from "./action-popover.stories";
 </a>
 
 ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile.
-Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice.
+Click the Action button to show actions the user can take on a specific table row, for example, emailing the invoice.
 
 ## Contents
 
@@ -42,7 +41,6 @@ import {
   ActionPopoverDivider,
   ActionPopoverItem,
   ActionPopoverMenu,
-  ActionPopoverMenuButton,
   type ActionPopoverHandle,
 } from "carbon-react/lib/components/action-popover";
 ```
@@ -79,7 +77,9 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
 
 <Canvas of={ActionPopoverStories.MenuRightAligned} />
 
-### With item content aligned to right
+### With item content aligned to right (deprecated)
+
+`horizontalAlignment` is deprecated and will be removed in a future major release.
 
 <Canvas of={ActionPopoverStories.ContentAlignedRight} />
 
@@ -95,7 +95,7 @@ It is possible to use the `renderButton` prop to override the default button use
 ActionPopoverMenu.
 
 The `renderButton` prop is a function that allows consumers to pass `tabIndex`, `data-element` and the provided aria attribute props to 
-`ActionPopoverMenuButton` or a custom button component.
+your preferred button component.
 
 A default `aria-label` will be provided to the button, but this can be overridden by passing the `ariaLabel` prop to the 
 `ActionPopover` or making use of the `actionPopover.ariaLabel` translation key. Please ensure to set this to `undefined` if your 
@@ -105,10 +105,16 @@ See the example below for an example of how to use the `renderButton` prop:
 
 <Canvas of={ActionPopoverStories.CustomMenuButton} />
 
+### Removing button text with render props
+
+If you need an icon-only trigger, use `renderButton` and return your own button without children.
+
+<Canvas of={ActionPopoverStories.CustomMenuButtonWithoutText} />
+
 ### With submenu
 
 A menu item can be passed a sub-menu to add further sub-actions if needed. items with sub-menus will display an chevron
-icons pointing in the direction that the sub-menu will open; by default it will open to the left.
+icons pointing in the direction that the sub-menu will open; by default it opens to the right and flips when needed.
 
 Hovering the mouse cursor over an item will open the sub-menu if it has one and moving the mouse cursor away will
 close it. No action is dispatched on click of the item and the sub-menu is opened by mouse enter and closed on mouse
@@ -116,11 +122,9 @@ leave.
 
 <Canvas of={ActionPopoverStories.Submenu} />
 
-### With submenu positioned to right
+### Submenu positioning
 
-Submenu can be positioned on either the left of the right with the use of the `submenuPosition` prop.
-
-<Canvas of={ActionPopoverStories.SubmenuPositionedRight} />
+`submenuPosition` is deprecated. Submenus now open to the right by default and flip automatically when space is constrained.
 
 ### With disabled submenu
 
@@ -128,11 +132,9 @@ A sub-menu will not open if the item is in a disabled state.
 
 <Canvas of={ActionPopoverStories.DisabledSubmenu} />
 
-### With menu opening above
+### Menu placement
 
-The menu can also be rendered above the button control by setting using `placement="top"`.
-
-<Canvas of={ActionPopoverStories.MenuOpeningAbove} />
+`placement` is deprecated. The menu now uses adaptive placement and flips automatically when there is not enough space.
 
 ### Keyboard navigation
 
@@ -153,7 +155,7 @@ or "tab" key will close the menu with no action being triggered and focus the ne
 
 ### Keyboard navigation left aligned submenu
 
-Sub-menus can be accessed via the keyboard as well, when the sub-menu is left aligned it can be opened by navigating to
+Sub-menus can be accessed via the keyboard as well. When the sub-menu is left aligned it can be opened by navigating to
 the parent item and pressing the "left" key. The same accessible shortcuts described above can then be used to navigate
 the sub-menu. Pressing the "right" key will return focus back to the main menu and close the sub-menu without
 triggering an action.
@@ -162,8 +164,8 @@ triggering an action.
 
 ### Keyboard navigation right aligned submenu
 
-When sub-menus aligns to the right hand side, the key shortcuts are switched: pressing the "right" key whilst focus
-is on a item will open a sub-menu if it has one and pressing the "left" key will close it.
+When sub-menus align to the right hand side, the key shortcuts are switched: pressing the "right" key whilst focus
+is on an item will open a sub-menu if it has one and pressing the "left" key will close it.
 
 <Canvas of={ActionPopoverStories.KeyboardNavigationRightAlignedSubmenu} />
 
@@ -208,10 +210,6 @@ by passing a `ref` to the component.
 ### ActionPopoverMenu Props
 
 <ArgTypes of={ActionPopoverMenuStories} />
-
-### ActionPopoverMenuButton Props
-
-<ArgTypes of={ActionPopoverMenuButtonStories} />
 
 ### ActionPopoverItem Props
 
