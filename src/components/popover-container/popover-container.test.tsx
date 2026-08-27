@@ -12,9 +12,20 @@ import { useGlobalHeader } from "../global-header/__internal__/global-header.con
 
 import Button from "../button";
 import RadioButton, { RadioButtonGroup } from "../radio-button";
+import GlobalHeader from "../global-header";
+import { Menu, MenuItem } from "../menu";
+import TokensWrapper from "../tokens-wrapper";
 
 jest.mock("../../hooks/useMediaQuery");
-jest.mock("../global-header/__internal__/global-header.context");
+jest.mock("../global-header/__internal__/global-header.context", () => {
+  const actual = jest.requireActual(
+    "../global-header/__internal__/global-header.context",
+  );
+  return {
+    ...actual,
+    useGlobalHeader: jest.fn(),
+  };
+});
 
 let mockedUseGlobalHeader: jest.MockedFunction<typeof useGlobalHeader>;
 
@@ -29,6 +40,32 @@ afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });
+
+const PopoverInNavigation = ({ withNav = true }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const children = (
+    <div data-role="menu-parent">
+      <Menu>
+        <MenuItem>
+          <PopoverContainer
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            open={open}
+            renderOpenComponent={({ ref, onClick }) => (
+              <button aria-label="Notifications" ref={ref} onClick={onClick}>
+                open
+              </button>
+            )}
+          >
+            Content
+          </PopoverContainer>
+        </MenuItem>
+      </Menu>
+    </div>
+  );
+  return withNav ? <GlobalHeader>{children}</GlobalHeader> : children;
+};
 
 describe("open button", () => {
   it("renders open button", () => {
@@ -317,8 +354,11 @@ test("popup allows outside focus when shouldCoverButton prop is false", async ()
     </PopoverContainer>,
   );
 
-  await user.tab();
   const closeButton = screen.getByRole("button", { name: "close" });
+
+  await user.tab();
+  await user.tab();
+
   expect(closeButton).toHaveFocus();
 
   await user.tab();
@@ -672,6 +712,47 @@ describe("closing the popup", () => {
     expect(popup).toHaveClass("exit-done");
     mockedUseMediaQuery.mockReset();
   });
+
+  it("calls onClose once when tabbing off the last focusable element and parent does not update open state", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
+
+    render(
+      <>
+        <PopoverContainer title="Title" open onClose={onClose}>
+          <button type="button">Inside</button>
+        </PopoverContainer>
+        <button type="button">Outside</button>
+      </>,
+    );
+
+    screen.getByRole("button", { name: "Inside" }).focus();
+    await user.tab();
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("button", { name: "Outside" })).toHaveFocus();
+  });
+
+  it("closes and forwards focus when tabbing out of a popover with no focusable content", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
+    render(
+      <>
+        <PopoverContainer
+          open
+          onClose={onClose}
+          renderCloseComponent={() => <></>}
+        >
+          Just text
+        </PopoverContainer>
+        <button type="button">Outside</button>
+      </>,
+    );
+    screen.getByRole("dialog").focus();
+    await user.tab();
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("button", { name: "Outside" })).toHaveFocus();
+  });
 });
 
 test("when content is navigated via keyboard, the next focusable item should be focused and popup closed", async () => {
@@ -862,4 +943,91 @@ test("should render with a z-index of 10000 if within global header", () => {
   expect(zIndex).toContain("10000");
 
   mockedUseGlobalHeader.mockReset();
+});
+
+test("renders popover content under the trigger tree instead of mounting to body root", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <div data-role="root">
+      <PopoverContainer>Content</PopoverContainer>
+    </div>,
+  );
+
+  const openButton = screen.getByRole("button");
+  await user.click(openButton);
+  const dialog = await screen.findByRole("dialog");
+  const expectedPortalTarget = screen.getByTestId("root");
+
+  expect(expectedPortalTarget).toContainElement(dialog);
+});
+
+test("uses the TokensWrapper as the popover portal target when present", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <TokensWrapper>
+      <PopoverContainer>Content</PopoverContainer>
+    </TokensWrapper>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  await screen.findByRole("dialog");
+
+  const tokensWrapper = screen.getByTestId("tokens-wrapper");
+  const portalProvider = screen.getByTestId(
+    "carbon-portal-scoped-tokens-provider",
+  );
+
+  // eslint-disable-next-line testing-library/no-node-access
+  expect(portalProvider.parentElement).toBe(tokensWrapper);
+});
+
+test("renders popover content under the global header tree instead of mounting to body root", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(<PopoverInNavigation />);
+
+  const openButton = screen.getByRole("button", { name: "Notifications" });
+  await user.click(openButton);
+  const dialog = await screen.findByRole("dialog");
+  const expectedPortalTarget = screen.getByRole("navigation", {
+    name: "Global Header",
+  });
+
+  expect(expectedPortalTarget).toContainElement(dialog);
+});
+
+test("renders popover content under the menu tree instead of mounting to body root", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(<PopoverInNavigation withNav={false} />);
+
+  const openButton = screen.getByRole("button", { name: "Notifications" });
+  await user.click(openButton);
+  const dialog = await screen.findByRole("dialog");
+  const expectedPortalTarget = screen.getByTestId("menu-parent");
+
+  expect(expectedPortalTarget).toContainElement(dialog);
+});
+
+test("focuses the trigger when there's no other focusable elements and RadioButtonGroup is present", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <PopoverContainer>
+      <RadioButtonGroup name="bar" value="1" onChange={() => {}}>
+        <RadioButton value="1" label="radio 1" />
+        <RadioButton value="2" label="radio 2" />
+      </RadioButtonGroup>
+    </PopoverContainer>,
+  );
+
+  const openButton = screen.getByRole("button");
+  await user.click(openButton);
+  await user.tab(); // tab to close icon
+  await user.tab(); // tab to RadioButtonGroup
+  await user.tab();
+
+  expect(openButton).toHaveFocus();
 });

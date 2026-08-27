@@ -15,15 +15,15 @@ const MockComponent = ({ cb }: { cb: () => void }) => {
 
   return (
     <div>
+      <button type="button">Before target</button>
+      <button ref={setTarget} type="button">
+        Target
+      </button>
       <div ref={setContainer}>
         <button type="button">First</button>
         <button type="button">Middle</button>
         <button type="button">Last</button>
       </div>
-      <button type="button">Before target</button>
-      <button ref={setTarget} type="button">
-        Target
-      </button>
       <button type="button">After target</button>
     </div>
   );

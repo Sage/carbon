@@ -23,6 +23,7 @@ import {
 } from "../flat-table";
 import iconUnicodes from "../icon/icon-unicodes";
 import guid from "../../__internal__/utils/helpers/guid";
+import TokensWrapper from "../tokens-wrapper";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -2443,4 +2444,43 @@ test("renders backdrop when opened inside FlatTable", async () => {
   await user.click(screen.getByRole("button"));
 
   expect(screen.getByTestId("popup-backdrop")).toBeVisible();
+});
+
+test("renders action popover menu under the action popover wrapper tree", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover data-role="anchor">
+      <ActionPopoverItem>Item 1</ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  const menu = await screen.findByRole("list");
+  const anchor = screen.getByTestId("anchor");
+
+  expect(anchor).toContainElement(menu);
+});
+
+test("uses the TokensWrapper as the popover portal target when present", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <TokensWrapper>
+      <ActionPopover>
+        <ActionPopoverItem>Item 1</ActionPopoverItem>
+      </ActionPopover>
+    </TokensWrapper>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  await screen.findByRole("list");
+
+  const tokensWrapper = screen.getByTestId("tokens-wrapper");
+  const portalProvider = screen.getByTestId(
+    "carbon-portal-scoped-tokens-provider",
+  );
+
+  // eslint-disable-next-line testing-library/no-node-access
+  expect(portalProvider.parentElement).toBe(tokensWrapper);
 });

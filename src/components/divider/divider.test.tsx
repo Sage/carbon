@@ -105,43 +105,43 @@ describe("When type is set to 'vertical'", () => {
     expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "baz");
   });
 
-  test("should render the 'typical' variant with the corect color", () => {
+  test("should render the 'typical' variant with the correct color", () => {
     render(<Divider h={200} variant="typical" inverse={false} />);
     const dividerContentElement = screen.getByTestId("divider-content");
 
     expect(dividerContentElement).toHaveStyleRule(
       "border-left",
-      "1px solid #A0A0A0",
+      "var(--global-borderwidth-xs) solid var(--container-standard-border-default)",
     );
   });
 
-  test("should render the 'typical' variant with the corect color when the 'inverse' prop is set", () => {
+  test("should render the 'typical' variant with the correct color when the 'inverse' prop is set", () => {
     render(<Divider h={200} variant="typical" inverse />);
     const dividerContentElement = screen.getByTestId("divider-content");
 
     expect(dividerContentElement).toHaveStyleRule(
       "border-left",
-      "1px solid #505050",
+      "var(--global-borderwidth-xs) solid var(--container-standard-inverse-border-default)",
     );
   });
 
-  test("should render the 'prominent' variant with the corect color", () => {
+  test("should render the 'prominent' variant with the correct color", () => {
     render(<Divider h={200} variant="prominent" inverse={false} />);
     const dividerContentElement = screen.getByTestId("divider-content");
 
     expect(dividerContentElement).toHaveStyleRule(
       "border-left",
-      "1px solid #7C7C7C",
+      "var(--global-borderwidth-xs) solid var(--container-standard-border-alt)",
     );
   });
 
-  test("should render the 'prominent' variant with the corect color when the 'inverse' prop is set", () => {
+  test("should render the 'prominent' variant with the correct color when the 'inverse' prop is set", () => {
     render(<Divider h={200} variant="prominent" inverse />);
     const dividerContentElement = screen.getByTestId("divider-content");
 
     expect(dividerContentElement).toHaveStyleRule(
       "border-left",
-      "1px solid #6F6F6F",
+      "var(--global-borderwidth-xs) solid var(--container-standard-inverse-border-alt)",
     );
   });
 });
@@ -159,7 +159,17 @@ describe("When type is set to 'horizontal'", () => {
     render(<Divider type="horizontal" inverse />);
     const hr = screen.getByTestId("divider");
 
-    expect(hr).toHaveStyleRule("background-color", "#505050");
+    expect(hr).toHaveStyleRule(
+      "background-color",
+      "var(--container-standard-inverse-border-default)",
+    );
+  });
+
+  test("should render with the correct height token", () => {
+    render(<Divider type="horizontal" />);
+    const hr = screen.getByTestId("divider");
+
+    expect(hr).toHaveStyleRule("height", "var(--global-borderwidth-xs)");
   });
 
   test("should apply the expected margin top", () => {

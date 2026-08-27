@@ -1,5 +1,8 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, {
   useCallback,
+  useLayoutEffect,
   useEffect,
   useRef,
   useState,
@@ -29,12 +32,13 @@ import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener"
 import Events from "../../__internal__/utils/helpers/events";
 import FocusTrap from "../../__internal__/focus-trap";
 import ModalContext from "../../__internal__/modal/modal.context";
-import useFocusPortalContent from "../../hooks/__internal__/useFocusPortalContent";
+import useFocusPortalContent, {
+  nextElementToFocus,
+} from "../../hooks/__internal__/useFocusPortalContent";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import { BoxProps } from "../box";
-import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
 import MenuContext from "../menu/__internal__/menu.context";
@@ -90,6 +94,9 @@ export interface RenderCloseProps {
   "aria-label": string;
   closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
 }
+
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export const renderClose = ({
   "data-element": dataElement,
@@ -228,13 +235,15 @@ export const PopoverContainer = forwardRef<
 
     const closeButtonRef = useRef<HTMLButtonElement>(null);
     const openButtonRef = useRef<HTMLButtonElement>(null);
-    const popoverReference = useRef<HTMLDivElement>(null);
+    const [popoverReference, setPopoverReference] =
+      useState<HTMLDivElement | null>(null);
+    const [altTarget, setAltTarget] = useState<HTMLElement | null>(null);
     const guid = useRef(createGuid());
     const popoverContentNodeRef = useRef<HTMLDivElement>(null);
     const popoverContainerId = title
       ? `PopoverContainer_${guid.current}`
       : undefined;
-
+    const { inMenu } = useContext(MenuContext);
     const isOpen = isControlled ? open : isOpenInternal;
 
     const reduceMotion = !useMediaQuery(
@@ -267,11 +276,8 @@ export const PopoverContainer = forwardRef<
         if (!isControlled) setIsOpenInternal(false);
 
         onClose?.(ev);
-
-        /* istanbul ignore else */
-        if (isOpen) openButtonRef.current?.focus();
       },
-      [isControlled, isOpen, onClose],
+      [isControlled, onClose],
     );
 
     const handleEscKey = useCallback(
@@ -288,6 +294,7 @@ export const PopoverContainer = forwardRef<
 
         if (!eventIsFromSelectInput && isOpen && Events.isEscKey(ev)) {
           closePopover(ev);
+          openButtonRef.current?.focus({ preventScroll: true });
         }
       },
       [closePopover, isOpen],
@@ -322,6 +329,7 @@ export const PopoverContainer = forwardRef<
       e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) => {
       closePopover(e);
+      openButtonRef.current?.focus({ preventScroll: true });
     };
 
     useFocusPortalContent(
@@ -329,41 +337,6 @@ export const PopoverContainer = forwardRef<
       shouldCoverButton ? undefined : openButtonRef,
       closePopover,
     );
-
-    const onFocusNextElement = useCallback(
-      (ev: React.FocusEvent<HTMLElement>) => {
-        const allFocusableElements: HTMLElement[] = Array.from(
-          document.querySelectorAll(defaultFocusableSelectors) ||
-            /* istanbul ignore next */ [],
-        );
-        const filteredElements = allFocusableElements.filter(
-          (el) => el === openButtonRef.current || Number(el.tabIndex) !== -1,
-        );
-
-        const openButtonRefIndex = filteredElements.indexOf(
-          openButtonRef.current as HTMLElement,
-        );
-
-        filteredElements[openButtonRefIndex + 1].focus();
-        closePopover(ev);
-      },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [],
-    );
-
-    const handleFocusGuard = (
-      direction: "prev" | "next",
-      ev: React.FocusEvent<HTMLElement>,
-    ) => {
-      if (direction === "next" && onFocusNextElement) {
-        // Focus the next focusable element outside of the popover
-        onFocusNextElement(ev);
-        return;
-      }
-
-      // istanbul ignore else
-      if (direction === "prev") openButtonRef.current?.focus();
-    };
 
     const renderOpenComponentProps = {
       tabIndex: 0,
@@ -421,10 +394,24 @@ export const PopoverContainer = forwardRef<
         tabIndex={-1}
         disableAnimation={disableAnimation || reduceMotion}
         zIndex={isWithinGlobalHeader ? 10000 : 2000}
+        $inMenu={inMenu}
         {...filterStyledSystemPaddingProps(rest)}
       >
         <MenuContext.Provider value={{ inMenu: false }}>
-          <PopoverContainerHeaderStyle>
+          <PopoverContainerHeaderStyle
+            onKeyDown={(e) => {
+              if (
+                !shouldCoverButton &&
+                e.key === "Tab" &&
+                e.shiftKey &&
+                closeButtonRef.current === document.activeElement
+              ) {
+                e.preventDefault();
+                closePopover(e);
+                openButtonRef.current?.focus();
+              }
+            }}
+          >
             {title && (
               <PopoverContainerTitleStyle
                 id={popoverContainerId}
@@ -449,21 +436,55 @@ export const PopoverContainer = forwardRef<
         </ModalContext.Provider>
       ) : (
         <>
-          <div
-            data-element="tab-guard-top"
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-            tabIndex={0}
-            onFocus={(ev) => handleFocusGuard("prev", ev)}
-          />
           {popover()}
           <div
             data-element="tab-guard-bottom"
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            data-focus-guard
             tabIndex={0}
-            onFocus={(ev) => handleFocusGuard("next", ev)}
+            onFocus={(ev) => {
+              /* istanbul ignore else */
+              if (isOpen) {
+                closePopover(ev);
+                const { current: button } = openButtonRef;
+                const { current: container } = popoverContentNodeRef;
+
+                /* istanbul ignore else */
+                if (button && container) {
+                  const nextElement =
+                    nextElementToFocus(button, container) ?? button;
+                  (nextElement as HTMLElement).focus();
+                }
+              }
+            }}
           />
         </>
       );
+
+    useIsomorphicLayoutEffect(() => {
+      const closestHeader = inMenu
+        ? (popoverReference?.closest(
+            "[data-component='global-header']",
+          ) as HTMLElement | null)
+        : null;
+      const closestMenu = inMenu
+        ? (popoverReference?.closest("[data-component='menu']")
+            ?.parentElement as HTMLElement | null)
+        : null;
+      const tokensWrapper = popoverReference?.closest(
+        "[data-component='tokens-wrapper']",
+      ) as HTMLElement | null;
+
+      setAltTarget(
+        closestHeader ??
+          closestMenu ??
+          tokensWrapper ??
+          /* istanbul ignore next */ null,
+      );
+    }, [inMenu, popoverReference]);
+
+    // Prefer the closest global header or menu, then a tokens wrapper, before
+    // falling back to the popover reference itself.
+    const popoverTarget = altTarget ?? popoverReference;
 
     return (
       <PopoverContainerWrapperStyle
@@ -471,7 +492,7 @@ export const PopoverContainer = forwardRef<
         hasFullWidth={hasFullWidth}
         {...tagComponent("popover-container", rest)}
       >
-        <div ref={popoverReference}>
+        <div ref={setPopoverReference}>
           {renderOpenComponent(renderOpenComponentProps)}
         </div>
         <CSSTransition
@@ -491,7 +512,7 @@ export const PopoverContainer = forwardRef<
           }
         >
           <Popover
-            reference={popoverReference}
+            reference={{ current: popoverReference }}
             placement={getPlacement()}
             popoverStrategy={
               disableAnimation || reduceMotion ? "fixed" : "absolute"
@@ -499,6 +520,7 @@ export const PopoverContainer = forwardRef<
             middleware={popoverMiddleware}
             childRefOverride={popoverContentNodeRef}
             disableBackgroundUI={isInFlatTable}
+            portalTarget={popoverTarget}
           >
             {childrenToRender()}
           </Popover>
