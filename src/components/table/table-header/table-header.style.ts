@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
-import { TableContextProps } from "../__internal__/context/table.context";
+import { TableContextProps } from "../__internal__/contexts";
 import { BorderThickness } from "../table.component";
 import borderThicknessStyles from "../__internal__/config";
 
 interface StyledTableHeaderCellProps {
-  $variant?: TableContextProps["variant"];
+  $variant: TableContextProps["variant"];
   $size?: TableContextProps["size"];
   $width?: string;
   $borderThickness?: BorderThickness;

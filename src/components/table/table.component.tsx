@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import {TableContext, TableContextProps} from "./__internal__/context";
+import {TableContext, TableContextProps} from "./__internal__/contexts";
 import { StyledTableWrapper, StyledTable } from './table.style';
 
 export type BorderThickness =
@@ -53,9 +53,9 @@ const Table = ({
         data-role="table-wrapper"
       >
         <StyledTable
-          $align={align}
           data-role="table"
           {...props}
+          $align={align}
           data-component="table"
           data-has-first-column={hasStickyFirstColumn}
           data-has-last-column={hasStickyLastColumn}

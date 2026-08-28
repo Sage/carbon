@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TableHeaderContext } from "../__internal__/context";
+import { TableHeaderContext } from "../__internal__/contexts";
 
 const StyledTableHead = styled.thead``;
 

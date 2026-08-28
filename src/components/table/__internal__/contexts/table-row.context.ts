@@ -8,6 +8,6 @@ export interface TableRowContextProps {
 }
 
 export default createContext(<TableRowContextProps>{
-  setIsExpanded: () => {},
+  setIsExpanded: /* istanbul ignore next */ () => {},
   isSelected: false,
 });

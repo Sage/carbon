@@ -20,10 +20,10 @@ const styleConfig = {
 };
 
 const StyledSortButton = styled.button<{
-  $variant?: "prominent" | "subtle-white" | "subtle-grey";
+  $variant: "prominent" | "subtle-white" | "subtle-grey";
   size?: "extra-small" | "small" | "medium" | "large" | "extra-large";
 }>`
-  ${({ $variant = "prominent", size = "medium" }) => css`
+  ${({ $variant, size = "medium" }) => css`
     color: ${$variant === "prominent" ? "var(--table-header-harsh-label-default)" : "var(--table-header-subtle-label-default)"};
     cursor: pointer;
     align-items: center;

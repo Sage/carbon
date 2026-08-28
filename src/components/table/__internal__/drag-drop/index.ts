@@ -3,4 +3,4 @@ export {
   DragDropProvider,
 } from "./drag-drop-provider";
 
-export { default as useSortableRow } from "./use-sortable-row";
+export { default as useDraggableRow } from "./use-draggable-row";

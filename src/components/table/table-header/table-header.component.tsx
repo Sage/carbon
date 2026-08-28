@@ -1,15 +1,15 @@
 import React, {useCallback, useContext} from "react";
-import { TableContext, TableRowContext } from "../__internal__/context";
+import { TableContext, TableRowContext } from "../__internal__/contexts";
 import StyledTableHeaderCell from "./table-header.style";
-import Sort from "./__internal__/sort";
-import { Checkbox } from "../../..";
+import Sort, { SortProps } from "./__internal__/sort";
+import { Checkbox } from "../../checkbox";
 import useMappedSize from "../__internal__/hooks/use-mapped-size";
 import { BorderThickness } from "../table.component";
 
 export interface TableHeaderCellProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
   children: React.ReactNode;
   width?: string;
-  sortType?: "ascending" | "descending" | "unsorted";
+  sortType?: SortProps["sortType"];
   onSort?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
   /**
    * @private @ignore @internal
@@ -49,7 +49,7 @@ const TableHeader = ({ children, width, sortType, onSort, isSelectable, borderTh
     >
       <div data-is-sortable={isSortable}>
         {isSortable ? (
-          <Sort sortType={sortType} onClick={onSort} variant={variant}>
+          <Sort sortType={sortType} onClick={onSort} data-role={`table-header-sort-${sortType}`}>
             {children}
           </Sort>
         ) : (

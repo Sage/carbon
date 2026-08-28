@@ -8,7 +8,7 @@ import { getDraggable, getDropTarget, isDraggable } from "./data";
 import { useDragDropContext } from "./drag-drop-provider";
 import invariant from "invariant";
 
-interface UseSortableRowArgs {
+interface UseDraggableRowArgs {
   /** Unique identifier for the referenced element. */
   id: string;
   /** Index of the referenced element in a list. */
@@ -19,19 +19,19 @@ interface UseSortableRowArgs {
   dragHandleRef: React.RefObject<HTMLElement> | null;
 }
 
-interface UseSortableRowReturn {
+interface UseDraggableRowReturn {
   /** Whether the referenced element is currently being dragged. */
   isDragging: boolean;
   /** Whether the referenced element is currently a drop target. */
   isDropTarget: boolean;
 }
 
-function useSortableRow({
+function useDraggableRow({
   id,
   index,
   ref,
   dragHandleRef,
-}: UseSortableRowArgs): UseSortableRowReturn {
+}: UseDraggableRowArgs): UseDraggableRowReturn {
   const context = useDragDropContext();
   const [isDragging, setIsDragging] = useState(false);
   const [isDropTarget, setIsDropTarget] = useState(false);
@@ -96,4 +96,4 @@ function useSortableRow({
   };
 }
 
-export default useSortableRow;
+export default useDraggableRow;

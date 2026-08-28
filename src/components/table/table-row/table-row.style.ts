@@ -1,5 +1,5 @@
 import styled, {css} from "styled-components";
-import { TableContextProps } from "../__internal__/context";
+import { TableContextProps } from "../__internal__/contexts";
 import { BorderThickness } from "../table.component";
 import borderThicknessStyles from "../__internal__/config";
 

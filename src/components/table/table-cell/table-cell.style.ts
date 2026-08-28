@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { TableContextProps } from "../__internal__/context";
+import { TableContextProps } from "../__internal__/contexts";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import { BorderThickness } from "../table.component";
 import borderThicknessStyles from "../__internal__/config";
@@ -9,16 +9,11 @@ interface StyledTableCellProps {
   $isDragHandle?: boolean;
   $size: TableContextProps["size"];
   $borderThickness?: BorderThickness;
-  $borderColor?: string;
 }
 
 const StyledTableCell = styled.td<StyledTableCellProps>`
   ${({ $borderThickness }) => $borderThickness && css`
     --table-cell-border-vertical-width: ${borderThicknessStyles[$borderThickness]};
-  `}
-
-  ${({ $borderColor }) => $borderColor && css`
-    --table-cell-border-color: ${$borderColor};
   `}
 
   ${({ $isDragHandle }) =>
@@ -43,37 +38,6 @@ const StyledTableCell = styled.td<StyledTableCellProps>`
 
   height: auto;
   padding: 0;
-
-  /* & > div {
-    display: flex;
-    align-items: center;
-    gap: var(--global-space-comp-s);
-    width: 100%;
-    box-sizing: border-box;
-
-    ${({ $size }) => css`
-      ${$size === "extra-small" && `
-        padding: var(--global-space-none) var(--global-space-comp-s);
-        font: var(--global-font-static-comp-regular-s);
-      `}
-      ${$size === "small" && `
-        padding: var(--global-space-none) var(--global-space-comp-l);
-        font: var(--global-font-static-comp-regular-s);
-      `}
-      ${$size === "medium" && `
-        padding: var(--global-space-none) var(--global-space-comp-l);
-        font: var(--global-font-static-comp-regular-m);
-      `}
-      ${$size === "large" && `
-        padding: var(--global-space-none) var(--global-space-comp-l);
-        font: var(--global-font-static-comp-regular-l);
-      `}
-      ${$size === "extra-large" && `
-        padding: var(--global-space-none) var(--global-space-comp-l);
-        font: var(--global-font-static-comp-regular-l);
-      `}
-    `}
-  } */
 
   [data-element="table-cell-collapse"] {
     display: grid;

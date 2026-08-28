@@ -1,12 +1,13 @@
 import React, {useContext, useState, useRef, useEffect} from "react";
 import styled from "styled-components";
-import {TableContext} from "../__internal__/context";
+import {TableContext} from "../__internal__/contexts";
 import arrayMove from "../../../__internal__/utils/helpers/array-move";
 import {
   DragDropProvider,
   DragDropProviderProps,
-} from "../__internal__/sortable";
+} from "../__internal__/drag-drop";
 import { TableRowProps } from "../table-row/table-row.component";
+import flattenChildren from "../__internal__/utils";
 
 const StyledTableBody = styled.tbody``;
 
@@ -14,20 +15,6 @@ export interface TableBodyProps {
   children: React.ReactNode;
   getOrder?: (draggableItemIds?: (string | number | undefined)[]) => void;
 }
-
-const flattenChildren = (children: React.ReactNode): React.ReactNode[] => {
-  return React.Children.toArray(children).flatMap((child) => {
-    if (!React.isValidElement(child)) {
-      return undefined;
-    }
-
-    if (child.type === React.Fragment) {
-      return flattenChildren(child.props.children);
-    }
-
-    return child;
-  });
-};
 
 const DraggableTableBodyInner = ({
   draggableItems,
@@ -38,6 +25,7 @@ const DraggableTableBodyInner = ({
   return (
     <StyledTableBody {...props} data-role="draggable-table-body">
       {draggableItems.map((child, index) => {
+        /* istanbul ignore if */
         if (!React.isValidElement<TableRowProps>(child)) return null;
 
         const rowId = `${child.props.id}`;
@@ -80,7 +68,7 @@ const DraggableTableBody = ({
 
         const reorderedItems = arrayMove({ array: prev, startIndex, endIndex });
         const childRowIds = reorderedItems
-          .map((row) => (React.isValidElement(row) ? row.props.id : ""))
+          .map((row) => (React.isValidElement(row) ? row.props.id : /* istanbul ignore next */ ""))
           .filter(Boolean);
         getOrder?.(childRowIds);
 

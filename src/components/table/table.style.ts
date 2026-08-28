@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { TableContextProps } from "./__internal__/context";
+import { TableContextProps } from "./__internal__/contexts";
 import { BorderThickness } from "./table.component";
 import borderThicknessStyles from "./__internal__/config";
 
@@ -26,17 +26,17 @@ interface StyledTableProps {
   $hasOverflow?: boolean;
   $variant: TableContextProps["variant"];
   $removeOuterBorders: boolean;
-  $horizontalBorderThickness?: BorderThickness;
-  $verticalBorderThickness?: BorderThickness;
+  $horizontalBorderThickness: BorderThickness;
+  $verticalBorderThickness: BorderThickness;
 }
 
 const StyledTable = styled.table<StyledTableProps>`
   /* Border defaults — override via borderWidth props on Table rows and cells */
   --table-cell-border-horizontal-width: ${({
-    $horizontalBorderThickness = "small",
+    $horizontalBorderThickness
   }) => borderThicknessStyles[$horizontalBorderThickness]};
   --table-cell-border-vertical-width: ${({
-    $verticalBorderThickness = "small",
+    $verticalBorderThickness
   }) => borderThicknessStyles[$verticalBorderThickness]};
   --table-header-border-color: ${({ $variant }) =>
     $variant === "prominent"
@@ -45,6 +45,13 @@ const StyledTable = styled.table<StyledTableProps>`
 
   border-spacing: 0;
   border-collapse: separate;
+
+  ${({ $align }) => $align && css`
+    & th > div,
+    & td > div {
+      text-align: ${$align};
+    }
+  `}
 
   &[data-has-first-column="true"] {
     && {

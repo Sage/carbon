@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TableFooterContext } from "../__internal__/context";
+import { TableFooterContext } from "../__internal__/contexts";
 
 const StyledTabledFoot = styled.tfoot``;
 
@@ -8,9 +8,9 @@ const TableFoot = ({ children, ...props }: React.HTMLAttributes<HTMLTableSection
   return (
     <TableFooterContext.Provider value={{ isInFooter: true }}>
       <StyledTabledFoot
-        data-role="table-foot"
+        data-role="table-footer"
         {...props}
-        data-component="table-foot"
+        data-component="table-footer"
       >
         {children}
       </StyledTabledFoot>

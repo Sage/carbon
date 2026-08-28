@@ -1,11 +1,12 @@
 import React, { ReactNode, useState, useContext, useMemo, useRef, useEffect } from "react";
-import {TableContext, TableRowContext, TableFooterContext, SubRowContext, TableHeaderContext} from "../__internal__/context";
+import {TableContext, TableRowContext, TableFooterContext, SubRowContext, TableHeaderContext} from "../__internal__/contexts";
 import StyledTableRow from "./table-row.style";
 import { TableCellProps } from "../table-cell/table-cell.component";
-import { useSortableRow } from "../__internal__/sortable";
+import { useDraggableRow } from "../__internal__/drag-drop";
 import combineRefs from "../../../__internal__/utils/helpers/combine-refs";
 import { Transition, TransitionStatus } from "react-transition-group";
 import { BorderThickness } from "../table.component";
+import flattenChildren from "../__internal__/utils";
 
 const ANIMATION_DURATION = 200;
 const UNMOUNT_DELAY = ANIMATION_DURATION + 50;
@@ -26,20 +27,6 @@ export interface TableRowProps {
   };
 }
 
-const flattenChildren = (children: React.ReactNode): React.ReactNode[] => {
-  return React.Children.toArray(children).flatMap((child) => {
-    if (!React.isValidElement(child)) {
-      return [];
-    }
-
-    if (child.type === React.Fragment) {
-      return flattenChildren(child.props.children);
-    }
-
-    return [child];
-  });
-};
-
 interface DecorateFirstCellProps {
   isDraggable: boolean;
   isExpandable: boolean;
@@ -50,7 +37,9 @@ interface DecorateFirstCellProps {
 }
 
 const decorateFirstCell = (cell: React.ReactNode, {isDraggable, isExpandable, isSubRow, subRowIds, isSelectable, dragHandleRef}: DecorateFirstCellProps) => {
+  /* istanbul ignore if */
   if (!React.isValidElement(cell)) return [];
+
   return [
     React.cloneElement(cell as React.ReactElement<TableCellProps>, {
       ref: isDraggable ? dragHandleRef : undefined,
@@ -120,7 +109,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({
       ? [...decoratedFirstCell, ...cells.slice(1)]
       : children;
 
-  const { isDragging, isDropTarget } = useSortableRow({
+  const { isDragging, isDropTarget } = useDraggableRow({
     id,
     index: draggableProps?.index ?? 0,
     ref: sortable ? rowRef : null,
@@ -177,6 +166,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({
         {decoratedChildren}
       </StyledTableRow>
       <Transition
+        nodeRef={rowRef}
         in={expanded}
         timeout={{
           enter: ANIMATION_DURATION,

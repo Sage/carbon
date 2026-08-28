@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
 import { TagProps } from "../../../../../__internal__/utils/helpers/tags";
 import useLocale from "../../../../../hooks/__internal__/useLocale";
 import Icon from "../../../../../components/icon";
 import StyledSortButton from "./sort.style";
-import { TableContextProps } from "../../../__internal__/context";
+import { TableContext, TableContextProps } from "../../../__internal__/contexts";
 
 export interface SortProps extends TagProps {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
@@ -14,7 +14,6 @@ export interface SortProps extends TagProps {
   children?: ReactNode;
   /** Sets the aria-roledescription of the component */
   "aria-roledescription"?: string;
-  variant?: TableContextProps["variant"];
 }
 
 const getSortIconType = (sortType: "unsorted" | "ascending" | "descending") => {
@@ -36,9 +35,9 @@ export const Sort = ({
   "aria-roledescription": ariaRoleDescription,
   "data-element": dataElement,
   "data-role": dataRole,
-  variant = "prominent",
 }: SortProps) => {
   const locale = useLocale();
+  const { variant } = useContext<TableContextProps>(TableContext);
 
   const icon = () =>
     (

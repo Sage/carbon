@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from "react";
-import { TableContext, TableRowContext } from "../__internal__/context";
+import { TableContext, TableRowContext } from "../__internal__/contexts";
 import StyledTableCell, { StyledExpandIcon } from "./table-cell.style";
 import Icon from "../../icon";
 import { Checkbox } from "../../checkbox";
@@ -37,11 +37,10 @@ export interface TableCellProps extends Pick<React.TdHTMLAttributes<HTMLTableCel
   id?: string;
 
   borderThickness?: BorderThickness;
-  borderColor?: string;
 }
 
 const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
-  ({ children, isExpandable, isDraggable, isSubRow, isSelectable, subRowIds, id, borderThickness, borderColor, ...props }: TableCellProps, ref) => {
+  ({ children, isExpandable, isDraggable, isSubRow, isSelectable, subRowIds, id, borderThickness, ...props }: TableCellProps, ref) => {
   const { size } = useContext(TableContext);
   const {
     isExpanded,
@@ -52,6 +51,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
   const mappedSize = useMappedSize(size);
 
   const handleExpandClick = useCallback(() => {
+    /* istanbul ignore else */
     if (isExpandable) {
       setIsExpanded(p => !p);
     }
@@ -59,6 +59,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
 
   const handleExpandKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTableCellElement>) => {
+      /* istanbul ignore else */
       if (isExpandable && (e.key === "Enter" || e.key === " ")) {
         e.preventDefault();
         setIsExpanded(p => !p);
@@ -89,10 +90,8 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
       data-role="table-cell"
       onClick={handleExpandClick}
       onKeyDown={handleExpandKeyDown}
-      // data-corner={corner}
       $isDragHandle={isDraggable}
       $borderThickness={borderThickness}
-      $borderColor={borderColor}
     >
       <div data-element="table-cell-collapse">
         <div data-element="table-cell-clip">
