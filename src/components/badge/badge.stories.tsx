@@ -40,6 +40,12 @@ const meta: Meta<BadgeStoryArgs> = {
         type: "text",
       },
     },
+    size: {
+      control: { type: "radio" },
+    },
+    variant: {
+      control: { type: "radio" },
+    },
   },
   decorators: [
     (Story) => (
@@ -104,7 +110,6 @@ export const Playground: StoryObj<BadgeStoryArgs> = {
     ),
   ],
 };
-Playground.storyName = "Playground";
 
 export const Default: Story = ({ ...args }) => {
   return (
