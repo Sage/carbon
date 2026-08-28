@@ -22,15 +22,13 @@ const meta: Meta<BadgeStoryArgs> = {
     ...styledSystemProps,
     counter: {
       control: {
-        type: "number",
+        type: "text",
       },
     },
     size: {
-      options: ["small", "medium", "large"],
       control: { type: "radio" },
     },
     variant: {
-      options: ["typical", "subtle"],
       control: { type: "radio" },
     },
   },
@@ -106,7 +104,6 @@ export const Playground: StoryObj<BadgeStoryArgs> = {
     ),
   ],
 };
-Playground.storyName = "Playground";
 
 export const Default: Story = ({ ...args }) => {
   return (
