@@ -24,7 +24,7 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
   padding: var(--global-space-layout-2-xs);
   background: var(--popover-bg-default);
   box-shadow: var(--global-depth-lvl1);
-  border-radius: var(--global-radius-container-m);
+  border-radius: var(--global-radius-action-m);
 
   .rdp-root,
   .rdp-root * {

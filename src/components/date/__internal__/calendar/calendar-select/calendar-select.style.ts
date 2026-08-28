@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import addFocusStyling from "../../../../../style/utils/add-focus-styling";
 
+const MAX_VISIBLE_OPTIONS = 12;
+
 export const StyledWrapper = styled.div<{ $disabled?: boolean }>`
   position: relative;
   display: inline-flex;
@@ -102,12 +104,23 @@ export const StyledSelect = styled.select`
     }
 
     &::picker(select) {
+      --calendar-select-option-block-size: var(--global-size-s);
+      --calendar-select-picker-padding-block: var(--global-space-comp-xs);
+
       box-sizing: border-box;
       padding: var(--global-space-comp-xs) 0;
       background: var(--popover-bg-default);
       border: none;
       border-radius: var(--global-radius-container-m);
       box-shadow: var(--global-depth-lvl1);
+      /* Limit the picker to 12 option rows and include its block padding so
+       * the final visible row is not clipped. */
+      max-block-size: calc(
+        ${MAX_VISIBLE_OPTIONS} * var(--calendar-select-option-block-size) + 2 *
+          var(--calendar-select-picker-padding-block)
+      );
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
 
     &::picker-icon {

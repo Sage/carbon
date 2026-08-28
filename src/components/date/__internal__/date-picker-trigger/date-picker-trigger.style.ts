@@ -128,6 +128,15 @@ const DatePickerTriggerButton = styled(Button)<DatePickerTriggerButtonProps>`
     border: none;
   }
 
+  &&[aria-expanded="true"]:not(:disabled) {
+    background-color: var(--button-typical-subtle-bg-active);
+    color: var(--button-typical-subtle-label-active);
+
+    ${StyledIcon} {
+      color: var(--button-typical-subtle-label-active);
+    }
+  }
+
   &&:not(:disabled) {
     cursor: pointer;
   }

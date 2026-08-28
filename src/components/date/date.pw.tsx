@@ -249,6 +249,37 @@ test.describe("Functionality tests", () => {
     await expect(yearSelector).toHaveValue("2023");
   });
 
+  test("limits the customizable year picker to twelve visible options", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputTypicalControlled value="01/05/2022" />);
+
+    await page.getByRole("button", { name: "Open calendar" }).click();
+    const yearSelector = page.getByRole("combobox", {
+      name: "Choose the year",
+    });
+
+    const pickerStyles = await yearSelector.evaluate((selector) => {
+      const picker = getComputedStyle(selector, "::picker(select)");
+      return {
+        maxBlockSize: Number.parseFloat(picker.maxBlockSize),
+        optionBlockSize: Number.parseFloat(
+          picker.getPropertyValue("--calendar-select-option-block-size"),
+        ),
+        paddingBlock: Number.parseFloat(
+          picker.getPropertyValue("--calendar-select-picker-padding-block"),
+        ),
+        overflowY: picker.overflowY,
+      };
+    });
+
+    expect(pickerStyles.maxBlockSize).toBe(
+      12 * pickerStyles.optionBlockSize + 2 * pickerStyles.paddingBlock,
+    );
+    expect(pickerStyles.overflowY).toBe("auto");
+  });
+
   test(`should allow a user to tab into the picker and through its controls`, async ({
     mount,
     page,
