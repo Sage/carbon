@@ -1,10 +1,12 @@
 import { StoryObj } from "@storybook/react-vite";
-import { userEvent, within, expect } from "storybook/test";
+import { userEvent, within, expect, waitFor } from "storybook/test";
 import React, { useState, useRef } from "react";
 
 import Sidebar from ".";
 import Button from "../button";
 import Box from "../box";
+import Textbox from "../textbox";
+import Toast from "../toast";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
@@ -38,6 +40,67 @@ const BasicSidebar = ({ children }: { children?: React.ReactNode }) => {
         <Box mb={2}>{children}</Box>
       </Sidebar>
     </>
+  );
+};
+
+const SidebarBackgroundScroll = () => {
+  const [value, setValue] = useState("");
+  const firstToastRef = useRef<HTMLDivElement>(null);
+  const secondToastRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <Box height="2000px" position="relative">
+      <Box
+        data-role="offscreen-background-content"
+        height="100px"
+        position="absolute"
+        bottom="0px"
+      >
+        I should not be scrolled into view
+      </Box>
+      <Sidebar
+        aria-label="sidebar"
+        open
+        onCancel={() => undefined}
+        focusableContainers={[firstToastRef, secondToastRef]}
+      >
+        <Textbox
+          label="Textbox"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+        />
+      </Sidebar>
+      <Toast
+        open
+        onDismiss={() => undefined}
+        ref={firstToastRef}
+        targetPortalId="stacked"
+        disableAutoFocus
+      >
+        Toast message 1
+      </Toast>
+      <Toast
+        open
+        onDismiss={() => undefined}
+        ref={secondToastRef}
+        targetPortalId="stacked"
+        disableAutoFocus
+      >
+        Toast message 2
+      </Toast>
+    </Box>
+  );
+};
+
+const expectBackgroundNotToScroll = (
+  offscreenContent: HTMLElement,
+  initialScrollPosition: number,
+) => {
+  const storyWindow = offscreenContent.ownerDocument.defaultView;
+
+  expect(storyWindow?.scrollY).toBe(initialScrollPosition);
+  expect(offscreenContent.getBoundingClientRect().top).toBeGreaterThanOrEqual(
+    storyWindow?.innerHeight ?? 0,
   );
 };
 
@@ -143,3 +206,76 @@ export const Scroll: Story = {
   ],
 };
 Scroll.storyName = "Scroll";
+
+export const BackgroundScrollWhenFocusWraps: Story = {
+  render: () => <SidebarBackgroundScroll />,
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    const canvas = within(canvasElement);
+    const storyWindow = canvasElement.ownerDocument.defaultView;
+    const offscreenContent = canvas.getByText(
+      "I should not be scrolled into view",
+    );
+    const sidebarCloseButton = await waitFor(() => {
+      const closeButton = canvasElement.ownerDocument.querySelector(
+        '[data-element="sidebar"] [data-element="close"]',
+      );
+
+      expect(closeButton).not.toBeNull();
+      return closeButton as HTMLElement;
+    });
+    const textbox = canvasElement.ownerDocument.querySelector(
+      '[data-element="sidebar"] input',
+    ) as HTMLElement;
+    const toastCloseButtons = Array.from(
+      canvasElement.ownerDocument.querySelectorAll(
+        '[data-component="toast"] button[data-element="close"]',
+      ),
+    ) as HTMLElement[];
+
+    storyWindow?.scrollTo(0, 0);
+    const initialScrollPosition = storyWindow?.scrollY ?? 0;
+
+    expect(textbox).not.toBeNull();
+    expect(toastCloseButtons).toHaveLength(2);
+
+    sidebarCloseButton.focus();
+    await expect(sidebarCloseButton).toHaveFocus();
+
+    await userEvent.tab();
+    await waitFor(() => expect(textbox).toHaveFocus());
+    await userEvent.tab();
+    await waitFor(() => expect(toastCloseButtons[0]).toHaveFocus());
+    await userEvent.tab();
+    await waitFor(() => expect(toastCloseButtons[1]).toHaveFocus());
+    await userEvent.tab();
+    await waitFor(() => expect(sidebarCloseButton).toHaveFocus());
+    expectBackgroundNotToScroll(offscreenContent, initialScrollPosition);
+
+    await userEvent.tab({ shift: true });
+    await waitFor(() => expect(toastCloseButtons[1]).toHaveFocus());
+    await userEvent.tab({ shift: true });
+    await waitFor(() => expect(toastCloseButtons[0]).toHaveFocus());
+    await userEvent.tab({ shift: true });
+    await waitFor(() => expect(textbox).toHaveFocus());
+    await userEvent.tab({ shift: true });
+    await waitFor(() => expect(sidebarCloseButton).toHaveFocus());
+    expectBackgroundNotToScroll(offscreenContent, initialScrollPosition);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+
+BackgroundScrollWhenFocusWraps.storyName =
+  "Background Does Not Scroll When Focus Wraps";
+BackgroundScrollWhenFocusWraps.parameters = {
+  chromatic: { disableSnapshot: true },
+};
