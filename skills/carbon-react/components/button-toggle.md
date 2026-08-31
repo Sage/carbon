@@ -19,6 +19,7 @@ description: Carbon ButtonToggle component props and usage examples.
 | buttonIcon | IconType \| undefined | No |  |  |  | Icon rendered within the button. Will not be rendered if size is small. |  |
 | children | React.ReactNode | No |  |  |  | Content to display within the button. |  |
 | disabled | boolean \| undefined | No |  |  |  | Disable the ButtonToggle. |  |
+| id | string \| undefined | No |  |  |  | Override the auto-generated id on the button element. |  |
 | onBlur | ((ev: React.FocusEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered by blur event on the button. |  |
 | onClick | ((ev: React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered by click event on the button. |  |
 | onFocus | ((ev: React.FocusEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered by focus event on the button. |  |
