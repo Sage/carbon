@@ -25,6 +25,16 @@ test("Renders the selected count message using the `selectedCount` and `totalIte
   expect(screen.getByText("1 of 10 items selected")).toBeVisible();
 });
 
+test("Renders the selected count message when only `selectedCount` is provided", () => {
+  render(
+    <BatchSelection selectedCount={1}>
+      <Button>Button</Button>
+    </BatchSelection>,
+  );
+
+  expect(screen.getByText("1 selected")).toBeVisible();
+});
+
 test("Renders close button that calls `onDismiss` when clicked", async () => {
   const user = userEvent.setup();
   const onDismiss = jest.fn();

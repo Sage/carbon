@@ -23,7 +23,8 @@ const enGB: Locale = {
     ariaLabels: {
       close: () => "Close",
     },
-    selected: (count, total) => `${count} of ${total} items selected`,
+    selected: (count, total) =>
+      total ? `${count} of ${total} items selected` : `${count} selected`,
   },
   breadcrumbs: {
     ariaLabel: () => "breadcrumbs",

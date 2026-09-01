@@ -25,7 +25,10 @@ export interface BatchSelectionProps extends TagProps {
    * @deprecated Disabling this component is no longer supported.
    */
   disabled?: boolean;
-  /** If true, the component is hidden. */
+  /**
+   * If true, the component is hidden.
+   * @deprecated This prop is deprecated and will be removed in a future release. Please use conditional rendering instead.
+   */
   hidden?: boolean;
   /** Number of selected items */
   selectedCount: number;
@@ -42,8 +45,8 @@ export const BatchSelection = ({
   children,
   colorTheme,
   selectedCount,
-  // TODO: Make totalItems required and remove default value
-  totalItems = 0,
+  // TODO: Make totalItems required
+  totalItems,
   hidden,
   smallScreen,
   onDismiss,

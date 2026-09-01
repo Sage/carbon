@@ -20,11 +20,15 @@ const ptPT: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) =>
-      count === 1 ? `${count} selecionado` : `${count} selecionados`,
     ariaLabels: {
       close: () => "Fechar",
     },
+    selected: (count, total) =>
+      total
+        ? `${count} de ${total} registos selecionados`
+        : count === 1
+          ? `${count} selecionado`
+          : `${count} selecionados`,
   },
   breadcrumbs: {
     ariaLabel: () => "caminho de navegação",

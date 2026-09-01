@@ -22,9 +22,11 @@ type Story = StoryObj<typeof BatchSelection>;
 export const Default: Story = {
   render: (args) => (
     <BatchSelection {...args}>
-      <Button variantType="tertiary">Button 1</Button>
-      <Button variantType="tertiary">Button 2</Button>
-      <Button variantType="tertiary">Button 3</Button>
+      <Button variantType="subtle">Button</Button>
+      <Divider p={0} height="40px" />
+      <Button variantType="tertiary">Action 1</Button>
+      <Button variantType="tertiary">Action 2</Button>
+      <Button variantType="tertiary">Action 3</Button>
     </BatchSelection>
   ),
   args: {
