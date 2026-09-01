@@ -31,9 +31,7 @@ import { TagProps } from "../../__internal__/utils/helpers/tags";
 const CONTENT_WIDTH_RATIO = 0.75;
 
 export interface SplitButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    MarginProps,
-    TagProps {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, MarginProps, TagProps {
   /** Set align of the rendered content */
   align?: "left" | "right";
   /** Button type: "primary" | "secondary" */

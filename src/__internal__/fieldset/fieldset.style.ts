@@ -72,10 +72,12 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
       text-align: ${align};
       justify-content: ${align === "right" ? "flex-end" : "flex-start"};
 
-      ${!inline &&
-      css`
-        width: -moz-available;
-      `}
+      ${
+        !inline &&
+        css`
+          width: -moz-available;
+        `
+      }
     `};
 
   ${({ inline, width, rightPadding }) =>
@@ -85,9 +87,9 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
       box-sizing: border-box;
       margin: 0;
       ${width && `width: ${width}%`};
-      padding-right: ${rightPadding === 1
-        ? "var(--spacing100)"
-        : "var(--spacing200)"};
+      padding-right: ${
+        rightPadding === 1 ? "var(--spacing100)" : "var(--spacing200)"
+      };
     `}
   ${margin}
 `;

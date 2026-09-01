@@ -26,9 +26,11 @@ const StyledTileHeader = styled.div.attrs(applyBaseTheme)<{
   ${({ variant }) => css`
     background: ${getBackgroundColor(variant)};
     border-bottom: 1px solid
-      ${variant === "grey"
-        ? "var(--colorsUtilityMajor200)"
-        : "var(--colorsUtilityMajor100)"};
+      ${
+        variant === "grey"
+          ? "var(--colorsUtilityMajor200)"
+          : "var(--colorsUtilityMajor100)"
+      };
   `}
 `;
 

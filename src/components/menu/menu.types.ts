@@ -4,7 +4,8 @@ import { TagProps } from "../../__internal__/utils/helpers/tags";
 export type MenuType = "light" | "dark" | "white" | "black";
 
 export interface MenuProps
-  extends TagProps,
+  extends
+    TagProps,
     Pick<
       LayoutProps,
       | "width"

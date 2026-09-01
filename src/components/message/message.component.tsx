@@ -36,13 +36,7 @@ export type MessageVariant =
   | "callout-subtle";
 
 export type InternalMessageVariant =
-  | "error"
-  | "info"
-  | "success"
-  | "warning"
-  | "neutral"
-  | "ai"
-  | "callout";
+  "error" | "info" | "success" | "warning" | "neutral" | "ai" | "callout";
 
 let deprecateTransparentTriggered = false;
 let deprecateNeutralVariantTriggered = false;

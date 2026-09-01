@@ -165,21 +165,27 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
             }
           }
 
-          ${!hasHeader &&
-          css`
-            padding-top: var(--global-space-layout-xs);
-          `}
+          ${
+            !hasHeader &&
+            css`
+              padding-top: var(--global-space-layout-xs);
+            `
+          }
 
-          ${!hasFooter &&
-          css`
-            padding-bottom: var(--global-space-layout-xs);
-          `}
+          ${
+            !hasFooter &&
+            css`
+              padding-bottom: var(--global-space-layout-xs);
+            `
+          }
         `
       : css`
           flex-grow: 1;
-          padding: ${disableContentPadding
-            ? "0px"
-            : "var(--global-space-layout-xs) var(--global-space-layout-s)"};
+          padding: ${
+            disableContentPadding
+              ? "0px"
+              : "var(--global-space-layout-xs) var(--global-space-layout-s)"
+          };
           ${paddingFn}
 
           &:has(${StyledForm}.sticky) {
@@ -360,62 +366,74 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           max-height: 90vh;
           width: 100%;
 
-          ${$size === "small" &&
-          css`
-            min-width: 288px;
-            max-width: var(--container-size-dialog-maxwidth-s);
-          `}
+          ${
+            $size === "small" &&
+            css`
+              min-width: 288px;
+              max-width: var(--container-size-dialog-maxwidth-s);
+            `
+          }
 
-          ${$size === "medium" &&
-          css`
-            min-width: 540px;
-            max-width: var(--container-size-dialog-maxwidth-m);
+          ${
+            $size === "medium" &&
+            css`
+              min-width: 540px;
+              max-width: var(--container-size-dialog-maxwidth-m);
 
-            @media screen and (max-width: ${DIALOG_SIZE_CONFIG.small
-                .maxWidth}) {
-              min-width: ${DIALOG_MIN_WIDTH};
-            }
-          `}
-          ${$size === "large" &&
-          css`
-            min-width: 850px;
-            max-width: var(--container-size-dialog-maxwidth-l);
+              @media screen and (max-width: ${
+                DIALOG_SIZE_CONFIG.small.maxWidth
+              }) {
+                min-width: ${DIALOG_MIN_WIDTH};
+              }
+            `
+          }
+          ${
+            $size === "large" &&
+            css`
+              min-width: 850px;
+              max-width: var(--container-size-dialog-maxwidth-l);
 
-            @media screen and (max-width: ${DIALOG_SIZE_CONFIG.medium
-                .maxWidth}) {
-              min-width: ${DIALOG_MIN_WIDTH};
-            }
-          `}
+              @media screen and (max-width: ${
+                DIALOG_SIZE_CONFIG.medium.maxWidth
+              }) {
+                min-width: ${DIALOG_MIN_WIDTH};
+              }
+            `
+          }
 
-          ${$gradientKeyLine &&
-          css`
-            &::before {
-              content: "";
-              position: absolute;
-              top: -8px;
-              height: 100px;
-              width: 100%;
-              z-index: -1;
-              /* Hex values are a temporary measure until Fusion DS tokens are available */
-              background: linear-gradient(
-                90deg,
-                #00d639 0%,
-                #00d6de 40%,
-                #9d60ff 90%
-              );
-              border-radius: var(--global-radius-container-xl)
-                var(--global-radius-container-xl) 0 0;
-            }
-          `}
+          ${
+            $gradientKeyLine &&
+            css`
+              &::before {
+                content: "";
+                position: absolute;
+                top: -8px;
+                height: 100px;
+                width: 100%;
+                z-index: -1;
+                /* Hex values are a temporary measure until Fusion DS tokens are available */
+                background: linear-gradient(
+                  90deg,
+                  #00d639 0%,
+                  #00d6de 40%,
+                  #9d60ff 90%
+                );
+                border-radius: var(--global-radius-container-xl)
+                  var(--global-radius-container-xl) 0 0;
+              }
+            `
+          }
 
           @media screen and (max-width: ${dialogSizes[$size]}) {
             max-width: calc(100% - var(--global-space-comp-2-xl));
           }
 
-          ${dialogHeight &&
-          css`
-            height: ${dialogHeight}px;
-          `}
+          ${
+            dialogHeight &&
+            css`
+              height: ${dialogHeight}px;
+            `
+          }
         `}
 
   > ${StyledButton} {

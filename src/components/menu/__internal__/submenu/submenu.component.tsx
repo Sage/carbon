@@ -66,8 +66,7 @@ export interface SubmenuProps {
   /** Callback triggered when the top-level menu item is clicked */
   onClick?: (
     event:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Accessible label for when no text children are passed to menu item */
   ariaLabel?: string;

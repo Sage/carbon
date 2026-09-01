@@ -9,7 +9,8 @@ import StyledGridContainer from "./grid-container.style";
  * @deprecated `GridContainer` has been deprecated. See the Carbon documentation for migration details.
  */
 export interface GridContainerProps
-  extends SpaceProps,
+  extends
+    SpaceProps,
     GridProps,
     React.HTMLAttributes<HTMLDivElement>,
     TagProps {

@@ -18,9 +18,7 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 import type { MenuProps } from "./menu.types";
 
 interface StyledMenuProps
-  extends Pick<MenuProps, "menuType">,
-    FlexboxProps,
-    LayoutProps {
+  extends Pick<MenuProps, "menuType">, FlexboxProps, LayoutProps {
   inFullscreenView?: boolean;
 }
 
@@ -43,10 +41,12 @@ const StyledMenuWrapper = styled.ul<StyledMenuProps>`
         display: inline-block;
         vertical-align: bottom;
         background-color: ${menuConfigVariants[menuType].background};
-        ${menuType === "dark" &&
-        css`
-          color: ${menuConfigVariants[menuType].color};
-        `}
+        ${
+          menuType === "dark" &&
+          css`
+            color: ${menuConfigVariants[menuType].color};
+          `
+        }
       `}
     ${StyledDivider} {
       position: relative;
@@ -56,8 +56,7 @@ const StyledMenuWrapper = styled.ul<StyledMenuProps>`
 `;
 
 interface StyledMenuItemProps
-  extends Pick<MenuProps, "menuType" | "maxWidth">,
-    PaddingProps {
+  extends Pick<MenuProps, "menuType" | "maxWidth">, PaddingProps {
   inFullscreenView?: boolean;
   inSubmenu?: boolean;
 }
@@ -79,15 +78,19 @@ const StyledMenuItem = styled.li.attrs(applyBaseTheme)<StyledMenuItemProps>`
   }
 
   ${({ inSubmenu }) => css`
-    ${inSubmenu &&
-    css`
-      display: list-item;
-    `}
+    ${
+      inSubmenu &&
+      css`
+        display: list-item;
+      `
+    }
 
-    ${!inSubmenu &&
-    css`
-      height: inherit;
-    `}
+    ${
+      !inSubmenu &&
+      css`
+        height: inherit;
+      `
+    }
   `}
 
   ${({ inFullscreenView }) =>

@@ -57,12 +57,14 @@ const RadioButtonStyle = styled.div.attrs(
       border: var(--global-borderwidth-xs) solid
         var(--input-typical-border-default);
 
-      ${!$isDisabled &&
-      $error &&
-      css`
-        border: var(--global-borderwidth-s) solid
-          var(--input-validation-border-error);
-      `}
+      ${
+        !$isDisabled &&
+        $error &&
+        css`
+          border: var(--global-borderwidth-s) solid
+            var(--input-validation-border-error);
+        `
+      }
     }
 
     ${HiddenCheckableInputStyle}:checked + [data-role="checkable-input-svg-wrapper"] circle {
@@ -75,21 +77,23 @@ const RadioButtonStyle = styled.div.attrs(
       }
     }
 
-    ${$isDisabled &&
-    css`
-      svg {
-        border-color: var(--input-typical-border-disabled);
-        background-color: var(--input-typical-bg-disabled);
-      }
+    ${
+      $isDisabled &&
+      css`
+        svg {
+          border-color: var(--input-typical-border-disabled);
+          background-color: var(--input-typical-bg-disabled);
+        }
 
-      circle {
-        fill: var(--input-typical-bg-disabled);
-      }
+        circle {
+          fill: var(--input-typical-bg-disabled);
+        }
 
-      ${HiddenCheckableInputStyle}:checked + [data-role="checkable-input-svg-wrapper"] circle {
-        fill: var(--input-typical-icon-disabled);
-      }
-    `}
+        ${HiddenCheckableInputStyle}:checked + [data-role="checkable-input-svg-wrapper"] circle {
+          fill: var(--input-typical-icon-disabled);
+        }
+      `
+    }
   `}
 
   ${margin};

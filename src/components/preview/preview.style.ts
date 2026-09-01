@@ -73,21 +73,27 @@ const StyledPreviewPlaceholder = styled.span<StyledPreviewPlaceholderProps>`
       width: ${width || getWidth(shape)};
       animation: ${shimmer} 2s ease infinite;
 
-      ${isLastLine &&
-      shape === "text" &&
-      css`
-        width: calc(${width || getWidth(shape)}*0.8);
-      `}
+      ${
+        isLastLine &&
+        shape === "text" &&
+        css`
+          width: calc(${width || getWidth(shape)}*0.8);
+        `
+      }
 
-      ${shape === "circle" &&
-      css`
-        width: ${height || getHeight(shape)};
-      `}
+      ${
+        shape === "circle" &&
+        css`
+          width: ${height || getHeight(shape)};
+        `
+      }
 
-      ${disableAnimation &&
-      css`
-        animation: none;
-      `}
+      ${
+        disableAnimation &&
+        css`
+          animation: none;
+        `
+      }
 
       & + & {
         margin-top: 6px;

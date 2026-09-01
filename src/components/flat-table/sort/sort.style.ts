@@ -28,9 +28,11 @@ const StyledSortButton = styled.button<{
     background: transparent;
     border: none;
     border-radius: 0;
-    color: ${colorTheme === "dark"
-      ? "var(--colorsUtilityYang100)"
-      : "var(--colorsUtilityYin090)"};
+    color: ${
+      colorTheme === "dark"
+        ? "var(--colorsUtilityYang100)"
+        : "var(--colorsUtilityYin090)"
+    };
     display: inline-flex;
     font-size: ${styleConfig[size].fontSize};
     font-weight: 500;
@@ -49,9 +51,11 @@ const StyledSortButton = styled.button<{
     &:hover {
       span:first-of-type {
         border-bottom: 1px solid
-          ${colorTheme === "dark"
-            ? "var(--colorsUtilityYang100)"
-            : "var(--colorsUtilityYin090)"};
+          ${
+            colorTheme === "dark"
+              ? "var(--colorsUtilityYang100)"
+              : "var(--colorsUtilityYin090)"
+          };
       }
     }
 
@@ -61,9 +65,11 @@ const StyledSortButton = styled.button<{
     }
 
     span[data-component="icon"] {
-      color: ${colorTheme === "dark"
-        ? "var(--colorsActionMinorYang100)"
-        : "var(--colorActionMinor500)"};
+      color: ${
+        colorTheme === "dark"
+          ? "var(--colorsActionMinorYang100)"
+          : "var(--colorActionMinor500)"
+      };
       margin-bottom: 1px;
     }
   `}

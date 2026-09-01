@@ -29,8 +29,10 @@ import Logger from "../../../../__internal__/utils/logger";
 
 import StyledDayPicker from "./day-picker.style";
 
-export interface PickerProps
-  extends Omit<DayPickerProps, "mode" | "modifiers"> {
+export interface PickerProps extends Omit<
+  DayPickerProps,
+  "mode" | "modifiers"
+> {
   modifiers?: Partial<Modifiers>;
 }
 

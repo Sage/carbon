@@ -33,11 +33,10 @@ const meta: Meta<typeof RadioButtonGroup> = {
 export default meta;
 type Story = StoryObj<typeof RadioButtonGroup>;
 
-interface TemplateProps
-  extends Omit<
-    RadioButtonGroupProps,
-    "children" | "value" | "onChange" | "name"
-  > {
+interface TemplateProps extends Omit<
+  RadioButtonGroupProps,
+  "children" | "value" | "onChange" | "name"
+> {
   id?: string;
 }
 

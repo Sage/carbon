@@ -27,8 +27,7 @@ type DesignTokensType = keyof typeof DesignTokens;
 export type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
 export interface StyledCardProps
-  extends MarginProps,
-    Pick<CardProps, "href" | "onClick"> {
+  extends MarginProps, Pick<CardProps, "href" | "onClick"> {
   $cardWidth: string;
   $interactive: boolean;
   $height?: string;
@@ -49,12 +48,16 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
     $variant = "standard",
   }) => css`
     background-color: var(--container-action-bg-default);
-    border-radius: ${$roundness === "moderate" || $roundness === "default"
-      ? "var(--global-radius-container-l)"
-      : "var(--global-radius-container-xl)"};
-    box-shadow: ${$variant === "outlined"
-      ? "var(--global-depth-none)"
-      : "var(--global-depth-lvl1)"};
+    border-radius: ${
+      $roundness === "moderate" || $roundness === "default"
+        ? "var(--global-radius-container-l)"
+        : "var(--global-radius-container-xl)"
+    };
+    box-shadow: ${
+      $variant === "outlined"
+        ? "var(--global-depth-none)"
+        : "var(--global-depth-lvl1)"
+    };
     color: var(--container-standard-txt-default);
     display: flex;
     flex-direction: column;
@@ -69,15 +72,17 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
     padding: var(--global-size-none) ${paddingSizes[$spacing]};
     ${margin}
 
-    ${$interactive &&
-    css`
-      :hover,
-      :focus-within {
-        box-shadow: ${$variant === "outlined"
-          ? "none"
-          : "var(--global-depth-lvl2)"};
-      }
-    `}
+    ${
+      $interactive &&
+      css`
+        :hover,
+        :focus-within {
+          box-shadow: ${
+            $variant === "outlined" ? "none" : "var(--global-depth-lvl2)"
+          };
+        }
+      `
+    }
 
     ::-moz-focus-inner {
       border: var(--global-size-none);
@@ -137,33 +142,45 @@ const StyledCardContent = styled.div
   `}
 
   ${({ $roundness, $hasHeader, $hasFooter }) => css`
-    ${($roundness === "moderate" || $roundness === "default") &&
-    css`
-      ${!$hasHeader &&
+    ${
+      ($roundness === "moderate" || $roundness === "default") &&
       css`
-        border-top-left-radius: var(--global-radius-container-l);
-        border-top-right-radius: var(--global-radius-container-l);
-      `}
-      ${!$hasFooter &&
-      css`
-        border-bottom-left-radius: var(--global-radius-container-l);
-        border-bottom-right-radius: var(--global-radius-container-l);
-      `}
-    `}
+        ${
+          !$hasHeader &&
+          css`
+            border-top-left-radius: var(--global-radius-container-l);
+            border-top-right-radius: var(--global-radius-container-l);
+          `
+        }
+        ${
+          !$hasFooter &&
+          css`
+            border-bottom-left-radius: var(--global-radius-container-l);
+            border-bottom-right-radius: var(--global-radius-container-l);
+          `
+        }
+      `
+    }
 
-    ${($roundness === "curved" || $roundness === "large") &&
-    css`
-      ${!$hasHeader &&
+    ${
+      ($roundness === "curved" || $roundness === "large") &&
       css`
-        border-top-left-radius: var(--global-radius-container-xl);
-        border-top-right-radius: var(--global-radius-container-xl);
-      `}
-      ${!$hasFooter &&
-      css`
-        border-bottom-left-radius: var(--global-radius-container-xl);
-        border-bottom-right-radius: var(--global-radius-container-xl);
-      `}
-    `}
+        ${
+          !$hasHeader &&
+          css`
+            border-top-left-radius: var(--global-radius-container-xl);
+            border-top-right-radius: var(--global-radius-container-xl);
+          `
+        }
+        ${
+          !$hasFooter &&
+          css`
+            border-bottom-left-radius: var(--global-radius-container-xl);
+            border-bottom-right-radius: var(--global-radius-container-xl);
+          `
+        }
+      `
+    }
   `}
 `;
 

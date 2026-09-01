@@ -37,8 +37,10 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-interface ControlledComponentProps
-  extends Omit<NumeralDateProps, "onChange" | "value"> {
+interface ControlledComponentProps extends Omit<
+  NumeralDateProps,
+  "onChange" | "value"
+> {
   initialValue?: NumeralDateValue;
 }
 

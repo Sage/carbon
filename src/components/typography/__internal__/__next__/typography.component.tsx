@@ -58,7 +58,8 @@ export type AllowedCSSTextOverrides = Pick<
 >;
 
 export interface TypographyProps
-  extends SpaceProps,
+  extends
+    SpaceProps,
     TagProps,
     Pick<HTMLAttributes<HTMLElement>, "role">,
     Pick<AriaAttributes, "aria-hidden" | "aria-live">,

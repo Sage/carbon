@@ -201,8 +201,7 @@ export interface EditorFormattedValues {
   };
 }
 
-export interface EditorFormattedValuesWithInlineStyles
-  extends EditorFormattedValues {
+export interface EditorFormattedValuesWithInlineStyles extends EditorFormattedValues {
   htmlStringWithInlineStyles?: string;
 }
 

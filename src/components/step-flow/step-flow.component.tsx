@@ -33,9 +33,7 @@ interface StepFlowAriaProps {
 }
 
 export interface StepFlowProps
-  extends StepFlowAriaProps,
-    MarginProps,
-    TagProps {
+  extends StepFlowAriaProps, MarginProps, TagProps {
   /**
    * A category for the user journey.
    * @deprecated This prop is deprecated and will be removed in a future release.

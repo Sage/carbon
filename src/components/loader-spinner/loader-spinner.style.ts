@@ -38,14 +38,18 @@ export const StyledLabel = styled(Typography)<
     display: flex;
     justify-content: center;
     text-align: center;
-    ${$size === "extra-small"
-      ? "margin-left: var(--spacing100)"
-      : `margin-top: ${LOADER_SPINNER_SIZE_PARAMS[$size].labelMarginTop}px`};
+    ${
+      $size === "extra-small"
+        ? "margin-left: var(--spacing100)"
+        : `margin-top: ${LOADER_SPINNER_SIZE_PARAMS[$size].labelMarginTop}px`
+    };
   `}
 `;
 
-interface StyledSpinnerCircleSvgProps
-  extends Omit<LoaderSpinnerProps, "showSpinnerLabel"> {
+interface StyledSpinnerCircleSvgProps extends Omit<
+  LoaderSpinnerProps,
+  "showSpinnerLabel"
+> {
   isGradientVariant?: boolean;
   size: Required<LoaderSpinnerProps>["size"];
 }

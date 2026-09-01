@@ -45,23 +45,27 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
     font: ${sizeMap[$size].legendFont};
     color: var(--input-labelset-label-default);
 
-    ${$isRequired &&
-    css`
-      ::after {
-        content: "*";
-        font: ${sizeMap[$size].legendFont};
-        color: var(--input-labelset-label-required);
-        margin-left: var(--global-space-comp-xs);
-      }
-    `}
+    ${
+      $isRequired &&
+      css`
+        ::after {
+          content: "*";
+          font: ${sizeMap[$size].legendFont};
+          color: var(--input-labelset-label-required);
+          margin-left: var(--global-space-comp-xs);
+        }
+      `
+    }
 
-    ${$isDisabled &&
-    css`
-      color: var(--input-labelset-label-disabled);
-      ::after {
+    ${
+      $isDisabled &&
+      css`
         color: var(--input-labelset-label-disabled);
-      }
-    `}
+        ::after {
+          color: var(--input-labelset-label-disabled);
+        }
+      `
+    }
   `};
 `;
 
@@ -75,9 +79,11 @@ export const StyledFieldsetContentWrapper = styled.div<{
     position: relative;
     gap: ${sizeMap[$size].validationGap};
 
-    ${$hasLegend &&
-    css`
-      margin-top: ${sizeMap[$size].contentMargin};
-    `}
+    ${
+      $hasLegend &&
+      css`
+        margin-top: ${sizeMap[$size].contentMargin};
+      `
+    }
   `};
 `;

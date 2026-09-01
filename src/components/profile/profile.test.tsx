@@ -124,7 +124,7 @@ test("renders custom content below the profile details", () => {
   );
   const isCustomContentAfterText = Boolean(
     text.compareDocumentPosition(customContent) &
-      Node.DOCUMENT_POSITION_FOLLOWING,
+    Node.DOCUMENT_POSITION_FOLLOWING,
   );
   expect(isCustomContentAfterText).toBe(true);
 });

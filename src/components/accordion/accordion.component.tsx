@@ -200,8 +200,7 @@ export const Accordion = React.forwardRef<
       const handleBeforeMatch = (e: Event) => {
         toggleAccordion(
           e as unknown as
-            | React.MouseEvent<HTMLElement>
-            | React.KeyboardEvent<HTMLElement>,
+            React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
         );
       };
 

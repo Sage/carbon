@@ -47,8 +47,10 @@ function stylingForValidations({
   return css`
     border-color: ${validationColor} !important;
     z-index: 1;
-    ${error &&
-    `box-shadow: inset 1px 1px 0 ${validationColor}, inset -1px -1px 0 ${validationColor};`}
+    ${
+      error &&
+      `box-shadow: inset 1px 1px 0 ${validationColor}, inset -1px -1px 0 ${validationColor};`
+    }
   `;
 }
 
@@ -107,20 +109,20 @@ const InputPresentationStyle = styled.div<
     disabled &&
     css`
       background: var(--colorsUtilityDisabled400);
-      border-color: ${hideBorders
-        ? `transparent`
-        : `var(--colorsUtilityDisabled600)`};
+      border-color: ${
+        hideBorders ? `transparent` : `var(--colorsUtilityDisabled600)`
+      };
       cursor: not-allowed;
     `}
 
     ${({ hasFocus }) =>
-    hasFocus &&
-    css`
-      & {
-        ${addFocusStyling()}
-        z-index: 2;
-      }
-    `}
+      hasFocus &&
+      css`
+        & {
+          ${addFocusStyling()}
+          z-index: 2;
+        }
+      `}
 
   ${stylingForValidations}
 

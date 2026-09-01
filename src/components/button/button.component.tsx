@@ -20,15 +20,10 @@ import ButtonContext from "./__next__/button.context";
  * @deprecated Use "primary", "secondary", "tertiary" or "gradient" instead.
  */
 export type DeprecatedButtonTypes =
-  | "darkBackground"
-  | "gradient-grey"
-  | "gradient-white";
+  "darkBackground" | "gradient-grey" | "gradient-white";
 
 export type ButtonTypes =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | DeprecatedButtonTypes;
+  "primary" | "secondary" | "tertiary" | DeprecatedButtonTypes;
 
 export type SizeOptions = "small" | "medium" | "large";
 export type ButtonIconPosition = "before" | "after";
@@ -104,8 +99,7 @@ export interface ButtonProps extends SpaceProps, TagProps {
   /** onClick handler */
   onClick?: (
     ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size?: SizeOptions;
@@ -132,17 +126,16 @@ export interface ButtonProps extends SpaceProps, TagProps {
   className?: string;
 }
 
-interface RenderChildrenProps
-  extends Pick<
-    ButtonProps,
-    | "iconType"
-    | "iconPosition"
-    | "size"
-    | "subtext"
-    | "children"
-    | "disabled"
-    | "destructive"
-  > {
+interface RenderChildrenProps extends Pick<
+  ButtonProps,
+  | "iconType"
+  | "iconPosition"
+  | "size"
+  | "subtext"
+  | "children"
+  | "disabled"
+  | "destructive"
+> {
   buttonType: ButtonTypes;
 }
 

@@ -26,8 +26,10 @@ import { CustomSelectChangeEvent } from "../simple-select";
 
 const FilterableSelectList = withFilter<SelectListProps>(SelectList);
 
-export interface FilterableSelectProps
-  extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
+export interface FilterableSelectProps extends Omit<
+  FormInputPropTypes,
+  "defaultValue" | "value"
+> {
   /** Prop to specify the aria-label attribute of the component input */
   "aria-label"?: string;
   /** Prop to specify the aria-labelledby property of the component input */

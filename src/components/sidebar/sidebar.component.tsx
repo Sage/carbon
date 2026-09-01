@@ -16,7 +16,8 @@ import SidebarContext from "./__internal__/sidebar.context";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 export interface SidebarProps
-  extends PaddingProps,
+  extends
+    PaddingProps,
     TagProps,
     WidthProps,
     Pick<ModalProps, "topModalOverride" | "restoreFocusOnClose"> {

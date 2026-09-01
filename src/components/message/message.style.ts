@@ -41,9 +41,11 @@ export const MessageStyle = styled.div.attrs(applyBaseTheme)<
     isSubtle &&
     css`
       border: none;
-      background-color: ${variantSubtleColor[
-        variant as Exclude<InternalMessageVariant, "neutral">
-      ]};
+      background-color: ${
+        variantSubtleColor[
+          variant as Exclude<InternalMessageVariant, "neutral">
+        ]
+      };
     `}
 
   ${({ transparent }) =>
@@ -73,10 +75,12 @@ export const MessageContent = styled.div<{
   ${({ size, isSubtle }) => css`
     padding: ${sizeMap[size].padding};
 
-    ${isSubtle &&
-    css`
-      gap: ${sizeMap[size].subtleGap};
-    `}
+    ${
+      isSubtle &&
+      css`
+        gap: ${sizeMap[size].subtleGap};
+      `
+    }
   `}
 `;
 
@@ -115,32 +119,40 @@ export const TypeIconStyle = styled.div<MessageStyleProps>`
       height: var(--global-size-2-xs);
     }
 
-    ${!isSubtle &&
-    css`
-      background-color: ${variantPrimaryColor[
-        variant as Exclude<InternalMessageVariant, "callout">
-      ]};
-      justify-content: center;
-      align-items: center;
-      width: var(--global-size-s);
+    ${
+      !isSubtle &&
+      css`
+        background-color: ${
+          variantPrimaryColor[
+            variant as Exclude<InternalMessageVariant, "callout">
+          ]
+        };
+        justify-content: center;
+        align-items: center;
+        width: var(--global-size-s);
 
-      span {
-        &:before {
-          color: var(--message-contextual-icon);
+        span {
+          &:before {
+            color: var(--message-contextual-icon);
+          }
         }
-      }
-    `}
+      `
+    }
 
-    ${(isSubtle || transparent) &&
-    css`
-      background-color: transparent;
-      span {
-        &:before {
-          color: ${variantSubtleIconColor[
-            variant as Exclude<InternalMessageVariant, "neutral">
-          ]};
+    ${
+      (isSubtle || transparent) &&
+      css`
+        background-color: transparent;
+        span {
+          &:before {
+            color: ${
+              variantSubtleIconColor[
+                variant as Exclude<InternalMessageVariant, "neutral">
+              ]
+            };
+          }
         }
-      }
-    `}
+      `
+    }
   `}
 `;

@@ -13,7 +13,8 @@ import SelectTextboxContext from "./__internal__/select-textbox.context";
 import guid from "../../../../__internal__/utils/helpers/guid";
 
 export interface FormInputPropTypes
-  extends ValidationProps,
+  extends
+    ValidationProps,
     Omit<CommonTextboxProps, "onClick" | "onChange" | "data-component"> {
   /**
    * @deprecated `adaptiveLabelBreakpoint` has been deprecated.
@@ -84,9 +85,7 @@ export interface SelectTextboxProps extends FormInputPropTypes {
   isOpen?: boolean;
   /** Value of the Select Input */
   selectedValue?:
-    | string
-    | Record<string, unknown>
-    | (string | Record<string, unknown>)[];
+    string | Record<string, unknown> | (string | Record<string, unknown>)[];
   /** @private @ignore */
   transparent?: boolean;
   /** @private @ignore */

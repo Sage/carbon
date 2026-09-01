@@ -15,11 +15,7 @@ import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 
 export type LegacyIconTypes =
-  | "help"
-  | "maintenance"
-  | "new"
-  | "success"
-  | "messages";
+  "help" | "maintenance" | "new" | "success" | "messages";
 
 /**
  * The size of the Icon.
@@ -27,7 +23,8 @@ export type LegacyIconTypes =
 export type IconSize = "small" | "medium" | "large";
 
 export interface IconProps
-  extends Pick<StyledIconProps, "className" | "inverse">,
+  extends
+    Pick<StyledIconProps, "className" | "inverse">,
     MarginProps,
     TagProps {
   /** Set whether icon should be recognised by assistive technologies */

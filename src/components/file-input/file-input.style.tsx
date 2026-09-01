@@ -14,8 +14,10 @@ export const StyledHiddenFileInput = styled.input<CustomFileInputProps>`
   display: none;
 `;
 
-interface StyledFileInputPresentationProps
-  extends Pick<ValidationProps, "error"> {
+interface StyledFileInputPresentationProps extends Pick<
+  ValidationProps,
+  "error"
+> {
   isDraggedOver?: boolean;
   isDraggingFile?: boolean;
   hasUploadStatus?: boolean;
@@ -31,12 +33,14 @@ export const StyledFileInputPresentation = styled.div<StyledFileInputPresentatio
     min-width: ${minWidth};
     min-height: ${minHeight};
     max-width: ${maxWidth};
-    ${!hasUploadStatus &&
-    css`
-      padding: 11px; /* not 12px to account for 1px border */
-      max-height: ${maxHeight};
-      box-sizing: border-box;
-    `}
+    ${
+      !hasUploadStatus &&
+      css`
+        padding: 11px; /* not 12px to account for 1px border */
+        max-height: ${maxHeight};
+        box-sizing: border-box;
+      `
+    }
   `}
 
   ${({ hasUploadStatus, isDraggedOver, isDraggingFile, error, isVertical }) => {

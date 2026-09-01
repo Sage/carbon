@@ -45,10 +45,12 @@ export const StyledCheckbox = styled.div.attrs(
     $indeterminate,
     $isInGroup,
   }) => css`
-    ${!$isInGroup &&
-    css`
-      margin-bottom: var(--fieldSpacing);
-    `}
+    ${
+      !$isInGroup &&
+      css`
+        margin-bottom: var(--fieldSpacing);
+      `
+    }
 
     ${margin};
 
@@ -60,39 +62,49 @@ export const StyledCheckbox = styled.div.attrs(
       background-color: var(--input-typical-bg-default);
       border: var(--global-borderwidth-xs) solid
         var(--input-typical-border-default);
-      border-radius: ${$size === "large"
-        ? "var(--global-radius-action-m)"
-        : "var(--global-radius-action-s)"};
+      border-radius: ${
+        $size === "large"
+          ? "var(--global-radius-action-m)"
+          : "var(--global-radius-action-s)"
+      };
 
       height: ${sizeMap[$size].inputSize};
       width: ${sizeMap[$size].inputSize};
 
-      ${$checked &&
-      css`
-        svg {
-          width: ${sizeMap[$size].checkSvgSize};
-        }
-      `}
+      ${
+        $checked &&
+        css`
+          svg {
+            width: ${sizeMap[$size].checkSvgSize};
+          }
+        `
+      }
 
-      ${$indeterminate &&
-      css`
-        svg {
-          width: ${sizeMap[$size].indeterminateSvgSize};
-        }
-      `}
+      ${
+        $indeterminate &&
+        css`
+          svg {
+            width: ${sizeMap[$size].indeterminateSvgSize};
+          }
+        `
+      }
 
-      ${!$isDisabled &&
-      $error &&
-      css`
-        border: var(--global-borderwidth-s) solid
-          var(--input-validation-border-error);
-      `}
+      ${
+        !$isDisabled &&
+        $error &&
+        css`
+          border: var(--global-borderwidth-s) solid
+            var(--input-validation-border-error);
+        `
+      }
 
-      ${$isDisabled &&
-      css`
-        border-color: var(--input-typical-border-disabled);
-        background-color: var(--input-typical-bg-disabled);
-      `}
+      ${
+        $isDisabled &&
+        css`
+          border-color: var(--input-typical-border-disabled);
+          background-color: var(--input-typical-bg-disabled);
+        `
+      }
     }
 
     ${HiddenCheckableInputStyle} {
@@ -104,18 +116,22 @@ export const StyledCheckbox = styled.div.attrs(
       width: ${sizeMap[$size].inputSize};
     }
 
-    ${($checked || $indeterminate) &&
-    css`
-      svg path,
-      svg rect {
-        fill: var(--input-typical-icon-active);
+    ${
+      ($checked || $indeterminate) &&
+      css`
+        svg path,
+        svg rect {
+          fill: var(--input-typical-icon-active);
 
-        ${$isDisabled &&
-        css`
-          fill: var(--input-typical-icon-disabled);
-        `}
-      }
-    `}
+          ${
+            $isDisabled &&
+            css`
+              fill: var(--input-typical-icon-disabled);
+            `
+          }
+        }
+      `
+    }
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + [data-role="checkable-input-svg-wrapper"] {

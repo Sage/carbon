@@ -38,20 +38,24 @@ export const StyledStepSequenceItem = styled.li<StyledStepSequenceProps>`
 
     gap: ${sizeMap[$size].itemGap};
 
-    ${$orientation === "horizontal" &&
-    css`
-      flex: 1 0 0;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      min-width: ${sizeMap[$size].itemMinWidth};
-    `}
+    ${
+      $orientation === "horizontal" &&
+      css`
+        flex: 1 0 0;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        min-width: ${sizeMap[$size].itemMinWidth};
+      `
+    }
 
-    ${$orientation === "vertical" &&
-    css`
-      min-height: 72px;
-      padding: var(--global-space-comp-s) 0 var(--global-space-comp-l) 0;
-    `}
+    ${
+      $orientation === "vertical" &&
+      css`
+        min-height: 72px;
+        padding: var(--global-space-comp-s) 0 var(--global-space-comp-l) 0;
+      `
+    }
   `}
 `;
 
@@ -71,26 +75,32 @@ export const StyledIndicator = styled.span<StyledIndicatorProps>`
     min-height: ${sizeMap[$size].indicatorSize};
     min-width: ${sizeMap[$size].indicatorSize};
 
-    ${$status === "incomplete" &&
-    css`
-      color: var(--progress-stepindicator-label-default);
-      box-shadow: inset 0 0 0 ${sizeMap[$size].indicatorBorderWidth}
-        var(--progress-stepindicator-border-default);
-    `}
+    ${
+      $status === "incomplete" &&
+      css`
+        color: var(--progress-stepindicator-label-default);
+        box-shadow: inset 0 0 0 ${sizeMap[$size].indicatorBorderWidth}
+          var(--progress-stepindicator-border-default);
+      `
+    }
 
-    ${$status === "current" &&
-    css`
-      color: var(--progress-stepindicator-label-active);
-      background-color: var(--progress-stepindicator-bg-active);
-      outline: ${sizeMap[$size].indicatorBorderWidth} solid
-        var(--progress-stepindicator-border-active-outer);
-      outline-offset: ${sizeMap[$size].indicatorBorderWidth};
-    `}
+    ${
+      $status === "current" &&
+      css`
+        color: var(--progress-stepindicator-label-active);
+        background-color: var(--progress-stepindicator-bg-active);
+        outline: ${sizeMap[$size].indicatorBorderWidth} solid
+          var(--progress-stepindicator-border-active-outer);
+        outline-offset: ${sizeMap[$size].indicatorBorderWidth};
+      `
+    }
 
-    ${$status === "complete" &&
-    css`
-      color: var(--progress-stepindicator-bg-complete);
-    `}
+    ${
+      $status === "complete" &&
+      css`
+        color: var(--progress-stepindicator-bg-complete);
+      `
+    }
   `}
 `;
 
@@ -103,23 +113,27 @@ export const StyledIndicatorWrapper = styled.div<StyledIndicatorWrapperProps>`
   ${({ $orientation }) => css`
     display: grid;
 
-    ${$orientation === "horizontal" &&
-    css`
-      width: 100%;
-      align-items: center;
-      grid-template-columns: 1fr auto 1fr;
-      grid-template-rows: 1fr;
-      grid-column-gap: var(--global-space-comp-s);
-    `}
+    ${
+      $orientation === "horizontal" &&
+      css`
+        width: 100%;
+        align-items: center;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: 1fr;
+        grid-column-gap: var(--global-space-comp-s);
+      `
+    }
 
-    ${$orientation === "vertical" &&
-    css`
-      position: relative;
-      height: inherit;
-      justify-content: center;
-      grid-template-columns: auto;
-      grid-template-rows: auto 1fr;
-    `}
+    ${
+      $orientation === "vertical" &&
+      css`
+        position: relative;
+        height: inherit;
+        justify-content: center;
+        grid-template-columns: auto;
+        grid-template-rows: auto 1fr;
+      `
+    }
   `}
 `;
 
@@ -134,45 +148,53 @@ export const StepLine = styled.div<StepLineProps>`
   ${({ $orientation, $isGreen, $size, $roundedSide }) => css`
     background-color: var(--progress-stepindicator-border-default);
 
-    ${$isGreen &&
-    css`
-      background-color: var(--progress-stepindicator-border-success);
-    `}
-
-    ${$orientation === "horizontal" &&
-    css`
-      height: 2px;
-
-      ${$roundedSide &&
+    ${
+      $isGreen &&
       css`
-        ${`border-top-${$roundedSide}-radius`}: var(--global-radius-action-2-xs);
-        ${`border-bottom-${$roundedSide}-radius`}: var(--global-radius-action-2-xs);
-      `}
+        background-color: var(--progress-stepindicator-border-success);
+      `
+    }
 
-      .step-sequence-item:first-child &.line-before {
-        background-color: transparent;
-      }
-    `}
+    ${
+      $orientation === "horizontal" &&
+      css`
+        height: 2px;
 
-    ${$orientation === "vertical" &&
-    $size &&
-    css`
-      position: absolute;
-      border-radius: var(--global-radius-action-2-xs);
-      width: 2px;
+        ${
+          $roundedSide &&
+          css`
+            ${`border-top-${$roundedSide}-radius`}: var(--global-radius-action-2-xs);
+            ${`border-bottom-${$roundedSide}-radius`}: var(--global-radius-action-2-xs);
+          `
+        }
 
-      // full item height - (indicator size + spacing above line) + bottom padding
-      height: calc(
-        100% - ${sizeMap[$size].indicatorSize} - var(--global-space-comp-s) +
-          var(--global-space-comp-l)
-      );
+        .step-sequence-item:first-child &.line-before {
+          background-color: transparent;
+        }
+      `
+    }
 
-      // indicator size + spacing
-      top: calc(${sizeMap[$size].indicatorSize} + var(--global-space-comp-s));
+    ${
+      $orientation === "vertical" &&
+      $size &&
+      css`
+        position: absolute;
+        border-radius: var(--global-radius-action-2-xs);
+        width: 2px;
 
-      // center within indicator
-      left: calc((${sizeMap[$size].indicatorSize} / 2) - 1px);
-    `}
+        // full item height - (indicator size + spacing above line) + bottom padding
+        height: calc(
+          100% - ${sizeMap[$size].indicatorSize} - var(--global-space-comp-s) +
+            var(--global-space-comp-l)
+        );
+
+        // indicator size + spacing
+        top: calc(${sizeMap[$size].indicatorSize} + var(--global-space-comp-s));
+
+        // center within indicator
+        left: calc((${sizeMap[$size].indicatorSize} / 2) - 1px);
+      `
+    }
 
     .step-sequence-item:last-child &.line-after {
       background-color: transparent;
@@ -205,16 +227,20 @@ export const StyledTitleWrapper = styled.div<StyledTitleProps>`
     display: flex;
     flex-direction: column;
 
-    ${$orientation === "horizontal" &&
-    css`
-      width: 100%;
-      text-align: center;
-      padding: 0px ${sizeMap[$size].labelWrapperPadding};
-    `}
+    ${
+      $orientation === "horizontal" &&
+      css`
+        width: 100%;
+        text-align: center;
+        padding: 0px ${sizeMap[$size].labelWrapperPadding};
+      `
+    }
 
-    ${$orientation === "vertical" &&
-    css`
-      padding-top: var(--global-space-comp-2-xs);
-    `}
+    ${
+      $orientation === "vertical" &&
+      css`
+        padding-top: var(--global-space-comp-2-xs);
+      `
+    }
   `}
 `;

@@ -5,8 +5,7 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags/tags";
 
 export interface CardColumnProps
-  extends Partial<StyledCardColumnProps>,
-    TagProps {
+  extends Partial<StyledCardColumnProps>, TagProps {
   /** Child elements */
   children: React.ReactNode;
 }

@@ -11,20 +11,22 @@ export interface StyledDismissibleBoxProps {
 
 const StyledDismissibleBox = styled(Box)<StyledDismissibleBoxProps>`
   ${({ hasBorderLeftHighlight = true, variant = "light" }) => css`
-    background-color: ${variant === "light"
-      ? "#FFFFFF"
-      : "var(--colorsUtilityMajor050)"};
+    background-color: ${
+      variant === "light" ? "#FFFFFF" : "var(--colorsUtilityMajor050)"
+    };
 
     border: 1px solid var(--colorsUtilityMajor100);
     display: flex;
     justify-content: space-between;
     word-break: break-word;
 
-    ${hasBorderLeftHighlight &&
-    `
+    ${
+      hasBorderLeftHighlight &&
+      `
       border-left: none;
       box-shadow: -4px 0 0 0 var(--colorsUtilityMajor400);
-    `}
+    `
+    }
 
     ${StyledIcon}:hover {
       color: var(--colorsActionMinor600);

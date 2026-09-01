@@ -14,9 +14,7 @@ import StyledLoaderBar, {
 } from "./loader-bar.style";
 
 export interface LoaderBarProps
-  extends StyledLoaderBarProps,
-    MarginProps,
-    TagProps {}
+  extends StyledLoaderBarProps, MarginProps, TagProps {}
 
 export const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
   const l = useLocale();

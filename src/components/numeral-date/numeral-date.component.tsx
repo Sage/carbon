@@ -49,9 +49,7 @@ export interface DateInputIds {
 }
 
 export interface NumeralDateProps
-  extends Pick<ValidationProps, "error">,
-    MarginProps,
-    TagProps {
+  extends Pick<ValidationProps, "error">, MarginProps, TagProps {
   /**
    * @deprecated `adaptiveLabelBreakpoint` has been deprecated.
    * It is recommended to use `useMediaQuery` hook to implement adaptive behaviour.

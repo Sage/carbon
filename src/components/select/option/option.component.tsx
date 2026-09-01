@@ -12,7 +12,8 @@ type OptionData = {
 };
 
 export interface OptionProps
-  extends Omit<
+  extends
+    Omit<
       React.InputHTMLAttributes<HTMLLIElement>,
       "value" | "onSelect" | "onClick"
     >,

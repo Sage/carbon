@@ -21,11 +21,13 @@ const StyledRadioButtonGroupContent = styled.div<{
     flex-direction: column;
     gap: ${sizeMap[$size].gap};
 
-    ${$inline &&
-    css`
-      flex-direction: row;
-      gap: var(--global-space-comp-l);
-    `}
+    ${
+      $inline &&
+      css`
+        flex-direction: row;
+        gap: var(--global-space-comp-l);
+      `
+    }
   `}
 `;
 

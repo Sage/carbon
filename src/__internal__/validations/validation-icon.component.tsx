@@ -25,8 +25,7 @@ export interface ValidationProps {
 type TooltipPositions = "top" | "bottom" | "left" | "right";
 
 export interface ValidationIconProps
-  extends ValidationProps,
-    Pick<MarginProps, "mr" | "ml"> {
+  extends ValidationProps, Pick<MarginProps, "mr" | "ml"> {
   /** A small string to indicate the size of the icon */
   size?: "small" | "medium" | "large";
   /** The unique id of the component (used with aria-describedby for accessibility) */

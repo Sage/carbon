@@ -10,16 +10,20 @@ export const StyledDl = styled.dl.attrs(applyBaseTheme)<
   ${space}
 
   ${({ asSingleColumn, w }) => css`
-    ${!asSingleColumn &&
-    css`
-      display: grid;
-      grid-template-rows: auto;
-      grid-template-columns: ${w}% auto;
-    `}
-    ${asSingleColumn &&
-    css`
-      line-height: 21px;
-    `}
+    ${
+      !asSingleColumn &&
+      css`
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: ${w}% auto;
+      `
+    }
+    ${
+      asSingleColumn &&
+      css`
+        line-height: 21px;
+      `
+    }
   `}
 
   width: 100%;

@@ -17,7 +17,8 @@ export const LABEL_WIDTH_DEFAULT = 30;
 export const LABEL_VALIDATION_DEFAULT = false;
 
 export interface CommonTextboxProps
-  extends Pick<ValidationProps, "error" | "warning">,
+  extends
+    Pick<ValidationProps, "error" | "warning">,
     MarginProps,
     Omit<CommonInputProps, "size" | "inputBorderRadius">,
     TagProps {

@@ -22,26 +22,32 @@ const StyledBatchSelection = styled.div<
       }
     }
 
-    ${colorTheme === "dark" &&
-    css`
-      background-color: var(--colorsUtilityMajor500);
-      color: var(--colorsUtilityYang100);
+    ${
+      colorTheme === "dark" &&
+      css`
+        background-color: var(--colorsUtilityMajor500);
+        color: var(--colorsUtilityYang100);
 
-      ${StyledIcon} {
-        color: var(--colorsActionMajorYang100);
-      }
-    `}
+        ${StyledIcon} {
+          color: var(--colorsActionMajorYang100);
+        }
+      `
+    }
 
-    ${colorTheme === "light" &&
-    css`
-      background-color: var(--colorsUtilityMajor150);
-    `}
+    ${
+      colorTheme === "light" &&
+      css`
+        background-color: var(--colorsUtilityMajor150);
+      `
+    }
 
-    ${colorTheme === "white" &&
-    css`
-      background-color: var(--colorsUtilityYang100);
-      box-shadow: var(--boxShadow100);
-    `}
+    ${
+      colorTheme === "white" &&
+      css`
+        background-color: var(--colorsUtilityYang100);
+        box-shadow: var(--boxShadow100);
+      `
+    }
 
     ${StyledIconButton} {
       margin: 0;
@@ -50,15 +56,17 @@ const StyledBatchSelection = styled.div<
     }
 
     ${StyledIconButton}:hover {
-      ${!disabled &&
-      `
+      ${
+        !disabled &&
+        `
     background-color: var(--colorsActionMajor500);
       border-radius: var(--borderRadius100);
 
       ${StyledIcon} {
         color: var(--colorsActionMajorYang100);
       }
-    `}
+    `
+      }
     }
 
     ${StyledIconButton}:focus {
@@ -67,12 +75,14 @@ const StyledBatchSelection = styled.div<
       ${addFocusStyling()}
     }
 
-    ${disabled &&
-    css`
-      background: transparent;
-      color: var(--colorsUtilityYin030);
-      cursor: not-allowed;
-    `}
+    ${
+      disabled &&
+      css`
+        background: transparent;
+        color: var(--colorsUtilityYin030);
+        cursor: not-allowed;
+      `
+    }
   `}
 `;
 

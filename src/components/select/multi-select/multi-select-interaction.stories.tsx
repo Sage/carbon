@@ -23,8 +23,10 @@ export default {
   },
 };
 
-interface ControlledMultiSelectProps
-  extends Omit<MultiSelectProps, "onChange" | "value" | "children"> {
+interface ControlledMultiSelectProps extends Omit<
+  MultiSelectProps,
+  "onChange" | "value" | "children"
+> {
   children?: React.ReactNode;
   value?: string[];
 }

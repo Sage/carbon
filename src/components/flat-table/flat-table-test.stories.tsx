@@ -61,7 +61,8 @@ export default {
 };
 
 interface FlatTableStoryProps
-  extends Pick<FlatTableProps, "hasStickyHead" | "caption">,
+  extends
+    Pick<FlatTableProps, "hasStickyHead" | "caption">,
     Pick<
       FlatTableRowProps,
       "horizontalBorderColor" | "horizontalBorderSize" | "bgColor"

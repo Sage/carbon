@@ -88,20 +88,22 @@ const StyledTile = styled.div.attrs(applyBaseTheme)<StyledTileProps>`
   }) => css`
     ${space}
 
-    ${highlightVariant &&
-    css`
-      overflow: hidden;
-      &::before {
-        display: block;
-        content: "";
-        height: 100%;
-        width: 8px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: ${getHighlightVariant(highlightVariant)};
-      }
-    `}
+    ${
+      highlightVariant &&
+      css`
+        overflow: hidden;
+        &::before {
+          display: block;
+          content: "";
+          height: 100%;
+          width: 8px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: ${getHighlightVariant(highlightVariant)};
+        }
+      `
+    }
 
     box-sizing: border-box;
     border: var(--${borderWidth}) solid
@@ -119,25 +121,33 @@ const StyledTile = styled.div.attrs(applyBaseTheme)<StyledTileProps>`
       border-bottom-right-radius: calc(${getBorderRadius(roundness)} - 1px);
     }
 
-    ${variant === "tile" &&
-    css`
-      background-color: var(--colorsUtilityYang100);
-    `}
+    ${
+      variant === "tile" &&
+      css`
+        background-color: var(--colorsUtilityYang100);
+      `
+    }
 
-    ${variant === "transparent" &&
-    css`
-      background-color: transparent;
-    `}
+    ${
+      variant === "transparent" &&
+      css`
+        background-color: transparent;
+      `
+    }
 
-    ${variant === "active" &&
-    css`
-      background-color: var(--colorsActionMajor025);
-    `}
+    ${
+      variant === "active" &&
+      css`
+        background-color: var(--colorsActionMajor025);
+      `
+    }
 
-    ${variant === "grey" &&
-    css`
-      background-color: var(--colorsUtilityMajor025);
-    `}
+    ${
+      variant === "grey" &&
+      css`
+        background-color: var(--colorsUtilityMajor025);
+      `
+    }
 
     display: flex;
     flex-direction: ${isHorizontal ? "row" : "column"};

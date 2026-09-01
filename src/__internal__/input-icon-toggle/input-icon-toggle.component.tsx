@@ -19,8 +19,7 @@ export interface InputIconToggleProps extends ValidationProps {
   validationIconId?: string;
   onClick?: (
     event:
-      | React.MouseEvent<HTMLSpanElement>
-      | React.KeyboardEvent<HTMLSpanElement>,
+      React.MouseEvent<HTMLSpanElement> | React.KeyboardEvent<HTMLSpanElement>,
   ) => void;
   size?: "small" | "medium" | "large";
   /**

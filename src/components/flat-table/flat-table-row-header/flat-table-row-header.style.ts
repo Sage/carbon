@@ -52,52 +52,66 @@ const StyledFlatTableRowHeader = styled.th
     padding: 0;
     z-index: ${theme.zIndex.overlay};
 
-    ${width &&
-    css`
-      width: ${width}px;
-    `}
+    ${
+      width &&
+      css`
+        width: ${width}px;
+      `
+    }
 
     &&&& {
       > div {
         box-sizing: border-box;
 
-        ${truncate &&
-        css`
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
-        `}
+        ${
+          truncate &&
+          css`
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          `
+        }
 
-        ${width &&
-        css`
-          width: ${width}px;
-        `}
+        ${
+          width &&
+          css`
+            width: ${width}px;
+          `
+        }
  
         ${padding}
       }
 
-      ${leftPosition !== undefined &&
-      css`
-        left: ${leftPosition}px;
-      `}
-      ${rightPosition !== undefined &&
-      css`
-        right: ${rightPosition}px;
-      `}
+      ${
+        leftPosition !== undefined &&
+        css`
+          left: ${leftPosition}px;
+        `
+      }
+      ${
+        rightPosition !== undefined &&
+        css`
+          right: ${rightPosition}px;
+        `
+      }
 
-      ${verticalBorder &&
-      css`
+      ${
+        verticalBorder &&
+        css`
         border-${stickyAlignment === "right" ? "left" : "right"}-width: ${
           verticalBorderSizes[verticalBorder]
         };
-      `}
+      `
+      }
 
-      ${verticalBorderColor &&
-      css`
+      ${
+        verticalBorderColor &&
+        css`
         border-${
           stickyAlignment === "right" ? "left" : "right"
         }-color: ${toColor(theme, verticalBorderColor)};
-      `}
+      `
+      }
 
       [data-component="icon"]:not([data-color]) {
         color: var(--colorsActionMinor500);
@@ -112,10 +126,12 @@ const StyledFlatTableRowHeader = styled.th
       }
     }
 
-    ${expandable &&
-    css`
-      white-space: nowrap;
-    `}
+    ${
+      expandable &&
+      css`
+        white-space: nowrap;
+      `
+    }
   `}
 `;
 

@@ -74,32 +74,42 @@ export const StyledFormFooter = styled.div.attrs(
     `}
 
   ${({ $stickyFooter, $stickyFooterVariant, $fullWidthButtons }) => css`
-    ${!$stickyFooter &&
-    css`
-      margin-top: 48px;
-    `}
+    ${
+      !$stickyFooter &&
+      css`
+        margin-top: 48px;
+      `
+    }
 
-    ${$stickyFooter &&
-    css`
-      background-color: ${$stickyFooterVariant === "light"
-        ? "var(--colorsUtilityYang100)"
-        : "var(--colorsUtilityMajor025)"};
-      box-shadow: var(--boxShadow150);
-      box-sizing: border-box;
-      ${$stickyFooterVariant === "grey" &&
-      "border-top: 1px solid var(--colorsUtilityMajor050);"}
-      padding: 16px 32px;
-      width: 100%;
-      z-index: 1000;
-      position: sticky;
-      bottom: 0;
-    `}
+    ${
+      $stickyFooter &&
+      css`
+        background-color: ${
+          $stickyFooterVariant === "light"
+            ? "var(--colorsUtilityYang100)"
+            : "var(--colorsUtilityMajor025)"
+        };
+        box-shadow: var(--boxShadow150);
+        box-sizing: border-box;
+        ${
+          $stickyFooterVariant === "grey" &&
+          "border-top: 1px solid var(--colorsUtilityMajor050);"
+        }
+        padding: 16px 32px;
+        width: 100%;
+        z-index: 1000;
+        position: sticky;
+        bottom: 0;
+      `
+    }
 
-    ${$fullWidthButtons &&
-    css`
-      flex-direction: column;
-      align-items: stretch;
-    `}
+    ${
+      $fullWidthButtons &&
+      css`
+        flex-direction: column;
+        align-items: stretch;
+      `
+    }
   `}
 
   ${padding}
@@ -134,12 +144,14 @@ export const StyledForm = styled.form.attrs(applyBaseTheme)<StyledFormProps>`
       flex-direction: column;
       position: relative;
 
-      ${$isInModal &&
-      css`
-        flex-grow: 1;
-        min-height: 0;
-        height: 100%;
-      `}
+      ${
+        $isInModal &&
+        css`
+          flex-grow: 1;
+          min-height: 0;
+          height: 100%;
+        `
+      }
     `}
 `;
 

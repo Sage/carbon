@@ -33,8 +33,10 @@ const blockBackgrounds = {
   tile: "var(--colorsUtilityYang100)",
 };
 
-interface StyledBlockProps
-  extends Pick<PodProps, "softDelete" | "internalEditButton"> {
+interface StyledBlockProps extends Pick<
+  PodProps,
+  "softDelete" | "internalEditButton"
+> {
   variant: PodVariant;
   noBorder: boolean;
   hasButtons: boolean;
@@ -65,51 +67,63 @@ const StyledBlock = styled.div<StyledBlockProps>`
 
     ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
 
-    ${noBorder
-      ? "border: none"
-      : `border: 1px solid var(--colorsUtilityMajor100)`};
+    ${
+      noBorder
+        ? "border: none"
+        : `border: 1px solid var(--colorsUtilityMajor100)`
+    };
 
     ${hasButtons && !(fullWidth || internalEditButton) && "width: auto;"};
 
     ${contentTriggersEdit && "cursor: pointer"};
 
-    ${(isHovered || isFocused) &&
-    css`
-      background-color: var(--colorsUtilityMajor075);
-
-      ${internalEditButton &&
-      variant === "tile" &&
-      "background-color: var(--colorsUtilityMajorTransparent);"}
-
-      ${contentTriggersEdit &&
+    ${
+      (isHovered || isFocused) &&
       css`
-        background-color: var(--colorsActionMajor600);
-        * {
-          color: var(--colorsUtilityYang100);
+        background-color: var(--colorsUtilityMajor075);
+
+        ${
+          internalEditButton &&
+          variant === "tile" &&
+          "background-color: var(--colorsUtilityMajorTransparent);"
         }
-      `}
-    `}
 
-    ${(!internalEditButton || contentTriggersEdit) &&
-    (isFocused
-      ? css`
-          outline: 3px solid var(--colorsSemanticFocus500);
+        ${
+          contentTriggersEdit &&
+          css`
+            background-color: var(--colorsActionMajor600);
+            * {
+              color: var(--colorsUtilityYang100);
+            }
+          `
+        }
+      `
+    }
+
+    ${
+      (!internalEditButton || contentTriggersEdit) &&
+      (isFocused
+        ? css`
+            outline: 3px solid var(--colorsSemanticFocus500);
+            border: none;
+            padding: ${noBorder ? 0 : 1}px;
+          `
+        : css`
+            outline: none;
+          `)
+    }
+
+      ${
+        softDelete &&
+        css`
           border: none;
-          padding: ${noBorder ? 0 : 1}px;
+          background-color: var(--colorsActionDisabled500);
+
+          & > * {
+            color: var(--colorsUtilityYin065);
+          }
         `
-      : css`
-          outline: none;
-        `)}
-
-      ${softDelete &&
-    css`
-      border: none;
-      background-color: var(--colorsActionDisabled500);
-
-      & > * {
-        color: var(--colorsUtilityYin065);
-      }
-    `};
+      };
   `}
 `;
 
@@ -150,8 +164,9 @@ const StyledFooter = styled.div<StyledFooterProps>`
 
     ${softDelete && `color: var(--colorsUtilityYin055)`};
 
-    ${variant === "tile" &&
-    `border-top: 1px solid var(--colorsUtilityMajor100)`};
+    ${
+      variant === "tile" && `border-top: 1px solid var(--colorsUtilityMajor100)`
+    };
   `}
 `;
 
@@ -232,28 +247,34 @@ const StyledEditAction = styled(IconButton)<StyledEditActionProps>`
 
       ${noBorder && "border: none;"}
 
-      ${internalEditButton &&
-      css`
-        border: none;
-        background: var(--colorsActionMajorTransparent);
-      `}
+      ${
+        internalEditButton &&
+        css`
+          border: none;
+          background: var(--colorsActionMajorTransparent);
+        `
+      }
     
-      ${(isHovered || isFocused) &&
-      !internalEditButton &&
-      css`
-        background-color: var(--colorsActionMajor600);
-        color: var(--colorsActionMajorYang100);
-
-        ${StyledIcon} {
+      ${
+        (isHovered || isFocused) &&
+        !internalEditButton &&
+        css`
+          background-color: var(--colorsActionMajor600);
           color: var(--colorsActionMajorYang100);
-        }
-      `}
+
+          ${StyledIcon} {
+            color: var(--colorsActionMajorYang100);
+          }
+        `
+      }
       
-      ${isFocused &&
-      css`
-        outline: 3px solid var(--colorsSemanticFocus500);
-        border: none;
-      `};
+      ${
+        isFocused &&
+        css`
+          outline: 3px solid var(--colorsSemanticFocus500);
+          border: none;
+        `
+      };
     `};
   }
 
@@ -290,28 +311,34 @@ const StyledDeleteButton = styled(IconButton)<CommonPodButtonProps>`
         color: var(--colorsSemanticNegative500);
       }
 
-      ${internalEditButton &&
-      css`
-        border: none;
-        background: var(--colorsActionMajorTransparent);
-      `}
+      ${
+        internalEditButton &&
+        css`
+          border: none;
+          background: var(--colorsActionMajorTransparent);
+        `
+      }
 
-      ${(isHovered || isFocused) &&
-      !internalEditButton &&
-      css`
-        background-color: var(--colorsSemanticNegative600);
-        color: var(--colorsActionMajorYang100);
-
-        ${StyledIcon} {
+      ${
+        (isHovered || isFocused) &&
+        !internalEditButton &&
+        css`
+          background-color: var(--colorsSemanticNegative600);
           color: var(--colorsActionMajorYang100);
-        }
-      `}
+
+          ${StyledIcon} {
+            color: var(--colorsActionMajorYang100);
+          }
+        `
+      }
   
-      ${isFocused &&
-      css`
-        outline: 3px solid var(--colorsSemanticFocus500);
-        border: none;
-      `};
+      ${
+        isFocused &&
+        css`
+          outline: 3px solid var(--colorsSemanticFocus500);
+          border: none;
+        `
+      };
     `}
   }
 `;
@@ -345,13 +372,16 @@ const StyledUndoButton = styled(IconButton)<CommonPodButtonProps>`
 
       ${noBorder && "border: none;"}
 
-      ${internalEditButton &&
-      css`
-        border: none;
-        background: var(--colorsActionMajorTransparent);
-      `}
+      ${
+        internalEditButton &&
+        css`
+          border: none;
+          background: var(--colorsActionMajorTransparent);
+        `
+      }
     
-    ${(isHovered || isFocused) &&
+    ${
+      (isHovered || isFocused) &&
       !internalEditButton &&
       css`
         background-color: var(--colorsActionMajor600);
@@ -360,13 +390,16 @@ const StyledUndoButton = styled(IconButton)<CommonPodButtonProps>`
         ${StyledIcon} {
           color: var(--colorsActionMajorYang100);
         }
-      `}
+      `
+    }
     
-    ${isFocused &&
+    ${
+      isFocused &&
       css`
         outline: 3px solid var(--colorsSemanticFocus500);
         border: none;
-      `};
+      `
+    };
     `}
   }
 `;
@@ -379,8 +412,10 @@ const headerRightAlignMargins = {
   "extra-large": 30,
 };
 
-interface StyledHeaderProps
-  extends Pick<PodProps, "alignTitle" | "internalEditButton"> {
+interface StyledHeaderProps extends Pick<
+  PodProps,
+  "alignTitle" | "internalEditButton"
+> {
   size: PodSize;
 }
 const StyledHeader = styled.div<StyledHeaderProps>`
@@ -388,11 +423,13 @@ const StyledHeader = styled.div<StyledHeaderProps>`
     margin-bottom: 24px;
     text-align: ${alignTitle};
 
-    ${alignTitle === "right" &&
-    internalEditButton &&
-    css`
-      margin-right: ${headerRightAlignMargins[size]}px;
-    `};
+    ${
+      alignTitle === "right" &&
+      internalEditButton &&
+      css`
+        margin-right: ${headerRightAlignMargins[size]}px;
+      `
+    };
   `}
 `;
 

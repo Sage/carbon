@@ -26,8 +26,7 @@ export default (id: string) => {
 
   const bringToFront = (
     ev:
-      | React.MouseEvent<HTMLElement, MouseEvent>
-      | React.FocusEvent<HTMLElement>,
+      React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement>,
     tagName: "TD" | "TH",
   ) => {
     /* istanbul ignore if */

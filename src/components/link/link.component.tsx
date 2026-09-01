@@ -18,7 +18,8 @@ import BatchSelectionContext from "../batch-selection/__internal__/batch-selecti
 import Logger from "../../__internal__/utils/logger";
 
 export interface LinkProps
-  extends React.AriaAttributes,
+  extends
+    React.AriaAttributes,
     Pick<React.AnchorHTMLAttributes<HTMLAnchorElement>, "download">,
     TagProps {
   /** An href for an anchor tag. */
@@ -28,8 +29,7 @@ export interface LinkProps
   /** Function called when the mouse is clicked. */
   onClick?: (
     ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Function called when a key is pressed. */
   onKeyDown?: (
@@ -40,8 +40,7 @@ export interface LinkProps
   /** Function called when a mouse down event triggers. */
   onMouseDown?: (
     ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 
   /** Child content to render in the link. */

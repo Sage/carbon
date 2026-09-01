@@ -23,36 +23,46 @@ const StyledSelectText = styled.span<StyledSelectTextProps>`
     z-index: 1;
     padding-left: ${sizes[$size].horizontalPadding};
 
-    ${$transparent &&
-    css`
-      font-weight: 500;
-      text-align: right;
-    `}
+    ${
+      $transparent &&
+      css`
+        font-weight: 500;
+        text-align: right;
+      `
+    }
 
-    ${$hasPlaceholder &&
-    css`
-      & > *:not([data-element="textbox-prefix"]) {
-        color: ${$transparent
-          ? `var(--colorsUtilityYin100)`
-          : `var(--colorsUtilityYin055)`};
-        font-weight: ${$transparent ? 500 : "normal"};
-        user-select: none;
-      }
-    `}
+    ${
+      $hasPlaceholder &&
+      css`
+        & > *:not([data-element="textbox-prefix"]) {
+          color: ${
+            $transparent
+              ? `var(--colorsUtilityYin100)`
+              : `var(--colorsUtilityYin055)`
+          };
+          font-weight: ${$transparent ? 500 : "normal"};
+          user-select: none;
+        }
+      `
+    }
 
-    ${$disabled &&
-    css`
-      cursor: not-allowed;
-      color: var(--colorsUtilityYin030);
-      text-shadow: none;
-    `}
+    ${
+      $disabled &&
+      css`
+        cursor: not-allowed;
+        color: var(--colorsUtilityYin030);
+        text-shadow: none;
+      `
+    }
 
-    ${$readOnly &&
-    css`
-      cursor: default;
-      color: var(--colorsUtilityYin065);
-      text-shadow: none;
-    `}
+    ${
+      $readOnly &&
+      css`
+        cursor: default;
+        color: var(--colorsUtilityYin065);
+        text-shadow: none;
+      `
+    }
   `}
 `;
 

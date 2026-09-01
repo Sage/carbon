@@ -7,8 +7,7 @@ export interface SplitButtonContextProps {
       HTMLButtonElement | HTMLAnchorElement
     >,
   ) =>
-    | React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
-    | undefined;
+    React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement> | undefined;
 }
 
 export default React.createContext<SplitButtonContextProps>({

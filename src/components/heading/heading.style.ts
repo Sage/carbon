@@ -28,27 +28,35 @@ type StyledHeaderProps = {
 
 const StyledHeader = styled.div<StyledHeaderProps>`
   ${({ divider, subheader, hasBackLink }) => css`
-    ${subheader &&
-    css`
-      margin-bottom: 16px;
-    `}
+    ${
+      subheader &&
+      css`
+        margin-bottom: 16px;
+      `
+    }
 
-    ${divider &&
-    css`
-      margin-bottom: 15px;
-    `}
+    ${
+      divider &&
+      css`
+        margin-bottom: 15px;
+      `
+    }
 
-    ${divider &&
-    !subheader &&
-    css`
-      margin-bottom: 20px;
-    `}
+    ${
+      divider &&
+      !subheader &&
+      css`
+        margin-bottom: 20px;
+      `
+    }
 
-    ${hasBackLink &&
-    css`
-      display: grid;
-      grid-template-columns: min-content auto;
-    `}
+    ${
+      hasBackLink &&
+      css`
+        display: grid;
+        grid-template-columns: min-content auto;
+      `
+    }
   `}
 `;
 

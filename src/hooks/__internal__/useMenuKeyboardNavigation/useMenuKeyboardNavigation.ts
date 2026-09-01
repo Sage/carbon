@@ -33,9 +33,11 @@ export default (
 
   const handleKeyDown = useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
-      if (
-        !(Events.isEnterKey(ev) || Events.isSpaceKey(ev) || Events.isTabKey(ev))
-      ) {
+      if (!(
+        Events.isEnterKey(ev) ||
+        Events.isSpaceKey(ev) ||
+        Events.isTabKey(ev)
+      )) {
         ev.preventDefault();
       }
 

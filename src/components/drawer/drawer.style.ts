@@ -59,38 +59,44 @@ const StyledDrawerContent = styled.aside<StyledDrawerContentProps>`
     width: ${expandedWidth};
     max-width: "760px";
 
-    ${!isExpanded &&
-    css`
-      display: none;
-      width: 0;
-      min-width: 0;
-    `}
+    ${
+      !isExpanded &&
+      css`
+        display: none;
+        width: 0;
+        min-width: 0;
+      `
+    }
 
     background-color: ${backgroundColor || "var(--colorsUtilityYang100)"};
 
-    ${showControls &&
-    css`
-      display: flex;
-      overflow: hidden;
-      min-height: 40px;
-      transition: all ${animationDuration} ease-in-out;
-
-      ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledSidebarFooter} {
-        transition: all ${animationDuration} ease-in-out;
-        white-space: nowrap;
-        overflow: hidden;
-        opacity: 1;
-      }
-
-      ${!isExpanded &&
+    ${
+      showControls &&
       css`
-        min-width: var(--sizing500);
-        width: var(--sizing500);
+        display: flex;
+        overflow: hidden;
+        min-height: 40px;
+        transition: all ${animationDuration} ease-in-out;
+
         ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledSidebarFooter} {
-          opacity: 0;
+          transition: all ${animationDuration} ease-in-out;
+          white-space: nowrap;
+          overflow: hidden;
+          opacity: 1;
         }
-      `}
-    `}
+
+        ${
+          !isExpanded &&
+          css`
+            min-width: var(--sizing500);
+            width: var(--sizing500);
+            ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledSidebarFooter} {
+              opacity: 0;
+            }
+          `
+        }
+      `
+    }
   `};
 `;
 
@@ -125,10 +131,12 @@ const StyledSidebarToggleButton = styled.button.attrs(applyBaseTheme).attrs({
       cursor: pointer;
     }
 
-    ${isExpanded &&
-    css`
-      transform: rotate(180deg);
-    `}
+    ${
+      isExpanded &&
+      css`
+        transform: rotate(180deg);
+      `
+    }
   `}
 `;
 

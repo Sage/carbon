@@ -8,9 +8,7 @@ import StyledGridItem, { StyledGridItemProps } from "./grid-item.style";
  * @deprecated `GridItem` has been deprecated. See the Carbon documentation for migration details.
  */
 export interface GridItemProps
-  extends StyledGridItemProps,
-    React.HTMLAttributes<HTMLDivElement>,
-    TagProps {
+  extends StyledGridItemProps, React.HTMLAttributes<HTMLDivElement>, TagProps {
   /** Defines the Component(s) to be rendered within the GridItem */
   children?: React.ReactNode;
 }

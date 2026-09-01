@@ -31,9 +31,9 @@ const getCSSForGradientStyle = ({
     position: relative;
     z-index: 0;
     border: none;
-    border-radius: ${iconOnly
-      ? "var(--global-radius-action-circle)"
-      : borderRadius};
+    border-radius: ${
+      iconOnly ? "var(--global-radius-action-circle)" : borderRadius
+    };
     background: white;
     color: var(--button-ai-label-default);
     font: ${font};
@@ -73,40 +73,46 @@ const getCSSForGradientStyle = ({
     }
 
     &:hover::before {
-      ${allowMotion &&
-      css`
-        background-size: 300% 100%;
-        animation: gradient-loop 1000ms linear infinite;
-      `}
+      ${
+        allowMotion &&
+        css`
+          background-size: 300% 100%;
+          animation: gradient-loop 1000ms linear infinite;
+        `
+      }
     }
 
-    ${disabled &&
-    css`
-      opacity: 0.6;
-      pointer-events: none;
-      cursor: not-allowed;
+    ${
+      disabled &&
+      css`
+        opacity: 0.6;
+        pointer-events: none;
+        cursor: not-allowed;
 
-      &::before {
-        animation: none;
-        background: none;
-        -webkit-mask: none;
-        mask: none;
-        border: 2px solid var(--button-ai-border-disabled);
-        padding: 0;
-      }
+        &::before {
+          animation: none;
+          background: none;
+          -webkit-mask: none;
+          mask: none;
+          border: 2px solid var(--button-ai-border-disabled);
+          padding: 0;
+        }
 
-      color: var(--button-ai-label-disabled);
-    `}
+        color: var(--button-ai-label-disabled);
+      `
+    }
 
-    ${!disabled &&
-    css`
-      &:active,
-      &.active {
-        background: ${background?.active};
-        color: ${label?.active};
-        border-color: ${border?.active};
-      }
-    `}
+    ${
+      !disabled &&
+      css`
+        &:active,
+        &.active {
+          background: ${background?.active};
+          color: ${label?.active};
+          border-color: ${border?.active};
+        }
+      `
+    }
   `;
 };
 
@@ -129,36 +135,38 @@ const getCSSForInverseStyle = ({
     background-color: ${background.default};
     border: ${variantType === "tertiary" ? "1px" : "2px"} solid
       ${border.default};
-    border-radius: ${iconOnly
-      ? "var(--global-radius-action-circle)"
-      : borderRadius};
+    border-radius: ${
+      iconOnly ? "var(--global-radius-action-circle)" : borderRadius
+    };
     color: ${label.default};
     font: ${font};
     min-height: ${height};
     width: ${iconOnly ? height : "max-content"};
     padding: ${paddingVertical} ${iconOnly ? "" : paddingHorizontal};
 
-    ${disabled
-      ? css`
-          background-color: ${background.disabled};
-          border-color: ${border.disabled};
-          color: ${label.disabled};
-          cursor: not-allowed;
-        `
-      : css`
-          &:active,
-          &.active {
-            background-color: ${background.active};
-            color: ${label.active};
-            border-color: ${border.active};
-          }
+    ${
+      disabled
+        ? css`
+            background-color: ${background.disabled};
+            border-color: ${border.disabled};
+            color: ${label.disabled};
+            cursor: not-allowed;
+          `
+        : css`
+            &:active,
+            &.active {
+              background-color: ${background.active};
+              color: ${label.active};
+              border-color: ${border.active};
+            }
 
-          &:hover {
-            background-color: ${background.hover};
-            color: ${label.hover};
-            border-color: ${border.hover};
-          }
-        `}
+            &:hover {
+              background-color: ${background.hover};
+              color: ${label.hover};
+              border-color: ${border.hover};
+            }
+          `
+    }
   `;
 };
 
@@ -184,36 +192,38 @@ const getCSSForStyle = ({
     background-color: ${background?.default};
     border: ${variantType === "tertiary" ? "1px" : "2px"} solid
       ${border?.default};
-    border-radius: ${iconOnly
-      ? "var(--global-radius-action-circle)"
-      : borderRadius};
+    border-radius: ${
+      iconOnly ? "var(--global-radius-action-circle)" : borderRadius
+    };
     color: ${label?.default};
     font: ${font};
     min-height: ${height};
     width: ${iconOnly ? height : "max-content"};
     padding: ${paddingVertical} ${iconOnly ? "" : paddingHorizontal};
 
-    ${disabled
-      ? css`
-          background-color: ${background?.disabled};
-          border-color: ${border?.disabled};
-          color: ${label?.disabled};
-          cursor: not-allowed;
-        `
-      : css`
-          &:active,
-          &.active {
-            background-color: ${background?.active};
-            color: ${label?.active};
-            border-color: ${border?.active};
-          }
+    ${
+      disabled
+        ? css`
+            background-color: ${background?.disabled};
+            border-color: ${border?.disabled};
+            color: ${label?.disabled};
+            cursor: not-allowed;
+          `
+        : css`
+            &:active,
+            &.active {
+              background-color: ${background?.active};
+              color: ${label?.active};
+              border-color: ${border?.active};
+            }
 
-          &:hover {
-            background-color: ${background?.hover};
-            color: ${label?.hover};
-            border-color: ${border?.hover};
-          }
-        `}
+            &:hover {
+              background-color: ${background?.hover};
+              color: ${label?.hover};
+              border-color: ${border?.hover};
+            }
+          `
+    }
   `;
 };
 
@@ -323,18 +333,22 @@ export const StyledButton = styled.button<
   }}
 
   ${({ $fullWidth, $size, $noWrap }) => css`
-    ${$fullWidth &&
-    css`
-      width: 100%;
-    `}
+    ${
+      $fullWidth &&
+      css`
+        width: 100%;
+      `
+    }
 
-    ${$noWrap
-      ? "white-space: nowrap;"
-      : `
+    ${
+      $noWrap
+        ? "white-space: nowrap;"
+        : `
         flex-flow: wrap;
         min-height: ${propsForSize[$size].height};
         height: unset;
-      `}
+      `
+    }
   `}
 
   &:focus {

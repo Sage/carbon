@@ -11,7 +11,8 @@ const verticalBorderSizes = {
 };
 
 interface StyledFlatTableCellProps
-  extends Pick<
+  extends
+    Pick<
       FlatTableCellProps,
       "align" | "verticalBorder" | "verticalBorderColor"
     >,
@@ -47,40 +48,50 @@ const StyledFlatTableCell = styled.td.attrs(
     vertical-align: middle;
     padding: 0;
 
-    ${colWidth &&
-    css`
-      width: ${colWidth}px;
-    `}
+    ${
+      colWidth &&
+      css`
+        width: ${colWidth}px;
+      `
+    }
 
     &&&& {
       > div {
         box-sizing: border-box;
 
-        ${isTruncated &&
-        css`
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
-        `}
+        ${
+          isTruncated &&
+          css`
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          `
+        }
 
-        ${colWidth &&
-        css`
-          width: ${colWidth}px;
-        `}
+        ${
+          colWidth &&
+          css`
+            width: ${colWidth}px;
+          `
+        }
  
         ${padding}
       }
 
-      ${verticalBorder &&
-      css`
-        border-right: ${verticalBorderSizes[verticalBorder]} solid
-          var(--colorsUtilityMajor300);
-      `}
+      ${
+        verticalBorder &&
+        css`
+          border-right: ${verticalBorderSizes[verticalBorder]} solid
+            var(--colorsUtilityMajor300);
+        `
+      }
 
-      ${verticalBorderColor &&
-      css`
-        border-right-color: ${toColor(theme, verticalBorderColor)};
-      `}
+      ${
+        verticalBorderColor &&
+        css`
+          border-right-color: ${toColor(theme, verticalBorderColor)};
+        `
+      }
 
       [data-component="icon"]:not([data-color]) {
         color: var(--colorsActionMinor500);
@@ -103,24 +114,30 @@ const StyledFlatTableCell = styled.td.attrs(
       border-right: 1px solid var(--colorsUtilityMajor100);
     }
 
-    ${rowSpan &&
-    css`
-      &:first-of-type + & {
-        border-left: 1px solid var(--colorsUtilityMajor100);
-      }
-    `}
+    ${
+      rowSpan &&
+      css`
+        &:first-of-type + & {
+          border-left: 1px solid var(--colorsUtilityMajor100);
+        }
+      `
+    }
 
-    ${makeCellSticky &&
-    css`
-      ${leftPosition !== undefined && `left: ${leftPosition}px;`}
-      ${rightPosition !== undefined && `right: ${rightPosition}px;`}
+    ${
+      makeCellSticky &&
+      css`
+        ${leftPosition !== undefined && `left: ${leftPosition}px;`}
+        ${rightPosition !== undefined && `right: ${rightPosition}px;`}
       position: sticky;
-    `}
+      `
+    }
 
-    ${expandable &&
-    css`
-      white-space: nowrap;
-    `}
+    ${
+      expandable &&
+      css`
+        white-space: nowrap;
+      `
+    }
   `}
 `;
 

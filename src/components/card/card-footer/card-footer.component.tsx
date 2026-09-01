@@ -11,9 +11,7 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags/tags";
 
 export interface CardFooterProps
-  extends SpaceProps,
-    Partial<Pick<CardContextProps, "roundness">>,
-    TagProps {
+  extends SpaceProps, Partial<Pick<CardContextProps, "roundness">>, TagProps {
   /** Child nodes */
   children: React.ReactNode;
   /** @deprecated Specify styling variant to render */

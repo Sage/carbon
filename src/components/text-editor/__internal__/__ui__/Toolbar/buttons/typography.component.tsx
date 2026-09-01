@@ -21,11 +21,7 @@ import ToolbarDropdown from "./typography-dropdown/dropdown.component";
 
 // Typography keys to aid in styling
 export type TypographyKey =
-  | "paragraph"
-  | "title"
-  | "subtitle"
-  | "sectionHeader"
-  | "sectionSubheader";
+  "paragraph" | "title" | "subtitle" | "sectionHeader" | "sectionSubheader";
 
 export type TypographySelectorProps = {
   /** Reference to the editor for the toolbar to consume */

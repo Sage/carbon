@@ -31,15 +31,19 @@ export const StyledButtonToggleGroup = styled.div.attrs(
     flex-direction: column;
     gap: ${sizeMap[$size].gap};
 
-    ${$fullWidth &&
-    css`
-      width: 100%;
-    `}
+    ${
+      $fullWidth &&
+      css`
+        width: 100%;
+      `
+    }
 
-    ${$width &&
-    css`
-      width: ${$width}%;
-    `}
+    ${
+      $width &&
+      css`
+        width: ${$width}%;
+      `
+    }
   `}
 
   ${margin}
@@ -64,18 +68,22 @@ export const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapper>`
     align-items: center;
     gap: var(--global-space-comp-s);
 
-    ${!$fullWidth &&
-    css`
-      width: fit-content;
-    `}
+    ${
+      !$fullWidth &&
+      css`
+        width: fit-content;
+      `
+    }
 
     border-radius: ${sizeMap[$size].borderRadius};
     border: var(--global-borderwidth-xs) solid
       var(--button-typical-toggle-border-default);
 
-    ${$isDisabled &&
-    css`
-      border-color: var(--button-typical-toggle-border-disabled);
-    `}
+    ${
+      $isDisabled &&
+      css`
+        border-color: var(--button-typical-toggle-border-disabled);
+      `
+    }
   `}
 `;

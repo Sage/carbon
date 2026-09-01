@@ -112,8 +112,7 @@ export const FlatTableRow = React.forwardRef<
       };
 
       const cells = rowRef.current?.querySelectorAll("th, td") as
-        | NodeListOf<HTMLTableCellElement>
-        | undefined;
+        NodeListOf<HTMLTableCellElement> | undefined;
 
       const cellArray = Array.from(cells || /*istanbul ignore next */ []);
       setCellsArray(cellArray);

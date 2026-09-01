@@ -12,15 +12,17 @@ const StyledGroupWrapper = styled.li<{
       margin-top: 16px;
     }
 
-    ${highlighted &&
-    css`
+    ${
+      highlighted &&
+      css`
       ${StyledButton} {
         background: ${
           type === "add"
             ? "var(--colorsActionMajor600)"
             : "var(--colorsSemanticNegative600)"
         }
-    `}
+    `
+    }
   `}
 `;
 

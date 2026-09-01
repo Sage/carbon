@@ -41,13 +41,13 @@ const StyledBox = styled.div.attrs(applyBaseTheme)<
   ${calculatePosition}
 
 ${({ $borderRadius = "borderRadius000" }) => {
-    const radiusValues = $borderRadius.split(" ");
-    return css`
-      border-radius: ${radiusValues
-        .map((radius) => `var(--${radius})`)
-        .join(" ")};
-    `;
-  }}
+  const radiusValues = $borderRadius.split(" ");
+  return css`
+    border-radius: ${radiusValues
+      .map((radius) => `var(--${radius})`)
+      .join(" ")};
+  `;
+}}
 
   ${({ cssProps, bg, backgroundColor, ...rest }) =>
     styledColor({ color: cssProps?.color, bg, backgroundColor, ...rest })}
@@ -100,26 +100,32 @@ ${({ $borderRadius = "borderRadius000" }) => {
     `}
 
     ${({ display, gap, columnGap, rowGap }) =>
-    (display === "flex" ||
-      display === "inline-flex" ||
-      display === "grid" ||
-      display === "inline-grid") &&
-    css`
-      ${gap !== undefined &&
+      (display === "flex" ||
+        display === "inline-flex" ||
+        display === "grid" ||
+        display === "inline-grid") &&
       css`
-        gap: ${boxGap(gap)};
-      `}
+        ${
+          gap !== undefined &&
+          css`
+            gap: ${boxGap(gap)};
+          `
+        }
 
-      ${columnGap !== undefined &&
-      css`
-        column-gap: ${boxGap(columnGap)};
-      `}
+        ${
+          columnGap !== undefined &&
+          css`
+            column-gap: ${boxGap(columnGap)};
+          `
+        }
 
-      ${rowGap !== undefined &&
-      css`
-        row-gap: ${boxGap(rowGap)};
-      `}
-    `};
+      ${
+        rowGap !== undefined &&
+        css`
+          row-gap: ${boxGap(rowGap)};
+        `
+      }
+      `};
 
   ${({ boxShadow }) =>
     boxShadow &&

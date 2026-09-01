@@ -22,10 +22,12 @@ const StyledDetailContent = styled.div<{ hasIcon: boolean }>`
     text-overflow: ellipsis;
     overflow: hidden;
 
-    ${hasIcon &&
-    css`
-      margin-left: 26px;
-    `}
+    ${
+      hasIcon &&
+      css`
+        margin-left: 26px;
+      `
+    }
   `}
 `;
 
@@ -52,10 +54,12 @@ const StyledDetailFootnote = styled.div<{ hasIcon: boolean }>`
     position: relative;
     margin-top: -2px;
 
-    ${hasIcon &&
-    css`
-      margin-left: 26px;
-    `}
+    ${
+      hasIcon &&
+      css`
+        margin-left: 26px;
+      `
+    }
   `}
 `;
 

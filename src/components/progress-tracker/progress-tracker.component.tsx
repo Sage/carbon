@@ -11,11 +11,7 @@ import {
 } from "./progress-tracker.style";
 
 export type TrackerVariants =
-  | "neutral"
-  | "warning"
-  | "information"
-  | "error"
-  | "success";
+  "neutral" | "warning" | "information" | "error" | "success";
 
 export interface ProgressTrackerProps extends MarginProps, TagProps {
   /** Size of the progress bar. */

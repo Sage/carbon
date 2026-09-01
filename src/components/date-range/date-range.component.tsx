@@ -43,9 +43,7 @@ export interface DateRangeChangeEvent {
 }
 
 export interface DateRangeProps
-  extends StyledDateRangeProps,
-    MarginProps,
-    TagProps {
+  extends StyledDateRangeProps, MarginProps, TagProps {
   /** Props for the child end Date component */
   endDateProps?: Omit<Partial<DateInputProps>, "required">;
   /** Optional label for endDate field */

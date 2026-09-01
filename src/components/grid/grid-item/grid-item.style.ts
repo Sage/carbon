@@ -105,10 +105,12 @@ const StyledGridItem = styled.div<StyledGridItemProps>`
     ${flexbox({ alignSelf, justifySelf })}
     ${grid({ gridArea, gridColumn, gridRow })};
 
-    ${responsiveSettings &&
-    css`
-      ${responsiveGridItem(responsiveSettings)};
-    `}
+    ${
+      responsiveSettings &&
+      css`
+        ${responsiveGridItem(responsiveSettings)};
+      `
+    }
   `}
 `;
 

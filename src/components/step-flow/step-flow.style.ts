@@ -38,25 +38,31 @@ export const StyledProgressIndicator = styled.div<StyledProgressIndicatorProps>`
     height: var(--global-size-4-xs);
     border-radius: var(--global-radius-container-xs);
 
-    ${!$isCompleted &&
-    !$isInProgress &&
-    css`
-      background: var(--progress-stepflow-bg-default);
-      box-shadow: inset 0 0 0 var(--global-borderwidth-xs)
-        var(--progress-stepflow-border-default);
-    `}
+    ${
+      !$isCompleted &&
+      !$isInProgress &&
+      css`
+        background: var(--progress-stepflow-bg-default);
+        box-shadow: inset 0 0 0 var(--global-borderwidth-xs)
+          var(--progress-stepflow-border-default);
+      `
+    }
 
-    ${$isInProgress &&
-    css`
-      background-color: var(--progress-stepflow-bg-active);
-      outline: var(--global-borderwidth-s) solid
-        var(--progress-stepindicator-border-active-outer);
-      outline-offset: var(--global-borderwidth-s);
-    `}
+    ${
+      $isInProgress &&
+      css`
+        background-color: var(--progress-stepflow-bg-active);
+        outline: var(--global-borderwidth-s) solid
+          var(--progress-stepindicator-border-active-outer);
+        outline-offset: var(--global-borderwidth-s);
+      `
+    }
 
-    ${$isCompleted &&
-    css`
-      background-color: var(--progress-stepflow-bg-complete);
-    `}
+    ${
+      $isCompleted &&
+      css`
+        background-color: var(--progress-stepflow-bg-complete);
+      `
+    }
   `}
 `;

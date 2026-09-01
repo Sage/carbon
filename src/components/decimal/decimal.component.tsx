@@ -24,8 +24,10 @@ export interface CustomEvent {
   };
 }
 
-export interface DecimalProps
-  extends Omit<CommonTextboxProps, "onChange" | "onBlur" | "data-component"> {
+export interface DecimalProps extends Omit<
+  CommonTextboxProps,
+  "onChange" | "onBlur" | "data-component"
+> {
   /** Text alignment of the label */
   align?: "left" | "right";
   /** Allow an empty value instead of defaulting to 0.00 */
@@ -52,22 +54,7 @@ export interface DecimalProps
   popoverTriggerAriaLabel?: string;
   /** The decimal precision of the value in the input */
   precision?:
-    | 0
-    | 1
-    | 2
-    | 3
-    | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9
-    | 10
-    | 11
-    | 12
-    | 13
-    | 14
-    | 15;
+    0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
   /** If true, the component will be read-only */
   readOnly?: boolean;
   /** A suffix to display alongside the input. Please note that if a prefix is also provided, only the prefix will be rendered. */

@@ -60,8 +60,10 @@ interface BaseItemProps extends MarginProps, PaddingProps {
 }
 
 // Standard TS pattern for overriding props
-export interface ResponsiveVerticalMenuItemProps
-  extends Omit<BaseItemProps, "id"> {
+export interface ResponsiveVerticalMenuItemProps extends Omit<
+  BaseItemProps,
+  "id"
+> {
   /** The unique identifier for the menu item. */
   id?: string;
 }
@@ -69,11 +71,10 @@ export interface ResponsiveVerticalMenuItemProps
 // Context to hold the parent item ID
 const ParentItemContext = createContext<string | undefined>(undefined);
 
-interface MenuItemContentProps
-  extends Pick<
-    ResponsiveVerticalMenuItemProps,
-    "customIcon" | "icon" | "label"
-  > {
+interface MenuItemContentProps extends Pick<
+  ResponsiveVerticalMenuItemProps,
+  "customIcon" | "icon" | "label"
+> {
   depth: number;
   hasChildren?: boolean;
   responsive?: boolean;

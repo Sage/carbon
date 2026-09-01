@@ -3,8 +3,10 @@ import InputContainer from "./input.style";
 import combineRefs from "../utils/helpers/combine-refs";
 import SelectTextboxContext from "../../components/select/__internal__/select-textbox/__internal__/select-textbox.context";
 
-export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "size"> {
+export interface InputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "value" | "size"
+> {
   /** The ID of the input's description, is set along with hint text and error message. */
   "aria-describedby"?: string;
   /** If true, the component will be disabled */

@@ -35,12 +35,7 @@ export interface TileProps extends SpaceProps, WidthProps, TagProps {
   borderWidth?: Extract<DesignTokensType, `borderWidth${string}`>;
   /** Sets the border variant that should be used */
   borderVariant?:
-    | "default"
-    | "selected"
-    | "positive"
-    | "negative"
-    | "caution"
-    | "info";
+    "default" | "selected" | "positive" | "negative" | "caution" | "info";
   /** Sets the level of roundness of the corners, "default" is 8px, "large" is 16px and "small" is 4px */
   roundness?: "default" | "large" | "small";
   /**

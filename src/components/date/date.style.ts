@@ -6,8 +6,10 @@ import StyledValidationMessage from "../../__internal__/validation-message/valid
 import StyledLabel from "../../__internal__/label/label.style";
 import { DateInputProps } from "./date.component";
 
-interface StyledDateInputProps
-  extends Pick<DateInputProps, "inputWidth" | "maxWidth" | "labelInline"> {
+interface StyledDateInputProps extends Pick<
+  DateInputProps,
+  "inputWidth" | "maxWidth" | "labelInline"
+> {
   applyDateRangeStyling?: boolean;
   size: Required<DateInputProps>["size"];
 }
@@ -30,12 +32,14 @@ const StyledDateInput = styled.div.attrs(applyBaseTheme)<StyledDateInputProps>`
         flex: 0 0 auto;
       }
 
-      ${!labelInline &&
-      css`
-        ${StyledValidationMessage}, ${StyledLabel} {
-          overflow-wrap: anywhere;
-        }
-      `}
+      ${
+        !labelInline &&
+        css`
+          ${StyledValidationMessage}, ${StyledLabel} {
+            overflow-wrap: anywhere;
+          }
+        `
+      }
     `}
 `;
 

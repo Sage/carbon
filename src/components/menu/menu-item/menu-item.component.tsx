@@ -39,15 +39,15 @@ type AriaCurrent = Pick<
   "aria-current"
 >["aria-current"];
 interface MenuItemBaseProps
-  extends TagProps,
+  extends
+    TagProps,
     Pick<LayoutProps, "width" | "maxWidth" | "minWidth">,
     FlexboxProps,
     PaddingProps {
   /** onClick handler */
   onClick?: (
     event:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection?: string;

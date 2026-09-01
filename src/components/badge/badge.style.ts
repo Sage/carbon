@@ -107,55 +107,69 @@ const StyledBadge = styled.span.attrs(applyBaseTheme).attrs(({ onClick }) => ({
     ${getSize(size)};
     background-color: ${getVariantColor(variant, inverse)};
 
-    border-color: ${inverse
-      ? "var(--badge-inverse-border-default, #000)"
-      : "var(--badge-border-default, #FFF)"};
-    color: ${inverse
-      ? "var(--badge-inverse-label-default, #000)"
-      : "var(--badge-label-default, #FFF)"};
+    border-color: ${
+      inverse
+        ? "var(--badge-inverse-border-default, #000)"
+        : "var(--badge-border-default, #FFF)"
+    };
+    color: ${
+      inverse
+        ? "var(--badge-inverse-label-default, #000)"
+        : "var(--badge-label-default, #FFF)"
+    };
 
-    ${hasChildren &&
-    css`
-      position: absolute;
-      z-index: 2;
-      ${getPosition(size)};
-    `}
-
-    ${onClick &&
-    css`
-      min-height: 0;
-      :hover,
-      :focus {
-        padding: 0;
-        border-color: ${getVariantColor(variant, inverse)};
-        background-color: ${getVariantColor(variant, inverse)};
-
-        ${StyledIcon} {
-          margin: 0;
-          color: ${inverse
-            ? "var(--badge-inverse-label-default, #000)"
-            : "var(--badge-label-default, #FFF)"};
-        }
-      }
-    `}
-
-    ${customColor &&
-    css`
-      background-color: var(--badge-border-default, #fff);
-      border-color: ${toColor(theme, customColor)};
-      color: ${toColor(theme, customColor)};
-
-      ${onClick &&
-      // tested in playwright, RTL cannot test pseudo-classes
-      /* istanbul ignore next */
+    ${
+      hasChildren &&
       css`
+        position: absolute;
+        z-index: 2;
+        ${getPosition(size)};
+      `
+    }
+
+    ${
+      onClick &&
+      css`
+        min-height: 0;
         :hover,
         :focus {
-          background-color: ${toColor(theme, customColor)};
-          border-color: ${toColor(theme, customColor)};
+          padding: 0;
+          border-color: ${getVariantColor(variant, inverse)};
+          background-color: ${getVariantColor(variant, inverse)};
+
+          ${StyledIcon} {
+            margin: 0;
+            color: ${
+              inverse
+                ? "var(--badge-inverse-label-default, #000)"
+                : "var(--badge-label-default, #FFF)"
+            };
+          }
         }
-      `}
-    `}
+      `
+    }
+
+    ${
+      customColor &&
+      css`
+        background-color: var(--badge-border-default, #fff);
+        border-color: ${toColor(theme, customColor)};
+        color: ${toColor(theme, customColor)};
+
+        ${
+          onClick &&
+          // tested in playwright, RTL cannot test pseudo-classes
+          /* istanbul ignore next */
+          css`
+            :hover,
+            :focus {
+              background-color: ${toColor(theme, customColor)};
+              border-color: ${toColor(theme, customColor)};
+            }
+          `
+        }
+      `
+    }
   `}
 `;
 

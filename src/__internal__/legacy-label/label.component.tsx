@@ -14,9 +14,7 @@ import { IconType } from "../../components/icon";
 import createGuid from "../../__internal__/utils/helpers/guid";
 
 export interface LabelProps
-  extends ValidationProps,
-    StyledLabelProps,
-    StyledLabelContainerProps {
+  extends ValidationProps, StyledLabelProps, StyledLabelContainerProps {
   /* To use a different HTML element other than <label> */
   as?: "span" | "label";
   /** Children elements */

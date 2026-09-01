@@ -13,9 +13,11 @@ export interface StyledLabelProps {
 
 const StyledLabel = styled.label<StyledLabelProps>`
   ${({ isDarkBackground }) => css`
-    color: ${isDarkBackground
-      ? "var(--colorsUtilityYang100)"
-      : "var(--colorsUtilityYin090)"};
+    color: ${
+      isDarkBackground
+        ? "var(--colorsUtilityYang100)"
+        : "var(--colorsUtilityYin090)"
+    };
   `}
   display: block;
   font-weight: var(--fontWeights500);

@@ -115,8 +115,7 @@ const PaginationNavigation = ({
 
   const handleFirstButtonClick = (
     ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     buttonFocusRef.current = "next";
     setCurrentPage(1);
@@ -126,8 +125,7 @@ const PaginationNavigation = ({
 
   const handlePreviousButtonClick = (
     ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     const page = currentPage - 1;
     if (page === 1) {
@@ -141,8 +139,7 @@ const PaginationNavigation = ({
 
   const handleNextButtonClick = (
     ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     const page = currentPage + 1;
 
@@ -157,8 +154,7 @@ const PaginationNavigation = ({
 
   const handleLastButtonClick = (
     ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     buttonFocusRef.current = "previous";
     setCurrentPage(totalPages);

@@ -46,34 +46,44 @@ export const StyledAccordionContainer = styled.div.attrs(
   width: ${({ $width }) => $width || "100%"};
 
   ${({ $variant, $borders, $isExpanded, $allowMotion }) => css`
-    ${$variant === "standard" &&
-    css`
-      & + & {
-        margin-top: -1px;
-      }
-
-      border: 1px solid var(--container-action-border-default);
-      ${$borders === "default" &&
+    ${
+      $variant === "standard" &&
       css`
-        border-left: none;
-        border-right: none;
-      `};
+        & + & {
+          margin-top: -1px;
+        }
 
-      ${$borders === "none" &&
+        border: 1px solid var(--container-action-border-default);
+        ${
+          $borders === "default" &&
+          css`
+            border-left: none;
+            border-right: none;
+          `
+        };
+
+        ${
+          $borders === "none" &&
+          css`
+            border: none;
+          `
+        };
+      `
+    }
+
+    ${
+      $variant === "simple" &&
       css`
-        border: none;
-      `};
-    `}
+        gap: ${$isExpanded ? "var(--global-space-comp-l)" : "0px"};
 
-    ${$variant === "simple" &&
-    css`
-      gap: ${$isExpanded ? "var(--global-space-comp-l)" : "0px"};
-
-      ${$allowMotion &&
-      css`
-        transition: gap 0.4s;
-      `}
-    `}
+        ${
+          $allowMotion &&
+          css`
+            transition: gap 0.4s;
+          `
+        }
+      `
+    }
   `}
 
   && {
@@ -110,14 +120,18 @@ export const StyledAccordionIcon = styled(Icon)<StyledAccordionProps>`
   ${({ $isExpanded, $allowMotion }) => css`
     transform: rotate(0deg);
 
-    ${$isExpanded &&
-    css`
-      transform: rotate(-180deg);
-    `}
-    ${$allowMotion &&
-    css`
-      transition: transform 0.4s;
-    `}
+    ${
+      $isExpanded &&
+      css`
+        transform: rotate(-180deg);
+      `
+    }
+    ${
+      $allowMotion &&
+      css`
+        transition: transform 0.4s;
+      `
+    }
   `};
 `;
 
@@ -145,10 +159,12 @@ export const StyledAccordionTitleContainer = styled.div.attrs(
       gap: var(--global-space-comp-l);
       padding: ${sizeMap[$size].headingPadding};
 
-      ${$iconAlign === "right" &&
-      css`
-        flex-direction: row-reverse;
-      `}
+      ${
+        $iconAlign === "right" &&
+        css`
+          flex-direction: row-reverse;
+        `
+      }
 
       ${space}
     
@@ -179,18 +195,22 @@ export const StyledAccordionContentContainer = styled.div<StyledAccordionProps>`
   opacity: 0;
 
   ${({ $height, $isExpanded, $allowMotion }) => css`
-    ${$allowMotion &&
-    css`
-      transition:
-        height 0.4s,
-        opacity 0.2s;
-    `}
+    ${
+      $allowMotion &&
+      css`
+        transition:
+          height 0.4s,
+          opacity 0.2s;
+      `
+    }
 
-    ${$isExpanded &&
-    css`
-      height: ${$height}px;
-      opacity: 1;
-    `}
+    ${
+      $isExpanded &&
+      css`
+        height: ${$height}px;
+        opacity: 1;
+      `
+    }
   `}
 `;
 
@@ -198,9 +218,11 @@ export const StyledAccordionContent = styled.div<StyledAccordionProps>`
   ${({ $variant }) => css`
     overflow: hidden;
 
-    ${$variant === "simple" &&
-    css`
-      margin-left: var(--global-space-comp-l);
-    `}
+    ${
+      $variant === "simple" &&
+      css`
+        margin-left: var(--global-space-comp-l);
+      `
+    }
   `}
 `;

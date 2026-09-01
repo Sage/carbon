@@ -52,8 +52,9 @@ export const List = styled.ul<ListProps>`
     css`
       overflow: hidden auto;
       -webkit-overflow-scrolling: touch;
-      max-height: ${$maxHeight ??
-      `calc(5 * var(--global-size-${$size.charAt(0)}))`};
+      max-height: ${
+        $maxHeight ?? `calc(5 * var(--global-size-${$size.charAt(0)}))`
+      };
     `}
 `;
 
@@ -90,13 +91,11 @@ const ScrollWrapper = styled.div`
 `;
 
 export type FocusableHandle =
-  | HTMLElement
-  | HTMLButtonElement
-  | HTMLAnchorElement
-  | HTMLInputElement;
+  HTMLElement | HTMLButtonElement | HTMLAnchorElement | HTMLInputElement;
 
-export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
-  extends TagProps {
+export interface PopoverMenuProps<
+  TRef extends FocusableHandle = HTMLElement,
+> extends TagProps {
   /** The content of the popover menu */
   children: React.ReactNode;
   /** Whether the popover menu is open or not */

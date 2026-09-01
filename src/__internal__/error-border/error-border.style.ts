@@ -8,9 +8,11 @@ const ErrorBorder = styled.span`
     top: 0px;
     bottom: 0px;
     z-index: 6;
-    background-color: ${$warning
-      ? "var(--input-validation-bar-warn)"
-      : "var(--input-validation-border-error)"};
+    background-color: ${
+      $warning
+        ? "var(--input-validation-bar-warn)"
+        : "var(--input-validation-border-error)"
+    };
   `}
   transform: translateZ(0);
 

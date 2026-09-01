@@ -9,11 +9,7 @@ import createGuid from "../../../../../__internal__/utils/helpers/guid";
 
 /** Allowed status variants for the dialog heading icon. */
 export type DialogHeadingStatus =
-  | "subtle"
-  | "positive"
-  | "negative"
-  | "caution"
-  | "info";
+  "subtle" | "positive" | "negative" | "caution" | "info";
 
 /** Map each status to its icon type and colour token. */
 const STATUS_CONFIG: Record<

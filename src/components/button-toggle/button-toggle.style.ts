@@ -52,20 +52,26 @@ const StyledButtonToggle = styled.button.attrs(
     gap: var(--global-space-comp-s);
     height: ${sizeMap[$size].size};
 
-    ${!$iconOnly &&
-    css`
-      padding: ${sizeMap[$size].padding};
-    `}
+    ${
+      !$iconOnly &&
+      css`
+        padding: ${sizeMap[$size].padding};
+      `
+    }
 
-    ${$iconOnly &&
-    css`
-      width: ${sizeMap[$size].size};
-    `}
+    ${
+      $iconOnly &&
+      css`
+        width: ${sizeMap[$size].size};
+      `
+    }
 
-    ${$fullWidth &&
-    css`
-      flex: 1 1 auto;
-    `}
+    ${
+      $fullWidth &&
+      css`
+        flex: 1 1 auto;
+      `
+    }
 
     border-radius: ${sizeMap[$size].borderRadius};
     border: none;
@@ -75,35 +81,43 @@ const StyledButtonToggle = styled.button.attrs(
     font: ${sizeMap[$size].font};
     text-align: center;
 
-    ${$active &&
-    css`
-      background: var(--button-typical-toggle-bg-active);
-      color: var(--button-typical-toggle-label-active);
-    `}
-
-    ${disabled &&
-    css`
-      cursor: not-allowed;
-      color: var(--button-typical-toggle-label-disabled);
-
-      ${$active &&
+    ${
+      $active &&
       css`
-        background: var(--button-typical-toggle-bg-active-disabled);
-        color: var(--button-typical-toggle-label-active-disabled);
-      `}
-    `}
+        background: var(--button-typical-toggle-bg-active);
+        color: var(--button-typical-toggle-label-active);
+      `
+    }
 
-    ${!disabled &&
-    css`
-      &:focus {
-        ${addFocusStyling()}
-      }
+    ${
+      disabled &&
+      css`
+        cursor: not-allowed;
+        color: var(--button-typical-toggle-label-disabled);
 
-      &:hover {
-        background: var(--button-typical-toggle-bg-hover);
-        color: var(--button-typical-toggle-label-hover);
-      }
-    `}
+        ${
+          $active &&
+          css`
+            background: var(--button-typical-toggle-bg-active-disabled);
+            color: var(--button-typical-toggle-label-active-disabled);
+          `
+        }
+      `
+    }
+
+    ${
+      !disabled &&
+      css`
+        &:focus {
+          ${addFocusStyling()}
+        }
+
+        &:hover {
+          background: var(--button-typical-toggle-bg-hover);
+          color: var(--button-typical-toggle-label-hover);
+        }
+      `
+    }
   `}
 `;
 

@@ -45,22 +45,28 @@ export const StyledTabPanel = styled.div`
 export const StyledTabList = styled.div<StyledTabListProps>`
   display: flex;
   ${({ $orientation, $scrollRequired }) => css`
-    ${$orientation === "horizontal" &&
-    css`
-      margin-bottom: 8px;
-
-      ${$scrollRequired &&
+    ${
+      $orientation === "horizontal" &&
       css`
-        margin-inline: -${TAB_LIST_FOCUS_PADDING}px;
-      `}
-    `}
+        margin-bottom: 8px;
 
-    ${$orientation === "vertical" &&
-    css`
-      flex-direction: column;
-      flex-wrap: wrap;
-      margin-right: 8px;
-    `}
+        ${
+          $scrollRequired &&
+          css`
+            margin-inline: -${TAB_LIST_FOCUS_PADDING}px;
+          `
+        }
+      `
+    }
+
+    ${
+      $orientation === "vertical" &&
+      css`
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin-right: 8px;
+      `
+    }
   `}
   width: 100%;
   padding: ${TAB_LIST_FOCUS_PADDING}px;
@@ -119,8 +125,10 @@ export const StyledScrollButtonPlaceholder = styled.div<{
   position: relative;
 `;
 
-interface StyledTabProps
-  extends Omit<TabProps, "controls" | "index" | "label"> {
+interface StyledTabProps extends Omit<
+  TabProps,
+  "controls" | "index" | "label"
+> {
   activeTab: boolean;
   error?: string | boolean;
   warning?: string | boolean;
@@ -162,25 +170,31 @@ export const StyledTab = styled.button<StyledTabProps>`
     }) =>
       activeTab &&
       css`
-        ${$orientation === "horizontal" &&
-        (error || warning || info) &&
-        css`
-          position: relative;
-          top: 1px;
-        `}
+        ${
+          $orientation === "horizontal" &&
+          (error || warning || info) &&
+          css`
+            position: relative;
+            top: 1px;
+          `
+        }
 
-        ${$size === "large" &&
-        css`
-          margin-top: -4px;
-        `}
+        ${
+          $size === "large" &&
+          css`
+            margin-top: -4px;
+          `
+        }
 
-        ${$hasCustomLayout &&
-        $orientation === "horizontal" &&
-        css`
-          position: relative;
-          top: -2px;
-          left: 1px;
-        `}
+        ${
+          $hasCustomLayout &&
+          $orientation === "horizontal" &&
+          css`
+            position: relative;
+            top: -2px;
+            left: 1px;
+          `
+        }
       `}
   }
 
@@ -193,13 +207,15 @@ export const StyledTab = styled.button<StyledTabProps>`
     font-size: ${sizes[$size].fontSize}px;
     height: ${sizes[$size].height}px;
 
-    ${$hasCustomLayout
-      ? css`
-          padding: 0;
-        `
-      : css`
-          padding: ${sizes[$size].paddingY}px ${sizes[$size].paddingX}px;
-        `}
+    ${
+      $hasCustomLayout
+        ? css`
+            padding: 0;
+          `
+        : css`
+            padding: ${sizes[$size].paddingY}px ${sizes[$size].paddingX}px;
+          `
+    }
   `};
 
   ${({
@@ -219,13 +235,15 @@ export const StyledTab = styled.button<StyledTabProps>`
       border-bottom: none;
       color: var(--tab-label-active);
 
-      ${!$hasCustomLayout &&
-      css`
-        padding-top: ${sizes[$size].paddingY - 4}px;
-        padding-right: ${sizes[$size].paddingX - 2}px;
-        padding-bottom: ${sizes[$size].paddingY}px;
-        padding-left: ${sizes[$size].paddingX - 2}px;
-      `}
+      ${
+        !$hasCustomLayout &&
+        css`
+          padding-top: ${sizes[$size].paddingY - 4}px;
+          padding-right: ${sizes[$size].paddingX - 2}px;
+          padding-bottom: ${sizes[$size].paddingY}px;
+          padding-left: ${sizes[$size].paddingX - 2}px;
+        `
+      }
 
       :hover {
         background-color: var(--tab-bg-active);
@@ -268,76 +286,90 @@ export const StyledTab = styled.button<StyledTabProps>`
       max-width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
       width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
 
-      ${$headerWidth &&
-      css`
-        white-space: normal;
-        height: auto;
-      `}
-
-      ${activeTab &&
-      css`
-        background-color: var(--tab-bg-active);
-        border: 2px solid var(--tab-border-active-alt);
-        border-right: none;
-
-        ${!$hasCustomLayout &&
+      ${
+        $headerWidth &&
         css`
-          padding-top: ${$size === "medium" ? sizes.medium.paddingY - 2 : 4}px;
-          padding-right: var(--global-space-none);
-          padding-bottom: ${$size === "medium"
-            ? sizes.medium.paddingY - 2
-            : sizes.large.paddingY}px;
-          padding-left: ${sizes[$size].paddingX - 2}px;
-        `}
+          white-space: normal;
+          height: auto;
+        `
+      }
 
-        :hover {
+      ${
+        activeTab &&
+        css`
           background-color: var(--tab-bg-active);
-        }
+          border: 2px solid var(--tab-border-active-alt);
+          border-right: none;
 
-        .tab-title-content-wrapper {
-          ${$headerWidth &&
-          !$hasCustomLayout &&
-          css`
-            padding-right: 18px;
-          `}
+          ${
+            !$hasCustomLayout &&
+            css`
+              padding-top: ${$size === "medium" ? sizes.medium.paddingY - 2 : 4}px;
+              padding-right: var(--global-space-none);
+              padding-bottom: ${
+              $size === "medium"
+                ? sizes.medium.paddingY - 2
+                : sizes.large.paddingY
+            }px;
+              padding-left: ${sizes[$size].paddingX - 2}px;
+            `
+          }
 
-          ${$hasCustomLayout &&
-          css`
-            width: 100%;
+          :hover {
+            background-color: var(--tab-bg-active);
+          }
 
-            > * {
-              position: relative;
-              left: -2px;
-              top: -2px;
+          .tab-title-content-wrapper {
+            ${
+              $headerWidth &&
+              !$hasCustomLayout &&
+              css`
+                padding-right: 18px;
+              `
             }
-          `}
+
+            ${
+              $hasCustomLayout &&
+              css`
+                width: 100%;
+
+                > * {
+                  position: relative;
+                  left: -2px;
+                  top: -2px;
+                }
+              `
+            }
 
           ::after {
-            content: "";
-            position: absolute;
-            right: 0;
-            width: 4px;
-            ${$hasCustomLayout &&
-            css`
-              top: 20%;
-              right: 0px;
-            `}
-            height: 60%;
-            background-color: ${() => {
-              /* istanbul ignore if */
-              if (error) return "var(--tab-validation-border-error)";
-              /* istanbul ignore if */
-              if (warning) return "var(--tab-validation-border-warning)";
-              /* istanbul ignore if */
-              if (info) return "#0060a7ff";
+              content: "";
+              position: absolute;
+              right: 0;
+              width: 4px;
+              ${
+                $hasCustomLayout &&
+                css`
+                  top: 20%;
+                  right: 0px;
+                `
+              }
+              height: 60%;
+              background-color: ${() => {
+                /* istanbul ignore if */
+                if (error) return "var(--tab-validation-border-error)";
+                /* istanbul ignore if */
+                if (warning) return "var(--tab-validation-border-warning)";
+                /* istanbul ignore if */
+                if (info) return "#0060a7ff";
 
-              return "black";
-            }};
-            border-radius: var(--global-radius-container-2-xs);
-            min-height: 24px;
+                return "black";
+              }};
+              border-radius: var(--global-radius-container-2-xs);
+              min-height: 24px;
+            }
           }
-        }
-      `}
+        `
+      }
     `}
 
   :focus {
@@ -346,12 +378,16 @@ export const StyledTab = styled.button<StyledTabProps>`
 
     ${({ $orientation }) => css`
       border-top-left-radius: var(--global-radius-action-m);
-      border-top-right-radius: ${$orientation === "horizontal"
-        ? "var(--global-radius-action-m)"
-        : "var(--global-radius-none)"};
-      border-bottom-left-radius: ${$orientation === "horizontal"
-        ? "var(--global-radius-none)"
-        : "var(--global-radius-action-m)"};
+      border-top-right-radius: ${
+        $orientation === "horizontal"
+          ? "var(--global-radius-action-m)"
+          : "var(--global-radius-none)"
+      };
+      border-bottom-left-radius: ${
+        $orientation === "horizontal"
+          ? "var(--global-radius-none)"
+          : "var(--global-radius-action-m)"
+      };
       border-bottom-right-radius: var(--global-radius-none);
     `}
   }

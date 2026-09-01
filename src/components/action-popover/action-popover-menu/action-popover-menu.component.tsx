@@ -57,8 +57,7 @@ export interface ActionPopoverMenuBaseProps {
 }
 
 export interface ActionPopoverMenuProps
-  extends ActionPopoverMenuBaseProps,
-    React.RefAttributes<HTMLUListElement> {}
+  extends ActionPopoverMenuBaseProps, React.RefAttributes<HTMLUListElement> {}
 
 const ActionPopoverMenu = React.forwardRef<
   HTMLUListElement,

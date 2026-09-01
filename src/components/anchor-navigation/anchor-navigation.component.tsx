@@ -23,8 +23,7 @@ import AnchorNavigationItem, {
 } from "./anchor-navigation-item/anchor-navigation-item.component";
 
 export interface AnchorNavigationProps
-  extends TagProps,
-    Pick<AriaAttributes, "aria-label" | "aria-labelledby"> {
+  extends TagProps, Pick<AriaAttributes, "aria-label" | "aria-labelledby"> {
   /** Child elements */
   children?: React.ReactNode;
   /** The AnchorNavigationItems components to be rendered in the sticky navigation.

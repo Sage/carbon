@@ -159,9 +159,9 @@ export const InnerBar = styled.div<{
     border-radius: ${barBorderRadii[size]};
     animation-name: ${innerBarAnimationOne}, ${innerBarAnimationTwo};
     ${hasMotion && `animation-duration: ${animationTime}s, ${animationTime}s;`}
-    animation-iteration-count: ${hasMotion
-      ? "infinite, infinite"
-      : "none, none"};
+    animation-iteration-count: ${
+      hasMotion ? "infinite, infinite" : "none, none"
+    };
   `}
 `;
 
@@ -213,9 +213,11 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
       circle[data-role="outer-arc"] {
         fill: transparent;
         stroke-width: ${strokeWidth}px;
-        stroke: ${inverse
-          ? "var(--progress-loader-inverse-bg-default)"
-          : "var(--progress-loader-bg-default)"};
+        stroke: ${
+          inverse
+            ? "var(--progress-loader-inverse-bg-default)"
+            : "var(--progress-loader-bg-default)"
+        };
         cx: 12px;
         cy: 12px;
         r: 10px;
@@ -224,9 +226,11 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
       circle[data-role="inner-arc"] {
         fill: transparent;
         stroke-width: ${strokeWidth}px;
-        stroke: ${isGradientVariant
-          ? "none"
-          : getStrokeColor({ inverse, isSuccess, isError })};
+        stroke: ${
+          isGradientVariant
+            ? "none"
+            : getStrokeColor({ inverse, isSuccess, isError })
+        };
         stroke-linecap: round;
         stroke-dasharray: 100px;
         stroke-dashoffset: 95px;
@@ -242,35 +246,39 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
         animation-iteration-count: ${hasMotion ? "infinite" : "none"};
       }
 
-      ${isGradientVariant &&
-      css`
-        circle[data-role="gradient-mask-arc"] {
-          fill: none;
-          stroke: white;
-          stroke-width: ${strokeWidth}px;
-          stroke-linecap: round;
-          stroke-dasharray: 100px;
-          stroke-dashoffset: 95px;
-          transform-origin: 12px 12px 0px;
-          cx: 12px;
-          cy: 12px;
-          r: 10px;
-          transform: rotate(-90deg);
+      ${
+        isGradientVariant &&
+        css`
+          circle[data-role="gradient-mask-arc"] {
+            fill: none;
+            stroke: white;
+            stroke-width: ${strokeWidth}px;
+            stroke-linecap: round;
+            stroke-dasharray: 100px;
+            stroke-dashoffset: 95px;
+            transform-origin: 12px 12px 0px;
+            cx: 12px;
+            cy: 12px;
+            r: 10px;
+            transform: rotate(-90deg);
 
-          animation-name: ${untrackedAnimation};
-          ${hasMotion && `animation-duration: ${animationTime}s;`}
-          animation-timing-function: cubic-bezier(0, 0, 1, 1);
-          animation-iteration-count: ${hasMotion ? "infinite" : "none"};
-        }
-      `}
+            animation-name: ${untrackedAnimation};
+            ${hasMotion && `animation-duration: ${animationTime}s;`}
+            animation-timing-function: cubic-bezier(0, 0, 1, 1);
+            animation-iteration-count: ${hasMotion ? "infinite" : "none"};
+          }
+        `
+      }
 
-      ${!isGradientVariant &&
-      css`
-        ${StyledNextButton} & circle[data-role="inner-arc"],
+      ${
+        !isGradientVariant &&
+        css`
+          ${StyledNextButton} & circle[data-role="inner-arc"],
         ${StyledButton} & circle[data-role="inner-arc"] {
-          stroke: currentColor;
-        }
-      `}
+            stroke: currentColor;
+          }
+        `
+      }
     `;
   }}
 `;
@@ -334,30 +342,36 @@ const getLabelStyles = ({
 
   if (loaderType === "standalone") {
     return css`
-      font: ${size === "large"
-        ? "var(--global-font-static-comp-medium-l)"
-        : size === "small"
-          ? "var(--global-font-static-comp-medium-s)"
-          : "var(--global-font-static-comp-medium-m)"};
+      font: ${
+        size === "large"
+          ? "var(--global-font-static-comp-medium-l)"
+          : size === "small"
+            ? "var(--global-font-static-comp-medium-s)"
+            : "var(--global-font-static-comp-medium-m)"
+      };
       width: 100%;
       margin-top: ${LabelMargins[loaderType][size]};
     `;
   }
 
   return css`
-    font: ${$isInsideButton
-      ? "var(--global-font-static-comp-medium-s)"
-      : size === "large"
-        ? "var(--global-font-static-comp-medium-l)"
-        : size === "extra-small"
-          ? "var(--global-font-static-comp-medium-xs)"
-          : size === "small"
-            ? "var(--global-font-static-comp-medium-s)"
-            : "var(--global-font-static-comp-medium-m)"};
+    font: ${
+      $isInsideButton
+        ? "var(--global-font-static-comp-medium-s)"
+        : size === "large"
+          ? "var(--global-font-static-comp-medium-l)"
+          : size === "extra-small"
+            ? "var(--global-font-static-comp-medium-xs)"
+            : size === "small"
+              ? "var(--global-font-static-comp-medium-s)"
+              : "var(--global-font-static-comp-medium-m)"
+    };
     width: ${loaderVariant === "inline" ? "auto" : "100%"};
-    ${loaderVariant === "inline"
-      ? `margin-left: ${ringInlineLabelMargins[size]}`
-      : `margin-top: ${LabelMargins[loaderType][size]}`};
+    ${
+      loaderVariant === "inline"
+        ? `margin-left: ${ringInlineLabelMargins[size]}`
+        : `margin-top: ${LabelMargins[loaderType][size]}`
+    };
   `;
 };
 
@@ -403,9 +417,11 @@ type StyledLabelProps = {
 
 export const StyledLabel = styled.span<StyledLabelProps>`
   ${({ inverse }) => css`
-    color: ${inverse
-      ? "var(--progress-inverse-label-alt)"
-      : "var(--progress-label-alt)"};
+    color: ${
+      inverse
+        ? "var(--progress-inverse-label-alt)"
+        : "var(--progress-label-alt)"
+    };
 
     ${StyledNextButton} &, ${StyledButton} & {
       color: currentColor;

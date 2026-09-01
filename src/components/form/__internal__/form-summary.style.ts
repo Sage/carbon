@@ -33,10 +33,12 @@ export const StyledFormSummary = styled.div<StyledFormSummaryProps>`
       padding: var(--sizing100);
       gap: var(--sizing125);
 
-      ${fullWidth &&
-      css`
-        margin: 0 calc(-1 * var(--sizing100));
-      `}
+      ${
+        fullWidth &&
+        css`
+          margin: 0 calc(-1 * var(--sizing100));
+        `
+      }
     `}
 `;
 

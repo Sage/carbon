@@ -32,18 +32,21 @@ const StyledButtonMinor = styled(Button)<ButtonMinorProps>`
     !destructive &&
     !disabled &&
     css`
-      ${buttonType === "primary" &&
-      `
+      ${
+        buttonType === "primary" &&
+        `
         background: var(--colorsActionMinor500);
         border-color: var(--colorsActionMinorTransparent);
         ${makeColors("var(--colorsActionMinorYang100)")}
         &:hover {
           background: var(--colorsActionMinor600);
         }
-      `}
-
-      ${buttonType === "secondary" &&
       `
+      }
+
+      ${
+        buttonType === "secondary" &&
+        `
         background: transparent;
         padding: var(--spacing100);
         border-color: var(--colorsActionMinor500);
@@ -52,10 +55,12 @@ const StyledButtonMinor = styled(Button)<ButtonMinorProps>`
           color: var(--colorsActionMinorYang100);
           background: var(--colorsActionMinor600);
         }
-      `}
-
-      ${buttonType === "tertiary" &&
       `
+      }
+
+      ${
+        buttonType === "tertiary" &&
+        `
         background: transparent;
         padding: var(--spacing100);
         ${makeColors("var(--colorsActionMinor500)")}
@@ -63,45 +68,52 @@ const StyledButtonMinor = styled(Button)<ButtonMinorProps>`
           color: var(--colorsActionMinorYang100);
           background: var(--colorsActionMinor600);
         }
-      `}
+      `
+      }
     `}
     
     ${({ isInPassword, disabled }) =>
-    isInPassword &&
-    !disabled &&
-    css`
-      ${StyledIcon} {
-        color: var(--colorsUtilityMajor300);
-      }
-
-      &:hover {
+      isInPassword &&
+      !disabled &&
+      css`
         ${StyledIcon} {
           color: var(--colorsUtilityMajor300);
         }
-        color: var(--colorsActionMinor500);
-        background: transparent;
-      }
-    `}
+
+        &:hover {
+          ${StyledIcon} {
+            color: var(--colorsUtilityMajor300);
+          }
+          color: var(--colorsActionMinor500);
+          background: transparent;
+        }
+      `}
 
   ${({ size }) => css`
-    ${size === "small" &&
-    `
+    ${
+      size === "small" &&
+      `
       min-height: var(--sizing400);
       padding: var(--spacing000) var(--spacing100) var(--spacing000)
         var(--spacing100);
-    `}
-
-    ${size === "medium" &&
     `
+    }
+
+    ${
+      size === "medium" &&
+      `
       padding-left: var(--spacing150);
       padding-right: var(--spacing150);
-    `}
-
-    ${size === "large" &&
     `
+    }
+
+    ${
+      size === "large" &&
+      `
       padding-left: var(--spacing200);
       padding-right: var(--spacing200);
-    `}
+    `
+    }
   `}
 `;
 

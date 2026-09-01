@@ -23,41 +23,46 @@ const StyledSplitButtonToggle = styled(
     border-top-left-radius: var(--borderRadius000);
     border-bottom-left-radius: var(--borderRadius000);
 
-    ${!disabled && displayed && !isWhite
-      ? css`
-          background-color: var(--colorsActionMajor500);
-          border-color: var(--colorsActionMajor500);
+    ${
+      !disabled && displayed && !isWhite
+        ? css`
+            background-color: var(--colorsActionMajor500);
+            border-color: var(--colorsActionMajor500);
 
-          &,
-          ${StyledIcon} {
-            color: var(--colorsActionMajorYang100);
-          }
+            &,
+            ${StyledIcon} {
+              color: var(--colorsActionMajorYang100);
+            }
 
-          &:focus {
-            border-left-color: var(--colorsSemanticFocus500);
-          }
-        `
-      : ""}
+            &:focus {
+              border-left-color: var(--colorsSemanticFocus500);
+            }
+          `
+        : ""
+    }
 
-    ${!disabled && displayed && isWhite
-      ? css`
-          background-color: var(--colorsActionMajorYang100);
-          border-color: var(--colorsActionMajorYang100);
+    ${
+      !disabled && displayed && isWhite
+        ? css`
+            background-color: var(--colorsActionMajorYang100);
+            border-color: var(--colorsActionMajorYang100);
 
-          &,
-          ${StyledIcon} {
-            color: var(--colorsYin100);
-          }
+            &,
+            ${StyledIcon} {
+              color: var(--colorsYin100);
+            }
 
-          &:focus {
-            border-left-color: var(--colorsSemanticFocus500);
-          }
-        `
-      : ""}
+            &:focus {
+              border-left-color: var(--colorsSemanticFocus500);
+            }
+          `
+        : ""
+    }
 
-    ${!disabled &&
-    buttonType === "primary" &&
-    `
+    ${
+      !disabled &&
+      buttonType === "primary" &&
+      `
       position: relative;
       &::before {
         content: '';
@@ -68,7 +73,8 @@ const StyledSplitButtonToggle = styled(
         left: -2px;
         z-index: 2;
       }  
-    `}
+    `
+    }
 
     ${buttonType === "secondary" && "border-left-width: 0;"}
     padding: 0 ${horizontalPaddingSizes[size]}px;
@@ -91,9 +97,10 @@ const StyledSplitButtonToggle = styled(
       }
     }
 
-    ${!disabled &&
-    isWhite &&
-    `
+    ${
+      !disabled &&
+      isWhite &&
+      `
       &:focus {
         background-color: var(--colorsActionMajorYang100);
         border-color: var(--colorsActionMajorYang100);
@@ -103,7 +110,8 @@ const StyledSplitButtonToggle = styled(
           color: var(--colorsYin100);
         }
       }
-    `}
+    `
+    }
   `}
 `;
 

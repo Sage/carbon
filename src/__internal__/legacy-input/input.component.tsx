@@ -4,16 +4,12 @@ import { InputContext, InputGroupContext } from "../input-behaviour";
 import { BorderRadiusType } from "../../components/box/box.component";
 
 export type EnterKeyHintTypes =
-  | "enter"
-  | "done"
-  | "go"
-  | "next"
-  | "previous"
-  | "search"
-  | "send";
+  "enter" | "done" | "go" | "next" | "previous" | "search" | "send";
 
-export interface CommonInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value"> {
+export interface CommonInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "value"
+> {
   /* The default value alignment on the input */
   align?: "right" | "left";
   /** The ID of the input's description, is set along with hint text and error message. */

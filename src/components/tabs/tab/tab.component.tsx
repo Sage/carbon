@@ -13,9 +13,7 @@ export type TabsHandle = {
 } | null;
 
 export interface TabProps
-  extends PaddingProps,
-    TagProps,
-    Partial<NextTabProps> {
+  extends PaddingProps, TagProps, Partial<NextTabProps> {
   /**
    * The title of the Tab.
    * @deprecated Support will be removed in a future release, it is recommended to use `label` prop instead.

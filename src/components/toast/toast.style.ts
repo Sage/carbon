@@ -14,50 +14,64 @@ const StyledPortal = styled(Portal).attrs(applyBaseTheme)<{
     top: 0;
     z-index: ${theme.zIndex.notification};
 
-    ${align === "left" &&
-    css`
-      left: 0;
-      transform: translateX(50%);
-    `}
+    ${
+      align === "left" &&
+      css`
+        left: 0;
+        transform: translateX(50%);
+      `
+    }
 
-    ${align === "center" &&
-    css`
-      margin-left: 50%;
-      transform: translateX(-50%);
-    `}
+    ${
+      align === "center" &&
+      css`
+        margin-left: 50%;
+        transform: translateX(-50%);
+      `
+    }
 
-    ${align === "right" &&
-    css`
-      right: 0;
-      transform: translateX(-50%);
-    `}
+    ${
+      align === "right" &&
+      css`
+        right: 0;
+        transform: translateX(-50%);
+      `
+    }
 
-    ${isNotice &&
-    css`
-      bottom: 0;
-      top: auto;
-      width: 100%;
-    `}
+    ${
+      isNotice &&
+      css`
+        bottom: 0;
+        top: auto;
+        width: 100%;
+      `
+    }
 
-    ${alignY === "top" &&
-    css`
-      top: 0;
-      bottom: auto;
-    `}
+    ${
+      alignY === "top" &&
+      css`
+        top: 0;
+        bottom: auto;
+      `
+    }
 
-    ${alignY === "center" &&
-    css`
-      top: 50%;
-      transform: translate(${align === "left" ? "50%" : "-50%"}, -50%);
-    `}
+    ${
+      alignY === "center" &&
+      css`
+        top: 50%;
+        transform: translate(${align === "left" ? "50%" : "-50%"}, -50%);
+      `
+    }
 
-    ${alignY === "bottom" &&
-    css`
-      bottom: 0;
-      top: auto;
-      display: flex;
-      flex-direction: column-reverse;
-    `}
+    ${
+      alignY === "bottom" &&
+      css`
+        bottom: 0;
+        top: auto;
+        display: flex;
+        flex-direction: column-reverse;
+      `
+    }
   `}
 `;
 
@@ -113,19 +127,21 @@ const StyledToast = styled.div<ToastStyleProps>`
 
     box-shadow: ${boxShadow};
     line-height: 22px;
-    margin-top: ${isNotice || alignY === "center" || alignY === "bottom"
-      ? "0"
-      : "30px"};
+    margin-top: ${
+      isNotice || alignY === "center" || alignY === "bottom" ? "0" : "30px"
+    };
     margin-bottom: ${alignY === "bottom" && !isNotice ? "30px" : "0"};
     max-width: ${!maxWidth ? "300px" : maxWidth};
     position: relative;
     margin-right: ${align === "center" || align === "right" ? "auto" : "30px"};
     margin-left: ${align === "center" || align === "left" ? "auto" : "30px"};
 
-    ${isNotification &&
-    css`
-      border: 1px solid var(--colorsSemanticInfo500);
-    `}
+    ${
+      isNotification &&
+      css`
+        border: 1px solid var(--colorsSemanticInfo500);
+      `
+    }
   `}
 
   :focus {

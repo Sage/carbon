@@ -29,11 +29,13 @@ const StyledIconButton = styled.button
     }
 
     ${StyledIcon} {
-      ${disabled &&
-      css`
-        color: var(--colorsActionMinorYin030);
-        background-color: transparent;
-      `};
+      ${
+        disabled &&
+        css`
+          color: var(--colorsActionMinorYin030);
+          background-color: transparent;
+        `
+      };
       position: relative;
 
       &:focus {

@@ -12,8 +12,10 @@ jest.mock("../../../__internal__/utils/helpers/guid");
   () => "guid-12345",
 );
 
-interface ControlledCheckboxProps
-  extends Omit<FlatTableCheckboxProps, "checked"> {
+interface ControlledCheckboxProps extends Omit<
+  FlatTableCheckboxProps,
+  "checked"
+> {
   initialChecked?: boolean;
 }
 

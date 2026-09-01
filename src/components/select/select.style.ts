@@ -5,8 +5,10 @@ import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-ico
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { SimpleSelectProps } from "./simple-select";
 
-export interface StyledSelectProps
-  extends Pick<SimpleSelectProps, "disabled" | "readOnly" | "transparent"> {
+export interface StyledSelectProps extends Pick<
+  SimpleSelectProps,
+  "disabled" | "readOnly" | "transparent"
+> {
   hasTextCursor?: boolean;
   isOpen: boolean;
 }

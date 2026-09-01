@@ -25,12 +25,14 @@ const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
       justify-content: space-between;
       gap: var(--spacing200);
       > ${StyledIconButton}:first-of-type {
-        ${headerVariant === "dark" &&
-        css`
-          ${StyledIcon} {
-            color: var(--colorsUtilityYang080);
-          }
-        `}
+        ${
+          headerVariant === "dark" &&
+          css`
+            ${StyledIcon} {
+              color: var(--colorsUtilityYang080);
+            }
+          `
+        }
         align-self: flex-start;
       }
     `}

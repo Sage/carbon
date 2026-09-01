@@ -9,9 +9,7 @@ export type Orientation = "top" | "bottom";
 export type NavigationType = "light" | "dark" | "white" | "black";
 
 export interface NavigationBarProps
-  extends PaddingProps,
-    FlexboxProps,
-    TagProps {
+  extends PaddingProps, FlexboxProps, TagProps {
   /** Content of the component */
   children?: React.ReactNode;
   /** HTML aria-label attribute */

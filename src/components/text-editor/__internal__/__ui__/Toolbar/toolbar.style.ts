@@ -36,10 +36,12 @@ const StyledToolbarWrapper = styled.div<StyledToolbarProps>`
   ${({ size, hasHeader }) => css`
     padding: ${sizeMap[size].toolbarPadding};
 
-    ${hasHeader &&
-    css`
-      padding-top: ${sizeMap[size].withHeaderPadding};
-    `}
+    ${
+      hasHeader &&
+      css`
+        padding-top: ${sizeMap[size].withHeaderPadding};
+      `
+    }
   `};
 
   display: flex;

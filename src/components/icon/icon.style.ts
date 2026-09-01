@@ -199,12 +199,14 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       width: ${backgroundSize};
       ${bgShape ? `border-radius: ${iconConfig.backgroundShape[bgShape]}` : ""};
 
-      ${isInteractive &&
-      css`
-        &:not(:focus):hover {
-          filter: brightness(0.9);
-        }
-      `}
+      ${
+        isInteractive &&
+        css`
+          &:not(:focus):hover {
+            filter: brightness(0.9);
+          }
+        `
+      }
 
       &::before {
         -webkit-font-smoothing: antialiased;
@@ -216,37 +218,45 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
         font-weight: normal;
         vertical-align: middle;
 
-        ${fontSize &&
-        css`
-          font-size: ${iconConfig.iconSize[fontSize]};
-          line-height: ${iconConfig.iconSize[fontSize]};
-        `}
+        ${
+          fontSize &&
+          css`
+            font-size: ${iconConfig.iconSize[fontSize]};
+            line-height: ${iconConfig.iconSize[fontSize]};
+          `
+        }
         // FIXME: this can cause hydration mismatches during SSR.
-        ${win &&
-        type === "services" &&
-        browserTypeCheck(win) &&
-        css`
-          margin-top: ${fontSize === "small" ? "-7px" : "-8px"};
-        `}
-        ${nav &&
-        win &&
-        type === "services" &&
-        isSafari(nav) &&
-        !browserTypeCheck(win) &&
-        css`
-          margin-top: -6px;
-        `}
+        ${
+          win &&
+          type === "services" &&
+          browserTypeCheck(win) &&
+          css`
+            margin-top: ${fontSize === "small" ? "-7px" : "-8px"};
+          `
+        }
+        ${
+          nav &&
+          win &&
+          type === "services" &&
+          isSafari(nav) &&
+          !browserTypeCheck(win) &&
+          css`
+            margin-top: -6px;
+          `
+        }
 
         display: block;
       }
 
-      ${tabIndex !== undefined &&
-      // istanbul ignore next
-      `
+      ${
+        tabIndex !== undefined &&
+        // istanbul ignore next
+        `
         :focus {
           ${addFocusStyling()}
         }
-      `}
+      `
+      }
 
       ${margin}
 

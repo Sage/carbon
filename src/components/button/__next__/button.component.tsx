@@ -19,7 +19,8 @@ import {
 type ButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
 export interface ButtonProps
-  extends Omit<
+  extends
+    Omit<
       LegacyButtonProps,
       | "size"
       | "type"
@@ -62,8 +63,7 @@ export interface ButtonProps
   /** Handler to fire when the button is clicked. */
   onClick?: (
     ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Handler to fire when the button is focused. */
   onFocus?: (

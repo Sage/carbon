@@ -6,9 +6,7 @@ import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { GlobalHeaderProvider } from "./__internal__/global-header.context";
 
 export interface GlobalHeaderProps
-  extends PaddingProps,
-    FlexboxProps,
-    TagProps {
+  extends PaddingProps, FlexboxProps, TagProps {
   /** Child elements */
   children?: React.ReactNode;
   /** Logo to render */

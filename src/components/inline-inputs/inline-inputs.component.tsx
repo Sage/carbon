@@ -25,7 +25,8 @@ type GutterOptions =
  * @deprecated `InlineInputs` has been deprecated. See the Carbon documentation for migration details.
  */
 export interface InlineInputsProps
-  extends MarginProps,
+  extends
+    MarginProps,
     StyledContentContainerProps,
     StyledInlineInputsProps,
     TagProps {

@@ -32,9 +32,7 @@ export type VerticalMenuItemClickEvent =
   | React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>;
 
 export interface VerticalMenuItemProps<T = React.ElementType>
-  extends PaddingProps,
-    MarginProps,
-    TagProps {
+  extends PaddingProps, MarginProps, TagProps {
   /** Children of the menu item - another level of VerticalMenuItems */
   children?: React.ReactNode;
   /** Custom icon to be displayed. Takes precedence over `iconType` if both are specified. */

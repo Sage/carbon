@@ -116,23 +116,26 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
   `}
 
   ${({ $isButtonMenu }) => css`
-    ${$isButtonMenu
-      ? `
+    ${
+      $isButtonMenu
+        ? `
         &:focus {
           outline: none;
         }
       `
-      : `
+        : `
         &[data-has-focus="true"] {
           outline: var(--focus-borderalt) solid var(--global-borderwidth-s);
           outline-offset: calc(var(--global-borderwidth-s) * -1);
         }
-    `}
+    `
+    }
   `}
 
   ${({ $size, $isButtonMenu }) => css`
-    ${$size === "small" &&
-    `
+    ${
+      $size === "small" &&
+      `
       &:not(:has(button)):not(:has(a)) {
         padding: var(--global-space-comp-xs) 0;
 
@@ -149,10 +152,12 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
         font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-s);
       }
-    `}
-
-    ${$size === "medium" &&
     `
+    }
+
+    ${
+      $size === "medium" &&
+      `
       &:not(:has(button)):not(:has(a)) {
         padding: var(--global-space-comp-s) 0;
 
@@ -169,10 +174,12 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
         font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-m);
       }
-    `}
-  
-    ${$size === "large" &&
     `
+    }
+  
+    ${
+      $size === "large" &&
+      `
       &:not(:has(button)):not(:has(a)) {
         padding: var(--global-space-comp-m) 0;
 
@@ -189,7 +196,8 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
         font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-l);
       }
-    `}
+    `
+    }
   `}
 `;
 

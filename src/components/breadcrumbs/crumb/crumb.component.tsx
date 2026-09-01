@@ -7,7 +7,8 @@ import { StyledCrumbCurrent, Divider } from "./crumb.style";
 import { useBreadcrumbsContext } from "../__internal__/breadcrumbs.context";
 
 export interface CrumbProps
-  extends Pick<
+  extends
+    Pick<
       LinkProps,
       "href" | "onClick" | "onKeyDown" | "onMouseDown" | "children"
     >,

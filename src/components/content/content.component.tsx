@@ -14,7 +14,8 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
  * @deprecated `Content` has been deprecated. See the Carbon documentation for migration details.
  */
 export interface ContentProps
-  extends StyledContentProps,
+  extends
+    StyledContentProps,
     StyledContentTitleProps,
     StyledContentBodyProps,
     TagProps {

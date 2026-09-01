@@ -28,7 +28,8 @@ import FieldsetContext from "../../../fieldset/__internal__/fieldset.context";
 import selectTextboxContext from "../../../select/__internal__/select-textbox/__internal__/select-textbox.context";
 
 export interface TextInputProps
-  extends Omit<ValidationProps, "info">,
+  extends
+    Omit<ValidationProps, "info">,
     MarginProps,
     Omit<InputProps, "size" | "error">,
     TagProps {

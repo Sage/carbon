@@ -25,14 +25,18 @@ const StyledContent = styled.div.attrs(applyBaseTheme)<StyledContentProps>`
       margin-top: 15px;
     }
 
-    ${align &&
-    css`
-      text-align: ${align};
-    `}
-    ${bodyFullWidth &&
-    css`
-      text-align: left;
-    `}
+    ${
+      align &&
+      css`
+        text-align: ${align};
+      `
+    }
+    ${
+      bodyFullWidth &&
+      css`
+        text-align: left;
+      `
+    }
   `}
 `;
 
@@ -55,18 +59,22 @@ const StyledContentTitle = styled.div<StyledContentTitleProps>`
       width: ${titleWidth && `calc(${titleWidth}% - 30px)`};
       text-align: ${!inline && align};
 
-      ${align === "center" &&
-      inline &&
-      css`
-        text-align: right;
-        width: calc(50% - 30px);
-      `}
+      ${
+        align === "center" &&
+        inline &&
+        css`
+          text-align: right;
+          width: calc(50% - 30px);
+        `
+      }
 
-      ${variant === "secondary" &&
-      css`
-        color: var(--colorsUtilityYin055);
-        font-weight: normal;
-      `}
+      ${
+        variant === "secondary" &&
+        css`
+          color: var(--colorsUtilityYin055);
+          font-weight: normal;
+        `
+      }
     `;
   }};
 `;
@@ -96,33 +104,43 @@ const StyledContentBody = styled.div<StyledContentBodyProps>`
       word-wrap: break-word;
       font-weight: normal;
 
-      ${align === "center" &&
-      inline &&
-      css`
-        width: 50%;
-      `}
-      ${titleWidth &&
-      css`
-        width: ${100 - Number(titleWidth)}%;
-      `}
-      ${bodyFullWidth &&
-      css`
-        width: 100%;
-      `}
+      ${
+        align === "center" &&
+        inline &&
+        css`
+          width: 50%;
+        `
+      }
+      ${
+        titleWidth &&
+        css`
+          width: ${100 - Number(titleWidth)}%;
+        `
+      }
+      ${
+        bodyFullWidth &&
+        css`
+          width: 100%;
+        `
+      }
 
-      ${inline &&
-      bodyFullWidth &&
-      css`
-        margin-top: 15px;
-      `}
+      ${
+        inline &&
+        bodyFullWidth &&
+        css`
+          margin-top: 15px;
+        `
+      }
 
-      ${inline &&
-      !bodyFullWidth &&
-      css`
-        margin-top: 0;
-        margin-left: var(--spacing300);
-        text-align: left;
-      `}
+      ${
+        inline &&
+        !bodyFullWidth &&
+        css`
+          margin-top: 0;
+          margin-left: var(--spacing300);
+          text-align: left;
+        `
+      }
     `;
   }};
 `;

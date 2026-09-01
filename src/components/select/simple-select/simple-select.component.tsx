@@ -25,13 +25,14 @@ import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 
-export interface CustomSelectChangeEvent
-  extends React.ChangeEvent<HTMLInputElement> {
+export interface CustomSelectChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   selectionConfirmed?: boolean;
 }
 
-export interface SimpleSelectProps
-  extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
+export interface SimpleSelectProps extends Omit<
+  FormInputPropTypes,
+  "defaultValue" | "value"
+> {
   /** Prop to specify the aria-describedby property of the component input */
   "aria-describedby"?: string;
   /** Prop to specify the aria-label attribute of the component input */

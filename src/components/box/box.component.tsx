@@ -33,7 +33,8 @@ export type BorderRadiusType =
   | `${BorderRadiusToken} ${BorderRadiusToken} ${BorderRadiusToken} ${BorderRadiusToken}`;
 
 export interface BoxProps
-  extends FlexboxProps,
+  extends
+    FlexboxProps,
     Omit<GridProps, "gridGap" | "gridRowGap" | "gridColumnGap">,
     LayoutProps,
     Omit<PositionProps, "zIndex">,

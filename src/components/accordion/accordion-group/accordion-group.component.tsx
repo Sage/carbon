@@ -14,11 +14,7 @@ import tagComponent, {
 import Logger from "../../../__internal__/utils/logger";
 
 type AccordionGroupChild =
-  | React.ReactElement
-  | boolean
-  | null
-  | undefined
-  | Array<AccordionGroupChild>;
+  React.ReactElement | boolean | null | undefined | Array<AccordionGroupChild>;
 
 /**
  * @deprecated This component is deprecated and will be removed in a future release. Wrapping a group of Accordions in AccordionGroup is no longer required.

@@ -31,33 +31,41 @@ const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
     z-index: ${theme.zIndex.fullScreenModal};
     max-width: 100vw;
 
-    ${!width &&
-    size &&
-    css`
-      width: ${SIDEBAR_SIZES_CSS[size]};
-    `}
+    ${
+      !width &&
+      size &&
+      css`
+        width: ${SIDEBAR_SIZES_CSS[size]};
+      `
+    }
     ${width && computeSizing({ width })}
 
-    ${widthAnimation &&
-    css`
-      transition: width 0.3s ease;
-    `}
+    ${
+      widthAnimation &&
+      css`
+        transition: width 0.3s ease;
+      `
+    }
 
-    ${position &&
-    css`
-      box-shadow: var(--boxShadow300);
-      ${position}: 0;
-    `}
+    ${
+      position &&
+      css`
+        box-shadow: var(--boxShadow300);
+        ${position}: 0;
+      `
+    }
 
-    ${onCancel &&
-    css`
-      > ${StyledIconButton}:first-of-type {
-        position: absolute;
-        z-index: 1;
-        right: 25px;
-        top: 25px;
-      }
-    `}
+    ${
+      onCancel &&
+      css`
+        > ${StyledIconButton}:first-of-type {
+          position: absolute;
+          z-index: 1;
+          right: 25px;
+          top: 25px;
+        }
+      `
+    }
   `}
 `;
 

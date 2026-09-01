@@ -25,72 +25,88 @@ const InputContainer = styled.div<InputContainerProps>`
     max-width: 100%;
     border-radius: var(--global-radius-action-m);
 
-    ${$size === "small" &&
-    css`
-      min-height: var(--global-size-s);
-    `}
+    ${
+      $size === "small" &&
+      css`
+        min-height: var(--global-size-s);
+      `
+    }
 
-    ${$size === "medium" &&
-    css`
-      min-height: var(--global-size-m);
-    `}
+    ${
+      $size === "medium" &&
+      css`
+        min-height: var(--global-size-m);
+      `
+    }
 
-    ${$size === "large" &&
-    css`
-      min-height: var(--global-size-l);
-    `}
+    ${
+      $size === "large" &&
+      css`
+        min-height: var(--global-size-l);
+      `
+    }
 
     &&& {
-      ${$isReadOnly &&
-      css`
-        cursor: default;
-
-        * {
+      ${
+        $isReadOnly &&
+        css`
           cursor: default;
-        }
 
-        background: var(--input-typical-bg-read-only);
-        border: var(--global-borderwidth-xs) solid
-          var(--input-typical-border-read-only);
+          * {
+            cursor: default;
+          }
+
+          background: var(--input-typical-bg-read-only);
+          border: var(--global-borderwidth-xs) solid
+            var(--input-typical-border-read-only);
+
+          &:focus-within:has(:focus:not(button)) {
+            ${addFocusStyling()}
+            z-index: 2;
+          }
+        `
+      }
+
+      ${
+        $isDisabled &&
+        css`
+          cursor: not-allowed;
+          background: var(--input-typical-bg-disabled);
+          border: var(--global-borderwidth-xs) solid
+            var(--input-typical-border-disabled);
+
+          * {
+            cursor: not-allowed;
+          }
+        `
+      }
+    }
+
+    ${
+      !$isDisabled &&
+      !$isReadOnly &&
+      css`
+        cursor: text;
 
         &:focus-within:has(:focus:not(button)) {
           ${addFocusStyling()}
           z-index: 2;
         }
-      `}
-
-      ${$isDisabled &&
-      css`
-        cursor: not-allowed;
-        background: var(--input-typical-bg-disabled);
-        border: var(--global-borderwidth-xs) solid
-          var(--input-typical-border-disabled);
-
-        * {
-          cursor: not-allowed;
-        }
-      `}
+      `
     }
 
-    ${!$isDisabled &&
-    !$isReadOnly &&
-    css`
-      cursor: text;
-
-      &:focus-within:has(:focus:not(button)) {
-        ${addFocusStyling()}
-        z-index: 2;
-      }
-    `}
-
-    ${!$isDisabled &&
-    !$isReadOnly &&
-    css`
-      background: var(--input-typical-bg-default);
-      border: ${$error
-        ? `var(--global-borderwidth-s) solid var(--input-validation-border-error)`
-        : `var(--global-borderwidth-xs) solid var(--input-typical-border-default)`};
-    `}
+    ${
+      !$isDisabled &&
+      !$isReadOnly &&
+      css`
+        background: var(--input-typical-bg-default);
+        border: ${
+          $error
+            ? `var(--global-borderwidth-s) solid var(--input-validation-border-error)`
+            : `var(--global-borderwidth-xs) solid var(--input-typical-border-default)`
+        };
+      `
+    }
 
     .input-text-container {
       display: flex;
@@ -114,39 +130,51 @@ const InputContainer = styled.div<InputContainerProps>`
         text-overflow: ellipsis;
         text-align: ${$align};
 
-        ${$isReadOnly &&
-        css`
-          color: var(--input-typical-txt-read-only);
-        `}
+        ${
+          $isReadOnly &&
+          css`
+            color: var(--input-typical-txt-read-only);
+          `
+        }
 
-        ${$isDisabled &&
-        css`
-          color: var(--input-typical-txt-disabled);
-        `}
+        ${
+          $isDisabled &&
+          css`
+            color: var(--input-typical-txt-disabled);
+          `
+        }
 
-        ${!$isReadOnly &&
-        !$isDisabled &&
-        css`
-          color: var(--input-typical-txt-default);
-        `}
+        ${
+          !$isReadOnly &&
+          !$isDisabled &&
+          css`
+            color: var(--input-typical-txt-default);
+          `
+        }
 
-        ${$size === "small" &&
-        css`
-          font: var(--global-font-static-comp-regular-s);
-          padding: var(--global-space-none) var(--global-space-comp-s);
-        `}
+        ${
+          $size === "small" &&
+          css`
+            font: var(--global-font-static-comp-regular-s);
+            padding: var(--global-space-none) var(--global-space-comp-s);
+          `
+        }
 
-        ${$size === "medium" &&
-        css`
-          font: var(--global-font-static-comp-regular-m);
-          padding: var(--global-space-none) var(--global-space-comp-m);
-        `}
+        ${
+          $size === "medium" &&
+          css`
+            font: var(--global-font-static-comp-regular-m);
+            padding: var(--global-space-none) var(--global-space-comp-m);
+          `
+        }
 
-        ${$size === "large" &&
-        css`
-          font: var(--global-font-static-comp-regular-l);
-          padding: var(--global-space-none) var(--global-space-comp-l);
-        `}
+        ${
+          $size === "large" &&
+          css`
+            font: var(--global-font-static-comp-regular-l);
+            padding: var(--global-space-none) var(--global-space-comp-l);
+          `
+        }
       }
 
       [data-element="textbox-prefix"] {

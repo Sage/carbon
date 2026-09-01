@@ -202,15 +202,17 @@ const selectTransparentStyles = (
       background: transparent;
       border: none;
     }
-    ${!$isDisabled &&
-    !$isReadOnly &&
-    css`
-      cursor: pointer;
-
-      * {
+    ${
+      !$isDisabled &&
+      !$isReadOnly &&
+      css`
         cursor: pointer;
-      }
-    `}
+
+        * {
+          cursor: pointer;
+        }
+      `
+    }
 
     input {
       text-align: right;
@@ -264,21 +266,27 @@ const mulitiSelectInputStyles = ($size?: string) => css`
     }
 
     .input-text-container {
-      ${$size === "small" &&
-      css`
-        padding: var(--global-space-none) var(--global-space-comp-2-xl)
-          var(--global-space-none) var(--global-space-comp-s);
-      `}
-      ${$size === "medium" &&
-      css`
-        padding: var(--global-space-none) 40px var(--global-space-none)
-          var(--global-space-comp-m);
-      `}
-      ${$size === "large" &&
-      css`
-        padding: var(--global-space-none) 48px var(--global-space-none)
-          var(--global-space-comp-l);
-      `}
+      ${
+        $size === "small" &&
+        css`
+          padding: var(--global-space-none) var(--global-space-comp-2-xl)
+            var(--global-space-none) var(--global-space-comp-s);
+        `
+      }
+      ${
+        $size === "medium" &&
+        css`
+          padding: var(--global-space-none) 40px var(--global-space-none)
+            var(--global-space-comp-m);
+        `
+      }
+      ${
+        $size === "large" &&
+        css`
+          padding: var(--global-space-none) 48px var(--global-space-none)
+            var(--global-space-comp-l);
+        `
+      }
 
       span[data-element="textbox-prefix"] {
         margin-left: var(--global-space-comp-none);

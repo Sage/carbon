@@ -13,17 +13,9 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 
 export type PositionProps =
-  | "absolute"
-  | "fixed"
-  | "relative"
-  | "static"
-  | "sticky";
+  "absolute" | "fixed" | "relative" | "static" | "sticky";
 export interface StyledImageProps
-  extends BackgroundProps,
-    LayoutProps,
-    MarginProps,
-    PaddingProps,
-    TagProps {
+  extends BackgroundProps, LayoutProps, MarginProps, PaddingProps, TagProps {
   /** HTML alt property to display when an img fails to load */
   alt?: string;
   /** Prop to specify if the image is decorative  */

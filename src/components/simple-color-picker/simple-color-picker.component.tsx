@@ -23,9 +23,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import { ValidationProps } from "../../__internal__/validations";
 
 export interface SimpleColorPickerProps
-  extends ValidationProps,
-    MarginProps,
-    TagProps {
+  extends ValidationProps, MarginProps, TagProps {
   /** The SimpleColor components to be rendered in the group */
   children?: React.ReactNode;
   /** prop that represents childWidth */

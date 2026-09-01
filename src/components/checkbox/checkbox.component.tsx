@@ -17,9 +17,7 @@ import FieldsetContext from "../fieldset/__internal__/fieldset.context";
 import type { CheckboxSizes } from "./checkbox-group/checkbox-group.component";
 
 export interface CheckboxProps
-  extends CommonCheckableInputProps,
-    MarginProps,
-    TagProps {
+  extends CommonCheckableInputProps, MarginProps, TagProps {
   /**
    * Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set.
    * @deprecated Adaptive spacing is no longer supported on this component.

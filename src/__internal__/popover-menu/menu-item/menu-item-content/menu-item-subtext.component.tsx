@@ -15,15 +15,19 @@ const StyledMenuItemSubtext = styled.span<StyledMenuItemSubtextProps>`
   color: var(--input-dropdown-label-subtxt);
 
   ${({ $size }) => css`
-    ${($size === "small" || $size === "medium") &&
-    `
+    ${
+      ($size === "small" || $size === "medium") &&
+      `
       font: var(--global-font-static-comp-regular-xs);
-    `}
-
-    ${$size === "large" &&
     `
+    }
+
+    ${
+      $size === "large" &&
+      `
       font: var(--global-font-static-comp-regular-s);
-    `}
+    `
+    }
   `}
 `;
 

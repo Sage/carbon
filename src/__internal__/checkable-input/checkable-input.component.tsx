@@ -27,8 +27,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import useRegisterValidationToTabs from "../../hooks/__internal__/useRegisterValidationToTabs/useRegisterValidationToTabs";
 import FieldsetContext from "../../components/fieldset/__internal__/fieldset.context";
 
-export interface CommonCheckableInputProps
-  extends CommonHiddenCheckableInputProps {
+export interface CommonCheckableInputProps extends CommonHiddenCheckableInputProps {
   /** Unique identifier for the input. Will use a randomly generated GUID if none is provided. */
   id?: string;
   /** Content of the label. */

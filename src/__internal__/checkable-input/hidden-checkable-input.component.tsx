@@ -2,11 +2,10 @@ import React from "react";
 
 import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 
-export interface CommonHiddenCheckableInputProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    "value" | "size" | "type"
-  > {
+export interface CommonHiddenCheckableInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "value" | "size" | "type"
+> {
   /**
    * The id of the element that describe the input.
    * @deprecated This prop is deprecated, please use the `aria-describedby` attribute instead.
@@ -27,8 +26,7 @@ export interface CommonHiddenCheckableInputProps
   value?: string;
 }
 
-export interface HiddenCheckableInputProps
-  extends CommonHiddenCheckableInputProps {
+export interface HiddenCheckableInputProps extends CommonHiddenCheckableInputProps {
   /** HTML type attribute of the input */
   type: string;
   /** Role attribute of the input */

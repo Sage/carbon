@@ -29,22 +29,28 @@ const StyledCardFooter = styled.div<StyledCardFooterProps>`
   ${space}
 
   ${({ spacing, variant, roundness }) => css`
-    background-color: ${variant === "transparent"
-      ? "transparent"
-      : "var(--container-standard-bg-default)"};
+    background-color: ${
+      variant === "transparent"
+        ? "transparent"
+        : "var(--container-standard-bg-default)"
+    };
     border-top: 1px solid var(--container-action-border-default);
     margin: ${marginSizes[spacing]};
     display: flex;
-    ${(roundness === "moderate" || roundness === "default") &&
-    css`
-      border-bottom-left-radius: var(--global-radius-container-l);
-      border-bottom-right-radius: var(--global-radius-container-l);
-    `}
-    ${(roundness === "curved" || roundness === "large") &&
-    css`
-      border-bottom-left-radius: var(--global-radius-container-xl);
-      border-bottom-right-radius: var(--global-radius-container-xl);
-    `}
+    ${
+      (roundness === "moderate" || roundness === "default") &&
+      css`
+        border-bottom-left-radius: var(--global-radius-container-l);
+        border-bottom-right-radius: var(--global-radius-container-l);
+      `
+    }
+    ${
+      (roundness === "curved" || roundness === "large") &&
+      css`
+        border-bottom-left-radius: var(--global-radius-container-xl);
+        border-bottom-right-radius: var(--global-radius-container-xl);
+      `
+    }
 
     ${StyledCardColumn} {
       margin: var(--global-size-none);

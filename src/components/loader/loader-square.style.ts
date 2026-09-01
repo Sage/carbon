@@ -62,12 +62,16 @@ const StyledLoaderSquare = styled.div.attrs(
     display: inline-block;
     ${getDimensions(size)}
     border-radius: var(--borderRadiusCircle);
-    ${isInsideButton &&
-    css`
-      background-color: ${isActive
-        ? "var(--colorsUtilityYang100)"
-        : "var(--colorsSemanticNeutral500)"};
-    `}
+    ${
+      isInsideButton &&
+      css`
+        background-color: ${
+          isActive
+            ? "var(--colorsUtilityYang100)"
+            : "var(--colorsSemanticNeutral500)"
+        };
+      `
+    }
     &:nth-of-type(1) {
       animation-delay: 0s;
     }

@@ -26,9 +26,7 @@ const colorToId = (value: string) =>
     .replace(/^-+|-+$/g, "")}`;
 
 export interface AdvancedColorPickerProps
-  extends MarginProps,
-    Pick<ModalProps, "restoreFocusOnClose">,
-    TagProps {
+  extends MarginProps, Pick<ModalProps, "restoreFocusOnClose">, TagProps {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**

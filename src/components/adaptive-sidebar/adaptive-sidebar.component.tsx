@@ -16,7 +16,8 @@ import { SidebarProps } from "../sidebar";
 import { StyledAdaptiveSidebar, StyledSidebar } from "./adaptive-sidebar.style";
 
 export interface AdaptiveSidebarProps
-  extends MarginProps,
+  extends
+    MarginProps,
     PaddingProps,
     Omit<TagProps, "data-component">,
     Pick<SidebarProps, "restoreFocusOnClose"> {

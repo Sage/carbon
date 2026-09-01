@@ -28,7 +28,8 @@ import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import guid from "../../__internal__/utils/helpers/guid";
 
 export interface MultiActionButtonProps
-  extends WidthProps,
+  extends
+    WidthProps,
     Omit<SplitButtonProps, "buttonType" | "iconPosition" | "iconType"> {
   /** Button type: "primary" | "secondary" | "tertiary" */
   buttonType?: "primary" | "secondary" | "tertiary";

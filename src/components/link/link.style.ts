@@ -147,131 +147,147 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       colorMap[colorMapKey]($variant);
 
     return css`
-      ${$isSkipLink &&
-      css`
-        a {
-          position: absolute;
-          box-sizing: border-box;
-          display: inline-flex;
-          min-height: var(--global-size-m);
-          padding: var(--global-space-comp-m) var(--global-space-comp-xl);
-          flex-direction: column;
-          justify-content: center;
-          align-items: flex-start;
+      ${
+        $isSkipLink &&
+        css`
+          a {
+            position: absolute;
+            box-sizing: border-box;
+            display: inline-flex;
+            min-height: var(--global-size-m);
+            padding: var(--global-space-comp-m) var(--global-space-comp-xl);
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
 
-          left: -999em;
-          z-index: ${theme.zIndex.aboveAll};
+            left: -999em;
+            z-index: ${theme.zIndex.aboveAll};
 
-          border: var(--global-borderwidth-s) solid var(--focus-borderalt);
-          box-shadow: var(--global-depth-lvl1);
-          border-radius: 0 var(--global-radius-action-m)
-            var(--global-radius-action-m) 0;
-          background-color: var(--focus-bg);
+            border: var(--global-borderwidth-s) solid var(--focus-borderalt);
+            box-shadow: var(--global-depth-lvl1);
+            border-radius: 0 var(--global-radius-action-m)
+              var(--global-radius-action-m) 0;
+            background-color: var(--focus-bg);
 
-          font: var(--global-font-static-comp-regular-m);
-          color: var(--link-subtle-label-default);
-          text-decoration: underline;
-          outline: none;
+            font: var(--global-font-static-comp-regular-m);
+            color: var(--link-subtle-label-default);
+            text-decoration: underline;
+            outline: none;
 
-          &:focus {
-            top: var(--global-space-comp-s);
-            left: 0;
-          }
-        }
-      `}
-
-      ${!$isSkipLink &&
-      !$isMenuItem &&
-      css`
-        > a,
-        > button {
-          ${getFontStyle($linkSize, $bold)}
-          text-decoration: ${$hasContent && $underline === "always"
-            ? "underline"
-            : "none"};
-
-          ${!$disabled &&
-          css`
-            color: ${color};
-            ${StyledIcon} {
-              width: 20px;
-              height: 20px;
-              color: ${color};
-
-              ::before {
-                font-size: 18px;
-                line-height: 18px;
-              }
-
-              ${$iconAlign === "left" &&
-              css`
-                margin-right: ${$hasContent ? "var(--global-space-comp-s)" : 0};
-              `}
-
-              ${$iconAlign === "right" &&
-              /* istanbul ignore next: tested in chromatic, couldn't test in jest */
-              css`
-                margin-right: 0;
-                margin-left: ${
-                  /* istanbul ignore next */ $hasContent
-                    ? "var(--global-space-comp-s)"
-                    : 0
-                };
-              `}
-            }
-
-            &:hover {
-              color: ${hoverColor};
-              text-decoration: ${$hasContent &&
-              ($underline === "hover" || $underline === "always")
-                ? "underline"
-                : "none"};
-
-              > ${StyledIcon} {
-                color: ${hoverColor};
-              }
-            }
-
-            &:not(:has(img, svg, picture)):focus {
-              color: ${focusColor};
-              text-decoration: none;
-
-              ${StyledIcon} {
-                color: ${focusColor};
-              }
-            }
-
-            &:has(img, svg, picture) {
-              display: inline-block;
-              vertical-align: middle;
-            }
-
-            &:has(img, svg, picture):focus {
-              ${addFocusStyling()}
-              border-radius: var(--global-radius-action-xs);
-              outline: default;
-            }
-          `}
-
-          ${$disabled &&
-          css`
-            color: var(--colorsActionMajorYin030);
-            &:hover,
             &:focus {
-              cursor: not-allowed;
-              color: var(--colorsActionMajorYin030);
+              top: var(--global-space-comp-s);
+              left: 0;
             }
-          `}
-        }
-      `}
+          }
+        `
+      }
 
-      ${!$disabled &&
-      css`
-        > a:any-link:hover,
-        > button:hover {
-          cursor: pointer;
-        }
-      `}
+      ${
+        !$isSkipLink &&
+        !$isMenuItem &&
+        css`
+          > a,
+          > button {
+            ${getFontStyle($linkSize, $bold)}
+            text-decoration: ${
+              $hasContent && $underline === "always" ? "underline" : "none"
+            };
+
+            ${
+              !$disabled &&
+              css`
+                color: ${color};
+                ${StyledIcon} {
+                  width: 20px;
+                  height: 20px;
+                  color: ${color};
+
+                  ::before {
+                    font-size: 18px;
+                    line-height: 18px;
+                  }
+
+                  ${
+                  $iconAlign === "left" &&
+                  css`
+                    margin-right: ${$hasContent ? "var(--global-space-comp-s)" : 0};
+                  `
+                }
+
+                  ${
+                  $iconAlign === "right" &&
+                  /* istanbul ignore next: tested in chromatic, couldn't test in jest */
+                  css`
+                    margin-right: 0;
+                    margin-left: ${
+                    /* istanbul ignore next */ $hasContent
+                      ? "var(--global-space-comp-s)"
+                      : 0
+                  };
+                  `
+                }
+                }
+
+                &:hover {
+                  color: ${hoverColor};
+                  text-decoration: ${
+                  $hasContent &&
+                  ($underline === "hover" || $underline === "always")
+                    ? "underline"
+                    : "none"
+                };
+
+                  > ${StyledIcon} {
+                    color: ${hoverColor};
+                  }
+                }
+
+                &:not(:has(img, svg, picture)):focus {
+                  color: ${focusColor};
+                  text-decoration: none;
+
+                  ${StyledIcon} {
+                    color: ${focusColor};
+                  }
+                }
+
+                &:has(img, svg, picture) {
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+
+                &:has(img, svg, picture):focus {
+                  ${addFocusStyling()}
+                  border-radius: var(--global-radius-action-xs);
+                  outline: default;
+                }
+              `
+            }
+
+            ${
+              $disabled &&
+              css`
+                color: var(--colorsActionMajorYin030);
+                &:hover,
+                &:focus {
+                  cursor: not-allowed;
+                  color: var(--colorsActionMajorYin030);
+                }
+              `
+            }
+          }
+        `
+      }
+
+      ${
+        !$disabled &&
+        css`
+          > a:any-link:hover,
+          > button:hover {
+            cursor: pointer;
+          }
+        `
+      }
 
       > a,
       > button {
@@ -288,23 +304,25 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
       }
 
-      ${!$isSkipLink &&
-      !$isMenuItem &&
-      !$disabled &&
-      $hasFocus &&
-      css`
-        max-width: fit-content;
-        &:not(:has(img, svg, picture)) {
-          border-radius: var(--global-radius-action-xs);
-          background-color: ${focusBgColor};
-          box-shadow: 0 var(--global-size-5-xs) 0 0 ${focusBoxShadowColor};
-        }
+      ${
+        !$isSkipLink &&
+        !$isMenuItem &&
+        !$disabled &&
+        $hasFocus &&
+        css`
+          max-width: fit-content;
+          &:not(:has(img, svg, picture)) {
+            border-radius: var(--global-radius-action-xs);
+            background-color: ${focusBgColor};
+            box-shadow: 0 var(--global-size-5-xs) 0 0 ${focusBoxShadowColor};
+          }
 
-        &:has([data-popover-container-button="true"]) {
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
-        }
-      `}
+          &:has([data-popover-container-button="true"]) {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+        `
+      }
 
       > button, ${StyledButton}:not(.legacy-search-button) {
         background-color: transparent;

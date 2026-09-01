@@ -21,8 +21,10 @@ const StyledTitle = styled.h2<StyledTitleProps>`
     line-height: 14px;
     cursor: default;
     color: ${menuConfigVariants[menuType].title};
-    ${variant === "alternate" &&
-    `background-color: ${menuConfigVariants[menuType].alternate};`}
+    ${
+      variant === "alternate" &&
+      `background-color: ${menuConfigVariants[menuType].alternate};`
+    }
     white-space: ${shouldWrap ? "normal" : "nowrap"};
   `}
 `;
@@ -36,10 +38,12 @@ const StyledSegmentChildren = styled.ul<{
 
     li {
       list-style: none;
-      ${variant === "alternate" &&
-      css`
-        background-color: ${menuConfigVariants[menuType].alternate};
-      `}
+      ${
+        variant === "alternate" &&
+        css`
+          background-color: ${menuConfigVariants[menuType].alternate};
+        `
+      }
 
       &:not(&:last-child) a,
       &:not(&:last-child) button,

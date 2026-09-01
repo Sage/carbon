@@ -76,7 +76,8 @@ const shouldUseLegacyWhiteInverse = (
 ) => !resolvedColor && !!colorValue && LEGACY_WHITE_COLORS.has(colorValue);
 
 export interface TypographyProps
-  extends SpaceProps,
+  extends
+    SpaceProps,
     TagProps,
     Pick<
       NextTypographyProps,

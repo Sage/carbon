@@ -10,24 +10,28 @@ const StyledPicklistItem = styled.li<{ locked?: boolean }>`
     align-items: center;
     width: 100%;
 
-    background-color: ${locked
-      ? "var(--colorsUtilityMajor025)"
-      : "var(--colorsUtilityYang100)"};
+    background-color: ${
+      locked ? "var(--colorsUtilityMajor025)" : "var(--colorsUtilityYang100)"
+    };
 
-    ${!locked &&
-    css`
-      box-shadow: var(--boxShadow050);
-    `}
+    ${
+      !locked &&
+      css`
+        box-shadow: var(--boxShadow050);
+      `
+    }
 
-    ${locked &&
-    css`
-      border: 1px solid var(--colorsUtilityMajor200);
-      color: var(--colorsUtilityYin065);
+    ${
+      locked &&
+      css`
+        border: 1px solid var(--colorsUtilityMajor200);
+        color: var(--colorsUtilityYin065);
 
-      ${StyledIcon} {
-        color: var(--colorsUtilityMajor200);
-      }
-    `}
+        ${StyledIcon} {
+          color: var(--colorsUtilityMajor200);
+        }
+      `
+    }
 
     & + & {
       margin-top: 8px;

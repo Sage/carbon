@@ -82,11 +82,13 @@ export const StyledFileUploadStatus = styled.div<StyledFileUploadStatusProps>`
       : "colorsUtilityMajor300";
     return css`
       border: var(--${borderWidthToken}) solid var(--${colorToken});
-      ${hasError &&
-      `&& ${StyledTypography} {
+      ${
+        hasError &&
+        `&& ${StyledTypography} {
         color: var(--${colorToken});
         font-weight: 400;
-      }`}
+      }`
+      }
     `;
   }}
   border-radius: var(--borderRadius050);

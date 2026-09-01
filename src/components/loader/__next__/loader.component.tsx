@@ -15,12 +15,7 @@ import StarsLoader from "./internal/stars-loader.component";
 import ButtonContext from "../../button/__next__/button.context";
 
 type LOADER_VARIANTS =
-  | "typical"
-  | "ai"
-  | "stacked"
-  | "inline"
-  | "ai-stacked"
-  | "ai-inline";
+  "typical" | "ai" | "stacked" | "inline" | "ai-stacked" | "ai-inline";
 
 type LOADER_SIZES = "extra-small" | "small" | "medium" | "large";
 

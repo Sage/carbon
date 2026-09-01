@@ -71,40 +71,44 @@ const StyledFooterContent = styled.div<{ hasName: boolean }>`
   ${({ hasName }) => css`
     margin-top: var(--spacing200);
 
-    ${hasName &&
-    css`
-      &:first-of-type {
-        font-size: 14px;
-      }
+    ${
+      hasName &&
+      css`
+        &:first-of-type {
+          font-size: 14px;
+        }
 
-      &:nth-of-type(2) {
-        font-size: 12px;
-        color: var(--colorsUtilityYin065);
-        margin-left: var(--spacing200);
-      }
+        &:nth-of-type(2) {
+          font-size: 12px;
+          color: var(--colorsUtilityYin065);
+          margin-left: var(--spacing200);
+        }
 
-      &:last-of-type:not(:nth-of-type(2)) {
-        font-size: 12px;
-        color: var(--colorsUtilityYin065);
-        cursor: pointer;
-        margin-left: var(--spacing300);
-      }
-    `}
+        &:last-of-type:not(:nth-of-type(2)) {
+          font-size: 12px;
+          color: var(--colorsUtilityYin065);
+          cursor: pointer;
+          margin-left: var(--spacing300);
+        }
+      `
+    }
 
-    ${!hasName &&
-    css`
-      &:first-of-type {
-        font-size: 12px;
-        color: var(--colorsUtilityYin065);
-      }
+    ${
+      !hasName &&
+      css`
+        &:first-of-type {
+          font-size: 12px;
+          color: var(--colorsUtilityYin065);
+        }
 
-      &:last-of-type:not(:first-of-type) {
-        font-size: 12px;
-        color: var(--colorsUtilityYin065);
-        cursor: pointer;
-        margin-left: var(--spacing300);
-      }
-    `}
+        &:last-of-type:not(:first-of-type) {
+          font-size: 12px;
+          color: var(--colorsUtilityYin065);
+          cursor: pointer;
+          margin-left: var(--spacing300);
+        }
+      `
+    }
   `}
 `;
 

@@ -100,9 +100,7 @@ const PopoverMenuWithState = <TRef extends FocusableHandle = HTMLElement>({
 }: Partial<PopoverMenuProps<TRef>> & {
   disabledItems?: number[];
   applyDisabledButton?:
-    | "disabled"
-    | "aria-disabled-bool"
-    | "aria-disabled-string";
+    "disabled" | "aria-disabled-bool" | "aria-disabled-string";
 } = {}) => {
   const [open, setOpen] = React.useState(false);
   const [submenuOpen, setSubmenuOpen] = React.useState(false);

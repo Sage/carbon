@@ -24,7 +24,8 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import HintText from "../../__internal__/legacy-hint-text";
 
 export interface FileInputProps
-  extends Pick<ValidationProps, "error">,
+  extends
+    Pick<ValidationProps, "error">,
     Pick<InputProps, "id" | "name" | "required">,
     TagProps,
     MarginProps {

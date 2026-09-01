@@ -101,7 +101,8 @@ const StyledFlatTable = styled.table<
 `;
 
 interface StyledFlatTableWrapperProps
-  extends Pick<
+  extends
+    Pick<
       FlatTableProps,
       | "hasStickyFooter"
       | "colorTheme"
@@ -316,45 +317,53 @@ const StyledFlatTableWrapper = styled(StyledBox).attrs(
     !footer &&
     css`
       tbody {
-        ${firstColRowSpanIndex >= 0 &&
-        css`
-          ${StyledFlatTableRow}:nth-of-type(${firstColRowSpanIndex + 1}) {
-            th:first-child,
-            td:first-child {
-              border-bottom-left-radius: var(--borderRadius100);
+        ${
+          firstColRowSpanIndex >= 0 &&
+          css`
+            ${StyledFlatTableRow}:nth-of-type(${firstColRowSpanIndex + 1}) {
+              th:first-child,
+              td:first-child {
+                border-bottom-left-radius: var(--borderRadius100);
+              }
             }
-          }
-        `}
+          `
+        }
 
-        ${lastColRowSpanIndex >= 0 &&
-        !hasHorizontalScrollbar &&
-        css`
-          ${StyledFlatTableRow}:nth-of-type(${lastColRowSpanIndex + 1}) {
-            th:last-child,
-            td:last-child {
-              border-bottom-right-radius: var(--borderRadius100);
+        ${
+          lastColRowSpanIndex >= 0 &&
+          !hasHorizontalScrollbar &&
+          css`
+            ${StyledFlatTableRow}:nth-of-type(${lastColRowSpanIndex + 1}) {
+              th:last-child,
+              td:last-child {
+                border-bottom-right-radius: var(--borderRadius100);
+              }
             }
-          }
-        `}
+          `
+        }
 
         ${StyledFlatTableRow}:last-of-type {
-          ${!hasHorizontalScrollbar &&
-          firstColRowSpanIndex === -1 &&
-          css`
-            th:first-child,
-            td:first-child {
-              border-bottom-left-radius: var(--${bottomBorderRadius});
-            }
-          `}
-          ${!hasVerticalScrollbar &&
-          !hasHorizontalScrollbar &&
-          lastColRowSpanIndex === -1 &&
-          css`
-            th:last-child,
-            td:last-child {
-              border-bottom-right-radius: var(--${bottomBorderRadius});
-            }
-          `}
+          ${
+            !hasHorizontalScrollbar &&
+            firstColRowSpanIndex === -1 &&
+            css`
+              th:first-child,
+              td:first-child {
+                border-bottom-left-radius: var(--${bottomBorderRadius});
+              }
+            `
+          }
+          ${
+            !hasVerticalScrollbar &&
+            !hasHorizontalScrollbar &&
+            lastColRowSpanIndex === -1 &&
+            css`
+              th:last-child,
+              td:last-child {
+                border-bottom-right-radius: var(--${bottomBorderRadius});
+              }
+            `
+          }
         }
       }
     `}

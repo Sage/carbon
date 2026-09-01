@@ -48,23 +48,29 @@ function stylingForType({
   return css`
     ${buttonTypes(disabled, destructive, isWhite)[buttonType]};
 
-    ${size === "small" &&
-    css`
-      font-size: var(--fontSizes100);
-      min-height: 32px;
-    `}
+    ${
+      size === "small" &&
+      css`
+        font-size: var(--fontSizes100);
+        min-height: 32px;
+      `
+    }
 
-    ${size === "medium" &&
-    css`
-      font-size: var(--fontSizes100);
-      min-height: 40px;
-    `}
+    ${
+      size === "medium" &&
+      css`
+        font-size: var(--fontSizes100);
+        min-height: 40px;
+      `
+    }
 
-    ${size === "large" &&
-    css`
-      font-size: var(--fontSizes200);
-      min-height: 48px;
-    `}
+    ${
+      size === "large" &&
+      css`
+        font-size: var(--fontSizes200);
+        min-height: 48px;
+      `
+    }
 
     ${iconOnly && stylingForIconOnly(size)}
   `;
@@ -107,26 +113,34 @@ const StyledButton = styled.button.attrs(applyBaseTheme)<StyledButtonProps>`
 
   ${({ iconOnly, iconPosition, iconType }) => css`
     ${StyledIcon} {
-      ${iconOnly &&
-      css`
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 1px;
-      `}
-      ${!iconOnly &&
-      css`
-        margin-bottom: 0px;
-        ${iconPosition === "after" &&
+      ${
+        iconOnly &&
+        css`
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 1px;
         `
+      }
+      ${
+        !iconOnly &&
+        css`
+          margin-bottom: 0px;
+          ${
+            iconPosition === "after" &&
+            `
           margin-left: var(--spacing100);
           margin-right: 0px;
-        `}
-        ${iconPosition === "before" &&
         `
+          }
+          ${
+            iconPosition === "before" &&
+            `
           margin-left: 0px;
           margin-right: var(--spacing100);
-        `}
-      `}
+        `
+          }
+        `
+      }
 
       height: ${additionalIconStyle(iconType)};
       width: 20px;

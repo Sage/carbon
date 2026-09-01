@@ -25,10 +25,12 @@ const StyledOption = styled.li<StyledOptionProps>`
       :hover {
         background-color: var(--colorsUtilityMajor100);
       }
-      ${isHighlighted &&
-      css`
-        background-color: var(--colorsUtilityMajor200);
-      `}
+      ${
+        isHighlighted &&
+        css`
+          background-color: var(--colorsUtilityMajor200);
+        `
+      }
     `}
 
   ${({ hidden }) => hidden && "display: none;"}

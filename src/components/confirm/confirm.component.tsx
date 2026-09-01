@@ -13,23 +13,22 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 /**
  * @deprecated `Confirm` has been deprecated. See the Carbon documentation for migration details.
  */
-export interface ConfirmProps
-  extends Omit<
-    DialogProps,
-    | "className"
-    | "disableFocusTrap"
-    | "bespokeFocusTrap"
-    | "focusableSelectors"
-    | "help"
-    | "role"
-    | "contentPadding"
-    | "focusableContainers"
-    | "ariaRole"
-    | "timeout"
-    | "enableBackgroundUI"
-    | "disableClose"
-    | "data-component"
-  > {
+export interface ConfirmProps extends Omit<
+  DialogProps,
+  | "className"
+  | "disableFocusTrap"
+  | "bespokeFocusTrap"
+  | "focusableSelectors"
+  | "help"
+  | "role"
+  | "contentPadding"
+  | "focusableContainers"
+  | "ariaRole"
+  | "timeout"
+  | "enableBackgroundUI"
+  | "disableClose"
+  | "data-component"
+> {
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
   cancelButtonType?: "primary" | "secondary" | "tertiary" | "darkBackground";
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */

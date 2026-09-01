@@ -100,15 +100,14 @@ const verticalBorderColor = (colorTheme: FlatTableProps["colorTheme"]) => {
   }
 };
 
-interface StyledFlatTableRowProps
-  extends Pick<
-    FlatTableRowProps,
-    | "bgColor"
-    | "horizontalBorderColor"
-    | "expandable"
-    | "selected"
-    | "highlighted"
-  > {
+interface StyledFlatTableRowProps extends Pick<
+  FlatTableRowProps,
+  | "bgColor"
+  | "horizontalBorderColor"
+  | "expandable"
+  | "selected"
+  | "highlighted"
+> {
   isRowInteractive?: boolean;
   isFirstColumnInteractive?: boolean;
   lhsRowHeaderIndex: number;
@@ -184,162 +183,189 @@ const StyledFlatTableRow = styled.tr.attrs(
       ${allCellTypes} {
         ${backgroundColor && `background-color: ${backgroundColor};`}
 
-        ${horizontalBorderSize !== "small" &&
-        css`
-          border-bottom: ${horizontalBorderSizes[horizontalBorderSize]} solid
-            var(--colorsUtilityMajor100);
-        `}
+        ${
+          horizontalBorderSize !== "small" &&
+          css`
+            border-bottom: ${horizontalBorderSizes[horizontalBorderSize]} solid
+              var(--colorsUtilityMajor100);
+          `
+        }
 
-        ${customBorderColor &&
-        css`
-          border-bottom-color: ${customBorderColor};
-        `}
+        ${
+          customBorderColor &&
+          css`
+            border-bottom-color: ${customBorderColor};
+          `
+        }
       }
 
       ${StyledFlatTableRowHeader} + td {
         border-left: none;
       }
 
-      ${lhsRowHeaderIndex !== -1 &&
-      css`
-        ${StyledFlatTableRowHeader}:nth-child(${lhsRowHeaderIndex + 1}) {
-          border-right: 2px solid ${verticalBorderColor(colorTheme)};
-        }
-      `}
+      ${
+        lhsRowHeaderIndex !== -1 &&
+        css`
+          ${StyledFlatTableRowHeader}:nth-child(${lhsRowHeaderIndex + 1}) {
+            border-right: 2px solid ${verticalBorderColor(colorTheme)};
+          }
+        `
+      }
 
-      ${rhsRowHeaderIndex !== -1 &&
-      css`
-        ${StyledFlatTableRowHeader}:nth-child(${rhsRowHeaderIndex + 1}) {
-          border-left: 2px solid ${verticalBorderColor(colorTheme)};
-        }
-        ${StyledFlatTableHeader}:nth-child(${rhsRowHeaderIndex}) {
-          border-right: none;
-        }
-      `}
+      ${
+        rhsRowHeaderIndex !== -1 &&
+        css`
+          ${StyledFlatTableRowHeader}:nth-child(${rhsRowHeaderIndex + 1}) {
+            border-left: 2px solid ${verticalBorderColor(colorTheme)};
+          }
+          ${StyledFlatTableHeader}:nth-child(${rhsRowHeaderIndex}) {
+            border-right: none;
+          }
+        `
+      }
 
-      ${rhsRowHeaderIndex === totalChildren - 1 &&
-      css`
-        td:last-of-type {
-          border-right: none;
-        }
-      `}
+      ${
+        rhsRowHeaderIndex === totalChildren - 1 &&
+        css`
+          td:last-of-type {
+            border-right: none;
+          }
+        `
+      }
 
       ${StyledFlatTableHeader} {
         border-bottom: 1px solid ${borderColor(colorTheme)};
 
-        ${horizontalBorderSize !== "small" &&
-        css`
-          border-bottom: ${horizontalBorderSizes[horizontalBorderSize]} solid
-            var(--colorsUtilityMajor100);
-        `}
+        ${
+          horizontalBorderSize !== "small" &&
+          css`
+            border-bottom: ${horizontalBorderSizes[horizontalBorderSize]} solid
+              var(--colorsUtilityMajor100);
+          `
+        }
 
-        ${!isInSidebar &&
-        !colorTheme?.includes("transparent") &&
-        `
+        ${
+          !isInSidebar &&
+          !colorTheme?.includes("transparent") &&
+          `
           :first-child {
             border-left: 1px solid ${borderColor(colorTheme)};
           }
-        `}
+        `
+        }
       }
 
-      ${stickyOffset !== undefined &&
-      css`
-        && th {
-          top: ${stickyOffset}px;
-        }
-      `}
-
-      ${isRowInteractive &&
-      css`
-        cursor: pointer;
-
-        :focus {
-          position: relative;
-
-          :after {
-            content: "";
-            box-sizing: border-box;
-            position: absolute;
-            left: 0px;
-            right: 0px;
-            top: 0;
-            bottom: 0px;
-            ${newFocusStyling(theme)}
-            pointer-events: none;
+      ${
+        stickyOffset !== undefined &&
+        css`
+          && th {
+            top: ${stickyOffset}px;
           }
+        `
+      }
 
-          :last-child {
-            :after {
-              border-bottom-left-radius: var(--borderRadius100);
-              border-bottom-right-radius: var(--borderRadius100);
-            }
-          }
+      ${
+        isRowInteractive &&
+        css`
+          cursor: pointer;
 
-          :first-child {
-            :after {
-              top: 0px;
-            }
-          }
+          :focus {
+            position: relative;
 
-          /* Styling for safari. Position relative does not work on tr elements on Safari  */
-          // FIXME: this can cause hydration mismatches during SSR.
-          ${nav &&
-          isSafari(nav) &&
-          css`
-            position: -webkit-sticky;
             :after {
-              border: none;
               content: "";
-              height: ${rowHeight}px;
+              box-sizing: border-box;
+              position: absolute;
+              left: 0px;
+              right: 0px;
+              top: 0;
+              bottom: 0px;
               ${newFocusStyling(theme)}
+              pointer-events: none;
             }
-          `}
 
-          ${StyledFlatTableRowHeader} {
-            ${getLeftStickyStyling(lhsRowHeaderIndex, theme)}
-            ${getRightStickyStyling(rhsRowHeaderIndex, totalChildren, theme)}
+            :last-child {
+              :after {
+                border-bottom-left-radius: var(--borderRadius100);
+                border-bottom-right-radius: var(--borderRadius100);
+              }
+            }
+
+            :first-child {
+              :after {
+                top: 0px;
+              }
+            }
+
+            /* Styling for safari. Position relative does not work on tr elements on Safari  */
+            // FIXME: this can cause hydration mismatches during SSR.
+            ${
+              nav &&
+              isSafari(nav) &&
+              css`
+                position: -webkit-sticky;
+                :after {
+                  border: none;
+                  content: "";
+                  height: ${rowHeight}px;
+                  ${newFocusStyling(theme)}
+                }
+              `
+            }
+
+            ${StyledFlatTableRowHeader} {
+              ${getLeftStickyStyling(lhsRowHeaderIndex, theme)}
+              ${getRightStickyStyling(rhsRowHeaderIndex, totalChildren, theme)}
             ${stickyColumnFocusStyling(theme)}
-          }
+            }
 
-          ${![-1, 0].includes(lhsRowHeaderIndex) &&
-          css`
-            ${Array.from({ length: lhsRowHeaderIndex }).map((_, index) => {
-              return `
+            ${
+              ![-1, 0].includes(lhsRowHeaderIndex) &&
+              css`
+                ${Array.from({ length: lhsRowHeaderIndex }).map((_, index) => {
+                return `
                 td:nth-of-type(${index + 1}) {
                   ${stickyColumnFocusStyling(theme)}
                 }
               `;
-            })}
-          `}
-        }
-
-        :hover {
-          ${allCellTypes} {
-            background-color: ${backgroundColor ||
-            "var(--colorsUtilityMajor025)"};
-          }
-        }
-      `}
-
-      ${isFirstColumnInteractive &&
-      css`
-        td:nth-child(${firstCellIndex + 1}),
-        th:nth-child(${firstCellIndex + 1}) {
-          cursor: pointer;
-
-          :focus {
-            ${newFocusStyling(theme)}
+              })}
+              `
+            }
           }
 
           :hover {
-            background-color: ${backgroundColor ||
-            "var(colorsUtilityMajor025)"};
+            ${allCellTypes} {
+              background-color: ${
+                backgroundColor || "var(--colorsUtilityMajor025)"
+              };
+            }
           }
-        }
-      `}
+        `
+      }
 
-      ${isInSidebar &&
-      css`
+      ${
+        isFirstColumnInteractive &&
+        css`
+          td:nth-child(${firstCellIndex + 1}),
+          th:nth-child(${firstCellIndex + 1}) {
+            cursor: pointer;
+
+            :focus {
+              ${newFocusStyling(theme)}
+            }
+
+            :hover {
+              background-color: ${
+                backgroundColor || "var(colorsUtilityMajor025)"
+              };
+            }
+          }
+        `
+      }
+
+      ${
+        isInSidebar &&
+        css`
         ${allCellTypes} {
           background-color: ${bgColor || "var(--colorsUtilityMajor040)"};
           };
@@ -369,100 +395,122 @@ const StyledFlatTableRow = styled.tr.attrs(
             :hover {
               ${StyledFlatTableCell},
               ${StyledFlatTableCheckbox}:not(th) {
-                background-color: ${backgroundColor ||
-                "var(--colorsUtilityMajor075)"};
+                background-color: ${
+                  backgroundColor || "var(--colorsUtilityMajor075)"
+                };
               }
             }
           `
         }
-      `}
+      `
+      }
 
-      ${expandable &&
-      css`
-        ${StyledFlatTableCell}:first-child > div,
+      ${
+        expandable &&
+        css`
+          ${StyledFlatTableCell}:first-child > div,
         ${StyledFlatTableRowHeader}:first-child > div,
         ${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div {
-          ${StyledIcon}[type="chevron_down_thick"]:first-of-type {
-            transition: transform 0.3s;
-            ${!isExpanded &&
-            css`
-              transform: rotate(-90deg);
-            `}
+            ${StyledIcon}[type="chevron_down_thick"]:first-of-type {
+              transition: transform 0.3s;
+              ${
+                !isExpanded &&
+                css`
+                  transform: rotate(-90deg);
+                `
+              }
+            }
           }
-        }
-      `}
+        `
+      }
 
-      ${isSubRow &&
-      css`
-        ${allCellTypes} {
-          background-color: ${backgroundColor || "var(--colorsActionMinor025)"};
-        }
+      ${
+        isSubRow &&
+        css`
+          ${allCellTypes} {
+            background-color: ${backgroundColor || "var(--colorsActionMinor025)"};
+          }
 
-        ${StyledFlatTableCell}:first-child > div,
+          ${StyledFlatTableCell}:first-child > div,
         ${StyledFlatTableRowHeader}:first-child > div,
         ${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div {
-          padding-left: ${size === "compact" ? "32px" : "40px"};
-        }
-      `}
+            padding-left: ${size === "compact" ? "32px" : "40px"};
+          }
+        `
+      }
 
-      ${isDragging &&
-      css`
-        border: ${isInSidebar
-            ? "var(--colorsUtilityMajor300)"
-            : "var(--colorsUtilityMajor200)"}
-          2px solid;
-        ${allCellTypes} {
-          background-color: ${isInSidebar
-            ? "var(--colorsUtilityMajor200)"
-            : "var(--colorsUtilityMajor150)"};
-        }
-      `}
+      ${
+        isDragging &&
+        css`
+          border: ${
+            isInSidebar
+              ? "var(--colorsUtilityMajor300)"
+              : "var(--colorsUtilityMajor200)"
+          }
+            2px solid;
+          ${allCellTypes} {
+            background-color: ${
+              isInSidebar
+                ? "var(--colorsUtilityMajor200)"
+                : "var(--colorsUtilityMajor150)"
+            };
+          }
+        `
+      }
 
-      ${draggable &&
-      css`
-        ${StyledIcon}:first-of-type {
-          font-size: 20px;
-          color: var(--colorsActionMinor500);
-        }
-      `}
+      ${
+        draggable &&
+        css`
+          ${StyledIcon}:first-of-type {
+            font-size: 20px;
+            color: var(--colorsActionMinor500);
+          }
+        `
+      }
 
-      ${isFirstSubRow &&
-      css`
-        ${allCellTypes} {
-          box-shadow: var(--boxShadow075);
-        }
-      `}
+      ${
+        isFirstSubRow &&
+        css`
+          ${allCellTypes} {
+            box-shadow: var(--boxShadow075);
+          }
+        `
+      }
 
-      ${highlighted &&
-      css`
-        ${allCellTypes} {
-          background-color: ${backgroundColor || colorOfHighlighted};
-        }
-
-        :hover {
-          ${StyledFlatTableCell},
-          ${StyledFlatTableRowHeader},
-          ${StyledFlatTableCheckbox}:not(th) {
+      ${
+        highlighted &&
+        css`
+          ${allCellTypes} {
             background-color: ${backgroundColor || colorOfHighlighted};
           }
-        }
-      `}
 
-      ${selected &&
-      css`
-        ${StyledFlatTableCell},
-        ${StyledFlatTableCheckbox} {
-          background-color: ${backgroundColor || colorOfSelected};
-        }
-
-        :hover {
-          ${StyledFlatTableCell},
-          ${StyledFlatTableRowHeader},
+          :hover {
+            ${StyledFlatTableCell},
+            ${StyledFlatTableRowHeader},
           ${StyledFlatTableCheckbox}:not(th) {
+              background-color: ${backgroundColor || colorOfHighlighted};
+            }
+          }
+        `
+      }
+
+      ${
+        selected &&
+        css`
+          ${StyledFlatTableCell},
+          ${StyledFlatTableCheckbox} {
             background-color: ${backgroundColor || colorOfSelected};
           }
-        }
-      `}
+
+          :hover {
+            ${StyledFlatTableCell},
+            ${StyledFlatTableRowHeader},
+          ${StyledFlatTableCheckbox}:not(th) {
+              background-color: ${backgroundColor || colorOfSelected};
+            }
+          }
+        `
+      }
     `;
   }}
 `;

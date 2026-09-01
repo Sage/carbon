@@ -59,15 +59,17 @@ export const StyledLegend = styled.legend<StyledFieldsetProps>`
     font: ${sizeMap[$size].legendFont};
     color: var(--input-labelset-label-default);
 
-    ${$isRequired &&
-    css`
-      ::after {
-        content: "*";
-        color: var(--input-labelset-label-required);
-        font: ${sizeMap[$size].legendFont};
-        margin-left: var(--global-space-comp-xs);
-      }
-    `}
+    ${
+      $isRequired &&
+      css`
+        ::after {
+          content: "*";
+          color: var(--input-labelset-label-required);
+          font: ${sizeMap[$size].legendFont};
+          margin-left: var(--global-space-comp-xs);
+        }
+      `
+    }
   `};
 `;
 
@@ -78,10 +80,12 @@ export const StyledFieldsetContentWrapper = styled.div<StyledFieldsetProps>`
     position: relative;
     gap: ${sizeMap[$size].validationGap};
 
-    ${$hasLegend &&
-    css`
-      margin-top: ${sizeMap[$size].contentMargin};
-    `}
+    ${
+      $hasLegend &&
+      css`
+        margin-top: ${sizeMap[$size].contentMargin};
+      `
+    }
   `};
 `;
 
@@ -91,21 +95,25 @@ export const StyledFieldsetContent = styled.div<StyledFieldsetProps>`
     flex-direction: column;
     gap: ${sizeMap[$size].childrenGap};
 
-    ${$orientation === "horizontal" &&
-    css`
-      flex-direction: row;
-      flex-wrap: wrap;
-    `}
+    ${
+      $orientation === "horizontal" &&
+      css`
+        flex-direction: row;
+        flex-wrap: wrap;
+      `
+    }
 
     label {
       font: ${sizeMap[$size].regularLabelFont};
     }
 
-    ${$labelWeight === "bold" &&
-    css`
-      label {
-        font: ${sizeMap[$size].boldLabelFont};
-      }
-    `}
+    ${
+      $labelWeight === "bold" &&
+      css`
+        label {
+          font: ${sizeMap[$size].boldLabelFont};
+        }
+      `
+    }
   `};
 `;

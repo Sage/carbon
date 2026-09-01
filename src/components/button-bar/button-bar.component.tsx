@@ -10,9 +10,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
  * @deprecated `ButtonBar` has been deprecated. See the Carbon documentation for migration details.
  */
 export interface ButtonBarProps
-  extends ButtonBarContextProps,
-    SpaceProps,
-    TagProps {
+  extends ButtonBarContextProps, SpaceProps, TagProps {
   /** Button or IconButton Elements, to be rendered inside the component */
   children: React.ReactNode;
 }

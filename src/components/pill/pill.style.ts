@@ -122,19 +122,23 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
       height: auto;
       box-sizing: border-box;
 
-      ${!wrapText &&
-      css`
-        white-space: nowrap;
-      `}
+      ${
+        !wrapText &&
+        css`
+          white-space: nowrap;
+        `
+      }
 
-      ${wrapText &&
-      css`
-        overflow-wrap: anywhere;
-        hyphens: auto;
-        // disabled auto hyphens in Safari as it doesn't seem to play well with breaking words
-        // soft hyphens can still be added manually
-        -webkit-hyphens: manual;
-      `}
+      ${
+        wrapText &&
+        css`
+          overflow-wrap: anywhere;
+          hyphens: auto;
+          // disabled auto hyphens in Safari as it doesn't seem to play well with breaking words
+          // soft hyphens can still be added manually
+          -webkit-hyphens: manual;
+        `
+      }
 
       color: ${contentColor};
 
@@ -146,24 +150,32 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
         box-sizing: border-box;
       }
 
-      ${inFill &&
-      css`
-        background-color: ${pillColor};
-      `}
+      ${
+        inFill &&
+        css`
+          background-color: ${pillColor};
+        `
+      }
 
-      ${!inFill &&
-      css`
-        ${borderColor
-          ? css`
-              color: ${!inverse
-                ? "var(--colorsUtilityYin090)"
-                : "var(--colorsUtilityYang100)"};
-            `
-          : css`
-              background-color: ${pillColorAlt};
-              color: ${contentAltColor};
-            `}
-      `}
+      ${
+        !inFill &&
+        css`
+          ${
+            borderColor
+              ? css`
+                  color: ${
+                  !inverse
+                    ? "var(--colorsUtilityYin090)"
+                    : "var(--colorsUtilityYang100)"
+                };
+                `
+              : css`
+                  background-color: ${pillColorAlt};
+                  color: ${contentAltColor};
+                `
+          }
+        `
+      }
 
       /* TODO: Font longhands are used instead of the composite --global-font-static-comp-medium-*
          token because that token embeds a nested var() for font-family, making the whole
@@ -173,156 +185,182 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
       font-weight: 500;
       line-height: 1;
 
-      ${size === "S" &&
-      css`
-        min-height: var(--global-size-2-xs);
-        font-size: 14px;
-        padding: 0 var(--global-space-comp-s);
-      `}
+      ${
+        size === "S" &&
+        css`
+          min-height: var(--global-size-2-xs);
+          font-size: 14px;
+          padding: 0 var(--global-space-comp-s);
+        `
+      }
 
-      ${size === "M" &&
-      css`
-        min-height: var(--global-size-xs);
-        font-size: 14px;
-        padding: 0 var(--global-space-comp-s);
-      `}
+      ${
+        size === "M" &&
+        css`
+          min-height: var(--global-size-xs);
+          font-size: 14px;
+          padding: 0 var(--global-space-comp-s);
+        `
+      }
 
-      ${size === "L" &&
-      css`
-        min-height: 28px;
-        font-size: 16px;
-        padding: 0 var(--global-space-comp-s);
-      `}
+      ${
+        size === "L" &&
+        css`
+          min-height: 28px;
+          font-size: 16px;
+          padding: 0 var(--global-space-comp-s);
+        `
+      }
 
       /* Todo: Remove when Pill's XL size is removed */
-      ${size === "XL" &&
-      css`
-        min-height: 28px;
-        font-size: 16px;
-        padding: 0 12px;
-      `}
+      ${
+        size === "XL" &&
+        css`
+          min-height: 28px;
+          font-size: 16px;
+          padding: 0 12px;
+        `
+      }
 
 
-      ${isDeletable &&
-      css`
-        ${StyledDeleteButton} {
-          -webkit-appearance: none;
-          background: transparent;
-          border-radius: 0 var(--global-radius-container-s)
-            var(--global-radius-container-s) 0;
-          border: none;
-          bottom: 0;
-          font-size: 100%;
-          position: absolute;
-          right: 0;
-          top: 0;
-          width: 20px;
-          margin: 0;
-          padding: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          color: ${deleteContentColor};
-
-          ${!inFill &&
-          borderColor &&
-          css`
-            color: ${!inverse
-              ? "var(--colorsUtilityYin090)"
-              : "var(--colorsUtilityYang100)"};
-          `}
-
-          ${StyledIcon} {
-            color: currentColor;
-            height: unset;
-            width: unset;
-          }
-
-          &:focus {
-            ${addFocusStyling()}
+      ${
+        isDeletable &&
+        css`
+          ${StyledDeleteButton} {
+            -webkit-appearance: none;
+            background: transparent;
+            border-radius: 0 var(--global-radius-container-s)
+              var(--global-radius-container-s) 0;
+            border: none;
+            bottom: 0;
+            font-size: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
             color: ${deleteContentColor};
-            ::-moz-focus-inner {
-              border: 0;
+
+            ${
+              !inFill &&
+              borderColor &&
+              css`
+                color: ${
+                !inverse
+                  ? "var(--colorsUtilityYin090)"
+                  : "var(--colorsUtilityYang100)"
+              };
+              `
             }
 
-            ${borderColor
-              ? css`
-                  &::before {
-                    border-radius: 0 var(--global-radius-container-s)
-                      var(--global-radius-container-s) 0;
-                  }
-                `
-              : css`
-                  background-color: ${inFill
-                    ? buttonFocusColor
-                    : buttonFocusAltColor};
-                `}
-          }
+            ${StyledIcon} {
+              color: currentColor;
+              height: unset;
+              width: unset;
+            }
 
-          &:hover {
-            background-color: ${deleteHoverBackgroundColor};
-            color: ${deleteContentColor};
-          }
-
-          ${borderColor &&
-          css`
-            &:hover,
             &:focus {
-              &::before {
-                content: "";
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background-color: ${pillColor};
-                filter: brightness(0.9);
+              ${addFocusStyling()}
+              color: ${deleteContentColor};
+              ::-moz-focus-inner {
+                border: 0;
+              }
+
+              ${
+                borderColor
+                  ? css`
+                      &::before {
+                        border-radius: 0 var(--global-radius-container-s)
+                          var(--global-radius-container-s) 0;
+                      }
+                    `
+                  : css`
+                      background-color: ${
+                      inFill ? buttonFocusColor : buttonFocusAltColor
+                    };
+                    `
               }
             }
-          `}
+
+            &:hover {
+              background-color: ${deleteHoverBackgroundColor};
+              color: ${deleteContentColor};
+            }
+
+            ${
+              borderColor &&
+              css`
+                &:hover,
+                &:focus {
+                  &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: ${pillColor};
+                    filter: brightness(0.9);
+                  }
+                }
+              `
+            }
+          }
+
+          ${
+            size === "S" &&
+            css`
+              padding: 0 calc(20px + var(--global-space-comp-xs)) 0
+                var(--global-space-comp-s);
+            `
+          }
+
+          ${
+            size === "M" &&
+            css`
+              padding: 0 calc(24px + var(--global-space-comp-xs)) 0
+                var(--global-space-comp-s);
+
+              ${StyledDeleteButton} {
+                width: 24px;
+                padding: 0;
+              }
+            `
+          }
+
+        ${
+          size === "L" &&
+          css`
+            padding: 0 calc(28px + var(--global-space-comp-xs)) 0
+              var(--global-space-comp-s);
+
+            ${StyledDeleteButton} {
+              width: 28px;
+              padding: 0;
+            }
+          `
         }
 
-        ${size === "S" &&
-        css`
-          padding: 0 calc(20px + var(--global-space-comp-xs)) 0
-            var(--global-space-comp-s);
-        `}
-
-        ${size === "M" &&
-        css`
-          padding: 0 calc(24px + var(--global-space-comp-xs)) 0
-            var(--global-space-comp-s);
-
-          ${StyledDeleteButton} {
-            width: 24px;
-            padding: 0;
-          }
-        `}
-
-        ${size === "L" &&
-        css`
-          padding: 0 calc(28px + var(--global-space-comp-xs)) 0
-            var(--global-space-comp-s);
-
-          ${StyledDeleteButton} {
-            width: 28px;
-            padding: 0;
-          }
-        `}
-
         /* Todo: Remove when Pill's XL size is removed */
-        ${size === "XL" &&
-        css`
-          padding: 0 calc(32px + var(--global-space-comp-xs)) 0 12px;
+        ${
+          size === "XL" &&
+          css`
+            padding: 0 calc(32px + var(--global-space-comp-xs)) 0 12px;
 
-          ${StyledDeleteButton} {
-            width: 32px;
-            padding: 0;
-            line-height: 18px;
-          }
-        `}
-      `}
+            ${StyledDeleteButton} {
+              width: 32px;
+              padding: 0;
+              line-height: 18px;
+            }
+          `
+        }
+        `
+      }
       ${maxWidth && `max-width: ${maxWidth}`}
     `;
   }}

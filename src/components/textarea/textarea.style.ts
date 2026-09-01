@@ -16,8 +16,10 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 export type ResizeOptions = "none" | "both" | "horizontal" | "vertical";
 
 export type TextAreaSize = "small" | "medium" | "large";
-export interface StyledTextAreaProps
-  extends Pick<TextareaProps, "minHeight" | "borderRadius"> {
+export interface StyledTextAreaProps extends Pick<
+  TextareaProps,
+  "minHeight" | "borderRadius"
+> {
   /** When true, label is placed in line an input */
   labelInline?: boolean;
   /** When true, adjusts padding for icon */
@@ -187,12 +189,16 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
     css`
       ${StyledLabelContainer} {
         align-items: flex-start;
-        padding-top: ${$size === "small"
-          ? "var(--global-space-comp-xs)"
-          : "var(--global-space-comp-s)"};
+        padding-top: ${
+          $size === "small"
+            ? "var(--global-space-comp-xs)"
+            : "var(--global-space-comp-s)"
+        };
         margin-bottom: 0px;
-        ${!$labelSpacing &&
-        `padding-right: ${$size === "large" ? "var(--global-space-comp-xl)" : "var(--global-space-comp-l)"};`}
+        ${
+          !$labelSpacing &&
+          `padding-right: ${$size === "large" ? "var(--global-space-comp-xl)" : "var(--global-space-comp-l)"};`
+        }
       }
     `}
 
@@ -209,9 +215,9 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
       css`
         ::after {
           ${getFont($size, "medium")}
-          color: var(--input-labelset-label-${$disabled
-            ? "disabled"
-            : "required"});
+          color: var(--input-labelset-label-${
+            $disabled ? "disabled" : "required"
+          });
           margin-left: var(--global-space-comp-xs);
         }
       `}

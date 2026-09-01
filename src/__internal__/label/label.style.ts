@@ -49,9 +49,11 @@ const StyledLabel = styled.label<StyledLabelProps>`
 
       ::after {
         content: "*";
-        color: ${$disabled
-          ? "var(--input-labelset-label-disabled)"
-          : "var(--input-labelset-label-required)"};
+        color: ${
+          $disabled
+            ? "var(--input-labelset-label-disabled)"
+            : "var(--input-labelset-label-required)"
+        };
         font: ${getFontToken($size)};
         margin-left: 4px;
       }

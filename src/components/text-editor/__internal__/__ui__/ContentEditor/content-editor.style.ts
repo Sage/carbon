@@ -26,38 +26,46 @@ interface StyledContentEditableProps extends ContentEditorProps {
 
 const StyledContentEditable = styled.div<StyledContentEditableProps>`
   ${({ error, namespace, rows, readOnly, size, hasFooter }) => css`
-    ${readOnly &&
-    css`
-      padding: ${sizeMap[size].padding};
+    ${
+      readOnly &&
+      css`
+        padding: ${sizeMap[size].padding};
 
-      p:first-of-type {
-        margin: 0;
-      }
-    `}
+        p:first-of-type {
+          margin: 0;
+        }
+      `
+    }
 
     .${namespace}-editable {
-      min-height: ${rows && rows > 2
-        ? rows * FIXED_LINE_HEIGHT
-        : DEFAULT_EDITOR_HEIGHT}px;
+      min-height: ${
+        rows && rows > 2 ? rows * FIXED_LINE_HEIGHT : DEFAULT_EDITOR_HEIGHT
+      }px;
 
-      ${readOnly &&
-      css`
-        border-radius: var(--global-radius-container-m);
-      `}
+      ${
+        readOnly &&
+        css`
+          border-radius: var(--global-radius-container-m);
+        `
+      }
 
       padding: ${sizeMap[size].padding};
 
-      ${!hasFooter &&
-      css`
-        border-bottom-right-radius: var(--global-radius-container-m);
-        border-bottom-left-radius: var(--global-radius-container-m);
-      `}
+      ${
+        !hasFooter &&
+        css`
+          border-bottom-right-radius: var(--global-radius-container-m);
+          border-bottom-left-radius: var(--global-radius-container-m);
+        `
+      }
 
-      ${error &&
-      css`
-        border: var(--global-borderwidth-s) solid
-          var(--input-validation-border-error);
-      `}
+      ${
+        error &&
+        css`
+          border: var(--global-borderwidth-s) solid
+            var(--input-validation-border-error);
+        `
+      }
 
       &:focus {
         ${addFocusStyling()}

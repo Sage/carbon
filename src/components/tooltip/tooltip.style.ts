@@ -33,12 +33,15 @@ const StyledTooltip = styled.div.attrs(applyBaseTheme)<
     border-radius: var(--borderRadius050);
     position: absolute;
     animation: ${fadeIn} 0.2s linear;
-    z-index: ${theme.zIndex
-      .popover}; // TODO (tokens): implement elevation tokens - FE-4437
+    z-index: ${
+      theme.zIndex.popover
+    }; // TODO (tokens): implement elevation tokens - FE-4437
     text-align: left;
-    color: ${fontColor
-      ? toColor(theme, fontColor)
-      : "var(--colorsSemanticNeutralYang100)"};
+    color: ${
+      fontColor
+        ? toColor(theme, fontColor)
+        : "var(--colorsSemanticNeutralYang100)"
+    };
     display: inline-block;
     padding: 8px 12px;
     word-break: break-word;

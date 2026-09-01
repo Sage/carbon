@@ -17,12 +17,16 @@ interface StyledScrollableBlockProps {
 const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
   ${({ menuType, variant, $inFullscreenView }) => css`
     && ${StyledMenuItemWrapper} {
-      ${!$inFullscreenView &&
-      css`
-        background-color: ${variant === "default"
-          ? menuConfigVariants[menuType].submenuItemBackground
-          : menuConfigVariants[menuType].alternate};
-      `}
+      ${
+        !$inFullscreenView &&
+        css`
+          background-color: ${
+            variant === "default"
+              ? menuConfigVariants[menuType].submenuItemBackground
+              : menuConfigVariants[menuType].alternate
+          };
+        `
+      }
       padding-right: var(--spacing150);
     }
 

@@ -288,8 +288,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
     useImperativeHandle(ref, () => ({
       focusTab: (id: string) => {
         const tab = tabListRef.current?.querySelector(`#${id}`) as
-          | HTMLButtonElement
-          | undefined;
+          HTMLButtonElement | undefined;
         tab?.focus();
         setFocusIndex(id);
         setActiveTab(id);

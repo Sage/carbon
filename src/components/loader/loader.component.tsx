@@ -17,7 +17,8 @@ import Typography from "../typography";
  * @deprecated `Loader` has been deprecated. See the Carbon documentation for migration details.
  */
 export interface LoaderProps
-  extends Omit<StyledLoaderSquareProps, "backgroundColor">,
+  extends
+    Omit<StyledLoaderSquareProps, "backgroundColor">,
     MarginProps,
     TagProps {
   /** Toggle between the default variant and gradient variant */

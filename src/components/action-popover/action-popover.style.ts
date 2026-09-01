@@ -24,9 +24,11 @@ const Menu = styled.ul.attrs(applyBaseTheme)<{
     return css`
       grid-template-columns:
         ${submenuLeft ? chevronColumn : ""}
-        ${iconLeft
-          ? `${iconColumn} ${textColumn}`
-          : `${textColumn} ${iconColumn}`}
+        ${
+          iconLeft
+            ? `${iconColumn} ${textColumn}`
+            : `${textColumn} ${iconColumn}`
+        }
         ${!submenuLeft ? chevronColumn : ""};
     `;
   }}
@@ -189,15 +191,19 @@ const SubMenuItemIcon = styled(ButtonIcon)`
   grid-column: chevron_column;
 
   ${({ type }) => css`
-    ${type === "chevron_left_thick" &&
-    css`
-      left: -5px;
-    `}
+    ${
+      type === "chevron_left_thick" &&
+      css`
+        left: -5px;
+      `
+    }
 
-    ${type === "chevron_right_thick" &&
-    css`
-      right: -5px;
-    `}
+    ${
+      type === "chevron_right_thick" &&
+      css`
+        right: -5px;
+      `
+    }
   `}
 `;
 

@@ -1,8 +1,10 @@
 import React from "react";
 import Box, { BoxProps } from "../../box";
 
-export interface FlexTileContainerProps
-  extends Pick<BoxProps, "columnGap" | "overflow"> {
+export interface FlexTileContainerProps extends Pick<
+  BoxProps,
+  "columnGap" | "overflow"
+> {
   /** The child elements of FlexTileContainer need to be FlexTileCell components. */
   children: React.ReactNode;
 }

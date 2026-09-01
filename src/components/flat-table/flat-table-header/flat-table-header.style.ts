@@ -13,7 +13,8 @@ const verticalBorderSizes = {
 };
 
 interface StyledFlatTableHeaderProps
-  extends Pick<
+  extends
+    Pick<
       FlatTableHeaderProps,
       "align" | "verticalBorder" | "verticalBorderColor" | "alternativeBgColor"
     >,

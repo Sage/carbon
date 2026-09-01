@@ -84,20 +84,24 @@ const LabelWrapper = styled.div<LabelWrapperProps>`
   flex-direction: column;
   align-self: stretch;
   ${({ $labelInline, $size }) => css`
-    ${$labelInline &&
-    css`
-      padding-top: var(--global-space-comp-${$size.charAt(0)});
-      justify-content: flex-start;
-      align-items: flex-end;
-      align-self: stretch;
-      width: var(--label-spacing, auto);
-    `}
+    ${
+      $labelInline &&
+      css`
+        padding-top: var(--global-space-comp-${$size.charAt(0)});
+        justify-content: flex-start;
+        align-items: flex-end;
+        align-self: stretch;
+        width: var(--label-spacing, auto);
+      `
+    }
 
-    ${!$labelInline &&
-    css`
-      justify-content: flex-end;
-      align-items: flex-start;
-    `}
+    ${
+      !$labelInline &&
+      css`
+        justify-content: flex-end;
+        align-items: flex-start;
+      `
+    }
   `}
 `;
 

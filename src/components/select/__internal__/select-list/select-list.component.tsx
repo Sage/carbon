@@ -47,12 +47,7 @@ type OnSelectData = {
 };
 
 export type ListPlacement =
-  | "top"
-  | "bottom"
-  | "top-start"
-  | "bottom-start"
-  | "top-end"
-  | "bottom-end";
+  "top" | "bottom" | "top-start" | "bottom-start" | "top-end" | "bottom-end";
 
 export interface SelectListProps {
   /** The ID for the parent <div> */

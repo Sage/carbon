@@ -29,11 +29,13 @@ const StyledCheckboxGroupContent = styled.div<{
       font: ${sizeMap[$size].labelFont};
     }
 
-    ${$inline &&
-    css`
-      flex-direction: row;
-      gap: var(--global-space-comp-l);
-    `}
+    ${
+      $inline &&
+      css`
+        flex-direction: row;
+        gap: var(--global-space-comp-l);
+      `
+    }
   `}
 `;
 

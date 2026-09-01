@@ -1,8 +1,10 @@
 import createStrictContext from "../../../__internal__/utils/createStrictContext";
 import { FlatTableProps } from "../flat-table.component";
 
-export interface StrictFlatTableContextType
-  extends Pick<FlatTableProps, "colorTheme" | "size"> {
+export interface StrictFlatTableContextType extends Pick<
+  FlatTableProps,
+  "colorTheme" | "size"
+> {
   getTabStopElementId: () => string;
 }
 

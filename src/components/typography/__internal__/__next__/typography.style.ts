@@ -8,13 +8,7 @@ import {
 import visuallyHidden from "../../../../style/utils/visually-hidden";
 
 type HeadingVariants =
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "section-heading"
-  | "section-subheading";
+  "h1" | "h2" | "h3" | "h4" | "h5" | "section-heading" | "section-subheading";
 
 const headingVariants: Record<HeadingVariants, string> = {
   h1: "heading-l",
@@ -104,42 +98,52 @@ const StyledTypography = styled.span.attrs(
       ${$textTransform !== undefined && `text-transform: ${$textTransform};`}
       ${$overflow !== undefined && `overflow: ${$overflow};`}
 
-      ${isHeading &&
-      css`
-        font: var(${headingFontVar});
-        color: ${baseColorToken};
-      `}
+      ${
+        isHeading &&
+        css`
+          font: var(${headingFontVar});
+          color: ${baseColorToken};
+        `
+      }
 
-      ${isStrongOrBold &&
-      css`
-        font: var(${bodyMediumFontVar});
-        color: ${baseColorToken};
-      `}
+      ${
+        isStrongOrBold &&
+        css`
+          font: var(${bodyMediumFontVar});
+          color: ${baseColorToken};
+        `
+      }
 
-      ${$variant === "sup" &&
-      css`
-        font: var(${bodyFontVar});
-        font-size: 0.75em;
-        color: ${baseColorToken};
-        vertical-align: super;
-      `}
+      ${
+        $variant === "sup" &&
+        css`
+          font: var(${bodyFontVar});
+          font-size: 0.75em;
+          color: ${baseColorToken};
+          vertical-align: super;
+        `
+      }
 
-      ${$variant === "sub" &&
-      css`
-        font: var(${bodyFontVar});
-        font-size: 0.75em;
-        color: ${baseColorToken};
-        vertical-align: sub;
-      `}
+      ${
+        $variant === "sub" &&
+        css`
+          font: var(${bodyFontVar});
+          font-size: 0.75em;
+          color: ${baseColorToken};
+          vertical-align: sub;
+        `
+      }
 
       /* base token for body text */
-      ${!isHeading &&
-      !isStrongOrBold &&
-      !isSuperOrSub &&
-      css`
-        font: var(${bodyFontVar});
-        color: ${baseColorToken};
-      `}
+      ${
+        !isHeading &&
+        !isStrongOrBold &&
+        !isSuperOrSub &&
+        css`
+          font: var(${bodyFontVar});
+          color: ${baseColorToken};
+        `
+      }
     `;
   }}
 `;

@@ -98,8 +98,7 @@ const MenuFullscreenRoot = ({
     modalRef: menuRef,
     topModalOverride,
     focusCallToActionElement: getDocument()?.activeElement as
-      | HTMLElement
-      | undefined,
+      HTMLElement | undefined,
   });
 
   return (

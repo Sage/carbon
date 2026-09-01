@@ -293,10 +293,7 @@ test("updates input’s aria-activedescendant value when navigating options via 
         <SimpleSelect
           listPlacement={
             listPlacement as
-              | "top-end"
-              | "bottom-end"
-              | "top-start"
-              | "bottom-start"
+              "top-end" | "bottom-end" | "top-start" | "bottom-start"
           }
           listWidth={100}
           label="Colour"

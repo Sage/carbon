@@ -10,11 +10,10 @@ const FixedNavigationBarContext = createContext<FixedNavigationBarContextProps>(
   {},
 );
 
-export interface FixedNavigationBarContextProviderProps
-  extends Pick<
-    NavigationBarProps,
-    "position" | "orientation" | "offset" | "children"
-  > {
+export interface FixedNavigationBarContextProviderProps extends Pick<
+  NavigationBarProps,
+  "position" | "orientation" | "offset" | "children"
+> {
   navbarRef: React.RefObject<HTMLElement>;
 }
 

@@ -41,27 +41,33 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
       align-items: center;
       font-size: var(--fontSize100);
 
-      ${!showSearchButton &&
-      css`
-        border-bottom: var(--spacing025) solid ${variantColor};
-
-        :hover {
-          border-bottom-color: ${darkVariant
-            ? "var(--colorsUtilityYang100)"
-            : "var(--colorsUtilityMajor400)"};
-          cursor: pointer;
-        }
-
-        ${(searchHasValue || isFocused) &&
+      ${
+        !showSearchButton &&
         css`
-          border-bottom-color: transparent;
+          border-bottom: var(--spacing025) solid ${variantColor};
 
           :hover {
-            border-bottom-color: transparent;
-            cursor: default;
+            border-bottom-color: ${
+              darkVariant
+                ? "var(--colorsUtilityYang100)"
+                : "var(--colorsUtilityMajor400)"
+            };
+            cursor: pointer;
           }
-        `}
-      `}
+
+          ${
+            (searchHasValue || isFocused) &&
+            css`
+              border-bottom-color: transparent;
+
+              :hover {
+                border-bottom-color: transparent;
+                cursor: default;
+              }
+            `
+          }
+        `
+      }
 
       ${StyledFormField} {
         flex: 1;
@@ -69,33 +75,39 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
 
       ${StyledIcon} {
         :not([data-element="search"]) {
-          ${darkVariant &&
-          !showSearchButton &&
-          css`
-            color: var(--colorsUtilityYang080);
+          ${
+            darkVariant &&
+            !showSearchButton &&
+            css`
+              color: var(--colorsUtilityYang080);
 
-            :hover {
-              color: var(--colorsUtilityYang100);
-            }
-          `}
+              :hover {
+                color: var(--colorsUtilityYang100);
+              }
+            `
+          }
 
-          ${!darkVariant &&
-          css`
-            color: var(--colorsActionMinor500);
+          ${
+            !darkVariant &&
+            css`
+              color: var(--colorsActionMinor500);
 
-            :hover {
-              color: var(--colorsActionMinor600);
-            }
-          `}
+              :hover {
+                color: var(--colorsActionMinor600);
+              }
+            `
+          }
         }
         cursor: pointer;
       }
 
       ${StyledInputIconToggle} {
-        ${searchHasValue &&
-        css`
-          margin-bottom: -1px;
-        `}
+        ${
+          searchHasValue &&
+          css`
+            margin-bottom: -1px;
+          `
+        }
       }
     `;
   }}

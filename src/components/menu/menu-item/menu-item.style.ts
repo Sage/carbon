@@ -16,7 +16,8 @@ import { MenuWithChildren } from "./menu-item.component";
 import type { MenuType } from "../menu.types";
 
 interface StyledMenuItemWrapperProps
-  extends Pick<
+  extends
+    Pick<
       MenuWithChildren,
       | "href"
       | "showDropdownArrow"
@@ -131,159 +132,179 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       width: 100%;
     }
 
-    ${!overrideColor &&
-    css`
-      background-color: ${menuConfigVariants[menuType].background};
+    ${
+      !overrideColor &&
+      css`
+        background-color: ${menuConfigVariants[menuType].background};
 
-      &:has([data-popover-container-button="true"]) {
-        background-color: var(--colorsActionMajor500);
-      }
-    `}
-
-    ${overrideColor &&
-    !inFullscreenView &&
-    css`
-      &&&& {
-        background-color: ${menuItemVariant === "alternate"
-          ? menuConfigVariants[menuType].alternate
-          : menuConfigVariants[menuType].submenuItemBackground};
-      }
-    `}
-
-    ${!inFullscreenView &&
-    css`
-      max-width: inherit;
-      width: inherit;
-      height: inherit;
-
-      > a,
-      > button {
-        display: flex;
-        align-items: center;
-        ${!inSubmenu ? "justify-content: center;" : ""}
-        width: inherit;
-        max-width: inherit;
-      }
-
-      && {
-        a:focus,
-        button:focus {
-          background-color: ${menuConfigVariants[menuType].background};
-          color: ${menuConfigVariants[menuType].color};
-          z-index: 1;
-          position: relative;
+        &:has([data-popover-container-button="true"]) {
+          background-color: var(--colorsActionMajor500);
         }
-      }
+      `
+    }
 
-      &:has([data-popover-container-button="true"]) {
+    ${
+      overrideColor &&
+      !inFullscreenView &&
+      css`
+        &&&& {
+          background-color: ${
+            menuItemVariant === "alternate"
+              ? menuConfigVariants[menuType].alternate
+              : menuConfigVariants[menuType].submenuItemBackground
+          };
+        }
+      `
+    }
+
+    ${
+      !inFullscreenView &&
+      css`
+        max-width: inherit;
+        width: inherit;
+        height: inherit;
+
+        > a,
+        > button {
+          display: flex;
+          align-items: center;
+          ${!inSubmenu ? "justify-content: center;" : ""}
+          width: inherit;
+          max-width: inherit;
+        }
+
         && {
           a:focus,
           button:focus {
-            background-color: var(--colorsActionMajor500);
-          }
-        }
-      }
-
-      &&& {
-        a,
-        button {
-          ${maxWidth &&
-          css`
-            box-sizing: border-box;
-            max-width: inherit;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            vertical-align: bottom;
-            display: block;
-          `}
-        }
-
-        a:hover,
-        button:hover {
-          ${StyledButton} {
-            border-radius: 0;
-            background-color: transparent;
-          }
-
-          ${!asDiv &&
-          !asPassiveItem &&
-          css`
-            background-color: var(--colorsComponentsMenuAutumnStandard600);
-            color: var(--colorsComponentsMenuYang100);
-
-            [data-component="icon"] {
-              color: var(--colorsComponentsMenuYang100);
-            }
-          `}
-
-          ::before {
-            border-top-color: var(--colorsComponentsMenuYang100);
-          }
-        }
-      }
-    `}
-
-    ${hasFocusableChild &&
-    css`
-      &&
-        ${!inFullscreenView &&
-        css`
-          && > a:not(:has(button)) {
-            padding: 11px 16px;
-          }
-
-          > a:has(${StyledButton}:not(.legacy-search-button)) {
-            height: 100%;
-
-            ${StyledContent} {
-              height: inherit;
-
-              div {
-                height: inherit;
-              }
-            }
-
-            ${StyledButton} {
-              min-height: 40px;
-              padding: 10px 0px;
-              box-sizing: border-box;
-              height: 100%;
-            }
-          }
-        `}
-        ${StyledIconButton} {
-        > span {
-          display: inline-flex;
-          margin-right: 0;
-        }
-
-        :focus {
-          outline: none;
-          [data-component="icon"] {
+            background-color: ${menuConfigVariants[menuType].background};
             color: ${menuConfigVariants[menuType].color};
+            z-index: 1;
+            position: relative;
           }
         }
-      }
-    `}
 
-    ${!hasFocusableChild &&
-    !inFullscreenView &&
-    css`
-      ${hasSubmenu || maxWidth
-        ? css`
-            & > a,
-            & > button {
-              padding: 11px 16px ${hasSubmenu && maxWidth ? "12px" : "10px"};
+        &:has([data-popover-container-button="true"]) {
+          && {
+            a:focus,
+            button:focus {
+              background-color: var(--colorsActionMajor500);
             }
-          `
-        : css`
-            & > a,
-            & > button {
-              padding: 11px 16px;
+          }
+        }
+
+        &&& {
+          a,
+          button {
+            ${
+              maxWidth &&
+              css`
+                box-sizing: border-box;
+                max-width: inherit;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                vertical-align: bottom;
+                display: block;
+              `
             }
-          `}
-    `}
+          }
+
+          a:hover,
+          button:hover {
+            ${StyledButton} {
+              border-radius: 0;
+              background-color: transparent;
+            }
+
+            ${
+              !asDiv &&
+              !asPassiveItem &&
+              css`
+                background-color: var(--colorsComponentsMenuAutumnStandard600);
+                color: var(--colorsComponentsMenuYang100);
+
+                [data-component="icon"] {
+                  color: var(--colorsComponentsMenuYang100);
+                }
+              `
+            }
+
+            ::before {
+              border-top-color: var(--colorsComponentsMenuYang100);
+            }
+          }
+        }
+      `
+    }
+
+    ${
+      hasFocusableChild &&
+      css`
+        &&
+          ${
+            !inFullscreenView &&
+            css`
+              && > a:not(:has(button)) {
+                padding: 11px 16px;
+              }
+
+              > a:has(${StyledButton}:not(.legacy-search-button)) {
+                height: 100%;
+
+                ${StyledContent} {
+                  height: inherit;
+
+                  div {
+                    height: inherit;
+                  }
+                }
+
+                ${StyledButton} {
+                  min-height: 40px;
+                  padding: 10px 0px;
+                  box-sizing: border-box;
+                  height: 100%;
+                }
+              }
+            `
+          }
+          ${StyledIconButton} {
+          > span {
+            display: inline-flex;
+            margin-right: 0;
+          }
+
+          :focus {
+            outline: none;
+            [data-component="icon"] {
+              color: ${menuConfigVariants[menuType].color};
+            }
+          }
+        }
+      `
+    }
+
+    ${
+      !hasFocusableChild &&
+      !inFullscreenView &&
+      css`
+        ${
+          hasSubmenu || maxWidth
+            ? css`
+                & > a,
+                & > button {
+                  padding: 11px 16px ${hasSubmenu && maxWidth ? "12px" : "10px"};
+                }
+              `
+            : css`
+                & > a,
+                & > button {
+                  padding: 11px 16px;
+                }
+              `
+        }
+      `
+    }
     button,
     ${StyledLink} button,
     a,
@@ -291,15 +312,17 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       margin: 0px;
       text-align: left;
 
-      ${inFullscreenView &&
-      css`
-        height: auto;
-        white-space: normal;
+      ${
+        inFullscreenView &&
+        css`
+          height: auto;
+          white-space: normal;
 
-        ${StyledIcon} {
-          top: -2px;
-        }
-      `}
+          ${StyledIcon} {
+            top: -2px;
+          }
+        `
+      }
     }
 
     &&& {
@@ -314,151 +337,175 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
         ${!hasInput && `color: ${menuConfigVariants[menuType].color};`}
       }
 
-      ${!inFullscreenView &&
-      css`
-        a > ${StyledIcon}, button > ${StyledIcon} {
-          display: inline-block;
+      ${
+        !inFullscreenView &&
+        css`
+          a > ${StyledIcon}, button > ${StyledIcon} {
+            display: inline-block;
 
-          height: 18px;
-          top: -2px;
-        }
-      `}
+            height: 18px;
+            top: -2px;
+          }
+        `
+      }
     }
 
-    ${selected &&
-    css`
-      background-color: ${menuConfigVariants[menuType].selected};
-
-      a:focus,
-      button:focus {
+    ${
+      selected &&
+      css`
         background-color: ${menuConfigVariants[menuType].selected};
-      }
-
-      a:hover,
-      button:hover {
-        background-color: var(--colorsComponentsMenuAutumnStandard600);
-      }
-    `}
-
-    ${menuItemVariant === "alternate" &&
-    !inFullscreenView &&
-    css`
-      &&& {
-        background-color: ${menuConfigVariants[menuType].alternate};
-      }
-
-      &&& a:focus,
-      &&& button:focus {
-        background-color: ${menuConfigVariants[menuType].alternate};
-      }
-
-      ${!hasInput &&
-      css`
-        &&& a:hover,
-        &&& button:hover {
-          background-color: ${menuConfigVariants[menuType].alternateHover};
-        }
-      `}
-    `}
-
-    ${isOpen &&
-    css`
-      a,
-      button {
-        background-color: ${menuConfigVariants[menuType].submenuItemBackground};
-        color: ${menuConfigVariants[menuType].color};
-      }
-    `}
-
-    ${hasSubmenu &&
-    css`
-      background-color: ${menuConfigVariants[menuType].submenuBackground};
-
-      a:focus,
-      button:focus {
-        background-color: ${menuConfigVariants[menuType].submenuBackground};
-        color: ${menuConfigVariants[menuType].color};
-
-        [data-component="icon"] {
-          color: ${menuConfigVariants[menuType].color};
-        }
-
-        ${clickToOpen &&
-        isOpen &&
-        css`
-          background-color: ${menuConfigVariants[menuType]
-            .submenuOpenedBackground};
-        `}
-      }
-
-      a:hover,
-      button:hover {
-        background-color: ${menuConfigVariants[menuType]
-          .submenuOpenedBackground};
-        color: var(--colorsComponentsMenuYang100);
-
-        ${!(href || clickToOpen) &&
-        css`
-          cursor: default;
-          background-color: ${menuConfigVariants[menuType]
-            .submenuItemBackground};
-          color: ${menuConfigVariants[menuType].color};
-        `}
-
-        [data-component="icon"] {
-          color: ${menuConfigVariants[menuType].color};
-        }
-      }
-
-      ${selected &&
-      css`
-        background-color: ${menuConfigVariants[menuType].submenuSelected};
 
         a:focus,
         button:focus {
-          background-color: ${menuConfigVariants[menuType].submenuSelected};
+          background-color: ${menuConfigVariants[menuType].selected};
         }
 
         a:hover,
         button:hover {
           background-color: var(--colorsComponentsMenuAutumnStandard600);
-          color: var(--colorsComponentsMenuYang100);
         }
-      `}
+      `
+    }
 
-      ${showDropdownArrow &&
+    ${
+      menuItemVariant === "alternate" &&
+      !inFullscreenView &&
       css`
         &&& {
-          > a,
-          > button:not(${StyledIconButton}) {
-            padding-right: ${(props) => parsePadding(padding(props)).padding};
+          background-color: ${menuConfigVariants[menuType].alternate};
+        }
+
+        &&& a:focus,
+        &&& button:focus {
+          background-color: ${menuConfigVariants[menuType].alternate};
+        }
+
+        ${
+          !hasInput &&
+          css`
+            &&& a:hover,
+            &&& button:hover {
+              background-color: ${menuConfigVariants[menuType].alternateHover};
+            }
+          `
+        }
+      `
+    }
+
+    ${
+      isOpen &&
+      css`
+        a,
+        button {
+          background-color: ${menuConfigVariants[menuType].submenuItemBackground};
+          color: ${menuConfigVariants[menuType].color};
+        }
+      `
+    }
+
+    ${
+      hasSubmenu &&
+      css`
+        background-color: ${menuConfigVariants[menuType].submenuBackground};
+
+        a:focus,
+        button:focus {
+          background-color: ${menuConfigVariants[menuType].submenuBackground};
+          color: ${menuConfigVariants[menuType].color};
+
+          [data-component="icon"] {
+            color: ${menuConfigVariants[menuType].color};
+          }
+
+          ${
+            clickToOpen &&
+            isOpen &&
+            css`
+              background-color: ${
+              menuConfigVariants[menuType].submenuOpenedBackground
+            };
+            `
           }
         }
 
-        a::before,
-        button::before {
-          display: block;
-          margin-top: -1px;
-          pointer-events: none;
-          position: absolute;
-          right: ${(props) => parsePadding(padding(props)).iconSpacing};
-          top: 50%;
-          z-index: 2;
-          content: "";
-          width: 0;
-          height: 0;
-          border-width: 5px 4px 4px;
-          border-style: solid;
-          border-top-color: initial;
-          border-right-color: transparent;
-          border-bottom-color: transparent;
-          border-left-color: transparent;
-        }
-      `}
-    `}
+        a:hover,
+        button:hover {
+          background-color: ${
+            menuConfigVariants[menuType].submenuOpenedBackground
+          };
+          color: var(--colorsComponentsMenuYang100);
 
-    ${inFullscreenView &&
-    css`
+          ${
+            !(href || clickToOpen) &&
+            css`
+              cursor: default;
+              background-color: ${
+              menuConfigVariants[menuType].submenuItemBackground
+            };
+              color: ${menuConfigVariants[menuType].color};
+            `
+          }
+
+          [data-component="icon"] {
+            color: ${menuConfigVariants[menuType].color};
+          }
+        }
+
+        ${
+          selected &&
+          css`
+            background-color: ${menuConfigVariants[menuType].submenuSelected};
+
+            a:focus,
+            button:focus {
+              background-color: ${menuConfigVariants[menuType].submenuSelected};
+            }
+
+            a:hover,
+            button:hover {
+              background-color: var(--colorsComponentsMenuAutumnStandard600);
+              color: var(--colorsComponentsMenuYang100);
+            }
+          `
+        }
+
+        ${
+          showDropdownArrow &&
+          css`
+            &&& {
+              > a,
+              > button:not(${StyledIconButton}) {
+                padding-right: ${(props) => parsePadding(padding(props)).padding};
+              }
+            }
+
+            a::before,
+            button::before {
+              display: block;
+              margin-top: -1px;
+              pointer-events: none;
+              position: absolute;
+              right: ${(props) => parsePadding(padding(props)).iconSpacing};
+              top: 50%;
+              z-index: 2;
+              content: "";
+              width: 0;
+              height: 0;
+              border-width: 5px 4px 4px;
+              border-style: solid;
+              border-top-color: initial;
+              border-right-color: transparent;
+              border-bottom-color: transparent;
+              border-left-color: transparent;
+            }
+          `
+        }
+      `
+    }
+
+    ${
+      inFullscreenView &&
+      css`
       ${
         asDiv &&
         css`
@@ -505,18 +552,21 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
               background-color: var(--colorsComponentsMenuAutumnStandard600);
               color: var(--colorsComponentsMenuYang100);
 
-              ${!hasInput &&
-              css`
-                [data-component="icon"] {
-                  color: var(--colorsComponentsMenuYang100);
-                }
-              `}
+              ${
+                !hasInput &&
+                css`
+                  [data-component="icon"] {
+                    color: var(--colorsComponentsMenuYang100);
+                  }
+                `
+              }
             }
           }
         `
       }
       }
-    `}
+    `
+    }
   `}
 
   &&& {

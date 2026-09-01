@@ -18,17 +18,19 @@ const StyledLinkPreview = styled.a.attrs(applyBaseTheme)<{ as?: "a" | "div" }>`
     background-color: var(--colorsUtilityMajor025);
     color: var(--colorsUtilityYin090);
 
-    ${as !== "div" &&
-    css`
-      :focus {
-        ${addFocusStyling()}
-      }
+    ${
+      as !== "div" &&
+      css`
+        :focus {
+          ${addFocusStyling()}
+        }
 
-      :hover {
-        cursor: pointer;
-        background-color: var(--colorsUtilityMajor100);
-      }
-    `}
+        :hover {
+          cursor: pointer;
+          background-color: var(--colorsUtilityMajor100);
+        }
+      `
+    }
   `}
 `;
 

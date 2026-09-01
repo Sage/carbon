@@ -11,19 +11,21 @@ type StyledButtonBarProps = SpaceProps &
 const StyledButtonBar = styled.div.attrs(applyBaseTheme)<StyledButtonBarProps>`
   ${space}
   ${({ fullWidth, size }) => css`
-    ${fullWidth &&
-    css`
-      width: 100%;
-      display: flex;
-      button {
-        box-sizing: content-box;
-        padding: 0;
+    ${
+      fullWidth &&
+      css`
         width: 100%;
-        ${size === "small" && "min-height: 28px"}
-        ${size === "medium" && "min-height: 36px"}
+        display: flex;
+        button {
+          box-sizing: content-box;
+          padding: 0;
+          width: 100%;
+          ${size === "small" && "min-height: 28px"}
+          ${size === "medium" && "min-height: 36px"}
           ${size === "large" && "min-height: 44px"}
-      }
-    `}
+        }
+      `
+    }
 
     button {
       margin: 0;

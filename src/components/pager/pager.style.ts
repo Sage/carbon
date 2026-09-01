@@ -46,11 +46,13 @@ export const StyledPagination = styled.nav<StyledPagerContainerProps>`
       var(--container-standard-border-default);
     background: var(--container-standard-bg-alt);
 
-    ${$variant === "alternate" &&
-    css`
-      background: none;
-      border: none;
-    `}
+    ${
+      $variant === "alternate" &&
+      css`
+        background: none;
+        border: none;
+      `
+    }
   `}
 `;
 

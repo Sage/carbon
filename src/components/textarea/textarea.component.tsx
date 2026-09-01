@@ -79,7 +79,8 @@ export const getDefaultMinHeightBySize = (
 };
 
 export interface TextareaProps
-  extends ValidationProps,
+  extends
+    ValidationProps,
     MarginProps,
     Omit<CommonInputProps, "size">,
     TagProps {

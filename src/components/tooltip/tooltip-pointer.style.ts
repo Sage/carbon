@@ -16,8 +16,9 @@ const StyledTooltipPointer = styled.div.attrs(applyBaseTheme)<
   Pick<TooltipProps, "type" | "bgColor">
 >`
   ${({ theme, type, bgColor }) => css`
-    z-index: ${theme.zIndex
-      .popover}; // TODO (tokens): implement elevation tokens - FE-4437
+    z-index: ${
+      theme.zIndex.popover
+    }; // TODO (tokens): implement elevation tokens - FE-4437
     background: ${pointerColor(theme, bgColor, type)};
     position: absolute;
     width: 12px;

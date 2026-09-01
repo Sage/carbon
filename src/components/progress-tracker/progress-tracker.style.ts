@@ -24,11 +24,13 @@ export const StyledProgressTracker = styled.div.attrs(
     gap: ${progressTrackerSizeMap[$size].gap};
     width: ${$length};
 
-    ${$labelsPosition === "left" &&
-    css`
-      flex-direction: row;
-      align-items: center;
-    `}
+    ${
+      $labelsPosition === "left" &&
+      css`
+        flex-direction: row;
+        align-items: center;
+      `
+    }
   `};
 `;
 
@@ -88,10 +90,12 @@ export const StyledLabelWrapper = styled.div<StyledLabelProps>`
     color: var(--progress-label-default);
     font: ${progressTrackerSizeMap[$size].regularFont};
 
-    ${$labelWidth &&
-    css`
-      width: ${$labelWidth};
-      flex-shrink: 0;
-    `}
+    ${
+      $labelWidth &&
+      css`
+        width: ${$labelWidth};
+        flex-shrink: 0;
+      `
+    }
   `};
 `;

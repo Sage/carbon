@@ -63,42 +63,52 @@ const StyledNavigationBar = styled.nav.attrs(
       position: ${position};
       ${orientation}: ${offset};
 
-      ${position === "fixed" &&
-      css`
-        box-sizing: border-box;
-        width: 100%;
-      `}
+      ${
+        position === "fixed" &&
+        css`
+          box-sizing: border-box;
+          width: 100%;
+        `
+      }
     `}
 
   ${({ navigationType, theme, isGlobal }) => css`
     min-height: 40px;
     z-index: ${isGlobal ? theme.zIndex.globalNav : theme.zIndex.nav};
 
-    ${navigationType === "light" &&
-    css`
-      background-color: var(--colorsComponentsMenuSpringStandard500);
-      border-bottom: var(--borderWidth100) solid
-        var(--colorsComponentsMenuSpringChildAlt500);
-    `}
+    ${
+      navigationType === "light" &&
+      css`
+        background-color: var(--colorsComponentsMenuSpringStandard500);
+        border-bottom: var(--borderWidth100) solid
+          var(--colorsComponentsMenuSpringChildAlt500);
+      `
+    }
 
-    ${navigationType === "dark" &&
-    css`
-      background-color: var(--colorsComponentsMenuAutumnStandard500);
-      color: var(--colorsComponentsMenuYang100);
-    `}
+    ${
+      navigationType === "dark" &&
+      css`
+        background-color: var(--colorsComponentsMenuAutumnStandard500);
+        color: var(--colorsComponentsMenuYang100);
+      `
+    }
 
-    ${navigationType === "black" &&
-    css`
-      background-color: var(--colorsComponentsMenuWinterStandard500);
-      color: var(--colorsComponentsMenuYang100);
-    `}
+    ${
+      navigationType === "black" &&
+      css`
+        background-color: var(--colorsComponentsMenuWinterStandard500);
+        color: var(--colorsComponentsMenuYang100);
+      `
+    }
 
-    ${navigationType === "white" &&
-    css`
-      background-color: var(--colorsComponentsMenuSummerStandard500);
-      border-bottom: var(--borderWidth100) solid
-        var(--colorsComponentsMenuSummerChildAlt500);
-    `}
+    ${
+      navigationType === "white" &&
+      css`
+        background-color: var(--colorsComponentsMenuSummerStandard500);
+        border-bottom: var(--borderWidth100) solid
+          var(--colorsComponentsMenuSummerChildAlt500);
+      `
+    }
   `}
 `;
 

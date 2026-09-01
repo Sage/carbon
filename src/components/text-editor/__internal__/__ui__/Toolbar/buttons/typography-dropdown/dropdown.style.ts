@@ -46,10 +46,12 @@ export const StyledButton = styled.button<ButtonProps>`
     color: var(--button-typical-toggle-label-default);
     font: ${sizeMap[size].buttonFont};
 
-    ${menuOpen &&
-    css`
-      ${addFocusStyling()}
-    `}
+    ${
+      menuOpen &&
+      css`
+        ${addFocusStyling()}
+      `
+    }
 
     &:focus {
       ${addFocusStyling()}

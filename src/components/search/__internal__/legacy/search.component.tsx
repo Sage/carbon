@@ -23,7 +23,8 @@ export interface SearchEvent {
 }
 
 export interface SearchProps
-  extends ValidationProps,
+  extends
+    ValidationProps,
     MarginProps,
     TagProps,
     Pick<CommonTextboxProps, "label" | "inputHint"> {

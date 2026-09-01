@@ -15,7 +15,8 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
  * @deprecated `DismissibleBox` has been deprecated. See the Carbon documentation for migration details.
  */
 export interface DismissibleBoxProps
-  extends SpaceProps,
+  extends
+    SpaceProps,
     StyledDismissibleBoxProps,
     Omit<BoxProps, "display" | "justifyContent" | "bg" | "backgroundColor">,
     TagProps {

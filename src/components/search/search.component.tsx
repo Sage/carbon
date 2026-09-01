@@ -117,7 +117,8 @@ export interface SearchPopoverProps {
 }
 
 export interface SearchProps
-  extends Omit<ValidationProps, "info">,
+  extends
+    Omit<ValidationProps, "info">,
     MarginProps,
     TagProps,
     SearchTextboxProps,

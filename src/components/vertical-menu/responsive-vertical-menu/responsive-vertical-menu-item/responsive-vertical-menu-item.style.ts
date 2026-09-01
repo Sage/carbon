@@ -121,15 +121,17 @@ export const StyledNestedMenu = styled.ul<{
     width: ${depth < 2 && !hasIcon ? "100%" : "88%"};
     margin-left: var(--spacing400);
 
-    ${responsive &&
-    css`
-      margin-left: ${hasIcon || depth === 1 ? "var(--spacing200)" : "0"};
-    `}
+    ${
+      responsive &&
+      css`
+        margin-left: ${hasIcon || depth === 1 ? "var(--spacing200)" : "0"};
+      `
+    }
 
     li > a {
-      font-weight: ${depth === 1
-        ? "var(--fontWeights400)"
-        : "var(--fontWeights500)"};
+      font-weight: ${
+        depth === 1 ? "var(--fontWeights400)" : "var(--fontWeights500)"
+      };
     }
   `}
 `;
@@ -188,11 +190,13 @@ export const StyledResponsiveMenuActionLink = styled.a<{
         color: var(--colorsUtilityYang080);
         font-weight: var(--fontWeights400);
 
-        ${responsive &&
-        depth >= 3 &&
-        css`
-          margin-left: var(--spacing300);
-        `}
+        ${
+          responsive &&
+          depth >= 3 &&
+          css`
+            margin-left: var(--spacing300);
+          `
+        }
       }
     `}
 `;
@@ -212,11 +216,13 @@ export const StyledResponsiveMenuActionButton = styled.button<{
         color: var(--colorsUtilityYang080);
         font-weight: var(--fontWeights400);
 
-        ${responsive &&
-        depth >= 3 &&
-        css`
-          margin-left: var(--spacing300);
-        `}
+        ${
+          responsive &&
+          depth >= 3 &&
+          css`
+            margin-left: var(--spacing300);
+          `
+        }
       }
     `}
 `;

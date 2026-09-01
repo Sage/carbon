@@ -77,17 +77,21 @@ const StyledFocusWrapper = styled.div<{
     border-radius: var(--borderRadius100);
     overflow: hidden;
 
-    ${checked &&
-    css`
-      border-color: var(--colorsActionMajor500);
-      z-index: 10;
-    `}
+    ${
+      checked &&
+      css`
+        border-color: var(--colorsActionMajor500);
+        z-index: 10;
+      `
+    }
 
-    ${hasFocus &&
-    css`
-      ${addFocusStyling()}
-      z-index: 15;
-    `}
+    ${
+      hasFocus &&
+      css`
+        ${addFocusStyling()}
+        z-index: 15;
+      `
+    }
   `}
 `;
 
@@ -168,8 +172,9 @@ const StyledDeselectWrapper = styled.div<{
     right: 8px;
     height: fit-content;
 
-    ${hasActionAdornment &&
-    `
+    ${
+      hasActionAdornment &&
+      `
       margin-right: var(--sizing200);
       display: flex;
       align-items: baseline;
@@ -178,7 +183,8 @@ const StyledDeselectWrapper = styled.div<{
       ${StyledIcon} {
         top: 2px;
       }
-    `}
+    `
+    }
   `}
 `;
 

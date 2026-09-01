@@ -57,28 +57,27 @@ export interface DateChangeEvent {
   };
 }
 
-export interface DateInputProps
-  extends Omit<
-    TextboxProps,
-    | "value"
-    | "formattedValue"
-    | "rawValue"
-    | "onChange"
-    | "onBlur"
-    | "onMouseDown"
-    | "onChangeDeferred"
-    | "deferTimeout"
-    | "children"
-    | "leftChildren"
-    | "placeholder"
-    | "iconOnClick"
-    | "iconOnMouseDown"
-    | "characterLimit"
-    | "warnOverLimit"
-    | "iconTabIndex"
-    | "inputIcon"
-    | "data-component"
-  > {
+export interface DateInputProps extends Omit<
+  TextboxProps,
+  | "value"
+  | "formattedValue"
+  | "rawValue"
+  | "onChange"
+  | "onBlur"
+  | "onMouseDown"
+  | "onChangeDeferred"
+  | "deferTimeout"
+  | "children"
+  | "leftChildren"
+  | "placeholder"
+  | "iconOnClick"
+  | "iconOnMouseDown"
+  | "characterLimit"
+  | "warnOverLimit"
+  | "iconTabIndex"
+  | "inputIcon"
+  | "data-component"
+> {
   /** Boolean to allow the input to have an empty value */
   allowEmptyValue?: boolean;
   /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */

@@ -20,48 +20,52 @@ const StyledTileContent = styled.div.attrs(
     position: relative;
     flex-grow: 1;
 
-    ${isHorizontal
-      ? css`
-          display: inline;
+    ${
+      isHorizontal
+        ? css`
+            display: inline;
 
-          :last-of-type {
-            padding-right: 0;
-          }
+            :last-of-type {
+              padding-right: 0;
+            }
 
-          :first-of-type {
-            padding-left: 0;
-          }
+            :first-of-type {
+              padding-left: 0;
+            }
 
-          :not(:last-of-type) {
-            margin-top: 0;
-            border-right: solid 1px var(--colorsUtilityMajor050);
-          }
-        `
-      : css`
-          width: auto;
+            :not(:last-of-type) {
+              margin-top: 0;
+              border-right: solid 1px var(--colorsUtilityMajor050);
+            }
+          `
+        : css`
+            width: auto;
 
-          :last-of-type {
-            padding-bottom: 0;
-          }
+            :last-of-type {
+              padding-bottom: 0;
+            }
 
-          :first-of-type {
-            padding-top: 0;
-          }
+            :first-of-type {
+              padding-top: 0;
+            }
 
-          :not(:last-of-type) {
-            margin-top: 0;
-            border-bottom: solid 1px var(--colorsUtilityMajor050);
-          }
-        `}
+            :not(:last-of-type) {
+              margin-top: 0;
+              border-bottom: solid 1px var(--colorsUtilityMajor050);
+            }
+          `
+    }
 
-    ${(width || height) &&
-    css`
-      flex-grow: 0;
-      ${computeSizing({
-        width: width || /* istanbul ignore next */ undefined,
-        height: height || undefined,
-      })}
-    `}
+    ${
+      (width || height) &&
+      css`
+        flex-grow: 0;
+        ${computeSizing({
+          width: width || /* istanbul ignore next */ undefined,
+          height: height || undefined,
+        })}
+      `
+    }
   `}
 `;
 
