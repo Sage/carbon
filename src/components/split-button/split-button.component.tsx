@@ -65,7 +65,7 @@ export interface SplitButtonProps
   isWhite?: boolean;
   /**
    * @deprecated This prop is deprecated and will be removed in a future release.
-   * Sets the alignment of the rendered content */
+   * Sets rendering position of menu. */
   position?: "left" | "right";
 }
 
