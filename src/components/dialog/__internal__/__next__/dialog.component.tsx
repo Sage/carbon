@@ -14,12 +14,17 @@ import {
   StyledSubtitle,
 } from "./dialog.style";
 
+import DialogHeadingStatus, {
+  DialogHeadingStatusContext,
+} from "./dialog-header/dialog-header.component";
+
+import Button from "../../../button/__next__";
 import Icon from "../../../icon";
 import Typography from "../../../typography";
 import Modal, { ModalProps } from "../../../../__internal__/modal";
+import FullScreenHeading from "../../../../__internal__/full-screen-heading";
 
 import FocusTrap from "../../../../__internal__/focus-trap";
-import FullScreenHeading from "../../../../__internal__/full-screen-heading";
 import createGuid from "../../../../__internal__/utils/helpers/guid";
 import tagComponent, {
   TagProps,
@@ -27,12 +32,9 @@ import tagComponent, {
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import useModalAria from "../../../../hooks/__internal__/useModalAria/useModalAria";
-import Button from "../../../button/__next__";
-import DialogHeadingStatus, {
-  DialogHeadingStatusContext,
-} from "./dialog-header/dialog-header.component";
 
 import { Size, ContentPaddingInterface } from "./dialog.config";
+import isDialogHeadingStatusComponent from "./utils";
 
 export type { Size, ContentPaddingInterface };
 
@@ -225,33 +227,12 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         return true;
       }
 
-      // Check for static marker
-      const componentType = title.type as {
-        $$carbonDialogHeadingStatus?: boolean;
-        type?: { $$carbonDialogHeadingStatus?: boolean };
-      };
-      if (componentType?.$$carbonDialogHeadingStatus) {
-        return true;
-      }
-
-      // Check wrapped components (memo, forwardRef, etc.)
-      // React.memo wraps the component in an object with a 'type' property
-      if (componentType?.type?.$$carbonDialogHeadingStatus) {
-        return true;
-      }
-
-      return false;
+      return isDialogHeadingStatusComponent(title.type);
     }, [title]);
 
-    let dialogHeaderTitleId: string | undefined;
-    let dialogHeaderSubtitleId: string | undefined;
-
-    if (isDialogHeader && title && React.isValidElement(title)) {
-      // Generate IDs for DialogHeader
-      dialogHeaderTitleId = titleId; // Reuse the existing titleId from the Dialog
-      const props = title.props as { subtitle?: React.ReactNode };
-      dialogHeaderSubtitleId = props.subtitle ? subtitleId : undefined;
-    }
+    const isValidDialogHeader =
+      isDialogHeader &&
+      React.isValidElement<{ subtitle?: React.ReactNode }>(title);
 
     const closeIcon = showCloseIcon && onCancel && (
       <Button
@@ -269,16 +250,19 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
     const dialogTitle = () => {
       // Helper to render subtitle
-      const renderSubtitle = () => (
-        <StyledSubtitle
-          as="div"
-          data-element="subtitle"
-          data-role="subtitle"
-          id={subtitleId}
-        >
-          {subtitle}
-        </StyledSubtitle>
-      );
+      const renderSubtitle = () => {
+        if (!subtitle) return null;
+        return (
+          <StyledSubtitle
+            as="div"
+            data-element="subtitle"
+            data-role="subtitle"
+            id={subtitleId}
+          >
+            {subtitle}
+          </StyledSubtitle>
+        );
+      };
 
       // Render title content based on type and props
       const renderTitleContent = () => {
@@ -304,7 +288,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       const titleContent = (
         <div data-element="dialog-title-container">
           {renderTitleContent()}
-          {subtitle && renderSubtitle()}
+          {renderSubtitle()}
         </div>
       );
 
@@ -312,8 +296,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       const renderTitle = isDialogHeader ? (
         <DialogHeadingStatusContext.Provider
           value={{
-            titleId: dialogHeaderTitleId,
-            subtitleId: dialogHeaderSubtitleId,
+            titleId,
+            subtitleId,
           }}
         >
           {titleContent}
@@ -367,14 +351,15 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
     const ariaProps = {
       "aria-describedby":
-        dialogHeaderSubtitleId ||
-        (subtitle && typeof subtitle === "string"
+        (isValidDialogHeader && title.props.subtitle) ||
+        (subtitle && typeof subtitle === "string")
           ? subtitleId
-          : ariaDescribedBy),
+          : ariaDescribedBy,
       "aria-label": ariaLabel,
       "aria-labelledby":
-        dialogHeaderTitleId ||
-        (title && typeof title === "string" ? titleId : ariaLabelledBy),
+        isValidDialogHeader || (title && typeof title === "string")
+          ? titleId
+          : ariaLabelledBy,
     };
 
     return (

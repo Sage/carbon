@@ -52,7 +52,14 @@ export interface DialogHeadingStatusProps {
   status: DialogHeadingStatus;
 }
 
-const DialogHeadingStatus = forwardRef<
+interface DialogHeadingStatusComponent
+  extends React.ForwardRefExoticComponent<
+    DialogHeadingStatusProps & React.RefAttributes<HTMLDivElement>
+  > {
+  $$carbonDialogHeadingStatus?: boolean;
+}
+
+const DialogHeadingStatus: DialogHeadingStatusComponent = forwardRef<
   HTMLDivElement,
   DialogHeadingStatusProps
 >(({ title, subtitle, status }, ref) => {
@@ -107,15 +114,6 @@ const DialogHeadingStatus = forwardRef<
 DialogHeadingStatus.displayName = "DialogHeadingStatus";
 
 // Static marker to identify this component even when wrapped in memo/styled-components
-interface DialogHeadingStatusComponent
-  extends React.ForwardRefExoticComponent<
-    DialogHeadingStatusProps & React.RefAttributes<HTMLDivElement>
-  > {
-  $$carbonDialogHeadingStatus?: boolean;
-}
-
-(
-  DialogHeadingStatus as DialogHeadingStatusComponent
-).$$carbonDialogHeadingStatus = true;
+DialogHeadingStatus.$$carbonDialogHeadingStatus = true;
 
 export default DialogHeadingStatus;
