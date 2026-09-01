@@ -109,6 +109,8 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
 
     const { isInFlatTable } = useContext(FlatTableContext);
 
+    const shouldRenderIsWhiteVariant = buttonType === "secondary" && isWhite;
+
     useImperativeHandle<SplitButtonHandle, SplitButtonHandle>(
       ref,
       () => ({
@@ -211,7 +213,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
           variantType={buttonType}
           iconPosition={iconPosition}
           onClick={handleMainClick}
-          isWhite={isWhite}
+          isWhite={shouldRenderIsWhiteVariant}
           {...filterOutStyledSystemSpacingProps(rest)}
         >
           {text}
@@ -248,6 +250,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
                     $variant="default"
                     $variantType={buttonType}
                     onClick={handleToggleClick}
+                    isWhite={shouldRenderIsWhiteVariant}
                   >
                     <Icon type="dropdown" />
                   </StyledSplitButtonToggle>

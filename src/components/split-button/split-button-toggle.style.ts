@@ -11,20 +11,27 @@ const horizontalPaddingSizes = {
 type StyledSplitButtonToggleProps = {
   $displayed: boolean;
   $size: "small" | "medium" | "large";
+  isWhite?: boolean;
 };
 
 const StyledSplitButtonToggle = styled(
   StyledButton,
-)<StyledSplitButtonToggleProps>`
-  ${({ $displayed, $size }) => css`
+).attrs<StyledSplitButtonToggleProps>(({ isWhite }) => ({
+  $inverse: isWhite,
+}))<StyledSplitButtonToggleProps>`
+  ${({ $displayed, $size, isWhite }) => css`
     border-top-left-radius: var(--global-size-none);
     border-bottom-left-radius: var(--global-size-none);
 
     ${$displayed
       ? css`
           &:not(:disabled) {
-            background-color: var(--button-typical-primary-bg-active);
-            border-color: var(--button-typical-primary-bg-active);
+            background-color: var(
+              --button-typical-${isWhite ? "secondary" : "primary"}-bg-active
+            );
+            border-color: var(
+              --button-typical-${isWhite ? "secondary" : "primary"}-bg-active
+            );
 
             &,
             ${StyledIcon} {

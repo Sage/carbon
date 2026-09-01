@@ -828,3 +828,57 @@ test("renders backdrop when opened inside FlatTable and closes the menu when bac
   await user.click(backdrop);
   expect(submenuButton).not.toBeInTheDocument();
 });
+
+test("should apply secondary background color to toggle button when isWhite is true and button is displayed", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main" buttonType="secondary" isWhite>
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  await user.click(toggle);
+
+  expect(toggle).toHaveStyleRule(
+    "background-color",
+    "var(--button-typical-secondary-bg-active)",
+    {
+      modifier: "&:not(:disabled)",
+    },
+  );
+  expect(toggle).toHaveStyleRule(
+    "border-color",
+    "var(--button-typical-secondary-bg-active)",
+    {
+      modifier: "&:not(:disabled)",
+    },
+  );
+});
+
+test("should apply primary background color to toggle button when isWhite is false and button is displayed", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main" buttonType="primary">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  await user.click(toggle);
+
+  expect(toggle).toHaveStyleRule(
+    "background-color",
+    "var(--button-typical-primary-bg-active)",
+    {
+      modifier: "&:not(:disabled)",
+    },
+  );
+  expect(toggle).toHaveStyleRule(
+    "border-color",
+    "var(--button-typical-primary-bg-active)",
+    {
+      modifier: "&:not(:disabled)",
+    },
+  );
+});
