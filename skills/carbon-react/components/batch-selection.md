@@ -17,14 +17,14 @@ description: Carbon BatchSelection component props and usage examples.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  |  |  | Content to be rendered after selected count. |  |
 | selectedCount | number | Yes |  |  |  | Number of selected items |  |
-| hidden | boolean \| undefined | No |  |  |  | If true, the component is hidden. |  |
 | onDismiss | (() => void) \| undefined | No |  |  |  | Callback called when the close button is clicked. Renders the close button when provided. |  |
 | smallScreen | boolean \| undefined | No |  |  |  | Flag to adjust layout for small screens |  |
-| totalItems | number \| undefined | No |  |  |  | Total number of items | 0 |
+| totalItems | number \| undefined | No |  |  |  | Total number of items |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | colorTheme | "white" \| "dark" \| "light" \| "transparent" \| undefined | No |  | Yes | Changing the color theme of this component is no longer supported. |  |  |
 | disabled | boolean \| undefined | No |  | Yes | Disabling this component is no longer supported. |  |  |
+| hidden | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Please use conditional rendering instead. | If true, the component is hidden. |  |
 
 ## Examples
 ### Default

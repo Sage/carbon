@@ -23,7 +23,10 @@ const esES: Partial<Locale> = {
     ariaLabels: {
       close: () => "Cerrar",
     },
-    selected: (count) => `Registros seleccionados: ${count}`,
+    selected: (count, total) =>
+      total
+        ? `Elementos seleccionados: ${count} de ${total}`
+        : `Elementos seleccionados: ${count}`,
   },
   breadcrumbs: {
     ariaLabel: () => "ruta de navegación",

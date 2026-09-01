@@ -23,7 +23,8 @@ const deDE: Partial<Locale> = {
     ariaLabels: {
       close: () => "Schließen",
     },
-    selected: (count) => `${count} ausgewählt`,
+    selected: (count, total) =>
+      total ? `${count} von ${total} ausgewählt` : `${count} ausgewählt`,
   },
   breadcrumbs: {
     ariaLabel: () => "Breadcrumbs",

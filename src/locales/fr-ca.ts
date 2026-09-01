@@ -23,7 +23,10 @@ const frCA: Partial<Locale> = {
     ariaLabels: {
       close: () => "Fermer",
     },
-    selected: (count) => `${count} sélectionné(s)`,
+    selected: (count, total) =>
+      total
+        ? `${count} sur ${total} éléments sélectionnés`
+        : `${count} sélectionné(s)`,
   },
   breadcrumbs: {
     ariaLabel: () => "chemins de navigation",
