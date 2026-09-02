@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import allModes from "../../../../../.storybook/modes";
+import isChromatic from "../../../../../.storybook/isChromatic";
 
 import Box from "../../../box";
 import Button from "../../../button/__next__/";
@@ -10,6 +11,7 @@ import Textbox from "../../../textbox";
 
 import Dialog from "./dialog.component";
 import DialogHeader from "./dialog-header/dialog-header.component";
+import { Form } from "../../../..";
 
 const meta: Meta<typeof Dialog> = {
   title: "Dialog/Test",
@@ -221,4 +223,50 @@ export const HeadingInfo: StoryObj<typeof Dialog> = {
       {dialogContent}
     </Dialog>
   ),
+};
+
+export const DialogStickyFormSmallScreen: Story = {
+  name: "Fullscreen Dialog Sticky Form Small Screen",
+  render: () => {
+    const [isOpen, setIsOpen] = useState(isChromatic());
+
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+        <Dialog
+          disableStickyOnSmallScreen
+          onCancel={() => setIsOpen(false)}
+          open={isOpen}
+          size="fullscreen"
+          subtitle="To test this behaviour, please make sure you have the viewport set to extra small in Storybook."
+          title="Dialog with bug on small screen"
+        >
+          <Form
+            leftSideButtons={<Button onClick={() => ""}>Cancel</Button>}
+            saveButton={
+              <Button variantType="primary" type="submit">
+                Save
+              </Button>
+            }
+            stickyFooter
+          >
+            <>
+              <Textbox label="First Name" onChange={() => ""} value="" />
+              <Textbox label="Middle Name" onChange={() => ""} value="" />
+              <Textbox label="Surname" onChange={() => ""} value="" />
+              <Textbox label="Birth Place" onChange={() => ""} value="" />
+              <Textbox label="Favourite Colour" onChange={() => ""} value="" />
+              <Textbox label="Address" onChange={() => ""} value="" />
+              <Textbox label="First Name" onChange={() => ""} value="" />
+              <Textbox label="Middle Name" onChange={() => ""} value="" />
+              <Textbox label="Surname" onChange={() => ""} value="" />
+              <Textbox label="Birth Place" onChange={() => ""} value="" />
+              <Textbox label="Favourite Colour" onChange={() => ""} value="" />
+              <Textbox label="Address" onChange={() => ""} value="" />
+            </>
+          </Form>
+        </Dialog>
+      </>
+    );
+  },
 };
