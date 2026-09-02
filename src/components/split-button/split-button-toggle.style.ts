@@ -26,12 +26,12 @@ const StyledSplitButtonToggle = styled(
     ${$displayed
       ? css`
           &:not(:disabled) {
-            background-color: var(
-              --button-typical-${isWhite ? "secondary" : "primary"}-bg-active
-            );
-            border-color: var(
-              --button-typical-${isWhite ? "secondary" : "primary"}-bg-active
-            );
+            background-color: ${isWhite
+              ? "var(--button-typical-secondary-bg-active)"
+              : "var(--button-typical-primary-bg-active)"};
+            border-color: ${isWhite
+              ? "var(--button-typical-secondary-bg-active)"
+              : "var(--button-typical-primary-bg-active)"};
 
             &,
             ${StyledIcon} {
