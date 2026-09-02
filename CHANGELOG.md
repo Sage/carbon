@@ -1,3 +1,9 @@
+## [161.20.0](https://github.com/Sage/carbon/compare/v161.19.4...v161.20.0) (2026-09-02)
+
+### Features
+
+* **note:** align Note component with Fusion DS ([4ceb19d](https://github.com/Sage/carbon/commit/4ceb19d56a06c3f5e2a2ccf6e54eca5f40764947))
+
 ## [161.19.4](https://github.com/Sage/carbon/compare/v161.19.3...v161.19.4) (2026-08-27)
 
 ### Bug Fixes

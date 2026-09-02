@@ -126,6 +126,9 @@ const enGB: Locale = {
     ai: () => "AI Information",
     callout: () => "Callout",
   },
+  note: {
+    created: () => "Created",
+  },
   numeralDate: {
     validation: {
       day: (month, daysInMonth) => {
