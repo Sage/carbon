@@ -82,13 +82,7 @@ const DialogHeadingStatus: DialogHeadingStatusComponent = forwardRef<
       flexWrap="wrap"
       alignItems="center"
     >
-      <Icon
-        type={iconType}
-        color={color}
-        fontSize="medium"
-        aria-hidden
-        ml="-4px"
-      />
+      <Icon type={iconType} color={color} size="medium" aria-hidden ml="-4px" />
       <Typography
         variant="h1"
         ml="var(--global-space-comp-l)"
