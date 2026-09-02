@@ -6,7 +6,6 @@ import {
   ActionPopover,
   ActionPopoverDivider,
   ActionPopoverItem,
-  ActionPopoverMenuButton,
 } from "../action-popover";
 import Box from "../box";
 import LinkPreview from "../link-preview";
@@ -59,19 +58,11 @@ export const InlineControlMenuButton = ({
   const noteContent = html;
 
   const inlineControl = (
-    <ActionPopover
-      renderButton={(props) => (
-        <ActionPopoverMenuButton
-          buttonType="tertiary"
-          iconType="ellipsis_vertical"
-          iconPosition="after"
-          size="small"
-          {...props}
-        >
-          Actions
-        </ActionPopoverMenuButton>
-      )}
-    />
+    <ActionPopover>
+      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+    </ActionPopover>
   );
 
   return (

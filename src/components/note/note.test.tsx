@@ -1,16 +1,18 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Note from ".";
 import LinkPreview from "../link-preview";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Typography from "../typography";
+import I18nProvider from "../i18n-provider";
 
 test("should render with required props", () => {
   render(<Note createdDate="23 May 2020, 12:08 PM" noteContent="" />);
 
   expect(screen.getByText("23 May 2020, 12:08 PM")).toBeVisible();
+  expect(screen.queryByTestId("note-previews")).not.toBeInTheDocument();
 });
 
 test("should render with provided data- attributes", () => {
@@ -26,7 +28,7 @@ test("should render with provided data- attributes", () => {
   expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
 });
 
-test("renders a Typography component with h2 `variant` and `title` as its child when `title` prop is a string", () => {
+test("renders a semantic h3 when `title` is a string", () => {
   render(
     <Note createdDate="23 May 2020, 12:08 PM" noteContent="" title="Title" />,
   );
@@ -64,8 +66,7 @@ test("should render with provided `name` prop", () => {
   expect(screen.getByText("Carbon")).toBeVisible();
 });
 
-test("should render tooltip containing status `timeStamp` when status `text` is hovered", async () => {
-  const user = userEvent.setup();
+test("should render status and timestamp below the created details", () => {
   render(
     <Note
       createdDate="23 May 2020, 12:08 PM"
@@ -77,15 +78,94 @@ test("should render tooltip containing status `timeStamp` when status `text` is 
     />,
   );
 
+  const createdLabel = screen.getByText("Created");
   const statusText = screen.getByText("Edited");
+
+  expect(createdLabel).toBeVisible();
   expect(statusText).toBeVisible();
+  expect(screen.getByText("23 May 2020, 12:10 PM")).toBeVisible();
+});
 
-  await user.hover(statusText);
+test("uses the en-GB created-label fallback and preserves the supplied date", () => {
+  render(
+    <I18nProvider locale={{ locale: () => "de-DE" }}>
+      <Note createdDate="20 Jan 16:49" noteContent="" />
+    </I18nProvider>,
+  );
 
-  const tooltip = await screen.findByRole("tooltip", {
-    name: "23 May 2020, 12:10 PM",
+  expect(screen.getByText("Created")).toBeVisible();
+  const createdTime = screen.getByText("20 Jan 16:49", { selector: "time" });
+  expect(createdTime).toBeVisible();
+  expect(createdTime).not.toHaveAttribute("datetime");
+});
+
+test("adds machine-readable values for valid ISO timestamps", () => {
+  render(
+    <Note
+      createdDate="2026-01-20T16:49:00Z"
+      noteContent=""
+      status={{
+        text: "Updated",
+        timeStamp: "2026-01-21T09:15:00+02:00",
+      }}
+    />,
+  );
+
+  expect(screen.getByText("2026-01-20T16:49:00Z")).toHaveAttribute(
+    "datetime",
+    "2026-01-20T16:49:00Z",
+  );
+  expect(screen.getByText("2026-01-21T09:15:00+02:00")).toHaveAttribute(
+    "datetime",
+    "2026-01-21T09:15:00+02:00",
+  );
+});
+
+test("omits machine-readable values for invalid ISO dates", () => {
+  render(<Note createdDate="2026-02-31" noteContent="" />);
+
+  expect(screen.getByText("2026-02-31")).not.toHaveAttribute("datetime");
+});
+
+test("renders serialized mentions as readonly pills", () => {
+  const noteContent = JSON.stringify({
+    root: {
+      children: [
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: "token",
+              mention: "@Amanda Ball",
+              style: "",
+              text: "@Amanda Ball",
+              type: "mention",
+              version: 1,
+            },
+          ],
+          direction: "ltr",
+          format: "",
+          indent: 0,
+          type: "paragraph",
+          version: 1,
+        },
+      ],
+      direction: "ltr",
+      format: "",
+      indent: 0,
+      type: "root",
+      version: 1,
+    },
   });
-  expect(tooltip).toBeVisible();
+
+  render(<Note createdDate="20 Jan 16:49" noteContent={noteContent} />);
+
+  const mention = screen.getByText("@Amanda Ball");
+  expect(mention).toHaveClass("mention");
+  const article = screen.getByRole("article");
+  expect(article).toContainElement(mention);
+  expect(article).toHaveAttribute("contenteditable", "false");
 });
 
 test("should render LinkPreviews when passed via the `previews` prop as an array", () => {
@@ -144,10 +224,44 @@ test("should render with `ActionPopover` when passed via the `inlineControl` pro
     />,
   );
 
+  const noteBody = screen.getByTestId("note-body");
+  const inlineControlElement = screen.getByTestId("note-inline-control");
+
+  expect(within(noteBody).getByRole("article")).toBeVisible();
+  expect(within(noteBody).getByTestId("note-inline-control")).toBe(
+    inlineControlElement,
+  );
+  expect(screen.queryByTestId("note-title-row")).not.toBeInTheDocument();
+
   await user.click(screen.getByRole("button", { name: "actions" }));
 
   expect(screen.getByRole("button", { name: "Copy" })).toBeVisible();
   expect(screen.getByRole("button", { name: "Edit" })).toBeVisible();
+});
+
+test("places the title and action in a top-aligned row", () => {
+  render(
+    <Note
+      createdDate="23 May 2020, 12:08 PM"
+      inlineControl={<ActionPopover />}
+      noteContent="Note body"
+      title="Title"
+    />,
+  );
+
+  const noteBody = screen.getByTestId("note-body");
+  const titleRow = screen.getByTestId("note-title-row");
+  const inlineControlElement = screen.getByTestId("note-inline-control");
+
+  expect(within(titleRow).getByRole("heading", { level: 3 })).toBeVisible();
+  expect(within(titleRow).getByTestId("note-inline-control")).toBe(
+    inlineControlElement,
+  );
+  expect(within(noteBody).getByRole("article")).toBeVisible();
+  expect(screen.getByRole("button", { name: "actions" })).toHaveAttribute(
+    "data-element",
+    "action-popover-button",
+  );
 });
 
 test("should throw when `inlineControls` is not an instance of `ActionPopover`", () => {
