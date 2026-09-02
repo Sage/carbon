@@ -144,10 +144,18 @@ const enGB: Locale = {
     },
   },
   pager: {
-    firstAriaLabel: () => "Go to first page",
-    lastAriaLabel: () => "Go to last page",
-    nextAriaLabel: () => "Go to next page",
-    previousAriaLabel: () => "Go to previous page",
+    firstAriaLabel: (totalPages: string | number) =>
+      `Go to first page (page 1 of ${totalPages})`,
+    lastAriaLabel: (totalPages: string | number) =>
+      `Go to last page (page ${totalPages} of ${totalPages})`,
+    nextAriaLabel: (
+      currentPage: number | string,
+      totalPages: number | string,
+    ) => `Go to next page (page ${currentPage} of ${totalPages})`,
+    previousAriaLabel: (
+      currentPage: number | string,
+      totalPages: number | string,
+    ) => `Go to previous page (page ${currentPage} of ${totalPages})`,
     pageX: (currentPage?: number | string) => `Page ${currentPage}`,
     ofTotalPages: (totalPages: number | string) => `of ${totalPages} pages`,
     itemsPerPage: () => "Items per page",
