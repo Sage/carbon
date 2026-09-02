@@ -528,6 +528,36 @@ description: Carbon DateInput component props and usage examples.
 ```
 
 
+### Disabled Year and Month Selectors
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="var(--global-space-layout-xs)"
+    >
+      <Typography variant="p">
+        The year and month selectors disable automatically when minDate and
+        maxDate narrow the selectable range: only June 2024 is selectable below,
+        so the year selector is disabled (only one year available) and every
+        month except June is disabled.
+      </Typography>
+      <PairedDateInputs
+        initialValue="15/06/2024"
+        labelDetail="only June 2024 selectable"
+        minDate="2024-06-01"
+        maxDate="2024-06-30"
+      />
+    </Box>
+  );
+}
+```
+
+
 ### With Label Inline
 
 **Render**
