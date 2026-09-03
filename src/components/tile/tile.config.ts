@@ -17,3 +17,26 @@ export const TILE_HIGHLIGHT_VARIANTS = [
   "info",
   "important",
 ];
+
+export const STATUS_KEYLINE_VARIANTS = [
+  "ai",
+  "blue",
+  "green",
+  "orange",
+  "red",
+  "neutral",
+  "purple",
+];
+
+export const HIGHLIGHT_VARIANT_TO_STATUS_KEYLINE_MAP: Record<
+  (typeof TILE_HIGHLIGHT_VARIANTS)[number],
+  (typeof STATUS_KEYLINE_VARIANTS)[number]
+> = {
+  success: "green",
+  neutral: "neutral",
+  error: "red",
+  warning: "orange",
+  info: "blue",
+  important: "purple",
+  gradient: "ai",
+};

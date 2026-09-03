@@ -3,145 +3,181 @@ import { space, SpaceProps } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import computeSizing from "../../style/utils/element-sizing";
 import { TileProps } from "./tile.component";
-import StyledTileContent from "./tile-content/tile-content.style";
+import { STATUS_KEYLINE_VARIANTS } from "./tile.config";
 
 type StyledTileProps = Pick<
   TileProps,
-  | "borderWidth"
   | "borderVariant"
   | "variant"
   | "width"
-  | "roundness"
+  | "radius"
   | "height"
-  | "highlightVariant"
-> & { isHorizontal?: boolean } & SpaceProps;
+  | "outline"
+  | "inverse"
+  | "statusKeyline"
+> &
+  SpaceProps & {
+    $hasFooter?: boolean;
+    $footerVariant?: "selected" | "active";
+  };
 
-const getBorderColor = (
-  borderVariant: TileProps["borderVariant"],
-  variant: TileProps["variant"],
-) => {
-  switch (borderVariant) {
-    case "selected":
-      return "var(--colorsUtilityYin100)";
-    case "positive":
-      return "var(--colorsSemanticPositive500)";
-    case "negative":
-      return "var(--colorsSemanticNegative500)";
-    case "caution":
-      return "var(--colorsSemanticCaution500)";
-    case "info":
-      return "var(--colorsSemanticInfo500)";
-    default:
-      switch (variant) {
-        case "active":
-          return "var(--colorsActionMajor500)";
-        case "grey":
-          return "var(--colorsUtilityMajor200)";
-        default:
-          return "var(--colorsUtilityMajor100)";
-      }
-  }
-};
-
-const getBorderRadius = (roundness: TileProps["roundness"]) => {
-  switch (roundness) {
-    case "large":
-      return "var(--borderRadius200)";
-    case "small":
-      return "var(--borderRadius050)";
-    default:
-      return "var(--borderRadius100)";
-  }
-};
-
-const getHighlightVariant = (variant: TileProps["highlightVariant"]) => {
+const getColorMappingByVariant = ({
+  variant,
+  inverse,
+}: {
+  variant: TileProps["variant"];
+  inverse?: boolean;
+}) => {
   switch (variant) {
-    case "success":
-      return "var(--colorsSemanticPositive500)";
-    case "neutral":
-      return "var(--colorsSemanticNeutral500)";
-    case "error":
-      return "var(--colorsSemanticNegative500)";
-    case "warning":
-      return "var(--colorsSemanticCaution500)";
-    case "info":
-      return "var(--colorsSemanticInfo500)";
-    // FE-6368 has been raised for the below, change hex values for design tokens (when added)
-    case "important":
-      return " #8F4CD7";
+    case "alt":
+      return {
+        color: `var(--container-standard-${inverse ? "inverse-" : ""}txt-default)`,
+        border: `var(--container-standard-${inverse ? "inverse-" : ""}border-default)`,
+        bg: `var(--container-standard-${inverse ? "inverse-" : ""}bg-alt)`,
+      };
+    case "positive":
+      return {
+        color: "var(--container-standard-txt-default)",
+        border: "var(--message-contextual-success-border-default)",
+        bg: "var(--message-contextual-success-bg-alt)",
+      };
+    case "negative":
+      return {
+        color: "var(--container-standard-txt-default)",
+        border: "var(--message-contextual-error-border-default)",
+        bg: "var(--message-contextual-error-bg-alt)",
+      };
+    case "unavailable":
+      return {
+        color: "var(--container-standard-txt-default)",
+        border: "var(--container-action-border-inactive)",
+        bg: "var(--container-action-bg-disabled)",
+      };
     default:
-      // gradient is default
-      return "linear-gradient(0deg, rgb(143, 73, 254) 5%, rgb(0, 146, 219) 50%, rgb(19, 160, 56) 95%)";
+      // "standard"
+      return {
+        color: `var(--container-standard-${inverse ? "inverse-" : ""}txt-default)`,
+        border: `var(--container-standard-${inverse ? "inverse-" : ""}border-default)`,
+        bg: `var(--container-standard-${inverse ? "inverse-" : ""}bg-default)`,
+      };
   }
+};
+
+const getBorderRadius = (radius: TileProps["radius"]) => {
+  switch (radius) {
+    case "moderate":
+      return "var(--global-radius-container-l)";
+    default:
+      return "var(--global-radius-container-2-xl)";
+  }
+};
+
+const getStatusKeylineVariant = ({
+  variant,
+  inverse,
+}: {
+  variant: TileProps["statusKeyline"];
+  inverse?: boolean;
+}) => {
+  switch (variant) {
+    case "blue":
+      return inverse
+        ? "var(--container-standard-priority-inverse-bg-info)"
+        : "var(--container-standard-priority-bg-info)";
+    case "green":
+      return inverse
+        ? "var(--container-standard-priority-inverse-bg-positive)"
+        : "var(--container-standard-priority-bg-positive)";
+    case "orange":
+      return inverse
+        ? "var(--container-standard-priority-inverse-bg-caution)"
+        : "var(--container-standard-priority-bg-caution)";
+    case "red":
+      return inverse
+        ? "var(--container-standard-priority-inverse-bg-negative)"
+        : "var(--container-standard-priority-bg-negative)";
+    case "neutral":
+      return inverse
+        ? "var(--container-standard-priority-inverse-bg-neutral)"
+        : "var(--container-standard-priority-bg-neutral)";
+    case "purple":
+      return inverse
+        ? "var(--container-standard-priority-inverse-bg-prio)"
+        : "var(--container-standard-priority-bg-prio)";
+    default:
+      // ai is default
+      return `linear-gradient(to bottom, #00D639 0%, #00D6DE 40%, #9D60FF 90%)`;
+  }
+};
+
+const getTileBorder = ({
+  $hasFooter,
+  $footerVariant,
+  outline,
+  variant,
+  inverse,
+}: {
+  $hasFooter?: boolean;
+  $footerVariant?: "selected" | "active";
+  outline?: boolean;
+  variant: TileProps["variant"];
+  inverse?: boolean;
+}) => {
+  if (
+    $hasFooter &&
+    ($footerVariant === "selected" || $footerVariant === "active")
+  ) {
+    return `var(--global-borderwidth-s) solid ${$footerVariant === "selected" ? "var(--container-action-border-active)" : "var(--container-action-bg-footer-activated)"}`;
+  }
+
+  return `var(--global-borderwidth-xs) solid ${outline ? getColorMappingByVariant({ variant, inverse }).border : "transparent"}`;
 };
 
 const StyledTile = styled.div.attrs(applyBaseTheme)<StyledTileProps>`
-  ${({
-    borderVariant,
-    borderWidth = "borderWidth100",
-    isHorizontal,
-    variant,
-    width,
-    roundness,
-    highlightVariant,
-    height,
-  }) => css`
+  ${({ outline, variant, inverse, radius, $hasFooter, $footerVariant }) => css`
+    padding: var(--global-space-comp-xl);
     ${space}
 
-    ${highlightVariant &&
-    css`
-      overflow: hidden;
-      &::before {
-        display: block;
-        content: "";
-        height: 100%;
-        width: 8px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: ${getHighlightVariant(highlightVariant)};
-      }
-    `}
-
     box-sizing: border-box;
-    border: var(--${borderWidth}) solid
-      ${getBorderColor(borderVariant, variant)};
-    border-radius: ${getBorderRadius(roundness)};
-    --tileBorderRadius: ${getBorderRadius(roundness)};
+    border: ${getTileBorder({
+      $hasFooter,
+      $footerVariant,
+      outline,
+      variant,
+      inverse,
+    })};
+    border-radius: ${getBorderRadius(radius)};
+    --tileBorderRadius: ${getBorderRadius(radius)};
+    background-color: ${getColorMappingByVariant({ variant, inverse }).bg};
+    color: ${getColorMappingByVariant({ variant, inverse }).color};
 
-    > *:first-child:not(${StyledTileContent}) {
-      border-top-left-radius: calc(${getBorderRadius(roundness)} - 1px);
-      border-top-right-radius: calc(${getBorderRadius(roundness)} - 1px);
+    > *:first-child:not([data-role="tile-content"]) {
+      border-top-left-radius: calc(${getBorderRadius(radius)} - 1px);
+      border-bottom-left-radius: calc(${getBorderRadius(radius)} - 1px);
     }
 
-    > *:last-child:not(${StyledTileContent}) {
-      border-bottom-left-radius: calc(${getBorderRadius(roundness)} - 1px);
-      border-bottom-right-radius: calc(${getBorderRadius(roundness)} - 1px);
+    > *:last-child:not([data-role="tile-content"]) {
+      border-top-right-radius: calc(${getBorderRadius(radius)} - 1px);
+      border-bottom-right-radius: calc(${getBorderRadius(radius)} - 1px);
     }
-
-    ${variant === "tile" &&
-    css`
-      background-color: var(--colorsUtilityYang100);
-    `}
-
-    ${variant === "transparent" &&
-    css`
-      background-color: transparent;
-    `}
-
-    ${variant === "active" &&
-    css`
-      background-color: var(--colorsActionMajor025);
-    `}
-
-    ${variant === "grey" &&
-    css`
-      background-color: var(--colorsUtilityMajor025);
-    `}
 
     display: flex;
-    flex-direction: ${isHorizontal ? "row" : "column"};
+    flex-direction: row;
     position: relative;
+    height: 100%;
+  `}
+`;
+
+const StyledTileWrapper = styled.div<{
+  radius?: TileProps["radius"];
+  width?: TileProps["width"];
+  height?: TileProps["height"];
+}>`
+  position: relative;
+  overflow: hidden;
+  border-radius: ${({ radius }) => getBorderRadius(radius)};
+
+  ${({ width, height }) => css`
     ${computeSizing({
       width: width || /* istanbul ignore next */ undefined,
       height: height || undefined,
@@ -149,4 +185,24 @@ const StyledTile = styled.div.attrs(applyBaseTheme)<StyledTileProps>`
   `}
 `;
 
-export default StyledTile;
+const StyledTileKeyline = styled.div<{
+  statusKeyline?: (typeof STATUS_KEYLINE_VARIANTS)[number];
+  inverse?: boolean;
+}>`
+  ${({ statusKeyline, inverse }) =>
+    statusKeyline &&
+    css`
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: var(--global-size-4-xs);
+      background: ${getStatusKeylineVariant({
+        variant: statusKeyline,
+        inverse,
+      })};
+      z-index: 1;
+    `}
+`;
+
+export { StyledTile, StyledTileWrapper, StyledTileKeyline };

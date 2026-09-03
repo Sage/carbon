@@ -19,12 +19,12 @@ testStyledSystemWidth(
       Test
     </Tile>
   ),
-  () => screen.getByTestId("tile"),
+  () => screen.getByTestId("tile-wrapper"),
 );
 
 testStyledSystemHeight(
   (props) => <Tile data-role="tile" {...props} />,
-  () => screen.getByTestId("tile"),
+  () => screen.getByTestId("tile-wrapper"),
 );
 
 test("should render the default padding when no padding props are passed", () => {
@@ -32,7 +32,7 @@ test("should render the default padding when no padding props are passed", () =>
 
   expect(screen.getByTestId("tile")).toHaveStyleRule(
     "padding",
-    "var(--spacing300)",
+    "var(--global-space-comp-xl)",
   );
 });
 
@@ -66,106 +66,216 @@ test("has proper data attributes applied to elements", () => {
 });
 
 test.each<[TileProps["highlightVariant"], string]>([
-  ["success", "var(--colorsSemanticPositive500)"],
-  ["neutral", "var(--colorsSemanticNeutral500)"],
-  ["error", "var(--colorsSemanticNegative500)"],
-  ["warning", "var(--colorsSemanticCaution500)"],
-  ["info", "var(--colorsSemanticInfo500)"],
-  ["important", "#8F4CD7"],
-  [
-    "gradient",
-    "linear-gradient(0deg,rgb(143,73,254) 5%,rgb(0,146,219) 50%,rgb(19,160,56) 95%)",
-  ],
+  ["success", "var(--container-standard-priority-bg-positive)"],
+  ["neutral", "var(--container-standard-priority-bg-neutral)"],
+  ["error", "var(--container-standard-priority-bg-negative)"],
+  ["warning", "var(--container-standard-priority-bg-caution)"],
+  ["info", "var(--container-standard-priority-bg-info)"],
+  ["important", "var(--container-standard-priority-bg-prio)"],
+  ["gradient", "linear-gradient(to bottom,#00D639 0%,#00D6DE 40%,#9D60FF 90%)"],
 ])(
   "should render with the highlight element when `highlightVariant` is passed %s",
   (highlightVariant, backgroundColor) => {
     render(<Tile highlightVariant={highlightVariant} data-role="tile" />);
 
-    const highlightElement = screen.getByTestId("tile");
+    const highlightElement = screen.getByTestId("tile-keyline");
 
-    expect(highlightElement).toHaveStyleRule("background", backgroundColor, {
-      modifier: "::before",
-    });
+    expect(highlightElement).toHaveStyleRule("background", backgroundColor);
+
+    expect(highlightElement).toBeVisible();
+  },
+);
+
+test.each<[TileProps["statusKeyline"], string]>([
+  ["blue", "var(--container-standard-priority-bg-info)"],
+  ["green", "var(--container-standard-priority-bg-positive)"],
+  ["orange", "var(--container-standard-priority-bg-caution)"],
+  ["red", "var(--container-standard-priority-bg-negative)"],
+  ["neutral", "var(--container-standard-priority-bg-neutral)"],
+  ["purple", "var(--container-standard-priority-bg-prio)"],
+  ["ai", "linear-gradient(to bottom,#00D639 0%,#00D6DE 40%,#9D60FF 90%)"],
+])(
+  "should render with the highlight element when `statusKeyline` is passed %s",
+  (statusKeyline, backgroundColor) => {
+    render(<Tile statusKeyline={statusKeyline} data-role="tile" />);
+
+    const highlightElement = screen.getByTestId("tile-keyline");
+
+    expect(highlightElement).toHaveStyleRule("background", backgroundColor);
+
+    expect(highlightElement).toBeVisible();
+  },
+);
+
+test.each<[TileProps["statusKeyline"], string]>([
+  ["blue", "var(--container-standard-priority-inverse-bg-info)"],
+  ["green", "var(--container-standard-priority-inverse-bg-positive)"],
+  ["orange", "var(--container-standard-priority-inverse-bg-caution)"],
+  ["red", "var(--container-standard-priority-inverse-bg-negative)"],
+  ["neutral", "var(--container-standard-priority-inverse-bg-neutral)"],
+  ["purple", "var(--container-standard-priority-inverse-bg-prio)"],
+  ["ai", "linear-gradient(to bottom,#00D639 0%,#00D6DE 40%,#9D60FF 90%)"],
+])(
+  "should render with the inverse highlight element when `statusKeyline` and `inverse` are passed %s",
+  (statusKeyline, backgroundColor) => {
+    render(<Tile statusKeyline={statusKeyline} inverse data-role="tile" />);
+
+    const highlightElement = screen.getByTestId("tile-keyline");
+
+    expect(highlightElement).toHaveStyleRule("background", backgroundColor);
 
     expect(highlightElement).toBeVisible();
   },
 );
 
 /* tests for coverage */
-test.each<[TileProps["borderVariant"], string]>([
-  ["selected", "colorsUtilityYin100"],
-  ["positive", "colorsSemanticPositive500"],
-  ["negative", "colorsSemanticNegative500"],
-  ["caution", "colorsSemanticCaution500"],
-  ["info", "colorsSemanticInfo500"],
-])(
-  "renders with expected border when borderVariant is set to %s",
-  (borderVariant, borderVariantToken) => {
+test('renders with expected background and border styles when variant is "active"', () => {
+  render(
+    <Tile variant="active" data-role="tile" outline>
+      <TileContent>Child 1</TileContent>
+      <TileContent>Child 2</TileContent>
+    </Tile>,
+  );
+
+  const tileElement = screen.getByTestId("tile");
+
+  expect(tileElement).toHaveStyleRule(
+    "background-color",
+    "var(--message-contextual-success-bg-alt)",
+  );
+  expect(tileElement).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--message-contextual-success-border-default)",
+  );
+});
+
+test('renders with expected background and border styles when variant is "grey"', () => {
+  render(
+    <Tile variant="grey" data-role="tile" outline>
+      <TileContent>Child 1</TileContent>
+      <TileContent>Child 2</TileContent>
+    </Tile>,
+  );
+
+  const tileElement = screen.getByTestId("tile");
+
+  expect(tileElement).toHaveStyleRule(
+    "background-color",
+    "var(--container-standard-bg-alt)",
+  );
+  expect(tileElement).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--container-standard-border-default)",
+  );
+});
+
+test('renders with expected background and border styles when variant is "alt"', () => {
+  render(
+    <Tile variant="alt" data-role="tile" outline>
+      <TileContent>Child 1</TileContent>
+      <TileContent>Child 2</TileContent>
+    </Tile>,
+  );
+
+  const tileElement = screen.getByTestId("tile");
+
+  expect(tileElement).toHaveStyleRule(
+    "background-color",
+    "var(--container-standard-bg-alt)",
+  );
+  expect(tileElement).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--container-standard-border-default)",
+  );
+});
+
+test('renders with expected background and border styles when `variant` is "alt" and `inverse` is "true"', () => {
+  render(
+    <Tile variant="alt" data-role="tile" outline inverse>
+      <TileContent>Child 1</TileContent>
+      <TileContent>Child 2</TileContent>
+    </Tile>,
+  );
+
+  const tileElement = screen.getByTestId("tile");
+
+  expect(tileElement).toHaveStyleRule(
+    "background-color",
+    "var(--container-standard-inverse-bg-alt)",
+  );
+  expect(tileElement).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--container-standard-inverse-border-default)",
+  );
+});
+
+test('renders with expected background and border styles when variant is "negative"', () => {
+  render(
+    <Tile variant="negative" data-role="tile" outline>
+      <TileContent>Child 1</TileContent>
+      <TileContent>Child 2</TileContent>
+    </Tile>,
+  );
+
+  const tileElement = screen.getByTestId("tile");
+
+  expect(tileElement).toHaveStyleRule(
+    "background-color",
+    "var(--message-contextual-error-bg-alt)",
+  );
+  expect(tileElement).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--message-contextual-error-border-default)",
+  );
+});
+
+test('renders with expected background and border styles when variant is "unavailable"', () => {
+  render(
+    <Tile variant="unavailable" data-role="tile" outline>
+      <TileContent>Child 1</TileContent>
+      <TileContent>Child 2</TileContent>
+    </Tile>,
+  );
+
+  const tileElement = screen.getByTestId("tile");
+
+  expect(tileElement).toHaveStyleRule(
+    "background-color",
+    "var(--container-action-bg-disabled)",
+  );
+  expect(tileElement).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--container-action-border-inactive)",
+  );
+});
+
+test.each([
+  ["default", "var(--global-radius-container-2-xl)"],
+  ["large", "var(--global-radius-container-l)"],
+  ["small", "var(--global-radius-container-l)"],
+] as const)(
+  "renders with the expected border radius when roundness is %s",
+  (roundness, expectedBorderRadius) => {
     render(
-      <Tile borderVariant={borderVariant} data-role="tile">
+      <Tile roundness={roundness} data-role="tile">
         <TileContent>Child 1</TileContent>
         <TileContent>Child 2</TileContent>
       </Tile>,
     );
 
     const tileElement = screen.getByTestId("tile");
-
-    expect(tileElement).toHaveStyleRule(
-      "border",
-      `var(--borderWidth100) solid var(--${borderVariantToken})`,
-    );
+    expect(tileElement).toHaveStyleRule("border-radius", expectedBorderRadius);
   },
 );
 
-test('renders with expected background and border styles when variant is "active"', () => {
-  render(
-    <Tile variant="active" data-role="tile">
-      <TileContent>Child 1</TileContent>
-      <TileContent>Child 2</TileContent>
-    </Tile>,
-  );
-
-  const tileElement = screen.getByTestId("tile");
-
-  expect(tileElement).toHaveStyleRule(
-    "background-color",
-    "var(--colorsActionMajor025)",
-  );
-  expect(tileElement).toHaveStyleRule(
-    "border",
-    "var(--borderWidth100) solid var(--colorsActionMajor500)",
-  );
-});
-
-test('renders with expected background and border styles when variant is "grey"', () => {
-  render(
-    <Tile variant="grey" data-role="tile">
-      <TileContent>Child 1</TileContent>
-      <TileContent>Child 2</TileContent>
-    </Tile>,
-  );
-
-  const tileElement = screen.getByTestId("tile");
-
-  expect(tileElement).toHaveStyleRule(
-    "background-color",
-    "var(--colorsUtilityMajor025)",
-  );
-  expect(tileElement).toHaveStyleRule(
-    "border",
-    "var(--borderWidth100) solid var(--colorsUtilityMajor200)",
-  );
-});
-
 test.each([
-  ["default", "var(--borderRadius100)"],
-  ["large", "var(--borderRadius200)"],
-  ["small", "var(--borderRadius050)"],
+  ["curved", "var(--global-radius-container-2-xl)"],
+  ["moderate", "var(--global-radius-container-l)"],
 ] as const)(
-  "renders with the expected border radius when roundness is %s",
-  (roundness, expectedBorderRadius) => {
+  "renders with the expected border radius when radius is %s",
+  (radius, expectedBorderRadius) => {
     render(
-      <Tile roundness={roundness} data-role="tile">
+      <Tile radius={radius} data-role="tile">
         <TileContent>Child 1</TileContent>
         <TileContent>Child 2</TileContent>
       </Tile>,
@@ -189,20 +299,7 @@ test("sets the correct flex-direction on the main wrapper when the orientation i
   expect(tileElement).toHaveStyle("flex-direction: row");
 });
 
-test("sets the correct flex-direction on the main wrapper when the orientation is vertical", () => {
-  render(
-    <Tile orientation="vertical" data-role="tile">
-      <TileContent>Child 1</TileContent>
-      <TileContent>Child 2</TileContent>
-    </Tile>,
-  );
-
-  const tileElement = screen.getByTestId("tile");
-
-  expect(tileElement).toHaveStyle("flex-direction: column");
-});
-
-test('renders a transparent background when variant prop is "transparent"', () => {
+test('renders standard background when variant prop is "transparent"', () => {
   render(
     <Tile variant="transparent" data-role="tile">
       <TileContent>Child 1</TileContent>
@@ -212,5 +309,7 @@ test('renders a transparent background when variant prop is "transparent"', () =
 
   const tileElement = screen.getByTestId("tile");
 
-  expect(tileElement).toHaveStyle("background-color: rgba(0, 0, 0, 0)");
+  expect(tileElement).toHaveStyle(
+    "background-color: var(--container-standard-bg-default)",
+  );
 });
