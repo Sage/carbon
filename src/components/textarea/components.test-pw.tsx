@@ -18,7 +18,7 @@ export const Default = ({
   const [state, setState] = useState("");
   const handleChange = ({
     target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(value);
   };
   return (
@@ -39,7 +39,7 @@ export const Default = ({
 
 export const TextareaComponent = (props: Partial<TextareaProps>) => {
   const [state, setState] = React.useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (

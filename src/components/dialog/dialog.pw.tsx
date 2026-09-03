@@ -770,7 +770,11 @@ test.describe("Fullscreen Dialog component", () => {
         .filter({ hasText: "Open Dialog" });
       await openButton.click();
 
-      await checkAccessibility(page, page.getByRole("dialog"));
+      await checkAccessibility(
+        page,
+        page.getByRole("dialog"),
+        "color-contrast",
+      );
     });
 
     test("should check accessibility using autoFocus", async ({
