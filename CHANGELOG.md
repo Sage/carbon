@@ -1,3 +1,9 @@
+## [161.22.0](https://github.com/Sage/carbon/compare/v161.21.0...v161.22.0) (2026-09-03)
+
+### Features
+
+* **navigation-bar:** align with fusion DS designs ([d881cf6](https://github.com/Sage/carbon/commit/d881cf64d8d9a7690b395985551e9029e1d4632a))
+
 ## [161.21.0](https://github.com/Sage/carbon/compare/v161.20.0...v161.21.0) (2026-09-03)
 
 ### Features
