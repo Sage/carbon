@@ -836,20 +836,20 @@ No props metadata found.
         onChange={(ev) => setValue(ev.target.value)}
       >
         <OptionGroupHeader>
-          <Icon type="individual" /> <h4>Group One Composed</h4>
+          <Icon type="individual" /> <span>Group One Composed</span>
         </OptionGroupHeader>
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
         <Option text="Brown" value="4" />
         <OptionGroupHeader>
-          <Icon type="shop" /> <h4>Group Two Composed</h4>
+          <Icon type="shop" /> <span>Group Two Composed</span>
         </OptionGroupHeader>
         <Option text="Green" value="5" />
         <Option text="Orange" value="6" />
         <Option text="Pink" value="7" />
         <OptionGroupHeader>
-          <h4>Group Three Composed</h4>
+          <span>Group Three Composed</span>
         </OptionGroupHeader>
         <Option text="Purple" value="8" />
         <Option text="Red" value="9" />
