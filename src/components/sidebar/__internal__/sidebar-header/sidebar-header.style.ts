@@ -27,6 +27,7 @@ const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
   min-height: calc((2 * var(--global-space-comp-xl)) + var(--global-size-s));
   width: 100%;
   transition: all 0.2s ease;
+  padding: var(--global-space-comp-xl);
   ${padding}
   ${({ $hasCloseButton, $headerVariant }) =>
     $hasCloseButton &&
@@ -41,7 +42,7 @@ const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
             color: var(--container-standard-inverse-txt-default);
           }
 
-          &:hover ${StyledIcon}, &:active ${StyledIcon}, &:focus ${StyledIcon} {
+          &:is(:hover, :active, :focus) ${StyledIcon} {
             color: var(--container-standard-inverse-txt-default);
           }
 
@@ -102,6 +103,7 @@ const StyledSidebarSubHeader = styled.div.attrs(applyBaseTheme)`
   background-color: var(--container-standard-bg-alt);
   border-bottom: var(--global-borderwidth-xs) solid
     var(--container-standard-border-default);
+  padding: var(--global-space-comp-s) var(--global-space-comp-2-xl);
   ${padding}
   transition: all 0.2s ease;
 `;

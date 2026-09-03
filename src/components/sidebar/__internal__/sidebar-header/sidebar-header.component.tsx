@@ -38,7 +38,6 @@ const SidebarHeader = ({
     $hasCloseButton={!!closeButton}
     data-component="sidebar-header"
     data-role="sidebar-header"
-    p="var(--global-space-comp-xl)"
     $headerVariant={headerVariant}
     $gradientKeyLine={gradientKeyLine}
     {...rest}
@@ -68,12 +67,7 @@ const SidebarHeader = ({
 );
 
 const SidebarSubHeader = ({ children, id, ...rest }: SidebarSubHeaderProps) => (
-  <StyledSidebarSubHeader
-    data-component="sidebar-subheader"
-    p="var(--global-space-comp-s) var(--global-space-comp-2-xl)"
-    id={id}
-    {...rest}
-  >
+  <StyledSidebarSubHeader data-component="sidebar-subheader" id={id} {...rest}>
     {children}
   </StyledSidebarSubHeader>
 );
