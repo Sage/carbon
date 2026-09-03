@@ -1,24 +1,18 @@
 import styled, { css } from "styled-components";
 import { padding, flexbox, PaddingProps, FlexboxProps } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import {
-  Position,
-  Orientation,
-  NavigationType,
-} from "./navigation-bar.component";
+import { Position, Orientation } from "./navigation-bar.component";
 
 export type StyledNavigationBarProps = PaddingProps &
   FlexboxProps & {
     /** Color scheme of navigation component */
-    navigationType?: NavigationType;
+    $variant?: "white" | "black";
     /** Defines whether the navigation bar should be positioned fixed or sticky */
-    position?: Position;
+    $position?: Position;
     /** Defines the offset of navigation bar */
-    offset?: string;
+    $offset?: string;
     /** Defines whether the navigation bar should be positioned top or bottom */
-    orientation?: Orientation;
-    /** set to true only when rendering the GlobalHeader component */
-    isGlobal?: boolean;
+    $orientation?: Orientation;
   };
 
 const StyledNavigationBar = styled.nav.attrs(
@@ -56,48 +50,40 @@ const StyledNavigationBar = styled.nav.attrs(
     margin-right: 10px;
   }
 
-  ${({ position, orientation, offset }) =>
-    position &&
-    orientation &&
+  ${({ $position, $orientation, $offset }) =>
+    $position &&
+    $orientation &&
     css`
-      position: ${position};
-      ${orientation}: ${offset};
+      position: ${$position};
+      ${$orientation}: ${$offset};
 
-      ${position === "fixed" &&
+      ${$position === "fixed" &&
       css`
         box-sizing: border-box;
         width: 100%;
       `}
     `}
 
-  ${({ navigationType, theme, isGlobal }) => css`
+  ${({ $variant }) => css`
     min-height: 40px;
-    z-index: ${isGlobal ? theme.zIndex.globalNav : theme.zIndex.nav};
 
-    ${navigationType === "light" &&
+    &[data-component="global-header"] {
+      z-index: var(--carbon-zindex-global-nav);
+    }
+    &:not([data-component="global-header"]) {
+      z-index: var(--carbon-zindex-nav);
+    }
+
+    ${$variant === "black" &&
     css`
-      background-color: var(--colorsComponentsMenuSpringStandard500);
-      border-bottom: var(--borderWidth100) solid
-        var(--colorsComponentsMenuSpringChildAlt500);
+      background-color: var(--nav-primary-bg-default);
+      color: var(--nav-primary-label-default);
     `}
 
-    ${navigationType === "dark" &&
+    ${$variant === "white" &&
     css`
-      background-color: var(--colorsComponentsMenuAutumnStandard500);
-      color: var(--colorsComponentsMenuYang100);
-    `}
-
-    ${navigationType === "black" &&
-    css`
-      background-color: var(--colorsComponentsMenuWinterStandard500);
-      color: var(--colorsComponentsMenuYang100);
-    `}
-
-    ${navigationType === "white" &&
-    css`
-      background-color: var(--colorsComponentsMenuSummerStandard500);
-      border-bottom: var(--borderWidth100) solid
-        var(--colorsComponentsMenuSummerChildAlt500);
+      background-color: var(--nav-tertiary-bg-default);
+      color: var(--nav-tertiary-label-default);
     `}
   `}
 `;
