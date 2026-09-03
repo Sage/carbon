@@ -3,10 +3,15 @@ import TranslationKeysTable from "../../../.storybook/utils/translation-keys-tab
 
 import * as TileSelectGroupStories from "./tile-select-group/tile-select-group.stories";
 import * as TileSelectStories from "./tile-select.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={TileSelectStories} />
 
 # TileSelect
+
+<DeprecationWarning>
+Tile Select is deprecated. It has low adoption and has proved to be a poor fit for selection UX. No like-for-like replacement has been validated: use an approved product-specific Fusion pattern for new work. See <a style={{ color: "white" }} href="../?path=/docs/documentation-deprecation-migration--docs#tile-select">the migration guidance</a> for existing consumers.
+</DeprecationWarning>
 
 <a
   target="_blank"
@@ -27,6 +32,8 @@ Tile Select is an input visualized as a single or grouped set of tiles. It behav
 - [Translation keys](#translation-keys)
 
 ## Quick Start
+
+Tile Select remains available for existing consumers while they migrate. Do not use it in new features.
 
 To use this component, import the `TileSelect` and `TileSelectGroup` if you want to have `TileSelects` grouped.
 

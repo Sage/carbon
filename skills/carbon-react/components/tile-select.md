@@ -11,6 +11,11 @@ description: Carbon TileSelect component props and usage examples.
 ## Source
 - Export: `./components/tile-select`
 - Props interface: `TileSelectProps`
+- Deprecated: Yes
+- Deprecation reason: `TileSelect` has low adoption and is a poor fit for its intended
+selection UX. No like-for-like replacement has been validated; use a
+product-specific Fusion pattern. See the Carbon deprecation migration
+documentation for consumer-specific guidance.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |
