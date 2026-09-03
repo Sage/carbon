@@ -191,8 +191,6 @@ export const ChildButtonFocusState: Story = {
     ].filter(Boolean) as HTMLElement[];
 
     expect(childButtons).toHaveLength(3);
-
-    await userEvent.tab();
     expect(childButtons[0]).toHaveFocus();
 
     await userEvent.keyboard("{ArrowDown}");
