@@ -11,6 +11,10 @@ description: Carbon TileSelectGroup component props and usage examples.
 ## Source
 - Export: `./components/tile-select`
 - Props interface: `TileSelectGroupProps`
+- Deprecated: Yes
+- Deprecation reason: `TileSelectGroup` is deprecated with `TileSelect`. No
+like-for-like replacement has been validated; use a product-specific Fusion
+pattern. See the Carbon deprecation migration documentation for consumer-specific guidance.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |

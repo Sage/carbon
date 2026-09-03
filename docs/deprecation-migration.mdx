@@ -24,6 +24,7 @@ The following section provides migration guidance for deprecated components that
 - For `Hr`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
 - For `VerticalDivider`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
 - For `LoaderBar`, `LoaderStar` and `LoaderSpinner`: the new [`Loader`](?path=/docs/loader--docs) is recommended as the preferred alternative.
+- For `TileSelect`, no like-for-like replacement has been validated. Do not reproduce its card-like selection treatment in new work; use the approved, product-specific Fusion pattern instead. Where the need is a conventional form choice, [`RadioButton`](?path=/docs/radio-button--docs) or [`Checkbox`](?path=/docs/checkbox--docs) may be appropriate, according to the selection semantics.
 
 ## Alternative Patterns
 
@@ -40,6 +41,18 @@ The following sections provide migration guidance for deprecated components that
 - [Setting sRow](#settings-row)
 - [Hr](#hr)
 - [VerticalDivider](#vertical-divider)
+- [Tile Select](#tile-select)
+
+## Tile Select
+
+`TileSelect` and `TileSelectGroup` are deprecated. The components have low adoption, their two known product implementations do not use the pattern as intended, and the pattern has not shown a good UX fit. Their overlap with existing Fusion patterns also creates unnecessary duplication and confusion. Carbon Tile Select is primarily a radio-style control, while the potentially overlapping Fusion pattern is more checkbox-like; they are not interchangeable.
+
+### Migration
+
+- There is no prescribed like-for-like replacement. Assess the user need and use the approved product-specific Fusion pattern rather than carrying the Carbon pattern forward.
+- If the need is a conventional form choice, use `RadioButtonGroup` and `RadioButton` for mutually exclusive choices, or `CheckboxGroup` and `Checkbox` for independent choices. This is semantic guidance, not a replacement for Tile Select's card-like treatment.
+- Keep the existing Report implementation unchanged until its approved replacement is available. Do not introduce Tile Select into new Report work.
+- Migrate Client Management as part of its planned redesign; the redesign should use the approved Fusion pattern rather than a like-for-like Tile Select replacement.
 
 ## Alert
 
