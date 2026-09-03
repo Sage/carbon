@@ -1,3 +1,9 @@
+## [161.21.0](https://github.com/Sage/carbon/compare/v161.20.0...v161.21.0) (2026-09-03)
+
+### Features
+
+* **option-tile:** align OptionTile and OptionTileGroup ([9346558](https://github.com/Sage/carbon/commit/934655895ba2b15fe3c5e82f67c854ea58c9311b))
+
 ## [161.20.0](https://github.com/Sage/carbon/compare/v161.19.4...v161.20.0) (2026-09-02)
 
 ### Features
