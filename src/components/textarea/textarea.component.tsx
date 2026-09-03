@@ -578,37 +578,34 @@ export const Textarea = React.forwardRef(
             $align={align}
           >
             <StyledTextareaFieldLine $labelInline={inlineLabel}>
-              {(label || inputHint || labelHelp) && (
+              {label && (
                 <StyledTextareaLabelContainer
                   data-role="textarea-label-container"
                   $labelInline={inlineLabel}
                   $labelAlign={labelAlign}
                   $labelSpacing={labelSpacing}
-                  $labelWidth={labelWidth}
                   $size={size}
                 >
-                  {label && (
-                    <Label
-                      id={labelId}
-                      htmlFor={id}
-                      size={size}
-                      isRequired={required}
-                      disabled={disabled}
-                      readOnly={readOnly}
-                    >
-                      {label}
-                    </Label>
-                  )}
-                  {(inputHint || labelHelp) && (
-                    <HintText
-                      size={size}
-                      id={inputHintId}
-                      data-element="input-hint"
-                    >
-                      {inputHint || labelHelp}
-                    </HintText>
-                  )}
+                  <Label
+                    id={labelId}
+                    htmlFor={id}
+                    size={size}
+                    isRequired={required}
+                    disabled={disabled}
+                    readOnly={readOnly}
+                  >
+                    {label}
+                  </Label>
                 </StyledTextareaLabelContainer>
+              )}
+              {(inputHint || labelHelp) && (
+                <HintText
+                  size={size}
+                  id={inputHintId}
+                  data-element="input-hint"
+                >
+                  {inputHint || labelHelp}
+                </HintText>
               )}
 
               <StyledTextareaValidationContainer

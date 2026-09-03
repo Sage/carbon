@@ -42,13 +42,14 @@ interface StyledTextareaLabelContainerProps {
   $labelInline?: boolean;
   $labelAlign?: "left" | "right";
   $labelSpacing?: 1 | 2;
-  $labelWidth: number;
   $size: TextAreaSize;
 }
 
 interface StyledTextareaFieldLineProps {
   $labelInline?: boolean;
 }
+
+const LEGACY_LABEL_CONTAINER_WIDTH = 30;
 
 const InputSizes = {
   small: {
@@ -316,7 +317,7 @@ export const StyledTextareaLabelContainer = styled.div<StyledTextareaLabelContai
   display: flex;
   flex-direction: column;
   margin-bottom: var(--global-space-comp-s);
-  ${({ $labelInline, $labelAlign, $labelSpacing, $labelWidth, $size }) => {
+  ${({ $labelInline, $labelAlign, $labelSpacing, $size }) => {
     const resolvedAlign = $labelInline
       ? ($labelAlign ?? "right")
       : ($labelAlign ?? "left");
@@ -336,8 +337,7 @@ export const StyledTextareaLabelContainer = styled.div<StyledTextareaLabelContai
     return css`
       align-items: ${resolvedAlign !== "right" ? "flex-start" : "flex-end"};
 
-      [data-component="label"],
-      ${StyledHintText} {
+      [data-component="label"] {
         width: 100%;
         text-align: ${resolvedAlign !== "right" ? "left" : "right"};
       }
@@ -346,7 +346,7 @@ export const StyledTextareaLabelContainer = styled.div<StyledTextareaLabelContai
       css`
         box-sizing: border-box;
         margin-bottom: 0;
-        width: ${$labelWidth}%;
+        width: ${LEGACY_LABEL_CONTAINER_WIDTH}%;
         padding-right: ${resolvedSpacing};
       `}
     `;
