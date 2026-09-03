@@ -20,10 +20,13 @@ export const Password = ({
   id,
   disabled,
   forceObscurity = false,
+  characterLimit,
   inputIcon,
   size,
   ...rest
 }: PasswordProps) => {
+  void characterLimit;
+
   const internalInputId = useRef(id || guid());
   const l = useLocale();
 
