@@ -5,6 +5,7 @@ import { existsSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
 import { JSDoc, Project, SyntaxKind } from "ts-morph";
+import { loadComponentMetadata } from "./component-metadata.mjs";
 
 /**
  * @typedef {Object} ComponentCandidate
@@ -28,6 +29,7 @@ import { JSDoc, Project, SyntaxKind } from "ts-morph";
  * @property {string | null} description
  * @property {string | null} defaultValue
  * @property {boolean} deprecated
+ * @property {Array<string | number | boolean>} deprecatedValues
  * @property {string | null} deprecationReason
  */
 
@@ -46,9 +48,11 @@ import { JSDoc, Project, SyntaxKind } from "ts-morph";
 
 /**
  * @typedef {Object} StoryEntry
+ * @property {string} exportName
  * @property {string} name
  * @property {string | null} argsText
  * @property {string | null} renderText
+ * @property {string | null} importsText
  * @property {"csf" | "mdx"} kind
  * @property {string} [source]
  */
@@ -65,11 +69,14 @@ const repoRoot = path.resolve(__dirname, "../..");
 const packageName = "carbon-react";
 
 const checkMode = process.argv.includes("--check");
+const metadataStatusMode = process.argv.includes("--metadata-status");
 const buildOutputFolder = "lib";
 const indexFilePath = path.join(repoRoot, "src", "index.ts");
 const skillsRoot = path.join(repoRoot, "skills", "carbon-react");
 const componentsOutDir = path.join(skillsRoot, "components");
+const examplesOutDir = path.join(skillsRoot, "examples");
 const referencesDir = path.join(skillsRoot, "references", "docs");
+const componentMetadataDir = path.join(repoRoot, "docs", "component-metadata");
 
 /** @type {string[]} */
 const docsReferenceFiles = [
@@ -106,24 +113,29 @@ const componentCandidates = [];
 
 // Scan __next__ directories for upcoming components
 const nextComponentFiles = fg.sync(
-  ["src/components/**/__next__/index.{ts,tsx}", "src/components/**/__next__/*.component.{ts,tsx}"],
-  { 
-    cwd: repoRoot, 
+  [
+    "src/components/**/__next__/index.{ts,tsx}",
+    "src/components/**/__next__/*.component.{ts,tsx}",
+  ],
+  {
+    cwd: repoRoot,
     absolute: true,
-    ignore: ["**/__internal__/**"]
-  }
+    ignore: ["**/__internal__/**"],
+  },
 );
 
 for (const filePath of nextComponentFiles) {
   const sourceFile = project.addSourceFileAtPathIfExists(filePath);
   if (!sourceFile) continue;
-  
+
   const exported = sourceFile.getExportedDeclarations();
   for (const [exportName, declarations] of exported.entries()) {
     if (exportName === "default" || exportName.endsWith("Props")) continue;
     if (!/^[A-Z]/.test(exportName)) continue;
-    
-    const relativePath = "./" + path.relative(path.join(repoRoot, "src"), filePath).replace(/\\/g, "/");
+
+    const relativePath =
+      "./" +
+      path.relative(path.join(repoRoot, "src"), filePath).replace(/\\/g, "/");
     const rawModuleSpecifier = relativePath
       .replace(/\/index\.(ts|tsx)$/, "")
       .replace(/\.(ts|tsx)$/, "");
@@ -131,11 +143,11 @@ for (const filePath of nextComponentFiles) {
       /(\/__next__)\/.*\.component$/,
       "$1",
     );
-    
+
     // Keep original name for props lookup, use display name for output
     componentCandidates.push({
-      name: exportName,  // Original name for props lookup
-      displayName: `${exportName}Next`,  // Display name for output files
+      name: exportName, // Original name for props lookup
+      displayName: `${exportName}Next`, // Display name for output files
       moduleSpecifier,
     });
   }
@@ -171,7 +183,8 @@ for (const exportDecl of indexFile.getExportDeclarations()) {
   }
 }
 
-const uniqueComponentCandidates = dedupeComponentCandidates(componentCandidates);
+const uniqueComponentCandidates =
+  dedupeComponentCandidates(componentCandidates);
 
 /** @type {ComponentData[]} */
 const componentData = [];
@@ -186,19 +199,21 @@ for (const candidate of uniqueComponentCandidates) {
   }
 
   const moduleDir = getModuleDir(modulePath);
-  const moduleFiles = fg.sync(["**/*.{ts,tsx}"], {
-    cwd: moduleDir,
-    absolute: true,
-    ignore: [
-      "**/*.spec.*",
-      "**/*.test.*",
-      "**/*.stories.*",
-      "**/*.pw.*",
-      "**/*.mdx",
-      "**/__internal__/**",
-      "**/__next__/**",
-    ],
-  }).sort();
+  const moduleFiles = fg
+    .sync(["**/*.{ts,tsx}"], {
+      cwd: moduleDir,
+      absolute: true,
+      ignore: [
+        "**/*.spec.*",
+        "**/*.test.*",
+        "**/*.stories.*",
+        "**/*.pw.*",
+        "**/*.mdx",
+        "**/__internal__/**",
+        "**/__next__/**",
+      ],
+    })
+    .sort();
 
   for (const filePath of moduleFiles) {
     project.addSourceFileAtPathIfExists(filePath);
@@ -243,17 +258,56 @@ for (const candidate of uniqueComponentCandidates) {
 }
 
 const storyDataByComponent = await extractStoryData(project, repoRoot);
+const componentMetadata = await loadComponentMetadata(componentMetadataDir);
+validateMetadataReferences(
+  componentMetadata,
+  componentData,
+  storyDataByComponent,
+);
+
+if (metadataStatusMode) {
+  const activeComponents = componentData.filter(
+    ({ deprecated }) => !deprecated,
+  );
+  const reviewed = activeComponents
+    .filter(({ name }) => componentMetadata.has(name))
+    .map(({ name }) => name)
+    .sort();
+  const pending = activeComponents
+    .filter(({ name }) => !componentMetadata.has(name))
+    .map(({ name }) => name)
+    .sort();
+  const deprecated = componentData
+    .filter(
+      ({ name, deprecated }) => deprecated && !componentMetadata.has(name),
+    )
+    .map(({ name }) => name)
+    .sort();
+  await new Promise((resolve) =>
+    process.stdout.write(
+      `Active components with authored metadata: ${reviewed.length}/${activeComponents.length}\n${reviewed.join("\n")}\n\nPending active review: ${pending.length}/${activeComponents.length}\n${pending.join("\n")}\n\nDeprecated without authored metadata (not required): ${deprecated.length}\n${deprecated.join("\n")}\n`,
+      () => resolve(undefined),
+    ),
+  );
+  process.exit(0);
+}
 
 /** @type {Array<{path: string, content: string}>} */
 const wouldWrite = [];
 
 /** @type {Map<string, "lf" | "crlf">} */
 const lineEndingPreferences = !checkMode
-  ? await collectLineEndingPreferences([componentsOutDir, referencesDir, skillsRoot])
+  ? await collectLineEndingPreferences([
+      componentsOutDir,
+      examplesOutDir,
+      referencesDir,
+      skillsRoot,
+    ])
   : new Map();
 
 if (!checkMode) {
   await fs.rm(componentsOutDir, { recursive: true, force: true });
+  await fs.rm(examplesOutDir, { recursive: true, force: true });
   await fs.rm(referencesDir, { recursive: true, force: true });
   await fs.mkdir(componentsOutDir, { recursive: true });
   await fs.mkdir(skillsRoot, { recursive: true });
@@ -261,7 +315,10 @@ if (!checkMode) {
 }
 
 const skillRootContent = renderSkillRootContent();
-wouldWrite.push({ path: path.join(skillsRoot, "SKILL.md"), content: skillRootContent });
+wouldWrite.push({
+  path: path.join(skillsRoot, "SKILL.md"),
+  content: skillRootContent,
+});
 
 for (const relativePath of docsReferenceFiles) {
   const sourcePath = path.join(repoRoot, relativePath);
@@ -269,9 +326,14 @@ for (const relativePath of docsReferenceFiles) {
     continue;
   }
   const fileName = path.basename(sourcePath);
-  const targetPath = path.join(referencesDir, fileName).replace(/\.mdx?$/, ".md");
+  const targetPath = path
+    .join(referencesDir, fileName)
+    .replace(/\.mdx?$/, ".md");
   const content = await fs.readFile(sourcePath, "utf8");
-  wouldWrite.push({ path: targetPath, content: content.replace(/\r\n/g, "\n") });
+  wouldWrite.push({
+    path: targetPath,
+    content: content.replace(/\r\n/g, "\n"),
+  });
 }
 
 const indexLines = ["# Carbon Component Catalog", "", "## Components", ""];
@@ -280,28 +342,68 @@ for (const component of componentData.sort((a, b) =>
   a.name.localeCompare(b.name),
 )) {
   const stories = storyDataByComponent.get(component.name) ?? [];
+  const metadata = componentMetadata.get(component.name) ?? null;
   const fileName = `${toKebabCase(component.name)}.md`;
   const filePath = path.join(componentsOutDir, fileName);
-  const markdown = renderComponentMarkdown(component, stories);
+  const curatedExamples = metadata
+    ? (metadata.examples?.map((example) => {
+        const story = stories.find(
+          (candidate) => candidate.exportName === example.story,
+        );
+        if (!story) {
+          throw new Error(
+            `Component metadata for ${component.name} references missing story ${example.story}`,
+          );
+        }
+        const exampleFileName = `${toKebabCase(example.story)}.md`;
+        const examplePath = path.join(
+          examplesOutDir,
+          toKebabCase(component.name),
+          exampleFileName,
+        );
+        wouldWrite.push({
+          path: examplePath,
+          content: renderExampleMarkdown(component, story),
+        });
+        return {
+          title: story.name,
+          description: example.description,
+          path: `../examples/${toKebabCase(component.name)}/${exampleFileName}`,
+        };
+      }) ?? [])
+    : [];
+  const markdown = renderComponentMarkdown(
+    component,
+    stories,
+    metadata,
+    curatedExamples,
+  );
 
   wouldWrite.push({ path: filePath, content: markdown });
   const deprecatedLabel = component.deprecated ? " (deprecated)" : "";
+  const summary = metadata ? ` — ${metadata.summary}` : "";
   indexLines.push(
-    `- [${component.name}](components/${fileName})${deprecatedLabel}`,
+    `- [${component.name}](components/${fileName})${deprecatedLabel}${summary}`,
   );
 }
 
 const indexContent = indexLines.join("\n");
-wouldWrite.push({ path: path.join(skillsRoot, "index.md"), content: indexContent });
+wouldWrite.push({
+  path: path.join(skillsRoot, "index.md"),
+  content: indexContent,
+});
 
 if (checkMode) {
   const { hasDiff, diffSummary } = await checkWouldWrite(wouldWrite, {
     componentsOutDir,
+    examplesOutDir,
     referencesDir,
   });
   if (hasDiff) {
     // eslint-disable-next-line no-console -- CI output
-    console.error("Skills build check failed: files on disk differ from expected output:\n");
+    console.error(
+      "Skills build check failed: files on disk differ from expected output:\n",
+    );
     // eslint-disable-next-line no-console -- CI output
     console.error(diffSummary);
     process.exit(1);
@@ -352,14 +454,18 @@ async function collectLineEndingPreferences(directories) {
       continue;
     }
 
-    const files = await fs.readdir(dir, { recursive: true, withFileTypes: true });
+    const files = await fs.readdir(dir, {
+      recursive: true,
+      withFileTypes: true,
+    });
 
     for (const file of files) {
       if (!file.isFile()) {
         continue;
       }
 
-      const fullPath = path.join(file.parentPath, file.name);
+      const parentPath = file.parentPath ?? file.path ?? dir;
+      const fullPath = path.join(parentPath, file.name);
 
       try {
         const content = await fs.readFile(fullPath, "utf8");
@@ -382,7 +488,11 @@ async function collectLineEndingPreferences(directories) {
  * @param {Map<string, "lf" | "crlf">} preferences
  * @returns {Promise<string>}
  */
-async function applyExistingLineEndingPreference(filePath, content, preferences) {
+async function applyExistingLineEndingPreference(
+  filePath,
+  content,
+  preferences,
+) {
   const key = normalizePathKey(filePath);
   const preference = preferences.get(key);
 
@@ -528,19 +638,21 @@ function resolvePropsDefinition(
       if (!resolved) {
         continue;
       }
-      const targetFiles = fg.sync(["**/*.{ts,tsx}"], {
-        cwd: getModuleDir(resolved),
-        absolute: true,
-        ignore: [
-          "**/*.spec.*",
-          "**/*.test.*",
-          "**/*.stories.*",
-          "**/*.pw.*",
-          "**/*.mdx",
-          "**/__internal__/**",
-          "**/__next__/**",
-        ],
-      }).sort();
+      const targetFiles = fg
+        .sync(["**/*.{ts,tsx}"], {
+          cwd: getModuleDir(resolved),
+          absolute: true,
+          ignore: [
+            "**/*.spec.*",
+            "**/*.test.*",
+            "**/*.stories.*",
+            "**/*.pw.*",
+            "**/*.mdx",
+            "**/__internal__/**",
+            "**/__next__/**",
+          ],
+        })
+        .sort();
 
       const resolvedDefinition = findTypeDefinitionInFiles(
         projectInstance,
@@ -590,45 +702,85 @@ function extractPropsFromDefinition(propsDefinition, defaultsMap) {
     .getProperties()
     .filter((symbol) => !shouldExcludePropSymbol(symbol))
     .map((symbol) => {
-    const declaration = symbol
-      .getDeclarations()
-      .find(
-        (decl) =>
-          decl.isKind(SyntaxKind.PropertySignature) ||
-          decl.isKind(SyntaxKind.PropertyDeclaration),
+      const declaration = symbol
+        .getDeclarations()
+        .find(
+          (decl) =>
+            decl.isKind(SyntaxKind.PropertySignature) ||
+            decl.isKind(SyntaxKind.PropertyDeclaration),
+        );
+      const propType = declaration
+        ? declaration.getType()
+        : symbol.getTypeAtLocation(propsDefinition.node);
+      const literals = getLiteralUnionValues(propType);
+      const jsDocs = declaration?.getJsDocs?.() ?? [];
+      const description = jsDocs
+        .map((doc) => doc.getDescription().trim())
+        .filter(Boolean)
+        .join(" ");
+      const deprecationInfo = getDeprecationFromJsDocs(jsDocs);
+      const required = declaration?.isKind(SyntaxKind.PropertySignature)
+        ? !declaration.hasQuestionToken()
+        : true;
+
+      const resolvedText = propType.getText(
+        declaration ?? propsDefinition.node,
       );
-    const propType = declaration
-      ? declaration.getType()
-      : symbol.getTypeAtLocation(propsDefinition.node);
-    const literals = getLiteralUnionValues(propType);
-    const jsDocs = declaration?.getJsDocs?.() ?? [];
-    const description = jsDocs
-      .map((doc) => doc.getDescription().trim())
-      .filter(Boolean)
-      .join(" ");
-    const deprecationInfo = getDeprecationFromJsDocs(jsDocs);
-    const required = declaration?.isKind(SyntaxKind.PropertySignature)
-      ? !declaration.hasQuestionToken()
-      : true;
+      const typeNode = declaration?.getTypeNode?.();
+      const typeText = (
+        resolvedText.includes("import(") && typeNode
+          ? typeNode.getText()
+          : resolvedText
+      )
+        .replace(/\s+/g, " ")
+        .trim();
+      const deprecatedValues = extractDeprecatedLiteralValues(
+        deprecationInfo.reason,
+        literals,
+        typeText,
+      );
 
-    const resolvedText = propType.getText(declaration ?? propsDefinition.node);
-    const typeNode = declaration?.getTypeNode?.();
-    const typeText = (
-      resolvedText.includes("import(") && typeNode
-        ? typeNode.getText()
-        : resolvedText
-    ).replace(/\s+/g, " ").trim();
+      return {
+        name: symbol.getName(),
+        type: typeText,
+        required,
+        literals,
+        description: description || null,
+        defaultValue: defaultsMap.get(symbol.getName()) ?? null,
+        deprecated: deprecationInfo.deprecated && !deprecatedValues.length,
+        deprecatedValues,
+        deprecationReason: deprecationInfo.reason,
+      };
+    });
+}
 
-    return {
-      name: symbol.getName(),
-      type: typeText,
-      required,
-      literals,
-      description: description || null,
-      defaultValue: defaultsMap.get(symbol.getName()) ?? null,
-      deprecated: deprecationInfo.deprecated,
-      deprecationReason: deprecationInfo.reason,
-    };
+/**
+ * Some existing JSDoc uses @deprecated on a prop to describe one deprecated
+ * literal rather than the whole prop. Preserve that distinction in the skill.
+ *
+ * @param {string | null} reason
+ * @param {Array<string | number | boolean> | null} literals
+ * @param {string} typeText
+ * @returns {Array<string | number | boolean>}
+ */
+function extractDeprecatedLiteralValues(reason, literals, typeText) {
+  if (!reason) return [];
+  const deprecatedClause = reason.match(
+    /^(.*?)(?:\bis\s+deprecated\b|\bare\s+deprecated\b)/i,
+  )?.[1];
+  if (!deprecatedClause) return [];
+  const mentionedValues = [...deprecatedClause.matchAll(/`([^`]+)`/g)].map(
+    (match) => match[1],
+  );
+  const candidates = literals?.length ? literals : mentionedValues;
+  return candidates.filter((literal) => {
+    if (!deprecatedClause.includes(`\`${String(literal)}\``)) return false;
+    const value = String(literal);
+    return (
+      typeText.includes(`"${value}"`) ||
+      typeText.includes(`'${value}'`) ||
+      typeText.split(/\s*\|\s*/).includes(value)
+    );
   });
 }
 
@@ -881,14 +1033,21 @@ function extractFromParameters(parameters, defaults) {
  * @returns {Promise<Map<string, StoryEntry[]>>}
  */
 async function extractStoryData(projectInstance, rootDir) {
-  const storyFiles = fg.sync(
-    ["src/**/*.stories.@(js|jsx|ts|tsx)", "docs/**/*.stories.@(js|jsx|ts|tsx)"],
-    { cwd: rootDir, absolute: true },
-  ).sort();
-  const mdxFiles = fg.sync(["src/**/*.mdx", "docs/**/*.mdx"], {
-    cwd: rootDir,
-    absolute: true,
-  }).sort();
+  const storyFiles = fg
+    .sync(
+      [
+        "src/**/*.stories.@(js|jsx|ts|tsx)",
+        "docs/**/*.stories.@(js|jsx|ts|tsx)",
+      ],
+      { cwd: rootDir, absolute: true },
+    )
+    .sort();
+  const mdxFiles = fg
+    .sync(["src/**/*.mdx", "docs/**/*.mdx"], {
+      cwd: rootDir,
+      absolute: true,
+    })
+    .sort();
 
   /** @type {Map<string, StoryEntry[]>} */
   const storyMap = new Map();
@@ -935,9 +1094,11 @@ async function extractStoryData(projectInstance, rootDir) {
     const existing = storyMap.get(componentName) ?? [];
     for (const example of examples) {
       existing.push({
+        exportName: example.name,
         name: example.name,
         argsText: example.code,
         renderText: null,
+        importsText: null,
         source: path.relative(rootDir, filePath),
         kind: "mdx",
       });
@@ -1030,10 +1191,13 @@ function extractStoryExports(sourceFile) {
 
     for (const declaration of declarations) {
       if (declaration.isKind(SyntaxKind.FunctionDeclaration)) {
+        const renderText = declaration.getText();
         stories.push({
+          exportName,
           name: storyNameOverrides.get(exportName) ?? exportName,
           argsText: storyArgsOverrides.get(exportName) ?? null,
-          renderText: declaration.getText(),
+          renderText,
+          importsText: extractRelevantImports(sourceFile, [renderText]),
           kind: "csf",
         });
         continue;
@@ -1060,9 +1224,14 @@ function extractStoryExports(sourceFile) {
           : null;
 
         stories.push({
+          exportName,
           name: storyNameOverrides.get(exportName) ?? exportName,
           argsText,
           renderText,
+          importsText: extractRelevantImports(sourceFile, [
+            argsText,
+            renderText,
+          ]),
           kind: "csf",
         });
         continue;
@@ -1073,10 +1242,13 @@ function extractStoryExports(sourceFile) {
         initializer.isKind(SyntaxKind.FunctionExpression)
       ) {
         // CSF function style: export const Story = () => <Component />
+        const renderText = initializer.getText();
         stories.push({
+          exportName,
           name: storyNameOverrides.get(exportName) ?? exportName,
           argsText: storyArgsOverrides.get(exportName) ?? null,
-          renderText: initializer.getText(),
+          renderText,
+          importsText: extractRelevantImports(sourceFile, [renderText]),
           kind: "csf",
         });
       }
@@ -1084,6 +1256,59 @@ function extractStoryExports(sourceFile) {
   }
 
   return stories;
+}
+
+/**
+ * Keep only imports referenced by a generated example. This removes Storybook
+ * types, actions and unrelated story setup from the agent-facing snippet.
+ *
+ * @param {import("ts-morph").SourceFile} sourceFile
+ * @param {Array<string | null>} codeParts
+ * @returns {string | null}
+ */
+function extractRelevantImports(sourceFile, codeParts) {
+  const code = codeParts.filter(Boolean).join("\n");
+  const uses = (/** @type {string} */ identifier) =>
+    new RegExp(`\\b${identifier.replace(/[$]/g, "\\$")}\\b`).test(code);
+  const imports = [];
+
+  for (const declaration of sourceFile.getImportDeclarations()) {
+    const defaultImport = declaration.getDefaultImport()?.getText() ?? null;
+    const namespaceImport = declaration.getNamespaceImport()?.getText() ?? null;
+    const namedImports = declaration.getNamedImports().filter((namedImport) => {
+      const localName =
+        namedImport.getAliasNode()?.getText() ?? namedImport.getName();
+      return uses(localName);
+    });
+
+    const selectedDefault =
+      defaultImport && uses(defaultImport) ? defaultImport : null;
+    const selectedNamespace =
+      namespaceImport && uses(namespaceImport) ? namespaceImport : null;
+    if (!selectedDefault && !selectedNamespace && !namedImports.length)
+      continue;
+
+    const specifiers = [];
+    if (selectedDefault) specifiers.push(selectedDefault);
+    if (selectedNamespace) specifiers.push(`* as ${selectedNamespace}`);
+    if (namedImports.length) {
+      specifiers.push(
+        `{ ${namedImports
+          .map((namedImport) => {
+            const alias = namedImport.getAliasNode()?.getText();
+            return alias
+              ? `${namedImport.getName()} as ${alias}`
+              : namedImport.getName();
+          })
+          .join(", ")} }`,
+      );
+    }
+    imports.push(
+      `import ${specifiers.join(", ")} from ${JSON.stringify(declaration.getModuleSpecifierValue())};`,
+    );
+  }
+
+  return imports.length ? imports.join("\n") : null;
 }
 
 /**
@@ -1250,19 +1475,41 @@ function extractMdxExamples(content) {
  * @returns {string}
  */
 function renderSkillRootContent() {
+  const docsByUse = new Map([
+    ["installation.md", "when installing or configuring Carbon React"],
+    ["usage.md", "for package setup and basic usage"],
+    ["recommended-practices.md", "for project-wide Carbon conventions"],
+    ["usage-with-routing.md", "when Carbon links integrate with routing"],
+    [
+      "extending-styles-using-styled-components.md",
+      "when extending component styles",
+    ],
+    ["colors.md", "when choosing Carbon colours or tokens"],
+    ["i18n.md", "when translating component-provided text"],
+    [
+      "deprecation-migration.md",
+      "when a selected component or prop is deprecated",
+    ],
+  ]);
   const docsList = docsReferenceTargets
-    .map((fileName) => `- \`${fileName}\``)
+    .map(
+      (fileName) =>
+        `- Open \`${fileName}\` ${docsByUse.get(path.basename(fileName)) ?? "when its topic applies"}.`,
+    )
     .join("\n");
-  return `---\nname: carbon-react\ndescription: Carbon component catalog with typed props, Storybook usage examples, and curated docs references. Use when answering questions about Carbon components, props, and usage guidance.\n---\n\n# Carbon Component Catalog\n\nUse \`index.md\` to find the component file.\nUse \`components/*.md\` to read props and examples.\nUse these docs references:\n${docsList}\nDeprecated components are marked in \`index.md\` and in each component file.\n`;
+  return `---\nname: carbon-react\ndescription: Use for Carbon React component selection and implementation, including imports, props, defaults, deprecations, examples, and Carbon-specific guidance.\n---\n\n# Carbon Component Catalog\n\nOpen \`index.md\` to select a component, then load that component's file. Open only the linked examples needed for the task.\n\nComponent files combine authored selection guidance with source-derived imports, props, defaults, and deprecations. Components with curated examples link to selected Storybook stories and omit their playground; other components retain their generated Storybook examples.\n\n${docsList}\n\nBefore finishing, confirm that imports and props match the component file and that deprecated APIs are either avoided or handled using the migration guidance.\n`;
 }
 
 /**
  * Checks that files on disk match the expected content. Returns diffs for CI.
  * @param {Array<{path: string, content: string}>} wouldWrite
- * @param {{componentsOutDir: string, referencesDir: string}} outputDirs
+ * @param {{componentsOutDir: string, examplesOutDir: string, referencesDir: string}} outputDirs
  * @returns {Promise<{hasDiff: boolean, diffSummary: string}>}
  */
-async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) {
+async function checkWouldWrite(
+  wouldWrite,
+  { componentsOutDir, examplesOutDir, referencesDir },
+) {
   /** @type {string[]} */
   const diffs = [];
   const expectedPaths = new Set(wouldWrite.map((w) => w.path));
@@ -1272,7 +1519,12 @@ async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) 
     try {
       existing = await fs.readFile(filePath, "utf8");
     } catch (err) {
-      if (err && typeof err === 'object' && 'code' in err && err?.code === "ENOENT") {
+      if (
+        err &&
+        typeof err === "object" &&
+        "code" in err &&
+        err?.code === "ENOENT"
+      ) {
         diffs.push(`  Missing: ${path.relative(repoRoot, filePath)}`);
         continue;
       }
@@ -1283,16 +1535,20 @@ async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) 
     }
   }
 
-  for (const dir of [componentsOutDir, referencesDir]) {
+  for (const dir of [componentsOutDir, examplesOutDir, referencesDir]) {
     if (!existsSync(dir)) {
       continue;
     }
-    const entries = await fs.readdir(dir, { withFileTypes: true });
+    const entries = await fs.readdir(dir, {
+      recursive: true,
+      withFileTypes: true,
+    });
     for (const entry of entries) {
       if (!entry.isFile()) {
         continue;
       }
-      const fullPath = path.join(dir, entry.name);
+      const parentPath = entry.parentPath ?? entry.path ?? dir;
+      const fullPath = path.join(parentPath, entry.name);
       if (!expectedPaths.has(fullPath)) {
         diffs.push(`  Extra: ${path.relative(repoRoot, fullPath)}`);
       }
@@ -1462,12 +1718,19 @@ function getDeprecationFromJsDocs(jsDocs) {
 }
 
 /**
- * Render a component markdown file with props and examples.
+ * Render a component markdown file with authored guidance and AST-derived API.
  * @param {ComponentData} component
  * @param {StoryEntry[]} stories
+ * @param {import("./component-metadata.mjs").ComponentMetadata | null} metadata
+ * @param {Array<{title: string, description: string, path: string}>} curatedExamples
  * @returns {string}
  */
-function renderComponentMarkdown(component, stories) {
+function renderComponentMarkdown(
+  component,
+  stories,
+  metadata,
+  curatedExamples,
+) {
   const frontmatter = [
     "---",
     `name: carbon-component-${toKebabCase(component.name)}`,
@@ -1477,6 +1740,22 @@ function renderComponentMarkdown(component, stories) {
   ].join("\n");
 
   const lines = [frontmatter, `# ${component.name}`, ""];
+
+  if (metadata) {
+    lines.push(metadata.summary, "");
+    renderTextList(lines, "When to use", metadata.useWhen ?? []);
+    renderTextList(lines, "When not to use", metadata.avoidWhen ?? []);
+
+    if (metadata.alternatives?.length) {
+      lines.push("## Choose instead", "");
+      for (const alternative of metadata.alternatives) {
+        lines.push(`- **${alternative.component}:** ${alternative.when}`);
+      }
+      lines.push("");
+    }
+
+    renderTextList(lines, "Pitfalls", metadata.pitfalls ?? []);
+  }
 
   const importPath = `${packageName}/${buildOutputFolder}/${component.moduleSpecifier.replace("./", "")}`;
   const importStatement = component.hasDefaultExport
@@ -1506,19 +1785,26 @@ function renderComponentMarkdown(component, stories) {
     lines.push("No props metadata found.");
   } else {
     const sortedProps = [...component.props].sort((a, b) => {
-      if (a.deprecated !== b.deprecated) return a.deprecated ? 1 : -1;
+      const aDeprecated = a.deprecated || a.deprecatedValues.length > 0;
+      const bDeprecated = b.deprecated || b.deprecatedValues.length > 0;
+      if (aDeprecated !== bDeprecated) return aDeprecated ? 1 : -1;
       if (a.required !== b.required) return a.required ? -1 : 1;
       const aData = a.name.startsWith("data-");
       const bData = b.name.startsWith("data-");
       const aAria = a.name.startsWith("aria-");
       const bAria = b.name.startsWith("aria-");
-      const groupOrder = (/** @type {boolean} */ data, /** @type {boolean} */ aria) => (data ? 1 : aria ? 2 : 0);
+      const groupOrder = (
+        /** @type {boolean} */ data,
+        /** @type {boolean} */ aria,
+      ) => (data ? 1 : aria ? 2 : 0);
       const ga = groupOrder(aData, aAria);
       const gb = groupOrder(bData, bAria);
       if (ga !== gb) return ga - gb;
       return a.name.localeCompare(b.name);
     });
-    const hasDeprecatedProps = sortedProps.some((prop) => prop.deprecated);
+    const hasDeprecatedProps = sortedProps.some(
+      (prop) => prop.deprecated || prop.deprecatedValues.length > 0,
+    );
     if (hasDeprecatedProps) {
       lines.push(
         "| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |",
@@ -1535,8 +1821,14 @@ function renderComponentMarkdown(component, stories) {
       const description = prop.description?.replace(/\s+/g, " ") ?? "";
       const defaultValue = (prop.defaultValue ?? "").replace(/\r/g, "");
       if (hasDeprecatedProps) {
-        const deprecated = prop.deprecated ? "Yes" : "";
-        const deprecationReason = (prop.deprecationReason ?? "").replace(/\s+/g, " ").trim();
+        const deprecated = prop.deprecated
+          ? "Yes"
+          : prop.deprecatedValues.length
+            ? `Values: ${prop.deprecatedValues.map((value) => JSON.stringify(value)).join(", ")}`
+            : "";
+        const deprecationReason = (prop.deprecationReason ?? "")
+          .replace(/\s+/g, " ")
+          .trim();
         lines.push(
           `| ${prop.name} | ${escapePipes(prop.type)} | ${prop.required ? "Yes" : "No"} | ${escapePipes(literals)} | ${deprecated} | ${escapePipes(deprecationReason)} | ${escapePipes(description)} | ${escapePipes(defaultValue)} |`,
         );
@@ -1550,23 +1842,284 @@ function renderComponentMarkdown(component, stories) {
   lines.push("");
 
   lines.push("## Examples");
-  if (!stories.length) {
+  if (metadata) {
+    if (!curatedExamples.length) {
+      lines.push("No examples have been curated for agent use.");
+    } else {
+      lines.push(
+        "Load only the example needed for the current task; playground stories are intentionally omitted.",
+        "",
+      );
+      for (const example of curatedExamples) {
+        lines.push(
+          `- [${example.title}](${example.path}) — ${example.description}`,
+        );
+      }
+    }
+  } else if (!stories.length) {
     lines.push("No Storybook examples found.");
   } else {
     for (const story of stories) {
       lines.push(`### ${story.name}`);
       lines.push("");
       if (story.argsText) {
-        lines.push("**Args**", "", "```tsx", story.argsText.replace(/\r\n/g, "\n"), "```", "");
+        lines.push(
+          "**Args**",
+          "",
+          "```tsx",
+          story.argsText.replace(/\r\n/g, "\n"),
+          "```",
+          "",
+        );
       }
       if (story.renderText) {
-        lines.push("**Render**", "", "```tsx", story.renderText.replace(/\r\n/g, "\n"), "```", "");
+        lines.push(
+          "**Render**",
+          "",
+          "```tsx",
+          story.renderText.replace(/\r\n/g, "\n"),
+          "```",
+          "",
+        );
       }
       lines.push("");
     }
   }
 
   return lines.join("\n");
+}
+
+/**
+ * @param {string[]} lines
+ * @param {string} heading
+ * @param {string[]} items
+ */
+function renderTextList(lines, heading, items) {
+  if (!items.length) return;
+  lines.push(`## ${heading}`, "");
+  for (const item of items) lines.push(`- ${item}`);
+  lines.push("");
+}
+
+/**
+ * Render one deliberately selected story independently from the component API
+ * and the rest of the story file.
+ *
+ * @param {ComponentData} component
+ * @param {StoryEntry} story
+ * @returns {string}
+ */
+function renderExampleMarkdown(component, story) {
+  if (!story.renderText) {
+    throw new Error(
+      `Curated story ${component.name}.${story.exportName} has no render function`,
+    );
+  }
+
+  const imports = rewriteExampleImports(story.importsText, story.source);
+  const exampleName = `${component.name}${story.exportName}Example`;
+  let render = normalizeCodeIndentation(story.renderText.trim());
+
+  if (story.argsText && /^(?:async\s+)?\(\s*args\s*\)\s*=>\s*\{/.test(render)) {
+    render = render.replace(
+      /^(async\s+)?\(\s*args\s*\)\s*=>\s*\{/,
+      (_, asyncKeyword = "") =>
+        `${asyncKeyword}() => {\n  const args = ${story.argsText};`,
+    );
+  } else if (story.argsText && /\bargs\b/.test(render)) {
+    throw new Error(
+      `Curated story ${component.name}.${story.exportName} uses args in a form the skill generator cannot safely resolve`,
+    );
+  }
+
+  const code = [imports, `export const ${exampleName} = ${render};`]
+    .filter(Boolean)
+    .join("\n\n");
+
+  return `# ${component.name}: ${story.name}\n\nSource story: \`${story.source ?? "unknown"}#${story.exportName}\`\n\n\`\`\`tsx\n${code}\n\`\`\`\n`;
+}
+
+/**
+ * Remove source-file indentation while preserving the relative indentation of
+ * a function body copied from a variable initializer.
+ *
+ * @param {string} code
+ * @returns {string}
+ */
+function normalizeCodeIndentation(code) {
+  const lines = code.split("\n");
+  const indents = lines
+    .slice(1, -1)
+    .filter((line) => line.trim())
+    .map((line) => line.match(/^\s*/)?.[0].length ?? 0)
+    .filter((indent) => indent > 0);
+  const indentation = indents.length
+    ? Math.max(0, Math.min(...indents) - 2)
+    : 0;
+  if (!indentation) return code;
+  const prefix = " ".repeat(indentation);
+  return [
+    lines[0],
+    ...lines
+      .slice(1)
+      .map((line) =>
+        line.startsWith(prefix) ? line.slice(indentation) : line,
+      ),
+  ].join("\n");
+}
+
+/**
+ * Convert story-relative component imports into consumer-facing Carbon imports.
+ * Build helpers outside src/components retain their source import so a reviewer
+ * can decide whether that story is suitable as a public example.
+ *
+ * @param {string | null} importsText
+ * @param {string | undefined} storySource
+ * @returns {string}
+ */
+function rewriteExampleImports(importsText, storySource) {
+  if (!importsText || !storySource) return importsText ?? "";
+  const storyPath = path.join(repoRoot, storySource);
+
+  return importsText.replace(
+    /(from\s+)(["'])(\.[^"']*)\2/g,
+    (match, prefix, quote, moduleSpecifier) => {
+      const modulePath = resolveModulePathFrom(storyPath, moduleSpecifier);
+      if (!modulePath) return match;
+      const relative = path
+        .relative(path.join(repoRoot, "src", "components"), modulePath)
+        .replace(/\\/g, "/");
+      if (relative.startsWith("../")) return match;
+
+      const publicModule = relative
+        .replace(/\/index\.(?:ts|tsx)$/, "")
+        .replace(/\.(?:ts|tsx)$/, "")
+        .replace(/\/[^/]+\.component$/, "");
+      return `${prefix}${quote}${packageName}/${buildOutputFolder}/components/${publicModule}${quote}`;
+    },
+  );
+}
+
+/**
+ * Validate authored links against AST-discovered components and Storybook
+ * exports. Invalid metadata must fail generation rather than drift silently.
+ *
+ * @param {Map<string, import("./component-metadata.mjs").ComponentMetadata>} metadataByComponent
+ * @param {ComponentData[]} components
+ * @param {Map<string, StoryEntry[]>} storiesByComponent
+ */
+function validateMetadataReferences(
+  metadataByComponent,
+  components,
+  storiesByComponent,
+) {
+  const componentNames = new Set(components.map(({ name }) => name));
+  const componentsByName = new Map(
+    components.map((component) => [component.name, component]),
+  );
+  const deprecatedImports = components
+    .filter(({ deprecated }) => deprecated)
+    .map(({ name, moduleSpecifier }) => ({
+      name,
+      importPath: `${packageName}/${buildOutputFolder}/${moduleSpecifier.replace("./", "")}`,
+    }));
+
+  for (const metadata of metadataByComponent.values()) {
+    if (!componentNames.has(metadata.component)) {
+      throw new Error(
+        `Component metadata references unknown public component ${metadata.component}`,
+      );
+    }
+    for (const alternative of metadata.alternatives ?? []) {
+      if (alternative.component === metadata.component) {
+        throw new Error(
+          `Component metadata for ${metadata.component} recommends itself as an alternative`,
+        );
+      }
+      const alternativeComponent = componentsByName.get(alternative.component);
+      if (!alternativeComponent) {
+        throw new Error(
+          `Component metadata for ${metadata.component} references unknown alternative ${alternative.component}`,
+        );
+      }
+      if (alternativeComponent.deprecated) {
+        throw new Error(
+          `Component metadata for ${metadata.component} recommends deprecated alternative ${alternative.component}`,
+        );
+      }
+    }
+
+    const stories = storiesByComponent.get(metadata.component) ?? [];
+    const component = componentsByName.get(metadata.component);
+    for (const example of metadata.examples ?? []) {
+      if (/playground/i.test(example.story)) {
+        throw new Error(
+          `Component metadata for ${metadata.component} must not curate playground story ${example.story}`,
+        );
+      }
+      const story = stories.find(
+        (candidate) => candidate.exportName === example.story,
+      );
+      if (!story) {
+        throw new Error(
+          `Component metadata for ${metadata.component} references missing story export ${example.story}`,
+        );
+      }
+      if (!story.renderText) {
+        throw new Error(
+          `Curated story ${metadata.component}.${example.story} has no render function`,
+        );
+      }
+      const imports = rewriteExampleImports(story.importsText, story.source);
+      if (/from\s+["']\./.test(imports)) {
+        throw new Error(
+          `Curated story ${metadata.component}.${example.story} contains a relative import that cannot be used by a consumer`,
+        );
+      }
+      const deprecatedDependency = deprecatedImports.find(({ importPath }) =>
+        new RegExp(
+          `from\\s+["']${importPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`,
+        ).test(imports),
+      );
+      if (deprecatedDependency) {
+        throw new Error(
+          `Curated story ${metadata.component}.${example.story} imports deprecated component ${deprecatedDependency.name}`,
+        );
+      }
+      const storyCode = [story.argsText, story.renderText]
+        .filter(Boolean)
+        .join("\n");
+      const deprecatedProp = component?.props.find((prop) =>
+        storyUsesDeprecatedProp(storyCode, prop),
+      );
+      if (deprecatedProp) {
+        throw new Error(
+          `Curated story ${metadata.component}.${example.story} uses deprecated prop ${deprecatedProp.name}`,
+        );
+      }
+    }
+  }
+}
+
+/**
+ * @param {string} code
+ * @param {PropInfo} prop
+ */
+function storyUsesDeprecatedProp(code, prop) {
+  const propName = prop.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (prop.deprecated) {
+    return new RegExp(`\\b${propName}\\s*(?:=|:)`).test(code);
+  }
+  return prop.deprecatedValues.some((value) => {
+    const escapedValue = String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const literal =
+      typeof value === "string"
+        ? `["']${escapedValue}["']`
+        : `\\b${escapedValue}\\b`;
+    return new RegExp(
+      `\\b${propName}\\s*(?:=|:)\\s*(?:\\{\\s*)?${literal}(?:\\s*\\})?`,
+    ).test(code);
+  });
 }
 
 /**
@@ -1637,7 +2190,9 @@ function dedupeComponentCandidates(candidates) {
       continue;
     }
 
-    if (scoreComponentCandidate(candidate) > scoreComponentCandidate(existing)) {
+    if (
+      scoreComponentCandidate(candidate) > scoreComponentCandidate(existing)
+    ) {
       byOutputName.set(outputName, candidate);
     }
   }

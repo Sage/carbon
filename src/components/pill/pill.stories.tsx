@@ -4,7 +4,7 @@ import { action } from "storybook/actions";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import Icon from "../icon";
 import Pill from ".";
@@ -103,7 +103,13 @@ export const WithRemoveButton: Story = () => {
   return (
     <>
       <Button onClick={showPill}>Reset example</Button>
-      <Box m={1}>{isPillVisible && <Pill onDelete={hidePill}>Pill</Pill>}</Box>
+      <Box m={1}>
+        {isPillVisible && (
+          <Pill ariaLabelOfRemoveButton="Remove Pill" onDelete={hidePill}>
+            Pill
+          </Pill>
+        )}
+      </Box>
     </>
   );
 };

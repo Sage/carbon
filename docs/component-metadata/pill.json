@@ -1,0 +1,34 @@
+{
+  "component": "Pill",
+  "summary": "A compact visual indicator used to label, categorise, or show the status of an item.",
+  "useWhen": ["Representing a selection that the user may remove."],
+  "alternatives": [
+    {
+      "component": "Badge",
+      "when": "Showing a compact numeric count."
+    },
+    {
+      "component": "ButtonNext",
+      "when": "Use for actions rather than labels or removable selections."
+    }
+  ],
+  "pitfalls": [
+    "Use ariaLabelOfRemoveButton when the translated default removal label is not suitable for the surrounding context.",
+    "Use inverse on dark backgrounds to preserve contrast.",
+    "Keep labels concise; use wrapText with maxWidth only when wrapping cannot be avoided."
+  ],
+  "examples": [
+    {
+      "story": "Wrapped",
+      "description": "Allow an unusually long label to wrap within a constrained width."
+    },
+    {
+      "story": "WithRemoveButton",
+      "description": "Make a pill removable by providing onDelete, and customise its accessible label when needed."
+    },
+    {
+      "story": "InverseOnDarkBackground",
+      "description": "Use inverse styling when pills appear on a dark surface."
+    }
+  ]
+}
