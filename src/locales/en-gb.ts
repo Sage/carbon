@@ -90,7 +90,9 @@ const enGB: Locale = {
   },
   fileInput: {
     dragAndDrop: () => "or drag and drop your file",
+    dragAndDrop_multiple: () => "or drag and drop your files",
     selectFile: () => "Select file",
+    selectFile_multiple: () => "Select files",
     fileUploadStatus: () => "File upload status",
     actions: {
       cancel: () => "Cancel upload",
