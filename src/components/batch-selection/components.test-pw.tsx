@@ -1,24 +1,12 @@
 import React from "react";
 import BatchSelection, { BatchSelectionProps } from ".";
-import IconButton from "../icon-button";
-import Icon from "../icon";
+import Button from "../button/__next__";
 
-const BatchSelectionComponent = ({
-  children,
-  selectedCount = 0,
-  ...rest
-}: Partial<BatchSelectionProps>) => (
-  <BatchSelection {...rest} selectedCount={selectedCount}>
-    <IconButton aria-label="icon-button" onClick={() => {}}>
-      <Icon type="csv" />
-    </IconButton>
-    <IconButton aria-label="icon-button" onClick={() => {}}>
-      <Icon type="bin" />
-    </IconButton>
-    <IconButton aria-label="icon-button" onClick={() => {}}>
-      <Icon type="pdf" />
-    </IconButton>
-    {children}
+const BatchSelectionComponent = ({ ...rest }: Partial<BatchSelectionProps>) => (
+  <BatchSelection selectedCount={1} {...rest}>
+    <Button>Button 1</Button>
+    <Button>Button 2</Button>
+    <Button>Button 3</Button>
   </BatchSelection>
 );
 

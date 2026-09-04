@@ -1,63 +1,63 @@
 import React from "react";
-import BatchSelection, { BatchSelectionProps } from ".";
-import IconButton from "../icon-button";
+import { Meta, StoryObj } from "@storybook/react-vite";
+
+import BatchSelection from ".";
+import Button from "../button/__next__";
+import Box from "../box";
 import Icon from "../icon";
+import Divider from "../divider";
 
-export default {
+const meta: Meta<typeof BatchSelection> = {
   title: "Batch Selection/Test",
+  component: BatchSelection,
   parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-  argTypes: {
-    colorTheme: {
-      options: ["dark", "light", "white", "transparent"],
-      control: {
-        type: "select",
-      },
-    },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
 };
 
-export const Default = (args: Omit<BatchSelectionProps, "children">) => (
-  <BatchSelection {...args}>
-    <IconButton onClick={() => {}}>
-      <Icon type="csv" />
-    </IconButton>
-    <IconButton onClick={() => {}}>
-      <Icon type="bin" />
-    </IconButton>
-    <IconButton onClick={() => {}}>
-      <Icon type="pdf" />
-    </IconButton>
-  </BatchSelection>
-);
+export default meta;
+type Story = StoryObj<typeof BatchSelection>;
 
-Default.storyName = "default";
-Default.args = {
-  disabled: false,
-  hidden: false,
-  selectedCount: 0,
-  colorTheme: "transparent",
+export const ChromaticSnapshot: Story = {
+  render: (args) => (
+    <Box display="flex" flexDirection="column" gap={2}>
+      <BatchSelection {...args}>
+        <Button variantType="subtle">
+          <Icon type="check_none" />
+          Select All
+        </Button>
+        <Divider p={0} height="40px" />
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 1
+        </Button>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 2
+        </Button>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 3
+        </Button>
+      </BatchSelection>
+
+      <Box width="320px">
+        <BatchSelection smallScreen {...args}>
+          <Button variantType="subtle">
+            <Icon type="check_none" />
+            Select All
+          </Button>
+          <Button variantType="subtle">
+            Actions
+            <Icon type="caret_down" />
+          </Button>
+        </BatchSelection>
+      </Box>
+    </Box>
+  ),
+  args: {
+    selectedCount: 1,
+    totalItems: 10,
+    onDismiss: () => {},
+  },
 };
-
-export const BatchSelectionComponent = ({
-  children,
-  selectedCount = 0,
-  ...rest
-}: Partial<BatchSelectionProps>) => (
-  <BatchSelection {...rest} selectedCount={selectedCount}>
-    <IconButton aria-label="icon-button" onClick={() => {}}>
-      <Icon type="csv" />
-    </IconButton>
-    <IconButton aria-label="icon-button" onClick={() => {}}>
-      <Icon type="bin" />
-    </IconButton>
-    <IconButton aria-label="icon-button" onClick={() => {}}>
-      <Icon type="pdf" />
-    </IconButton>
-    {children}
-  </BatchSelection>
-);

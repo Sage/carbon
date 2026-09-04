@@ -1,84 +1,68 @@
 import styled, { css } from "styled-components";
 
-import StyledIconButton from "../icon-button/icon-button.style";
-import StyledIcon from "../icon/icon.style";
-import { BatchSelectionProps } from ".";
-import addFocusStyling from "../../style/utils/add-focus-styling";
+export interface StyledBatchSelectionProps {
+  $hidden?: boolean;
+}
 
-const StyledBatchSelection = styled.div<
-  Pick<BatchSelectionProps, "disabled" | "colorTheme" | "hidden">
->`
-  ${({ disabled, colorTheme, hidden }) => css`
+export const StyledBatchSelection = styled.div<StyledBatchSelectionProps>`
+  ${({ $hidden }) => css`
+    min-width: 288px;
+    width: 100%;
+
+    ${$hidden &&
+    css`
+      display: none;
+    `}
+  `};
+`;
+
+export interface StyledWrapperProps {
+  $smallScreen?: boolean;
+}
+
+export const StyledWrapper = styled.div<StyledWrapperProps>`
+  ${({ $smallScreen }) => css`
+    display: flex;
     align-items: center;
-    display: inline-flex;
-    border-radius: var(--borderRadius100);
+    flex: 1 0 0;
+    padding: var(--global-space-layout-2-xs);
+    gap: var(--global-space-layout-2-xs);
+    white-space: nowrap;
 
-    ${hidden && "visibility: hidden;"}
-
-    ${StyledIcon} {
-      ${!disabled && `color: var(--colorsActionMajorYin065);`}
-      &:focus {
-        ${addFocusStyling()}
-      }
-    }
-
-    ${colorTheme === "dark" &&
+    ${$smallScreen &&
     css`
-      background-color: var(--colorsUtilityMajor500);
-      color: var(--colorsUtilityYang100);
-
-      ${StyledIcon} {
-        color: var(--colorsActionMajorYang100);
-      }
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--global-space-comp-xs);
     `}
-
-    ${colorTheme === "light" &&
-    css`
-      background-color: var(--colorsUtilityMajor150);
-    `}
-
-    ${colorTheme === "white" &&
-    css`
-      background-color: var(--colorsUtilityYang100);
-      box-shadow: var(--boxShadow100);
-    `}
-
-    ${StyledIconButton} {
-      margin: 0;
-      position: static;
-      padding: 10px;
-    }
-
-    ${StyledIconButton}:hover {
-      ${!disabled &&
-      `
-    background-color: var(--colorsActionMajor500);
-      border-radius: var(--borderRadius100);
-
-      ${StyledIcon} {
-        color: var(--colorsActionMajorYang100);
-      }
-    `}
-    }
-
-    ${StyledIconButton}:focus {
-      border-radius: var(--borderRadius100);
-      z-index: 1;
-      ${addFocusStyling()}
-    }
-
-    ${disabled &&
-    css`
-      background: transparent;
-      color: var(--colorsUtilityYin030);
-      cursor: not-allowed;
-    `}
-  `}
+  `};
 `;
 
-const StyledSelectionCount = styled.span`
-  display: inline-block;
-  padding: 10px 15px;
+export const StyledHeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 `;
 
-export { StyledBatchSelection, StyledSelectionCount };
+export const StyledContent = styled.div<StyledWrapperProps>`
+  ${({ $smallScreen }) => css`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    ${!$smallScreen &&
+    css`
+      flex: 1 0 0;
+      gap: var(--global-space-layout-2-xs);
+    `}
+
+    ${$smallScreen &&
+    css`
+      width: 100%;
+      justify-content: flex-start;
+      padding-top: var(--global-space-comp-s);
+      gap: var(--global-space-comp-xl);
+    `}
+  `};
+`;
