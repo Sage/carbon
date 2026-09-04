@@ -98,6 +98,9 @@ const enGB: Locale = {
       delete: () => "Delete file",
     },
   },
+  globalHeader: {
+    ariaLabel: () => "Global Header",
+  },
   heading: {
     backLinkAriaLabel: () => "Back",
   },
@@ -125,6 +128,9 @@ const enGB: Locale = {
     neutral: () => "Information",
     ai: () => "AI Information",
     callout: () => "Callout",
+  },
+  note: {
+    created: () => "Created",
   },
   numeralDate: {
     validation: {

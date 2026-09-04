@@ -1,3 +1,33 @@
+## [161.22.0](https://github.com/Sage/carbon/compare/v161.21.0...v161.22.0) (2026-09-03)
+
+### Features
+
+* **navigation-bar:** align with fusion DS designs ([d881cf6](https://github.com/Sage/carbon/commit/d881cf64d8d9a7690b395985551e9029e1d4632a))
+
+## [161.21.0](https://github.com/Sage/carbon/compare/v161.20.0...v161.21.0) (2026-09-03)
+
+### Features
+
+* **option-tile:** align OptionTile and OptionTileGroup ([9346558](https://github.com/Sage/carbon/commit/934655895ba2b15fe3c5e82f67c854ea58c9311b))
+
+## [161.20.0](https://github.com/Sage/carbon/compare/v161.19.4...v161.20.0) (2026-09-02)
+
+### Features
+
+* **note:** align Note component with Fusion DS ([4ceb19d](https://github.com/Sage/carbon/commit/4ceb19d56a06c3f5e2a2ccf6e54eca5f40764947))
+
+## [161.19.4](https://github.com/Sage/carbon/compare/v161.19.3...v161.19.4) (2026-08-27)
+
+### Bug Fixes
+
+* **search:** add validationMessagePositionTop to interface ([4dfde68](https://github.com/Sage/carbon/commit/4dfde6843cafe035ff63a0078bec5c9b41002bb3))
+
+## [161.19.3](https://github.com/Sage/carbon/compare/v161.19.2...v161.19.3) (2026-08-27)
+
+### Bug Fixes
+
+* **dialog:** honour contentPadding on fullscreen dialogs above 600px ([c595385](https://github.com/Sage/carbon/commit/c5953852f0e770d086bba25fd323d3cd92c42a35))
+
 ## [161.19.2](https://github.com/Sage/carbon/compare/v161.19.1...v161.19.2) (2026-08-26)
 
 ### Bug Fixes

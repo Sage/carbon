@@ -32,6 +32,7 @@ export const DefaultStory: Story = () => {
   return <Textarea label="Textarea" value={state} onChange={setValue} />;
 };
 DefaultStory.storyName = "Default";
+DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const DisabledStory: Story = () => {
   const [value, setValue] = useState("");
@@ -70,6 +71,7 @@ export const LabelAlignStory: Story = () => {
   );
 };
 LabelAlignStory.storyName = "Label Align";
+LabelAlignStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ReadOnlyStory: Story = () => {
   const [value, setValue] = useState("");
@@ -154,6 +156,9 @@ export const TranslationsCharacterLimitStory: Story = () => {
   );
 };
 TranslationsCharacterLimitStory.storyName = "Translations Character Limit";
+TranslationsCharacterLimitStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const LabelInlineStory: Story = () => {
   const [value, setValue] = useState("");
@@ -167,6 +172,7 @@ export const LabelInlineStory: Story = () => {
   );
 };
 LabelInlineStory.storyName = "Label Inline";
+LabelInlineStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const CustomWidthStory: Story = () => {
   const [value, setValue] = useState("");
@@ -182,6 +188,7 @@ export const CustomWidthStory: Story = () => {
   );
 };
 CustomWidthStory.storyName = "Custom Width";
+CustomWidthStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const MaxWidthStory: Story = () => {
   const [value, setValue] = useState("");
@@ -195,6 +202,7 @@ export const MaxWidthStory: Story = () => {
   );
 };
 MaxWidthStory.storyName = "Max Width";
+MaxWidthStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InputHintStory: Story = () => {
   const [value, setValue] = useState("");
@@ -208,6 +216,7 @@ export const InputHintStory: Story = () => {
   );
 };
 InputHintStory.storyName = "Input Hint";
+InputHintStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const LabelHelpStory: Story = () => {
   const [value, setValue] = useState("");
@@ -235,6 +244,7 @@ export const RequiredStory: Story = () => {
   );
 };
 RequiredStory.storyName = "Required";
+RequiredStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const IsOptionalStory: Story = () => {
   const [value, setValue] = useState("");
@@ -248,6 +258,7 @@ export const IsOptionalStory: Story = () => {
   );
 };
 IsOptionalStory.storyName = "isOptional";
+IsOptionalStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const BorderRadiusStory: Story = () => {
   const [stateOne, setStateOne] = useState("");

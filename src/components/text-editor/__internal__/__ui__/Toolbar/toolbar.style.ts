@@ -2,9 +2,8 @@ import styled, { css } from "styled-components";
 
 import Button, { ButtonProps } from "../../../../button/__next__";
 
-interface FormattingButtonProps extends ButtonProps {
+interface StyledToolbarButtonProps extends ButtonProps {
   tabIndex?: number;
-  isActive?: boolean;
   onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
   size: "small" | "medium" | "large";
 }
@@ -66,8 +65,7 @@ const CommandButtons = styled.div`
   gap: var(--global-space-comp-s);
 `;
 
-// TODO: replace this with ButtonToggle
-const FormattingButton = styled(Button)<FormattingButtonProps>`
+const StyledToolbarButton = styled(Button)<StyledToolbarButtonProps>`
   border: none;
   color: var(--button-typical-toggle-label-default);
 
@@ -80,18 +78,11 @@ const FormattingButton = styled(Button)<FormattingButtonProps>`
     min-width: ${sizeMap[size].buttonSize};
     min-height: ${sizeMap[size].buttonSize};
   `}
-
-  ${({ isActive }) =>
-    isActive &&
-    css`
-      background-color: var(--button-typical-toggle-bg-active);
-      color: var(--button-typical-toggle-label-active);
-    `}
 `;
 
 export {
   StyledToolbar,
   StyledToolbarWrapper,
   CommandButtons,
-  FormattingButton,
+  StyledToolbarButton,
 };

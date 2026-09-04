@@ -4,6 +4,7 @@ import { PaddingProps, FlexboxProps } from "styled-system";
 import NavigationBar from "../navigation-bar";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { GlobalHeaderProvider } from "./__internal__/global-header.context";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface GlobalHeaderProps
   extends PaddingProps,
@@ -37,8 +38,17 @@ const StyledLogo = styled.div`
 `;
 
 const GlobalHeader = ({ children, logo, ...rest }: GlobalHeaderProps) => {
+  const locale = useLocale();
   return (
-    <NavigationBar isGlobal {...rest}>
+    <NavigationBar
+      variant="black"
+      orientation="top"
+      offset="0px"
+      position="fixed"
+      ariaLabel={locale.globalHeader.ariaLabel()}
+      data-component="global-header"
+      {...rest}
+    >
       {logo && (
         <StyledLogo data-element="global-header-logo-wrapper">
           {logo}
