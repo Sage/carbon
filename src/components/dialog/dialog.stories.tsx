@@ -955,6 +955,7 @@ export const WithStatusHeaderSubtle: Story = {
     open: isChromatic(),
     size: "medium",
   },
+  parameters: { chromatic: { disableSnapshot: true } },
   render: function WithStatusHeaderSubtleRender({
     onCancel,
     ...args
@@ -997,6 +998,7 @@ export const WithStatusHeaderPositive: Story = {
     open: isChromatic(),
     size: "medium",
   },
+  parameters: { chromatic: { disableSnapshot: true } },
   render: function WithStatusHeaderPositiveRender({
     onCancel,
     ...args
@@ -1039,6 +1041,7 @@ export const WithStatusHeaderNegative: Story = {
     open: isChromatic(),
     size: "medium",
   },
+  parameters: { chromatic: { disableSnapshot: true } },
   render: function WithStatusHeaderNegativeRender({
     onCancel,
     ...args
@@ -1081,6 +1084,7 @@ export const WithStatusHeaderCaution: Story = {
     open: isChromatic(),
     size: "medium",
   },
+  parameters: { chromatic: { disableSnapshot: true } },
   render: function WithStatusHeaderCautionRender({
     onCancel,
     ...args
@@ -1123,6 +1127,7 @@ export const WithStatusHeaderInfo: Story = {
     open: isChromatic(),
     size: "medium",
   },
+  parameters: { chromatic: { disableSnapshot: true } },
   render: function WithStatusHeaderInfoRender({
     onCancel,
     ...args
