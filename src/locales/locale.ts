@@ -72,6 +72,9 @@ interface Locale {
       delete: () => string;
     };
   };
+  globalHeader: {
+    ariaLabel: () => string;
+  };
   heading: {
     backLinkAriaLabel: () => string;
   };
@@ -101,6 +104,9 @@ interface Locale {
     neutral: () => string;
     ai: () => string;
     callout?: () => string;
+  };
+  note: {
+    created: () => string;
   };
   numeralDate: {
     validation: {

@@ -253,7 +253,7 @@ export const RegressionMatrix = () => (
         value="Default with label, input hint and error"
         label="Search"
         inputHint="Input hint"
-        error="Error message"
+        error="Error message above"
         aria-label="Default with label, input hint and error"
       />
     </Box>
@@ -265,7 +265,32 @@ export const RegressionMatrix = () => (
         inverse
         label="Search"
         inputHint="Input hint"
-        error="Error message"
+        error="Error message above"
+        aria-label="Inverse with label, input hint and error"
+      />
+    </Box>
+
+    <Box p={4}>
+      <Search
+        onChange={() => {}}
+        value="Default with label, input hint and error"
+        label="Search"
+        inputHint="Input hint"
+        error="Error message below"
+        validationMessagePositionTop={false}
+        aria-label="Default with label, input hint and error"
+      />
+    </Box>
+
+    <Box p={4} backgroundColor="#000000">
+      <Search
+        onChange={() => {}}
+        value="Inverse with label, input hint and error"
+        inverse
+        label="Search"
+        inputHint="Input hint"
+        error="Error message below"
+        validationMessagePositionTop={false}
         aria-label="Inverse with label, input hint and error"
       />
     </Box>

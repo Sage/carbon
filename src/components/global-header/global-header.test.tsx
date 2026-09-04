@@ -34,7 +34,9 @@ test("should render with provided data- attributes", () => {
 test("should have correct z-index", () => {
   render(<GlobalHeader>foobar</GlobalHeader>);
 
-  expect(screen.getByRole("navigation")).toHaveStyle("z-index: 2999");
+  expect(screen.getByRole("navigation")).toHaveStyle(
+    "z-index: var(--carbon-zindex-global-nav)",
+  );
 });
 
 test("when logo prop is passed and logo is an img element, logo is visible with correct alt text", () => {
