@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
@@ -31,6 +31,35 @@ import * as TimeStories from "./time.stories";
 import { Time, type TimeHandle } from "carbon-react/lib/components/time";
 ```
 
+## Designer Notes
+
+A Time input captures time entered in hours and minutes.
+Use it to capture:
+
+- Start and end times. For example, in a HR timesheet.
+- Duration. For example, in an invoice.
+
+## Playground
+
+Use this interactive example to explore Time props with Storybook controls.
+
+<Canvas of={TimeStories.Playground} />
+
+<Controls
+  of={TimeStories.Playground}
+  include={[
+    "label",
+    "labelAlign",
+    "fieldLabelsAlign",
+    "disabled",
+    "readOnly",
+    "required",
+    "size",
+    "showAmPmToggle",
+    "inputHint",
+  ]}
+/>
+
 ### Validation
 
 This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
@@ -49,28 +78,6 @@ with `hours` and `minutes` properties that correspond to the relevant input.
 In order to render the AM/PM toggle controls you should set the `period` property in the `value` object.
 
 <Canvas of={TimeStories.AmPmToggle} />
-
-### Input hint
-
-Passing a string to the `inputHint` prop will render some additional hint text above the inputs.
-
-<Canvas of={TimeStories.InputHint} />
-
-### Required
-
-<Canvas of={TimeStories.Required} />
-
-### Disabled
-
-<Canvas of={TimeStories.Disabled} />
-
-### Read only
-
-<Canvas of={TimeStories.ReadOnly} />
-
-### Sizes
-
-<Canvas of={TimeStories.Sizes} />
 
 ### Focusing the inputs programmatically
 
@@ -141,7 +148,7 @@ to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
 
 `Time`'s forwarded ref exposes the following imperative methods:
 
-| Method Name             | Description                                     |
-| ----------------------- | ----------------------------------------------- |
-| `focusHoursInput()`   | Programmatically focuses the hours input.       |
-| `focusMinutesInput()` | Programmatically focuses the minutes input.     |
+| Method Name           | Description                                 |
+| --------------------- | ------------------------------------------- |
+| `focusHoursInput()`   | Programmatically focuses the hours input.   |
+| `focusMinutesInput()` | Programmatically focuses the minutes input. |

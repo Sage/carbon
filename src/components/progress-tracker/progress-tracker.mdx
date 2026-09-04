@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as ProgressTrackerStories from "./progress-tracker.stories";
@@ -23,7 +23,6 @@ In general, place a `ProgressTracker` in the centre and middle of the page or co
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Examples](#examples)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -33,53 +32,27 @@ In general, place a `ProgressTracker` in the centre and middle of the page or co
 import ProgressTracker from "carbon-react/lib/components/progress-tracker";
 ```
 
-## Examples
+## Playground
 
-### Default
+Use this interactive example to explore ProgressTracker props with Storybook controls.
 
-To use this component pass the `progress` prop to set a progress value as a percentage. 
+<Canvas of={ProgressTrackerStories.Playground} />
 
-By default, the component will display a label with the provided percentage progress out of 100%.
-
-<Canvas of={ProgressTrackerStories.Default} />
-
-### With Description
-
-Use the `description` prop to provide a description of the progress being tracked.
-
-<Canvas of={ProgressTrackerStories.WithDescription} />
-
-### Custom Label values
-
-To display custom progress values, pass the values as a string to the `currentProgressLabel` and `maxProgressLabel` props.
-
-To customize the "of" text, you can pass a custom string to the `customValuePreposition` prop or make use of the `progressTracker.of` translation key.
-
-<Canvas of={ProgressTrackerStories.CustomLabelValues} />
-
-### Custom Length
-
-By default, the length of the component is "256px". However, you can use the `length` prop to override this with any valid css string. 
-
-<Canvas of={ProgressTrackerStories.CustomLength} />
-
-### Labels Position
-
-To change the position of the label, pass the `labelsPosition` prop with a value of "top" (default), "bottom", or "left".
-
-<Canvas of={ProgressTrackerStories.LabelsPosition} />
-
-### Sizes
-
-Use the `size` prop to change the size of the component, available sizes are "small", "medium" (default) and "large".
-
-<Canvas of={ProgressTrackerStories.Sizes} />
-
-### Variants
-
-Use the `variant` prop to change the variant of the component, available variants are "neutral" (default), "warning", "information", "error" and "success".
-
-<Canvas of={ProgressTrackerStories.Variants} />
+<Controls
+  of={ProgressTrackerStories.Playground}
+  include={[
+    "progress",
+    "description",
+    "currentProgressLabel",
+    "maxProgressLabel",
+    "customValuePreposition",
+    "labelsPosition",
+    "labelWidth",
+    "length",
+    "size",
+    "variant",
+  ]}
+/>
 
 ## Props
 
