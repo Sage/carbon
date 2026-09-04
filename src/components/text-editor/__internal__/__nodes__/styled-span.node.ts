@@ -133,6 +133,21 @@ export class StyledSpanNode extends TextNode {
   }
 
   /**
+   * Whether this node uses the paragraph preset. Paragraph font size and line height
+   * are inherited from the editor so they can scale with its `size` prop, so they are
+   * deliberately not written as inline styles.
+   * @returns true when the node matches the paragraph preset
+   */
+  usesParagraphPreset(): boolean {
+    const { weight, size, lineHeight } = typographyMap.paragraph;
+    return (
+      this.__fontWeight === weight &&
+      this.__fontSize === size &&
+      this.__lineHeight === lineHeight
+    );
+  }
+
+  /**
    * Determine the typography key based on the current styles
    * @returns the variant of this styled span
    */
@@ -254,8 +269,10 @@ export class StyledSpanNode extends TextNode {
     const dom = super.createDOM(_config);
     const format = this.__format;
     dom.style.fontWeight = format & IS_BOLD ? "700" : this.__fontWeight;
-    dom.style.fontSize = this.__fontSize;
-    dom.style.lineHeight = this.__lineHeight;
+    if (!this.usesParagraphPreset()) {
+      dom.style.fontSize = this.__fontSize;
+      dom.style.lineHeight = this.__lineHeight;
+    }
     if (format & IS_ITALIC) {
       dom.style.fontStyle = "italic";
     }
@@ -278,12 +295,20 @@ export class StyledSpanNode extends TextNode {
       dom.style.fontWeight = nextEffectiveWeight;
       updated = true;
     }
-    if (this.__fontSize !== prevNode.__fontSize) {
-      dom.style.fontSize = this.__fontSize;
+    const isParagraph = this.usesParagraphPreset();
+
+    if (
+      this.__fontSize !== prevNode.__fontSize ||
+      isParagraph !== prevNode.usesParagraphPreset()
+    ) {
+      dom.style.fontSize = isParagraph ? "" : this.__fontSize;
       updated = true;
     }
-    if (this.__lineHeight !== prevNode.__lineHeight) {
-      dom.style.lineHeight = this.__lineHeight;
+    if (
+      this.__lineHeight !== prevNode.__lineHeight ||
+      isParagraph !== prevNode.usesParagraphPreset()
+    ) {
+      dom.style.lineHeight = isParagraph ? "" : this.__lineHeight;
       updated = true;
     }
 
