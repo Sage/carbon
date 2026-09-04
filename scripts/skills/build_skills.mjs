@@ -29,6 +29,7 @@ import { loadComponentMetadata } from "./component-metadata.mjs";
  * @property {string | null} description
  * @property {string | null} defaultValue
  * @property {boolean} deprecated
+ * @property {Array<string | number | boolean>} deprecatedValues
  * @property {string | null} deprecationReason
  */
 
@@ -68,6 +69,7 @@ const repoRoot = path.resolve(__dirname, "../..");
 const packageName = "carbon-react";
 
 const checkMode = process.argv.includes("--check");
+const metadataStatusMode = process.argv.includes("--metadata-status");
 const buildOutputFolder = "lib";
 const indexFilePath = path.join(repoRoot, "src", "index.ts");
 const skillsRoot = path.join(repoRoot, "skills", "carbon-react");
@@ -263,6 +265,33 @@ validateMetadataReferences(
   storyDataByComponent,
 );
 
+if (metadataStatusMode) {
+  const activeComponents = componentData.filter(
+    ({ deprecated }) => !deprecated,
+  );
+  const reviewed = activeComponents
+    .filter(({ name }) => componentMetadata.has(name))
+    .map(({ name }) => name)
+    .sort();
+  const pending = activeComponents
+    .filter(({ name }) => !componentMetadata.has(name))
+    .map(({ name }) => name)
+    .sort();
+  const deprecated = componentData
+    .filter(
+      ({ name, deprecated }) => deprecated && !componentMetadata.has(name),
+    )
+    .map(({ name }) => name)
+    .sort();
+  await new Promise((resolve) =>
+    process.stdout.write(
+      `Active components with authored metadata: ${reviewed.length}/${activeComponents.length}\n${reviewed.join("\n")}\n\nPending active review: ${pending.length}/${activeComponents.length}\n${pending.join("\n")}\n\nDeprecated without authored metadata (not required): ${deprecated.length}\n${deprecated.join("\n")}\n`,
+      () => resolve(undefined),
+    ),
+  );
+  process.exit(0);
+}
+
 /** @type {Array<{path: string, content: string}>} */
 const wouldWrite = [];
 
@@ -334,7 +363,7 @@ for (const component of componentData.sort((a, b) =>
         );
         wouldWrite.push({
           path: examplePath,
-          content: renderExampleMarkdown(component, story, example.description),
+          content: renderExampleMarkdown(component, story),
         });
         return {
           title: story.name,
@@ -705,6 +734,11 @@ function extractPropsFromDefinition(propsDefinition, defaultsMap) {
       )
         .replace(/\s+/g, " ")
         .trim();
+      const deprecatedValues = extractDeprecatedLiteralValues(
+        deprecationInfo.reason,
+        literals,
+        typeText,
+      );
 
       return {
         name: symbol.getName(),
@@ -713,10 +747,41 @@ function extractPropsFromDefinition(propsDefinition, defaultsMap) {
         literals,
         description: description || null,
         defaultValue: defaultsMap.get(symbol.getName()) ?? null,
-        deprecated: deprecationInfo.deprecated,
+        deprecated: deprecationInfo.deprecated && !deprecatedValues.length,
+        deprecatedValues,
         deprecationReason: deprecationInfo.reason,
       };
     });
+}
+
+/**
+ * Some existing JSDoc uses @deprecated on a prop to describe one deprecated
+ * literal rather than the whole prop. Preserve that distinction in the skill.
+ *
+ * @param {string | null} reason
+ * @param {Array<string | number | boolean> | null} literals
+ * @param {string} typeText
+ * @returns {Array<string | number | boolean>}
+ */
+function extractDeprecatedLiteralValues(reason, literals, typeText) {
+  if (!reason) return [];
+  const deprecatedClause = reason.match(
+    /^(.*?)(?:\bis\s+deprecated\b|\bare\s+deprecated\b)/i,
+  )?.[1];
+  if (!deprecatedClause) return [];
+  const mentionedValues = [...deprecatedClause.matchAll(/`([^`]+)`/g)].map(
+    (match) => match[1],
+  );
+  const candidates = literals?.length ? literals : mentionedValues;
+  return candidates.filter((literal) => {
+    if (!deprecatedClause.includes(`\`${String(literal)}\``)) return false;
+    const value = String(literal);
+    return (
+      typeText.includes(`"${value}"`) ||
+      typeText.includes(`'${value}'`) ||
+      typeText.split(/\s*\|\s*/).includes(value)
+    );
+  });
 }
 
 /**
@@ -1410,10 +1475,29 @@ function extractMdxExamples(content) {
  * @returns {string}
  */
 function renderSkillRootContent() {
+  const docsByUse = new Map([
+    ["installation.md", "when installing or configuring Carbon React"],
+    ["usage.md", "for package setup and basic usage"],
+    ["recommended-practices.md", "for project-wide Carbon conventions"],
+    ["usage-with-routing.md", "when Carbon links integrate with routing"],
+    [
+      "extending-styles-using-styled-components.md",
+      "when extending component styles",
+    ],
+    ["colors.md", "when choosing Carbon colours or tokens"],
+    ["i18n.md", "when translating component-provided text"],
+    [
+      "deprecation-migration.md",
+      "when a selected component or prop is deprecated",
+    ],
+  ]);
   const docsList = docsReferenceTargets
-    .map((fileName) => `- \`${fileName}\``)
+    .map(
+      (fileName) =>
+        `- Open \`${fileName}\` ${docsByUse.get(path.basename(fileName)) ?? "when its topic applies"}.`,
+    )
     .join("\n");
-  return `---\nname: carbon-react\ndescription: Carbon component selection guidance, typed props, curated usage examples, and documentation references. Use when choosing or implementing Carbon React components, checking props or deprecations, and applying Carbon-specific usage guidance.\n---\n\n# Carbon Component Catalog\n\nStart with \`index.md\` to select a component. Read only the relevant file in \`components/\`, then open linked files in \`examples/\` as needed. Do not load every component or example.\n\nComponent files combine human-authored selection guidance with imports, props, defaults, and deprecations derived from source code. Curated examples are derived from Storybook stories; playground stories remain optimized for interactive documentation and are not included unless explicitly selected.\n\nUse these docs references:\n${docsList}\nDeprecated components are marked in \`index.md\` and in each component file.\n`;
+  return `---\nname: carbon-react\ndescription: Use for Carbon React component selection and implementation, including imports, props, defaults, deprecations, examples, and Carbon-specific guidance.\n---\n\n# Carbon Component Catalog\n\nOpen \`index.md\` to select a component, then load that component's file. Open only the linked examples needed for the task.\n\nComponent files combine authored selection guidance with source-derived imports, props, defaults, and deprecations. Components with curated examples link to selected Storybook stories and omit their playground; other components retain their generated Storybook examples.\n\n${docsList}\n\nBefore finishing, confirm that imports and props match the component file and that deprecated APIs are either avoided or handled using the migration guidance.\n`;
 }
 
 /**
@@ -1659,11 +1743,11 @@ function renderComponentMarkdown(
 
   if (metadata) {
     lines.push(metadata.summary, "");
-    renderTextList(lines, "When to use", metadata.useWhen);
+    renderTextList(lines, "When to use", metadata.useWhen ?? []);
     renderTextList(lines, "When not to use", metadata.avoidWhen ?? []);
 
     if (metadata.alternatives?.length) {
-      lines.push("## Alternatives", "");
+      lines.push("## Choose instead", "");
       for (const alternative of metadata.alternatives) {
         lines.push(`- **${alternative.component}:** ${alternative.when}`);
       }
@@ -1701,7 +1785,9 @@ function renderComponentMarkdown(
     lines.push("No props metadata found.");
   } else {
     const sortedProps = [...component.props].sort((a, b) => {
-      if (a.deprecated !== b.deprecated) return a.deprecated ? 1 : -1;
+      const aDeprecated = a.deprecated || a.deprecatedValues.length > 0;
+      const bDeprecated = b.deprecated || b.deprecatedValues.length > 0;
+      if (aDeprecated !== bDeprecated) return aDeprecated ? 1 : -1;
       if (a.required !== b.required) return a.required ? -1 : 1;
       const aData = a.name.startsWith("data-");
       const bData = b.name.startsWith("data-");
@@ -1716,7 +1802,9 @@ function renderComponentMarkdown(
       if (ga !== gb) return ga - gb;
       return a.name.localeCompare(b.name);
     });
-    const hasDeprecatedProps = sortedProps.some((prop) => prop.deprecated);
+    const hasDeprecatedProps = sortedProps.some(
+      (prop) => prop.deprecated || prop.deprecatedValues.length > 0,
+    );
     if (hasDeprecatedProps) {
       lines.push(
         "| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |",
@@ -1733,7 +1821,11 @@ function renderComponentMarkdown(
       const description = prop.description?.replace(/\s+/g, " ") ?? "";
       const defaultValue = (prop.defaultValue ?? "").replace(/\r/g, "");
       if (hasDeprecatedProps) {
-        const deprecated = prop.deprecated ? "Yes" : "";
+        const deprecated = prop.deprecated
+          ? "Yes"
+          : prop.deprecatedValues.length
+            ? `Values: ${prop.deprecatedValues.map((value) => JSON.stringify(value)).join(", ")}`
+            : "";
         const deprecationReason = (prop.deprecationReason ?? "")
           .replace(/\s+/g, " ")
           .trim();
@@ -1815,10 +1907,9 @@ function renderTextList(lines, heading, items) {
  *
  * @param {ComponentData} component
  * @param {StoryEntry} story
- * @param {string} description
  * @returns {string}
  */
-function renderExampleMarkdown(component, story, description) {
+function renderExampleMarkdown(component, story) {
   if (!story.renderText) {
     throw new Error(
       `Curated story ${component.name}.${story.exportName} has no render function`,
@@ -1845,7 +1936,7 @@ function renderExampleMarkdown(component, story, description) {
     .filter(Boolean)
     .join("\n\n");
 
-  return `# ${component.name}: ${story.name}\n\n${description}\n\nSource story: \`${story.source ?? "unknown"}#${story.exportName}\`\n\n\`\`\`tsx\n${code}\n\`\`\`\n`;
+  return `# ${component.name}: ${story.name}\n\nSource story: \`${story.source ?? "unknown"}#${story.exportName}\`\n\n\`\`\`tsx\n${code}\n\`\`\`\n`;
 }
 
 /**
@@ -1858,17 +1949,22 @@ function renderExampleMarkdown(component, story, description) {
 function normalizeCodeIndentation(code) {
   const lines = code.split("\n");
   const indents = lines
-    .slice(1)
+    .slice(1, -1)
     .filter((line) => line.trim())
     .map((line) => line.match(/^\s*/)?.[0].length ?? 0)
     .filter((indent) => indent > 0);
-  const indentation = indents.length ? Math.min(...indents) : 0;
+  const indentation = indents.length
+    ? Math.max(0, Math.min(...indents) - 2)
+    : 0;
   if (!indentation) return code;
+  const prefix = " ".repeat(indentation);
   return [
     lines[0],
     ...lines
       .slice(1)
-      .map((line) => line.slice(Math.min(indentation, line.length))),
+      .map((line) =>
+        line.startsWith(prefix) ? line.slice(indentation) : line,
+      ),
   ].join("\n");
 }
 
@@ -1918,6 +2014,15 @@ function validateMetadataReferences(
   storiesByComponent,
 ) {
   const componentNames = new Set(components.map(({ name }) => name));
+  const componentsByName = new Map(
+    components.map((component) => [component.name, component]),
+  );
+  const deprecatedImports = components
+    .filter(({ deprecated }) => deprecated)
+    .map(({ name, moduleSpecifier }) => ({
+      name,
+      importPath: `${packageName}/${buildOutputFolder}/${moduleSpecifier.replace("./", "")}`,
+    }));
 
   for (const metadata of metadataByComponent.values()) {
     if (!componentNames.has(metadata.component)) {
@@ -1926,15 +2031,32 @@ function validateMetadataReferences(
       );
     }
     for (const alternative of metadata.alternatives ?? []) {
-      if (!componentNames.has(alternative.component)) {
+      if (alternative.component === metadata.component) {
+        throw new Error(
+          `Component metadata for ${metadata.component} recommends itself as an alternative`,
+        );
+      }
+      const alternativeComponent = componentsByName.get(alternative.component);
+      if (!alternativeComponent) {
         throw new Error(
           `Component metadata for ${metadata.component} references unknown alternative ${alternative.component}`,
+        );
+      }
+      if (alternativeComponent.deprecated) {
+        throw new Error(
+          `Component metadata for ${metadata.component} recommends deprecated alternative ${alternative.component}`,
         );
       }
     }
 
     const stories = storiesByComponent.get(metadata.component) ?? [];
+    const component = componentsByName.get(metadata.component);
     for (const example of metadata.examples ?? []) {
+      if (/playground/i.test(example.story)) {
+        throw new Error(
+          `Component metadata for ${metadata.component} must not curate playground story ${example.story}`,
+        );
+      }
       const story = stories.find(
         (candidate) => candidate.exportName === example.story,
       );
@@ -1948,8 +2070,56 @@ function validateMetadataReferences(
           `Curated story ${metadata.component}.${example.story} has no render function`,
         );
       }
+      const imports = rewriteExampleImports(story.importsText, story.source);
+      if (/from\s+["']\./.test(imports)) {
+        throw new Error(
+          `Curated story ${metadata.component}.${example.story} contains a relative import that cannot be used by a consumer`,
+        );
+      }
+      const deprecatedDependency = deprecatedImports.find(({ importPath }) =>
+        new RegExp(
+          `from\\s+["']${importPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`,
+        ).test(imports),
+      );
+      if (deprecatedDependency) {
+        throw new Error(
+          `Curated story ${metadata.component}.${example.story} imports deprecated component ${deprecatedDependency.name}`,
+        );
+      }
+      const storyCode = [story.argsText, story.renderText]
+        .filter(Boolean)
+        .join("\n");
+      const deprecatedProp = component?.props.find((prop) =>
+        storyUsesDeprecatedProp(storyCode, prop),
+      );
+      if (deprecatedProp) {
+        throw new Error(
+          `Curated story ${metadata.component}.${example.story} uses deprecated prop ${deprecatedProp.name}`,
+        );
+      }
     }
   }
+}
+
+/**
+ * @param {string} code
+ * @param {PropInfo} prop
+ */
+function storyUsesDeprecatedProp(code, prop) {
+  const propName = prop.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (prop.deprecated) {
+    return new RegExp(`\\b${propName}\\s*(?:=|:)`).test(code);
+  }
+  return prop.deprecatedValues.some((value) => {
+    const escapedValue = String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const literal =
+      typeof value === "string"
+        ? `["']${escapedValue}["']`
+        : `\\b${escapedValue}\\b`;
+    return new RegExp(
+      `\\b${propName}\\s*(?:=|:)\\s*(?:\\{\\s*)?${literal}(?:\\s*\\})?`,
+    ).test(code);
+  });
 }
 
 /**

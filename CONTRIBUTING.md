@@ -27,15 +27,24 @@ More details about how we test can be found in our [Testing Guide](contributing/
 
 ## Keeping skills up to date
 
-Updating skills is a required part of the contribution process. When making changes that affect a component's API, props, behaviour, usage patterns or documentation the corresponding skill file(s) in `skills/` **must** be updated to reflect those changes.
-
-Failure to keep skills in sync with the codebase will result in a **lint failure**, blocking your pull request from being merged.
-
-When updating a component, update its skills file alongside your code changes in the same pull request. In many cases, running the build command will automatically generate the required skill changes for you:
+Files in `skills/carbon-react/` are generated and must not be edited directly. When making changes that affect a component's API, props, behaviour, usage patterns or documentation, regenerate them with:
 
 ```shell
 npm run build:skills
 ```
+
+To add authored component guidance or curate Storybook examples for agent use, follow the [component skill metadata guide](docs/component-metadata/README.md). Add only information that changes an agent's decisions; source-derived API details remain owned by the component code.
+
+Copilot users can ask the agent to use the `curate-carbon-component` skill for this workflow.
+
+Before raising a pull request, run:
+
+```shell
+npm run test:skills
+npm run build:skills -- --check
+```
+
+CI runs both commands and fails if metadata is invalid or generated files have drifted.
 
 ## Bugs
 

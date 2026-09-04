@@ -1,7 +1,5 @@
 # Pill: Inverse on Dark Background
 
-Use inverse styling when pills appear on a dark surface.
-
 Source story: `src/components/pill/pill.stories.tsx#InverseOnDarkBackground`
 
 ```tsx

@@ -1,22 +1,15 @@
 {
   "component": "Pill",
   "summary": "A compact visual indicator used to label, categorise, or show the status of an item.",
-  "useWhen": [
-    "Showing a short category, attribute, or status label.",
-    "Representing a selection that the user may remove."
-  ],
-  "avoidWhen": [
-    "The element's primary purpose is to perform an action; use a Button instead.",
-    "Showing a numeric count; use Badge when a count is the important information."
-  ],
+  "useWhen": ["Representing a selection that the user may remove."],
   "alternatives": [
     {
       "component": "Badge",
       "when": "Showing a compact numeric count."
     },
     {
-      "component": "Button",
-      "when": "The user needs to trigger an action rather than inspect or remove a label."
+      "component": "ButtonNext",
+      "when": "Use for actions rather than labels or removable selections."
     }
   ],
   "pitfalls": [
