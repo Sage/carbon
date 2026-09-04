@@ -14,7 +14,7 @@ jobs:
       branch_name: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
     steps:
       - id: get_pull
-        uses: octokit/request-action@v2.x
+        uses: octokit/request-action@v3.x
         with:
           route: GET /repos/{owner}/{repo}/pulls/{pull_number}
           owner: ${{ github.event.repository.owner.login }}
