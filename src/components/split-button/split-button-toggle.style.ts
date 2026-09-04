@@ -2,10 +2,10 @@ import styled, { css } from "styled-components";
 import { StyledButton } from "../button/__next__/button.style";
 import StyledIcon from "../icon/icon.style";
 
-const horizontalPaddingSizes = {
-  small: "var(--global-space-comp-xs)",
-  medium: "var(--global-space-comp-m)",
-  large: "var(--global-space-comp-l)",
+const buttonDimensions = {
+  small: "var(--global-size-s)",
+  medium: "var(--global-size-m)",
+  large: "var(--global-size-l)",
 };
 
 type StyledSplitButtonToggleProps = {
@@ -44,15 +44,17 @@ const StyledSplitButtonToggle = styled(
     position: relative;
     &::before {
       content: "";
-      width: 2px;
-      height: 100%;
+      width: var(--global-size-6-xs);
+      height: calc(100% + var(--global-size-5-xs));
       background: var(--button-typical-primary-label-default);
       position: absolute;
       left: -2px;
       z-index: 2;
     }
 
-    padding: var(--global-space-none) ${horizontalPaddingSizes[$size]};
+    width: ${buttonDimensions[$size]};
+    min-height: ${buttonDimensions[$size]};
+    padding: var(--global-space-none);
   `}
 `;
 
