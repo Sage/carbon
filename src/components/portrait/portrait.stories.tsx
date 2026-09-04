@@ -294,7 +294,7 @@ export const Variants: Story = () => {
           value={variant}
         >
           {availableVariants.map(({ label, value }) => (
-            <Option text={label} value={value} />
+            <Option key={value} text={label} value={value} />
           ))}
         </Select>
       </Box>

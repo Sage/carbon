@@ -379,7 +379,7 @@ MenuFullScreenKeysTest.storyName = "Menu Fullscreen with dynamic submenus";
 export const MenuWithSubmenuCustomPadding = () => (
   <>
     {[0, "5px", 1, 2, "17px", 3, 4, 5, 6, 7, 8].map((padding) => (
-      <Menu>
+      <Menu key={`menu-padding-${padding}`}>
         <MenuItem px={padding} href="#">
           Item One
         </MenuItem>
