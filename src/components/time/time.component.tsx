@@ -14,11 +14,16 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
-import Fieldset from "../../__internal__/fieldset";
+import Fieldset from "../../__internal__/fieldset/__next__/fieldset.component";
 import Box from "../box";
-import Number from "../number";
-import Typography from "../typography";
-import StyledLabel from "./time.style";
+import Textbox from "../textbox";
+import Label from "../../__internal__/label";
+import StyledColon, {
+  StyledTimeLayout,
+  StyledTimeInputs,
+  StyledTimeInputField,
+  StyledColonWrapper,
+} from "./time.style";
 import { TimeToggle, ToggleDataProps } from "./__internal__/time-toggle";
 import FieldsetValidationContext from "../../__internal__/fieldset-validation-context";
 
@@ -41,24 +46,28 @@ export interface TimeInputEvent {
 }
 
 interface TimeInputProps extends TagProps, Omit<ValidationProps, "info"> {
-  /** Set an id value on the input */
+  /** Set an id value on the input element */
   id?: string;
-  /** Override the default label text */
+  /** Override the default label text on the input */
   label?: string;
-  /** Override the default aria-label text */
+  /** Override the default aria-label text on the input */
   "aria-label"?: string;
 }
 
 export interface TimeProps extends TagProps, MarginProps {
-  /** Label text for the component */
+  /** Legend text for the component */
+  legend?: string;
+  /** Additional hint text rendered below the legend */
+  legendHint?: string;
+  /** @deprecated Use `legend` instead. Label text for the component */
   label?: string;
-  /** Label alignment */
+  /** @deprecated Alignment is no longer supported and this prop will be removed */
   labelAlign?: "left" | "right";
-  /** Field labels alignment */
+  /** @deprecated Alignment is no longer supported and this prop will be removed */
   fieldLabelsAlign?: "left" | "right";
   /** Sets the size of the inputs */
   size?: Sizes;
-  /** Additional hint text rendered above the input elements */
+  /** @deprecated Use `legendHint` instead. Additional hint text rendered below the legend */
   inputHint?: string;
   /**
    * Set custom `data-` and `id` attributes on the input element.
@@ -100,17 +109,17 @@ export type TimeHandle = {
 } | null;
 
 const SIZES = {
-  small: "48px",
-  medium: "56px",
-  large: "64px",
+  small: "var(--global-size-l)",
+  medium: "var(--global-size-xl)",
+  large: "var(--global-size-2-xl)",
 };
 
 const Time = React.forwardRef<TimeHandle, TimeProps>(
   (
     {
+      legend,
+      legendHint,
       label,
-      labelAlign,
-      fieldLabelsAlign,
       size = "medium",
       inputHint,
       hoursInputProps = {},
@@ -131,14 +140,14 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     const {
       id: hoursInputId,
       label: hoursLabel,
-      "aria-label": hoursAriaLabel,
+      "aria-label": hoursInputAriaLabel,
       error: hoursError,
       warning: hoursWarning,
     } = hoursInputProps;
     const {
       id: minutesInputId,
       label: minutesLabel,
-      "aria-label": minutesAriaLabel,
+      "aria-label": minutesInputAriaLabel,
       error: minutesError,
       warning: minutesWarning,
     } = minutesInputProps;
@@ -168,9 +177,10 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     const [period, setPeriod] = useState(toggleValue);
     const hrsLabel = hoursLabel || locale.time.hoursLabelText();
     const minsLabel = minutesLabel || locale.time.minutesLabelText();
-    const hrsAriaLabel = hoursAriaLabel || locale.time.hoursAriaLabelText();
+    const hrsAriaLabel =
+      hoursInputAriaLabel || locale.time.hoursAriaLabelText();
     const minsAriaLabel =
-      minutesAriaLabel || locale.time.minutesAriaLabelText();
+      minutesInputAriaLabel || locale.time.minutesAriaLabelText();
     const hoursRef = useRef<HTMLInputElement>(null);
     const minsRef = useRef<HTMLInputElement>(null);
 
@@ -202,11 +212,11 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     const computedValidations = (
       hrs?: string | boolean,
       mins?: string | boolean,
-    ) => {
+    ): string | undefined => {
       const hoursIsString = typeof hrs === "string";
       const minutesIsString = typeof mins === "string";
       if (!hoursIsString && !minutesIsString) {
-        return hrs || mins;
+        return undefined;
       }
 
       if (hoursIsString && !minutesIsString) {
@@ -240,8 +250,9 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       ev: React.ChangeEvent<HTMLInputElement>,
       inputName: "hrs" | "mins",
     ) => {
-      const hours = inputName === "hrs" ? ev.target.value : inputValues[0];
-      const minutes = inputName === "mins" ? ev.target.value : inputValues[1];
+      const rawValue = ev.target.value.replace(/[^0-9]/g, "");
+      const hours = inputName === "hrs" ? rawValue : inputValues[0];
+      const minutes = inputName === "mins" ? rawValue : inputValues[1];
       setInputValues([hours, minutes]);
 
       const formattedHours = hours.length ? hours.padStart(2, "0") : hours;
@@ -304,14 +315,13 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
 
     return (
       <Fieldset
-        applyNewValidation
         id={internalId.current}
-        legend={label}
-        inputHint={inputHint}
-        width="min-content"
-        legendAlign={labelAlign}
+        legend={legend || label}
+        legendHint={legendHint || inputHint}
+        size={size}
         isRequired={required}
         isDisabled={disabled}
+        isReadOnly={readOnly}
         name={name}
         error={error}
         warning={warning}
@@ -323,75 +333,92 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         <FieldsetValidationContext.Provider
           value={{ disableErrorBorder: true }}
         >
-          <Box display="flex" className="time">
-            <div>
-              <StyledLabel
-                aria-label={hrsAriaLabel}
-                htmlFor={internalHrsId.current}
-                disabled={disabled}
-                align={fieldLabelsAlign}
-              >
-                {hrsLabel}
-              </StyledLabel>
-              <Number
-                {...hoursInputProps}
-                label={undefined}
-                data-component="hours"
-                ref={hoursRef}
-                value={hourValue}
-                onChange={(ev) => handleChange(ev, "hrs")}
-                onBlur={handleBlur}
-                id={internalHrsId.current}
-                size={size}
-                error={!!hoursError}
-                warning={!!hoursWarning}
-                disabled={disabled}
-                readOnly={readOnly}
-                maxWidth={SIZES[size]}
-                my={0} // prevents any form spacing being applied
-              />
-            </div>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              mx={1}
-              aria-hidden="true"
-            >
-              <span>&nbsp;</span>
-              <Typography isDisabled={disabled} variant="span" mb="-4px">
-                :
-              </Typography>
-            </Box>
-            <div>
-              <StyledLabel
-                aria-label={minsAriaLabel}
-                htmlFor={internalMinsId.current}
-                disabled={disabled}
-                align={fieldLabelsAlign}
-              >
-                {minsLabel}
-              </StyledLabel>
-              <Number
-                {...minutesInputProps}
-                label={undefined}
-                data-component="minutes"
-                ref={minsRef}
-                value={minuteValue}
-                onChange={(ev) => handleChange(ev, "mins")}
-                onBlur={handleBlur}
-                id={internalMinsId.current}
-                size={size}
-                error={!!minutesError}
-                warning={!!minutesWarning}
-                disabled={disabled}
-                readOnly={readOnly}
-                maxWidth={SIZES[size]}
-                my={0} // prevents any form spacing being applied
-              />
-            </div>
+          <StyledTimeLayout className="time" $hasToggle={showToggle}>
+            <StyledTimeInputs>
+              <StyledTimeInputField $size={size}>
+                <Label
+                  htmlFor={internalHrsId.current}
+                  size={size}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                >
+                  {hrsLabel}
+                </Label>
+                <Textbox
+                  {...hoursInputProps}
+                  label={undefined}
+                  data-component="hours"
+                  ref={hoursRef}
+                  value={hourValue}
+                  onChange={(ev) => handleChange(ev, "hrs")}
+                  onBlur={handleBlur}
+                  id={internalHrsId.current}
+                  size={size}
+                  error={!!hoursError}
+                  warning={!!hoursWarning}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                  required={required}
+                  maxWidth={SIZES[size]}
+                  my={0} // prevents any form spacing being applied
+                  inputMode="numeric"
+                  aria-label={hrsAriaLabel}
+                />
+              </StyledTimeInputField>
+              <StyledColonWrapper $size={size} aria-hidden="true">
+                <Label
+                  size={size}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                  data-role="time-colon-spacer"
+                >
+                  &nbsp;
+                </Label>
+                <div data-role="time-colon-input-row">
+                  <StyledColon
+                    data-role="time-colon"
+                    $size={size}
+                    $isDisabled={disabled}
+                    $isReadOnly={readOnly}
+                  >
+                    :
+                  </StyledColon>
+                </div>
+              </StyledColonWrapper>
+              <StyledTimeInputField $size={size}>
+                <Label
+                  htmlFor={internalMinsId.current}
+                  size={size}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                >
+                  {minsLabel}
+                </Label>
+                <Textbox
+                  {...minutesInputProps}
+                  label={undefined}
+                  data-component="minutes"
+                  ref={minsRef}
+                  value={minuteValue}
+                  onChange={(ev) => handleChange(ev, "mins")}
+                  onBlur={handleBlur}
+                  id={internalMinsId.current}
+                  size={size}
+                  error={!!minutesError}
+                  warning={!!minutesWarning}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                  required={required}
+                  maxWidth={SIZES[size]}
+                  my={0} // prevents any form spacing being applied
+                  inputMode="numeric"
+                  aria-label={minsAriaLabel}
+                />
+              </StyledTimeInputField>
+            </StyledTimeInputs>
             {showToggle && (
               <Box
+                data-role="time-toggle-wrapper"
                 display="flex"
                 flexDirection="column"
                 justifyContent="flex-end"
@@ -406,7 +433,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 />
               </Box>
             )}
-          </Box>
+          </StyledTimeLayout>
         </FieldsetValidationContext.Provider>
       </Fieldset>
     );
