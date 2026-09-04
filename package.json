@@ -22,6 +22,7 @@
     "build-storybook:prod": "npm run generate-tokens && dotenvx run -f .env.production -- storybook build -c .storybook",
     "start:static": "npx http-server -p 9001 ./storybook-static",
     "clean-lib": "rimraf ./lib && rimraf ./esm",
+    "check-release-age": "node ./scripts/check-release-age.mjs",
     "commit": "node ./scripts/commit/commit.mjs",
     "generate-metadata": "node ./scripts/generate_metadata/index.mjs",
     "type-check": "tsc --noEmit",
