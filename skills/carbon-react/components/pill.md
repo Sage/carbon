@@ -9,18 +9,12 @@ A compact visual indicator used to label, categorise, or show the status of an i
 
 ## When to use
 
-- Showing a short category, attribute, or status label.
 - Representing a selection that the user may remove.
 
-## When not to use
-
-- The element's primary purpose is to perform an action; use a Button instead.
-- Showing a numeric count; use Badge when a count is the important information.
-
-## Alternatives
+## Choose instead
 
 - **Badge:** Showing a compact numeric count.
-- **Button:** The user needs to trigger an action rather than inspect or remove a label.
+- **ButtonNext:** Use for actions rather than labels or removable selections.
 
 ## Pitfalls
 
@@ -68,7 +62,7 @@ A compact visual indicator used to label, categorise, or show the status of an i
 | colorVariant | "warning" \| "neutral" \| "negative" \| "positive" \| "information" \| "neutralWhite" \| undefined | No |  | Yes | Use `variant` prop instead. | Determines the colour variant of the pill. |  |
 | isDarkBackground | boolean \| undefined | No |  | Yes | Use `inverse` prop instead. | Apply inverse styling for use on dark backgrounds. | false |
 | pillRole | "tag" \| "status" \| undefined | No |  | Yes | The pillRole prop is no longer used. Pill styling is determined by the `variant`, `fill`, and `inverse` props. | Sets the type of pill in use. |  |
-| size | "S" \| "M" \| "L" \| "XL" \| undefined | No |  | Yes | The `XL` size is deprecated and will be removed in a future release. Use `L` instead. | Sets the size of the pill. | "M" |
+| size | "S" \| "M" \| "L" \| "XL" \| undefined | No |  | Values: "XL" | The `XL` size is deprecated and will be removed in a future release. Use `L` instead. | Sets the size of the pill. | "M" |
 
 ## Examples
 Load only the example needed for the current task; playground stories are intentionally omitted.
