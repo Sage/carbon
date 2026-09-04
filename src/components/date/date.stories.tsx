@@ -209,7 +209,7 @@ DisabledDatesInCalendar.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
-export const DisabledYearAndMonthSelectors: Story = () => {
+export const DisabledDatesOutsideMinMaxRange: Story = () => {
   return (
     <Box
       display="flex"
@@ -217,22 +217,23 @@ export const DisabledYearAndMonthSelectors: Story = () => {
       gap="var(--global-space-layout-xs)"
     >
       <Typography variant="p">
-        The year and month selectors disable automatically when minDate and
-        maxDate narrow the selectable range: only June 2024 is selectable below,
-        so the year selector is disabled (only one year available) and every
-        month except June is disabled.
+        Days outside the minDate/maxDate range are disabled in the calendar
+        below: only dates from 10th to 20th June 2024 are selectable. The year
+        and month selectors themselves remain enabled so users can still
+        navigate to, and view, months outside the selectable range.
       </Typography>
       <PairedDateInputs
         initialValue="15/06/2024"
-        labelDetail="only June 2024 selectable"
-        minDate="2024-06-01"
-        maxDate="2024-06-30"
+        labelDetail="only 10th-20th June 2024 selectable"
+        minDate="2024-06-10"
+        maxDate="2024-06-20"
       />
     </Box>
   );
 };
-DisabledYearAndMonthSelectors.storyName = "Disabled Year and Month Selectors";
-DisabledYearAndMonthSelectors.parameters = {
+DisabledDatesOutsideMinMaxRange.storyName =
+  "Disabled Dates Outside Min/Max Range";
+DisabledDatesOutsideMinMaxRange.parameters = {
   chromatic: { disableSnapshot: false },
 };
 

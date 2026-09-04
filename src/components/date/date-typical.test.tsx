@@ -421,7 +421,7 @@ test("should cycle focus inside picker for tab and shift-tab in single mode", as
   expect(todayButton).toHaveFocus();
 });
 
-test("should skip a disabled year selector when cycling focus", async () => {
+test("should keep the year selector enabled and in the focus cycle when minDate/maxDate narrow the range to a single year", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <TypicalDateInput
@@ -450,15 +450,18 @@ test("should skip a disabled year selector when cycling focus", async () => {
     name: "Choose the year",
   });
 
-  expect(yearSelector).toBeDisabled();
+  expect(monthSelector).toBeEnabled();
+  expect(yearSelector).toBeEnabled();
   await user.tab();
   expect(closeButton).toHaveFocus();
   await user.tab();
   expect(monthSelector).toHaveFocus();
   await user.tab();
+  expect(yearSelector).toHaveFocus();
+  await user.tab();
   expect(selectedDay).toHaveFocus();
   await user.tab({ shift: true });
-  expect(monthSelector).toHaveFocus();
+  expect(yearSelector).toHaveFocus();
 });
 
 test("should clear pending selector navigation when shift-tabbing away", async () => {

@@ -8,7 +8,7 @@ import {
   parseSelectInteger,
 } from "../date-picker/date-picker.utils";
 
-const DEFAULT_YEAR_RANGE_OFFSET = 100;
+const DEFAULT_YEAR_RANGE_OFFSET = 10;
 
 interface UseDatePickerMonthYearSelectionProps {
   minDate?: string;
@@ -74,8 +74,6 @@ const useDatePickerMonthYearSelection = ({
       displayedMonth,
       month,
       year,
-      minMonth,
-      maxMonth,
     });
     setFocusedMonth(transition.date);
     return transition;
@@ -103,8 +101,6 @@ const useDatePickerMonthYearSelection = ({
 
   return {
     displayedMonth,
-    minMonth,
-    maxMonth,
     years,
     handleMonthChange,
     handleYearChange,

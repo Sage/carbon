@@ -96,21 +96,15 @@ export const DatePicker = ({
     yearSelectId,
     onEscape: handleEscape,
   });
-  const {
-    displayedMonth,
-    minMonth,
-    maxMonth,
-    years,
-    handleMonthChange,
-    handleYearChange,
-  } = useDatePickerMonthYearSelection({
-    minDate,
-    maxDate,
-    dayPickerProps,
-    focusedMonth,
-    setFocusedMonth,
-    markSelectorChanged,
-  });
+  const { displayedMonth, years, handleMonthChange, handleYearChange } =
+    useDatePickerMonthYearSelection({
+      minDate,
+      maxDate,
+      dayPickerProps,
+      focusedMonth,
+      setFocusedMonth,
+      markSelectorChanged,
+    });
   useDatePickerMonthSync({
     open,
     selectedDate,
@@ -163,8 +157,6 @@ export const DatePicker = ({
         )}
         <CalendarNavigation
           displayedMonth={displayedMonth}
-          minMonth={minMonth}
-          maxMonth={maxMonth}
           monthSelectId={monthSelectId}
           yearSelectId={yearSelectId}
           years={years}

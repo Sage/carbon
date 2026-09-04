@@ -51,8 +51,16 @@ export const buildYearRange = ({
     Math.max(boundedAnchor, includedYear - offset),
     includedYear + offset,
   );
-  const firstYear = minMonth?.getFullYear() ?? rangeAnchor - offset;
-  const lastYear = maxMonth?.getFullYear() ?? rangeAnchor + offset;
+  // The offset is always added as a navigable buffer beyond a bound, so
+  // users can still browse years outside a narrow minDate/maxDate range
+  // (mirroring the always-enabled month selector). Without a bound on a
+  // side, that side falls back to a stable window around the anchor.
+  const firstYear = minMonth
+    ? minMonth.getFullYear() - offset
+    : rangeAnchor - offset;
+  const lastYear = maxMonth
+    ? maxMonth.getFullYear() + offset
+    : rangeAnchor + offset;
 
   return Array.from(
     { length: lastYear - firstYear + 1 },
@@ -60,55 +68,21 @@ export const buildYearRange = ({
   );
 };
 
-export const getMonthWithinDateRangeForYear = ({
-  year,
-  month,
-  minMonth,
-  maxMonth,
-}: {
-  year: number;
-  month: number;
-  minMonth?: Date;
-  maxMonth?: Date;
-}) => {
-  let clampedMonth = month;
-
-  if (minMonth && year === minMonth.getFullYear()) {
-    clampedMonth = Math.max(clampedMonth, minMonth.getMonth());
-  }
-
-  if (maxMonth && year === maxMonth.getFullYear()) {
-    clampedMonth = Math.min(clampedMonth, maxMonth.getMonth());
-  }
-
-  return clampedMonth;
-};
-
 export const getMonthYearTransition = ({
   displayedMonth,
   month,
   year,
-  minMonth,
-  maxMonth,
 }: {
   displayedMonth: Date;
   month: number;
   year: number;
-  minMonth?: Date;
-  maxMonth?: Date;
 }) => {
-  const nextMonth = getMonthWithinDateRangeForYear({
-    year,
-    month,
-    minMonth,
-    maxMonth,
-  });
   const date = new Date(displayedMonth);
   date.setDate(1);
   date.setFullYear(year);
-  date.setMonth(nextMonth);
+  date.setMonth(month);
 
-  return { date, month: nextMonth, year };
+  return { date, month, year };
 };
 
 export const getSelectedDateForMonth = ({

@@ -1,7 +1,6 @@
 import {
   buildYearRange,
   getSelectedDateForMonth,
-  getMonthWithinDateRangeForYear,
   getMonthYearTransition,
   normalizeDateBounds,
   parseDateBound,
@@ -59,7 +58,7 @@ test("normalizes missing and already ordered date bounds", () => {
   });
 });
 
-test("builds a stable one-sided year range from its anchor", () => {
+test("adds the offset as a buffer beyond a one-sided bound", () => {
   expect(
     buildYearRange({
       minMonth: new Date(2025, 0, 1),
@@ -67,7 +66,7 @@ test("builds a stable one-sided year range from its anchor", () => {
       includedYear: 2025,
       offset: 2,
     }),
-  ).toEqual([2025, 2026, 2027]);
+  ).toEqual([2023, 2024, 2025, 2026, 2027]);
 });
 
 test("shifts an unbounded range enough to include the displayed year", () => {
@@ -81,38 +80,44 @@ test("shifts an unbounded range enough to include the displayed year", () => {
   expect(years.at(-1)).toBe(2225);
 });
 
-test("clamps a month to the available months in a boundary year", () => {
-  expect(
-    getMonthWithinDateRangeForYear({
-      year: 2025,
-      month: 0,
-      minMonth: new Date(2025, 3, 10),
-    }),
-  ).toBe(3);
+test("adds the offset beyond a wide bound as well", () => {
+  const years = buildYearRange({
+    minMonth: new Date(1900, 0, 1),
+    maxMonth: new Date(2200, 0, 1),
+    anchorYear: 2025,
+    includedYear: 2025,
+    offset: 10,
+  });
+
+  expect(years[0]).toBe(1890);
+  expect(years.at(-1)).toBe(2210);
+  expect(years).toHaveLength(321);
 });
 
-test("clamps a month to both lower and upper boundary years", () => {
+test("adds the offset as a buffer even when a bound is narrower than the offset", () => {
   expect(
-    getMonthWithinDateRangeForYear({
-      year: 2025,
-      month: 11,
-      minMonth: new Date(2025, 3, 10),
-      maxMonth: new Date(2025, 8, 20),
+    buildYearRange({
+      minMonth: new Date(2023, 0, 1),
+      maxMonth: new Date(2027, 0, 1),
+      anchorYear: 2025,
+      includedYear: 2025,
+      offset: 10,
     }),
-  ).toBe(8);
+  ).toEqual(
+    Array.from({ length: 25 }, (_, index) => 2013 + index), // 2013 - 2037
+  );
 });
 
-test("calculates a clamped month and year transition", () => {
+test("calculates a month and year transition without clamping to any bound", () => {
   expect(
     getMonthYearTransition({
       displayedMonth: new Date(2025, 0, 15),
       month: 0,
       year: 2024,
-      minMonth: new Date(2024, 3, 10),
     }),
   ).toEqual({
-    date: new Date(2024, 3, 1),
-    month: 3,
+    date: new Date(2024, 0, 1),
+    month: 0,
     year: 2024,
   });
 });

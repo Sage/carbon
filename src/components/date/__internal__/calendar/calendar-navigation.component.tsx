@@ -7,8 +7,6 @@ import CalendarSelect from "./calendar-select";
 
 interface CalendarNavigationProps {
   displayedMonth: Date;
-  minMonth?: Date;
-  maxMonth?: Date;
   monthSelectId: string;
   yearSelectId: string;
   years: number[];
@@ -21,8 +19,6 @@ interface CalendarNavigationProps {
 
 const CalendarNavigation = ({
   displayedMonth,
-  minMonth,
-  maxMonth,
   monthSelectId,
   yearSelectId,
   years,
@@ -35,14 +31,6 @@ const CalendarNavigation = ({
   const monthOptions = Array.from({ length: 12 }, (_, month) => ({
     value: month,
     label: localize?.month(month as DateFnsMonth) || String(month + 1),
-    disabled: Boolean(
-      (minMonth &&
-        displayedYear === minMonth.getFullYear() &&
-        month < minMonth.getMonth()) ||
-        (maxMonth &&
-          displayedYear === maxMonth.getFullYear() &&
-          month > maxMonth.getMonth()),
-    ),
   }));
 
   return (
@@ -59,7 +47,6 @@ const CalendarNavigation = ({
         options={monthOptions}
         value={displayedMonth.getMonth()}
         onChange={onMonthChange}
-        disabled={monthOptions.every(({ disabled }) => disabled)}
       />
       <CalendarSelect
         id={yearSelectId}
@@ -69,7 +56,6 @@ const CalendarNavigation = ({
         options={years.map((year) => ({ value: year, label: String(year) }))}
         value={displayedYear}
         onChange={onYearChange}
-        disabled={years.length <= 1}
       />
     </CalendarNavigationContainer>
   );

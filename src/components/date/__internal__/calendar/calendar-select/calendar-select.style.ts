@@ -49,7 +49,6 @@ export const StyledSelect = styled.select`
   }
 
   &:disabled {
-    background: var(--input-typical-bg-disabled);
     cursor: not-allowed;
   }
 
@@ -75,12 +74,6 @@ export const StyledSelect = styled.select`
 
   option:checked {
     color: var(--input-dropdown-label-alt);
-  }
-
-  option:disabled {
-    color: var(--input-dropdown-label-disabled);
-    background: var(--popover-bg-default);
-    cursor: not-allowed;
   }
 
   @supports (appearance: base-select) {
@@ -145,17 +138,17 @@ export const StyledSelect = styled.select`
       content: "\\f003";
     }
 
-    option:not(:disabled):hover,
-    option:not(:disabled):focus {
+    option:hover,
+    option:focus {
       color: var(--input-dropdown-label-hover);
     }
 
-    option:not(:disabled):hover {
+    option:hover {
       background: var(--input-dropdown-bg-hover);
     }
 
-    option:not(:disabled):focus,
-    option:not(:disabled):focus-visible {
+    option:focus,
+    option:focus-visible {
       ${addFocusStyling(true)}
       color: var(--input-dropdown-label-hover);
     }

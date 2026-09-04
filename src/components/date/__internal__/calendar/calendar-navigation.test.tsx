@@ -30,7 +30,7 @@ test("year select is enabled when more than one year is selectable", () => {
   expect(getYearSelect()).toBeEnabled();
 });
 
-test("year select is disabled when only one year is selectable", () => {
+test("year select remains enabled when only one year is selectable", () => {
   render(
     <CalendarNavigation
       displayedMonth={new Date(2024, 5, 1)}
@@ -42,10 +42,10 @@ test("year select is disabled when only one year is selectable", () => {
     />,
   );
 
-  expect(getYearSelect()).toBeDisabled();
+  expect(getYearSelect()).toBeEnabled();
 });
 
-test("year select is disabled when no years are selectable", () => {
+test("year select remains enabled when no years are selectable", () => {
   render(
     <CalendarNavigation
       displayedMonth={new Date(2024, 5, 1)}
@@ -57,14 +57,13 @@ test("year select is disabled when no years are selectable", () => {
     />,
   );
 
-  expect(getYearSelect()).toBeDisabled();
+  expect(getYearSelect()).toBeEnabled();
 });
 
-test("month select disables months before minMonth in the boundary year", () => {
+test("month select options are never disabled", () => {
   render(
     <CalendarNavigation
       displayedMonth={new Date(2024, 5, 1)}
-      minMonth={new Date(2024, 2, 1)}
       monthSelectId="month"
       yearSelectId="year"
       years={[2024, 2025]}
@@ -78,85 +77,13 @@ test("month select disables months before minMonth in the boundary year", () => 
   expect(monthSelect).toBeEnabled();
   expect(
     within(monthSelect).getByRole("option", { name: "January" }),
-  ).toBeDisabled();
-  expect(
-    within(monthSelect).getByRole("option", { name: "February" }),
-  ).toBeDisabled();
-  expect(
-    within(monthSelect).getByRole("option", { name: "March" }),
   ).toBeEnabled();
   expect(
     within(monthSelect).getByRole("option", { name: "June" }),
   ).toBeEnabled();
-});
-
-test("month select disables months after maxMonth in the boundary year", () => {
-  render(
-    <CalendarNavigation
-      displayedMonth={new Date(2024, 5, 1)}
-      maxMonth={new Date(2024, 7, 1)}
-      monthSelectId="month"
-      yearSelectId="year"
-      years={[2023, 2024]}
-      localize={enUSLocale.localize}
-      onMonthChange={noop}
-      onYearChange={noop}
-    />,
-  );
-
-  const monthSelect = getMonthSelect();
-  expect(monthSelect).toBeEnabled();
-  expect(
-    within(monthSelect).getByRole("option", { name: "August" }),
-  ).toBeEnabled();
-  expect(
-    within(monthSelect).getByRole("option", { name: "September" }),
-  ).toBeDisabled();
-  expect(
-    within(monthSelect).getByRole("option", { name: "December" }),
-  ).toBeDisabled();
-});
-
-test("minMonth/maxMonth bounds only apply to the year they fall in", () => {
-  render(
-    <CalendarNavigation
-      displayedMonth={new Date(2025, 0, 1)}
-      minMonth={new Date(2024, 2, 1)}
-      maxMonth={new Date(2024, 7, 1)}
-      monthSelectId="month"
-      yearSelectId="year"
-      years={[2024, 2025]}
-      localize={enUSLocale.localize}
-      onMonthChange={noop}
-      onYearChange={noop}
-    />,
-  );
-
-  const monthSelect = getMonthSelect();
-  expect(monthSelect).toBeEnabled();
-  expect(
-    within(monthSelect).getByRole("option", { name: "January" }),
-  ).toBeEnabled();
   expect(
     within(monthSelect).getByRole("option", { name: "December" }),
   ).toBeEnabled();
-});
-
-test("month select is disabled entirely when every month is disabled", () => {
-  render(
-    <CalendarNavigation
-      displayedMonth={new Date(2024, 5, 1)}
-      minMonth={new Date(2024, 10, 1)}
-      maxMonth={new Date(2024, 0, 1)}
-      monthSelectId="month"
-      yearSelectId="year"
-      years={[2024]}
-      onMonthChange={noop}
-      onYearChange={noop}
-    />,
-  );
-
-  expect(getMonthSelect()).toBeDisabled();
 });
 
 test("calls onMonthChange and onYearChange when the user picks a value", async () => {

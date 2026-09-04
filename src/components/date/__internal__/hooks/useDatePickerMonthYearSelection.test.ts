@@ -40,9 +40,8 @@ test("uses picker bounds to build the available years", () => {
     },
   });
 
-  expect(result.current.minMonth).toEqual(new Date(2023, 3, 10));
-  expect(result.current.maxMonth).toEqual(new Date(2026, 8, 20));
-  expect(result.current.years).toEqual([2023, 2024, 2025, 2026]);
+  expect(result.current.years[0]).toBe(2013);
+  expect(result.current.years.at(-1)).toBe(2036);
 });
 
 test("parses and normalizes reversed date bounds", () => {
@@ -51,23 +50,22 @@ test("parses and normalizes reversed date bounds", () => {
     maxDate: "2025-09-20",
   });
 
-  expect(result.current.minMonth).toEqual(new Date(2025, 8, 20));
-  expect(result.current.maxMonth).toEqual(new Date(2027, 3, 10));
-  expect(result.current.years).toEqual([2025, 2026, 2027]);
+  expect(result.current.years[0]).toBe(2015);
+  expect(result.current.years.at(-1)).toBe(2037);
 });
 
 test.each([
   {
     bound: { minDate: "2200-04-10" },
     displayedMonth: new Date(2200, 3, 10),
-    firstYear: 2200,
-    lastYear: 2300,
+    firstYear: 2190,
+    lastYear: 2210,
   },
   {
     bound: { maxDate: "1900-09-20" },
     displayedMonth: new Date(1900, 8, 20),
-    firstYear: 1800,
-    lastYear: 1900,
+    firstYear: 1890,
+    lastYear: 1910,
   },
 ])(
   "keeps the displayed year in a distant one-sided $bound range",
@@ -92,7 +90,7 @@ test("changes month and navigates to the first of the new month", () => {
   expect(setFocusedMonth).toHaveBeenCalledWith(new Date(2025, 1, 1));
 });
 
-test("clamps the month and focused day when changing to a boundary year", () => {
+test("navigates to a boundary year without clamping the month outside its selectable range", () => {
   const { result, setFocusedMonth, markSelectorChanged } =
     renderMonthYearSelection({
       minDate: "2024-04-10",
@@ -103,10 +101,10 @@ test("clamps the month and focused day when changing to a boundary year", () => 
   act(() => result.current.handleYearChange(event));
 
   expect(markSelectorChanged).toHaveBeenCalledWith("year");
-  expect(setFocusedMonth).toHaveBeenCalledWith(new Date(2024, 3, 1));
+  expect(setFocusedMonth).toHaveBeenCalledWith(new Date(2024, 0, 1));
 });
 
-test("does not use picker navigation bounds to clamp the focused day", () => {
+test("navigates to a boundary year without clamping when using picker navigation bounds", () => {
   const { result, setFocusedMonth } = renderMonthYearSelection({
     dayPickerProps: { startMonth: new Date(2024, 3, 10) },
     focusedMonth: new Date(2025, 0, 15),
@@ -115,7 +113,7 @@ test("does not use picker navigation bounds to clamp the focused day", () => {
 
   act(() => result.current.handleYearChange(event));
 
-  expect(setFocusedMonth).toHaveBeenCalledWith(new Date(2024, 3, 1));
+  expect(setFocusedMonth).toHaveBeenCalledWith(new Date(2024, 0, 1));
 });
 
 test("navigates the focused month when there is no selected date", () => {
@@ -171,7 +169,7 @@ test("keeps the displayed year available when initial bounds are removed", () =>
   expect(result.current.displayedMonth).toEqual(focusedMonth);
   expect(result.current.years).toContain(focusedMonth.getFullYear());
   expect(result.current.years[0]).toBe(2025);
-  expect(result.current.years.at(-1)).toBe(2225);
+  expect(result.current.years.at(-1)).toBe(2045);
 });
 
 test("recalculates the displayed month and years when bounds change dynamically", () => {
@@ -192,7 +190,7 @@ test("recalculates the displayed month and years when bounds change dynamically"
   rerender({ minDate: "2030-04-10" });
 
   expect(result.current.displayedMonth).toEqual(new Date(2030, 3, 10));
-  expect(result.current.years[0]).toBe(2030);
+  expect(result.current.years[0]).toBe(2020);
   expect(setFocusedMonth).not.toHaveBeenCalled();
 });
 
@@ -215,11 +213,11 @@ test("keeps the default year range stable after changing year", () => {
   });
   const initialYears = result.current.years;
 
-  act(() => result.current.handleYearChange(changeEvent("2125")));
+  act(() => result.current.handleYearChange(changeEvent("2030")));
 
-  expect(setFocusedMonth).toHaveBeenCalledWith(new Date(2125, 5, 1));
-  expect(result.current.displayedMonth).toEqual(new Date(2125, 5, 1));
+  expect(setFocusedMonth).toHaveBeenCalledWith(new Date(2030, 5, 1));
+  expect(result.current.displayedMonth).toEqual(new Date(2030, 5, 1));
   expect(result.current.years).toEqual(initialYears);
-  expect(result.current.years[0]).toBe(1925);
-  expect(result.current.years.at(-1)).toBe(2125);
+  expect(result.current.years[0]).toBe(2015);
+  expect(result.current.years.at(-1)).toBe(2035);
 });
