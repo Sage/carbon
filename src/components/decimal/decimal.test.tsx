@@ -48,6 +48,16 @@ it.each([
   expect(screen.getByTestId("hidden-input")).toHaveValue(formattedValue);
 });
 
+it("uses a decimal input mode by default and allows an explicit override", () => {
+  const { rerender } = render(<Decimal value="123" onChange={jest.fn} />);
+
+  expect(screen.getByRole("textbox")).toHaveAttribute("inputmode", "decimal");
+
+  rerender(<Decimal value="123" onChange={jest.fn} inputMode="numeric" />);
+
+  expect(screen.getByRole("textbox")).toHaveAttribute("inputmode", "numeric");
+});
+
 it("does not fire onChange when the input blurs with no change in value", async () => {
   const user = userEvent.setup();
   const onChange = jest.fn();
