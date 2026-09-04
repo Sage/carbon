@@ -177,6 +177,11 @@ const enGB: Locale = {
   pod: {
     undo: () => "Undo",
   },
+  popoverContainer: {
+    openButton: {
+      text: () => "Actions",
+    },
+  },
   tabs: {
     error: (tabTitle) => `The ${tabTitle} tab contains errors`,
     info: (tabTitle) => `The ${tabTitle} tab contains information`,

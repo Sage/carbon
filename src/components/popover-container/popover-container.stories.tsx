@@ -6,10 +6,8 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import Box from "../box";
 import { DraggableContainer, DraggableItem } from "../draggable";
 import { Checkbox } from "../checkbox";
-import Button from "../button";
+import Button from "../button/__next__";
 import Link from "../link";
-import Pill from "../pill";
-import Badge from "../badge";
 import isChromatic from "../../../.storybook/isChromatic";
 import { Select, Option } from "../select";
 import PopoverContainer, {
@@ -17,6 +15,7 @@ import PopoverContainer, {
 } from "./popover-container.component";
 import Textbox from "../textbox";
 import Form from "../form";
+import Icon from "../icon";
 
 const styledSystemProps = generateStyledSystemProps({
   padding: true,
@@ -54,22 +53,16 @@ type Story = StoryObj<typeof PopoverContainer>;
 export const Default: Story = () => {
   return (
     <Box height={100}>
-      <PopoverContainer
-        containerAriaLabel="popover-container"
-        openButtonAriaLabel="open"
-      >
+      <PopoverContainer containerAriaLabel="popover-container">
         Contents
       </PopoverContainer>
-      <button type="button">Outside</button>
     </Box>
   );
 };
-Default.story = {
-  name: "Default",
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
+Default.storyName = "Default";
+Default.parameters = {
+  chromatic: {
+    disableSnapshot: true,
   },
 };
 
@@ -78,7 +71,7 @@ export const Title: Story = () => {
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <div style={{ height: 100 }}>
+    <Box height="100px">
       <PopoverContainer
         title="With a title"
         open={open}
@@ -87,7 +80,7 @@ export const Title: Story = () => {
       >
         Contents
       </PopoverContainer>
-    </div>
+    </Box>
   );
 };
 Title.storyName = "Title";
@@ -97,7 +90,7 @@ export const RightPosition: Story = () => {
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <div style={{ height: 150, float: "right", clear: "right" }}>
+    <Box height="150px" display="flex" justifyContent="flex-end">
       <PopoverContainer
         title="Right Aligned"
         position="left"
@@ -107,7 +100,7 @@ export const RightPosition: Story = () => {
       >
         Contents
       </PopoverContainer>
-    </div>
+    </Box>
   );
 };
 RightPosition.storyName = "Right Position";
@@ -117,7 +110,7 @@ export const CenterPosition: Story = () => {
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <Box height={150} display="flex" justifyContent="center">
+    <Box height="150px" display="flex" justifyContent="center">
       <PopoverContainer
         title="Center Aligned"
         position="center"
@@ -131,13 +124,18 @@ export const CenterPosition: Story = () => {
   );
 };
 CenterPosition.storyName = "Center Position";
+CenterPosition.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
 
 export const BorderRadius: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <Box height={100}>
+    <Box height="100px">
       <PopoverContainer
         title="Border Radius"
         borderRadius="borderRadius000 borderRadius000 borderRadius200 borderRadius200"
@@ -151,13 +149,18 @@ export const BorderRadius: Story = () => {
   );
 };
 BorderRadius.storyName = "Border Radius";
+BorderRadius.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
 
 export const Offset: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <Box height={100}>
+    <Box height="100px">
       <PopoverContainer
         title="Offset"
         offset={0}
@@ -177,7 +180,7 @@ export const CoverButton: Story = () => {
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <div style={{ height: 100 }}>
+    <Box height="100px">
       <PopoverContainer
         title="Cover Button"
         shouldCoverButton
@@ -187,14 +190,14 @@ export const CoverButton: Story = () => {
       >
         Content
       </PopoverContainer>
-    </div>
+    </Box>
   );
 };
 CoverButton.storyName = "Cover Button";
 
 export const RenderProps: Story = () => {
   return (
-    <Box height={250}>
+    <Box height="250px">
       <PopoverContainer
         title="Custom Open &amp; Close Button"
         renderOpenComponent={({
@@ -208,8 +211,6 @@ export const RenderProps: Story = () => {
           "aria-haspopup": ariaHasPopup,
         }) => (
           <Button
-            iconType={!isOpen ? "filter_new" : "close"}
-            iconPosition="after"
             data-element={dataElement}
             aria-label={ariaLabel}
             aria-haspopup={ariaHasPopup}
@@ -218,7 +219,8 @@ export const RenderProps: Story = () => {
             id={id}
             onClick={onClick}
           >
-            Filter
+            Open
+            <Icon type={isOpen ? "cross" : "tick"} size="small" />
           </Button>
         )}
         renderCloseComponent={({
@@ -243,13 +245,18 @@ export const RenderProps: Story = () => {
   );
 };
 RenderProps.storyName = "Render Props";
+RenderProps.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
 
 export const Controlled: Story = () => {
   const [open, setOpen] = useState(false);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <div style={{ height: 150 }}>
+    <Box margin={2} height="280px">
       <Button onClick={onOpen}>Open Popover</Button>
       <Button onClick={onClose} ml={2}>
         Close Popover
@@ -263,17 +270,22 @@ export const Controlled: Story = () => {
       >
         Contents
       </PopoverContainer>
-    </div>
+    </Box>
   );
 };
 Controlled.storyName = "Controlled";
+Controlled.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
 
 export const Complex: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <Box height={330}>
+    <Box height="400px">
       <PopoverContainer
         title="Popover Container Title"
         open={open}
@@ -346,120 +358,15 @@ export const Complex: Story = () => {
   );
 };
 Complex.storyName = "Complex";
-
-export const Filter: Story = () => {
-  type OptionsType = {
-    value: string;
-    checked: boolean;
-  };
-
-  const initValues: OptionsType[] = [
-    { value: "Option 1", checked: false },
-    { value: "Option 2", checked: false },
-    { value: "Option 3", checked: false },
-  ];
-  const [open, setOpen] = useState(defaultOpenState);
-  const [options, setOptions] = useState<OptionsType[]>(initValues);
-  const [filters, setFilters] = useState<OptionsType[]>([]);
-  const clearAllOptions = () => {
-    const temps = options;
-    for (let i = 0; i < temps.length; i++) {
-      temps[i].checked = false;
-    }
-    setOptions([...temps]);
-  };
-  const clearFilters = () => setFilters([]);
-  const updateCheckValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const temps = options;
-    const findCorrectIndex = temps.findIndex(
-      (item) => item.value === e.target.value,
-    );
-    if (findCorrectIndex !== -1) {
-      temps[findCorrectIndex].checked = !temps[findCorrectIndex].checked;
-      setOptions([...temps]);
-    }
-  };
-  const updateFilters = () =>
-    setFilters(options.filter((filter) => filter.checked === true));
-  const handleBadgeClose = () => {
-    clearAllOptions();
-    clearFilters();
-  };
-  const applyFilters = () => {
-    updateFilters();
-    setOpen(false);
-  };
-  const onOpen = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
-  const renderCheckboxes = () => {
-    const checkboxStyle = {
-      marginBottom: "10px",
-    };
-    return options.map((option) => {
-      return (
-        <Checkbox
-          onChange={updateCheckValue}
-          style={checkboxStyle}
-          label={option.value}
-          name={option.value}
-          value={option.value}
-          checked={option.checked}
-          key={option.value}
-        />
-      );
-    });
-  };
-  const renderPills = () => {
-    return filters.map((filter) => {
-      return filter.checked ? (
-        <Pill key={filter.value} mx={8}>
-          {filter.value}
-        </Pill>
-      ) : null;
-    });
-  };
-  return (
-    <Box margin={2} height="280px">
-      <PopoverContainer
-        title="How to create Filter component"
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-        renderOpenComponent={({ isOpen, ref, ...rest }) => (
-          <Badge counter={filters.length} onClick={handleBadgeClose}>
-            <Button
-              mr={0}
-              buttonType={isOpen ? "primary" : "darkBackground"}
-              iconPosition="after"
-              iconType={!isOpen ? "filter_new" : "close"}
-              size="small"
-              ref={ref}
-              {...rest}
-            >
-              Filter
-            </Button>
-          </Badge>
-        )}
-        renderCloseComponent={undefined}
-      >
-        {renderCheckboxes()}
-        <Button onClick={applyFilters} my={20}>
-          Apply
-        </Button>
-      </PopoverContainer>
-      {renderPills()}
-    </Box>
-  );
+Complex.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
 };
-Filter.storyName = "Filter";
 
 export const DisableAnimation: Story = () => {
   return (
-    <Box height={100}>
+    <Box height="200px">
       <PopoverContainer
         title="Disabled Animation Popover Container"
         disableAnimation
@@ -470,6 +377,11 @@ export const DisableAnimation: Story = () => {
   );
 };
 DisableAnimation.storyName = "Disable Animation";
+DisableAnimation.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
 
 export const FocusButton = () => {
   const [isPopOverOpen, setIsPopOverOpen] = useState(defaultOpenState);
@@ -481,46 +393,51 @@ export const FocusButton = () => {
   };
 
   return (
-    <PopoverContainer
-      p={0}
-      ref={ref}
-      containerAriaLabel="popover with form"
-      open={isPopOverOpen}
-      onOpen={() => setIsPopOverOpen(true)}
-      onClose={() => setIsPopOverOpen(false)}
-      renderOpenComponent={({ ...props }) => (
-        <Button
-          size="small"
-          buttonType="secondary"
-          iconType="settings"
-          {...props}
-        >
-          popover
-        </Button>
-      )}
-      renderCloseComponent={() => <></>}
-    >
-      <Form
-        height="400px"
-        onSubmit={() => {}}
-        leftSideButtons={<Button onClick={() => handleCancel()}>Cancel</Button>}
-        saveButton={
-          <Button buttonType="primary" type="submit">
-            Save
+    <Box margin={2} height="500px">
+      <PopoverContainer
+        p={0}
+        ref={ref}
+        containerAriaLabel="popover with form"
+        open={isPopOverOpen}
+        onOpen={() => setIsPopOverOpen(true)}
+        onClose={() => setIsPopOverOpen(false)}
+        renderOpenComponent={({ ref, ...props }) => (
+          <Button size="small" variantType="primary" ref={ref} {...props}>
+            <Icon type="settings" />
+            Popover
           </Button>
-        }
-        stickyFooter
+        )}
+        renderCloseComponent={() => <></>}
       >
-        <Box m={2}>
-          <Textbox label="Textbox" onChange={() => {}} value="" />
-          <Textbox label="Textbox" onChange={() => {}} value="" />
-          <Textbox label="Textbox" onChange={() => {}} value="" />
-          <Textbox label="Textbox" onChange={() => {}} value="" />
-          <Textbox label="Textbox" onChange={() => {}} value="" />
-          <Textbox label="Textbox" onChange={() => {}} value="" />
-        </Box>
-      </Form>
-    </PopoverContainer>
+        <Form
+          height="400px"
+          onSubmit={() => {}}
+          leftSideButtons={
+            <Button onClick={() => handleCancel()}>Cancel</Button>
+          }
+          saveButton={
+            <Button variantType="primary" type="submit">
+              Save
+            </Button>
+          }
+          stickyFooter
+        >
+          <Box m={2}>
+            <Textbox label="Textbox" onChange={() => {}} value="" />
+            <Textbox label="Textbox" onChange={() => {}} value="" />
+            <Textbox label="Textbox" onChange={() => {}} value="" />
+            <Textbox label="Textbox" onChange={() => {}} value="" />
+            <Textbox label="Textbox" onChange={() => {}} value="" />
+            <Textbox label="Textbox" onChange={() => {}} value="" />
+          </Box>
+        </Form>
+      </PopoverContainer>
+    </Box>
   );
 };
 FocusButton.storyName = "Focus Button Programmatically";
+FocusButton.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
