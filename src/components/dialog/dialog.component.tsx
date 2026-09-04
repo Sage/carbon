@@ -140,3 +140,9 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 Dialog.displayName = "Dialog";
 export default Dialog;
 export type { DialogHandle, ContentPaddingInterface };
+
+export {
+  DialogHeader,
+  DialogHeadingStatus,
+} from "./__internal__/__next__/dialog.component";
+export type { DialogHeadingStatusProps } from "./__internal__/__next__/dialog.component";

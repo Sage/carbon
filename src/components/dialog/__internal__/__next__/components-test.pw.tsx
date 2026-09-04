@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
 import Textbox from "../../../textbox";
 import Button from "../../../button";
-import Dialog, { withDialogHeader, DialogProps } from "./dialog.component";
+import Dialog, { type DialogProps } from "./dialog.component";
+import DialogHeadingStatus, {
+  DialogHeadingStatusProps,
+} from "./dialog-header/dialog-header.component";
 
 export const DialogComponent = (props: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -54,41 +57,47 @@ export const DialogFullscreen = (props: Partial<DialogProps>) => {
   );
 };
 
-const DialogWithHeadingVariant = withDialogHeader(Dialog);
-
 export const DialogWithHeadingVariantPositive = (
-  props: Partial<DialogProps>,
+  props: Partial<DialogProps & DialogHeadingStatusProps>,
 ) => {
   return (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with positive icon"
-      subtitle="Subheading"
-      statusIcon="positive"
+      title={
+        <DialogHeadingStatus
+          title="Dialog with positive icon"
+          subtitle="Subheading"
+          status="positive"
+        />
+      }
       onCancel={() => {}}
       {...props}
     >
       <Textbox onChange={() => {}} label="Textbox1" value="Textbox1" />
       <Textbox onChange={() => {}} label="Textbox2" value="Textbox2" />
       <Textbox onChange={() => {}} label="Textbox3" value="Textbox3" />
-    </DialogWithHeadingVariant>
+    </Dialog>
   );
 };
 
 export const DialogWithHeadingVariantSubtle = (props: Partial<DialogProps>) => {
   return (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with subtle icon"
-      subtitle="Subheading"
-      statusIcon="subtle"
+      title={
+        <DialogHeadingStatus
+          title="Dialog with subtle icon"
+          subtitle="Subheading"
+          status="subtle"
+        />
+      }
       onCancel={() => {}}
       {...props}
     >
       <Textbox onChange={() => {}} label="Textbox1" value="Textbox1" />
       <Textbox onChange={() => {}} label="Textbox2" value="Textbox2" />
       <Textbox onChange={() => {}} label="Textbox3" value="Textbox3" />
-    </DialogWithHeadingVariant>
+    </Dialog>
   );
 };
 
@@ -96,18 +105,22 @@ export const DialogWithHeadingVariantNegative = (
   props: Partial<DialogProps>,
 ) => {
   return (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with negative icon"
-      subtitle="Subheading"
-      statusIcon="negative"
+      title={
+        <DialogHeadingStatus
+          title="Dialog with negative icon"
+          subtitle="Subheading"
+          status="negative"
+        />
+      }
       onCancel={() => {}}
       {...props}
     >
       <Textbox onChange={() => {}} label="Textbox1" value="Textbox1" />
       <Textbox onChange={() => {}} label="Textbox2" value="Textbox2" />
       <Textbox onChange={() => {}} label="Textbox3" value="Textbox3" />
-    </DialogWithHeadingVariant>
+    </Dialog>
   );
 };
 
@@ -115,34 +128,59 @@ export const DialogWithHeadingVariantCaution = (
   props: Partial<DialogProps>,
 ) => {
   return (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with caution icon"
-      subtitle="Subheading"
-      statusIcon="caution"
+      title={
+        <DialogHeadingStatus
+          title="Dialog with caution icon"
+          subtitle="Subheading"
+          status="caution"
+        />
+      }
       onCancel={() => {}}
       {...props}
     >
       <Textbox onChange={() => {}} label="Textbox1" value="Textbox1" />
       <Textbox onChange={() => {}} label="Textbox2" value="Textbox2" />
       <Textbox onChange={() => {}} label="Textbox3" value="Textbox3" />
-    </DialogWithHeadingVariant>
+    </Dialog>
   );
 };
 
 export const DialogWithHeadingVariantInfo = (props: Partial<DialogProps>) => {
   return (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with info icon"
-      subtitle="Subheading"
-      statusIcon="info"
+      title={
+        <DialogHeadingStatus
+          title="Dialog with info icon"
+          subtitle="Subheading"
+          status="info"
+        />
+      }
       onCancel={() => {}}
       {...props}
     >
       <Textbox onChange={() => {}} label="Textbox1" value="Textbox1" />
       <Textbox onChange={() => {}} label="Textbox2" value="Textbox2" />
       <Textbox onChange={() => {}} label="Textbox3" value="Textbox3" />
-    </DialogWithHeadingVariant>
+    </Dialog>
+  );
+};
+
+export const DialogWithHeadingNoSubtitle = (props: Partial<DialogProps>) => {
+  return (
+    <Dialog
+      open
+      title={
+        <DialogHeadingStatus title="Dialog with info icon" status="info" />
+      }
+      onCancel={() => {}}
+      {...props}
+    >
+      <Textbox onChange={() => {}} label="Textbox1" value="Textbox1" />
+      <Textbox onChange={() => {}} label="Textbox2" value="Textbox2" />
+      <Textbox onChange={() => {}} label="Textbox3" value="Textbox3" />
+    </Dialog>
   );
 };
