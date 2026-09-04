@@ -3,9 +3,8 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
-import { Accordion } from "../accordion";
 import SplitButton, { SplitButtonHandle } from ".";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -69,76 +68,31 @@ ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: Story = () => {
   return (
-    <>
-      <Box mb={3}>
-        <SplitButton disabled text="Split button">
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-      <Box p={2} width="298px" backgroundColor="#000">
-        <SplitButton
-          buttonType="secondary"
-          text="Split button - secondary - white"
-          isWhite
-          disabled
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-    </>
+    <Box mb={3}>
+      <SplitButton disabled text="Split button">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButton>
+    </Box>
   );
 };
 Disabled.storyName = "Disabled";
 
-export const ButtonTypes: Story = () => {
-  return (
-    <>
-      {(["primary", "secondary"] as const).map((buttonType) => (
-        <Box key={buttonType} mb={3}>
-          <SplitButton
-            buttonType={buttonType}
-            text={`Split button - ${buttonType}`}
-          >
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-      <Box p={2} width="298px" backgroundColor="#000">
-        <SplitButton
-          buttonType="secondary"
-          text="Split button - secondary - white"
-          isWhite
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-    </>
-  );
-};
-ButtonTypes.storyName = "Button Types";
-
 export const ChildButtonTypes: Story = () => {
   return (
     <SplitButton text="Split Button">
-      <Button>Default button</Button>
-      <Button buttonType="primary" destructive>
-        Primary - destructive
+      <Button variant="default" variantType="primary">
+        Primary
       </Button>
-      <Button buttonType="secondary">Secondary</Button>
-      <Button buttonType="secondary" destructive>
-        Secondary - destructive
+      <Button variant="default" variantType="secondary">
+        Secondary
       </Button>
-      <Button buttonType="tertiary">Tertiary</Button>
-      <Button buttonType="tertiary" destructive>
-        Tertiary - destructive
+      <Button variant="default" variantType="tertiary">
+        Tertiary
+      </Button>
+      <Button variant="destructive" variantType="primary">
+        Destructive Primary
       </Button>
       <Button disabled>Disabled</Button>
     </SplitButton>
@@ -164,54 +118,17 @@ export const Sizes: Story = () => {
 };
 Sizes.storyName = "Sizes";
 
-export const Align: Story = () => {
+export const CustomMenuWidth: Story = () => {
   return (
-    <>
-      {(["left", "right"] as const).map((align) => (
-        <Box key={align} mb={3}>
-          <SplitButton align={align} text={`Split button - ${align}`}>
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-    </>
-  );
-};
-Align.storyName = "Align";
-Align.parameters = { chromatic: { disableSnapshot: true } };
-
-export const Position: Story = () => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <SplitButton position="left" text="Left position">
-        <Button href="#">Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-
-      <SplitButton position="right" text="Right position">
-        <Button href="#">Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-    </Box>
-  );
-};
-Position.storyName = "Position";
-Position.parameters = { chromatic: { disableSnapshot: true } };
-
-export const Subtext: Story = () => {
-  return (
-    <SplitButton size="large" subtext="subtext" text="Split button">
-      <Button size="large">Button 1</Button>
-      <Button size="large">Button 2</Button>
-      <Button size="large">Button 3</Button>
+    <SplitButton menuWidth="320px" text="Split button">
+      <Button href="#">Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
     </SplitButton>
   );
 };
-Subtext.storyName = "Subtext";
+CustomMenuWidth.storyName = "Custom Menu Width";
+CustomMenuWidth.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIcon: Story = () => {
   return (
@@ -233,49 +150,3 @@ export const WithIcon: Story = () => {
   );
 };
 WithIcon.storyName = "With Icon";
-
-export const InOverflowHiddenContainer: Story = () => (
-  <Accordion title="Heading">
-    <Box p={4}>
-      <SplitButton size="large" subtext="subtext" text="Split button">
-        <Button size="large">Button 1</Button>
-        <Button size="large">Button 2</Button>
-        <Button size="large">Button 3</Button>
-      </SplitButton>
-    </Box>
-  </Accordion>
-);
-InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
-InOverflowHiddenContainer.parameters = { chromatic: { disableSnapshot: true } };
-
-export const SecondaryIsWhite: Story = () => {
-  return (
-    <Box p={3} backgroundColor="#000" width="400px" height="200px">
-      <Box mb={3}>
-        <SplitButton
-          buttonType="secondary"
-          text="secondary - white variant"
-          isWhite
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-      <Box>
-        <SplitButton
-          buttonType="secondary"
-          text="secondary - white variant - disabled"
-          isWhite
-          disabled
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-    </Box>
-  );
-};
-SecondaryIsWhite.storyName = "White variant";
-SecondaryIsWhite.parameters = { chromatic: { disableSnapshot: false } };
