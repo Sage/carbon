@@ -1,0 +1,56 @@
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
+
+import * as TableStories from "./table.stories";
+
+<Meta of={TableStories} />
+
+# Table
+
+<a
+  target="_blank"
+  href="https://designsystem.sage.com/fusion/latest/pages/components/table/"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+A Table displays data in a structured format with rows and columns. It can support features like sorting, selecting, dragging, and expanding rows.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Playground](#playground)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Table from "carbon-react/lib/components/table";
+```
+
+## Playground
+
+Use this interactive example to explore Table props and behaviours with Storybook controls. Sorting remains available from the column headers.
+
+<Canvas of={TableStories.Playground} />
+
+<Controls
+  of={TableStories.Playground}
+  include={[
+    "feature",
+    "variant",
+    "size",
+    "isZebraStriped",
+    "maxWidth",
+    "stickyRow",
+    "stickyColumn",
+    "outerBorders",
+    "horizontalBorderThickness",
+    "verticalBorderThickness",
+  ]}
+/>
+
+## Props
+
+<ArgTypes of={TableStories} exclude={["feature"]} />

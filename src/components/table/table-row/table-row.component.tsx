@@ -16,11 +16,9 @@ export interface TableRowProps {
   isExpanded?: boolean;
   isHighlighted?: boolean;
   isSelected?: boolean;
-  onRowSelect?: (setSelected: React.Dispatch<React.SetStateAction<boolean>>) => void;
   subRows?: ReactNode;
   borderThickness?: BorderThickness;
   id: string;
-
   /** @ignore @private Internal props, set by parent `FlatTableBodyDraggable`, for enabling drag and drop behaviour on the row. */
   draggableProps?: {
     index: number;
@@ -31,12 +29,11 @@ interface DecorateFirstCellProps {
   isDraggable: boolean;
   isExpandable: boolean;
   isSubRow: boolean;
-  isSelectable: boolean;
   dragHandleRef: React.RefObject<HTMLTableCellElement>;
   subRowIds: string;
 }
 
-const decorateFirstCell = (cell: React.ReactNode, {isDraggable, isExpandable, isSubRow, subRowIds, isSelectable, dragHandleRef}: DecorateFirstCellProps) => {
+const decorateFirstCell = (cell: React.ReactNode, {isDraggable, isExpandable, isSubRow, subRowIds, dragHandleRef}: DecorateFirstCellProps) => {
   /* istanbul ignore if */
   if (!React.isValidElement(cell)) return [];
 
@@ -47,7 +44,6 @@ const decorateFirstCell = (cell: React.ReactNode, {isDraggable, isExpandable, is
       isExpandable,
       isSubRow,
       subRowIds,
-      isSelectable,
       ...cell.props,
     }),
   ];
@@ -74,7 +70,6 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({
   borderThickness,
   id,
   draggableProps,
-  onRowSelect,
   ...props
 }, ref) => {
   const rowRef = useRef<HTMLTableRowElement>(null);
@@ -86,21 +81,19 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({
   const { isInHeader } = useContext(TableHeaderContext);
   const { isSubRow, transitionStatus } = useContext(SubRowContext);
   const draggable = isDraggable && !isInFooter && !isInHeader;
-  const sortable = draggable && Boolean(draggableProps);
+  const isValidDraggableRow = draggable && Boolean(draggableProps);
   const dataComponent = `table${draggable ? "-draggable" : ""}${isSubRow ? "-sub" : ""}-row`;
   const cells = flattenChildren(children);
   const firstCell = cells[0];
   const isExpandable = !!subRows;
-  const isSelectable = !!onRowSelect;
   const subRowIds = getSubRowIds(subRows);
   const decoratedFirstCell = decorateFirstCell(
     firstCell,
     {
-      isDraggable: sortable,
+      isDraggable: isValidDraggableRow,
       isExpandable,
       isSubRow,
       subRowIds,
-      isSelectable,
       dragHandleRef,
     }
   );
@@ -112,18 +105,16 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({
   const { isDragging, isDropTarget } = useDraggableRow({
     id,
     index: draggableProps?.index ?? 0,
-    ref: sortable ? rowRef : null,
-    dragHandleRef: sortable ? dragHandleRef : null,
+    ref: isValidDraggableRow ? rowRef : null,
+    dragHandleRef: isValidDraggableRow ? dragHandleRef : null,
   });
 
   const contextValue = useMemo(
     () => ({
       isExpanded: expanded,
       setIsExpanded: setExpanded,
-      isSelected,
-      toggleSelected: onRowSelect,
     }),
-    [expanded, isSelected, onRowSelect]
+    [ expanded ]
   );
 
   const isSubRowVisible =
@@ -139,7 +130,6 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({
       <StyledTableRow
         data-role={dataComponent}
         {...props}
-        $isExpanded={expanded}
         $isHighlighted={isHighlighted}
         $isSelected={isSelected}
         $size={size}

@@ -16,6 +16,8 @@ const StyledTableHeaderCell = styled.th<StyledTableHeaderCellProps>`
     --table-cell-border-vertical-width: ${borderThicknessStyles[$borderThickness]};
   `}
 
+  font: var(--global-font-static-comp-medium-m);
+
   ${({ $variant, $alternate }) => css`
     ${$variant === "prominent" && `
       background-color: ${$alternate ? "var(--table-header-harsh-bg-alt)" : "var(--table-header-harsh-bg-default)"};

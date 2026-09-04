@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import {TableContext, TableContextProps} from "./__internal__/contexts";
-import { StyledTableWrapper, StyledTable } from './table.style';
+import { StyledTableWrapper, StyledTable, StyledInnerWrapper } from './table.style';
 
 export type BorderThickness =
   | "none"
@@ -43,7 +43,8 @@ const Table = ({
   const hasStickyLastColumn = stickyColumn === "last" || stickyColumn === "both";
   const hasStickyHeader = stickyRow === "header" || stickyRow === "both";
   const hasStickyFooter = stickyRow === "footer" || stickyRow === "both";
-  const hasOuterBorders = variant !== "prominent" && outerBorders === "none";
+  const showOuterBorder = variant === "prominent" || outerBorders !== "none";
+  const hasPagination = !!pagination;
 
   return (
     <TableContext.Provider value={{ isDraggable, variant, size }}>
@@ -52,24 +53,34 @@ const Table = ({
         data-component="table-wrapper"
         data-role="table-wrapper"
       >
-        <StyledTable
-          data-role="table"
-          {...props}
-          $align={align}
-          data-component="table"
-          data-has-first-column={hasStickyFirstColumn}
-          data-has-last-column={hasStickyLastColumn}
-          data-has-sticky-header={hasStickyHeader}
-          data-has-sticky-footer={hasStickyFooter}
-          $isZebraStriped={isZebraStriped}
-          $hasOverflow={!!maxWidth}
+        <StyledInnerWrapper
           $variant={variant}
-          $removeOuterBorders={hasOuterBorders}
-          $horizontalBorderThickness={horizontalBorderThickness}
-          $verticalBorderThickness={verticalBorderThickness}
+          $maxWidth={maxWidth}
+          $hasPagination={hasPagination}
+          $showOuterBorder={showOuterBorder}
+          data-component="table-inner-wrapper"
+          data-role="table-inner-wrapper"
         >
-          {children}
-        </StyledTable>
+          <div>
+            <StyledTable
+              data-role="table"
+              {...props}
+              $align={align}
+              data-component="table"
+              data-has-first-column={hasStickyFirstColumn}
+              data-has-last-column={hasStickyLastColumn}
+              data-has-sticky-header={hasStickyHeader}
+              data-has-sticky-footer={hasStickyFooter}
+              $isZebraStriped={isZebraStriped}
+              $hasOverflow={!!maxWidth}
+              $variant={variant}
+              $horizontalBorderThickness={horizontalBorderThickness}
+              $verticalBorderThickness={verticalBorderThickness}
+            >
+              {children}
+            </StyledTable>
+          </div>
+        </StyledInnerWrapper>
         {pagination}
       </StyledTableWrapper>
     </TableContext.Provider>

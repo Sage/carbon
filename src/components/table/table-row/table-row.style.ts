@@ -4,7 +4,6 @@ import { BorderThickness } from "../table.component";
 import borderThicknessStyles from "../__internal__/config";
 
 interface StyledTableRowProps {
-  $isExpanded?: boolean;
   $isSelected?: boolean;
   $isHighlighted?: boolean;
   $size: TableContextProps["size"];
@@ -27,8 +26,8 @@ const StyledTableRow = styled.tr<StyledTableRowProps>`
         position: relative;
       }
 
-      > th::after,
-      > td::after {
+      > th::before,
+      > td::before {
         content: "";
         position: absolute;
         z-index: 10;
@@ -93,34 +92,35 @@ const StyledTableRow = styled.tr<StyledTableRowProps>`
 
   ${({ $isSubRowVisible }) => $isSubRowVisible !== undefined && css`
     &[data-component$="sub-row"] {
-      &:not([data-component$="sub-row"] + [data-component$="sub-row"]) {
-        td {
-          position: relative;
-        }
+      ${$isSubRowVisible && css`
+        &:not([data-component$="sub-row"] + [data-component$="sub-row"]) {
+          td {
+            position: relative;
+          }
 
-        td::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background: linear-gradient(
-            90deg,
-            transparent 0%,
-            var(--mode-color-generic-depth-faint) 0%,
-            var(--mode-color-generic-depth-faint) 100%,
-            transparent 100%
-          );
-          pointer-events: none;
+          td::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(
+              90deg,
+              transparent 0%,
+              var(--mode-color-generic-depth-faint) 0%,
+              var(--mode-color-generic-depth-faint) 100%,
+              transparent 100%
+            );
+            pointer-events: none;
+          }
         }
-      }
+      `}
 
       && {
         > td {
           height: 0;
           padding: 0;
-          overflow: hidden;
           ${!$isSubRowVisible && css`border-bottom-width: 0;`}
         }
       }

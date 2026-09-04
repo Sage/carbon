@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from ".";
+import { Checkbox } from "../..";
 
 const meta = {
   title: "Table/Interactions",
@@ -70,6 +71,7 @@ const SortableTable = () => {
       <TableHead>
         <TableRow id="interaction-sort-header">
           <TableHeader
+            id="interaction-sort-product"
             sortType={sortColumn === "product" ? sortDirection : "unsorted"}
             onSort={() => handleSort("product")}
             aria-sort={sortColumn === "product" ? sortDirection : "none"}
@@ -77,21 +79,22 @@ const SortableTable = () => {
             Product
           </TableHeader>
           <TableHeader
+            id="interaction-sort-price"
             sortType={sortColumn === "price" ? sortDirection : "unsorted"}
             onSort={() => handleSort("price")}
             aria-sort={sortColumn === "price" ? sortDirection : "none"}
           >
             Price
           </TableHeader>
-          <TableHeader>Status</TableHeader>
+          <TableHeader id="interaction-sort-status">Status</TableHeader>
         </TableRow>
       </TableHead>
       <TableBody>
         {sortedProducts.map(({ id, product, price, status }) => (
           <TableRow key={id} id={`interaction-sort-row-${id}`}>
-            <TableCell>{product}</TableCell>
-            <TableCell>{`£${price}`}</TableCell>
-            <TableCell>{status}</TableCell>
+            <TableCell id={`interaction-sort-row-${id}-product`}>{product}</TableCell>
+            <TableCell id={`interaction-sort-row-${id}-price`}>{`£${price}`}</TableCell>
+            <TableCell id={`interaction-sort-row-${id}-status`}>{status}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -148,10 +151,20 @@ const SelectableTable = () => {
         <TableRow
           id="interaction-select-header"
           isSelected={selectedRows.length === rowIds.length}
-          onRowSelect={toggleAllRows}
         >
-          <TableHeader>Product</TableHeader>
-          <TableHeader>Status</TableHeader>
+          <TableHeader id="interaction-select-header-checkbox" width="80px">
+            <Checkbox
+              checked={selectedRows.length === rowIds.length}
+              indeterminate={selectedRows.length > 0 && selectedRows.length < rowIds.length}
+              onChange={toggleAllRows}
+              onClick={(ev) => ev.stopPropagation()}
+              data-component="table-cell-select-checkbox"
+              data-role="table-cell-select-checkbox"
+              aria-labelledby="interaction-select-product"
+            />
+          </TableHeader>
+          <TableHeader id="interaction-select-product">Product</TableHeader>
+          <TableHeader id="interaction-select-status">Status</TableHeader>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -160,10 +173,19 @@ const SelectableTable = () => {
             key={rowId}
             id={rowId}
             isSelected={selectedRows.includes(rowId)}
-            onRowSelect={() => toggleRow(rowId)}
           >
-            <TableCell>{`Product ${index + 1}`}</TableCell>
-            <TableCell>{index === 1 ? "Inactive" : "Active"}</TableCell>
+            <TableCell id={`interaction-select-row-${index + 1}-checkbox`}>
+              <Checkbox
+                checked={selectedRows.includes(rowId)}
+                onChange={() => toggleRow(rowId)}
+                onClick={(ev) => ev.stopPropagation()}
+                data-component="table-cell-select-checkbox"
+                data-role="table-cell-select-checkbox"
+                aria-labelledby={`interaction-select-row-${index + 1}-product`}
+              />
+            </TableCell>
+            <TableCell id={`interaction-select-row-${index + 1}-product`}>{`Product ${index + 1}`}</TableCell>
+            <TableCell id={`interaction-select-row-${index + 1}-status`}>{index === 1 ? "Inactive" : "Active"}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -197,9 +219,9 @@ const ExpandableTable = () => (
   <Table variant="prominent">
     <TableHead>
       <TableRow id="interaction-expand-header">
-        <TableHeader>Product</TableHeader>
-        <TableHeader>Type</TableHeader>
-        <TableHeader>Status</TableHeader>
+        <TableHeader id="interaction-expand-product">Product</TableHeader>
+        <TableHeader id="interaction-expand-type">Type</TableHeader>
+        <TableHeader id="interaction-expand-status">Status</TableHeader>
       </TableRow>
     </TableHead>
     <TableBody>
@@ -208,26 +230,26 @@ const ExpandableTable = () => (
         subRows={
           <>
             <TableRow id="interaction-expand-child-1">
-              <TableCell>Product A1</TableCell>
-              <TableCell>Child product</TableCell>
-              <TableCell>Active</TableCell>
+              <TableCell id="interaction-expand-child-1-product">Product A1</TableCell>
+              <TableCell id="interaction-expand-child-1-type">Child product</TableCell>
+              <TableCell id="interaction-expand-child-1-status">Active</TableCell>
             </TableRow>
             <TableRow id="interaction-expand-child-2">
-              <TableCell>Product A2</TableCell>
-              <TableCell>Child product</TableCell>
-              <TableCell>Inactive</TableCell>
+              <TableCell id="interaction-expand-child-2-product">Product A2</TableCell>
+              <TableCell id="interaction-expand-child-2-type">Child product</TableCell>
+              <TableCell id="interaction-expand-child-2-status">Inactive</TableCell>
             </TableRow>
           </>
         }
       >
-        <TableCell>Product A</TableCell>
-        <TableCell>Parent product</TableCell>
-        <TableCell>Active</TableCell>
+        <TableCell id="interaction-expand-parent-product">Product A</TableCell>
+        <TableCell id="interaction-expand-parent-type">Parent product</TableCell>
+        <TableCell id="interaction-expand-parent-status">Active</TableCell>
       </TableRow>
       <TableRow id="interaction-expand-sibling">
-        <TableCell>Product B</TableCell>
-        <TableCell>Standard product</TableCell>
-        <TableCell>Active</TableCell>
+        <TableCell id="interaction-expand-sibling-product">Product B</TableCell>
+        <TableCell id="interaction-expand-sibling-type">Standard product</TableCell>
+        <TableCell id="interaction-expand-sibling-status">Active</TableCell>
       </TableRow>
     </TableBody>
   </Table>

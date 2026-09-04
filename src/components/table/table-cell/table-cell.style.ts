@@ -5,7 +5,6 @@ import { BorderThickness } from "../table.component";
 import borderThicknessStyles from "../__internal__/config";
 
 interface StyledTableCellProps {
-  $isExpandable?: boolean;
   $isDragHandle?: boolean;
   $size: TableContextProps["size"];
   $borderThickness?: BorderThickness;
@@ -25,16 +24,6 @@ const StyledTableCell = styled.td<StyledTableCellProps>`
         cursor: grabbing;
       }
     `}
-
-  ${({ $isExpandable }) => $isExpandable && css`
-    cursor: pointer;
-    &:focus {
-      outline: none;
-      > div {
-        ${addFocusStyling(true)}
-      }
-    }
-  `}
 
   height: auto;
   padding: 0;
@@ -100,7 +89,6 @@ const StyledTableCell = styled.td<StyledTableCellProps>`
     flex: 1;
     min-width: 0;
     white-space: normal;
-    overflow-wrap: anywhere;
   }
 `;
 
@@ -118,6 +106,20 @@ export const StyledExpandIcon = styled.span<StyledExpandIconProps>`
   @media (prefers-reduced-motion: no-preference) {
     transition: transform 200ms ease;
   }
+`;
+
+export const CellContent = styled.div<{ $isExpandable?: boolean }>`
+  border: none;
+  background-color: transparent;
+  text-align: left;
+
+  ${({ $isExpandable }) => $isExpandable && css`
+    cursor: pointer;
+    &:focus {
+      outline: none;
+      ${addFocusStyling(true)}
+    }
+  `}
 `;
 
 export default StyledTableCell;

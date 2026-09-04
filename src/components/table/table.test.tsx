@@ -279,10 +279,10 @@ describe("expandable rows", () => {
         screen.queryByRole("row", { name: "Child row" }),
       ).not.toBeInTheDocument();
 
-      const expandableCell = screen.getByRole("cell", { name: "Parent row" });
+      const expandableCellButton = screen.getByRole("button", { name: "Parent row" });
       await user.tab();
 
-      expect(expandableCell).toHaveFocus();
+      expect(expandableCellButton).toHaveFocus();
 
       await user.keyboard(key);
 
@@ -519,15 +519,19 @@ describe("table props", () => {
 describe("selectable rows", () => {
   it("renders a checkbox in the first cell when onRowSelect is provided", () => {
     renderTable({
-      rows: createRow("one", "Row one", { isSelected: true, onRowSelect: jest.fn() }),
+      rows: createRow("one", "Row one", { isSelected: true }),
     });
 
-    const cell = screen.getByRole("cell", { name: "Row one" });
-    const checkbox = within(cell).getByRole("checkbox");
+    const row = screen.getByRole("row", { name: "Row one" });
 
-    expect(checkbox).toBeInTheDocument();
-    expect(checkbox).toBeChecked();
-    expect(screen.getByRole("row", { name: "Row one" })).toHaveAttribute("data-is-selected", "true");
+    expect(row).toHaveAttribute("data-is-selected", "true");
+    expect(row).toHaveStyleRule(
+      "background-color",
+      "var(--table-row-bg-selected)",
+      {
+        modifier: "> td",
+      },
+    );
   });
 
   it("does not render a checkbox when onRowSelect is not provided", () => {
@@ -540,45 +544,6 @@ describe("selectable rows", () => {
 
     expect(checkbox).not.toBeInTheDocument();
     expect(screen.getByRole("row", { name: "Row one" })).toHaveAttribute("data-is-selected", "false");
-  });
-
-  it("calls onRowSelect when the checkbox is clicked", async () => {
-    const user = userEvent.setup();
-    const onRowSelect = jest.fn();
-    renderTable({
-      rows: createRow("one", "Row one", { isSelected: true, onRowSelect }),
-    });
-
-    const cell = screen.getByRole("cell", { name: "Row one" });
-    const checkbox = within(cell).getByRole("checkbox");
-
-    await user.click(checkbox);
-
-    expect(onRowSelect).toHaveBeenCalledTimes(1);
-    const [toggleSelection] = onRowSelect.mock.calls[0];
-    
-    // ensure the state callback gets coverage
-    expect(toggleSelection(true)).toBe(false);
-  });
-
-  it("calls onRowSelect when the checkbox in the header is clicked", async () => {
-    const user = userEvent.setup();
-    const onRowSelect = jest.fn();
-    renderTable({
-      headerRows: createHeaderRow("header", "Header row", { isSelected: true, onRowSelect }),
-      rows: createRow("one", "Row one", { isSelected: true, onRowSelect: jest.fn() }),
-    });
-
-    const header = screen.getByRole("columnheader", { name: "Header row" });
-    const checkbox = within(header).getByRole("checkbox");
-
-    await user.click(checkbox);
-
-    expect(onRowSelect).toHaveBeenCalledTimes(1);
-    const [toggleSelection] = onRowSelect.mock.calls[0];
-    
-    // ensure the state callback gets coverage
-    expect(toggleSelection(true)).toBe(false);
   });
 });
 

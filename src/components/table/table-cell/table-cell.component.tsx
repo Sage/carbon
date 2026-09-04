@@ -1,8 +1,7 @@
 import React, { useCallback, useContext } from "react";
 import { TableContext, TableRowContext } from "../__internal__/contexts";
-import StyledTableCell, { StyledExpandIcon } from "./table-cell.style";
+import StyledTableCell, { CellContent, StyledExpandIcon } from "./table-cell.style";
 import Icon from "../../icon";
-import { Checkbox } from "../../checkbox";
 import useMappedSize from "../__internal__/hooks/use-mapped-size";
 import { BorderThickness } from "../table.component";
 
@@ -45,8 +44,6 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
   const {
     isExpanded,
     setIsExpanded,
-    isSelected,
-    toggleSelected,
   } = useContext(TableRowContext);
   const mappedSize = useMappedSize(size);
 
@@ -68,22 +65,11 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
     [isExpandable, setIsExpanded]
   );
 
-  const handleSelectableOnChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.stopPropagation();
-      toggleSelected?.((p) => !p);
-    },
-    [toggleSelected],
-  );
 
   return (
     <StyledTableCell
       ref={ref}
       id={id}
-      $isExpandable={isExpandable}
-      aria-expanded={isExpandable ? isExpanded : undefined}
-      aria-controls={isExpandable && isExpanded ? subRowIds : undefined}
-      tabIndex={isExpandable ? 0 : undefined}
       $size={size}
       {...props}
       data-component="table-cell"
@@ -95,7 +81,13 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
     >
       <div data-element="table-cell-collapse">
         <div data-element="table-cell-clip">
-          <div data-element="table-cell-content-container">
+          <CellContent
+            $isExpandable={isExpandable}
+            as={isExpandable ? "button" : undefined}
+            data-element="table-cell-content-container"
+            aria-expanded={isExpandable ? isExpanded : undefined}
+            aria-controls={isExpandable && isExpanded ? subRowIds : undefined}
+          >
             {isDraggable && (
               <Icon size={mappedSize} type="drag" data-component="table-cell-drag-handle" data-role="table-cell-drag-handle" />
             )}
@@ -119,20 +111,10 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
                 data-role="table-cell-subrow-spacer"
               />
             )}
-            {isSelectable && (
-              <Checkbox
-                size={mappedSize}
-                checked={isSelected}
-                onChange={handleSelectableOnChange}
-                onClick={(ev) => ev.stopPropagation()}
-                data-component="table-cell-select-checkbox"
-                data-role="table-cell-select-checkbox"
-              />
-            )}
             <div data-element="table-cell-content">
               {children}
             </div>
-          </div>
+          </CellContent>
         </div>
       </div>
     </StyledTableCell>
