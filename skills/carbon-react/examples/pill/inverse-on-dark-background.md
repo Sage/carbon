@@ -1,4 +1,4 @@
-# Pill: Inverse on Dark Background
+# Pill: Inverse
 
 Source story: `src/components/pill/pill.stories.tsx#InverseOnDarkBackground`
 

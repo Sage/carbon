@@ -8,12 +8,14 @@ should be added.
 
 ## Sources of truth
 
-| Information                                                                   | Source                                                 |
-| ----------------------------------------------------------------------------- | ------------------------------------------------------ |
-| Public exports, imports, props, types, defaults and deprecations              | Component source, read by the generator                |
-| What the component is for, selection guidance, pitfalls and example selection | `docs/component-metadata/<component>.json`             |
-| Runnable example implementation                                               | The selected Storybook story                           |
-| Agent-facing Markdown                                                         | `skills/carbon-react/`, generated; never edit directly |
+| Information                                                      | Source                                                 |
+| ---------------------------------------------------------------- | ------------------------------------------------------ |
+| Public exports, imports, props, types, defaults and deprecations | Component source, read by the generator                |
+| Developer usage guidance                                         | Carbon Storybook MDX and stories                       |
+| Supplementary design context                                     | Fusion guidance, when available and relevant           |
+| Curated decision guidance, pitfalls and example selection        | `docs/component-metadata/<component>.json`             |
+| Runnable example implementation                                  | The selected Storybook story                           |
+| Agent-facing Markdown                                            | `skills/carbon-react/`, generated; never edit directly |
 
 This split keeps facts that can silently drift tied to code while allowing
 maintainers to author product guidance that cannot be inferred reliably.
@@ -22,18 +24,26 @@ maintainers to author product guidance that cannot be inferred reliably.
 
 1. Create a kebab-case JSON file matching the generated component name. Use
    `pill.json` as the structural example, but assess the component independently.
-2. Write a concise `summary` that distinguishes the component. Add optional
+2. Inspect Carbon's Storybook MDX and stories as the primary developer guidance.
+   Consult Fusion for supplementary design context when it is available and
+   relevant, but do not make curation depend on access to it or let it override
+   Carbon's documented behaviour.
+3. Write a concise `summary` that distinguishes the component. Add optional
    sections only when they change an agent's decision; do not repeat the summary
    in `useWhen` or add text merely to fill a section.
-3. Select only stories that demonstrate useful consumer behaviour. Playground
+4. Describe what props and visual variants enable without deciding when a
+   designer should choose them. Include prescriptive guidance only for component
+   selection, accessibility, implementation correctness, or an explicit Carbon
+   requirement.
+5. Select only stories that demonstrate useful consumer behaviour. Playground
    stories are interactive documentation and should not be curated by default.
    A selected story must resolve to public consumer imports after generation,
    avoid deprecated APIs, and produce a focused example that makes sense outside
    Storybook.
-4. Improve the source story when the example itself is incomplete, inaccessible,
+6. Improve the source story when the example itself is incomplete, inaccessible,
    or uses an obsolete pattern. Do not compensate by hand-editing generated
    Markdown.
-5. Run `npm run build:skills`, then review the component entry and every generated
+7. Run `npm run build:skills`, then review the component entry and every generated
    example as an agent-facing consumer would.
 
 Supported fields:
@@ -56,6 +66,10 @@ and curated examples that retain source-relative imports.
 ## Completion checklist
 
 - The metadata adds decision-making value and contains no duplicated filler.
+- Guidance is grounded in Carbon documentation and behaviour rather than
+  inferred from the component name or API shape.
+- Visual variant guidance explains capability without making contextual design
+  decisions for the consumer.
 - Alternatives and selected stories use current, public APIs.
 - Curated examples are focused, accessible, syntactically valid, and readable
   without interpreting Storybook composition.
