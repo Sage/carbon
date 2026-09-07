@@ -5,22 +5,23 @@ description: Carbon Pill component props and usage examples.
 
 # Pill
 
-A compact visual indicator used to label, categorise, or show the status of an item.
+A compact visual indicator that highlights information or status.
 
 ## When to use
 
-- Representing a selection that the user may remove.
+- An item's status needs to be prominent at a glance; this is Pill's primary use.
+- A short label helps categorise an item; this is secondary to communicating status.
 
 ## Choose instead
 
-- **Badge:** Showing a compact numeric count.
-- **ButtonNext:** Use for actions rather than labels or removable selections.
+- **ButtonNext:** The element's primary purpose is to perform an action rather than display information or status.
 
 ## Pitfalls
 
-- Use ariaLabelOfRemoveButton when the translated default removal label is not suitable for the surrounding context.
-- Use inverse on dark backgrounds to preserve contrast.
-- Keep labels concise; use wrapText with maxWidth only when wrapping cannot be avoided.
+- Give a removable pill a clear, unique accessible label that describes the relationship between the pill and its removal button.
+- Use a left icon only with size L.
+- Keep the Pill itself out of the tab order; only its removal button should receive keyboard focus.
+- Add visually hidden context when the pill's meaning is not clear from its visible label and surroundings.
 
 ## Import
 `import Pill from "carbon-react/lib/components/pill";`
@@ -37,7 +38,7 @@ A compact visual indicator used to label, categorise, or show the status of an i
 | borderColor | string \| undefined | No |  |  |  | Override color variant, provide any color from palette or any valid css color value. |  |
 | fill | boolean \| undefined | No |  |  |  | Fills the pill background with colour. When fill is false only the border is coloured. | false |
 | icon | React.ReactNode | No |  |  |  | A React node displayed to the left of the pill content. Recommended for use with `size="L"` pills. |  |
-| inverse | boolean \| undefined | No |  |  |  | Set to allow for inverse styling to be used on dark backgrounds. | false |
+| inverse | boolean \| undefined | No |  |  |  | Whether to apply inverse styling to the pill. | false |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
@@ -68,5 +69,5 @@ A compact visual indicator used to label, categorise, or show the status of an i
 Load only the example needed for the current task; playground stories are intentionally omitted.
 
 - [Wrapped](../examples/pill/wrapped.md) — Allow an unusually long label to wrap within a constrained width.
-- [With Remove Button](../examples/pill/with-remove-button.md) — Make a pill removable by providing onDelete, and customise its accessible label when needed.
-- [Inverse on Dark Background](../examples/pill/inverse-on-dark-background.md) — Use inverse styling when pills appear on a dark surface.
+- [With Remove Button](../examples/pill/with-remove-button.md) — Make a pill removable with onDelete and give its removal button a clear, contextual accessible label.
+- [Inverse](../examples/pill/inverse-on-dark-background.md) — Apply inverse styling to a pill.

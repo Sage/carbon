@@ -14,9 +14,19 @@ active components awaiting review; do not spend coverage effort on deprecated
 components unless migration guidance is specifically needed.
 
 Inspect the component source, its Storybook stories and MDX, and its current
-generated component file before authoring metadata. Add only guidance that
-changes an agent's decisions. Omit optional fields instead of repeating the
-summary or filling a template.
+generated component file before authoring metadata. Treat Carbon source and
+Storybook as the primary developer-facing sources. Fusion guidance may provide
+useful supplementary design context when available, but it is not a prerequisite
+and must not override Carbon's documented behaviour. Do not infer product
+guidance from prop names or component behaviour. Add only guidance that changes
+an agent's decisions. Omit optional fields instead of repeating the summary or
+filling a template.
+
+Keep capability and design decisions separate. Explain what props and visual
+variants enable, plus any technical constraints, without prescribing when a
+designer should choose them. Prescriptive guidance belongs here only when it is
+needed for component selection, accessibility, implementation correctness, or a
+documented Carbon requirement.
 
 Curate a small set of focused, consumer-useful stories. Do not curate playground
 stories or examples using deprecated APIs. Preserve the Storybook patterns the

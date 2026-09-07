@@ -17,8 +17,11 @@ export const PillWithRemoveButtonExample = () => {
       <Button onClick={showPill}>Reset example</Button>
       <Box m={1}>
         {isPillVisible && (
-          <Pill ariaLabelOfRemoveButton="Remove Pill" onDelete={hidePill}>
-            Pill
+          <Pill
+            ariaLabelOfRemoveButton="Remove ready to process status"
+            onDelete={hidePill}
+          >
+            Ready to process
           </Pill>
         )}
       </Box>
