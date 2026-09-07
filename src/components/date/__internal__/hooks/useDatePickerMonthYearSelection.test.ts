@@ -194,6 +194,41 @@ test("recalculates the displayed month and years when bounds change dynamically"
   expect(setFocusedMonth).not.toHaveBeenCalled();
 });
 
+test("keeps displaying a month/year the user explicitly navigated to outside minDate/maxDate", () => {
+  const setFocusedMonth = jest.fn();
+  const markSelectorChanged = jest.fn();
+  const { result, rerender } = renderHook(
+    ({ focusedMonth }: { focusedMonth?: Date }) =>
+      useDatePickerMonthYearSelection({
+        minDate: "2024-06-10",
+        maxDate: "2024-06-20",
+        focusedMonth,
+        setFocusedMonth,
+        markSelectorChanged,
+      }),
+    { initialProps: { focusedMonth: new Date(2024, 5, 15) } },
+  );
+
+  act(() => result.current.handleYearChange(changeEvent("2030")));
+
+  expect(setFocusedMonth).toHaveBeenCalledWith(new Date(2030, 5, 1));
+
+  // Simulate the resulting state update flowing back in as focusedMonth.
+  rerender({ focusedMonth: new Date(2030, 5, 1) });
+
+  expect(result.current.displayedMonth).toEqual(new Date(2030, 5, 1));
+});
+
+test("still clamps an out-of-range focusedMonth that did not come from user navigation", () => {
+  const { result } = renderMonthYearSelection({
+    minDate: "2024-06-10",
+    maxDate: "2024-06-20",
+    focusedMonth: new Date(2030, 5, 15),
+  });
+
+  expect(result.current.displayedMonth).toEqual(new Date(2024, 5, 20));
+});
+
 test("keeps the default year range stable after changing year", () => {
   const setFocusedMonth = jest.fn();
   const markSelectorChanged = jest.fn();

@@ -132,3 +132,29 @@ test("disables dates outside the configured range", () => {
     }),
   ).toBeEnabled();
 });
+
+test("allows navigating to, and viewing, a month outside minDate/maxDate via the selectors", async () => {
+  const user = userEvent.setup();
+  render(
+    <DatePickerWithInput
+      onRequestPickerClose={() => {}}
+      open
+      disablePortal
+      selectedDate={new Date(2024, 5, 15)}
+      minDate="2024-06-10"
+      maxDate="2024-06-20"
+    />,
+  );
+
+  await user.selectOptions(
+    screen.getByRole("combobox", { name: "Choose the year" }),
+    "2025",
+  );
+
+  expect(screen.getByRole("combobox", { name: "Choose the year" })).toHaveValue(
+    "2025",
+  );
+  expect(
+    screen.getByRole("button", { name: "Monday, June 30th, 2025" }),
+  ).toBeDisabled();
+});

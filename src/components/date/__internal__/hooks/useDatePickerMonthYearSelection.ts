@@ -40,10 +40,21 @@ const useDatePickerMonthYearSelection = ({
   );
   const { minMonth, maxMonth } = navigationBounds;
   const currentMonth = focusedMonth ?? new Date();
+  // Only clamp into range when minDate/maxDate just changed (including on
+  // mount), so month/year selector navigation to an out-of-range month is
+  // never immediately overridden.
+  const previousBounds = useRef<{ min?: number; max?: number }>();
+  const boundsChanged =
+    previousBounds.current?.min !== minMonth?.getTime() ||
+    previousBounds.current?.max !== maxMonth?.getTime();
+  previousBounds.current = {
+    min: minMonth?.getTime(),
+    max: maxMonth?.getTime(),
+  };
   const displayedMonth =
-    minMonth && currentMonth < minMonth
+    boundsChanged && minMonth && currentMonth < minMonth
       ? minMonth
-      : maxMonth && currentMonth > maxMonth
+      : boundsChanged && maxMonth && currentMonth > maxMonth
         ? maxMonth
         : currentMonth;
   const displayedYear = displayedMonth.getFullYear();
