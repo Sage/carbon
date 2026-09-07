@@ -38,6 +38,7 @@ export const DatePicker = ({
   onRequestPickerClose,
   pickerTabGuardId,
   pickerId,
+  yearRangeOffset,
 }: DatePickerProps) => {
   if (!deprecateDisablePortalWarnTriggered && disablePortal) {
     deprecateDisablePortalWarnTriggered = true;
@@ -104,6 +105,7 @@ export const DatePicker = ({
       focusedMonth,
       setFocusedMonth,
       markSelectorChanged,
+      yearRangeOffset,
     });
   useDatePickerMonthSync({
     open,

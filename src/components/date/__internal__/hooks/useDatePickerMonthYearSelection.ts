@@ -8,7 +8,7 @@ import {
   parseSelectInteger,
 } from "../date-picker/date-picker.utils";
 
-const DEFAULT_YEAR_RANGE_OFFSET = 10;
+export const DEFAULT_YEAR_RANGE_OFFSET = 10;
 
 interface UseDatePickerMonthYearSelectionProps {
   minDate?: string;
@@ -17,6 +17,8 @@ interface UseDatePickerMonthYearSelectionProps {
   focusedMonth?: Date;
   setFocusedMonth: React.Dispatch<React.SetStateAction<Date | undefined>>;
   markSelectorChanged: (selector: "month" | "year") => void;
+  /** Number of years shown either side of the bounds/anchor year in the year selector. */
+  yearRangeOffset?: number;
 }
 
 /** Manages bounded month/year navigation and selector changes. */
@@ -27,6 +29,7 @@ const useDatePickerMonthYearSelection = ({
   focusedMonth,
   setFocusedMonth,
   markSelectorChanged,
+  yearRangeOffset = DEFAULT_YEAR_RANGE_OFFSET,
 }: UseDatePickerMonthYearSelectionProps) => {
   const navigationBounds = useMemo(
     () =>
@@ -69,9 +72,9 @@ const useDatePickerMonthYearSelection = ({
         maxMonth,
         anchorYear: initialDisplayedYear.current,
         includedYear: displayedYear,
-        offset: DEFAULT_YEAR_RANGE_OFFSET,
+        offset: yearRangeOffset,
       }),
-    [displayedYear, minMonth, maxMonth],
+    [displayedYear, minMonth, maxMonth, yearRangeOffset],
   );
 
   const navigateToMonthAndYear = ({

@@ -158,3 +158,24 @@ test("allows navigating to, and viewing, a month outside minDate/maxDate via the
     screen.getByRole("button", { name: "Monday, June 30th, 2025" }),
   ).toBeDisabled();
 });
+
+test("supports a custom yearRangeOffset to narrow the year selector options", () => {
+  render(
+    <DatePickerWithInput
+      onRequestPickerClose={() => {}}
+      open
+      disablePortal
+      selectedDate={new Date(2025, 5, 15)}
+      yearRangeOffset={1}
+    />,
+  );
+
+  const yearSelect = screen.getByRole("combobox", {
+    name: "Choose the year",
+  }) as HTMLSelectElement;
+  const optionValues = Array.from(yearSelect.options).map(
+    (option) => option.value,
+  );
+
+  expect(optionValues).toEqual(["2024", "2025", "2026"]);
+});

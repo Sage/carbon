@@ -35,4 +35,9 @@ export interface DatePickerProps {
   pickerId?: string;
   /** Size of the associated date input. */
   size?: DatePickerSize;
+  /**
+   * Number of years shown either side of the bounds/anchor year in the year
+   * selector. Defaults to 10.
+   */
+  yearRangeOffset?: number;
 }

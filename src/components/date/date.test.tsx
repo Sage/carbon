@@ -616,6 +616,27 @@ test("should render month and year navigation selects", async () => {
   ).toBeVisible();
 });
 
+test("should narrow the year navigation select options via yearRangeOffset", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <LegacyDateInput
+      onChange={() => {}}
+      value="15/06/2025"
+      yearRangeOffset={1}
+    />,
+  );
+  await user.click(screen.getByTestId("input-icon-toggle"));
+
+  const yearSelect = screen.getByRole("combobox", {
+    name: "Choose the year",
+  }) as HTMLSelectElement;
+  const optionValues = Array.from(yearSelect.options).map(
+    (option) => option.value,
+  );
+
+  expect(optionValues).toEqual(["2024", "2025", "2026"]);
+});
+
 test("should update a legacy input only after selecting a date, not when navigating by month or year", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();

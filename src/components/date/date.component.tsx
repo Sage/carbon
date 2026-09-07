@@ -106,6 +106,12 @@ export interface DateInputProps
   datePickerAriaLabelledBy?: string;
   /** Date input presentation. Typical is the default; legacy retains its icon trigger. */
   variant?: "legacy" | "typical";
+  /**
+   * Number of years shown either side of the bounds (`minDate`/`maxDate`, or
+   * `pickerProps.startMonth`/`endMonth`) or the anchor year in the year
+   * selector dropdown. Defaults to 10.
+   */
+  yearRangeOffset?: number;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -163,6 +169,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       variant = "typical",
       warning,
       name,
+      yearRangeOffset,
       ...rest
     }: DateInputProps,
     ref,
@@ -460,6 +467,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           pickerTabGuardId={pickerTabGuardId}
           pickerId={pickerId}
           size={actualSize}
+          yearRangeOffset={yearRangeOffset}
         />
       </StyledDateInput>
     );

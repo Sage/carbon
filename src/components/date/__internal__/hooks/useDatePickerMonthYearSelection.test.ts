@@ -229,6 +229,25 @@ test("still clamps an out-of-range focusedMonth that did not come from user navi
   expect(result.current.displayedMonth).toEqual(new Date(2024, 5, 20));
 });
 
+test("uses the default year range offset of 10 when none is provided", () => {
+  const { result } = renderMonthYearSelection({
+    focusedMonth: new Date(2025, 5, 15),
+  });
+
+  expect(result.current.years[0]).toBe(2015);
+  expect(result.current.years.at(-1)).toBe(2035);
+});
+
+test("uses a custom yearRangeOffset to build the available years", () => {
+  const { result } = renderMonthYearSelection({
+    focusedMonth: new Date(2025, 5, 15),
+    yearRangeOffset: 2,
+  });
+
+  expect(result.current.years[0]).toBe(2023);
+  expect(result.current.years.at(-1)).toBe(2027);
+});
+
 test("keeps the default year range stable after changing year", () => {
   const setFocusedMonth = jest.fn();
   const markSelectorChanged = jest.fn();

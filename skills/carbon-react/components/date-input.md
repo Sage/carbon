@@ -285,6 +285,7 @@ description: Carbon DateInput component props and usage examples.
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
+| yearRangeOffset | number \| undefined | No |  |  |  | Number of years shown either side of the bounds (`minDate`/`maxDate`, or `pickerProps.startMonth`/`endMonth`) or the anchor year in the year selector dropdown. Defaults to 10. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |
