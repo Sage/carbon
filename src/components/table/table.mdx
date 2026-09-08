@@ -1,6 +1,10 @@
 import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as TableStories from "./table.stories";
+import * as TableBodyStories from "./table-body/table-body.stories";
+import * as TableRowStories from "./table-row/table-row.stories";
+import * as TableHeaderStories from "./table-header/table-header.stories";
+import * as TableCellStories from "./table-cell/table-cell.stories";
 
 <Meta of={TableStories} />
 
@@ -15,18 +19,34 @@ import * as TableStories from "./table.stories";
   Product Design System component
 </a>
 
-A Table displays data in a structured format with rows and columns. It can support features like sorting, selecting, dragging, and expanding rows.
+A Table displays comparative data in a structured format with rows and columns. It can support features like sorting, selecting, dragging, and expanding rows.
+
+Migrating an existing `FlatTable`? Follow the
+[FlatTable to Table migration guide](?path=/docs/flat-table-migration-to-table--docs).
 
 ## Contents
 
 - [Quick Start](#quick-start)
 - [Playground](#playground)
+- [Draggable](#draggable)
+- [Selectable](#selectable)
+- [Expandable](#expandable)
+- [Sticky columns](#sticky-columns)
+- [Sticky rows](#sticky-rows)
 - [Props](#props)
 
 ## Quick Start
 
 ```javascript
-import Table from "carbon-react/lib/components/table";
+import {
+  Table,
+  TableHead,
+  TableRow,
+  TableHeader,
+  TableBody,
+  TableCell,
+  TableFoot,
+} from "carbon-react/lib/components/table";
 ```
 
 ## Playground
@@ -48,9 +68,71 @@ Use this interactive example to explore Table props and behaviours with Storyboo
     "outerBorders",
     "horizontalBorderThickness",
     "verticalBorderThickness",
+    "enabled",
+    "currentPage",
+    "pageSize",
+    "interactivePageNumber",
+    "showPageSizeSelection",
+    "showFirstAndLastButtons",
   ]}
 />
 
+## Draggable
+
+Use `isDraggable` when users need to reorder rows. The drag handle is placed in the leftmost column and a row can be moved to the position of another row.
+
+Dragging must not be the only way to reorder content. Provide equivalent keyboard-accessible actions, such as **Move up** and **Move down**, in the row's action menu. Both interactions should update the same source of row-order state.
+
+<Canvas of={TableStories.Draggable} />
+
+## Selectable
+
+Use a checkbox to select a row. Reflect the selection in both the checkbox (`checked`) and row styling (`isSelected`).
+
+`Links` and `Pills` within a selected row should use their inverse appearance where necessary to maintain sufficient contrast.
+
+<Canvas of={TableStories.Selectable} />
+
+## Expandable
+
+Expandable rows are intended for `medium` and `large` tables and support one level of child rows. The expansion control is placed in the leftmost cell, the rest of the row is not clickable.
+
+The control is keyboard operable: **Enter** or **Space** expands and collapses the row.
+
+<Canvas of={TableStories.Expandable} />
+
+## Sticky columns
+
+Use sticky columns to retain important context while the table scrolls horizontally. The component supports locking one column on each side and retains a shadow between sticky and scrolling cells.
+
+Horizontal scrolling applies to the whole table, including its sticky columns, and uses the browser's native scrollbar.
+
+<Canvas of={TableStories.StickyColumns} />
+
+## Sticky rows
+
+Use a sticky `header` to keep column headings visible while users move through longer tables. The vertical scrolling relies on the viewport so that it works on mobile screens as well.
+
+Although `stickyRow` supports a `footer` or `both` rows for specialist cases, the recommended pattern is a sticky header only. Avoid sticky footers and internally scrolling tables where possible, as they can introduce nested scrolling regions that are difficult for keyboard and screen-reader users to navigate.
+
+<Canvas of={TableStories.StickyRows} />
+
 ## Props
 
-<ArgTypes of={TableStories} exclude={["feature"]} />
+<ArgTypes of={TableStories} exclude={/^(feature|pagination|enabled)/} />
+
+### TableBody
+
+<ArgTypes of={TableBodyStories} />
+
+### TableRow
+
+<ArgTypes of={TableRowStories} />
+
+### TableHeader
+
+<ArgTypes of={TableHeaderStories} exclude={/^(inert)/} />
+
+### TableCell
+
+<ArgTypes of={TableCellStories} />

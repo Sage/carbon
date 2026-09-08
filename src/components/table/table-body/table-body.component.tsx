@@ -1,4 +1,4 @@
-import React, {useContext, useState, useRef, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import styled from "styled-components";
 import {TableContext} from "../__internal__/contexts";
 import arrayMove from "../../../__internal__/utils/helpers/array-move";
@@ -12,7 +12,13 @@ import flattenChildren from "../__internal__/utils";
 const StyledTableBody = styled.tbody``;
 
 export interface TableBodyProps {
+  /**
+   * The content of the table body.
+   */
   children: React.ReactNode;
+  /**
+   * Callback function that provides the current order of draggable item IDs.
+   */
   getOrder?: (draggableItemIds?: (string | number | undefined)[]) => void;
 }
 
@@ -50,33 +56,44 @@ const DraggableTableBody = ({
   setDraggableItems: React.Dispatch<React.SetStateAction<React.ReactNode[]>>;
   getOrder?: TableBodyProps["getOrder"];
 } & Omit<React.ComponentPropsWithoutRef<"tbody">, "children">) => {
-  const handleDrop: DragDropProviderProps["onDrop"] = ({ dragged, target }) => {
-    if (target) {
-      setDraggableItems((prev) => {
-        const startIndex = prev.findIndex(
-          (row) =>
-            React.isValidElement(row) && String(row.props.id) === dragged.id,
-        );
-        const endIndex = prev.findIndex(
-          (row) =>
-            React.isValidElement(row) && String(row.props.id) === target.id,
-        );
+  const handleDrop: DragDropProviderProps["onDrop"] = ({
+    dragged,
+    target,
+  }) => {
+    if (!target) return;
 
-        if (startIndex === -1 || endIndex === -1 || startIndex === endIndex) {
-          return prev;
-        }
+    const startIndex = draggableItems.findIndex(
+      (row) =>
+        React.isValidElement<TableRowProps>(row) &&
+        String(row.props.id) === dragged.id,
+    );
+    const endIndex = draggableItems.findIndex(
+      (row) =>
+        React.isValidElement<TableRowProps>(row) &&
+        String(row.props.id) === target.id,
+    );
 
-        const reorderedItems = arrayMove({ array: prev, startIndex, endIndex });
-        const childRowIds = reorderedItems
-          .map((row) => (React.isValidElement(row) ? row.props.id : /* istanbul ignore next */ ""))
-          .filter(Boolean);
-        getOrder?.(childRowIds);
-
-        return reorderedItems;
-      });
-
+    if (
+      startIndex === -1 ||
+      endIndex === -1 ||
+      startIndex === endIndex
+    ) {
       return;
     }
+
+    const reorderedItems = arrayMove({
+      array: draggableItems,
+      startIndex,
+      endIndex,
+    });
+
+    setDraggableItems(reorderedItems);
+
+    getOrder?.(
+      reorderedItems
+        .filter(React.isValidElement<TableRowProps>)
+        .map((row) => row.props.id),
+    );
   };
 
   return (
@@ -95,12 +112,16 @@ const TableBody = ({ children, getOrder, ...props }: TableBodyProps) => {
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (!isFirstRender.current) {
-      setDraggableItems(flattenChildren(children));
-    } else {
+    if (isFirstRender.current) {
       isFirstRender.current = false;
+      return;
     }
-  }, [children]);
+
+    /* istanbul ignore else */
+    if (isDraggable) {
+      setDraggableItems(flattenChildren(children));
+    }
+  }, [children, isDraggable]);
 
   if (isDraggable) {
     return (

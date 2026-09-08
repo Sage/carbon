@@ -1,318 +1,94 @@
-import React, { useEffect, useMemo, useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+---
+name: carbon-component-table
+description: Carbon Table component props and usage examples.
+---
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFoot,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from ".";
-import { Checkbox } from "../checkbox";
-import Pager, { type PagerProps } from "../pager";
-import { ActionPopover, ActionPopoverItem } from "../action-popover";
-import arrayMove from "../../__internal__/utils/helpers/array-move";
+# Table
 
-type Feature = "none" | "selectable" | "draggable" | "expandable";
-type SortColumn = "product" | "price" | "type" | "status";
-type SortDirection = "ascending" | "descending" | "unsorted";
-type PlaygroundArgs = React.ComponentProps<typeof Table> & {
-  feature: Feature;
-  paginationEnabled: boolean;
-  paginationCurrentPage: number;
-  paginationPageSize: number;
-  paginationVariant: PagerProps["variant"];
-  paginationSize: PagerProps["size"];
-  paginationInteractivePageNumber: boolean;
-  paginationShowPageSizeSelection: boolean;
-  paginationShowFirstAndLastButtons: boolean;
-};
+## Import
+`import { Table } from "carbon-react/lib/components/table";`
 
-const meta: Meta<PlaygroundArgs> = {
-  title: "Table",
-  component: Table,
-  parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-  argTypes: {
-    feature: {
-      options: ["none", "selectable", "draggable", "expandable"],
-      control: { type: "radio" },
-    },
-    variant: {
-      options: ["prominent", "subtle-grey", "subtle-white"],
-      control: { type: "radio" },
-    },
-    size: {
-      options: ["small", "medium", "large"],
-      control: { type: "radio" },
-    },
-    stickyRow: {
-      options: ["none", "header", "footer", "both"],
-      mapping: {
-        none: undefined,
-        header: "header",
-        footer: "footer",
-        both: "both",
-      },
-      control: { type: "radio" },
-    },
-    stickyColumn: {
-      options: ["none", "first", "last", "both"],
-      mapping: {
-        none: undefined,
-        first: "first",
-        last: "last",
-        both: "both",
-      },
-      control: { type: "radio" },
-    },
-    outerBorders: {
-      options: ["none", "small"],
-      control: { type: "radio" },
-    },
-    horizontalBorderThickness: {
-      options: ["none", "small", "medium", "large"],
-      control: { type: "radio" },
-    },
-    verticalBorderThickness: {
-      options: ["none", "small", "medium", "large"],
-      control: { type: "radio" },
-    },
-    maxWidth: {
-      control: "text",
-    },
-    isZebraStriped: {
-      control: "boolean",
-    },
-    paginationEnabled: {
-      name: "enabled",
-      control: "boolean",
-      table: {
-        category: "Pagination",
-      },
-    },
-    paginationCurrentPage: {
-      name: "currentPage",
-      control: {
-        type: "number",
-        min: 1,
-      },
-      if: {
-        arg: "paginationEnabled",
-        truthy: true,
-      },
-      table: {
-        category: "Pagination",
-      },
-    },
-    paginationPageSize: {
-      name: "pageSize",
-      options: [5, 10, 25],
-      control: "select",
-      if: {
-        arg: "paginationEnabled",
-        truthy: true,
-      },
-      table: {
-        category: "Pagination",
-      },
-    },
-    paginationVariant: {
-      name: "variant",
-      options: ["default", "alternate"],
-      control: "radio",
-      if: {
-        arg: "paginationEnabled",
-        truthy: true,
-      },
-      table: {
-        category: "Pagination",
-      },
-    },
-    paginationSize: {
-      name: "size",
-      options: ["small", "medium", "large"],
-      control: "radio",
-      if: {
-        arg: "paginationEnabled",
-        truthy: true,
-      },
-      table: {
-        category: "Pagination",
-      },
-    },
-    paginationInteractivePageNumber: {
-      name: "interactivePageNumber",
-      control: "boolean",
-      if: {
-        arg: "paginationEnabled",
-        truthy: true,
-      },
-      table: {
-        category: "Pagination",
-      },
-    },
-    paginationShowPageSizeSelection: {
-      name: "showPageSizeSelection",
-      control: "boolean",
-      if: {
-        arg: "paginationEnabled",
-        truthy: true,
-      },
-      table: {
-        category: "Pagination",
-      },
-    },
-    paginationShowFirstAndLastButtons: {
-      name: "showFirstAndLastButtons",
-      control: "boolean",
-      if: {
-        arg: "paginationEnabled",
-        truthy: true,
-      },
-      table: {
-        category: "Pagination",
-      },
-    },
-  },
-};
+## Source
+- Export: `./components/table`
+- Props interface: `TableProps`
 
-export default meta;
+## Props
+| Name | Type | Required | Literals | Description | Default |
+| --- | --- | --- | --- | --- | --- |
+| children | React.ReactNode | Yes |  | The content of the table. |  |
+| align | "left" \| "right" \| "center" \| undefined | No |  |  |  |
+| horizontalBorderThickness | BorderThickness \| undefined | No |  | The thickness of the horizontal borders within the table. | "small" |
+| isDraggable | boolean \| undefined | No |  | Indicates whether the table is draggable. | false |
+| isZebraStriped | boolean \| undefined | No |  | Indicates whether the table should have zebra striping. | false |
+| maxWidth | string \| undefined | No |  | The maximum width of the table. This will set an overflow-x on the table wrapper. |  |
+| outerBorders | "small" \| "none" \| undefined | No |  | The outer borders of the table. | "small" |
+| pagination | React.ReactNode | No |  | The pagination component for the table. |  |
+| size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | The size of the table. | "medium" |
+| stickyColumn | "both" \| "first" \| "last" \| undefined | No |  | Indicates which column(s) should remain sticky when scrolling. |  |
+| stickyRow | "footer" \| "header" \| "both" \| undefined | No |  | Indicates which row(s) should remain sticky when scrolling. |  |
+| summary | string \| undefined | No |  |  |  |
+| variant | "prominent" \| "subtle-white" \| "subtle-grey" \| undefined | No |  | The variant of the table. | "prominent" |
+| verticalBorderThickness | BorderThickness \| undefined | No |  | The thickness of the vertical borders within the table. | "small" |
 
-type Story = StoryObj<PlaygroundArgs>;
+## Examples
+### SortByPriceDescending
 
-type RowData = {
-  id: number;
-  product: string;
-  price: number;
-  status: string;
-  type: string;
-};
+**Render**
 
-const demoRows: RowData[] = [
-  {
-    id: 1,
-    product: "Product A",
-    price: 12,
-    status: "Active",
-    type: "Standard",
-  },
-  {
-    id: 2,
-    product: "Product D",
-    price: 9,
-    status: "Inactive",
-    type: "Premium",
-  },
-  { id: 3, product: "Product C", price: 28, status: "Active", type: "Custom" },
-  {
-    id: 4,
-    product: "Product H",
-    price: 31,
-    status: "Inactive",
-    type: "Standard",
-  },
-  { id: 5, product: "Product B", price: 18, status: "Active", type: "Premium" },
-  { id: 6, product: "Product G", price: 25, status: "Active", type: "Custom" },
-  {
-    id: 7,
-    product: "Product F",
-    price: 15,
-    status: "Inactive",
-    type: "Standard",
-  },
-  { id: 8, product: "Product E", price: 22, status: "Active", type: "Premium" },
-  {
-    id: 9,
-    product: "Product J",
-    price: 40,
-    status: "Inactive",
-    type: "Custom",
-  },
-  {
-    id: 10,
-    product: "Product I",
-    price: 17,
-    status: "Active",
-    type: "Standard",
-  },
-] as const;
+```tsx
+() => <SortableTable />
+```
 
-const sortRows = (
-  rows: RowData[],
-  column: SortColumn,
-  direction: SortDirection,
-) => {
-  const sortedRows = [...rows].sort((first, second) => {
-    const firstValue = first[column];
-    const secondValue = second[column];
 
-    if (column === "price") {
-      return direction === "ascending"
-        ? Number(firstValue) - Number(secondValue)
-        : Number(secondValue) - Number(firstValue);
-    }
+### SelectRows
 
-    return direction === "ascending"
-      ? String(firstValue).localeCompare(String(secondValue))
-      : String(secondValue).localeCompare(String(firstValue));
-  });
+**Render**
 
-  return sortedRows;
-};
+```tsx
+() => <SelectableTable />
+```
 
-const moveRows = (
-  rows: RowData[],
-  rowToMove: number,
-  target: "up" | "down" | "top" | "bottom",
-): RowData[] => {
-  const rowIndex = rows.findIndex(({ id }) => id === rowToMove);
 
-  if (rowIndex === -1) return rows;
+### ExpandRow
 
-  const nextRows = [...rows];
+**Render**
 
-  switch (target) {
-    case "up":
-      if (rowIndex === 0) return rows;
-      return arrayMove({
-        array: nextRows,
-        startIndex: rowIndex,
-        endIndex: rowIndex - 1,
-      });
+```tsx
+() => <ExpandableTable />
+```
 
-    case "down":
-      if (rowIndex === rows.length - 1) return rows;
-      return arrayMove({
-        array: nextRows,
-        startIndex: rowIndex,
-        endIndex: rowIndex + 1,
-      });
 
-    case "top":
-      return arrayMove({
-        array: nextRows,
-        startIndex: rowIndex,
-        endIndex: 0,
-      });
+### Playground
 
-    case "bottom":
-      return arrayMove({
-        array: nextRows,
-        startIndex: rowIndex,
-        endIndex: rows.length - 1,
-      });
+**Args**
+
+```tsx
+{
+    feature: "none",
+    variant: "prominent",
+    size: "medium",
+    isZebraStriped: false,
+    maxWidth: undefined,
+    stickyRow: undefined,
+    stickyColumn: undefined,
+    outerBorders: "small",
+    horizontalBorderThickness: "small",
+    verticalBorderThickness: "small",
+    paginationEnabled: true,
+    paginationCurrentPage: 1,
+    paginationPageSize: 10,
+    paginationVariant: "default",
+    paginationSize: "medium",
+    paginationInteractivePageNumber: true,
+    paginationShowPageSizeSelection: true,
+    paginationShowFirstAndLastButtons: true,
   }
-};
+```
 
-export const Playground: Story = {
-  render: (args) => {
+**Render**
+
+```tsx
+(args) => {
     const {
       feature,
       paginationEnabled,
@@ -638,38 +414,16 @@ export const Playground: Story = {
         </TableFoot>
       </Table>
     );
-  },
-  args: {
-    feature: "none",
-    variant: "prominent",
-    size: "medium",
-    isZebraStriped: false,
-    maxWidth: undefined,
-    stickyRow: undefined,
-    stickyColumn: undefined,
-    outerBorders: "small",
-    horizontalBorderThickness: "small",
-    verticalBorderThickness: "small",
-    paginationEnabled: true,
-    paginationCurrentPage: 1,
-    paginationPageSize: 10,
-    paginationVariant: "default",
-    paginationSize: "medium",
-    paginationInteractivePageNumber: true,
-    paginationShowPageSizeSelection: true,
-    paginationShowFirstAndLastButtons: true,
-  },
-  parameters: {
-    controls: {
-      exclude: ["children", "isDraggable", "pagination"],
-    },
-  },
-};
+  }
+```
 
-Playground.storyName = "Playground";
 
-export const Draggable: Story = {
-  render: () => {
+### Draggable
+
+**Render**
+
+```tsx
+() => {
     const [rows, setRows] = useState<RowData[]>(() => demoRows.slice(0, 5));
 
     const handleOrderChange = (
@@ -734,11 +488,16 @@ export const Draggable: Story = {
         </TableBody>
       </Table>
     );
-  },
-};
+  }
+```
 
-export const Selectable: Story = {
-  render: () => {
+
+### Selectable
+
+**Render**
+
+```tsx
+() => {
     const rows = demoRows.slice(0, 5);
     const [selectedRows, setSelectedRows] = useState<number[]>([]);
     const allRowsSelected = selectedRows.length === rows.length;
@@ -794,11 +553,16 @@ export const Selectable: Story = {
         </TableBody>
       </Table>
     );
-  },
-};
+  }
+```
 
-export const Expandable: Story = {
-  render: () => (
+
+### Expandable
+
+**Render**
+
+```tsx
+() => (
     <Table>
       <TableHead>
         <TableRow id="expandable-head-row">
@@ -856,11 +620,16 @@ export const Expandable: Story = {
         </TableRow>
       </TableBody>
     </Table>
-  ),
-};
+  )
+```
 
-export const StickyRows: Story = {
-  render: () => (
+
+### StickyRows
+
+**Render**
+
+```tsx
+() => (
     <Table stickyRow="both">
       <TableHead>
         <TableRow id="sticky-rows-head-row">
@@ -895,11 +664,16 @@ export const StickyRows: Story = {
         </TableRow>
       </TableFoot>
     </Table>
-  ),
-};
+  )
+```
 
-export const StickyColumns: Story = {
-  render: () => (
+
+### StickyColumns
+
+**Render**
+
+```tsx
+() => (
     <Table maxWidth="420px" stickyColumn="both">
       <TableHead>
         <TableRow id="sticky-columns-head-row">
@@ -934,5 +708,6 @@ export const StickyColumns: Story = {
         ))}
       </TableBody>
     </Table>
-  ),
-};
+  )
+```
+

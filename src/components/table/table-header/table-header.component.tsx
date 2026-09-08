@@ -4,7 +4,8 @@ import StyledTableHeaderCell from "./table-header.style";
 import Sort, { SortProps } from "./__internal__/sort";
 import { BorderThickness } from "../table.component";
 
-export interface TableHeaderCellProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
+export interface TableHeaderProps
+  extends React.ThHTMLAttributes<HTMLTableCellElement> {
   /**
    * The content of the header cell.
    */
@@ -20,9 +21,9 @@ export interface TableHeaderCellProps extends React.ThHTMLAttributes<HTMLTableCe
   sortType?: SortProps["sortType"];
   /**
    * Callback function to handle the Sort button click event.
-   * 
+   *
    * @param ev React's mouse event for the Sort button element
-   * @returns 
+   * @returns
    */
   onSort?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
   /**
@@ -46,6 +47,10 @@ export interface TableHeaderCellProps extends React.ThHTMLAttributes<HTMLTableCe
    * The id attribute for the header cell.
    */
   id?: string;
+  /**
+   * The alignment of the header cell content.
+   */
+  align?: "left" | "right" | "center";
 }
 
 const TableHeader = ({
@@ -57,8 +62,9 @@ const TableHeader = ({
   borderThickness,
   variantType,
   sortAriaRoleDescription,
+  align = "left",
   ...props
-}: TableHeaderCellProps) => {
+}: TableHeaderProps) => {
   const isSortable = sortType !== undefined && onSort !== undefined;
   const { variant, size } = useContext(TableContext);
 
@@ -70,6 +76,7 @@ const TableHeader = ({
       {...props}
       $borderThickness={borderThickness}
       $alternate={variantType === "alternate"}
+      $align={align}
     >
       <div data-is-sortable={isSortable}>
         {isSortable ? (
@@ -77,7 +84,8 @@ const TableHeader = ({
             sortType={sortType}
             onClick={onSort}
             data-role={`table-header-sort-${sortType}`}
-            aria-roledescription={sortAriaRoleDescription}>
+            aria-roledescription={sortAriaRoleDescription}
+          >
             {children}
           </Sort>
         ) : (

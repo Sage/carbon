@@ -7,7 +7,7 @@ import TableBody from "./table-body";
 import TableFoot from "./table-foot";
 import TableCell, { TableCellProps } from "./table-cell";
 import TableRow, { TableRowProps } from "./table-row";
-import TableHeader, { TableHeaderCellProps } from "./table-header";
+import TableHeader, { TableHeaderProps } from "./table-header";
 import userEvent from "@testing-library/user-event";
 import borderThicknessStyles from "./__internal__/config";
 
@@ -28,7 +28,7 @@ const createHeaderRow = (
   id: string,
   label: string,
   props: Omit<Partial<TableRowProps>, "children" | "id"> = {},
-  headerCellProps: Omit<Partial<TableHeaderCellProps>, "children"> = {},
+  headerCellProps: Omit<Partial<TableHeaderProps>, "children"> = {},
 ) => (
   <TableRow key={id} id={id} {...props}>
     <TableHeader id={`${id}-cell`} {...headerCellProps}>
@@ -63,7 +63,7 @@ const renderTable = ({
       {headerRows && <TableHead>{headerRows}</TableHead>}
       <TableBody getOrder={getOrder}>{rows}</TableBody>
       {footerRows && <TableFoot>{footerRows}</TableFoot>}
-    </Table>
+    </Table>,
   );
 
 let elementsFromPointSpy: jest.SpyInstance;
@@ -96,7 +96,9 @@ describe("drag and drop", () => {
       rows: createRow("one", "Row one"),
     });
 
-    expect(screen.queryByTestId("table-cell-drag-handle")).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("table-cell-drag-handle"),
+    ).not.toBeInTheDocument();
   });
 
   it("renders the drag handle when isDraggable is true", () => {
@@ -124,9 +126,7 @@ describe("drag and drop", () => {
     const dragHandle = screen.getByRole("cell", { name: "Row one" });
     const dropTarget = screen.getByRole("row", { name: "Row three" });
 
-    jest
-      .mocked(document.elementsFromPoint)
-      .mockReturnValue([dragHandle]);
+    jest.mocked(document.elementsFromPoint).mockReturnValue([dragHandle]);
 
     fireEvent.dragStart(draggedRow);
     fireEvent.dragEnter(dropTarget);
@@ -279,7 +279,9 @@ describe("expandable rows", () => {
         screen.queryByRole("row", { name: "Child row" }),
       ).not.toBeInTheDocument();
 
-      const expandableCellButton = screen.getByRole("button", { name: "Parent row" });
+      const expandableCellButton = screen.getByRole("button", {
+        name: "Parent row",
+      });
       await user.tab();
 
       expect(expandableCellButton).toHaveFocus();
@@ -347,11 +349,15 @@ describe("table props", () => {
       tableProps: { maxWidth: "480px" },
     });
 
-    const wrapper = screen.getByTestId("table-wrapper");
+    const wrapper = screen.getByTestId("table-inner-wrapper");
 
     expect(wrapper).toHaveStyleRule("max-width", "480px");
-    expect(wrapper).toHaveStyleRule("overflow-x", "auto");
-    expect(wrapper).toHaveStyleRule("overflow-y", "hidden");
+    expect(wrapper).toHaveStyleRule("overflow-x", "auto", {
+      modifier: "> div",
+    });
+    expect(wrapper).toHaveStyleRule("overflow-y", "hidden", {
+      modifier: "> div",
+    });
   });
 
   it("renders pagination node when prop is provided", () => {
@@ -452,10 +458,34 @@ describe("table props", () => {
         '[data-element="table-cell-content-container"]',
       );
 
-    expect(contentContainer).toHaveStyle(
-      `min-height: ${expectedMinHeight}`,
-    );
+    expect(contentContainer).toHaveStyle(`min-height: ${expectedMinHeight}`);
   });
+
+  it.each([
+    ["extra-small", "var(--global-font-static-comp-medium-s)"],
+    ["small", "var(--global-font-static-comp-medium-s)"],
+    ["medium", "var(--global-font-static-comp-medium-m)"],
+    ["large", "var(--global-font-static-comp-medium-l)"],
+    ["extra-large", "var(--global-font-static-comp-medium-l)"],
+  ] as const)(
+    "applies the expected font to footer cells when size is %s",
+    (size, expectedFont) => {
+      renderTable({
+        rows: createRow("one", "Row one"),
+        tableProps: { size },
+        footerRows: createRow("footer", "Footer row"),
+      });
+
+      const contentContainer = screen
+        .getByRole("cell", { name: "Footer row" })
+        // eslint-disable-next-line testing-library/no-node-access
+        .querySelector<HTMLElement>(
+          '[data-element="table-cell-content-container"]',
+        );
+
+      expect(contentContainer).toHaveStyle(`font: ${expectedFont}`);
+    },
+  );
 
   it("renders outer borders by default", () => {
     renderTable({
@@ -463,10 +493,12 @@ describe("table props", () => {
       tableProps: { variant: "subtle-white" },
     });
 
-    expect(screen.getByRole("table")).toHaveStyleRule(
-      "border-left",
-      "var(--global-borderwidth-xs) solid var(--table-row-border-default)",
-      { modifier: "tbody tr td:first-child" },
+    expect(screen.getByTestId("table-inner-wrapper")).toHaveStyleRule(
+      "border-inline-start",
+      "var(--global-borderwidth-xs) solid var(--table-outer-border-color)",
+      {
+        modifier: "> div > table > :is(tbody,tfoot) > tr > td:first-child",
+      },
     );
   });
 
@@ -476,10 +508,12 @@ describe("table props", () => {
       tableProps: { outerBorders: "none", variant: "subtle-white" },
     });
 
-    expect(screen.getByRole("table")).not.toHaveStyleRule(
-      "border-left",
-      "var(--global-borderwidth-xs) solid var(--table-row-border-default)",
-      { modifier: "tbody tr td:first-child" },
+    expect(screen.getByTestId("table-inner-wrapper")).not.toHaveStyleRule(
+      "border-inline-start",
+      "var(--global-borderwidth-xs) solid var(--table-outer-border-color)",
+      {
+        modifier: "> div > table > :is(tbody,tfoot) > tr > td:first-child",
+      },
     );
   });
 
@@ -512,7 +546,9 @@ describe("table props", () => {
     const footer = screen.getByTestId("table-footer");
 
     expect(footer).toBeVisible();
-    expect(within(footer).getByRole("row", { name: "Footer row" })).toBeVisible();
+    expect(
+      within(footer).getByRole("row", { name: "Footer row" }),
+    ).toBeVisible();
   });
 });
 
@@ -538,19 +574,27 @@ describe("selectable rows", () => {
     renderTable({
       rows: createRow("one", "Row one"),
     });
-    
+
     const cell = screen.getByRole("cell", { name: "Row one" });
     const checkbox = within(cell).queryByRole("checkbox");
 
     expect(checkbox).not.toBeInTheDocument();
-    expect(screen.getByRole("row", { name: "Row one" })).toHaveAttribute("data-is-selected", "false");
+    expect(screen.getByRole("row", { name: "Row one" })).toHaveAttribute(
+      "data-is-selected",
+      "false",
+    );
   });
 });
 
 describe("with sortable columns", () => {
   it("renders a sort button in the header cell when onSort is provided", () => {
     renderTable({
-      headerRows: createHeaderRow("header", "Header row", {}, { onSort: jest.fn(), sortType: "unsorted" }),
+      headerRows: createHeaderRow(
+        "header",
+        "Header row",
+        {},
+        { onSort: jest.fn(), sortType: "unsorted" },
+      ),
       rows: createRow("one", "Row one"),
     });
 
@@ -562,7 +606,12 @@ describe("with sortable columns", () => {
 
   it("does not render a sort button when onSort is not provided", () => {
     renderTable({
-      headerRows: createHeaderRow("header", "Header row", {}, { sortType: "unsorted" }),
+      headerRows: createHeaderRow(
+        "header",
+        "Header row",
+        {},
+        { sortType: "unsorted" },
+      ),
       rows: createRow("one", "Row one"),
     });
 
@@ -574,7 +623,12 @@ describe("with sortable columns", () => {
 
   it("does not render a sort button when sortType is not provided", () => {
     renderTable({
-      headerRows: createHeaderRow("header", "Header row", {}, { onSort: () => {}}),
+      headerRows: createHeaderRow(
+        "header",
+        "Header row",
+        {},
+        { onSort: () => {} },
+      ),
       rows: createRow("one", "Row one"),
     });
 
@@ -588,7 +642,12 @@ describe("with sortable columns", () => {
     const user = userEvent.setup();
     const onSort = jest.fn();
     renderTable({
-      headerRows: createHeaderRow("header", "Header row", {}, { onSort, sortType: "unsorted" }),
+      headerRows: createHeaderRow(
+        "header",
+        "Header row",
+        {},
+        { onSort, sortType: "unsorted" },
+      ),
       rows: createRow("one", "Row one"),
     });
 
@@ -600,31 +659,53 @@ describe("with sortable columns", () => {
     expect(onSort).toHaveBeenCalledTimes(1);
   });
 
-  it.each<TableHeaderCellProps["sortType"]>(["ascending", "descending", "unsorted"])("renders the expectd sort icon when sortType is %s", (sortType) => {
+  it.each<TableHeaderProps["sortType"]>([
+    "ascending",
+    "descending",
+    "unsorted",
+  ])("renders the expectd sort icon when sortType is %s", (sortType) => {
     renderTable({
-      headerRows: createHeaderRow("header", "Header row", {}, { onSort: jest.fn(), sortType }),
+      headerRows: createHeaderRow(
+        "header",
+        "Header row",
+        {},
+        { onSort: jest.fn(), sortType },
+      ),
       rows: createRow("one", "Row one"),
     });
 
     const header = screen.getByRole("columnheader", { name: "Header row" });
-    const sortIcon = within(header).getByTestId(`table-header-sort-${sortType}`);
+    const sortIcon = within(header).getByTestId(
+      `table-header-sort-${sortType}`,
+    );
 
     expect(sortIcon).toBeInTheDocument();
   });
 
-  it.each(["prominent", "subtle-white", "subtle-grey"] as const)("applies the %s variant to the sort button", (variant) => {
-    renderTable({
-      headerRows: createHeaderRow("header", "Header row", {}, { onSort: jest.fn(), sortType: "unsorted" }),
-      rows: createRow("one", "Row one"),
-      tableProps: { variant },
-    });
+  it.each(["prominent", "subtle-white", "subtle-grey"] as const)(
+    "applies the %s variant to the sort button",
+    (variant) => {
+      renderTable({
+        headerRows: createHeaderRow(
+          "header",
+          "Header row",
+          {},
+          { onSort: jest.fn(), sortType: "unsorted" },
+        ),
+        rows: createRow("one", "Row one"),
+        tableProps: { variant },
+      });
 
-    const header = screen.getByRole("columnheader", { name: "Header row" });
-    const sortButton = within(header).getByRole("button");
-    const color = variant === "prominent" ? "var(--table-header-harsh-label-default)" : "var(--table-header-subtle-label-default)";
+      const header = screen.getByRole("columnheader", { name: "Header row" });
+      const sortButton = within(header).getByRole("button");
+      const color =
+        variant === "prominent"
+          ? "var(--table-header-harsh-label-default)"
+          : "var(--table-header-subtle-label-default)";
 
-    expect(sortButton).toHaveStyle(`color: ${color}`);
-  });
+      expect(sortButton).toHaveStyle(`color: ${color}`);
+    },
+  );
 });
 
 describe("table row", () => {
@@ -642,19 +723,25 @@ describe("table row", () => {
     );
   });
 
-  it.each(["small", "medium", "large"] as const)("overrides the border thickness when the prop is provided", (borderThickness) => {
-    renderTable({
-      headerRows: createHeaderRow("header", "Header row"),
-      rows: createRow("one", "Row one", { borderThickness }),
-      tableProps: { horizontalBorderThickness: borderThickness === "medium" ? "small" : "medium" },
-    });
+  it.each(["small", "medium", "large"] as const)(
+    "overrides the border thickness when the prop is provided",
+    (borderThickness) => {
+      renderTable({
+        headerRows: createHeaderRow("header", "Header row"),
+        rows: createRow("one", "Row one", { borderThickness }),
+        tableProps: {
+          horizontalBorderThickness:
+            borderThickness === "medium" ? "small" : "medium",
+        },
+      });
 
-    const cell = screen.getByRole("cell", { name: "Row one" });
+      const cell = screen.getByRole("cell", { name: "Row one" });
 
-    expect(cell).toHaveStyleRule(
-      `--table-cell-border-horizontal-width: ${borderThicknessStyles[borderThickness]}`,
-    );
-  });
+      expect(cell).toHaveStyleRule(
+        `--table-cell-border-horizontal-width: ${borderThicknessStyles[borderThickness]}`,
+      );
+    },
+  );
 });
 
 describe("table cell", () => {
@@ -672,19 +759,25 @@ describe("table cell", () => {
     );
   });
 
-  it.each(["small", "medium", "large"] as const)("overrides the border thickness when the prop is provided", (borderThickness) => {
-    renderTable({
-      headerRows: createHeaderRow("header", "Header row"),
-      rows: createRow("one", "Row one", {}, { borderThickness}),
-      tableProps: { verticalBorderThickness: borderThickness === "medium" ? "small" : "medium" },
-    });
+  it.each(["small", "medium", "large"] as const)(
+    "overrides the border thickness when the prop is provided",
+    (borderThickness) => {
+      renderTable({
+        headerRows: createHeaderRow("header", "Header row"),
+        rows: createRow("one", "Row one", {}, { borderThickness }),
+        tableProps: {
+          verticalBorderThickness:
+            borderThickness === "medium" ? "small" : "medium",
+        },
+      });
 
-    const header = screen.getByRole("cell", { name: "Row one" });
+      const header = screen.getByRole("cell", { name: "Row one" });
 
-    expect(header).toHaveStyleRule(
-      `--table-cell-border-vertical-width: ${borderThicknessStyles[borderThickness]}`,
-    );
-  });
+      expect(header).toHaveStyleRule(
+        `--table-cell-border-vertical-width: ${borderThicknessStyles[borderThickness]}`,
+      );
+    },
+  );
 });
 
 describe("table header", () => {
@@ -702,19 +795,30 @@ describe("table header", () => {
     );
   });
 
-  it.each(["small", "medium", "large"] as const)("overrides the border thickness when the prop is provided", (borderThickness) => {
-    renderTable({
-      headerRows: createHeaderRow("header", "Header row", {}, { borderThickness}),
-      rows: createRow("one", "Row one"),
-      tableProps: { verticalBorderThickness: borderThickness === "medium" ? "small" : "medium" },
-    });
+  it.each(["small", "medium", "large"] as const)(
+    "overrides the border thickness when the prop is provided",
+    (borderThickness) => {
+      renderTable({
+        headerRows: createHeaderRow(
+          "header",
+          "Header row",
+          {},
+          { borderThickness },
+        ),
+        rows: createRow("one", "Row one"),
+        tableProps: {
+          verticalBorderThickness:
+            borderThickness === "medium" ? "small" : "medium",
+        },
+      });
 
-    const header = screen.getByRole("columnheader", { name: "Header row" });
+      const header = screen.getByRole("columnheader", { name: "Header row" });
 
-    expect(header).toHaveStyleRule(
-      `--table-cell-border-vertical-width: ${borderThicknessStyles[borderThickness]}`,
-    );
-  });
+      expect(header).toHaveStyleRule(
+        `--table-cell-border-vertical-width: ${borderThicknessStyles[borderThickness]}`,
+      );
+    },
+  );
 
   it.each([
     ["extra-small", "xs"],
@@ -731,25 +835,24 @@ describe("table header", () => {
 
     const header = screen.getByRole("columnheader", { name: "Header row" });
 
-    expect(header).toHaveStyle(
-      `height: var(--global-size-${token})`,
-    );
+    expect(header).toHaveStyle(`height: var(--global-size-${token})`);
   });
 
   it("renders with the expected width when provided", () => {
     renderTable({
-      headerRows: createHeaderRow("header", "Header row", {}, { width: "200px" }),
+      headerRows: createHeaderRow(
+        "header",
+        "Header row",
+        {},
+        { width: "200px" },
+      ),
       rows: createRow("one", "Row one"),
     });
 
     const header = screen.getByRole("columnheader", { name: "Header row" });
 
-    expect(header).toHaveStyle(
-      `width: 200px`,
-    );
-    expect(header).toHaveStyle(
-      `min-width: 200px`,
-    );
+    expect(header).toHaveStyle(`width: 200px`);
+    expect(header).toHaveStyle(`min-width: 200px`);
   });
 
   it.each([
@@ -759,18 +862,29 @@ describe("table header", () => {
     ["prominent", "alternate", "var(--table-header-harsh-bg-alt)"],
     ["subtle-white", "alternate", "var(--table-header-subtle-bg-alt)"],
     ["subtle-grey", "alternate", "var(--table-header-subtle-bg-alt)"],
-  ] as const)("renders with the expected variant and alternate background", (variant, variantType, backgroundColor) => {
-    renderTable({
-      headerRows: createHeaderRow("header", "Header row", {}, { variantType }),
-      rows: createRow("one", "Row one"),
-      tableProps: { variant },
-    });
-    const header = screen.getByRole("columnheader", { name: "Header row" });
-    const color = variant === "prominent" ? "var(--table-header-harsh-label-default)" : "var(--table-header-subtle-label-default)";
+  ] as const)(
+    "renders with the expected variant and alternate background",
+    (variant, variantType, backgroundColor) => {
+      renderTable({
+        headerRows: createHeaderRow(
+          "header",
+          "Header row",
+          {},
+          { variantType },
+        ),
+        rows: createRow("one", "Row one"),
+        tableProps: { variant },
+      });
+      const header = screen.getByRole("columnheader", { name: "Header row" });
+      const color =
+        variant === "prominent"
+          ? "var(--table-header-harsh-label-default)"
+          : "var(--table-header-subtle-label-default)";
 
-    expect(header).toHaveStyle(`background-color: ${backgroundColor}`);
-    expect(header).toHaveStyle(`color: ${color}`);
-  });
+      expect(header).toHaveStyle(`background-color: ${backgroundColor}`);
+      expect(header).toHaveStyle(`color: ${color}`);
+    },
+  );
 });
 
 describe("additional table behaviour", () => {

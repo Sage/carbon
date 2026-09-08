@@ -43,7 +43,6 @@ const StyledTableCell = styled.td<StyledTableCellProps>`
     display: flex;
     align-items: center;
     gap: var(--global-space-comp-s);
-    min-height: var(--table-cell-min-height);
     width: 100%;
     box-sizing: border-box;
 
@@ -108,10 +107,10 @@ export const StyledExpandIcon = styled.span<StyledExpandIconProps>`
   }
 `;
 
-export const CellContent = styled.div<{ $isExpandable?: boolean }>`
+export const CellContent = styled.div<{ $isExpandable?: boolean; $align: "left" | "right" | "center"; }>`
   border: none;
   background-color: transparent;
-  text-align: left;
+  text-align: ${({ $align }) => $align};
 
   ${({ $isExpandable }) => $isExpandable && css`
     cursor: pointer;

@@ -12,24 +12,63 @@ const ANIMATION_DURATION = 200;
 const UNMOUNT_DELAY = ANIMATION_DURATION + 50;
 
 export interface TableRowProps {
+  /**
+   * The content of the table row.
+   */
   children: ReactNode;
+  /**
+   * Indicates whether the table row is expandable.
+   */
   isExpanded?: boolean;
+  /**
+   * Indicates whether the table row is highlighted.
+   */
   isHighlighted?: boolean;
+  /**
+   * Indicates whether the table row is selected.
+   */
   isSelected?: boolean;
+  /**
+   * The sub-rows of the expandable table row.
+   */
   subRows?: ReactNode;
+  /**
+   * The border thickness of the table row.
+   */
   borderThickness?: BorderThickness;
+  /**
+   * The id attribute for the table row.
+   */
   id: string;
-  /** @ignore @private Internal props, set by parent `FlatTableBodyDraggable`, for enabling drag and drop behaviour on the row. */
+  /** 
+   * @ignore @private
+   * Internal props, set by parent `FlatTableBodyDraggable`, for enabling drag and drop behaviour on the row.
+   */
   draggableProps?: {
     index: number;
   };
 }
 
 interface DecorateFirstCellProps {
+  /**
+   * Indicates whether the table cell is draggable.
+   */
   isDraggable: boolean;
+  /**
+   * Indicates whether the table cell is expandable.
+   */
   isExpandable: boolean;
+  /**
+   * Indicates whether the table cell is a sub-row.
+   */
   isSubRow: boolean;
+  /**
+   * The ref object for the drag handle within the table cell.
+   */
   dragHandleRef: React.RefObject<HTMLTableCellElement>;
+  /**
+   * The IDs of the sub-rows controlled by this table cell when it is expandable.
+   */
   subRowIds: string;
 }
 
@@ -76,7 +115,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({
   const dragHandleRef = useRef<HTMLTableCellElement>(null);
   const combinedRef = combineRefs(ref, rowRef);
   const [expanded, setExpanded] = useState(isExpanded);
-  const { isDraggable, size } = useContext(TableContext);
+  const { isDraggable } = useContext(TableContext);
   const { isInFooter } = useContext(TableFooterContext);
   const { isInHeader } = useContext(TableHeaderContext);
   const { isSubRow, transitionStatus } = useContext(SubRowContext);
@@ -132,7 +171,6 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({
         {...props}
         $isHighlighted={isHighlighted}
         $isSelected={isSelected}
-        $size={size}
         $borderThickness={borderThickness}
         data-component={dataComponent}
         id={id}

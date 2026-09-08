@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { TableContextProps } from "./__internal__/contexts";
 import { BorderThickness } from "./table.component";
 import borderThicknessStyles from "./__internal__/config";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 interface StyledTableWrapperProps {
   $maxWidth?: string;
@@ -13,9 +14,11 @@ const StyledTableWrapper = styled.div<StyledTableWrapperProps>`
   width: 100%;
   height: auto;
 
-  ${({ $maxWidth }) => $maxWidth && css`
-    max-width: ${$maxWidth};
-  `}
+  ${({ $maxWidth }) =>
+    $maxWidth &&
+    css`
+      max-width: ${$maxWidth};
+    `}
 `;
 
 interface InnerWrapperProps {
@@ -24,12 +27,13 @@ interface InnerWrapperProps {
   $showOuterBorder?: boolean;
 }
 
-const StyledInnerWrapper = styled.div<InnerWrapperProps & StyledTableWrapperProps>`
+const StyledInnerWrapper = styled.div<
+  InnerWrapperProps & StyledTableWrapperProps
+>`
   --table-outer-border-color: ${({ $variant }) =>
     $variant === "prominent"
       ? "var(--table-header-harsh-border-default)"
-      : "var(--table-row-border-default)"
-  };
+      : "var(--table-row-border-default)"};
   > div {
     display: flex;
     flex-direction: column;
@@ -41,15 +45,22 @@ const StyledInnerWrapper = styled.div<InnerWrapperProps & StyledTableWrapperProp
   height: auto;
   position: relative;
 
-  ${({ $maxWidth }) => $maxWidth && css`
-    max-width: ${$maxWidth};
-    > div {
+  ${({ $maxWidth }) =>
+    $maxWidth &&
+    css`
       max-width: ${$maxWidth};
-      overflow-x: auto;
-      overflow-y: hidden;
-      overscroll-behavior-x: none;
-    }
-  `}
+
+      &:has(> div[data-element="table-scroll-container"]:focus) {
+        ${addFocusStyling()}
+      }
+
+      > div[data-element="table-scroll-container"] {
+        max-width: ${$maxWidth};
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: none;
+      }
+    `}
 
   ${({ $showOuterBorder, $variant }) =>
     $showOuterBorder &&
@@ -64,19 +75,26 @@ const StyledInnerWrapper = styled.div<InnerWrapperProps & StyledTableWrapperProp
     css`
       > div {
         /* Straight side borders below the header */
-        > table > :is(tbody, tfoot) > tr > td:first-child {
-          border-inline-start: var(--global-borderwidth-xs) solid var(--table-outer-border-color);
+        > table > :is(tbody, tfoot) > tr > td:first-child,
+        > table > :is(tbody, tfoot) > tr > th:first-child {
+          border-inline-start: var(--global-borderwidth-xs) solid
+            var(--table-outer-border-color);
         }
 
-        > table > :is(tbody, tfoot) > tr > td:last-child {
-          border-inline-end: var(--global-borderwidth-xs) solid var(--table-outer-border-color);
+        > table > :is(tbody, tfoot) > tr > td:last-child,
+        > table > :is(tbody, tfoot) > tr > th:last-child {
+          border-inline-end: var(--global-borderwidth-xs) solid
+            var(--table-outer-border-color);
         }
 
-        > table > :is(thead) > tr > td:first-child {
-          border-inline-start: var(--global-borderwidth-xs) solid var(--table-outer-border-color);
+        > table > :is(thead) > tr > td:first-child,
+        > table > :is(thead) > tr > th:first-child {
+          border-inline-start: var(--global-borderwidth-xs) solid
+            var(--table-outer-border-color);
         }
 
-        > table > :is(thead) > tr > td:last-child {
+        > table > :is(thead) > tr > td:last-child,
+        > table > :is(thead) > tr > th:last-child {
           border-inline-end: var(--global-borderwidth-xs) solid transparent;
         }
 
@@ -90,14 +108,17 @@ const StyledInnerWrapper = styled.div<InnerWrapperProps & StyledTableWrapperProp
           inset-inline: 0;
           inset-block-end: 0;
           height: calc(
-            var(--global-radius-container-m) + var(--global-borderwidth-xs) + 8px
+            var(--global-radius-container-m) + var(--global-borderwidth-xs) +
+              8px
           );
           box-sizing: border-box;
           z-index: 20;
           pointer-events: none;
 
-          border-inline: var(--global-borderwidth-xs) solid var(--table-outer-border-color);
-          border-block-end: var(--global-borderwidth-xs) solid var(--table-outer-border-color);
+          border-inline: var(--global-borderwidth-xs) solid
+            var(--table-outer-border-color);
+          border-block-end: var(--global-borderwidth-xs) solid
+            var(--table-outer-border-color);
 
           border-end-start-radius: var(--global-radius-container-m);
           border-end-end-radius: var(--global-radius-container-m);
@@ -105,9 +126,11 @@ const StyledInnerWrapper = styled.div<InnerWrapperProps & StyledTableWrapperProp
       }
     `}
 
-  ${({ $hasPagination }) => $hasPagination && css`
-    margin-bottom: var(--global-space-comp-m);
-  `}
+  ${({ $hasPagination }) =>
+    $hasPagination &&
+    css`
+      margin-bottom: var(--global-space-comp-m);
+    `}
 `;
 
 interface StyledTableProps {
@@ -121,12 +144,10 @@ interface StyledTableProps {
 
 const StyledTable = styled.table<StyledTableProps>`
   /* Border defaults — override via borderWidth props on Table rows and cells */
-  --table-cell-border-horizontal-width: ${({
-    $horizontalBorderThickness
-  }) => borderThicknessStyles[$horizontalBorderThickness]};
-  --table-cell-border-vertical-width: ${({
-    $verticalBorderThickness
-  }) => borderThicknessStyles[$verticalBorderThickness]};
+  --table-cell-border-horizontal-width: ${({ $horizontalBorderThickness }) =>
+    borderThicknessStyles[$horizontalBorderThickness]};
+  --table-cell-border-vertical-width: ${({ $verticalBorderThickness }) =>
+    borderThicknessStyles[$verticalBorderThickness]};
   --table-header-border-color: ${({ $variant }) =>
     $variant === "prominent"
       ? "var(--table-header-harsh-border-default)"
@@ -135,12 +156,14 @@ const StyledTable = styled.table<StyledTableProps>`
   border-spacing: 0;
   border-collapse: separate;
 
-  ${({ $align }) => $align && css`
-    & th > div,
-    & td > div {
-      text-align: ${$align};
-    }
-  `}
+  ${({ $align }) =>
+    $align &&
+    css`
+      & th > div,
+      & td > div {
+        text-align: ${$align};
+      }
+    `}
 
   &[data-has-first-column="true"] {
     && {
@@ -149,7 +172,6 @@ const StyledTable = styled.table<StyledTableProps>`
         position: sticky;
         left: 0;
         z-index: 1;
-        box-shadow: none;
 
         &::after {
           content: "";
@@ -164,25 +186,28 @@ const StyledTable = styled.table<StyledTableProps>`
         }
       }
 
-        /* First logical column is occupied by the first row's rowspan */
-        thead
-          > tr:first-child:has(> th:first-child[rowspan]:not([rowspan="1"]))
-          ~ tr
-          > th:first-child {
-          position: relative;
-          left: auto;
-          z-index: auto;
+      /* First logical column is occupied by the first row's rowspan */
+      thead
+        > tr:first-child:has(> th:first-child[rowspan]:not([rowspan="1"]))
+        ~ tr
+        > th:first-child {
+        position: relative;
+        left: auto;
+        z-index: auto;
 
-          &::after {
-            content: none;
-          }
+        &::after {
+          content: none;
         }
-
-      thead th:first-child[rowspan]:not([rowspan="1"]) {
-        border-right: var(--table-cell-border-vertical-width) solid var(--table-header-border-color);
       }
 
-      tr:has(> th:first-child[rowspan]):not([rowspan="1"]) + tr > th:first-child {
+      thead th:first-child[rowspan]:not([rowspan="1"]) {
+        border-right: var(--table-cell-border-vertical-width) solid
+          var(--table-header-border-color);
+      }
+
+      tr:has(> th:first-child[rowspan]):not([rowspan="1"])
+        + tr
+        > th:first-child {
         position: relative;
         box-shadow: none;
         z-index: unset;
@@ -202,8 +227,8 @@ const StyledTable = styled.table<StyledTableProps>`
         position: sticky;
         right: 0;
         z-index: 1;
-        border-left: var(--table-cell-border-vertical-width) solid var(--table-row-border-default);
-        box-shadow: none;
+        border-left: var(--table-cell-border-vertical-width) solid
+          var(--table-row-border-default);
 
         &::after {
           content: "";
@@ -250,50 +275,53 @@ const StyledTable = styled.table<StyledTableProps>`
   }
 
   tbody {
-    tr {
-      td:not(:last-child) {
-        border-right: var(--table-cell-border-vertical-width) solid var(--table-row-border-default);
+    > tr {
+      > td:not(:last-child),
+      > th:not(:last-child) {
+        border-right: var(--table-cell-border-vertical-width) solid
+          var(--table-row-border-default);
       }
     }
 
-    tr:not(:last-child):not(:last-child) {
-      td {
-        border-bottom: var(--table-cell-border-horizontal-width) solid var(--table-row-border-default);
+    > tr:not([aria-hidden="true"]):has(~ tr:not([aria-hidden="true"])) {
+      > td,
+      > th {
+        border-bottom: none;
+        box-shadow: inset 0
+          calc(0px - var(--table-cell-border-horizontal-width)) 0 0
+          var(--table-row-border-default);
       }
     }
   }
 
-  &:not(:has(> tfoot))
-  > tbody:last-of-type
-  > tr:last-child
-  > :is(th, td) {
-    border-bottom: var(--global-borderwidth-xs) solid var(--table-row-border-default);
-  }
-
-  &:not(:has(> thead))
-  > tbody:first-of-type
-  > tr:first-child
-  > :is(th, td) {
-    border-top: var(--global-borderwidth-xs) solid var(--table-row-border-default);
+  &:not(:has(> thead)) > tbody:first-of-type > tr:first-child > :is(th, td) {
+    border-top: var(--global-borderwidth-xs) solid
+      var(--table-row-border-default);
   }
 
   & thead {
-    tr:last-child th {
-      border-bottom: var(--global-borderwidth-xs) solid var(--table-row-border-default);
+    tr:last-child > th,
+    tr:not(:last-child) > th[rowspan]:not([rowspan="1"]) {
+      border-bottom: var(--global-borderwidth-xs) solid
+        var(--table-header-border-color);
     }
   }
 
   & tfoot {
-    td {
+    td,
+    th {
       background-color: var(--table-footer-bg-default);
 
       &:not(:last-child) {
-        border-right: var(--table-cell-border-vertical-width) solid var(--table-row-border-default);
+        border-right: var(--table-cell-border-vertical-width) solid
+          var(--table-row-border-default);
       }
     }
 
-    tr:first-child td {
-      border-top: var(--global-borderwidth-xs) solid var(--table-row-border-default);
+    tr:first-child td,
+    tr:first-child th {
+      border-top: var(--global-borderwidth-xs) solid
+        var(--table-row-border-default);
     }
   }
 
@@ -301,7 +329,8 @@ const StyledTable = styled.table<StyledTableProps>`
     tr {
       th {
         &:not(:last-child) {
-          border-right: var(--table-cell-border-vertical-width) solid var(--table-header-border-color);
+          border-right: var(--table-cell-border-vertical-width) solid
+            var(--table-header-border-color);
         }
       }
     }
@@ -313,7 +342,8 @@ const StyledTable = styled.table<StyledTableProps>`
     }
 
     ${({ $variant }) => css`
-      ${$variant !== "prominent" && css`
+      ${$variant !== "prominent" &&
+      css`
         /* The spanning cell should not draw one continuous divider. */
         tr > th:first-child[rowspan]:not([rowspan="1"]) {
           border-right-color: transparent;
@@ -321,13 +351,17 @@ const StyledTable = styled.table<StyledTableProps>`
 
         /* Cells that need to paint the replacement divider. */
         tr > th:first-child[rowspan]:not([rowspan="1"]) + th,
-        tr:has(> th:first-child[rowspan]:not([rowspan="1"])) + tr > th:first-child {
+        tr:has(> th:first-child[rowspan]:not([rowspan="1"]))
+          + tr
+          > th:first-child {
           position: relative;
           border-left-color: transparent;
         }
 
         tr > th:first-child[rowspan]:not([rowspan="1"]) + th::before,
-        tr:has(> th:first-child[rowspan]:not([rowspan="1"])) + tr > th:first-child::before {
+        tr:has(> th:first-child[rowspan]:not([rowspan="1"]))
+          + tr
+          > th:first-child::before {
           content: "";
           position: absolute;
           inset-block: 0;
@@ -338,24 +372,6 @@ const StyledTable = styled.table<StyledTableProps>`
           left: -1px;
           top: 0px;
           bottom: -1px;
-        }
-      `}
-
-      ${$variant === "prominent" && css`
-        /* tr:first-child th {
-          border-top: var(--global-borderwidth-xs) solid var(--table-header-border-color);
-        }
-
-        tr:first-child > th:first-child {
-          border-left: var(--global-borderwidth-xs) solid var(--table-header-border-color);
-        }
-
-        tr:first-child > th:last-child {
-          border-right: var(--global-borderwidth-xs) solid var(--table-header-border-color);
-        } */
-
-        tr:last-child > th {
-          border-bottom: var(--table-cell-border-horizontal-width) solid var(--table-header-border-color);
         }
       `}
     `}
@@ -378,15 +394,25 @@ const StyledTable = styled.table<StyledTableProps>`
   }
 
   & tbody {
-    tr[data-is-selected="false"] td {
-      background-color: var(--table-row-bg-default);
+    tr[data-is-selected="false"] {
+      td,
+      th {
+        background-color: var(--table-row-bg-default);
+      }
     }
 
-    ${({ $isZebraStriped }) => $isZebraStriped && css`
-      tr:nth-child(even of :not([data-component*="sub-row"])):not([data-is-selected="true"]) td {
-        background-color: var(--table-row-bg-alt);
-      }
-    `}
+    ${({ $isZebraStriped }) =>
+      $isZebraStriped &&
+      css`
+        tr:nth-child(even of :not([data-component*="sub-row"])):not(
+            [data-is-selected="true"]
+          ) {
+          td,
+          th {
+            background-color: var(--table-row-bg-alt);
+          }
+        }
+      `}
   }
 `;
 

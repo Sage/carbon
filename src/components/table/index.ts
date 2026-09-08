@@ -9,4 +9,4 @@ export { default as Table } from "./table.component";
 export type { TableProps } from "./table.component";
 export { default as TableFoot } from "./table-foot";
 export { default as TableHeader } from "./table-header";
-export type { TableHeaderCellProps } from "./table-header";
+export type { TableHeaderProps } from "./table-header";

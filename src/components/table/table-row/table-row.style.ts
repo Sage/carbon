@@ -1,12 +1,10 @@
 import styled, {css} from "styled-components";
-import { TableContextProps } from "../__internal__/contexts";
 import { BorderThickness } from "../table.component";
 import borderThicknessStyles from "../__internal__/config";
 
 interface StyledTableRowProps {
   $isSelected?: boolean;
   $isHighlighted?: boolean;
-  $size: TableContextProps["size"];
   $borderThickness?: BorderThickness;
   $isDropTarget?: boolean;
   $isDraggable?: boolean;
@@ -128,9 +126,11 @@ const StyledTableRow = styled.tr<StyledTableRowProps>`
       > td > [data-element="table-cell-collapse"] {
         grid-template-rows: ${$isSubRowVisible ? "1fr" : "0fr"};
         opacity: ${$isSubRowVisible ? 1 : 0};
-        transform: translateY(
-          ${$isSubRowVisible ? "0" : "-4px"}
-        );
+        transform: ${
+          $isSubRowVisible
+            ? "none"
+            : "translateY(-4px)"
+        };
       }
 
       @media (prefers-reduced-motion: no-preference) {
