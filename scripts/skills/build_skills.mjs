@@ -1476,28 +1476,22 @@ function extractMdxExamples(content) {
  */
 function renderSkillRootContent() {
   const docsByUse = new Map([
-    ["installation.md", "when installing or configuring Carbon React"],
-    ["usage.md", "for package setup and basic usage"],
-    ["recommended-practices.md", "for project-wide Carbon conventions"],
-    ["usage-with-routing.md", "when Carbon links integrate with routing"],
-    [
-      "extending-styles-using-styled-components.md",
-      "when extending component styles",
-    ],
-    ["colors.md", "when choosing Carbon colours or tokens"],
-    ["i18n.md", "when translating component-provided text"],
-    [
-      "deprecation-migration.md",
-      "when a selected component or prop is deprecated",
-    ],
+    ["installation.md", "installation and configuration"],
+    ["usage.md", "package setup and basic use"],
+    ["recommended-practices.md", "project-wide conventions"],
+    ["usage-with-routing.md", "routing integration"],
+    ["extending-styles-using-styled-components.md", "style extension"],
+    ["colors.md", "colours and tokens"],
+    ["i18n.md", "translation"],
+    ["deprecation-migration.md", "deprecation migration"],
   ]);
   const docsList = docsReferenceTargets
     .map(
       (fileName) =>
-        `- Open \`${fileName}\` ${docsByUse.get(path.basename(fileName)) ?? "when its topic applies"}.`,
+        `- \`${fileName}\`: ${docsByUse.get(path.basename(fileName)) ?? "related guidance"}.`,
     )
     .join("\n");
-  return `---\nname: carbon-react\ndescription: Use for Carbon React component selection and implementation, including imports, props, defaults, deprecations, examples, and Carbon-specific guidance.\n---\n\n# Carbon Component Catalog\n\nOpen \`index.md\` to select a component, then load that component's file. Open only the linked examples needed for the task.\n\nComponent files combine authored selection guidance with source-derived imports, props, defaults, and deprecations. Components with curated examples link to selected Storybook stories and omit their playground; other components retain their generated Storybook examples.\n\n${docsList}\n\nBefore finishing, confirm that imports and props match the component file and that deprecated APIs are either avoided or handled using the migration guidance.\n`;
+  return `---\nname: carbon-react\ndescription: Use for Carbon React selection and implementation: imports, props, defaults, deprecations, examples, and guidance.\n---\n\n# Carbon Component Catalog\n\nUse \`index.md\` to select a component, then open its file and only the relevant linked examples.\n\nComponent files combine authored selection guidance with source-derived API details. Curated components link to selected examples and omit playgrounds; others retain generated Storybook examples.\n\nLoad references only when needed:\n\n${docsList}\n\nBefore finishing, confirm that imports and props match the component file and that deprecated APIs are either avoided or handled using the migration guidance.\n`;
 }
 
 /**
@@ -1936,7 +1930,7 @@ function renderExampleMarkdown(component, story) {
     .filter(Boolean)
     .join("\n\n");
 
-  return `# ${component.name}: ${story.name}\n\nSource story: \`${story.source ?? "unknown"}#${story.exportName}\`\n\n\`\`\`tsx\n${code}\n\`\`\`\n`;
+  return `# ${component.name}: ${story.name}\n\n\`\`\`tsx\n${code}\n\`\`\`\n`;
 }
 
 /**
