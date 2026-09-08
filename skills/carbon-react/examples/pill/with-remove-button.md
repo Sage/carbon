@@ -1,7 +1,5 @@
 # Pill: With Remove Button
 
-Source story: `src/components/pill/pill.stories.tsx#WithRemoveButton`
-
 ```tsx
 import { useState } from "react";
 import Button from "carbon-react/lib/components/button/__next__";

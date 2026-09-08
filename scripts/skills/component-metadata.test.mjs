@@ -119,6 +119,11 @@ test("generated curated examples contain valid TSX", () => {
 
   for (const filePath of exampleFiles) {
     const markdown = fs.readFileSync(filePath, "utf8");
+    assert.doesNotMatch(
+      markdown,
+      /Source story:/,
+      `${path.relative(repoRoot, filePath)} must not reference repository-only story source`,
+    );
     const snippets = [...markdown.matchAll(/```tsx\n([\s\S]*?)```/g)];
     assert.ok(
       snippets.length,

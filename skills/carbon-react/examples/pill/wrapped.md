@@ -1,7 +1,5 @@
 # Pill: Wrapped
 
-Source story: `src/components/pill/pill.stories.tsx#Wrapped`
-
 ```tsx
 import Box from "carbon-react/lib/components/box";
 import Pill from "carbon-react/lib/components/pill";

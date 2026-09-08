@@ -1,7 +1,5 @@
 # Pill: Inverse
 
-Source story: `src/components/pill/pill.stories.tsx#InverseOnDarkBackground`
-
 ```tsx
 import Box from "carbon-react/lib/components/box";
 import Pill from "carbon-react/lib/components/pill";
