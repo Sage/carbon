@@ -193,52 +193,21 @@ export const searchNewStyleOverrides = css`
 /**
  * Overrides for input when part of Select component
  */
-const selectTransparentStyles = (
-  $isDisabled?: boolean,
-  $isReadOnly?: boolean,
-) => css`
-  &[data-is-transparent="true"] {
-    &&& {
+const simpleSelectSubtleStyles = () => css`
+  &[data-is-subtle="true"] {
+    background: transparent;
+    border-color: transparent;
+
+    --simple-select-text-color: var(--input-dropdown-label-default);
+    --simple-select-caret-color: var(--input-dropdown-label-default);
+
+    .input-text-container.disabled {
+      --simple-select-text-color: var(--input-dropdown-label-disabled);
+      --simple-select-caret-color: var(--input-dropdown-label-disabled);
+    }
+
+    [data-role="select-text"][class*="variant-subtle"] {
       background: transparent;
-      border: none;
-    }
-    ${!$isDisabled &&
-    !$isReadOnly &&
-    css`
-      cursor: pointer;
-
-      * {
-        cursor: pointer;
-      }
-    `}
-
-    input {
-      text-align: right;
-      position: absolute;
-      padding: var(--global-space-none);
-
-      &::placeholder {
-        color: var(--colorsUtilityYin100);
-      }
-    }
-  }
-`;
-
-const selectNoTypingStyles = css`
-  [data-role="select-textbox"] &[data-is-transparent="false"] {
-    .input-text-container {
-      position: relative;
-
-      .select-text:not(.disabled):not(.read-only) {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: calc(100% - 48px);
-        height: 100%;
-        padding: var(--global-space-none) var(--global-space-none)
-          var(--global-space-none) var(--global-space-comp-m);
-        cursor: pointer;
-      }
     }
   }
 `;
@@ -246,12 +215,22 @@ const selectNoTypingStyles = css`
 const selectTypingAllowedStyles = css`
   .multi-select &,
   .filterable-select & {
+    .input-text-container [data-element="textbox-prefix"] {
+      font-weight: 500;
+    }
+
     .input-text-container:not(.disabled):not(.read-only) {
       cursor: text;
 
       input {
         cursor: text;
       }
+    }
+  }
+
+  .filterable-select & {
+    .input-text-container [data-element="textbox-prefix"] {
+      margin-left: var(--global-space-comp-m);
     }
   }
 `;
@@ -288,31 +267,109 @@ const mulitiSelectInputStyles = ($size?: string) => css`
   }
 `;
 
-const simpleSelectStyles = css`
-  [data-element="simple-select-input"] & {
-    input {
-      opacity: 0;
+const simpleSelectStyles = ($size?: string) => css`
+  &:has([data-role="select-text"]) {
+    --simple-select-prefix-color: var(--input-typical-txt-default);
+    --simple-select-text-color: var(--input-typical-txt-default);
+    --simple-select-caret-color: var(--input-typical-icon-default);
+
+    ${$size === "small" &&
+    css`
+      padding: var(--global-space-comp-xs) var(--global-space-comp-s);
+      max-height: var(--global-size-s);
+      [role="presentation"] {
+        gap: var(--global-space-comp-xs);
+      }
+      [data-element="textbox-prefix"] {
+        font: var(--global-font-static-comp-medium-s);
+      }
+      [data-role="select-text"] .select-text-children-wrapper {
+        font: var(--global-font-static-comp-regular-s);
+      }
+    `}
+    ${$size === "medium" &&
+    css`
+      padding: var(--global-space-comp-s) var(--global-space-comp-m);
+      max-height: var(--global-size-m);
+      [role="presentation"] {
+        gap: var(--global-space-comp-s);
+      }
+      [data-element="textbox-prefix"] {
+        font: var(--global-font-static-comp-medium-m);
+      }
+      [data-role="select-text"] .select-text-children-wrapper {
+        font: var(--global-font-static-comp-regular-m);
+      }
+    `}
+    ${$size === "large" &&
+    css`
+      padding: var(--global-space-comp-m) var(--global-space-comp-l);
+      max-height: var(--global-size-l);
+      [role="presentation"] {
+        gap: var(--global-space-comp-m);
+      }
+      [data-element="textbox-prefix"] {
+        font: var(--global-font-static-comp-medium-l);
+      }
+      [data-role="select-text"] .select-text-children-wrapper {
+        font: var(--global-font-static-comp-regular-l);
+      }
+    `}
+
+    [role="presentation"] {
+      position: relative;
     }
 
-    input {
-      cursor: pointer;
+    .input-text-container:is(.read-only, .disabled) {
+      --simple-select-caret-color: var(--input-typical-icon-disabled);
+    }
+
+    .input-text-container.disabled {
+      --simple-select-prefix-color: var(--input-typical-txt-disabled);
+      --simple-select-text-color: var(--input-typical-txt-disabled);
+    }
+
+    [data-role="select-text"] {
+      display: flex;
+      align-items: center;
+      gap: var(--global-space-comp-xs);
+      flex: 1 0 0;
+
+      .select-text-children-wrapper {
+        color: var(--simple-select-text-color);
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        flex: 1 0 0;
+      }
     }
 
     [data-element="textbox-prefix"] {
-      margin-left: var(--global-space-comp-none);
-      margin-right: var(--global-space-comp-m);
+      color: var(--simple-select-prefix-color);
+    }
+
+    .input-text-container [data-role="select-text"] ~ input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+    }
+
+    .input-text-container:not(.disabled):not(.read-only)
+      [data-role="select-text"]
+      ~ input {
+      cursor: pointer;
+    }
+
+    [data-element="dropdown"] {
+      color: var(--simple-select-caret-color);
     }
   }
 `;
 
-export const selectStyleOverrides = (
-  $size?: string,
-  $isDisabled?: boolean,
-  $isReadOnly?: boolean,
-) => css`
-  ${simpleSelectStyles}
-  ${selectTransparentStyles($isDisabled, $isReadOnly)}
-  ${selectNoTypingStyles}
+export const selectStyleOverrides = ($size?: string) => css`
+  ${simpleSelectStyles($size)}
+  ${simpleSelectSubtleStyles()}
   ${selectTypingAllowedStyles}
   ${mulitiSelectInputStyles($size)}
 `;

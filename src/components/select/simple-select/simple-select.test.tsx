@@ -16,6 +16,11 @@ import Option from "../option";
 import { CHARACTERS } from "../../../../playwright/support/constants";
 import setupSelectMocks from "../setup-select-mocks";
 
+jest.mock("../../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(() => true),
+}));
+
 beforeEach(() => {
   setupSelectMocks();
 });
@@ -68,16 +73,6 @@ test("renders a visually-hidden input box", () => {
   expect(input).not.toBeVisible();
 });
 
-test("renders input with a textbox role when readOnly prop is true", () => {
-  render(
-    <SimpleSelect label="Colour" onChange={() => {}} readOnly value="">
-      <Option text="amber" value="amber" />
-    </SimpleSelect>,
-  );
-
-  expect(screen.getByRole("textbox")).toBeInTheDocument();
-});
-
 // Styling test for coverage - styles are covered by Chromatic
 test("applies transparent background and no border to input, when transparent prop is true", () => {
   render(
@@ -113,33 +108,7 @@ test("clears option selection when value prop is set to an empty string", () => 
     </SimpleSelect>,
   );
 
-  expect(screen.getByText("Please Select...")).toBeVisible();
   expect(screen.getByRole("combobox")).toHaveValue("");
-});
-
-test("displays default placeholder text when no value is selected", () => {
-  render(
-    <SimpleSelect label="Colour" onChange={() => {}} value="">
-      <Option text="amber" value="amber" />
-    </SimpleSelect>,
-  );
-
-  expect(screen.getByText("Please Select...")).toBeVisible();
-});
-
-test("displays custom text when placeholder prop is provided and no value is selected", () => {
-  render(
-    <SimpleSelect
-      label="Colour"
-      onChange={() => {}}
-      value=""
-      placeholder="Select a colour"
-    >
-      <Option text="amber" value="amber" />
-    </SimpleSelect>,
-  );
-
-  expect(screen.getByText("Select a colour")).toBeVisible();
 });
 
 test("hides select text overlay from screen readers using aria-hidden", () => {
@@ -261,61 +230,97 @@ test("updates input’s aria-activedescendant value when navigating options via 
   expect(input).toHaveAttribute("aria-activedescendant", "cherry");
 });
 
-["top", "bottom"].forEach((listPlacement) => {
-  test(`should override the data attribute on the list when listWidth is set and placement is ${listPlacement}`, async () => {
+test("positions the dropdown at bottom-end by default", async () => {
+  const user = userEvent.setup();
+  render(
+    <SimpleSelect label="Colour" onChange={() => {}} value="amber">
+      <Option text="amber" value="amber" />
+    </SimpleSelect>,
+  );
+
+  await user.click(screen.getByRole("combobox"));
+
+  expect(
+    screen.getByTestId("menu-wrapper"),
+  ).toHaveAttribute("data-floating-placement", "bottom-end");
+});
+
+describe("loading state", () => {
+  it("renders only the loader when isLoading is set and no options are provided", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect
-        listPlacement={listPlacement as "top" | "bottom"}
-        listWidth={100}
-        label="Colour"
-        onChange={() => {}}
-        value="amber"
-      >
-        <Option text="amber" value="amber" />
+      <SimpleSelect label="Colour" onChange={() => {}} value="" isLoading>
+        {[]}
       </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
 
-    expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
-      "data-floating-placement",
-      `${listPlacement}-end`,
+    expect(await screen.findByTestId("select-list-loader")).toBeVisible();
+    expect(
+      screen.queryByRole("option", { name: /amber/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("renders the loader alongside the options when isLoading is set with options", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} value="" isLoading>
+        <Option text="amber" value="amber" />
+        <Option text="blue" value="blue" />
+      </SimpleSelect>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    expect(await screen.findByRole("option", { name: "amber" })).toBeVisible();
+    expect(screen.getByRole("option", { name: "blue" })).toBeVisible();
+    expect(screen.getByTestId("select-list-loader")).toBeVisible();
+  });
+
+  it("maps the select size to the loader size", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect
+        label="Colour"
+        onChange={() => {}}
+        value=""
+        size="large"
+        isLoading
+      >
+        {[]}
+      </SimpleSelect>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    expect(await screen.findByTestId("select-list-loader")).toBeVisible();
+    expect(screen.getByTestId("outer-bar")).toHaveStyleRule(
+      "height",
+      "var(--global-size-3-xs)",
     );
   });
 });
 
-["top-end", "bottom-end", "top-start", "bottom-start"].forEach(
-  (listPlacement) => {
-    test(`should not override the data attribute on the list when listWidth is set and placement is ${listPlacement}`, async () => {
-      const user = userEvent.setup();
-      render(
-        <SimpleSelect
-          listPlacement={
-            listPlacement as
-              | "top-end"
-              | "bottom-end"
-              | "top-start"
-              | "bottom-start"
-          }
-          listWidth={100}
-          label="Colour"
-          onChange={() => {}}
-          value="amber"
-        >
-          <Option text="amber" value="amber" />
-        </SimpleSelect>,
-      );
+test("ignores the deprecated listPlacement prop", async () => {
+  const user = userEvent.setup();
+  render(
+    <SimpleSelect
+      label="Colour"
+      onChange={() => {}}
+      value="amber"
+      listPlacement="top-start"
+    >
+      <Option text="amber" value="amber" />
+    </SimpleSelect>,
+  );
 
-      await user.click(screen.getByRole("combobox"));
+  await user.click(screen.getByRole("combobox"));
 
-      expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
-        "data-floating-placement",
-        listPlacement,
-      );
-    });
-  },
-);
+  expect(
+    screen.getByTestId("menu-wrapper"),
+  ).toHaveAttribute("data-floating-placement", "bottom-end");
+});
 
 describe("typing into the input", () => {
   it("selects the first option with text starting with the typed printable character", async () => {
@@ -330,7 +335,11 @@ describe("typing into the input", () => {
 
     await user.type(screen.getByRole("combobox"), "b");
 
-    expect(screen.getByText("blue", { ignore: "li" })).toBeVisible();
+    expect(
+      screen.getByText("blue", {
+        ignore: 'li, [data-element="menu-item-label"]',
+      }),
+    ).toBeVisible();
   });
 
   it("selects the second option with text starting with the typed printable character when typed twice", async () => {
@@ -345,7 +354,11 @@ describe("typing into the input", () => {
 
     await user.type(screen.getByRole("combobox"), "bb");
 
-    expect(screen.getByText("black", { ignore: "li" })).toBeVisible();
+    expect(
+      screen.getByText("black", {
+        ignore: 'li, [data-element="menu-item-label"]',
+      }),
+    ).toBeVisible();
   });
 
   it("does not change the selected option when no option text starts with the typed printable character", async () => {
@@ -360,7 +373,11 @@ describe("typing into the input", () => {
 
     await user.type(screen.getByRole("combobox"), "bx");
 
-    expect(screen.getByText("blue", { ignore: "li" })).toBeVisible();
+    expect(
+      screen.getByText("blue", {
+        ignore: 'li, [data-element="menu-item-label"]',
+      }),
+    ).toBeVisible();
   });
 
   it("selects the first option with text matching the typed substring when typed quickly", async () => {
@@ -375,7 +392,69 @@ describe("typing into the input", () => {
 
     await user.type(screen.getByRole("combobox"), "bla");
 
-    expect(screen.getByText("black", { ignore: "li" })).toBeVisible();
+    expect(
+      screen.getByText("black", {
+        ignore: 'li, [data-element="menu-item-label"]',
+      }),
+    ).toBeVisible();
+  });
+
+  it("keeps the typeahead buffer after a one second pause", async () => {
+    jest.useFakeTimers();
+
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <InteractiveComponent label="Colour" onChange={() => {}}>
+        <Option text="blue" value="blue" />
+        <Option text="black" value="black" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.type(input, "bl");
+    act(() => jest.advanceTimersByTime(1000));
+    await user.type(input, "u");
+
+    expect(
+      screen.getByText("blue", {
+        ignore: 'li, [data-element="menu-item-label"]',
+      }),
+    ).toBeVisible();
+
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
+  it("uses the typeaheadTimeout prop to control the buffer duration", async () => {
+    jest.useFakeTimers();
+
+    const onChange = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <InteractiveComponent
+        label="Colour"
+        onChange={onChange}
+        typeaheadTimeout={200}
+      >
+        <Option text="blue" value="blue" />
+        <Option text="black" value="black" />
+        <Option text="green" value="green" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.type(input, "bl");
+    act(() => jest.advanceTimersByTime(300));
+    await user.type(input, "g");
+
+    expect(onChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: "green" }),
+      }),
+    );
+
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   it("selects the first option starting with the latest printable character typed after a long pause", async () => {
@@ -396,7 +475,11 @@ describe("typing into the input", () => {
     act(() => jest.runOnlyPendingTimers());
     await user.type(input, "g");
 
-    expect(screen.getByText("green", { ignore: "li" })).toBeVisible();
+    expect(
+      screen.getByText("green", {
+        ignore: 'li, [data-element="menu-item-label"]',
+      }),
+    ).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
@@ -416,7 +499,7 @@ describe("typing into the input", () => {
       // Hold special key down while typing 'b'
       await user.type(screen.getByRole("combobox"), `{${specialKey}>}b`);
 
-      expect(screen.getByText("Please Select...")).toBeVisible();
+      expect(screen.getByRole("combobox")).toHaveValue("");
     });
   });
 
@@ -432,7 +515,9 @@ describe("typing into the input", () => {
     await user.type(screen.getByRole("combobox"), "blue");
 
     expect(
-      screen.queryByText("blue", { ignore: "li" }),
+      screen.queryByText("blue", {
+        ignore: 'li, [data-element="menu-item-label"]',
+      }),
     ).not.toBeInTheDocument();
   });
 
@@ -573,7 +658,7 @@ describe("dropdown list", () => {
       </SimpleSelect>,
     );
 
-    await user.click(screen.getByRole("textbox"));
+    await user.click(screen.getByRole("combobox"));
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
@@ -615,6 +700,11 @@ describe("dropdown list", () => {
 
     await user.tab();
     await user.click(screen.getByTestId("input-icon-toggle"));
+
+    expect(screen.getByRole("combobox")).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
 
     await waitFor(() => {
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
@@ -833,7 +923,7 @@ describe("when onClick prop is passed", () => {
       </SimpleSelect>,
     );
 
-    await user.click(screen.getByRole("textbox"));
+    await user.click(screen.getByRole("combobox"));
 
     expect(onClick).not.toHaveBeenCalled();
   });
@@ -1065,25 +1155,6 @@ describe("special character rendering", () => {
         );
 
         expect(screen.getByText(labelValue)).toBeVisible();
-      });
-    },
-  );
-
-  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
-    (placeholderValue) => {
-      test(`renders placeholder with special characters: ${placeholderValue}`, () => {
-        render(
-          <SimpleSelect
-            label="Colour"
-            onChange={() => {}}
-            value=""
-            placeholder={placeholderValue}
-          >
-            <Option text="Amber" value="amber" />
-          </SimpleSelect>,
-        );
-
-        expect(screen.getByText(placeholderValue)).toBeVisible();
       });
     },
   );

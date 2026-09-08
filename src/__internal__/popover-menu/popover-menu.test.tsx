@@ -549,6 +549,23 @@ describe("PopoverMenu - typeahead (Search)", () => {
     ).toHaveAttribute("aria-activedescendant", "item-1");
   });
 
+  it("PageUp moves the highlight to the first item when enabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({ open: true, enablePageNavigation: true });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{PageDown}");
+    await user.keyboard("{PageUp}");
+    const [first, second] = screen.getAllByRole("option");
+
+    expect(first).toHaveAttribute("data-has-focus", "true");
+    expect(second).not.toHaveAttribute("data-has-focus", "true");
+    expect(
+      screen.getByRole("combobox", { name: "combobox-label" }),
+    ).toHaveAttribute("aria-activedescendant", "item-1");
+  });
+
   it("Home moves the highlight to the first item that is not disabled", async () => {
     const user = userEvent.setup();
     renderPopoverMenu({
@@ -585,6 +602,21 @@ describe("PopoverMenu - typeahead (Search)", () => {
     focusTrigger();
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{End}");
+    const options = screen.getAllByRole("option");
+    const last = options[options.length - 1];
+
+    expect(last).toHaveAttribute("data-has-focus", "true");
+    expect(
+      screen.getByRole("combobox", { name: "combobox-label" }),
+    ).toHaveAttribute("aria-activedescendant", "item-3");
+  });
+
+  it("PageDown moves the highlight to the last item when enabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({ open: true, enablePageNavigation: true });
+
+    focusTrigger();
+    await user.keyboard("{PageDown}");
     const options = screen.getAllByRole("option");
     const last = options[options.length - 1];
 
@@ -1181,7 +1213,7 @@ test("renders the list container with the expected max-height when size is small
 
   expect(listbox).toHaveStyleRule(
     "max-height",
-    "calc(5 * var(--global-size-s))",
+    "calc(5.5 * var(--global-size-s))",
   );
 });
 
@@ -1191,7 +1223,7 @@ test("renders the list container with the expected max-height when size is mediu
 
   expect(listbox).toHaveStyleRule(
     "max-height",
-    "calc(5 * var(--global-size-m))",
+    "calc(5.5 * var(--global-size-m))",
   );
 });
 
@@ -1201,7 +1233,7 @@ test("renders the list container with the expected max-height when size is large
 
   expect(listbox).toHaveStyleRule(
     "max-height",
-    "calc(5 * var(--global-size-l))",
+    "calc(5.5 * var(--global-size-l))",
   );
 });
 

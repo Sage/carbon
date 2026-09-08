@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
+import type { HTMLAttributes } from "react";
 
 import {
   filterOutStyledSystemSpacingProps,
@@ -14,10 +15,15 @@ import StyledSelect from "../select.style";
 import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
-import SelectList, {
-  ListPlacement,
-  SelectListProps,
-} from "../__internal__/select-list/select-list.component";
+import { CommonTextboxProps } from "../../textbox";
+import { NON_FUNCTIONING_PROPS } from "../../textbox/textbox.component";
+import type { TextInputProps } from "../../textbox/__internal__/__next__/text-input.component";
+import filterPropsByName from "../../../__internal__/utils/helpers/filter-props";
+import { ListPlacement } from "../__internal__/select-list/select-list.component";
+import NextSelectList, {
+  SelectListOnSelectData,
+} from "../__internal__/select-list/__next__";
+import combineRefs from "../../../__internal__/utils/helpers/combine-refs";
 import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
@@ -31,7 +37,20 @@ export interface CustomSelectChangeEvent
 }
 
 export interface SimpleSelectProps
-  extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
+  extends Omit<
+    FormInputPropTypes,
+    | "align"
+    | "defaultValue"
+    | "value"
+    | "leftChildren"
+    | "inert"
+    | "onChangeDeferred"
+    | "deferTimeout"
+    | "iconOnClick"
+    | "iconOnMouseDown"
+    | "iconTabIndex"
+    | "inputIcon"
+  > {
   /** Prop to specify the aria-describedby property of the component input */
   "aria-describedby"?: string;
   /** Prop to specify the aria-label attribute of the component input */
@@ -42,7 +61,53 @@ export interface SimpleSelectProps
   children: React.ReactNode;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
-  /** When true component will work in multi column mode.
+  /**
+   * @deprecated `onChangeDeferred` has been deprecated.
+   * Deferred callback to be called after the onChange event
+   */
+  onChangeDeferred?: CommonTextboxProps["onChangeDeferred"];
+  /**
+   * @deprecated `deferTimeout` has been deprecated.
+   * Integer to determine a timeout for the deferred callback
+   */
+  deferTimeout?: CommonTextboxProps["deferTimeout"];
+  /**
+   * @deprecated `iconOnClick` has been deprecated.
+   * Optional handler for click event on Textbox icon
+   */
+  iconOnClick?: CommonTextboxProps["iconOnClick"];
+  /**
+   * @deprecated `iconOnMouseDown` has been deprecated.
+   * Optional handler for mouse down event on Textbox icon
+   */
+  iconOnMouseDown?: CommonTextboxProps["iconOnMouseDown"];
+  /**
+   * @deprecated `iconTabIndex` has been deprecated.
+   * Overrides the default tabindex of the component
+   */
+  iconTabIndex?: CommonTextboxProps["iconTabIndex"];
+  /**
+   * @deprecated `inputIcon` has been deprecated.
+   * Type of the icon that will be rendered next to the input
+   */
+  inputIcon?: CommonTextboxProps["inputIcon"];
+  /**
+   * @deprecated `align` has been deprecated.
+   * Sets the input's text alignment. Does not affect the position of the input's prefix or suffix icons.
+   */
+  align?: TextInputProps["align"];
+  /**
+   * @private
+   * @ignore
+   */
+  leftChildren?: TextInputProps["leftChildren"];
+  /**
+   * @deprecated `inert` has been deprecated.
+   */
+  inert?: HTMLAttributes<HTMLInputElement>["inert"];
+  /**
+   * @deprecated `multiColumn` has been deprecated.
+   * When true component will work in multi column mode.
    * Children should consist of OptionRow components in this mode
    */
   multiColumn?: boolean;
@@ -52,19 +117,32 @@ export interface SimpleSelectProps
   onOpen?: () => void;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
-  /** SelectList table header, should consist of multiple th elements.
+  /**
+   * @deprecated `tableHeader` has been deprecated.
+   * SelectList table header, should consist of multiple th elements.
    * Works only in multiColumn mode
    */
   tableHeader?: React.ReactNode;
-  /** If true the component input has no border and is transparent */
+  /**
+   * @deprecated `transparent` has been deprecated. Use `variant="subtle"` instead.
+   * If true the component input has no border and is transparent.
+   */
   transparent?: boolean;
+  /** The visual variant of the component */
+  variant?: "typical" | "subtle";
   /** The selected value(s) */
   value: string | Record<string, unknown>;
-  /** [Legacy] Overrides the default tooltip position */
+  /**
+   * @deprecated `tooltipPosition` has been deprecated.
+   * [Legacy] Overrides the default tooltip position
+   */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
-  /** Placement of the select list in relation to the input element */
+  /**
+   * @deprecated `listPlacement` has been deprecated. The select list is positioned automatically.
+   * Placement of the select list in relation to the input element.
+   */
   listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
@@ -75,15 +153,51 @@ export interface SimpleSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
-  /** Flag to configure component as mandatory */
+  /** When set, keyboard navigation stops at the first/last option instead of looping back around to the other end. */
+  disableNavigationLoop?: boolean;
+  /** The time in milliseconds before the typeahead keyboard buffer is cleared. Defaults to 1500. */
+  typeaheadTimeout?: number;
+  /**
+   * @deprecated `isRequired` has been deprecated.
+   * Flag to configure component as mandatory
+   */
   isRequired?: boolean;
   /** Specify a callback triggered on change */
   onChange: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
-  /** Override the default width of the list element. Number passed is converted into pixel value */
+  /**
+   * @deprecated `listWidth` has been deprecated.
+   * Override the default width of the list element. Number passed is converted into pixel value
+   */
   listWidth?: number;
 }
+
+const LOCAL_NON_FUNCTIONING_PROPS = new Set([
+  "align",
+  "onChangeDeferred",
+  "deferTimeout",
+  "iconOnClick",
+  "iconOnMouseDown",
+  "iconTabIndex",
+  "inputIcon",
+  "inert",
+  "transparent",
+  "multiColumn",
+  "tableHeader",
+  "isRequired",
+  "listPlacement",
+]);
+
+const inheritedNonFunctioningProps = Array.from(NON_FUNCTIONING_PROPS);
+
+const TYPEAHEAD_TIMEOUT = 1500;
+
+// inherits all of the non-functioning props from Textbox, plus the local ones that are not applicable to SimpleSelect
+const SIMPLE_SELECT_NON_FUNCTIONING_PROPS = new Set([
+  ...inheritedNonFunctioningProps,
+  ...LOCAL_NON_FUNCTIONING_PROPS,
+]);
 
 export const SimpleSelect = React.forwardRef<
   HTMLInputElement,
@@ -100,9 +214,11 @@ export const SimpleSelect = React.forwardRef<
       name,
       disabled,
       readOnly,
+      size = "medium",
       children,
       transparent,
       openOnFocus = false,
+      variant = "typical",
       onOpen,
       onChange,
       onClick,
@@ -113,14 +229,13 @@ export const SimpleSelect = React.forwardRef<
       listMaxHeight,
       onListScrollBottom,
       tableHeader,
-      multiColumn,
-      tooltipPosition,
       "data-element": dataElement,
       "data-role": dataRole,
-      listPlacement = "bottom",
-      flipEnabled = true,
+      flipEnabled,
       enableVirtualScroll,
       virtualScrollOverscan,
+      disableNavigationLoop = false,
+      typeaheadTimeout = TYPEAHEAD_TIMEOUT,
       required,
       listWidth,
       ...props
@@ -213,9 +328,9 @@ export const SimpleSelect = React.forwardRef<
         filterTimer.current = window.setTimeout(() => {
           isTimerCounting.current = false;
           filterText.current = "";
-        }, 500);
+        }, typeaheadTimeout);
       },
-      [selectValueStartingWithText],
+      [selectValueStartingWithText, typeaheadTimeout],
     );
 
     const handleTextboxKeydown = useCallback(
@@ -275,6 +390,26 @@ export const SimpleSelect = React.forwardRef<
       setTextValue(newText);
     }, [selectedValue, childOptions]);
 
+    // Keep the selected option highlighted while the list is open so the keyboard
+    // cursor starts from it: Enter confirms it (e.g. after typeahead) and the first
+    // arrow key moves past it. This mirrors the legacy SimpleSelect behaviour
+    // without altering the shared PopoverMenu navigation used by other components.
+    useEffect(() => {
+      if (!isOpen) return;
+
+      const listbox = document.getElementById(selectListId.current);
+      const selectedOption = listbox?.querySelector<HTMLElement>(
+        '[aria-selected="true"]',
+      );
+
+      if (!selectedOption) return;
+
+      listbox
+        ?.querySelector<HTMLElement>('[data-has-focus="true"]')
+        ?.setAttribute("data-has-focus", "false");
+      selectedOption.setAttribute("data-has-focus", "true");
+    }, [isOpen, selectedValue]);
+
     useEffect(() => {
       const clickEvent = "click";
 
@@ -308,16 +443,6 @@ export const SimpleSelect = React.forwardRef<
 
         return true;
       });
-    }
-
-    function handleDropdownIconClick(
-      event: React.MouseEvent<HTMLInputElement>,
-    ) {
-      handleTextboxClick(event);
-    }
-
-    function handleListMouseDown() {
-      isMouseDownReported.current = true;
     }
 
     function handleTextboxBlur(event: React.FocusEvent<HTMLInputElement>) {
@@ -378,29 +503,15 @@ export const SimpleSelect = React.forwardRef<
       onChange?.(createCustomEvent(newValue, selectionConfirmed));
     }
 
-    const onSelectOption: NonNullable<SelectListProps["onSelect"]> = (
-      optionData,
-    ) => {
-      const {
-        text,
-        value: newValue,
-        selectionType,
-        id: selectedOptionId,
-        selectionConfirmed,
-      } = optionData;
-      const isClickTriggered = selectionType === "click";
+    const onSelectOption = (optionData: SelectListOnSelectData) => {
+      const { text, value: newValue, id: selectedOptionId } = optionData;
 
-      updateValue(newValue, text, selectionConfirmed);
-      setActiveDescendantId(selectedOptionId);
+      updateValue(newValue, text, true);
+      setActiveDescendantId(selectedOptionId ?? "");
+      setOpenState(false);
 
-      if (selectionType !== "navigationKey") {
-        setOpenState(false);
-      }
-
-      if (isClickTriggered) {
-        isClickTriggeredBySelect.current = true;
-        textboxRef?.focus();
-      }
+      isClickTriggeredBySelect.current = true;
+      textboxRef?.focus();
     };
 
     const onSelectListClose = useCallback(() => {
@@ -423,6 +534,8 @@ export const SimpleSelect = React.forwardRef<
       [ref],
     );
 
+    const isSubtle = variant === "subtle" || transparent;
+
     function getTextboxProps() {
       return {
         id: inputId.current,
@@ -432,91 +545,82 @@ export const SimpleSelect = React.forwardRef<
         selectedValue,
         formattedValue: textValue,
         onClick: handleTextboxClick,
-        iconOnClick: handleDropdownIconClick as (
-          ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-        ) => void,
         label,
         labelId,
         onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
         onKeyDown: handleTextboxKeydown,
         onBlur: handleTextboxBlur,
-        tooltipPosition,
         required,
-        transparent,
-        ...filterOutStyledSystemSpacingProps(props),
+        ...(isSubtle && { variant: "subtle" as const }),
+        ...filterPropsByName(
+          filterOutStyledSystemSpacingProps(props) as Record<string, unknown>,
+          SIMPLE_SELECT_NON_FUNCTIONING_PROPS,
+        ),
         "data-component": undefined,
       };
     }
 
-    let placement: ListPlacement;
-
-    switch (listPlacement) {
-      case "top":
-        placement = "top-end";
-        break;
-      case "bottom":
-        placement = "bottom-end";
-        break;
-      default:
-        placement = listPlacement;
-    }
-
-    const selectList = (
-      <SelectList
-        ref={listboxRef}
-        id={selectListId.current}
-        labelId={labelId}
-        anchorElement={textboxRef?.parentElement || undefined}
-        onSelect={onSelectOption}
-        onMouseDown={handleListMouseDown}
-        onSelectListClose={onSelectListClose}
-        highlightedValue={selectedValue}
-        listMaxHeight={listMaxHeight}
-        isLoading={isLoading}
-        onListScrollBottom={onListScrollBottom}
-        tableHeader={tableHeader}
-        multiColumn={multiColumn}
-        listPlacement={listWidth !== undefined ? placement : listPlacement}
-        flipEnabled={flipEnabled}
-        isOpen={isOpen}
-        enableVirtualScroll={enableVirtualScroll}
-        virtualScrollOverscan={virtualScrollOverscan}
-        listWidth={listWidth}
-      >
-        {children}
-      </SelectList>
-    );
-
     const marginProps = filterStyledSystemMarginProps(props);
+
+    const mappedInputWidth = props.inputWidth;
 
     return (
       <StyledSelect
-        transparent={transparent}
+        className="simple-select"
         disabled={disabled}
         readOnly={readOnly}
         data-component="simple-select"
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}
+        $staticPosition
         {...marginProps}
       >
-        <div ref={containerRef}>
-          <SelectTextbox
-            ref={assignInput}
-            ariaLabel={ariaLabel}
-            aria-controls={selectListId.current}
-            activeDescendantId={activeDescendantId}
-            ariaLabelledby={ariaLabelledby}
-            aria-describedby={ariaDescribedBy}
-            isOpen={isOpen}
-            value={textValue}
-            selectType="simple"
-            {...getTextboxProps()}
-            onChange={() => {}}
-          />
-        </div>
-        {selectList}
+        <NextSelectList
+          open={isOpen}
+          id={selectListId.current}
+          labelId={labelId}
+          size={size}
+          maxHeight={
+            listMaxHeight !== undefined ? `${listMaxHeight}px` : undefined
+          }
+          placement="bottom-end"
+          selectedValue={selectedValue}
+          listboxAriaLabel={ariaLabel}
+          controlReference={containerRef}
+          enableVirtualScroll={enableVirtualScroll}
+          virtualScrollOverscan={virtualScrollOverscan}
+          disableNavigationLoop={disableNavigationLoop}
+          isLoading={isLoading}
+          controlWrapperStyle={
+            mappedInputWidth !== undefined
+              ? { width: `${mappedInputWidth}%` }
+              : { width: "100%" }
+          }
+          onSelect={onSelectOption}
+          onClose={onSelectListClose}
+          popoverControl={(controlRef, controlProps) => (
+            <SelectTextbox
+              ref={combineRefs(assignInput, controlRef)}
+              containerRef={containerRef}
+              ariaLabel={ariaLabel}
+              activeDescendantId={activeDescendantId}
+              ariaLabelledby={ariaLabelledby}
+              aria-describedby={ariaDescribedBy}
+              isOpen={isOpen}
+              value={textValue}
+              size={size}
+              selectType="simple"
+              {...getTextboxProps()}
+              {...controlProps}
+              inputWidth={100}
+              onChange={() => {}}
+            />
+          )}
+        >
+          {children}
+        </NextSelectList>
       </StyledSelect>
     );
   },

@@ -28,6 +28,8 @@ export const useHandleDropdownMenuKeyDown = (
     isButtonMenu?: boolean;
     isSubmenu?: boolean;
     controlReference?: React.RefObject<HTMLLIElement>;
+    disableNavigationLoop?: boolean;
+    enablePageNavigation?: boolean;
   },
 ) =>
   useCallback(
@@ -41,7 +43,12 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      const { isButtonMenu, isSubmenu } = submenuOptions;
+      const {
+        isButtonMenu,
+        isSubmenu,
+        disableNavigationLoop,
+        enablePageNavigation,
+      } = submenuOptions;
 
       const items = Array.from(
         ref.current?.querySelectorAll(
@@ -76,6 +83,8 @@ export const useHandleDropdownMenuKeyDown = (
         }
 
         if (!isButtonMenu && lastItem === highlightedItem) {
+          // stay on the last item instead of wrapping when looping is disabled
+          if (disableNavigationLoop) return;
           setAriaActivedescendant(
             firstItem?.id ?? /* istanbul ignore next */ "",
           );
@@ -112,6 +121,8 @@ export const useHandleDropdownMenuKeyDown = (
         }
 
         if (!isButtonMenu && firstItem === highlightedItem) {
+          // stay on the first item instead of wrapping when looping is disabled
+          if (disableNavigationLoop) return;
           setAriaActivedescendant(
             lastItem?.id ?? /* istanbul ignore next */ "",
           );
@@ -133,7 +144,7 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      if (ev.key === "Home") {
+      if (ev.key === "Home" || (ev.key === "PageUp" && enablePageNavigation)) {
         ev.preventDefault();
         setAriaActivedescendant(firstItem?.id ?? /* istanbul ignore next */ "");
         setFocus(firstItem, highlightedItem, isButtonMenu);
@@ -141,7 +152,10 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      if (ev.key === "End") {
+      if (
+        ev.key === "End" ||
+        (ev.key === "PageDown" && enablePageNavigation)
+      ) {
         ev.preventDefault();
         setAriaActivedescendant(lastItem?.id ?? /* istanbul ignore next */ "");
         setFocus(lastItem, highlightedItem, isButtonMenu);
