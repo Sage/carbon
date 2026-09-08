@@ -68,14 +68,6 @@ be customised if desired using the `virtualScrollOverscan` prop. Higher values w
 
 <Canvas of={SimpleSelectStories.Virtualised} />
 
-### List action button
-
-A button can be rendered at the bottom of the list by passing the `listActionButton` prop. Set it to `true` to render
-the default button, or pass a custom `Button` component. The `onListAction` callback is required and is triggered when
-the button is actioned.
-
-<Canvas of={SimpleSelectStories.WithListActionButton} />
-
 ### Selection confirmed
 
 A change event is emitted each time an option is navigated via keyboard as it sets the value of the
@@ -83,6 +75,12 @@ Select input. For those that need to trigger further actions when the user makes
 a `selectionConfirmed` property on the emitted event when the enter key is pressed or an option is clicked.
 
 <Canvas of={SimpleSelectStories.SelectionConfirmedStory} />
+
+### Typeahead keyboard navigation
+
+When the list is open, typing printable characters highlights the first option whose text starts with the typed sequence. The
+`typeaheadTimeout` prop controls how long the component waits between characters before starting a new sequence, in milliseconds.
+It defaults to `1500`.
 
 ### Dynamically adding options, and the importance of the `key` property
 

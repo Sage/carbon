@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import type { CSSObject } from "styled-components";
 
 import {
@@ -15,9 +15,8 @@ import Option, { OptionProps } from "../../../option";
 import OptionGroupHeader, {
   OptionGroupHeaderProps,
 } from "../../../option-group-header";
-import Button, { ButtonProps } from "../../../../button";
-import useLocale from "../../../../../hooks/__internal__/useLocale";
 import Icon from "../../../../icon";
+import Loader from "../../../../loader/__next__";
 import isExpectedOption from "../../utils/is-expected-option";
 
 export interface SelectListOnSelectData {
@@ -69,10 +68,9 @@ export interface NextSelectListProps {
   virtualScrollOverscan?: number;
   /** When set, keyboard navigation stops at the first/last option instead of looping around. */
   disableNavigationLoop?: boolean;
-  /** True for default text button or a Button Component to be rendered */
-  listActionButton?: boolean | React.ReactElement<ButtonProps>;
-  /** A callback for when the list action button is triggered */
-  onListAction?: () => void;
+  /** If true, a loader is displayed in the list. Renders on its own for a general loading state,
+   * or below the options for a lazy-loading state. */
+  isLoading?: boolean;
 }
 
 const isOptionElement = (
@@ -103,8 +101,7 @@ const SelectList = ({
   enableVirtualScroll,
   virtualScrollOverscan,
   disableNavigationLoop,
-  listActionButton,
-  onListAction,
+  isLoading,
 }: NextSelectListProps) => {
   const mappedChildren = useMemo(() => {
     const renderOption = (option: React.ReactElement<OptionProps>) => {
@@ -221,30 +218,18 @@ const SelectList = ({
     return index;
   }, [children, selectedValue]);
 
-  const handleListAction = useCallback(() => {
-    onClose();
-    onListAction?.();
-  }, [onClose, onListAction]);
-
-  const locale = useLocale();
-
-  const footer = useMemo(() => {
-    if (listActionButton === undefined) return undefined;
-
-    if (listActionButton === true) {
-      return (
-        <Button onClick={handleListAction} iconType="add" iconPosition="after">
-          {locale.select.actionButtonText()}
-        </Button>
-      );
-    }
-
-    if (!React.isValidElement(listActionButton)) return undefined;
-
-    return React.cloneElement(listActionButton, {
-      onClick: handleListAction,
-    });
-  }, [listActionButton, handleListAction, locale]);
+  const listContent = isLoading
+    ? [
+        ...mappedChildren,
+        <MenuItem key="select-list-loader" disabled>
+          <Loader
+            loaderType="ring"
+            size={size}
+            data-role="select-list-loader"
+          />
+        </MenuItem>,
+      ]
+    : mappedChildren;
 
   return (
     <PopoverMenu<HTMLInputElement>
@@ -262,10 +247,10 @@ const SelectList = ({
       enableVirtualScroll={enableVirtualScroll}
       virtualScrollOverscan={virtualScrollOverscan}
       disableNavigationLoop={disableNavigationLoop}
+      enablePageNavigation
       initialScrollIndex={initialScrollIndex}
-      footer={footer}
     >
-      {mappedChildren}
+      {listContent}
     </PopoverMenu>
   );
 };

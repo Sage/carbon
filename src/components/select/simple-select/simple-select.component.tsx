@@ -6,7 +6,6 @@ import React, {
   useMemo,
 } from "react";
 import type { HTMLAttributes } from "react";
-import invariant from "invariant";
 
 import {
   filterOutStyledSystemSpacingProps,
@@ -17,7 +16,6 @@ import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
 import { CommonTextboxProps } from "../../textbox";
-import { ButtonProps } from "../../button";
 import { NON_FUNCTIONING_PROPS } from "../../textbox/textbox.component";
 import type { TextInputProps } from "../../textbox/__internal__/__next__/text-input.component";
 import filterPropsByName from "../../../__internal__/utils/helpers/filter-props";
@@ -117,10 +115,6 @@ export interface SimpleSelectProps
   onListScrollBottom?: () => void;
   /** A custom callback for when the dropdown menu opens */
   onOpen?: () => void;
-  /** True for default text button or a Button Component to be rendered */
-  listActionButton?: boolean | React.ReactElement<ButtonProps>;
-  /** A callback for when the list action button is triggered */
-  onListAction?: () => void;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
   /**
@@ -161,6 +155,8 @@ export interface SimpleSelectProps
   virtualScrollOverscan?: number;
   /** When set, keyboard navigation stops at the first/last option instead of looping back around to the other end. */
   disableNavigationLoop?: boolean;
+  /** The time in milliseconds before the typeahead keyboard buffer is cleared. Defaults to 1500. */
+  typeaheadTimeout?: number;
   /**
    * @deprecated `isRequired` has been deprecated.
    * Flag to configure component as mandatory
@@ -194,6 +190,8 @@ const LOCAL_NON_FUNCTIONING_PROPS = new Set([
 ]);
 
 const inheritedNonFunctioningProps = Array.from(NON_FUNCTIONING_PROPS);
+
+const TYPEAHEAD_TIMEOUT = 1500;
 
 // inherits all of the non-functioning props from Textbox, plus the local ones that are not applicable to SimpleSelect
 const SIMPLE_SELECT_NON_FUNCTIONING_PROPS = new Set([
@@ -237,8 +235,7 @@ export const SimpleSelect = React.forwardRef<
       enableVirtualScroll,
       virtualScrollOverscan,
       disableNavigationLoop = false,
-      listActionButton,
-      onListAction,
+      typeaheadTimeout = TYPEAHEAD_TIMEOUT,
       required,
       listWidth,
       ...props
@@ -331,9 +328,9 @@ export const SimpleSelect = React.forwardRef<
         filterTimer.current = window.setTimeout(() => {
           isTimerCounting.current = false;
           filterText.current = "";
-        }, 500);
+        }, typeaheadTimeout);
       },
-      [selectValueStartingWithText],
+      [selectValueStartingWithText, typeaheadTimeout],
     );
 
     const handleTextboxKeydown = useCallback(
@@ -429,13 +426,6 @@ export const SimpleSelect = React.forwardRef<
         window.clearTimeout(focusTimer.current);
       };
     }, []);
-
-    useEffect(() => {
-      invariant(
-        listActionButton === undefined || onListAction !== undefined,
-        "onListAction prop required when using listActionButton prop",
-      );
-    }, [listActionButton, onListAction]);
 
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
       isMouseDownReported.current = false;
@@ -602,8 +592,7 @@ export const SimpleSelect = React.forwardRef<
           enableVirtualScroll={enableVirtualScroll}
           virtualScrollOverscan={virtualScrollOverscan}
           disableNavigationLoop={disableNavigationLoop}
-          listActionButton={listActionButton}
-          onListAction={onListAction}
+          isLoading={isLoading}
           controlWrapperStyle={
             mappedInputWidth !== undefined
               ? { width: `${mappedInputWidth}%` }

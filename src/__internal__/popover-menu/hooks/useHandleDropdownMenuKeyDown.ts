@@ -29,6 +29,7 @@ export const useHandleDropdownMenuKeyDown = (
     isSubmenu?: boolean;
     controlReference?: React.RefObject<HTMLLIElement>;
     disableNavigationLoop?: boolean;
+    enablePageNavigation?: boolean;
   },
 ) =>
   useCallback(
@@ -42,7 +43,12 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      const { isButtonMenu, isSubmenu, disableNavigationLoop } = submenuOptions;
+      const {
+        isButtonMenu,
+        isSubmenu,
+        disableNavigationLoop,
+        enablePageNavigation,
+      } = submenuOptions;
 
       const items = Array.from(
         ref.current?.querySelectorAll(
@@ -138,7 +144,7 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      if (ev.key === "Home") {
+      if (ev.key === "Home" || (ev.key === "PageUp" && enablePageNavigation)) {
         ev.preventDefault();
         setAriaActivedescendant(firstItem?.id ?? /* istanbul ignore next */ "");
         setFocus(firstItem, highlightedItem, isButtonMenu);
@@ -146,7 +152,10 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      if (ev.key === "End") {
+      if (
+        ev.key === "End" ||
+        (ev.key === "PageDown" && enablePageNavigation)
+      ) {
         ev.preventDefault();
         setAriaActivedescendant(lastItem?.id ?? /* istanbul ignore next */ "");
         setFocus(lastItem, highlightedItem, isButtonMenu);

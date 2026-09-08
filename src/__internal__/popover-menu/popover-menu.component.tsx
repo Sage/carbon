@@ -106,40 +106,6 @@ const ScrollWrapper = styled.div`
   width: 100%;
 `;
 
-const StickyFooter = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  align-self: stretch;
-  position: sticky;
-  bottom: 0;
-  background-color: var(--popover-bg-default);
-`;
-
-const FooterDivider = styled.div`
-  display: flex;
-  padding-bottom: var(--global-space-comp-xs);
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  align-self: stretch;
-
-  &::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: var(--global-borderwidth-xs);
-    background-color: var(--container-standard-border-default);
-  }
-`;
-
-const FooterSlot = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  align-self: stretch;
-`;
-
 export type FocusableHandle =
   | HTMLElement
   | HTMLButtonElement
@@ -212,8 +178,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   initialScrollIndex?: number;
   /** When set, keyboard navigation stops at the first/last item instead of looping around. */
   disableNavigationLoop?: boolean;
-  /** Content rendered below the scrollable list, inside the menu (e.g. an action button). */
-  footer?: React.ReactNode;
+  /** When set, PageUp and PageDown focus the first and last items respectively. */
+  enablePageNavigation?: boolean;
 }
 
 const OFFSET = 8;
@@ -258,8 +224,6 @@ interface MenuProps {
   listboxAriaLabel?: string;
   maxHeight?: string;
   virtualHeight?: number;
-  footer?: React.ReactNode;
-  footerRef?: React.Ref<HTMLDivElement>;
 }
 
 const Menu = ({
@@ -280,8 +244,6 @@ const Menu = ({
   portalTarget,
   maxHeight,
   virtualHeight,
-  footer,
-  footerRef,
 }: MenuProps) => {
   return (
     <Popover
@@ -317,14 +279,6 @@ const Menu = ({
             {children}
           </List>
         </ScrollWrapper>
-        {footer !== undefined && (
-          <StickyFooter data-role="popover-menu-footer">
-            <FooterDivider data-role="popover-menu-footer-divider" />
-            <FooterSlot ref={footerRef} data-role="popover-menu-footer-slot">
-              {footer}
-            </FooterSlot>
-          </StickyFooter>
-        )}
       </MenuWrapper>
     </Popover>
   );
@@ -406,7 +360,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     virtualScrollOverscan = 5,
     initialScrollIndex,
     disableNavigationLoop = false,
-    footer,
+    enablePageNavigation = false,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -422,7 +376,6 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const combinedWrapperRef = combineRefs(wrapperRef, ref);
   const wrappedChildren = wrapChildrenInItem(children);
   const controlRef = useRef<TRef>(null);
-  const footerRef = useRef<HTMLDivElement | null>(null);
   const handleClickInside = useClickAwayListener(onClose);
   const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
 
@@ -609,10 +562,14 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           );
           break;
         case "Home":
+        case "PageUp":
+          if (ev.key === "PageUp" && !enablePageNavigation) break;
           ev.preventDefault();
           moveActiveIndex(0);
           break;
         case "End":
+        case "PageDown":
+          if (ev.key === "PageDown" && !enablePageNavigation) break;
           ev.preventDefault();
           moveActiveIndex(count - 1);
           break;
@@ -637,6 +594,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       activeIndex,
       initialScrollIndex,
       disableNavigationLoop,
+      enablePageNavigation,
       moveActiveIndex,
       optionIdForIndex,
       onClose,
@@ -711,6 +669,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       isButtonMenu,
       isSubmenu,
       disableNavigationLoop,
+      enablePageNavigation,
     },
   );
 
@@ -718,7 +677,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     ? handleVirtualKeyDown
     : handleDropdownMenuKeyDown;
 
-  const handleListKeyDownWithFooter = useCallback(
+  const handleMenuKeyDown = useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
       // Tab moves focus naturally; the focusin listener decides whether to close.
       if (ev.key === "Tab") return;
@@ -731,9 +690,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     if (!open || isSubmenu || isButtonMenu) return undefined;
 
     const isAllowedFocusTarget = (target: EventTarget | null) =>
-      target instanceof Node &&
-      (controlWrapperRef.current?.contains(target) ||
-        footerRef.current?.contains(target));
+      target instanceof Node && controlWrapperRef.current?.contains(target);
 
     const handleFocusIn = (ev: FocusEvent) => {
       if (!isAllowedFocusTarget(ev.target)) {
@@ -765,7 +722,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           open &&
           controlWrapperRef.current?.contains(document.activeElement)
         ) {
-          handleListKeyDownWithFooter(ev);
+          handleMenuKeyDown(ev);
 
           return;
         } else if (!open && isButtonMenu && !isSubmenu) {
@@ -787,7 +744,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           }
         }
       },
-      [open, handleListKeyDownWithFooter, isButtonMenu, onOpen, isSubmenu],
+      [open, handleMenuKeyDown, isButtonMenu, onOpen, isSubmenu],
     );
 
   useEffect(() => {
@@ -886,7 +843,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             listboxAriaLabelledBy={listboxAriaLabelledBy}
             listboxAriaLabel={listboxAriaLabel}
             isButtonMenu={isButtonMenu}
-            onKeyDown={handleListKeyDownWithFooter}
+            onKeyDown={handleMenuKeyDown}
             middleware={computedMiddleware}
             scrollRef={scrollRef}
             listId={listId.current}
@@ -894,8 +851,6 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             portalTarget={isSubmenu ? controlReference?.current : undefined}
             maxHeight={maxHeight}
             virtualHeight={virtualHeight}
-            footer={footer}
-            footerRef={footerRef}
           >
             {renderedChildren}
           </Menu>

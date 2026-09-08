@@ -234,56 +234,6 @@ No props metadata found.
 ```
 
 
-### With List Action Button
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("select");
-  const [optionList, setOptionList] = useState([
-    <Option text="Select an option" value="select" key="Select" />,
-    <Option text="Amber" value="1" key="Amber" />,
-    <Option text="Black" value="2" key="Black" />,
-    <Option text="Blue" value="3" key="Blue" />,
-    <Option text="Brown" value="4" key="Brown" />,
-    <Option text="Green" value="5" key="Green" />,
-    <Option text="Orange" value="6" key="Orange" />,
-  ]);
-  function addNewOption() {
-    setOptionList((list) => [
-      ...list,
-      <Option
-        text={`New Option ${list.length + 1}`}
-        value={`${list.length + 1}`}
-        key={`New Option ${list.length + 1}`}
-      />,
-    ]);
-  }
-  return (
-    <Box height={350}>
-      <Select
-        name="listActionButton"
-        id="listActionButton"
-        label="color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-        listActionButton={
-          <Button iconType="add" iconPosition="after">
-            Add a New Element
-          </Button>
-        }
-        onListAction={addNewOption}
-      >
-        {optionList}
-      </Select>
-      <input style={{marginTop: "1000px"}} value="Brian Brobbey" />
-    </Box>
-  );
-}
-```
-
-
 ### Selection Confirmed
 
 **Render**

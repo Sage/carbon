@@ -1,4 +1,4 @@
-import getNextIndexByKey, { PAGE_SIZE } from "./get-next-index-by-key";
+import getNextIndexByKey from "./get-next-index-by-key";
 
 test("returns first index when 'Home' key is pressed", () => {
   expect(getNextIndexByKey("Home", 2, 8)).toEqual(0);
@@ -28,28 +28,22 @@ test("returns last index when 'ArrowDown' key is pressed at the last index and l
   expect(getNextIndexByKey("ArrowDown", 8, 8, true)).toEqual(8);
 });
 
-test("returns index decreased by page size when 'PageUp' key is pressed", () => {
-  expect(getNextIndexByKey("PageUp", 6, 8)).toEqual(6 - PAGE_SIZE);
-});
-
-test("returns first index when 'PageUp' key is pressed and index is within page size", () => {
+test("returns first index when 'PageUp' key is pressed", () => {
+  expect(getNextIndexByKey("PageUp", 6, 8)).toEqual(0);
   expect(getNextIndexByKey("PageUp", 2, 8)).toEqual(0);
 });
 
-test("returns page size from the end when 'PageUp' key is pressed with no selected index", () => {
-  expect(getNextIndexByKey("PageUp", -1, 8)).toEqual(8 + 1 - PAGE_SIZE);
+test("returns first index when 'PageUp' key is pressed with no selected index", () => {
+  expect(getNextIndexByKey("PageUp", -1, 8)).toEqual(0);
 });
 
-test("returns index increased by page size when 'PageDown' key is pressed", () => {
-  expect(getNextIndexByKey("PageDown", 0, 8)).toEqual(PAGE_SIZE);
-});
-
-test("returns last index when 'PageDown' key is pressed and index is within page size of the last index", () => {
+test("returns last index when 'PageDown' key is pressed", () => {
+  expect(getNextIndexByKey("PageDown", 0, 8)).toEqual(8);
   expect(getNextIndexByKey("PageDown", 6, 8)).toEqual(8);
 });
 
-test("returns page size from the start when 'PageDown' key is pressed with no selected index", () => {
-  expect(getNextIndexByKey("PageDown", -1, 8)).toEqual(PAGE_SIZE - 1);
+test("returns last index when 'PageDown' key is pressed with no selected index", () => {
+  expect(getNextIndexByKey("PageDown", -1, 8)).toEqual(8);
 });
 
 test("returns current index when an invalid key is pressed", () => {
