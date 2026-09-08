@@ -16,6 +16,11 @@ import Option from "../option";
 import { CHARACTERS } from "../../../../playwright/support/constants";
 import setupSelectMocks from "../setup-select-mocks";
 
+jest.mock("../../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(() => true),
+}));
+
 beforeEach(() => {
   setupSelectMocks();
 });
@@ -240,6 +245,63 @@ test("positions the dropdown at bottom-end by default", async () => {
   ).toHaveAttribute("data-floating-placement", "bottom-end");
 });
 
+describe("loading state", () => {
+  it("renders only the loader when isLoading is set and no options are provided", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} value="" isLoading>
+        {[]}
+      </SimpleSelect>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    expect(await screen.findByTestId("select-list-loader")).toBeVisible();
+    expect(
+      screen.queryByRole("option", { name: /amber/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("renders the loader alongside the options when isLoading is set with options", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} value="" isLoading>
+        <Option text="amber" value="amber" />
+        <Option text="blue" value="blue" />
+      </SimpleSelect>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    expect(await screen.findByRole("option", { name: "amber" })).toBeVisible();
+    expect(screen.getByRole("option", { name: "blue" })).toBeVisible();
+    expect(screen.getByTestId("select-list-loader")).toBeVisible();
+  });
+
+  it("maps the select size to the loader size", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect
+        label="Colour"
+        onChange={() => {}}
+        value=""
+        size="large"
+        isLoading
+      >
+        {[]}
+      </SimpleSelect>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    expect(await screen.findByTestId("select-list-loader")).toBeVisible();
+    expect(screen.getByTestId("outer-bar")).toHaveStyleRule(
+      "height",
+      "var(--global-size-3-xs)",
+    );
+  });
+});
+
 test("ignores the deprecated listPlacement prop", async () => {
   const user = userEvent.setup();
   render(
@@ -335,6 +397,64 @@ describe("typing into the input", () => {
         ignore: 'li, [data-element="menu-item-label"]',
       }),
     ).toBeVisible();
+  });
+
+  it("keeps the typeahead buffer after a one second pause", async () => {
+    jest.useFakeTimers();
+
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <InteractiveComponent label="Colour" onChange={() => {}}>
+        <Option text="blue" value="blue" />
+        <Option text="black" value="black" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.type(input, "bl");
+    act(() => jest.advanceTimersByTime(1000));
+    await user.type(input, "u");
+
+    expect(
+      screen.getByText("blue", {
+        ignore: 'li, [data-element="menu-item-label"]',
+      }),
+    ).toBeVisible();
+
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
+  it("uses the typeaheadTimeout prop to control the buffer duration", async () => {
+    jest.useFakeTimers();
+
+    const onChange = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <InteractiveComponent
+        label="Colour"
+        onChange={onChange}
+        typeaheadTimeout={200}
+      >
+        <Option text="blue" value="blue" />
+        <Option text="black" value="black" />
+        <Option text="green" value="green" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.type(input, "bl");
+    act(() => jest.advanceTimersByTime(300));
+    await user.type(input, "g");
+
+    expect(onChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: "green" }),
+      }),
+    );
+
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   it("selects the first option starting with the latest printable character typed after a long pause", async () => {
