@@ -65,6 +65,36 @@ test("should not render a placeholder if disabled", () => {
   expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "");
 });
 
+test("should render a placeholder when provided", () => {
+  render(<MockComponent placeholder="Enter text here" />);
+  expect(screen.getByRole("textbox")).toHaveAttribute(
+    "placeholder",
+    "Enter text here",
+  );
+});
+
+test("should apply maxWidth styling correctly", () => {
+  render(<MockComponent maxWidth="50%" />);
+  expect(screen.getByTestId("input-presentation-container")).toHaveStyle({
+    "max-width": "50%",
+  });
+});
+
+test("should call consumer onBlur callback when textarea is blurred", () => {
+  const onBlur = jest.fn();
+  render(<Textarea value="foo" onChange={jest.fn()} onBlur={onBlur} />);
+
+  fireEvent.blur(screen.getByRole("textbox"));
+
+  expect(onBlur).toHaveBeenCalledTimes(1);
+});
+
+test("should disable the textarea when disabled is true", () => {
+  render(<MockComponent disabled />);
+
+  expect(screen.getByRole("textbox")).toBeDisabled();
+});
+
 testStyledSystemMargin(
   (props) => <MockComponent data-role="textarea-wrapper" {...props} />,
   () => screen.getByTestId("textarea-wrapper"),

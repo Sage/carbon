@@ -175,6 +175,7 @@ export const Validation = () => {
       <Textarea
         label="Textarea"
         error="Error Message"
+        required
         mb={2}
         name="ta-error"
         value={state["ta-error"] || ""}

@@ -1,0 +1,29 @@
+---
+name: carbon-component-option-tile-group
+description: Carbon OptionTileGroup component props and usage examples.
+---
+
+# OptionTileGroup
+
+## Import
+`import { OptionTileGroup } from "carbon-react/lib/components/option-tile";`
+
+## Source
+- Export: `./components/option-tile`
+- Props interface: `OptionTileGroupProps`
+
+## Props
+| Name | Type | Required | Literals | Description | Default |
+| --- | --- | --- | --- | --- | --- |
+| children | React.ReactNode | Yes |  | Tile elements rendered in a vertical stack. |  |
+| selectionType | "multiple" \| "single" | Yes | multiple \| single | Selection behavior context for grouped tiles. |  |
+| aria-label | string | Yes |  | Accessible label when no visible legend exists. |  |
+| disabled | boolean \| undefined | No |  | Applies a disabled state to the whole group's labelset. |  |
+| legend | string \| undefined | No |  | Visible label for the group, rendered as the legend of the labelset. |  |
+| legendHint | React.ReactNode | No |  | Additional hint text rendered below the legend. |  |
+| required | boolean \| undefined | No |  | Flag to configure the group as mandatory. |  |
+| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+
+## Examples
+No Storybook examples found.

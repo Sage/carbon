@@ -72,6 +72,9 @@ interface Locale {
       delete: () => string;
     };
   };
+  globalHeader: {
+    ariaLabel: () => string;
+  };
   heading: {
     backLinkAriaLabel: () => string;
   };

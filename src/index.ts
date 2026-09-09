@@ -277,6 +277,13 @@ export type { NoteProps } from "./components/note";
 export { default as Number } from "./components/number";
 export type { NumberProps } from "./components/number";
 
+export { OptionTile, OptionTileGroup } from "./components/option-tile";
+export type {
+  OptionTileProps,
+  OptionTileVariant,
+  OptionTileGroupProps,
+} from "./components/option-tile";
+
 export { default as NumeralDate } from "./components/numeral-date";
 export type {
   NumeralDateProps,

@@ -9,6 +9,7 @@ import TileSelectGroup, {
 } from "./tile-select-group/tile-select-group.component";
 import Button from "../button";
 import Icon from "../icon";
+import { CHARACTERS } from "../../../playwright/support/constants";
 
 testStyledSystemMargin(
   (props) => <TileSelect data-role="tile-select-wrapper" {...props} />,
@@ -130,6 +131,28 @@ test("renders description element as a div when description prop is passed as no
   const descriptionElement = screen.getByText("Description");
 
   expect(descriptionElement).toBeVisible();
+});
+
+describe("special character rendering", () => {
+  const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+
+  test.each(testData)("renders title correctly: %s", (value) => {
+    render(<TileSelect title={value} />);
+
+    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(value);
+  });
+
+  test.each(testData)("renders subtitle correctly: %s", (value) => {
+    render(<TileSelect subtitle={value} />);
+
+    expect(screen.getByRole("heading", { level: 4 })).toHaveTextContent(value);
+  });
+
+  test.each(testData)("renders description correctly: %s", (value) => {
+    render(<TileSelect description={value} />);
+
+    expect(screen.getByText(value)).toBeVisible();
+  });
 });
 
 test("renders titleAdornment element", () => {

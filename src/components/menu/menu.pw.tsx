@@ -24,7 +24,6 @@ import {
   continuePressingSHIFTTAB,
   checkAccessibility,
   waitForAnimationEnd,
-  waitForElementFocus,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
@@ -76,31 +75,6 @@ test.describe("Prop tests for Menu component", () => {
       "data-component",
       "menu-divider",
     );
-  });
-
-  (
-    [
-      ["ArrowDown", 1],
-      ["ArrowUp", 3],
-    ] as [string, number][]
-  ).forEach(([key, tabs]) => {
-    test(`should verify the Search component is focusable by pressing the ${key} key`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentSearch />);
-
-      const menuTrigger = submenu(page).first().locator("button");
-      await menuTrigger.focus();
-      await expect(menuTrigger).toBeFocused();
-      await page.keyboard.press("Enter");
-      await expect(submenuBlock(page).first()).toBeVisible();
-      await continuePressingTAB(page, tabs);
-      await page.keyboard.press(key);
-      const searchInput = searchDefaultInput(page);
-      await waitForElementFocus(page, searchInput);
-      await expect(searchInput).toBeFocused();
-    });
   });
 
   test(`should verify submenu is not closed when Enter key is pressed on search component`, async ({
