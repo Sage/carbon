@@ -1,94 +1,166 @@
-import React, { useRef, useState, useEffect } from "react";
-import { MarginProps } from "styled-system";
+import React, { useCallback, useRef, useState } from "react";
+import { type MarginProps } from "styled-system";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import { ValidationProps } from "../../__internal__/validations";
-import { InputProps } from "../../__internal__/legacy-input";
+import { type ValidationProps } from "../../__internal__/validations";
+import { type InputProps } from "../../__internal__/legacy-input";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import FormField from "../../__internal__/form-field";
-import { TagProps } from "../../__internal__/utils/helpers/tags";
+import { type TagProps } from "../../__internal__/utils/helpers/tags";
+import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
+import { type CurrentFileStatusCounts } from "../../locales/locale";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
-import ValidationMessage from "../../__internal__/validation-message";
+import useIsFileDraggedOverDocument from "../../hooks/__internal__/useIsFileDraggedOverDocument";
+import useFileDropZone from "./__internal__/use-file-drop-zone";
 import {
+  StyledFileStatusLists,
+  StyledFileInputContainer,
+  StyledDashedBorder,
+  StyledFileInputHint,
+  StyledFileInputLabel,
+  StyledFileInputLabelSet,
+  StyledFileInputDropZone,
   StyledHiddenFileInput,
-  StyledFileInputPresentation,
+  StyledLiveRegion,
 } from "./file-input.style";
-import ErrorBorder from "../../__internal__/legacy-error-border/error-border.style";
-import ButtonMinor from "../button-minor";
+import Button from "../button/__next__/button.component";
 import Typography from "../typography";
-import FileUploadStatus, {
-  FileUploadStatusProps,
-} from "./__internal__/file-upload-status";
+import { type FileUploadStatusProps } from "./__internal__/file-upload-status";
+import FileUploadStatusList from "./__internal__/file-upload-status-list";
+import FileInputValidation from "./__internal__/file-input-validation";
+import useUploadCompletionAnnouncement from "./__internal__/use-upload-completion-announcement";
+import focusNextAction from "./__internal__/focus-next-action";
 import Box from "../box";
 import useLocale from "../../hooks/__internal__/useLocale";
-import HintText from "../../__internal__/legacy-hint-text";
+import type ResolvedFileInputLocale from "./__internal__/resolved-file-input-locale";
 
 export interface FileInputProps
   extends Pick<ValidationProps, "error">,
-    Pick<InputProps, "id" | "name" | "required">,
+    Pick<InputProps, "id" | "name">,
     TagProps,
     MarginProps {
-  /** Which file format(s) to accept. Will be passed to the underlying HTML input.
-   * See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept  */
+  /**
+   * File type(s) used by the native file picker through the HTML input's
+   * `accept` attribute. Consumers must validate dropped files.
+   */
   accept?: string;
-  /** Text to appear on the main button. Defaults to "Select file" */
+  /** Text displayed on the button that opens the native file picker. */
   buttonText?: string;
-  /** Explanatory text to appear inside the input area. Defaults to "or drag and drop your file" */
+  /**
+   * Supporting text displayed in the drop zone. Defaults to the localized
+   * instruction to drag and drop files.
+   */
   dragAndDropText?: string;
-  /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
+  /** Help content displayed beneath the label and associated with the input. */
   inputHint?: React.ReactNode;
-  /** Sets the default layout to vertical - with the button below the explanatory text rather than next to it.
-   * This is the equivalent of removing the maxHeight prop - it will be over-ridden if this prop is set explicitly. */
+  /**
+   * Controls the drop-zone layout. Defaults to `true`, which stacks its
+   * contents vertically; set to `false` for a horizontal layout.
+   */
   isVertical?: boolean;
-  /** Label content */
+  /** Visible label for the native file input. */
   label?: string;
-  /** A valid CSS string for the max-height CSS property. */
+  /** Maximum height of the drop zone, as a valid CSS value. */
   maxHeight?: string;
-  /** A valid CSS string for the max-width CSS property. Defaults to the same as the minWidth. */
+  /**
+   * Maximum width of the drop zone, as a valid CSS value. Defaults to the
+   * value of `minWidth`.
+   */
   maxWidth?: string;
-  /** A valid CSS string for the min-height CSS property. */
+  /** Minimum height of the drop zone, as a valid CSS value. */
   minHeight?: string;
-  /** A valid CSS string for the min-width CSS property. */
+  /**
+   * Minimum width of the drop zone, as a valid CSS value. Defaults to
+   * `"288px"`.
+   */
   minWidth?: string;
-  /** onChange event handler. Accepts a list of all files currently entered to the input. */
+  /**
+   * Controls single-file vs multi-file behavior. Defaults to `false`, which
+   * restricts the native picker to one file; the Drop zone remains available
+   * alongside file cards in either mode so a replacement can be selected.
+   */
+  multiple?: boolean;
+  /** Disables file selection and dropping files onto the drop zone. */
+  disabled?: boolean;
+  /** Called when files are selected or dropped, with all received files. */
   onChange: (files: FileList) => void;
-  /** used to control how to display the progress of uploaded file(s) within the component */
+  /**
+   * Status item(s) displayed alongside the picker for files that are
+   * uploading, completed, previously uploaded, or in error.
+   */
   uploadStatus?: FileUploadStatusProps | FileUploadStatusProps[];
-  /** Flag to configure component as mandatory. */
+  /** Marks the native file input as required. */
   required?: boolean;
-  /** Render the ValidationMessage above the FileInput */
+  /** @deprecated Validation messages render below the drop zone. */
   validationMessagePositionTop?: boolean;
 }
 
-export const FileInput = React.forwardRef(
+export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
   (
     {
       accept,
       buttonText,
       "data-element": dataElement,
       "data-role": dataRole,
+      disabled,
       dragAndDropText,
       error,
       label,
       id,
       inputHint,
-      isVertical,
+      isVertical = true,
       maxHeight,
       maxWidth,
       minHeight,
-      minWidth = "280px",
+      minWidth = "288px",
+      multiple = false,
       name,
       onChange,
       required,
       uploadStatus = [],
-      validationMessagePositionTop = true,
       ...rest
-    }: FileInputProps,
-    ref: React.ForwardedRef<HTMLInputElement>,
+    },
+    ref,
   ) => {
     const locale = useLocale();
-    const textOnButton = buttonText || locale.fileInput.selectFile();
-    const mainText = dragAndDropText || locale.fileInput.dragAndDrop();
+    const {
+      dragAndDrop,
+      filesAdded,
+      uploadComplete,
+      currentFiles,
+      currentFilesErrorSummary,
+      previouslyUploadedFiles,
+    } = locale.fileInput as ResolvedFileInputLocale;
+
+    const [uniqueId, uniqueName] = useUniqueId(id, name);
+    const buttonId = `${uniqueId}-button`;
+    const [statusAnnouncement, setStatusAnnouncement] = useState("");
+
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+    const isFileDraggedOverDocument = useIsFileDraggedOverDocument();
+
+    const statuses = (
+      Array.isArray(uploadStatus) ? uploadStatus : [uploadStatus]
+    ).filter(Boolean) as FileUploadStatusProps[];
+    const activeStatuses = statuses.filter(
+      ({ status }) => status !== "previously",
+    );
+    const previouslyUploadedStatuses = statuses.filter(
+      ({ status }) => status === "previously",
+    );
+    const currentFileStatusCounts: CurrentFileStatusCounts = {
+      totalCount: activeStatuses.length,
+      uploadingCount: activeStatuses.filter(
+        ({ status }) => status === "uploading",
+      ).length,
+      completedCount: activeStatuses.filter(
+        ({ status }) => status === "completed",
+      ).length,
+      errorCount: activeStatuses.filter(({ status }) => status === "error")
+        .length,
+    };
 
     const sizeProps = {
       maxHeight: maxHeight || undefined,
@@ -97,175 +169,183 @@ export const FileInput = React.forwardRef(
       minWidth,
     };
 
-    const [uniqueId, uniqueName] = useUniqueId(id, name);
-    const [isDraggedOver, setIsDraggedOver] = useState(false);
-    const [isDraggingFile, setIsDraggingFile] = useState(false);
+    const hasFiles =
+      activeStatuses.length > 0 || previouslyUploadedStatuses.length > 0;
+    const textOnButton = buttonText || locale.fileInput.selectFile();
+    const mainText = dragAndDropText || dragAndDrop(textOnButton);
 
-    const internalInputRef = useRef<HTMLInputElement | null>(null);
-    const internalCallbackRef = (fileInput: HTMLInputElement | null) => {
-      internalInputRef.current = fileInput;
-      if (typeof ref === "function") {
-        ref(fileInput);
-      } else if (ref) {
-        ref.current = fileInput;
-      }
+    useUploadCompletionAnnouncement(
+      activeStatuses,
+      useCallback(
+        (newlyCompletedFilenames) =>
+          setStatusAnnouncement(uploadComplete(newlyCompletedFilenames)),
+        [uploadComplete],
+      ),
+    );
+
+    const addFiles = (files: FileList) => {
+      if (disabled || !files.length) return;
+      onChange(files);
+      setStatusAnnouncement(
+        filesAdded(Array.from(files, ({ name: fileName }) => fileName)),
+      );
     };
 
-    const startDrag = (e: DragEvent) => {
-      e.preventDefault();
-      if (e.dataTransfer?.types.includes("Files")) {
-        setIsDraggingFile(true);
-      }
-    };
-
-    const stopDrag = (e: DragEvent) => {
-      e.preventDefault();
-      setIsDraggingFile(false);
-    };
-
-    useEffect(() => {
-      document.addEventListener("dragover", startDrag);
-      document.addEventListener("drop", stopDrag);
-      document.addEventListener("dragleave", stopDrag);
-
-      return () => {
-        document.removeEventListener("dragover", startDrag);
-        document.removeEventListener("drop", stopDrag);
-        document.removeEventListener("dragleave", stopDrag);
-      };
-    }, []);
-
-    const onSelectFileClick = () => {
-      internalInputRef.current?.click();
-    };
-
-    const onFileAdded = (files: FileList) => {
-      onChange?.(files);
-    };
-
-    const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      if (e.dataTransfer?.types.includes("Files")) {
-        setIsDraggedOver(true);
-      }
-    };
-
-    const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      e.stopPropagation(); // stop event triggering the document listener that resets the styles
-      setIsDraggedOver(false);
-    };
-
-    const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      setIsDraggedOver(false);
-      onFileAdded(e.dataTransfer.files);
-    };
-
-    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onFileAdded(e.target.files as FileList);
-    };
-
-    const { labelId, validationId } = useInputAccessibility({
-      id: uniqueId,
-      validationRedesignOptIn: true,
-      error,
-      label,
+    const { isDraggedOver, onDragOver, onDragLeave, onDrop } = useFileDropZone({
+      disabled,
+      onFilesDropped: addFiles,
+      onDropComplete: () => buttonRef.current?.focus(),
     });
 
-    // allow for single input that a single set of status props is provided
-    const filesUploaded = Array.isArray(uploadStatus)
-      ? uploadStatus
-      : [uploadStatus];
+    const onActionFocusFallback = (element: HTMLElement) =>
+      focusNextAction(element, () => buttonRef.current);
 
-    const input = (
-      <>
-        {inputHint && <HintText>{inputHint}</HintText>}
-        <Box position="relative">
-          {validationMessagePositionTop && (
-            <>
-              <ValidationMessage
-                error={error}
-                validationId={validationId}
-                validationMessagePositionTop={validationMessagePositionTop}
-                data-role="validation-message-top"
-              />
-              {error && <ErrorBorder warning={false} />}
-            </>
-          )}
-          <StyledHiddenFileInput
-            {...(required && { required })}
-            accept={accept}
-            aria-invalid={!!error}
-            id={uniqueId}
-            ref={internalCallbackRef}
-            name={uniqueName}
-            onChange={onInputChange}
-            type="file"
-            {...rest}
-          />
-          <StyledFileInputPresentation
-            data-role="file-input-presentation"
-            isDraggedOver={isDraggedOver}
-            isDraggingFile={isDraggingFile}
-            error={error}
-            onDragLeave={onDragLeave}
-            onDragOver={onDragOver}
-            onDrop={onDrop}
-            isVertical={isVertical}
-            {...sizeProps}
-          >
-            <ButtonMinor buttonType="primary" onClick={onSelectFileClick}>
-              {textOnButton}
-            </ButtonMinor>
-            <Typography m={0}>{mainText}</Typography>
-          </StyledFileInputPresentation>
-          {!validationMessagePositionTop && (
-            <>
-              <ValidationMessage
-                error={error}
-                validationId={validationId}
-                validationMessagePositionTop={validationMessagePositionTop}
-                data-role="validation-message-bottom"
-              />
-              {error && <ErrorBorder warning={false} />}
-            </>
-          )}
-        </Box>
-      </>
-    );
+    const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
+      useInputAccessibility({
+        id: uniqueId,
+        validationRedesignOptIn: true,
+        error,
+        label,
+        fieldHelp: inputHint,
+      });
 
     return (
       <InputBehaviour>
-        <FormField
-          error={error}
-          label={label}
-          labelId={labelId}
-          id={uniqueId}
-          isRequired={required}
-          data-component="file-input"
-          data-role={dataRole}
-          data-element={dataElement}
-          validationRedesignOptIn // do not support old-style validation for File Input component
-          {...filterStyledSystemMarginProps(rest)}
-        >
-          {filesUploaded.length === 0
-            ? input
-            : filesUploaded.map((props) => (
-                <StyledFileInputPresentation
-                  hasUploadStatus
-                  {...sizeProps}
-                  key={props.filename}
+        <StyledFileInputContainer>
+          <FormField
+            error={error}
+            id={uniqueId}
+            data-component="file-input"
+            data-role={dataRole}
+            data-element={dataElement}
+            validationRedesignOptIn
+            {...filterStyledSystemMarginProps(rest)}
+          >
+            {label && (
+              <StyledFileInputLabelSet>
+                <StyledFileInputLabel
+                  htmlFor={uniqueId}
+                  id={labelId}
+                  $isRequired={required}
+                  $disabled={disabled}
                 >
-                  <FileUploadStatus {...props} />
-                </StyledFileInputPresentation>
-              ))}
-        </FormField>
+                  {label}
+                </StyledFileInputLabel>
+                {inputHint && (
+                  <StyledFileInputHint
+                    forwardedAs="span"
+                    id={fieldHelpId}
+                    variant="p"
+                    $disabled={disabled}
+                  >
+                    {inputHint}
+                  </StyledFileInputHint>
+                )}
+              </StyledFileInputLabelSet>
+            )}
+            <Box
+              position="relative"
+              minWidth={sizeProps.minWidth}
+              maxWidth={sizeProps.maxWidth}
+            >
+              <StyledHiddenFileInput
+                ref={combineRefs(ref, inputRef)}
+                id={uniqueId}
+                name={uniqueName}
+                type="file"
+                multiple={multiple}
+                required={required && !hasFiles}
+                disabled={disabled}
+                accept={accept}
+                aria-invalid={!!error}
+                aria-describedby={ariaDescribedBy}
+                aria-labelledby={labelId}
+                onChange={(event) => {
+                  addFiles(event.currentTarget.files as FileList);
+                  // allow selecting the same file again.
+                  event.currentTarget.value = "";
+                }}
+              />
+              <StyledFileInputDropZone
+                data-role="file-input-presentation"
+                $minWidth={sizeProps.minWidth}
+                $minHeight={sizeProps.minHeight}
+                $maxWidth={sizeProps.maxWidth}
+                $maxHeight={sizeProps.maxHeight}
+                $isVertical={isVertical}
+                $isDraggedOver={isDraggedOver}
+                $isDraggingFile={isFileDraggedOverDocument}
+                $error={error}
+                $disabled={disabled}
+                onDragOver={onDragOver}
+                onDragLeave={onDragLeave}
+                onDrop={onDrop}
+              >
+                <StyledDashedBorder
+                  aria-hidden="true"
+                  $error={error}
+                  $isDraggedOver={isDraggedOver}
+                  $isDraggingFile={isFileDraggedOverDocument}
+                  $disabled={disabled}
+                >
+                  <rect />
+                </StyledDashedBorder>
+                <Button
+                  ref={buttonRef}
+                  id={buttonId}
+                  aria-labelledby={
+                    labelId ? `${labelId} ${buttonId}` : undefined
+                  }
+                  aria-describedby={ariaDescribedBy}
+                  variant="default"
+                  variantType="secondary"
+                  size="medium"
+                  disabled={disabled}
+                  onClick={() => !disabled && inputRef.current?.click()}
+                >
+                  {textOnButton}
+                </Button>
+                <Typography m={0}>{mainText}</Typography>
+              </StyledFileInputDropZone>
+              <FileInputValidation error={error} validationId={validationId} />
+            </Box>
+            {hasFiles && (
+              <StyledFileStatusLists
+                $minWidth={sizeProps.minWidth}
+                $maxWidth={sizeProps.maxWidth}
+              >
+                {activeStatuses.length > 0 && (
+                  <FileUploadStatusList
+                    items={activeStatuses}
+                    label={currentFiles(activeStatuses.length)}
+                    errorSummary={
+                      activeStatuses.length > 1 &&
+                      currentFileStatusCounts.errorCount > 0
+                        ? currentFilesErrorSummary(currentFileStatusCounts)
+                        : undefined
+                    }
+                    onActionFocusFallback={onActionFocusFallback}
+                  />
+                )}
+                {previouslyUploadedStatuses.length > 0 && (
+                  <FileUploadStatusList
+                    items={previouslyUploadedStatuses}
+                    label={previouslyUploadedFiles(
+                      previouslyUploadedStatuses.length,
+                    )}
+                    onActionFocusFallback={onActionFocusFallback}
+                  />
+                )}
+              </StyledFileStatusLists>
+            )}
+            <StyledLiveRegion aria-live="polite" aria-atomic="true">
+              {statusAnnouncement}
+            </StyledLiveRegion>
+          </FormField>
+        </StyledFileInputContainer>
       </InputBehaviour>
     );
   },
 );
-
 FileInput.displayName = "FileInput";
-
 export default FileInput;
