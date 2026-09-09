@@ -1,3 +1,9 @@
+## [161.22.1](https://github.com/Sage/carbon/compare/v161.22.0...v161.22.1) (2026-09-09)
+
+### Bug Fixes
+
+* **select:** correct markup in option group header ([a34001f](https://github.com/Sage/carbon/commit/a34001f1ca7243145c0f2049e7250d4b16e6dc9b)), closes [#8157](https://github.com/Sage/carbon/issues/8157)
+
 ## [161.22.0](https://github.com/Sage/carbon/compare/v161.21.0...v161.22.0) (2026-09-03)
 
 ### Features
