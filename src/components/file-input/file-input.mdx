@@ -147,6 +147,38 @@ than a [ProgressTracker](../?path=/docs/progress-tracker--docs) as it does when 
 
 <Canvas of={FileInputStories.UploadStatusNoProgress} />
 
+### Multiple file upload support
+
+The `multiple` prop enables selection of more than one file in a single interaction.
+
+The file input remains visible after files have been selected. This allows users to continue including additional files in a single session, rather than replacing the existing selection.
+
+Each selected file is displayed as an individual upload entry beneath the input, with its own upload status managed independently via the `uploadStatus` prop.
+
+When using `multiple`, the `uploadStatus` prop should be an array where each item represents one file.
+
+This means:
+- Each file must be represented by its own `FileUploadStatusProps` object
+- You are responsible for tracking and updating state per file (progress, success, error, removal)
+
+#### Basic usage
+
+<Canvas of={FileInputStories.MultipleFiles} />
+
+#### Multiple files with upload status
+
+When `multiple` is enabled, `uploadStatus` should be an array of `FileUploadStatusProps`, where each entry maps to a single file.
+
+<Canvas of={FileInputStories.MultipleFilesUploadStatus} />
+
+#### Interactive example
+
+This example demonstrates a more realistic workflow where files can be added in multiple sessions, uploaded independently, and removed individually.
+
+Each file progresses independently, simulating how real-world upload systems handle concurrent uploads and state updates.
+
+<Canvas of={FileInputStories.MultipleFilesInteractive} />
+
 ## Validation States
 
 This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.

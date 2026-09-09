@@ -50,6 +50,8 @@ export interface FileInputProps
   minHeight?: string;
   /** A valid CSS string for the min-width CSS property. */
   minWidth?: string;
+  /** Flag to allow multiple file selection. */
+  multiple?: boolean;
   /** onChange event handler. Accepts a list of all files currently entered to the input. */
   onChange: (files: FileList) => void;
   /** used to control how to display the progress of uploaded file(s) within the component */
@@ -77,6 +79,7 @@ export const FileInput = React.forwardRef(
       maxWidth,
       minHeight,
       minWidth = "280px",
+      multiple = false,
       name,
       onChange,
       required,
@@ -87,8 +90,16 @@ export const FileInput = React.forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const locale = useLocale();
-    const textOnButton = buttonText || locale.fileInput.selectFile();
-    const mainText = dragAndDropText || locale.fileInput.dragAndDrop();
+    const textOnButton =
+      buttonText ||
+      (multiple
+        ? locale.fileInput?.selectFile_multiple?.()
+        : locale.fileInput.selectFile());
+    const mainText =
+      dragAndDropText ||
+      (multiple
+        ? locale.fileInput?.dragAndDrop_multiple?.()
+        : locale.fileInput.dragAndDrop());
 
     const sizeProps = {
       maxHeight: maxHeight || undefined,
@@ -199,6 +210,7 @@ export const FileInput = React.forwardRef(
             aria-invalid={!!error}
             id={uniqueId}
             ref={internalCallbackRef}
+            multiple={multiple}
             name={uniqueName}
             onChange={onInputChange}
             type="file"
@@ -249,17 +261,18 @@ export const FileInput = React.forwardRef(
           validationRedesignOptIn // do not support old-style validation for File Input component
           {...filterStyledSystemMarginProps(rest)}
         >
-          {filesUploaded.length === 0
-            ? input
-            : filesUploaded.map((props) => (
-                <StyledFileInputPresentation
-                  hasUploadStatus
-                  {...sizeProps}
-                  key={props.filename}
-                >
-                  <FileUploadStatus {...props} />
-                </StyledFileInputPresentation>
-              ))}
+          {(multiple || filesUploaded.length === 0) && input}
+          {filesUploaded.length > 0 &&
+            filesUploaded.map((props) => (
+              <StyledFileInputPresentation
+                hasUploadStatus
+                isPartOfMultiUpload={multiple}
+                {...sizeProps}
+                key={props.filename}
+              >
+                <FileUploadStatus {...props} />
+              </StyledFileInputPresentation>
+            ))}
         </FormField>
       </InputBehaviour>
     );
