@@ -227,3 +227,10 @@ test("renders with expected styles when `isLarge` is true", () => {
     "var(--fontSizes200)",
   );
 });
+
+test("renders a required indicator when 'isRequired' is true", () => {
+  render(<Label isRequired>foo</Label>);
+
+  const label = screen.getByText("foo");
+  expect(label).toHaveStyleRule("content", '"*"', { modifier: "::after" });
+});
