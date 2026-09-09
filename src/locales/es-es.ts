@@ -88,10 +88,8 @@ const esES: Partial<Locale> = {
   fileInput: {
     dragAndDrop: () => "También los puedes arrastrar hasta aquí.",
     selectFile: () => "Selecciona un archivo",
-    fileUploadStatus: () => "Estado de subida de ficheros",
     actions: {
       cancel: () => "Cancelar subida",
-      clear: () => "Borrar",
       delete: () => "Eliminar",
     },
   },

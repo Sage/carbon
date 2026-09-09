@@ -81,10 +81,8 @@ const deDE: Partial<Locale> = {
   fileInput: {
     dragAndDrop: () => "oder per Drag & Drop ablegen",
     selectFile: () => "Datei auswählen",
-    fileUploadStatus: () => "Status",
     actions: {
       cancel: () => "Upload abbrechen",
-      clear: () => "Löschen",
       delete: () => "Datei löschen",
     },
   },
