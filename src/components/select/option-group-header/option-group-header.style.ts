@@ -11,7 +11,8 @@ const StyledOptionGroupHeader = styled.div`
   align-items: center;
   width: 100%;
 
-  h4 {
+  span:not(${StyledIcon}) {
+    font-weight: 500;
     font-size: 12px;
     text-transform: uppercase;
     line-height: 18px;

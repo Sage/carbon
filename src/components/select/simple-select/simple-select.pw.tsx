@@ -681,6 +681,16 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
+  test("should pass accessibility tests with option group headers", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SelectWithOptionGroupHeader />);
+
+    await dropdownButton(page).click();
+    await checkAccessibility(page, undefined, "color-contrast");
+  });
+
   test("should pass accessibility tests when nested in a dialog", async ({
     mount,
     page,
