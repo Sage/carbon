@@ -5,6 +5,24 @@ description: Carbon Pill component props and usage examples.
 
 # Pill
 
+A compact visual indicator that highlights information or status.
+
+## When to use
+
+- An item's status needs to be prominent at a glance; this is Pill's primary use.
+- A short label helps categorise an item; this is secondary to communicating status.
+
+## Choose instead
+
+- **ButtonNext:** The element's primary purpose is to perform an action rather than display information or status.
+
+## Pitfalls
+
+- Give a removable pill a clear, unique accessible label that describes the relationship between the pill and its removal button.
+- Use a left icon only with size L.
+- Keep the Pill itself out of the tab order; only its removal button should receive keyboard focus.
+- Add visually hidden context when the pill's meaning is not clear from its visible label and surroundings.
+
 ## Import
 `import Pill from "carbon-react/lib/components/pill";`
 
@@ -20,7 +38,7 @@ description: Carbon Pill component props and usage examples.
 | borderColor | string \| undefined | No |  |  |  | Override color variant, provide any color from palette or any valid css color value. |  |
 | fill | boolean \| undefined | No |  |  |  | Fills the pill background with colour. When fill is false only the border is coloured. | false |
 | icon | React.ReactNode | No |  |  |  | A React node displayed to the left of the pill content. Recommended for use with `size="L"` pills. |  |
-| inverse | boolean \| undefined | No |  |  |  | Set to allow for inverse styling to be used on dark backgrounds. | false |
+| inverse | boolean \| undefined | No |  |  |  | Whether to apply inverse styling to the pill. | false |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
@@ -45,105 +63,11 @@ description: Carbon Pill component props and usage examples.
 | colorVariant | "warning" \| "neutral" \| "negative" \| "positive" \| "information" \| "neutralWhite" \| undefined | No |  | Yes | Use `variant` prop instead. | Determines the colour variant of the pill. |  |
 | isDarkBackground | boolean \| undefined | No |  | Yes | Use `inverse` prop instead. | Apply inverse styling for use on dark backgrounds. | false |
 | pillRole | "tag" \| "status" \| undefined | No |  | Yes | The pillRole prop is no longer used. Pill styling is determined by the `variant`, `fill`, and `inverse` props. | Sets the type of pill in use. |  |
-| size | "S" \| "M" \| "L" \| "XL" \| undefined | No |  | Yes | The `XL` size is deprecated and will be removed in a future release. Use `L` instead. | Sets the size of the pill. | "M" |
+| size | "S" \| "M" \| "L" \| "XL" \| undefined | No |  | Values: "XL" | The `XL` size is deprecated and will be removed in a future release. Use `L` instead. | Sets the size of the pill. | "M" |
 
 ## Examples
-### Playground
+Load only the example needed for the current task; playground stories are intentionally omitted.
 
-**Args**
-
-```tsx
-{
-    children: "Label",
-    variant: "grey",
-    size: "M",
-    fill: true,
-    inverse: false,
-    onDelete: undefined,
-    icon: undefined,
-  }
-```
-
-**Render**
-
-```tsx
-(args) => {
-    return (
-      <Box mb={1}>
-        <Pill {...args}>{args.children}</Pill>
-      </Box>
-    );
-  }
-```
-
-
-### Wrapped
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box mb={1}>
-      <Pill maxWidth="65px" wrapText>
-        Wrapped pill
-      </Pill>
-      <Pill ml={1} maxWidth="55px" wrapText>
-        Hyphe&shy;nated&shy;pill
-      </Pill>
-    </Box>
-  );
-}
-```
-
-
-### With Remove Button
-
-**Render**
-
-```tsx
-() => {
-  const [isPillVisible, setIsPillVisible] = useState(true);
-  const hidePill = () => setIsPillVisible(false);
-  const showPill = () => setIsPillVisible(true);
-  return (
-    <>
-      <Button onClick={showPill}>Reset example</Button>
-      <Box m={1}>{isPillVisible && <Pill onDelete={hidePill}>Pill</Pill>}</Box>
-    </>
-  );
-}
-```
-
-
-### Inverse on Dark Background
-
-**Args**
-
-```tsx
-{
-    children: "Label",
-    variant: "blue",
-    size: "M",
-    onDelete: undefined,
-    icon: undefined,
-  }
-```
-
-**Render**
-
-```tsx
-(args) => {
-    return (
-      <Box backgroundColor="#262626" p={2} display="flex" gap={1}>
-        <Pill {...args} inverse>
-          {args.children}
-        </Pill>
-        <Pill {...args} inverse fill>
-          {args.children}
-        </Pill>
-      </Box>
-    );
-  }
-```
-
+- [Wrapped](../examples/pill/wrapped.md) — Allow an unusually long label to wrap within a constrained width.
+- [With Remove Button](../examples/pill/with-remove-button.md) — Make a pill removable with onDelete and give its removal button a clear, contextual accessible label.
+- [Inverse](../examples/pill/inverse-on-dark-background.md) — Apply inverse styling to a pill.

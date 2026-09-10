@@ -1,0 +1,34 @@
+{
+  "component": "Pill",
+  "summary": "A compact visual indicator that highlights information or status.",
+  "useWhen": [
+    "An item's status needs to be prominent at a glance; this is Pill's primary use.",
+    "A short label helps categorise an item; this is secondary to communicating status."
+  ],
+  "alternatives": [
+    {
+      "component": "ButtonNext",
+      "when": "The element's primary purpose is to perform an action rather than display information or status."
+    }
+  ],
+  "pitfalls": [
+    "Give a removable pill a clear, unique accessible label that describes the relationship between the pill and its removal button.",
+    "Use a left icon only with size L.",
+    "Keep the Pill itself out of the tab order; only its removal button should receive keyboard focus.",
+    "Add visually hidden context when the pill's meaning is not clear from its visible label and surroundings."
+  ],
+  "examples": [
+    {
+      "story": "Wrapped",
+      "description": "Allow an unusually long label to wrap within a constrained width."
+    },
+    {
+      "story": "WithRemoveButton",
+      "description": "Make a pill removable with onDelete and give its removal button a clear, contextual accessible label."
+    },
+    {
+      "story": "InverseOnDarkBackground",
+      "description": "Apply inverse styling to a pill."
+    }
+  ]
+}
