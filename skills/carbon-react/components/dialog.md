@@ -34,7 +34,6 @@ description: Carbon Dialog component props and usage examples.
 | greyBackground | boolean \| undefined | No |  |  |  | Change the background color of the content to grey |  |
 | headerChildren | React.ReactNode | No |  |  |  | Container for components to be displayed in the header |  |
 | height | string \| undefined | No |  |  |  | Allows developers to specify a specific height for the dialog. |  |
-| help | string \| undefined | No |  |  |  | Adds Help tooltip to Header |  |
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
 | restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
 | role | string \| undefined | No |  |  |  | The ARIA role to be applied to the Dialog container |  |
@@ -52,6 +51,7 @@ description: Carbon Dialog component props and usage examples.
 | disableClose | boolean \| undefined | No |  | Yes | Use `showCloseIcon={false}` instead. |  |  |
 | disableContentPadding | boolean \| undefined | No |  | Yes | Use `contentPadding` instead. |  |  |
 | fullscreen | boolean \| undefined | No |  | Yes | Use `size="fullscreen"` instead. |  |  |
+| help | string \| undefined | No |  | Yes | This prop no longer has any effect and will be removed in a future release. | Adds Help tooltip to Header. |  |
 | highlightVariant | string \| undefined | No |  | Yes | Use `gradientKeyLine` instead. |  |  |
 | pagesStyling | boolean \| undefined | No |  | Yes | PagesStyling is now deprecated and will be removed in a future release |  |  |
 
@@ -1022,6 +1022,261 @@ function WithHeaderChildrenRender({
 ```
 
 
+### WithStatusHeaderSubtle
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithStatusHeaderSubtleRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="Information: Please review the details below"
+              subtitle="This is an informational message"
+              status="subtle"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
+### WithStatusHeaderPositive
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithStatusHeaderPositiveRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="Success: Your changes have been saved"
+              subtitle="All data has been successfully updated"
+              status="positive"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
+### WithStatusHeaderNegative
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithStatusHeaderNegativeRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="Error: Unable to complete the action"
+              subtitle="Please check your input and try again"
+              status="negative"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
+### WithStatusHeaderCaution
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithStatusHeaderCautionRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="Warning: This action cannot be undone"
+              subtitle="Please confirm before proceeding"
+              status="caution"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
+### WithStatusHeaderInfo
+
+**Args**
+
+```tsx
+{
+    open: isChromatic(),
+    size: "medium",
+  }
+```
+
+**Render**
+
+```tsx
+function WithStatusHeaderInfoRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="New feature available"
+              subtitle="Learn about the latest updates"
+              status="info"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  }
+```
+
+
 ### MDX Example 1
 
 **Args**
@@ -1105,6 +1360,41 @@ Use the `headerChildren` prop to render additional content — such as action bu
 
 <Canvas of={DialogStories.WithHeaderChildren} />
 
+### With status header
+
+Use the `DialogHeader` component (exported from Dialog) to render a status-styled header with an icon before the title. This is commonly used to indicate the status or severity of the dialog content. The icon is automatically marked as `aria-hidden="true"` since it's decorative - the status should be conveyed through the title text itself for accessibility.
+
+`DialogHeader` automatically generates IDs for its title and subtitle elements, which the Dialog component detects and uses for proper ARIA labeling. No additional `aria-label` or `aria-labelledby` props are needed:
+```
+
+
+### MDX Example 2
+
+**Args**
+
+```tsx
+#### Available status variants
+
+**Subtle** - For informational dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderSubtle} />
+
+**Positive** - For success or confirmation dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderPositive} />
+
+**Negative** - For error or critical dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderNegative} />
+
+**Caution** - For warning dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderCaution} />
+
+**Info** - For general information dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderInfo} />
+
 ### Gradient keyline
 
 Setting `gradientKeyLine` adds a decorative gradient keyline below the dialog header.
@@ -1142,7 +1432,7 @@ To achieve this, forward a custom ref handle to the `Dialog` component using the
 ```
 
 
-### MDX Example 2
+### MDX Example 3
 
 **Args**
 
