@@ -6,7 +6,7 @@ import {
   Default,
   CoverButton,
   PopoverContainerOverlappingAdaptiveSidebar,
-} from "../popover-container/components.test-pw";
+} from "./components.test-pw";
 
 test.describe("Check props of Popover Container component", () => {
   test("should not close when an option is selected from a Select component inside", async ({
@@ -15,7 +15,7 @@ test.describe("Check props of Popover Container component", () => {
   }) => {
     await mount(<PopoverContainerWithSelect />);
 
-    const openButton = page.getByRole("button", { name: "open" });
+    const openButton = page.getByRole("button", { name: "Actions" });
     await openButton.click();
     const popoverContainer = page.getByRole("dialog", {
       name: "select example",
@@ -34,7 +34,7 @@ test.describe("Check props of Popover Container component", () => {
   }) => {
     await mount(<PopoverContainerWithSelect />);
 
-    const openButton = page.getByRole("button", { name: "open" });
+    const openButton = page.getByRole("button", { name: "Actions" });
     await openButton.click();
     const popoverContainer = page.getByRole("dialog", {
       name: "select example",
@@ -52,7 +52,7 @@ test.describe("Check props of Popover Container component", () => {
   }) => {
     await mount(<PopoverContainerWithSelect />);
 
-    const openButton = page.getByRole("button", { name: "open" });
+    const openButton = page.getByRole("button", { name: "Actions" });
     await openButton.click();
     const popoverContainer = page.getByRole("dialog", {
       name: "select example",

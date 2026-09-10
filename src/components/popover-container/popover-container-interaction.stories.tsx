@@ -7,7 +7,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 
 import PopoverContainer from "./popover-container.component";
 import Box from "../box";
-import Button from "../button";
+import Button from "../button/__next__";
 import Link from "../link";
 import Divider from "../divider";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -52,7 +52,7 @@ export const KeyboardInteraction: Story = {
         <PopoverContainer
           title="Border Radius"
           position="center"
-          borderRadius="borderRadius000 borderRadius000 borderRadius400 borderRadius400"
+          roundness="curved"
           open
         >
           Content
@@ -152,7 +152,7 @@ const CreatePopoverInMenu = () => {
             position={isSmall || !isMid ? "center" : "right"}
             offset={0}
             p={0}
-            borderRadius="borderRadius000 borderRadius000 borderRadius200 borderRadius200"
+            roundness="curved"
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
             open={open}

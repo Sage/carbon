@@ -3,46 +3,48 @@ import { padding } from "styled-system";
 import { TransitionStatus } from "react-transition-group";
 
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import IconButton from "../icon-button";
-import StyledIcon from "../icon/icon.style";
 import {
   StyledForm,
   StyledFormContent,
   StyledFormFooter,
 } from "../form/form.style";
-import { BoxProps } from "../box";
+import { PopoverContainerProps } from "./popover-container.component";
 
 type PopoverContainerWrapperProps = {
-  hasFullWidth?: boolean;
+  $hasFullWidth?: boolean;
 };
 
 const PopoverContainerWrapperStyle = styled.div<PopoverContainerWrapperProps>`
   position: relative;
   display: inline-block;
 
-  ${({ hasFullWidth }) =>
-    hasFullWidth &&
+  ${({ $hasFullWidth }) =>
+    $hasFullWidth &&
     css`
       width: 100%;
     `}
 `;
 
 const PopoverContainerTitleStyle = styled.div`
-  font-size: 16px;
-  font-weight: 500;
+  flex: 1;
+  min-width: 0;
+  font: var(--global-font-static-subheading-l);
+`;
+
+const PopoverContainerHeaderContentStyle = styled.div`
+  order: -1;
+  flex: 1;
+  min-width: 0;
 `;
 
 const PopoverContainerHeaderStyle = styled.div`
   display: flex;
-  max-width: 280px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
 
   &:has(${PopoverContainerTitleStyle}) {
     margin-bottom: 8px;
-    justify-content: space-between;
-  }
-
-  &:not(:has(${PopoverContainerTitleStyle})) {
-    justify-content: end;
   }
 `;
 
@@ -50,17 +52,17 @@ type PopoverContainerContentStyleProps = {
   animationState?: TransitionStatus;
   disableAnimation?: boolean;
   zIndex?: number;
-  $borderRadius?: BoxProps["borderRadius"];
+  $borderRadius?: PopoverContainerProps["borderRadius"];
+  $roundness: PopoverContainerProps["roundness"];
   $popoverOffset?: number;
   $inMenu?: boolean;
+  $size: PopoverContainerProps["size"];
 };
 
 const PopoverContainerContentStyle = styled.div.attrs(
   applyBaseTheme,
 )<PopoverContainerContentStyleProps>`
-  ${padding}
-
-  background: var(--colorsUtilityYang100);
+  background: var(--popover-bg-default);
 
   ${({ $inMenu }) =>
     $inMenu &&
@@ -68,7 +70,42 @@ const PopoverContainerContentStyle = styled.div.attrs(
       color: var(--page-content-txt-default);
     `}
 
-  ${({ $borderRadius = "borderRadius100" }) => {
+  ${({ $roundness }) => css`
+    ${$roundness === "curved" &&
+    css`
+      border-radius: var(--global-radius-container-xl);
+    `}
+
+    ${$roundness === "moderate" &&
+    css`
+      border-radius: var(--global-radius-container-l);
+    `}
+  `}
+  
+  ${({ $size }) => css`
+    ${$size === "small" &&
+    css`
+      padding: var(--global-space-comp-xs);
+    `}
+
+    ${$size === "medium" &&
+    css`
+      padding: var(--global-space-comp-s);
+    `}
+
+    ${$size === "large" &&
+    css`
+      padding: var(--global-space-comp-m);
+    `}
+  `}
+
+  ${padding}
+
+  ${({ $borderRadius }) => {
+    if (!$borderRadius) {
+      return "";
+    }
+
     const radiusValues = $borderRadius.split(" ").filter(Boolean);
     return css`
       border-radius: ${radiusValues
@@ -76,7 +113,8 @@ const PopoverContainerContentStyle = styled.div.attrs(
         .join(" ")};
     `;
   }}
-  box-shadow: var(--boxShadow100);
+  
+  box-shadow: var(--global-depth-lvl1);
   min-width: 300px;
   position: absolute;
   z-index: var(--adaptiveSidebarModalBackdrop, ${({ zIndex }) => zIndex});
@@ -137,42 +175,16 @@ const PopoverContainerContentStyle = styled.div.attrs(
       }
 
       ${StyledFormFooter} {
-        border-bottom-right-radius: var(--borderRadius200);
-        border-bottom-left-radius: var(--borderRadius200);
+        border-bottom-right-radius: var(--global-radius-action-m);
+        border-bottom-left-radius: var(--global-radius-action-m);
       }
     }
   }
 `;
-
-type AdditionalIconButtonProps = {
-  tabIndex?: number;
-  id?: string;
-};
-
-const PopoverContainerOpenIcon = styled(IconButton)<AdditionalIconButtonProps>`
-  color: var(--colorsActionMinor500);
-
-  ${StyledIcon} {
-    color: inherit;
-  }
-`;
-
-const PopoverContainerCloseIcon = styled(IconButton)<AdditionalIconButtonProps>`
-  position: absolute;
-  top: 16px;
-  right: 24px;
-  color: var(--colorsActionMinor500);
-
-  ${StyledIcon} {
-    color: inherit;
-  }
-`;
-
 export {
   PopoverContainerWrapperStyle,
   PopoverContainerHeaderStyle,
+  PopoverContainerHeaderContentStyle,
   PopoverContainerContentStyle,
-  PopoverContainerCloseIcon,
   PopoverContainerTitleStyle,
-  PopoverContainerOpenIcon,
 };
