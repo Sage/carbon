@@ -1,3 +1,9 @@
+## [161.23.0](https://github.com/Sage/carbon/compare/v161.22.1...v161.23.0) (2026-09-10)
+
+### Features
+
+* **textarea:** remove legacy FormField, Label and Input usage ([a1dc8e3](https://github.com/Sage/carbon/commit/a1dc8e3aa74c783ac4911c677145a5bf74a65e08))
+
 ## [161.22.1](https://github.com/Sage/carbon/compare/v161.22.0...v161.22.1) (2026-09-09)
 
 ### Bug Fixes
