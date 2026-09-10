@@ -23,6 +23,7 @@ debug-storybook.log
 playwright/test-results
 playwright/test-report
 playwright/.cache
+playwright/benchmark-results
 
 src/components/tokens-wrapper/__internal__/static-tokens/index.js
 src/components/*/__internal__/**/tokens/index.ts

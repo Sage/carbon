@@ -27,10 +27,12 @@
   },
   "include": [
     "src/**/*",
+    "benchmarks/**/*",
     "playwright/**/*",
     ".storybook/**/*",
     "docs/**/*",
     "jest.config.ts",
-    "playwright-ct.config.ts"
+    "playwright-ct.config.ts",
+    "playwright-table-benchmark.config.ts"
   ]
 }

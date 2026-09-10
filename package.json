@@ -31,6 +31,7 @@
     "test:ct": "npm run generate-tokens && playwright test -c playwright-ct.config.ts",
     "test:ct:ui": "npm run generate-tokens && playwright test --ui -c playwright-ct.config.ts",
     "test:ct:report": "npm run generate-tokens && npx playwright show-report",
+    "benchmark:table": "npm run generate-tokens && npm run clear-playwright-cache && playwright test -c playwright-table-benchmark.config.ts",
     "clear-playwright-cache": "rimraf ./playwright/.cache",
     "clear-playwright-coverage-json": "rimraf ./playwright/coverage/*.json",
     "test:ct:coverage": "npm run generate-tokens && npm run clear-playwright-cache && npm run clear-playwright-coverage-json && rimraf ./playwright/coverage && playwright test -c playwright-ct.config.ts",
