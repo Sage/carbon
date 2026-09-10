@@ -41,7 +41,7 @@ type Story = StoryObj<typeof Dialog>;
 const Buttons = () => (
   <Box display="flex" flexDirection="column" alignItems="flex-end">
     <Box display="flex" gap={1}>
-      <Button>Cancel</Button>
+      <Button variantType="subtle">Cancel</Button>
       <Button variantType="primary">Save</Button>
     </Box>
   </Box>
