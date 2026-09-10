@@ -133,9 +133,10 @@ export class StyledSpanNode extends TextNode {
   }
 
   /**
-   * Whether this node uses the paragraph preset. Paragraph font size and line height
-   * are inherited from the editor so they can scale with its `size` prop, so they are
-   * deliberately not written as inline styles.
+   * Whether this node uses the paragraph preset. In the editor DOM (`createDOM`/
+   * `updateDOM`), paragraph font size and line height are inherited from the editor so
+   * they can scale with its `size` prop, so they are deliberately not written as inline
+   * styles.
    * @returns true when the node matches the paragraph preset
    */
   usesParagraphPreset(): boolean {
