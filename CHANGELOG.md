@@ -1,3 +1,9 @@
+## [161.24.0](https://github.com/Sage/carbon/compare/v161.23.0...v161.24.0) (2026-09-10)
+
+### Features
+
+* **popover-container:** align component with fusion designs ([c4c4f63](https://github.com/Sage/carbon/commit/c4c4f63aaa140b08df09e08288621e503e8db8f4))
+
 ## [161.23.0](https://github.com/Sage/carbon/compare/v161.22.1...v161.23.0) (2026-09-10)
 
 ### Features
