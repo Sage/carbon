@@ -159,7 +159,7 @@ test.describe("Time component", () => {
             };
           });
 
-          expect(styles.fontWeight).toBe("500");
+          expect(styles.fontWeight).toBe("400");
           expect(styles.fontSize).toBe(fontSize);
           expect(styles.lineHeight).toBe(lineHeight);
           expect(styles.color).toBe(legendColour);

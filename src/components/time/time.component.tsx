@@ -335,7 +335,11 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         >
           <StyledTimeLayout className="time" $hasToggle={showToggle}>
             <StyledTimeInputs>
-              <StyledTimeInputField $size={size}>
+              <StyledTimeInputField
+                $size={size}
+                $isDisabled={disabled}
+                $isReadOnly={readOnly}
+              >
                 <Label
                   htmlFor={internalHrsId.current}
                   size={size}
@@ -385,7 +389,11 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                   </StyledColon>
                 </div>
               </StyledColonWrapper>
-              <StyledTimeInputField $size={size}>
+              <StyledTimeInputField
+                $size={size}
+                $isDisabled={disabled}
+                $isReadOnly={readOnly}
+              >
                 <Label
                   htmlFor={internalMinsId.current}
                   size={size}

@@ -1,5 +1,11 @@
 import styled, { css } from "styled-components";
 
+const labelFontBySize = {
+  small: "var(--global-font-static-comp-regular-s)",
+  medium: "var(--global-font-static-comp-regular-m)",
+  large: "var(--global-font-static-comp-regular-l)",
+};
+
 const colonFontBySize = {
   small: "var(--global-font-static-comp-regular-s)",
   medium: "var(--global-font-static-comp-regular-m)",
@@ -36,6 +42,14 @@ type StyledTimeLayoutProps = {
 
 type StyledTimeSizeProps = {
   $size: "small" | "medium" | "large";
+  $isDisabled?: boolean;
+  $isReadOnly?: boolean;
+};
+
+const labelColour = ($isDisabled?: boolean, $isReadOnly?: boolean) => {
+  if ($isDisabled) return "var(--input-typical-txt-disabled)";
+  if ($isReadOnly) return "var(--input-typical-txt-read-only)";
+  return "var(--input-typical-txt-default)";
 };
 
 const inputWidthBySize = {
@@ -55,8 +69,8 @@ const StyledTimeLayout = styled.div<StyledTimeLayoutProps>`
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
-    row-gap: var(--global-space-comp-m);
-    column-gap: ${$hasToggle ? "var(--global-space-comp-l)" : "0px"};
+    row-gap: var(--global-space-layout-2-xs);
+    column-gap: ${$hasToggle ? "var(--global-space-layout-2-xs)" : "0px"};
 
     @media screen and (max-width: 480px) {
       [data-role="time-toggle-wrapper"] {
@@ -73,10 +87,15 @@ const StyledTimeInputs = styled.div`
 `;
 
 const StyledTimeInputField = styled.div<StyledTimeSizeProps>`
-  ${({ $size }) => css`
+  ${({ $size, $isDisabled, $isReadOnly }) => css`
     width: ${inputWidthBySize[$size]};
     min-width: ${inputWidthBySize[$size]};
     max-width: ${inputWidthBySize[$size]};
+
+    [data-component="label"] {
+      font: ${labelFontBySize[$size]};
+      color: ${labelColour($isDisabled, $isReadOnly)};
+    }
 
     [data-role="input-container"] {
       min-height: ${inputHeightBySize[$size]};
@@ -87,13 +106,14 @@ const StyledTimeInputField = styled.div<StyledTimeSizeProps>`
 
 const StyledColonWrapper = styled.div<StyledTimeSizeProps>`
   ${({ $size }) => css`
+    border-radius: var(--global-radius-action-s);
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 0 0 var(--global-space-comp-l);
-    width: var(--global-space-comp-l);
-    min-width: var(--global-space-comp-l);
-    max-width: var(--global-space-comp-l);
+    flex: 0 0 var(--global-size-3-xs);
+    width: var(--global-size-3-xs);
+    min-width: var(--global-size-3-xs);
+    max-width: var(--global-size-3-xs);
 
     [data-role="time-colon-input-row"] {
       display: flex;
@@ -105,6 +125,7 @@ const StyledColonWrapper = styled.div<StyledTimeSizeProps>`
     }
 
     [data-role="time-colon-spacer"] {
+      font: ${labelFontBySize[$size]};
       visibility: hidden;
     }
   `}
