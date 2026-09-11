@@ -10,20 +10,18 @@ import { MarginProps } from "styled-system";
 import { IconType } from "../icon";
 import { ValidationProps } from "../../__internal__/validations";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import { InputPresentation } from "../../__internal__/legacy-input";
+import {
+  CommonInputProps,
+  InputPresentation,
+} from "../../__internal__/legacy-input";
+import FormField from "../../__internal__/form-field";
 import useCharacterCount from "../../hooks/useCharacterCount";
 
-import {
-  InputBehaviour,
-  InputContext,
-  InputGroupContext,
-} from "../../__internal__/input-behaviour";
+import Input from "../../__internal__/legacy-input/input.component";
+import { InputBehaviour } from "../../__internal__/input-behaviour";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../__internal__/utils/helpers/guid";
 import StyledTextarea, {
-  StyledTextareaFieldLine,
-  StyledTextareaInput,
-  StyledTextareaLabelContainer,
   StyledTextareaValidationContainer,
 } from "./textarea.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
@@ -35,7 +33,6 @@ import { BorderRadiusType } from "../box/box.component";
 import HintText from "../../__internal__/hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import FieldsetContext from "../fieldset/__internal__/fieldset.context";
-import Label from "../../__internal__/label";
 
 import {
   globalFontStaticCompRegularS,
@@ -84,31 +81,14 @@ export const getDefaultMinHeightBySize = (
 export interface TextareaProps
   extends ValidationProps,
     MarginProps,
-    Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "size">,
+    Omit<CommonInputProps, "size">,
     TagProps {
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
   /** id of the input */
   id?: string;
-  /** @deprecated [Legacy] The default value alignment on the input. This property is deprecated and will be removed in future versions. */
-  align?: "left" | "right";
   /**
-   * @deprecated [Legacy] Specify a custom border radius for the input. This prop is retained for
-   * backwards compatibility but no longer has any effect (use `borderRadius` instead).
-   * This property is deprecated and will be removed in future versions.
-   */
-  inputBorderRadius?: BorderRadiusType | BorderRadiusType[];
-  /**
-   * @deprecated [Legacy] Id of the validation icon. This prop no longer has any effect as the
-   * legacy validation icon has been removed. This property is deprecated and will be removed
-   * in future versions.
-   */
-  validationIconId?: string;
-  /**
-   * @deprecated Breakpoint for adaptive label (inline labels change to top aligned).
-   * This prop no longer has any effect - responsive label behaviour should be handled by
-   * the implementing team. It is retained for backwards compatibility and will be removed
-   * in future versions.
+   * @deprecated Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set. This property is deprecated and will be removed in future versions.
    **/
   adaptiveLabelBreakpoint?: number;
   /** Automatically focus the input on component mount */
@@ -174,7 +154,7 @@ export interface TextareaProps
   /** Name of the input */
   name?: string;
   /** Callback fired when the user types in the Textarea */
-  onChange: (ev: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Placeholder text for the component */
   placeholder?: string;
   /** Adds readOnly property */
@@ -206,7 +186,7 @@ export interface TextareaProps
   /** Render the ValidationMessage above the Textarea when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
   /** @deprecated Override the variant component. This property is deprecated and will be removed in future versions. */
-  as?: React.ElementType;
+  as?: CommonInputProps["as"];
   /** Specify the resize behavior of the textarea */
   resize?: "none" | "both" | "horizontal" | "vertical";
   /** Size of the textarea. */
@@ -246,7 +226,7 @@ export const Textarea = React.forwardRef(
       expandable = false,
       rows,
       validationOnLabel = false,
-      adaptiveLabelBreakpoint: _adaptiveLabelBreakpoint,
+      adaptiveLabelBreakpoint,
       inputWidth,
       maxWidth,
       labelWidth = 30,
@@ -264,10 +244,6 @@ export const Textarea = React.forwardRef(
       resize = "none",
       size = "medium",
       maxRows,
-      as: _as,
-      align,
-      inputBorderRadius: _inputBorderRadius,
-      validationIconId: _validationIconId,
       ...rest
     }: TextareaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>,
@@ -282,7 +258,6 @@ export const Textarea = React.forwardRef(
     // should also consume size from context when this size added to textarea
     const { hasError: fieldsetError, required: fieldsetRequired } =
       useContext(FieldsetContext);
-    const inlineLabel = labelInline;
 
     const [textareaMinHeight, setTextareaMinHeight] = useState(
       getDefaultMinHeightBySize(size),
@@ -340,28 +315,16 @@ export const Textarea = React.forwardRef(
 
     // This block of code has been covered in a Playwright test.
     // istanbul ignore next
-    const handleFocus = (
-      ev: React.FocusEvent<HTMLTextAreaElement>,
-      inputOnFocus?: () => void,
-      groupOnFocus?: () => void,
-    ) => {
+    const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
       if (characterLimit) setCharacterCountAriaLive("polite");
       onFocus?.(ev);
-      inputOnFocus?.();
-      groupOnFocus?.();
     };
 
     // This block of code has been covered in a Playwright test.
     // istanbul ignore next
-    const handleBlur = (
-      ev: React.FocusEvent<HTMLTextAreaElement>,
-      inputOnBlur?: () => void,
-      groupOnBlur?: () => void,
-    ) => {
+    const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
       if (characterLimit) setCharacterCountAriaLive("off");
       onBlur?.(ev);
-      inputOnBlur?.();
-      groupOnBlur?.();
     };
 
     if (
@@ -411,15 +374,16 @@ export const Textarea = React.forwardRef(
       }
     }, [textareaMinHeight, maxRows, size]);
 
-    const { labelId, validationId, ariaDescribedBy } = useInputAccessibility({
-      id,
-      validationRedesignOptIn: true,
-      error,
-      warning,
-      info,
-      label,
-      fieldHelp,
-    });
+    const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
+      useInputAccessibility({
+        id,
+        validationRedesignOptIn: true,
+        error,
+        warning,
+        info,
+        label,
+        fieldHelp,
+      });
 
     const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       value,
@@ -499,38 +463,27 @@ export const Textarea = React.forwardRef(
         borderRadius={borderRadius}
         hideBorders={hideBorders}
       >
-        <InputGroupContext.Consumer>
-          {({ onFocus: groupOnFocus, onBlur: groupOnBlur }) => (
-            <InputContext.Consumer>
-              {({ onFocus: inputOnFocus, onBlur: inputOnBlur, inputRef }) => (
-                <StyledTextareaInput
-                  aria-invalid={!!error || fieldsetError}
-                  aria-labelledby={ariaLabelledBy}
-                  aria-describedby={combinedAriaDescribedBy}
-                  autoFocus={autoFocus}
-                  name={name}
-                  value={value}
-                  ref={(element) => {
-                    callbackRef(element);
-                    inputRef?.({ current: element });
-                  }}
-                  onChange={onChange}
-                  onFocus={(ev) => handleFocus(ev, inputOnFocus, groupOnFocus)}
-                  onBlur={(ev) => handleBlur(ev, inputOnBlur, groupOnBlur)}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  placeholder={disabled ? "" : placeholder}
-                  rows={rows}
-                  id={id}
-                  data-element="input"
-                  data-role="input"
-                  required={required || fieldsetRequired}
-                  {...rest}
-                />
-              )}
-            </InputContext.Consumer>
-          )}
-        </InputGroupContext.Consumer>
+        <Input // TODO: `Input` is a legacy component and should be replaced as part of FE-7735
+          aria-invalid={!!error || fieldsetError}
+          aria-labelledby={ariaLabelledBy}
+          aria-describedby={combinedAriaDescribedBy}
+          autoFocus={autoFocus}
+          name={name}
+          value={value}
+          ref={callbackRef}
+          onChange={onChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          disabled={disabled}
+          readOnly={readOnly}
+          placeholder={disabled ? "" : placeholder}
+          rows={rows}
+          id={id}
+          as="textarea"
+          inputBorderRadius={borderRadius}
+          required={required || fieldsetRequired}
+          {...rest}
+        />
         {children}
         <InputIconToggle
           disabled={disabled}
@@ -552,7 +505,7 @@ export const Textarea = React.forwardRef(
       >
         <InputBehaviour>
           <StyledTextarea
-            labelInline={inlineLabel}
+            labelInline={labelInline}
             hasIcon={hasIconInside}
             minHeight={textareaMinHeight}
             {...marginProps}
@@ -574,30 +527,21 @@ export const Textarea = React.forwardRef(
             $labelWidth={labelWidth}
             $hideBorders={hideBorders}
             $labelAlign={labelAlign}
-            $labelInline={inlineLabel}
-            $align={align}
           >
-            <StyledTextareaFieldLine $labelInline={inlineLabel}>
-              {label && (
-                <StyledTextareaLabelContainer
-                  data-role="textarea-label-container"
-                  $labelInline={inlineLabel}
-                  $labelAlign={labelAlign}
-                  $labelSpacing={labelSpacing}
-                  $size={size}
-                >
-                  <Label
-                    id={labelId}
-                    htmlFor={id}
-                    size={size}
-                    isRequired={required}
-                    disabled={disabled}
-                    readOnly={readOnly}
-                  >
-                    {label}
-                  </Label>
-                </StyledTextareaLabelContainer>
-              )}
+            <FormField // TODO: `FormField` relies on the legacy `Label` and should be replaced as part of FE-7735
+              fieldHelpId={fieldHelpId}
+              label={label}
+              labelId={labelId}
+              disabled={disabled}
+              id={id}
+              labelInline={labelInline}
+              labelAlign={labelAlign}
+              labelSpacing={labelSpacing}
+              isRequired={required}
+              adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+              validationRedesignOptIn
+              my={0} // prevents any form spacing being applied
+            >
               {(inputHint || labelHelp) && (
                 <HintText
                   size={size}
@@ -609,7 +553,7 @@ export const Textarea = React.forwardRef(
               )}
 
               <StyledTextareaValidationContainer
-                labelInline={inlineLabel}
+                labelInline={labelInline}
                 $inputWidth={inputWidth}
                 $labelWidth={labelWidth}
               >
@@ -646,7 +590,7 @@ export const Textarea = React.forwardRef(
                 )}
                 {characterCount}
               </StyledTextareaValidationContainer>
-            </StyledTextareaFieldLine>
+            </FormField>
           </StyledTextarea>
         </InputBehaviour>
       </TooltipProvider>

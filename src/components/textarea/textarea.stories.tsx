@@ -26,7 +26,7 @@ type Story = StoryObj<typeof Textarea>;
 
 export const DefaultStory: Story = () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
   return <Textarea label="Textarea" value={state} onChange={setValue} />;
@@ -265,18 +265,16 @@ export const BorderRadiusStory: Story = () => {
   const [stateTwo, setStateTwo] = useState("");
   const [stateThree, setStateThree] = useState("");
   const [stateFour, setStateFour] = useState("");
-  const setValueOne = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const setValueOne = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setStateOne(target.value);
   };
-  const setValueTwo = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const setValueTwo = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setStateTwo(target.value);
   };
-  const setValueThree = ({
-    target,
-  }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const setValueThree = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setStateThree(target.value);
   };
-  const setValueFour = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const setValueFour = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setStateFour(target.value);
   };
   return (
@@ -323,7 +321,7 @@ BorderRadiusStory.storyName = "Border Radius";
 
 export const BorderlessExample: Story = () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
   return (
@@ -348,7 +346,7 @@ BorderlessExample.storyName = "Borderless Example";
 
 export const ResizeStory: Story = () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
   return (
@@ -381,7 +379,7 @@ ResizeStory.storyName = "Resize";
 
 export const SizeStory: Story = () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
   return (

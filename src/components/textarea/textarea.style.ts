@@ -1,8 +1,12 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
+import StyledInput from "../../__internal__/legacy-input/input.style";
 import StyledHintText from "../../__internal__/hint-text/hint-text.style";
 import InputPresentationStyle from "../../__internal__/legacy-input/input-presentation.style";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../__internal__/legacy-label/label.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
@@ -34,22 +38,7 @@ export interface StyledTextAreaProps
   $inputWidth?: number | undefined;
   $hideBorders?: boolean;
   $labelAlign?: "left" | "right";
-  $labelInline?: boolean;
-  $align?: "left" | "right";
 }
-
-interface StyledTextareaLabelContainerProps {
-  $labelInline?: boolean;
-  $labelAlign?: "left" | "right";
-  $labelSpacing?: 1 | 2;
-  $size: TextAreaSize;
-}
-
-interface StyledTextareaFieldLineProps {
-  $labelInline?: boolean;
-}
-
-const LEGACY_LABEL_CONTAINER_WIDTH = 30;
 
 const InputSizes = {
   small: {
@@ -120,17 +109,14 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin};
 
-  textarea[data-element="input"] {
-    background: transparent;
-    border: none;
+  ${StyledLabel} {
+    ${({ labelInline }) => labelInline && `text-align: right;`};
+  }
+
+  ${StyledInput} {
     ${({ $size }) => getFont($size, "regular")}
     box-sizing: border-box;
     color: var(--input-typical-txt-default);
-    display: block;
-    flex-grow: 1;
-    margin: 0;
-    min-width: 0;
-    outline: none;
     border-radius: ${({ borderRadius }) =>
       !borderRadius && "var(--global-radius-action-m)"};
     resize: ${({ $resize }) => $resize};
@@ -139,15 +125,12 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
     padding: ${({ $size }) =>
       `${InputSizes[$size].verticalPadding} ${InputSizes[$size].horizontalPadding}`};
     width: ${({ $resize, labelInline, $labelWidth, $inputWidth }) =>
-      getResizeWidth({ $resize, labelInline, $labelWidth, $inputWidth }) ||
-      "100%"};
+      `${getResizeWidth({ $resize, labelInline, $labelWidth, $inputWidth })}`};
     ${({ $resize, $maxWidth }) =>
       $resize !== "none" && $maxWidth && `max-width: ${$maxWidth};`};
 
-    ${({ hasIcon }) => hasIcon && "padding-right: var(--global-size-m);"}
+    ${({ hasIcon }) => hasIcon && "padding-right: var(--spacing500);"}
 
-    ${({ $align }) => $align && `text-align: ${$align};`}
- 
     ${({ $disabled }) =>
       $disabled && `color: var(--input-typical-txt-disabled);`}
     
@@ -195,14 +178,15 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
     }
   }
 
-  [data-role="textarea-label-container"] {
+  ${StyledLabelContainer} {
     ${({ $hasHint, $size }) => getMarginBottom(!!$hasHint, $size)}
   }
 
   ${({ labelInline, $labelSpacing, $size }) =>
     labelInline &&
     css`
-      [data-role="textarea-label-container"] {
+      ${StyledLabelContainer} {
+        align-items: flex-start;
         padding-top: ${$size === "small"
           ? "var(--global-space-comp-xs)"
           : "var(--global-space-comp-s)"};
@@ -212,7 +196,7 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
       }
     `}
 
-  [data-component="label"] {
+  ${StyledLabel} {
     color: ${({ $disabled }) =>
       $disabled
         ? "var(--input-labelset-label-disabled)"
@@ -308,52 +292,6 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
       `}
   }
 `;
-
-export const StyledTextareaFieldLine = styled.div<StyledTextareaFieldLineProps>`
-  display: ${({ $labelInline }) => ($labelInline ? "flex" : "block")};
-`;
-
-export const StyledTextareaLabelContainer = styled.div<StyledTextareaLabelContainerProps>`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: var(--global-space-comp-s);
-  ${({ $labelInline, $labelAlign, $labelSpacing, $size }) => {
-    const resolvedAlign = $labelInline
-      ? ($labelAlign ?? "right")
-      : ($labelAlign ?? "left");
-
-    const resolvedSpacing = $labelInline
-      ? $labelSpacing
-        ? `var(${
-            $labelSpacing === 1
-              ? "--global-space-comp-s"
-              : "--global-space-comp-l"
-          })`
-        : $size === "large"
-          ? "var(--global-space-comp-xl)"
-          : "var(--global-space-comp-l)"
-      : undefined;
-
-    return css`
-      align-items: ${resolvedAlign !== "right" ? "flex-start" : "flex-end"};
-
-      [data-component="label"] {
-        width: 100%;
-        text-align: ${resolvedAlign !== "right" ? "left" : "right"};
-      }
-
-      ${$labelInline &&
-      css`
-        box-sizing: border-box;
-        margin-bottom: 0;
-        width: ${LEGACY_LABEL_CONTAINER_WIDTH}%;
-        padding-right: ${resolvedSpacing};
-      `}
-    `;
-  }}
-`;
-
-export const StyledTextareaInput = styled.textarea``;
 
 export const StyledTextareaValidationContainer = styled.div<{
   labelInline?: boolean;

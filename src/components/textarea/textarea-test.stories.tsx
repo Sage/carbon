@@ -147,7 +147,7 @@ export const Default = ({
   const [state, setState] = useState("");
   const handleChange = ({
     target: { value },
-  }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  }: React.ChangeEvent<HTMLInputElement>) => {
     setState(value);
   };
   return (
