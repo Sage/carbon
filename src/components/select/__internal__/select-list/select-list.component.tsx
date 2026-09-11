@@ -144,7 +144,6 @@ const SelectList = React.forwardRef(
     listContainerRef: React.ForwardedRef<HTMLDivElement>,
   ) => {
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
-    const currentOptionsListIndexRef = useRef(-1);
     const [scrollbarWidth, setScrollbarWidth] = useState(0);
     const lastFilter = useRef("");
     const listRef = useRef(null);
@@ -389,7 +388,7 @@ const SelectList = React.forwardRef(
 
     const highlightNextItem = useCallback(
       (key: string) => {
-        let currentIndex = currentOptionsListIndexRef.current;
+        let currentIndex = currentOptionsListIndex;
 
         if (highlightedValue) {
           const indexOfHighlighted = getIndexOfMatch(highlightedValue);
@@ -405,8 +404,6 @@ const SelectList = React.forwardRef(
 
         const { text, value } = childrenList[nextIndex].props;
 
-        currentOptionsListIndexRef.current = nextIndex;
-
         onSelect({
           id: childElementRefs.current[nextIndex]?.id,
           text: text ?? /* istanbul ignore next */ "",
@@ -417,6 +414,7 @@ const SelectList = React.forwardRef(
       },
       [
         childrenList,
+        currentOptionsListIndex,
         getIndexOfMatch,
         getNextHighlightableItemIndex,
         highlightedValue,
@@ -459,8 +457,7 @@ const SelectList = React.forwardRef(
         } else if (key === "Enter" && !isActionButtonFocused) {
           event.preventDefault();
 
-          const currentOption =
-            childrenList[currentOptionsListIndexRef.current];
+          const currentOption = childrenList[currentOptionsListIndex];
 
           if (!React.isValidElement(currentOption)) {
             onSelectListClose();
@@ -485,8 +482,7 @@ const SelectList = React.forwardRef(
           const { text, value } = currentOption.props;
 
           onSelect({
-            id: childElementRefs.current[currentOptionsListIndexRef.current]
-              ?.id,
+            id: childElementRefs.current[currentOptionsListIndex]?.id,
             text: text ?? /* istanbul ignore next */ "",
             value: value ?? /* istanbul ignore next */ "",
             selectionType: "enterKey",
@@ -502,6 +498,7 @@ const SelectList = React.forwardRef(
         listActionButton,
         handleActionButtonTab,
         onSelectListClose,
+        currentOptionsListIndex,
         onSelect,
         highlightNextItem,
         focusOnAnchor,
@@ -590,7 +587,6 @@ const SelectList = React.forwardRef(
         (!highlightedValue || Object.keys(highlightedValue).length === 0) &&
         !isOpen
       ) {
-        currentOptionsListIndexRef.current = -1;
         setCurrentOptionsListIndex(-1);
         return;
       }
@@ -600,7 +596,6 @@ const SelectList = React.forwardRef(
         return;
       }
 
-      currentOptionsListIndexRef.current = indexOfMatch;
       setCurrentOptionsListIndex(indexOfMatch);
     }, [getIndexOfMatch, highlightedValue, isOpen]);
 
