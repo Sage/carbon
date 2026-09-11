@@ -69,6 +69,14 @@ test("renders with header when prop is provided", () => {
   ).toBeVisible();
 });
 
+test("renders a string header as a semantic heading", () => {
+  render(<Sidebar open header="My sidebar" />);
+
+  expect(
+    screen.getByRole("heading", { level: 1, name: "My sidebar" }),
+  ).toBeVisible();
+});
+
 test("renders with a subheader when the `subHeader` prop is provided", () => {
   render(<Sidebar open subHeader={<h2>My subheader</h2>} />);
 
@@ -77,7 +85,19 @@ test("renders with a subheader when the `subHeader` prop is provided", () => {
   ).toBeVisible();
 });
 
-test("sidebar uses header prop as accessible name when an HTML element is provided as header", () => {
+test("sidebar uses aria-labelledby to associate a custom header", () => {
+  render(
+    <Sidebar
+      open
+      aria-labelledby="my-sidebar-heading"
+      header={<h1 id="my-sidebar-heading">My sidebar</h1>}
+    />,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveAccessibleName("My sidebar");
+});
+
+test("sidebar uses a custom header as its accessible name", () => {
   render(<Sidebar open header={<h1>My sidebar</h1>} />);
 
   expect(screen.getByRole("dialog")).toHaveAccessibleName("My sidebar");
@@ -352,8 +372,73 @@ test("ensures correct background color is applied", () => {
   const sidebarContent = screen.getByRole("dialog");
   expect(sidebarContent).toHaveStyleRule(
     "background",
-    "var(--colorsUtilityYang100)",
+    "var(--container-standard-bg-default)",
   );
+});
+
+test("uses the fluid desktop width and minimum width by default", () => {
+  render(<Sidebar open aria-label="My sidebar" />);
+
+  const sidebar = screen.getByRole("dialog");
+  expect(sidebar).toHaveStyleRule("width", "30vw");
+  expect(sidebar).toHaveStyleRule("min-width", "288px");
+  expect(sidebar).toHaveStyleRule("max-width", "100vw");
+  expect(sidebar).toHaveStyleRule("right", "0");
+  expect(sidebar).toHaveStyleRule("box-shadow", "var(--global-depth-lvl3)");
+  expect(sidebar).toHaveStyleRule("overflow", "hidden");
+});
+
+test("rounds the exposed right corners for legacy left positioning", () => {
+  render(<Sidebar open aria-label="My sidebar" position="left" />);
+
+  expect(screen.getByRole("dialog")).toHaveStyleRule(
+    "border-radius",
+    "var(--global-radius-none) var(--global-radius-container-xl) var(--global-radius-container-xl) var(--global-radius-none)",
+  );
+});
+
+test("retains explicitly supplied legacy size values", () => {
+  render(<Sidebar open aria-label="My sidebar" size="extra-small" />);
+
+  const sidebar = screen.getByRole("dialog");
+  expect(sidebar).toHaveStyleRule("width", "214px");
+  expect(sidebar).not.toHaveStyleRule("min-width", "288px");
+});
+
+test("uses custom width with a 288px minimum on desktop", () => {
+  render(<Sidebar open aria-label="My sidebar" width="200px" />);
+
+  const sidebar = screen.getByRole("dialog");
+  expect(sidebar).toHaveStyleRule("width", "200px");
+  expect(sidebar).toHaveStyleRule("min-width", "288px");
+  expect(sidebar).toHaveStyleRule("max-width", "100vw");
+});
+
+test("applies the full-width, square, scrollable small-screen styles", () => {
+  render(<Sidebar open aria-label="My sidebar" width="400px" />);
+
+  const sidebar = screen.getByRole("dialog");
+  const media = "screen and (max-width: 768px)";
+  expect(sidebar).toHaveStyleRule("width", "100%", { media });
+  expect(sidebar).toHaveStyleRule("min-width", "100%", { media });
+  expect(sidebar).toHaveStyleRule(
+    "border-radius",
+    "var(--global-radius-none)",
+    {
+      media,
+    },
+  );
+  expect(sidebar).toHaveStyleRule("overflow-y", "auto", { media });
+});
+
+test("retains modal semantics when responsive dimmer styling is enabled", () => {
+  render(
+    <CarbonProvider>
+      <Sidebar open aria-label="My sidebar" />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
 });
 
 test("applies a width transition when `widthAnimation` is true and motion is allowed", () => {
@@ -404,29 +489,113 @@ testStyledSystemPadding(
 );
 
 // for coverage - the `headerVariant` prop will be captured by Chromatic`
-test('renders with correct styles when `headerVariant` is "light"', () => {
-  render(<Sidebar open header="foo" headerVariant="light" />);
+test.each(["typical", "light"] as const)(
+  'renders with typical styles when `headerVariant` is "%s"',
+  (headerVariant) => {
+    render(<Sidebar open header="foo" headerVariant={headerVariant} />);
 
-  const sidebarHeader = screen.getByTestId("sidebar-header");
+    const sidebarHeader = screen.getByTestId("sidebar-header");
 
-  expect(sidebarHeader).toHaveStyle({
-    "background-color": "var(--colorsUtilityYang100)",
+    expect(sidebarHeader).toHaveStyle({
+      "background-color": "var(--container-standard-bg-default)",
+    });
+  },
+);
+
+// for coverage - the `headerVariant` prop will be captured by Chromatic`
+test.each(["inverse", "dark"] as const)(
+  'renders with inverse styles when `headerVariant` is "%s"',
+  (headerVariant) => {
+    render(
+      <Sidebar
+        open
+        header="foo"
+        headerVariant={headerVariant}
+        onCancel={() => {}}
+      />,
+    );
+
+    const sidebarHeader = screen.getByTestId("sidebar-header");
+    const closeIcon = screen.getByTestId("icon");
+
+    expect(sidebarHeader).toHaveStyle(
+      "background-color: var(--container-standard-inverse-bg-default)",
+    );
+    expect(closeIcon).toHaveStyle(
+      "color: var(--container-standard-inverse-txt-default)",
+    );
+  },
+);
+
+test("renders an AI gradient keyline on the header", () => {
+  render(<Sidebar open header="My sidebar" gradientKeyLine />);
+
+  const divider = screen.getByRole("separator", { hidden: true });
+
+  expect(divider).toHaveAttribute("aria-hidden", "true");
+  expect(divider).toHaveStyleRule(
+    "background",
+    "var(--container-standard-border-ai-h)",
+  );
+  expect(divider).toHaveStyleRule("height", "var(--global-borderwidth-s)");
+  expect(screen.getByRole("dialog")).toHaveAccessibleName("My sidebar");
+});
+
+test("renders the standard header divider", () => {
+  render(<Sidebar open header="My sidebar" />);
+
+  const divider = screen.getByRole("separator", { hidden: true });
+
+  expect(divider).toHaveStyleRule(
+    "background",
+    "var(--container-standard-border-default)",
+  );
+  expect(divider).toHaveStyleRule("height", "var(--global-borderwidth-xs)");
+});
+
+test("applies the tokenized header layout and typography", () => {
+  render(<Sidebar open header="My sidebar" onCancel={() => {}} />);
+
+  const header = screen.getByTestId("sidebar-header");
+
+  expect(header).toHaveStyleRule("padding", "var(--global-space-comp-xl)");
+  expect(header).toHaveStyleRule(
+    "min-height",
+    "calc((2 * var(--global-space-comp-xl)) + var(--global-size-s))",
+  );
+  expect(header).toHaveStyleRule("gap", "var(--global-space-comp-l)");
+  expect(screen.getByRole("heading", { name: "My sidebar" })).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-heading-m)",
+  );
+  expect(header).toHaveStyleRule("gap", "var(--global-space-comp-xs)", {
+    modifier: 'div[data-element="sidebar-heading"]',
+  });
+  expect(header).toHaveStyleRule("flex", "1 1 auto", {
+    modifier: 'div[data-element="sidebar-heading"]',
+  });
+  expect(header).toHaveStyleRule("min-width", "0", {
+    modifier: 'div[data-element="sidebar-heading"]',
   });
 });
 
-// for coverage - the `headerVariant` prop will be captured by Chromatic`
-test('renders with correct styles when `headerVariant` is "dark"', () => {
+test("applies tokenized content spacing and typography", () => {
   render(
-    <Sidebar open header="foo" headerVariant="dark" onCancel={() => {}} />,
+    <Sidebar open aria-label="My sidebar">
+      Content
+    </Sidebar>,
   );
 
-  const sidebarHeader = screen.getByTestId("sidebar-header");
-  const closeIcon = screen.getByTestId("icon");
-
-  expect(sidebarHeader).toHaveStyle(
-    "background-color: var(--colorsUtilityYin100)",
+  const content = screen.getByTestId("sidebar-content");
+  expect(content).toHaveStyleRule("padding", "var(--global-space-comp-xl)");
+  expect(content).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-body-regular-m)",
   );
-  expect(closeIcon).toHaveStyle("color: var(--colorsUtilityYang080)");
+  expect(content).toHaveStyleRule(
+    "color",
+    "var(--container-standard-txt-default)",
+  );
 });
 
 test("close button has correct data-* props, when the closeButtonDataProps prop is passed", () => {

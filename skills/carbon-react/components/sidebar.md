@@ -13,49 +13,50 @@ description: Carbon Sidebar component props and usage examples.
 - Props interface: `SidebarProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| open | boolean | Yes |  | Sets the open state of the modal |  |
-| children | React.ReactNode | No |  | Modal content |  |
-| closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  | Data tag prop bag for close Button |  |
-| disableAutoFocus | boolean \| undefined | No |  |  |  |
-| disableEscKey | boolean \| undefined | No |  | Determines if the Esc Key closes the modal |  |
-| enableBackgroundUI | boolean \| undefined | No |  | Set this prop to false to hide the translucent background when the dialog is open. |  |
-| focusableContainers | React.RefObject<HTMLElement>[] \| undefined | No |  | an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar |  |
-| focusableSelectors | string \| undefined | No |  | Optional selector to identify the focusable elements, if not provided a default selector is used |  |
-| focusFirstElement | React.MutableRefObject<HTMLElement \| null> \| undefined | No |  | Optional reference to an element meant to be focused on open |  |
-| header | React.ReactNode | No |  | Node that will be used as sidebar header. |  |
-| headerPadding | PaddingProps | No |  | Padding to be set on the Sidebar header |  |
-| headerVariant | "dark" \| "light" \| undefined | No |  | Header background variant for the sidebar. |  |
-| onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | A custom close event handler |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| position | "left" \| "right" \| undefined | No |  | Sets the position of sidebar, either left or right. |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| restoreFocusOnClose | boolean \| undefined | No |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
-| role | string \| undefined | No |  | The ARIA role to be applied to the component container |  |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Sets the size of the sidebar when open. |  |
-| subHeader | React.ReactNode | No |  | Node that will be used as sidebar subheader. |  |
-| subHeaderPadding | PaddingProps | No |  | Padding to be set on the Sidebar subheader |  |
-| topModalOverride | boolean \| undefined | No |  | Manually override the internal modal stacking order to set this as top |  |
-| width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
-| widthAnimation | boolean \| undefined | No |  | Enables width animation when the sidebar width changes. |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| aria-describedby | string \| undefined | No |  | Prop to specify the aria-describedby property of the component |  |
-| aria-label | string \| undefined | No |  | Prop to specify the aria-label of the component. To be used only when the header prop is not defined, and the component is not labelled by any internal element. |  |
-| aria-labelledby | string \| undefined | No |  | Prop to specify the aria-labelledby property of the component To be used when the header prop is a custom React Node, or the component is labelled by an internal element other than the header. |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| open | boolean | Yes |  |  |  | Sets the open state of the modal |  |
+| children | React.ReactNode | No |  |  |  | Modal content |  |
+| closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  |  |  | Data tag prop bag for close Button |  |
+| disableAutoFocus | boolean \| undefined | No |  |  |  |  |  |
+| disableEscKey | boolean \| undefined | No |  |  |  | Determines if the Esc Key closes the modal |  |
+| enableBackgroundUI | boolean \| undefined | No |  |  |  | Set this prop to false to hide the translucent background when the dialog is open. |  |
+| focusableContainers | React.RefObject<HTMLElement>[] \| undefined | No |  |  |  | an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar |  |
+| focusableSelectors | string \| undefined | No |  |  |  | Optional selector to identify the focusable elements, if not provided a default selector is used |  |
+| focusFirstElement | React.MutableRefObject<HTMLElement \| null> \| undefined | No |  |  |  | Optional reference to an element meant to be focused on open |  |
+| gradientKeyLine | boolean \| undefined | No |  |  |  | Adds the Carbon AI gradient keyline to the header. |  |
+| header | React.ReactNode | No |  |  |  | Node that will be used as sidebar header. |  |
+| headerPadding | PaddingProps | No |  |  |  | Padding to be set on the Sidebar header |  |
+| headerVariant | "typical" \| "dark" \| "light" \| "inverse" \| undefined | No |  |  |  | Header background variant for the sidebar. `light` and `dark` are deprecated aliases - use `typical` and `inverse` instead. |  |
+| onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
+| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
+| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
+| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
+| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
+| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
+| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
+| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
+| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
+| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
+| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
+| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
+| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
+| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
+| role | string \| undefined | No |  |  |  | The ARIA role to be applied to the component container |  |
+| subHeader | React.ReactNode | No |  |  |  | Node that will be used as sidebar subheader. |  |
+| subHeaderPadding | PaddingProps | No |  |  |  | Padding to be set on the Sidebar subheader |  |
+| topModalOverride | boolean \| undefined | No |  |  |  | Manually override the internal modal stacking order to set this as top |  |
+| width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
+| widthAnimation | boolean \| undefined | No |  |  |  | Enables width animation when the sidebar width changes. |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-describedby | string \| undefined | No |  |  |  | Prop to specify the aria-describedby property of the component |  |
+| aria-label | string \| undefined | No |  |  |  | Provides an explicit accessible name for the component, overriding the automatic association with the header. |  |
+| aria-labelledby | string \| undefined | No |  |  |  | Identifies the element that provides an explicit accessible name for the component, overriding the automatic association with the header. |  |
+| position | "left" \| "right" \| undefined | No |  | Yes | This prop will be removed in a future release. Sidebar will always be positioned on the right. Update the layout to support a right-positioned Sidebar if it is set to left, otherwise remove the prop. |  |  |
+| size | "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Yes | Use `width` to customise the Sidebar width. |  |  |
 
 ## Examples
 ### Default
@@ -94,6 +95,37 @@ description: Carbon Sidebar component props and usage examples.
 ```
 
 
+### Responsive Behavior
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header="Responsive sidebar"
+      >
+        <Form
+          leftSideButtons={<Button buttonType="tertiary">Cancel</Button>}
+          saveButton={<Button buttonType="primary">Save</Button>}
+          stickyFooter
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <Box height="1000px">Long content</Box>
+        </Form>
+      </Sidebar>
+    </>
+  );
+}
+```
+
+
 ### With Restore Focus On Close
 
 **Render**
@@ -118,10 +150,10 @@ description: Carbon Sidebar component props and usage examples.
       {showMessage && (
         <Message
           ref={messageRef}
-          variant="error"
+          variant="info"
           onDismiss={() => setShowMessage(false)}
         >
-          Some custom message
+          Sidebar closed; focus moved to this message.
         </Message>
       )}
       <Sidebar
@@ -155,10 +187,35 @@ description: Carbon Sidebar component props and usage examples.
 ```tsx
 () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
+  const [contentPadding, setContentPadding] = useState<"none" | "large">(
+    "large",
+  );
+
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar open={isOpen} onCancel={() => setIsOpen(false)} p={0}>
+      <Button
+        onClick={() => {
+          setContentPadding("none");
+          setIsOpen(true);
+        }}
+      >
+        Open with no padding
+      </Button>
+      <Button
+        ml={2}
+        onClick={() => {
+          setContentPadding("large");
+          setIsOpen(true);
+        }}
+      >
+        Open with 32px padding
+      </Button>
+      <Sidebar
+        aria-label="Sidebar with custom content padding"
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        p={contentPadding === "none" ? 0 : "var(--global-space-comp-2-xl)"}
+      >
         <Box mb={2}>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
@@ -186,7 +243,7 @@ description: Carbon Sidebar component props and usage examples.
       <Sidebar
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
+        header="Sidebar header"
       >
         <Box mb={2}>
           <Button buttonType="primary">Test</Button>
@@ -215,7 +272,7 @@ description: Carbon Sidebar component props and usage examples.
       <Sidebar
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
+        header="Sidebar header"
         subHeader={
           <Button iconType="chevron_left_thick" buttonType="tertiary">
             Action
@@ -236,7 +293,7 @@ description: Carbon Sidebar component props and usage examples.
 ```
 
 
-### With Dark Header
+### With Inverse Header
 
 **Render**
 
@@ -244,23 +301,14 @@ description: Carbon Sidebar component props and usage examples.
 () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
 
-  const headerNode = (
-    <Box display="flex" alignItems="center" gap="8px">
-      <Icon type="chat" inverse />
-      <Typography variant="h2" inverse>
-        Sidebar header
-      </Typography>
-    </Box>
-  );
-
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
       <Sidebar
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={headerNode}
-        headerVariant="dark"
+        header="Sidebar header"
+        headerVariant="inverse"
       >
         <Box mb={2}>
           <Button buttonType="primary">Test</Button>
@@ -268,6 +316,31 @@ description: Carbon Sidebar component props and usage examples.
             Last
           </Button>
         </Box>
+        Main Content
+      </Sidebar>
+    </>
+  );
+}
+```
+
+
+### With Gradient Keyline
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header="Sidebar header"
+        gradientKeyLine
+      >
         Main Content
       </Sidebar>
     </>
@@ -289,7 +362,7 @@ description: Carbon Sidebar component props and usage examples.
       <Sidebar
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
+        header="Sidebar header"
       >
         <Box mb={2}>
           <Button buttonType="primary">Test</Button>
@@ -320,7 +393,7 @@ description: Carbon Sidebar component props and usage examples.
         position="left"
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar Header</Typography>}
+        header="Sidebar Header"
       >
         <Form
           rightSideButtons={<Button>Action button</Button>}
@@ -414,7 +487,7 @@ description: Carbon Sidebar component props and usage examples.
       <Sidebar
         open={isSidebarOpen}
         onCancel={() => setIsSidebarOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
+        header="Sidebar header"
         focusableContainers={[toast1Ref, toast2Ref]}
       >
         <Form
@@ -435,16 +508,14 @@ description: Carbon Sidebar component props and usage examples.
           <Textbox label="First Name" value="" onChange={() => {}} />
           <Textbox label="Middle Name" onChange={() => {}} value="" />
           <Textbox label="Surname" onChange={() => {}} value="" />
-          <Button onClick={() => setIsToast1Open(true)}>
-            Show first toast
-          </Button>
-          <Button
-            ml={2}
-            buttonType="primary"
-            onClick={() => setIsToast2Open(true)}
-          >
-            Show second toast
-          </Button>
+          <Box display="flex" gap={2}>
+            <Button onClick={() => setIsToast1Open(true)}>
+              Show first toast
+            </Button>
+            <Button buttonType="primary" onClick={() => setIsToast2Open(true)}>
+              Show second toast
+            </Button>
+          </Box>
         </Form>
       </Sidebar>
       <Toast
@@ -484,7 +555,7 @@ description: Carbon Sidebar component props and usage examples.
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         width="25%"
-        header={<Typography variant="h3">Sidebar</Typography>}
+        header="Sidebar"
       >
         <Box
           mb={2}
@@ -506,7 +577,7 @@ description: Carbon Sidebar component props and usage examples.
 ```
 
 
-### With Header and Footer Padding
+### Custom Header and Content Padding
 
 **Render**
 
@@ -517,20 +588,18 @@ description: Carbon Sidebar component props and usage examples.
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
       <Sidebar
-        aria-label="sidebar"
-        position="left"
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar Header</Typography>}
-        p={2}
-        headerPadding={{ p: 2 }}
+        header="Sidebar Header — 16px padding"
+        p="var(--global-space-comp-2-xl)"
+        headerPadding={{ p: "var(--global-space-comp-l)" }}
       >
         <Form
           rightSideButtons={<Button>Action button</Button>}
           stickyFooter
           buttonAlignment="right"
-          footerPadding={{ p: 2 }}
         >
+          <Box mb={2}>Content padding: 32px (--global-space-comp-2-xl).</Box>
           <Typography variant="p">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus
             massa, suscipit vitae pellentesque quis, facilisis non ante.
