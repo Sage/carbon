@@ -53,6 +53,19 @@ The available formats are:
 
 <Canvas of={NumeralDateStories.DateFormats} />
 
+### Flexible Raw Input
+
+Carbon forwards raw values such as `Jan`, `März`, and `août` unchanged — the consuming application owns parsing,
+sanitisation, and acceptance.
+
+<Canvas of={NumeralDateStories.FlexibleRawInput} />
+
+### Consumer Validation
+
+use the 'error' prop when the consuming application needs to reject a raw value.
+
+<Canvas of={NumeralDateStories.ConsumerValidation} />
+
 ### Validating date values
 
 `NumeralDate` supports standard validation via the `error` prop, which can be used to display an error message when the date value is invalid.

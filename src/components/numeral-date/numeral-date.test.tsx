@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -1273,50 +1273,199 @@ describe("when `yearRef` prop is passed", () => {
   });
 });
 
-test("should not call the onChange callback when the prop is set and the user types a value that exceeds the 'Day' input limit", async () => {
-  const onChange = jest.fn();
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <NumeralDate value={{ dd: "12", mm: "", yyyy: "" }} onChange={onChange} />,
-  );
+test.each([
+  ["Day", { dd: "12", mm: "", yyyy: "" }, "123"],
+  ["Month", { dd: "", mm: "12", yyyy: "" }, "123"],
+  ["Year", { dd: "", mm: "", yyyy: "2011" }, "20113"],
+])(
+  "should forward unrestricted raw text from the '%s' input",
+  async (name, initialValue, expectedValue) => {
+    const onChange = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(<NumeralDate value={initialValue} onChange={onChange} />);
+    const input = screen.getByRole("textbox", { name });
+    await user.click(input);
+    await user.keyboard("{End}");
+    await user.type(input, "3");
+
+    expect(onChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({
+          value: expect.objectContaining({
+            [name === "Day" ? "dd" : name === "Month" ? "mm" : "yyyy"]:
+              expectedValue,
+          }),
+        }),
+      }),
+    );
+  },
+);
+
+test("should expose numeric input mode hints and not cancel editing keydown events", () => {
+  render(<ControlledComponent />);
+
   const dayInput = screen.getByRole("textbox", { name: "Day" });
-  await user.click(dayInput);
-  await user.keyboard("{End}");
-  await user.type(dayInput, "3");
-
-  expect(onChange).not.toHaveBeenCalled();
-});
-
-test("should not call the onChange callback when the prop is set and the user types a value that exceeds the 'Month' input limit", async () => {
-  const onChange = jest.fn();
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <NumeralDate value={{ dd: "", mm: "12", yyyy: "" }} onChange={onChange} />,
-  );
   const monthInput = screen.getByRole("textbox", { name: "Month" });
-  await user.click(monthInput);
-  await user.keyboard("{End}");
-  await user.type(monthInput, "3");
+  const yearInput = screen.getByRole("textbox", { name: "Year" });
 
-  expect(onChange).not.toHaveBeenCalled();
+  expect(dayInput).toHaveAttribute("inputmode", "numeric");
+  expect(monthInput).toHaveAttribute("inputmode", "numeric");
+  expect(yearInput).toHaveAttribute("inputmode", "numeric");
+
+  ["ArrowLeft", "Home", "End", "a", "v"].forEach((key) => {
+    expect(fireEvent.keyDown(monthInput, { key, ctrlKey: key === "v" })).toBe(
+      true,
+    );
+  });
 });
 
-test("should not call the onChange callback when the prop is set and the user types a value that exceeds the 'Year' input limit", async () => {
-  const onChange = jest.fn();
+test.each(["Jan", "May", "Dec", "month-name-without-a-length-limit"])(
+  "should forward the raw month value '%s' without parsing it",
+  (rawMonth) => {
+    const onChange = jest.fn();
+    render(
+      <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={onChange} />,
+    );
+
+    fireEvent.change(screen.getByRole("textbox", { name: "Month" }), {
+      target: { value: rawMonth },
+    });
+
+    expect(onChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({
+          value: { dd: "", mm: rawMonth, yyyy: "" },
+        }),
+      }),
+    );
+  },
+);
+
+test("should not report numeric range failures for non-numeric raw values", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <NumeralDate
-      value={{ dd: "", mm: "", yyyy: "2011" }}
-      onChange={onChange}
+    <ControlledComponent
+      enableInternalError
+      initialValue={{ dd: "day", mm: "May", yyyy: "year" }}
     />,
   );
-  const yearInput = screen.getByRole("textbox", { name: "Year" });
-  await user.click(yearInput);
-  await user.keyboard("{End}");
-  await user.type(yearInput, "3");
 
-  expect(onChange).not.toHaveBeenCalled();
+  await user.click(screen.getByRole("textbox", { name: "Month" }));
+  await user.tab();
+  await user.tab();
+
+  expect(screen.queryByRole("validation-message")).not.toBeInTheDocument();
 });
+
+test("should not report numeric range failures for whitespace raw values", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <ControlledComponent
+      enableInternalError
+      initialValue={{ dd: " ", mm: " ", yyyy: " " }}
+    />,
+  );
+
+  await user.click(screen.getByRole("textbox", { name: "Day" }));
+  await user.tab();
+  await user.tab();
+
+  expect(screen.queryByRole("validation-message")).not.toBeInTheDocument();
+});
+
+test("should report numeric range failures for signed and fractional numeric raw values", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <ControlledComponent
+      enableInternalError
+      initialValue={{ dd: "-1", mm: "13.5", yyyy: "+2201" }}
+    />,
+  );
+
+  await user.click(screen.getByRole("textbox", { name: "Day" }));
+  await user.tab();
+  await user.tab();
+
+  expect(screen.getByText(/Day should be a number/)).toHaveTextContent(
+    "Day should be a number within a 1-31 range. " +
+      "Month should be a number within a 1-12 range. " +
+      "Year should be a number within a 1800-2200 range.",
+  );
+});
+
+test.each([
+  [
+    { dd: "32", mm: "Jan", yyyy: "2026" },
+    "Day should be a number within a 1-31 range.",
+  ],
+  [
+    { dd: "32", mm: "02", yyyy: "year" },
+    "Day should be a number within a 1-31 range.",
+  ],
+  [
+    { dd: "32", mm: "02", yyyy: "1e100" },
+    "Day should be a number within a 1-31 range. " +
+      "Year should be a number within a 1800-2200 range.",
+  ],
+])(
+  "should retain the universal day range when contextual values cannot define a valid date",
+  async (initialValue, expectedMessage) => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <ControlledComponent enableInternalError initialValue={initialValue} />,
+    );
+
+    await user.click(screen.getByRole("textbox", { name: "Day" }));
+    await user.tab();
+    await user.tab();
+
+    expect(screen.getByText(/Day should be a number/)).toHaveTextContent(
+      expectedMessage,
+    );
+  },
+);
+
+test.each([
+  ["scientific notation", { dd: "3.2e1", mm: "1.3e1", yyyy: "1e4" }],
+  ["Infinity", { dd: "Infinity", mm: "Infinity", yyyy: "Infinity" }],
+])(
+  "should report numeric range failures for %s raw values",
+  async (_description, initialValue) => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <ControlledComponent enableInternalError initialValue={initialValue} />,
+    );
+
+    await user.click(screen.getByRole("textbox", { name: "Day" }));
+    await user.tab();
+    await user.tab();
+
+    expect(screen.getByText(/Day should be a number/)).toHaveTextContent(
+      "Day should be a number within a 1-31 range. " +
+        "Month should be a number within a 1-12 range. " +
+        "Year should be a number within a 1800-2200 range.",
+    );
+  },
+);
+
+test.each(["", "+", "-", ".", "+.", "-."])(
+  "should not report numeric range failures for incomplete numeric raw value '%s'",
+  async (rawValue) => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <ControlledComponent
+        enableInternalError
+        initialValue={{ dd: rawValue, mm: rawValue, yyyy: rawValue }}
+      />,
+    );
+
+    await user.click(screen.getByRole("textbox", { name: "Day" }));
+    await user.tab();
+    await user.tab();
+
+    expect(screen.queryByRole("validation-message")).not.toBeInTheDocument();
+  },
+);
 
 test("should set the passed `data-` props as attributes on the root element", () => {
   render(
