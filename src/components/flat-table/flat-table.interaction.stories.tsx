@@ -31,7 +31,7 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 type Story = StoryObj<typeof FlatTable>;
 
 export default {
-  title: "Flat Table/Interactions",
+  title: "Deprecated/Flat Table/Interactions",
   component: FlatTable,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
