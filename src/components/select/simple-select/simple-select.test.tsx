@@ -295,10 +295,11 @@ describe("loading state", () => {
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-loader")).toBeVisible();
-    expect(screen.getByTestId("outer-bar")).toHaveStyleRule(
-      "height",
-      "var(--global-size-3-xs)",
-    );
+    const ringSvg = screen
+      .getByTestId("ring-loader-container")
+      .querySelector('svg[role="presentation"]');
+
+    expect(ringSvg).toHaveStyleRule("height", "80px");
   });
 });
 
@@ -591,7 +592,7 @@ describe("dropdown list", () => {
     expect(await screen.findByRole("listbox")).toBeVisible();
   });
 
-  ["Space", "ArrowUp", "ArrowDown", "Home", "End"].forEach((key) => {
+  ["Space", "Enter", "ArrowUp", "ArrowDown", "Home", "End"].forEach((key) => {
     test(`opens when input is focused and ${key} key is pressed`, async () => {
       const user = userEvent.setup();
       render(
@@ -607,7 +608,7 @@ describe("dropdown list", () => {
     });
   });
 
-  ["Enter", "a"].forEach((key) =>
+  ["a"].forEach((key) =>
     test(`does not open when ${key} key is pressed`, async () => {
       const user = userEvent.setup();
       render(
@@ -757,6 +758,61 @@ describe("dropdown list", () => {
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{Enter}");
 
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
+  });
+
+  it("selects the focused option and closes the list when Space is pressed", async () => {
+    const onChange = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={onChange} value="">
+        <Option text="amber" value="amber" />
+        <Option text="blue" value="blue" />
+      </SimpleSelect>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard(" ");
+
+    expect(onChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: "blue" }),
+        selectionConfirmed: true,
+      }),
+    );
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
+  });
+
+  it("selects the focused option and moves focus on when Tab is pressed", async () => {
+    const onChange = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <>
+        <SimpleSelect label="Colour" onChange={onChange} value="">
+          <Option text="amber" value="amber" />
+          <Option text="blue" value="blue" />
+        </SimpleSelect>
+        <button type="button">next</button>
+      </>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.keyboard("{ArrowDown}");
+    await user.tab();
+
+    expect(onChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: "amber" }),
+        selectionConfirmed: true,
+      }),
+    );
+    expect(screen.getByRole("button", { name: "next" })).toHaveFocus();
     await waitFor(() => {
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });

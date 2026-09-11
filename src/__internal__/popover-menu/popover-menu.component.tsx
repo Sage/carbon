@@ -19,7 +19,11 @@ import { flip, offset, size } from "@floating-ui/dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
 import { MenuItem } from "./menu-item";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import { useHandleDropdownMenuKeyDown, setFocus } from "./hooks";
+import {
+  useHandleDropdownMenuKeyDown,
+  setFocus,
+  PAGE_NAVIGATION_SIZE,
+} from "./hooks";
 import guid from "../utils/helpers/guid";
 import {
   PopoverMenuContext,
@@ -178,8 +182,10 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   initialScrollIndex?: number;
   /** When set, keyboard navigation stops at the first/last item instead of looping around. */
   disableNavigationLoop?: boolean;
-  /** When set, PageUp and PageDown focus the first and last items respectively. */
+  /** When set, PageUp and PageDown move the focus by a fixed number of items. */
   enablePageNavigation?: boolean;
+  /** When set, Space and Tab confirm the currently-focused item (single-select listbox behaviour). */
+  selectOnSpaceAndTab?: boolean;
 }
 
 const OFFSET = 8;
@@ -361,6 +367,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     initialScrollIndex,
     disableNavigationLoop = false,
     enablePageNavigation = false,
+    selectOnSpaceAndTab = false,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -562,16 +569,32 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           );
           break;
         case "Home":
-        case "PageUp":
-          if (ev.key === "PageUp" && !enablePageNavigation) break;
           ev.preventDefault();
           moveActiveIndex(0);
           break;
         case "End":
-        case "PageDown":
-          if (ev.key === "PageDown" && !enablePageNavigation) break;
           ev.preventDefault();
           moveActiveIndex(count - 1);
+          break;
+        case "PageUp":
+          if (!enablePageNavigation) break;
+          ev.preventDefault();
+          moveActiveIndex(
+            Math.max(
+              (activeIndex < 0 ? fallback : activeIndex) - PAGE_NAVIGATION_SIZE,
+              0,
+            ),
+          );
+          break;
+        case "PageDown":
+          if (!enablePageNavigation) break;
+          ev.preventDefault();
+          moveActiveIndex(
+            Math.min(
+              (activeIndex < 0 ? fallback : activeIndex) + PAGE_NAVIGATION_SIZE,
+              count - 1,
+            ),
+          );
           break;
         case "Enter":
           /* istanbul ignore else */
@@ -581,7 +604,18 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             document.getElementById(optionIdForIndex(activeIndex))?.click();
           }
           break;
+        case " ":
+          if (selectOnSpaceAndTab && activeIndex >= 0) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            document.getElementById(optionIdForIndex(activeIndex))?.click();
+          }
+          break;
         case "Tab":
+          // Confirm the focused item before closing, then let focus move on.
+          if (selectOnSpaceAndTab && activeIndex >= 0) {
+            document.getElementById(optionIdForIndex(activeIndex))?.click();
+          }
           onClose(ev.nativeEvent);
           break;
         /* istanbul ignore next */
@@ -595,6 +629,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       initialScrollIndex,
       disableNavigationLoop,
       enablePageNavigation,
+      selectOnSpaceAndTab,
       moveActiveIndex,
       optionIdForIndex,
       onClose,
@@ -670,6 +705,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       isSubmenu,
       disableNavigationLoop,
       enablePageNavigation,
+      selectOnSpaceAndTab,
     },
   );
 
@@ -680,10 +716,17 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const handleMenuKeyDown = useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
       // Tab moves focus naturally; the focusin listener decides whether to close.
-      if (ev.key === "Tab") return;
+      // When selecting on Tab is enabled the list handler confirms the focused
+      // item first, but must not prevent the default focus move.
+      if (ev.key === "Tab") {
+        if (selectOnSpaceAndTab) {
+          handleListKeyDown(ev);
+        }
+        return;
+      }
       handleListKeyDown(ev);
     },
-    [handleListKeyDown],
+    [handleListKeyDown, selectOnSpaceAndTab],
   );
 
   useEffect(() => {

@@ -68,6 +68,8 @@ export interface NextSelectListProps {
   virtualScrollOverscan?: number;
   /** When set, keyboard navigation stops at the first/last option instead of looping around. */
   disableNavigationLoop?: boolean;
+  /** When set, Space and Tab confirm the currently-focused option (single-select listbox behaviour). */
+  selectOnSpaceAndTab?: boolean;
   /** If true, a loader is displayed in the list. Renders on its own for a general loading state,
    * or below the options for a lazy-loading state. */
   isLoading?: boolean;
@@ -101,6 +103,7 @@ const SelectList = ({
   enableVirtualScroll,
   virtualScrollOverscan,
   disableNavigationLoop,
+  selectOnSpaceAndTab,
   isLoading,
 }: NextSelectListProps) => {
   const mappedChildren = useMemo(() => {
@@ -247,6 +250,7 @@ const SelectList = ({
       enableVirtualScroll={enableVirtualScroll}
       virtualScrollOverscan={virtualScrollOverscan}
       disableNavigationLoop={disableNavigationLoop}
+      selectOnSpaceAndTab={selectOnSpaceAndTab}
       enablePageNavigation
       initialScrollIndex={initialScrollIndex}
     >

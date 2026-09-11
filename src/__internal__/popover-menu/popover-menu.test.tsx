@@ -549,21 +549,32 @@ describe("PopoverMenu - typeahead (Search)", () => {
     ).toHaveAttribute("aria-activedescendant", "item-1");
   });
 
-  it("PageUp moves the highlight to the first item when enabled", async () => {
+  it("PageUp moves the highlight up by a fixed number of items when enabled", async () => {
     const user = userEvent.setup();
-    renderPopoverMenu({ open: true, enablePageNavigation: true });
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: (
+        <>
+          {Array.from({ length: 14 }, (_, index) => (
+            <MenuItem key={index} id={`item-${index + 1}`}>
+              Item {index + 1}
+            </MenuItem>
+          ))}
+        </>
+      ),
+    });
 
     focusTrigger();
-    await user.keyboard("{ArrowDown}");
-    await user.keyboard("{PageDown}");
+    await user.keyboard("{End}");
     await user.keyboard("{PageUp}");
-    const [first, second] = screen.getAllByRole("option");
+    const options = screen.getAllByRole("option");
 
-    expect(first).toHaveAttribute("data-has-focus", "true");
-    expect(second).not.toHaveAttribute("data-has-focus", "true");
+    // last item is index 13, PageUp moves the focus up by 10 to index 3 (item-4)
+    expect(options[3]).toHaveAttribute("data-has-focus", "true");
     expect(
       screen.getByRole("combobox", { name: "combobox-label" }),
-    ).toHaveAttribute("aria-activedescendant", "item-1");
+    ).toHaveAttribute("aria-activedescendant", "item-4");
   });
 
   it("Home moves the highlight to the first item that is not disabled", async () => {
@@ -611,19 +622,32 @@ describe("PopoverMenu - typeahead (Search)", () => {
     ).toHaveAttribute("aria-activedescendant", "item-3");
   });
 
-  it("PageDown moves the highlight to the last item when enabled", async () => {
+  it("PageDown moves the highlight down by a fixed number of items when enabled", async () => {
     const user = userEvent.setup();
-    renderPopoverMenu({ open: true, enablePageNavigation: true });
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: (
+        <>
+          {Array.from({ length: 14 }, (_, index) => (
+            <MenuItem key={index} id={`item-${index + 1}`}>
+              Item {index + 1}
+            </MenuItem>
+          ))}
+        </>
+      ),
+    });
 
     focusTrigger();
+    await user.keyboard("{ArrowDown}");
     await user.keyboard("{PageDown}");
     const options = screen.getAllByRole("option");
-    const last = options[options.length - 1];
 
-    expect(last).toHaveAttribute("data-has-focus", "true");
+    // first item is index 0, PageDown moves the focus down by 10 to index 10 (item-11)
+    expect(options[10]).toHaveAttribute("data-has-focus", "true");
     expect(
       screen.getByRole("combobox", { name: "combobox-label" }),
-    ).toHaveAttribute("aria-activedescendant", "item-3");
+    ).toHaveAttribute("aria-activedescendant", "item-11");
   });
 
   it("End moves the highlight to the last item that is not disabled", async () => {
@@ -682,6 +706,71 @@ describe("PopoverMenu - typeahead (Search)", () => {
     await user.keyboard("{Tab}");
 
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not confirm the highlighted item on Space by default", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard(" ");
+
+    expect(onItemClick).not.toHaveBeenCalled();
+  });
+
+  it("confirms the highlighted item on Space when selectOnSpaceAndTab is set", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      selectOnSpaceAndTab: true,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard(" ");
+
+    expect(onItemClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("confirms the highlighted item and closes on Tab when selectOnSpaceAndTab is set", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    const onClose = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      selectOnSpaceAndTab: true,
+      onClose,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Tab}");
+
+    expect(onItemClick).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalled();
   });
 });
 

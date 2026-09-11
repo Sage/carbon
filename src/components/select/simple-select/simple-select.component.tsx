@@ -250,6 +250,7 @@ export const SimpleSelect = React.forwardRef<
     const isTimerCounting = useRef<boolean>();
     const isClickTriggeredBySelect = useRef<boolean>();
     const filterText = useRef<string>();
+    const suppressRefocusOnSelect = useRef<boolean>(false);
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
     const [isOpen, setOpenState] = useState(false);
     const [activeDescendantId, setActiveDescendantId] = useState<string>("");
@@ -341,19 +342,43 @@ export const SimpleSelect = React.forwardRef<
 
         if (readOnly) return;
 
-        if (key === " " || isNavigationKey(key)) {
+        // Opening the list is select-specific as SimpleSelect owns the open
+        // state. Space, Enter and the navigation keys open the closed list.
+        if (!isOpen && (key === " " || key === "Enter" || isNavigationKey(key))) {
           event.preventDefault();
+          suppressRefocusOnSelect.current = false;
 
-          setOpenState((isAlreadyOpen) => {
-            if (!isAlreadyOpen) onOpen?.();
+          setOpenState(() => {
+            onOpen?.();
 
             return true;
           });
-        } else if (key.length === 1 && !event.metaKey && !event.ctrlKey) {
+
+          return;
+        }
+
+        // Confirming via Tab is handled by the list, but SimpleSelect must let
+        // focus move on to the next component, so its own re-focus is suppressed.
+        if (isOpen && key === "Tab") {
+          suppressRefocusOnSelect.current = true;
+
+          return;
+        }
+
+        // When open, Space and the navigation keys are handled by the list
+        // (confirming the focused option or moving the cursor). They are
+        // prevented here only so the page/input caret does not also move.
+        if (isOpen && (key === " " || isNavigationKey(key))) {
+          event.preventDefault();
+
+          return;
+        }
+
+        if (key.length === 1 && !event.metaKey && !event.ctrlKey) {
           triggerFilterChange(key);
         }
       },
-      [triggerFilterChange, onKeyDown, onOpen, readOnly],
+      [isOpen, triggerFilterChange, onKeyDown, onOpen, readOnly],
     );
 
     const handleGlobalClick = useCallback((event: MouseEvent) => {
@@ -510,6 +535,13 @@ export const SimpleSelect = React.forwardRef<
       setActiveDescendantId(selectedOptionId ?? "");
       setOpenState(false);
 
+      // Selecting via Tab must let focus move on to the next component, so the
+      // input is not re-focused in that case.
+      if (suppressRefocusOnSelect.current) {
+        suppressRefocusOnSelect.current = false;
+        return;
+      }
+
       isClickTriggeredBySelect.current = true;
       textboxRef?.focus();
     };
@@ -593,6 +625,7 @@ export const SimpleSelect = React.forwardRef<
           virtualScrollOverscan={virtualScrollOverscan}
           disableNavigationLoop={disableNavigationLoop}
           isLoading={isLoading}
+          selectOnSpaceAndTab
           controlWrapperStyle={
             mappedInputWidth !== undefined
               ? { width: `${mappedInputWidth}%` }

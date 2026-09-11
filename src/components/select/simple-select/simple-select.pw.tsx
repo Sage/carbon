@@ -7,6 +7,7 @@ import {
   SimpleSelectNestedInDialog,
   SelectWithOptionGroupHeader,
   SelectionConfirmed,
+  SelectionConfirmedManyOptions,
   SimpleSelectControlled,
   WithObjectAsValue,
   SimpleSelectObjectAsValueComponent,
@@ -534,6 +535,125 @@ test.describe("Selection confirmed", () => {
     await optionList.waitFor();
 
     expect(called).toBeFalsy();
+  });
+});
+
+test.describe("Keyboard navigation", () => {
+  test("opens the list when Enter is pressed on the focused closed select", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SimpleSelectComponent />);
+
+    await page.getByRole("combobox").focus();
+    await expect(page.getByRole("listbox")).toBeHidden();
+
+    await page.getByRole("combobox").press("Enter");
+
+    await expect(page.getByRole("listbox")).toBeVisible();
+  });
+
+  test("opens the list when Space is pressed on the focused closed select", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SimpleSelectComponent />);
+
+    await page.getByRole("combobox").focus();
+    await expect(page.getByRole("listbox")).toBeHidden();
+
+    await page.getByRole("combobox").press(" ");
+
+    await expect(page.getByRole("listbox")).toBeVisible();
+  });
+
+  test("Home moves focus to the first option", async ({ mount, page }) => {
+    await mount(<SelectionConfirmed />);
+
+    await dropdownButton(page).click();
+    const inputElement = page.getByRole("combobox");
+    await inputElement.press("End");
+    await inputElement.press("Home");
+    await inputElement.press("Enter");
+
+    await expect(
+      page.locator('[data-element="confirmed-selection-1"]'),
+    ).toBeVisible();
+  });
+
+  test("End moves focus to the last option", async ({ mount, page }) => {
+    await mount(<SelectionConfirmed />);
+
+    await dropdownButton(page).click();
+    const inputElement = page.getByRole("combobox");
+    await inputElement.press("End");
+    await inputElement.press("Enter");
+
+    await expect(
+      page.locator('[data-element="confirmed-selection-9"]'),
+    ).toBeVisible();
+  });
+
+  test("PageDown moves focus down by a fixed step rather than to the last option", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SelectionConfirmedManyOptions />);
+
+    await dropdownButton(page).click();
+    const inputElement = page.getByRole("combobox");
+    await inputElement.press("PageDown");
+    await inputElement.press("Enter");
+
+    await expect(
+      page.locator('[data-element="confirmed-selection-11"]'),
+    ).toBeVisible();
+  });
+
+  test("PageUp moves focus up by a fixed step rather than to the first option", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SelectionConfirmedManyOptions />);
+
+    await dropdownButton(page).click();
+    const inputElement = page.getByRole("combobox");
+    await inputElement.press("PageUp");
+    await inputElement.press("Enter");
+
+    await expect(
+      page.locator('[data-element="confirmed-selection-10"]'),
+    ).toBeVisible();
+  });
+
+  test("Space selects the focused option", async ({ mount, page }) => {
+    await mount(<SelectionConfirmed />);
+
+    await dropdownButton(page).click();
+    const inputElement = page.getByRole("combobox");
+    await inputElement.press("ArrowDown");
+    await inputElement.press(" ");
+
+    await expect(
+      page.locator('[data-element="confirmed-selection-1"]'),
+    ).toBeVisible();
+  });
+
+  test("Tab selects the focused option and moves focus to the next component", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SelectionConfirmedManyOptions />);
+
+    await dropdownButton(page).click();
+    const inputElement = page.getByRole("combobox");
+    await inputElement.press("ArrowDown");
+    await inputElement.press("Tab");
+
+    await expect(
+      page.locator('[data-element="confirmed-selection-1"]'),
+    ).toBeVisible();
+    await expect(page.getByTestId("next-focusable")).toBeFocused();
   });
 });
 
