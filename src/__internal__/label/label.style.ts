@@ -12,6 +12,7 @@ const getFontToken = (size: "small" | "medium" | "large") => {
       return "var(--global-font-static-comp-medium-m)";
   }
 };
+
 interface StyledLabelProps {
   $size: "small" | "medium" | "large";
   $isRequired?: boolean;
@@ -30,7 +31,7 @@ const StyledLabel = styled.label<StyledLabelProps>`
     if ($readOnly) {
       return `
         cursor: pointer;
-        color: var(--input-labelset-label-readOnly);
+        color: var(--input-labelset-label-read-only);
       `;
     }
     return `
@@ -56,10 +57,6 @@ const StyledLabel = styled.label<StyledLabelProps>`
         margin-left: 4px;
       }
     `}
-
-  .time & {
-    font: var(--global-font-static-comp-regular-m);
-  }
 
   ${labelStyleOverrides}
   .fieldset-required-input & {

@@ -150,6 +150,19 @@ test("renders with expected styles when `isDisabled` is true", () => {
   expect(screen.getByText("Legend")).toHaveAttribute("aria-disabled", "true");
 });
 
+test("renders with expected styles when `isReadOnly` is true", () => {
+  render(
+    <Fieldset legend="Legend" isReadOnly>
+      <input title="Test" placeholder="Placeholder" />
+    </Fieldset>,
+  );
+
+  expect(screen.getByText("Legend")).toHaveStyleRule(
+    "color",
+    "var(--input-labelset-label-read-only)",
+  );
+});
+
 testStyledSystemMargin(
   (props) => (
     <Fieldset {...props}>
