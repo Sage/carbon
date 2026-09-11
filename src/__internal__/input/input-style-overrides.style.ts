@@ -7,8 +7,21 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 export const dateStyleOverrides = css`
   .date & {
     .input-text-container input {
-      padding: 0 0 0 12px;
-      margin-right: -12px;
+      padding-inline-end: 0;
+    }
+  }
+
+  .date-typical [data-role="date-input-wrapper"] & {
+    &:focus-within {
+      box-shadow: none;
+      outline: none;
+    }
+
+    .input-text-container input:focus {
+      border-radius: var(--global-radius-action-m) 0 0
+        var(--global-radius-action-m);
+      ${addFocusStyling()}
+      z-index: 2;
     }
   }
 `;
@@ -144,7 +157,6 @@ const searchNewBaseStyles = css`
 
     &:focus-within:has(:focus:not(button)) {
       box-shadow: none;
-      -webkit-box-shadow: none;
     }
 
     .input-text-container input[type="search"]:focus {
@@ -331,7 +343,6 @@ export const passwordStyleOverrides = css`
   [data-component="password"] & {
     &:focus-within {
       box-shadow: none !important;
-      -webkit-box-shadow: none !important;
       outline: none !important;
     }
 

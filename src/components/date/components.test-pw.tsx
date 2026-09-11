@@ -4,7 +4,7 @@ import { CommonTextboxArgs } from "../textbox/utils";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Dialog from "../dialog";
 
-export const DateInputCustom = ({
+export const DateInputLegacyControlled = ({
   onChange,
   onBlur,
   value,
@@ -33,12 +33,48 @@ export const DateInputCustom = ({
       value={state}
       onChange={handleOnChange}
       onBlur={handleOnBlur}
+      variant="legacy"
       {...props}
     />
   );
 };
 
-export const DateInputValidationNewDesign = () => {
+export const DateInputTypicalControlled = ({
+  onChange,
+  onBlur,
+  value,
+  ...props
+}: Partial<CommonTextboxArgs> & Partial<DateInputProps>) => {
+  const [state, setState] = React.useState(value ?? "01/05/2022");
+
+  const handleOnChange = (ev: DateChangeEvent) => {
+    if (onChange) {
+      onChange(ev);
+    }
+
+    setState(ev.target.value.formattedValue);
+  };
+
+  const handleOnBlur = (ev: DateChangeEvent) => {
+    if (onBlur) {
+      onBlur(ev);
+    }
+  };
+
+  return (
+    <DateInput
+      label="Date"
+      name="date-input"
+      value={state}
+      onChange={handleOnChange}
+      onBlur={handleOnBlur}
+      variant="typical"
+      {...props}
+    />
+  );
+};
+
+export const DateInputValidationStates = () => {
   const [state1, setState1] = React.useState("01/10/2016");
   const setValue1 = ({ target }: DateChangeEvent) => {
     setState1(target.value.formattedValue);
@@ -63,6 +99,7 @@ export const DateInputValidationNewDesign = () => {
               size={size}
               {...{ [validationType]: "Message" }}
               m={4}
+              variant="legacy"
             />
             <DateInput
               label={`readOnly - ${size} - ${validationType}`}
@@ -73,6 +110,7 @@ export const DateInputValidationNewDesign = () => {
               readOnly
               {...{ [validationType]: "Message" }}
               m={4}
+              variant="legacy"
             />
           </div>
         )),
@@ -81,7 +119,7 @@ export const DateInputValidationNewDesign = () => {
   );
 };
 
-export const WithSiblingButton = ({
+export const DateInputWithNextFocusableElement = ({
   onChange,
   onBlur,
   value,
@@ -113,6 +151,7 @@ export const WithSiblingButton = ({
         value={state}
         onChange={handleOnChange}
         onBlur={handleOnBlur}
+        variant="legacy"
         {...props}
       />
       <button data-element="foo-button" type="button">
@@ -155,6 +194,7 @@ export const DateInputInsideDialog = ({
         value={state}
         onChange={handleOnChange}
         onBlur={handleOnBlur}
+        variant="legacy"
         {...props}
       />
     </Dialog>

@@ -123,6 +123,9 @@ export const FocusManagement: Story = {
     const datepickerInput = canvas.getByRole("textbox", {
       name: /date picker/i,
     });
+    const datepickerButton = canvas.getByRole("button", {
+      name: /open calendar/i,
+    });
     const textarea = canvas.getByRole("textbox", { name: /textbox 3/i });
     const checkboxes = canvas.getAllByRole("checkbox", { name: /checkbox/i });
     const tertiaryButton = canvas.getByRole("button", { name: /tertiary/i });
@@ -143,6 +146,9 @@ export const FocusManagement: Story = {
 
     await userEvent.tab();
     await expect(datepickerInput).toHaveFocus();
+
+    await userEvent.tab();
+    await expect(datepickerButton).toHaveFocus();
 
     await userEvent.tab();
     await expect(textarea).toHaveFocus();

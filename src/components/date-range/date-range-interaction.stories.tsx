@@ -121,16 +121,28 @@ export const MinMaxDateRange: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const [startIcon, endIcon] = canvas.getAllByTestId("icon");
+    const [startCalendarButton, endCalendarButton] = canvas.getAllByRole(
+      "button",
+      { name: "Open calendar" },
+    );
     const startInput = canvas.getByRole("textbox", { name: /start date/i });
     const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
-    await userEvent.click(startIcon);
-    await userEvent.keyboard("{PageUp}{End}{Enter}");
+    await userEvent.click(startCalendarButton);
+    const dateBeforeMinimum = canvas.getByRole("button", {
+      name: /Sunday, July 13th, 2025/i,
+    });
+    await expect(dateBeforeMinimum).toBeDisabled();
+    await userEvent.click(dateBeforeMinimum);
     await expect(startInput).toHaveValue("17/07/2025");
+    await userEvent.click(startCalendarButton);
 
-    await userEvent.click(endIcon);
-    await userEvent.keyboard("{PageDown}{Home}{Enter}");
+    await userEvent.click(endCalendarButton);
+    const dateAfterMaximum = canvas.getByRole("button", {
+      name: /Thursday, July 31st, 2025/i,
+    });
+    await expect(dateAfterMaximum).toBeDisabled();
+    await userEvent.click(dateAfterMaximum);
     await expect(endInput).toHaveValue("20/07/2025");
   },
 };
@@ -158,14 +170,28 @@ export const DisabledDaysDateRange: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const [startIcon, endIcon] = canvas.getAllByTestId("icon");
+    const [startCalendarButton, endCalendarButton] = canvas.getAllByRole(
+      "button",
+      { name: "Open calendar" },
+    );
+    const startInput = canvas.getByRole("textbox", { name: /start date/i });
     const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
-    await userEvent.click(startIcon);
-    await userEvent.keyboard("{ArrowLeft}{Enter}");
+    await userEvent.click(startCalendarButton);
+    const disabledRangeDate = canvas.getByRole("button", {
+      name: /Wednesday, July 16th, 2025/i,
+    });
+    await expect(disabledRangeDate).toBeDisabled();
+    await userEvent.click(disabledRangeDate);
+    await expect(startInput).toHaveValue("10/07/2025");
+    await userEvent.click(startCalendarButton);
 
-    await userEvent.click(endIcon);
-    await userEvent.keyboard("{ArrowRight}{ArrowDown}");
+    await userEvent.click(endCalendarButton);
+    const disabledWeekendDate = canvas.getByRole("button", {
+      name: /Saturday, July 26th, 2025/i,
+    });
+    await expect(disabledWeekendDate).toBeDisabled();
+    await userEvent.click(disabledWeekendDate);
     await expect(endInput).toHaveValue("25/07/2025");
   },
 };
@@ -183,19 +209,12 @@ export const FocusStateDateRange: Story = {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
 
-    const [startIcon] = canvas.getAllByTestId("icon");
-    await userEvent.click(startIcon);
+    const [startCalendarButton] = canvas.getAllByRole("button", {
+      name: "Open calendar",
+    });
+    await userEvent.click(startCalendarButton);
 
     const selectedDayBtn = canvas.getByRole("button", { name: /selected$/i });
-
-    const doc = canvasElement.ownerDocument as Document;
-    for (let i = 0; i < 6 && doc.activeElement !== selectedDayBtn; i += 1) {
-      await userEvent.tab();
-    }
-
-    if (doc.activeElement !== selectedDayBtn) {
-      (selectedDayBtn as HTMLElement).focus();
-    }
 
     await expect(selectedDayBtn).toHaveFocus();
   },
@@ -259,6 +278,7 @@ export const LocaleDeDateRange: Story = {
           ariaLabels: {
             previousMonthButton: () => "de-DE-previous",
             nextMonthButton: () => "de-DE-next",
+            chooseMonth: () => "de-DE-month",
           },
         },
       }}
@@ -275,12 +295,18 @@ export const LocaleDeDateRange: Story = {
     if (!allowInteractions()) return;
 
     const canvas = within(canvasElement);
-    const [startIcon] = canvas.getAllByTestId("icon");
-    await userEvent.click(startIcon);
+    const [startCalendarButton] = canvas.getAllByRole("button", {
+      name: "Open calendar",
+    });
+    await userEvent.click(startCalendarButton);
 
-    const prevMonth = canvas.getByRole("button", { name: /de-DE-previous/i });
-    await userEvent.click(prevMonth);
-    await expect(prevMonth).toHaveFocus();
+    const monthSelect = canvas.getByRole("combobox", {
+      name: /de-DE-month/i,
+    });
+    await userEvent.selectOptions(monthSelect, "5");
+    await expect(monthSelect).toHaveValue("5");
+    await expect(monthSelect).toHaveDisplayValue("Juni");
+    await expect(monthSelect).toHaveFocus();
   },
 };
 
@@ -298,8 +324,10 @@ export const TypingSyncDateRange: Story = {
 
     const canvas = within(canvasElement);
 
-    const [startIcon] = canvas.getAllByTestId("icon");
-    await userEvent.click(startIcon);
+    const [startCalendarButton] = canvas.getAllByRole("button", {
+      name: "Open calendar",
+    });
+    await userEvent.click(startCalendarButton);
 
     const startInput = canvas.getByRole("textbox", { name: /start date/i });
     await userEvent.clear(startInput);
@@ -323,12 +351,17 @@ export const MonthYearNavigationDateRange: Story = {
   ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
-    const c = within(canvasElement);
-    const [startIcon] = c.getAllByTestId("icon");
-    await userEvent.click(startIcon);
-    const next = c.getByRole("button", { name: /next month/i });
-    await userEvent.click(next);
-    await expect(next).toHaveFocus();
+    const canvas = within(canvasElement);
+    const [startCalendarButton] = canvas.getAllByRole("button", {
+      name: "Open calendar",
+    });
+    await userEvent.click(startCalendarButton);
+    const monthSelect = canvas.getByRole("combobox", {
+      name: "Choose the month",
+    });
+    await userEvent.selectOptions(monthSelect, "7");
+    await expect(monthSelect).toHaveValue("7");
+    await expect(monthSelect).toHaveFocus();
   },
 };
 MonthYearNavigationDateRange.parameters = {
