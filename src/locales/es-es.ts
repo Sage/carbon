@@ -20,7 +20,13 @@ const esES: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `Registros seleccionados: ${count}`,
+    ariaLabels: {
+      close: () => "Cerrar",
+    },
+    selected: (count, total) =>
+      total
+        ? `Elementos seleccionados: ${count} de ${total}`
+        : `Elementos seleccionados: ${count}`,
   },
   breadcrumbs: {
     ariaLabel: () => "ruta de navegación",

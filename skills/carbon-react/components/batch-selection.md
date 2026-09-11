@@ -13,138 +13,138 @@ description: Carbon BatchSelection component props and usage examples.
 - Props interface: `BatchSelectionProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| children | React.ReactNode | Yes |  | Content to be rendered after selected count |  |
-| selectedCount | number | Yes |  | Number of selected elements |  |
-| colorTheme | "white" \| "dark" \| "light" \| "transparent" \| undefined | No |  | Color of the background, transparent if not defined | "transparent" |
-| disabled | boolean \| undefined | No |  | If true disables all user interaction | false |
-| hidden | boolean \| undefined | No |  | Hidden if true |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| children | React.ReactNode | Yes |  |  |  | Content to be rendered after selected count. |  |
+| selectedCount | number | Yes |  |  |  | Number of selected items |  |
+| onDismiss | (() => void) \| undefined | No |  |  |  | Callback called when the close button is clicked. Renders the close button when provided. |  |
+| smallScreen | boolean \| undefined | No |  |  |  | Flag to adjust layout for small screens |  |
+| totalItems | number \| undefined | No |  |  |  | Total number of items |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| colorTheme | "white" \| "dark" \| "light" \| "transparent" \| undefined | No |  | Yes | Changing the color theme of this component is no longer supported. |  |  |
+| disabled | boolean \| undefined | No |  | Yes | Disabling this component is no longer supported. |  |  |
+| hidden | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Please use conditional rendering instead. | If true, the component is hidden. |  |
 
 ## Examples
 ### Default
 
+**Args**
+
+```tsx
+{
+    selectedCount: 1,
+    totalItems: 10,
+    onDismiss: () => {},
+  }
+```
+
 **Render**
 
 ```tsx
-() => {
-  return (
-    <BatchSelection selectedCount={0}>
-      <Button size="small" mx={1} buttonType="secondary">
-        Select All 38 items
+(args) => (
+    <BatchSelection {...args}>
+      <Button variantType="tertiary">Button 1</Button>
+      <Button variantType="tertiary">Button 2</Button>
+      <Button variantType="tertiary">Button 3</Button>
+    </BatchSelection>
+  )
+```
+
+
+### SmallScreen
+
+**Args**
+
+```tsx
+{
+    smallScreen: true,
+    selectedCount: 1,
+    totalItems: 10,
+    onDismiss: () => {},
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <BatchSelection {...args}>
+      <Button variantType="tertiary">Button 1</Button>
+      <Button variantType="tertiary">Button 2</Button>
+    </BatchSelection>
+  )
+```
+
+
+### ExampleImplementation
+
+**Args**
+
+```tsx
+{
+    selectedCount: 1,
+    totalItems: 10,
+    onDismiss: () => {},
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    const isSmallScreen = useMediaQuery("(max-width: 680px)");
+    const isLargeScreen = useMediaQuery("(min-width: 840px)");
+
+    const smallScreenActions = (
+      <Button variantType="subtle">
+        Actions
+        <Icon type="caret_down" />
       </Button>
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  );
-}
-```
+    );
 
+    const mediumScreenActions = (
+      <>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 1
+        </Button>
+        <Button variantType="tertiary">
+          <Icon type="ellipsis_horizontal" />
+          More
+        </Button>
+      </>
+    );
 
-### Dark
+    const largeScreenActions = (
+      <>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 1
+        </Button>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 2
+        </Button>
+        <Button variantType="tertiary">
+          <Icon type="placeholder" />
+          Action 3
+        </Button>
+      </>
+    );
 
-**Render**
-
-```tsx
-() => {
-  return (
-    <BatchSelection selectedCount={1} colorTheme="dark">
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  );
-}
-```
-
-
-### Light
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <BatchSelection selectedCount={2} colorTheme="light">
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  );
-}
-```
-
-
-### White
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <BatchSelection selectedCount={3} colorTheme="white">
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-    </BatchSelection>
-  );
-}
-```
-
-
-### Disabled
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <BatchSelection selectedCount={4} disabled>
-      <IconButton onClick={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-      <IconButton onClick={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-      <Button iconType="home" mr="3px">
-        Button
-      </Button>
-      <Link icon="admin">This is a link</Link>
-      <Link icon="admin" onClick={() => {}}>
-        This is actually a button but looks like a link
-      </Link>
-    </BatchSelection>
-  );
-}
+    return (
+      <BatchSelection smallScreen={isSmallScreen} {...args}>
+        <Button variantType="subtle">
+          <Icon type="check_none" />
+          Select All
+        </Button>
+        {!isSmallScreen && <Divider p={0} height="40px" />}
+        {isSmallScreen && smallScreenActions}
+        {isLargeScreen && largeScreenActions}
+        {!isSmallScreen && !isLargeScreen && mediumScreenActions}
+      </BatchSelection>
+    );
+  }
 ```
 

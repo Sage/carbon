@@ -20,7 +20,11 @@ const deDE: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} ausgewählt`,
+    ariaLabels: {
+      close: () => "Schließen",
+    },
+    selected: (count, total) =>
+      total ? `${count} von ${total} ausgewählt` : `${count} ausgewählt`,
   },
   breadcrumbs: {
     ariaLabel: () => "Breadcrumbs",
