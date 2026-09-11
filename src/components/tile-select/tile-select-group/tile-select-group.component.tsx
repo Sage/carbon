@@ -12,6 +12,11 @@ import {
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TileSelectDeselectEvent } from "../tile-select.component";
 
+/**
+ * @deprecated `TileSelectGroup` is deprecated with `TileSelect`. No
+ * like-for-like replacement has been validated; use a product-specific Fusion
+ * pattern. See the Carbon deprecation migration documentation for consumer-specific guidance.
+ */
 export interface TileSelectGroupProps extends MarginProps, TagProps {
   /** The TileSelect components to be rendered in the group */
   children: React.ReactNode;
@@ -35,6 +40,11 @@ export interface TileSelectGroupProps extends MarginProps, TagProps {
   multiSelect?: boolean;
 }
 
+/**
+ * @deprecated `TileSelectGroup` is deprecated with `TileSelect`. No
+ * like-for-like replacement has been validated; use a product-specific Fusion
+ * pattern. See the Carbon deprecation migration documentation for consumer-specific guidance.
+ */
 export const TileSelectGroup = ({
   children,
   name,

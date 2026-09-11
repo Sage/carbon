@@ -38,6 +38,12 @@ export interface TileSelectDeselectEvent {
   };
 }
 
+/**
+ * @deprecated `TileSelect` has low adoption and is a poor fit for its intended
+ * selection UX. No like-for-like replacement has been validated; use a
+ * product-specific Fusion pattern. See the Carbon deprecation migration
+ * documentation for consumer-specific guidance.
+ */
 export interface TileSelectProps extends MarginProps, TagProps {
   /** title of the TileSelect */
   title?: React.ReactNode;
@@ -85,6 +91,12 @@ export interface TileSelectProps extends MarginProps, TagProps {
   accordionExpanded?: boolean;
 }
 
+/**
+ * @deprecated `TileSelect` has low adoption and is a poor fit for its intended
+ * selection UX. No like-for-like replacement has been validated; use a
+ * product-specific Fusion pattern. See the Carbon deprecation migration
+ * documentation for consumer-specific guidance.
+ */
 const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
   (
     {
