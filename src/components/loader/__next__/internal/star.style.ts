@@ -1,134 +1,105 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
-const animateStar = keyframes`
-  0% {
-    transform: translate3d(0px, 0px, 0px) scale(0.3);
-    opacity: 0;
-  }
-  10% {
-    transform: translate3d(0px, 0px, 0px) scale(0.3);
-    opacity: 0;
-  }
-  20% {
-    transform: translate3d(0px, 0px, 0px) scale(0.6);
-    opacity: 1;
-  }
-  35% {
-    transform: translate3d(0px, 0px, 0px) scale(0.6);
-    opacity: 1;
-  }
-  55% {
-    transform: translate3d(16px, -12px, 0px) scale(1.4);
-    opacity: 1;
-  }
-  60% {
-    transform: translate3d(16px, -12px, 0px) scale(1.4);
-    opacity: 1;
-  }
-  90% {
-    transform: translate3d(0px, -24px, 0px) scale(0.8);
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(0px, -24px, 0px) scale(0.6);
-    opacity: 0;
-  }
+const star1Scale = keyframes`
+  0% { transform: scale(0); animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  10.6% { transform: scale(1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  21.2% { transform: scale(0); animation-timing-function: cubic-bezier(0.17, 0, 0.83, 0); }
+  62.8% { transform: scale(0); animation-timing-function: cubic-bezier(0.17, 1, 0.83, 1); }
+  83.9% { transform: scale(1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  94.5% { transform: scale(0); animation-timing-function: cubic-bezier(0, 0, 0.83, 0); }
+  100% { transform: scale(0); }
 `;
 
-const animateStopTop = keyframes`
-  0% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  10% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  50% { stop-color: var(--mode-color-ai-alt-stop-2); }
-  90% { stop-color: var(--mode-color-ai-alt-stop-3); }
-  100% { stop-color: var(--mode-color-ai-alt-stop-3); }
+const star2Scale = keyframes`
+  0%, 10.6% { transform: scale(0); }
+  10.6% { animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  21.2% { transform: scale(1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  31.4% { transform: scale(0); animation-timing-function: cubic-bezier(0.17, 0, 0.83, 0); }
+  69.7% { transform: scale(0); animation-timing-function: cubic-bezier(0.17, 1, 0.83, 1); }
+  83.9% { transform: scale(1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  99.6%, 100% { transform: scale(0); animation-timing-function: cubic-bezier(0, 0, 0.83, 0); }
 `;
 
-const animateStopBottom = keyframes`
-  0% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  10% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  50% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  90% { stop-color: var(--mode-color-ai-alt-stop-2); }
-  100% { stop-color: var(--mode-color-ai-alt-stop-2); }
+const star3Scale = keyframes`
+  0%, 21.2% { transform: scale(0); }
+  21.2% { animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  31.4% { transform: scale(1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  42% { transform: scale(0); animation-timing-function: cubic-bezier(0.17, 0, 0.83, 0); }
+  73.4% { transform: scale(0); animation-timing-function: cubic-bezier(0.17, 1, 0.83, 1); }
+  83.9% { transform: scale(0.9); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  99.6%, 100% { transform: scale(0); animation-timing-function: cubic-bezier(0, 0, 0.83, 0); }
 `;
 
-const time = "3s";
+const star4Scale = keyframes`
+  0%, 31.4% { transform: scale(0); }
+  31.4% { animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  42% { transform: scale(1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  52.6%, 100% { transform: scale(0); animation-timing-function: cubic-bezier(0, 0, 0.83, 0); }
+`;
+
+const star5Scale = keyframes`
+  0%, 42% { transform: scale(0); }
+  42% { animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  52.6% { transform: scale(1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  62.8%, 100% { transform: scale(0); animation-timing-function: cubic-bezier(0, 0, 0.83, 0); }
+`;
+
+const star6Scale = keyframes`
+  0%, 52.6% { transform: scale(0); }
+  52.6% { animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  62.8% { transform: scale(1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  73.4%, 100% { transform: scale(0); animation-timing-function: cubic-bezier(0, 0, 0.83, 0); }
+`;
+
+interface StarScaleProps {
+  $animationTime: number;
+  $hasMotion?: boolean;
+}
+
+const starScaleStyles = (
+  animation: ReturnType<typeof keyframes>,
+) => css<StarScaleProps>`
+  fill: white;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ${animation} ${({ $animationTime }) => $animationTime}s linear
+    infinite;
+  animation-play-state: ${({ $hasMotion }) =>
+    $hasMotion ? "running" : "paused"};
+  animation-delay: ${({ $animationTime, $hasMotion }) =>
+    $hasMotion ? "0s" : `-${$animationTime * 0.84}s`};
+`;
+
+export const StyledLoaderStarRoot = styled.div`
+  display: inline-block;
+  height: var(--global-size-s);
+  position: relative;
+  width: var(--global-size-s);
+`;
 
 export const StyledStarSVG = styled.svg`
-  animation: ${animateStar} ${time} ease-in-out forwards infinite;
-  height: var(--global-size-3-xs);
-  opacity: 0;
-  width: var(--global-size-3-xs);
-`;
-
-export const GradientStopTop = styled.stop`
-  animation: ${animateStopTop} ${time} ease-in-out forwards infinite;
-`;
-
-export const GradientStopBottom = styled.stop`
-  animation: ${animateStopBottom} ${time} ease-in-out forwards infinite;
-`;
-
-export const StyledLoaderStarContainer = styled.div`
-  bottom: 0;
-  height: var(--global-size-3-xs);
-  left: 0;
+  height: 100%;
+  inset: 0;
+  overflow: visible;
   position: absolute;
-  width: var(--global-size-3-xs);
+  width: 100%;
+`;
 
-  &.star-1 {
-    .ai-star-path {
-      fill: url(#gradient1);
-    }
-
-    ${StyledStarSVG} {
-      animation-delay: -2s;
-    }
-
-    #gradient1 {
-      ${GradientStopTop} {
-        animation-delay: -2s;
-      }
-      ${GradientStopBottom} {
-        animation-delay: -2s;
-      }
-    }
-  }
-
-  &.star-2 {
-    .ai-star-path {
-      fill: url(#gradient2);
-    }
-
-    ${StyledStarSVG} {
-      animation-delay: -1s;
-    }
-
-    #gradient2 {
-      ${GradientStopTop} {
-        animation-delay: -1s;
-      }
-      ${GradientStopBottom} {
-        animation-delay: -1s;
-      }
-    }
-  }
-
-  &.star-3 {
-    .ai-star-path {
-      fill: url(#gradient3);
-    }
-
-    ${StyledStarSVG} {
-      animation-delay: 0s;
-    }
-
-    #gradient3 {
-      ${GradientStopTop} {
-        animation-delay: 0s;
-      }
-      ${GradientStopBottom} {
-        animation-delay: 0s;
-      }
-    }
-  }
+export const StyledStar1Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(star1Scale)}
+`;
+export const StyledStar2Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(star2Scale)}
+`;
+export const StyledStar3Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(star3Scale)}
+`;
+export const StyledStar4Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(star4Scale)}
+`;
+export const StyledStar5Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(star5Scale)}
+`;
+export const StyledStar6Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(star6Scale)}
 `;

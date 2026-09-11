@@ -80,7 +80,13 @@ export const Loader = ({
   const loaderContent = (() => {
     switch (loaderTypeValue) {
       case "star":
-        return StarsLoader({ loaderLabel, showLabel, loaderType });
+        return StarsLoader({
+          animationTime,
+          hasMotion,
+          loaderLabel,
+          showLabel,
+          loaderType,
+        });
       case "ring":
         return RingLoader({
           inverse: resolvedInverse,

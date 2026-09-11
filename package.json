@@ -35,6 +35,7 @@
     "clear-playwright-cache": "rimraf ./playwright/.cache",
     "clear-playwright-coverage-json": "rimraf ./playwright/coverage/*.json",
     "test:ct:coverage": "npm run generate-tokens && npm run clear-playwright-cache && npm run clear-playwright-coverage-json && rimraf ./playwright/coverage && playwright test -c playwright-ct.config.ts",
+    "benchmark:loader": "LOADER_BENCHMARK=true playwright test src/components/loader/__next__/loader.benchmark.pw.tsx -c playwright-ct.config.ts --reporter=list --workers=1",
     "pw:coverage:report": "nyc report --reporter=html --report-dir=./playwright/coverage --temp-dir=./playwright/coverage",
     "build": "npm run clean-lib && npm run generate-tokens && npm run type-check && npm run build:compile && npm run build:generate-package-json-files && npm run build:move-svg && npm run build:types",
     "build:compile": "NODE_ENV=production rollup -c \"./rollup.config.mjs\"",
