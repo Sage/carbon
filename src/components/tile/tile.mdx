@@ -54,29 +54,23 @@ By default, the Tile component will have a horizontal layout.
 
 <Canvas of={TileStories.DefaultStory} />
 
-### Roundness variants for corners
+### Outline
 
-<Canvas of={TileStories.LargeRoundness} />
+Use the `outline` prop to set a visible border around the Tile container.
 
-<Canvas of={TileStories.SmallRoundness} />
+<Canvas of={TileStories.OutlineStory} />
 
-### Vertical
+### Radius variants for corners
 
-The Tile component can be also have a vertical layout.
+Use the `radius` prop to set the border radius to either `moderate` or `curved`.
 
-<Canvas of={TileStories.Vertical} />
+<Canvas of={TileStories.RadiusStory} />
 
 ### With TileFooter
 
+Using the `variant` prop on the TileFooter you can indicate whether an object has been `selected` or is currently `active`. If neither of this variants are passed a default variant of the TileFooter is being displayed.
+
 <Canvas of={TileStories.WithTileFooter} />
-
-### With TileHeader
-
-<Canvas of={TileStories.WithTileHeader} />
-
-### With Button in TileHeader
-
-<Canvas of={TileStories.WithButtonInTileHeader} />
 
 ### With custom widths
 
@@ -94,25 +88,21 @@ Any child wrapped by a Tile component can be passed an optional `height` prop if
 
 <Canvas of={TileStories.CustomHeights} />
 
-### Active Tile
+### Alt variant
 
-<Canvas of={TileStories.Active} />
+<Canvas of={TileStories.Alt} />
 
-### Grey variant
+### Positive Variant
 
-<Canvas of={TileStories.Grey} />
+<Canvas of={TileStories.Positive} />
 
-### Custom borders
+### Negative Variant
 
-You can set the `borderVariant` property to alter the border colour as well as the border width with the `borderWidth` property.
+<Canvas of={TileStories.Negative} />
 
-<Canvas of={TileStories.CustomBorders} />
+### Unavailable Variant
 
-### With inline styling
-
-The Tile component can also have inline styling applied to the content.
-
-<Canvas of={TileStories.WithInline} />
+<Canvas of={TileStories.Unavailable} />
 
 ### With different padding and margin
 
@@ -132,24 +122,6 @@ Please note that Dl, Dd and Dt use our common spacing props.
 Providing a number value to the `w` prop, sets the width of the `<Dt />` element as a percentage. The remaining percentage is then assigned to `<Dd />` to occupy the available space.
 
 <Canvas of={TileStories.WithDefinitionListAndCustomWidth} />
-
-### With Definition List with custom text alignment
-
-In this example `dtTextAlign` has been provided the string 'left' and `ddTextAlign` has been provided the string 'right'.
-
-<Canvas of={TileStories.WithDefinitionListAndCustomTextAlignment} />
-
-### With Definition List and ActionPopover and Icon support
-
-<Canvas of={TileStories.WithDefinitionListAndActionPopoverAndIconSupport} />
-
-### With Accordion and Definition List
-
-<Canvas of={TileStories.WithAccordion} />
-
-### With Accordion and TileFooter
-
-<Canvas of={TileStories.WithAccordionAndTileFooter} />
 
 ### Responsive Tile
 
@@ -204,11 +176,31 @@ recommended to override this styling if you are rendering `FlexTileDivider` comp
 
 <Canvas of={TileStories.ResponsiveWithOverflowVisibleStory} />
 
-### Highlight variants
+### Status Keyline
 
-Setting the `highlightVariant` prop will add a highlight to the Tile on the left border.
+Use the `statusKeyline` prop in order to add a highlight to the Tile on the left border. 
 
-<Canvas of={TileStories.HighlightVariants} />
+<Canvas of={TileStories.StatusKeylines} />
+
+### (Deprecated) Roundness variants for corners
+
+The `roundness` prop has been deprecated and will be removed in a future version. Please use the `radius` prop instead.
+
+### (Deprecated) Vertical
+
+The `vertical` layout has been deprecated and will be removed in a future version.
+
+### (Deprecated) With TileHeader
+
+`TileHeader` component has been deprecated and will be removed in a future version. Please use the `Box` component instead.
+
+### (Deprecated) Custom borders
+
+The `borderVariant` and `borderWidth` properties have been deprecated and will be removed in a future version. In orde to display the border please use the correct variant together with the `outline` property.
+
+### (Deprecated) Highlight variants
+
+The `highlightVariant` prop has been deprecated and will be removed in a future version. Please use the `statusKeyline` prop.
 
 ## Props
 

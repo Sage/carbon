@@ -1,6 +1,6 @@
 import React from "react";
 import { PaddingProps } from "styled-system";
-import StyledTileHeader from "./tile-header.style";
+import Box from "../../box";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
@@ -12,14 +12,23 @@ export interface TileHeaderProps extends PaddingProps, TagProps {
   variant?: "default" | "black" | "transparent" | "grey";
 }
 
+const VARIANT_BACKGROUND_COLOR_MAP = {
+  transparent: "transparent",
+  black: "var(--colorsUtilityYin100)",
+  grey: "var(--colorsUtilityMajor025)",
+  default: "var(--colorsUtilityMajor100)",
+};
+
+/** @deprecated The `TileHeader` component is deprecated and will be removed in a future version. Please use the `Box` component instead. */
 export const TileHeader = ({ variant, children, ...rest }: TileHeaderProps) => (
-  <StyledTileHeader
-    variant={variant}
+  <Box
+    backgroundColor={VARIANT_BACKGROUND_COLOR_MAP[variant || "default"]}
+    borderRadius="borderRadius400 borderRadius400 borderRadius000 borderRadius000"
     {...filterStyledSystemPaddingProps(rest)}
     {...tagComponent("tile-header", rest)}
   >
     {children}
-  </StyledTileHeader>
+  </Box>
 );
 
 export default TileHeader;
