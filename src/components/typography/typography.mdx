@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as TypographyStories from "./typography.stories.tsx";
 
@@ -20,6 +20,7 @@ Manages text styles and content hierarchies.
 ## Contents
 
 - [Quick Start](#quick-start)
+- [Playground](#playground)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -34,55 +35,38 @@ import Typography, {
 
 ## Designer Notes
 
-- The Typography component provides a consistent and flexible system for managing text styles across your design. 
+- The Typography component provides a consistent and flexible system for managing text styles across your design.
 - It includes multiple heading and body text options to accommodate various content hierarchies.
-- With theme support for large screens and small screens, this helps ensure readability and brand alignment across different contexts. 
+- With theme support for large screens and small screens, this helps ensure readability and brand alignment across different contexts.
+
+## Playground
+
+Use this interactive example to explore Typography props with Storybook controls.
+
+<Canvas of={TypographyStories.Playground} />
+
+<Controls
+  of={TypographyStories.Playground}
+  include={[
+    "children",
+    "variant",
+    "size",
+    "color",
+    "weight",
+    "fluid",
+    "inverse",
+    "screenReaderOnly",
+  ]}
+/>
 
 ## Examples
 
 ### Variants
 
-Use the `variant` prop to render an element and creates a visual style associated with said element. The `as` prop can also be 
+Use the `variant` prop to render an element and creates a visual style associated with said element. The `as` prop can also be
 used to override the underlying HTML element.
 
 <Canvas of={TypographyStories.VariantsStory} />
-
-
-## Fluid
-
-When set to `true`, the component uses fluid typography with CSS clamp() values for responsive sizing. 
-This allows the text to scale smoothly between breakpoints without requiring media queries.
-
-<Canvas of={TypographyStories.FluidStory} />
-
-## Inverse
-
-When set to `true`, inverts the font colour for use on darker backgrounds. 
-This ensures sufficient contrast and readability when the `Typography` component is placed over dark container backgrounds.
-
-<Canvas of={TypographyStories.InverseStory} />
-
-## Size
-
-The `size` prop controls the font size applied to text. 
-Available on the following variants: `"p"`, `"ul"`, `"ol"`, `"strong"`, `"b"`, `"sup"`, and `"sub"`. Choose between `"M"` for standard size and `"L"` for larger text.
-
-<Canvas of={TypographyStories.SizeStory} />
-
-## Color
-
-The `color` prop applies token-based text colours.
-Available options are `"neutral"`, `"subtle"`, `"caution"`, `"info"`, `"negative"`, and `"positive"`.
-Available on all variants, including heading variants (`"h1"` to `"h5"`, `"section-heading"`, and `"section-subheading"`).
-
-<Canvas of={TypographyStories.ColorStory} />
-
-## Weight
-
-The `weight` prop controls the font weight applied to text. 
-Available on the following variants: `"p"`, `"ul"`, `"ol"`,`"sup"`, and `"sub"`. Choose between `"regular"` for normal weight or `"medium"` for heavier emphasis.
-
-<Canvas of={TypographyStories.WeightStory} />
 
 ## Props
 

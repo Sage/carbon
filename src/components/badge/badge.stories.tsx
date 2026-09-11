@@ -4,15 +4,18 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Badge from ".";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
-import Icon from "../icon";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
 
-const meta: Meta<typeof Badge> = {
+type BadgeStoryArgs = React.ComponentProps<typeof Badge> & {
+  withButton?: boolean;
+};
+
+const meta: Meta<BadgeStoryArgs> = {
   title: "Badge",
   component: Badge,
   argTypes: {
@@ -21,6 +24,12 @@ const meta: Meta<typeof Badge> = {
       control: {
         type: "text",
       },
+    },
+    size: {
+      control: { type: "radio" },
+    },
+    variant: {
+      control: { type: "radio" },
     },
   },
   decorators: [
@@ -41,6 +50,61 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
+export const Playground: StoryObj<BadgeStoryArgs> = {
+  render: (args) => {
+    const { withButton, ...badgeProps } = args;
+    return (
+      <Box mb={1}>
+        <Badge
+          id="badge-playground"
+          {...badgeProps}
+          counter={badgeProps.counter ?? 0}
+        >
+          {withButton && (
+            <Button
+              inverse={badgeProps.inverse}
+              variantType="secondary"
+              aria-describedby="badge-playground"
+            >
+              Filter
+            </Button>
+          )}
+        </Badge>
+      </Box>
+    );
+  },
+  args: {
+    counter: 99,
+    size: "medium",
+    variant: "typical",
+    inverse: false,
+    withButton: false,
+  },
+  argTypes: {
+    withButton: {
+      control: { type: "boolean" },
+      description: "Render Badge with a Button child",
+    },
+  },
+  decorators: [
+    (Story, { args }) => (
+      <Box
+        p={3}
+        display="flex"
+        justifyContent="center"
+        gap={2}
+        backgroundColor={
+          args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)"
+        }
+      >
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
 export const Default: Story = ({ ...args }) => {
   return (
     <>
@@ -52,136 +116,3 @@ export const Default: Story = ({ ...args }) => {
   );
 };
 Default.storyName = "Default";
-
-export const WithChildren: Story = ({ ...args }) => {
-  return (
-    <Badge id="badge-button" counter={99} {...args}>
-      <Button buttonType="secondary" aria-describedby="badge-button">
-        Filter
-      </Button>
-    </Badge>
-  );
-};
-WithChildren.storyName = "With Children";
-
-export const Sizes: Story = ({ ...args }) => {
-  return (
-    <>
-      <Badge id="badge-small" counter={99} size="small" {...args}>
-        <Icon type="alert" color="black" />
-      </Badge>
-      <Badge id="badge-medium" counter={99} size="medium" {...args} />
-      <Badge id="badge-large" counter={99} size="large" {...args} />
-    </>
-  );
-};
-Sizes.storyName = "Sizes";
-
-export const SubtleVariant: Story = ({ ...args }) => {
-  return (
-    <>
-      <Badge id="badge-subtle-small" counter={99} size="small" {...args}>
-        <Icon type="alert" color="black" />
-      </Badge>
-      <Badge id="badge-subtle-medium" counter={99} size="medium" {...args} />
-      <Badge id="badge-subtle-large" counter={99} size="large" {...args} />
-    </>
-  );
-};
-SubtleVariant.storyName = "Subtle Variant";
-SubtleVariant.args = {
-  variant: "subtle",
-};
-
-export const Inverse: Story = ({ ...args }) => {
-  return (
-    <>
-      <Badge id="badge-inverse-small" counter={99} size="small" {...args}>
-        <Icon type="alert" color="white" />
-      </Badge>
-      <Badge id="badge-inverse-medium" counter={99} size="medium" {...args} />
-      <Badge id="badge-inverse-large" counter={99} size="large" {...args} />
-
-      <Badge
-        id="badge-icon"
-        counter={99}
-        size="small"
-        variant="subtle"
-        {...args}
-      >
-        <Icon type="alert" color="white" />
-      </Badge>
-      <Badge
-        id="badge-subtle-inverse-medium"
-        counter={99}
-        size="medium"
-        variant="subtle"
-        {...args}
-      />
-      <Badge
-        id="badge-subtle-inverse-large"
-        counter={99}
-        size="large"
-        variant="subtle"
-        {...args}
-      />
-    </>
-  );
-};
-Inverse.storyName = "Inverse";
-Inverse.args = {
-  inverse: true,
-};
-Inverse.decorators = [
-  (Story) => (
-    <Box p={3} display="flex" gap={2} backgroundColor="--colorsUtilityYin090">
-      <Story />
-    </Box>
-  ),
-];
-
-export const WithOnClick: Story = ({ ...args }) => {
-  const counter = 9;
-  return (
-    <Badge
-      id="badge-onclick"
-      counter={counter}
-      onClick={() => {}}
-      aria-label={`Remove ${counter} filters.`}
-      {...args}
-    >
-      <Button aria-describedby="badge-onclick" buttonType="secondary">
-        Filter
-      </Button>
-    </Badge>
-  );
-};
-WithOnClick.storyName = "With OnClick";
-WithOnClick.parameters = {
-  chromatic: {
-    disableSnapshot: true,
-  },
-};
-
-export const CustomColor: Story = ({ ...args }) => {
-  const counter = 9;
-  return (
-    <Badge
-      id="badge-custom-color"
-      counter={counter}
-      onClick={() => {}}
-      aria-label={`Remove ${counter} filters.`}
-      color="--colorsSemanticNegative500"
-      {...args}
-    >
-      <Button
-        aria-describedby="badge-custom-color"
-        buttonType="secondary"
-        destructive
-      >
-        Filter
-      </Button>
-    </Badge>
-  );
-};
-CustomColor.storyName = "Custom Color";

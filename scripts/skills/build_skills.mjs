@@ -106,24 +106,29 @@ const componentCandidates = [];
 
 // Scan __next__ directories for upcoming components
 const nextComponentFiles = fg.sync(
-  ["src/components/**/__next__/index.{ts,tsx}", "src/components/**/__next__/*.component.{ts,tsx}"],
-  { 
-    cwd: repoRoot, 
+  [
+    "src/components/**/__next__/index.{ts,tsx}",
+    "src/components/**/__next__/*.component.{ts,tsx}",
+  ],
+  {
+    cwd: repoRoot,
     absolute: true,
-    ignore: ["**/__internal__/**"]
-  }
+    ignore: ["**/__internal__/**"],
+  },
 );
 
 for (const filePath of nextComponentFiles) {
   const sourceFile = project.addSourceFileAtPathIfExists(filePath);
   if (!sourceFile) continue;
-  
+
   const exported = sourceFile.getExportedDeclarations();
   for (const [exportName, declarations] of exported.entries()) {
     if (exportName === "default" || exportName.endsWith("Props")) continue;
     if (!/^[A-Z]/.test(exportName)) continue;
-    
-    const relativePath = "./" + path.relative(path.join(repoRoot, "src"), filePath).replace(/\\/g, "/");
+
+    const relativePath =
+      "./" +
+      path.relative(path.join(repoRoot, "src"), filePath).replace(/\\/g, "/");
     const rawModuleSpecifier = relativePath
       .replace(/\/index\.(ts|tsx)$/, "")
       .replace(/\.(ts|tsx)$/, "");
@@ -131,11 +136,11 @@ for (const filePath of nextComponentFiles) {
       /(\/__next__)\/.*\.component$/,
       "$1",
     );
-    
+
     // Keep original name for props lookup, use display name for output
     componentCandidates.push({
-      name: exportName,  // Original name for props lookup
-      displayName: `${exportName}Next`,  // Display name for output files
+      name: exportName, // Original name for props lookup
+      displayName: `${exportName}Next`, // Display name for output files
       moduleSpecifier,
     });
   }
@@ -171,7 +176,8 @@ for (const exportDecl of indexFile.getExportDeclarations()) {
   }
 }
 
-const uniqueComponentCandidates = dedupeComponentCandidates(componentCandidates);
+const uniqueComponentCandidates =
+  dedupeComponentCandidates(componentCandidates);
 
 /** @type {ComponentData[]} */
 const componentData = [];
@@ -186,19 +192,21 @@ for (const candidate of uniqueComponentCandidates) {
   }
 
   const moduleDir = getModuleDir(modulePath);
-  const moduleFiles = fg.sync(["**/*.{ts,tsx}"], {
-    cwd: moduleDir,
-    absolute: true,
-    ignore: [
-      "**/*.spec.*",
-      "**/*.test.*",
-      "**/*.stories.*",
-      "**/*.pw.*",
-      "**/*.mdx",
-      "**/__internal__/**",
-      "**/__next__/**",
-    ],
-  }).sort();
+  const moduleFiles = fg
+    .sync(["**/*.{ts,tsx}"], {
+      cwd: moduleDir,
+      absolute: true,
+      ignore: [
+        "**/*.spec.*",
+        "**/*.test.*",
+        "**/*.stories.*",
+        "**/*.pw.*",
+        "**/*.mdx",
+        "**/__internal__/**",
+        "**/__next__/**",
+      ],
+    })
+    .sort();
 
   for (const filePath of moduleFiles) {
     project.addSourceFileAtPathIfExists(filePath);
@@ -249,7 +257,11 @@ const wouldWrite = [];
 
 /** @type {Map<string, "lf" | "crlf">} */
 const lineEndingPreferences = !checkMode
-  ? await collectLineEndingPreferences([componentsOutDir, referencesDir, skillsRoot])
+  ? await collectLineEndingPreferences([
+      componentsOutDir,
+      referencesDir,
+      skillsRoot,
+    ])
   : new Map();
 
 if (!checkMode) {
@@ -261,7 +273,10 @@ if (!checkMode) {
 }
 
 const skillRootContent = renderSkillRootContent();
-wouldWrite.push({ path: path.join(skillsRoot, "SKILL.md"), content: skillRootContent });
+wouldWrite.push({
+  path: path.join(skillsRoot, "SKILL.md"),
+  content: skillRootContent,
+});
 
 for (const relativePath of docsReferenceFiles) {
   const sourcePath = path.join(repoRoot, relativePath);
@@ -269,9 +284,14 @@ for (const relativePath of docsReferenceFiles) {
     continue;
   }
   const fileName = path.basename(sourcePath);
-  const targetPath = path.join(referencesDir, fileName).replace(/\.mdx?$/, ".md");
+  const targetPath = path
+    .join(referencesDir, fileName)
+    .replace(/\.mdx?$/, ".md");
   const content = await fs.readFile(sourcePath, "utf8");
-  wouldWrite.push({ path: targetPath, content: content.replace(/\r\n/g, "\n") });
+  wouldWrite.push({
+    path: targetPath,
+    content: content.replace(/\r\n/g, "\n"),
+  });
 }
 
 const indexLines = ["# Carbon Component Catalog", "", "## Components", ""];
@@ -292,7 +312,10 @@ for (const component of componentData.sort((a, b) =>
 }
 
 const indexContent = indexLines.join("\n");
-wouldWrite.push({ path: path.join(skillsRoot, "index.md"), content: indexContent });
+wouldWrite.push({
+  path: path.join(skillsRoot, "index.md"),
+  content: indexContent,
+});
 
 if (checkMode) {
   const { hasDiff, diffSummary } = await checkWouldWrite(wouldWrite, {
@@ -301,7 +324,9 @@ if (checkMode) {
   });
   if (hasDiff) {
     // eslint-disable-next-line no-console -- CI output
-    console.error("Skills build check failed: files on disk differ from expected output:\n");
+    console.error(
+      "Skills build check failed: files on disk differ from expected output:\n",
+    );
     // eslint-disable-next-line no-console -- CI output
     console.error(diffSummary);
     process.exit(1);
@@ -352,7 +377,10 @@ async function collectLineEndingPreferences(directories) {
       continue;
     }
 
-    const files = await fs.readdir(dir, { recursive: true, withFileTypes: true });
+    const files = await fs.readdir(dir, {
+      recursive: true,
+      withFileTypes: true,
+    });
 
     for (const file of files) {
       if (!file.isFile()) {
@@ -382,7 +410,11 @@ async function collectLineEndingPreferences(directories) {
  * @param {Map<string, "lf" | "crlf">} preferences
  * @returns {Promise<string>}
  */
-async function applyExistingLineEndingPreference(filePath, content, preferences) {
+async function applyExistingLineEndingPreference(
+  filePath,
+  content,
+  preferences,
+) {
   const key = normalizePathKey(filePath);
   const preference = preferences.get(key);
 
@@ -528,19 +560,21 @@ function resolvePropsDefinition(
       if (!resolved) {
         continue;
       }
-      const targetFiles = fg.sync(["**/*.{ts,tsx}"], {
-        cwd: getModuleDir(resolved),
-        absolute: true,
-        ignore: [
-          "**/*.spec.*",
-          "**/*.test.*",
-          "**/*.stories.*",
-          "**/*.pw.*",
-          "**/*.mdx",
-          "**/__internal__/**",
-          "**/__next__/**",
-        ],
-      }).sort();
+      const targetFiles = fg
+        .sync(["**/*.{ts,tsx}"], {
+          cwd: getModuleDir(resolved),
+          absolute: true,
+          ignore: [
+            "**/*.spec.*",
+            "**/*.test.*",
+            "**/*.stories.*",
+            "**/*.pw.*",
+            "**/*.mdx",
+            "**/__internal__/**",
+            "**/__next__/**",
+          ],
+        })
+        .sort();
 
       const resolvedDefinition = findTypeDefinitionInFiles(
         projectInstance,
@@ -590,46 +624,50 @@ function extractPropsFromDefinition(propsDefinition, defaultsMap) {
     .getProperties()
     .filter((symbol) => !shouldExcludePropSymbol(symbol))
     .map((symbol) => {
-    const declaration = symbol
-      .getDeclarations()
-      .find(
-        (decl) =>
-          decl.isKind(SyntaxKind.PropertySignature) ||
-          decl.isKind(SyntaxKind.PropertyDeclaration),
+      const declaration = symbol
+        .getDeclarations()
+        .find(
+          (decl) =>
+            decl.isKind(SyntaxKind.PropertySignature) ||
+            decl.isKind(SyntaxKind.PropertyDeclaration),
+        );
+      const propType = declaration
+        ? declaration.getType()
+        : symbol.getTypeAtLocation(propsDefinition.node);
+      const literals = getLiteralUnionValues(propType);
+      const jsDocs = declaration?.getJsDocs?.() ?? [];
+      const description = jsDocs
+        .map((doc) => doc.getDescription().trim())
+        .filter(Boolean)
+        .join(" ");
+      const deprecationInfo = getDeprecationFromJsDocs(jsDocs);
+      const required = declaration?.isKind(SyntaxKind.PropertySignature)
+        ? !declaration.hasQuestionToken()
+        : true;
+
+      const resolvedText = propType.getText(
+        declaration ?? propsDefinition.node,
       );
-    const propType = declaration
-      ? declaration.getType()
-      : symbol.getTypeAtLocation(propsDefinition.node);
-    const literals = getLiteralUnionValues(propType);
-    const jsDocs = declaration?.getJsDocs?.() ?? [];
-    const description = jsDocs
-      .map((doc) => doc.getDescription().trim())
-      .filter(Boolean)
-      .join(" ");
-    const deprecationInfo = getDeprecationFromJsDocs(jsDocs);
-    const required = declaration?.isKind(SyntaxKind.PropertySignature)
-      ? !declaration.hasQuestionToken()
-      : true;
+      const typeNode = declaration?.getTypeNode?.();
+      const typeText = (
+        resolvedText.includes("import(") && typeNode
+          ? typeNode.getText()
+          : resolvedText
+      )
+        .replace(/\s+/g, " ")
+        .trim();
 
-    const resolvedText = propType.getText(declaration ?? propsDefinition.node);
-    const typeNode = declaration?.getTypeNode?.();
-    const typeText = (
-      resolvedText.includes("import(") && typeNode
-        ? typeNode.getText()
-        : resolvedText
-    ).replace(/\s+/g, " ").trim();
-
-    return {
-      name: symbol.getName(),
-      type: typeText,
-      required,
-      literals,
-      description: description || null,
-      defaultValue: defaultsMap.get(symbol.getName()) ?? null,
-      deprecated: deprecationInfo.deprecated,
-      deprecationReason: deprecationInfo.reason,
-    };
-  });
+      return {
+        name: symbol.getName(),
+        type: typeText,
+        required,
+        literals,
+        description: description || null,
+        defaultValue: defaultsMap.get(symbol.getName()) ?? null,
+        deprecated: deprecationInfo.deprecated,
+        deprecationReason: deprecationInfo.reason,
+      };
+    });
 }
 
 /**
@@ -881,14 +919,21 @@ function extractFromParameters(parameters, defaults) {
  * @returns {Promise<Map<string, StoryEntry[]>>}
  */
 async function extractStoryData(projectInstance, rootDir) {
-  const storyFiles = fg.sync(
-    ["src/**/*.stories.@(js|jsx|ts|tsx)", "docs/**/*.stories.@(js|jsx|ts|tsx)"],
-    { cwd: rootDir, absolute: true },
-  ).sort();
-  const mdxFiles = fg.sync(["src/**/*.mdx", "docs/**/*.mdx"], {
-    cwd: rootDir,
-    absolute: true,
-  }).sort();
+  const storyFiles = fg
+    .sync(
+      [
+        "src/**/*.stories.@(js|jsx|ts|tsx)",
+        "docs/**/*.stories.@(js|jsx|ts|tsx)",
+      ],
+      { cwd: rootDir, absolute: true },
+    )
+    .sort();
+  const mdxFiles = fg
+    .sync(["src/**/*.mdx", "docs/**/*.mdx"], {
+      cwd: rootDir,
+      absolute: true,
+    })
+    .sort();
 
   /** @type {Map<string, StoryEntry[]>} */
   const storyMap = new Map();
@@ -911,6 +956,10 @@ async function extractStoryData(projectInstance, rootDir) {
 
     const existing = storyMap.get(componentName) ?? [];
     for (const story of stories) {
+      // Exclude Playground stories from skills files
+      if (story.name === "Playground") {
+        continue;
+      }
       existing.push({
         ...story,
         source: path.relative(rootDir, filePath),
@@ -934,6 +983,10 @@ async function extractStoryData(projectInstance, rootDir) {
     }
     const existing = storyMap.get(componentName) ?? [];
     for (const example of examples) {
+      // Exclude Playground examples from skills files
+      if (example.name === "Playground") {
+        continue;
+      }
       existing.push({
         name: example.name,
         argsText: example.code,
@@ -1262,7 +1315,10 @@ function renderSkillRootContent() {
  * @param {{componentsOutDir: string, referencesDir: string}} outputDirs
  * @returns {Promise<{hasDiff: boolean, diffSummary: string}>}
  */
-async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) {
+async function checkWouldWrite(
+  wouldWrite,
+  { componentsOutDir, referencesDir },
+) {
   /** @type {string[]} */
   const diffs = [];
   const expectedPaths = new Set(wouldWrite.map((w) => w.path));
@@ -1272,7 +1328,12 @@ async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) 
     try {
       existing = await fs.readFile(filePath, "utf8");
     } catch (err) {
-      if (err && typeof err === 'object' && 'code' in err && err?.code === "ENOENT") {
+      if (
+        err &&
+        typeof err === "object" &&
+        "code" in err &&
+        err?.code === "ENOENT"
+      ) {
         diffs.push(`  Missing: ${path.relative(repoRoot, filePath)}`);
         continue;
       }
@@ -1512,7 +1573,10 @@ function renderComponentMarkdown(component, stories) {
       const bData = b.name.startsWith("data-");
       const aAria = a.name.startsWith("aria-");
       const bAria = b.name.startsWith("aria-");
-      const groupOrder = (/** @type {boolean} */ data, /** @type {boolean} */ aria) => (data ? 1 : aria ? 2 : 0);
+      const groupOrder = (
+        /** @type {boolean} */ data,
+        /** @type {boolean} */ aria,
+      ) => (data ? 1 : aria ? 2 : 0);
       const ga = groupOrder(aData, aAria);
       const gb = groupOrder(bData, bAria);
       if (ga !== gb) return ga - gb;
@@ -1536,7 +1600,9 @@ function renderComponentMarkdown(component, stories) {
       const defaultValue = (prop.defaultValue ?? "").replace(/\r/g, "");
       if (hasDeprecatedProps) {
         const deprecated = prop.deprecated ? "Yes" : "";
-        const deprecationReason = (prop.deprecationReason ?? "").replace(/\s+/g, " ").trim();
+        const deprecationReason = (prop.deprecationReason ?? "")
+          .replace(/\s+/g, " ")
+          .trim();
         lines.push(
           `| ${prop.name} | ${escapePipes(prop.type)} | ${prop.required ? "Yes" : "No"} | ${escapePipes(literals)} | ${deprecated} | ${escapePipes(deprecationReason)} | ${escapePipes(description)} | ${escapePipes(defaultValue)} |`,
         );
@@ -1557,10 +1623,24 @@ function renderComponentMarkdown(component, stories) {
       lines.push(`### ${story.name}`);
       lines.push("");
       if (story.argsText) {
-        lines.push("**Args**", "", "```tsx", story.argsText.replace(/\r\n/g, "\n"), "```", "");
+        lines.push(
+          "**Args**",
+          "",
+          "```tsx",
+          story.argsText.replace(/\r\n/g, "\n"),
+          "```",
+          "",
+        );
       }
       if (story.renderText) {
-        lines.push("**Render**", "", "```tsx", story.renderText.replace(/\r\n/g, "\n"), "```", "");
+        lines.push(
+          "**Render**",
+          "",
+          "```tsx",
+          story.renderText.replace(/\r\n/g, "\n"),
+          "```",
+          "",
+        );
       }
       lines.push("");
     }
@@ -1637,7 +1717,9 @@ function dedupeComponentCandidates(candidates) {
       continue;
     }
 
-    if (scoreComponentCandidate(candidate) > scoreComponentCandidate(existing)) {
+    if (
+      scoreComponentCandidate(candidate) > scoreComponentCandidate(existing)
+    ) {
       byOutputName.set(outputName, candidate);
     }
   }

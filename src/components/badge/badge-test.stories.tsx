@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import Badge, { BadgeProps } from ".";
 import Box from "../box";
-import Button from "../button";
+import Button from "../button/__next__";
 import MultiActionButton from "../multi-action-button";
 import SplitButton from "../split-button";
 import { Menu, MenuItem } from "../menu";
@@ -84,17 +84,17 @@ export const SizesWithChildren: Story = ({ ...args }) => {
   return (
     <Box m={2} display="flex" gap={2}>
       <Badge id="badge-small" size="small" {...args}>
-        <Button buttonType="secondary" aria-describedby="badge-small">
+        <Button variantType="secondary" aria-describedby="badge-small">
           Filter
         </Button>
       </Badge>
       <Badge id="badge-medium" size="medium" {...args}>
-        <Button buttonType="secondary" aria-describedby="badge-medium">
+        <Button variantType="secondary" aria-describedby="badge-medium">
           Filter
         </Button>
       </Badge>
       <Badge id="badge-large" size="large" {...args}>
-        <Button buttonType="secondary" aria-describedby="badge-large">
+        <Button variantType="secondary" aria-describedby="badge-large">
           Filter
         </Button>
       </Badge>
@@ -164,3 +164,136 @@ InTabs.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
   chromatic: { disableSnapshot: false },
 };
+
+export const WithChildren: Story = ({ ...args }) => {
+  return (
+    <Badge id="badge-button" counter={99} {...args}>
+      <Button variantType="secondary" aria-describedby="badge-button">
+        Filter
+      </Button>
+    </Badge>
+  );
+};
+WithChildren.storyName = "With Children";
+
+export const Sizes: Story = ({ ...args }) => {
+  return (
+    <>
+      <Badge id="badge-small" counter={99} size="small" {...args}>
+        <Icon type="alert" color="black" />
+      </Badge>
+      <Badge id="badge-medium" counter={99} size="medium" {...args} />
+      <Badge id="badge-large" counter={99} size="large" {...args} />
+    </>
+  );
+};
+Sizes.storyName = "Sizes";
+
+export const SubtleVariant: Story = ({ ...args }) => {
+  return (
+    <>
+      <Badge id="badge-subtle-small" counter={99} size="small" {...args}>
+        <Icon type="alert" color="black" />
+      </Badge>
+      <Badge id="badge-subtle-medium" counter={99} size="medium" {...args} />
+      <Badge id="badge-subtle-large" counter={99} size="large" {...args} />
+    </>
+  );
+};
+SubtleVariant.storyName = "Subtle Variant";
+SubtleVariant.args = {
+  variant: "subtle",
+};
+
+export const Inverse: Story = ({ ...args }) => {
+  return (
+    <>
+      <Badge id="badge-inverse-small" counter={99} size="small" {...args}>
+        <Icon type="alert" color="white" />
+      </Badge>
+      <Badge id="badge-inverse-medium" counter={99} size="medium" {...args} />
+      <Badge id="badge-inverse-large" counter={99} size="large" {...args} />
+
+      <Badge
+        id="badge-icon"
+        counter={99}
+        size="small"
+        variant="subtle"
+        {...args}
+      >
+        <Icon type="alert" color="white" />
+      </Badge>
+      <Badge
+        id="badge-subtle-inverse-medium"
+        counter={99}
+        size="medium"
+        variant="subtle"
+        {...args}
+      />
+      <Badge
+        id="badge-subtle-inverse-large"
+        counter={99}
+        size="large"
+        variant="subtle"
+        {...args}
+      />
+    </>
+  );
+};
+Inverse.storyName = "Inverse";
+Inverse.args = {
+  inverse: true,
+};
+Inverse.decorators = [
+  (Story) => (
+    <Box p={3} display="flex" gap={2} backgroundColor="--colorsUtilityYin090">
+      <Story />
+    </Box>
+  ),
+];
+
+export const WithOnClick: Story = ({ ...args }) => {
+  const counter = 9;
+  return (
+    <Badge
+      id="badge-onclick"
+      counter={counter}
+      onClick={() => {}}
+      aria-label={`Remove ${counter} filters.`}
+      {...args}
+    >
+      <Button aria-describedby="badge-onclick" variantType="secondary">
+        Filter
+      </Button>
+    </Badge>
+  );
+};
+WithOnClick.storyName = "With OnClick";
+WithOnClick.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
+
+export const CustomColor: Story = ({ ...args }) => {
+  const counter = 9;
+  return (
+    <Badge
+      id="badge-custom-color"
+      counter={counter}
+      onClick={() => {}}
+      aria-label={`Remove ${counter} filters.`}
+      color="--colorsSemanticNegative500"
+      {...args}
+    >
+      <Button
+        aria-describedby="badge-custom-color"
+        variantType="secondary"
+        variant="destructive"
+      >
+        Filter
+      </Button>
+    </Badge>
+  );
+};
+CustomColor.storyName = "Custom Color";

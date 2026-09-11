@@ -588,7 +588,7 @@ description: Carbon Checkbox component props and usage examples.
 **Render**
 
 ```tsx
-ControlledCheckbox
+DocumentationControlledCheckbox
 ```
 
 
@@ -646,19 +646,6 @@ ControlledCheckbox
 ```
 
 
-### ProgressiveDisclosure
-
-**Args**
-
-```tsx
-{
-    ...WithLabel.args,
-    checked: true,
-    progressiveDisclosure: <DisclosedContent />,
-  }
-```
-
-
 ### Indeterminate State
 
 **Render**
@@ -713,23 +700,6 @@ ControlledCheckbox
 ```
 
 
-### WithCustomLabel
-
-**Args**
-
-```tsx
-{
-    label: <CustomLabel />,
-  }
-```
-
-**Render**
-
-```tsx
-ControlledCheckbox
-```
-
-
 ### Required
 
 **Args**
@@ -752,5 +722,40 @@ ControlledCheckbox
     required: true,
     disabled: true,
   }
+```
+
+
+### ProgressiveDisclosure
+
+**Args**
+
+```tsx
+{
+    label: "Checkbox",
+    progressiveDisclosure: <DisclosedContent />,
+  }
+```
+
+**Render**
+
+```tsx
+ControlledCheckbox
+```
+
+
+### WithCustomLabel
+
+**Args**
+
+```tsx
+{
+    label: <CustomLabel />,
+  }
+```
+
+**Render**
+
+```tsx
+ControlledCheckbox
 ```
 
