@@ -1,5 +1,4 @@
 import fs from "fs";
-import fetch from "node-fetch";
 import semver from "semver";
 
 const { gt } = semver;
