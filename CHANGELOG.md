@@ -1,3 +1,9 @@
+## [161.25.1](https://github.com/Sage/carbon/compare/v161.25.0...v161.25.1) (2026-09-11)
+
+### Bug Fixes
+
+* **textarea:** restore backwards compatibility ([dfa6384](https://github.com/Sage/carbon/commit/dfa63842fd5ae3e8ebe3775cd9776e6240b7457b))
+
 ## [161.25.0](https://github.com/Sage/carbon/compare/v161.24.0...v161.25.0) (2026-09-10)
 
 ### Features
