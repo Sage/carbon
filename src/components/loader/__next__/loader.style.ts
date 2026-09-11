@@ -12,13 +12,6 @@ const ringDimensions: Record<string, number> = {
   large: 80,
 };
 
-const ringStrokeWidths: Record<string, number> = {
-  "extra-small": 2.7,
-  small: 2.7,
-  medium: 2.7,
-  large: 2.7,
-};
-
 const barBorderRadii: Record<string, string> = {
   small: "var(--global-radius-container-2-xs)",
   medium: "var(--global-radius-container-xs)",
@@ -38,56 +31,49 @@ const ringInlineLabelMargins: Record<string, string> = {
   large: "var(--global-space-comp-l)",
 };
 
-const innerBarAnimationOne = keyframes`
+const innerBarAnimation = keyframes`
   0% {
-    left: 0%;
-    animation-timing-function: linear;
-  }
-  30% {
-    left: 10px;
-    animation-timing-function: cubic-bezier(0.5, 0.6, 0.4, 1);
+    transform: translateX(-100%);
   }
   100% {
-    left: calc(100% - 15px);
+    transform: translateX(200%);
   }
 `;
 
-const innerBarAnimationTwo = keyframes`
+const rotateRing = keyframes`
   0% {
-    width: 15px;
-    animation-timing-function: cubic-bezier(0.7, 0, 0.8, 1);
-  }
-  50% {
-    width: 35%;
+    transform: rotate(-90deg);
   }
   100% {
-    width: 15px;
+    transform: rotate(270deg);
   }
 `;
 
 const trackedAnimation = keyframes`
-  from {
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
+  0% {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 1;
   }
-  to {
-    stroke-dasharray: 100;
-    stroke-dashoffset: 20;
+  100% {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 0.2;
   }
 `;
 
-const untrackedAnimation = keyframes`
+const trimRing = keyframes`
   0% {
-    transform: rotate(-90deg);
-    stroke-dashoffset: 95;
+    animation-timing-function: cubic-bezier(0.32, 0, 0.85, 1);
+    stroke-dasharray: 0.1 1;
+    stroke-dashoffset: -0.9;
   }
-  50% {
-    transform: rotate(90deg);
-    stroke-dashoffset: 80;
+  61.686% {
+    animation-timing-function: cubic-bezier(0.502, 0, 0.463, 0.996);
+    stroke-dasharray: 0.35 1;
+    stroke-dashoffset: -0.65;
   }
   100% {
-    transform: rotate(270deg);
-    stroke-dashoffset: 95;
+    stroke-dasharray: 0.1 1;
+    stroke-dashoffset: -0.9;
   }
 `;
 
@@ -152,16 +138,17 @@ export const InnerBar = styled.div<{
   hasMotion?: boolean;
 }>`
   ${({ size, variant, inverse, animationTime, hasMotion }) => css`
-    position: absolute;
     background: ${getBarStyles(variant, inverse).innerBarBackground};
-    width: 15px;
-    height: ${barHeights[size]};
     border-radius: ${barBorderRadii[size]};
-    animation-name: ${innerBarAnimationOne}, ${innerBarAnimationTwo};
-    ${hasMotion && `animation-duration: ${animationTime}s, ${animationTime}s;`}
-    animation-iteration-count: ${hasMotion
-      ? "infinite, infinite"
-      : "none, none"};
+    height: ${barHeights[size]};
+    width: 50%;
+    transform: translateX(${hasMotion ? "-100%" : "50%"});
+    ${hasMotion
+      ? css`
+          animation: ${innerBarAnimation} ${animationTime}s
+            cubic-bezier(0.66, 0, 0.34, 1) infinite;
+        `
+      : "animation: none;"}
   `}
 `;
 
@@ -177,6 +164,10 @@ interface RingSvgProps {
   isError?: boolean;
 }
 
+interface RingArcProps extends RingSvgProps {
+  gradientId?: string;
+}
+
 const getStrokeColor = ({
   inverse,
   isSuccess,
@@ -186,107 +177,78 @@ const getStrokeColor = ({
   isSuccess?: boolean;
   isError?: boolean;
 }) => {
-  if (isError) return "var(--progress-loader-fg-error);";
-  if (isSuccess) return "var(--progress-loader-fg-complete);";
+  if (isError) return "var(--progress-loader-fg-error)";
+  if (isSuccess) return "var(--progress-loader-fg-complete)";
   if (inverse) return "var(--progress-loader-inverse-fg-default)";
   return "var(--progress-loader-fg-default)";
 };
 
 export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
-  ${({
-    inverse,
-    size,
-    hasMotion,
-    isTracked,
-    isError,
-    isSuccess,
-    isGradientVariant,
-    animationTime,
-  }) => {
+  ${({ size }) => {
     const dimension = `${ringDimensions[size]}px`;
-    const strokeWidth = ringStrokeWidths[size];
 
     return css`
       height: ${dimension};
       min-height: ${dimension};
+      width: ${dimension};
+      overflow: visible;
 
       circle[data-role="outer-arc"] {
         fill: transparent;
-        stroke-width: ${strokeWidth}px;
-        stroke: ${inverse
-          ? "var(--progress-loader-inverse-bg-default)"
-          : "var(--progress-loader-bg-default)"};
-        cx: 12px;
-        cy: 12px;
-        r: 10px;
+        stroke-width: 8px;
+        cx: 32px;
+        cy: 32px;
+        r: 28px;
       }
-
-      circle[data-role="inner-arc"] {
-        fill: transparent;
-        stroke-width: ${strokeWidth}px;
-        stroke: ${isGradientVariant
-          ? "none"
-          : getStrokeColor({ inverse, isSuccess, isError })};
-        stroke-linecap: round;
-        stroke-dasharray: 100px;
-        stroke-dashoffset: 95px;
-        transform-origin: 12px 12px 0px;
-        cx: 12px;
-        cy: 12px;
-        r: 10px;
-        transform: rotate(-90deg);
-
-        animation-name: ${isTracked ? trackedAnimation : untrackedAnimation};
-        ${hasMotion && `animation-duration: ${animationTime}s;`}
-        animation-timing-function: cubic-bezier(0, 0, 1, 1);
-        animation-iteration-count: ${hasMotion ? "infinite" : "none"};
-      }
-
-      ${isGradientVariant &&
-      css`
-        circle[data-role="gradient-mask-arc"] {
-          fill: none;
-          stroke: white;
-          stroke-width: ${strokeWidth}px;
-          stroke-linecap: round;
-          stroke-dasharray: 100px;
-          stroke-dashoffset: 95px;
-          transform-origin: 12px 12px 0px;
-          cx: 12px;
-          cy: 12px;
-          r: 10px;
-          transform: rotate(-90deg);
-
-          animation-name: ${untrackedAnimation};
-          ${hasMotion && `animation-duration: ${animationTime}s;`}
-          animation-timing-function: cubic-bezier(0, 0, 1, 1);
-          animation-iteration-count: ${hasMotion ? "infinite" : "none"};
-        }
-      `}
-
-      ${!isGradientVariant &&
-      css`
-        ${StyledNextButton} & circle[data-role="inner-arc"],
-        ${StyledButton} & circle[data-role="inner-arc"] {
-          stroke: currentColor;
-        }
-      `}
     `;
   }}
 `;
 
-export const StyledGradientFill = styled.div`
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    1514.52% 80.26% at 56.89% 94.74%,
-    var(--mode-color-ai-alt-stop-1) 0%,
-    var(--mode-color-ai-alt-stop-2) 51.22%,
-    var(--mode-color-ai-stop-3) 100%
-  );
+export const StyledRingTrack = styled.circle<RingSvgProps>`
+  stroke: ${({ inverse }) =>
+    inverse
+      ? "var(--progress-loader-inverse-bg-default)"
+      : "var(--progress-loader-bg-default)"};
 `;
 
-const STAR_CONTAINER_SIZE = "var(--global-size-m)";
+export const StyledRingRotator = styled.g<RingSvgProps>`
+  transform: rotate(-90deg);
+  transform-origin: 32px 32px;
+  ${({ hasMotion, isTracked, animationTime }) =>
+    hasMotion &&
+    !isTracked &&
+    css`
+      animation: ${rotateRing} ${animationTime}s linear infinite;
+    `}
+`;
+
+export const StyledRingArc = styled.circle<RingArcProps>`
+  fill: transparent;
+  stroke: ${({ gradientId, inverse, isSuccess, isError }) =>
+    gradientId
+      ? `url(#${gradientId})`
+      : getStrokeColor({ inverse, isSuccess, isError })};
+  stroke-width: 8px;
+  stroke-linecap: round;
+  cx: 32px;
+  cy: 32px;
+  r: 28px;
+  stroke-dasharray: 0.1 1;
+  stroke-dashoffset: -0.9;
+
+  ${({ hasMotion, isTracked, animationTime }) =>
+    hasMotion &&
+    css`
+      animation: ${isTracked ? trackedAnimation : trimRing} ${animationTime}s
+        linear infinite;
+    `}
+
+  ${StyledNextButton} &, ${StyledButton} & {
+    ${({ isGradientVariant }) => !isGradientVariant && "stroke: currentColor;"}
+  }
+`;
+
+const STAR_CONTAINER_SIZE = "var(--global-size-s)";
 
 export const StyledStars = styled.div`
   position: relative;

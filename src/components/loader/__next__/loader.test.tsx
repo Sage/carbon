@@ -210,9 +210,10 @@ test("renders correctly when `loaderType` is `standalone` and variant is `ai` an
 
 test("renders correctly when `loaderType` is `standalone` and `hasMotion` prop is not set", () => {
   render(<Loader loaderLabel="Loading" hasMotion={false} />);
+  expect(screen.getByTestId("inner-bar")).toHaveStyleRule("animation", "none");
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
-    "animation-iteration-count",
-    "none,none",
+    "transform",
+    "translateX(50%)",
   );
 });
 
@@ -220,8 +221,18 @@ test("renders correctly when `loaderType` is `standalone` and `animationTime` pr
   render(<Loader animationTime={3} />);
 
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
-    "animation-duration",
-    "3s,3s",
+    "animation",
+    expect.stringContaining("3s cubic-bezier(0.66,0,0.34,1) infinite"),
+  );
+});
+
+test("uses the v4 standalone geometry and default duration", () => {
+  render(<Loader />);
+
+  expect(screen.getByTestId("inner-bar")).toHaveStyleRule("width", "50%");
+  expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
+    "animation",
+    expect.stringContaining("0.983s cubic-bezier(0.66,0,0.34,1) infinite"),
   );
 });
 
@@ -229,6 +240,19 @@ test("renders correctly when `loaderType` is `ring`", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" />);
 
   expect(screen.getByTestId("outer-arc")).toBeVisible();
+  expect(screen.getByRole("presentation")).toHaveAttribute(
+    "viewBox",
+    "0 0 64 64",
+  );
+  expect(screen.getByTestId("inner-arc")).toHaveAttribute("pathLength", "1");
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
+    "stroke-dasharray",
+    "0.1 1",
+  );
+  expect(screen.getByTestId("ring-rotator")).toHaveStyleRule(
+    "transform",
+    "rotate(-90deg)",
+  );
 });
 
 test("renders correctly when `loaderType` is `ring` and variant is `stacked`", () => {
@@ -259,12 +283,12 @@ test("renders correctly when `loaderType` is `ring` and variant is `ai-stacked`"
     "column",
   );
 
-  expect(screen.getByTestId("gradient-fill")).toHaveStyleRule(
-    "background",
-    "radial-gradient( 1514.52% 80.26% at 56.89% 94.74%, var(--mode-color-ai-alt-stop-1) 0%, var(--mode-color-ai-alt-stop-2) 51.22%, var(--mode-color-ai-stop-3) 100% )",
+  const gradient = screen.getByTestId("ai-ring-gradient");
+  expect(gradient).toHaveAttribute("gradientUnits", "userSpaceOnUse");
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
+    "stroke",
+    `url(#${gradient.id})`,
   );
-
-  expect(screen.queryByTestId("inner-arc")).not.toBeInTheDocument();
 });
 
 test("renders correctly when `loaderType` is `ring` and variant is `ai-inline`", () => {
@@ -277,96 +301,73 @@ test("renders correctly when `loaderType` is `ring` and variant is `ai-inline`",
     "row",
   );
 
-  expect(screen.getByTestId("gradient-fill")).toHaveStyleRule(
-    "background",
-    "radial-gradient( 1514.52% 80.26% at 56.89% 94.74%, var(--mode-color-ai-alt-stop-1) 0%, var(--mode-color-ai-alt-stop-2) 51.22%, var(--mode-color-ai-stop-3) 100% )",
+  const gradient = screen.getByTestId("ai-ring-gradient");
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
+    "stroke",
+    `url(#${gradient.id})`,
   );
-
-  expect(screen.queryByTestId("inner-arc")).not.toBeInTheDocument();
 });
 
 test("does not apply ai ring gradient when variant is `ai`", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" variant="ai" />);
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-fg-default)",
-    {
-      modifier: "circle[data-role='inner-arc']",
-    },
   );
+  expect(screen.queryByTestId("ai-ring-gradient")).not.toBeInTheDocument();
 });
 
 test("renders correctly when `loaderType` is `ring` and `inverse` prop is set", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" inverse />);
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-inverse-fg-default)",
-    {
-      modifier: "circle[data-role='inner-arc']",
-    },
   );
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
+  expect(screen.getByTestId("outer-arc")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-inverse-bg-default)",
-    { modifier: "circle[data-role='outer-arc']" },
   );
 });
 
 test("renders correctly when `loaderType` is `ring` and `trackedAnimation` prop is set", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" isTracked />);
-  const element = screen.getByRole("presentation");
-  const styles = window.getComputedStyle(element);
-
-  expect(styles.animationName).not.toBe("none");
-
+  const element = screen.getByTestId("inner-arc");
   expect(element).toHaveStyleRule(
-    "animation-duration",
-    expect.stringMatching(/\d+(\.\d+)?s/),
-    { modifier: "circle[data-role='inner-arc']" },
+    "animation",
+    expect.stringContaining("0.783s linear infinite"),
   );
-
-  expect(element).toHaveStyleRule("stroke-dashoffset", "95px", {
-    modifier: "circle[data-role='inner-arc']",
-  });
+  expect(screen.getByTestId("ring-rotator")).not.toHaveStyleRule("animation");
 });
 
 test("renders correctly when `loaderType` is `ring` and `isSuccess` is true", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" isSuccess />);
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-fg-complete)",
-    { modifier: "circle[data-role='inner-arc']" },
   );
 });
 
 test("renders correctly when `loaderType` is `ring` and `isError` is true", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" isError />);
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-fg-error)",
-    { modifier: "circle[data-role='inner-arc']" },
   );
 });
 
 test("renders correctly when `loaderType` is `ring` and `hasMotion` prop is not set", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" hasMotion={false} />);
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
-    "animation-iteration-count",
-    "none",
-    { modifier: "circle[data-role='inner-arc']" },
-  );
+  expect(screen.getByTestId("inner-arc")).not.toHaveStyleRule("animation");
+  expect(screen.getByTestId("ring-rotator")).not.toHaveStyleRule("animation");
 });
 
 test("renders correctly when `loaderType` is `ring` and variant is `ai-stacked` and `hasMotion` prop is not set", () => {
   render(<Loader loaderType="ring" variant="ai-stacked" hasMotion={false} />);
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
-    "animation-iteration-count",
-    "none",
-    { modifier: "circle[data-role='gradient-mask-arc']" },
-  );
+  expect(screen.getByTestId("inner-arc")).not.toHaveStyleRule("animation");
+  expect(screen.getByTestId("ring-rotator")).not.toHaveStyleRule("animation");
 });
 
 test("renders correctly with the expected background color when `loaderType` is ring and it uses the `inverse` color scheme inside a secondary `Button`", () => {
@@ -382,18 +383,14 @@ test("renders correctly with the expected background color when `loaderType` is 
     </Button>,
   );
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-inverse-fg-default)",
-    {
-      modifier: "circle[data-role='inner-arc']",
-    },
   );
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
+  expect(screen.getByTestId("outer-arc")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-inverse-bg-default)",
-    { modifier: "circle[data-role='outer-arc']" },
   );
 });
 
@@ -404,10 +401,9 @@ test("uses inverse outer arc token when ring loader is rendered inside a primary
     </Button>,
   );
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
+  expect(screen.getByTestId("outer-arc")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-inverse-bg-default)",
-    { modifier: "circle[data-role='outer-arc']" },
   );
 });
 
@@ -418,20 +414,18 @@ test("keeps default outer arc token when ring loader is rendered inside a second
     </Button>,
   );
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
+  expect(screen.getByTestId("outer-arc")).toHaveStyleRule(
     "stroke",
     "var(--progress-loader-bg-default)",
-    { modifier: "circle[data-role='outer-arc']" },
   );
 });
 
 test("renders correctly when `loaderType` is `ring` and `animationTime` prop is set", () => {
   render(<Loader loaderType="ring" animationTime={2} />);
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
-    "animation-duration",
-    "2s",
-    { modifier: "circle[data-role='inner-arc']" },
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
+    "animation",
+    expect.stringContaining("2s linear infinite"),
   );
 });
 
@@ -439,6 +433,54 @@ test("when the user disallows animations or their preference cannot be determine
   render(<Loader loaderType="star" />);
 
   expect(screen.getByText("Loading...")).toBeVisible();
+});
+
+test("renders the six v4 sparkle paths with tokenized gradient stops", () => {
+  render(<Loader loaderType="star" />);
+
+  expect(screen.getAllByTestId("sparkle-star")).toHaveLength(6);
+  expect(screen.getByTestId("sparkle-svg")).toHaveAttribute(
+    "viewBox",
+    "0 0 32 32",
+  );
+
+  const stops = screen.getAllByTestId("sparkle-gradient-stop");
+  expect(stops).toHaveLength(3);
+  expect(stops[0]).toHaveAttribute(
+    "stop-color",
+    "var(--mode-color-ai-alt-stop-1)",
+  );
+  expect(stops[1]).toHaveAttribute("offset", "40%");
+  expect(stops[2]).toHaveAttribute("offset", "90%");
+});
+
+test("applies custom animation time and paused motion to sparkle paths", () => {
+  render(<Loader loaderType="star" animationTime={6} hasMotion={false} />);
+
+  screen.getAllByTestId("sparkle-star").forEach((star) => {
+    expect(star).toHaveStyleRule("animation", expect.stringContaining("6s"));
+    expect(star).toHaveStyleRule("animation-play-state", "paused");
+  });
+});
+
+test("uses unique SVG definition IDs for each loader instance", () => {
+  render(
+    <>
+      <Loader loaderType="ring" variant="ai-inline" />
+      <Loader loaderType="ring" variant="ai-inline" />
+      <Loader loaderType="star" />
+      <Loader loaderType="star" />
+    </>,
+  );
+
+  const definitionIds = [
+    ...screen.getAllByTestId("ai-ring-gradient"),
+    ...screen.getAllByTestId("star-gradient"),
+    ...screen.getAllByTestId("star-mask"),
+  ].map(({ id }) => id);
+
+  expect(new Set(definitionIds).size).toBe(definitionIds.length);
+  expect(definitionIds).toHaveLength(6);
 });
 
 test("uses text colour of a parent Button to style its text and inner ring arc", () => {
@@ -453,9 +495,9 @@ test("uses text colour of a parent Button to style its text and inner ring arc",
     modifier: `${StyledNextButton} &`,
   });
 
-  const innerArc = screen.getByRole("presentation");
+  const innerArc = screen.getByTestId("inner-arc");
   expect(innerArc).toHaveStyleRule("stroke", "currentColor", {
-    modifier: `${StyledNextButton} & circle[data-role='inner-arc']`,
+    modifier: `${StyledNextButton} &`,
   });
 });
 

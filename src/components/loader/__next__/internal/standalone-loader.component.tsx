@@ -23,7 +23,7 @@ const StandaloneLoader = ({
       return animationTime;
     }
 
-    return 2;
+    return 0.983;
   };
 
   const standaloneVariant =
