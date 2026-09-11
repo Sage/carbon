@@ -90,10 +90,8 @@ const frCA: Partial<Locale> = {
   fileInput: {
     dragAndDrop: () => "ou glissez et déposez-le ici.",
     selectFile: () => "Sélectionnez le fichier",
-    fileUploadStatus: () => "État du téléversement des fichiers",
     actions: {
       cancel: () => "Annuler le téléversement",
-      clear: () => "Effacer",
       delete: () => "Supprimer le fichier",
     },
   },

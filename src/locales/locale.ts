@@ -1,5 +1,12 @@
 import { Locale as DateFnsLocale } from "date-fns";
 
+export interface CurrentFileStatusCounts {
+  totalCount: number;
+  uploadingCount: number;
+  completedCount: number;
+  errorCount: number;
+}
+
 interface Locale {
   locale: () => string;
   actions: {
@@ -63,13 +70,22 @@ interface Locale {
     };
   };
   fileInput: {
-    dragAndDrop: () => string;
+    dragAndDrop: (selectButtonText?: string) => string;
     selectFile: () => string;
-    fileUploadStatus: () => string;
+    currentFiles?: (count: number) => string;
+    currentFilesErrorSummary?: (counts: CurrentFileStatusCounts) => string;
+    previouslyUploadedFiles?: (count: number) => string;
+    uploading?: () => string;
+    uploaded?: () => string;
+    uploadError?: () => string;
+    filesAdded?: (files: string[]) => string;
+    uploadComplete?: (files: string[]) => string;
     actions: {
       cancel: () => string;
-      clear: () => string;
       delete: () => string;
+      remove?: () => string;
+      retry?: () => string;
+      preview?: () => string;
     };
   };
   globalHeader: {

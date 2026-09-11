@@ -1,148 +1,313 @@
-import React from "react";
-import Link, { LinkProps } from "../../../link";
-import ButtonMinor from "../../../button-minor";
-import StyledTypography from "../../../typography/typography.style";
-import { StyledProgressBar } from "../../../progress-tracker/progress-tracker.style";
-import LoaderBar from "../../../loader-bar";
-import Icon, { IconType } from "../../../icon";
+import React, { useState } from "react";
+import { type ButtonProps } from "../../../button/__next__";
+import Loader from "../../../loader/__next__";
+import Icon, { type IconType } from "../../../icon";
 import {
+  StyledActionButton,
+  StyledActions,
+  StyledFileUploadStatusDivider,
+  StyledFileDetails,
+  StyledFileName,
+  StyledFileNameRow,
   StyledFileUploadStatus,
-  StyledFileUploadStatusRow,
-  StyledFileLinkContainer,
+  StyledStatusContent,
+  StyledStatusIcon,
+  StyledStatusMessage,
+  StyledThumbnail,
+  StyledThumbnailColumn,
+  StyledUploadingIcon,
 } from "./file-upload-status.style";
 import useLocale from "../../../../hooks/__internal__/useLocale";
+import type ResolvedFileInputLocale from "../resolved-file-input-locale";
 
-interface StatusUploadingProps {
-  /** the status of the upload */
-  status: "uploading";
-  /** a number from 0-100 giving the current upload progress as a percentage. Only used for the `uploading` status.
-   * If the progress prop is not specified in the `uploading` status, a loading animation will be shown instead
-   * (or text equivalent for users with a reduced-motion operating system preference).
-   */
-  progress?: number;
-}
-
-interface StatusDoneProps extends LinkProps {
-  /** the status of the upload */
-  status: "completed" | "previously";
-  /** the URL opened by the file link. Must be provided for only the `completed` and `previously` statuses. */
-  href: string;
-}
-
-interface StatusErrorProps {
-  /** the status of the upload */
-  status: "error";
-}
-
-interface MandatoryStatusProps {
-  /** the name of the file */
+interface SharedStatusProps {
   filename: string;
-  /** a function to be executed when the user clicks the appropriate action button (Clear/Delete File/Cancel Upload)  */
-  onAction: () => void;
-  /** The status message. Used to display the current upload progress, including error messages where appropriate. Not used for the `previously` status. */
+  /** Unique key, since `filename` alone may not be. */
+  id?: string;
   message?: string;
-  /** The icon to use for the file during or after upload */
   iconType?: IconType;
+  thumbnailSrc?: string;
+}
+interface DeprecatedPrimaryAction {
+  /** @deprecated Use the status-specific callback. */
+  onAction: () => void;
+}
+// Callers must supply either the status-specific callback (e.g. `onCancel`)
+// or the deprecated `onAction` - never neither.
+type PrimaryAction<Action extends string> =
+  | (DeprecatedPrimaryAction & Partial<Record<Action, () => void>>)
+  | ({ onAction?: never } & Record<Action, () => void>);
+type StatusUploadingProps = SharedStatusProps &
+  PrimaryAction<"onCancel"> & {
+    status: "uploading";
+    progress?: number;
+  };
+type StatusCompletedProps = SharedStatusProps &
+  // aria-label is set internally, so it's omitted here.
+  Omit<ButtonProps, "href" | "aria-label"> &
+  PrimaryAction<"onDelete"> & {
+    status: "completed";
+    href?: string;
+  };
+type StatusPreviouslyProps = SharedStatusProps &
+  // aria-label is set internally, so it's omitted here.
+  Omit<ButtonProps, "href" | "aria-label"> & {
+    status: "previously";
+    href?: string;
+    onAction?: never;
+    onDelete?: never;
+  };
+type StatusErrorProps = SharedStatusProps &
+  PrimaryAction<"onRemove"> & {
+    status: "error";
+    onRetry?: () => void;
+  };
+export type FileUploadStatusProps =
+  | StatusUploadingProps
+  | StatusCompletedProps
+  | StatusPreviouslyProps
+  | StatusErrorProps;
+interface InternalProps {
+  onActionFocusFallback?: (element: HTMLElement) => void;
+  isInMultiItemList?: boolean;
 }
 
-export type FileUploadStatusProps = MandatoryStatusProps &
-  (StatusUploadingProps | StatusErrorProps | StatusDoneProps);
+interface UploadingIndicatorProps {
+  as: typeof StyledUploadingIcon | typeof StyledStatusIcon;
+  size: "small" | "extra-small";
+  progress?: number;
+  statusMessage?: string;
+}
 
-export const FileUploadStatus = ({
-  status,
-  filename,
-  message,
-  onAction,
-  iconType = "file_generic",
-  ...statusProps
-}: FileUploadStatusProps) => {
-  const locale = useLocale();
-  const statusMessage = message || locale.fileInput.fileUploadStatus();
-
-  let buttonText;
-  let linkProps;
-  let progressBar = null;
-  switch (status) {
-    case "uploading":
-      buttonText = locale.fileInput.actions.cancel();
-      progressBar =
-        (statusProps as StatusUploadingProps).progress === undefined ? (
-          <LoaderBar />
-        ) : (
-          <StyledProgressBar
-            data-element="progress-tracker-bar"
-            data-role="progress-tracker-bar"
-            $progress={(statusProps as StatusUploadingProps).progress}
-            $variant={
-              (statusProps as StatusUploadingProps).progress === 100
-                ? /* istanbul ignore next - captured in chromatic */ "success"
-                : "neutral"
-            }
-            $size="medium"
-            aria-hidden="true"
-          />
-        );
-      break;
-    case "previously":
-    case "completed":
-      buttonText = locale.fileInput.actions.delete();
-      linkProps = { ...statusProps, icon: iconType };
-      break;
-    case "error":
-      buttonText = locale.fileInput.actions.clear();
-      break;
-    // istanbul ignore next
-    default:
-      // no other cases if consumers are using TS, but ESLint still insists on it
-      break;
-  }
-  const actionButton = (
-    <ButtonMinor onClick={onAction} buttonType="tertiary">
-      {buttonText}
-    </ButtonMinor>
-  );
-
-  const fileLink = linkProps ? (
-    <Link download={Boolean(status === "completed")} {...linkProps}>
-      {filename}
-    </Link>
-  ) : (
-    <>
-      <Icon type={iconType} />
-      <span>{filename}</span>
-    </>
-  );
-  const mainRow =
-    status !== "previously" ? (
-      <StyledFileUploadStatusRow>
-        <StyledTypography as="p" mb={0} aria-live="polite">
-          {statusMessage}
-        </StyledTypography>
-        {actionButton}
-      </StyledFileUploadStatusRow>
-    ) : (
-      <StyledFileUploadStatusRow onlyRow>
-        <StyledFileLinkContainer>{fileLink}</StyledFileLinkContainer>
-        {actionButton}
-      </StyledFileUploadStatusRow>
+const UploadingIndicator = ({
+  as: Wrapper,
+  size,
+  progress,
+  statusMessage,
+}: UploadingIndicatorProps) => {
+  if (progress === undefined) {
+    return (
+      <Wrapper>
+        <Loader
+          loaderType="ring"
+          size={size}
+          showLabel={false}
+          loaderLabel={statusMessage}
+        />
+      </Wrapper>
     );
-  const secondRow =
-    status !== "previously" ? (
-      <StyledFileUploadStatusRow upperPadding lowerPadding>
-        <StyledFileLinkContainer>{fileLink}</StyledFileLinkContainer>
-      </StyledFileUploadStatusRow>
-    ) : null;
+  }
   return (
-    <StyledFileUploadStatus
-      data-role="file-upload-status"
-      hasError={status === "error"}
-      complete={(statusProps as StatusUploadingProps).progress === 100}
+    <Wrapper
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={progress}
+      aria-label={statusMessage}
     >
-      {mainRow}
-      {secondRow}
-      {progressBar}
-    </StyledFileUploadStatus>
+      {/* Hide Loader's own role="status" - it would conflict
+      with the progressbar role set above. */}
+      <span aria-hidden>
+        <Loader loaderType="ring" isTracked size={size} showLabel={false} />
+      </span>
+    </Wrapper>
   );
 };
 
+export const FileUploadStatus = (
+  props: FileUploadStatusProps & InternalProps,
+) => {
+  const {
+    status,
+    filename,
+    message,
+    iconType,
+    thumbnailSrc,
+    onAction,
+    onActionFocusFallback,
+    isInMultiItemList,
+  } = props;
+  const fallbackIconType =
+    iconType ?? (status === "error" ? "error" : "file_generic");
+
+  const locale = useLocale();
+  const fileInputLocale = locale.fileInput as ResolvedFileInputLocale;
+
+  const [failedThumbnailSrc, setFailedThumbnailSrc] = useState<string>();
+  const hasThumbnailProp = thumbnailSrc !== undefined;
+  const showThumbnailImage =
+    hasThumbnailProp &&
+    status !== "uploading" &&
+    status !== "error" &&
+    thumbnailSrc !== failedThumbnailSrc;
+
+  const primaryAction =
+    status === "uploading"
+      ? props.onCancel || onAction
+      : status === "error"
+        ? props.onRemove || onAction
+        : status === "completed"
+          ? props.onDelete || onAction
+          : undefined;
+
+  const primaryActionText =
+    status === "uploading"
+      ? fileInputLocale.actions.cancel()
+      : status === "error"
+        ? fileInputLocale.actions.remove()
+        : fileInputLocale.actions.delete();
+
+  const statusMessage =
+    message ||
+    (status === "uploading"
+      ? fileInputLocale.uploading()
+      : status === "completed"
+        ? fileInputLocale.uploaded()
+        : status === "error"
+          ? fileInputLocale.uploadError()
+          : undefined);
+
+  const retryText = fileInputLocale.actions.retry();
+
+  const previewText = fileInputLocale.actions.preview();
+
+  const invoke =
+    (callback?: () => void) =>
+    (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+      callback?.();
+      onActionFocusFallback?.(event.currentTarget);
+    };
+
+  let previewButton: { href: string; buttonProps: ButtonProps } | undefined;
+  if ((status === "completed" || status === "previously") && props.href) {
+    // Strips props already handled elsewhere (filename, status, etc.),
+    // leaving any caller-passed Button props to forward to the preview link.
+    const {
+      filename: _filename,
+      message: _message,
+      iconType: _iconType,
+      thumbnailSrc: _thumbnailSrc,
+      onAction: _onAction,
+      onDelete: _onDelete,
+      onActionFocusFallback: _onActionFocusFallback,
+      isInMultiItemList: _isInMultiItemList,
+      status: _status,
+      href,
+      ...buttonProps
+    } = props;
+    previewButton = { href, buttonProps };
+  }
+
+  const uploadProgress = status === "uploading" ? props.progress : undefined;
+
+  return (
+    <StyledFileUploadStatus
+      data-role="file-upload-status"
+      $hasError={status === "error"}
+      $hasThumbnail={hasThumbnailProp}
+      $isInMultiItemList={isInMultiItemList}
+      role={status === "error" ? "alert" : "group"}
+      aria-label={filename}
+    >
+      {hasThumbnailProp ? (
+        <>
+          <StyledThumbnailColumn>
+            {status === "uploading" ? (
+              <UploadingIndicator
+                as={StyledUploadingIcon}
+                size="small"
+                progress={uploadProgress}
+                statusMessage={statusMessage}
+              />
+            ) : status === "error" ? (
+              <Icon
+                type={fallbackIconType}
+                size="large"
+                aria-hidden
+                color="negative"
+              />
+            ) : showThumbnailImage ? (
+              <StyledThumbnail
+                src={thumbnailSrc}
+                alt=""
+                onError={() => setFailedThumbnailSrc(thumbnailSrc)}
+              />
+            ) : (
+              // No thumbnail yet (loading or failed) - show a generic icon instead.
+              <Icon type={fallbackIconType} aria-hidden color="neutral" />
+            )}
+          </StyledThumbnailColumn>
+          <StyledFileUploadStatusDivider type="vertical" aria-hidden />
+        </>
+      ) : null}
+      <StyledStatusContent>
+        <StyledFileDetails>
+          {hasThumbnailProp ? (
+            <StyledFileName variant="span">{filename}</StyledFileName>
+          ) : (
+            // No thumbnail - show a small status icon before the filename.
+            <StyledFileNameRow>
+              {status === "uploading" ? (
+                <UploadingIndicator
+                  as={StyledStatusIcon}
+                  size="extra-small"
+                  progress={uploadProgress}
+                  statusMessage={statusMessage}
+                />
+              ) : (
+                <StyledStatusIcon>
+                  <Icon
+                    type={fallbackIconType}
+                    aria-hidden
+                    color={status === "error" ? "negative" : "neutral"}
+                  />
+                </StyledStatusIcon>
+              )}
+              <StyledFileName variant="span">{filename}</StyledFileName>
+            </StyledFileNameRow>
+          )}
+          {statusMessage && (
+            <StyledStatusMessage variant="p" $hasError={status === "error"}>
+              {statusMessage}
+            </StyledStatusMessage>
+          )}
+        </StyledFileDetails>
+        <StyledActions>
+          {/* Primary action renders first so the tertiary action ends up rightmost. */}
+          {primaryAction && (
+            <StyledActionButton
+              variantType="subtle"
+              size="small"
+              onClick={invoke(primaryAction)}
+              aria-label={`${primaryActionText} ${filename}`}
+            >
+              {primaryActionText}
+            </StyledActionButton>
+          )}
+          {status === "error" && props.onRetry && (
+            <StyledActionButton
+              variantType="tertiary"
+              size="small"
+              onClick={invoke(props.onRetry)}
+              aria-label={`${retryText} ${filename}`}
+            >
+              {retryText}
+            </StyledActionButton>
+          )}
+          {previewButton && (
+            <StyledActionButton
+              {...previewButton.buttonProps}
+              variantType="tertiary"
+              size="small"
+              href={previewButton.href}
+              aria-label={`${previewText} ${filename}`}
+            >
+              {previewText}
+            </StyledActionButton>
+          )}
+        </StyledActions>
+      </StyledStatusContent>
+    </StyledFileUploadStatus>
+  );
+};
 export default FileUploadStatus;

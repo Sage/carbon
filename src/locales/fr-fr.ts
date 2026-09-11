@@ -90,10 +90,8 @@ const frFR: Partial<Locale> = {
   fileInput: {
     dragAndDrop: () => "ou glisser et déposer votre fichier",
     selectFile: () => "Sélectionnez le fichier",
-    fileUploadStatus: () => "Statut du téléchargement de fichiers",
     actions: {
       cancel: () => "Annuler le téléchargement",
-      clear: () => "Effacer",
       delete: () => "Supprimer le fichier",
     },
   },
