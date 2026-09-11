@@ -1,3 +1,9 @@
+## [161.25.0](https://github.com/Sage/carbon/compare/v161.24.0...v161.25.0) (2026-09-10)
+
+### Features
+
+* **dialog:** add dialog header component ([73628b1](https://github.com/Sage/carbon/commit/73628b1a6b941da9dda5cca5c0e454bf68080821))
+
 ## [161.24.0](https://github.com/Sage/carbon/compare/v161.23.0...v161.24.0) (2026-09-10)
 
 ### Features

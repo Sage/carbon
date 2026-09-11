@@ -32,7 +32,6 @@ import {
 import {
   getDataElementByValue,
   portal,
-  tooltipPreview,
   backgroundUILocator,
 } from "../../../playwright/components";
 
@@ -74,7 +73,7 @@ test.describe("Dialog component", () => {
       });
     });
 
-    test("when help prop is provided, hovering over the rendered help icon displays help text", async ({
+    test("when deprecated help prop is provided, help icon is not rendered", async ({
       mount,
       page,
     }) => {
@@ -83,9 +82,7 @@ test.describe("Dialog component", () => {
       );
 
       const helpIcon = page.getByLabel("help");
-      await helpIcon.hover();
-
-      await expect(page.getByRole("tooltip")).toHaveText("Some help text");
+      await expect(helpIcon).toBeHidden();
     });
 
     test("when Dialog is opened, the first focusable element should be focused", async ({
@@ -325,7 +322,7 @@ test.describe("Dialog component", () => {
       await checkAccessibility(page);
     });
 
-    test("WithHelp story should pass accessibility checks", async ({
+    test("WithHelp story should pass accessibility checks (help prop is deprecated and ignored)", async ({
       mount,
       page,
     }) => {
@@ -338,10 +335,9 @@ test.describe("Dialog component", () => {
 
       await checkAccessibility(page);
 
+      // Verify help icon is not rendered since prop is deprecated
       const helpIcon = page.getByLabel("help");
-      await helpIcon.hover();
-
-      await checkAccessibility(page);
+      await expect(helpIcon).toBeHidden();
     });
 
     test("LoadingContent story should pass accessibility checks", async ({
@@ -668,7 +664,10 @@ test.describe("Fullscreen Dialog component", () => {
       await expect(dialogFullScreen).toBeHidden();
     });
 
-    test("should render component with help text", async ({ mount, page }) => {
+    test("should not render help icon when deprecated help prop is provided", async ({
+      mount,
+      page,
+    }) => {
       await mount(
         <FullScreenDialogComponent
           title="Sample Dialog"
@@ -677,8 +676,7 @@ test.describe("Fullscreen Dialog component", () => {
       );
 
       const helpIcon = getDataElementByValue(page, "question");
-      await helpIcon.hover();
-      await expect(tooltipPreview(page)).toHaveText("Some help text");
+      await expect(helpIcon).toBeHidden();
     });
 
     test("should render component with first input and button as focusableSelectors", async ({
@@ -730,7 +728,10 @@ test.describe("Fullscreen Dialog component", () => {
       );
     });
 
-    test("should check accessibility with help", async ({ mount, page }) => {
+    test("should check accessibility (WithHelp story uses deprecated prop)", async ({
+      mount,
+      page,
+    }) => {
       await mount(<WithHelp />);
 
       const openButton = page
