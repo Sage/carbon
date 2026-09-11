@@ -8,7 +8,8 @@ import {
 } from "./tile.config";
 import Box from "../box";
 import Textarea from "../textarea";
-import Button from "../button";
+import Button from "../button/__next__";
+import { Typography } from "../..";
 
 export default {
   title: "Tile/Test",
@@ -88,7 +89,7 @@ export const DefaultStory = ({
     ) : undefined,
   ];
   return (
-    <Tile p={8} {...args}>
+    <Tile p={8} {...args} outline radius="moderate">
       {tileContent}
     </Tile>
   );
@@ -123,14 +124,7 @@ export const GreyWithTextArea = () => {
     setTextAreaValue(dummyText[Math.floor(Math.random() * dummyText.length)]);
   };
   return (
-    <Tile
-      p={0}
-      mx={1}
-      orientation="vertical"
-      variant="grey"
-      width="50%"
-      roundness="small"
-    >
+    <Tile p={0} mx={1} variant="grey" width="50%" radius="moderate" outline>
       <TileContent>
         <TileHeader pl={3} py={1} variant="grey">
           <Button iconType="settings" onClick={buttonAction}>
@@ -145,8 +139,8 @@ export const GreyWithTextArea = () => {
             borderRadius={[
               "borderRadius000",
               "borderRadius000",
-              "borderRadius050",
-              "borderRadius050",
+              "borderRadius200",
+              "borderRadius200",
             ]}
           />
         </Box>
@@ -157,16 +151,95 @@ export const GreyWithTextArea = () => {
 
 export const MultipleTiles = () => {
   return (
-    <Box p={2} display="flex" flexDirection="column" gap="20px">
-      <Tile>
+    <Box p={2} display="flex" flexDirection="column">
+      <Tile outline radius="moderate">
         <TileContent>Test Body One</TileContent>
         <TileContent>Test Body Two</TileContent>
         <TileContent>Test Body Three</TileContent>
       </Tile>
-      <Tile orientation="vertical">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+    </Box>
+  );
+};
+
+export const DeprecatedTileContentAndTileHeader = () => {
+  return (
+    <Box>
+      <Tile orientation="vertical" width={400} outline>
+        <TileContent>
+          <TileHeader variant="transparent" pb={2}>
+            <Typography pr={2} display="inline" variant="b">
+              Example bold text
+            </Typography>
+            <Typography display="inline">Example text</Typography>
+          </TileHeader>
+          <Box pt={2}>
+            <Typography pb={2} variant="h4" fontWeight="500">
+              Example tile body
+            </Typography>
+            <Typography>
+              Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+              tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor
+              nisi ex voluptate occaecat veniam. Magna aliqua velit aliquip
+              dolore pariatur nostrud deserunt amet.
+            </Typography>
+          </Box>
+        </TileContent>
+      </Tile>
+      <Box my={3} />
+      <Tile px={0} pt={0} orientation="vertical" width={400} outline>
+        <TileContent>
+          <TileHeader p={3}>
+            <Typography pr={2} display="inline" variant="b">
+              Example bold text
+            </Typography>
+            <Typography display="inline">Example text</Typography>
+          </TileHeader>
+          <Box px={3} pt={3}>
+            <Typography pb={2} variant="h4" fontWeight="500">
+              Example tile body
+            </Typography>
+            <Typography>
+              Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+              tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor
+              nisi ex voluptate occaecat veniam. Magna aliqua velit aliquip
+              dolore pariatur nostrud deserunt amet.
+            </Typography>
+          </Box>
+        </TileContent>
+      </Tile>
+      <Box my={3} />
+      <Tile px={0} pt={0} orientation="vertical" width={400} outline>
+        <TileContent>
+          <TileHeader p={2} variant="black" />
+          <Box px={3} pt={3}>
+            <Typography pb={2} variant="h4" fontWeight="500">
+              Example tile body
+            </Typography>
+            <Typography>
+              Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+              tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor
+              nisi ex voluptate occaecat veniam. Magna aliqua velit aliquip
+              dolore pariatur nostrud deserunt amet.
+            </Typography>
+          </Box>
+        </TileContent>
+      </Tile>
+      <Box my={3} />
+      <Tile px={0} pt={0} orientation="vertical" width={400} outline>
+        <TileContent>
+          <TileHeader p={2} variant="grey" />
+          <Box px={3} pt={3}>
+            <Typography pb={2} variant="h4" fontWeight="500">
+              Example tile body
+            </Typography>
+            <Typography>
+              Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+              tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor
+              nisi ex voluptate occaecat veniam. Magna aliqua velit aliquip
+              dolore pariatur nostrud deserunt amet.
+            </Typography>
+          </Box>
+        </TileContent>
       </Tile>
     </Box>
   );
