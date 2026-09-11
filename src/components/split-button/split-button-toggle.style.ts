@@ -1,109 +1,60 @@
 import styled, { css } from "styled-components";
-import StyledButton from "../button/button.style";
+import { StyledButton } from "../button/__next__/button.style";
 import StyledIcon from "../icon/icon.style";
 
-const horizontalPaddingSizes = {
-  small: 5,
-  medium: 10,
-  large: 14,
+const buttonDimensions = {
+  small: "var(--global-size-s)",
+  medium: "var(--global-size-m)",
+  large: "var(--global-size-l)",
 };
 
 type StyledSplitButtonToggleProps = {
-  buttonType: "primary" | "secondary";
-  disabled: boolean;
-  displayed: boolean;
-  size: "small" | "medium" | "large";
+  $displayed: boolean;
+  $size: "small" | "medium" | "large";
   isWhite?: boolean;
 };
 
 const StyledSplitButtonToggle = styled(
   StyledButton,
-)<StyledSplitButtonToggleProps>`
-  ${({ buttonType, disabled, displayed, size, isWhite }) => css`
-    border-top-left-radius: var(--borderRadius000);
-    border-bottom-left-radius: var(--borderRadius000);
+).attrs<StyledSplitButtonToggleProps>(({ isWhite }) => ({
+  $inverse: isWhite,
+}))<StyledSplitButtonToggleProps>`
+  ${({ $displayed, $size, isWhite }) => css`
+    border-top-left-radius: var(--global-size-none);
+    border-bottom-left-radius: var(--global-size-none);
 
-    ${!disabled && displayed && !isWhite
+    ${$displayed
       ? css`
-          background-color: var(--colorsActionMajor500);
-          border-color: var(--colorsActionMajor500);
+          &:not(:disabled) {
+            background-color: ${isWhite
+              ? "var(--button-typical-secondary-bg-active)"
+              : "var(--button-typical-primary-bg-active)"};
+            border-color: ${isWhite
+              ? "var(--button-typical-secondary-bg-active)"
+              : "var(--button-typical-primary-bg-active)"};
 
-          &,
-          ${StyledIcon} {
-            color: var(--colorsActionMajorYang100);
-          }
-
-          &:focus {
-            border-left-color: var(--colorsSemanticFocus500);
+            &,
+            ${StyledIcon} {
+              color: var(--button-typical-primary-label-active);
+            }
           }
         `
       : ""}
 
-    ${!disabled && displayed && isWhite
-      ? css`
-          background-color: var(--colorsActionMajorYang100);
-          border-color: var(--colorsActionMajorYang100);
-
-          &,
-          ${StyledIcon} {
-            color: var(--colorsYin100);
-          }
-
-          &:focus {
-            border-left-color: var(--colorsSemanticFocus500);
-          }
-        `
-      : ""}
-
-    ${!disabled &&
-    buttonType === "primary" &&
-    `
-      position: relative;
-      &::before {
-        content: '';
-        width: 2px;
-        height: 100%;
-        background: var(--colorsActionMajorYang100);
-        position: absolute;
-        left: -2px;
-        z-index: 2;
-      }  
-    `}
-
-    ${buttonType === "secondary" && "border-left-width: 0;"}
-    padding: 0 ${horizontalPaddingSizes[size]}px;
-
-    ${StyledButton} + & {
-      margin-left: 0;
+    position: relative;
+    &::before {
+      content: "";
+      width: var(--global-size-6-xs);
+      height: calc(100% + var(--global-size-5-xs));
+      background: var(--button-typical-primary-label-default);
+      position: absolute;
+      left: -2px;
+      z-index: 2;
     }
 
-    ${StyledButton} + & ${StyledIcon} {
-      margin-left: 0;
-    }
-
-    &:focus {
-      background-color: var(--colorsActionMajor700);
-      border-color: var(--colorsActionMajor700);
-
-      &,
-      ${StyledIcon} {
-        color: var(--colorsActionMajorYang100);
-      }
-    }
-
-    ${!disabled &&
-    isWhite &&
-    `
-      &:focus {
-        background-color: var(--colorsActionMajorYang100);
-        border-color: var(--colorsActionMajorYang100);
-
-        &,
-        ${StyledIcon} {
-          color: var(--colorsYin100);
-        }
-      }
-    `}
+    width: ${buttonDimensions[$size]};
+    min-height: ${buttonDimensions[$size]};
+    padding: var(--global-space-none);
   `}
 `;
 

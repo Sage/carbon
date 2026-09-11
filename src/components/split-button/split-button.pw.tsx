@@ -7,7 +7,7 @@ import {
 } from "./components.test-pw";
 import { Accordion } from "../accordion";
 import SplitButton, { SplitButtonProps } from ".";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { splitToggleButton } from "../../../playwright/components/split-button";
@@ -16,6 +16,33 @@ import { CHARACTERS } from "../../../playwright/support/constants";
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("Functional tests", () => {
+  test("renders the menu outside an overflow-hidden container", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Accordion title="Heading">
+        <Box p={4}>
+          <SplitButton size="large" text="Split button">
+            <Button size="large">Button 1</Button>
+            <Button size="large">Button 2</Button>
+            <Button size="large">Button 3</Button>
+          </SplitButton>
+        </Box>
+      </Accordion>,
+    );
+
+    await page.getByRole("button", { name: "Heading" }).click();
+    await splitToggleButton(page).click();
+
+    const menu = page.getByRole("list");
+    const lastButton = page.getByRole("button", { name: "Button 3" });
+
+    await expect(menu).toBeVisible();
+    await lastButton.click();
+    await expect(menu).toBeHidden();
+  });
+
   test(`closes the list and focuses the next element on the page, when Tab key is pressed on last child button`, async ({
     mount,
     page,
@@ -157,7 +184,7 @@ test.describe("Accessibility tests", () => {
     await mount(
       <Accordion title="Heading">
         <Box p={4}>
-          <SplitButton size="large" subtext="subtext" text="Split button">
+          <SplitButton size="large" text="Split button">
             <Button size="large">Button 1</Button>
             <Button size="large">Button 2</Button>
             <Button size="large">Button 3</Button>
@@ -169,6 +196,9 @@ test.describe("Accessibility tests", () => {
     await page.getByRole("button", { name: "Heading" }).click();
     await splitToggleButton(page).nth(0).click();
 
-    await checkAccessibility(page);
+    const menu = page.getByRole("list");
+    await expect(menu).toBeVisible();
+
+    await checkAccessibility(page, menu);
   });
 });

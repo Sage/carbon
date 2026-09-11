@@ -195,6 +195,29 @@ test("closes additional buttons popup when focus is lost from it", async () => {
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
+test("should keep additional buttons open when focus moves between child buttons", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+      <Button>Second</Button>
+      <Button>Third</Button>
+    </MultiActionButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Main Button" }));
+
+  const firstButton = screen.getByRole("button", { name: "First" });
+  const secondButton = screen.getByRole("button", { name: "Second" });
+
+  firstButton.focus();
+  expect(firstButton).toHaveFocus();
+
+  await user.tab();
+  expect(secondButton).toHaveFocus();
+  expect(screen.getByRole("list")).toBeInTheDocument();
+});
+
 test("closes additional buttons popup when a custom adaptive sidebar blur event is dispatched", async () => {
   jest.useFakeTimers();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -317,6 +340,71 @@ test("should open additional buttons when ArrowDown key is pressed on the main b
   await user.keyboard("{ArrowDown}");
 
   expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+});
+
+test("should focus first child button when ArrowDown is pressed while buttons are already open", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+      <Button>Second</Button>
+    </MultiActionButton>,
+  );
+
+  const mainButton = screen.getByRole("button", { name: "Main Button" });
+  mainButton.focus();
+  await user.keyboard("{ArrowDown}");
+
+  expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+
+  mainButton.focus();
+  await user.keyboard("{ArrowDown}");
+
+  expect(screen.getByRole("button", { name: "First" })).toHaveFocus();
+});
+
+test("should close additional buttons when Enter is pressed while buttons are already open", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  const mainButton = screen.getByRole("button", { name: "Main Button" });
+  mainButton.focus();
+  await user.keyboard("{Enter}");
+
+  expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+
+  mainButton.focus();
+  await user.keyboard("{Enter}");
+
+  expect(
+    screen.queryByRole("button", { name: "First" }),
+  ).not.toBeInTheDocument();
+});
+
+test("should close additional buttons when Space is pressed while buttons are already open", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  const mainButton = screen.getByRole("button", { name: "Main Button" });
+  mainButton.focus();
+  await user.keyboard(" ");
+
+  expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+
+  mainButton.focus();
+  await user.keyboard(" ");
+
+  expect(
+    screen.queryByRole("button", { name: "First" }),
+  ).not.toBeInTheDocument();
 });
 
 test("renders backdrop when opened inside FlatTable", async () => {
