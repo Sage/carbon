@@ -227,6 +227,14 @@ export const HeadingInfo: StoryObj<typeof Dialog> = {
 
 export const DialogStickyFormSmallScreen: Story = {
   name: "Fullscreen Dialog Sticky Form Small Screen",
+  parameters: {
+    chromatic: {
+      modes: {
+        xsm: allModes.xsm,
+        lg: allModes.lg,
+      },
+    },
+  },
   render: () => {
     const [isOpen, setIsOpen] = useState(isChromatic());
 
