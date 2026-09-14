@@ -7,7 +7,7 @@ import {
 } from "lexical";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createHeadlessEditor } from "@lexical/headless";
-import { $generateNodesFromDOM } from "@lexical/html";
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 import {
   StyledSpanNode,
   $createStyledSpanNode,
@@ -441,7 +441,7 @@ describe("StyledSpanNode", () => {
       });
     });
 
-    test("should export effective inline styles when formatted", () => {
+    test("should not leak effective bold/italic styles onto the inner span when formats are combined", () => {
       editor?.update(() => {
         const node = new StyledSpanNode(
           "Formatted Export",
@@ -459,10 +459,12 @@ describe("StyledSpanNode", () => {
         const span = htmlElement.querySelector("span") as HTMLElement;
 
         expect(span).toBeTruthy();
+        // Base typography is preserved on the span; formatting is carried
+        // exclusively by the surrounding <strong>/<em> wrappers.
         // eslint-disable-next-line jest-dom/prefer-to-have-style
-        expect(span.style.fontWeight).toBe("700");
+        expect(span.style.fontWeight).toBe("400");
         // eslint-disable-next-line jest-dom/prefer-to-have-style
-        expect(span.style.fontStyle).toBe("italic");
+        expect(span.style.fontStyle).toBe("");
       });
     });
 
@@ -816,6 +818,428 @@ describe("StyledSpanNode", () => {
           ?.node as StyledSpanNode;
 
         expect(node.getTextContent()).toBe("");
+      });
+    });
+  });
+
+  describe("HTML export/import: typography vs. formatting separation", () => {
+    // exportDOM() keeps base typography (font-weight/size/line-height) on
+    // the <span>; bold/italic/underline are represented only by the
+    // surrounding <strong>/<em>/<u> elements.
+
+    test("bold paragraph keeps its base paragraph weight on the span and is wrapped in strong", () => {
+      editor?.update(() => {
+        const node = StyledSpanNode.createFromOption(
+          "paragraph",
+          "Bold paragraph",
+        );
+        node.toggleFormat("bold");
+
+        const { element } = node.exportDOM();
+        const htmlElement = element as HTMLElement;
+
+        expect(htmlElement.tagName).toBe("STRONG");
+
+        // eslint-disable-next-line testing-library/no-node-access
+        const span = htmlElement.querySelector("span") as HTMLElement;
+
+        expect(span).toBeTruthy();
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.fontWeight).toBe("400");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.fontSize).toBe("14px");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.lineHeight).toBe("21px");
+      });
+    });
+
+    test("italic paragraph is wrapped in em alone, with no fontStyle on the span", () => {
+      editor?.update(() => {
+        const node = StyledSpanNode.createFromOption(
+          "paragraph",
+          "Italic paragraph",
+        );
+        node.toggleFormat("italic");
+
+        const { element } = node.exportDOM();
+        const htmlElement = element as HTMLElement;
+
+        expect(htmlElement.tagName).toBe("EM");
+
+        // eslint-disable-next-line testing-library/no-node-access
+        const span = htmlElement.querySelector("span") as HTMLElement;
+
+        expect(span).toBeTruthy();
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.fontStyle).toBe("");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.fontWeight).toBe("400");
+      });
+    });
+
+    test("underlined paragraph is wrapped in u alone, with no textDecoration on the span", () => {
+      editor?.update(() => {
+        const node = StyledSpanNode.createFromOption(
+          "paragraph",
+          "Underlined paragraph",
+        );
+        node.toggleFormat("underline");
+
+        const { element } = node.exportDOM();
+        const htmlElement = element as HTMLElement;
+
+        expect(htmlElement.tagName).toBe("U");
+
+        // eslint-disable-next-line testing-library/no-node-access
+        const span = htmlElement.querySelector("span") as HTMLElement;
+
+        expect(span).toBeTruthy();
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.textDecoration).toBe("");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.fontWeight).toBe("400");
+      });
+    });
+
+    test("title without additional bold formatting exports as a bare span with font-weight 700", () => {
+      editor?.update(() => {
+        const node = StyledSpanNode.createFromOption("title", "Title");
+
+        const { element } = node.exportDOM();
+        const htmlElement = element as HTMLElement;
+
+        expect(htmlElement.tagName).toBe("SPAN");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(htmlElement.style.fontWeight).toBe("700");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(htmlElement.style.fontSize).toBe("24px");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(htmlElement.style.lineHeight).toBe("30px");
+      });
+    });
+
+    test("explicitly bold title exports as strong > span, with the span still reporting the title's own 700 weight", () => {
+      editor?.update(() => {
+        const node = StyledSpanNode.createFromOption(
+          "title",
+          "Explicitly bold title",
+        );
+        node.toggleFormat("bold");
+
+        const { element } = node.exportDOM();
+        const htmlElement = element as HTMLElement;
+
+        expect(htmlElement.tagName).toBe("STRONG");
+
+        // eslint-disable-next-line testing-library/no-node-access
+        const span = htmlElement.querySelector("span") as HTMLElement;
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.fontWeight).toBe("700");
+      });
+    });
+
+    test.each([
+      ["subtitle", "500", "21px", "26.25px"],
+      ["sectionHeader", "500", "18px", "22.5px"],
+      ["sectionSubheader", "500", "16px", "20px"],
+    ] as const)(
+      "bold %s keeps its non-700 base weight (%s) on the span instead of being overwritten with 700",
+      (typographyKey, weight, size, lineHeight) => {
+        editor?.update(() => {
+          const node = StyledSpanNode.createFromOption(
+            typographyKey,
+            "Bold text",
+          );
+          node.toggleFormat("bold");
+
+          const { element } = node.exportDOM();
+          const htmlElement = element as HTMLElement;
+
+          // eslint-disable-next-line testing-library/no-node-access
+          const span = htmlElement.querySelector("span") as HTMLElement;
+
+          expect(span.style.fontWeight).toBe(weight);
+          expect(span.style.fontSize).toBe(size);
+          expect(span.style.lineHeight).toBe(lineHeight);
+        });
+      },
+    );
+
+    test("italic and underline are not written as inline styles on the span, only via em/u wrappers", () => {
+      editor?.update(() => {
+        const node = StyledSpanNode.createFromOption("paragraph", "Text");
+        node.toggleFormat("italic");
+        node.toggleFormat("underline");
+
+        const { element } = node.exportDOM();
+        const htmlElement = element as HTMLElement;
+
+        // eslint-disable-next-line testing-library/no-node-access
+        const span = htmlElement.querySelector("span") as HTMLElement;
+
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.fontStyle).toBe("");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.textDecoration).toBe("");
+        // The outermost wrapper is <u>, with <em> nested inside it around the span.
+        expect(htmlElement.tagName).toBe("U");
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(htmlElement.querySelector("em")).toBeTruthy();
+      });
+    });
+  });
+
+  describe("HTML export/import round trips", () => {
+    const exportHtml = (build: () => void): string => {
+      let html = "";
+      editor?.update(build);
+      editor?.read(() => {
+        html = $generateHtmlFromNodes(editor as LexicalEditor, null);
+      });
+      return html;
+    };
+
+    type ImportedSpanSnapshot = {
+      fontWeight: string;
+      fontSize: string;
+      lineHeight: string;
+      typographyKey: string;
+      isBold: boolean;
+      isItalic: boolean;
+      isUnderline: boolean;
+    };
+
+    const importHtml = (html: string): ImportedSpanSnapshot => {
+      let snapshot!: ImportedSpanSnapshot;
+      editor?.update(() => {
+        const parser = new DOMParser();
+        const dom = parser.parseFromString(html, "text/html");
+        const nodes = $generateNodesFromDOM(editor as LexicalEditor, dom);
+        const paragraph = nodes[0] as ParagraphNode;
+        const styledNode = paragraph.getFirstChild() as StyledSpanNode;
+
+        expect($isStyledSpanNode(styledNode)).toBe(true);
+
+        snapshot = {
+          fontWeight: styledNode.getFontWeight(),
+          fontSize: styledNode.getFontSize(),
+          lineHeight: styledNode.getLineHeight(),
+          typographyKey: styledNode.getTypographyKey(),
+          isBold: styledNode.hasFormat("bold"),
+          isItalic: styledNode.hasFormat("italic"),
+          isUnderline: styledNode.hasFormat("underline"),
+        };
+      });
+      return snapshot;
+    };
+
+    test("bold paragraph survives an export/import round trip", () => {
+      const html = exportHtml(() => {
+        const root = $getRoot();
+        const paragraph = $createParagraphNode();
+        const node = StyledSpanNode.createFromOption(
+          "paragraph",
+          "Bold paragraph",
+        );
+        node.toggleFormat("bold");
+        paragraph.append(node);
+        root.append(paragraph);
+      });
+
+      const imported = importHtml(html);
+
+      expect(imported.fontWeight).toBe("400");
+      expect(imported.fontSize).toBe("14px");
+      expect(imported.lineHeight).toBe("21px");
+      expect(imported.typographyKey).toBe("paragraph");
+      expect(imported.isBold).toBe(true);
+    });
+
+    test("bold + italic + underline combined survive an export/import round trip", () => {
+      const html = exportHtml(() => {
+        const root = $getRoot();
+        const paragraph = $createParagraphNode();
+        const node = StyledSpanNode.createFromOption(
+          "paragraph",
+          "Combined formatting",
+        );
+        node.toggleFormat("bold");
+        node.toggleFormat("italic");
+        node.toggleFormat("underline");
+        paragraph.append(node);
+        root.append(paragraph);
+      });
+
+      const imported = importHtml(html);
+
+      expect(imported.fontWeight).toBe("400");
+      expect(imported.isBold).toBe(true);
+      expect(imported.isItalic).toBe(true);
+      expect(imported.isUnderline).toBe(true);
+    });
+
+    test("bold sectionHeader keeps its true 500 base weight and typography key after a round trip", () => {
+      const html = exportHtml(() => {
+        const root = $getRoot();
+        const paragraph = $createParagraphNode();
+        const node = StyledSpanNode.createFromOption(
+          "sectionHeader",
+          "Bold header",
+        );
+        node.toggleFormat("bold");
+        paragraph.append(node);
+        root.append(paragraph);
+      });
+
+      const imported = importHtml(html);
+
+      expect(imported.fontWeight).toBe("500");
+      expect(imported.fontSize).toBe("18px");
+      expect(imported.lineHeight).toBe("22.5px");
+      expect(imported.typographyKey).toBe("sectionHeader");
+      expect(imported.isBold).toBe(true);
+    });
+
+    test("title without extra bold formatting is not treated as user-applied bold after a round trip", () => {
+      const html = exportHtml(() => {
+        const root = $getRoot();
+        const paragraph = $createParagraphNode();
+        const node = StyledSpanNode.createFromOption("title", "Title");
+        paragraph.append(node);
+        root.append(paragraph);
+      });
+
+      const imported = importHtml(html);
+
+      expect(imported.fontWeight).toBe("700");
+      expect(imported.typographyKey).toBe("title");
+      expect(imported.isBold).toBe(false);
+    });
+
+    test("explicitly bold title round trips as both title typography and user-applied bold", () => {
+      const html = exportHtml(() => {
+        const root = $getRoot();
+        const paragraph = $createParagraphNode();
+        const node = StyledSpanNode.createFromOption(
+          "title",
+          "Explicitly bold title",
+        );
+        node.toggleFormat("bold");
+        paragraph.append(node);
+        root.append(paragraph);
+      });
+
+      const imported = importHtml(html);
+
+      expect(imported.fontWeight).toBe("700");
+      expect(imported.typographyKey).toBe("title");
+      expect(imported.isBold).toBe(true);
+    });
+
+    test("non-standard typography values (not matching any preset) round trip their raw styles unchanged", () => {
+      const html = exportHtml(() => {
+        const root = $getRoot();
+        const paragraph = $createParagraphNode();
+        const node = $createStyledSpanNode(
+          "Custom typography",
+          "600",
+          "17px",
+          "23px",
+        );
+        paragraph.append(node);
+        root.append(paragraph);
+      });
+
+      const imported = importHtml(html);
+
+      expect(imported.fontWeight).toBe("600");
+      expect(imported.fontSize).toBe("17px");
+      expect(imported.lineHeight).toBe("23px");
+      expect(imported.typographyKey).toBe("paragraph");
+      expect(imported.isBold).toBe(false);
+    });
+
+    test("bold non-standard typography (weight not in any preset) round trips via strong without corrupting size/line-height", () => {
+      const html = exportHtml(() => {
+        const root = $getRoot();
+        const paragraph = $createParagraphNode();
+        const node = $createStyledSpanNode(
+          "Bold custom typography",
+          "600",
+          "17px",
+          "23px",
+        );
+        node.toggleFormat("bold");
+        paragraph.append(node);
+        root.append(paragraph);
+      });
+
+      const imported = importHtml(html);
+
+      expect(imported.fontWeight).toBe("600");
+      expect(imported.fontSize).toBe("17px");
+      expect(imported.lineHeight).toBe("23px");
+      expect(imported.isBold).toBe(true);
+    });
+  });
+
+  describe("Legacy HTML import fallback (older carbon versions / foreign HTML)", () => {
+    // Older carbon exports (and foreign HTML) wrote user-applied bold as a
+    // literal font-weight: 700/bold on the span, sometimes with no <strong>
+    // wrapper. importDOM()'s typographyMap heuristic exists to handle that
+    // legacy markup; current exports never produce spans that need it.
+
+    test("literal font-weight: 700 span with no strong wrapper and no typography match is treated as a formatted paragraph", () => {
+      editor?.update(() => {
+        const domElement = document.createElement("span");
+        domElement.textContent = "Legacy bold paragraph";
+        domElement.style.fontWeight = "700";
+        domElement.style.fontSize = "14px";
+        domElement.style.lineHeight = "21px";
+
+        const importMap = StyledSpanNode.importDOM();
+        const conversionData = importMap?.span(domElement);
+        const node = conversionData?.conversion(document.createElement("span"))
+          ?.node as StyledSpanNode;
+
+        expect(node.getFontWeight()).toBe("400");
+        expect(node.hasFormat("bold")).toBe(true);
+      });
+    });
+
+    test("legacy bold sectionHeader HTML (span font-weight forced to 700, wrapped in strong) recovers the true 500 base weight from size/line-height", () => {
+      editor?.update(() => {
+        const parser = new DOMParser();
+        const dom = parser.parseFromString(
+          '<p><strong><span style="font-weight: 700; font-size: 18px; line-height: 22.5px;">Legacy bold header</span></strong></p>',
+          "text/html",
+        );
+
+        const nodes = $generateNodesFromDOM(editor as LexicalEditor, dom);
+        const paragraph = nodes[0] as ParagraphNode;
+        const styledNode = paragraph.getFirstChild() as StyledSpanNode;
+
+        expect($isStyledSpanNode(styledNode)).toBe(true);
+        expect(styledNode.getFontWeight()).toBe("500");
+        expect(styledNode.getTypographyKey()).toBe("sectionHeader");
+        expect(styledNode.hasFormat("bold")).toBe(true);
+      });
+    });
+
+    test("literal 700 weight with a size/line-height that matches no preset at all falls back to paragraph weight", () => {
+      editor?.update(() => {
+        const domElement = document.createElement("span");
+        domElement.textContent = "Unrecognised legacy bold";
+        domElement.style.fontWeight = "700";
+        domElement.style.fontSize = "19px";
+        domElement.style.lineHeight = "27px";
+
+        const importMap = StyledSpanNode.importDOM();
+        const conversionData = importMap?.span(domElement);
+        const node = conversionData?.conversion(document.createElement("span"))
+          ?.node as StyledSpanNode;
+
+        expect(node.getFontWeight()).toBe("400");
       });
     });
   });
