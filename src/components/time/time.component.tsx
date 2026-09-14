@@ -339,6 +339,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 data-component="hours"
                 ref={hoursRef}
                 value={hourValue}
+                inputMode="numeric"
                 onChange={(ev) => handleChange(ev, "hrs")}
                 onBlur={handleBlur}
                 id={internalHrsId.current}
@@ -378,6 +379,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 data-component="minutes"
                 ref={minsRef}
                 value={minuteValue}
+                inputMode="numeric"
                 onChange={(ev) => handleChange(ev, "mins")}
                 onBlur={handleBlur}
                 id={internalMinsId.current}
