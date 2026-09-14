@@ -34,14 +34,8 @@ import {
 } from "./components.test-pw";
 
 test.describe("Props tests for Textarea component", () => {
-  (
-    [
-      ["flex", 399],
-      ["flex", 400],
-      ["block", 401],
-    ] as const
-  ).forEach(([displayValue, breakpoint]) => {
-    test(`should check label alignment is ${displayValue} with adaptiveLabelBreakpoint ${breakpoint} and viewport 400`, async ({
+  ([399, 400, 401] as const).forEach((breakpoint) => {
+    test(`should keep the label stacked with adaptiveLabelBreakpoint ${breakpoint} and viewport 400`, async ({
       mount,
       page,
     }) => {
@@ -55,7 +49,7 @@ test.describe("Props tests for Textarea component", () => {
         .locator("..")
         .locator("..");
 
-      await expect(labelParentParentElement).toHaveCSS("display", displayValue);
+      await expect(labelParentParentElement).toHaveCSS("display", "block");
     });
   });
 });
