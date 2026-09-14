@@ -106,7 +106,6 @@ const StyledTimeInputField = styled.div<StyledTimeSizeProps>`
 
 const StyledColonWrapper = styled.div<StyledTimeSizeProps>`
   ${({ $size }) => css`
-    border-radius: var(--global-radius-action-s);
     display: flex;
     flex-direction: column;
     align-items: center;
