@@ -30,7 +30,9 @@ import * as SidebarStories from "./sidebar.stories.tsx";
 import Sidebar from "carbon-react/lib/components/sidebar";
 ```
 
-- Sidebar is positioned on the right hand screen of the window by default. To position the sidebar on the left hand side pass `position='left'` to the component.
+- Sidebar is positioned on the right and uses a fluid `30vw` width with a `288px` minimum by default. At 768px and below it occupies the full viewport width without a dimmer, and its content regions scroll together.
+
+- The `position` and preset `size` props are deprecated. Existing explicit values remain supported during migration; use `width` for desktop width customisation.
 
 - The background behind the sidebar is disabled by default. To allow the user to interact with all the UI pass `enableBackgroundUI={ true }` to the component
 
@@ -48,6 +50,12 @@ to ensure behaviour is consistent across all browsers.
 
 <Canvas of={SidebarStories.DefaultStory} />
 
+### Responsive behavior
+
+Above 768px, the Sidebar uses its desktop width and keeps a sticky footer visible while the content scrolls (see [Quick Start](#quick-start) for the full-viewport behaviour at 768px and below).
+
+<Canvas of={SidebarStories.ResponsiveBehavior} />
+
 ### Preventing focus from being restored when Sidebar closes
 
 When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `Sidebar` was opened.
@@ -61,11 +69,21 @@ Focus can instead be programmatically applied to another element if appropriate.
 
 ### With header
 
+String headers are rendered as an `h1`. String and custom React node headers are automatically associated with the dialog. Use `aria-labelledby` or `aria-label` to provide an explicit accessible name instead.
+
 <Canvas of={SidebarStories.WithHeader} />
 
-### With dark header
+### With inverse header
 
-<Canvas of={SidebarStories.WithDarkHeader} />
+Use `headerVariant="inverse"` for the dark treatment. The legacy `dark` and `light` values remain supported as deprecated aliases for `inverse` and `typical`.
+
+<Canvas of={SidebarStories.WithInverseHeader} />
+
+### With gradient keyline
+
+Setting `gradientKeyLine` adds the Carbon AI gradient keyline without changing the header's accessible name.
+
+<Canvas of={SidebarStories.WithGradientKeyLine} />
 
 ### With header and subheader
 
@@ -92,13 +110,15 @@ This may occasionally be useful with things like Toasts where they persist on th
 ### Custom width
 
 It is possible to set a custom width for the `Sidebar` via the `width` [prop](#props).
-Setting this prop will override the preset width value defined via the `size` prop.
+The custom width applies above 768px and cannot reduce the rendered width below 288px.
 
 <Canvas of={SidebarStories.CustomWidth} />
 
-### With header and footer padding overridden
+### Custom header and content padding
 
-<Canvas of={SidebarStories.WithHeaderAndFooterPadding} />
+The header and content padding can be customized independently. Form footers retain their own component styling.
+
+<Canvas of={SidebarStories.CustomHeaderAndContentPadding} />
 
 ### Top modal override
 

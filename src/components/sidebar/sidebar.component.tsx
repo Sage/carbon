@@ -1,8 +1,12 @@
 import React, { useCallback, useRef, RefObject } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
-import Modal, { ModalProps } from "../../__internal__/modal";
-import { StyledSidebar, StyledSidebarContent } from "./sidebar.style";
+import type { ModalProps } from "../../__internal__/modal";
+import {
+  StyledSidebar,
+  StyledSidebarContent,
+  StyledSidebarModal,
+} from "./sidebar.style";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import FocusTrap from "../../__internal__/focus-trap";
@@ -10,7 +14,9 @@ import SidebarHeader, { SidebarSubHeader } from "./__internal__/sidebar-header";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
-import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import tagComponent, {
+  type TagProps,
+} from "../../__internal__/utils/helpers/tags";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 import SidebarContext from "./__internal__/sidebar.context";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -23,14 +29,13 @@ export interface SidebarProps
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
-   * Prop to specify the aria-label of the component.
-   * To be used only when the header prop is not defined, and the component is not labelled by any internal element.
+   * Provides an explicit accessible name for the component, overriding the
+   * automatic association with the header.
    */
   "aria-label"?: string;
   /**
-   * Prop to specify the aria-labelledby property of the component
-   * To be used when the header prop is a custom React Node,
-   * or the component is labelled by an internal element other than the header.
+   * Identifies the element that provides an explicit accessible name for the
+   * component, overriding the automatic association with the header.
    */
   "aria-labelledby"?: string;
   /** Modal content */
@@ -59,8 +64,13 @@ export interface SidebarProps
   header?: React.ReactNode;
   /** Node that will be used as sidebar subheader. */
   subHeader?: React.ReactNode;
-  /** Header background variant for the sidebar. */
-  headerVariant?: "light" | "dark";
+  /**
+   * Header background variant for the sidebar.
+   * `light` and `dark` are deprecated aliases - use `typical` and `inverse` instead.
+   */
+  headerVariant?: "typical" | "inverse" | "light" | "dark";
+  /** Adds the Carbon AI gradient keyline to the header. */
+  gradientKeyLine?: boolean;
   /** A custom close event handler */
   onCancel?: (
     ev:
@@ -70,11 +80,15 @@ export interface SidebarProps
   ) => void;
   /** Sets the open state of the modal */
   open: boolean;
-  /** Sets the position of sidebar, either left or right. */
+  /** @deprecated This prop will be removed in a future release.
+   * Sidebar will always be positioned on the right.
+   * Update the layout to support a right-positioned Sidebar if it is set to
+   * left, otherwise remove the prop.
+   * */
   position?: "left" | "right";
   /** The ARIA role to be applied to the component container */
   role?: string;
-  /** Sets the size of the sidebar when open. */
+  /** @deprecated Use `width` to customise the Sidebar width. */
   size?:
     | "extra-small"
     | "small"
@@ -118,10 +132,11 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       disableEscKey = false,
       enableBackgroundUI = false,
       header,
-      headerVariant = "light",
+      headerVariant = "typical",
+      gradientKeyLine = false,
       subHeader,
       position = "right",
-      size = "medium",
+      size,
       children,
       onCancel,
       role = "dialog",
@@ -163,7 +178,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
 
     const isTopModal = useModalAria(sidebarRef, hidden);
 
-    const closeIcon = () => {
+    const renderCloseButton = () => {
       if (!onCancel) return null;
       return (
         <IconButton
@@ -179,13 +194,19 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       );
     };
 
+    const closeButton = renderCloseButton();
+    const hasHeader = Boolean(header);
+    const hasSubHeader = Boolean(subHeader);
+
     const sidebar = (
       <StyledSidebar
         aria-modal={!enableBackgroundUI && isTopModal}
-        aria-describedby={!ariaDescribedBy ? subHeaderId : ariaDescribedBy}
+        aria-describedby={
+          !ariaDescribedBy && hasSubHeader ? subHeaderId : ariaDescribedBy
+        }
         aria-label={ariaLabel}
         aria-labelledby={
-          !ariaLabelledBy && !ariaLabel ? headerId : ariaLabelledBy
+          ariaLabelledBy || (!ariaLabel && hasHeader ? headerId : undefined)
         }
         data-component="sidebar"
         data-element={dataElement}
@@ -193,28 +214,28 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         ref={setRefs}
         position={position}
         size={size}
-        onCancel={onCancel}
         role={role}
         width={width}
         widthAnimation={widthAnimation && allowMotion}
         className={className}
       >
-        {header && (
+        {hasHeader && (
           <SidebarHeader
             headerVariant={headerVariant}
-            closeIcon={closeIcon()}
+            gradientKeyLine={gradientKeyLine}
+            closeButton={closeButton}
             {...headerPadding}
             id={headerId}
           >
             {header}
           </SidebarHeader>
         )}
-        {subHeader && (
+        {hasSubHeader && (
           <SidebarSubHeader {...subHeaderPadding} id={subHeaderId}>
             {subHeader}
           </SidebarSubHeader>
         )}
-        {!header && closeIcon()}
+        {!hasHeader && closeButton}
         <StyledSidebarContent
           data-element="sidebar-content"
           data-role="sidebar-content"
@@ -229,7 +250,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     );
 
     return (
-      <Modal
+      <StyledSidebarModal
         open={open}
         onCancel={onCancel}
         disableEscKey={disableEscKey}
@@ -252,7 +273,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             {sidebar}
           </FocusTrap>
         )}
-      </Modal>
+      </StyledSidebarModal>
     );
   },
 );
