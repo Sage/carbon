@@ -211,7 +211,7 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
     css`
       @media screen and (max-width: ${smallScreenBreakpoint}) {
         overflow-y: visible;
-        flex-grow: 0;
+        flex-grow: 1;
 
         ${StyledFormFooter} {
           position: static;
