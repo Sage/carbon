@@ -154,15 +154,11 @@ export class StyledSpanNode extends TextNode {
     let element: HTMLElement = document.createElement("span");
     const format = this.getFormat();
 
-    element.style.fontWeight = format & IS_BOLD ? "700" : this.__fontWeight;
+    // Span keeps only the base typography. User-applied bold/italic/underline
+    // are represented by the surrounding <strong>/<em>/<u> wrappers below.
+    element.style.fontWeight = this.__fontWeight;
     element.style.fontSize = this.__fontSize;
     element.style.lineHeight = this.__lineHeight;
-    if (format & IS_ITALIC) {
-      element.style.fontStyle = "italic";
-    }
-    if (format & IS_UNDERLINE) {
-      element.style.textDecoration = "underline";
-    }
     element.textContent = this.getTextContent();
 
     if (format & IS_BOLD) {
@@ -193,9 +189,10 @@ export class StyledSpanNode extends TextNode {
           const lineHeight = domNode.style.lineHeight || "21px";
           let shouldApplyBoldFormat = false;
 
-          // If font-weight is bold/700 but doesn't match a typography preset
-          // that genuinely uses 700 (e.g. title at 24px/30px), it was likely
-          // set by format (e.g. parent <strong>) so normalise to base weight.
+          // Legacy fallback: older carbon exports (and foreign HTML) wrote
+          // user-applied bold as a literal font-weight: 700/bold on the span
+          // instead of a <strong> wrapper. Current exports never do this
+          // (see exportDOM), so this only fires for legacy/foreign markup.
           if (fontWeight === "700" || fontWeight === "bold") {
             const matchesTypography = Object.values(typographyMap).some(
               (t) =>
@@ -204,7 +201,14 @@ export class StyledSpanNode extends TextNode {
                 t.lineHeight === lineHeight,
             );
             if (!matchesTypography) {
-              fontWeight = "400";
+              // No preset matches 700 at this size/line-height, so 700 was
+              // likely applied formatting, not the base weight. Recover the
+              // true base weight from size + line-height, falling back to
+              // paragraph weight if nothing matches.
+              const matchedBySizeOnly = Object.values(typographyMap).find(
+                (t) => t.size === fontSize && t.lineHeight === lineHeight,
+              );
+              fontWeight = matchedBySizeOnly ? matchedBySizeOnly.weight : "400";
               shouldApplyBoldFormat = !domNode.closest("strong, b");
             }
           }
