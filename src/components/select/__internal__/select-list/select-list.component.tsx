@@ -346,7 +346,9 @@ const SelectList = React.forwardRef(
           "data-index": index,
         };
 
-        return child !== undefined ? React.cloneElement(child, newProps) : null;
+        return child !== undefined
+          ? React.cloneElement(child, newProps)
+          : /* istanbul ignore next */ null;
       })
       .filter((el) => el !== null);
 

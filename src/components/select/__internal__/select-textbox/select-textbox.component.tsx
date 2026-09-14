@@ -190,9 +190,7 @@ const SelectTextbox = React.forwardRef(
       }
     }
 
-    function handleDropdownIconMouseDown(
-      event: React.MouseEvent<HTMLElement>,
-    ) {
+    function handleDropdownIconMouseDown(event: React.MouseEvent<HTMLElement>) {
       if (disabled || readOnly) {
         return;
       }

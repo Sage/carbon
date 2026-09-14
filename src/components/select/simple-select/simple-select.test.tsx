@@ -240,9 +240,29 @@ test("positions the dropdown at bottom-end by default", async () => {
 
   await user.click(screen.getByRole("combobox"));
 
-  expect(
-    screen.getByTestId("menu-wrapper"),
-  ).toHaveAttribute("data-floating-placement", "bottom-end");
+  expect(screen.getByTestId("menu-wrapper")).toHaveAttribute(
+    "data-floating-placement",
+    "bottom-end",
+  );
+});
+
+test("applies listMaxHeight and inputWidth to the open list", async () => {
+  const user = userEvent.setup();
+  render(
+    <SimpleSelect
+      label="Colour"
+      onChange={() => {}}
+      value=""
+      listMaxHeight={240}
+      inputWidth={60}
+    >
+      <Option text="amber" value="amber" />
+    </SimpleSelect>,
+  );
+
+  await user.click(screen.getByRole("combobox"));
+
+  expect(await screen.findByRole("listbox")).toHaveStyle("max-height: 240px");
 });
 
 describe("loading state", () => {
@@ -295,11 +315,10 @@ describe("loading state", () => {
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-loader")).toBeVisible();
-    const ringSvg = screen
-      .getByTestId("ring-loader-container")
-      .querySelector('svg[role="presentation"]');
-
-    expect(ringSvg).toHaveStyleRule("height", "80px");
+    expect(screen.getByTestId("ring-loader-svg")).toHaveStyleRule(
+      "height",
+      "80px",
+    );
   });
 });
 
@@ -318,9 +337,10 @@ test("ignores the deprecated listPlacement prop", async () => {
 
   await user.click(screen.getByRole("combobox"));
 
-  expect(
-    screen.getByTestId("menu-wrapper"),
-  ).toHaveAttribute("data-floating-placement", "bottom-end");
+  expect(screen.getByTestId("menu-wrapper")).toHaveAttribute(
+    "data-floating-placement",
+    "bottom-end",
+  );
 });
 
 describe("typing into the input", () => {
@@ -853,6 +873,24 @@ describe("dropdown list", () => {
     });
   });
 
+  it("closes when focus returns to the input after clicking outside", async () => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <SimpleSelect label="Colour" onChange={() => {}} value="">
+          <Option text="amber" value="amber" />
+        </SimpleSelect>
+        <button type="button">Outside content</button>
+      </>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.click(screen.getByRole("button", { name: "Outside content" }));
+    await user.click(screen.getByRole("combobox"));
+
+    expect(await screen.findByRole("listbox")).toBeVisible();
+  });
+
   it("closes the list with the Tab key", async () => {
     const user = userEvent.setup();
     render(
@@ -1063,6 +1101,21 @@ describe("when onBlur prop is passed", () => {
 
     expect(onBlur).not.toHaveBeenCalled();
   });
+
+  it("does not call onBlur after the input mouse down event", () => {
+    const onBlur = jest.fn();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} onBlur={onBlur} value="">
+        <Option text="amber" value="amber" />
+      </SimpleSelect>,
+    );
+
+    const input = screen.getByRole("combobox");
+    fireEvent.mouseDown(input);
+    fireEvent.blur(input);
+
+    expect(onBlur).not.toHaveBeenCalled();
+  });
 });
 
 describe("forwarded ref", () => {
@@ -1128,6 +1181,34 @@ test("does not call onOpen, when openOnFocus is true and the input is refocused 
   act(() => jest.runOnlyPendingTimers());
 
   expect(onOpen).not.toHaveBeenCalled();
+
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
+
+test("does not reopen after its input is clicked while openOnFocus is enabled", () => {
+  jest.useFakeTimers();
+  const onOpen = jest.fn();
+  render(
+    <SimpleSelect
+      label="Colour"
+      onChange={() => {}}
+      onOpen={onOpen}
+      openOnFocus
+      value=""
+    >
+      <Option text="amber" value="amber" />
+    </SimpleSelect>,
+  );
+
+  const input = screen.getByRole("combobox");
+  fireEvent.focus(input);
+  act(() => jest.runOnlyPendingTimers());
+  fireEvent.click(input);
+  fireEvent.focus(input);
+  act(() => jest.runOnlyPendingTimers());
+
+  expect(onOpen).toHaveBeenCalledTimes(1);
 
   jest.runOnlyPendingTimers();
   jest.useRealTimers();

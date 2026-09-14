@@ -3,7 +3,6 @@ import {
   Select,
   Option,
   OptionGroupHeader,
-  CustomSelectChangeEvent,
 } from "../../../../src/components/select";
 import Box from "../../box";
 import Icon from "../../icon";
@@ -545,39 +544,3 @@ export const DropdownSubtle = () => {
   );
 };
 DropdownSubtle.storyName = "Dropdown: subtle";
-
-export const LocalRegressionCheck = () => {
-  const [value, setValue] = useState('');
-  const [confirmedSelection, setConfirmedSelection] = useState('');
-  const handleChange = (event: CustomSelectChangeEvent) => {
-    setValue(event.target.value);
-    if (event.selectionConfirmed) {
-      setConfirmedSelection(event.target.value);
-    }
-  };
-
-  console.log(confirmedSelection)
-
-  return (
-      <Select
-        name="testing"
-        isLoading
-        value={value}
-        onChange={handleChange}
-        openOnFocus
-        label="Test"
-        placeholder=" "
-      >
-        <Option value="1" text="isloading?" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-        <Option value="4" text="Four" />
-        <Option value="5" text="Five" />
-        <Option value="6" text="Six" />
-        <Option value="7" text="Seven" />
-        <Option value="8" text="Eight" />
-        <Option value="9" text="Nine" />
-      </Select>
-  );
-};
-LocalRegressionCheck.storyName = "Local regression check";

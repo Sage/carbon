@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import SelectTextbox, { SelectTextboxProps } from ".";
@@ -325,3 +325,18 @@ describe.each(["filterable", "multi"] as const)(
     });
   },
 );
+
+test("calls onIconClick callback when the dropdown icon is clicked", () => {
+  const onIconClick = jest.fn();
+  render(
+    <ControlledSelectTextbox
+      label="Textbox"
+      selectType="simple"
+      onIconClick={onIconClick}
+    />,
+  );
+
+  fireEvent.click(screen.getByTestId("input-icon-toggle"));
+
+  expect(onIconClick).toHaveBeenCalledTimes(1);
+});

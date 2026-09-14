@@ -244,11 +244,9 @@ export const SimpleSelect = React.forwardRef<
   ) => {
     const selectListId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
-    const listboxRef = useRef<HTMLDivElement>(null);
     const filterTimer = useRef<number | undefined>(undefined);
     const isMouseDownReported = useRef<boolean>();
     const isTimerCounting = useRef<boolean>();
-    const isClickTriggeredBySelect = useRef<boolean>();
     const filterText = useRef<string>();
     const suppressRefocusOnSelect = useRef<boolean>(false);
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
@@ -344,7 +342,10 @@ export const SimpleSelect = React.forwardRef<
 
         // Opening the list is select-specific as SimpleSelect owns the open
         // state. Space, Enter and the navigation keys open the closed list.
-        if (!isOpen && (key === " " || key === "Enter" || isNavigationKey(key))) {
+        if (
+          !isOpen &&
+          (key === " " || key === "Enter" || isNavigationKey(key))
+        ) {
           event.preventDefault();
           suppressRefocusOnSelect.current = false;
 
@@ -385,17 +386,12 @@ export const SimpleSelect = React.forwardRef<
       const notInContainer =
         containerRef.current &&
         !containerRef.current.contains(event.target as Node);
-      const notInList =
-        listboxRef.current &&
-        !listboxRef.current.contains(event.target as Node);
 
       isMouseDownReported.current = false;
 
-      if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
+      if (notInContainer) {
         setOpenState(false);
       }
-
-      isClickTriggeredBySelect.current = false;
     }, []);
 
     useEffect(() => {
@@ -484,10 +480,6 @@ export const SimpleSelect = React.forwardRef<
     }
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
-      if (isClickTriggeredBySelect.current) {
-        return;
-      }
-
       onFocus?.(event);
 
       if (isMouseDownReported.current) {
@@ -542,7 +534,6 @@ export const SimpleSelect = React.forwardRef<
         return;
       }
 
-      isClickTriggeredBySelect.current = true;
       textboxRef?.focus();
     };
 

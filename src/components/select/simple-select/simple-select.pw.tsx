@@ -14,9 +14,7 @@ import {
 } from "./components.test-pw";
 import { commonDataElementInputPreview } from "../../../../playwright/components";
 import { dialogWithRole } from "../../../../playwright/components/dialog";
-import {
-  dropdownButton,
-} from "../../../../playwright/components/select";
+import { dropdownButton } from "../../../../playwright/components/select";
 import { checkAccessibility } from "../../../../playwright/support/helper";
 import { CHARACTERS } from "../../../../playwright/support/constants";
 import { loader } from "../../../../playwright/components/loader";
@@ -128,7 +126,10 @@ test.describe("SimpleSelect component", () => {
     const positionValue = "Amber";
     const inputElement = page.getByRole("combobox");
     await expect(inputElement).toHaveValue("Green");
-    await expect(page.getByRole("combobox")).toHaveAttribute("aria-expanded", "false");
+    await expect(page.getByRole("combobox")).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
     await inputElement.click();
     await page.getByRole("option").first().click();
     await expect(inputElement).toHaveValue(positionValue);
@@ -666,9 +667,9 @@ test.describe("Test for scroll bug regression", () => {
     await mount(<SimpleSelectComponent />);
     const dropdownButtonElement = dropdownButton(page);
     await dropdownButtonElement.click();
-    await page.getByRole("listbox").evaluate((wrapper) =>
-      wrapper.scroll(0, 500),
-    );
+    await page
+      .getByRole("listbox")
+      .evaluate((wrapper) => wrapper.scroll(0, 500));
     await commonDataElementInputPreview(page).press("Escape");
     await dropdownButtonElement.click();
     await expect(page.getByRole("combobox")).toBeInViewport();

@@ -127,7 +127,7 @@ const SelectList = ({
 
       const menuItem = (
         <MenuItem
-          key={optionId ?? String(value) ?? text}
+          key={optionId ?? (value ? String(value) : text)}
           id={optionId}
           data-element={dataElement}
           data-role={dataRole}
