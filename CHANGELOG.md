@@ -1,3 +1,16 @@
+## [162.0.0](https://github.com/Sage/carbon/compare/v161.25.1...v162.0.0) (2026-09-14)
+
+### ⚠ BREAKING CHANGES
+
+* **textarea:** Textarea now renders a native textarea instead of the legacy
+Input. Its props and event handler types are based on HTMLTextAreaElement rather
+than HTMLInputElement, so consumers with typed handlers or previously-inherited
+input-only attributes may need to update their types
+
+### Bug Fixes
+
+* **textarea:** remove legacy FormField, Label and Input usage ([c8c6d6e](https://github.com/Sage/carbon/commit/c8c6d6e1f7f70504bd8f06013921f539a3de7f1d))
+
 ## [161.25.1](https://github.com/Sage/carbon/compare/v161.25.0...v161.25.1) (2026-09-11)
 
 ### Bug Fixes
