@@ -18,59 +18,38 @@ const meta: Meta<typeof Link> = {
 export default meta;
 type Story = StoryObj<typeof Link>;
 
-export const Default: Story = {
+export const Playground: Story = {
   render: (args) => <Link {...args}>{args.children}</Link>,
   args: {
-    children: "This is an anchor link",
+    children: "This is a link",
     href: "https://carbon.sage.com",
-  },
-};
-
-export const WithUnderlineOnlyOnHover: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    children: "This is an anchor link with an underline applied on hover",
-    underline: "hover",
-  },
-};
-
-export const WithNoUnderline: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    children: "This is an anchor link with no underline",
-    underline: "never",
-  },
-};
-
-export const WithIcon: Story = {
-  render: (args) => (
-    <>
-      <Typography>
-        <Link iconAlign="left" {...args}>
-          Link with left icon
-        </Link>
-      </Typography>
-      <Typography>
-        <Link iconAlign="right" {...args}>
-          Link with right icon
-        </Link>
-      </Typography>
-    </>
-  ),
-  args: {
-    href: "https://carbon.sage.com",
-    icon: "settings",
+    underline: "always",
+    isSkipLink: false,
+    icon: undefined,
+    iconAlign: "left",
+    variant: "typical",
+    linkSize: "medium",
+    inverse: false,
+    bold: false,
+    target: undefined,
+    rel: undefined,
   },
   decorators: [
-    (Story) => (
-      <Box display="flex" flexDirection="row" gap={4}>
+    (Story, { args }) => (
+      <Box
+        p={2}
+        backgroundColor={
+          args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)"
+        }
+      >
         <Story />
       </Box>
     ),
   ],
 };
+Playground.storyName = "Playground";
 
 export const AsSkipLink: Story = () => {
   return (
@@ -109,107 +88,6 @@ export const AsSkipLink: Story = () => {
   );
 };
 AsSkipLink.storyName = "As Skip Link";
-
-export const LinkSize: Story = {
-  render: (args) => (
-    <>
-      <Typography>
-        <Link linkSize="medium" {...args}>
-          This is a medium link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link linkSize="large" {...args}>
-          This is a large link
-        </Link>
-      </Typography>
-    </>
-  ),
-  args: {
-    href: "https://carbon.sage.com",
-  },
-  decorators: [
-    (Story) => (
-      <Box display="flex" flexDirection="row" gap={4}>
-        <Story />
-      </Box>
-    ),
-  ],
-};
-
-export const Bold: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    children: "This is a bold link",
-    bold: true,
-  },
-};
-
-export const Variants: Story = {
-  render: (args) => (
-    <>
-      <Typography>
-        <Link variant="typical" {...args}>
-          This is a typical link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="negative" {...args}>
-          This is a negative link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="subtle" {...args}>
-          This is a subtle link
-        </Link>
-      </Typography>
-    </>
-  ),
-  args: {
-    href: "https://carbon.sage.com",
-  },
-  decorators: [
-    (Story) => (
-      <Box display="flex" flexDirection="row" gap={4}>
-        <Story />
-      </Box>
-    ),
-  ],
-};
-
-export const Inverse: Story = {
-  render: (args) => (
-    <>
-      <Typography>
-        <Link variant="typical" {...args}>
-          This is an inverse typical link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="negative" {...args}>
-          This is an inverse negative link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="subtle" {...args}>
-          This is an inverse subtle link
-        </Link>
-      </Typography>
-    </>
-  ),
-  args: {
-    href: "https://carbon.sage.com",
-    inverse: true,
-  },
-  decorators: [
-    (Story) => (
-      <Box p={2} display="flex" flexDirection="row" gap={4} bg="#000">
-        <Story />
-      </Box>
-    ),
-  ],
-};
 
 export const WithOnClick: Story = () => {
   return (
