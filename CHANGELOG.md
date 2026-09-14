@@ -1,3 +1,11 @@
+## [162.0.1](https://github.com/Sage/carbon/compare/v162.0.0...v162.0.1) (2026-09-14)
+
+### Bug Fixes
+
+* **decimal:** default to decimal input mode ([ba29e9c](https://github.com/Sage/carbon/commit/ba29e9cd43e81af784bf6c14ac8be2e327a6fb59))
+* **numeral-date:** allow unrestricted date input ([c90c40b](https://github.com/Sage/carbon/commit/c90c40be44e78f758a38aae18d51002cafa5d374))
+* **time:** add numeric input mode hints ([2438431](https://github.com/Sage/carbon/commit/2438431abc3f4b41e7ca48ccc0f332eb84af4f5a))
+
 ## [162.0.0](https://github.com/Sage/carbon/compare/v161.25.1...v162.0.0) (2026-09-14)
 
 ### ⚠ BREAKING CHANGES
