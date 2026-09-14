@@ -231,7 +231,9 @@ description: Carbon Dialog component props and usage examples.
         <Form
           stickyFooter
           leftSideButtons={
-            <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+            <Button variantType="subtle" onClick={() => setIsDialogOpen(false)}>
+              Cancel
+            </Button>
           }
           saveButton={
             <Button buttonType="primary" type="submit">
@@ -392,7 +394,9 @@ function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
           <Form
             stickyFooter
             leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
             }
             saveButton={
               <Button buttonType="primary" type="submit">
@@ -467,7 +471,9 @@ function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
         <Form
           stickyFooter
           leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button variantType="subtle" onClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
           }
           saveButton={
             <Button buttonType="primary" type="submit">
@@ -622,7 +628,9 @@ function ResponsiveBehaviorRender({
           <Form
             stickyFooter
             leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
             }
             saveButton={
               <Button buttonType="primary" type="submit">
@@ -693,7 +701,9 @@ function SmallScreenBehaviorRender({
             stickyFooter
             disableStickyOnSmallScreen
             leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
             }
             saveButton={
               <Button buttonType="primary" type="submit">
@@ -827,7 +837,9 @@ function StickyFooterWithFormRender({
           <Form
             stickyFooter
             leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
             }
             saveButton={
               <Button buttonType="primary" type="submit">
@@ -909,7 +921,9 @@ function FormLinkedToFooterButtonsRender({
           }}
           footer={
             <Box display="flex" gap={1} justifyContent="flex-end" width="100%">
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
               <Button
                 variant="default"
                 variantType="primary"
