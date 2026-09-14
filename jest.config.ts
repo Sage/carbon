@@ -65,8 +65,7 @@ const scriptsConfig: Config = {
   ...serverConfig,
   displayName: { name: "Scripts", color: "magenta" },
   setupFilesAfterEnv: [],
-  // we can add more script-specific tests here in the future
-  testMatch: ["<rootDir>/scripts/check-release-age/check-release-age.test.js"],
+  testMatch: ["<rootDir>/scripts/**/*.test.js"],
   testPathIgnorePatterns: ["<rootDir>/node_modules"],
   coveragePathIgnorePatterns: ["<rootDir>/node_modules", "<rootDir>/scripts"],
 };
