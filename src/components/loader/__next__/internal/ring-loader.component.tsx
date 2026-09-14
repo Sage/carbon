@@ -1,15 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 
 import { LoaderProps } from "../loader.component";
 import {
   StyledRingCircleSvg,
   StyledLoaderLabel,
   StyledRingLoaderWrapper,
-  StyledGradientFill,
+  StyledRingArc,
+  StyledRingRotator,
+  StyledRingTrack,
 } from "../loader.style";
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import ButtonContext from "../../../button/__next__/button.context";
+import guid from "../../../../__internal__/utils/helpers/guid";
 
 const calculateDefaultAnimationTime = (
   animationTime: LoaderProps["animationTime"],
@@ -18,7 +21,7 @@ const calculateDefaultAnimationTime = (
     return animationTime;
   }
 
-  return 0.8;
+  return 0.783;
 };
 
 const RingLoader = ({
@@ -35,8 +38,11 @@ const RingLoader = ({
 }: LoaderProps) => {
   const locale = useLocale();
   const { isInsideButton } = useContext(ButtonContext);
+  const generatedId = useRef(guid()).current;
+  const gradientId = `loader-ring-gradient-${generatedId}`;
 
   const isAiRingVariant = variant === "ai-stacked" || variant === "ai-inline";
+  const usesAiGradient = isAiRingVariant && !isSuccess && !isError;
   const ringVariant =
     isInsideButton || variant === "inline" || variant === "ai-inline"
       ? "inline"
@@ -60,33 +66,54 @@ const RingLoader = ({
         hasMotion={hasMotion}
         isTracked={isTracked}
         animationTime={calculateDefaultAnimationTime(animationTime)}
-        viewBox="0 0 24 24"
+        viewBox="0 0 64 64"
         isSuccess={isSuccess}
         isError={isError}
-        isGradientVariant={isAiRingVariant}
+        isGradientVariant={usesAiGradient}
       >
-        {isAiRingVariant && (
+        {usesAiGradient && (
           <defs>
-            <mask id="ai-ring-mask">
-              <rect width="24" height="24" fill="black" />
-              <circle data-role="gradient-mask-arc" />
-            </mask>
+            <linearGradient
+              data-role="ai-ring-gradient"
+              id={gradientId}
+              x1="4.3"
+              y1="48"
+              x2="59.7"
+              y2="16"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stopColor="var(--mode-color-ai-alt-stop-1)" />
+              <stop offset="40%" stopColor="var(--mode-color-ai-alt-stop-2)" />
+              <stop offset="90%" stopColor="var(--mode-color-ai-alt-stop-3)" />
+            </linearGradient>
           </defs>
         )}
-        <circle data-role="outer-arc" />
-        {isAiRingVariant ? (
-          <foreignObject
-            x="0"
-            y="0"
-            width="24"
-            height="24"
-            mask="url(#ai-ring-mask)"
-          >
-            <StyledGradientFill data-role="gradient-fill" />
-          </foreignObject>
-        ) : (
-          <circle data-role="inner-arc" />
-        )}
+        <StyledRingTrack
+          data-role="outer-arc"
+          inverse={inverse}
+          size={ringSize}
+        />
+        <StyledRingRotator
+          data-role="ring-rotator"
+          size={ringSize}
+          hasMotion={hasMotion}
+          isTracked={isTracked}
+          animationTime={calculateDefaultAnimationTime(animationTime)}
+        >
+          <StyledRingArc
+            data-role="inner-arc"
+            pathLength="1"
+            size={ringSize}
+            inverse={inverse}
+            hasMotion={hasMotion}
+            isTracked={isTracked}
+            animationTime={calculateDefaultAnimationTime(animationTime)}
+            isSuccess={isSuccess}
+            isError={isError}
+            isGradientVariant={usesAiGradient}
+            gradientId={usesAiGradient ? gradientId : undefined}
+          />
+        </StyledRingRotator>
       </StyledRingCircleSvg>
       {showLabel && (
         <StyledLoaderLabel
