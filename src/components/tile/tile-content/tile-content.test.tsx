@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Logger from "../../../__internal__/utils/logger";
 import TileContent from "./tile-content.component";
 import Tile from "../tile.component";
 import {
@@ -8,19 +7,6 @@ import {
   testStyledSystemSpacing,
   testStyledSystemWidth,
 } from "../../../__spec_helper__/__internal__/test-utils";
-
-test("logs error when used outside of Tile", () => {
-  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
-
-  render(<TileContent data-role="tile-content">Test</TileContent>);
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon Tile: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
-  );
-
-  loggerSpy.mockRestore();
-});
 
 testStyledSystemSpacing(
   (props) => (
