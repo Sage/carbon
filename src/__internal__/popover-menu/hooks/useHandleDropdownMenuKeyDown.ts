@@ -1,6 +1,10 @@
 import { useCallback, MutableRefObject } from "react";
 import { itemQuerySelector, buttonMenuItemQuerySelector } from "../utils";
 
+// Number of items PageUp/PageDown moves the focus by, so long lists can be
+// traversed more quickly than one item at a time without jumping to the ends.
+export const PAGE_NAVIGATION_SIZE = 10;
+
 export const setFocus = (
   el?: HTMLElement,
   highlightedItem?: HTMLElement,
@@ -28,6 +32,10 @@ export const useHandleDropdownMenuKeyDown = (
     isButtonMenu?: boolean;
     isSubmenu?: boolean;
     controlReference?: React.RefObject<HTMLLIElement>;
+    disableNavigationLoop?: boolean;
+    enablePageNavigation?: boolean;
+    selectOnSpaceAndTab?: boolean;
+    focusSelectedOnOpen?: boolean;
   },
 ) =>
   useCallback(
@@ -41,7 +49,14 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      const { isButtonMenu, isSubmenu } = submenuOptions;
+      const {
+        isButtonMenu,
+        isSubmenu,
+        disableNavigationLoop,
+        enablePageNavigation,
+        selectOnSpaceAndTab,
+        focusSelectedOnOpen,
+      } = submenuOptions;
 
       const items = Array.from(
         ref.current?.querySelectorAll(
@@ -66,7 +81,9 @@ export const useHandleDropdownMenuKeyDown = (
         ev.stopPropagation();
 
         if (!highlightedItem) {
-          const itemToFocus = selectedItem ?? firstItem;
+          const itemToFocus = focusSelectedOnOpen
+            ? (selectedItem ?? firstItem)
+            : firstItem;
           setAriaActivedescendant(
             itemToFocus?.id ?? /* istanbul ignore next */ "",
           );
@@ -76,6 +93,8 @@ export const useHandleDropdownMenuKeyDown = (
         }
 
         if (!isButtonMenu && lastItem === highlightedItem) {
+          // stay on the last item instead of wrapping when looping is disabled
+          if (disableNavigationLoop) return;
           setAriaActivedescendant(
             firstItem?.id ?? /* istanbul ignore next */ "",
           );
@@ -102,7 +121,9 @@ export const useHandleDropdownMenuKeyDown = (
         ev.stopPropagation();
 
         if (!highlightedItem) {
-          const itemToFocus = selectedItem ?? lastItem;
+          const itemToFocus = focusSelectedOnOpen
+            ? (selectedItem ?? lastItem)
+            : lastItem;
           setAriaActivedescendant(
             itemToFocus?.id ?? /* istanbul ignore next */ "",
           );
@@ -112,6 +133,8 @@ export const useHandleDropdownMenuKeyDown = (
         }
 
         if (!isButtonMenu && firstItem === highlightedItem) {
+          // stay on the first item instead of wrapping when looping is disabled
+          if (disableNavigationLoop) return;
           setAriaActivedescendant(
             lastItem?.id ?? /* istanbul ignore next */ "",
           );
@@ -149,18 +172,55 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      if (ev.key === "Enter" && !isButtonMenu) {
+      if (
+        (ev.key === "PageUp" || ev.key === "PageDown") &&
+        enablePageNavigation
+      ) {
+        ev.preventDefault();
+
+        const baseIndex = highlightedItem
+          ? items.indexOf(highlightedItem)
+          : selectedItem
+            ? items.indexOf(selectedItem)
+            : ev.key === "PageDown"
+              ? 0
+              : items.length - 1;
+        const delta =
+          ev.key === "PageDown" ? PAGE_NAVIGATION_SIZE : -PAGE_NAVIGATION_SIZE;
+        const targetIndex = Math.min(
+          Math.max(baseIndex + delta, 0),
+          items.length - 1,
+        );
+        const itemToFocus = items[targetIndex] as HTMLElement | undefined;
+
+        setAriaActivedescendant(
+          itemToFocus?.id ?? /* istanbul ignore next */ "",
+        );
+        setFocus(itemToFocus, highlightedItem, isButtonMenu);
+
+        return;
+      }
+
+      if (
+        !isButtonMenu &&
+        (ev.key === "Enter" || (selectOnSpaceAndTab && ev.key === " "))
+      ) {
         /* istanbul ignore else */
         if (highlightedItem) {
           ev.preventDefault();
           ev.stopPropagation();
           highlightedItem.click();
         }
+
+        return;
       }
 
-      // covered in playwright
-      /* istanbul ignore next */
       if (ev.key === "Tab") {
+        // Confirm the focused item before closing, then let focus move on.
+        if (selectOnSpaceAndTab && !isButtonMenu && highlightedItem) {
+          highlightedItem.click();
+        }
+
         onClose(ev.nativeEvent);
         return;
       }

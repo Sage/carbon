@@ -1,11 +1,10 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 
-import { Select, Option } from "../select";
+import { Select, Option, CustomSelectChangeEvent } from "../select";
 import PaginationNavigation from "./__internal__/pagination-navigation.component";
 import useLocale from "../../hooks/__internal__/useLocale";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import { StyledPagination, StyledPageSizeSelect } from "./pager.style";
-import Events from "../../__internal__/utils/helpers/events";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 type PageSizeOption = {
@@ -166,13 +165,6 @@ export const Pagination = ({
     [onPagination],
   );
 
-  const handleSelectKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) =>
-      Events.isEnterKey(e) &&
-      handleOptionClick((e.target as HTMLInputElement).value),
-    [handleOptionClick],
-  );
-
   const renderPageSizeSelect = () => {
     return (
       <StyledPageSizeSelect>
@@ -181,12 +173,15 @@ export const Pagination = ({
         </label>
         <Select
           value={String(pageSelectValue)}
-          onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
-            setPageSelectValue(+ev.target.value)
-          }
+          onChange={(ev: CustomSelectChangeEvent) => {
+            setPageSelectValue(+ev.target.value);
+            // only paginate once the user confirms a selection (click or Enter)
+            if (ev.selectionConfirmed) {
+              handleOptionClick(ev.target.value);
+            }
+          }}
           // resets value to previous if selection is not completed
           onBlur={() => setPageSelectValue(internalPageSize)}
-          onKeyDown={handleSelectKeyDown}
           id={pageSizeSelectId}
           size={size}
         >
@@ -195,7 +190,6 @@ export const Pagination = ({
               key={sizeOption.id}
               text={sizeOption.id}
               value={String(sizeOption.name)}
-              onClick={handleOptionClick}
             />
           ))}
         </Select>

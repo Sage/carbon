@@ -1,5 +1,3 @@
-export const PAGE_SIZE = 4;
-
 export default function getNextIndexByKey(
   key: string,
   currentIndex: number,
@@ -35,18 +33,10 @@ export default function getNextIndexByKey(
       }
       break;
     case "PageDown":
-      if (isNoOptionSelected) {
-        newIndex = Math.min(PAGE_SIZE - 1, lastIndex);
-      } else {
-        newIndex = Math.min(currentIndex + PAGE_SIZE, lastIndex);
-      }
+      newIndex = lastIndex;
       break;
     case "PageUp":
-      if (isNoOptionSelected) {
-        newIndex = Math.max(lastIndex + 1 - PAGE_SIZE, 0);
-      } else {
-        newIndex = Math.max(currentIndex - PAGE_SIZE, 0);
-      }
+      newIndex = 0;
       break;
     default:
       break;

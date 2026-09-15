@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import PopoverMenu, {
   FocusableHandle,
   PopoverMenuProps,
@@ -16,6 +16,42 @@ import userEvent from "@testing-library/user-event";
 import Button from "../../components/button/__next__";
 import Icon from "../../components/icon";
 import { PopoverControlProps } from "./contexts";
+
+let mockVirtualizerOptions: {
+  count?: number;
+  getScrollElement?: () => Element | null;
+  estimateSize?: () => number;
+  rangeExtractor?: (range: {
+    startIndex: number;
+    endIndex: number;
+    overscan: number;
+    count: number;
+  }) => number[];
+} = {};
+
+jest.mock("@tanstack/react-virtual", () => {
+  const actual = jest.requireActual("@tanstack/react-virtual");
+
+  return {
+    ...actual,
+    useVirtualizer: (options: typeof mockVirtualizerOptions) => {
+      mockVirtualizerOptions = options;
+      return {
+        getVirtualItems: () =>
+          Array.from(
+            { length: Math.min(options.count ?? 0, 1) },
+            (_, index) => ({
+              index,
+              key: index,
+              start: index * 40,
+            }),
+          ),
+        getTotalSize: () => 480,
+        scrollToIndex: () => {},
+      };
+    },
+  };
+});
 
 interface AdditionalControlProps extends PopoverControlProps {
   onClick?: () => void;
@@ -266,7 +302,7 @@ describe("PopoverMenu - typeahead (Search)", () => {
     it("focuses the selected item when the list is opened and the the user presses ArrowDown", async () => {
       const user = userEvent.setup();
       render(
-        <PopoverMenuWithState>
+        <PopoverMenuWithState focusSelectedOnOpen>
           <MenuItem>Item 1</MenuItem>
           <MenuItem selected>Item 2</MenuItem>
           <MenuItem>Item 3</MenuItem>
@@ -312,7 +348,7 @@ describe("PopoverMenu - typeahead (Search)", () => {
     it("focuses the selected item when the list is opened and the user presses ArrowUp", async () => {
       const user = userEvent.setup();
       render(
-        <PopoverMenuWithState>
+        <PopoverMenuWithState focusSelectedOnOpen>
           <MenuItem>Item 1</MenuItem>
           <MenuItem selected>Item 2</MenuItem>
           <MenuItem>Item 3</MenuItem>
@@ -349,10 +385,24 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(last).toHaveAttribute("data-has-focus", "true");
   });
 
+  it("focuses the last item on ArrowUp when focusSelectedOnOpen is set but no option is selected", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({ open: true, focusSelectedOnOpen: true });
+
+    focusTrigger();
+    await user.keyboard("{ArrowUp}");
+    const options = screen.getAllByRole("option");
+
+    expect(options[options.length - 1]).toHaveAttribute(
+      "data-has-focus",
+      "true",
+    );
+  });
+
   it("shows list when user clicks the control and focuses selected item on ArrowDown", async () => {
     const user = userEvent.setup();
     render(
-      <PopoverMenuWithState>
+      <PopoverMenuWithState focusSelectedOnOpen>
         <MenuItem>Item 1</MenuItem>
         <MenuItem selected>Item 2</MenuItem>
         <MenuItem>Item 3</MenuItem>
@@ -377,7 +427,7 @@ describe("PopoverMenu - typeahead (Search)", () => {
   it("shows list when user clicks the control and focuses selected item on ArrowUp", async () => {
     const user = userEvent.setup();
     render(
-      <PopoverMenuWithState>
+      <PopoverMenuWithState focusSelectedOnOpen>
         <MenuItem>Item 1</MenuItem>
         <MenuItem selected>Item 2</MenuItem>
         <MenuItem>Item 3</MenuItem>
@@ -549,6 +599,34 @@ describe("PopoverMenu - typeahead (Search)", () => {
     ).toHaveAttribute("aria-activedescendant", "item-1");
   });
 
+  it("PageUp moves the highlight up by a fixed number of items when enabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: (
+        <>
+          {Array.from({ length: 14 }, (_, index) => (
+            <MenuItem key={index} id={`item-${index + 1}`}>
+              Item {index + 1}
+            </MenuItem>
+          ))}
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{End}");
+    await user.keyboard("{PageUp}");
+    const options = screen.getAllByRole("option");
+
+    // last item is index 13, PageUp moves the focus up by 10 to index 3 (item-4)
+    expect(options[3]).toHaveAttribute("data-has-focus", "true");
+    expect(
+      screen.getByRole("combobox", { name: "combobox-label" }),
+    ).toHaveAttribute("aria-activedescendant", "item-4");
+  });
+
   it("Home moves the highlight to the first item that is not disabled", async () => {
     const user = userEvent.setup();
     renderPopoverMenu({
@@ -592,6 +670,34 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(
       screen.getByRole("combobox", { name: "combobox-label" }),
     ).toHaveAttribute("aria-activedescendant", "item-3");
+  });
+
+  it("PageDown moves the highlight down by a fixed number of items when enabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: (
+        <>
+          {Array.from({ length: 14 }, (_, index) => (
+            <MenuItem key={index} id={`item-${index + 1}`}>
+              Item {index + 1}
+            </MenuItem>
+          ))}
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{PageDown}");
+    const options = screen.getAllByRole("option");
+
+    // first item is index 0, PageDown moves the focus down by 10 to index 10 (item-11)
+    expect(options[10]).toHaveAttribute("data-has-focus", "true");
+    expect(
+      screen.getByRole("combobox", { name: "combobox-label" }),
+    ).toHaveAttribute("aria-activedescendant", "item-11");
   });
 
   it("End moves the highlight to the last item that is not disabled", async () => {
@@ -650,6 +756,633 @@ describe("PopoverMenu - typeahead (Search)", () => {
     await user.keyboard("{Tab}");
 
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not confirm the highlighted item on Space by default", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard(" ");
+
+    expect(onItemClick).not.toHaveBeenCalled();
+  });
+
+  it("confirms the highlighted item on Space when selectOnSpaceAndTab is set", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      selectOnSpaceAndTab: true,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard(" ");
+
+    expect(onItemClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("confirms the highlighted item and closes on Tab when selectOnSpaceAndTab is set", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    const onClose = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      selectOnSpaceAndTab: true,
+      onClose,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Tab}");
+
+    expect(onItemClick).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it("navigates and confirms virtualized menu items", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    const onClose = jest.fn();
+    const getBoundingClientRect = jest
+      .spyOn(HTMLElement.prototype, "getBoundingClientRect")
+      .mockReturnValue(createRect(200, 42));
+    renderPopoverMenu({
+      open: true,
+      onClose,
+      enableVirtualScroll: true,
+      initialScrollIndex: 2,
+      enablePageNavigation: true,
+      selectOnSpaceAndTab: true,
+      children: Array.from({ length: 12 }, (_, index) => (
+        <MenuItem
+          key={`item-${index + 1}`}
+          id={`item-${index + 1}`}
+          onClick={index === 1 ? onItemClick : undefined}
+        >
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+
+    expect(mockVirtualizerOptions.getScrollElement?.()).toBe(
+      screen.getByRole("listbox"),
+    );
+    expect(mockVirtualizerOptions.estimateSize?.()).toBe(42);
+
+    act(() => {
+      mockVirtualizerOptions.rangeExtractor?.({
+        startIndex: 0,
+        endIndex: 1,
+        overscan: 0,
+        count: 12,
+      });
+    });
+
+    expect(screen.getByTestId("virtual-scroll-spacer")).toBeVisible();
+
+    await user.keyboard("{ArrowDown}");
+    act(() => {
+      mockVirtualizerOptions.rangeExtractor?.({
+        startIndex: 0,
+        endIndex: 1,
+        overscan: 0,
+        count: 12,
+      });
+    });
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-2$/),
+    );
+
+    await user.keyboard("{PageDown}");
+    await user.keyboard("{PageUp}");
+    await user.keyboard("{Enter}");
+    await user.keyboard(" ");
+    await user.keyboard("{Tab}");
+
+    expect(onItemClick).toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalled();
+
+    getBoundingClientRect.mockRestore();
+  });
+
+  it("navigates a virtualized menu from its bounds without looping", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      disableNavigationLoop: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 12 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+
+    await user.keyboard("{ArrowUp}");
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-11$/),
+    );
+
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Home}");
+    await user.keyboard("{PageUp}");
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-0$/),
+    );
+
+    await user.keyboard("{End}");
+    await user.keyboard("{PageDown}");
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-11$/),
+    );
+  });
+
+  it("resets the virtualized menu active option when it closes", async () => {
+    const user = userEvent.setup();
+    const { rerender } = renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      children: Array.from({ length: 2 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{ArrowDown}");
+
+    rerender(
+      <PopoverMenu
+        open={false}
+        onClose={() => {}}
+        enableVirtualScroll
+        popoverControl={popoverControlInput}
+      >
+        <MenuItem id="item-1">Item 1</MenuItem>
+        <MenuItem id="item-2">Item 2</MenuItem>
+      </PopoverMenu>,
+    );
+
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+
+  it("does not move the virtualized highlight with page keys when page navigation is disabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      children: Array.from({ length: 12 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{PageDown}");
+    await user.keyboard("{PageUp}");
+
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-0$/),
+    );
+  });
+
+  it("uses virtual navigation fallbacks without an initial selection", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      selectOnSpaceAndTab: true,
+      children: Array.from({ length: 2 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{Enter}");
+    await user.keyboard(" ");
+    act(() => {
+      mockVirtualizerOptions.rangeExtractor?.({
+        startIndex: 0,
+        endIndex: 0,
+        overscan: 0,
+        count: 2,
+      });
+    });
+    await user.keyboard("{ArrowUp}");
+    await user.keyboard("{ArrowDown}");
+
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-0$/),
+    );
+  });
+
+  it("handles virtual page keys and navigation without an active option", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 12 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageDown}");
+    await user.keyboard("{PageUp}");
+    await user.keyboard(" ");
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowUp}");
+
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-0$/),
+    );
+  });
+
+  it("does not loop the highlight when ArrowDown reaches the last option with looping disabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      disableNavigationLoop: true,
+      children: (
+        <>
+          <MenuItem id="dl-1">Item 1</MenuItem>
+          <MenuItem id="dl-2">Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowDown}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "dl-2");
+  });
+
+  it("does not loop the highlight when ArrowUp reaches the first option with looping disabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      disableNavigationLoop: true,
+      children: (
+        <>
+          <MenuItem id="ul-1">Item 1</MenuItem>
+          <MenuItem id="ul-2">Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{ArrowUp}");
+    await user.keyboard("{ArrowUp}");
+    await user.keyboard("{ArrowUp}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "ul-1");
+  });
+
+  it("uses the selected option as the PageDown base when nothing is highlighted", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 15 }, (_, index) => (
+        <MenuItem
+          key={`pgs-${index}`}
+          id={`pgs-${index}`}
+          selected={index === 3}
+        >
+          Item {index}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageDown}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "pgs-13");
+  });
+
+  it("uses the first option as the PageDown base when nothing is highlighted or selected", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 15 }, (_, index) => (
+        <MenuItem key={`pgn-${index}`} id={`pgn-${index}`}>
+          Item {index}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageDown}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "pgn-10");
+  });
+
+  it("uses the last option as the PageUp base when nothing is highlighted or selected", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 15 }, (_, index) => (
+        <MenuItem key={`pgu-${index}`} id={`pgu-${index}`}>
+          Item {index}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageUp}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "pgu-4");
+  });
+
+  it("closes on Tab without confirming when no option is highlighted and selectOnSpaceAndTab is set", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    const onItemClick = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      selectOnSpaceAndTab: true,
+      onClose,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{Tab}");
+
+    expect(onItemClick).not.toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it("returns a null scroll element from the virtualizer when the menu is closed", () => {
+    renderPopoverMenu({
+      open: false,
+      enableVirtualScroll: true,
+      children: Array.from({ length: 2 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    expect(mockVirtualizerOptions.getScrollElement?.()).toBeNull();
+  });
+
+  it("renders the empty listbox when the menu has no children", () => {
+    render(
+      <PopoverMenu open onClose={() => {}} popoverControl={popoverControlInput}>
+        {null}
+      </PopoverMenu>,
+    );
+
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
+  });
+
+  it("moves the virtualized highlight up from an active option when looping is enabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      initialScrollIndex: 3,
+      children: Array.from({ length: 5 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{ArrowUp}");
+    await user.keyboard("{ArrowUp}");
+
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-1$/),
+    );
+  });
+
+  it("moves the virtualized highlight up from an active option when looping is disabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      disableNavigationLoop: true,
+      children: Array.from({ length: 5 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{End}");
+    await user.keyboard("{ArrowUp}");
+    await user.keyboard("{ArrowUp}");
+
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-2$/),
+    );
+  });
+
+  it("moves the virtualized highlight from PageUp without an active option", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      enablePageNavigation: true,
+      initialScrollIndex: 6,
+      children: Array.from({ length: 12 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageUp}");
+
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-0$/),
+    );
+  });
+
+  it("closes on Tab when selectOnSpaceAndTab is not set", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      onClose,
+      children: Array.from({ length: 3 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Tab}");
+
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it("closes on Tab when selectOnSpaceAndTab is set but no option is active", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      selectOnSpaceAndTab: true,
+      onClose,
+      children: Array.from({ length: 3 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{Tab}");
+
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it("moves the virtualized highlight to the initial scroll index on ArrowUp without an active option", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      initialScrollIndex: 3,
+      children: Array.from({ length: 6 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{ArrowUp}");
+
+    expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      expect.stringMatching(/-option-3$/),
+    );
+  });
+
+  it("closes when focus enters content outside the control", () => {
+    const onClose = jest.fn();
+    render(
+      <>
+        <PopoverMenu
+          open
+          onClose={onClose}
+          popoverControl={popoverControlInput}
+        >
+          <MenuItem>Item 1</MenuItem>
+        </PopoverMenu>
+        <button type="button">Outside</button>
+      </>,
+    );
+
+    screen.getByRole("button", { name: "Outside" }).focus();
+
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it("closes when focus leaves the control", () => {
+    const onClose = jest.fn();
+    render(
+      <>
+        <PopoverMenu
+          open
+          onClose={onClose}
+          popoverControl={popoverControlInput}
+        >
+          <MenuItem>Item 1</MenuItem>
+        </PopoverMenu>
+        <button type="button">Outside</button>
+      </>,
+    );
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    screen.getByRole("button", { name: "Outside" }).focus();
+
+    expect(onClose).toHaveBeenCalled();
   });
 });
 
@@ -1181,7 +1914,7 @@ test("renders the list container with the expected max-height when size is small
 
   expect(listbox).toHaveStyleRule(
     "max-height",
-    "calc(5 * var(--global-size-s))",
+    "calc(5.5 * var(--global-size-s))",
   );
 });
 
@@ -1191,7 +1924,7 @@ test("renders the list container with the expected max-height when size is mediu
 
   expect(listbox).toHaveStyleRule(
     "max-height",
-    "calc(5 * var(--global-size-m))",
+    "calc(5.5 * var(--global-size-m))",
   );
 });
 
@@ -1201,7 +1934,7 @@ test("renders the list container with the expected max-height when size is large
 
   expect(listbox).toHaveStyleRule(
     "max-height",
-    "calc(5 * var(--global-size-l))",
+    "calc(5.5 * var(--global-size-l))",
   );
 });
 

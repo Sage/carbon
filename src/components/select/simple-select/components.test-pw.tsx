@@ -297,6 +297,47 @@ export const SelectionConfirmed = () => {
   );
 };
 
+// Long option list plus a trailing focusable element, used to verify page
+// navigation lands away from the list ends and that Tab moves focus onwards.
+export const SelectionConfirmedManyOptions = () => {
+  const [value, setValue] = useState("");
+  const [confirmedSelection, setConfirmedSelection] = useState("");
+  const handleChange = (event: CustomSelectChangeEvent) => {
+    setValue(event.target.value);
+    if (event.selectionConfirmed) {
+      setConfirmedSelection(event.target.value);
+    }
+  };
+  return (
+    <>
+      <Select
+        name="testing"
+        value={value}
+        onChange={handleChange}
+        openOnFocus
+        label="Test"
+        placeholder=" "
+      >
+        {Array.from({ length: 20 }, (_, index) => (
+          <Option
+            key={index + 1}
+            value={`${index + 1}`}
+            text={`Option ${index + 1}`}
+          />
+        ))}
+      </Select>
+
+      <Button data-role="next-focusable">Next</Button>
+
+      {confirmedSelection ? (
+        <span data-element={`confirmed-selection-${confirmedSelection}`}>
+          {confirmedSelection}
+        </span>
+      ) : null}
+    </>
+  );
+};
+
 export const SimpleSelectControlled = () => {
   const [value, setValue] = useState("5");
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {

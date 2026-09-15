@@ -37,10 +37,12 @@ const MenuItemHeading = ({
   children,
   text,
   icon,
+  headingContent,
 }: {
   children: React.ReactNode;
   text: string;
   icon?: React.ReactNode;
+  headingContent?: React.ReactNode;
 }) => {
   const { size } = useContext(PopoverMenuContext);
   const headingId = useRef(`popover-menu-heading-${guid()}`);
@@ -53,14 +55,14 @@ const MenuItemHeading = ({
       $size={size}
       role="option"
     >
-      {icon ? (
+      {headingContent || icon ? (
         <StyledMenuHeadingWithIcon
           data-role="text-with-icon"
           $size={size}
           {...textProps}
         >
-          {icon}
-          {text}
+          {headingContent || icon}
+          {!headingContent && text}
         </StyledMenuHeadingWithIcon>
       ) : (
         <div {...textProps}>{text}</div>
