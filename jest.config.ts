@@ -60,8 +60,18 @@ const serverConfig: Config = {
   ...baseProjectConfig,
 };
 
+// Runs specific script unit tests, which the main projects ignore.
+const scriptsConfig: Config = {
+  ...serverConfig,
+  displayName: { name: "Scripts", color: "magenta" },
+  setupFilesAfterEnv: [],
+  testMatch: ["<rootDir>/scripts/**/*.test.js"],
+  testPathIgnorePatterns: ["<rootDir>/node_modules"],
+  coveragePathIgnorePatterns: ["<rootDir>/node_modules", "<rootDir>/scripts"],
+};
+
 const globalConfig: Config = {
-  projects: [clientConfig, serverConfig],
+  projects: [clientConfig, serverConfig, scriptsConfig],
   notify: false,
   collectCoverage: true,
   coverageReporters: ["text-summary", "html", "json"],

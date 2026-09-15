@@ -2,6 +2,26 @@ import { RefObject, useEffect } from "react";
 import Events from "../../../__internal__/utils/helpers/events";
 import { defaultFocusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
 
+export const nextElementToFocus = (
+  target: HTMLElement,
+  container: HTMLElement,
+) => {
+  const focusableElements: Element[] = Array.from(
+    document.querySelectorAll(defaultFocusableSelectors) ||
+      /* istanbul ignore next */ [],
+  ).filter(
+    (el) =>
+      Number((el as HTMLElement).tabIndex) !== -1 &&
+      !el.hasAttribute("data-focus-guard"),
+  );
+  const index = focusableElements.indexOf(target);
+  const nextElementOutsideContainer = focusableElements
+    .slice(index + 1)
+    .find((el) => !container.contains(el));
+
+  return nextElementOutsideContainer;
+};
+
 export default (
   container?: RefObject<HTMLElement>,
   target?: RefObject<HTMLElement>,
@@ -11,26 +31,12 @@ export default (
     const handleFocusPortalContent = (ev: KeyboardEvent) => {
       if (container?.current && target?.current) {
         const focusableElementsInContainer: HTMLElement[] = Array.from(
-          container.current?.querySelectorAll(defaultFocusableSelectors) ||
-            /* istanbul ignore next */ [],
+          container.current?.querySelectorAll(defaultFocusableSelectors),
         );
 
         const filteredFocusableElements = focusableElementsInContainer.filter(
           (el) => Number(el.tabIndex) !== -1,
         );
-
-        if (target?.current === document.activeElement) {
-          if (
-            Events.isTabKey(ev) &&
-            !Events.isShiftKey(ev) &&
-            filteredFocusableElements[0]
-          ) {
-            ev.preventDefault();
-            filteredFocusableElements[0]?.focus();
-          }
-
-          return;
-        }
 
         /* istanbul ignore if */
         if (!filteredFocusableElements.length) {
@@ -44,34 +50,17 @@ export default (
           filteredFocusableElements[0] === document.activeElement;
 
         if (Events.isTabKey(ev)) {
-          // last element focused inside portal navigate to next element in DOM after the target/ trigger element
+          // last element focused inside portal → move to the next element after the trigger
           if (lastElementFocused && !Events.isShiftKey(ev)) {
-            ev.preventDefault();
-
-            const allFocusableElements: HTMLElement[] = Array.from(
-              document.querySelectorAll(defaultFocusableSelectors) ||
-                /* istanbul ignore next */ [],
-            );
-            const filteredElements = allFocusableElements.filter(
-              (el) => el === target.current || Number(el.tabIndex) !== -1,
-            );
-            const nextIndex = filteredElements.indexOf(target.current) + 1;
-
             focusCallback?.(ev);
-            filteredElements[nextIndex]?.focus();
-
+            const next = nextElementToFocus(target.current, container.current);
+            ev.preventDefault();
+            ((next ?? target.current) as HTMLElement).focus();
             return;
           }
-          // first element focused inside portal navigate back to the target/ trigger element
+          // first element focused inside portal, shift+tab → back to the trigger
           if (firstElementFocused && Events.isShiftKey(ev)) {
-            ev.preventDefault();
-
             focusCallback?.(ev);
-
-            /* istanbul ignore else */
-            if (target.current !== document.activeElement) {
-              target.current?.focus();
-            }
           }
         }
       }

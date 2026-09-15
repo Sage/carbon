@@ -100,7 +100,7 @@ Carbon accepts the following commit types, shown with the corresponding release 
 
 ### Denoting a breaking change
 
-Any of the types in the previous table can trigger a **major** release by including `BREAKING CHANGE:` in the commit footer, or appending a `!` after the type/scope.
+Any of the types in the previous table can trigger a **major** release by including `BREAKING CHANGE:` in the commit footer. Use the footer to explain the impact and provide migration guidance.
 
 ### Messages are validated on commit
 

@@ -5,6 +5,11 @@ import { Tabs, Tab } from ".";
 import Logger from "../../__internal__/utils/logger";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 
+beforeEach(() => {
+  // scrollIntoView is not implemented in jsdom but hasn't been marked as such
+  Element.prototype.scrollIntoView = jest.fn();
+});
+
 test("calls Logger.warn twice when the Tabs and Tab components are rendered", () => {
   const loggerSpy = jest.spyOn(Logger, "warn");
 

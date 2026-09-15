@@ -111,6 +111,124 @@ const selectAllTextAndApplyStyles = async (canvasElement: HTMLElement) => {
   await userEvent.click(textbox);
 };
 
+const headerButtons = (
+  <>
+    <button type="button">Header button 1</button>
+    <button type="button">Header button 2</button>
+    <button type="button">Header button 3</button>
+  </>
+);
+
+const footerButtons = (
+  <>
+    <button type="button">Footer button 1</button>
+    <button type="button">Footer button 2</button>
+    <button type="button">Footer button 3</button>
+  </>
+);
+
+const expectFocusAfterTab = async (element: HTMLElement) => {
+  await userEvent.tab();
+  await expect(element).toHaveFocus();
+};
+
+const testTabFocusOrder = async (
+  canvasElement: HTMLElement,
+  withSaveButton = false,
+) => {
+  if (!allowInteractions()) {
+    return;
+  }
+
+  const canvas = within(canvasElement);
+  const focusOrder = [
+    canvas.getByRole("button", { name: "Header button 1" }),
+    canvas.getByRole("button", { name: "Header button 2" }),
+    canvas.getByRole("button", { name: "Header button 3" }),
+    canvas.getByRole("combobox", { name: "Heading type" }),
+    ...(withSaveButton ? [canvas.getByRole("button", { name: "Save" })] : []),
+    canvas.getByRole("textbox"),
+    canvas.getByRole("button", { name: "Footer button 1" }),
+    canvas.getByRole("button", { name: "Footer button 2" }),
+    canvas.getByRole("button", { name: "Footer button 3" }),
+  ];
+
+  for (const element of focusOrder) {
+    await expectFocusAfterTab(element);
+  }
+};
+
+export const BasicTabFocusOrder: Story = {
+  render: () => (
+    <TextEditor
+      namespace="storybook-basic-tab-focus-order"
+      labelText="Text Editor"
+      header={headerButtons}
+      footer={footerButtons}
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await testTabFocusOrder(canvasElement);
+  },
+};
+
+BasicTabFocusOrder.storyName = "Basic Tab Focus Order";
+BasicTabFocusOrder.parameters = { chromatic: { disableSnapshot: true } };
+
+export const TabFocusOrderWithSave: Story = {
+  render: () => (
+    <TextEditor
+      namespace="storybook-save-tab-focus-order"
+      labelText="Text Editor"
+      header={headerButtons}
+      footer={footerButtons}
+      onSave={() => undefined}
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    await testTabFocusOrder(canvasElement, true);
+  },
+};
+
+TabFocusOrderWithSave.storyName = "Tab Focus Order With Save";
+TabFocusOrderWithSave.parameters = { chromatic: { disableSnapshot: true } };
+
+export const ToolbarKeyboardNavigation: Story = {
+  render: () => (
+    <TextEditor
+      namespace="storybook-toolbar-keyboard-navigation"
+      labelText="Text Editor"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    const canvas = within(canvasElement);
+    const typographyButton = canvas.getByRole("combobox", {
+      name: "Heading type",
+    });
+    const boldButton = canvas.getByRole("button", { name: "Bold" });
+    const hyperlinkButton = canvas.getByRole("button", { name: "Hyperlink" });
+
+    await expectFocusAfterTab(typographyButton);
+    await userEvent.keyboard("{ArrowRight}");
+    await expect(boldButton).toHaveFocus();
+    await userEvent.keyboard("{ArrowLeft}");
+    await expect(typographyButton).toHaveFocus();
+    await userEvent.keyboard("{End}");
+    await expect(hyperlinkButton).toHaveFocus();
+    await userEvent.keyboard("{Home}");
+    await expect(typographyButton).toHaveFocus();
+  },
+};
+
+ToolbarKeyboardNavigation.storyName = "Toolbar Keyboard Navigation";
+ToolbarKeyboardNavigation.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
 export const OpenMentionsPopoverDefaultAvatar: Story = {
   render: renderMentionsEditor,
   play: async ({ canvasElement }) => {

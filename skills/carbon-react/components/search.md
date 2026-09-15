@@ -56,6 +56,7 @@ description: Carbon Search component props and usage examples.
 | searchButtonDataProps | TagProps \| undefined | No |  |  |  | Data tag prop bag for searchButton |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
 | triggerOnClear | boolean \| undefined | No |  |  |  | Sets whether the `onClick` action should be triggered when the Search cross icon is clicked. |  |
+| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-label | string \| undefined | No |  |  |  | Prop to specify the accessible name of the Search input. To be used when no visible label is provided |  |

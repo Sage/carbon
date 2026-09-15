@@ -20,10 +20,13 @@ export const Password = ({
   id,
   disabled,
   forceObscurity = false,
+  characterLimit,
   inputIcon,
   size,
   ...rest
 }: PasswordProps) => {
+  void characterLimit;
+
   const internalInputId = useRef(id || guid());
   const l = useLocale();
 
@@ -58,7 +61,6 @@ export const Password = ({
               }
               aria-controls={internalInputId.current}
               onClick={() => setPasswordShown(!passwordShown)}
-              pr={1}
               variantType="subtle"
               iconType={visibleInput ? "hide" : "view"}
               iconPosition="before"

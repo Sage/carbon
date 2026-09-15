@@ -101,7 +101,7 @@ export const StyledScrollButton = styled.button<{
   border-bottom: 2px solid var(--tab-border-active-alt);
   top: 6px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 `;
 
 // Again, can't be easily tested in Jest owing to lack of an actual DOM

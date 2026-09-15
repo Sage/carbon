@@ -107,6 +107,10 @@ export const Tab = ({
     if (focusIndex === id) {
       const tabElement = document.getElementById(id);
       tabElement?.focus();
+      tabElement?.scrollIntoView({
+        block: "nearest",
+        inline: "center",
+      });
     }
   }, [focusIndex, id, setCurrentTabId]);
 
@@ -477,6 +481,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
             aria-label={ariaLabel}
             id={`tablist-${idTabList.current}`}
             onKeyDown={handleKeyDown}
+            onScroll={updateUI}
             $orientation={orientation}
             $scrollRequired={scrollRequired}
             ref={tabListRef}

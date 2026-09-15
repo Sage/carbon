@@ -56,6 +56,7 @@ export interface SearchEvent {
 
 export type SearchTextboxProps = Pick<
   CommonTextboxProps,
+  | "validationMessagePositionTop"
   | "tooltipPosition"
   | "name"
   | "id"
@@ -205,6 +206,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       searchWidth,
       maxWidth,
       tabIndex,
+      validationMessagePositionTop = true,
       tooltipPosition,
       warning,
       className,
@@ -397,6 +399,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       <TextInput
         {...rest}
         {...tagComponent("search", rest)}
+        validationMessagePositionTop={validationMessagePositionTop}
         className={classNames}
         id={id}
         name={name}

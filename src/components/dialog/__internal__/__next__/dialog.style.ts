@@ -16,6 +16,7 @@ import {
   StyledFormFooter,
 } from "../../../form/form.style";
 import StyledFullScreenHeading from "../../../../__internal__/full-screen-heading/full-screen-heading.style";
+import { paddingPropertyNames } from "../../../../style/utils/filter-styled-system-padding-props";
 
 const dialogSizes = {
   small: DIALOG_SIZE_CONFIG.small.maxWidth,
@@ -81,6 +82,9 @@ const applyDefaultPadding = () => css`
   }
 `;
 
+const hasContentPadding = (props: PaddingProps) =>
+  paddingPropertyNames.some((key) => props[key] !== undefined);
+
 // istanbul ignore next
 const applyContentPadding =
   (disableContentPadding = false) =>
@@ -92,7 +96,7 @@ const applyContentPadding =
     }
 
     return css`
-      ${applyDefaultPadding()}
+      ${!hasContentPadding(props) && applyDefaultPadding()}
 
       ${paddingFn(props)}
     `;
@@ -262,11 +266,6 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
 
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
 
-  [data-element="dialog-title-help-wrapper"] {
-    display: inline-flex;
-    align-items: baseline;
-  }
-
   [data-element="dialog-title-container"] {
     [data-element="dialog-title"] {
       color: var(--container-standard-txt-default, rgba(0, 0, 0, 0.95));
@@ -372,7 +371,6 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
               min-width: ${DIALOG_MIN_WIDTH};
             }
           `}
-
           ${$size === "large" &&
           css`
             min-width: 850px;
