@@ -12,10 +12,12 @@ test("`next` and `last` buttons are not visible when on the last page", async ()
   render(<Pager onPagination={() => {}} totalRecords={100} currentPage={10} />);
 
   expect(
-    screen.queryByRole("button", { name: "Go to next page" }),
+    screen.queryByRole("button", {
+      name: "Go to next page (page 11 of 10)",
+    }),
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Go to last page" }),
+    screen.queryByRole("button", { name: "Go to last page (page 10 of 10)" }),
   ).not.toBeInTheDocument();
 });
 
@@ -23,10 +25,12 @@ test("`previous` and `first` buttons are not visible when on the first page", as
   render(<Pager onPagination={() => {}} totalRecords={100} currentPage={1} />);
 
   expect(
-    screen.queryByRole("button", { name: "Go to previous page" }),
+    screen.queryByRole("button", {
+      name: "Go to previous page (page 0 of 10)",
+    }),
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Go to first page" }),
+    screen.queryByRole("button", { name: "Go to first page (page 1 of 10)" }),
   ).not.toBeInTheDocument();
 });
 
@@ -64,7 +68,11 @@ test("calls the `onFirst` callback when the `First` button is clicked", async ()
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to first page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to first page (page 1 of 10)",
+    }),
+  );
   expect(onFirst).toHaveBeenCalledTimes(1);
 });
 
@@ -80,7 +88,11 @@ test("calls the `onPrevious` callback when the `Previous` button is clicked", as
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to previous page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to previous page (page 9 of 10)",
+    }),
+  );
   expect(onPrevious).toHaveBeenCalledTimes(1);
 });
 
@@ -96,7 +108,9 @@ test("calls the `onNext` callback when the `Next` button is clicked", async () =
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to next page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to next page (page 2 of 10)" }),
+  );
   expect(onNext).toHaveBeenCalledTimes(1);
 });
 
@@ -112,7 +126,11 @@ test("calls the `onLast` callback when the `Last` button is clicked", async () =
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to last page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to last page (page 10 of 10)",
+    }),
+  );
   expect(onLast).toHaveBeenCalledTimes(1);
 });
 
@@ -192,7 +210,9 @@ test("clicking the `Next` button sets the current page to the next page", async 
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to next page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to next page (page 10 of 10)" }),
+  );
 
   expect(screen.getByRole("textbox", { name: "Page 10" })).toHaveValue("10");
 });
@@ -208,7 +228,11 @@ test("clicking the `Previous` button sets the current page to the previous page"
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to previous page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to previous page (page 4 of 10)",
+    }),
+  );
 
   expect(screen.getByRole("textbox", { name: "Page 4" })).toHaveValue("4");
 });
@@ -224,7 +248,11 @@ test("clicking the `First` button sets the current page to the first page", asyn
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to first page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to first page (page 1 of 10)",
+    }),
+  );
 
   expect(screen.getByRole("textbox", { name: "Page 1" })).toHaveValue("1");
 });
@@ -240,7 +268,11 @@ test("clicking the `Last` button sets the current page to the last page", async 
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to last page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to last page (page 10 of 10)",
+    }),
+  );
 
   expect(screen.getByRole("textbox", { name: "Page 10" })).toHaveValue("10");
 });
@@ -256,15 +288,19 @@ test("does not render `First` and `Last` buttons when `showFirstAndLastButtons` 
   );
 
   expect(
-    screen.queryByRole("button", { name: "Go to first page" }),
+    screen.queryByRole("button", { name: "Go to first page (page 1 of 10)" }),
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Go to last page" }),
+    screen.queryByRole("button", { name: "Go to last page (page 10 of 10)" }),
   ).not.toBeInTheDocument();
   expect(
-    screen.getByRole("button", { name: "Go to previous page" }),
+    screen.getByRole("button", {
+      name: "Go to previous page (page 4 of 10)",
+    }),
   ).toBeVisible();
-  expect(screen.getByRole("button", { name: "Go to next page" })).toBeVisible();
+  expect(
+    screen.getByRole("button", { name: "Go to next page (page 6 of 10)" }),
+  ).toBeVisible();
 });
 
 test("calls `onPagination` with `first` origin when the `First` button is clicked", async () => {
@@ -279,7 +315,9 @@ test("calls `onPagination` with `first` origin when the `First` button is clicke
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to first page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to first page (page 1 of 10)" }),
+  );
 
   expect(onPagination).toHaveBeenCalledWith(1, 10, "first");
 });
@@ -296,7 +334,11 @@ test("calls `onPagination` with `previous` origin when the `Previous` button is 
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to previous page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to previous page (page 1 of 10)",
+    }),
+  );
 
   expect(onPagination).toHaveBeenCalledWith(1, 10, "previous");
 });
@@ -313,7 +355,9 @@ test("calls `onPagination` with `next` origin when the `Next` button is clicked"
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to next page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to next page (page 6 of 10)" }),
+  );
 
   expect(onPagination).toHaveBeenCalledWith(6, 10, "next");
 });
@@ -330,7 +374,11 @@ test("calls `onPagination` with `last` origin when the `Last` button is clicked"
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to last page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to last page (page 10 of 10)",
+    }),
+  );
 
   expect(onPagination).toHaveBeenCalledWith(10, 10, "last");
 });
