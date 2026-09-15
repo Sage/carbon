@@ -17,6 +17,20 @@ const TestComponent = () => {
   );
 };
 
+const DateAriaLabels = () => {
+  const { ariaLabels } = useLocale().date;
+
+  return (
+    <>
+      <span>{ariaLabels.previousMonthButton()}</span>
+      <span>{ariaLabels.openCalendarButton?.()}</span>
+      <span>{ariaLabels.chooseMonth?.()}</span>
+      <span>{ariaLabels.chooseYear?.()}</span>
+      <span>{ariaLabels.closeButton?.()}</span>
+    </>
+  );
+};
+
 it("defaults to the 'en-gb' locale when no other locale is specified", () => {
   render(
     <I18nProvider>
@@ -37,6 +51,20 @@ it("should support overriding the default locale with 'de-DE'", () => {
 
   const localeText = screen.getByText("de-DE");
   expect(localeText).not.toHaveTextContent("en-GB");
+});
+
+it("falls back to en-GB for date aria labels omitted by another locale", () => {
+  render(
+    <I18nProvider locale={deDE}>
+      <DateAriaLabels />
+    </I18nProvider>,
+  );
+
+  expect(screen.getByText("Vorheriger Monat")).toBeVisible();
+  expect(screen.getByText("Open calendar")).toBeVisible();
+  expect(screen.getByText("Choose the month")).toBeVisible();
+  expect(screen.getByText("Choose the year")).toBeVisible();
+  expect(screen.getByText("Close")).toBeVisible();
 });
 
 it("should support overriding the default locale with 'en-CA'", () => {

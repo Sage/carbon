@@ -44,16 +44,14 @@ const StyledLabel = styled.label<StyledLabelProps>`
   ${({ $isRequired, $size, $disabled }) =>
     $isRequired &&
     css`
-      display: inline-flex;
-      align-items: center;
-
       ::after {
-        content: "*";
         color: ${$disabled
           ? "var(--input-labelset-label-disabled)"
           : "var(--input-labelset-label-required)"};
+        content: "*";
+        display: inline-block;
         font: ${getFontToken($size)};
-        margin-left: 4px;
+        margin-inline-start: 4px;
       }
     `}
 
@@ -65,7 +63,7 @@ const StyledLabel = styled.label<StyledLabelProps>`
   .fieldset-required-input & {
     ::after {
       content: "";
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
 `;
