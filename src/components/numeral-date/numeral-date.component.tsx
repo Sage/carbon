@@ -11,7 +11,6 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import Events from "../../__internal__/utils/helpers/events";
 import StyledNumeralDate from "./numeral-date.style";
 import TextInput from "../textbox/__internal__/__next__";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -209,15 +208,42 @@ const validationMessages = (
   yyyy: locale.numeralDate.validation.year(),
 });
 
-const getDaysInMonth = (month?: string, year?: string) => {
-  if (!month || +month > 12 || +month < 1) {
-    return 31;
+const toNumericValue = (value?: string) => {
+  if (!value?.trim()) {
+    return undefined;
   }
-  const currentDate = new Date();
-  const computedYear = +(year || currentDate.getFullYear());
+
+  const numericValue = Number(value);
+
+  return Number.isNaN(numericValue) ? undefined : numericValue;
+};
+
+const getDayValidationContext = (month?: string, year?: string) => {
+  const numericMonth = toNumericValue(month);
+  if (
+    numericMonth === undefined ||
+    !Number.isInteger(numericMonth) ||
+    numericMonth > 12 ||
+    numericMonth < 1
+  ) {
+    return { daysInMonth: 31 };
+  }
+
+  const numericYear = year ? toNumericValue(year) : new Date().getFullYear();
+  if (numericYear === undefined || !Number.isInteger(numericYear)) {
+    return { daysInMonth: 31 };
+  }
 
   // passing 0 as the third argument ensures we handle for months being 0 indexed
-  return new Date(computedYear, +month, 0).getDate();
+  const daysInMonth = new Date(numericYear, numericMonth, 0).getDate();
+  if (Number.isNaN(daysInMonth)) {
+    return { daysInMonth: 31 };
+  }
+
+  return {
+    daysInMonth,
+    monthForMessage: month,
+  };
 };
 
 const validate = (locale: Locale, { dd, mm, yyyy }: NumeralDateValue) => {
@@ -226,17 +252,27 @@ const validate = (locale: Locale, { dd, mm, yyyy }: NumeralDateValue) => {
     mm: "",
     yyyy: "",
   };
-  const daysInMonth = getDaysInMonth(mm, yyyy);
+  const { daysInMonth, monthForMessage } = getDayValidationContext(mm, yyyy);
+  const numericDay = toNumericValue(dd);
+  const numericMonth = toNumericValue(mm);
+  const numericYear = toNumericValue(yyyy);
 
-  if (dd && (+dd > daysInMonth || +dd < 1)) {
-    failed.dd = validationMessages(locale, mm, String(daysInMonth)).dd;
+  if (
+    numericDay !== undefined &&
+    (numericDay > daysInMonth || numericDay < 1)
+  ) {
+    failed.dd = validationMessages(
+      locale,
+      monthForMessage,
+      String(daysInMonth),
+    ).dd;
   }
 
-  if (mm && (+mm > 12 || +mm < 1)) {
+  if (numericMonth !== undefined && (numericMonth > 12 || numericMonth < 1)) {
     failed.mm = validationMessages(locale).mm;
   }
 
-  if (yyyy && (+yyyy < 1800 || +yyyy > 2200)) {
+  if (numericYear !== undefined && (numericYear < 1800 || numericYear > 2200)) {
     failed.yyyy = validationMessages(locale).yyyy;
   }
 
@@ -359,33 +395,18 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       },
     });
 
-    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      const isValidKey =
-        Events.isNumberKey(event) ||
-        Events.isTabKey(event) ||
-        Events.isEnterKey(event) ||
-        event.key === "Delete" ||
-        event.key === "Backspace";
-
-      if (!isValidKey) {
-        event.preventDefault();
-      }
-    };
-
     const handleChange = (
       event: React.ChangeEvent<HTMLInputElement>,
       datePart: keyof NumeralDateValue,
     ) => {
       const { value: newValue } = event.target;
 
-      if (newValue.length <= datePart.length) {
-        const newDateValue = {
-          ...value,
-          [datePart]: newValue,
-        };
+      const newDateValue = {
+        ...value,
+        [datePart]: newValue,
+      };
 
-        onChange(createCustomEventObject(newDateValue));
-      }
+      onChange(createCustomEventObject(newDateValue));
     };
 
     const handleBlur = () => {
@@ -442,7 +463,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
 
     const renderInputs = () => {
       return (
-        <StyledNumeralDate onKeyDown={onKeyDown} $size={size}>
+        <StyledNumeralDate $size={size}>
           {dateFormat.map((datePart, index) => {
             let inputRef: React.ForwardedRef<HTMLInputElement> | undefined;
 
@@ -478,6 +499,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
                   warning={!!internalWarning}
                   size={size}
                   value={value[datePart] ?? ""}
+                  inputMode="numeric"
                   onChange={(e) => handleChange(e, datePart)}
                   onBlur={handleBlur}
                   ref={(element) => handleRef(element, index, inputRef)}

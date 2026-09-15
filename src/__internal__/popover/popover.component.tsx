@@ -4,6 +4,7 @@ import React, {
   useRef,
   RefObject,
   useEffect,
+  useState,
 } from "react";
 import { createPortal } from "react-dom";
 import { flip, Placement, Middleware } from "@floating-ui/dom";
@@ -125,7 +126,7 @@ const Popover = ({ disablePortal, portalTarget, ...props }: PopoverProps) => {
   const { wrapperId } = useContext(TokensWrapperContext);
   const closestDialog =
     props.reference.current?.closest<HTMLElement>("[role='dialog']");
-  const [mode, setMode] = React.useState<string | undefined>();
+  const [mode, setMode] = useState<string | undefined>();
 
   useEffect(() => {
     const wrapper = props.reference.current?.closest("[data-carbon-theme]");
@@ -145,7 +146,10 @@ const Popover = ({ disablePortal, portalTarget, ...props }: PopoverProps) => {
       attributeFilter: ["data-carbon-theme"],
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      setMode(undefined);
+    };
   }, [props.reference]);
 
   if (disablePortal) {

@@ -25,7 +25,7 @@ import {
 
 import React, { useCallback, useEffect, useState } from "react";
 
-import { FormattingButton } from "../toolbar.style";
+import ToolbarButtonToggle from "../toolbar-button.component";
 import useLocale from "../../../../../../hooks/__internal__/useLocale";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../../__utils__/constants";
 
@@ -362,7 +362,8 @@ const ListControls = ({
   return (
     <>
       {showUL && (
-        <FormattingButton
+        <ToolbarButtonToggle
+          type="button"
           size={size}
           aria-label={locale.textEditor.unorderedListAria()}
           onClick={() =>
@@ -371,10 +372,8 @@ const ListControls = ({
           onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
             e.preventDefault()
           }
-          iconType="bullet_list_dotted"
-          buttonType={isULActive ? "primary" : "tertiary"}
-          isActive={isULActive}
-          aria-pressed={isULActive}
+          buttonIcon="bullet_list_dotted"
+          pressed={isULActive}
           data-role={`${namespace}-unordered-list-button`}
           id={`${namespace}-unordered-list-button`}
           tabIndex={ulIsFirstButton ? 0 : -1}
@@ -382,7 +381,8 @@ const ListControls = ({
         />
       )}
       {showOL && (
-        <FormattingButton
+        <ToolbarButtonToggle
+          type="button"
           size={size}
           aria-label={locale.textEditor.orderedListAria()}
           onClick={() =>
@@ -391,10 +391,8 @@ const ListControls = ({
           onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
             e.preventDefault()
           }
-          iconType="bullet_list_numbers"
-          buttonType={isOLActive ? "primary" : "tertiary"}
-          isActive={isOLActive}
-          aria-pressed={isOLActive}
+          buttonIcon="bullet_list_numbers"
+          pressed={isOLActive}
           data-role={`${namespace}-ordered-list-button`}
           id={`${namespace}-ordered-list-button`}
           tabIndex={olIsFirstButton ? 0 : -1}

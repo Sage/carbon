@@ -14,13 +14,17 @@ import {
   StyledSubtitle,
 } from "./dialog.style";
 
-import { StyledHeaderHelp } from "../../../heading/heading.style";
+import DialogHeadingStatus, {
+  DialogHeadingStatusContext,
+} from "./dialog-header/dialog-header.component";
+
+import Button from "../../../button/__next__";
 import Icon from "../../../icon";
 import Typography from "../../../typography";
 import Modal, { ModalProps } from "../../../../__internal__/modal";
+import FullScreenHeading from "../../../../__internal__/full-screen-heading";
 
 import FocusTrap from "../../../../__internal__/focus-trap";
-import FullScreenHeading from "../../../../__internal__/full-screen-heading";
 import createGuid from "../../../../__internal__/utils/helpers/guid";
 import tagComponent, {
   TagProps,
@@ -28,9 +32,9 @@ import tagComponent, {
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import useModalAria from "../../../../hooks/__internal__/useModalAria/useModalAria";
-import Button from "../../../button/__next__";
 
 import { Size, ContentPaddingInterface } from "./dialog.config";
+import isDialogHeadingStatusComponent from "./utils";
 
 export type { Size, ContentPaddingInterface };
 
@@ -92,7 +96,10 @@ export interface DialogProps extends ModalProps, TagProps {
   headerChildren?: React.ReactNode;
   /** Allows developers to specify a specific height for the dialog. */
   height?: string;
-  /** Adds Help tooltip to Header */
+  /**
+   * Adds Help tooltip to Header.
+   * @deprecated This prop no longer has any effect and will be removed in a future release.
+   */
   help?: string;
   /** Adds a gradient keyline to the dialog header */
   gradientKeyLine?: boolean;
@@ -209,6 +216,24 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       [],
     );
 
+    // Check if title is a DialogHeader component
+    const isDialogHeader = React.useMemo(() => {
+      if (!title || !React.isValidElement(title)) {
+        return false;
+      }
+
+      // Check direct type match
+      if (title.type === DialogHeadingStatus) {
+        return true;
+      }
+
+      return isDialogHeadingStatusComponent(title.type);
+    }, [title]);
+
+    const isValidDialogHeader =
+      isDialogHeader &&
+      React.isValidElement<{ subtitle?: React.ReactNode }>(title);
+
     const closeIcon = showCloseIcon && onCancel && (
       <Button
         aria-label={locale.dialog.ariaLabels.close()}
@@ -224,52 +249,61 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     );
 
     const dialogTitle = () => {
-      const renderTitle = (
+      // Helper to render subtitle
+      const renderSubtitle = () => {
+        if (!subtitle) return null;
+        return (
+          <StyledSubtitle
+            as="div"
+            data-element="subtitle"
+            data-role="subtitle"
+            id={subtitleId}
+          >
+            {subtitle}
+          </StyledSubtitle>
+        );
+      };
+
+      // Render title content based on type and props
+      const renderTitleContent = () => {
+        // Non-string title renders as-is
+        if (typeof title !== "string") {
+          return title;
+        }
+
+        // String title only
+        return (
+          <Typography
+            wordWrap="break-word"
+            wordBreak="normal"
+            variant="h1"
+            data-element="dialog-title"
+            id={titleId}
+          >
+            {title}
+          </Typography>
+        );
+      };
+
+      const titleContent = (
         <div data-element="dialog-title-container">
-          {typeof title === "string" ? (
-            <>
-              {help ? (
-                <div data-element="dialog-title-help-wrapper">
-                  <Typography
-                    wordWrap="break-word"
-                    wordBreak="normal"
-                    variant="h1"
-                    marginRight="16px"
-                    data-element="dialog-title"
-                    id={titleId}
-                  >
-                    {title}
-                  </Typography>
-                  <StyledHeaderHelp data-element="help" tooltipPosition="right">
-                    {help}
-                  </StyledHeaderHelp>
-                </div>
-              ) : (
-                <Typography
-                  wordWrap="break-word"
-                  wordBreak="normal"
-                  variant="h1"
-                  data-element="dialog-title"
-                  id={titleId}
-                >
-                  {title}
-                </Typography>
-              )}
-            </>
-          ) : (
-            title
-          )}
-          {subtitle && (
-            <StyledSubtitle
-              as="div"
-              data-element="subtitle"
-              data-role="subtitle"
-              id={subtitleId}
-            >
-              {subtitle}
-            </StyledSubtitle>
-          )}
+          {renderTitleContent()}
+          {renderSubtitle()}
         </div>
+      );
+
+      // Wrap in context provider if title is DialogHeader
+      const renderTitle = isDialogHeader ? (
+        <DialogHeadingStatusContext.Provider
+          value={{
+            titleId,
+            subtitleId,
+          }}
+        >
+          {titleContent}
+        </DialogHeadingStatusContext.Provider>
+      ) : (
+        titleContent
       );
 
       return isFullScreen ? (
@@ -317,10 +351,15 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
     const ariaProps = {
       "aria-describedby":
-        subtitle && typeof subtitle === "string" ? subtitleId : ariaDescribedBy,
+        (isValidDialogHeader && title.props.subtitle) ||
+        (subtitle && typeof subtitle === "string")
+          ? subtitleId
+          : ariaDescribedBy,
       "aria-label": ariaLabel,
       "aria-labelledby":
-        title && typeof title === "string" ? titleId : ariaLabelledBy,
+        isValidDialogHeader || (title && typeof title === "string")
+          ? titleId
+          : ariaLabelledBy,
     };
 
     return (
@@ -399,8 +438,6 @@ Dialog.displayName = "Dialog";
 
 export default Dialog;
 
-export { default as withDialogHeader } from "./dialog-header/dialog-header.component";
-export type {
-  EnhancedDialogProps,
-  DialogHeadingStatus,
-} from "./dialog-header/dialog-header.component";
+export { default as DialogHeader } from "./dialog-header/dialog-header.component";
+export { default as DialogHeadingStatus } from "./dialog-header/dialog-header.component";
+export type { DialogHeadingStatusProps } from "./dialog-header/dialog-header.component";

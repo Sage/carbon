@@ -253,9 +253,21 @@ describe("when selectType is 'simple'", () => {
   });
 });
 
+test("sets inputmode='none' on the combobox when selectType is 'simple'", () => {
+  render(<ControlledSelectTextbox selectType="simple" />);
+
+  expect(screen.getByRole("combobox")).toHaveAttribute("inputmode", "none");
+});
+
 describe.each(["filterable", "multi"] as const)(
   "when input is rendered as part of %s select",
   (selectType) => {
+    it("does not set inputmode='none' on the combobox", () => {
+      render(<ControlledSelectTextbox selectType={selectType} />);
+
+      expect(screen.getByRole("combobox")).not.toHaveAttribute("inputmode");
+    });
+
     it("does not render the `select-text` overlay", () => {
       render(
         <ControlledSelectTextbox

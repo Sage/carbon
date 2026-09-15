@@ -35,7 +35,7 @@ description: Carbon Note component props and usage examples.
 | name | string \| undefined | No |  | Adds a name to the Note footer |  |
 | onLinkAdded | ((url: string) => void) \| undefined | No |  | Callback to report a url when a link is added |  |
 | previews | React.ReactNode | No |  | The previews to display of any links added to the Editor |  |
-| status | { text: string; timeStamp: string; } \| undefined | No |  | Adds a status and tooltip to the Note footer |  |
+| status | { text: string; timeStamp: string; } \| undefined | No |  | Adds a status and timestamp below the created details |  |
 | title | React.ReactNode | No |  | Adds a Title to the Note |  |
 | width | number \| undefined | No |  | Set a percentage-based width for the whole Note component, relative to its parent. | 100 |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -130,6 +130,8 @@ description: Carbon Note component props and usage examples.
   const inlineControl = (
     <ActionPopover>
       <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Copy</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Forward</ActionPopoverItem>
       <ActionPopoverDivider />
       <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
     </ActionPopover>
@@ -142,6 +144,96 @@ description: Carbon Note component props and usage examples.
         noteContent={html}
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
+      />
+    </Box>
+  );
+}
+```
+
+
+### With Inline Controls and No Title
+
+**Render**
+
+```tsx
+() => {
+  const inlineControl = (
+    <ActionPopover>
+      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Copy</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Forward</ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+    </ActionPopover>
+  );
+
+  return (
+    <Box width="50%">
+      <Note
+        inlineControl={inlineControl}
+        noteContent="A note can display its actions menu without a title."
+        name="Lauren Smith"
+        createdDate="23 May 2020, 12:08 PM"
+      />
+    </Box>
+  );
+}
+```
+
+
+### With @mention
+
+**Render**
+
+```tsx
+() => {
+  const noteContent = JSON.stringify({
+    root: {
+      children: [
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: "normal",
+              style: "",
+              text: "Please review this with ",
+              type: "text",
+              version: 1,
+            },
+            {
+              detail: 0,
+              format: 0,
+              mode: "token",
+              mention: "@Amanda Ball",
+              style: "",
+              text: "@Amanda Ball",
+              type: "mention",
+              version: 1,
+            },
+          ],
+          direction: "ltr",
+          format: "",
+          indent: 0,
+          type: "paragraph",
+          version: 1,
+        },
+      ],
+      direction: "ltr",
+      format: "",
+      indent: 0,
+      type: "root",
+      version: 1,
+    },
+  });
+
+  return (
+    <Box width="50%">
+      <Note
+        title="Review requested"
+        name="Lauren Smith"
+        noteContent={noteContent}
+        createdDate="20 Jan 16:49"
       />
     </Box>
   );

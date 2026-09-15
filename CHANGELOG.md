@@ -1,3 +1,96 @@
+## [162.0.1](https://github.com/Sage/carbon/compare/v162.0.0...v162.0.1) (2026-09-14)
+
+### Bug Fixes
+
+* **decimal:** default to decimal input mode ([ba29e9c](https://github.com/Sage/carbon/commit/ba29e9cd43e81af784bf6c14ac8be2e327a6fb59))
+* **numeral-date:** allow unrestricted date input ([c90c40b](https://github.com/Sage/carbon/commit/c90c40be44e78f758a38aae18d51002cafa5d374))
+* **time:** add numeric input mode hints ([2438431](https://github.com/Sage/carbon/commit/2438431abc3f4b41e7ca48ccc0f332eb84af4f5a))
+
+## [162.0.0](https://github.com/Sage/carbon/compare/v161.25.1...v162.0.0) (2026-09-14)
+
+### ⚠ BREAKING CHANGES
+
+* **textarea:** Textarea now renders a native textarea instead of the legacy
+Input. Its props and event handler types are based on HTMLTextAreaElement rather
+than HTMLInputElement, so consumers with typed handlers or previously-inherited
+input-only attributes may need to update their types
+
+### Bug Fixes
+
+* **textarea:** remove legacy FormField, Label and Input usage ([c8c6d6e](https://github.com/Sage/carbon/commit/c8c6d6e1f7f70504bd8f06013921f539a3de7f1d))
+
+## [161.25.1](https://github.com/Sage/carbon/compare/v161.25.0...v161.25.1) (2026-09-11)
+
+### Bug Fixes
+
+* **textarea:** restore backwards compatibility ([dfa6384](https://github.com/Sage/carbon/commit/dfa63842fd5ae3e8ebe3775cd9776e6240b7457b))
+
+## [161.25.0](https://github.com/Sage/carbon/compare/v161.24.0...v161.25.0) (2026-09-10)
+
+### Features
+
+* **dialog:** add dialog header component ([73628b1](https://github.com/Sage/carbon/commit/73628b1a6b941da9dda5cca5c0e454bf68080821))
+
+## [161.24.0](https://github.com/Sage/carbon/compare/v161.23.0...v161.24.0) (2026-09-10)
+
+### Features
+
+* **popover-container:** align component with fusion designs ([c4c4f63](https://github.com/Sage/carbon/commit/c4c4f63aaa140b08df09e08288621e503e8db8f4))
+
+## [161.23.0](https://github.com/Sage/carbon/compare/v161.22.1...v161.23.0) (2026-09-10)
+
+### Features
+
+* **textarea:** remove legacy FormField, Label and Input usage ([a1dc8e3](https://github.com/Sage/carbon/commit/a1dc8e3aa74c783ac4911c677145a5bf74a65e08))
+
+## [161.22.1](https://github.com/Sage/carbon/compare/v161.22.0...v161.22.1) (2026-09-09)
+
+### Bug Fixes
+
+* **select:** correct markup in option group header ([a34001f](https://github.com/Sage/carbon/commit/a34001f1ca7243145c0f2049e7250d4b16e6dc9b)), closes [#8157](https://github.com/Sage/carbon/issues/8157)
+
+## [161.22.0](https://github.com/Sage/carbon/compare/v161.21.0...v161.22.0) (2026-09-03)
+
+### Features
+
+* **navigation-bar:** align with fusion DS designs ([d881cf6](https://github.com/Sage/carbon/commit/d881cf64d8d9a7690b395985551e9029e1d4632a))
+
+## [161.21.0](https://github.com/Sage/carbon/compare/v161.20.0...v161.21.0) (2026-09-03)
+
+### Features
+
+* **option-tile:** align OptionTile and OptionTileGroup ([9346558](https://github.com/Sage/carbon/commit/934655895ba2b15fe3c5e82f67c854ea58c9311b))
+
+## [161.20.0](https://github.com/Sage/carbon/compare/v161.19.4...v161.20.0) (2026-09-02)
+
+### Features
+
+* **note:** align Note component with Fusion DS ([4ceb19d](https://github.com/Sage/carbon/commit/4ceb19d56a06c3f5e2a2ccf6e54eca5f40764947))
+
+## [161.19.4](https://github.com/Sage/carbon/compare/v161.19.3...v161.19.4) (2026-08-27)
+
+### Bug Fixes
+
+* **search:** add validationMessagePositionTop to interface ([4dfde68](https://github.com/Sage/carbon/commit/4dfde6843cafe035ff63a0078bec5c9b41002bb3))
+
+## [161.19.3](https://github.com/Sage/carbon/compare/v161.19.2...v161.19.3) (2026-08-27)
+
+### Bug Fixes
+
+* **dialog:** honour contentPadding on fullscreen dialogs above 600px ([c595385](https://github.com/Sage/carbon/commit/c5953852f0e770d086bba25fd323d3cd92c42a35))
+
+## [161.19.2](https://github.com/Sage/carbon/compare/v161.19.1...v161.19.2) (2026-08-26)
+
+### Bug Fixes
+
+* **simple-select:** add inputMode none to input ([6355a1f](https://github.com/Sage/carbon/commit/6355a1f03f27a1a7acbc4183515fc81d1ac397ee)), closes [#7786](https://github.com/Sage/carbon/issues/7786)
+
+## [161.19.1](https://github.com/Sage/carbon/compare/v161.19.0...v161.19.1) (2026-08-26)
+
+### Bug Fixes
+
+* ensure popovers are not clipped by parent overflows ([b8ed46f](https://github.com/Sage/carbon/commit/b8ed46ffdad9d60fba152b51f5e7e8ab97b289cf)), closes [#8148](https://github.com/Sage/carbon/issues/8148)
+
 ## [161.19.0](https://github.com/Sage/carbon/compare/v161.18.2...v161.19.0) (2026-08-21)
 
 ### Features

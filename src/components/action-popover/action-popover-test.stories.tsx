@@ -18,6 +18,8 @@ import {
   FlatTableCell,
 } from "../flat-table";
 import Box from "../box";
+import { FlexTileCell, FlexTileContainer, Tile } from "../tile";
+import Typography from "../typography";
 
 export default {
   title: "Action Popover/Test",
@@ -29,6 +31,7 @@ export default {
     "WithoutDefaultAriaLabel",
     "ActionPopoverClick",
     "ActionPopoverSubmenuClick",
+    "TestParentOverflow",
   ],
   parameters: {
     info: { disable: true },
@@ -905,5 +908,64 @@ export const WithoutDefaultAriaLabel = () => {
         </ActionPopoverItem>
       </ActionPopover>
     </Box>
+  );
+};
+
+export const TestParentOverflow = () => {
+  return (
+    <Tile my={1} py={0}>
+      <FlexTileContainer>
+        <FlexTileCell flexBasis="80px" flexGrow={0} py={1}>
+          <Box>
+            <Box alignItems="center" display="flex" minHeight="48px">
+              <Typography mb={0}>Foo</Typography>
+              <Typography variant="b" wordBreak="break-word">
+                Bar
+              </Typography>
+            </Box>
+          </Box>
+        </FlexTileCell>
+        <FlexTileCell flexBasis="80px" flexGrow={0} py={1}>
+          <Box>
+            <Box alignItems="center" display="flex" minHeight="48px">
+              <Typography mb={0}>Foo</Typography>
+              <Typography variant="b" wordBreak="break-word">
+                Bar
+              </Typography>
+            </Box>
+          </Box>
+        </FlexTileCell>
+        <FlexTileCell flexBasis="80px" flexGrow={0} py={1}>
+          <Box>
+            <Box alignItems="center" display="flex" minHeight="48px">
+              <Typography mb={0}>Foo</Typography>
+              <Typography variant="b" wordBreak="break-word">
+                Bar
+              </Typography>
+            </Box>
+          </Box>
+        </FlexTileCell>
+        <FlexTileCell flexBasis="160px" flexGrow={1} justifyContent="flex-end">
+          <Box>
+            <Box alignItems="center" display="flex" minHeight="48px">
+              <ActionPopover id="action" mr={1}>
+                <ActionPopoverItem onClick={() => {}}>
+                  Action 1
+                </ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Action 2
+                </ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Action 3
+                </ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>
+                  Action 4
+                </ActionPopoverItem>
+              </ActionPopover>
+            </Box>
+          </Box>
+        </FlexTileCell>
+      </FlexTileContainer>
+    </Tile>
   );
 };
