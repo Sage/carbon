@@ -89,13 +89,33 @@ const enGB: Locale = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "or drag and drop your file",
-    selectFile: () => "Select file",
-    fileUploadStatus: () => "File upload status",
+    dragAndDrop: (selectButtonText = "Select files") =>
+      `Drag and drop your files, or click ${selectButtonText} to choose them`,
+    selectFile: () => "Select files",
+    currentFiles: (count) =>
+      count === 1 ? `Current file (${count})` : `Current files (${count})`,
+    currentFilesErrorSummary: ({ errorCount }) =>
+      errorCount === 1
+        ? "1 file couldn't be uploaded"
+        : `${errorCount} files couldn't be uploaded`,
+    previouslyUploadedFiles: (count) =>
+      count === 1
+        ? `Previously uploaded file (${count})`
+        : `Previously uploaded files (${count})`,
+    uploading: () => "Uploading…",
+    uploaded: () => "File uploaded",
+    uploadError: () => "Error details",
+    filesAdded: (files) =>
+      files.length === 1
+        ? `File added: ${files[0]}`
+        : `Files added: ${files.join(", ")}`,
+    uploadComplete: (files) => `Upload complete: ${files.join(", ")}`,
     actions: {
-      cancel: () => "Cancel upload",
-      clear: () => "Clear",
-      delete: () => "Delete file",
+      cancel: () => "Cancel",
+      delete: () => "Delete",
+      remove: () => "Remove",
+      retry: () => "Retry",
+      preview: () => "Preview",
     },
   },
   globalHeader: {

@@ -90,10 +90,8 @@ const ptPT: Partial<Locale> = {
   fileInput: {
     dragAndDrop: () => "ou arrastar e largar",
     selectFile: () => "Selecionar ficheiro",
-    fileUploadStatus: () => "Estado de carregamento",
     actions: {
       cancel: () => "Cancelar carregamento",
-      clear: () => "Limpar",
       delete: () => "Eliminar ficheiro",
     },
   },
