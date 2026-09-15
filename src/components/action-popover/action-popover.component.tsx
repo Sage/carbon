@@ -12,9 +12,12 @@ import { MarginProps } from "styled-system";
 import invariant from "invariant";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-import { MenuButton, MenuButtonOverrideWrapper } from "./action-popover.style";
+import { MenuButton } from "./action-popover.style";
 import Events from "../../__internal__/utils/helpers/events";
-import { PopoverMenu } from "../../__internal__/popover-menu";
+import {
+  PopoverMenu,
+  handleAlphaKeyNavigation,
+} from "../../__internal__/popover-menu";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import ActionPopoverItem from "./action-popover-item/action-popover-item.component";
@@ -298,24 +301,22 @@ export const ActionPopover = forwardRef<
       }
 
       return (
-        <MenuButtonOverrideWrapper>
-          <Button
-            variant="default"
-            variantType="subtle"
-            iconType="dropdown"
-            iconPosition="after"
-            size="small"
-            aria-haspopup="true"
-            aria-label={ariaLabel}
-            aria-labelledby={ariaLabelledBy}
-            aria-describedby={ariaDescribedBy}
-            aria-controls={menuID}
-            aria-expanded={isOpen}
-            data-element="action-popover-button"
-          >
-            Action
-          </Button>
-        </MenuButtonOverrideWrapper>
+        <Button
+          variant="default"
+          variantType="subtle"
+          iconType="ellipsis_vertical"
+          iconPosition="after"
+          size="small"
+          aria-haspopup="true"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          aria-describedby={ariaDescribedBy}
+          aria-controls={menuID}
+          aria-expanded={isOpen}
+          data-element="action-popover-button"
+        >
+          Action
+        </Button>
       );
     };
 
@@ -347,6 +348,7 @@ export const ActionPopover = forwardRef<
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
             isButtonMenu
+            typeahead={handleAlphaKeyNavigation}
             placement={mappedPlacement}
             controlReference={buttonRef}
             controlWrapperStyle={{ display: "contents" }}

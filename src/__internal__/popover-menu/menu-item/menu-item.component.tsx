@@ -22,10 +22,6 @@ export interface MenuItemProps {
   submenuOpen?: boolean;
   onSubmenuOpen?: () => void;
   onSubmenuClose?: () => void;
-  /** Fired when the pointer enters the item, used to open submenus on hover */
-  onMouseEnter?: (event: React.MouseEvent<HTMLLIElement>) => void;
-  /** Fired when the pointer leaves the item, used to close submenus on hover */
-  onMouseLeave?: (event: React.MouseEvent<HTMLLIElement>) => void;
 }
 
 interface StyledMenuItemProps {
@@ -42,6 +38,20 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
   width: 100%;
   position: relative;
   box-sizing: border-box;
+
+  /* reset the user agent styles so anchors and buttons render identically */
+  button,
+  a {
+    appearance: none;
+    background: none;
+    border: none;
+    box-sizing: border-box;
+    color: inherit;
+    cursor: inherit;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+  }
 
   &:not(:has(button)):not(:has(a)) {
     ${({ $disabled }) =>
@@ -273,8 +283,6 @@ const MenuItem = ({
   onSubmenuClose,
   submenuWidth,
   id,
-  onMouseEnter,
-  onMouseLeave,
   ...rest
 }: MenuItemProps) => {
   const ref = useRef<HTMLLIElement | null>(null);
@@ -378,8 +386,6 @@ const MenuItem = ({
             onKeyDown={!isDisabled ? handleKeydown : undefined}
             $disabled={isDisabled}
             $isButtonMenu={isButtonMenu}
-            onMouseEnter={!isDisabled ? onMouseEnter : undefined}
-            onMouseLeave={!isDisabled ? onMouseLeave : undefined}
           >
             {clonedSubmenuParentItem({
               ...controlProps,
@@ -401,8 +407,6 @@ const MenuItem = ({
       onClick={!isDisabled ? onClick : undefined}
       onMouseDown={!isDisabled ? (ev) => ev.preventDefault() : undefined}
       onKeyDown={handleSubmenuClose}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
       role={isButtonMenu ? undefined : "option"}
       aria-selected={!isButtonMenu ? selected && !isDisabled : undefined}
       aria-disabled={!isButtonMenu ? isDisabled : undefined}

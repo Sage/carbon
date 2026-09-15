@@ -12,6 +12,7 @@ import { flip, offset, size } from "@floating-ui/dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { useHandleDropdownMenuKeyDown, setFocus } from "./hooks";
+import type { TypeaheadHandler } from "./hooks";
 import guid from "../utils/helpers/guid";
 import {
   PopoverMenuContext,
@@ -153,6 +154,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   listRef?: React.Ref<HTMLUListElement>;
   /** Render the menu above a modal overlay, trapping interaction to the menu */
   disableBackgroundUI?: boolean;
+  /** Opt in to type-ahead by passing a handler, e.g. `handleAlphaKeyNavigation` */
+  typeahead?: TypeaheadHandler;
 }
 
 const OFFSET = 8;
@@ -329,6 +332,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     controlWrapperStyle,
     maxHeight,
     disableBackgroundUI,
+    typeahead,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -413,6 +417,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     {
       isButtonMenu,
       isSubmenu,
+      typeahead,
     },
   );
 

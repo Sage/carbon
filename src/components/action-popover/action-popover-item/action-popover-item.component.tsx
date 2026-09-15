@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import invariant from "invariant";
 
 import {
@@ -40,8 +40,6 @@ export interface ActionPopoverItemProps {
   /** @ignore @private */
   setCurrentSubmenuPosition?: (value: Alignment) => void;
 }
-
-const INTERVAL = 150;
 
 export const ActionPopoverItem = ({
   children,
@@ -94,16 +92,6 @@ export const ActionPopoverItem = ({
     [setOpenSubmenuId, submenuId],
   );
   const itemRef = useRef<HTMLButtonElement & HTMLAnchorElement>(null);
-  const mouseEnterTimer = useRef<NodeJS.Timeout | null>(null);
-  const mouseLeaveTimer = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    return function cleanup() {
-      if (mouseEnterTimer.current) clearTimeout(mouseEnterTimer.current);
-      if (mouseLeaveTimer.current) clearTimeout(mouseLeaveTimer.current);
-    };
-  }, []);
-
   const onClick = useCallback(
     (
       e:
@@ -148,26 +136,6 @@ export const ActionPopoverItem = ({
       ev.stopPropagation();
     }
   };
-
-  const hoverProps =
-    submenu && !disabled
-      ? {
-          onMouseEnter: () => {
-            if (mouseEnterTimer.current) clearTimeout(mouseEnterTimer.current);
-            mouseEnterTimer.current = setTimeout(
-              () => setSubmenuOpen(true),
-              INTERVAL,
-            );
-          },
-          onMouseLeave: () => {
-            if (mouseLeaveTimer.current) clearTimeout(mouseLeaveTimer.current);
-            mouseLeaveTimer.current = setTimeout(
-              () => setSubmenuOpen(false),
-              INTERVAL,
-            );
-          },
-        }
-      : {};
 
   const content = (
     <>
@@ -220,7 +188,6 @@ export const ActionPopoverItem = ({
       submenuOpen={submenuOpen}
       onSubmenuOpen={() => setSubmenuOpen(true)}
       onSubmenuClose={() => setSubmenuOpen(false)}
-      {...hoverProps}
     >
       {interactiveElement}
     </MenuItem>
