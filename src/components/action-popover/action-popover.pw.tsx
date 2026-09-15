@@ -4,7 +4,6 @@ import {
   actionPopover,
   actionPopoverButton,
   actionPopoverInnerItem,
-  actionPopoverSubmenuByIndex,
   actionPopoverWrapper,
 } from "../../../playwright/components/action-popover";
 import { dialog } from "../../../playwright/components/dialog";
@@ -19,7 +18,6 @@ import {
   ActionPopoverCustom,
   ActionPopoverWithIconsAndNoSubmenus,
   ActionPopoverWithProps,
-  ActionPopoverWithSubmenusAndIcons,
   ActionPopoverWithDownloadButton,
   Default,
   AdditionalOptions,
@@ -238,75 +236,10 @@ test.describe("check props for ActionPopover component", () => {
       await mount(<ActionPopoverWithProps rightAlignMenu={rightAlignMenu} />);
       const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const actionPopoverElement = actionPopover(page).first();
-      await expect(actionPopoverElement).toHaveAttribute(
-        "data-floating-placement",
-        placement,
-      );
+      await expect(
+        page.locator("[data-floating-placement]").first(),
+      ).toHaveAttribute("data-floating-placement", placement);
     });
-  });
-
-  (["left", "right"] as const).forEach((horizontalAlignment) => {
-    test(`an item's text is aligned to the ${horizontalAlignment}, when horizontalAlignment prop is set to ${horizontalAlignment}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ActionPopoverWithIconsAndNoSubmenus
-          horizontalAlignment={horizontalAlignment}
-        />,
-      );
-
-      const openButton = page.getByRole("button");
-      await openButton.click();
-
-      const firstItem = page.getByRole("listitem").first();
-      await firstItem.hover();
-
-      await expect(firstItem.getByRole("button")).toHaveCSS(
-        "text-align",
-        horizontalAlignment,
-      );
-    });
-  });
-
-  (["left", "right"] as const).forEach((horizontalAlignment) => {
-    test(`a submenu item's text is aligned to the ${horizontalAlignment}, when horizontalAlignment prop is set to ${horizontalAlignment}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ActionPopoverWithSubmenusAndIcons
-          horizontalAlignment={horizontalAlignment}
-        />,
-      );
-
-      const openButton = page.getByRole("button");
-      await openButton.click();
-
-      const firstItem = page.getByRole("listitem").first();
-      await firstItem.hover();
-
-      const firstSubmenuItem = firstItem.getByRole("listitem").first();
-      await expect(firstSubmenuItem).toHaveCSS(
-        "text-align",
-        horizontalAlignment,
-      );
-    });
-  });
-
-  test("should render with submenu opening above when placement prop set to 'top'", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuOpeningAbove />);
-    await actionPopoverButton(page).nth(0).click();
-    await actionPopoverInnerItem(page, 0).hover();
-
-    await expect(actionPopoverSubmenuByIndex(page, 0)).toHaveCSS(
-      "bottom",
-      "-8px",
-    ); // result of calc(-1 * var(--spacing100))
   });
 
   test("should render with aria-label prop", async ({ mount, page }) => {
@@ -334,92 +267,6 @@ test("an item's icon is placed left of the item's text, when horizontalAlignment
     .filter({ hasText: "Business" });
   const icon = businessItem.getByTestId("item-icon");
   const text = businessItem.getByText("Business");
-
-  const iconPosition = await icon.boundingBox();
-  const textPosition = await text.boundingBox();
-
-  if (!iconPosition) throw new Error("Icon isn't visible");
-  if (!textPosition) throw new Error("Text isn't visible");
-
-  expect(iconPosition.x).toBeLessThan(textPosition.x);
-});
-
-test("an item's icon is placed right of the item's text, when horizontalAlignment prop is set to 'right'", async ({
-  mount,
-  page,
-}) => {
-  await mount(
-    <ActionPopoverWithIconsAndNoSubmenus horizontalAlignment="right" />,
-  );
-
-  const openingButton = page.getByRole("button");
-  await openingButton.click();
-
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
-  const icon = businessItem.getByTestId("item-icon");
-  const text = businessItem.getByText("Business");
-
-  const iconPosition = await icon.boundingBox();
-  const textPosition = await text.boundingBox();
-
-  if (!iconPosition) throw new Error("Icon isn't visible");
-  if (!textPosition) throw new Error("Text isn't visible");
-
-  expect(iconPosition.x).toBeGreaterThan(textPosition.x);
-});
-
-test("a submenu item's icon is placed right of the item's text, when horizontalAlignment prop is set to 'right'", async ({
-  mount,
-  page,
-}) => {
-  await mount(
-    <ActionPopoverWithSubmenusAndIcons horizontalAlignment="right" />,
-  );
-
-  const openingButton = page.getByRole("button");
-  await openingButton.click();
-
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
-  await businessItem.hover();
-
-  const firstSubmenuItem = businessItem
-    .getByRole("listitem")
-    .filter({ hasText: "Sub Menu 1" });
-  const icon = firstSubmenuItem.getByTestId("item-icon");
-  const text = firstSubmenuItem.getByText("Sub Menu 1");
-
-  const iconPosition = await icon.boundingBox();
-  const textPosition = await text.boundingBox();
-
-  if (!iconPosition) throw new Error("Icon isn't visible");
-  if (!textPosition) throw new Error("Text isn't visible");
-
-  expect(iconPosition.x).toBeGreaterThan(textPosition.x);
-});
-
-test("a submenu item's icon is placed left of the item's text, when horizontalAlignment prop is set to 'left'", async ({
-  mount,
-  page,
-}) => {
-  await mount(<ActionPopoverWithSubmenusAndIcons horizontalAlignment="left" />);
-
-  const openingButton = page.getByRole("button");
-  await openingButton.click();
-
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
-  await businessItem.hover();
-
-  const firstSubmenuItem = businessItem
-    .getByRole("listitem")
-    .filter({ hasText: "Sub Menu 1" });
-  const icon = firstSubmenuItem.getByTestId("item-icon");
-  const text = firstSubmenuItem.getByText("Sub Menu 1");
 
   const iconPosition = await icon.boundingBox();
   const textPosition = await text.boundingBox();
@@ -667,8 +514,7 @@ test.describe("when nested inside a Dialog component", () => {
 
     await page.keyboard.press("Escape");
 
-    const actionPopoverElement = actionPopover(page);
-    await expect(actionPopoverElement).toBeHidden();
+    await expect(page.getByRole("list")).toBeHidden();
 
     const dialogElement = dialog(page);
     await expect(dialogElement).toBeVisible();

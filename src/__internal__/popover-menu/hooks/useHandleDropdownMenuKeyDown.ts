@@ -20,6 +20,61 @@ export const setFocus = (
   });
 };
 
+export type TypeaheadArgs = {
+  event: React.KeyboardEvent<HTMLElement>;
+  items: HTMLElement[];
+  highlightedItem?: HTMLElement;
+  setAriaActivedescendant: React.Dispatch<React.SetStateAction<string>>;
+  isButtonMenu?: boolean;
+};
+
+/** Returns true when the key press has been consumed */
+export type TypeaheadHandler = (args: TypeaheadArgs) => boolean;
+
+/**
+ * Opt-in type-ahead: focus the next item whose label starts with the pressed
+ * character, wrapping to the start of the list when there is no later match.
+ */
+export const handleAlphaKeyNavigation: TypeaheadHandler = ({
+  event,
+  items,
+  highlightedItem,
+  setAriaActivedescendant,
+  isButtonMenu,
+}) => {
+  if (
+    event.key.trim().length !== 1 ||
+    event.ctrlKey ||
+    event.metaKey ||
+    event.altKey
+  ) {
+    return false;
+  }
+
+  const character = event.key.toLowerCase();
+  const matches = items.filter((item) =>
+    (item.textContent ?? /* istanbul ignore next */ "")
+      .trim()
+      .toLowerCase()
+      .startsWith(character),
+  );
+
+  if (!matches.length) {
+    return false;
+  }
+
+  event.stopPropagation();
+
+  const currentIndex = highlightedItem ? items.indexOf(highlightedItem) : -1;
+  const itemToFocus =
+    matches.find((item) => items.indexOf(item) > currentIndex) ?? matches[0];
+
+  setAriaActivedescendant(itemToFocus.id);
+  setFocus(itemToFocus, highlightedItem, isButtonMenu);
+
+  return true;
+};
+
 export const useHandleDropdownMenuKeyDown = (
   ref: MutableRefObject<HTMLUListElement | null>,
   setAriaActivedescendant: React.Dispatch<React.SetStateAction<string>>,
@@ -28,6 +83,7 @@ export const useHandleDropdownMenuKeyDown = (
     isButtonMenu?: boolean;
     isSubmenu?: boolean;
     controlReference?: React.RefObject<HTMLLIElement>;
+    typeahead?: TypeaheadHandler;
   },
 ) =>
   useCallback(
@@ -41,7 +97,7 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
 
-      const { isButtonMenu, isSubmenu } = submenuOptions;
+      const { isButtonMenu, isSubmenu, typeahead } = submenuOptions;
 
       const items = Array.from(
         ref.current?.querySelectorAll(
@@ -146,6 +202,18 @@ export const useHandleDropdownMenuKeyDown = (
         setAriaActivedescendant(lastItem?.id ?? /* istanbul ignore next */ "");
         setFocus(lastItem, highlightedItem, isButtonMenu);
 
+        return;
+      }
+
+      if (
+        typeahead?.({
+          event: ev,
+          items: items as HTMLElement[],
+          highlightedItem,
+          setAriaActivedescendant,
+          isButtonMenu,
+        })
+      ) {
         return;
       }
 

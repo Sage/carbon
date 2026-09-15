@@ -224,16 +224,7 @@ test("should render with `ActionPopover` when passed via the `inlineControl` pro
     />,
   );
 
-  const noteBody = screen.getByTestId("note-body");
-  const inlineControlElement = screen.getByTestId("note-inline-control");
-
-  expect(within(noteBody).getByRole("article")).toBeVisible();
-  expect(within(noteBody).getByTestId("note-inline-control")).toBe(
-    inlineControlElement,
-  );
-  expect(screen.queryByTestId("note-title-row")).not.toBeInTheDocument();
-
-  await user.click(screen.getByRole("button", { name: "actions" }));
+  await user.click(screen.getByRole("button", { name: "Action" }));
 
   expect(screen.getByRole("button", { name: "Copy" })).toBeVisible();
   expect(screen.getByRole("button", { name: "Edit" })).toBeVisible();

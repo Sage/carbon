@@ -12,31 +12,25 @@ import { MarginProps } from "styled-system";
 import invariant from "invariant";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-import {
-  MenuButton,
-  ButtonIcon,
-  StyledButtonIcon,
-} from "./action-popover.style";
+import { MenuButton } from "./action-popover.style";
 import Events from "../../__internal__/utils/helpers/events";
-import Popover from "../../__internal__/popover";
+import {
+  PopoverMenu,
+  handleAlphaKeyNavigation,
+} from "../../__internal__/popover-menu";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
-import ActionPopoverMenu from "./action-popover-menu/action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item/action-popover-item.component";
-import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
 import {
   ActionPopoverProvider,
   Alignment,
 } from "./__internal__/action-popover.context";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
-import {
-  findFirstFocusableItem,
-  findLastFocusableItem,
-  getItems,
-  checkChildrenForString,
-} from "./__internal__/action-popover.utils";
+import checkChildrenForString from "./__internal__/action-popover.utils";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
+import Button from "../button/__next__";
+import ActionPopoverDivider from "./action-popover-divider.component";
 
 export interface RenderButtonProps {
   tabIndex: number;
@@ -54,9 +48,15 @@ export interface RenderButtonProps {
 export interface ActionPopoverProps extends MarginProps, TagProps {
   /** Children for popover component */
   children?: React.ReactNode;
-  /** Horizontal alignment of menu items content */
+  /**
+   * @deprecated This prop will be removed in a future major release.
+   * Horizontal alignment is now inferred from menu placement.
+   */
   horizontalAlignment?: Alignment;
-  /** Sets submenu position */
+  /**
+   * @deprecated This prop will be removed in a future major release.
+   * Submenus now default to opening on the right and automatically flip when space is constrained.
+   */
   submenuPosition?: Alignment;
   /** Unique ID */
   id?: string;
@@ -64,7 +64,10 @@ export interface ActionPopoverProps extends MarginProps, TagProps {
   onOpen?: () => void;
   /** Callback to be called on menu close */
   onClose?: () => void;
-  /** Set whether the menu should open above or below the button */
+  /**
+   * @deprecated This prop will be removed in a future major release.
+   * The menu now opens with adaptive placement and flips when space is constrained.
+   */
   placement?: "bottom" | "top";
   /** Render a custom menu button to override default ellipsis icon */
   renderButton?: (buttonProps: RenderButtonProps) => React.ReactNode;
@@ -97,9 +100,9 @@ export const ActionPopover = forwardRef<
       onClose = onCloseDefault,
       rightAlignMenu,
       renderButton,
-      placement = "bottom",
+      placement,
       horizontalAlignment = "left",
-      submenuPosition = "left",
+      submenuPosition = "right",
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledBy,
       "aria-describedby": ariaDescribedBy,
@@ -109,14 +112,11 @@ export const ActionPopover = forwardRef<
   ) => {
     const l = useLocale();
     const [isOpen, setOpenState] = useState(false);
-    const [focusIndex, setFocusIndex] = useState(0);
+    const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
     const [guid] = useState(createGuid());
     const buttonRef = useRef<HTMLDivElement>(null);
     const menu = useRef<HTMLUListElement>(null);
     const { isInFlatTable } = useContext(FlatTableContext);
-
-    const [selectedSubmenuRef, setSelectedSubmenuRef] =
-      useState<HTMLUListElement | null>(null);
 
     const hasProperChildren = useMemo(() => {
       const incorrectChild = React.Children.toArray(children).find(
@@ -135,12 +135,6 @@ export const ActionPopover = forwardRef<
       return !incorrectChild;
     }, [children]);
 
-    const items = useMemo(() => getItems(children), [children]);
-
-    const firstFocusableItem = findFirstFocusableItem(items);
-
-    const lastFocusableItem = findLastFocusableItem(items);
-
     invariant(
       hasProperChildren,
       `ActionPopover only accepts children of type \`${ActionPopoverItem.displayName}\`` +
@@ -148,20 +142,12 @@ export const ActionPopover = forwardRef<
     );
 
     const mappedPlacement = useMemo(() => {
-      if (placement === "top" && !rightAlignMenu) {
-        return "top-end";
-      }
-
-      if (placement === "top" && rightAlignMenu) {
-        return "top-start";
-      }
-
-      if (placement === "bottom" && rightAlignMenu) {
+      if (rightAlignMenu) {
         return "bottom-start";
       }
 
       return "bottom-end";
-    }, [placement, rightAlignMenu]);
+    }, [rightAlignMenu]);
 
     const setOpen = useCallback(
       (value: boolean) => {
@@ -170,6 +156,9 @@ export const ActionPopover = forwardRef<
         }
         if (!value && isOpen) {
           onClose();
+        }
+        if (!value) {
+          setOpenSubmenuId(null);
         }
         setOpenState(value);
       },
@@ -196,16 +185,22 @@ export const ActionPopover = forwardRef<
 
     const onButtonClick = useCallback(
       (e: React.MouseEvent<HTMLElement>) => {
+        // The menu renders inline within this wrapper, so clicks on menu items bubble
+        // up to here. Only clicks on the trigger itself should toggle the menu.
+        const target = e.target as HTMLElement | null;
+        if (!target?.closest("[data-element='action-popover-button']")) {
+          return;
+        }
+
         e.stopPropagation();
         const isOpening = !isOpen;
-        setFocusIndex(firstFocusableItem);
         setOpen(isOpening);
         if (!isOpening) {
           // Closing the menu should focus the MenuButton
           focusButton();
         }
       },
-      [isOpen, firstFocusableItem, setOpen, focusButton],
+      [isOpen, setOpen, focusButton],
     );
 
     // Keyboard commands implemented as recommended by WAI-ARIA best practices
@@ -225,23 +220,13 @@ export const ActionPopover = forwardRef<
           return;
         }
 
-        if (
-          Events.isSpaceKey(e) ||
-          Events.isDownKey(e) ||
-          Events.isEnterKey(e)
-        ) {
+        if (Events.isSpaceKey(e) || Events.isEnterKey(e)) {
           e.preventDefault();
           e.stopPropagation();
-          setFocusIndex(firstFocusableItem);
-          setOpen(true);
-        } else if (Events.isUpKey(e)) {
-          e.preventDefault();
-          e.stopPropagation();
-          setFocusIndex(lastFocusableItem);
           setOpen(true);
         }
       },
-      [firstFocusableItem, lastFocusableItem, setOpen],
+      [setOpen],
     );
 
     const handleEscapeKey = useCallback(
@@ -316,19 +301,22 @@ export const ActionPopover = forwardRef<
       }
 
       return (
-        <StyledButtonIcon
-          role="button"
+        <Button
+          variant="default"
+          variantType="subtle"
+          iconType="ellipsis_vertical"
+          iconPosition="after"
+          size="small"
           aria-haspopup="true"
-          aria-label={ariaLabel || l.actionPopover.ariaLabel()}
+          aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           aria-describedby={ariaDescribedBy}
           aria-controls={menuID}
           aria-expanded={isOpen}
-          tabIndex={isOpen ? -1 : 0}
           data-element="action-popover-button"
         >
-          <ButtonIcon type="ellipsis_vertical" />
-        </StyledButtonIcon>
+          Action
+        </Button>
       );
     };
 
@@ -360,39 +348,35 @@ export const ActionPopover = forwardRef<
         {...rest}
         {...tagComponent("action-popover-wrapper", rest)}
       >
-        {menuButton(menuID)}
         <ActionPopoverProvider
           value={{
             setOpenPopover: setOpen,
             focusButton,
             submenuPosition,
             horizontalAlignment,
-            selectedSubmenuRef,
-            setSelectedSubmenuRef,
+            openSubmenuId,
+            setOpenSubmenuId,
           }}
         >
-          {isOpen && (
-            <Popover
-              placement={mappedPlacement}
-              reference={buttonRef}
-              disableBackgroundUI={isInFlatTable}
-              portalTarget={popoverTarget}
-            >
-              <ActionPopoverMenu
-                data-component="action-popover"
-                ref={menu}
-                parentID={parentID}
-                menuID={menuID}
-                focusIndex={focusIndex}
-                setFocusIndex={setFocusIndex}
-                isOpen={isOpen}
-                setOpen={setOpen}
-                placement={placement}
-              >
-                {children}
-              </ActionPopoverMenu>
-            </Popover>
-          )}
+          <PopoverMenu
+            open={isOpen}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            isButtonMenu
+            typeahead={handleAlphaKeyNavigation}
+            placement={mappedPlacement}
+            controlReference={buttonRef}
+            controlWrapperStyle={{ display: "contents" }}
+            listRef={menu}
+            listboxAriaLabelledBy={parentID}
+            id={menuID}
+            disableBackgroundUI={isInFlatTable}
+            data-component="action-popover"
+            data-role="action-popover"
+            popoverControl={() => menuButton(menuID)}
+          >
+            {children}
+          </PopoverMenu>
         </ActionPopoverProvider>
       </MenuButton>
     );
