@@ -302,7 +302,7 @@ describe("PopoverMenu - typeahead (Search)", () => {
     it("focuses the selected item when the list is opened and the the user presses ArrowDown", async () => {
       const user = userEvent.setup();
       render(
-        <PopoverMenuWithState>
+        <PopoverMenuWithState focusSelectedOnOpen>
           <MenuItem>Item 1</MenuItem>
           <MenuItem selected>Item 2</MenuItem>
           <MenuItem>Item 3</MenuItem>
@@ -348,7 +348,7 @@ describe("PopoverMenu - typeahead (Search)", () => {
     it("focuses the selected item when the list is opened and the user presses ArrowUp", async () => {
       const user = userEvent.setup();
       render(
-        <PopoverMenuWithState>
+        <PopoverMenuWithState focusSelectedOnOpen>
           <MenuItem>Item 1</MenuItem>
           <MenuItem selected>Item 2</MenuItem>
           <MenuItem>Item 3</MenuItem>
@@ -385,10 +385,24 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(last).toHaveAttribute("data-has-focus", "true");
   });
 
+  it("focuses the last item on ArrowUp when focusSelectedOnOpen is set but no option is selected", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({ open: true, focusSelectedOnOpen: true });
+
+    focusTrigger();
+    await user.keyboard("{ArrowUp}");
+    const options = screen.getAllByRole("option");
+
+    expect(options[options.length - 1]).toHaveAttribute(
+      "data-has-focus",
+      "true",
+    );
+  });
+
   it("shows list when user clicks the control and focuses selected item on ArrowDown", async () => {
     const user = userEvent.setup();
     render(
-      <PopoverMenuWithState>
+      <PopoverMenuWithState focusSelectedOnOpen>
         <MenuItem>Item 1</MenuItem>
         <MenuItem selected>Item 2</MenuItem>
         <MenuItem>Item 3</MenuItem>
@@ -413,7 +427,7 @@ describe("PopoverMenu - typeahead (Search)", () => {
   it("shows list when user clicks the control and focuses selected item on ArrowUp", async () => {
     const user = userEvent.setup();
     render(
-      <PopoverMenuWithState>
+      <PopoverMenuWithState focusSelectedOnOpen>
         <MenuItem>Item 1</MenuItem>
         <MenuItem selected>Item 2</MenuItem>
         <MenuItem>Item 3</MenuItem>

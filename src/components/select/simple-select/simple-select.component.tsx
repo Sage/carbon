@@ -608,7 +608,6 @@ export const SimpleSelect = React.forwardRef<
           maxHeight={
             listMaxHeight !== undefined ? `${listMaxHeight}px` : undefined
           }
-          placement="bottom-end"
           selectedValue={selectedValue}
           listboxAriaLabel={ariaLabel}
           controlReference={containerRef}

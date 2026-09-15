@@ -186,6 +186,10 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   enablePageNavigation?: boolean;
   /** When set, Space and Tab confirm the currently-focused item (single-select listbox behaviour). */
   selectOnSpaceAndTab?: boolean;
+  /** When set, the option marked as `aria-selected` is scrolled into view on open and is the first
+   * highlight target when the user presses ArrowDown/ArrowUp with no active option (single-select
+   * listbox behaviour). Does not affect virtualised menus, which use `initialScrollIndex`. */
+  focusSelectedOnOpen?: boolean;
 }
 
 const OFFSET = 8;
@@ -368,6 +372,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     disableNavigationLoop = false,
     enablePageNavigation = false,
     selectOnSpaceAndTab = false,
+    focusSelectedOnOpen = false,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -513,7 +518,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         if (initialScrollIndex !== undefined && initialScrollIndex >= 0) {
           virtualizer.scrollToIndex(initialScrollIndex, { align: "center" });
         }
-      } else {
+      } else if (focusSelectedOnOpen) {
         internalListRef.current
           ?.querySelector('[aria-selected="true"]')
           ?.scrollIntoView?.({ block: "nearest" });
@@ -522,7 +527,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       setActiveIndex(-1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, canVirtualize, initialScrollIndex]);
+  }, [open, canVirtualize, initialScrollIndex, focusSelectedOnOpen]);
 
   const moveActiveIndex = useCallback(
     (nextIndex: number) => {
@@ -706,6 +711,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       disableNavigationLoop,
       enablePageNavigation,
       selectOnSpaceAndTab,
+      focusSelectedOnOpen,
     },
   );
 
@@ -715,18 +721,18 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
 
   const handleMenuKeyDown = useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
-      // Tab moves focus naturally; the focusin listener decides whether to close.
-      // When selecting on Tab is enabled the list handler confirms the focused
-      // item first, but must not prevent the default focus move.
+      // Listbox menus close on Tab via the focusout listener, so Tab is
+      // suppressed here to avoid a double onClose. Button menus and submenus
+      // don't attach that listener, so the list handler must run to close.
       if (ev.key === "Tab") {
-        if (selectOnSpaceAndTab) {
+        if (selectOnSpaceAndTab || isButtonMenu || isSubmenu) {
           handleListKeyDown(ev);
         }
         return;
       }
       handleListKeyDown(ev);
     },
-    [handleListKeyDown, selectOnSpaceAndTab],
+    [handleListKeyDown, selectOnSpaceAndTab, isButtonMenu, isSubmenu],
   );
 
   useEffect(() => {

@@ -35,6 +35,7 @@ export const useHandleDropdownMenuKeyDown = (
     disableNavigationLoop?: boolean;
     enablePageNavigation?: boolean;
     selectOnSpaceAndTab?: boolean;
+    focusSelectedOnOpen?: boolean;
   },
 ) =>
   useCallback(
@@ -54,6 +55,7 @@ export const useHandleDropdownMenuKeyDown = (
         disableNavigationLoop,
         enablePageNavigation,
         selectOnSpaceAndTab,
+        focusSelectedOnOpen,
       } = submenuOptions;
 
       const items = Array.from(
@@ -79,7 +81,9 @@ export const useHandleDropdownMenuKeyDown = (
         ev.stopPropagation();
 
         if (!highlightedItem) {
-          const itemToFocus = selectedItem ?? firstItem;
+          const itemToFocus = focusSelectedOnOpen
+            ? (selectedItem ?? firstItem)
+            : firstItem;
           setAriaActivedescendant(
             itemToFocus?.id ?? /* istanbul ignore next */ "",
           );
@@ -117,7 +121,9 @@ export const useHandleDropdownMenuKeyDown = (
         ev.stopPropagation();
 
         if (!highlightedItem) {
-          const itemToFocus = selectedItem ?? lastItem;
+          const itemToFocus = focusSelectedOnOpen
+            ? (selectedItem ?? lastItem)
+            : lastItem;
           setAriaActivedescendant(
             itemToFocus?.id ?? /* istanbul ignore next */ "",
           );

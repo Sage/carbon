@@ -10,6 +10,20 @@ import Portrait from "../../portrait";
 import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
 import SimpleSelect, { SimpleSelectProps } from "./simple-select.component";
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableHeader,
+  FlatTableCell,
+} from "../../flat-table";
+import {
+  ActionPopover,
+  ActionPopoverItem,
+  ActionPopoverMenu,
+} from "../../action-popover";
+import Pager from "../../pager";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -406,3 +420,187 @@ export const ComplexCompositions: Story = () => {
   );
 };
 ComplexCompositions.storyName = "Complex Compositions";
+
+export const LocalRegressionCheck: Story = () => {
+  const [placementUp, setPlacementUp] = useState(true);
+  const rows = [
+    <FlatTableRow key="0">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="1">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="2">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="3">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover placement={placementUp ? "top" : "bottom"}>
+          <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="4">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover placement={placementUp ? "top" : "bottom"}>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="5">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+  ];
+  const [recordsRange, setRecordsRange] = useState({
+    start: 0,
+    end: 5,
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const renderRows = () => {
+    const { start, end } = recordsRange;
+    if (start < 0) return rows;
+    if (end > rows.length) return rows.slice(start, rows.length);
+    return rows.slice(start, end);
+  };
+
+  const handlePagination = (newPage: number, newPageSize: number) => {
+    const start = (newPage - 1) * newPageSize;
+    const end = start + newPageSize;
+    setPlacementUp(newPageSize !== 1);
+    setRecordsRange({
+      start,
+      end,
+    });
+    setCurrentPage(newPage);
+  };
+
+  return (
+    <div
+      style={{
+        height: "200px",
+      }}
+    >
+      <FlatTable
+        hasStickyHead
+        hasStickyFooter
+        footer={
+          <Pager
+            totalRecords={rows.length}
+            showPageSizeSelection
+            pageSize={5}
+            currentPage={currentPage}
+            onPagination={(next, size) => handlePagination(next, size)}
+            pageSizeSelectionOptions={[
+              {
+                id: "1",
+                name: 1,
+              },
+              {
+                id: "5",
+                name: 5,
+              },
+            ]}
+          />
+        }
+      >
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Name</FlatTableHeader>
+            <FlatTableHeader>Location</FlatTableHeader>
+            <FlatTableHeader>Relationship Status</FlatTableHeader>
+            <FlatTableHeader>Dependents</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>{renderRows()}</FlatTableBody>
+      </FlatTable>
+    </div>
+  );
+};
+LocalRegressionCheck.storyName = "Local Regression Check";

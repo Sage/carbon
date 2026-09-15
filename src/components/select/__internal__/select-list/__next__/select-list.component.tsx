@@ -252,6 +252,7 @@ const SelectList = ({
       disableNavigationLoop={disableNavigationLoop}
       selectOnSpaceAndTab={selectOnSpaceAndTab}
       enablePageNavigation
+      focusSelectedOnOpen
       initialScrollIndex={initialScrollIndex}
     >
       {listContent}
