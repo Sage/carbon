@@ -1,3 +1,9 @@
+## [162.1.0](https://github.com/Sage/carbon/compare/v162.0.1...v162.1.0) (2026-09-16)
+
+### Features
+
+* **split-button:** update component with fusion design system ([717ef88](https://github.com/Sage/carbon/commit/717ef88c57605bf239f4aa75e5b4768898ae1980))
+
 ## [162.0.1](https://github.com/Sage/carbon/compare/v162.0.0...v162.0.1) (2026-09-14)
 
 ### Bug Fixes
