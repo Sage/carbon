@@ -259,7 +259,7 @@ test('renders with expected background and border styles when variant is "unavai
 });
 
 test.each([
-  ["default", "var(--global-radius-container-2-xl)"],
+  ["default", "var(--global-radius-action-2-xl)"],
   ["large", "var(--global-radius-container-l)"],
   ["small", "var(--global-radius-container-l)"],
 ] as const)(
@@ -278,7 +278,7 @@ test.each([
 );
 
 test.each([
-  ["curved", "var(--global-radius-container-2-xl)"],
+  ["curved", "var(--global-radius-action-2-xl)"],
   ["moderate", "var(--global-radius-container-l)"],
 ] as const)(
   "renders with the expected border radius when radius is %s",

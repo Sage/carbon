@@ -68,7 +68,7 @@ const getBorderRadius = (radius: TileProps["radius"]) => {
     case "moderate":
       return "var(--global-radius-container-l)";
     default:
-      return "var(--global-radius-container-2-xl)";
+      return "var(--global-radius-action-2-xl)";
   }
 };
 

@@ -80,20 +80,6 @@ RadiusStory.storyName = "Radius";
 export const WithTileFooter: Story = () => {
   return (
     <Box>
-      <Tile px={0} pb={0} width={400} outline statusKeyline="red">
-        <Box>
-          <Box px={3}>
-            <Typography>
-              Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
-              tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor
-              nisi ex voluptate occaecat veniam. Magna aliqua velit aliquip
-              dolore pariatur nostrud deserunt amet.
-            </Typography>
-          </Box>
-          <TileFooter>Example text</TileFooter>
-        </Box>
-      </Tile>
-      <Box my={3} />
       <Tile px={0} pb={0} width={400} outline>
         <Box>
           <Box px={3}>
