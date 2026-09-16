@@ -171,6 +171,16 @@ test("renders correctly when `loaderType` is `standalone`", () => {
   expect(screen.getByTestId("outer-bar")).toBeVisible();
 });
 
+test("switches loader types without changing Loader's hook order", () => {
+  const { rerender } = render(<Loader loaderType="standalone" />);
+
+  rerender(<Loader loaderType="ring" />);
+  expect(screen.getByTestId("inner-arc")).toBeVisible();
+
+  rerender(<Loader loaderType="star" />);
+  expect(screen.getByTestId("sparkle-svg")).toBeVisible();
+});
+
 test("renders correctly when `loaderType` is `standalone` and `inverse` prop is set", () => {
   render(<Loader loaderLabel="Loading" loaderType="standalone" inverse />);
 
@@ -461,6 +471,16 @@ test("applies custom animation time and paused motion to sparkle paths", () => {
     expect(star).toHaveStyleRule("animation", expect.stringContaining("6s"));
     expect(star).toHaveStyleRule("animation-play-state", "paused");
   });
+});
+
+test("freezes each sparkle at its own visible animation point", () => {
+  render(<Loader loaderType="star" animationTime={1} hasMotion={false} />);
+
+  const delays = screen
+    .getAllByTestId("sparkle-star")
+    .map((star) => window.getComputedStyle(star).animationDelay);
+
+  expect(new Set(delays).size).toBeGreaterThan(1);
 });
 
 test("uses unique SVG definition IDs for each loader instance", () => {

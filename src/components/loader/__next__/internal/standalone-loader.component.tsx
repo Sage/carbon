@@ -4,6 +4,7 @@ import { LoaderProps } from "../loader.component";
 import { InnerBar, OuterBar, StyledLoaderLabel } from "../loader.style";
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
+import { getAnimationTime } from "./loader.utils";
 
 const StandaloneLoader = ({
   size,
@@ -15,16 +16,6 @@ const StandaloneLoader = ({
   hasMotion,
 }: LoaderProps) => {
   const locale = useLocale();
-
-  const calculateDefaultAnimationTime = (
-    animationTime: LoaderProps["animationTime"],
-  ) => {
-    if (animationTime) {
-      return animationTime;
-    }
-
-    return 0.983;
-  };
 
   const standaloneVariant =
     variant === "typical" || variant === "ai" ? variant : "typical";
@@ -43,7 +34,7 @@ const StandaloneLoader = ({
           size={standaloneSize}
           variant={standaloneVariant}
           inverse={!!inverse}
-          animationTime={calculateDefaultAnimationTime(animationTime)}
+          animationTime={getAnimationTime(animationTime, 0.983)}
           hasMotion={hasMotion}
         />
       </OuterBar>

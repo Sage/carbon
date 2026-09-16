@@ -58,6 +58,7 @@ interface StarScaleProps {
 
 const starScaleStyles = (
   animation: ReturnType<typeof keyframes>,
+  freezePoint: number,
 ) => css<StarScaleProps>`
   fill: white;
   transform-box: fill-box;
@@ -67,7 +68,7 @@ const starScaleStyles = (
   animation-play-state: ${({ $hasMotion }) =>
     $hasMotion ? "running" : "paused"};
   animation-delay: ${({ $animationTime, $hasMotion }) =>
-    $hasMotion ? "0s" : `-${$animationTime * 0.84}s`};
+    $hasMotion ? "0s" : `-${$animationTime * freezePoint}s`};
 `;
 
 export const StyledLoaderStarRoot = styled.div`
@@ -86,20 +87,20 @@ export const StyledStarSVG = styled.svg`
 `;
 
 export const StyledStar1Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star1Scale)}
+  ${starScaleStyles(star1Scale, 0.839)}
 `;
 export const StyledStar2Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star2Scale)}
+  ${starScaleStyles(star2Scale, 0.839)}
 `;
 export const StyledStar3Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star3Scale)}
+  ${starScaleStyles(star3Scale, 0.314)}
 `;
 export const StyledStar4Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star4Scale)}
+  ${starScaleStyles(star4Scale, 0.42)}
 `;
 export const StyledStar5Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star5Scale)}
+  ${starScaleStyles(star5Scale, 0.526)}
 `;
 export const StyledStar6Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star6Scale)}
+  ${starScaleStyles(star6Scale, 0.628)}
 `;

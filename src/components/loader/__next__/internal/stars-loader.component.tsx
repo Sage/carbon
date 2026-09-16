@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 import Star from "./star.component";
 import {
@@ -8,22 +8,23 @@ import {
 } from "../loader.style";
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import { LoaderProps } from "../loader.component";
-import guid from "../../../../__internal__/utils/helpers/guid";
+import { getAnimationTime, useGeneratedId } from "./loader.utils";
 
 const StarsLoader = ({
-  animationTime = 4.55,
+  animationTime,
   hasMotion,
   loaderLabel,
   showLabel,
 }: LoaderProps) => {
   const locale = useLocale();
-  const generatedId = useRef(guid()).current;
+  const generatedId = useGeneratedId();
+  const resolvedAnimationTime = getAnimationTime(animationTime, 4.55);
 
   return (
     <StyledStarLoaderWrapper>
       <StyledStars>
         <Star
-          animationTime={animationTime}
+          animationTime={resolvedAnimationTime}
           gradientId={`loader-star-gradient-${generatedId}`}
           hasMotion={hasMotion}
           maskId={`loader-star-mask-${generatedId}`}

@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 
 import { LoaderProps } from "../loader.component";
 import {
@@ -12,17 +12,7 @@ import {
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import ButtonContext from "../../../button/__next__/button.context";
-import guid from "../../../../__internal__/utils/helpers/guid";
-
-const calculateDefaultAnimationTime = (
-  animationTime: LoaderProps["animationTime"],
-) => {
-  if (animationTime) {
-    return animationTime;
-  }
-
-  return 0.783;
-};
+import { getAnimationTime, useGeneratedId } from "./loader.utils";
 
 const RingLoader = ({
   inverse,
@@ -38,8 +28,9 @@ const RingLoader = ({
 }: LoaderProps) => {
   const locale = useLocale();
   const { isInsideButton } = useContext(ButtonContext);
-  const generatedId = useRef(guid()).current;
+  const generatedId = useGeneratedId();
   const gradientId = `loader-ring-gradient-${generatedId}`;
+  const resolvedAnimationTime = getAnimationTime(animationTime, 0.783);
 
   const isAiRingVariant = variant === "ai-stacked" || variant === "ai-inline";
   const usesAiGradient = isAiRingVariant && !isSuccess && !isError;
@@ -65,7 +56,7 @@ const RingLoader = ({
         variant={ringVariant}
         hasMotion={hasMotion}
         isTracked={isTracked}
-        animationTime={calculateDefaultAnimationTime(animationTime)}
+        animationTime={resolvedAnimationTime}
         viewBox="0 0 64 64"
         isSuccess={isSuccess}
         isError={isError}
@@ -98,7 +89,7 @@ const RingLoader = ({
           size={ringSize}
           hasMotion={hasMotion}
           isTracked={isTracked}
-          animationTime={calculateDefaultAnimationTime(animationTime)}
+          animationTime={resolvedAnimationTime}
         >
           <StyledRingArc
             data-role="inner-arc"
@@ -107,7 +98,7 @@ const RingLoader = ({
             inverse={inverse}
             hasMotion={hasMotion}
             isTracked={isTracked}
-            animationTime={calculateDefaultAnimationTime(animationTime)}
+            animationTime={resolvedAnimationTime}
             isSuccess={isSuccess}
             isError={isError}
             isGradientVariant={usesAiGradient}

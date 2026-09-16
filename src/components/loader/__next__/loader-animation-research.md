@@ -64,8 +64,8 @@ instead of scaling the supplied six-star artwork.
   remains.
 - **Sparkle:** six paths positioned on a 32×32 canvas use the supplied scale
   sequence and easing over `4.55s`. A shared tokenized gradient is revealed by
-  an instance-local mask. `hasMotion={false}` pauses the sequence at a
-  representative visible frame.
+  an instance-local mask. `hasMotion={false}` pauses each path at its own
+  full-scale frame so the complete sparkle mark remains visible.
 
 ## Runtime benchmark
 
