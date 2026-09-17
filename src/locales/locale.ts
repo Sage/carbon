@@ -261,6 +261,11 @@ interface Locale {
     off: () => string;
     processingLabel: () => string;
   };
+  table: {
+    sort: {
+      ariaRoleDescription: () => string;
+    };
+  };
   tileSelect: {
     deselect: () => string;
   };
