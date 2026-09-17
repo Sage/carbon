@@ -22,6 +22,31 @@ test("should render with provided 'text'", () => {
   expect(screen.getByRole("button", { name: "Main Button" })).toBeVisible();
 });
 
+test("should set the 'aria-label' attribute to 'text' when 'iconOnly' is true", () => {
+  render(
+    <MultiActionButton text="Main Button" iconOnly>
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  expect(screen.getByRole("button", { name: "Main Button" })).toHaveAttribute(
+    "aria-label",
+    "Main Button",
+  );
+});
+
+test("should not set the 'aria-label' attribute when 'iconOnly' is false", () => {
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  expect(
+    screen.getByRole("button", { name: "Main Button" }),
+  ).not.toHaveAttribute("aria-label");
+});
+
 test("should not render with provided 'subtext' when 'size' is 'large'", () => {
   render(
     <MultiActionButton text="Main Button" subtext="Subtext" size="large">

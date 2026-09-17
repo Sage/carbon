@@ -37,7 +37,7 @@ test.describe("Functional tests", () => {
     await expect(dialog).toBeVisible();
   });
 
-  test(`should verify pressing Shift+Tab moves focus to previous child button, then the main button and closes the list`, async ({
+  test(`should verify pressing ArrowUp moves focus to previous child button, then Shift+Tab to the main button and closes the list`, async ({
     mount,
     page,
   }) => {
@@ -57,7 +57,7 @@ test.describe("Functional tests", () => {
     });
 
     await listButton2.focus();
-    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("ArrowUp");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("Shift+Tab");
     await expect(actionButton).toBeFocused();
@@ -65,7 +65,7 @@ test.describe("Functional tests", () => {
     await expect(listButton2).toBeHidden();
   });
 
-  test(`should verify pressing Tab moves focus to next child button, then closes the list and focuses the next element on the page`, async ({
+  test(`should verify pressing ArrowDown moves focus to next child button, then pressing Tab closes the list and focuses the next element on the page`, async ({
     mount,
     page,
   }) => {
@@ -86,11 +86,10 @@ test.describe("Functional tests", () => {
     });
     const listButton3 = page.getByRole("button", { name: "Short" });
 
-    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
-    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
     await expect(listButton2).toBeFocused();
-    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
     await expect(listButton3).toBeFocused();
     await page.keyboard.press("Tab");
 
@@ -218,9 +217,10 @@ test.describe("Focus outline and border radius tests for MultiActionButton", () 
 
     const actionButton = page.getByRole("button");
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    await expect(listButton1).toHaveCSS("border-radius", "8px");
+    const listButton1 = page.getByRole("button", {
+      name: "Button 1",
+      exact: true,
+    });
+    await expect(listButton1).toHaveCSS("border-radius", "0px");
   });
 });
