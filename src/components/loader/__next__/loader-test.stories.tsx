@@ -161,6 +161,56 @@ export const Variants: Story = {
 };
 Variants.storyName = "Variants";
 
+export const V4MotionReference: Story = {
+  render: () => (
+    <div
+      style={{
+        display: "grid",
+        gap: "32px",
+        gridTemplateColumns: "repeat(3, minmax(160px, 1fr))",
+      }}
+    >
+      <Box>
+        <h2>Standalone typical</h2>
+        <Loader loaderType="standalone" variant="typical" hasMotion={false} />
+      </Box>
+      <Box>
+        <h2>Standalone AI</h2>
+        <Loader loaderType="standalone" variant="ai" hasMotion={false} />
+      </Box>
+      <Box backgroundColor="#1c1c1c" p="8px">
+        <h2 style={{ color: "white" }}>Standalone inverse</h2>
+        <Loader loaderType="standalone" inverse hasMotion={false} />
+      </Box>
+      <Box>
+        <h2>Ring typical</h2>
+        <Loader loaderType="ring" variant="stacked" hasMotion={false} />
+      </Box>
+      <Box>
+        <h2>Ring AI</h2>
+        <Loader loaderType="ring" variant="ai-stacked" hasMotion={false} />
+      </Box>
+      <Box backgroundColor="#1c1c1c" p="8px">
+        <h2 style={{ color: "white" }}>Ring inverse</h2>
+        <Loader loaderType="ring" inverse hasMotion={false} />
+      </Box>
+      <Box>
+        <h2>Six-sparkle</h2>
+        <Loader loaderType="star" hasMotion={false} />
+      </Box>
+      <Box>
+        <h2>Tracked success</h2>
+        <Loader loaderType="ring" isTracked isSuccess hasMotion={false} />
+      </Box>
+      <Box>
+        <h2>Tracked error</h2>
+        <Loader loaderType="ring" isTracked isError hasMotion={false} />
+      </Box>
+    </div>
+  ),
+};
+V4MotionReference.storyName = "V4 Motion Reference";
+
 export const TrackedStates: Story = {
   render: () => (
     <>
