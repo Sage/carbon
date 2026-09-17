@@ -20,7 +20,13 @@ const frCA: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} sélectionné(s)`,
+    ariaLabels: {
+      close: () => "Fermer",
+    },
+    selected: (count, total) =>
+      total
+        ? `${count} sur ${total} éléments sélectionnés`
+        : `${count} sélectionné(s)`,
   },
   breadcrumbs: {
     ariaLabel: () => "chemins de navigation",
