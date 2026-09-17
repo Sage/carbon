@@ -2,6 +2,7 @@ import React from "react";
 import { act, render, screen, within } from "@testing-library/react";
 import Fieldset from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import NewValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
 
 test("renders with provided `children`", () => {
   render(
@@ -25,6 +26,16 @@ test("renders fieldset with provided `legend`", () => {
   const fieldset = screen.getByRole("group", { name: "Legend" });
 
   expect(fieldset).toBeVisible();
+});
+
+test("renders with provided `width`", () => {
+  render(
+    <Fieldset width="288px">
+      <input title="Test" placeholder="Placeholder" />
+    </Fieldset>,
+  );
+
+  expect(screen.getByRole("group")).toHaveStyle({ width: "288px" });
 });
 
 test("sets child inputs as required when `isRequired` is true", () => {
@@ -100,6 +111,20 @@ test("renders help icon when `labelHelp` is provided", () => {
   const help = screen.getByRole("button", { name: "help" });
 
   expect(help).toBeVisible();
+});
+
+test("does not render help icon when `validationRedesignOptIn` is true", () => {
+  render(
+    <NewValidationContext.Provider value={{ validationRedesignOptIn: true }}>
+      <Fieldset legend="Legend" labelHelp="label help">
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>
+    </NewValidationContext.Provider>,
+  );
+
+  expect(
+    screen.queryByRole("button", { name: "help" }),
+  ).not.toBeInTheDocument();
 });
 
 test("renders fieldHelp when `fieldHelp` is provided", () => {
@@ -211,6 +236,24 @@ describe("when `applyNewValidation` is provided", () => {
     );
   });
 
+  it("renders large validation message variant when `size` is large and `error` is provided", () => {
+    render(
+      <Fieldset
+        legend="Legend"
+        applyNewValidation
+        size="large"
+        error="error message"
+      >
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>,
+    );
+
+    expect(screen.getByText("error message")).toBeVisible();
+    expect(screen.getByRole("group")).toHaveAccessibleDescription(
+      "error message",
+    );
+  });
+
   it("renders with validation message when `warning` is provided", () => {
     render(
       <Fieldset legend="Legend" applyNewValidation warning="warning message">
@@ -239,6 +282,25 @@ describe("when `applyNewValidation` is provided", () => {
 
     expect(screen.getByRole("group")).toHaveAccessibleDescription(
       "input hint error message",
+    );
+  });
+
+  it("renders validation above children and announces validation before hint when `validationMessagePositionTop` is true", () => {
+    render(
+      <Fieldset
+        legend="Legend"
+        applyNewValidation
+        error="error message"
+        inputHint="input hint"
+        validationMessagePositionTop
+      >
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>,
+    );
+
+    expect(screen.getByText("error message")).toBeVisible();
+    expect(screen.getByRole("group")).toHaveAccessibleDescription(
+      "error message input hint",
     );
   });
 

@@ -280,8 +280,8 @@ const ptPT: Partial<Locale> = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "h",
-    minutesLabelText: () => "min",
+    hoursLabelText: () => "Horas",
+    minutesLabelText: () => "Minutos",
     hoursAriaLabelText: () => "Horas",
     minutesAriaLabelText: () => "Minutos",
   },
