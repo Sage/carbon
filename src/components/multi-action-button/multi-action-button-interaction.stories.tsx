@@ -3,7 +3,7 @@ import { userEvent, within, expect } from "storybook/test";
 import React from "react";
 
 import MultiActionButton from ".";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import { Accordion } from "../accordion";
 

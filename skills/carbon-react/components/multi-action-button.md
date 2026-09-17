@@ -23,7 +23,6 @@ description: Carbon MultiActionButton component props and usage examples.
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  |  |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
-| buttonType | "primary" \| "secondary" \| "tertiary" \| undefined | No |  |  |  | Button type: "primary" \| "secondary" \| "tertiary" |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
@@ -44,7 +43,9 @@ description: Carbon MultiActionButton component props and usage examples.
 | formMethod | string \| undefined | No |  |  |  |  |  |
 | formNoValidate | boolean \| undefined | No |  |  |  |  |  |
 | formTarget | string \| undefined | No |  |  |  |  |  |
+| fullWidth | boolean \| undefined | No |  |  |  | Apply fullWidth style to the button |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
+| iconOnly | boolean \| undefined | No |  |  |  | If true, only the icon will be displayed on the button |  |
 | id | string \| undefined | No |  |  |  |  |  |
 | inlist | any | No |  |  |  |  |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
@@ -64,7 +65,7 @@ description: Carbon MultiActionButton component props and usage examples.
 | marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| menuWidth | string \| undefined | No |  |  |  | Set the width of the menu. Defaults to the width of the SplitButton. |  |
+| menuWidth | string \| undefined | No |  |  |  | Allows override of the default menu width |  |
 | ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
 | mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
@@ -242,7 +243,6 @@ description: Carbon MultiActionButton component props and usage examples.
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
-| subtext | string \| undefined | No |  |  |  | Second text child, renders under main text, only when size is "large" |  |
 | suppressContentEditableWarning | boolean \| undefined | No |  |  |  |  |  |
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
@@ -252,8 +252,8 @@ description: Carbon MultiActionButton component props and usage examples.
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | value | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
+| variantType | VariantType \| undefined | No |  |  |  |  |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
-| width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |
@@ -307,11 +307,14 @@ description: Carbon MultiActionButton component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| align | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. |  |  |
-| isWhite | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Renders the white variant of the secondary split button |  |  |
+| align | "left" \| "right" \| undefined | No |  | Yes | Set align of the rendered content |  |  |
+| buttonType | "primary" \| "secondary" \| "tertiary" \| undefined | No |  | Yes | Button type: "primary" \| "secondary" \| "tertiary" |  |  |
+| isWhite | boolean \| undefined | No |  | Yes | Renders the white variant of the secondary split button |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | position | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Sets rendering position of menu. |  |  |
+| subtext | string \| undefined | No |  | Yes | Second text child, renders under main text, only when size is "large" |  |  |
+| width | WidthProps["width"] | No |  | Yes | The component width |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
@@ -330,6 +333,15 @@ description: Carbon MultiActionButton component props and usage examples.
 (args: MultiActionButtonProps) => {
     return (
       <MultiActionButton {...args}>
+        <Button href="#">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+        <Button href="#">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+        <Button href="#">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
         <Button href="#">Button 1</Button>
         <Button>Button 2</Button>
         <Button>Button 3</Button>
@@ -387,11 +399,45 @@ description: Carbon MultiActionButton component props and usage examples.
     (size: MultiActionButtonProps["size"]) => (
       <Box key={size} mb={3}>
         <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-          <Button size={size} href="#">
-            Button 1
-          </Button>
+          <Button size={size}>Button 1</Button>
           <Button size={size}>Button 2</Button>
           <Button size={size}>Button 3</Button>
+        </MultiActionButton>
+      </Box>
+    ),
+  );
+}
+```
+
+
+### Scrollable
+
+**Render**
+
+```tsx
+() => {
+  return (["small", "medium", "large"] as const).map(
+    (size: MultiActionButtonProps["size"]) => (
+      <Box key={size} mb={3}>
+        <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
+          <Button size={size}>Button 1</Button>
+          <Button size={size}>Button 2</Button>
+          <Button size={size}>Button 3</Button>
+          <Button size={size}>Button 4</Button>
+          <Button size={size}>Button 5</Button>
+          <Button size={size}>Button 6</Button>
+          <Button size={size}>Button 7</Button>
+          <Button size={size}>Button 8</Button>
+          <Button size={size}>Button 9</Button>
+          <Button size={size}>Button 10</Button>
+          <Button size={size}>Button 11</Button>
+          <Button size={size}>Button 12</Button>
+          <Button size={size}>Button 13</Button>
+          <Button size={size}>Button 14</Button>
+          <Button size={size}>Button 15</Button>
+          <Button size={size}>Button 16</Button>
+          <Button size={size}>Button 17</Button>
+          <Button size={size}>Button 18</Button>
         </MultiActionButton>
       </Box>
     ),
@@ -407,7 +453,57 @@ description: Carbon MultiActionButton component props and usage examples.
 ```tsx
 {
   text: "Multi Action Button",
-  width: 0.7,
+}
+```
+
+**Render**
+
+```tsx
+(args: MultiActionButtonProps) => {
+  return (
+    <MultiActionButton {...args} width="30%" menuWidth="180px">
+      <Button href="#">Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </MultiActionButton>
+  );
+}
+```
+
+
+### Menu Width
+
+**Args**
+
+```tsx
+{
+  text: "Multi Action Button",
+}
+```
+
+**Render**
+
+```tsx
+(args: MultiActionButtonProps) => {
+  return (
+    <MultiActionButton {...args} menuWidth="350px">
+      <Button href="#">Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </MultiActionButton>
+  );
+}
+```
+
+
+### Full Width
+
+**Args**
+
+```tsx
+{
+  text: "Multi Action Button",
+  fullWidth: true,
 }
 ```
 
@@ -432,11 +528,11 @@ description: Carbon MultiActionButton component props and usage examples.
 
 ```tsx
 () => {
-  return (["primary", "secondary", "tertiary"] as const).map(
-    (buttonType: MultiActionButtonProps["buttonType"]) => (
+  return (["primary", "secondary", "tertiary", "subtle"] as const).map(
+    (buttonType: MultiActionButtonProps["variantType"]) => (
       <Box key={buttonType} mb={3}>
         <MultiActionButton
-          buttonType={buttonType}
+          variantType={buttonType}
           text={`Multi Action Button - ${buttonType}`}
         >
           <Button href="#">Button 1</Button>
@@ -445,6 +541,60 @@ description: Carbon MultiActionButton component props and usage examples.
         </MultiActionButton>
       </Box>
     ),
+  );
+}
+```
+
+
+### Loading State
+
+**Render**
+
+```tsx
+() => {
+  return (["primary", "secondary", "tertiary"] as const).map(
+    (buttonType: MultiActionButtonProps["buttonType"]) => (
+      <Box key={buttonType} mb={3}>
+        <Button>
+          <Loader variant="inline" loaderType="ring" size="extra-small" />
+        </Button>
+        <Button>
+          <Loader
+            variant="inline"
+            loaderType="ring"
+            loaderLabel="Chargement..."
+            size="extra-small"
+          />
+        </Button>
+      </Box>
+    ),
+  );
+}
+```
+
+
+### With Badge
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box mb={3}>
+      <Badge
+        id="badge-custom-color"
+        counter={9}
+        onClick={() => {}}
+        aria-label={`Remove 9 filters.`}
+        variant="subtle"
+      >
+        <MultiActionButton buttonType="primary" text="Multi Action Button">
+          <Button href="#">Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </MultiActionButton>
+      </Badge>
+    </Box>
   );
 }
 ```
@@ -484,19 +634,31 @@ description: Carbon MultiActionButton component props and usage examples.
 
 ```tsx
 () => {
-  return (["left", "right"] as const).map(
-    (align: MultiActionButtonProps["align"]) => (
-      <Box key={align} mb={3}>
+  return (
+    <Box>
+      <Box mb={3}>
         <MultiActionButton
-          align={align}
-          text={`Multi Action Button - ${align}`}
+          align="right"
+          text={`Multi Action Button - right`}
+          menuWidth="180px"
         >
           <Button href="#">Button 1</Button>
           <Button>Button 2</Button>
           <Button>Button 3</Button>
         </MultiActionButton>
       </Box>
-    ),
+      <Box mb={3}>
+        <MultiActionButton
+          align="left"
+          text={`Multi Action Button - left`}
+          menuWidth="180px"
+        >
+          <Button href="#">Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </MultiActionButton>
+      </Box>
+    </Box>
   );
 }
 ```
@@ -510,13 +672,17 @@ description: Carbon MultiActionButton component props and usage examples.
 () => {
   return (
     <Box display="flex" justifyContent="space-around">
-      <MultiActionButton position="left" text="Left position">
+      <MultiActionButton position="left" text="Left position" menuWidth="220px">
         <Button href="#">Button 1 with longer text</Button>
         <Button>Button 2</Button>
         <Button>Button 3</Button>
       </MultiActionButton>
 
-      <MultiActionButton position="right" text="Right position">
+      <MultiActionButton
+        position="right"
+        text="Right position"
+        menuWidth="220px"
+      >
         <Button href="#">Button 1 with longer text</Button>
         <Button>Button 2</Button>
         <Button>Button 3</Button>
@@ -578,6 +744,58 @@ description: Carbon MultiActionButton component props and usage examples.
           Child Button 2
         </Button>
         <Button iconPosition="after" iconType="clock">
+          Child Button 3
+        </Button>
+      </MultiActionButton>
+    </>
+  );
+}
+```
+
+
+### With Divider
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      <MultiActionButton text="Multi Action Button" menuWidth="150px">
+        <Button iconPosition="before" iconType="add">
+          Child Button 1
+        </Button>
+        <Button iconPosition="before" iconType="upload">
+          Child Button 2
+        </Button>
+        <MultiActionButtonDivider />
+        <Button iconPosition="before" iconType="clock">
+          Child Button 3
+        </Button>
+      </MultiActionButton>
+    </>
+  );
+}
+```
+
+
+### Icon Only
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      <MultiActionButton text="Multi Action Button" iconOnly>
+        <Button iconPosition="before" iconType="add">
+          Child Button 1
+        </Button>
+        <Button iconPosition="before" iconType="upload">
+          Child Button 2
+        </Button>
+        <MultiActionButtonDivider />
+        <Button iconPosition="before" iconType="clock">
           Child Button 3
         </Button>
       </MultiActionButton>
