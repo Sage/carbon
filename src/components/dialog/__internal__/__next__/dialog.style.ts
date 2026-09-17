@@ -120,6 +120,11 @@ const DialogPositioner = styled.div.attrs(
     css`
       justify-content: stretch;
       align-items: stretch;
+      box-sizing: border-box;
+
+      @media screen and (min-width: ${smallScreenBreakpoint}) {
+        padding: var(--global-space-layout-2-xs);
+      }
     `}
 
   ${({ $disableStickyOnSmallScreen }) =>
@@ -345,6 +350,8 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           overflow: hidden;
           height: 100%;
           width: 100%;
+          /* Forces its own compositing layer, otherwise Chrome renders a dark artifact in the rounded corner */
+          transform: translateZ(0);
         `
       : css`
           box-shadow:
