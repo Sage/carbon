@@ -3,10 +3,7 @@ import {
   paddingNames,
   paddingLeftPropertyNames,
   paddingRightPropertyNames,
-  paddingBottomPropertyNames,
-  paddingTopPropertyNames,
   paddingXPropertyNames,
-  paddingYPropertyNames,
 } from "../../../style/utils/filter-styled-system-padding-props";
 
 const CONTENT_PADDING_LEFT_KEYS = [
@@ -19,18 +16,8 @@ const CONTENT_PADDING_RIGHT_KEYS = [
   ...paddingXPropertyNames,
   ...paddingNames,
 ];
-const CONTENT_PADDING_TOP_KEYS = [
-  ...paddingTopPropertyNames,
-  ...paddingYPropertyNames,
-  ...paddingNames,
-];
-const CONTENT_PADDING_BOTTOM_KEYS = [
-  ...paddingBottomPropertyNames,
-  ...paddingYPropertyNames,
-  ...paddingNames,
-];
 
-export default (paddingProps: PaddingProps, isHorizontal: boolean) => {
+export default (paddingProps: PaddingProps) => {
   const getPaddingProps = (paddingKeys: (keyof PaddingProps)[]) => {
     const key = paddingKeys.find((propName) => paddingProps[propName]);
 
@@ -42,13 +29,8 @@ export default (paddingProps: PaddingProps, isHorizontal: boolean) => {
     return paddingProps[key];
   };
 
-  return isHorizontal
-    ? {
-        pr: getPaddingProps(CONTENT_PADDING_LEFT_KEYS),
-        pl: getPaddingProps(CONTENT_PADDING_RIGHT_KEYS),
-      }
-    : {
-        pt: getPaddingProps(CONTENT_PADDING_TOP_KEYS),
-        pb: getPaddingProps(CONTENT_PADDING_BOTTOM_KEYS),
-      };
+  return {
+    pr: getPaddingProps(CONTENT_PADDING_LEFT_KEYS),
+    pl: getPaddingProps(CONTENT_PADDING_RIGHT_KEYS),
+  };
 };
