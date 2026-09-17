@@ -44,15 +44,6 @@ export const DefaultStory: Story = {
         <Button href="#">Button 1</Button>
         <Button>Button 2</Button>
         <Button>Button 3</Button>
-        <Button href="#">Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-        <Button href="#">Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-        <Button href="#">Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
       </MultiActionButton>
     );
   },
@@ -111,24 +102,11 @@ export const Scrollable: Story = () => {
     (size: MultiActionButtonProps["size"]) => (
       <Box key={size} mb={3}>
         <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-          <Button size={size}>Button 1</Button>
-          <Button size={size}>Button 2</Button>
-          <Button size={size}>Button 3</Button>
-          <Button size={size}>Button 4</Button>
-          <Button size={size}>Button 5</Button>
-          <Button size={size}>Button 6</Button>
-          <Button size={size}>Button 7</Button>
-          <Button size={size}>Button 8</Button>
-          <Button size={size}>Button 9</Button>
-          <Button size={size}>Button 10</Button>
-          <Button size={size}>Button 11</Button>
-          <Button size={size}>Button 12</Button>
-          <Button size={size}>Button 13</Button>
-          <Button size={size}>Button 14</Button>
-          <Button size={size}>Button 15</Button>
-          <Button size={size}>Button 16</Button>
-          <Button size={size}>Button 17</Button>
-          <Button size={size}>Button 18</Button>
+          {Array.from({ length: 18 }, (_, i) => (
+            <Button key={i} size={size}>
+              Button {i + 1}
+            </Button>
+          ))}
         </MultiActionButton>
       </Box>
     ),
