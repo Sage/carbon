@@ -53,7 +53,7 @@ const defaultOpenState = isChromatic();
 const Buttons = () => (
   <Box display="flex" flexDirection="column" alignItems="flex-end">
     <Box display="flex" gap={1}>
-      <Button>Cancel</Button>
+      <Button variantType="subtle">Cancel</Button>
       <Button buttonType="primary">Save</Button>
     </Box>
   </Box>
@@ -234,7 +234,9 @@ export const OtherFocusableContainers: Story = () => {
         <Form
           stickyFooter
           leftSideButtons={
-            <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+            <Button variantType="subtle" onClick={() => setIsDialogOpen(false)}>
+              Cancel
+            </Button>
           }
           saveButton={
             <Button buttonType="primary" type="submit">
@@ -384,7 +386,9 @@ export const DefaultWithForm: Story = {
           <Form
             stickyFooter
             leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
             }
             saveButton={
               <Button buttonType="primary" type="submit">
@@ -453,7 +457,9 @@ export const RestoreFocusOnClose: Story = () => {
         <Form
           stickyFooter
           leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button variantType="subtle" onClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
           }
           saveButton={
             <Button buttonType="primary" type="submit">
@@ -583,7 +589,9 @@ export const ResponsiveBehavior: Story = {
           <Form
             stickyFooter
             leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
             }
             saveButton={
               <Button buttonType="primary" type="submit">
@@ -655,7 +663,9 @@ export const SmallScreenBehavior: Story = {
             stickyFooter
             disableStickyOnSmallScreen
             leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
             }
             saveButton={
               <Button buttonType="primary" type="submit">
@@ -779,7 +789,9 @@ export const StickyFooterWithForm: Story = {
           <Form
             stickyFooter
             leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
             }
             saveButton={
               <Button buttonType="primary" type="submit">
@@ -852,7 +864,9 @@ export const FormLinkedToFooterButtons: Story = {
           }}
           footer={
             <Box display="flex" gap={1} justifyContent="flex-end" width="100%">
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="subtle" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
               <Button
                 variant="default"
                 variantType="primary"
