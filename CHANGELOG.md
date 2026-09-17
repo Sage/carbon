@@ -1,3 +1,9 @@
+## [162.2.2](https://github.com/Sage/carbon/compare/v162.2.1...v162.2.2) (2026-09-17)
+
+### Bug Fixes
+
+* **pager:** prevent pager inputs inheriting form field spacing ([5a546fd](https://github.com/Sage/carbon/commit/5a546fd4a2cb69fe70648c47b0d5766b72ac14a4))
+
 ## [162.2.1](https://github.com/Sage/carbon/compare/v162.2.0...v162.2.1) (2026-09-17)
 
 ### Bug Fixes
