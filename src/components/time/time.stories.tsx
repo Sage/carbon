@@ -4,7 +4,7 @@ import { ArgTypes, Meta, StoryObj } from "@storybook/react-vite";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import I18nProvider from "../i18n-provider";
 import Box from "../box";
-import Button from "../button";
+import Button from "../button/__next__";
 import {
   TimeHandle,
   TimeInputEvent,
@@ -29,11 +29,55 @@ const meta: Meta<typeof Time> = {
   },
   argTypes: {
     ...styledSystemProps,
-  },
+    showAmPmToggle: {
+      control: "boolean",
+      description: "Show AM/PM toggle",
+      table: {
+        category: "Story",
+      },
+    },
+  } as never,
 };
 
 export default meta;
 type Story = StoryObj<typeof Time>;
+
+export const Playground: Story = {
+  render: ({
+    showAmPmToggle,
+    ...args
+  }: TimeProps & { showAmPmToggle?: boolean }) => {
+    const [value, setValue] = useState<TimeValue>({
+      hours: "",
+      minutes: "",
+      period: "AM",
+    });
+
+    const handleChange = (ev: TimeInputEvent) => {
+      setValue(ev.target.value);
+    };
+
+    // Conditionally include or exclude the period based on the toggle
+    const displayValue: TimeValue = showAmPmToggle
+      ? value
+      : { hours: value.hours, minutes: value.minutes };
+
+    return (
+      <Box p={2}>
+        <Time {...args} value={displayValue} onChange={handleChange} />
+      </Box>
+    );
+  },
+  args: {
+    label: "Time",
+    disabled: false,
+    readOnly: false,
+    required: false,
+    size: "medium",
+    showAmPmToggle: true,
+  } as never,
+};
+Playground.storyName = "Playground";
 
 export const Default: Story = ({ ...args }) => {
   const [value, setValue] = useState<TimeValue>({
@@ -74,161 +118,6 @@ AmPmToggle.storyName = "AM/PM Toggle";
 AmPmToggle.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
-
-export const InputHint: Story = () => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-  });
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box p={2}>
-      <Time
-        value={value}
-        onChange={handleChange}
-        label="Time"
-        inputHint="Hint text"
-      />
-    </Box>
-  );
-};
-InputHint.storyName = "Input Hint";
-
-export const Required: Story = () => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-  });
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box p={2}>
-      <Time required value={value} onChange={handleChange} label="Time" />
-    </Box>
-  );
-};
-Required.storyName = "Required";
-
-export const Disabled: Story = () => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-    period: "AM",
-  });
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box p={2}>
-      <Time
-        value={value}
-        onChange={handleChange}
-        label="Time"
-        inputHint="Hint text"
-        disabled
-      />
-    </Box>
-  );
-};
-Disabled.storyName = "Disabled";
-
-export const ReadOnly: Story = () => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-    period: "AM",
-  });
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box p={2}>
-      <Time
-        value={value}
-        onChange={handleChange}
-        label="Time"
-        inputHint="Hint text"
-        readOnly
-      />
-    </Box>
-  );
-};
-ReadOnly.storyName = "Read Only";
-
-export const Sizes: Story = () => {
-  const [value, setValue] = useState<{
-    small: TimeValue;
-    medium: TimeValue;
-    large: TimeValue;
-  }>({
-    small: {
-      hours: "",
-      minutes: "",
-      period: "AM",
-    },
-    medium: {
-      hours: "",
-      minutes: "",
-      period: "AM",
-    },
-    large: {
-      hours: "",
-      minutes: "",
-      period: "AM",
-    },
-  });
-
-  const handleChange = (
-    ev: TimeInputEvent,
-    size: "small" | "medium" | "large",
-  ) => {
-    setValue((p) => ({
-      ...p,
-      [size]: ev.target.value,
-    }));
-  };
-
-  return (
-    <Box p={2}>
-      <Time
-        size="small"
-        value={value.small}
-        onChange={(ev) => handleChange(ev, "small")}
-        label="Time - small"
-        inputHint="Hint text"
-        mb={1}
-      />
-      <Time
-        size="medium"
-        value={value.medium}
-        onChange={(ev) => handleChange(ev, "medium")}
-        label="Time - medium"
-        inputHint="Hint text"
-        mb={1}
-      />
-      <Time
-        size="large"
-        value={value.large}
-        onChange={(ev) => handleChange(ev, "large")}
-        label="Time - large"
-        inputHint="Hint text"
-        mb={1}
-      />
-    </Box>
-  );
-};
-Sizes.storyName = "Sizes";
 
 export const FocusingInputs: Story = () => {
   const [value, setValue] = useState<TimeValue>({

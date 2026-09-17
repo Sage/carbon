@@ -48,35 +48,6 @@ description: Carbon Pill component props and usage examples.
 | size | "S" \| "M" \| "L" \| "XL" \| undefined | No |  | Yes | The `XL` size is deprecated and will be removed in a future release. Use `L` instead. | Sets the size of the pill. | "M" |
 
 ## Examples
-### Playground
-
-**Args**
-
-```tsx
-{
-    children: "Label",
-    variant: "grey",
-    size: "M",
-    fill: true,
-    inverse: false,
-    onDelete: undefined,
-    icon: undefined,
-  }
-```
-
-**Render**
-
-```tsx
-(args) => {
-    return (
-      <Box mb={1}>
-        <Pill {...args}>{args.children}</Pill>
-      </Box>
-    );
-  }
-```
-
-
 ### Wrapped
 
 **Render**
