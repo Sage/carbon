@@ -11,7 +11,6 @@ import {
 } from "./components.test-pw";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
-import { getDataElementByValue } from "../../../playwright/components";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const;
 
