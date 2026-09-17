@@ -1,3 +1,9 @@
+## [162.2.0](https://github.com/Sage/carbon/compare/v162.1.0...v162.2.0) (2026-09-17)
+
+### Features
+
+* **time:** align Time with FE-7233 audit requirements ([9aaf847](https://github.com/Sage/carbon/commit/9aaf84781a67de79e6419f41a3b495d2fd36f03e))
+
 ## [162.1.0](https://github.com/Sage/carbon/compare/v162.0.1...v162.1.0) (2026-09-16)
 
 ### Features
