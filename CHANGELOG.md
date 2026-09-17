@@ -1,3 +1,9 @@
+## [162.2.1](https://github.com/Sage/carbon/compare/v162.2.0...v162.2.1) (2026-09-17)
+
+### Bug Fixes
+
+* **dialog:** ensure dialog content stays on smaller screens ([7772a69](https://github.com/Sage/carbon/commit/7772a69f4dd99e348a41d533703f3a60809cb134)), closes [#8144](https://github.com/Sage/carbon/issues/8144)
+
 ## [162.2.0](https://github.com/Sage/carbon/compare/v162.1.0...v162.2.0) (2026-09-17)
 
 ### Features
