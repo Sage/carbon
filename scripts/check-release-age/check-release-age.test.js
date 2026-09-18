@@ -4,8 +4,10 @@ import {
   formatAge,
   getPackageNameFromLockEntry,
   getPackageUrl,
+  isReleaseAgeExcluded,
   readLockedPackages,
   readMinReleaseAge,
+  readReleaseAgeExcludePatterns,
   runConcurrently,
 } from "./check-release-age.mjs";
 
@@ -231,5 +233,63 @@ describe("runConcurrently", () => {
     );
 
     expect(results).toEqual([2, 4, 6]);
+  });
+});
+
+describe("readReleaseAgeExcludePatterns", () => {
+  it("reads min-release-age-exclude array entries from .npmrc", async () => {
+    fs.readFile.mockResolvedValue(
+      "min-release-age=3\n" +
+        "min-release-age-exclude[]=@sage/design-tokens\n" +
+        "min-release-age-exclude[]=@sage/design-tokens-fusion\n",
+    );
+
+    await expect(readReleaseAgeExcludePatterns()).resolves.toEqual([
+      "@sage/design-tokens",
+      "@sage/design-tokens-fusion",
+    ]);
+  });
+
+  it("returns an empty array when .npmrc has no excludes", async () => {
+    fs.readFile.mockResolvedValue("min-release-age=3\n");
+
+    await expect(readReleaseAgeExcludePatterns()).resolves.toEqual([]);
+  });
+
+  it("returns an empty array when .npmrc is missing", async () => {
+    fs.readFile.mockRejectedValue(
+      Object.assign(new Error("nope"), { code: "ENOENT" }),
+    );
+
+    await expect(readReleaseAgeExcludePatterns()).resolves.toEqual([]);
+  });
+
+  it("rethrows unexpected errors while reading .npmrc", async () => {
+    fs.readFile.mockRejectedValue(
+      Object.assign(new Error("disk on fire"), { code: "EACCES" }),
+    );
+
+    await expect(readReleaseAgeExcludePatterns()).rejects.toThrow(
+      "disk on fire",
+    );
+  });
+});
+
+describe("isReleaseAgeExcluded", () => {
+  it("matches exact package names", () => {
+    expect(
+      isReleaseAgeExcluded("@sage/design-tokens", ["@sage/design-tokens"]),
+    ).toBe(true);
+    expect(isReleaseAgeExcluded("lodash", ["@sage/design-tokens"])).toBe(false);
+  });
+
+  it("matches glob patterns", () => {
+    expect(isReleaseAgeExcluded("@sage/design-tokens", ["@sage/*"])).toBe(true);
+    expect(
+      isReleaseAgeExcluded("@sage/design-tokens-fusion", ["@sage/*"]),
+    ).toBe(true);
+    expect(isReleaseAgeExcluded("@other/design-tokens", ["@sage/*"])).toBe(
+      false,
+    );
   });
 });

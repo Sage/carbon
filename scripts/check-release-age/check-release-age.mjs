@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from "node:fs/promises";
 
 const DEFAULT_REGISTRY = "https://registry.npmjs.org";
@@ -5,6 +6,36 @@ const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 const REGISTRY_REQUEST_TIMEOUT_MS = 30 * 1000;
 const MAX_CONCURRENT_REQUESTS = 20;
 const MAX_FAILURES_TO_PRINT = 25;
+
+// Mirrors npm's own `min-release-age-exclude` config so both stay in sync from a single source of truth.
+export async function readReleaseAgeExcludePatterns() {
+  let npmrc;
+  try {
+    npmrc = await fs.readFile(".npmrc", "utf8");
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return [];
+    }
+    throw error;
+  }
+
+  return npmrc
+    .split("\n")
+    .map((line) => line.replace(/[ \t\r]/g, ""))
+    .map((line) => line.match(/^min-release-age-exclude(?:\[\])?=(.+)$/)?.[1])
+    .filter((pattern) => Boolean(pattern));
+}
+
+function globToRegExp(pattern) {
+  const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`^${escaped.replace(/\*/g, ".*").replace(/\?/g, ".")}$`);
+}
+
+export function isReleaseAgeExcluded(packageName, excludePatterns) {
+  return excludePatterns.some((pattern) =>
+    globToRegExp(pattern).test(packageName),
+  );
+}
 
 export async function readMinReleaseAge() {
   if (process.env.MIN_RELEASE_AGE) {
@@ -109,7 +140,9 @@ export async function fetchPackageTimes(registry, packageName) {
   const packageMetadata = await response.json();
 
   if (!packageMetadata.time) {
-    throw new Error(`Registry metadata for ${packageName} does not include time`);
+    throw new Error(
+      `Registry metadata for ${packageName} does not include time`,
+    );
   }
 
   return packageMetadata.time;
@@ -152,16 +185,27 @@ async function main() {
     process.env.NPM_CONFIG_REGISTRY ||
     process.env.npm_config_registry ||
     DEFAULT_REGISTRY;
-  const lockedPackages = await readLockedPackages();
+  const excludePatterns = await readReleaseAgeExcludePatterns();
+  const allLockedPackages = await readLockedPackages();
+  const lockedPackages = allLockedPackages.filter(
+    ({ name }) => !isReleaseAgeExcluded(name, excludePatterns),
+  );
+  const allowlistedCount = allLockedPackages.length - lockedPackages.length;
   const packageNames = [...new Set(lockedPackages.map(({ name }) => name))];
   const packageTimes = new Map();
 
   console.log(
-    `Checking ${lockedPackages.length} locked package releases against min-release-age=${minReleaseAge} days`,
+    `Checking ${lockedPackages.length} locked package releases against min-release-age=${minReleaseAge} days` +
+      (allowlistedCount > 0
+        ? ` (${allowlistedCount} allowlisted release(s) skipped)`
+        : ""),
   );
 
   await runConcurrently(packageNames, async (packageName) => {
-    packageTimes.set(packageName, await fetchPackageTimes(registry, packageName));
+    packageTimes.set(
+      packageName,
+      await fetchPackageTimes(registry, packageName),
+    );
   });
 
   const now = Date.now();
