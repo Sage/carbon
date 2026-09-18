@@ -1,38 +1,13 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import StyledButton from "../button/button.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import StyledIcon from "../icon/icon.style";
 import { MultiActionButtonProps } from "./multi-action-button.component";
 import computeSizing from "../../style/utils/element-sizing";
 
-const borderRadiusStyling = `
-  > {
-    &:first-child:last-child > * {
-      border-radius: var(--borderRadius100);
-    }
-
-    &:first-child:not(:last-child) > * {
-      border-top-left-radius: var(--borderRadius100);
-      border-top-right-radius: var(--borderRadius100);
-      border-bottom-right-radius: var(--borderRadius000);
-      border-bottom-left-radius: var(--borderRadius000);
-    }
-
-    &:not(:first-child):not(:last-child) > * {
-      border-radius: var(--borderRadius000);
-    }
-
-    &:last-child:not(:first-child) > * {
-      border-top-right-radius: var(--borderRadius000);
-      border-top-left-radius: var(--borderRadius000);
-      border-bottom-left-radius: var(--borderRadius100);
-      border-bottom-right-radius: var(--borderRadius100);
-    }
-  }
-`;
-
-type StyledMultiActionButtonProps = Pick<MultiActionButtonProps, "width"> & {
+type StyledMultiActionButtonProps = Pick<
+  MultiActionButtonProps,
+  "width" | "menuWidth" | "fullWidth"
+> & {
   displayed: boolean;
 };
 
@@ -49,119 +24,34 @@ const StyledMultiActionButton = styled.div.attrs(
     css`
       ${computeSizing({ width })}
 
-      ${StyledButton} {
+      [data-component="popover-menu"],
+      [data-component="popover-menu-control"] {
         width: 100%;
-        justify-content: space-between;
-      }
-
-      /* The toggle button's dropdown icon is a child nested inside the
-         main-text span, so the button's space-between has nothing to push
-         apart. Stretch the wrapper and main-text full width and space them
-         out here so the icon sits at the button's end (as it did before the
-         icon was moved into children to inherit the button colour). */
-      & > ${StyledButton} {
-        > span {
-          flex: 1;
-          min-width: 0;
-        }
-
-        [data-element="main-text"] {
-          width: 100%;
-          justify-content: space-between;
-        }
       }
     `}
 
-  & > ${StyledButton} {
-    margin: 0;
+  [data-component="scroll-wrapper"] {
+    overflow-y: auto;
 
-    ${StyledIcon} {
-      margin-left: 0;
-      left: 8px;
+    &::-webkit-scrollbar {
+      width: 12px;
+      border-radius: var(--global-radius-container-circle);
     }
 
-    &:focus {
-      background-color: var(--colorsActionMajor700);
-      border: 3px solid var(--colorsActionMajor700);
-      outline: none;
-      margin: 0 -1px;
-
-      &,
-      ${StyledIcon} {
-        color: var(--colorsActionMajorYang100);
-      }
+    &::-webkit-scrollbar-track {
+      background-color: var(--container-scrollbar-bg-default);
+      border-radius: 0 var(--global-radius-container-circle)
+        var(--global-radius-container-circle) 0;
     }
 
-    &:active {
-      background-color: var(--colorsActionMajor700);
-      border-color: var(--colorsActionMajor700);
-
-      &&& {
-        color: var(--colorsActionMajorYang100);
-      }
-
-      &&& [data-component="icon"]:not([data-color]) {
-        color: var(--colorsActionMajorYang100);
-      }
+    &::-webkit-scrollbar-thumb {
+      border-radius: var(--global-radius-container-circle);
+      background-clip: padding-box;
+      border: var(--global-space-comp-2-xs) solid transparent;
+      background-color: var(--container-scrollbar-fg-default);
+      min-height: 146px;
     }
-
-    ${({ displayed }) =>
-      displayed &&
-      css`
-        background-color: var(--colorsActionMajor700);
-        border-color: var(--colorsActionMajor700);
-
-        &,
-        ${StyledIcon} {
-          color: var(--colorsActionMajorYang100);
-        }
-
-        &:focus {
-          margin: 0 -1px;
-        }
-      `}
   }
 `;
 
-type StyledButtonChildrenContainerProps = {
-  align: "left" | "right";
-  minWidth: number;
-};
-
-const StyledButtonChildrenContainer = styled.ul.attrs(
-  applyBaseTheme,
-)<StyledButtonChildrenContainerProps>`
-  ${({ theme, align, minWidth }) => css`
-    background-color: var(--colorsActionMajorYang100);
-    min-width: ${minWidth}px;
-    white-space: nowrap;
-    z-index: ${theme.zIndex.popover};
-    box-shadow: var(--boxShadow100);
-    border-radius: var(--borderRadius100);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    ${borderRadiusStyling}
-
-    ${StyledButton} {
-      border: 1px solid var(--colorsActionMajorTransparent);
-      display: flex;
-      justify-content: ${align};
-      margin-left: 0;
-      min-width: 100%;
-      text-align: ${align};
-
-      & + & {
-        margin-top: 3px;
-      }
-
-      &:focus {
-        position: relative;
-        z-index: 1;
-      }
-    }
-  `}
-`;
-
-export { StyledButtonChildrenContainer, StyledMultiActionButton };
+export default StyledMultiActionButton;
