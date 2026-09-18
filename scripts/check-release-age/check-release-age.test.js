@@ -32,12 +32,12 @@ afterEach(() => {
 });
 
 describe("getPackageNameFromLockEntry", () => {
-  it("uses an explicit name from the lock entry when present", () => {
+  it("uses the real package name recorded for an npm alias", () => {
     expect(
-      getPackageNameFromLockEntry("node_modules/aliased", {
-        name: "real-name",
+      getPackageNameFromLockEntry("node_modules/@sage/design-tokens-fusion", {
+        name: "@sage/design-tokens",
       }),
-    ).toBe("real-name");
+    ).toBe("@sage/design-tokens");
   });
 
   it("derives an unscoped name from the package path", () => {
@@ -136,6 +136,10 @@ describe("readLockedPackages", () => {
           "": { name: "carbon-react", version: "1.0.0" },
           "node_modules/lodash": { version: "4.17.21" },
           "node_modules/@sage/design-tokens": { version: "4.17.0" },
+          "node_modules/@sage/design-tokens-fusion": {
+            name: "@sage/design-tokens",
+            version: "18.15.0",
+          },
           "node_modules/a/node_modules/lodash": { version: "4.17.21" },
         },
       }),
@@ -144,6 +148,7 @@ describe("readLockedPackages", () => {
     await expect(readLockedPackages()).resolves.toEqual([
       { name: "lodash", version: "4.17.21" },
       { name: "@sage/design-tokens", version: "4.17.0" },
+      { name: "@sage/design-tokens", version: "18.15.0" },
     ]);
   });
 
@@ -240,13 +245,11 @@ describe("readReleaseAgeExcludePatterns", () => {
   it("reads min-release-age-exclude array entries from .npmrc", async () => {
     fs.readFile.mockResolvedValue(
       "min-release-age=3\n" +
-        "min-release-age-exclude[]=@sage/design-tokens\n" +
-        "min-release-age-exclude[]=@sage/design-tokens-fusion\n",
+        "min-release-age-exclude[]=@sage/design-tokens*\n",
     );
 
     await expect(readReleaseAgeExcludePatterns()).resolves.toEqual([
-      "@sage/design-tokens",
-      "@sage/design-tokens-fusion",
+      "@sage/design-tokens*",
     ]);
   });
 
@@ -284,12 +287,23 @@ describe("isReleaseAgeExcluded", () => {
   });
 
   it("matches glob patterns", () => {
-    expect(isReleaseAgeExcluded("@sage/design-tokens", ["@sage/*"])).toBe(true);
     expect(
-      isReleaseAgeExcluded("@sage/design-tokens-fusion", ["@sage/*"]),
+      isReleaseAgeExcluded("@sage/design-tokens", ["@sage/design-tokens*"]),
     ).toBe(true);
-    expect(isReleaseAgeExcluded("@other/design-tokens", ["@sage/*"])).toBe(
-      false,
-    );
+    expect(
+      isReleaseAgeExcluded("@sage/design-tokens-fusion", [
+        "@sage/design-tokens*",
+      ]),
+    ).toBe(true);
+    expect(
+      isReleaseAgeExcluded("@sage/other-package", ["@sage/design-tokens*"]),
+    ).toBe(false);
+    expect(
+      isReleaseAgeExcluded("@other/design-tokens", ["@sage/design-tokens*"]),
+    ).toBe(false);
+  });
+
+  it("matches broader scoped glob patterns", () => {
+    expect(isReleaseAgeExcluded("@sage/design-tokens", ["@sage/*"])).toBe(true);
   });
 });
