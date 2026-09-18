@@ -41,9 +41,6 @@ export const List = styled.ul<ListProps>`
   background-color: var(--popover-bg-default);
   display: flex;
   flex-direction: column;
-
-  max-height: ${({ $maxHeight, $size }) =>
-    $maxHeight ?? `calc(5 * var(--global-size-${$size.charAt(0)}))`};
   list-style-type: "";
   list-style: none;
 
