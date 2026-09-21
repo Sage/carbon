@@ -136,6 +136,10 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   onClose: (e?: Event, value?: string) => void;
   /** Set the custom width of the menu */
   width?: string;
+  /** Whether the menu width should match the control reference width */
+  matchReferenceWidth?: boolean;
+  /** Strategy used to position the popover */
+  popoverStrategy?: PopoverProps["popoverStrategy"];
   /** Override default control reference for popover */
   controlReference?: React.RefObject<HTMLDivElement | HTMLLIElement>;
   /** Set the custom max-height of the menu list */
@@ -167,6 +171,7 @@ const menuPopoverMiddleware = (
   width?: string,
   isButtonMenu?: boolean,
   isSubmenu?: boolean,
+  matchReferenceWidth?: boolean,
 ) => [
   offset(isSubmenu ? SUBMENU_OFFSET : OFFSET),
   flip({
@@ -174,7 +179,7 @@ const menuPopoverMiddleware = (
   }),
   size({
     apply({ rects, elements }) {
-      if (isButtonMenu) return;
+      if (isButtonMenu && !matchReferenceWidth && !width) return;
       elements.floating.style.width = width || `${rects.reference.width}px`;
     },
   }),
@@ -324,6 +329,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     onOpen,
     onClose,
     width,
+    matchReferenceWidth = false,
+    popoverStrategy = "absolute",
     listboxAriaLabelledBy,
     listboxAriaLabel,
     isButtonMenu = false,
@@ -357,6 +364,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     width,
     isButtonMenu,
     isSubmenu,
+    matchReferenceWidth,
   );
   const direction = useRef<"up" | "down" | null>(null);
 
