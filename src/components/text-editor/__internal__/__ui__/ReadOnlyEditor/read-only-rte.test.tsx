@@ -18,6 +18,16 @@ test("should render read-only editor as an article", () => {
   expect(readOnlyEditor).toHaveTextContent("Hello, World!");
 });
 
+test("should apply the selected paragraph font to the read-only editor", () => {
+  const { container } = render(
+    <ReadOnlyEditor initialValue="Hello, World!" size="large" />,
+  );
+
+  expect(container.firstChild).toHaveStyle(
+    "font: var(--global-font-static-comp-regular-l)",
+  );
+});
+
 test("should wrap plain-text links with anchors in the editor", () => {
   const sampleHTML = `<pre spellcheck="false"><span style="font-weight: 400; font-size: 14px; line-height: 21px;">Hello, World! </span><a href="www.bbc.co.uk" rel="noreferrer"><span style="white-space: pre-wrap;">www.bbc.co.uk</span></a><span style="white-space: pre-wrap;"> </span><a href="http://www.google.com"><span style="white-space: pre-wrap;">http://www.google.com</span></a><span style="white-space: pre-wrap;"> </span><a href="https://www.sage.com"><span style="white-space: pre-wrap;">https://www.sage.com</span></a></pre>`;
   render(<ReadOnlyEditor initialValue={sampleHTML} />);
