@@ -38,6 +38,8 @@ export interface FieldsetProps extends MarginProps {
   isRequired?: boolean;
   /** Apply disabled styling to the component */
   isDisabled?: boolean;
+  /** Apply read only styling to the component */
+  isReadOnly?: boolean;
   /** Specifies whether the validation message should be displayed above the input */
   validationMessagePositionTop?: boolean;
   /** Set the size of the component */
@@ -54,6 +56,7 @@ const Fieldset = ({
   warning,
   isRequired,
   isDisabled,
+  isReadOnly,
   validationMessagePositionTop,
   size = "medium",
   ...rest
@@ -100,6 +103,7 @@ const Fieldset = ({
           data-element="legend"
           $isRequired={isRequired}
           $isDisabled={isDisabled}
+          $isReadOnly={isReadOnly}
           $size={size}
         >
           {legend}
