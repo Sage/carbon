@@ -1,3 +1,9 @@
+## [162.2.3](https://github.com/Sage/carbon/compare/v162.2.2...v162.2.3) (2026-09-21)
+
+### Bug Fixes
+
+* **dialog:** fullscreen should have 16px padding ([517d069](https://github.com/Sage/carbon/commit/517d0693c4575bf0ffebe40872a7fd90c40a7886)), closes [#8159](https://github.com/Sage/carbon/issues/8159)
+
 ## [162.2.2](https://github.com/Sage/carbon/compare/v162.2.1...v162.2.2) (2026-09-17)
 
 ### Bug Fixes
