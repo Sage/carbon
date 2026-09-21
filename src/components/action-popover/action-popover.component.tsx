@@ -30,7 +30,7 @@ import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSi
 import checkChildrenForString from "./__internal__/action-popover.utils";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import Button from "../button/__next__";
-import ActionPopoverDivider from "./action-popover-divider.component";
+import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
 
 export interface RenderButtonProps {
   tabIndex: number;
@@ -330,9 +330,9 @@ export const ActionPopover = forwardRef<
 
     useEffect(() => {
       setPopoverTarget(
-        (buttonRef.current?.closest<HTMLElement>(
+        buttonRef.current?.closest<HTMLElement>(
           "[data-component='tokens-wrapper']",
-        ) as HTMLElement) || buttonRef.current,
+        ) ?? null,
       );
 
       return () => {
@@ -364,6 +364,7 @@ export const ActionPopover = forwardRef<
             onClose={() => setOpen(false)}
             isButtonMenu
             typeahead={handleAlphaKeyNavigation}
+            portalTarget={popoverTarget}
             placement={mappedPlacement}
             controlReference={buttonRef}
             controlWrapperStyle={{ display: "contents" }}

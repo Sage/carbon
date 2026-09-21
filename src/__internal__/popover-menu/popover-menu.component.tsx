@@ -156,6 +156,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   disableBackgroundUI?: boolean;
   /** Opt in to type-ahead by passing a handler, e.g. `handleAlphaKeyNavigation` */
   typeahead?: TypeaheadHandler;
+  /** Element to portal the menu into, e.g. a scoped tokens wrapper */
+  portalTarget?: HTMLElement | null;
 }
 
 const OFFSET = 8;
@@ -333,6 +335,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     maxHeight,
     disableBackgroundUI,
     typeahead,
+    portalTarget,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -551,8 +554,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             middleware={computedMiddleware}
             scrollRef={scrollRef}
             listId={listId.current}
-            disablePortal={!isSubmenu}
-            portalTarget={isSubmenu ? controlReference?.current : undefined}
+            disablePortal={!isSubmenu && !portalTarget}
+            portalTarget={isSubmenu ? controlReference?.current : portalTarget}
             maxHeight={maxHeight}
             disableBackgroundUI={disableBackgroundUI}
           >

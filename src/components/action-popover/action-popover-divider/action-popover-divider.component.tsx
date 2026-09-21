@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItemDivider } from "../../__internal__/popover-menu";
+import { MenuItemDivider } from "../../../__internal__/popover-menu";
 
 const ActionPopoverDivider = () => (
   <MenuItemDivider
