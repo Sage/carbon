@@ -16,6 +16,7 @@ import {
   StyledFormFooter,
 } from "../../../form/form.style";
 import StyledFullScreenHeading from "../../../../__internal__/full-screen-heading/full-screen-heading.style";
+import { paddingPropertyNames } from "../../../../style/utils/filter-styled-system-padding-props";
 
 const dialogSizes = {
   small: DIALOG_SIZE_CONFIG.small.maxWidth,
@@ -81,6 +82,9 @@ const applyDefaultPadding = () => css`
   }
 `;
 
+const hasContentPadding = (props: PaddingProps) =>
+  paddingPropertyNames.some((key) => props[key] !== undefined);
+
 // istanbul ignore next
 const applyContentPadding =
   (disableContentPadding = false) =>
@@ -92,7 +96,7 @@ const applyContentPadding =
     }
 
     return css`
-      ${applyDefaultPadding()}
+      ${!hasContentPadding(props) && applyDefaultPadding()}
 
       ${paddingFn(props)}
     `;
@@ -116,6 +120,11 @@ const DialogPositioner = styled.div.attrs(
     css`
       justify-content: stretch;
       align-items: stretch;
+      box-sizing: border-box;
+
+      @media screen and (min-width: ${smallScreenBreakpoint}) {
+        padding: var(--global-space-layout-2-xs);
+      }
     `}
 
   ${({ $disableStickyOnSmallScreen }) =>
@@ -207,7 +216,7 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
     css`
       @media screen and (max-width: ${smallScreenBreakpoint}) {
         overflow-y: visible;
-        flex-grow: 0;
+        flex-grow: 1;
 
         ${StyledFormFooter} {
           position: static;
@@ -261,11 +270,6 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   border-top-left-radius: var(--global-radius-container-xl);
 
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
-
-  [data-element="dialog-title-help-wrapper"] {
-    display: inline-flex;
-    align-items: baseline;
-  }
 
   [data-element="dialog-title-container"] {
     [data-element="dialog-title"] {
@@ -346,6 +350,8 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           overflow: hidden;
           height: 100%;
           width: 100%;
+          /* Forces its own compositing layer, otherwise Chrome renders a dark artifact in the rounded corner */
+          transform: translateZ(0);
         `
       : css`
           box-shadow:
@@ -372,7 +378,6 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
               min-width: ${DIALOG_MIN_WIDTH};
             }
           `}
-
           ${$size === "large" &&
           css`
             min-width: 850px;

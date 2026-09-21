@@ -12,8 +12,8 @@ jobs:
         with:
           node-version: ">=24.11.0 24"
           check-latest: true
-      - name: Update npm to 11.18.0
-        run: npm install -g npm@11.18.0
+      - name: Update npm to 11.19.1
+        run: npm install -g npm@11.19.1
 
       - run: npm ci
       - run: npx prettier --check './src/**/*.{js,jsx,ts,tsx}'
@@ -39,8 +39,8 @@ jobs:
           check-latest: true
           cache: npm
 
-      - name: Update npm to 11.18.0
-        run: npm install -g npm@11.18.0
+      - name: Update npm to 11.19.1
+        run: npm install -g npm@11.19.1
 
       - name: Install dependencies
         run: npm ci
@@ -94,8 +94,8 @@ jobs:
           check-latest: true
           cache: npm
 
-      - name: Update npm to 11.18.0
-        run: npm install -g npm@11.18.0
+      - name: Update npm to 11.19.1
+        run: npm install -g npm@11.19.1
 
       - name: Install dependencies
         run: npm ci
@@ -134,7 +134,24 @@ jobs:
         with:
           node-version: ">=24.11.0 24"
           check-latest: true
-      - name: Update npm to 11.18.0
-        run: npm install -g npm@11.18.0
+      - name: Update npm to 11.19.1
+        run: npm install -g npm@11.19.1
+      - name: Resolve min-release-age
+        id: age
+        run: |
+          age=""
+          if [ -f .npmrc ]; then
+            age=$(tr -d ' \t\r' < .npmrc | grep -E '^min-release-age=[0-9]+$' | tail -n 1 | cut -d= -f2)
+          fi
+          if [ -z "$age" ]; then
+            echo "::error::min-release-age not set in .npmrc"
+            exit 1
+          fi
+          echo "Using min-release-age=$age days"
+          echo "min-release-age=$age" >> "$GITHUB_OUTPUT"
+      - name: Check release age
+        run: npm run check-release-age
+        env:
+          MIN_RELEASE_AGE: ${{ steps.age.outputs.min-release-age }}
       - run: npm ci
       - run: npm run build

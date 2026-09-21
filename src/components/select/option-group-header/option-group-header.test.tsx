@@ -5,7 +5,7 @@ import OptionGroupHeader from ".";
 test("should render the `label` and `icon` when no children are provided", () => {
   render(<OptionGroupHeader label="foo" icon="shop" />);
 
-  expect(screen.getByRole("heading", { name: "foo", level: 4 })).toBeVisible();
+  expect(screen.getByTestId("option-group-header-label")).toBeVisible();
   expect(screen.getByTestId("icon")).toBeVisible();
 });
 

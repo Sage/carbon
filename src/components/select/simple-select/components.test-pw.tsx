@@ -238,6 +238,7 @@ export const SelectWithOptionGroupHeader = () => {
   return (
     <Box p={10}>
       <Select
+        label="with option group header"
         placeholder="Scroll does not reach the last option"
         value={value}
         onChange={onChangeHandler}

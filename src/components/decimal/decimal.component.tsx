@@ -83,6 +83,7 @@ export const Decimal = React.forwardRef(
       allowEmptyValue = false,
       fieldHelp,
       id,
+      inputMode = "decimal",
       inputWidth,
       labelHelp,
       locale,
@@ -325,6 +326,7 @@ export const Decimal = React.forwardRef(
           value={stateValue}
           data-component="decimal"
           id={id}
+          inputMode={inputMode}
           ref={ref}
           prefix={prefix}
           fieldHelp={fieldHelp}
