@@ -21,11 +21,9 @@ test("should render read-only editor as an article", () => {
 });
 
 test("should apply the selected paragraph font to the read-only editor", () => {
-  const { container } = render(
-    <ReadOnlyEditor initialValue="Hello, World!" size="large" />,
-  );
+  render(<ReadOnlyEditor initialValue="Hello, World!" size="large" />);
 
-  expect(container.firstChild).toHaveStyle(
+  expect(screen.getByTestId("carbon-rte-readonly-editor")).toHaveStyle(
     "font: var(--global-font-static-comp-regular-l)",
   );
 });

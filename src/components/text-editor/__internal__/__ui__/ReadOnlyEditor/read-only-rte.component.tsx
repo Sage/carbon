@@ -69,7 +69,7 @@ const ReadOnlyEditor = ({
   }, [namespace, initialValue]);
 
   return (
-    <StyledTextEditor size={size}>
+    <StyledTextEditor data-role={`${namespace}-editor`} size={size}>
       <StyledContentEditable namespace={namespace} readOnly size={size}>
         <LexicalComposer initialConfig={initialConfig}>
           <RichTextPlugin
@@ -77,6 +77,7 @@ const ReadOnlyEditor = ({
               <ContentEditable
                 aria-label={ariaLabel}
                 data-role={`${namespace}-content-editor`}
+                spellCheck={false}
                 /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overriden */
                 aria-autocomplete={undefined}
                 aria-readonly={undefined}
