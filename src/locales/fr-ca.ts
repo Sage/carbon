@@ -264,8 +264,8 @@ const frCA: Partial<Locale> = {
     closeIconAriaLabel: () => "Fermer",
   },
   switch: {
-    on: () => "OUI",
-    off: () => "NON",
+    on: () => "Oui",
+    off: () => "Non",
     processingLabel: () => "Traitement en cours",
   },
   tileSelect: {
