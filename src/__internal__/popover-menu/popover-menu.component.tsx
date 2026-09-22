@@ -239,7 +239,8 @@ const Menu = ({
       middleware={middleware}
       disablePortal={disablePortal}
       portalTarget={portalTarget}
-      popoverStrategy="absolute"
+      popoverStrategy={popoverStrategy}
+      disableBackgroundUI={disableBackgroundUI}
     >
       <MenuWrapper
         $size={size}
@@ -565,6 +566,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             listId={listId.current}
             disablePortal={!isSubmenu && !portalTarget}
             portalTarget={isSubmenu ? controlReference?.current : portalTarget}
+            popoverStrategy={popoverStrategy}
+            disableBackgroundUI={disableBackgroundUI}
             maxHeight={maxHeight}
           >
             {wrappedChildren}
