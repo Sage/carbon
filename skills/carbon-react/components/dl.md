@@ -49,7 +49,7 @@ description: Carbon Dl component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| spacing | DefinitionListSpacing \| undefined | No |  | Sets the vertical spacing between definition pairs. | "medium" |
+| spacing | DefinitionListSpacing \| undefined | No |  | Sets vertical top and bottom padding on each definition pair. | "medium" |
 | w | number \| undefined | No |  | Width of the term column as a percentage. Has no effect when `asSingleColumn` is set. | 50 |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

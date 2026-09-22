@@ -62,31 +62,31 @@ export const Spacing: Story = {
     <Box>
       <Box mb={4}>
         <Dl spacing="small">
-          <Dt>Small spacing</Dt>
-          <Dd>4px between pairs</Dd>
+          <Dt>Small pair padding</Dt>
+          <Dd>4px top and bottom per pair (8px between pair content)</Dd>
           <Dt>Account status</Dt>
           <Dd>Open</Dd>
         </Dl>
       </Box>
       <Box mb={4}>
         <Dl spacing="medium">
-          <Dt>Medium spacing</Dt>
-          <Dd>12px between pairs</Dd>
+          <Dt>Medium pair padding</Dt>
+          <Dd>12px top and bottom per pair (24px between pair content)</Dd>
           <Dt>Account status</Dt>
           <Dd>Open</Dd>
         </Dl>
       </Box>
       <Box mb={4}>
         <Dl spacing="small" divider>
-          <Dt>Small spacing with dividers</Dt>
-          <Dd>4px between pairs</Dd>
+          <Dt>Small pair padding with dividers</Dt>
+          <Dd>4px top and bottom per pair (8px between pair content)</Dd>
           <Dt>Account status</Dt>
           <Dd>Open</Dd>
         </Dl>
       </Box>
       <Dl spacing="medium" divider>
-        <Dt>Medium spacing with dividers</Dt>
-        <Dd>12px between pairs</Dd>
+        <Dt>Medium pair padding with dividers</Dt>
+        <Dd>12px top and bottom per pair (24px between pair content)</Dd>
         <Dt>Account status</Dt>
         <Dd>Open</Dd>
       </Dl>

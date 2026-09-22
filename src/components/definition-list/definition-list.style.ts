@@ -47,8 +47,8 @@ export const StyledDlPair = styled.div.attrs(applyBaseTheme)<DlPairProps>`
 export const StyledDt = styled.dt.attrs(applyBaseTheme)<
   Pick<DlProps, "asSingleColumn" | "dtTextAlign"> & SpaceProps
 >`
-  ${space}
   margin: 0;
+  ${space}
   font: var(--global-font-static-comp-medium-s);
   color: var(--container-standard-txt-default);
 
@@ -65,8 +65,8 @@ export const StyledDt = styled.dt.attrs(applyBaseTheme)<
 export const StyledDd = styled.dd<
   Pick<DlProps, "asSingleColumn" | "ddTextAlign"> & SpaceProps
 >`
-  ${space}
   margin: var(--global-space-none);
+  ${space}
   font: var(--global-font-static-comp-regular-s);
   color: var(--container-standard-txt-default);
   display: flex;
@@ -83,7 +83,7 @@ export const StyledDd = styled.dd<
   `}
 `;
 
-export const StyledDdContent = styled.span`
+export const StyledDdContent = styled.div`
   flex: 1;
   min-width: 0;
 `;

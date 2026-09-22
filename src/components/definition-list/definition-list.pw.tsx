@@ -115,7 +115,7 @@ test.describe("definition list", () => {
     await expect(pairs.last()).toHaveCSS("border-bottom-width", "0px");
   });
 
-  test("should apply small spacing of 4px between pairs when spacing is small", async ({
+  test("should apply 4px of top and bottom padding when spacing is small", async ({
     mount,
     page,
   }) => {
@@ -132,7 +132,7 @@ test.describe("definition list", () => {
     await expect(pair).toHaveCSS("padding-top", "4px");
   });
 
-  test("should apply medium spacing of 12px between pairs by default", async ({
+  test("should apply 12px of top and bottom padding by default", async ({
     mount,
     page,
   }) => {

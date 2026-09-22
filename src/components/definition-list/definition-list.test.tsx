@@ -49,6 +49,35 @@ test("should render with provided data- attributes", () => {
   );
 });
 
+test("allows Dt margin props to override the default margin reset", () => {
+  render(
+    <Dl>
+      <Dt data-role="dt" mb={2}>
+        Term
+      </Dt>
+      <Dd>Description</Dd>
+    </Dl>,
+  );
+
+  expect(screen.getByTestId("dt")).toHaveStyleRule(
+    "margin-bottom",
+    "var(--spacing200)",
+  );
+});
+
+test("allows Dd margin props to override the default margin reset", () => {
+  render(
+    <Dl>
+      <Dt>Term</Dt>
+      <Dd data-role="dd" mb={2}>
+        Description
+      </Dd>
+    </Dl>,
+  );
+
+  expect(screen.getByTestId("dd")).toHaveStyleRule("margin-bottom", "8px");
+});
+
 test("component should render correctly if composed with a React Fragment", () => {
   render(
     <Dl>
@@ -267,7 +296,7 @@ test("falls back to the array index as the key for a stray non-element child", (
   expect(screen.getByText("Stray text content")).toBeInTheDocument();
 });
 
-test("applies the selected spacing and dividers between pairs", () => {
+test("applies the selected top and bottom pair padding and dividers", () => {
   render(
     <Dl data-role="dl" divider spacing="small">
       <Dt>First</Dt>
@@ -281,6 +310,10 @@ test("applies the selected spacing and dividers between pairs", () => {
 
   expect(pairs[0]).toHaveStyleRule(
     "padding-bottom",
+    "var(--global-space-comp-xs)",
+  );
+  expect(pairs[0]).toHaveStyleRule(
+    "padding-top",
     "var(--global-space-comp-xs)",
   );
   expect(pairs[0]).toHaveStyleRule(
@@ -330,6 +363,22 @@ test("does not render a right children element when none is provided", () => {
   );
 
   expect(screen.queryByTestId("dd-right-children")).not.toBeInTheDocument();
+});
+
+test("supports block-level description content", () => {
+  render(
+    <Dl>
+      <Dt>Term</Dt>
+      <Dd>
+        <div data-role="block-description">Description</div>
+      </Dd>
+    </Dl>,
+  );
+
+  const dd = screen.getByTestId("dd");
+  const content = within(dd).getByTestId("block-description");
+
+  expect(dd).toContainElement(content);
 });
 
 test("supports multiple Dd elements under one Dt, each with their own rightChildren", () => {

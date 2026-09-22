@@ -18,7 +18,7 @@ export interface DlProps extends SpaceProps, TagProps {
   w?: number;
   /** Render the DefinitionList as a single column */
   asSingleColumn?: boolean;
-  /** Sets the vertical spacing between definition pairs. */
+  /** Sets vertical top and bottom padding on each definition pair. */
   spacing?: DefinitionListSpacing;
   /** Renders a divider between definition pairs. */
   divider?: boolean;
