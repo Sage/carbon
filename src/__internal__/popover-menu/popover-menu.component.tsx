@@ -204,6 +204,7 @@ interface MenuProps {
   listId: string;
   disablePortal?: boolean;
   portalTarget?: HTMLElement | null;
+  popoverStrategy?: PopoverProps["popoverStrategy"];
   listboxAriaLabel?: string;
   maxHeight?: string;
   disableBackgroundUI?: boolean;
@@ -225,6 +226,7 @@ const Menu = ({
   listId,
   disablePortal,
   portalTarget,
+  popoverStrategy,
   maxHeight,
   disableBackgroundUI,
 }: MenuProps) => {
@@ -238,7 +240,6 @@ const Menu = ({
       disablePortal={disablePortal}
       portalTarget={portalTarget}
       popoverStrategy="absolute"
-      disableBackgroundUI={disableBackgroundUI}
     >
       <MenuWrapper
         $size={size}
@@ -565,7 +566,6 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             disablePortal={!isSubmenu && !portalTarget}
             portalTarget={isSubmenu ? controlReference?.current : portalTarget}
             maxHeight={maxHeight}
-            disableBackgroundUI={disableBackgroundUI}
           >
             {wrappedChildren}
           </Menu>

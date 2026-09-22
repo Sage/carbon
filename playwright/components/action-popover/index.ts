@@ -18,11 +18,7 @@ export const actionPopover = (page: Page) =>
 
 export const actionPopoverInnerItem = (page: Page, index: number) =>
   page
-    .locator(ACTION_POPOVER_DATA_COMPONENT)
-    .first()
-    .locator("ul")
-    .first()
-    .locator("> li")
+    .locator('[data-component="popover-menu-item"]')
     .nth(index)
     .locator("button")
     .first();

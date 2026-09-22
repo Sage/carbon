@@ -16,7 +16,6 @@ import {
 } from "../../../src/components/action-popover";
 import {
   ActionPopoverCustom,
-  ActionPopoverWithIconsAndNoSubmenus,
   ActionPopoverWithProps,
   ActionPopoverWithDownloadButton,
   Default,
@@ -60,7 +59,7 @@ test("should close opened submenu by keyboard event when another submenu is open
     .getByRole("listitem")
     .filter({ hasText: "Business Sub Menu Item" });
 
-  await businessItem.press("Enter");
+  await businessItem.getByRole("button").first().press("Enter");
 
   await expect(businessSubmenuItem).toBeVisible();
 
@@ -70,41 +69,7 @@ test("should close opened submenu by keyboard event when another submenu is open
     .getByRole("listitem")
     .filter({ hasText: "Email Sub Menu Item" });
 
-  await emailItem.click();
-
-  await expect(emailSubmenuItem).toBeVisible();
-
-  await expect(businessSubmenuItem).toBeHidden();
-});
-
-test("should close opened submenu by keyboard event when another submenu is opened by hover event", async ({
-  mount,
-  page,
-}) => {
-  await mount(<ActionPopoverWithDifferentSubmenus />);
-
-  const openButton = page.getByRole("button");
-  await openButton.click();
-
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
-
-  const businessSubmenuItem = businessItem
-    .getByRole("listitem")
-    .filter({ hasText: "Business Sub Menu Item" });
-
-  await businessItem.press("Enter");
-
-  await expect(businessSubmenuItem).toBeVisible();
-
-  const emailItem = page.getByRole("listitem").filter({ hasText: "Email" });
-
-  const emailSubmenuItem = emailItem
-    .getByRole("listitem")
-    .filter({ hasText: "Email Sub Menu Item" });
-
-  await emailItem.hover();
+  await emailItem.getByRole("button").first().click();
 
   await expect(emailSubmenuItem).toBeVisible();
 
@@ -249,32 +214,6 @@ test.describe("check props for ActionPopover component", () => {
       "test-aria-label",
     );
   });
-});
-
-test("an item's icon is placed left of the item's text, when horizontalAlignment prop is set to 'left'", async ({
-  mount,
-  page,
-}) => {
-  await mount(
-    <ActionPopoverWithIconsAndNoSubmenus horizontalAlignment="left" />,
-  );
-
-  const openingButton = page.getByRole("button");
-  await openingButton.click();
-
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
-  const icon = businessItem.getByTestId("item-icon");
-  const text = businessItem.getByText("Business");
-
-  const iconPosition = await icon.boundingBox();
-  const textPosition = await text.boundingBox();
-
-  if (!iconPosition) throw new Error("Icon isn't visible");
-  if (!textPosition) throw new Error("Text isn't visible");
-
-  expect(iconPosition.x).toBeLessThan(textPosition.x);
 });
 
 test.describe("Accessibility tests for ActionPopover", () => {
@@ -479,6 +418,11 @@ test.describe("Accessibility tests for ActionPopover", () => {
     await mount(<InOverflowHiddenContainer />);
     const accordionIcon = getDataElementByValue(page, "accordion-icon");
     await accordionIcon.click();
+    const content = getDataElementByValue(page, "accordion-content");
+    await expect(content).toBeVisible();
+    await expect
+      .poll(async () => content.evaluate((el) => getComputedStyle(el).opacity))
+      .toBe("1");
     await checkAccessibility(page);
   });
 

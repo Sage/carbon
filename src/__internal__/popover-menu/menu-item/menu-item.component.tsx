@@ -314,7 +314,7 @@ const MenuItem = ({
         return;
       }
       /* istanbul ignore else */
-      if (ev.key === "ArrowRight") {
+      if (ev.key === "ArrowRight" || ev.key === "Enter") {
         ev.preventDefault();
         if (!submenuOpen) {
           onSubmenuOpen?.();
