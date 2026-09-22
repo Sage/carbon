@@ -1,219 +1,146 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import useMediaQuery from "../../hooks/useMediaQuery";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
-
-import { Dl, Dt, Dd } from ".";
-import Icon from "../icon";
-
+import { Dd, Dl, Dt } from ".";
 import Box from "../box";
-import { ActionPopover, ActionPopoverItem } from "../action-popover";
-import Divider from "../divider";
-import Typography from "../typography";
+import Link from "../link";
+import Pill from "../pill";
 
-const styledSystemProps = generateStyledSystemProps({
-  spacing: true,
-});
+const styledSystemProps = generateStyledSystemProps({ spacing: true });
 
 const meta: Meta<typeof Dl> = {
   title: "Definition List",
   component: Dl,
-  argTypes: {
-    ...styledSystemProps,
-  },
+  argTypes: styledSystemProps,
 };
 
 export default meta;
 type Story = StoryObj<typeof Dl>;
 
-export const DefaultStory: Story = () => (
-  <Dl>
-    <Dt>First</Dt>
-    <Dd>Description</Dd>
-    <Dt>Second</Dt>
-    <Dd>Description</Dd>
-    <Dt>Third</Dt>
-    <Dd>Description</Dd>
-  </Dl>
-);
-DefaultStory.storyName = "Default";
-
-export const ActionPopoverAndIconSupport: Story = () => (
-  <Dl>
-    <Dt>
-      <Box paddingTop="4px">Term example</Box>
-    </Dt>
-    <Dd>
-      <Box display="inline-flex" alignItems="center">
-        <Box mr={1}>Details example</Box>
-        <Icon type="tick" />
-      </Box>
-    </Dd>
-    <Dt>
-      <Box paddingTop="4px">Term example</Box>
-    </Dt>
-    <Dd>
-      <Box display="inline-flex" alignItems="center">
-        <Icon mr={1} type="tick" />
-        <Box mr={2}>Details example</Box>
-        <ActionPopover rightAlignMenu>
-          <ActionPopoverItem>Option 1</ActionPopoverItem>
-          <ActionPopoverItem>Option 2</ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-    </Dd>
-  </Dl>
-);
-ActionPopoverAndIconSupport.storyName = "Action Popover and Icon Support";
-ActionPopoverAndIconSupport.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithConditionalRendering: Story = () => (
-  <Dl>
-    <Dt>First</Dt>
-    <Dd>Description</Dd>
-    <Dt>Second</Dt>
-    <Dd>Description</Dd>
-    {true && (
-      <>
-        <Dt>Third inside of React Fragment</Dt>
-        <Dd>Description inside of React Fragment</Dd>
-      </>
-    )}
-  </Dl>
-);
-WithConditionalRendering.storyName = "With Conditional Rendering";
-WithConditionalRendering.parameters = { chromatic: { disableSnapshot: true } };
-
-export const AsASingleColumn: Story = () => (
-  <Dl w={200} dtTextAlign="left" asSingleColumn>
-    <Dt>First</Dt>
-    <Dd>Description</Dd>
-    <Dt>Second</Dt>
-    <Dd>
-      <Box display="inline-flex" alignItems="center">
-        <Box mr={1}>Details example</Box>
-        <Icon type="tick" />
-      </Box>
-    </Dd>
-    <Dt>Third</Dt>
-    <Dd>Description</Dd>
-  </Dl>
-);
-AsASingleColumn.storyName = "As a single column";
-
-export const MultipleSingleColumnsWithSegments: Story = () => (
-  <Box width="65%" px={2} pt={4} pb={3}>
-    <Box width="90%">
-      <Typography color="neutral" variant="h4">
-        Segment Header
-      </Typography>
-      <Divider type="horizontal" ml={0} mt={2} />
-    </Box>
-    <Box mb={3} display="flex">
-      <Box flexGrow={1}>
-        <Dl dtTextAlign="left" asSingleColumn>
-          <Dt>First</Dt>
-          <Dd>Description</Dd>
-          <Dt>Second</Dt>
-          <Dd>
-            <Box display="inline-flex" alignItems="center">
-              <Box mr={1}>Details example</Box>
-              <Icon type="tick" />
-            </Box>
-          </Dd>
-          <Dt>Third</Dt>
-          <Dd>Description</Dd>
-        </Dl>
-      </Box>
-      <Box flexGrow={1}>
-        <Dl dtTextAlign="left" asSingleColumn>
-          <Dt>First</Dt>
-          <Dd>Description</Dd>
-          <Dt>Second</Dt>
-          <Dd>
-            <Box display="inline-flex" alignItems="center">
-              <Box mr={1}>Details example</Box>
-              <Icon type="tick" />
-            </Box>
-          </Dd>
-          <Dt>Third</Dt>
-          <Dd>Description</Dd>
-        </Dl>
-      </Box>
-    </Box>
-    <Box width="90%">
-      <Typography color="neutral" variant="segment-subheader-alt">
-        Segment Header
-      </Typography>
-      <Divider type="horizontal" ml={0} mt={2} />
-    </Box>
-    <Box display="flex">
-      <Box width="100%">
-        <Dl dtTextAlign="left" asSingleColumn>
-          <Dt>First</Dt>
-          <Dd>Description</Dd>
-          <Dt>Second</Dt>
-          <Dd>
-            <Box display="inline-flex" alignItems="center">
-              <Box mr={1}>Details example</Box>
-              <Icon type="tick" />
-            </Box>
-          </Dd>
-          <Dt>Third</Dt>
-          <Dd>Description</Dd>
-        </Dl>
-      </Box>
-      <Box width="100%">
-        <Dl dtTextAlign="left" asSingleColumn>
-          <Dt>First</Dt>
-          <Dd>Description</Dd>
-          <Dt>Second</Dt>
-          <Dd>
-            <Box display="inline-flex" alignItems="center">
-              <Box mr={1}>Details example</Box>
-              <Icon type="tick" />
-            </Box>
-          </Dd>
-          <Dt>Third</Dt>
-          <Dd>Description</Dd>
-        </Dl>
-      </Box>
-    </Box>
-    <Box width="90%">
-      <Divider type="horizontal" ml={0} mt={1} />
-    </Box>
-  </Box>
-);
-MultipleSingleColumnsWithSegments.storyName =
-  "Multiple single columns with segments";
-MultipleSingleColumnsWithSegments.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const Responsive: Story = () => {
-  const smallScreen = useMediaQuery("(max-width: 700px)");
-  return (
-    <Dl
-      ddTextAlign={smallScreen ? "left" : undefined}
-      dtTextAlign={smallScreen ? "left" : "right"}
-      asSingleColumn={smallScreen}
-    >
-      <Dt>First</Dt>
-      <Dd>Description</Dd>
-      <Dt>Second</Dt>
-      <Dd>
-        <Box display="inline-flex" alignItems="center">
-          <Box mr={1}>Details example</Box>
-          <Icon type="tick" />
-        </Box>
-      </Dd>
-      <Dt>Third</Dt>
-      <Dd>Description</Dd>
+export const Horizontal: Story = {
+  render: () => (
+    <Dl>
+      <Dt>Account number</Dt>
+      <Dd>12345678</Dd>
+      <Dt>Account type</Dt>
+      <Dd>Business current account</Dd>
+      <Dt>Account status</Dt>
+      <Dd>Open</Dd>
     </Dl>
-  );
+  ),
 };
-Responsive.storyName = "Responsive";
-Responsive.parameters = { chromatic: { viewports: [1200, 500] } };
+
+export const Vertical: Story = {
+  render: () => (
+    <Dl asSingleColumn>
+      <Dt>Account number</Dt>
+      <Dd>12345678</Dd>
+      <Dt>Account type</Dt>
+      <Dd>Business current account</Dd>
+      <Dt>Account status</Dt>
+      <Dd>Open</Dd>
+    </Dl>
+  ),
+};
+
+export const WithDividers: Story = {
+  render: () => (
+    <Dl divider>
+      <Dt>Account number</Dt>
+      <Dd>12345678</Dd>
+      <Dt>Account type</Dt>
+      <Dd>Business current account</Dd>
+      <Dt>Account status</Dt>
+      <Dd>Open</Dd>
+    </Dl>
+  ),
+};
+
+export const Spacing: Story = {
+  render: () => (
+    <Box>
+      <Box mb={4}>
+        <Dl spacing="small">
+          <Dt>Small spacing</Dt>
+          <Dd>4px between pairs</Dd>
+          <Dt>Account status</Dt>
+          <Dd>Open</Dd>
+        </Dl>
+      </Box>
+      <Box mb={4}>
+        <Dl spacing="medium">
+          <Dt>Medium spacing</Dt>
+          <Dd>12px between pairs</Dd>
+          <Dt>Account status</Dt>
+          <Dd>Open</Dd>
+        </Dl>
+      </Box>
+      <Box mb={4}>
+        <Dl spacing="small" divider>
+          <Dt>Small spacing with dividers</Dt>
+          <Dd>4px between pairs</Dd>
+          <Dt>Account status</Dt>
+          <Dd>Open</Dd>
+        </Dl>
+      </Box>
+      <Dl spacing="medium" divider>
+        <Dt>Medium spacing with dividers</Dt>
+        <Dd>12px between pairs</Dd>
+        <Dt>Account status</Dt>
+        <Dd>Open</Dd>
+      </Dl>
+    </Box>
+  ),
+};
+
+export const MultipleDescriptions: Story = {
+  render: () => (
+    <Dl divider>
+      <Dt>Account holder</Dt>
+      <Dd>Sage Ltd</Dd>
+      <Dd>123 North East Street</Dd>
+      <Dd>Newcastle</Dd>
+      <Dt>Account status</Dt>
+      <Dd>Open</Dd>
+      <Dt>Company number</Dt>
+      <Dd>01234567</Dd>
+      <Dt>VAT number</Dt>
+      <Dd>123456789</Dd>
+      <Dt>SIC</Dt>
+      <Dd>01110</Dd>
+    </Dl>
+  ),
+};
+
+export const MultipleDescriptionsWithRightChildren: Story = {
+  render: () => (
+    <Dl divider>
+      <Dt>Account holder</Dt>
+      <Dd rightChildren={<Pill>Verified</Pill>}>Sage Ltd</Dd>
+      <Dd rightChildren={<Link href="#">Edit</Link>}>123 North East Street</Dd>
+      <Dd rightChildren={<Link href="#">Edit</Link>}>Newcastle</Dd>
+      <Dt>Account status</Dt>
+      <Dd>Open</Dd>
+      <Dt>Company number</Dt>
+      <Dd>01234567</Dd>
+      <Dt>VAT number</Dt>
+      <Dd>123456789</Dd>
+      <Dt>SIC</Dt>
+      <Dd>01110</Dd>
+    </Dl>
+  ),
+};
+
+export const WithRightChildren: Story = {
+  render: () => (
+    <Dl divider>
+      <Dt>Term</Dt>
+      <Dd rightChildren={<Pill>Pending</Pill>}>Description</Dd>
+      <Dt>Account status</Dt>
+      <Dd rightChildren={<Link href="#statements">View statements</Link>}>
+        Open
+      </Dd>
+    </Dl>
+  ),
+};

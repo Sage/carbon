@@ -103,7 +103,12 @@ export type {
 } from "./components/decimal";
 
 export { Dd, Dl, Dt } from "./components/definition-list";
-export type { DdProps, DlProps, DtProps } from "./components/definition-list";
+export type {
+  DdProps,
+  DefinitionListSpacing,
+  DlProps,
+  DtProps,
+} from "./components/definition-list";
 
 export { default as Detail } from "./components/detail";
 export type { DetailProps } from "./components/detail";

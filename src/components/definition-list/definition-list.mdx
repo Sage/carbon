@@ -22,35 +22,41 @@ import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
 
 ## Examples
 
-### Default
+### Horizontal pairs
 
-<Canvas of={DefinitionListStories.DefaultStory} />
+<Canvas of={DefinitionListStories.Horizontal} />
 
-### Action popover and icon support
+### Vertical pairs
 
-<Canvas of={DefinitionListStories.ActionPopoverAndIconSupport} />
+Set `asSingleColumn` to render terms above their descriptions.
 
-### Conditional rendering with `<React.Fragment />`
+<Canvas of={DefinitionListStories.Vertical} />
 
-_CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`_
+### With dividers
 
-<Canvas of={DefinitionListStories.WithConditionalRendering} />
+<Canvas of={DefinitionListStories.WithDividers} />
 
-### As a single column
+### Spacing
 
-Setting the `asSingleColumn` prop will render the `DefinitionList` as a single column. Please note that the default alignment
-for `Dt` components is `right` so you will likely need to set `dtTextAlign` to `left` to achieve the layout below.
+Use `spacing="small"` for 4px between pairs or the default `spacing="medium"` for 12px.
 
-<Canvas of={DefinitionListStories.AsASingleColumn} />
+<Canvas of={DefinitionListStories.Spacing} />
 
-It is also possible to create more complex layouts, like below, using single column `DefinitionList`s with other components
-such as `Typography` and `Hr`.
+### Multiple descriptions
 
-<Canvas of={DefinitionListStories.MultipleSingleColumnsWithSegments} />
+Each term can have one or more native `<Dd />` descriptions.
 
-### Responsive Example
+<Canvas of={DefinitionListStories.MultipleDescriptions} />
 
-<Canvas of={DefinitionListStories.Responsive} />
+Each `<Dd />` supports its own `rightChildren` independently, so multiple descriptions under one term can each have their own supplementary element without needing to compose with `Box`.
+
+<Canvas of={DefinitionListStories.MultipleDescriptionsWithRightChildren} />
+
+### With right children
+
+Use the `rightChildren` prop on `Dd` to render a supplementary element, such as a Pill or Link, aligned to the right of the description.
+
+<Canvas of={DefinitionListStories.WithRightChildren} />
 
 ## Props
 
