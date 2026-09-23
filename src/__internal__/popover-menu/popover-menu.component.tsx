@@ -8,7 +8,7 @@ import React, {
 import styled, { css } from "styled-components";
 import type { CSSObject } from "styled-components";
 import Popover, { PopoverProps } from "../popover";
-import { flip, offset, size } from "@floating-ui/dom";
+import { flip, offset, size } from "@floating-ui/react-dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { useHandleDropdownMenuKeyDown, setFocus } from "./hooks";
