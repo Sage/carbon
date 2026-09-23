@@ -1,4 +1,4 @@
-import { flip, offset } from "@floating-ui/dom";
+import { flip, offset } from "@floating-ui/react-dom";
 import React, { useCallback, useRef, useState } from "react";
 
 import Popover from "../../../../__internal__/popover";
