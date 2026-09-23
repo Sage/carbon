@@ -1,3 +1,9 @@
+## [162.2.4](https://github.com/Sage/carbon/compare/v162.2.3...v162.2.4) (2026-09-22)
+
+### Bug Fixes
+
+* **switch:** adjust uppercase labels to sentence case accross all locales ([0a92c4b](https://github.com/Sage/carbon/commit/0a92c4bacf18d6c4bd35cd8254f82ec14ec056c3))
+
 ## [162.2.3](https://github.com/Sage/carbon/compare/v162.2.2...v162.2.3) (2026-09-21)
 
 ### Bug Fixes
