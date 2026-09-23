@@ -24,6 +24,8 @@ The following section provides migration guidance for deprecated components that
 - For `Hr`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
 - For `VerticalDivider`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
 - For `LoaderBar`, `LoaderStar` and `LoaderSpinner`: the new [`Loader`](?path=/docs/loader--docs) is recommended as the preferred alternative.
+- For `TileHeader` the `Box` is recommended as the preferred alternative.
+- For `TileContent` the `Box` is recommended as the preferred alternative.
 
 ## Alternative Patterns
 
@@ -188,3 +190,12 @@ The `Hr` component can be replaced by a `Divider` with type `horizontal`. The `D
 The `VerticalDivider` component can be replaced by a `Divider`. The `Divider` component will provide consistent styling while maintaining the same functionality.
 
 <Canvas of={DeprecationMigrationStories.VerticalDivider} />
+
+## TileHeader
+
+The `TileHeader` component can be replaced by a `Box`. The `Box` component will maintain the same functionality.
+
+
+## TileContent
+
+The `TileContent` component can be replaced by a `Box`. The `Box` component will maintain the same functionality.
