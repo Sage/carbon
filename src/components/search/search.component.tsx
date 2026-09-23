@@ -244,6 +244,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       if (!triggerOnClear || !onClick) return;
 
       const inputElement = inputRef.current;
+      /* istanbul ignore next */
       if (!inputElement) return;
 
       const enterPressedRef = { current: false };
@@ -408,6 +409,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
               height={`calc(100% - var(--global-space-comp-${size?.charAt(0) || "m"}))`}
               p={0}
               type="vertical"
+              as="div"
             />
             <Button
               ref={buttonRef}

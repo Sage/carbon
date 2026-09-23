@@ -1,22 +1,22 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import { StyledTitle, StyledSegmentChildren } from "./menu-segment-title.style";
 
 import { useStrictMenuContext } from "../__internal__/strict-menu.context";
-import { StyledMenuItem } from "../menu.style";
+import MenuItemVariantContext from "../__internal__/menu-item-variant.context";
+import { StyledMenuItem } from "../menu-item/menu-item.style";
 import { VariantType } from "../menu-item";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
-import MenuSegmentContext from "./menu-segment-title.context";
 
-const AS_VALUES = ["h2", "h3", "h4", "h5", "h6"] as const;
-
-type AllowedAsValues = (typeof AS_VALUES)[number];
+type AllowedAsValues = "h2" | "h3" | "h4" | "h5" | "h6";
 export interface MenuTitleProps extends TagProps {
+  /** MenuItem children to be rendered within the segment */
   children?: React.ReactNode;
+  /** The text content for the segment title */
   text: string;
-  /** Set the colour variant for a menuType */
+  /** Set the variant of the MenuSegmentTitle  */
   variant?: VariantType;
   /** Set the heading level for the segment title */
   as?: AllowedAsValues;
@@ -36,45 +36,34 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
     }: MenuTitleProps,
     ref,
   ) => {
-    const { menuType, inFullscreenView } = useStrictMenuContext();
-    const { submenuHasMaxWidth } = useContext(SubmenuContext);
-
-    const isChildOfFullscreenMenu = !!inFullscreenView;
-
-    const overriddenVariant = useMemo(() => {
-      return isChildOfFullscreenMenu &&
-        variant === "alternate" &&
-        ["white", "black"].includes(menuType)
-        ? "default"
-        : variant;
-    }, [isChildOfFullscreenMenu, menuType, variant]);
+    const { variant: menuVariant, inFullscreenView } = useStrictMenuContext();
+    const { submenuMaxWidth } = useContext(SubmenuContext);
 
     return (
-      <StyledMenuItem inSubmenu>
+      <StyledMenuItem $inSubmenu $removeHeight>
         <StyledTitle
-          as={AS_VALUES.includes(as) ? as : /* istanbul ignore next */ "h2"}
+          as={as}
           {...tagComponent("menu-segment-title", rest)}
-          menuType={menuType}
+          $menuVariant={menuVariant}
           ref={ref}
-          variant={overriddenVariant}
-          shouldWrap={submenuHasMaxWidth}
+          $variant={!inFullscreenView ? variant : undefined}
+          $shouldWrap={!!submenuMaxWidth}
+          $isInFullscreen={inFullscreenView}
         >
           {text}
         </StyledTitle>
         {children && (
           <StyledSegmentChildren
-            menuType={menuType}
-            variant={overriddenVariant}
             {...tagComponent("menu-segment-title", {
               "data-role": "menu-segment-children",
               ...segmentWrapperProps,
             })}
           >
-            <MenuSegmentContext.Provider
-              value={{ isChildOfSegment: true, overriddenVariant }}
+            <MenuItemVariantContext.Provider
+              value={{ menuItemVariant: variant }}
             >
               {children}
-            </MenuSegmentContext.Provider>
+            </MenuItemVariantContext.Provider>
           </StyledSegmentChildren>
         )}
       </StyledMenuItem>

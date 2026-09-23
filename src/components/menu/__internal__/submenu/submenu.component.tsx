@@ -5,10 +5,11 @@ import React, {
   useMemo,
   useRef,
   useState,
+  useLayoutEffect,
 } from "react";
 import { MaxWidthProps } from "styled-system";
 
-import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
+import { StyledMenuItemWrapper } from "../../menu-item/menu-item.style";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
 import Events from "../../../../__internal__/utils/helpers/events";
 import { useStrictMenuContext } from "../strict-menu.context";
@@ -31,12 +32,6 @@ export interface SubmenuProps {
   children: React.ReactNode;
   /** Custom className */
   className?: string;
-  /**
-   * * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
-   *
-   * Adds an icon to the menu item.
-   * */
-  icon?: string;
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection?: string;
   /** A title for the menu item that has a submenu. */
@@ -47,10 +42,8 @@ export interface SubmenuProps {
       | React.KeyboardEvent<HTMLAnchorElement>
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
-  /** set the colour variant for a menuType */
+  /** Set the variant of the Submenu  */
   variant?: VariantType;
-  /** Flag to display the dropdown arrow when an item has a submenu */
-  showDropdownArrow?: boolean;
   /** When set the submenu opens by click instead of hover */
   clickToOpen?: boolean;
   /** The href to use for the menu item. */
@@ -69,12 +62,12 @@ export interface SubmenuProps {
       | React.MouseEvent<HTMLAnchorElement>
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
-  /** Accessible label for when no text children are passed to menu item */
-  ariaLabel?: string;
   /** Sets the max-width of the submenu container element */
   submenuMaxWidth?: string;
   /** Sets the min-width of the submenu container element */
   submenuMinWidth?: string;
+  /** Is the menu item the currently selected item. */
+  selected?: boolean;
 }
 
 const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
@@ -83,11 +76,9 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       children,
       className,
       title,
-      icon,
       submenuDirection = "right",
       onKeyDown,
       variant = "default",
-      showDropdownArrow = true,
       clickToOpen,
       href,
       maxWidth,
@@ -97,6 +88,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       onClick,
       submenuMaxWidth,
       submenuMinWidth,
+      selected,
       ...rest
     }: SubmenuProps,
     ref,
@@ -106,16 +98,17 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
     >(null);
     const submenuId = useRef(guid());
 
-    const { inFullscreenView, openSubmenuId, setOpenSubmenuId, menuType } =
-      useStrictMenuContext();
+    const {
+      inFullscreenView,
+      openSubmenuId,
+      setOpenSubmenuId,
+      variant: menuVariant,
+    } = useStrictMenuContext();
 
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusId, setSubmenuFocusId] = useState<string | null>(null);
     const [submenuItemIds, setSubmenuItemIds] = useState<(string | null)[]>([]);
     const [characterString, setCharacterString] = useState("");
-    const [applyFocusRadius, setApplyFocusRadius] = useState<boolean>(false);
-    const [applyFocusRadiusToLastItem, setApplyFocusRadiusToLastItem] =
-      useState<boolean>(false);
 
     const numberOfChildren = submenuItemIds.length;
 
@@ -175,99 +168,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       setSubmenuOpen(true);
       setOpenSubmenuId(submenuId.current);
     }, [setOpenSubmenuId]);
-
-    const lastMenuItemElement = useRef<Element | undefined>();
-
-    useEffect(() => {
-      const handleBorderRadiusStyling = () => {
-        /* istanbul ignore next */
-        if (!submenuRef) return;
-
-        const allMenuItems = Array.from(
-          submenuRef.querySelectorAll("[data-component='menu-item']") ||
-            /* istanbul ignore next */ [],
-        );
-
-        const lastMenuItem =
-          allMenuItems.length > 0
-            ? allMenuItems[allMenuItems.length - 1]
-            : null;
-
-        lastMenuItemElement.current = lastMenuItem ?? undefined;
-
-        // Clear any previous markers in this submenu in case menu items have changed since last opening
-        submenuRef
-          .querySelectorAll("[data-last-visible-menu-item]")
-          .forEach((el) => el.removeAttribute("data-last-visible-menu-item"));
-
-        // Mark the actual last menu item
-        if (lastMenuItem) {
-          lastMenuItem.setAttribute("data-last-visible-menu-item", "true");
-        }
-
-        // Finds all ul elements that are not submenus
-        const ulElements = Array.from(
-          submenuRef.querySelectorAll("ul:not([data-component='submenu'])") ||
-            /* istanbul ignore next */ [],
-        );
-
-        // If there are no segment blocks we can bail early after marking the last item.
-        if (ulElements.length === 0) {
-          setApplyFocusRadius(false);
-          setApplyFocusRadiusToLastItem(false);
-          return;
-        }
-
-        // Get the last segment block
-        const lastSegmentBlock = ulElements[ulElements.length - 1];
-
-        // Check if the last segment block is a scrollable block
-        const isLastSegmentBlockScrollableBlock =
-          lastSegmentBlock?.parentElement?.dataset.component ===
-          SCROLLABLE_BLOCK;
-
-        // Get all the menu items from the last segment block
-        const segmentBlockMenuItems = Array.from(
-          lastSegmentBlock.querySelectorAll("[data-component='menu-item']") ||
-            /* istanbul ignore next */ [],
-        );
-
-        // Get the last menu item in the last segment block
-        const lastMenuItemInSegmentBlock =
-          segmentBlockMenuItems.length > 0
-            ? segmentBlockMenuItems[segmentBlockMenuItems.length - 1]
-            : null;
-
-        // Check to see if the last menu item in the last segment block is visible
-        let isLastMenuItemInSegmentBlockVisible = false;
-        if (lastMenuItemInSegmentBlock && lastSegmentBlock) {
-          isLastMenuItemInSegmentBlockVisible =
-            lastMenuItemInSegmentBlock.getBoundingClientRect().bottom <
-            lastSegmentBlock.getBoundingClientRect().bottom;
-        }
-
-        // Check if the last item in the segment block is the same as the last MenuItem in the submenu
-        const menuItemsMatch =
-          !!lastMenuItemInSegmentBlock &&
-          !!lastMenuItem &&
-          lastMenuItemInSegmentBlock === lastMenuItem;
-
-        // Applies the focus radius to the StyledBox of the StyledScrollableBlock
-        setApplyFocusRadius(menuItemsMatch);
-
-        // Applies border radius to the last item in the segment block
-        setApplyFocusRadiusToLastItem(
-          (menuItemsMatch && !isLastSegmentBlockScrollableBlock) ||
-            (menuItemsMatch &&
-              isLastSegmentBlockScrollableBlock &&
-              !isLastMenuItemInSegmentBlockVisible),
-        );
-      };
-
-      if (submenuOpen && submenuRef) {
-        handleBorderRadiusStyling();
-      }
-    }, [submenuOpen, submenuRef, numberOfChildren]);
 
     useEffect(() => {
       if (submenuOpen && onSubmenuOpen) {
@@ -341,7 +241,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
 
           if (Events.isUpKey(event)) {
             event.preventDefault();
-            setApplyFocusRadius(false);
 
             if (nextIndex > 0) {
               nextIndex -= 1;
@@ -458,35 +357,47 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       }
     };
 
+    useLayoutEffect(() => {
+      const items = submenuRef?.querySelectorAll(
+        '[data-element="menu-item-wrapper"]',
+      );
+
+      items?.forEach((item, index) => {
+        if (index === items.length - 1) {
+          item.setAttribute("data-last-menu-item", "true");
+        } else {
+          item.removeAttribute("data-last-menu-item");
+        }
+      });
+    }, [submenuRef, submenuOpen, numberOfChildren]);
+
     if (inFullscreenView) {
       return (
         <StyledSubmenuWrapper
           data-component="submenu-wrapper"
-          inFullscreenView={inFullscreenView}
-          asPassiveItem={asPassiveItem}
-          menuType={menuType}
+          $inFullscreenView={inFullscreenView}
         >
           <StyledMenuItemWrapper
             {...rest}
+            as={onClick && !href ? "button" : "a"}
             onClick={asPassiveItem ? undefined : onClick}
             className={className}
-            menuType={menuType}
+            $menuVariant={menuVariant}
             ref={ref}
             href={href}
-            menuItemVariant={variant}
-            inFullscreenView={inFullscreenView}
-            asDiv={asPassiveItem}
+            $menuItemVariant={variant}
+            $inFullscreenView={inFullscreenView}
+            $asDiv={asPassiveItem}
+            $hasSubmenu
+            $selected={selected}
           >
             {title}
           </StyledMenuItemWrapper>
           <StyledSubmenu
             data-component="submenu"
-            variant={variant}
-            menuType={menuType}
-            inFullscreenView={inFullscreenView}
+            $menuVariant={menuVariant}
+            $inFullscreenView={inFullscreenView}
             ref={setSubmenuRef}
-            applyFocusRadiusStyling={false}
-            applyFocusRadiusStylingToLastItem={applyFocusRadiusToLastItem}
           >
             <SubmenuContext.Provider
               value={{
@@ -508,26 +419,24 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         data-role="submenu-wrapper"
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
-        isSubmenuOpen={submenuOpen}
         ref={setSubmenuRef}
       >
         <StyledMenuItemWrapper
           {...rest}
+          as={href ? "a" : "button"}
           className={className}
-          menuType={menuType}
+          $menuVariant={menuVariant}
           ref={ref}
-          icon={icon}
-          tabIndex={-1}
-          menuItemVariant={variant}
-          isOpen={submenuOpen}
-          hasSubmenu
-          showDropdownArrow={showDropdownArrow}
+          $menuItemVariant={variant}
+          $isOpen={submenuOpen}
+          $hasSubmenu
           onKeyDown={handleKeyDown}
           onClick={handleClick}
-          clickToOpen={clickToOpen}
           href={href}
-          maxWidth={maxWidth}
+          $maxWidth={maxWidth}
+          $selected={selected}
           aria-expanded={submenuOpen}
+          data-element="submenu-parent-item"
           data-role="submenu-parent-item"
         >
           {title}
@@ -536,15 +445,13 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         {submenuOpen && (
           <StyledSubmenu
             data-component="submenu"
-            submenuDirection={submenuDirection}
-            variant={variant}
-            menuType={menuType}
+            data-role="submenu"
+            $submenuDirection={submenuDirection}
+            $menuVariant={menuVariant}
             role={blockIndex === 0 ? "presentation" : "list"}
-            maxHeight={submenuMaxHeight}
-            applyFocusRadiusStyling={applyFocusRadius}
-            applyFocusRadiusStylingToLastItem={applyFocusRadiusToLastItem}
-            submenuMaxWidth={submenuMaxWidth}
-            submenuMinWidth={submenuMinWidth}
+            $maxHeight={submenuMaxHeight}
+            $submenuMaxWidth={submenuMaxWidth}
+            $submenuMinWidth={submenuMinWidth}
             onBlur={handleSubmenuBlur}
           >
             <SubmenuContext.Provider
@@ -553,7 +460,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
                 handleKeyDown,
                 blockIndex,
                 updateFocusId: setSubmenuFocusId,
-                submenuHasMaxWidth: !!submenuMaxWidth,
+                submenuMaxWidth,
                 closeSubmenu,
               }}
             >

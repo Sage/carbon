@@ -1,19 +1,56 @@
 import React, { useCallback, useState, useRef } from "react";
 
-import tagComponent from "../../__internal__/utils/helpers/tags";
+import { FlexboxProps, LayoutProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+
 import { StyledMenuWrapper } from "./menu.style";
 import { StrictMenuProvider } from "./__internal__/strict-menu.context";
 import MenuContext from "../menu/__internal__/menu.context";
 import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
 import { MENU_ITEM_CHILDREN_LOCATOR } from "./__internal__/locators";
 
-import type { MenuProps } from "./menu.types";
+/** @deprecated */
+export type MenuType = "light" | "dark" | "white" | "black";
 
-export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
+export interface MenuProps
+  extends TagProps,
+    Pick<
+      LayoutProps,
+      | "width"
+      | "minWidth"
+      | "maxWidth"
+      | "overflow"
+      | "overflowX"
+      | "verticalAlign"
+    >,
+    FlexboxProps {
+  /** Children elements */
+  children: React.ReactNode;
+  /**
+   * @deprecated Please use the `variant` prop instead.
+   */
+  menuType?: MenuType;
+  /** Set the color variant of the component */
+  variant?: "white" | "black";
+}
+
+export const Menu = ({
+  menuType,
+  variant = "white",
+  children,
+  ...rest
+}: MenuProps) => {
   const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
   const ref = useRef<HTMLUListElement>(null);
   const [focusId, setFocusId] = useState<string | undefined>(undefined);
   const [itemIds, setItemIds] = useState<string[]>([]);
+
+  let computedVariant: "white" | "black" = variant;
+  if (menuType === "light" || menuType === "white") {
+    computedVariant = "white";
+  } else if (menuType === "dark" || menuType === "black") {
+    computedVariant = "black";
+  }
 
   const registerItem = useCallback((id: string) => {
     setItemIds((prevState) => {
@@ -51,7 +88,6 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
 
   return (
     <StyledMenuWrapper
-      menuType={menuType}
       {...rest}
       {...tagComponent("menu", rest)}
       ref={ref}
@@ -60,7 +96,7 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
     >
       <StrictMenuProvider
         value={{
-          menuType,
+          variant: computedVariant,
           openSubmenuId,
           setOpenSubmenuId,
           focusId,

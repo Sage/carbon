@@ -1,530 +1,260 @@
 import styled, { css } from "styled-components";
 
-import { padding, PaddingProps } from "styled-system";
+import { padding, layout, flexbox, MaxWidthProps } from "styled-system";
 
 import menuConfigVariants from "../menu.config";
-import Link from "../../link";
-import StyledButton from "../../button/button.style";
-import StyledIconButton from "../../icon-button/icon-button.style";
-import StyledIcon from "../../icon/icon.style";
-import { StyledContent, StyledLink } from "../../link/link.style";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
-import { MenuWithChildren } from "./menu-item.component";
+import { VariantType } from "./menu-item.component";
 
-import type { MenuType } from "../menu.types";
-
-interface StyledMenuItemWrapperProps
-  extends Pick<
-      MenuWithChildren,
-      | "href"
-      | "showDropdownArrow"
-      | "overrideColor"
-      | "clickToOpen"
-      | "maxWidth"
-      | "ariaCurrent"
-    >,
-    PaddingProps {
-  menuType: MenuType;
-  selected?: boolean;
-  hasSubmenu?: boolean;
-  isOpen?: boolean;
-  inFullscreenView?: boolean;
-  asPassiveItem?: boolean;
-  icon?: string;
-  ariaLabel?: string;
-  asDiv?: boolean;
-  hasFocusableChild?: boolean;
-  hasInput?: boolean;
-  menuItemVariant?: Pick<MenuWithChildren, "variant">["variant"];
-  inSubmenu?: boolean;
+export interface StyledMenuItemProps {
+  $maxWidth?: MaxWidthProps["maxWidth"];
+  $inFullscreenView?: boolean;
+  $inSubmenu?: boolean;
+  $removeHeight?: boolean;
 }
 
-const BASE_SPACING = 16;
+export const StyledMenuItem = styled.li.attrs(
+  applyBaseTheme,
+)<StyledMenuItemProps>`
+  display: flex;
+  list-style: none;
+  align-items: stretch;
+  min-height: var(--global-size-m);
 
-const parsePadding = (props: Partial<PaddingProps>) => {
-  const { paddingRight } = props;
-  const paddingNumber = String(paddingRight)?.match(/\d+/)?.[0];
+  ${layout}
+  ${flexbox}
 
-  if (paddingRight === "var(--spacing000)" || paddingNumber === "0") {
-    return { padding: "var(--spacing200)", iconSpacing: "2px" };
-  }
-
-  switch (paddingRight) {
-    case "var(--spacing100)":
-      return { padding: "var(--spacing300)", iconSpacing: paddingRight };
-    case "var(--spacing200)":
-      return { padding: "var(--spacing400)", iconSpacing: paddingRight };
-    case "var(--spacing300)":
-      return { padding: "var(--spacing500)", iconSpacing: paddingRight };
-    case "var(--spacing400)":
-      return { padding: "var(--spacing600)", iconSpacing: paddingRight };
-    case "var(--spacing500)":
-      return { padding: "var(--spacing700)", iconSpacing: paddingRight };
-    case "var(--spacing600)":
-      return { padding: "var(--spacing800)", iconSpacing: paddingRight };
-    case "var(--spacing700)":
-      return { padding: "var(--spacing900)", iconSpacing: paddingRight };
-    case "var(--spacing800)":
-      return {
-        padding: "var(--spacing1000)",
-        iconSpacing: paddingRight,
-      };
-    default:
-      if (paddingNumber) {
-        return {
-          padding: `${BASE_SPACING + Number(paddingNumber)}px`,
-          iconSpacing: `${paddingNumber}px`,
-        };
-      }
-      return { padding: "var(--spacing400)", iconSpacing: "var(--spacing200)" };
-  }
-};
-
-const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
-  as: Link,
-})<StyledMenuItemWrapperProps>`
-  ${({
-    menuType,
-    selected,
-    hasSubmenu,
-    isOpen,
-    menuItemVariant,
-    showDropdownArrow,
-    href,
-    clickToOpen,
-    maxWidth,
-    inFullscreenView,
-    overrideColor,
-    asPassiveItem,
-    asDiv,
-    hasFocusableChild,
-    hasInput,
-    inSubmenu,
-  }) => css`
-    display: flex;
-    align-items: center;
-    min-height: 40px;
-    position: relative;
-    box-shadow: none;
-
-    a,
-    button {
-      min-height: 40px;
-      height: 100%;
-      box-sizing: border-box;
-      font-size: 14px;
-      font-weight: 500;
-
-      &:not(.legacy-search-button) > ${StyledIcon} {
-        margin-right: var(--spacing050);
-      }
-    }
-
-    && a:focus,
-    && button:focus {
-      ${addFocusStyling(true)}
-    }
-
-    :has([data-element="input"]) ${StyledContent} {
-      width: 100%;
-    }
-
-    ${!overrideColor &&
+  ${({ $inSubmenu, $removeHeight, $inFullscreenView, $maxWidth }) => css`
+    ${$inSubmenu &&
     css`
-      background-color: ${menuConfigVariants[menuType].background};
+      display: list-item;
 
-      &:has([data-popover-container-button="true"]) {
-        background-color: var(--colorsActionMajor500);
-      }
-    `}
-
-    ${overrideColor &&
-    !inFullscreenView &&
-    css`
-      &&&& {
-        background-color: ${menuItemVariant === "alternate"
-          ? menuConfigVariants[menuType].alternate
-          : menuConfigVariants[menuType].submenuItemBackground};
-      }
-    `}
-
-    ${!inFullscreenView &&
-    css`
-      max-width: inherit;
-      width: inherit;
-      height: inherit;
-
-      > a,
-      > button {
-        display: flex;
-        align-items: center;
-        ${!inSubmenu ? "justify-content: center;" : ""}
-        width: inherit;
-        max-width: inherit;
-      }
-
-      && {
-        a:focus,
-        button:focus {
-          background-color: ${menuConfigVariants[menuType].background};
-          color: ${menuConfigVariants[menuType].color};
-          z-index: 1;
-          position: relative;
-        }
-      }
-
-      &:has([data-popover-container-button="true"]) {
-        && {
-          a:focus,
-          button:focus {
-            background-color: var(--colorsActionMajor500);
-          }
-        }
-      }
-
-      &&& {
-        a,
-        button {
-          ${maxWidth &&
-          css`
-            box-sizing: border-box;
-            max-width: inherit;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            vertical-align: bottom;
-            display: block;
-          `}
-        }
-
-        a:hover,
-        button:hover {
-          ${StyledButton} {
-            border-radius: 0;
-            background-color: transparent;
-          }
-
-          ${!asDiv &&
-          !asPassiveItem &&
-          css`
-            background-color: var(--colorsComponentsMenuAutumnStandard600);
-            color: var(--colorsComponentsMenuYang100);
-
-            [data-component="icon"] {
-              color: var(--colorsComponentsMenuYang100);
-            }
-          `}
-
-          ::before {
-            border-top-color: var(--colorsComponentsMenuYang100);
-          }
-        }
-      }
-    `}
-
-    ${hasFocusableChild &&
-    css`
-      &&
-        ${!inFullscreenView &&
-        css`
-          && > a:not(:has(button)) {
-            padding: 11px 16px;
-          }
-
-          > a:has(${StyledButton}:not(.legacy-search-button)) {
-            height: 100%;
-
-            ${StyledContent} {
-              height: inherit;
-
-              div {
-                height: inherit;
-              }
-            }
-
-            ${StyledButton} {
-              min-height: 40px;
-              padding: 10px 0px;
-              box-sizing: border-box;
-              height: 100%;
-            }
-          }
-        `}
-        ${StyledIconButton} {
-        > span {
-          display: inline-flex;
-          margin-right: 0;
-        }
-
-        :focus {
-          outline: none;
-          [data-component="icon"] {
-            color: ${menuConfigVariants[menuType].color};
-          }
-        }
-      }
-    `}
-
-    ${!hasFocusableChild &&
-    !inFullscreenView &&
-    css`
-      ${hasSubmenu || maxWidth
-        ? css`
-            & > a,
-            & > button {
-              padding: 11px 16px ${hasSubmenu && maxWidth ? "12px" : "10px"};
-            }
-          `
-        : css`
-            & > a,
-            & > button {
-              padding: 11px 16px;
-            }
-          `}
-    `}
-    button,
-    ${StyledLink} button,
-    a,
-    ${StyledLink} a {
-      margin: 0px;
-      text-align: left;
-
-      ${inFullscreenView &&
+      ${$inFullscreenView &&
       css`
-        height: auto;
-        white-space: normal;
-
-        ${StyledIcon} {
-          top: -2px;
-        }
-      `}
-    }
-
-    &&& {
-      a,
-      button,
-      [data-component="icon"],
-      ${StyledLink} a,
-      ${StyledLink} button,
-      ${StyledLink} [data-component="icon"] {
-        font-weight: 500;
-        text-decoration: none;
-        ${!hasInput && `color: ${menuConfigVariants[menuType].color};`}
-      }
-
-      ${!inFullscreenView &&
-      css`
-        a > ${StyledIcon}, button > ${StyledIcon} {
-          display: inline-block;
-
-          height: 18px;
-          top: -2px;
-        }
-      `}
-    }
-
-    ${selected &&
-    css`
-      background-color: ${menuConfigVariants[menuType].selected};
-
-      a:focus,
-      button:focus {
-        background-color: ${menuConfigVariants[menuType].selected};
-      }
-
-      a:hover,
-      button:hover {
-        background-color: var(--colorsComponentsMenuAutumnStandard600);
-      }
-    `}
-
-    ${menuItemVariant === "alternate" &&
-    !inFullscreenView &&
-    css`
-      &&& {
-        background-color: ${menuConfigVariants[menuType].alternate};
-      }
-
-      &&& a:focus,
-      &&& button:focus {
-        background-color: ${menuConfigVariants[menuType].alternate};
-      }
-
-      ${!hasInput &&
-      css`
-        &&& a:hover,
-        &&& button:hover {
-          background-color: ${menuConfigVariants[menuType].alternateHover};
-        }
+        width: 100%;
       `}
     `}
 
-    ${isOpen &&
+    ${$removeHeight &&
     css`
-      a,
-      button {
-        background-color: ${menuConfigVariants[menuType].submenuItemBackground};
-        color: ${menuConfigVariants[menuType].color};
-      }
+      min-height: 0;
     `}
 
-    ${hasSubmenu &&
+    ${$maxWidth &&
     css`
-      background-color: ${menuConfigVariants[menuType].submenuBackground};
-
-      a:focus,
-      button:focus {
-        background-color: ${menuConfigVariants[menuType].submenuBackground};
-        color: ${menuConfigVariants[menuType].color};
-
-        [data-component="icon"] {
-          color: ${menuConfigVariants[menuType].color};
-        }
-
-        ${clickToOpen &&
-        isOpen &&
-        css`
-          background-color: ${menuConfigVariants[menuType]
-            .submenuOpenedBackground};
-        `}
-      }
-
-      a:hover,
-      button:hover {
-        background-color: ${menuConfigVariants[menuType]
-          .submenuOpenedBackground};
-        color: var(--colorsComponentsMenuYang100);
-
-        ${!(href || clickToOpen) &&
-        css`
-          cursor: default;
-          background-color: ${menuConfigVariants[menuType]
-            .submenuItemBackground};
-          color: ${menuConfigVariants[menuType].color};
-        `}
-
-        [data-component="icon"] {
-          color: ${menuConfigVariants[menuType].color};
-        }
-      }
-
-      ${selected &&
-      css`
-        background-color: ${menuConfigVariants[menuType].submenuSelected};
-
-        a:focus,
-        button:focus {
-          background-color: ${menuConfigVariants[menuType].submenuSelected};
-        }
-
-        a:hover,
-        button:hover {
-          background-color: var(--colorsComponentsMenuAutumnStandard600);
-          color: var(--colorsComponentsMenuYang100);
-        }
-      `}
-
-      ${showDropdownArrow &&
-      css`
-        &&& {
-          > a,
-          > button:not(${StyledIconButton}) {
-            padding-right: ${(props) => parsePadding(padding(props)).padding};
-          }
-        }
-
-        a::before,
-        button::before {
-          display: block;
-          margin-top: -1px;
-          pointer-events: none;
-          position: absolute;
-          right: ${(props) => parsePadding(padding(props)).iconSpacing};
-          top: 50%;
-          z-index: 2;
-          content: "";
-          width: 0;
-          height: 0;
-          border-width: 5px 4px 4px;
-          border-style: solid;
-          border-top-color: initial;
-          border-right-color: transparent;
-          border-bottom-color: transparent;
-          border-left-color: transparent;
-        }
-      `}
-    `}
-
-    ${inFullscreenView &&
-    css`
-      ${
-        asDiv &&
-        css`
-          &&& {
-            > a,
-            > button {
-              color: ${menuConfigVariants[menuType].title};
-              outline: none;
-            }
-
-            > button:hover,
-            > a:hover {
-              background-color: transparent;
-              cursor: default;
-              outline: none;
-              color: ${menuConfigVariants[menuType].title};
-            }
-          }
-        `
-      }
-
-      > a, > button {
-        min-height: 40px;
-        line-height: 40px;
-        padding: 0px 16px;
-        width: 100vw;
-        box-sizing: border-box;
-      }
-
-      a:focus,
-      button:focus {
-        z-index: 1;
-        position: relative;
-      }
-
-      ${
-        !asPassiveItem &&
-        css`
-          && {
-            > a:focus,
-            > a:hover,
-            > button:focus,
-            > button:hover {
-              background-color: var(--colorsComponentsMenuAutumnStandard600);
-              color: var(--colorsComponentsMenuYang100);
-
-              ${!hasInput &&
-              css`
-                [data-component="icon"] {
-                  color: var(--colorsComponentsMenuYang100);
-                }
-              `}
-            }
-          }
-        `
-      }
-      }
+      max-width: ${$maxWidth};
     `}
   `}
+`;
 
-  &&& {
-    > a,
-    > button {
-      ${padding}
+// override styles of popover open button inside a menu-item
+const popoverOpenButtonOverrides = css`
+  padding: 0;
+
+  .popover-open-component {
+    [data-component="button"] {
+      background-color: inherit;
+      color: inherit;
+      border-radius: inherit;
+      border: none;
+      padding: var(--global-space-comp-xs) var(--global-space-comp-l);
+
+      &:focus {
+        ${addFocusStyling(true)}
+      }
+    }
+
+    [data-popover-container-button="true"] {
+      background-color: var(--colorsActionMajor500);
+
+      &:focus {
+        background-color: var(--colorsActionMajor500);
+      }
     }
   }
+`;
+
+export interface StyledMenuItemWrapperProps {
+  $menuVariant: "white" | "black";
+  $selected?: boolean;
+  $hasSubmenu?: boolean;
+  $isOpen?: boolean;
+  $inFullscreenView?: boolean;
+  $asPassiveItem?: boolean;
+  $asDiv?: boolean;
+  $menuItemVariant?: VariantType;
+  $inSubmenu?: boolean;
+  $submenuMaxWidth?: string;
+  $maxWidth?: MaxWidthProps["maxWidth"];
+}
+
+export const StyledMenuItemWrapper = styled.a.attrs(
+  applyBaseTheme,
+)<StyledMenuItemWrapperProps>`
+  ${({
+    $menuVariant,
+    $selected,
+    $hasSubmenu,
+    $isOpen,
+    $menuItemVariant,
+    $maxWidth,
+    $inFullscreenView,
+    $asPassiveItem,
+    $asDiv,
+    $inSubmenu,
+    $submenuMaxWidth,
+  }) => css`
+    position: relative;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: var(--global-size-m);
+
+    text-decoration: none;
+    text-align: left;
+    font: var(--global-font-static-comp-medium-m);
+
+    padding: var(--global-space-comp-xs) var(--global-space-comp-l);
+    background-color: ${menuConfigVariants[$menuVariant].background};
+    color: ${menuConfigVariants[$menuVariant].color};
+    border: none;
+
+    ${padding}
+
+    ${$maxWidth &&
+    css`
+      max-width: ${$maxWidth};
+    `}
+
+    ${$inFullscreenView &&
+    css`
+      width: 100%;
+      font: var(--global-font-static-comp-medium-l);
+
+      ${$hasSubmenu &&
+      css`
+        color: ${menuConfigVariants[$menuVariant].title};
+      `}
+    `}
+
+    ${!$asPassiveItem &&
+    !$asDiv &&
+    css`
+      &:hover {
+        background-color: ${menuConfigVariants[$menuVariant].backgroundHover};
+        color: ${menuConfigVariants[$menuVariant].colorHover};
+      }
+
+      &:focus {
+        ${addFocusStyling(true)}
+      }
+
+      &:active {
+        background-color: ${menuConfigVariants[$menuVariant].backgroundActive};
+        color: ${menuConfigVariants[$menuVariant].colorActive};
+      }
+    `}
+
+
+    ${$selected &&
+    css`
+      &::before {
+        content: "";
+        position: absolute;
+        width: var(--global-size-xs);
+        height: var(--global-size-6-xs);
+        background-color: var(--nav-primary-bg-selected);
+
+        ${!$inFullscreenView &&
+        css`
+          bottom: 0px;
+          left: 50%;
+          transform: translate(-50%, 0%);
+          width: var(--global-size-xs);
+          height: var(--global-size-6-xs);
+        `}
+
+        ${$inFullscreenView &&
+        css`
+          left: 0px;
+          top: 50%;
+          transform: translate(0%, -50%);
+          height: var(--global-size-xs);
+          width: var(--global-size-6-xs);
+        `}
+      }
+    `}
+
+    ${!$inFullscreenView &&
+    css`
+      ${$hasSubmenu &&
+      css`
+        ${$isOpen &&
+        css`
+          // render above submenu popover to prevent submenu box-shadow and border from being above item
+          z-index: 6001;
+          background-color: ${menuConfigVariants[$menuVariant]
+            .submenuOpenedBackground};
+          ${$menuVariant === "white" &&
+          css`
+            box-shadow:
+              inset 1px 0 0 var(--nav-tertiary-border-default),
+              inset -1px 0 0 var(--nav-tertiary-border-default);
+          `}
+        `}
+      `}
+
+      ${$inSubmenu &&
+      css`
+        width: 100%;
+        background-color: ${menuConfigVariants[$menuVariant]
+          .submenuItemBackground};
+
+        ${$menuItemVariant === "alternate" &&
+        css`
+          background-color: ${menuConfigVariants[$menuVariant].alternate};
+        `}
+
+        ${$submenuMaxWidth &&
+        css`
+          max-width: ${$submenuMaxWidth};
+        `}
+      `}
+    `}
+
+    :has([data-component='popover-container']) {
+      ${popoverOpenButtonOverrides}
+    }
+  `}
+`;
+
+interface StyledMenuItemContentProps {
+  $hasMaxWidth?: boolean;
+}
+
+export const StyledMenuItemContent = styled.span<StyledMenuItemContentProps>`
+  ${({ $hasMaxWidth }) => css`
+    display: flex;
+    align-items: center;
+    gap: var(--global-space-comp-s);
+    width: 100%;
+    height: 100%;
+
+    ${$hasMaxWidth &&
+    css`
+      display: block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: middle;
+    `}
+
+    .search {
+      width: 100%;
+    }
+  `}
 `;
 
 export default StyledMenuItemWrapper;

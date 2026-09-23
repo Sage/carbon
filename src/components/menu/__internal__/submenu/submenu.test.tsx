@@ -12,129 +12,63 @@ import Submenu from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 
 const menuContextValues: StrictMenuContextType = {
-  menuType: "light",
+  variant: "white",
   setOpenSubmenuId: () => {},
   openSubmenuId: null,
 };
 
-test("should render the last menu item with the correct styles", async () => {
-  const user = userEvent.setup();
+test("should render trigger item as link when `href` is passed", () => {
   render(
-    <Menu menuType="black">
-      <MenuItem submenu="Menu Item" clickToOpen>
-        <MenuItem href="#" minWidth="200px">
-          Submenu
-        </MenuItem>
-        <MenuSegmentTitle text="segment title 1" variant="alternate">
-          <MenuItem href="#" variant="alternate">
-            Menu Item 1
-          </MenuItem>
-        </MenuSegmentTitle>
-        <MenuSegmentTitle text="segment title 2" variant="alternate">
-          <MenuItem href="#" variant="alternate">
-            Menu Item 2
-          </MenuItem>
-          <MenuItem href="#" variant="alternate">
-            Menu Item 3
-          </MenuItem>
-        </MenuSegmentTitle>
-        <MenuItem href="#">Menu Item 4</MenuItem>
-      </MenuItem>
-    </Menu>,
+    <StrictMenuProvider value={menuContextValues}>
+      <Submenu title="title" href="#">
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
+      </Submenu>
+    </StrictMenuProvider>,
   );
 
-  const menuItem = screen.getByRole("button", { name: "Menu Item" });
-  await user.click(menuItem);
-  const menuItemFour = screen.getByRole("link", { name: "Menu Item 4" });
-  await user.click(menuItemFour);
-
-  expect(menuItemFour).toHaveStyle({
-    borderBottomRightRadius: "var(--borderRadius100)",
-    borderBottomLeftRadius: "var(--borderRadius100)",
-  });
+  expect(screen.getByRole("link", { name: "title" })).toBeVisible();
 });
 
-test("should render the scrollable block with the correct styles on its last menu item", async () => {
-  const user = userEvent.setup();
+test("should render trigger item as button when `href` is not passed", () => {
   render(
-    <Menu menuType="black">
-      <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-      <MenuItem href="#">Menu Item Two</MenuItem>
-      <MenuItem submenu="Menu Item Three">
-        <ScrollableBlock height="200px">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuItem href="#">Item Submenu Three</MenuItem>
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-          <MenuItem href="#">Item Submenu Five</MenuItem>
-          <MenuItem href="#">Item Submenu Six</MenuItem>
-          <MenuItem href="#">Item Submenu Seven</MenuItem>
-          <MenuItem href="#">Item Submenu Eight</MenuItem>
-          <MenuItem href="#">Item Submenu Nine</MenuItem>
-          <MenuItem href="#">Item Submenu Ten</MenuItem>
-          <MenuItem href="#">Item Submenu Eleven</MenuItem>
-          <MenuItem href="#">Item Submenu Twelve</MenuItem>
-        </ScrollableBlock>
-      </MenuItem>
-    </Menu>,
+    <StrictMenuProvider value={menuContextValues}>
+      <Submenu title="title">
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
+      </Submenu>
+    </StrictMenuProvider>,
   );
 
-  const menuItem = screen.getByRole("button", { name: "Menu Item Three" });
-  await user.click(menuItem);
-  const itemSubmenuTwelve = screen.getByRole("link", {
-    name: "Item Submenu Twelve",
-  });
-  await user.click(itemSubmenuTwelve);
-
-  expect(itemSubmenuTwelve).toHaveStyle({
-    borderBottomRightRadius: "var(--borderRadius000)",
-    borderBottomLeftRadius: "var(--borderRadius100)",
-  });
+  expect(screen.getByRole("button", { name: "title" })).toBeVisible();
 });
 
-test("should render the scrollable block with the correct styles on the last menu item outside the block", async () => {
-  const user = userEvent.setup();
+test("should render trigger item as button when `onClick` is passed", () => {
   render(
-    <Menu menuType="black">
-      <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-      <MenuItem href="#">Menu Item Two</MenuItem>
-      <MenuItem submenu="Menu Item Three">
-        <ScrollableBlock height="200px">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuItem href="#">Item Submenu Three</MenuItem>
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-          <MenuItem href="#">Item Submenu Five</MenuItem>
-          <MenuItem href="#">Item Submenu Six</MenuItem>
-          <MenuItem href="#">Item Submenu Seven</MenuItem>
-          <MenuItem href="#">Item Submenu Eight</MenuItem>
-          <MenuItem href="#">Item Submenu Nine</MenuItem>
-          <MenuItem href="#">Item Submenu Ten</MenuItem>
-          <MenuItem href="#">Item Submenu Eleven</MenuItem>
-          <MenuItem href="#">Item Submenu Twelve</MenuItem>
-        </ScrollableBlock>
-        <MenuItem href="#">Menu Item Last</MenuItem>
-      </MenuItem>
-    </Menu>,
+    <StrictMenuProvider value={menuContextValues}>
+      <Submenu title="title">
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
+      </Submenu>
+    </StrictMenuProvider>,
   );
 
-  const menuItem = screen.getByRole("button", { name: "Menu Item Three" });
-  await user.click(menuItem);
-  const itemSubmenuTwelve = screen.getByRole("link", {
-    name: "Item Submenu Twelve",
-  });
-  const menuItemLast = screen.getByRole("link", { name: "Menu Item Last" });
-  await user.click(itemSubmenuTwelve);
+  expect(screen.getByRole("button", { name: "title" })).toBeVisible();
+});
 
-  expect(itemSubmenuTwelve).toHaveStyle({
-    borderBottomRightRadius: "var(--borderRadius000)",
-    borderBottomLeftRadius: "var(--borderRadius000)",
-  });
-  await user.click(menuItemLast);
-  expect(menuItemLast).toHaveStyle({
-    borderBottomRightRadius: "var(--borderRadius100)",
-    borderBottomLeftRadius: "var(--borderRadius100)",
-  });
+test("should render trigger item as button when `onClick` is passed and is in fullScreen menu", () => {
+  render(
+    <StrictMenuProvider
+      value={{ ...menuContextValues, inFullscreenView: true }}
+    >
+      <Submenu title="title" onClick={() => {}}>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
+      </Submenu>
+    </StrictMenuProvider>,
+  );
+
+  expect(screen.getByRole("button", { name: "title" })).toBeVisible();
 });
 
 test("should not render submenu when closed", () => {
@@ -438,14 +372,33 @@ test("should not focus a menu item when the search string does not match any ite
   jest.useRealTimers();
 });
 
-test("should render submenu with role list when a ScrollableBlock with a `parent` is passed with `children`", async () => {
+test("should render submenu with role presentation when a ScrollableBlock is the only child in a submenu", async () => {
+  const user = userEvent.setup();
+  render(
+    <StrictMenuProvider value={menuContextValues}>
+      <Submenu title="title">
+        <ScrollableBlock>
+          <MenuItem href="#">Carrot</MenuItem>
+          <MenuItem href="#">Broccoli</MenuItem>
+        </ScrollableBlock>
+      </Submenu>
+    </StrictMenuProvider>,
+  );
+  const menuItem = screen.getByRole("button", { name: "title" });
+  await user.click(menuItem);
+  const submenu = screen.getByTestId("submenu");
+
+  expect(submenu).toHaveRole("presentation");
+});
+
+test("should render submenu with role list when a ScrollableBlock and other children items are passed", async () => {
   const user = userEvent.setup();
   render(
     <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
-        <ScrollableBlock parent={<>Parent</>}>
+        <ScrollableBlock>
           <MenuItem href="#">Carrot</MenuItem>
           <MenuItem href="#">Broccoli</MenuItem>
         </ScrollableBlock>
@@ -456,10 +409,28 @@ test("should render submenu with role list when a ScrollableBlock with a `parent
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
-  // there are two lists in the document as scrollable block adds one as well
-  const submenu = screen.getAllByRole("list")[0];
+  const submenu = screen.getByTestId("submenu");
 
-  expect(submenu).toBeVisible();
+  expect(submenu).toHaveRole("list");
+});
+
+test("should render submenu with role list when a ScrollableBlock with a `parent` is passed with `children`", async () => {
+  const user = userEvent.setup();
+  render(
+    <StrictMenuProvider value={menuContextValues}>
+      <Submenu title="title">
+        <ScrollableBlock parent={<>Parent</>}>
+          <MenuItem href="#">Carrot</MenuItem>
+          <MenuItem href="#">Broccoli</MenuItem>
+        </ScrollableBlock>
+      </Submenu>
+    </StrictMenuProvider>,
+  );
+  const menuItem = screen.getByRole("button", { name: "title" });
+  await user.click(menuItem);
+  const submenu = screen.getByTestId("submenu");
+
+  expect(submenu).toHaveRole("list");
 });
 
 // tested in playwright but we need to test here for coverage
@@ -492,7 +463,7 @@ test("should render the menu with a max-height set when the `maxHeight` prop is 
   });
 });
 
-test("should override submenu children's `maxWidth` if `submenuMaxWidth` is set", async () => {
+test("sets max width for submenu when `submenuMaxWidth` is set", async () => {
   const user = userEvent.setup();
   render(
     <StrictMenuProvider value={menuContextValues}>
@@ -509,11 +480,8 @@ test("should override submenu children's `maxWidth` if `submenuMaxWidth` is set"
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.hover(menuItem);
   const submenu = screen.getByRole("list");
-  const submenuChildren = screen.getAllByRole("listitem");
 
   expect(submenu).toHaveStyle({ maxWidth: "300px" });
-  expect(submenuChildren[0]).toHaveStyle({ maxWidth: "300px" });
-  expect(submenuChildren[1]).toHaveStyle({ maxWidth: "300px" });
 });
 
 test("sets minimum width for submenu when `submenuMinWidth` is set", async () => {
@@ -531,4 +499,23 @@ test("sets minimum width for submenu when `submenuMinWidth` is set", async () =>
   const submenu = screen.getByRole("list");
 
   expect(submenu).toHaveStyle({ minWidth: "300px" });
+});
+
+test("allows MenuSegmentTitle to wrap when `submenuMaxWidth` is set", async () => {
+  const user = userEvent.setup();
+  render(
+    <Menu>
+      <MenuItem submenu="Submenu" submenuMaxWidth="200px">
+        <MenuSegmentTitle text="Segment Title">
+          <MenuItem href="#">Menu Item</MenuItem>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
+  );
+  const menuItem = screen.getByRole("button", { name: "Submenu" });
+  await user.hover(menuItem);
+
+  expect(
+    screen.getByRole("heading", { level: 2, name: "Segment Title" }),
+  ).toHaveStyle({ whiteSpace: "normal" });
 });
