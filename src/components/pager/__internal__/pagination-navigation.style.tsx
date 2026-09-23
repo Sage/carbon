@@ -7,9 +7,6 @@ const sizeMap = {
   medium: {
     width: "var(--global-size-m)",
   },
-  large: {
-    width: "var(--global-size-l)",
-  },
 };
 
 export const StyledPaginationNavigation = styled.div<{
@@ -49,7 +46,7 @@ export const StyledCurrentPage = styled.span`
 `;
 
 export const StyledInputWrapper = styled.div<{
-  $size: "small" | "medium" | "large";
+  $size: "small" | "medium";
 }>`
   ${({ $size }) => css`
     min-width: ${sizeMap[$size].width};

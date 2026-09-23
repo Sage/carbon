@@ -14,6 +14,18 @@ const meta: Meta<typeof Pager> = {
       options: [1, 10, 25, 50, 100],
       control: { type: "select" },
     },
+    size: {
+      options: ["small", "medium"],
+      control: { type: "select" },
+    },
+    layout: {
+      options: ["single", "two-row", "three-row"],
+      control: { type: "select" },
+    },
+    alignment: {
+      options: ["fill", "centred"],
+      control: { type: "select" },
+    },
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -139,17 +151,40 @@ export const MediumSize: Story = {
   ],
 };
 
-export const LargeSize: Story = {
-  ...WithPageSizeSelection,
-  args: {
-    ...WithPageSizeSelection.args,
-    size: "large",
-  },
-  decorators: [
-    (Story) => (
-      <Box mb="150px">
-        <Story />
-      </Box>
-    ),
-  ],
+export const LayoutExamples: Story = {
+  render: (args) => (
+    <Box display="flex" gap={3} flexDirection="column">
+      <Pager
+        {...args}
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="single"
+      />
+      <Pager
+        {...args}
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="two-row"
+      />
+      <Pager
+        {...args}
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="three-row"
+      />
+      <Pager
+        {...args}
+        totalRecords={100}
+        currentPage={2}
+        showNumberOfItems
+        alignment="centred"
+      />
+    </Box>
+  ),
 };

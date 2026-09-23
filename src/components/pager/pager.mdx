@@ -52,6 +52,16 @@ To set your own custom set of page size options, pass them in an array to `pageS
 
 <Canvas of={PagerStories.WithPageSizeSelection}/>
 
+### Layout and Alignment
+
+Use the `layout` prop to control the maximum number of lines used to render the component. Available options are `"single"`, `"two-row"`, and `"three-row"`.
+
+Use `showNumberOfItems` to render the total items text. When both page info elements are shown, the divider is rendered in `"single"` and `"two-row"` layouts. In `"three-row"`, the page number is always plain text and the divider is hidden.
+
+Use the `alignment` prop to switch between `"fill"` and `"centred"` content alignment. `"fill"` is the default and only applies when the component renders in a single row with a visible page info section.
+
+<Canvas of={PagerStories.LayoutExamples}/>
+
 ### Non-Interactive Page
 
 To disable direct editing of the current page number, you can set `interactivePageNumber` to `false`.
@@ -72,16 +82,13 @@ The `"alternate"` variant can be set to render the component with a transparent 
 
 ### Sizes
 
-Use the `size` prop to change the size of the component, available options are `"small"`, `"medium"` (default), and `"large"`.
+Use the `size` prop to change the size of the component, available options are `"small"` and `"medium"` (default).
 
 #### Small
 <Canvas of={PagerStories.SmallSize}/>
 
 #### Medium
 <Canvas of={PagerStories.MediumSize}/>
-
-#### Large
-<Canvas of={PagerStories.LargeSize}/>
 
 ## Props
 
@@ -142,6 +149,13 @@ The following keys are available to override the translations for this component
       name: "pager.itemsPerPage",
       description:
         "Label for page size select dropdown.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "pager.totalItems",
+      description:
+        "Visible text shown after the total number of items.",
       type: "func",
       returnType: "string",
     },

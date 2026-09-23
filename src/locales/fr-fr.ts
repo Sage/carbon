@@ -155,6 +155,7 @@ const frFR: Partial<Locale> = {
     pageX: (currentPage?: number | string) => `Page ${currentPage}`,
     ofTotalPages: (totalPages: number | string) => `sur ${totalPages} pages`,
     itemsPerPage: () => "Éléments par page",
+    totalItems: () => "éléments au total",
     ariaLabel: () => "Pagination",
   },
   password: {

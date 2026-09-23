@@ -14,6 +14,10 @@ const meta: Meta<typeof Pager> = {
       options: [1, 10, 25, 50, 100],
       control: { type: "select" },
     },
+    size: {
+      options: ["small", "medium"],
+      control: { type: "select" },
+    },
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -76,24 +80,28 @@ export const AllVariants: Story = {
         totalRecords={10}
         currentPage={1}
         showPageSizeSelection
+        showNumberOfItems
         {...args}
       />
       <ControlledPager
         totalRecords={100}
         currentPage={1}
         showPageSizeSelection
+        showNumberOfItems
         {...args}
       />
       <ControlledPager
         totalRecords={100}
         currentPage={2}
         showPageSizeSelection
+        showNumberOfItems
         {...args}
       />
       <ControlledPager
         totalRecords={1000}
         currentPage={10}
         showPageSizeSelection
+        showNumberOfItems
         pageSize={100}
         {...args}
       />
@@ -122,6 +130,7 @@ export const AllVariants: Story = {
         currentPage={1}
         showFirstAndLastButtons={false}
         showPageSizeSelection
+        showNumberOfItems
         {...args}
       />
       <ControlledPager
@@ -129,6 +138,7 @@ export const AllVariants: Story = {
         currentPage={2}
         showFirstAndLastButtons={false}
         showPageSizeSelection
+        showNumberOfItems
         {...args}
       />
       <ControlledPager
@@ -136,6 +146,7 @@ export const AllVariants: Story = {
         currentPage={10}
         showFirstAndLastButtons={false}
         showPageSizeSelection
+        showNumberOfItems
         pageSize={100}
         {...args}
       />
@@ -144,7 +155,32 @@ export const AllVariants: Story = {
         totalRecords={100}
         currentPage={2}
         showPageSizeSelection
+        showNumberOfItems
         variant="alternate"
+        {...args}
+      />
+
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="two-row"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="three-row"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showNumberOfItems
+        alignment="centred"
         {...args}
       />
     </Box>
@@ -164,11 +200,42 @@ export const AllVariantsSmall: Story = {
   },
 };
 
-export const AllVariantsLarge: Story = {
-  ...AllVariants,
-  args: {
-    size: "large",
-  },
+export const LayoutExamples: Story = {
+  render: (args) => (
+    <Box display="flex" gap={2} flexDirection="column">
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="single"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="two-row"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="three-row"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showNumberOfItems
+        alignment="centred"
+        {...args}
+      />
+    </Box>
+  ),
   parameters: {
     chromatic: { viewports: [1200, 320] },
   },
