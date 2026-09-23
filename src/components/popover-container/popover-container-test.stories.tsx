@@ -18,7 +18,7 @@ import GlobalHeader from "../global-header";
 import isChromatic from "../../../.storybook/isChromatic";
 
 export default {
-  title: "Popover Container/Test",
+  title: "Components/Popover Container/Test",
   component: PopoverContainer,
   parameters: {
     info: { disable: true },

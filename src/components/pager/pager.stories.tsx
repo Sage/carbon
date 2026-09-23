@@ -5,7 +5,7 @@ import Pager from ".";
 import Box from "../box";
 
 const meta: Meta<typeof Pager> = {
-  title: "Pager",
+  title: "Components/Pager",
   component: Pager,
   argTypes: {
     totalRecords: { control: "text" },

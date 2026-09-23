@@ -10,7 +10,7 @@ import Typography from "../typography";
 import carbonLogo from "../../../logo/carbon-logo.png";
 
 const meta: Meta<typeof Link> = {
-  title: "Link/Test",
+  title: "Components/Link/Test",
   component: Link,
   parameters: {
     info: { disable: true },

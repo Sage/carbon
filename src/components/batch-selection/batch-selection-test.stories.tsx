@@ -4,7 +4,7 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 
 export default {
-  title: "Batch Selection/Test",
+  title: "Patterns/Batch Selection/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

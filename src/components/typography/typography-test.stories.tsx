@@ -91,7 +91,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 export default {
-  title: "Typography/Test",
+  title: "Foundations/Typography/Test",
   component: Typography,
   parameters: {
     info: { disable: true },

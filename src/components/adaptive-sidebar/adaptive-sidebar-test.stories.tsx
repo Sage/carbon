@@ -21,7 +21,7 @@ import isChromatic from "../../../.storybook/isChromatic";
 const defaultOpenState = isChromatic();
 
 export default {
-  title: "Adaptive Sidebar/Test",
+  title: "Patterns/Adaptive Sidebar/Test",
   parameters: {
     chromatic: { disableSnapshot: true },
     layout: "fullscreen",

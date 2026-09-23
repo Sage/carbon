@@ -102,6 +102,23 @@ const customViewports = {
 };
 
 const parameters = {
+  options: {
+    storySort: {
+      order: [
+        "Welcome",
+        "Getting Started",
+        ["Installation", "Usage", "Roadmap", "Contribute"],
+        "Documentation",
+        ["*", "Hooks"],
+        "Foundations",
+        "Components",
+        "Patterns",
+        "Internals",
+        "Deprecated",
+      ],
+      method: "alphabetical",
+    },
+  },
   docs: {
     canvas: { layout: "padded" },
     theme: sageStorybookTheme,

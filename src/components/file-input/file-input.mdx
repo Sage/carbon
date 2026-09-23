@@ -14,7 +14,7 @@ import * as FileInputStories from "./file-input.stories";
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
-  Product Design System component
+  Fusion Design System Guidance
 </a>
 
 Allows a single file to be uploaded.
@@ -143,7 +143,7 @@ alternative endpoint for the upload progress, or use WebSocket messages sent fro
 
 Note that you can set the `uploading` without the `progress` property, to render an
 animated [LoaderBar component](../?path=/docs/deprecated-loader-bar--docs), rather
-than a [ProgressTracker](../?path=/docs/progress-tracker--docs) as it does when `progress` is provided.
+than a [ProgressTracker](../?path=/docs/components-progress-tracker--docs) as it does when `progress` is provided.
 
 <Canvas of={FileInputStories.UploadStatusNoProgress} />
 
@@ -161,7 +161,7 @@ Props for the `uploadStatus` prop. Note that only `status`,`filename` and `onAct
 to the appropriate status(es) as described below.
 
 Note in particular that, other than the 3 props noted above, and the `message` and `progress` props, all others are the same as the props of
-the [Link component](../?path=/docs/link--docs), to override the props of the link to the uploaded file. There is one exception here however,
+the [Link component](../?path=/docs/components-link--docs), to override the props of the link to the uploaded file. There is one exception here however,
 in that the `href` prop is mandatory. Note that none of these `Link` props can be given except for the statuses `completed` and `previously`.
 
 <ArgTypes of={FileUploadStatusStories} />

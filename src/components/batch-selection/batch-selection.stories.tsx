@@ -8,7 +8,7 @@ import Button from "../button";
 import Link from "../link";
 
 const meta: Meta<typeof BatchSelection> = {
-  title: "Batch Selection",
+  title: "Patterns/Batch Selection",
   component: BatchSelection,
 };
 

@@ -9,7 +9,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof TextInput> = {
-  title: "TextInput",
+  title: "Components/TextInput",
   component: TextInput,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

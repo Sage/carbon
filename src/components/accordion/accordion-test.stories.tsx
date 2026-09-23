@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Accordion> = {
-  title: "Accordion/Test",
+  title: "Components/Accordion/Test",
   component: Accordion,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

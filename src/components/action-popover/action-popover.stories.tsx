@@ -31,7 +31,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof ActionPopover> = {
-  title: "Action Popover",
+  title: "Components/Action Popover",
   component: ActionPopover,
   argTypes: {
     ...styledSystemProps,

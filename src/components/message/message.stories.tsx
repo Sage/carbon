@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Message> = {
-  title: "Message",
+  title: "Components/Message",
   component: Message,
   parameters: {
     chromatic: { disableSnapshot: true },

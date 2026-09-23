@@ -34,7 +34,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof TextEditor> = {
-  title: "Text Editor",
+  title: "Components/Text Editor",
   component: TextEditor,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

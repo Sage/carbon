@@ -35,7 +35,7 @@ const styledSystemProps = generateStyledSystemProps(
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof Menu> = {
-  title: "Menu",
+  title: "Components/Menu",
   component: Menu,
   argTypes: {
     ...styledSystemProps,

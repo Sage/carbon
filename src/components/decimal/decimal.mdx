@@ -13,7 +13,7 @@ import * as DecimalStories from "./decimal.stories";
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
-  Product Design System component
+  Fusion Design System Guidance
 </a>
 
 Captures a number with a decimal point, or a currency value.
@@ -62,7 +62,7 @@ import Decimal from "carbon-react/lib/components/decimal";
 
 ### With Popover Container
 
-Use the `popoverContainerContent` prop to render content inside a [PopoverContainer](../?path=/docs/popover-container--docs) accessible via a button at the right of the input. Use the `popoverPosition` prop to control the position of the popover dialog relative to the trigger button.
+Use the `popoverContainerContent` prop to render content inside a [PopoverContainer](../?path=/docs/components-popover-container--docs) accessible via a button at the right of the input. Use the `popoverPosition` prop to control the position of the popover dialog relative to the trigger button.
 
 <Canvas of={DecimalStories.WithPopoverContainer} /> If both props are supplied, only the prefix will be rendered and a console warning will be logged. Use one or the other.
 
@@ -104,7 +104,7 @@ Use the `labelInline` prop to display the label on the same horizontal row as th
 
 ### With fieldHelp (legacy)
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/foundations-carbon-provider--docs) is *false*.
 
 <Canvas of={DecimalStories.WithFieldHelp} />
 

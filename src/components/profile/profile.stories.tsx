@@ -24,7 +24,7 @@ const PROFILE_VARIANTS: ProfileVariant[] = [
 ];
 
 const meta: Meta<typeof Profile> = {
-  title: "Profile",
+  title: "Components/Profile",
   component: Profile,
   parameters: {
     chromatic: { disableSnapshot: true },

@@ -5,7 +5,7 @@ import Box from "../box";
 import { MultiSelect, Option } from "../select";
 
 export default {
-  title: "Pill/Test",
+  title: "Components/Pill/Test",
   component: Pill,
   parameters: {
     info: { disable: true },

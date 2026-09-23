@@ -9,7 +9,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Password> = {
-  title: "Password",
+  title: "Components/Password",
   component: Password,
   argTypes: {
     ...styledSystemProps,

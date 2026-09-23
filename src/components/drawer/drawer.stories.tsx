@@ -7,7 +7,7 @@ import Typography from "../typography";
 import Box from "../box";
 
 const meta: Meta<typeof Drawer> = {
-  title: "Drawer",
+  title: "Components/Drawer",
   component: Drawer,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

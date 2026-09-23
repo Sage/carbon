@@ -5,7 +5,7 @@ import Pager, { PagerProps } from ".";
 import Box from "../box";
 
 const meta: Meta<typeof Pager> = {
-  title: "Pager/Test",
+  title: "Components/Pager/Test",
   component: Pager,
   argTypes: {
     totalRecords: { control: "text" },

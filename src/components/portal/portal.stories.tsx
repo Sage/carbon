@@ -7,6 +7,7 @@ import Portal from "./portal";
  */
 
 const meta: Meta<typeof Portal> = {
+  title: "Foundations/Portal",
   component: Portal,
   tags: ["!dev"],
   parameters: {

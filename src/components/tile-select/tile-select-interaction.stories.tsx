@@ -17,7 +17,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj;
 
 export default {
-  title: "Tile Select/Interactions",
+  title: "Components/Tile Select/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

@@ -1284,7 +1284,7 @@ function WithStatusHeaderInfoRender({
 ```tsx
 ## Related Components
 
-- Need to refer back to the underlying page? [Try Sidebar](../?path=/docs/sidebar--docs).
+- Need to refer back to the underlying page? [Try Sidebar](../?path=/docs/components-sidebar--docs).
 
 ## Examples
 

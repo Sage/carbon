@@ -19,7 +19,7 @@ const PROFILE_VARIANTS: ProfileVariant[] = [
 ];
 
 export default {
-  title: "Profile/Test",
+  title: "Components/Profile/Test",
   component: Profile,
   parameters: {
     info: { disable: true },

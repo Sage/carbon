@@ -22,7 +22,7 @@ import { FlexTileCell, FlexTileContainer, Tile } from "../tile";
 import Typography from "../typography";
 
 export default {
-  title: "Action Popover/Test",
+  title: "Components/Action Popover/Test",
   includeStories: [
     "Default",
     "HrefItemsBasic",

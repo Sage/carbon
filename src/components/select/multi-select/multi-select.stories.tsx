@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof MultiSelect> = {
-  title: "Select/MultiSelect",
+  title: "Components/Select/MultiSelect",
   component: MultiSelect,
   argTypes: {
     ...styledSystemProps,

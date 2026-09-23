@@ -12,7 +12,7 @@ import Textbox from "../../textbox";
 import { TabsHandle } from "./tabs.types";
 
 const meta: Meta<typeof Tabs> = {
-  title: "Tabs",
+  title: "Components/Tabs",
   component: Tabs,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

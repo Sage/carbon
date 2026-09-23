@@ -14,7 +14,7 @@ import {
 
 const meta: Meta<typeof AnchorNavigation> = {
   component: AnchorNavigation,
-  title: "Anchor Navigation",
+  title: "Components/Anchor Navigation",
   parameters: {
     chromatic: { disableSnapshot: true },
   },

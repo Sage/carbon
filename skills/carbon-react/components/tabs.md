@@ -1292,8 +1292,8 @@ description: Carbon Tabs component props and usage examples.
 **Args**
 
 ```tsx
-- Navigating the hierarchy of the app? [Try Menu](../?path=/docs/menu--docs)
-- Positioning your primary navigation? [Try Navigation Bar](../?path=/docs/navigation-bar--docs)
+- Navigating the hierarchy of the app? [Try Menu](../?path=/docs/components-menu--docs)
+- Positioning your primary navigation? [Try Navigation Bar](../?path=/docs/components-navigation-bar--docs)
 
 - Switch between variants of a page or different tables (e.g. separate tables showing unread and read emails).
 - There are two `position` options:

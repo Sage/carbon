@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Icon> = {
-  title: "Icon",
+  title: "Foundations/Icon",
   component: Icon,
   argTypes: {
     ...styledSystemProps,

@@ -14,7 +14,7 @@ import DialogHeader from "./dialog-header/dialog-header.component";
 import { Form } from "../../../..";
 
 const meta: Meta<typeof Dialog> = {
-  title: "Dialog/Test",
+  title: "Components/Dialog/Test",
   component: Dialog,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

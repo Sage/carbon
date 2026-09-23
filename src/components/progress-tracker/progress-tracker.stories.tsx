@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof ProgressTracker> = {
-  title: "Progress Tracker",
+  title: "Components/Progress Tracker",
   component: ProgressTracker,
   argTypes: {
     ...styledSystemProps,

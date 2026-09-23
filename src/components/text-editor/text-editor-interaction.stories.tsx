@@ -9,7 +9,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof TextEditor>;
 
 export default {
-  title: "Text Editor/Interactions",
+  title: "Components/Text Editor/Interactions",
   component: TextEditor,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

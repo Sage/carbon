@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Help> = {
-  title: "Help",
+  title: "Components/Help",
   component: Help,
   argTypes: {
     ...styledSystemProps,

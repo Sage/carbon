@@ -14,7 +14,7 @@ interface TextareaTestProps extends TextareaProps {
 }
 
 export default {
-  title: "Textarea/Test",
+  title: "Components/Textarea/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

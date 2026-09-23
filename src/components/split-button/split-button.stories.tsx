@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof SplitButton> = {
-  title: "Split Button",
+  title: "Components/Split Button",
   component: SplitButton,
   argTypes: {
     ...styledSystemProps,

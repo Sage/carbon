@@ -15,7 +15,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof Search>;
 
 export default {
-  title: "Search/Interactions",
+  title: "Components/Search/Interactions",
   component: Search,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

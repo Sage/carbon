@@ -13,7 +13,7 @@ import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof FilterableSelect>;
 
 export default {
-  title: "Select/Filterable/Interactions",
+  title: "Components/Select/Filterable/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

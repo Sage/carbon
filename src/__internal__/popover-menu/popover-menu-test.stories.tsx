@@ -15,7 +15,7 @@ import TextInput from "../../components/textbox/__internal__/__next__";
 import ButtonNext from "../../components/button/__next__";
 
 export default {
-  title: "Popover Menu/Test",
+  title: "Components/Popover Menu/Test",
   includeStories: [
     "Small",
     "SmallWithDisabledItems",

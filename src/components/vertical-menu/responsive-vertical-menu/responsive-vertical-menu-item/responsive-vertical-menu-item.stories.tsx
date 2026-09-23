@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 }) as Partial<ArgTypes<ResponsiveVerticalMenuItemProps>>;
 
 const meta: Meta<typeof ResponsiveVerticalMenuItem> = {
-  title: "ResponsiveVerticalMenuItem",
+  title: "Patterns/ResponsiveVerticalMenuItem",
   component: ResponsiveVerticalMenuItem,
   tags: ["!dev"],
   parameters: {

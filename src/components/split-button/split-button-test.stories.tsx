@@ -8,7 +8,7 @@ import SplitButton, { SplitButtonProps } from "./split-button.component";
 import { Accordion } from "../..";
 
 export default {
-  title: "Split Button/Test",
+  title: "Components/Split Button/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

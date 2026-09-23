@@ -8,7 +8,7 @@ import Typography from "../typography";
 import Box from "../box";
 
 const meta: Meta<typeof Message> = {
-  title: "Message/Test",
+  title: "Components/Message/Test",
   component: Message,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

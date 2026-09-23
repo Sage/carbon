@@ -10,7 +10,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof AnchorNavigation>;
 
 export default {
-  title: "Anchor Navigation/Interactions",
+  title: "Components/Anchor Navigation/Interactions",
   component: AnchorNavigation,
   parameters: {
     info: { disable: true },

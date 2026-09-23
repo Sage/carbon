@@ -11,7 +11,7 @@ import Textarea from "../textarea";
 import Button from "../button";
 
 export default {
-  title: "Tile/Test",
+  title: "Components/Tile/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import Switch from "./switch.component";
 
 const meta: Meta<typeof Switch> = {
-  title: "Switch/Test",
+  title: "Components/Switch/Test",
   component: Switch,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

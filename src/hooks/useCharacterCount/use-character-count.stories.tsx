@@ -11,6 +11,7 @@ import Textarea from "../../components/textarea";
  */
 
 const meta: Meta = {
+  title: "Documentation/Hooks/useCharacterCount",
   tags: ["!dev"],
   parameters: {
     chromatic: {

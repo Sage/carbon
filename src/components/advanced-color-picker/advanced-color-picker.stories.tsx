@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps({
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof AdvancedColorPicker> = {
-  title: "Advanced Color Picker",
+  title: "Components/Advanced Color Picker",
   component: AdvancedColorPicker,
   argTypes: {
     ...styledSystemProps,

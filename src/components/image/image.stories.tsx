@@ -22,7 +22,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Image> = {
-  title: "Image",
+  title: "Foundations/Image",
   component: Image,
   argTypes: {
     ...styledSystemProps,

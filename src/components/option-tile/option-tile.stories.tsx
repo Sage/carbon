@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { OptionTile, OptionTileGroup } from ".";
 
 const meta: Meta<typeof OptionTile> = {
-  title: "Option Tile",
+  title: "Components/Option Tile",
   component: OptionTile,
   parameters: {
     chromatic: { disableSnapshot: false },
