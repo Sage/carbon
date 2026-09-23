@@ -3,12 +3,12 @@ import styled from "styled-components";
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
 
+export const datePickerPopoverHugBreakpoint = 368;
+
 const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
   --date-picker-day-cell-size: var(--global-size-m);
   --date-picker-grid-width: calc(7 * var(--date-picker-day-cell-size));
-  --date-picker-day-button-size: calc(
-    var(--date-picker-day-cell-size) - 2 * var(--global-borderwidth-s)
-  );
+  --date-picker-day-button-size: var(--date-picker-day-cell-size);
   --date-picker-popover-width: 320px;
   --date-picker-popover-min-width: 288px;
 
@@ -21,10 +21,14 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
   width: var(--date-picker-popover-width);
   min-width: var(--date-picker-popover-min-width);
   max-width: var(--date-picker-popover-width);
-  padding: var(--global-space-layout-2-xs);
+  padding: var(--global-space-comp-xs);
   background: var(--popover-bg-default);
   box-shadow: var(--global-depth-lvl1);
   border-radius: var(--global-radius-action-m);
+
+  @media screen and (max-width: ${datePickerPopoverHugBreakpoint - 1}px) {
+    width: var(--date-picker-popover-min-width);
+  }
 
   .rdp-root,
   .rdp-root * {
@@ -33,6 +37,7 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
 
   .rdp-root {
     width: 100%;
+    margin-bottom: var(--global-space-comp-s);
     padding: var(--global-space-none);
     background: transparent;
     box-shadow: none;
@@ -140,7 +145,9 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
     font-weight: inherit;
   }
 
-  .rdp-day:not(.rdp-selected):not(.rdp-disabled):not(.rdp-outside):hover
+  .rdp-day:not(.rdp-selected):not(.rdp-range_start):not(.rdp-range_middle):not(
+      .rdp-range_end
+    ):not(.rdp-disabled):not(.rdp-outside):hover
     .rdp-day_button:not(:disabled) {
     background: var(--input-calendar-bg-hover);
     color: var(--input-calendar-txt-hover);
@@ -157,40 +164,8 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
     z-index: 1;
   }
 
-  .rdp-range_start {
-    position: relative;
-    background: transparent;
-    color: var(--input-calendar-txt-duration);
-
-    &::before {
-      content: "";
-      position: absolute;
-      z-index: 0;
-      inset: 0;
-      background: var(--input-calendar-bg-duration);
-      border-color: var(--input-calendar-border-duration);
-      border-style: solid;
-      border-width: var(--global-borderwidth-s) 0 var(--global-borderwidth-s)
-        var(--global-borderwidth-s);
-      border-radius: var(--global-radius-action-circle) 0 0
-        var(--global-radius-action-circle);
-      pointer-events: none;
-    }
-  }
-
+  .rdp-range_start,
   .rdp-range_middle,
-  .rdp-range_middle.rdp-today {
-    background: var(--input-calendar-bg-duration);
-    border-radius: var(--global-radius-none);
-    border-block: var(--global-borderwidth-s) solid
-      var(--input-calendar-border-duration);
-    color: var(--input-calendar-txt-duration);
-
-    &.rdp-outside {
-      color: var(--input-calendar-txt-duration);
-    }
-  }
-
   .rdp-range_end {
     position: relative;
     background: transparent;
@@ -202,15 +177,28 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
       z-index: 0;
       inset: 0;
       background: var(--input-calendar-bg-duration);
-      border-color: var(--input-calendar-border-duration);
-      border-style: solid;
-      border-width: var(--global-borderwidth-s) var(--global-borderwidth-s)
-        var(--global-borderwidth-s) var(--global-borderwidth-none);
-      border-radius: var(--global-radius-none)
-        var(--global-radius-action-circle) var(--global-radius-action-circle)
-        var(--global-radius-none);
+      border-block: var(--global-borderwidth-s) solid
+        var(--input-calendar-border-duration);
       pointer-events: none;
     }
+  }
+
+  .rdp-range_start::before {
+    border-inline-start: var(--global-borderwidth-s) solid
+      var(--input-calendar-border-duration);
+    border-radius: var(--global-radius-action-circle) 0 0
+      var(--global-radius-action-circle);
+  }
+
+  .rdp-range_middle.rdp-outside {
+    color: var(--input-calendar-txt-duration);
+  }
+
+  .rdp-range_end::before {
+    border-inline-end: var(--global-borderwidth-s) solid
+      var(--input-calendar-border-duration);
+    border-radius: 0 var(--global-radius-action-circle)
+      var(--global-radius-action-circle) 0;
   }
 
   .rdp-range_start .rdp-day_button,
@@ -218,13 +206,6 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
     z-index: 2;
     background: var(--input-calendar-bg-active);
     color: var(--input-calendar-txt-active);
-  }
-
-  .rdp-range_start:not(.rdp-disabled):hover .rdp-day_button,
-  .rdp-range_middle:not(.rdp-disabled):hover .rdp-day_button,
-  .rdp-range_end:not(.rdp-disabled):hover .rdp-day_button {
-    background: var(--input-calendar-bg-hover);
-    color: var(--input-calendar-txt-hover);
   }
 
   .rdp-range_start.rdp-range_end {
@@ -279,7 +260,9 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
     pointer-events: none;
   }
 
-  .rdp-selected [data-role="date-picker-today-indicator"] {
+  .rdp-selected [data-role="date-picker-today-indicator"],
+  .rdp-range_start [data-role="date-picker-today-indicator"],
+  .rdp-range_end [data-role="date-picker-today-indicator"] {
     background: var(--input-calendar-bg-hover);
   }
 

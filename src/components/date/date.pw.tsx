@@ -16,6 +16,7 @@ import {
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { dayPickerWrapper } from "../../../playwright/components/date-input/index";
+import { datePickerPopoverHugBreakpoint } from "./__internal__/date-picker/date-picker.style";
 
 dayjs.extend(advancedFormat);
 
@@ -108,7 +109,7 @@ test.describe("Functionality tests", () => {
     await containsClass(todayCell, "rdp-today");
   });
 
-  test("completes a typical keyboard selection journey", async ({
+  test("completes a typical keyboard selection journey after pointer opening", async ({
     mount,
     page,
   }) => {
@@ -134,6 +135,46 @@ test.describe("Functionality tests", () => {
     await expect(input).toHaveValue("15/06/2022");
     await expect(input).toBeFocused();
     await expect(page.getByRole("dialog")).toBeHidden();
+  });
+
+  test("moves focus to today's date when the typical trigger opens an unselected picker", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputTypicalControlled value="" />);
+
+    await page.getByRole("button", { name: "Open calendar" }).click();
+
+    await expect(
+      page.getByRole("button", { name: `Today, ${TODAY}` }),
+    ).toBeFocused();
+  });
+
+  test("returns focus to the typical trigger when Escape closes the picker", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputTypicalControlled value="01/05/2022" />);
+
+    const trigger = page.getByRole("button", { name: "Open calendar" });
+    await trigger.click();
+    await page.keyboard.press("Escape");
+
+    await expect(page.getByRole("dialog")).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
+
+  test("returns focus to the input when Escape closes the legacy picker", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputLegacyControlled value="01/05/2022" />);
+
+    await page.getByTestId("icon").click();
+    await page.keyboard.press("Escape");
+
+    await expect(page.getByRole("dialog")).toBeHidden();
+    await expect(page.getByRole("textbox", { name: "Date" })).toBeFocused();
   });
 
   [true, false].forEach((disablePortal) => {
@@ -541,6 +582,26 @@ test.describe("Functionality tests", () => {
       .locator("..")
       .locator("..");
     await expect(inputParent).toHaveCSS("max-width", "100%");
+  });
+
+  [
+    {
+      viewportWidth: datePickerPopoverHugBreakpoint - 1,
+      pickerWidth: "288px",
+    },
+    { viewportWidth: datePickerPopoverHugBreakpoint, pickerWidth: "320px" },
+  ].forEach(({ viewportWidth, pickerWidth }) => {
+    test(`renders the picker at ${pickerWidth} when the viewport is ${viewportWidth}px wide`, async ({
+      mount,
+      page,
+    }) => {
+      await page.setViewportSize({ width: viewportWidth, height: 768 });
+      await mount(<DateInputTypicalControlled />);
+
+      await page.getByRole("button", { name: "Open calendar" }).click();
+
+      await expect(page.getByRole("dialog")).toHaveCSS("width", pickerWidth);
+    });
   });
 
   test(`should check the pickerProps prop`, async ({ mount, page }) => {

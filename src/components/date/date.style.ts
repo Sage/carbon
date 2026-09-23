@@ -30,6 +30,15 @@ const StyledDateInput = styled.div.attrs(applyBaseTheme)<StyledDateInputProps>`
       }
     `}
 
+  ${({ inputWidth, maxWidth, size }) =>
+    !inputWidth &&
+    css`
+      [data-role="input-wrapper"] {
+        width: ${maxWidth ?? dateInputWidthBySize[size]};
+        max-width: 100%;
+      }
+    `}
+
   ${({ applyDateRangeStyling, labelInline, maxWidth, size }) =>
     applyDateRangeStyling &&
     css`

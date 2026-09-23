@@ -27,6 +27,7 @@ let deprecateDisablePortalWarnTriggered = false;
 
 export const DatePicker = ({
   inputContainerRef,
+  datePickerTriggerRef,
   minDate,
   maxDate,
   selectedDate,
@@ -66,9 +67,10 @@ export const DatePicker = ({
   }));
 
   const closePickerAndRestoreFocus = useCallback(() => {
-    inputContainerRef.current?.querySelector("input")?.focus();
+    const input = inputContainerRef.current?.querySelector("input");
+    (datePickerTriggerRef?.current || input)?.focus();
     onRequestPickerClose();
-  }, [inputContainerRef, onRequestPickerClose]);
+  }, [datePickerTriggerRef, inputContainerRef, onRequestPickerClose]);
 
   const handleDayClick = (
     date?: Date,

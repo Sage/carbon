@@ -18,6 +18,7 @@ interface DatePickerTriggerProps {
   pickerId: string;
   readOnly?: boolean;
   size: "small" | "medium" | "large";
+  datePickerTriggerRef?: React.RefObject<HTMLButtonElement>;
   variant: "legacy" | "typical";
   onClick: (ev: React.MouseEvent<HTMLElement>) => void;
   onMouseDown?: (ev: React.MouseEvent<HTMLElement>) => void;
@@ -29,6 +30,7 @@ const DatePickerTrigger = ({
   pickerId,
   readOnly,
   size,
+  datePickerTriggerRef,
   variant,
   onClick,
   onMouseDown,
@@ -66,6 +68,7 @@ const DatePickerTrigger = ({
         />
       </DatePickerTriggerDividerWrapper>
       <DatePickerTriggerButton
+        ref={datePickerTriggerRef}
         data-element="calendar"
         data-role="input-icon-toggle"
         onClick={onClick}

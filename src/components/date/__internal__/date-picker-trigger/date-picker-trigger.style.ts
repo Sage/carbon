@@ -3,7 +3,6 @@ import Button from "../../../button/__next__";
 import Divider from "../../../divider";
 import StyledIcon from "../../../icon/icon.style";
 import { propsForSize as buttonSizeConfig } from "../../../button/__next__/button.config";
-import addFocusStyling from "../../../../style/utils/add-focus-styling";
 import type { DatePickerSize } from "../date-picker";
 import legacyInputSizes from "../../../../__internal__/legacy-input/input-sizes.style";
 import visuallyHidden from "../../../../style/utils/visually-hidden";
@@ -114,10 +113,8 @@ const DatePickerTriggerButton = styled(Button)<DatePickerTriggerButtonProps>`
   }}
 
   && {
-    --date-picker-trigger-size: calc(
-      ${({ $size }) => buttonSizeConfig[$size].height} -
-        (2 * var(--global-borderwidth-xs))
-    );
+    --date-picker-trigger-size: ${({ $size }) =>
+      buttonSizeConfig[$size].height};
 
     width: var(--date-picker-trigger-size);
     min-width: var(--date-picker-trigger-size);
@@ -131,6 +128,8 @@ const DatePickerTriggerButton = styled(Button)<DatePickerTriggerButtonProps>`
   &&[aria-expanded="true"]:not(:disabled) {
     background-color: var(--button-typical-subtle-bg-active);
     color: var(--button-typical-subtle-label-active);
+    border-radius: var(--global-radius-none) var(--global-radius-action-m)
+      var(--global-radius-action-m) var(--global-radius-none);
 
     ${StyledIcon} {
       color: var(--button-typical-subtle-label-active);
@@ -146,10 +145,14 @@ const DatePickerTriggerButton = styled(Button)<DatePickerTriggerButtonProps>`
       var(--global-radius-action-m) var(--global-radius-none);
   }
 
-  &&:focus-visible {
+  &&:focus {
+    border-color: var(--input-typical-border-default);
+    border-style: solid;
+    border-width: var(--global-borderwidth-xs) var(--global-borderwidth-xs)
+      var(--global-borderwidth-xs) var(--global-borderwidth-none);
     border-radius: var(--global-radius-none) var(--global-radius-action-m)
       var(--global-radius-action-m) var(--global-radius-none);
-    ${addFocusStyling()}
+    position: relative;
     z-index: 2;
   }
 
