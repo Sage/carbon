@@ -173,7 +173,7 @@ const PaginationNavigation = ({
           <StyledButtonWrapper $visible={showFirst}>
             <Button
               variantType="subtle"
-              aria-label={locale.pager.firstAriaLabel?.()}
+              aria-label={locale.pager.firstAriaLabel?.(totalPages)}
               size={size}
               onClick={handleFirstButtonClick}
             >
@@ -184,7 +184,10 @@ const PaginationNavigation = ({
         <StyledButtonWrapper $visible={showPrevious}>
           <Button
             variantType="subtle"
-            aria-label={locale.pager.previousAriaLabel?.()}
+            aria-label={locale.pager.previousAriaLabel?.(
+              currentPage - 1,
+              totalPages,
+            )}
             size={size}
             onClick={handlePreviousButtonClick}
             ref={previousRef}
@@ -195,7 +198,10 @@ const PaginationNavigation = ({
         <StyledButtonWrapper $visible={showNext}>
           <Button
             variantType="subtle"
-            aria-label={locale.pager.nextAriaLabel?.()}
+            aria-label={locale.pager.nextAriaLabel?.(
+              currentPage + 1,
+              totalPages,
+            )}
             size={size}
             onClick={handleNextButtonClick}
             ref={nextRef}
@@ -207,7 +213,7 @@ const PaginationNavigation = ({
           <StyledButtonWrapper $visible={showLast}>
             <Button
               variantType="subtle"
-              aria-label={locale.pager.lastAriaLabel?.()}
+              aria-label={locale.pager.lastAriaLabel?.(totalPages)}
               size={size}
               onClick={handleLastButtonClick}
             >
