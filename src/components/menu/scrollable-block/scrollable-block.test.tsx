@@ -4,11 +4,18 @@ import { render, screen, within } from "@testing-library/react";
 import ScrollableBlock from ".";
 
 import Logger from "../../../__internal__/utils/logger";
-import Menu from "../menu.component";
 import MenuItem from "../menu-item";
 import menuConfigVariants from "../menu.config";
-import StyledMenuItemWrapper from "../menu-item/menu-item.style";
-import Search from "../../search";
+import {
+  StrictMenuContextType,
+  StrictMenuProvider,
+} from "../__internal__/strict-menu.context";
+
+const menuContextValues: StrictMenuContextType = {
+  variant: "white",
+  setOpenSubmenuId: () => {},
+  openSubmenuId: null,
+};
 
 test("logs error if not used within Menu", () => {
   const loggerErrorSpy = jest
@@ -30,248 +37,102 @@ test("logs error if not used within Menu", () => {
   loggerErrorSpy.mockRestore();
 });
 
-test("should have the correct styling when `menuType` is 'light' passed by MenuContext", () => {
+test("renders with children", () => {
   render(
-    <Menu menuType="light">
-      <ScrollableBlock data-role="scrollable-block" variant="default">
+    <StrictMenuProvider value={menuContextValues}>
+      <ScrollableBlock data-role="scrollable-block">
         <MenuItem href="#">Apple</MenuItem>
       </ScrollableBlock>
-    </Menu>,
+    </StrictMenuProvider>,
   );
 
-  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
-    "background-color",
-    menuConfigVariants.light.submenuItemBackground,
-    { modifier: `&& ${StyledMenuItemWrapper}` },
-  );
-});
-
-test("should have the correct styling when `menuType` is 'dark' passed by MenuContext", () => {
-  render(
-    <Menu menuType="dark">
-      <ScrollableBlock data-role="scrollable-block" variant="default">
-        <MenuItem href="#">Apple</MenuItem>
-      </ScrollableBlock>
-    </Menu>,
-  );
-
-  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
-    "background-color",
-    menuConfigVariants.dark.submenuItemBackground,
-    { modifier: `&& ${StyledMenuItemWrapper}` },
-  );
-});
-
-test("should have the correct styling when `menuType` is 'white' passed by MenuContext", () => {
-  render(
-    <Menu menuType="white">
-      <ScrollableBlock data-role="scrollable-block" variant="default">
-        <MenuItem href="#">Apple</MenuItem>
-      </ScrollableBlock>
-    </Menu>,
-  );
-
-  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
-    "background-color",
-    menuConfigVariants.white.submenuItemBackground,
-    { modifier: `&& ${StyledMenuItemWrapper}` },
-  );
-});
-
-test("should have the correct styling when `menuType` is 'black' passed by MenuContext", () => {
-  render(
-    <Menu menuType="black">
-      <ScrollableBlock data-role="scrollable-block" variant="default">
-        <MenuItem href="#">Apple</MenuItem>
-      </ScrollableBlock>
-    </Menu>,
-  );
-  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
-    "background-color",
-    menuConfigVariants.black.submenuItemBackground,
-    { modifier: `&& ${StyledMenuItemWrapper}` },
-  );
-});
-
-test("should apply the expected styling on the last menu item when they have `href` set", () => {
-  render(
-    <Menu menuType="light">
-      <ScrollableBlock data-role="scrollable-block" variant="default">
-        <MenuItem href="#">Apple</MenuItem>
-        <MenuItem href="#">Pear</MenuItem>
-      </ScrollableBlock>
-    </Menu>,
-  );
-  const links = screen.getAllByRole("link");
-  const firstLink = links.shift();
-  const lastLink = links.pop();
-
-  expect(firstLink).not.toHaveStyle({
-    borderBottomLeftRadius: "var(--borderRadius100)",
-    borderBottomRightRadius: "var(--borderRadius000)",
-  });
-  expect(lastLink).toHaveStyle({
-    borderBottomLeftRadius: "var(--borderRadius100)",
-    borderBottomRightRadius: "var(--borderRadius000)",
-  });
-});
-
-test("should apply the expected styling on the last menu item when they have `onClick` set", () => {
-  render(
-    <Menu menuType="light">
-      <ScrollableBlock data-role="scrollable-block" variant="default">
-        <MenuItem onClick={() => {}}>Apple</MenuItem>
-        <MenuItem onClick={() => {}}>Pear</MenuItem>
-      </ScrollableBlock>
-    </Menu>,
-  );
-  const buttons = screen.getAllByRole("button");
-  const firstButton = buttons.shift();
-  const lastButton = buttons.pop();
-
-  expect(firstButton).not.toHaveStyle({
-    borderBottomLeftRadius: "var(--borderRadius100)",
-    borderBottomRightRadius: "var(--borderRadius000)",
-  });
-  expect(lastButton).toHaveStyle({
-    borderBottomLeftRadius: "var(--borderRadius100)",
-    borderBottomRightRadius: "var(--borderRadius000)",
-  });
-});
-
-test("should apply the expected styling on the last menu item when it has `href` and others have `onClick`", () => {
-  render(
-    <Menu menuType="light">
-      <ScrollableBlock data-role="scrollable-block" variant="default">
-        <MenuItem onClick={() => {}}>Apple</MenuItem>
-        <MenuItem href="#">Pear</MenuItem>
-      </ScrollableBlock>
-    </Menu>,
-  );
-  const button = screen.getByRole("button");
-  const link = screen.getByRole("link");
-
-  expect(button).not.toHaveStyle({
-    borderBottomLeftRadius: "var(--borderRadius100)",
-    borderBottomRightRadius: "var(--borderRadius000)",
-  });
-  expect(link).toHaveStyle({
-    borderBottomLeftRadius: "var(--borderRadius100)",
-    borderBottomRightRadius: "var(--borderRadius000)",
-  });
-});
-
-test("should apply the expected styling on the last menu item when it has `onClick` and others have `href`", () => {
-  render(
-    <Menu menuType="light">
-      <ScrollableBlock data-role="scrollable-block" variant="default">
-        <MenuItem href="#">Apple</MenuItem>
-        <MenuItem onClick={() => {}}>Pear</MenuItem>
-      </ScrollableBlock>
-    </Menu>,
-  );
-  const link = screen.getByRole("link");
-  const button = screen.getByRole("button");
-
-  expect(link).not.toHaveStyle({
-    borderBottomLeftRadius: "var(--borderRadius100)",
-    borderBottomRightRadius: "var(--borderRadius000)",
-  });
-  expect(button).toHaveStyle({
-    borderBottomLeftRadius: "var(--borderRadius100)",
-    borderBottomRightRadius: "var(--borderRadius000)",
-  });
+  expect(screen.getByRole("link", { name: "Apple" })).toBeVisible();
 });
 
 test("should render the `parent` item, wrapped in a MenuItem", () => {
   render(
-    <Menu menuType="light">
+    <StrictMenuProvider value={menuContextValues}>
       <ScrollableBlock
         data-role="scrollable-block"
-        variant="default"
-        parent={<Search value="search" onChange={() => {}} />}
+        parent={<span>Parent</span>}
       >
         <MenuItem href="#">Apple</MenuItem>
-        <MenuItem onClick={() => {}}>Pear</MenuItem>
       </ScrollableBlock>
-    </Menu>,
+    </StrictMenuProvider>,
   );
-  const firstMenuItem = screen.getByTestId("scrollable-block-parent-menu-item");
 
-  expect(within(firstMenuItem).getByDisplayValue("search")).toBeVisible();
+  const parentItem = screen.getByTestId("scrollable-block-parent-menu-item");
+  expect(within(parentItem).getByText("Parent")).toBeVisible();
 });
 
-test("should render the parent menu-item with the correct styling when `variant` is not defined", () => {
+test("sets the height and max-height props", () => {
   render(
-    <Menu menuType="light">
+    <StrictMenuProvider value={menuContextValues}>
       <ScrollableBlock
         data-role="scrollable-block"
-        parent={<Search value="search" onChange={() => {}} />}
+        height={200}
+        maxHeight={300}
       >
         <MenuItem href="#">Apple</MenuItem>
-        <MenuItem onClick={() => {}}>Pear</MenuItem>
       </ScrollableBlock>
-    </Menu>,
+    </StrictMenuProvider>,
   );
-  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
+
+  const container = within(screen.getByTestId("scrollable-block")).getByRole(
+    "list",
+  );
+  expect(container).toHaveStyle({
+    height: "200px",
+    maxHeight: "300px",
+  });
+});
+
+// coverage
+test("sets the height and max-height from string props", () => {
+  render(
+    <StrictMenuProvider value={menuContextValues}>
+      <ScrollableBlock
+        data-role="scrollable-block"
+        height="50vh"
+        maxHeight="75vh"
+      >
+        <MenuItem href="#">Apple</MenuItem>
+      </ScrollableBlock>
+    </StrictMenuProvider>,
+  );
+
+  const container = within(screen.getByTestId("scrollable-block")).getByRole(
+    "list",
+  );
+  expect(container).toHaveStyleRule("height", "50vh");
+  expect(container).toHaveStyleRule("max-height", "75vh");
+});
+
+// coverage
+test("does not apply the alternate variant styling when rendered in fullscreen view", () => {
+  render(
+    <StrictMenuProvider
+      value={{ ...menuContextValues, inFullscreenView: true }}
+    >
+      <ScrollableBlock data-role="scrollable-block" variant="alternate">
+        <MenuItem href="#">Apple</MenuItem>
+      </ScrollableBlock>
+    </StrictMenuProvider>,
+  );
+
+  expect(screen.getByRole("link", { name: "Apple" })).not.toHaveStyleRule(
     "background-color",
-    menuConfigVariants.light.submenuItemBackground,
-    { modifier: `&& ${StyledMenuItemWrapper}` },
+    menuConfigVariants.white.alternate,
   );
 });
 
-test("should render the parent menu-item with the correct styling when `variant` is 'default'", () => {
+test("applies the provided data- attributes", () => {
   render(
-    <Menu menuType="light">
-      <ScrollableBlock
-        data-role="scrollable-block"
-        variant="default"
-        parent={<Search value="search" onChange={() => {}} />}
-      >
+    <StrictMenuProvider value={menuContextValues}>
+      <ScrollableBlock data-role="scrollable-block" data-element="foo">
         <MenuItem href="#">Apple</MenuItem>
-        <MenuItem onClick={() => {}}>Pear</MenuItem>
       </ScrollableBlock>
-    </Menu>,
-  );
-  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
-    "background-color",
-    menuConfigVariants.light.submenuItemBackground,
-    { modifier: `&& ${StyledMenuItemWrapper}` },
-  );
-});
-
-test("should render the parent menu-item with the correct styling when `variant` is 'alternate'", () => {
-  render(
-    <Menu menuType="light">
-      <ScrollableBlock
-        data-role="scrollable-block"
-        variant="alternate"
-        parent={<Search value="search" onChange={() => {}} />}
-      >
-        <MenuItem href="#">Apple</MenuItem>
-        <MenuItem onClick={() => {}}>Pear</MenuItem>
-      </ScrollableBlock>
-    </Menu>,
-  );
-  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
-    "background-color",
-    menuConfigVariants.light.alternate,
-    { modifier: `&& ${StyledMenuItemWrapper}` },
-  );
-});
-
-test("should apply the `data-` tag props as attributes on the expected element", () => {
-  render(
-    <Menu menuType="light">
-      <ScrollableBlock
-        data-role="scrollable-block"
-        variant="default"
-        data-element="foo"
-      >
-        <MenuItem href="#">Apple</MenuItem>
-        <MenuItem href="#">Pear</MenuItem>
-      </ScrollableBlock>
-    </Menu>,
+    </StrictMenuProvider>,
   );
   const scrollableBlock = screen.getByTestId("scrollable-block");
 

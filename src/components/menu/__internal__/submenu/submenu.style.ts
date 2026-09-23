@@ -1,37 +1,12 @@
 import styled, { css } from "styled-components";
-import StyledScrollableBlock from "../../../menu/scrollable-block/scrollable-block.style";
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
-import { StyledLink } from "../../../link/link.style";
-import { StyledMenuItem } from "../../menu.style";
-import StyledBox from "../../../box/box.style";
-import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
-import StyledIcon from "../../../icon/icon.style";
 import menuConfigVariants from "../../menu.config";
-import { SubmenuProps } from "./submenu.component";
-import { StyledSegmentChildren } from "../../menu-segment-title/menu-segment-title.style";
 
-import type { MenuType } from "../../menu.types";
-
-interface SharedStyleProps {
-  inFullscreenView?: boolean;
-  menuType?: MenuType;
+interface StyledSubmenuWrapperProps {
+  $inFullscreenView?: boolean;
 }
 
-interface StyledSubmenuWrapperProps extends SharedStyleProps {
-  isSubmenuOpen?: boolean;
-  asPassiveItem?: boolean;
-}
-
-interface StyledSubmenuProps
-  extends SharedStyleProps,
-    Pick<SubmenuProps, "variant" | "submenuMaxWidth" | "submenuMinWidth"> {
-  submenuDirection?: string;
-  maxHeight?: string;
-  applyFocusRadiusStyling: boolean;
-  applyFocusRadiusStylingToLastItem: boolean;
-}
-
-const StyledSubmenuWrapper = styled.div.attrs(
+export const StyledSubmenuWrapper = styled.div.attrs(
   applyBaseTheme,
 )<StyledSubmenuWrapperProps>`
   position: relative;
@@ -39,239 +14,89 @@ const StyledSubmenuWrapper = styled.div.attrs(
   max-width: inherit;
   height: inherit;
 
-  ${({ isSubmenuOpen, theme }) =>
-    isSubmenuOpen &&
-    css`
-      z-index: ${theme.zIndex.popover};
-    `}
-
-  ${({ inFullscreenView, menuType, asPassiveItem }) => css`
-    ${inFullscreenView &&
+  ${({ $inFullscreenView }) => css`
+    ${$inFullscreenView &&
     css`
       width: 100%;
-
-      ${asPassiveItem &&
-      menuType &&
-      css`
-        ${StyledMenuItemWrapper} {
-          outline: none;
-          color: ${menuConfigVariants[menuType].title};
-        }
-      `}
     `}
-    ${!inFullscreenView &&
+    ${!$inFullscreenView &&
     css`
       display: flex;
     `}
   `}
 `;
 
-const StyledSubmenu = styled.ul<StyledSubmenuProps>`
+interface StyledSubmenuProps {
+  $submenuDirection?: string;
+  $maxHeight?: string;
+  $inFullscreenView?: boolean;
+  $menuVariant: "white" | "black";
+  $submenuMaxWidth?: string;
+  $submenuMinWidth?: string;
+}
+
+export const StyledSubmenu = styled.ul.attrs(
+  applyBaseTheme,
+)<StyledSubmenuProps>`
   ${({
-    menuType,
-    submenuDirection,
-    variant,
-    inFullscreenView,
-    maxHeight,
-    applyFocusRadiusStyling,
-    applyFocusRadiusStylingToLastItem,
-    submenuMaxWidth,
-    submenuMinWidth,
+    $menuVariant,
+    $submenuDirection,
+    $inFullscreenView,
+    $maxHeight,
+    $submenuMaxWidth,
+    $submenuMinWidth,
+    theme,
   }) => css`
-    ${!inFullscreenView &&
-    menuType &&
-    css`
-      box-shadow: var(--boxShadow100);
-      position: absolute;
-      top: 100%;
-      background-color: ${variant === "default"
-        ? menuConfigVariants[menuType].submenuItemBackground
-        : menuConfigVariants[menuType].background};
-
-      min-width: ${submenuMinWidth ?? "100%"};
-
-      ${submenuMaxWidth &&
-      css`
-        width: max-content;
-        max-width: ${submenuMaxWidth};
-
-        li {
-          max-width: ${submenuMaxWidth};
-        }
-
-        &&& {
-          a,
-          button,
-          ${StyledLink} a,
-          ${StyledLink} button {
-            white-space: normal;
-            height: auto;
-          }
-        }
-      `}
-
-      a,
-      button,
-      ${StyledLink} a,
-      ${StyledLink} button {
-        width: 100%;
-      }
-    `}
-
-    ${inFullscreenView &&
-    css`
-      min-width: 100%;
-
-      ${StyledMenuItem} {
-        width: 100%;
-      }
-    `}
-
-    ${!inFullscreenView &&
-    css`
-      border-bottom-right-radius: var(--borderRadius100);
-      border-bottom-left-radius: var(--borderRadius100);
-      overflow-y: auto;
-      ${maxHeight && `max-height: ${maxHeight};`}
-
-      /* last item in each segment has square corners,
-        except when it is the last menu item in the whole submenu. */
-      & ${StyledSegmentChildren}
-      > ${StyledMenuItem}:last-of-type:not([data-last-visible-menu-item='true']) {
-        a,
-        button,
-        > span,
-        > div {
-          border-bottom-right-radius: var(--borderRadius000);
-          border-bottom-left-radius: var(--borderRadius000);
-
-          :focus {
-            border-bottom-right-radius: var(--borderRadius000);
-            border-bottom-left-radius: var(--borderRadius000);
-          }
-        }
-      }
-
-      [data-last-visible-menu-item="true"] {
-        a,
-        button,
-        > span,
-        > div {
-          border-bottom-left-radius: var(--borderRadius100);
-          border-bottom-right-radius: var(--borderRadius100);
-
-          :focus {
-            border-bottom-right-radius: var(--borderRadius100);
-            border-bottom-left-radius: var(--borderRadius100);
-          }
-        }
-      }
-
-      &&&& ${StyledScrollableBlock} {
-        ${StyledBox} {
-          border-bottom-right-radius: var(--borderRadius000);
-          border-bottom-left-radius: ${applyFocusRadiusStyling
-            ? "var(--borderRadius100)"
-            : "var(--borderRadius000)"};
-
-          ${StyledMenuItem}:last-child ${StyledLink},
-          ${StyledMenuItem}:last-child a,
-          ${StyledMenuItem}:last-child button {
-            border-bottom-right-radius: var(--borderRadius000);
-            border-bottom-left-radius: ${applyFocusRadiusStylingToLastItem
-              ? "var(--borderRadius100)"
-              : "var(--borderRadius000)"};
-          }
-        }
-      }
-    `}
-
     display: block;
     list-style: none;
     margin: 0;
     padding: 0;
+    background-color: ${menuConfigVariants[$menuVariant].submenuItemBackground};
 
-    ${StyledMenuItemWrapper}:after, ${StyledMenuItemWrapper}:hover:after {
-      display: none;
-    }
-
-    ${StyledMenuItemWrapper} {
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-
-      ${inFullscreenView &&
-      css`
-        white-space: normal;
-        height: auto;
-      `}
-
-      ${submenuMaxWidth &&
-      css`
-        height: auto;
-        min-height: 40px;
-      `}
-
-      ${!inFullscreenView &&
-      menuType &&
-      css`
-        background-color: ${menuConfigVariants[menuType].submenuItemBackground};
-
-        > a:focus,
-        > button:focus {
-          background-color: ${menuConfigVariants[menuType]
-            .submenuItemBackground};
-        }
-
-        > a,
-        > button {
-          padding: 11px 16px 12px;
-        }
-      `}
-
-      a {
-        text-decoration: none;
-      }
-
-      > ${StyledIcon} {
-        width: 16px;
-        height: 16px;
-        margin-right: 5px;
-      }
-    }
-
-    [data-component="icon"] {
-      line-height: 20px;
-
-      &:before {
-        line-height: unset;
-      }
-
-      span {
-        vertical-align: middle;
-
-        svg {
-          height: 16px;
-          width: 16px;
-        }
-      }
-    }
-
-    &:before {
-      background-color: transparent;
-      border-radius: 0 0 4px 4px;
-      content: "";
-      height: 5px;
-      position: absolute;
-      top: -5px;
-      width: 100%;
-    }
-
-    ${submenuDirection === "left" &&
+    ${!$inFullscreenView &&
     css`
-      right: 0;
+      position: absolute;
+      top: 100%;
+      z-index: ${theme.zIndex.popover};
+      box-shadow: var(--global-depth-lvl1);
+      width: max-content;
+      border-radius: 0 0 var(--global-radius-container-m)
+        var(--global-radius-container-m);
+      overflow-y: auto;
+
+      ${$menuVariant === "white" &&
+      css`
+        margin-top: -1px;
+        border: var(--global-borderwidth-xs) solid
+          var(--nav-tertiary-border-default);
+      `}
+
+      ${$submenuMaxWidth &&
+      css`
+        max-width: ${$submenuMaxWidth};
+      `}
+
+      ${$submenuMinWidth &&
+      css`
+        min-width: ${$submenuMinWidth};
+      `}
+
+      ${$submenuDirection === "left" &&
+      css`
+        right: 0;
+      `}
+
+      ${$maxHeight && `max-height: ${$maxHeight};`}
+
+      [data-last-menu-item='true'] {
+        border-bottom-left-radius: var(--global-radius-container-m);
+        border-bottom-right-radius: var(--global-radius-container-m);
+      }
+    `}
+
+    ${$inFullscreenView &&
+    css`
+      min-width: 100%;
     `}
   `}
 `;
-
-export { StyledSubmenu, StyledSubmenuWrapper };

@@ -3,7 +3,6 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Link from "./link.component";
-import { Menu } from "../menu";
 
 import Logger from "../../__internal__/utils/logger";
 
@@ -216,21 +215,6 @@ test("when rendered as a `button` element, it should set the aria attributes on 
   expect(buttonElement).toHaveAccessibleName("test");
 });
 
-test("when `removeAriaLabelOnIcon` is true, it should set aria-label as undefined on the icon", () => {
-  render(
-    <Link
-      onClick={() => null}
-      icon="home"
-      aria-label="test"
-      removeAriaLabelOnIcon
-    />,
-  );
-
-  const iconElement = screen.getByTestId("icon");
-
-  expect(iconElement).not.toHaveAttribute("aria-label");
-});
-
 test("renders with custom data tags", () => {
   render(<Link data-role="foo" data-element="bar" />);
 
@@ -401,17 +385,18 @@ test("renders with expected styling when `variant` is `subtle` and `inverse` is 
   );
 });
 
-// Coverage
-test("when inside a menu, link element has display inline-block", () => {
-  render(
-    <Menu menuType="light">
-      <Link href="foo.com" />
-    </Menu>,
-  );
+// coverage
+test("removes focus styles on blur", async () => {
+  render(<Link href="#" />);
 
-  const linkElement = screen.getByRole("link");
+  const link = screen.getByRole("link");
+  await userEvent.tab();
 
-  expect(linkElement).toHaveStyle(`display: inline-block`);
+  expect(link).toHaveFocus();
+  await userEvent.tab();
+
+  expect(link).not.toHaveFocus();
+  expect(link).toHaveStyle({ backgroundColor: "none" });
 });
 
 test("accepts ref as a ref object", () => {

@@ -5,6 +5,7 @@ import {
   StyledMenuFullscreen,
   StyledMenuModal,
   StyledMenuFullscreenHeader,
+  StyledMenuFullscreenContent,
 } from "./menu-full-screen.style";
 import { StyledMenuWrapper } from "../menu.style";
 import {
@@ -12,8 +13,7 @@ import {
   StrictMenuProvider,
 } from "../__internal__/strict-menu.context";
 import Events from "../../../__internal__/utils/helpers/events";
-import Box from "../../box";
-import IconButton from "../../icon-button";
+import Button from "../../button/__next__";
 import Icon from "../../icon";
 import Portal from "../../portal";
 import FocusTrap from "../../../__internal__/focus-trap";
@@ -59,9 +59,9 @@ const MenuFullscreenRoot = ({
   const contentRef = useRef<HTMLUListElement>(null);
   const isTopModal = useModalAria(modalRef);
 
-  const { menuType } = useStrictMenuContext();
+  const { variant } = useStrictMenuContext();
 
-  const isDarkVariant = ["dark", "black"].includes(menuType);
+  const isDarkVariant = variant === "black";
   const transitionDuration = 200;
   const locale = useLocale();
 
@@ -111,8 +111,8 @@ const MenuFullscreenRoot = ({
     >
       <StyledMenuFullscreen
         ref={menuRef}
-        startPosition={startPosition}
-        transitionDuration={transitionDuration}
+        $startPosition={startPosition}
+        $transitionDuration={transitionDuration}
       >
         <FocusTrap wrapperRef={modalRef} isOpen={isOpen}>
           <StyledMenuModal
@@ -121,39 +121,36 @@ const MenuFullscreenRoot = ({
             data-component="menu-fullscreen"
             data-element={dataElement}
             data-role={dataRole}
-            menuType={menuType}
+            $menuVariant={variant}
             ref={modalRef}
             role="dialog"
             tabIndex={-1}
           >
-            <StyledMenuFullscreenHeader menuType={menuType}>
-              <IconButton
+            <StyledMenuFullscreenHeader $menuVariant={variant}>
+              <Button
+                variantType="subtle"
+                size="small"
+                inverse={isDarkVariant}
                 aria-label={locale.menuFullscreen.ariaLabels.closeButton()}
-                onClick={onClose}
+                onClick={(ev) =>
+                  onClose(ev as React.MouseEvent<HTMLButtonElement>)
+                }
                 data-element="close"
               >
-                <Icon type="close" inverse={isDarkVariant} />
-              </IconButton>
+                <Icon type="close" />
+              </Button>
             </StyledMenuFullscreenHeader>
-            <Box
-              overflowY="auto"
-              scrollVariant={isDarkVariant ? "dark" : "light"}
-              width="100%"
-              height="calc(100% - 40px)"
-            >
+            <StyledMenuFullscreenContent>
               <StyledMenuWrapper
                 data-component="menu"
-                menuType={menuType}
                 ref={contentRef}
-                display="flex"
-                flexDirection="column"
                 role="list"
-                inFullscreenView
+                $inFullscreenView={true}
               >
                 <StrictMenuProvider
                   value={{
                     inFullscreenView: true,
-                    menuType,
+                    variant,
                     openSubmenuId: null,
                     setOpenSubmenuId: /* istanbul ignore next */ () => {},
                   }}
@@ -161,7 +158,7 @@ const MenuFullscreenRoot = ({
                   {childArray}
                 </StrictMenuProvider>
               </StyledMenuWrapper>
-            </Box>
+            </StyledMenuFullscreenContent>
           </StyledMenuModal>
         </FocusTrap>
       </StyledMenuFullscreen>

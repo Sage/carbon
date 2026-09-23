@@ -69,7 +69,7 @@ export const BasicMenu: Story = () => {
       logo={<Logo />}
       aria-label="Global header component with basic menu"
     >
-      <Menu menuType="black" flex="1">
+      <Menu variant="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem href="#">Product A</MenuItem>
         </MenuItem>
@@ -129,7 +129,7 @@ export const ResponsiveMenu: Story = () => {
       logo={<Logo />}
       aria-label="Global header component with responsive menu"
     >
-      <Menu menuType="black" flex="1">
+      <Menu variant="black" flex="1">
         {fullscreenViewBreakPoint ? (
           <>
             <MenuItem
@@ -165,7 +165,7 @@ export const GlobalLocalNavBarLayout: Story = () => {
         logo={<Logo />}
         aria-label="Global header component with local nav bar"
       >
-        <Menu menuType="black" flex="1" aria-label="Menu bar">
+        <Menu variant="black" flex="1" aria-label="Menu bar">
           <MenuItem flex="1" submenu="Product Switcher">
             <MenuItem href="#">Product A</MenuItem>
           </MenuItem>

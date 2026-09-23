@@ -2,14 +2,28 @@ import styled, { css } from "styled-components";
 import menuConfigVariants from "../menu.config";
 import { MenuDividerProps } from "./menu-divider.component";
 
-import type { MenuType } from "../menu.types";
+interface StyledDividerProps {
+  $menuVariant: "white" | "black";
+  $size: MenuDividerProps["size"];
+  $inFullscreenView?: boolean;
+}
 
-const StyledDivider = styled.div<MenuDividerProps & { menuType: MenuType }>`
-  cursor: default;
-  ${({ menuType, size }) => css`
-    margin: 0px ${size === "large" ? "" : "16px"};
-    height: ${size === "large" ? "4px" : "1px"};
-    background-color: ${menuConfigVariants[menuType].divider};
+const StyledDivider = styled.div<StyledDividerProps>`
+  ${({ $menuVariant, $size, $inFullscreenView }) => css`
+    background-color: ${menuConfigVariants[$menuVariant].divider};
+    margin: 0 var(--global-space-comp-l);
+    height: 1px;
+
+    ${$inFullscreenView &&
+    css`
+      margin: var(--global-space-comp-s) var(--global-space-comp-l);
+    `}
+
+    ${$size === "large" &&
+    css`
+      margin: 0;
+      height: 4px;
+    `}
   `}
 `;
 

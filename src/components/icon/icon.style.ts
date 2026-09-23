@@ -128,6 +128,17 @@ const styleOverrides = css`
   .editor-dropdown && {
     color: currentColor;
   }
+
+  [data-element="menu-item-wrapper"] &&,
+  [data-element="submenu-parent-item"] && {
+    color: currentColor;
+    width: var(--global-size-2-xs);
+    height: var(--global-size-2-xs);
+
+    &:hover {
+      color: currentColor;
+    }
+  }
 `;
 
 const StyledIcon = styled.span.attrs(applyBaseTheme)<

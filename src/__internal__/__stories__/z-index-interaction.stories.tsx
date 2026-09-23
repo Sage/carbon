@@ -479,7 +479,7 @@ export const DateInPopoverContainer: StoryObj = {
 export const PopoverInGlobalHeader: StoryObj = {
   render: () => (
     <GlobalHeader>
-      <Menu menuType="black" flex="1">
+      <Menu variant="black" flex="1">
         <MenuItem flex="0 0 auto">
           <PopoverContainer
             title="Notifications"

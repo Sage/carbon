@@ -1,8 +1,7 @@
 import createStrictContext from "../../../__internal__/utils/createStrictContext";
-import type { MenuType } from "../menu.types";
 
 export interface StrictMenuContextType {
-  menuType: MenuType;
+  variant: "white" | "black";
   openSubmenuId: string | null;
   inFullscreenView?: boolean;
   setOpenSubmenuId: (id: string | null) => void;
@@ -18,7 +17,7 @@ const [StrictMenuProvider, useStrictMenuContext] =
     errorMessage:
       "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
     defaultValue: {
-      menuType: "light",
+      variant: "white",
       openSubmenuId: null,
       setOpenSubmenuId: /* istanbul ignore next */ () => {},
     },

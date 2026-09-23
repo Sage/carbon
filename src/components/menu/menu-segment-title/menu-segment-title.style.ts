@@ -3,52 +3,42 @@ import styled, { css } from "styled-components";
 import { VariantType } from "../menu-item";
 import menuConfigVariants from "../menu.config";
 
-import type { MenuType } from "../menu.types";
-
 interface StyledTitleProps {
-  variant?: VariantType;
-  menuType: MenuType;
-  shouldWrap?: boolean;
+  $variant?: VariantType;
+  $menuVariant: "white" | "black";
+  $shouldWrap?: boolean;
+  $isInFullscreen?: boolean;
 }
 
 const StyledTitle = styled.h2<StyledTitleProps>`
-  ${({ menuType, variant, shouldWrap }) => css`
-    margin: 0px;
-    padding: 16px 16px 8px;
+  ${({ $menuVariant, $variant, $shouldWrap, $isInFullscreen }) => css`
+    margin: 0;
+    padding: 0 var(--global-space-comp-l);
+    text-transform: uppercase;
+    cursor: default;
+    white-space: ${$shouldWrap ? "normal" : "nowrap"};
+
     font-size: 12px;
     font-weight: 500;
-    text-transform: uppercase;
-    line-height: 14px;
-    cursor: default;
-    color: ${menuConfigVariants[menuType].title};
-    ${variant === "alternate" &&
-    `background-color: ${menuConfigVariants[menuType].alternate};`}
-    white-space: ${shouldWrap ? "normal" : "nowrap"};
+    line-height: 150%;
+    color: ${menuConfigVariants[$menuVariant].title};
+    background-color: ${menuConfigVariants[$menuVariant].submenuItemBackground};
+
+    ${$variant === "alternate" &&
+    css`
+      background-color: ${menuConfigVariants[$menuVariant].alternate};
+    `}
+
+    ${$isInFullscreen &&
+    css`
+      background-color: ${menuConfigVariants[$menuVariant].background};
+      padding: var(--global-space-comp-s) var(--global-space-comp-l);
+    `}
   `}
 `;
 
-const StyledSegmentChildren = styled.ul<{
-  variant?: VariantType;
-  menuType: MenuType;
-}>`
-  ${({ menuType, variant }) => css`
-    padding: 0;
-
-    li {
-      list-style: none;
-      ${variant === "alternate" &&
-      css`
-        background-color: ${menuConfigVariants[menuType].alternate};
-      `}
-
-      &:not(&:last-child) a,
-      &:not(&:last-child) button,
-      &:not(&:last-child) > span,
-      &:not(&:last-child) > div {
-        border-radius: var(--borderRadius000);
-      }
-    }
-  `}
+const StyledSegmentChildren = styled.ul`
+  padding: 0;
 `;
 
 export { StyledTitle, StyledSegmentChildren };

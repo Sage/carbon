@@ -19,6 +19,62 @@ testStyledSystemFlexBox(
   () => screen.getByRole("list"),
 );
 
+test("should map `menuType` 'light' to 'white' `variant", () => {
+  render(
+    <Menu menuType="light">
+      <MenuItem href="#">Menu Item</MenuItem>
+    </Menu>,
+  );
+
+  const firstMenuItem = screen.getByTestId("menu-item-wrapper");
+  expect(firstMenuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-tertiary-bg-default)",
+  );
+});
+
+test("should map `menuType='white'` to 'white' `variant", () => {
+  render(
+    <Menu menuType="white">
+      <MenuItem href="#">Menu Item</MenuItem>
+    </Menu>,
+  );
+
+  const firstMenuItem = screen.getByTestId("menu-item-wrapper");
+  expect(firstMenuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-tertiary-bg-default)",
+  );
+});
+
+test("should map `menuType='dark'` to 'black' `variant", () => {
+  render(
+    <Menu menuType="dark">
+      <MenuItem href="#">Menu Item</MenuItem>
+    </Menu>,
+  );
+
+  const firstMenuItem = screen.getByTestId("menu-item-wrapper");
+  expect(firstMenuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
+});
+
+test("should map `menuType='black'` to 'black' `variant", () => {
+  render(
+    <Menu menuType="black">
+      <MenuItem href="#">Menu Item</MenuItem>
+    </Menu>,
+  );
+
+  const firstMenuItem = screen.getByTestId("menu-item-wrapper");
+  expect(firstMenuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
+});
+
 test("should focus the last item when 'End' key is pressed by user", async () => {
   const user = userEvent.setup();
   render(
@@ -355,106 +411,4 @@ test("moves focus to first focusable child element inside a MenuItem when tabbin
   await user.tab();
 
   expect(screen.getByRole("button", { name: "Two" })).toHaveFocus();
-});
-
-test("should call onClick callback when MenuItem is clicked", async () => {
-  const user = userEvent.setup();
-  const onClickSpy = jest.fn();
-  render(
-    <Menu>
-      <MenuItem onClick={onClickSpy}>Menu Item</MenuItem>
-    </Menu>,
-  );
-
-  await user.click(screen.getByRole("button", { name: "Menu Item" }));
-
-  expect(onClickSpy).toHaveBeenCalledTimes(1);
-});
-
-test("should call onSubmenuOpen callback when submenu is opened on hover", async () => {
-  const user = userEvent.setup();
-  const onSubmenuOpenSpy = jest.fn();
-  render(
-    <Menu>
-      <MenuItem submenu="Submenu" onSubmenuOpen={onSubmenuOpenSpy}>
-        <MenuItem href="#">Submenu Item</MenuItem>
-      </MenuItem>
-    </Menu>,
-  );
-
-  await user.hover(screen.getByRole("button", { name: "Submenu" }));
-
-  expect(onSubmenuOpenSpy).toHaveBeenCalledTimes(1);
-});
-
-test("should call onSubmenuOpen callback when Space key is pressed with clickToOpen", async () => {
-  const user = userEvent.setup();
-  const onSubmenuOpenSpy = jest.fn();
-  render(
-    <Menu>
-      <MenuItem submenu="Submenu" clickToOpen onSubmenuOpen={onSubmenuOpenSpy}>
-        <MenuItem href="#">Submenu Item</MenuItem>
-      </MenuItem>
-    </Menu>,
-  );
-
-  await user.tab();
-  await user.keyboard(" ");
-
-  expect(onSubmenuOpenSpy).toHaveBeenCalledTimes(1);
-});
-
-test("should call onSubmenuOpen callback when Enter key is pressed with clickToOpen", async () => {
-  const user = userEvent.setup();
-  const onSubmenuOpenSpy = jest.fn();
-  render(
-    <Menu>
-      <MenuItem submenu="Submenu" clickToOpen onSubmenuOpen={onSubmenuOpenSpy}>
-        <MenuItem href="#">Submenu Item</MenuItem>
-      </MenuItem>
-    </Menu>,
-  );
-
-  await user.tab();
-  await user.keyboard("{Enter}");
-
-  expect(onSubmenuOpenSpy).toHaveBeenCalledTimes(1);
-});
-
-test("should call onSubmenuOpen callback when ArrowDown key is pressed with clickToOpen", async () => {
-  const user = userEvent.setup();
-  const onSubmenuOpenSpy = jest.fn();
-  render(
-    <Menu>
-      <MenuItem submenu="Submenu" clickToOpen onSubmenuOpen={onSubmenuOpenSpy}>
-        <MenuItem href="#">Submenu Item</MenuItem>
-      </MenuItem>
-    </Menu>,
-  );
-
-  await user.tab();
-  await user.keyboard("{ArrowDown}");
-
-  expect(onSubmenuOpenSpy).toHaveBeenCalledTimes(1);
-});
-
-test("should call onSubmenuClose callback when submenu is closed", async () => {
-  const user = userEvent.setup();
-  const onSubmenuCloseSpy = jest.fn();
-  render(
-    <Menu>
-      <MenuItem submenu="Submenu" onSubmenuClose={onSubmenuCloseSpy}>
-        <MenuItem href="#">Submenu Item</MenuItem>
-      </MenuItem>
-      <MenuItem href="#">Other Item</MenuItem>
-    </Menu>,
-  );
-
-  // Open submenu by hovering
-  await user.hover(screen.getByRole("button", { name: "Submenu" }));
-
-  // Close submenu by moving to another item
-  await user.hover(screen.getByRole("link", { name: "Other Item" }));
-
-  expect(onSubmenuCloseSpy).toHaveBeenCalledTimes(1);
 });

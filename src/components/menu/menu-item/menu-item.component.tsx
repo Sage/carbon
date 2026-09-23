@@ -17,20 +17,21 @@ import invariant from "invariant";
 
 import { defaultFocusableSelectors as focusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
-import StyledMenuItemWrapper from "./menu-item.style";
+import {
+  StyledMenuItem,
+  StyledMenuItemWrapper,
+  StyledMenuItemContent,
+} from "./menu-item.style";
 import Events from "../../../__internal__/utils/helpers/events";
 import { useStrictMenuContext } from "../__internal__/strict-menu.context";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext, {
   SubmenuContextProps,
 } from "../__internal__/submenu/submenu.context";
-import MenuSegmentContext, {
-  MenuSegmentContextProps,
-} from "../menu-segment-title/menu-segment-title.context";
-import { StyledMenuItem } from "../menu.style";
 import guid from "../../../__internal__/utils/helpers/guid";
-import { IconType } from "../../icon";
+import Icon, { IconType } from "../../icon";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
+import MenuItemVariantContext from "../__internal__/menu-item-variant.context";
 
 export type VariantType = "default" | "alternate";
 
@@ -67,7 +68,7 @@ interface MenuItemBaseProps
   target?: string;
   /** The rel attribute to be used for the underlying <a> tag */
   rel?: string;
-  /** set the colour variant for a menuType */
+  /** Set the variant of the MenuItem  */
   variant?: VariantType;
   /** Flag to display the dropdown arrow when an item has a submenu */
   showDropdownArrow?: boolean;
@@ -79,12 +80,6 @@ interface MenuItemBaseProps
   onSubmenuOpen?: () => void;
   /** Callback triggered when submenu closes. Only valid with submenu prop */
   onSubmenuClose?: () => void;
-  /**
-    @ignore @private
-    private prop, used inside ScrollableBlock to ensure the MenuItem's color variant overrides the CSS
-    for other MenuItems inside the block
-   */
-  overrideColor?: boolean;
   /** When set the submenu opens by click instead of hover */
   clickToOpen?: boolean;
   /**
@@ -93,7 +88,7 @@ interface MenuItemBaseProps
    * */
   maxWidth?: MaxWidthProps["maxWidth"];
   /**
-   * @private @ignore
+   * @private @ignore @internal
    * Renders MenuItem as a div element
    * */
   as?: "div";
@@ -114,12 +109,18 @@ interface MenuItemBaseProps
 
 export interface MenuWithChildren extends MenuItemBaseProps {
   children?: React.ReactNode;
-  /** Either prop `icon` must be defined or this node must have children. */
+  /**
+   * @deprecated Please pass any desired icons as children instead.
+   * Either prop `icon` must be defined or this node must have children.
+   */
   icon?: IconType;
 }
 
 export interface MenuWithIcon extends MenuItemBaseProps {
-  /** Either prop `icon` must be defined or this node must have children. */
+  /**
+   * @deprecated Please pass any desired icons as children instead.
+   * Either prop `icon` must be defined or this node must have children.
+   */
   icon: IconType;
   children?: React.ReactNode;
 }
@@ -154,7 +155,6 @@ export const MenuItem = forwardRef<
       maxWidth,
       onSubmenuOpen,
       onSubmenuClose,
-      overrideColor,
       rel,
       as,
       "data-element": dataElement,
@@ -186,16 +186,13 @@ export const MenuItem = forwardRef<
 
     const menuItemId = useRef(guid());
 
-    const { isChildOfSegment, overriddenVariant } =
-      useContext<MenuSegmentContextProps>(MenuSegmentContext);
-
     const {
       inFullscreenView,
       registerItem,
       unregisterItem,
       focusId,
       updateFocusId,
-      menuType,
+      variant: menuVariant,
     } = useStrictMenuContext();
 
     const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);
@@ -204,9 +201,12 @@ export const MenuItem = forwardRef<
       submenuFocusId,
       updateFocusId: updateSubmenuFocusId,
       handleKeyDown: handleSubmenuKeyDown,
-      submenuHasMaxWidth,
+      submenuMaxWidth: contextSubmenuMaxWidth,
       closeSubmenu: closeParentSubmenu,
     } = submenuContext;
+    const { menuItemVariant: contextVariant } = useContext(
+      MenuItemVariantContext,
+    );
 
     const focusFromMenu = focusId === menuItemId.current;
     const focusFromSubmenu = submenuFocusId
@@ -303,22 +303,9 @@ export const MenuItem = forwardRef<
         !firstFocusableChild && (href || onClick) ? handleClick : undefined,
       target,
       rel,
-      icon,
-      removeAriaLabelOnIcon: true,
-      selected,
       onKeyDown: !inFullscreenView ? handleKeyDown : undefined,
-      overrideColor,
       ref: setRef,
     };
-
-    if (
-      overriddenVariant === "alternate" &&
-      isChildOfSegment &&
-      variant === "alternate" &&
-      ["white", "black"].includes(menuType)
-    ) {
-      elementProps.overrideColor = true;
-    }
 
     const getTitle = (title: React.ReactNode) =>
       maxWidth && typeof title === "string" ? title : undefined;
@@ -327,32 +314,43 @@ export const MenuItem = forwardRef<
     const asPassiveItem = !(onClick || href || firstFocusableChild);
 
     if (submenu) {
+      const submenuTitle = (
+        <>
+          <StyledMenuItemContent $hasMaxWidth={!!itemMaxWidth}>
+            {icon && <Icon type={icon} />}
+            {submenu}
+          </StyledMenuItemContent>
+          {showDropdownArrow && !inFullscreenView && (
+            <Icon ml="4px" type="dropdown" />
+          )}
+        </>
+      );
+
       return (
         <StyledMenuItem
           data-component="menu-item"
           data-element={dataElement}
           data-role={dataRole}
-          menuType={menuType}
           title={getTitle(submenu)}
-          maxWidth={itemMaxWidth}
+          $maxWidth={itemMaxWidth}
           {...rest}
-          inFullscreenView={inFullscreenView}
+          $inFullscreenView={inFullscreenView}
           id={menuItemId.current}
           as={as}
           onFocus={handleFocus}
         >
           <Submenu
-            {...(typeof submenu !== "boolean" && { title: submenu })}
+            title={submenuTitle}
             submenuDirection={submenuDirection}
-            showDropdownArrow={showDropdownArrow}
             clickToOpen={clickToOpen}
             maxWidth={maxWidth}
             asPassiveItem={asPassiveItem}
-            ariaLabel={ariaLabel}
+            aria-label={ariaLabel}
             onSubmenuOpen={onSubmenuOpen}
             onSubmenuClose={onSubmenuClose}
             submenuMaxWidth={submenuMaxWidth}
             submenuMinWidth={submenuMinWidth}
+            selected={selected}
             {...elementProps}
             variant={variant}
             {...rest}
@@ -373,35 +371,37 @@ export const MenuItem = forwardRef<
         data-component="menu-item"
         data-element={dataElement}
         data-role={dataRole}
-        menuType={menuType}
-        inSubmenu={isInSubmenu}
+        $inSubmenu={isInSubmenu}
         title={getTitle(children)}
-        maxWidth={itemMaxWidth}
+        $maxWidth={itemMaxWidth}
         {...rest}
-        inFullscreenView={
-          inFullscreenView && !Object.keys(submenuContext).length
-        }
+        $inFullscreenView={inFullscreenView}
         id={menuItemId.current}
         as={as}
         onFocus={handleFocus}
       >
         <StyledMenuItemWrapper
-          menuType={menuType}
+          as={onClick && !href ? "button" : "a"}
+          $menuVariant={menuVariant}
+          data-element="menu-item-wrapper"
           data-role="menu-item-wrapper"
           {...elementProps}
-          menuItemVariant={variant}
-          ariaLabel={ariaLabel}
+          $menuItemVariant={contextVariant || variant}
+          aria-label={ariaLabel}
           aria-current={ariaCurrent}
-          maxWidth={!submenuHasMaxWidth ? itemMaxWidth : undefined}
-          inFullscreenView={inFullscreenView}
-          asPassiveItem={asPassiveItem}
+          $maxWidth={itemMaxWidth}
+          $submenuMaxWidth={contextSubmenuMaxWidth}
+          $inFullscreenView={inFullscreenView}
+          $asPassiveItem={asPassiveItem}
           {...paddingProps}
-          asDiv={hasInput || as === "div"}
-          hasFocusableChild={!!firstFocusableChild}
-          hasInput={hasInput}
-          inSubmenu={isInSubmenu}
+          $asDiv={hasInput || as === "div"}
+          $inSubmenu={isInSubmenu}
+          $selected={selected}
         >
-          {children}
+          <StyledMenuItemContent $hasMaxWidth={!!itemMaxWidth}>
+            {icon && <Icon type={icon} />}
+            {children}
+          </StyledMenuItemContent>
         </StyledMenuItemWrapper>
       </StyledMenuItem>
     );

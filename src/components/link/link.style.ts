@@ -41,7 +41,6 @@ export interface StyledLinkProps {
 
 interface PrivateStyledLinkProps {
   $hasContent: boolean;
-  $isMenuItem?: boolean;
 }
 
 interface LinkColors {
@@ -137,7 +136,6 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
     $underline,
     $variant,
     $inverse,
-    $isMenuItem,
     $hasFocus,
     $linkSize,
     $bold,
@@ -181,7 +179,6 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       `}
 
       ${!$isSkipLink &&
-      !$isMenuItem &&
       css`
         > a,
         > button {
@@ -275,8 +272,6 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 
       > a,
       > button {
-        ${$isMenuItem && "display: inline-block;"}
-
         > ${StyledIcon} {
           display: ${$hasContent ? "inline-block" : "inline"};
           position: relative;
@@ -289,7 +284,6 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       }
 
       ${!$isSkipLink &&
-      !$isMenuItem &&
       !$disabled &&
       $hasFocus &&
       css`
@@ -306,7 +300,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
       `}
 
-      > button, ${StyledButton}:not(.legacy-search-button) {
+      > button, ${StyledButton} {
         background-color: transparent;
         border: none;
         padding: 0;
