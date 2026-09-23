@@ -1,3 +1,9 @@
+## [162.3.0](https://github.com/Sage/carbon/compare/v162.2.4...v162.3.0) (2026-09-23)
+
+### Features
+
+* **message:** add subtle border color to give parity with DS ([e623fb8](https://github.com/Sage/carbon/commit/e623fb8bf3f687cfa4557004f47b397f1a375f2c))
+
 ## [162.2.4](https://github.com/Sage/carbon/compare/v162.2.3...v162.2.4) (2026-09-22)
 
 ### Bug Fixes
