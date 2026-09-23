@@ -139,7 +139,8 @@ const deDE: Partial<Locale> = {
     previousAriaLabel: () => "Zur vorherigen Seite",
     pageX: (currentPage?: number | string) => `Seite ${currentPage}`,
     ofTotalPages: (totalPages: number | string) => `von ${totalPages} Seiten`,
-    itemsPerPage: () => "Einträge pro Seite",
+    itemsPerPage: () => "Elemente pro Seite",
+    totalItems: () => "Elemente gesamt",
     ariaLabel: () => "Seitennavigation",
   },
   password: {

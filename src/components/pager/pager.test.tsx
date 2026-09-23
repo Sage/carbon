@@ -12,10 +12,12 @@ test("`next` and `last` buttons are not visible when on the last page", async ()
   render(<Pager onPagination={() => {}} totalRecords={100} currentPage={10} />);
 
   expect(
-    screen.queryByRole("button", { name: "Go to next page" }),
+    screen.queryByRole("button", {
+      name: "Go to next page (page 11 of 10)",
+    }),
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Go to last page" }),
+    screen.queryByRole("button", { name: "Go to last page (page 10 of 10)" }),
   ).not.toBeInTheDocument();
 });
 
@@ -23,10 +25,12 @@ test("`previous` and `first` buttons are not visible when on the first page", as
   render(<Pager onPagination={() => {}} totalRecords={100} currentPage={1} />);
 
   expect(
-    screen.queryByRole("button", { name: "Go to previous page" }),
+    screen.queryByRole("button", {
+      name: "Go to previous page (page 0 of 10)",
+    }),
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Go to first page" }),
+    screen.queryByRole("button", { name: "Go to first page (page 1 of 10)" }),
   ).not.toBeInTheDocument();
 });
 
@@ -35,7 +39,7 @@ test("does not render navigation buttons or current page input when there is onl
 
   expect(screen.queryAllByRole("button").length).toBe(0);
   expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
-  expect(screen.getByText("1 of 1 pages")).toBeVisible();
+  expect(screen.getByText("Page 1 of 1 pages")).toBeVisible();
 });
 
 test("does not render current page input if `interactivePageNumber` is false", () => {
@@ -49,7 +53,7 @@ test("does not render current page input if `interactivePageNumber` is false", (
   );
 
   expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
-  expect(screen.getByText("1 of 10 pages")).toBeVisible();
+  expect(screen.getByText("Page 1 of 10 pages")).toBeVisible();
 });
 
 test("calls the `onFirst` callback when the `First` button is clicked", async () => {
@@ -64,7 +68,9 @@ test("calls the `onFirst` callback when the `First` button is clicked", async ()
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to first page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to first page (page 1 of 10)" }),
+  );
   expect(onFirst).toHaveBeenCalledTimes(1);
 });
 
@@ -80,7 +86,11 @@ test("calls the `onPrevious` callback when the `Previous` button is clicked", as
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to previous page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to previous page (page 9 of 10)",
+    }),
+  );
   expect(onPrevious).toHaveBeenCalledTimes(1);
 });
 
@@ -96,7 +106,9 @@ test("calls the `onNext` callback when the `Next` button is clicked", async () =
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to next page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to next page (page 2 of 10)" }),
+  );
   expect(onNext).toHaveBeenCalledTimes(1);
 });
 
@@ -112,14 +124,16 @@ test("calls the `onLast` callback when the `Last` button is clicked", async () =
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to last page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to last page (page 10 of 10)" }),
+  );
   expect(onLast).toHaveBeenCalledTimes(1);
 });
 
 test("the total number of records is set to 1 if the `totalRecords` prop is an invalid value", () => {
   render(<Pager totalRecords={-100} pageSize={10} onPagination={() => {}} />);
 
-  expect(screen.getByText("1 of 1 pages")).toBeVisible();
+  expect(screen.getByText("Page 1 of 1 pages")).toBeVisible();
 });
 
 test("sets the current page to the last available page when `currentPage` is larger than the total", () => {
@@ -192,7 +206,9 @@ test("clicking the `Next` button sets the current page to the next page", async 
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to next page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to next page (page 10 of 10)" }),
+  );
 
   expect(screen.getByRole("textbox", { name: "Page 10" })).toHaveValue("10");
 });
@@ -208,7 +224,11 @@ test("clicking the `Previous` button sets the current page to the previous page"
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to previous page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to previous page (page 4 of 10)",
+    }),
+  );
 
   expect(screen.getByRole("textbox", { name: "Page 4" })).toHaveValue("4");
 });
@@ -224,7 +244,9 @@ test("clicking the `First` button sets the current page to the first page", asyn
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to first page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to first page (page 1 of 10)" }),
+  );
 
   expect(screen.getByRole("textbox", { name: "Page 1" })).toHaveValue("1");
 });
@@ -240,7 +262,9 @@ test("clicking the `Last` button sets the current page to the last page", async 
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to last page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to last page (page 10 of 10)" }),
+  );
 
   expect(screen.getByRole("textbox", { name: "Page 10" })).toHaveValue("10");
 });
@@ -256,15 +280,19 @@ test("does not render `First` and `Last` buttons when `showFirstAndLastButtons` 
   );
 
   expect(
-    screen.queryByRole("button", { name: "Go to first page" }),
+    screen.queryByRole("button", { name: "Go to first page (page 1 of 10)" }),
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Go to last page" }),
+    screen.queryByRole("button", { name: "Go to last page (page 10 of 10)" }),
   ).not.toBeInTheDocument();
   expect(
-    screen.getByRole("button", { name: "Go to previous page" }),
+    screen.getByRole("button", {
+      name: "Go to previous page (page 4 of 10)",
+    }),
   ).toBeVisible();
-  expect(screen.getByRole("button", { name: "Go to next page" })).toBeVisible();
+  expect(
+    screen.getByRole("button", { name: "Go to next page (page 6 of 10)" }),
+  ).toBeVisible();
 });
 
 test("calls `onPagination` with `first` origin when the `First` button is clicked", async () => {
@@ -279,7 +307,9 @@ test("calls `onPagination` with `first` origin when the `First` button is clicke
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to first page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to first page (page 1 of 10)" }),
+  );
 
   expect(onPagination).toHaveBeenCalledWith(1, 10, "first");
 });
@@ -296,7 +326,11 @@ test("calls `onPagination` with `previous` origin when the `Previous` button is 
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to previous page" }));
+  await user.click(
+    screen.getByRole("button", {
+      name: "Go to previous page (page 1 of 10)",
+    }),
+  );
 
   expect(onPagination).toHaveBeenCalledWith(1, 10, "previous");
 });
@@ -313,7 +347,9 @@ test("calls `onPagination` with `next` origin when the `Next` button is clicked"
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to next page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to next page (page 6 of 10)" }),
+  );
 
   expect(onPagination).toHaveBeenCalledWith(6, 10, "next");
 });
@@ -330,7 +366,9 @@ test("calls `onPagination` with `last` origin when the `Last` button is clicked"
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Go to last page" }));
+  await user.click(
+    screen.getByRole("button", { name: "Go to last page (page 10 of 10)" }),
+  );
 
   expect(onPagination).toHaveBeenCalledWith(10, 10, "last");
 });
@@ -505,6 +543,144 @@ test("renders with expected styles when `variant` is 'alternate'", () => {
   render(<Pager onPagination={() => {}} variant="alternate" />);
 
   expect(screen.getByRole("navigation")).toHaveStyleRule("border", "none");
+});
+
+test("renders total items when `showNumberOfItems` is true", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      totalRecords={100}
+      showNumberOfItems
+      showPageSizeSelection
+    />,
+  );
+
+  expect(screen.getByText("100 total items")).toBeVisible();
+  expect(
+    screen.getByRole("combobox", { name: "Items per page" }),
+  ).toBeInTheDocument();
+});
+
+test("uses single layout when no page info elements are shown", () => {
+  render(<Pager onPagination={() => {}} layout="three-row" />);
+
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "justify-content",
+    "center",
+  );
+  expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+  expect(screen.queryByText("0 total items")).not.toBeInTheDocument();
+});
+
+test("falls back from three-row to two-row when only one page info element is shown", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      layout="three-row"
+      showNumberOfItems
+      totalRecords={100}
+      currentPage={2}
+      pageSize={10}
+    />,
+  );
+
+  expect(screen.getByRole("textbox", { name: "Page 2" })).toBeInTheDocument();
+  expect(screen.getByText("100 total items")).toBeVisible();
+});
+
+test("renders plain text page number and no divider in three-row layout", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      layout="three-row"
+      showNumberOfItems
+      showPageSizeSelection
+      totalRecords={100}
+      currentPage={2}
+      pageSize={10}
+    />,
+  );
+
+  expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+  expect(screen.getByText("Page 2 of 10 pages")).toBeVisible();
+  expect(screen.getByText("100 total items")).toBeVisible();
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "flex-direction",
+    "column",
+  );
+});
+
+test("centres page controls when the right data section is hidden", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      alignment="fill"
+      totalRecords={100}
+      currentPage={2}
+      pageSize={10}
+    />,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "justify-content",
+    "center",
+  );
+});
+
+test("centres content when page info is shown but navigation controls are inactive", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      alignment="fill"
+      showNumberOfItems
+      showPageSizeSelection
+      totalRecords={10}
+      pageSize={10}
+      currentPage={1}
+    />,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "justify-content",
+    "center",
+  );
+});
+
+test("uses fill alignment only in a single-row layout with page info", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      alignment="fill"
+      showNumberOfItems
+      totalRecords={100}
+      currentPage={2}
+      pageSize={10}
+    />,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "justify-content",
+    "space-between",
+  );
+});
+
+test("uses centred alignment for two-row layout even when fill is requested", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      alignment="fill"
+      layout="two-row"
+      showNumberOfItems
+      totalRecords={100}
+      currentPage={2}
+      pageSize={10}
+    />,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "justify-content",
+    "center",
+  );
 });
 
 test("does not inherit the field spacing applied by a parent Form", () => {

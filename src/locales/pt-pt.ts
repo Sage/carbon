@@ -149,7 +149,8 @@ const ptPT: Partial<Locale> = {
     previousAriaLabel: () => "Aceder à página anterior",
     pageX: (currentPage?: number | string) => `Página ${currentPage}`,
     ofTotalPages: (totalPages: number | string) => `de ${totalPages} páginas`,
-    itemsPerPage: () => "Resultados por página",
+    itemsPerPage: () => "registos por página",
+    totalItems: () => "registos no total",
     ariaLabel: () => "Paginação",
   },
   password: {
