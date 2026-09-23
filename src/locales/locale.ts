@@ -137,17 +137,24 @@ interface Locale {
     /** @deprecated This translation key is no longer in use. */
     previous?: () => string;
     /** @deprecated This translation key is no longer in use. */
-    ofY?: (count: string | number) => string;
-
-    ariaLabel?: () => string;
-    // TODO - make the following keys required once deprecated keys are removed.
-    pageX: (currentPage?: number | string) => string;
     ofTotalPages?: (totalPages: string | number) => string;
+
+    pageX: (currentPage?: number | string) => string;
+    // TODO - make the following keys required once deprecated keys are removed.
+    ariaLabel?: () => string;
+    ofY?: (totalPages: string | number) => string;
     itemsPerPage?: () => string;
-    firstAriaLabel?: () => string;
-    lastAriaLabel?: () => string;
-    nextAriaLabel?: () => string;
-    previousAriaLabel?: () => string;
+    totalItems?: () => string;
+    firstAriaLabel?: (totalPages?: string | number) => string;
+    lastAriaLabel?: (totalPages?: string | number) => string;
+    nextAriaLabel?: (
+      nextPage?: number | string,
+      totalPages?: string | number,
+    ) => string;
+    previousAriaLabel?: (
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) => string;
   };
   password: {
     buttonLabelHide?: () => string;
