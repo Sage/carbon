@@ -10,6 +10,23 @@ import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import InputIconToggle, { InputIconToggleProps } from ".";
 
+jest.mock("@floating-ui/react-dom", () => {
+  const actual = jest.requireActual("@floating-ui/react-dom");
+
+  return {
+    ...actual,
+    useFloating: jest.fn(actual.useFloating),
+  };
+});
+
+const originalUseFloating = jest.requireActual(
+  "@floating-ui/react-dom",
+).useFloating;
+
+afterEach(() => {
+  jest.mocked(floatingUi.useFloating).mockImplementation(originalUseFloating);
+});
+
 test.each(["error", "warning", "info"])(
   "renders only a validation icon when the validation prop is set to %s as a string and `useValidationIcon` is true",
   (validationProp) => {
@@ -37,6 +54,7 @@ test.each([
   "when the align prop is passed as %s, the floating UI tooltip position should be set as %s",
   (tooltipAlign, tooltipPosition) => {
     const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
+    useFloatingSpy.mockClear();
 
     render(
       <InputIconToggle align={tooltipAlign} useValidationIcon error="error" />,
