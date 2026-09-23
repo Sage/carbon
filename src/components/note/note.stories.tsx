@@ -18,7 +18,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Note> = {
-  title: "Note",
+  title: "Components/Note",
   component: Note,
   argTypes: {
     ...styledSystemProps,

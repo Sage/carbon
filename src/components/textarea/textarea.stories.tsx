@@ -14,7 +14,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Textarea> = {
-  title: "Textarea",
+  title: "Components/Textarea",
   component: Textarea,
   argTypes: {
     ...styledSystemProps,

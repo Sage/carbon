@@ -10,7 +10,7 @@ import {
 import Icon, { ICON_COLOR_TYPES } from ".";
 
 export default {
-  title: "Icon/Test",
+  title: "Foundations/Icon/Test",
   component: Icon,
   parameters: {
     info: { disable: true },

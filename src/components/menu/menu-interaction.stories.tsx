@@ -25,7 +25,7 @@ import CarbonLogo from "../../../logo/carbon-logo.png";
 type Story = StoryObj<typeof Menu>;
 
 export default {
-  title: "Menu/Interactions",
+  title: "Components/Menu/Interactions",
   component: Menu,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

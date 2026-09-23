@@ -9,7 +9,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Breadcrumbs> = {
-  title: "Breadcrumbs/Test",
+  title: "Components/Breadcrumbs/Test",
   component: Breadcrumbs,
   subcomponents: { Crumb },
   argTypes: {

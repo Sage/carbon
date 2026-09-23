@@ -23,7 +23,7 @@ const styledSystemProps = generateStyledSystemProps({
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof AdaptiveSidebar> = {
-  title: "Adaptive Sidebar",
+  title: "Patterns/Adaptive Sidebar",
   component: AdaptiveSidebar,
   argTypes: {
     ...styledSystemProps,

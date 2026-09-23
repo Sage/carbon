@@ -92,7 +92,7 @@ The themes available in Carbon include:
 - **sage** - the latest theme which uses Design Tokens in form of CSS custom properties. _Note this theme requires installation of `@sage/design-tokens` library, otherwise styles fallback to the old 'none' theme for compatibility._
 - **none** - legacy themes that use old theme properties consumed by [ThemeProvider from the styled-components library](https://styled-components.com/docs/advanced#theming).
 
-To supply the theme styles to your components, you can pass them via the [Carbon Provider](../?path=/docs/carbon-provider--docs).
+To supply the theme styles to your components, you can pass them via the [Carbon Provider](../?path=/docs/foundations-carbon-provider--docs).
 
 ### Localisation
 
@@ -102,7 +102,7 @@ We also provide a `i18nProvider` global for handling different locales. For more
 
 Carbon provides built-in validation states for input components. For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
-To opt into the new validation pattern, set the `validationRedesignOptIn` flag to true in the [CarbonProvider](../?path=/docs/carbon-provider--docs).
+To opt into the new validation pattern, set the `validationRedesignOptIn` flag to true in the [CarbonProvider](../?path=/docs/foundations-carbon-provider--docs).
 
 ### PropTypes Support Removed
 

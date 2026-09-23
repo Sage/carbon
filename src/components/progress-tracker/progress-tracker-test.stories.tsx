@@ -10,7 +10,7 @@ import {
 
 export default {
   component: ProgressTracker,
-  title: "Progress Tracker/Test",
+  title: "Components/Progress Tracker/Test",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

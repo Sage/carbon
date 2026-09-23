@@ -10,7 +10,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof NumeralDate> = {
-  title: "Numeral Date/Test",
+  title: "Components/Numeral Date/Test",
   component: NumeralDate,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

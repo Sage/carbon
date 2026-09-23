@@ -87,7 +87,7 @@ const defaultSearchArgs: Partial<SearchProps> = {
 };
 
 export default {
-  title: "Search/Test",
+  title: "Components/Search/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

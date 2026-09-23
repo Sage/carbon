@@ -9,7 +9,7 @@ import Typography from "../typography";
 import Box from "../box";
 
 export default {
-  title: "Definition-list/Test",
+  title: "Components/Definition-list/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

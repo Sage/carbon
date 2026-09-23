@@ -9,7 +9,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof StepSequence> = {
-  title: "Step Sequence/Test",
+  title: "Components/Step Sequence/Test",
   component: StepSequence,
   subcomponents: { StepSequenceItem },
   parameters: {

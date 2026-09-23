@@ -12,7 +12,7 @@ import Button from "../button";
 
 const meta: Meta<typeof Time> = {
   component: Time,
-  title: "Time/Test",
+  title: "Components/Time/Test",
   parameters: {
     chromatic: { disableSnapshot: true },
     themeProvider: { chromatic: { theme: "sage" } },

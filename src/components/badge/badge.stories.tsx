@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Badge> = {
-  title: "Badge",
+  title: "Components/Badge",
   component: Badge,
   argTypes: {
     ...styledSystemProps,

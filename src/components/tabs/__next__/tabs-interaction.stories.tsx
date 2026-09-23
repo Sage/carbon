@@ -9,7 +9,7 @@ import Typography from "../../typography";
 import { allowInteractions } from "../../../../.storybook/interaction-toggle/reduced-motion";
 
 const meta: Meta<typeof Tabs> = {
-  title: "Tabs/Interactions",
+  title: "Components/Tabs/Interactions",
   component: Tabs,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

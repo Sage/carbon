@@ -6,7 +6,7 @@ import { PORTRAIT_SHAPES, PORTRAIT_SIZES } from "./portrait.config";
 import Portrait, { PortraitProps } from "./portrait.component";
 
 export default {
-  title: "Portrait/Test",
+  title: "Components/Portrait/Test",
   includeStories: [
     "Default",
     "CustomColors",

@@ -25,7 +25,7 @@ const styledSystemProps = generateStyledSystemProps({
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof Sidebar> = {
-  title: "Sidebar",
+  title: "Components/Sidebar",
   component: Sidebar,
   argTypes: {
     ...styledSystemProps,

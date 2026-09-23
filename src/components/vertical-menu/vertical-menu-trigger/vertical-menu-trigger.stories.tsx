@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof VerticalMenuTrigger> = {
-  title: "Vertical Menu Trigger",
+  title: "Patterns/Vertical Menu Trigger",
   component: VerticalMenuTrigger,
   tags: ["!dev"],
   argTypes: {

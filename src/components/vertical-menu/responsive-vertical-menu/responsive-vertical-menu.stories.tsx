@@ -18,7 +18,7 @@ import GlobalHeader from "../../global-header";
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof ResponsiveVerticalMenu> = {
-  title: "Vertical Menu/Responsive",
+  title: "Patterns/Vertical Menu/Responsive",
   component: ResponsiveVerticalMenu,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

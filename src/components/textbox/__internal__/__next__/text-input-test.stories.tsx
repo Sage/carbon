@@ -11,7 +11,7 @@ import useMultiInput from "../../../../hooks/use-multi-input";
 import Icon from "../../../icon";
 
 export default {
-  title: "TextInput/Test",
+  title: "Components/TextInput/Test",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     info: { disable: true },

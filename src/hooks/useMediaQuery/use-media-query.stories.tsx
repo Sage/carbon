@@ -6,6 +6,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
  */
 
 const meta: Meta = {
+  title: "Documentation/Hooks/useMediaQuery",
   tags: ["!dev"],
   argTypes: {
     query: {

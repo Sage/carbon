@@ -791,7 +791,7 @@ To use the Text Editor, import the `TextEditor` component. Use `createFromHTML` 
 
 ## Interactive Demo
 
-Use the [Demo](../?path=/story/text-editor--demo) story with controls to explore basic props, callbacks, and validation states.
+Use the [Demo](../?path=/story/components-text-editor--demo) story with controls to explore basic props, callbacks, and validation states.
 
 ## Advanced Usage
 

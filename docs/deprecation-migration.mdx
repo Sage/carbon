@@ -11,19 +11,19 @@ Several Carbon components have been recently deprecated. This guide provides mig
 
 The following section provides migration guidance for deprecated components that can't be either fully replicated or almost fully replicated using a composition of Carbon components:
 
-- For `ButtonBar`, a combination of [`Button`](?path=/docs/button--docs) components wrapped in a layout component such as [`Box`](?path=/docs/box--docs).
-- For `ButtonMinor` or `MinorButton` use any relevant [`Button`](?path=/docs/button--docs) with the desired `buttonType`.
-- For `DuellingPicklist`, a combination of [`Select`](?path=/docs/select--docs), [`Checkbox`](?path=/docs/checkbox--docs) and [`Profile`](?path=/docs/profile--docs) components, as well as layout components such as [`Box`](?path=/docs/box--docs) can be used to achieve an alternative pattern. See the [Design System pattern here](https://zeroheight.com/35ee2cc26/v/latest/p/7505ab-profile-selector) for more information.
-- For `Grid`, [`Box`](?path=/docs/box--docs) is recommended as the preferred alternative, `Box` has all of the necessary grid layout capabilities through its style properties.
-- For `IconButton`, eventually [`Button`](?path=/docs/button--docs) with an [`Icon`](?path=/docs/icon--docs) passed as a child will be the preferred alternative.
+- For `ButtonBar`, a combination of [`Button`](?path=/docs/components-button--docs) components wrapped in a layout component such as [`Box`](?path=/docs/foundations-box--docs).
+- For `ButtonMinor` or `MinorButton` use any relevant [`Button`](?path=/docs/components-button--docs) with the desired `buttonType`.
+- For `DuellingPicklist`, a combination of [`Select`](?path=/docs/components-select--docs), [`Checkbox`](?path=/docs/components-checkbox--docs) and [`Profile`](?path=/docs/components-profile--docs) components, as well as layout components such as [`Box`](?path=/docs/foundations-box--docs) can be used to achieve an alternative pattern. See the [Design System pattern here](https://zeroheight.com/35ee2cc26/v/latest/p/7505ab-profile-selector) for more information.
+- For `Grid`, [`Box`](?path=/docs/foundations-box--docs) is recommended as the preferred alternative, `Box` has all of the necessary grid layout capabilities through its style properties.
+- For `IconButton`, eventually [`Button`](?path=/docs/components-button--docs) with an [`Icon`](?path=/docs/foundations-icon--docs) passed as a child will be the preferred alternative.
 - For `InlineInput`, using inputs which are placed next to each other horizontally is recommended as the preferred alternative - **however** ensure labels are clearly associated with the relevant input for accessibility.
-- For `Pages`, [`StepFlow`](?path=/docs/step-flow--docs) is recommended as the preferred alternative.
-- For `Pod`, [`Tile`](?path=/docs/tile--docs) is recommended as the preferred alternative. Any additional button's for save/edit functionality can be added via [`Button`](?path=/docs/button--docs) with an [`Icon`](?path=/docs/icon--docs) passed as a child.
-- For `Toast`, [`Message`](?path=/docs/message--docs) is recommended as the preferred alternative.
+- For `Pages`, [`StepFlow`](?path=/docs/patterns-step-flow--docs) is recommended as the preferred alternative.
+- For `Pod`, [`Tile`](?path=/docs/components-tile--docs) is recommended as the preferred alternative. Any additional button's for save/edit functionality can be added via [`Button`](?path=/docs/components-button--docs) with an [`Icon`](?path=/docs/foundations-icon--docs) passed as a child.
+- For `Toast`, [`Message`](?path=/docs/components-message--docs) is recommended as the preferred alternative.
 - For `Tooltip`, using visible input hints are recommended as the preferred alternative. Relying on a tooltip can lead to discoverability issues, it's better to provide context directly which is instantly available.
-- For `Hr`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
-- For `VerticalDivider`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
-- For `LoaderBar`, `LoaderStar` and `LoaderSpinner`: the new [`Loader`](?path=/docs/loader--docs) is recommended as the preferred alternative.
+- For `Hr`, [`Divider`](?path=/docs/components-divider--docs) is recommended as the preferred alternative.
+- For `VerticalDivider`, [`Divider`](?path=/docs/components-divider--docs) is recommended as the preferred alternative.
+- For `LoaderBar`, `LoaderStar` and `LoaderSpinner`: the new [`Loader`](?path=/docs/components-loader--docs) is recommended as the preferred alternative.
 
 ## Alternative Patterns
 

@@ -5,7 +5,7 @@ import isChromatic from "../../../.storybook/isChromatic";
 const renderedInChromatic = isChromatic();
 
 const meta: Meta<typeof Preview> = {
-  title: "Tokens Wrapper",
+  title: "Foundations/Tokens Wrapper",
   component: Preview,
   parameters: {
     layout: "fullscreen",

@@ -6,7 +6,7 @@ import DateRange, {
 } from "./date-range.component";
 
 export default {
-  title: "Date Range/Test",
+  title: "Components/Date Range/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

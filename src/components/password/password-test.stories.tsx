@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Password, { PasswordProps } from ".";
 
 export default {
-  title: "Password/Test",
+  title: "Components/Password/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

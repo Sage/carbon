@@ -12,7 +12,7 @@ import * as GlobalHeaderStories from "./global-header.stories";
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
-  Product Design System component
+  Fusion Design System Guidance
 </a>
 
 `GlobalHeader` is a wrapper component designed for creating site-wide navigation layouts.
@@ -33,7 +33,7 @@ import GlobalHeader from "carbon-react/lib/components/global-header";
 
 ### Default
 
-`GlobalHeader` shares similarities with the [NavigationBar component](../?path=/docs/navigation-bar--docs), but is permanently fixed to the top of the viewport and has a greater z-index than `NavigationBar`.
+`GlobalHeader` shares similarities with the [NavigationBar component](../?path=/docs/components-navigation-bar--docs), but is permanently fixed to the top of the viewport and has a greater z-index than `NavigationBar`.
 
 <Canvas of={GlobalHeaderStories.Default} />
 
@@ -45,7 +45,7 @@ A custom logo in the form of an HTML element or a React component can be rendere
 
 ### Basic menu
 
-In conjunction with the [Menu component](../?path=/docs/menu--docs), `GlobalHeader` can be used to create global navigation layouts.
+In conjunction with the [Menu component](../?path=/docs/components-menu--docs), `GlobalHeader` can be used to create global navigation layouts.
 
 <Canvas of={GlobalHeaderStories.BasicMenu} />
 
@@ -57,7 +57,7 @@ This story is best viewed in the `canvas` view and by adjusting the size of the 
 
 ### Global and local navigation bar layout
 
-The component can be used alongside the [NavigationBar component](../?path=/docs/navigation-bar--docs) to create a two navigation bar layout, with the former being for site-wide navigation and the latter being for local navigation. Since `GlobalHeader` is fixed to top of the viewport, the `NavigationBar` must also have its `position` fixed, with a top `orientation` and `offset` of 40px.
+The component can be used alongside the [NavigationBar component](../?path=/docs/components-navigation-bar--docs) to create a two navigation bar layout, with the former being for site-wide navigation and the latter being for local navigation. Since `GlobalHeader` is fixed to top of the viewport, the `NavigationBar` must also have its `position` fixed, with a top `orientation` and `offset` of 40px.
 
 <Canvas of={GlobalHeaderStories.GlobalLocalNavBarLayout} />
 

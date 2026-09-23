@@ -20,7 +20,7 @@ import IconButton from "../icon-button";
 type Story = StoryObj<typeof PopoverContainer>;
 
 export default {
-  title: "Popover Container/Interactions",
+  title: "Components/Popover Container/Interactions",
   parameters: {
     info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },

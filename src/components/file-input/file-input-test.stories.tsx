@@ -3,7 +3,7 @@ import FileInput, { FileInputProps } from ".";
 
 export default {
   component: FileInput,
-  title: "File Input/Test",
+  title: "Components/File Input/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

@@ -24,7 +24,7 @@ import Note from "../note";
 import Button from "../button/__next__";
 
 const meta: Meta<typeof TextEditor> = {
-  title: "Text Editor/Test",
+  title: "Components/Text Editor/Test",
   component: TextEditor,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

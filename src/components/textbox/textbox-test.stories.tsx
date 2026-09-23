@@ -12,7 +12,7 @@ import {
 import useMultiInput from "../../hooks/use-multi-input";
 
 export default {
-  title: "Textbox/Test",
+  title: "Components/Textbox/Test",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     info: { disable: true },

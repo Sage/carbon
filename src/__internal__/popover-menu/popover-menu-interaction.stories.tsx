@@ -17,7 +17,7 @@ import ButtonNext from "../../components/button/__next__";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 
 export default {
-  title: "Popover Menu/Interactions",
+  title: "Components/Popover Menu/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

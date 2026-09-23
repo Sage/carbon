@@ -7,7 +7,7 @@ import { Tab } from "./tab.component";
  */
 
 const meta: Meta<typeof Tab> = {
-  title: "LegacyTab",
+  title: "Components/LegacyTab",
   component: Tab,
   tags: ["!dev"],
   parameters: {

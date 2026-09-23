@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof RadioButtonGroup> = {
-  title: "Radio Button/Test",
+  title: "Components/Radio Button/Test",
   component: RadioButtonGroup,
   subcomponents: { RadioButton },
   argTypes: {

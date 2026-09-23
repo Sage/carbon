@@ -10,7 +10,7 @@ import Textbox from "../textbox";
 import Box from "../box";
 
 export default {
-  title: "Draggable/Test",
+  title: "Components/Draggable/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

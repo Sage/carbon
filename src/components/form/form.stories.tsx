@@ -26,7 +26,7 @@ const styledSystemProps = generateStyledSystemProps({
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof Form> = {
-  title: "Form",
+  title: "Patterns/Form",
   component: Form,
   subcomponents: { RequiredFieldsIndicator },
   args: {

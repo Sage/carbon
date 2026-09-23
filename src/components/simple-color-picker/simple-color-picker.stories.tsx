@@ -10,7 +10,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof SimpleColorPicker> = {
-  title: "Simple Color Picker",
+  title: "Components/Simple Color Picker",
   component: SimpleColorPicker,
   argTypes: {
     ...styledSystemProps,

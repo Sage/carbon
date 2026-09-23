@@ -13,7 +13,7 @@ import { Checkbox } from "../checkbox";
 import { Tabs, Tab, TabList, TabPanel } from "../tabs/__next__";
 
 const meta: Meta<typeof Fieldset> = {
-  title: "Fieldset/Test",
+  title: "Components/Fieldset/Test",
   component: Fieldset,
   argTypes: {
     legendHint: { control: "text" },

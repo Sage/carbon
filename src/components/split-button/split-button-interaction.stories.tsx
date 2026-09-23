@@ -12,7 +12,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof SplitButton>;
 
 export default {
-  title: "Split Button/Interactions",
+  title: "Components/Split Button/Interactions",
   component: SplitButton,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

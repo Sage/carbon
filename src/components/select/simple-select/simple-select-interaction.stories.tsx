@@ -52,7 +52,7 @@ const InteractiveComponent = ({
 };
 
 export default {
-  title: "Select/Interactions",
+  title: "Components/Select/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

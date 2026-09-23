@@ -71,7 +71,7 @@ export interface IconProps
    * - **Documents & Files** — `attach`, `document_*`, `file_*`, and more.
    * - **Charts** — `chart_bar`, `chart_bar_arrow_up`, `chart_line`, `chart_pie`.
    *
-   * The full list of types can be seen [here](https://carbon.sage.com/?path=/docs/icon--list-of-icons#list-of-icons).
+   * The full list of types can be seen [here](https://carbon.sage.com/?path=/docs/foundations-icon--list-of-icons#list-of-icons).
    */
   type: IconType | LegacyIconTypes;
   /** @ignore @private */

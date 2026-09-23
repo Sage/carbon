@@ -11,7 +11,7 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Heading from "../heading";
 
 export default {
-  title: "Card/Test",
+  title: "Components/Card/Test",
   component: Card,
   parameters: {
     docs: {

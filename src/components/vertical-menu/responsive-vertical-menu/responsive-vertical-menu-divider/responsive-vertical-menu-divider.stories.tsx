@@ -9,7 +9,7 @@ const styledSystemProps = generateStyledSystemProps({
 }) as Partial<ArgTypes<MarginProps>>;
 
 const meta: Meta<typeof ResponsiveVerticalMenuDivider> = {
-  title: "ResponsiveVerticalMenuDivider",
+  title: "Patterns/ResponsiveVerticalMenuDivider",
   component: ResponsiveVerticalMenuDivider,
   tags: ["!dev"],
   parameters: {

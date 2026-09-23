@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof DraggableContainer> = {
-  title: "Draggable",
+  title: "Components/Draggable",
   component: DraggableContainer,
   argTypes: {
     ...styledSystemProps,

@@ -11,7 +11,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof Password>;
 
 export default {
-  title: "Password/Interactions",
+  title: "Components/Password/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

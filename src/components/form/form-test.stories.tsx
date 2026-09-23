@@ -32,7 +32,7 @@ import Typography from "../typography";
 import Link from "../link";
 
 export default {
-  title: "Form/Test",
+  title: "Patterns/Form/Test",
   component: Form,
   parameters: {
     info: { disable: true },

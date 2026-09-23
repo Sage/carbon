@@ -12,7 +12,7 @@ import LinkPreview from "../link-preview";
 import Typography from "../typography";
 
 export default {
-  title: "Note/Test",
+  title: "Components/Note/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

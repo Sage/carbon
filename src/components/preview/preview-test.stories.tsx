@@ -5,7 +5,7 @@ import Box from "../box";
 import Button from "../button";
 
 const meta: Meta<typeof Preview> = {
-  title: "Preview/Test",
+  title: "Components/Preview/Test",
   component: Preview,
   parameters: {
     info: { disable: true },

@@ -13,7 +13,7 @@ import {
 } from "../textbox/utils";
 
 export default {
-  title: "Decimal Input/Test",
+  title: "Components/Decimal Input/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

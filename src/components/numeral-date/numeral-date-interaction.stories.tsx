@@ -7,7 +7,7 @@ import NumeralDate, { NumeralDateProps } from ".";
 type Story = StoryObj<typeof NumeralDate>;
 
 export default {
-  title: "Numeral Date/Interactions",
+  title: "Components/Numeral Date/Interactions",
   component: NumeralDate,
   parameters: { chromatic: { disableSnapshot: true } },
 };

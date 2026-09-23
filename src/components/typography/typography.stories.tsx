@@ -48,7 +48,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Typography> = {
-  title: "Typography",
+  title: "Foundations/Typography",
   component: Typography,
   argTypes: {
     ...styledSystemProps,

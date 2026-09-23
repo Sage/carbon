@@ -10,7 +10,7 @@ import { Loader } from "../../loader/__next__/loader.component";
 import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 
 const meta: Meta<typeof Button> = {
-  title: "Button/Test",
+  title: "Components/Button/Test",
   component: Button,
   parameters: { chromatic: { disableSnapshot: true } },
   args: {

@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof NumeralDate> = {
-  title: "Numeral Date",
+  title: "Components/Numeral Date",
   component: NumeralDate,
   parameters: {
     chromatic: { disableSnapshot: true },
