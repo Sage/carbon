@@ -8,19 +8,15 @@ import {
   MenuDivider,
   MenuSegmentTitle,
   ScrollableBlock,
-  MenuFullscreen,
   MenuProps,
 } from ".";
 
 import Box from "../box";
 import Search from "../search";
 import NavigationBar from "../navigation-bar";
-import Image from "../image";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-
-import CarbonLogo from "../../../logo/carbon-logo.png";
 
 type Story = StoryObj<typeof Menu>;
 
@@ -33,22 +29,19 @@ export default {
 };
 
 interface StoryProps {
-  menuType?: MenuProps["menuType"];
+  variant?: MenuProps["variant"];
 }
 
-const MenuWithSearch = ({ menuType }: StoryProps) => {
+const MenuWithSearch = ({ variant }: StoryProps) => {
   const [searchValue, setSearchValue] = React.useState("");
   return (
-    <Menu menuType={menuType}>
-      <MenuItem submenu={`Menu Item ${menuType}`}>
+    <Menu variant={variant}>
+      <MenuItem submenu={`Menu Item ${variant}`}>
         <MenuItem>
           <Search
-            placeholder="Search..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            variant={
-              menuType === "white" || menuType === "light" ? "default" : "dark"
-            }
+            inverse={variant === "black"}
           />
         </MenuItem>
         <MenuDivider />
@@ -56,22 +49,29 @@ const MenuWithSearch = ({ menuType }: StoryProps) => {
         <MenuItem data-role="target" icon="settings" href="#">
           Item Link Two
         </MenuItem>
-        <MenuItem onClick={() => {}}>Item Button Three</MenuItem>
-        <MenuItem data-role="target" icon="settings" onClick={() => {}}>
-          Item Button Four
+        <MenuItem onClick={() => {}} variant="alternate">
+          Item Button Three - Alternate
+        </MenuItem>
+        <MenuItem
+          data-role="target"
+          icon="settings"
+          onClick={() => {}}
+          variant="alternate"
+        >
+          Item Button Four - Alternate
         </MenuItem>
       </MenuItem>
     </Menu>
   );
 };
 
-const MenuWithScrollableBlock = ({ menuType }: StoryProps) => (
-  <Menu menuType={menuType}>
-    <MenuItem submenu={`Menu Item ${menuType}`}>
+const MenuWithScrollableBlock = ({ variant }: StoryProps) => (
+  <Menu variant={variant}>
+    <MenuItem submenu={`Menu Item ${variant}`}>
       <ScrollableBlock height="150px">
         <MenuItem href="#">Item Scrollable One</MenuItem>
         <MenuItem href="#">Item Scrollable Two</MenuItem>
-        <MenuItem data-role="target" href="#">
+        <MenuItem data-role="hover" href="#">
           Item Scrollable Three
         </MenuItem>
         <MenuItem href="#">Item Scrollable Four</MenuItem>
@@ -79,23 +79,62 @@ const MenuWithScrollableBlock = ({ menuType }: StoryProps) => (
         <MenuItem href="#">Item Scrollable Six</MenuItem>
       </ScrollableBlock>
       <MenuDivider size="large" />
-      <ScrollableBlock variant="alternate" height="150px">
-        <MenuItem onClick={() => {}}>Alternative Scrollable One</MenuItem>
-        <MenuItem onClick={() => {}}>Alternative Scrollable Two</MenuItem>
-        <MenuItem onClick={() => {}}>Alternative Scrollable Three</MenuItem>
-        <MenuItem data-role="target" onClick={() => {}}>
-          Alternative Scrollable Four
+      <ScrollableBlock variant="alternate" height="160px">
+        <MenuItem data-role="hover" onClick={() => {}}>
+          Alternate Scrollable One
         </MenuItem>
-        <MenuItem onClick={() => {}}>Alternative Scrollable Five</MenuItem>
-        <MenuItem onClick={() => {}}>Alternative Scrollable Six</MenuItem>
+        <MenuItem onClick={() => {}}>Alternate Scrollable Two</MenuItem>
+        <MenuItem onClick={() => {}}>Alternate Scrollable Three</MenuItem>
+        <MenuItem data-role="focus" onClick={() => {}}>
+          Alternate Scrollable Four
+        </MenuItem>
       </ScrollableBlock>
     </MenuItem>
   </Menu>
 );
 
-const MenuWithSegmentTitle = ({ menuType }: StoryProps) => (
-  <Menu menuType={menuType}>
-    <MenuItem submenu={`Menu Item ${menuType}`}>
+const MenuWithScrollableBlockParent = ({ variant }: StoryProps) => (
+  <Menu variant={variant}>
+    <MenuItem submenu={`Menu Item Parent ${variant}`}>
+      <ScrollableBlock
+        height="150px"
+        parent={
+          <Search value="" onChange={() => {}} inverse={variant === "black"} />
+        }
+      >
+        <MenuItem href="#">Item Scrollable One</MenuItem>
+        <MenuItem href="#">Item Scrollable Two</MenuItem>
+        <MenuItem data-role="hover" href="#">
+          Item Scrollable Three
+        </MenuItem>
+        <MenuItem href="#">Item Scrollable Four</MenuItem>
+        <MenuItem href="#">Item Scrollable Five</MenuItem>
+        <MenuItem href="#">Item Scrollable Six</MenuItem>
+      </ScrollableBlock>
+      <MenuDivider size="large" />
+      <ScrollableBlock
+        variant="alternate"
+        height="160px"
+        parent={
+          <Search value="" onChange={() => {}} inverse={variant === "black"} />
+        }
+      >
+        <MenuItem data-role="hover" onClick={() => {}}>
+          Alternate Scrollable One
+        </MenuItem>
+        <MenuItem onClick={() => {}}>Alternate Scrollable Two</MenuItem>
+        <MenuItem onClick={() => {}}>Alternate Scrollable Three</MenuItem>
+        <MenuItem data-role="focus" onClick={() => {}}>
+          Alternate Scrollable Four
+        </MenuItem>
+      </ScrollableBlock>
+    </MenuItem>
+  </Menu>
+);
+
+const MenuWithSegmentTitle = ({ variant }: StoryProps) => (
+  <Menu variant={variant}>
+    <MenuItem submenu={`Menu Item ${variant}`}>
       <MenuSegmentTitle text="segment title">
         <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
         <MenuItem onClick={() => {}}>Item Submenu Two</MenuItem>
@@ -104,13 +143,9 @@ const MenuWithSegmentTitle = ({ menuType }: StoryProps) => (
         </MenuItem>
       </MenuSegmentTitle>
       <MenuSegmentTitle variant="alternate" text="alternate title">
-        <MenuItem variant="alternate" href="#">
-          Alternate Item One
-        </MenuItem>
-        <MenuItem variant="alternate" href="#">
-          Alternate Item Two
-        </MenuItem>
-        <MenuItem data-role="target" variant="alternate" href="#">
+        <MenuItem href="#">Alternate Item One</MenuItem>
+        <MenuItem href="#">Alternate Item Two</MenuItem>
+        <MenuItem data-role="target" href="#">
           Alternate Item Three
         </MenuItem>
       </MenuSegmentTitle>
@@ -120,22 +155,41 @@ const MenuWithSegmentTitle = ({ menuType }: StoryProps) => (
 
 const MenuWithCustomWidth = () => (
   <>
-    <Menu menuType="white">
+    <Menu>
       <MenuItem
         submenuMaxWidth="300px"
-        submenu="With maxWidth"
+        submenu="With submenuMaxWidth"
         submenuDirection="left"
       >
         <MenuItem data-role="hover">Non Interactive Item</MenuItem>
-        <MenuItem href="#">Item One</MenuItem>
+        <MenuItem href="#" data-role="target">
+          Item One
+        </MenuItem>
         <MenuItem href="#">
           This is a longer text string. I will wrap instead of truncating!
         </MenuItem>
       </MenuItem>
     </Menu>
-    <Menu menuType="black">
-      <MenuItem submenuMinWidth="300px" submenu="With minWidth">
-        <MenuItem href="#">Item One</MenuItem>
+    <Menu>
+      <MenuItem onClick={() => {}} maxWidth="210px">
+        MenuItem with maxWidth - I should not be visible
+      </MenuItem>{" "}
+    </Menu>
+    <Menu>
+      <MenuItem
+        submenu="Submenu with maxWidth - I should not be visible"
+        maxWidth="230px"
+      >
+        <MenuItem href="#" maxWidth="240px">
+          Submenu Item with maxWidth - I should not be visible
+        </MenuItem>
+      </MenuItem>
+    </Menu>
+    <Menu>
+      <MenuItem submenuMinWidth="300px" submenu="With submenuMinWidth">
+        <MenuItem href="#" data-role="target">
+          Item One
+        </MenuItem>
         <MenuItem href="#">Item Two</MenuItem>
         <MenuItem href="#">Item Three</MenuItem>
       </MenuItem>
@@ -145,7 +199,7 @@ const MenuWithCustomWidth = () => (
 
 const MenuInNavigationBar = () => (
   <NavigationBar position="fixed" orientation="bottom" offset="400px">
-    <Menu menuType="dark">
+    <Menu variant="black">
       <MenuItem submenu="Menu Item">
         <MenuItem onClick={() => {}}>Foo 1</MenuItem>
         <MenuItem onClick={() => {}}>Foo 2</MenuItem>
@@ -172,73 +226,11 @@ const MenuInNavigationBar = () => (
   </NavigationBar>
 );
 
-const FullScreenWithSegmentTitle = () => (
-  <Menu menuType="dark">
-    <MenuFullscreen isOpen onClose={() => {}}>
-      <MenuItem data-role="hover">Non Interactive Item</MenuItem>
-      <MenuItem data-role="target" href="#">
-        Item One
-      </MenuItem>
-      <MenuItem href="#">Item Two</MenuItem>
-      <MenuItem href="#">Item Three</MenuItem>
-      <MenuItem submenu="Item Three With Submenu">
-        <MenuItem data-role="target" onClick={() => {}} p={2}>
-          Item Submenu One with padding
-        </MenuItem>
-        <MenuItem onClick={() => {}}>Item Submenu Two</MenuItem>
-        <MenuSegmentTitle text="segment title">
-          <MenuItem data-role="target" onClick={() => {}}>
-            Item Segment One
-          </MenuItem>
-          <MenuItem onClick={() => {}}>Item Segment Two</MenuItem>
-        </MenuSegmentTitle>
-      </MenuItem>
-    </MenuFullscreen>
-  </Menu>
-);
-
-const FullScreenWithScrollableBlock = () => {
-  const [searchValue, setSearchValue] = React.useState("");
-  return (
-    <Menu menuType="white">
-      <MenuFullscreen isOpen onClose={() => {}}>
-        <MenuItem>
-          <Search
-            data-role="search-button"
-            placeholder="Search..."
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            searchButton
-          />
-        </MenuItem>
-        <MenuItem submenu="Item Three With Submenu">
-          <MenuItem data-role="target" href="#">
-            Item Submenu One
-          </MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <ScrollableBlock height="150px">
-            <MenuItem onClick={() => {}}>Item Scrollable One</MenuItem>
-            <MenuItem onClick={() => {}}>Item Scrollable Two</MenuItem>
-            <MenuItem onClick={() => {}}>Item Scrollable Three</MenuItem>
-            <MenuItem data-role="target" onClick={() => {}}>
-              Item Scrollable Four
-            </MenuItem>
-            <MenuItem onClick={() => {}}>Item Scrollable Five</MenuItem>
-            <MenuItem onClick={() => {}}>Item Scrollable Six</MenuItem>
-          </ScrollableBlock>
-        </MenuItem>
-      </MenuFullscreen>
-    </Menu>
-  );
-};
-
 export const WithSearch: Story = {
   render: () => (
     <Box display="flex" flexDirection="row" gap="100px">
-      <MenuWithSearch menuType="white" />
-      <MenuWithSearch menuType="light" />
-      <MenuWithSearch menuType="dark" />
-      <MenuWithSearch menuType="black" />
+      <MenuWithSearch variant="white" />
+      <MenuWithSearch variant="black" />
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -247,32 +239,28 @@ export const WithSearch: Story = {
     }
 
     const canvas = within(canvasElement);
-    const menuItemWhite = canvas.getByRole("button", {
-      name: "Menu Item white",
-    });
-    const menuItemLight = canvas.getByRole("button", {
-      name: "Menu Item light",
-    });
-    const menuItemDark = canvas.getByRole("button", { name: "Menu Item dark" });
     const menuItemBlack = canvas.getByRole("button", {
       name: "Menu Item black",
     });
 
-    menuItemWhite.focus();
+    await userEvent.tab();
     await userEvent.keyboard("{Enter}");
     await userEvent.keyboard("{ArrowDown}");
-    const [searchInput] = canvas.getAllByRole("textbox", { name: "Search" });
-    await expect(searchInput).toHaveFocus();
+
+    const search = canvas.getByRole("searchbox", { name: "Search" });
+    await expect(search).toHaveFocus();
+
     await userEvent.keyboard("{ArrowDown}");
     await userEvent.keyboard("{ArrowUp}");
-    await expect(searchInput).toHaveFocus();
-    await userEvent.keyboard("{Escape}");
+    await expect(search).toHaveFocus();
 
-    await userEvent.hover(menuItemWhite);
-    await userEvent.hover(menuItemLight);
-    await userEvent.hover(menuItemDark);
     await userEvent.hover(menuItemBlack);
-    await userEvent.keyboard("{ArrowDown}");
+  },
+  parameters: {
+    pseudo: {
+      hover: "[data-role='target'] a",
+      focus: "[data-role='target'] button",
+    },
   },
   decorators: [
     (StoryToRender) => (
@@ -281,22 +269,15 @@ export const WithSearch: Story = {
       </DefaultDecorator>
     ),
   ],
-};
-WithSearch.storyName = "With Search";
-WithSearch.parameters = {
-  pseudo: {
-    hover: "[data-role='target'] a",
-    focus: "[data-role='target'] button",
-  },
 };
 
 export const WithScrollable: Story = {
   render: () => (
-    <Box display="flex" flexDirection="row" gap="100px">
-      <MenuWithScrollableBlock menuType="white" />
-      <MenuWithScrollableBlock menuType="light" />
-      <MenuWithScrollableBlock menuType="dark" />
-      <MenuWithScrollableBlock menuType="black" />
+    <Box display="flex" flexDirection="row" gap="75px">
+      <MenuWithScrollableBlock variant="white" />
+      <MenuWithScrollableBlock variant="black" />
+      <MenuWithScrollableBlockParent variant="white" />
+      <MenuWithScrollableBlockParent variant="black" />
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -308,24 +289,27 @@ export const WithScrollable: Story = {
     const menuItemWhite = canvas.getByRole("button", {
       name: "Menu Item white",
     });
-    const menuItemLight = canvas.getByRole("button", {
-      name: "Menu Item light",
-    });
-    const menuItemDark = canvas.getByRole("button", { name: "Menu Item dark" });
     const menuItemBlack = canvas.getByRole("button", {
       name: "Menu Item black",
     });
 
-    await userEvent.hover(menuItemWhite);
-    await userEvent.hover(menuItemLight);
-    await userEvent.hover(menuItemDark);
-    await userEvent.hover(menuItemBlack);
-
-    const lastItemInScrollable = canvas.getAllByRole("button", {
-      name: "Alternative Scrollable Six",
+    const menuItemWhiteParent = canvas.getByRole("button", {
+      name: "Menu Item Parent white",
     });
-    lastItemInScrollable[0].focus();
-    await expect(lastItemInScrollable[0]).toHaveFocus();
+    const menuItemBlackParent = canvas.getByRole("button", {
+      name: "Menu Item Parent black",
+    });
+
+    await userEvent.hover(menuItemWhite);
+    await userEvent.hover(menuItemBlack);
+    await userEvent.hover(menuItemWhiteParent);
+    await userEvent.hover(menuItemBlackParent);
+  },
+  parameters: {
+    pseudo: {
+      hover: "[data-role='hover'] :is(button, a)",
+      focus: "[data-role='focus'] button",
+    },
   },
   decorators: [
     (StoryToRender) => (
@@ -334,22 +318,13 @@ export const WithScrollable: Story = {
       </DefaultDecorator>
     ),
   ],
-};
-WithScrollable.storyName = "With Scrollable";
-WithScrollable.parameters = {
-  pseudo: {
-    hover: "[data-role='target'] button",
-    focus: "[data-role='target'] a",
-  },
 };
 
 export const WithSegmentTitle: Story = {
   render: () => (
     <Box display="flex" flexDirection="row" gap="100px">
-      <MenuWithSegmentTitle menuType="white" />
-      <MenuWithSegmentTitle menuType="light" />
-      <MenuWithSegmentTitle menuType="dark" />
-      <MenuWithSegmentTitle menuType="black" />
+      <MenuWithSegmentTitle variant="white" />
+      <MenuWithSegmentTitle variant="black" />
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -361,17 +336,11 @@ export const WithSegmentTitle: Story = {
     const menuItemWhite = canvas.getByRole("button", {
       name: "Menu Item white",
     });
-    const menuItemLight = canvas.getByRole("button", {
-      name: "Menu Item light",
-    });
-    const menuItemDark = canvas.getByRole("button", { name: "Menu Item dark" });
     const menuItemBlack = canvas.getByRole("button", {
       name: "Menu Item black",
     });
 
     await userEvent.hover(menuItemWhite);
-    await userEvent.hover(menuItemLight);
-    await userEvent.hover(menuItemDark);
     await userEvent.hover(menuItemBlack);
 
     const itemTwo = canvas.getAllByRole("button", {
@@ -380,6 +349,12 @@ export const WithSegmentTitle: Story = {
     itemTwo[0].focus();
     await expect(itemTwo[0]).toHaveFocus();
   },
+  parameters: {
+    pseudo: {
+      hover: "[data-role='target'] :is(button, a)",
+      focus: "[data-role='target'] a",
+    },
+  },
   decorators: [
     (StoryToRender) => (
       <DefaultDecorator>
@@ -388,18 +363,11 @@ export const WithSegmentTitle: Story = {
     ),
   ],
 };
-WithSegmentTitle.storyName = "With Segment Title";
-WithSegmentTitle.parameters = {
-  pseudo: {
-    hover: "[data-role='target'] :is(button, a)",
-    focus: "[data-role='target'] a",
-  },
-};
 
 // Tests non-interactive item in submenu
 export const WithCustomWidth: Story = {
   render: () => (
-    <Box ml="150px" display="flex" flexDirection="row" gap="100px">
+    <Box ml="100px" display="flex" flexDirection="row" gap="50px" width="100%">
       <MenuWithCustomWidth />
     </Box>
   ),
@@ -409,15 +377,24 @@ export const WithCustomWidth: Story = {
     }
 
     const canvas = within(canvasElement);
-    const menuItemMaxWidth = canvas.getByRole("button", {
-      name: "With maxWidth",
+    const submenuMaxWidth = canvas.getByRole("button", {
+      name: "With submenuMaxWidth",
     });
-    const menuItemMinWidth = canvas.getByRole("button", {
-      name: "With minWidth",
+    const menuItemMaxWidth = canvas.getByRole("button", {
+      name: /MenuItem with maxWidth/i,
+    });
+    const submenuItemMaxWidth = canvas.getByRole("button", {
+      name: /Submenu with maxWidth/i,
+    });
+    const submenuMinWidth = canvas.getByRole("button", {
+      name: "With submenuMinWidth",
     });
 
-    await userEvent.click(menuItemMaxWidth);
-    await userEvent.hover(menuItemMinWidth);
+    await userEvent.click(submenuMaxWidth);
+    await userEvent.hover(menuItemMaxWidth);
+    await userEvent.hover(submenuItemMaxWidth);
+    await userEvent.hover(submenuMinWidth);
+
     await expect(
       await within(document.body).findByText("Item Three"),
     ).toBeVisible();
@@ -434,6 +411,12 @@ export const WithCustomWidth: Story = {
     });
     await expect(firstItems[0]).toHaveFocus();
   },
+  parameters: {
+    pseudo: {
+      hover: "[data-role='target'] a",
+      rootSelector: "body",
+    },
+  },
   decorators: [
     (StoryToRender) => (
       <DefaultDecorator>
@@ -442,15 +425,8 @@ export const WithCustomWidth: Story = {
     ),
   ],
 };
-WithCustomWidth.storyName = "With Custom Width";
-WithCustomWidth.parameters = {
-  pseudo: {
-    hover: "[data-role='hover'] a",
-    rootSelector: "body",
-  },
-};
 
-export const InNavigationBarStory: Story = {
+export const InNavigationBar: Story = {
   render: () => <MenuInNavigationBar />,
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) {
@@ -470,84 +446,4 @@ export const InNavigationBarStory: Story = {
       </DefaultDecorator>
     ),
   ],
-};
-InNavigationBarStory.storyName = "In NavigationBar";
-
-// Tests non-interactive item within fullscreen menu
-export const MenuFullScreenWithSegmentTitle: Story = {
-  render: () => <FullScreenWithSegmentTitle />,
-  play: async () => {
-    if (!allowInteractions()) {
-      return;
-    }
-    const closeButton = await within(document.body).findByRole("button", {
-      name: "Close",
-    });
-    await userEvent.tab(); // focus close button
-    await expect(closeButton).toHaveFocus();
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-MenuFullScreenWithSegmentTitle.storyName = "MenuFullScreen With Segment Title";
-MenuFullScreenWithSegmentTitle.parameters = {
-  pseudo: {
-    hover: ["[data-role='target'] button", "[data-role='hover'] a"],
-    focus: "[data-role='target'] a",
-    rootSelector: "body",
-  },
-};
-
-export const MenuFullScreenWithScrollableBlock: Story = {
-  render: () => <FullScreenWithScrollableBlock />,
-  play: async () => {
-    if (!allowInteractions()) {
-      return;
-    }
-
-    const search = await within(document.body).findByRole("textbox");
-    await userEvent.tab();
-    await userEvent.tab(); // focus search input
-    await expect(search).toHaveFocus();
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-MenuFullScreenWithScrollableBlock.storyName =
-  "MenuFullScreen With Scrollable Block";
-MenuFullScreenWithScrollableBlock.parameters = {
-  pseudo: {
-    hover: ["[data-role='target'] a", "[data-role='search-button'] button"],
-    focus: "[data-role='target'] button",
-    rootSelector: "body",
-  },
-};
-
-export const ItemWithImage: Story = {
-  render: () => (
-    <Menu menuType="black">
-      <MenuItem href="#">Item 1</MenuItem>
-      <MenuItem href="#" data-role="target">
-        <Box alignItems="center" display="flex" gap={1} justifyContent="center">
-          <Image size={20} src={CarbonLogo} alt="" decorative />
-          Carbon docs
-        </Box>
-      </MenuItem>
-    </Menu>
-  ),
-  parameters: {
-    pseudo: {
-      focus: "a",
-    },
-  },
 };
