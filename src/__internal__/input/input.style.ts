@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import {
   dateStyleOverrides,
-  searchStyleOverrides,
   searchNewStyleOverrides,
   selectStyleOverrides,
   numeralDateStyles,
@@ -161,10 +160,8 @@ const InputContainer = styled.div<InputContainerProps>`
   `}
 
   ${dateStyleOverrides}
- 
   ${searchNewStyleOverrides}
-  ${searchStyleOverrides}
- 
+
   ${({ $size, $isDisabled, $isReadOnly }) =>
     selectStyleOverrides($size, $isDisabled, $isReadOnly)}
  

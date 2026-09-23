@@ -110,22 +110,6 @@ const styleOverrides = css`
     color: currentColor;
   }
 
-  .legacy-search & {
-    color: var(--colorsUtilityYin065);
-
-    &:hover {
-      color: var(--colorsUtilityYin100);
-    }
-  }
-
-  .legacy-search.dark-background:not(.with-button) & {
-    color: var(--colorsUtilityYang080);
-
-    :hover {
-      color: var(--colorsUtilityYang100);
-    }
-  }
-
   .multi-select &,
   .filterable-select & {
     cursor: pointer;

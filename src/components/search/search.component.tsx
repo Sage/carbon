@@ -3,7 +3,6 @@ import React, {
   useRef,
   useImperativeHandle,
   useMemo,
-  useContext,
   useState,
   useCallback,
 } from "react";
@@ -17,7 +16,6 @@ import { ValidationProps } from "../../__internal__/validations";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Divider from "../divider";
 import TextInput from "../textbox/__internal__/__next__";
-import MenuContext from "../menu/__internal__/menu.context";
 import {
   PopoverMenu,
   MenuItem,
@@ -29,7 +27,6 @@ import {
   type PopoverControlProps,
 } from "../../__internal__/popover-menu";
 import combineRefs from "../../__internal__/utils/helpers/combine-refs";
-import { Search as LegacySearch } from "./__internal__/legacy/search.component";
 import ResultsAnnouncement from "./__internal__/results-announcement.component";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -98,6 +95,7 @@ export interface SearchListGroup {
   heading: string;
   /** Optional icon rendered before the heading text */
   icon?: React.ReactNode;
+  /** The list of items within the group. */
   items: SearchListData[];
 }
 
@@ -220,33 +218,21 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     const inputRef = useRef<HTMLInputElement | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
-    const legacyRef = useRef<SearchHandle>(null);
     const [highlightedItemValue, setHighlightedItemValue] = useState<
       string | undefined
     >();
-
-    // in order to support backwards compatibility with the Search component when used within a Menu,
-    // we render the LegacySearch component instead of the new Search component when the Search component is rendered within a Menu.
-    // This is to avoid any breaking UI changes that may occur from the new Search component being rendered within a Menu
-    // as there are no designs for this in the fusion DS
-    const { inMenu } = useContext(MenuContext);
 
     useImperativeHandle<SearchHandle, SearchHandle>(
       ref,
       () => ({
         focus() {
-          if (inMenu) {
-            legacyRef.current?.focus();
-            return;
-          }
-
           inputRef.current?.focus();
         },
         focusButton() {
           buttonRef.current?.focus();
         },
       }),
-      [inMenu],
+      [],
     );
 
     invariant(typeof value === "string", "This component has no initial value");
@@ -299,14 +285,6 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     };
 
     const mappedInputWidth = inputWidth ?? toFiniteNumber(searchWidth);
-
-    const legacyOnlyProps = {
-      searchButton,
-      searchWidth,
-      tabIndex,
-      tooltipPosition,
-      warning,
-    };
 
     const classNames = useMemo(
       () =>
@@ -547,30 +525,6 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
 
       return locale.search.results?.(resultCount);
     }, [locale, minQueryLength, resultCount, value]);
-
-    if (inMenu) {
-      return (
-        <LegacySearch
-          {...rest}
-          {...legacyOnlyProps}
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          value={value}
-          id={id}
-          error={error}
-          placeholder={placeholder}
-          name={name}
-          label={label}
-          variant={variant}
-          aria-label={ariaLabel}
-          searchButtonAriaLabel={searchButtonAriaLabel}
-          searchButtonDataProps={searchButtonDataProps}
-          triggerOnClear={triggerOnClear}
-          onClick={onClick}
-          ref={legacyRef}
-        />
-      );
-    }
 
     if (open === undefined) {
       return searchInput;
