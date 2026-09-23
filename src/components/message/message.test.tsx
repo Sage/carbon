@@ -202,6 +202,40 @@ test("renders with provided width when `width` is provided", () => {
   });
 });
 
+test.each([
+  ["success-subtle", "var(--message-contextual-success-border-alt)"],
+  ["warning-subtle", "var(--message-contextual-warning-border-alt)"],
+  ["info-subtle", "var(--message-contextual-info-border-alt)"],
+  ["ai-subtle", "var(--message-contextual-ai-border-alt)"],
+] as const)(
+  "renders the %s variant with the subtle border tokens",
+  (variant, borderColor) => {
+    render(
+      <Message data-role="my-message" variant={variant}>
+        Message
+      </Message>,
+    );
+
+    expect(screen.getByTestId("my-message")).toHaveStyleRule(
+      "border",
+      `var(--global-borderwidth-xs) solid ${borderColor}`,
+    );
+  },
+);
+
+test.each(["error-subtle", "callout-subtle"] as const)(
+  "renders the %s variant without a border",
+  (variant) => {
+    render(
+      <Message data-role="my-message" variant={variant}>
+        Message
+      </Message>,
+    );
+
+    expect(screen.getByTestId("my-message")).toHaveStyleRule("border", "none");
+  },
+);
+
 test("renders with `ref` when provided as an object", () => {
   const ref = { current: null };
   render(<Message ref={ref}>Message</Message>);
