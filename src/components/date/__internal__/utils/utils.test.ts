@@ -327,7 +327,7 @@ test.each([
   ["ddMyy", "28222", "dd M yy", "28 2 22"],
 ])(
   "should return the expected [%s, %s] when `findMatchedFormatAndValue` is passed the un-separated %s format and %s value",
-  (format, value, formatResult, valueResult) => {
+  (_format, value, formatResult, valueResult) => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
       formats,
@@ -352,7 +352,7 @@ test.each([
   ["dd/M/yyyy", "28/2/2022", "dd/M/yyyy", "28/2/2022"],
 ])(
   "should match the `/` separated %s format and %s value and return the expected [%s, %s]",
-  (format, value, formatResult, valueResult) => {
+  (_format, value, formatResult, valueResult) => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
       formats,
@@ -373,7 +373,7 @@ test.each([
   ["d,MM,yyyy", "1,01,2022", "d,MM,yyyy", "1,01,2022"],
 ])(
   "should return the expected [%s, %s] when `findMatchedFormatAndValue` passed the `,` separated %s format and %s value",
-  (format, value, formatResult, valueResult) => {
+  (_format, value, formatResult, valueResult) => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
       formats,
@@ -394,7 +394,7 @@ test.each([
   ["d-MM-yyyy", "1-01-2022", "d-MM-yyyy", "1-01-2022"],
 ])(
   "should return the expected [%s, %s] when `findMatchedFormatAndValue` passed the `-` separated %s format and %s value and return the expected [%s, %s]",
-  (format, value, formatResult, valueResult) => {
+  (_format, value, formatResult, valueResult) => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
       formats,
