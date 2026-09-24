@@ -400,7 +400,7 @@ description: Carbon VerticalDivider component props and usage examples.
 () => {
   return (
     <Box minHeight={120}>
-      <Menu menuType="dark">
+      <Menu variant="black">
         <MenuItem href="#">Menu Item One</MenuItem>
         <VerticalDivider height={24} p={1} tint={20} />
         <MenuItem submenu="Menu Item Three">

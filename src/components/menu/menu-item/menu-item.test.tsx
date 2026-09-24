@@ -9,22 +9,18 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { Menu, MenuItem, MenuItemHandle, MenuSegmentTitle } from "..";
+import { Menu, MenuItem, MenuItemHandle, MenuFullscreen } from "..";
 import {
   StrictMenuContextType,
   StrictMenuProvider,
 } from "../__internal__/strict-menu.context";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
-import menuConfigVariants from "../menu.config";
 
 import {
   testStyledSystemFlexBox,
   testStyledSystemPadding,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../../__internal__/utils/logger";
-
-import Icon from "../../icon/icon.component";
-import IconButton from "../../icon-button";
 import Search from "../../search";
 
 test("logs error if not used within Menu", () => {
@@ -53,7 +49,6 @@ describe("When MenuItem has no submenu", () => {
       </Menu>
     ),
     () => screen.getByTestId("menu-item-wrapper"),
-    { modifier: "&&& > a" },
   );
 
   testStyledSystemFlexBox(
@@ -192,144 +187,54 @@ describe("When MenuItem has no submenu", () => {
     );
   });
 
-  it("should add the correct styles when `maxWidth` prop is set", () => {
+  // coverage
+  it("renders with selected indicator when `selected` prop is passed", () => {
     render(
       <Menu>
-        <MenuItem href="#" maxWidth="100px">
+        <MenuItem selected href="#">
           Item One
         </MenuItem>
       </Menu>,
     );
 
-    expect(screen.getByRole("link", { name: "Item One" })).toHaveStyle({
-      maxWidth: "inherit",
-      textOverflow: "ellipsis",
-      overflow: "hidden",
-      whiteSpace: "nowrap",
-      verticalAlign: "bottom",
-    });
-  });
-
-  it("should apply the expected styles when `menuType` is set to 'light'", () => {
-    render(
-      <Menu menuType="light">
-        <MenuItem href="#">Item One</MenuItem>
-      </Menu>,
+    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyleRule(
+      "background-color",
+      "var(--nav-primary-bg-selected)",
+      { modifier: "::before" },
     );
-
-    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-      backgroundColor: menuConfigVariants.light.background,
-    });
   });
 
-  it("should apply the expected styles when `menuType` is set to 'white'", () => {
-    render(
-      <Menu menuType="white">
-        <MenuItem href="#">Item One</MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-      backgroundColor: menuConfigVariants.white.background,
-    });
-  });
-
-  it("should apply the expected styles when `menuType` is set to 'dark'", () => {
-    render(
-      <Menu menuType="dark">
-        <MenuItem href="#">Item One</MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-      backgroundColor: menuConfigVariants.dark.background,
-    });
-  });
-
-  it("should apply the expected styles when `menuType` is set to 'black'", () => {
-    render(
-      <Menu menuType="black">
-        <MenuItem href="#">Item One</MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-      backgroundColor: menuConfigVariants.black.background,
-    });
-  });
-
-  it("should set the expected style overrides when an IconButton is rendered as a child", () => {
+  // coverage
+  it("renders with selected indicator when `selected` prop is passed and is in MenuFullScreen", () => {
     render(
       <Menu>
-        <MenuItem>
-          <IconButton>
-            <Icon type="home" />
-          </IconButton>
-        </MenuItem>
+        <MenuFullscreen isOpen onClose={() => {}}>
+          <MenuItem selected href="#">
+            Item One
+          </MenuItem>
+        </MenuFullscreen>
       </Menu>,
     );
 
-    expect(screen.getByTestId("icon")).toHaveStyle({
-      display: "inline-block",
-      height: "18px",
-      top: "-2px",
-    });
+    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyleRule(
+      "background-color",
+      "var(--nav-primary-bg-selected)",
+      { modifier: "::before" },
+    );
   });
 
-  it("should render the expected styles when a menu item is `selected` and `menuType` is 'light'", () => {
+  it("should call onClick callback when MenuItem is clicked", async () => {
+    const user = userEvent.setup();
+    const onClickSpy = jest.fn();
     render(
-      <Menu menuType="light">
-        <MenuItem selected href="#">
-          Item One
-        </MenuItem>
+      <Menu>
+        <MenuItem onClick={onClickSpy}>Menu Item</MenuItem>
       </Menu>,
     );
 
-    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-      backgroundColor: menuConfigVariants.light.selected,
-    });
-  });
+    await user.click(screen.getByRole("button", { name: "Menu Item" }));
 
-  it("should render the expected styles when a menu item is `selected` and `menuType` is 'white'", () => {
-    render(
-      <Menu menuType="white">
-        <MenuItem selected href="#">
-          Item One
-        </MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-      backgroundColor: menuConfigVariants.white.selected,
-    });
-  });
-
-  it("should render the expected styles when a menu item is `selected` and `menuType` is 'dark'", () => {
-    render(
-      <Menu menuType="dark">
-        <MenuItem selected href="#">
-          Item One
-        </MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-      backgroundColor: menuConfigVariants.dark.selected,
-    });
-  });
-
-  it("should render the expected styles when a menu item is `selected` and `menuType` is 'black'", () => {
-    render(
-      <Menu menuType="black">
-        <MenuItem selected href="#">
-          Item One
-        </MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-      backgroundColor: menuConfigVariants.black.selected,
-    });
+    expect(onClickSpy).toHaveBeenCalledTimes(1);
   });
 
   it("should call `onKeyDown` when the user presses a key and prop is set", () => {
@@ -385,7 +290,7 @@ describe("When MenuItem has no submenu", () => {
   it("should add any passed `aria-current` to the underlying link element", () => {
     render(
       <Menu>
-        <MenuItem icon="settings" href="#" ariaCurrent="page">
+        <MenuItem href="#" ariaCurrent="page">
           Item One
         </MenuItem>
       </Menu>,
@@ -400,7 +305,7 @@ describe("When MenuItem has no submenu", () => {
   it("should add any passed `aria-current` to the underlying button element`", () => {
     render(
       <Menu>
-        <MenuItem icon="settings" onClick={() => {}} ariaCurrent="page">
+        <MenuItem onClick={() => {}} ariaCurrent="page">
           Item One
         </MenuItem>
       </Menu>,
@@ -593,18 +498,16 @@ describe("When MenuItem has no submenu", () => {
     expect(item).toHaveAttribute("data-role", "baz");
   });
 
-  it("should set the set the expected override color when `overrideColor` is passed and `variant` is 'alternate'", async () => {
+  it("should render with `icon`", () => {
     render(
-      <Menu menuType="light">
-        <MenuItem overrideColor variant="alternate" href="#">
-          Item One
+      <Menu>
+        <MenuItem href="#" icon="settings">
+          Foo
         </MenuItem>
       </Menu>,
     );
 
-    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-      backgroundColor: menuConfigVariants.light.alternate,
-    });
+    expect(screen.getByTestId("icon")).toBeVisible();
   });
 });
 
@@ -645,110 +548,6 @@ describe("when MenuItem has a submenu", () => {
     expect(
       screen.getByRole("button", { name: "Custom Submenu Title" }),
     ).toBeVisible();
-  });
-
-  /** START OF TESTS ADDED FOR CODE COVERAGE */
-  it("should apply the expected spacing on the pseudo element when custom padding is passed value of '5px'", () => {
-    render(
-      <Menu>
-        <MenuItem submenu="submenu" px="5px">
-          <MenuItem href="#">foo</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
-      "right",
-      "5px",
-      { modifier: "a::before" },
-    );
-  });
-
-  it("should apply the expected spacing on the pseudo element when no custom padding is passed'", () => {
-    render(
-      <Menu>
-        <MenuItem submenu="submenu">
-          <MenuItem href="#">foo</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
-      "right",
-      "var(--spacing200)",
-      { modifier: "a::before" },
-    );
-  });
-
-  it("should apply the expected spacing on the pseudo element when custom padding is passed value of '0'", () => {
-    render(
-      <Menu>
-        <MenuItem submenu="submenu" px={0}>
-          <MenuItem href="#">foo</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
-      "right",
-      "2px",
-      { modifier: "a::before" },
-    );
-  });
-
-  it("should apply the expected spacing on the pseudo element when custom padding is passed value of '1'", () => {
-    render(
-      <Menu>
-        <MenuItem submenu="submenu" px={1}>
-          <MenuItem href="#">foo</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-
-    expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
-      "right",
-      "var(--spacing100)",
-      { modifier: "a::before" },
-    );
-  });
-
-  it.each([2, 3, 4, 5, 6, 7, 8])(
-    "should apply the expected spacing on the pseudo element when custom padding is passed value of '%s'",
-    (padding) => {
-      render(
-        <Menu>
-          <MenuItem submenu="submenu" px={padding}>
-            <MenuItem href="#">foo</MenuItem>
-          </MenuItem>
-        </Menu>,
-      );
-
-      expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
-        "right",
-        `var(--spacing${padding}00)`,
-        { modifier: "a::before" },
-      );
-    },
-  );
-  /** END OF TESTS ADDED FOR CODE COVERAGE */
-
-  it("should render with it closed when the prop is set", () => {
-    render(
-      <Menu>
-        <MenuItem submenu="Item One">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-    const submenu = screen.getByTestId("submenu-wrapper");
-
-    expect(submenu).toBeInTheDocument();
-    expect(
-      within(submenu).getByRole("button", { name: "Item One" }),
-    ).toBeInTheDocument();
-    expect(
-      within(submenu).queryByRole("link", { name: "Submenu Item One" }),
-    ).not.toBeInTheDocument();
   });
 
   it("opens the submenu when the 'ArrowDown' key is pressed, then moves focus to the next submenu items on subsequent presses", async () => {
@@ -1078,7 +877,7 @@ describe("when MenuItem has a submenu", () => {
     await user.keyboard("{arrowdown}");
     expect(submenuItems[0]).toHaveFocus();
     await user.keyboard("{arrowdown}");
-    expect(screen.getByDisplayValue("foo")).toHaveFocus();
+    expect(screen.getByRole("searchbox")).toHaveFocus();
     await user.keyboard("{arrowdown}");
     expect(submenuItems[1]).toHaveFocus();
   });
@@ -1104,7 +903,7 @@ describe("when MenuItem has a submenu", () => {
 
     expect(submenuItems[1]).toHaveFocus();
     await user.keyboard("{arrowup}");
-    expect(screen.getByDisplayValue("foo")).toHaveFocus();
+    expect(screen.getByRole("searchbox")).toHaveFocus();
     await user.keyboard("{arrowup}");
     expect(submenuItems[0]).toHaveFocus();
   });
@@ -1130,9 +929,10 @@ describe("when MenuItem has a submenu", () => {
     await user.tab();
     expect(submenuItems[0]).toHaveFocus();
     await user.tab();
-    expect(screen.getByDisplayValue("foo")).toHaveFocus();
+    expect(screen.getByRole("searchbox")).toHaveFocus();
     await user.tab();
-    expect(screen.getByTestId("input-icon-toggle")).not.toHaveFocus();
+    expect(screen.getByRole("button", { name: "Search" })).toHaveFocus();
+    await user.tab();
     expect(submenuItems[1]).toHaveFocus();
   });
 
@@ -1571,7 +1371,7 @@ describe("when MenuItem has a submenu", () => {
   it("should call the `handleKeyDown` function when one is passed via `submenuContext`", () => {
     const handleKeyDown = jest.fn();
     const contextValues: StrictMenuContextType = {
-      menuType: "light",
+      variant: "white",
       setOpenSubmenuId: () => {},
       openSubmenuId: null,
       registerItem: () => {},
@@ -1591,41 +1391,172 @@ describe("when MenuItem has a submenu", () => {
     expect(handleKeyDown).toHaveBeenCalled();
   });
 
-  it("should have the expected styling when a child item is `selected`", () => {
+  it("should call onSubmenuOpen callback when submenu is opened on hover", async () => {
+    const user = userEvent.setup();
+    const onSubmenuOpenSpy = jest.fn();
     render(
       <Menu>
-        <MenuItem selected submenu="Item One">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
-          <MenuItem href="#">Submenu Item Three</MenuItem>
+        <MenuItem submenu="Submenu" onSubmenuOpen={onSubmenuOpenSpy}>
+          <MenuItem href="#">Submenu Item</MenuItem>
         </MenuItem>
       </Menu>,
     );
 
-    const submenuWrapper = screen.getByTestId("submenu-parent-item");
+    await user.hover(screen.getByRole("button", { name: "Submenu" }));
 
-    expect(submenuWrapper).toHaveStyleRule(
+    expect(onSubmenuOpenSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call onSubmenuOpen callback when Space key is pressed with clickToOpen", async () => {
+    const user = userEvent.setup();
+    const onSubmenuOpenSpy = jest.fn();
+    render(
+      <Menu>
+        <MenuItem
+          submenu="Submenu"
+          clickToOpen
+          onSubmenuOpen={onSubmenuOpenSpy}
+        >
+          <MenuItem href="#">Submenu Item</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+
+    await user.tab();
+    await user.keyboard(" ");
+
+    expect(onSubmenuOpenSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call onSubmenuOpen callback when Enter key is pressed with clickToOpen", async () => {
+    const user = userEvent.setup();
+    const onSubmenuOpenSpy = jest.fn();
+    render(
+      <Menu>
+        <MenuItem
+          submenu="Submenu"
+          clickToOpen
+          onSubmenuOpen={onSubmenuOpenSpy}
+        >
+          <MenuItem href="#">Submenu Item</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+
+    await user.tab();
+    await user.keyboard("{Enter}");
+
+    expect(onSubmenuOpenSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call onSubmenuOpen callback when ArrowDown key is pressed with clickToOpen", async () => {
+    const user = userEvent.setup();
+    const onSubmenuOpenSpy = jest.fn();
+    render(
+      <Menu>
+        <MenuItem
+          submenu="Submenu"
+          clickToOpen
+          onSubmenuOpen={onSubmenuOpenSpy}
+        >
+          <MenuItem href="#">Submenu Item</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+
+    await user.tab();
+    await user.keyboard("{ArrowDown}");
+
+    expect(onSubmenuOpenSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call onSubmenuClose callback when submenu is closed", async () => {
+    const user = userEvent.setup();
+    const onSubmenuCloseSpy = jest.fn();
+    render(
+      <Menu>
+        <MenuItem submenu="Submenu" onSubmenuClose={onSubmenuCloseSpy}>
+          <MenuItem href="#">Submenu Item</MenuItem>
+        </MenuItem>
+        <MenuItem href="#">Other Item</MenuItem>
+      </Menu>,
+    );
+
+    // Open submenu by hovering
+    await user.hover(screen.getByRole("button", { name: "Submenu" }));
+
+    // Close submenu by moving to another item
+    await user.hover(screen.getByRole("link", { name: "Other Item" }));
+
+    expect(onSubmenuCloseSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("should render with `icon`", () => {
+    render(
+      <Menu>
+        <MenuItem submenu="Submenu" icon="settings">
+          <MenuItem href="#">Item One</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+
+    const icon = screen.getAllByTestId("icon")[0];
+
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("data-element", "settings");
+  });
+
+  it("should set the correct `data-` tags as attributes on the menu item", () => {
+    render(
+      <Menu>
+        <MenuItem submenu="Submenu" data-element="bar" data-role="baz" href="#">
+          <MenuItem href="#">Item One</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+    const item = screen.getByRole("listitem");
+
+    expect(item).toHaveAttribute("data-component", "menu-item");
+    expect(item).toHaveAttribute("data-element", "bar");
+    expect(item).toHaveAttribute("data-role", "baz");
+  });
+
+  // coverage
+  it("renders with 'alternate' `variant`", async () => {
+    const user = userEvent.setup();
+    render(
+      <Menu>
+        <MenuItem submenu="Submenu">
+          <MenuItem variant="alternate" href="#">
+            Item One
+          </MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+
+    await user.hover(screen.getByRole("button", { name: "Submenu" }));
+
+    expect(screen.getByTestId("menu-item-wrapper")).toHaveStyleRule(
       "background-color",
-      menuConfigVariants.light.submenuSelected,
+      "var(--nav-tertiary-bg-child-alt)",
     );
   });
 
-  it("should apply the expected padding when the item also has `maxWidth` set", () => {
+  // coverage
+  it("renders items within submenu in MenuFullscreen with expected width", () => {
     render(
       <Menu>
-        <MenuItem submenu="Item One" maxWidth="100px">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
-          <MenuItem href="#">Submenu Item Three</MenuItem>
-        </MenuItem>
+        <MenuFullscreen isOpen onClose={() => {}}>
+          <MenuItem submenu="Submenu">
+            <MenuItem href="#" data-role="test-item">
+              Item One
+            </MenuItem>
+          </MenuItem>
+        </MenuFullscreen>
       </Menu>,
     );
 
-    const submenuWrapper = screen.getByTestId("submenu-parent-item");
-
-    expect(submenuWrapper).toHaveStyleRule("padding", "11px 16px 12px", {
-      modifier: "> a",
-    });
+    expect(screen.getByTestId("test-item")).toHaveStyle({ width: "100%" });
   });
 });
 
@@ -1645,21 +1576,4 @@ test("should throw when `children` passed and `submenu` is an empty string", () 
   );
 
   consoleSpy.mockRestore();
-});
-
-// coverage
-test("should set the correct colour when a child of `MenuSegmentTitle` and `variant` is 'alternate'", async () => {
-  render(
-    <Menu menuType="black">
-      <MenuSegmentTitle text="Test">
-        <MenuItem variant="alternate" href="#">
-          Item One
-        </MenuItem>
-      </MenuSegmentTitle>
-    </Menu>,
-  );
-
-  expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-    backgroundColor: menuConfigVariants.black.alternate,
-  });
 });

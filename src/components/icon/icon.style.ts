@@ -110,22 +110,6 @@ const styleOverrides = css`
     color: currentColor;
   }
 
-  .legacy-search & {
-    color: var(--colorsUtilityYin065);
-
-    &:hover {
-      color: var(--colorsUtilityYin100);
-    }
-  }
-
-  .legacy-search.dark-background:not(.with-button) & {
-    color: var(--colorsUtilityYang080);
-
-    :hover {
-      color: var(--colorsUtilityYang100);
-    }
-  }
-
   .multi-select &,
   .filterable-select & {
     cursor: pointer;
@@ -143,6 +127,17 @@ const styleOverrides = css`
 
   .editor-dropdown && {
     color: currentColor;
+  }
+
+  [data-element="menu-item-wrapper"] &&,
+  [data-element="submenu-parent-item"] && {
+    color: currentColor;
+    width: var(--global-size-2-xs);
+    height: var(--global-size-2-xs);
+
+    &:hover {
+      color: currentColor;
+    }
   }
 `;
 

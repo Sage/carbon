@@ -1,5 +1,5 @@
 export { default as Menu } from "./menu.component";
-export type { MenuProps } from "./menu.types";
+export type { MenuProps } from "./menu.component";
 export { default as MenuItem } from "./menu-item";
 export type {
   MenuWithIcon,

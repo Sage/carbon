@@ -125,7 +125,7 @@ export const NavigationBarWithSubmenuAndChangingHeight = () => {
   return (
     <div ref={wrapperRef}>
       <NavigationBar position="fixed" orientation="top">
-        <Menu menuType="dark">
+        <Menu variant="black">
           <MenuItem submenu="I'm long" clickToOpen>
             <MenuItem onClick={() => {}}>Foo 1</MenuItem>
             <MenuItem onClick={() => {}}>Foo 2</MenuItem>
@@ -194,7 +194,7 @@ export const WithPills = () => {
       orientation="top"
       offset="40px"
     >
-      <Menu menuType="light">
+      <Menu>
         <MenuItem onClick={() => {}}>
           Menu 1
           <Pill pillRole="status" colorVariant="warning" fill ml={1} size="M">

@@ -9,7 +9,7 @@ export interface SubmenuContextProps {
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   blockIndex?: number;
-  submenuHasMaxWidth?: boolean;
+  submenuMaxWidth?: string;
   closeSubmenu?: () => void;
 }
 
