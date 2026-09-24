@@ -147,6 +147,7 @@ const esES: Partial<Locale> = {
     pageX: (currentPage?: number | string) => `Página ${currentPage}`,
     ofTotalPages: (totalPages: number | string) => `de ${totalPages} páginas`,
     itemsPerPage: () => "Elementos por página",
+    totalItems: () => "elementos en total",
     ariaLabel: () => "Paginación",
   },
   password: {

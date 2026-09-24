@@ -16,8 +16,10 @@ description: Carbon Pager component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | onPagination | (currentPage: number, pageSize: number, origin: string) => void | Yes |  |  |  | Function called when pager changes (Current page, Page size, Origin component). |  |
+| alignment | PagerAlignment \| undefined | No |  |  |  | Alignment of the content. |  |
 | currentPage | string \| number \| undefined | No |  |  |  | Current visible page. |  |
 | interactivePageNumber | boolean \| undefined | No |  |  |  | Flag to set if the current page number renders as an input. |  |
+| layout | PagerLayout \| undefined | No |  |  |  | Maximum number of lines used to render the component. |  |
 | onFirst | ((ev: React.MouseEvent<HTMLButtonElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback function for the First button. |  |
 | onLast | ((ev: React.MouseEvent<HTMLButtonElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback function for the Last button. |  |
 | onNext | ((ev: React.MouseEvent<HTMLButtonElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback function for the Next button. |  |
@@ -25,8 +27,9 @@ description: Carbon Pager component props and usage examples.
 | pageSize | string \| number \| undefined | No |  |  |  | Number of records per page. |  |
 | pageSizeSelectionOptions | PageSizeOption[] \| undefined | No |  |  |  | List of page size options. |  |
 | showFirstAndLastButtons | boolean \| undefined | No |  |  |  | Flag to render "First" and "Last" navigation buttons. |  |
+| showNumberOfItems | boolean \| undefined | No |  |  |  | Flag to render the total number of items. |  |
 | showPageSizeSelection | boolean \| undefined | No |  |  |  | Flag to render the page size selection input. |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the component. |  |
+| size | PagerSize \| undefined | No |  |  |  | Size of the component. |  |
 | totalRecords | string \| number \| undefined | No |  |  |  | Total number of records, used to calculate the total number of pages. |  |
 | variant | "default" \| "alternate" \| undefined | No |  |  |  | The component's variant. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -37,7 +40,7 @@ description: Carbon Pager component props and usage examples.
 | showPageSizeLabelAfter | boolean \| undefined | No |  | Yes | Support for this prop has been removed. Labels for page size selection are always shown. | Should the label after the page size selection dropdown be shown. |  |
 | showPageSizeLabelBefore | boolean \| undefined | No |  | Yes | Support for this prop has been removed. Labels for page size selection are always shown. | Should the label before the page size selection dropdown be shown. |  |
 | showPreviousAndNextButtons | boolean \| undefined | No |  | Yes | Support to show or hide "Previous" and "Next" buttons has been removed. Their visibility is managed internally. | Should the `Previous` and `Next` navigation buttons be shown. |  |
-| showTotalRecords | boolean \| undefined | No |  | Yes | Support to render total records has been removed. | Should the total records label be shown. |  |
+| showTotalRecords | boolean \| undefined | No |  | Yes | Use `showNumberOfItems` instead. | Should the total records label be shown. |  |
 | smallScreenBreakpoint | string \| undefined | No |  | Yes | This component is now responsive by default and support for this prop has been removed. | Breakpoint for small screen styling to be applied. |  |
 
 ## Examples
@@ -154,14 +157,45 @@ description: Carbon Pager component props and usage examples.
 ```
 
 
-### LargeSize
+### LayoutExamples
 
-**Args**
+**Render**
 
 ```tsx
-{
-    ...WithPageSizeSelection.args,
-    size: "large",
-  }
+(args) => (
+    <Box display="flex" gap={3} flexDirection="column">
+      <Pager
+        {...args}
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="single"
+      />
+      <Pager
+        {...args}
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="two-row"
+      />
+      <Pager
+        {...args}
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showNumberOfItems
+        layout="three-row"
+      />
+      <Pager
+        {...args}
+        totalRecords={100}
+        currentPage={2}
+        showNumberOfItems
+        alignment="centred"
+      />
+    </Box>
+  )
 ```
 
