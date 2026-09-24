@@ -27,6 +27,7 @@ const baseProjectConfig: Config = {
     "<rootDir>/src/locales",
     "<rootDir>/lib",
     "<rootDir>/esm",
+    "<rootDir>/playwright",
   ],
   coverageDirectory: "<rootDir>/coverage",
   testPathIgnorePatterns: [
