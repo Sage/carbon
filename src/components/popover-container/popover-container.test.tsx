@@ -729,6 +729,58 @@ describe("closing the popup", () => {
     expect(screen.getByRole("dialog")).toBeVisible();
   });
 
+  it("does not close popup when an option is selected from a nested Select", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <PopoverContainer>
+        <Select
+          name="colour"
+          id="colour"
+          label="Select colour"
+          value="1"
+          onChange={() => {}}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Green" value="2" />
+        </Select>
+      </PopoverContainer>,
+    );
+
+    await user.click(screen.getByRole("button"));
+    const popup = await screen.findByRole("dialog");
+
+    await user.click(screen.getByRole("combobox"));
+    await user.click(await screen.findByRole("option", { name: "Amber" }));
+
+    expect(popup).toBeVisible();
+  });
+
+  it("closes popup when Escape is pressed while a nested Select is focused", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <PopoverContainer>
+        <Select
+          name="colour"
+          id="colour"
+          label="Select colour"
+          value="1"
+          onChange={() => {}}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Green" value="2" />
+        </Select>
+      </PopoverContainer>,
+    );
+
+    await user.click(screen.getByRole("button"));
+    const popup = await screen.findByRole("dialog");
+    const select = screen.getByRole("combobox");
+    select.focus();
+    await user.keyboard("{Escape}");
+
+    await waitFor(() => expect(popup).not.toBeInTheDocument());
+  });
+
   it("triggers closing animation sequence with correct timing when closing popup", async () => {
     const mockedUseMediaQuery = jest.mocked(useMediaQuery);
     mockedUseMediaQuery.mockReturnValue(true);
