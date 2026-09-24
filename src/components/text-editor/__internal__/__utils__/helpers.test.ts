@@ -129,6 +129,16 @@ describe("generateHTMLWithInlineStyles", () => {
     expect(result).not.toContain('class="textUnderline"');
   });
 
+  test.each([
+    ["strong", "font-weight: bold;"],
+    ["em", "font-style: italic;"],
+    ["u", "text-decoration: underline;"],
+  ])("adds %s formatting as an inline style", (tag, style) => {
+    const result = generateHTMLWithInlineStyles(`<${tag}>Text</${tag}>`);
+
+    expect(result).toContain(style);
+  });
+
   it("converts multiple format classes on the same element", () => {
     const html =
       '<p class="textBold textItalic textUnderline">Formatted text</p>';
