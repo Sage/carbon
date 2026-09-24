@@ -280,3 +280,233 @@ export const InsideButtons: Story = {
   ),
 };
 InsideButtons.storyName = "Inside Buttons";
+
+// Documentation regression stories moved from the public docs.
+
+export const DocumentationDefault: Story = {
+  render: (args: LoaderProps) => (
+    <Box>
+      <Loader {...args} />
+    </Box>
+  ),
+};
+DocumentationDefault.storyName = "DocumentationDefault";
+
+export const Standalone: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="standalone" />
+    </Box>
+  ),
+};
+Standalone.storyName = "Standalone";
+
+export const Ring: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" />
+    </Box>
+  ),
+};
+Ring.storyName = "Ring";
+
+export const Star: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="star" />
+    </Box>
+  ),
+};
+Star.storyName = "Star";
+
+export const StandaloneSizes: Story = {
+  render: () => (
+    <>
+      <Box>
+        <Loader loaderType="standalone" size="small" />
+      </Box>
+      <Box>
+        <Loader loaderType="standalone" size="medium" />
+      </Box>
+      <Box>
+        <Loader loaderType="standalone" size="large" />
+      </Box>
+    </>
+  ),
+};
+StandaloneSizes.storyName = "Standalone Sizes";
+
+export const RingSizes: Story = {
+  render: () => (
+    <>
+      <Box>
+        <Loader loaderType="ring" size="extra-small" />
+      </Box>
+      <Box>
+        <Loader loaderType="ring" size="small" />
+      </Box>
+      <Box>
+        <Loader loaderType="ring" size="medium" />
+      </Box>
+      <Box>
+        <Loader loaderType="ring" size="large" />
+      </Box>
+    </>
+  ),
+};
+RingSizes.storyName = "Ring Sizes";
+
+export const StandaloneTypicalVariant: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="standalone" variant="typical" />
+    </Box>
+  ),
+};
+StandaloneTypicalVariant.storyName = "Standalone Typical Variant";
+
+export const StandaloneTypicalVariantInversed: Story = {
+  render: () => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="standalone" variant="typical" inverse />
+    </Box>
+  ),
+};
+StandaloneTypicalVariantInversed.storyName =
+  "Standalone Typical Variant Inversed";
+
+export const StandaloneAiVariant: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="standalone" variant="ai" />
+    </Box>
+  ),
+};
+StandaloneAiVariant.storyName = "Standalone AI Variant";
+
+export const StandaloneAiVariantInversed: Story = {
+  render: () => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="standalone" variant="ai" inverse />
+    </Box>
+  ),
+};
+StandaloneAiVariantInversed.storyName = "Standalone AI Variant Inversed";
+
+export const RingStackedVariant: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" variant="stacked" />
+    </Box>
+  ),
+};
+RingStackedVariant.storyName = "Ring Stacked Variant";
+
+export const RingStackedVariantInversed: Story = {
+  render: () => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="ring" variant="stacked" inverse />
+    </Box>
+  ),
+};
+RingStackedVariantInversed.storyName = "Ring Stacked Variant Inversed";
+
+export const RingInlineVariant: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" variant="inline" />
+    </Box>
+  ),
+};
+RingInlineVariant.storyName = "Ring Inline Variant";
+
+export const RingInlineVariantInversed: Story = {
+  render: () => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="ring" variant="inline" inverse />
+    </Box>
+  ),
+};
+RingInlineVariantInversed.storyName = "Ring Inline Variant Inversed";
+
+export const RingAiStackedVariant: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" variant="ai-stacked" />
+    </Box>
+  ),
+};
+RingAiStackedVariant.storyName = "Ring AI Stacked Variant";
+
+export const RingAiInlineVariant: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" variant="ai-inline" />
+    </Box>
+  ),
+};
+RingAiInlineVariant.storyName = "Ring AI Inline Variant";
+
+export const RingAiInlineVariantInversed: Story = {
+  render: () => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="ring" variant="ai-inline" inverse />
+    </Box>
+  ),
+};
+RingAiInlineVariantInversed.storyName = "Ring AI Inline Variant Inversed";
+
+export const RingIsTracked: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" isTracked />
+    </Box>
+  ),
+};
+RingIsTracked.storyName = "Is Tracked";
+
+export const ErrorState: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" isTracked isError />
+    </Box>
+  ),
+};
+ErrorState.storyName = "Tracked Error State";
+
+export const SuccessState: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" isTracked isSuccess />
+    </Box>
+  ),
+};
+SuccessState.storyName = "Tracked Success State";
+
+export const AnimationTime: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" animationTime={3} mb={4} />
+      <Loader loaderType="ring" animationTime={3} isTracked mb={4} />
+      <Loader animationTime={3} />
+    </Box>
+  ),
+};
+AnimationTime.storyName = "Animation Time";
+
+export const DisabledMotion: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" animationTime={3} mb={4} hasMotion={false} />
+      <Loader
+        loaderType="ring"
+        animationTime={3}
+        isTracked
+        mb={4}
+        hasMotion={false}
+      />
+      <Loader animationTime={3} hasMotion={false} />
+    </Box>
+  ),
+};
+DisabledMotion.storyName = "Disabled Motion";
