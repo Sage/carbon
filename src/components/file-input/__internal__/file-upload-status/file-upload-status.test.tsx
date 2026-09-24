@@ -1,311 +1,277 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
 import FileUploadStatus from ".";
+import type { FileUploadStatusProps } from ".";
 
-test("when `status` is uploading, the component renders the provided status message", () => {
-  render(
-    <FileUploadStatus
-      status="uploading"
-      filename="foo.pdf"
-      onAction={() => {}}
-      progress={30}
-      message="my status message"
-    />,
-  );
+test("requires a status-specific primary callback or deprecated fallback", () => {
+  const acceptsStatus: (status: FileUploadStatusProps) => void = () => {};
 
-  expect(screen.getByText("my status message")).toBeVisible();
+  acceptsStatus({ status: "uploading", filename: "a.pdf", onCancel: () => {} });
+  acceptsStatus({ status: "completed", filename: "a.pdf", onAction: () => {} });
+  acceptsStatus({ status: "error", filename: "a.pdf", onRemove: () => {} });
+
+  // PrimaryAction<Action> requires either the status-specific callback or
+  // the deprecated onAction fallback, never neither - each line below is a
+  // compile-time check of that constraint, not a runtime assertion.
+  // @ts-expect-error uploading statuses require onCancel or onAction
+  acceptsStatus({ status: "uploading", filename: "a.pdf" });
+  // @ts-expect-error completed statuses require onDelete or onAction
+  acceptsStatus({ status: "completed", filename: "a.pdf" });
+  // @ts-expect-error error statuses require onRemove or onAction
+  acceptsStatus({ status: "error", filename: "a.pdf" });
 });
 
-test("when `status` is uploading, the component renders the default status message if none is provided", () => {
+test("uploading shows status, a numeric progress ring, and status-specific Cancel when a thumbnail is supported", async () => {
+  const onCancel = jest.fn();
+  const fallback = jest.fn();
   render(
     <FileUploadStatus
       status="uploading"
-      filename="foo.pdf"
-      onAction={() => {}}
+      filename="a.pdf"
       progress={30}
+      thumbnailSrc="preview.png"
+      onCancel={onCancel}
+      onAction={fallback}
     />,
   );
-
-  expect(screen.getByText("File upload status")).toBeVisible();
+  expect(screen.getByText("Uploading…")).toBeVisible();
+  expect(screen.getByRole("progressbar")).toHaveAttribute(
+    "aria-valuenow",
+    "30",
+  );
+  await userEvent.click(screen.getByRole("button", { name: "Cancel a.pdf" }));
+  expect(onCancel).toHaveBeenCalledTimes(1);
+  expect(fallback).not.toHaveBeenCalled();
 });
 
-test("when `status` is uploading, the component renders a button with the cancel text, which performs the onAction function prop on click", async () => {
-  const onAction = jest.fn();
-  const user = userEvent.setup();
-  render(
+test("without a thumbnailSrc, every status collapses to a single column with a compact status icon before the filename", () => {
+  const { rerender } = render(
     <FileUploadStatus
       status="uploading"
-      filename="foo.pdf"
-      onAction={onAction}
+      filename="a.pdf"
       progress={30}
+      onCancel={() => {}}
     />,
   );
+  expect(screen.getByText("Uploading…")).toBeVisible();
+  expect(screen.getByRole("progressbar")).toHaveAttribute(
+    "aria-valuenow",
+    "30",
+  );
 
-  const actionButton = screen.getByRole("button", {
-    name: "Cancel upload",
-  });
-  await user.click(actionButton);
+  rerender(
+    <FileUploadStatus
+      status="completed"
+      filename="a.pdf"
+      onDelete={() => {}}
+    />,
+  );
+  expect(screen.getByTestId("icon")).toHaveAttribute(
+    "data-element",
+    "file_generic",
+  );
+  expect(screen.getByTestId("icon")).toHaveAttribute("data-color", "neutral");
 
-  expect(onAction).toHaveBeenCalledTimes(1);
+  rerender(
+    <FileUploadStatus
+      status="error"
+      filename="a.pdf"
+      message="oops"
+      onRemove={() => {}}
+    />,
+  );
+  expect(screen.getByTestId("icon")).toHaveAttribute("data-element", "error");
+  expect(screen.getByTestId("icon")).toHaveAttribute("data-color", "negative");
+
+  rerender(
+    <FileUploadStatus
+      status="previously"
+      filename="a.pdf"
+      message="Uploaded by Jo yesterday"
+    />,
+  );
+  expect(screen.getByTestId("icon")).toHaveAttribute(
+    "data-element",
+    "file_generic",
+  );
 });
 
-test("when `status` is uploading, the component renders the file name, but not as a link", () => {
+test("completed keeps filename as text and provides Preview and Delete", async () => {
+  const onDelete = jest.fn();
+  render(
+    <FileUploadStatus
+      status="completed"
+      filename="a.pdf"
+      href="/preview"
+      onDelete={onDelete}
+    />,
+  );
+  expect(screen.getByText("File uploaded")).toBeVisible();
+  expect(screen.queryByRole("link", { name: "a.pdf" })).not.toBeInTheDocument();
+  expect(screen.getByRole("link", { name: "Preview a.pdf" })).toHaveAttribute(
+    "href",
+    "/preview",
+  );
+  await userEvent.click(screen.getByRole("button", { name: "Delete a.pdf" }));
+  expect(onDelete).toHaveBeenCalled();
+});
+
+test("forwards remaining Link props (target, rel, onClick) to the Preview link", async () => {
+  const onLinkClick = jest.fn();
+  render(
+    <FileUploadStatus
+      status="completed"
+      filename="a.pdf"
+      href="/preview"
+      target="_blank"
+      rel="noreferrer"
+      onClick={onLinkClick}
+      onDelete={() => {}}
+    />,
+  );
+  const link = screen.getByRole("link", { name: "Preview a.pdf" });
+  expect(link).toHaveAttribute("target", "_blank");
+  expect(link).toHaveAttribute("rel", "noreferrer");
+  await userEvent.click(link);
+  expect(onLinkClick).toHaveBeenCalledTimes(1);
+});
+
+test("shows a live progress ring and no thumbnail while uploading", () => {
   render(
     <FileUploadStatus
       status="uploading"
-      filename="foo.pdf"
-      onAction={() => {}}
-      progress={30}
+      filename="a.pdf"
+      progress={10}
+      thumbnailSrc="preview.png"
+      onCancel={() => {}}
     />,
   );
-
-  expect(screen.getByText("foo.pdf")).toBeVisible();
   expect(
-    screen.queryByRole("link", { name: "foo.pdf" }),
-  ).not.toBeInTheDocument();
+    screen.getByRole("progressbar", { name: "Uploading…" }),
+  ).toHaveAttribute("aria-valuenow", "10");
+  expect(screen.queryByRole("presentation")).not.toBeInTheDocument();
 });
 
-test("when `status` is uploading, the component renders a progress tracker bar with the provided progress percentage if progress is set", () => {
-  render(
-    <FileUploadStatus
-      status="uploading"
-      filename="foo.pdf"
-      onAction={() => {}}
-      progress={30}
-    />,
-  );
-
-  const progressBar = screen.getByTestId("progress-tracker-bar");
-
-  expect(progressBar).toBeVisible();
-  expect(progressBar).toHaveStyleRule("width", "30%", { modifier: "::after" });
-});
-
-test("when `status` is uploading, the component renders a loader bar if the progress prop is not provided", () => {
-  render(
-    <FileUploadStatus
-      status="uploading"
-      filename="foo.pdf"
-      onAction={() => {}}
-    />,
-  );
-
-  expect(screen.getByRole("progressbar")).toBeVisible();
-});
-
-test("when `status` is completed, the component renders the provided status message", () => {
-  render(
-    <FileUploadStatus
-      status="completed"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      onAction={() => {}}
-      message="my status message"
-    />,
-  );
-
-  expect(screen.getByText("my status message")).toBeVisible();
-});
-
-test("when `status` is completed, the component renders the default status message if none is provided", () => {
-  render(
-    <FileUploadStatus
-      status="completed"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      onAction={() => {}}
-    />,
-  );
-
-  expect(screen.getByText("File upload status")).toBeVisible();
-});
-
-test("when `status` is completed, the component renders a button with the delete text, which performs the onAction function prop on click", async () => {
-  const onAction = jest.fn();
-  const user = userEvent.setup();
-  render(
-    <FileUploadStatus
-      status="completed"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      onAction={onAction}
-    />,
-  );
-
-  const actionButton = screen.getByRole("button", { name: "Delete file" });
-  await user.click(actionButton);
-
-  expect(onAction).toHaveBeenCalledTimes(1);
-});
-
-test("when `status` is completed, the component renders the file name as a link with the provided props", () => {
-  render(
-    <FileUploadStatus
-      status="completed"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      target="_blank"
-      rel="noreferrer"
-      onAction={() => {}}
-    />,
-  );
-
-  const link = screen.queryByRole("link", { name: "foo.pdf" });
-
-  expect(link).toBeInTheDocument();
-  expect(link).toHaveAttribute("href", "http://carbon.sage.com");
-  expect(link).toHaveAttribute("target", "_blank");
-  expect(link).toHaveAttribute("rel", "noreferrer");
-});
-
-test("when `status` is completed, the component renders a link with the download attribute", () => {
-  render(
-    <FileUploadStatus
-      status="completed"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      onAction={() => {}}
-    />,
-  );
-
-  const link = screen.queryByRole("link", { name: "foo.pdf" });
-  expect(link).toHaveAttribute("download", "");
-});
-
-test("when `status` is completed, the component does not render a progress bar", () => {
-  render(
-    <FileUploadStatus
-      status="completed"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      onAction={() => {}}
-    />,
-  );
-
-  expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
-});
-
-test("when `status` is previously, the component does not render a status message", () => {
+test("previously renders caller metadata without reformatting", () => {
   render(
     <FileUploadStatus
       status="previously"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      onAction={() => {}}
-      message="my status message"
+      filename="old.pdf"
+      message="Uploaded by Jo yesterday"
     />,
   );
-
-  expect(screen.queryByText("my status message")).not.toBeInTheDocument();
+  expect(screen.getByText("Uploaded by Jo yesterday")).toBeVisible();
+  expect(screen.queryByRole("link")).not.toBeInTheDocument();
 });
 
-test("when `status` is previously, the component renders the file name as a link with the provided props", () => {
-  render(
-    <FileUploadStatus
-      status="previously"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      target="_blank"
-      rel="noreferrer"
-      onAction={() => {}}
-    />,
-  );
+test("previously has no default status message", () => {
+  render(<FileUploadStatus status="previously" filename="old.pdf" />);
 
-  const link = screen.queryByRole("link", { name: "foo.pdf" });
-
-  expect(link).toBeInTheDocument();
-  expect(link).toHaveAttribute("href", "http://carbon.sage.com");
-  expect(link).toHaveAttribute("target", "_blank");
-  expect(link).toHaveAttribute("rel", "noreferrer");
+  expect(screen.getByText("old.pdf")).toBeVisible();
+  expect(screen.queryByText("File uploaded")).not.toBeInTheDocument();
 });
 
-test("when `status` is previously, the component renders a button with the delete text, which performs the onAction function prop on click", async () => {
-  const onAction = jest.fn();
-  const user = userEvent.setup();
-  render(
-    <FileUploadStatus
-      status="previously"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      onAction={onAction}
-    />,
-  );
-
-  const actionButton = screen.getByRole("button", { name: "Delete file" });
-  await user.click(actionButton);
-
-  expect(onAction).toHaveBeenCalledTimes(1);
-});
-
-test("when `status` is previously, the component does not render a progress bar", () => {
-  render(
-    <FileUploadStatus
-      status="previously"
-      filename="foo.pdf"
-      href="http://carbon.sage.com"
-      onAction={() => {}}
-    />,
-  );
-
-  expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
-});
-
-test("when `status` is error, the component renders the provided status message", () => {
+test("error is an alert with Remove and optional Retry", async () => {
+  const onRemove = jest.fn();
+  const onRetry = jest.fn();
   render(
     <FileUploadStatus
       status="error"
-      filename="foo.pdf"
-      onAction={() => {}}
-      message="my status message"
+      filename="bad.pdf"
+      message="Virus found"
+      onRemove={onRemove}
+      onRetry={onRetry}
+    />,
+  );
+  expect(screen.getByRole("alert", { name: "bad.pdf" })).toHaveTextContent(
+    "Virus found",
+  );
+  await userEvent.click(screen.getByRole("button", { name: "Retry bad.pdf" }));
+  await userEvent.click(screen.getByRole("button", { name: "Remove bad.pdf" }));
+  expect(onRetry).toHaveBeenCalled();
+  expect(onRemove).toHaveBeenCalled();
+});
+
+test("uses deprecated onAction as primary-action fallback", async () => {
+  const onAction = jest.fn();
+  render(
+    <FileUploadStatus status="error" filename="bad.pdf" onAction={onAction} />,
+  );
+  await userEvent.click(screen.getByRole("button", { name: "Remove bad.pdf" }));
+  expect(onAction).toHaveBeenCalled();
+});
+
+test("uses deprecated onAction as the primary-action fallback for uploading and completed files", async () => {
+  const onAction = jest.fn();
+  const { rerender } = render(
+    <FileUploadStatus
+      status="uploading"
+      filename="uploading.pdf"
+      onAction={onAction}
     />,
   );
 
-  expect(screen.getByText("my status message")).toBeVisible();
-});
-
-test("when `status` is error, the component renders the default status message if none is provided", () => {
-  render(
-    <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />,
+  await userEvent.click(
+    screen.getByRole("button", { name: "Cancel uploading.pdf" }),
   );
 
-  expect(screen.getByText("File upload status")).toBeVisible();
+  rerender(
+    <FileUploadStatus
+      status="completed"
+      filename="completed.pdf"
+      onAction={onAction}
+    />,
+  );
+
+  await userEvent.click(
+    screen.getByRole("button", { name: "Delete completed.pdf" }),
+  );
+
+  expect(onAction).toHaveBeenCalledTimes(2);
 });
 
-test("when `status` is error, the component renders a button with the clear text, which performs the onAction function prop on click", async () => {
-  const onAction = jest.fn();
-  const user = userEvent.setup();
+test("uses default error text and a fallback error icon when an error thumbnail is supplied", () => {
   render(
     <FileUploadStatus
       status="error"
-      filename="foo.pdf"
-      onAction={onAction}
-      message="my status message"
+      filename="bad.pdf"
+      thumbnailSrc="preview.png"
+      onRemove={() => {}}
     />,
   );
 
-  const actionButton = screen.getByRole("button", { name: "Clear" });
-  await user.click(actionButton);
-
-  expect(onAction).toHaveBeenCalledTimes(1);
+  expect(screen.getByRole("alert", { name: "bad.pdf" })).toHaveTextContent(
+    "Error details",
+  );
+  expect(screen.getByTestId("icon")).toHaveAttribute("data-element", "error");
 });
 
-test("when `status` is error, the component renders the file name, but not as a link", () => {
-  render(
-    <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />,
+test("uses a decorative thumbnail and falls back after load failure", () => {
+  const { rerender } = render(
+    <FileUploadStatus
+      status="completed"
+      filename="image.png"
+      thumbnailSrc="broken.png"
+      onDelete={() => {}}
+    />,
   );
+  const image = screen.getByRole("presentation");
+  expect(image).toHaveAttribute("alt", "");
+  fireEvent.error(image);
+  expect(screen.queryByRole("presentation")).not.toBeInTheDocument();
+  expect(screen.getByTestId("icon")).toHaveAttribute("aria-hidden", "true");
 
-  expect(screen.getByText("foo.pdf")).toBeVisible();
-  expect(
-    screen.queryByRole("link", { name: "foo.pdf" }),
-  ).not.toBeInTheDocument();
-});
-
-test("when `status` is error, the component does not render a progress bar", () => {
-  render(
-    <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />,
+  rerender(
+    <FileUploadStatus
+      status="completed"
+      filename="image.png"
+      thumbnailSrc="working.png"
+      onDelete={() => {}}
+    />,
   );
-
-  expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
+  expect(screen.getByRole("presentation")).toHaveAttribute(
+    "src",
+    "working.png",
+  );
 });
