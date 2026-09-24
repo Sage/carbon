@@ -75,12 +75,14 @@ export const Note = ({
 
   const renderActionButton = ({
     tabIndex,
+    className,
     "data-element": dataElement,
     ariaAttributes,
   }: RenderButtonProps) => (
     <Button
       {...ariaAttributes}
       {...{ tabIndex }}
+      className={className}
       data-element={dataElement}
       iconType="ellipsis_vertical"
       size="medium"
