@@ -1,3 +1,9 @@
+## [162.4.0](https://github.com/Sage/carbon/compare/v162.3.1...v162.4.0) (2026-09-24)
+
+### Features
+
+* **batch-selection:** align with Fusion DS ([201f825](https://github.com/Sage/carbon/commit/201f825633d75370f27b052caae9ee4199827435))
+
 ## [162.3.1](https://github.com/Sage/carbon/compare/v162.3.0...v162.3.1) (2026-09-24)
 
 ### Bug Fixes
