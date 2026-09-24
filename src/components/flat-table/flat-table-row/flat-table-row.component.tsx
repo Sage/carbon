@@ -187,6 +187,8 @@ export const FlatTableRow = React.forwardRef<
       (
         ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
       ) => {
+        if (ev.target !== ev.currentTarget) return;
+
         const isEnterOrSpaceKey =
           Event.isEnterKey(ev as React.KeyboardEvent<HTMLElement>) ||
           Event.isSpaceKey(ev as React.KeyboardEvent<HTMLElement>);
@@ -210,6 +212,24 @@ export const FlatTableRow = React.forwardRef<
 
     const handleClick = useCallback(
       (ev: React.MouseEvent<HTMLElement>) => {
+        const { target } = ev;
+
+        const control =
+          target instanceof Element
+            ? target.closest(
+                "button, a[href], input, select, textarea, " +
+                  '[role="button"], [role="link"], [role="checkbox"]',
+              )
+            : /* istanbul ignore next */ null;
+
+        if (
+          control &&
+          control !== ev.currentTarget &&
+          ev.currentTarget.contains(control)
+        ) {
+          return;
+        }
+
         if (onClick) {
           onClick(ev);
         }
