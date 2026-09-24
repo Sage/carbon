@@ -79,10 +79,6 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
 
 <Canvas of={ActionPopoverStories.MenuRightAligned} />
 
-### With item content aligned to right
-
-<Canvas of={ActionPopoverStories.ContentAlignedRight} />
-
 ### With no icons
 
 Menu items can also be displayed without icons.
@@ -107,65 +103,33 @@ See the example below for an example of how to use the `renderButton` prop:
 
 ### With submenu
 
-A menu item can be passed a sub-menu to add further sub-actions if needed. items with sub-menus will display an chevron
-icons pointing in the direction that the sub-menu will open; by default it will open to the left.
-
-Hovering the mouse cursor over an item will open the sub-menu if it has one and moving the mouse cursor away will
-close it. No action is dispatched on click of the item and the sub-menu is opened by mouse enter and closed on mouse
-leave.
+A menu item can be passed a `submenu` to add further sub-actions if needed. This will render a caret on the right 
+hand side of the parent item. Submenus can be opened by clicking on the parent item,
+or pressing the right arrow, enter or space key when it has focus. You can close the submenu by pressing the left arrow 
+(focus returns to the parent item), esc, or tab key.
 
 <Canvas of={ActionPopoverStories.Submenu} />
 
-### With submenu positioned to right
-
-Submenu can be positioned on either the left of the right with the use of the `submenuPosition` prop.
-
-<Canvas of={ActionPopoverStories.SubmenuPositionedRight} />
-
 ### With disabled submenu
 
-A sub-menu will not open if the item is in a disabled state.
+A `submenu` will not open if the item is in a disabled state.
 
 <Canvas of={ActionPopoverStories.DisabledSubmenu} />
 
-### With menu opening above
-
-The menu can also be rendered above the button control by setting using `placement="top"`.
-
-<Canvas of={ActionPopoverStories.MenuOpeningAbove} />
-
 ### Keyboard navigation
 
-ActionPopover and ActionPopoverItem have extensive keyboard support. It is possible to open the menu when the
-ActionPopover is focused: pressing either the "enter" or "down" key will open the menu and focus the first item;
+`ActionPopover` and `ActionPopoverItem` have extensive keyboard support. It is possible to open the menu when the
+`ActionPopover` is focused: pressing either the "enter" or "down" key will open the menu and focus the first item;
 pressing the "up" key when the button is focused will open the menu and focus the last element.
 
-Once the menu is open, it is possible to navigate the items using the "up" and "down" arrow keys. Alpha keys can also
-be used as shortcuts to navigate the items: pressing a-z selects the next item in the list starting with that letter,
-wrapping around to the start if required. Pressing an alpha key which doesn't match any items in the menu list will
-result leave the focus on the current item.
+Once the menu is open, use the "up" and "down" arrow keys to navigate the items. Navigation stops at the first and
+last items. The "home" and "end" keys move to the first and last enabled items.
 
 Pressing the "enter" key will trigger the action associated with the currently focused item. Pressing either the "esc"
 or "tab" key will close the menu with no action being triggered and focus the next focusable element. Pressing
 "shift + tab" will close the menu and focus the previously focused element.
 
 <Canvas of={ActionPopoverStories.KeyboardNavigation} />
-
-### Keyboard navigation left aligned submenu
-
-Sub-menus can be accessed via the keyboard as well, when the sub-menu is left aligned it can be opened by navigating to
-the parent item and pressing the "left" key. The same accessible shortcuts described above can then be used to navigate
-the sub-menu. Pressing the "right" key will return focus back to the main menu and close the sub-menu without
-triggering an action.
-
-<Canvas of={ActionPopoverStories.KeyboardNavigationLeftAlignedSubmenu} />
-
-### Keyboard navigation right aligned submenu
-
-When sub-menus aligns to the right hand side, the key shortcuts are switched: pressing the "right" key whilst focus
-is on a item will open a sub-menu if it has one and pressing the "left" key will close it.
-
-<Canvas of={ActionPopoverStories.KeyboardNavigationRightAlignedSubmenu} />
 
 ### With additional options
 

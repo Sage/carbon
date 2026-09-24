@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { render, screen, act, within, fireEvent } from "@testing-library/react";
+import { render, screen, within, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/dom";
 
@@ -15,6 +15,7 @@ import {
 } from ".";
 
 import Button from "../button";
+import Icon from "../icon";
 import {
   FlatTable,
   FlatTableBody,
@@ -24,6 +25,7 @@ import {
 import iconUnicodes from "../icon/icon-unicodes";
 import guid from "../../__internal__/utils/helpers/guid";
 import TokensWrapper from "../tokens-wrapper";
+import Dialog from "../dialog";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -127,6 +129,20 @@ test("displays the vertical ellipsis icon as the menu button", () => {
   );
 });
 
+test("allows menus to size to their content rather than the trigger width", () => {
+  render(
+    <ActionPopover data-role="action-popover-wrapper">
+      <ActionPopoverItem>example item</ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  expect(screen.getByTestId("action-popover-wrapper")).toHaveStyleRule(
+    "max-width",
+    "none",
+    { modifier: '& [data-role="menu-wrapper"]' },
+  );
+});
+
 test("has proper data attributes applied to elements", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
@@ -151,21 +167,16 @@ test("has proper data attributes applied to elements", async () => {
     "data-element",
     "action-popover-element",
   );
-  expect(screen.getByRole("list")).toHaveAttribute(
-    "data-component",
-    "action-popover",
-  );
-  const divider = screen.getAllByRole("listitem")[1];
-  expect(divider).toHaveAttribute("data-element", "action-popover-divider");
+  expect(screen.getAllByRole("listitem")).toHaveLength(2);
 });
 
-test("has a default aria-label", () => {
+test("uses the default button text as its accessible name", () => {
   render(
     <ActionPopover>
       <ActionPopoverItem>example item</ActionPopoverItem>
     </ActionPopover>,
   );
-  expect(screen.getByRole("button")).toHaveAccessibleName("actions");
+  expect(screen.getByRole("button")).toHaveAccessibleName("Actions");
 });
 
 test("has a default aria-label if the renderButton prop contains a button without text", () => {
@@ -478,25 +489,6 @@ test("clicking a disabled menu item does not close the menu", async () => {
   expect(screen.getByRole("list")).toBeVisible();
 });
 
-test("pressing enter on a disabled menu item does not close the menu", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  render(
-    <ActionPopover>
-      <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
-      <ActionPopoverItem icon="print" disabled>
-        Print Invoice
-      </ActionPopoverItem>
-    </ActionPopover>,
-  );
-
-  await user.click(screen.getByRole("button"));
-  screen.getByRole("button", { name: "Print Invoice" }).focus();
-  await user.keyboard("{Enter}");
-
-  expect(screen.getByRole("list")).toBeVisible();
-});
-
 test("clicking a disabled menu item does not focus the menu button", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
@@ -512,10 +504,10 @@ test("clicking a disabled menu item does not focus the menu button", async () =>
   await user.click(screen.getByRole("button"));
   await user.click(screen.getByText("Print Invoice"));
 
-  expect(screen.getByRole("button", { name: "actions" })).not.toHaveFocus();
+  expect(screen.getByRole("button", { name: "Actions" })).not.toHaveFocus();
 });
 
-test("pressing enter on a disabled menu item does not focus the menu button", async () => {
+test("disabled menu items cannot receive keyboard focus", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -531,7 +523,7 @@ test("pressing enter on a disabled menu item does not focus the menu button", as
   screen.getByRole("button", { name: "Print Invoice" }).focus();
   await user.keyboard("{Enter}");
 
-  expect(screen.getByRole("button", { name: "actions" })).not.toHaveFocus();
+  expect(screen.getByRole("button", { name: "Actions" })).toHaveFocus();
 });
 
 test("clicking the menu button calls the onOpen prop", async () => {
@@ -548,25 +540,6 @@ test("clicking the menu button calls the onOpen prop", async () => {
   await user.click(screen.getByRole("button"));
 
   expect(onOpen).toHaveBeenCalledTimes(1);
-});
-
-test("clicking the menu button stops any further event propagation", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  const parentClickHandler = jest.fn();
-
-  render(
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-    <div onClick={parentClickHandler}>
-      <ActionPopover>
-        <ActionPopoverItem>example item</ActionPopoverItem>
-      </ActionPopover>
-    </div>,
-  );
-
-  await user.click(screen.getByRole("button"));
-
-  expect(parentClickHandler).not.toHaveBeenCalled();
 });
 
 test("clicking the menu button focuses the first focusable element", async () => {
@@ -622,21 +595,40 @@ test("clicking inside the component does not close the menu", async () => {
   expect(screen.getByRole("list")).toBeVisible();
 });
 
-test("clicking elsewhere on the document closes the menu", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+test.each([false, true])(
+  "clicking outside closes the menu once with submenu open=%s",
+  async (openSubmenu) => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
 
-  render(
-    <ActionPopover>
-      <ActionPopoverItem disabled>disabled item</ActionPopoverItem>
-      <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>,
-  );
+    render(
+      <ActionPopover onClose={onClose}>
+        <ActionPopoverItem disabled>disabled item</ActionPopoverItem>
+        <ActionPopoverItem
+          submenu={
+            <>
+              <ActionPopoverItem>submenu item</ActionPopoverItem>
+            </>
+          }
+        >
+          example item
+        </ActionPopoverItem>
+      </ActionPopover>,
+    );
 
-  await user.click(screen.getByRole("button"));
-  await user.click(document.body);
+    await user.click(screen.getByRole("button"));
+    if (openSubmenu) {
+      await user.click(screen.getByRole("button", { name: "example item" }));
+    }
+    expect(
+      screen.queryByRole("button", { name: "submenu item" }) !== null,
+    ).toBe(openSubmenu);
+    await user.click(document.body);
 
-  expect(screen.queryByRole("list")).not.toBeInTheDocument();
-});
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    expect(onClose).toHaveBeenCalledTimes(1);
+  },
+);
 
 test.each(["ArrowDown", "Space", "Enter", "ArrowUp"] as const)(
   "pressing %s key when focused on the menu button opens the menu and calls the onOpen callback",
@@ -790,39 +782,68 @@ test("pressing Escape when focused on a menu item focuses the MenuButton and clo
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{Escape}");
 
-  expect(screen.getByRole("button", { name: "actions" })).toHaveFocus();
+  expect(screen.getByRole("button", { name: "Actions" })).toHaveFocus();
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
-test("pressing the Down Arrow key when the menu is open focuses the next item and wraps around when on the last item", async () => {
+test("pressing Escape in a fragment submenu closes both menus once and focuses the menu button", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
+  const onClose = jest.fn();
   render(
-    <ActionPopover>
-      <ActionPopoverItem>example item 1</ActionPopoverItem>
-      <ActionPopoverItem>example item 2</ActionPopoverItem>
-      <ActionPopoverItem>example item 3</ActionPopoverItem>
+    <ActionPopover onClose={onClose}>
+      <ActionPopoverItem
+        submenu={
+          <>
+            <ActionPopoverItem>submenu item</ActionPopoverItem>
+          </>
+        }
+      >
+        parent item
+      </ActionPopoverItem>
     </ActionPopover>,
   );
 
-  await user.click(screen.getByRole("button"));
-  jest.runOnlyPendingTimers();
-  expect(screen.getByRole("button", { name: "example item 1" })).toHaveFocus();
+  const menuButton = screen.getByRole("button", { name: "Actions" });
+  await user.click(menuButton);
+  await user.click(screen.getByRole("button", { name: "parent item" }));
+  expect(screen.getByRole("button", { name: "submenu item" })).toHaveFocus();
 
-  await user.keyboard("{ArrowDown}");
-  jest.runOnlyPendingTimers();
-  expect(screen.getByRole("button", { name: "example item 2" })).toHaveFocus();
+  await user.keyboard("{Escape}");
 
-  await user.keyboard("{ArrowDown}");
-  jest.runOnlyPendingTimers();
-  expect(screen.getByRole("button", { name: "example item 3" })).toHaveFocus();
-
-  await user.keyboard("{ArrowDown}");
-  jest.runOnlyPendingTimers();
-  expect(screen.getByRole("button", { name: "example item 1" })).toHaveFocus();
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  expect(menuButton).toHaveFocus();
+  expect(onClose).toHaveBeenCalledTimes(1);
 });
 
-test("pressing the Up Arrow key when the menu is open focuses the previous item and wraps around when on the first item", async () => {
+test("pressing the Down Arrow key stops on the last item", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover>
+      <ActionPopoverItem>example item 1</ActionPopoverItem>
+      <ActionPopoverItem>example item 2</ActionPopoverItem>
+      <ActionPopoverItem>example item 3</ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  jest.runOnlyPendingTimers();
+  expect(screen.getByRole("button", { name: "example item 1" })).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  jest.runOnlyPendingTimers();
+  expect(screen.getByRole("button", { name: "example item 2" })).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  jest.runOnlyPendingTimers();
+  expect(screen.getByRole("button", { name: "example item 3" })).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  jest.runOnlyPendingTimers();
+  expect(screen.getByRole("button", { name: "example item 3" })).toHaveFocus();
+});
+
+test("pressing the Up Arrow key stops on the first item", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -839,11 +860,11 @@ test("pressing the Up Arrow key when the menu is open focuses the previous item 
 
   await user.keyboard("{ArrowUp}");
   jest.runOnlyPendingTimers();
-  expect(screen.getByRole("button", { name: "example item 3" })).toHaveFocus();
+  expect(screen.getByRole("button", { name: "example item 1" })).toHaveFocus();
 
   await user.keyboard("{ArrowUp}");
   jest.runOnlyPendingTimers();
-  expect(screen.getByRole("button", { name: "example item 2" })).toHaveFocus();
+  expect(screen.getByRole("button", { name: "example item 1" })).toHaveFocus();
 
   await user.keyboard("{ArrowUp}");
   jest.runOnlyPendingTimers();
@@ -938,7 +959,7 @@ test("pressing the End key when the menu is open focuses the last item, no matte
   expect(screen.getByRole("button", { name: "example item 4" })).toHaveFocus();
 });
 
-test("pressing Space when the menu is open does nothing", async () => {
+test("pressing Space activates the focused menu item", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -958,11 +979,11 @@ test("pressing Space when the menu is open does nothing", async () => {
   await user.keyboard(" ");
   jest.runOnlyPendingTimers();
 
-  expect(screen.getByRole("list")).toBeVisible();
-  expect(screen.getByRole("button", { name: "example item 1" })).toHaveFocus();
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Actions" })).toHaveFocus();
 });
 
-test("pressing an alphabet character when the menu is open selects the next selectable item in the list starting with the letter that was pressed", async () => {
+test("moves focus to the first item that matches the typed character", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -978,25 +999,47 @@ test("pressing an alphabet character when the menu is open selects the next sele
   await user.click(screen.getByRole("button"));
   jest.runOnlyPendingTimers();
 
-  // moves to first element starting with P
   await user.keyboard("p");
   jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "Print Invoice" })).toHaveFocus();
+});
 
-  // moves to next element starting with D - noting that it skips the disabled "Disabled" item
-  await user.keyboard("d");
+test("moves focus to first match item if no matches after currently focused item", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover>
+      <ActionPopoverItem>Print PDF</ActionPopoverItem>
+      <ActionPopoverItem>Email Invoice</ActionPopoverItem>
+      <ActionPopoverItem>Print Invoice</ActionPopoverItem>
+    </ActionPopover>,
+  );
+  await user.click(screen.getByRole("button"));
   jest.runOnlyPendingTimers();
 
-  expect(screen.getByRole("button", { name: "Download CSV" })).toHaveFocus();
-
-  // moves to next element starting with D, it loops to the start
-  await user.keyboard("d");
+  await user.keyboard("{ArrowDown}");
+  await user.keyboard("{ArrowDown}");
+  await user.keyboard("{ArrowDown}");
+  await user.keyboard("p");
   jest.runOnlyPendingTimers();
 
-  expect(screen.getByRole("button", { name: "Download PDF" })).toHaveFocus();
+  expect(screen.getByRole("button", { name: "Print PDF" })).toHaveFocus();
+});
 
-  // does nothing when there are no matches
+test("does not move focus if no items match the typed character", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover>
+      <ActionPopoverItem>Download PDF</ActionPopoverItem>
+      <ActionPopoverItem>Email Invoice</ActionPopoverItem>
+      <ActionPopoverItem>Print Invoice</ActionPopoverItem>
+    </ActionPopover>,
+  );
+  await user.click(screen.getByRole("button"));
+  jest.runOnlyPendingTimers();
+
   await user.keyboard("z");
   jest.runOnlyPendingTimers();
 
@@ -1074,992 +1117,86 @@ test("should call the exposed `focusButton` method and focus the toggle button",
   const button = screen.getByRole("button", { name: "Focus" });
   await user.click(button);
 
-  expect(screen.getByRole("button", { name: "actions" })).toHaveFocus();
+  expect(screen.getByRole("button", { name: "Actions" })).toHaveFocus();
 });
 
-describe("when an item has a submenu with default (left) alignment", () => {
-  it("renders a chevron icon that points left", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const chevronIcon = screen.getByTestId("chevron-icon");
-    expect(chevronIcon).toHaveStyleRule(
-      "content",
-      `"${iconUnicodes.chevron_left_thick}"`,
-      { modifier: "&::before" },
-    );
-  });
-
-  it("opens the submenu on mouseenter", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-
-    // move mouse over the item with the submenu
-    await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-
-    act(() => {
-      jest.runOnlyPendingTimers();
-    });
-
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toBeVisible();
-  });
-
-  // test needed for coverage of the clearTimeout call - it's not clear if the clearTimeout is actually needed
-  // and if it has any real observable consequences. We should investigate that and remove the call, and this
-  // test, if it is not needed.
-  it("clears the timeout when mouseenter happens twice in a short interval", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
-
-    await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-    expect(clearTimeoutSpy).not.toHaveBeenCalled();
-    // need to move the pointer away from the element before moving it back, otherwise mouseEnter won't be triggered a second time
-    await user.unhover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-    await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-
-    expect(clearTimeoutSpy).toHaveBeenCalled();
-    clearTimeoutSpy.mockRestore();
-  });
-
-  it("closes the submenu when the mouse leaves the parent item", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-    act(() => {
-      jest.runOnlyPendingTimers();
-    });
-
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toBeVisible();
-
-    await user.hover(screen.getByRole("button", { name: "example item 2" }));
-    act(() => {
-      jest.runOnlyPendingTimers();
-    });
-
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-  });
-
-  // test needed for coverage of the clearTimeout call - it's not clear if the clearTimeout is actually needed
-  // and if it has any real observable consequences. We should investigate that and remove the call, and this
-  // test, if it is not needed.
-  it("clears the the timeout when mouseleave happens twice in a short interval", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
-
-    await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-    await user.unhover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-    expect(clearTimeoutSpy).not.toHaveBeenCalled();
-    // need to enter and leave a second time
-    await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-    await user.unhover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-
-    // need to check for 2 calls, as one will have been due to the cleartimeout of the double mouse-enter
-    // - unfortunately it's not possible to check that a specific call has been made (as the argument is
-    // just a timer ID)
-    expect(clearTimeoutSpy).toHaveBeenCalledTimes(2);
-    clearTimeoutSpy.mockRestore();
-  });
-
-  it("opens the submenu and focuses the first item when the left arrow key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    jest.runOnlyPendingTimers();
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowLeft}");
-    jest.runOnlyPendingTimers();
-
-    const firstItem = screen.getByRole("button", { name: "submenu item 1" });
-    expect(firstItem).toBeVisible();
-    expect(firstItem).toHaveFocus();
-  });
-
-  it("closes the submenu and returns focus to the parent item when the right arrow key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const parentItem = screen.getByRole("button", {
-      name: "example item with submenu",
-    });
-
-    parentItem.focus();
-    await user.keyboard("{ArrowLeft}");
-
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toBeVisible();
-
-    await user.keyboard("{ArrowRight}");
-
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-    expect(parentItem).toHaveFocus();
-  });
-
-  it("leaves the submenu open, and keeps focus where it is, when an alphabetical key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    jest.runOnlyPendingTimers();
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowLeft}");
-    jest.runOnlyPendingTimers();
-
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toBeVisible();
-
-    await user.keyboard("z");
-    jest.runOnlyPendingTimers();
-
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toBeVisible();
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toHaveFocus();
-  });
-
-  it("opens the submenu and focuses the first item when the enter key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    jest.runOnlyPendingTimers();
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{Enter}");
-    jest.runOnlyPendingTimers();
-
-    const firstItem = screen.getByRole("button", { name: "submenu item 1" });
-    expect(firstItem).toBeVisible();
-    expect(firstItem).toHaveFocus();
-  });
-
-  it("closes the entire parent menu and focuses the main menu button when a submenu item is clicked", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    await user.click(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-
-    await user.click(screen.getByRole("button", { name: "submenu item 1" }));
-
-    expect(screen.queryByRole("list")).not.toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveFocus();
-  });
-
-  it("closes the entire parent menu and focuses the main menu button when the escape key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    jest.runOnlyPendingTimers();
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-
-    await user.keyboard("{ArrowLeft}");
-    jest.runOnlyPendingTimers();
-
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toHaveFocus();
-
-    await user.keyboard("{Escape}");
-    jest.runOnlyPendingTimers();
-
-    expect(screen.queryByRole("list")).not.toBeInTheDocument();
-    expect(screen.getByRole("button")).toHaveFocus();
-  });
-
-  test("closes the entire parent menu when a custom adaptive sidebar blur event is dispatched", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem href="#">Item 1</ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    expect(screen.getByRole("list")).toBeVisible();
-
-    await act(async () => {
-      document.dispatchEvent(
-        new CustomEvent("adaptiveSidebarModalFocusIn", {
-          bubbles: true,
-          detail: { source: "adaptiveSidebarModal" },
-        }),
-      );
-    });
-
-    expect(screen.queryByRole("list")).not.toBeInTheDocument();
-  });
-
-  it("does not open the submenu on mouseenter when the item is disabled", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          disabled
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-
-    await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" }),
-    );
-
-    act(() => {
-      jest.runOnlyPendingTimers();
-    });
-
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("does not open the submenu when the left arrow key is pressed if the item is disabled", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          disabled
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowLeft}");
-
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("does not open the submenu when the enter key is pressed if the item is disabled", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          disabled
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{Enter}");
-
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("leaves the submenu open, and keeps focus where it is, when a disabled submenu item is clicked", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover>
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem disabled>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowLeft}");
-
-    await user.click(screen.getByRole("button", { name: "submenu item 1" }));
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toBeVisible();
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toHaveFocus();
-  });
-});
-
-describe("when there isn't enough space on the screen to render a submenu on the left", () => {
-  let getBoundingClientRectSpy: jest.SpyInstance;
-  beforeEach(() => {
-    getBoundingClientRectSpy = jest.spyOn(
-      Element.prototype,
-      "getBoundingClientRect",
-    );
-    getBoundingClientRectSpy.mockImplementation(() => ({
-      left: "-100",
-      right: "auto",
-      top: "100",
-    }));
-  });
-
-  afterEach(() => {
-    getBoundingClientRectSpy.mockRestore();
-  });
-
-  it("renders a chevron icon that points right", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover submenuPosition="left">
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const chevronIcon = screen.getByTestId("chevron-icon");
-    expect(chevronIcon).toHaveStyleRule(
-      "content",
-      `"${iconUnicodes.chevron_right_thick}"`,
-      { modifier: "&::before" },
-    );
-  });
-
-  it("opens the submenu and focuses the first item when right arrow key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover submenuPosition="left">
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    jest.runOnlyPendingTimers();
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowRight}");
-    jest.runOnlyPendingTimers();
-
-    const firstItem = screen.getByRole("button", { name: "submenu item 1" });
-    expect(firstItem).toBeVisible();
-    expect(firstItem).toHaveFocus();
-  });
-
-  it("closes the submenu and returns focus to parent item when the submenu is open and the left arrow key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover submenuPosition="left">
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const parentItem = screen.getByRole("button", {
-      name: "example item with submenu",
-    });
-
-    parentItem.focus();
-    await user.keyboard("{ArrowRight}");
-
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toBeVisible();
-
-    await user.keyboard("{ArrowLeft}");
-
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-    expect(parentItem).toHaveFocus();
-  });
-});
-
-describe("when the submenuPosition prop is set to 'right'", () => {
-  it("renders a chevron icon that points right", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover submenuPosition="right">
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const chevronIcon = screen.getByTestId("chevron-icon");
-    expect(chevronIcon).toHaveStyleRule(
-      "content",
-      `"${iconUnicodes.chevron_right_thick}"`,
-      { modifier: "&::before" },
-    );
-  });
-
-  it("opens the submenu and focuses the first item when right arrow key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover submenuPosition="right">
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    jest.runOnlyPendingTimers();
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowRight}");
-    jest.runOnlyPendingTimers();
-
-    const firstItem = screen.getByRole("button", { name: "submenu item 1" });
-    expect(firstItem).toBeVisible();
-    expect(firstItem).toHaveFocus();
-  });
-
-  it("closes the submenu and returns focus to parent item when the submenu is open and the left arrow key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover submenuPosition="right">
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const parentItem = screen.getByRole("button", {
-      name: "example item with submenu",
-    });
-
-    parentItem.focus();
-    await user.keyboard("{ArrowRight}");
-
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toBeVisible();
-
-    await user.keyboard("{ArrowLeft}");
-
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-    expect(parentItem).toHaveFocus();
-  });
-});
-
-describe("when the submenuPosition prop is set to 'right' and there isn't enough space on the screen to render a submenu on the right", () => {
-  let getBoundingClientRectSpy: jest.SpyInstance;
-  beforeEach(() => {
-    getBoundingClientRectSpy = jest.spyOn(
-      Element.prototype,
-      "getBoundingClientRect",
-    );
-    getBoundingClientRectSpy.mockImplementation(() => ({
-      left: "auto",
-      right: "100",
-      top: "100",
-    }));
-  });
-
-  afterEach(() => {
-    getBoundingClientRectSpy.mockRestore();
-  });
-
-  it("renders a chevron icon that points left", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover submenuPosition="right">
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const chevronIcon = screen.getByTestId("chevron-icon");
-    expect(chevronIcon).toHaveStyleRule(
-      "content",
-      `"${iconUnicodes.chevron_left_thick}"`,
-      { modifier: "&::before" },
-    );
-  });
-
-  it("opens the submenu and focuses the first item when left arrow key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover submenuPosition="right">
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    jest.runOnlyPendingTimers();
-
-    screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowLeft}");
-    jest.runOnlyPendingTimers();
-
-    const firstItem = screen.getByRole("button", { name: "submenu item 1" });
-    expect(firstItem).toBeVisible();
-    expect(firstItem).toHaveFocus();
-  });
-
-  it("closes the submenu and returns focus to parent item when the submenu is open and the right arrow key is pressed", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover submenuPosition="right">
-        <ActionPopoverItem>example item 1</ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item with submenu
-        </ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    const parentItem = screen.getByRole("button", {
-      name: "example item with submenu",
-    });
-
-    parentItem.focus();
-    await user.keyboard("{ArrowLeft}");
-
-    expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toBeVisible();
-
-    await user.keyboard("{ArrowRight}");
-
-    expect(
-      screen.queryByRole("button", { name: "submenu item 1" }),
-    ).not.toBeInTheDocument();
-    expect(parentItem).toHaveFocus();
-  });
-});
-
-test("an error is thrown, with appropriate error message, if an invalid element is used for the 'submenu' prop", async () => {
+test.each([
+  ["React.Fragment", React.Fragment],
+  ["ActionPopoverMenu", ActionPopoverMenu],
+])("renders and selects submenu items wrapped in %s", async (_, Menu) => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  const globalConsoleSpy = jest
-    .spyOn(global.console, "error")
-    .mockImplementation(() => {});
-
-  render(
-    <ActionPopover>
-      <ActionPopoverItem submenu={<p>foo</p>}>item</ActionPopoverItem>
-    </ActionPopover>,
-  );
-
-  await expect(() => {
-    // error should only be actually thrown when the Popover menu, with invalid submenu, is rendered
-    return user.click(screen.getByRole("button"));
-  }).rejects.toThrow(
-    "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`",
-  );
-
-  globalConsoleSpy.mockRestore();
-});
-
-test("an error is thrown, with appropriate error message, if a submenu has incorrect children", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  const globalConsoleSpy = jest
-    .spyOn(global.console, "error")
-    .mockImplementation(() => {});
+  const onClick = jest.fn();
 
   render(
     <ActionPopover>
       <ActionPopoverItem
-        submenu={<ActionPopoverMenu>invalid</ActionPopoverMenu>}
+        submenu={
+          <Menu>
+            <ActionPopoverItem icon="graph" onClick={onClick}>
+              Sub Menu 1
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem disabled onClick={() => {}}>
+              Sub Menu 2
+            </ActionPopoverItem>
+          </Menu>
+        }
       >
-        item
+        Parent item
       </ActionPopoverItem>
     </ActionPopover>,
   );
 
-  await expect(() => {
-    // error should only be actually thrown when the Popover menu, with invalid submenu, is rendered
-    return user.click(screen.getByRole("button"));
-  }).rejects.toThrow(
-    "ActionPopoverMenu only accepts children of type `ActionPopoverItem`" +
-      " and `ActionPopoverDivider`.",
-  );
+  await user.click(screen.getByRole("button", { name: "Actions" }));
+  await user.click(screen.getByRole("button", { name: "Parent item" }));
 
-  globalConsoleSpy.mockRestore();
+  const submenuItem = await screen.findByRole("button", { name: "Sub Menu 1" });
+  expect(submenuItem).toBeVisible();
+  expect(screen.getByRole("button", { name: "Sub Menu 2" })).toBeDisabled();
+
+  await user.click(submenuItem);
+
+  expect(onClick).toHaveBeenCalledTimes(1);
+  expect(
+    screen.queryByRole("button", { name: "Sub Menu 1" }),
+  ).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Actions" })).toHaveAttribute(
+    "aria-expanded",
+    "false",
+  );
 });
+
+test.each([
+  ["React.Fragment", React.Fragment],
+  ["ActionPopoverMenu", ActionPopoverMenu],
+])(
+  "an error is thrown if a %s submenu has incorrect children",
+  async (_, Menu) => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    const globalConsoleSpy = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => {});
+
+    render(
+      <ActionPopover>
+        <ActionPopoverItem submenu={<Menu>invalid</Menu>}>
+          item
+        </ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    await expect(() => {
+      // error should only be actually thrown when the Popover menu, with invalid submenu, is rendered
+      return user.click(screen.getByRole("button"));
+    }).rejects.toThrow(
+      "ActionPopoverMenu only accepts children of type `ActionPopoverItem`" +
+        " and `ActionPopoverDivider`.",
+    );
+
+    globalConsoleSpy.mockRestore();
+  },
+);
 
 describe("when the renderButton prop is passed", () => {
   it("renders that component as the menu button", () => {
@@ -2088,36 +1225,6 @@ describe("when the renderButton prop is passed", () => {
     expect(menuButton).toHaveAttribute("data-element", "action-popover-button");
     expect(menuButton).toHaveAttribute("data-role", "my-custom-button");
     expect(menuButton).toHaveTextContent("Foo");
-  });
-
-  it("sets the tabIndex of the menu button to -1 when opened", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <ActionPopover
-        renderButton={(props) => (
-          <ActionPopoverMenuButton
-            buttonType="tertiary"
-            iconType="dropdown"
-            iconPosition="after"
-            size="small"
-            data-role="my-custom-button"
-            {...props}
-          >
-            Foo
-          </ActionPopoverMenuButton>
-        )}
-      >
-        <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    const menuButton = screen.getByRole("button");
-    expect(menuButton).toBeVisible();
-
-    await user.click(menuButton);
-
-    expect(menuButton).toHaveAttribute("tabindex", "-1");
   });
 
   it("renders the menu button with the provided aria-label", () => {
@@ -2352,7 +1459,7 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
   });
 });
 
-test("when horizontalAlignment is set to 'left', menu displays icon before text", async () => {
+test("the deprecated left horizontalAlignment renders PopoverMenu's leading icon", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -2364,15 +1471,10 @@ test("when horizontalAlignment is set to 'left', menu displays icon before text"
   const menuButton = screen.getByRole("button");
   await user.click(menuButton);
 
-  const menu = await screen.findByRole("list");
-
-  const { gridTemplateColumns } = getComputedStyle(menu);
-  expect(gridTemplateColumns).toContain(
-    "[icon_column] auto [text_column] auto",
-  );
+  expect(await screen.findByTestId("button-icon-before")).toBeVisible();
 });
 
-test("when horizontalAlignment is set to 'right', menu displays icon after text", async () => {
+test("the deprecated right horizontalAlignment has no effect", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -2384,15 +1486,10 @@ test("when horizontalAlignment is set to 'right', menu displays icon after text"
   const menuButton = screen.getByRole("button");
   await user.click(menuButton);
 
-  const menu = await screen.findByRole("list");
-
-  const { gridTemplateColumns } = getComputedStyle(menu);
-  expect(gridTemplateColumns).toContain(
-    "[text_column] auto [icon_column] auto",
-  );
+  expect(await screen.findByTestId("button-icon-before")).toBeVisible();
 });
 
-test("a menu item's icons are hidden from assistive technologies", async () => {
+test("a menu item's leading icon is hidden from assistive technologies", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -2417,14 +1514,12 @@ test("a menu item's icons are hidden from assistive technologies", async () => {
     name: "Fruits",
   });
 
-  const chevronIcon = within(menuItem).getByTestId("chevron-icon");
-  const itemIcon = within(menuItem).getByTestId("item-icon");
+  const itemIcon = within(menuItem).getByTestId("button-icon-before");
 
-  expect(chevronIcon).toHaveAttribute("aria-hidden", "true");
   expect(itemIcon).toHaveAttribute("aria-hidden", "true");
 });
 
-test("renders backdrop when opened inside FlatTable", async () => {
+test("uses PopoverMenu's inline rendering inside FlatTable", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -2443,7 +1538,7 @@ test("renders backdrop when opened inside FlatTable", async () => {
 
   await user.click(screen.getByRole("button"));
 
-  expect(screen.getByTestId("popup-backdrop")).toBeVisible();
+  expect(screen.queryByTestId("popup-backdrop")).not.toBeInTheDocument();
 });
 
 test("renders action popover menu under the action popover wrapper tree", async () => {
@@ -2462,7 +1557,7 @@ test("renders action popover menu under the action popover wrapper tree", async 
   expect(anchor).toContainElement(menu);
 });
 
-test("uses the TokensWrapper as the popover portal target when present", async () => {
+test("renders the PopoverMenu inline within a TokensWrapper", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -2477,10 +1572,244 @@ test("uses the TokensWrapper as the popover portal target when present", async (
   await screen.findByRole("list");
 
   const tokensWrapper = screen.getByTestId("tokens-wrapper");
-  const portalProvider = screen.getByTestId(
-    "carbon-portal-scoped-tokens-provider",
+  expect(tokensWrapper).toContainElement(screen.getByRole("list"));
+  expect(
+    screen.queryByTestId("carbon-portal-scoped-tokens-provider"),
+  ).not.toBeInTheDocument();
+});
+
+test("closes the menu when an adaptive sidebar modal receives focus", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover>
+      <ActionPopoverItem>Item 1</ActionPopoverItem>
+    </ActionPopover>,
   );
 
-  // eslint-disable-next-line testing-library/no-node-access
-  expect(portalProvider.parentElement).toBe(tokensWrapper);
+  const menuButton = screen.getByRole("button", { name: "Actions" });
+  await user.click(menuButton);
+
+  expect(await screen.findByRole("list")).toBeVisible();
+  expect(menuButton).toHaveAttribute("aria-expanded", "true");
+
+  fireEvent(document, new CustomEvent("adaptiveSidebarModalFocusIn"));
+
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  expect(menuButton).toHaveAttribute("aria-expanded", "false");
 });
+
+test("closes the submenu when the user presses left arrow key and focus is in the submenu", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover>
+      <ActionPopoverItem
+        submenu={
+          <ActionPopoverMenu>
+            <ActionPopoverItem>Submenu 1</ActionPopoverItem>
+            <ActionPopoverItem>Submenu 2</ActionPopoverItem>
+          </ActionPopoverMenu>
+        }
+      >
+        Item 1
+      </ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  const menuButton = screen.getByRole("button");
+  menuButton.focus();
+  await user.keyboard("{ArrowDown}");
+  jest.runOnlyPendingTimers();
+
+  const submenuParent = screen.getByRole("button", { name: "Item 1" });
+  expect(submenuParent).toHaveFocus();
+
+  await user.keyboard("{ArrowRight}");
+  const submenuItem = await screen.findByRole("button", { name: "Submenu 1" });
+
+  expect(submenuItem).toHaveFocus();
+
+  await user.keyboard("{ArrowLeft}");
+
+  expect(submenuItem).not.toBeInTheDocument();
+  expect(submenuParent).toHaveFocus();
+  expect(submenuParent).toHaveAttribute("aria-expanded", "false");
+});
+
+test("closes an open submenu when another one is opened", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover>
+      <ActionPopoverItem
+        submenu={
+          <ActionPopoverMenu>
+            <ActionPopoverItem>Submenu 1</ActionPopoverItem>
+          </ActionPopoverMenu>
+        }
+      >
+        Item 1
+      </ActionPopoverItem>
+      <ActionPopoverItem
+        submenu={
+          <ActionPopoverMenu>
+            <ActionPopoverItem>Submenu 2</ActionPopoverItem>
+          </ActionPopoverMenu>
+        }
+      >
+        Item 2
+      </ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  const menuButton = screen.getByRole("button");
+  await user.click(menuButton);
+
+  const item1 = await screen.findByRole("button", { name: "Item 1" });
+  await user.click(item1);
+  const submenu1 = await screen.findByRole("button", { name: "Submenu 1" });
+
+  expect(submenu1).toBeVisible();
+  expect(item1).toHaveAttribute("aria-expanded", "true");
+
+  const item2 = await screen.findByRole("button", { name: "Item 2" });
+  await user.click(item2);
+  const submenu2 = await screen.findByRole("button", { name: "Submenu 2" });
+
+  expect(submenu2).toBeVisible();
+  expect(submenu1).not.toBeInTheDocument();
+  expect(item1).toHaveAttribute("aria-expanded", "false");
+  expect(item2).toHaveAttribute("aria-expanded", "true");
+});
+
+test("blocks opening the menu via up arrow key when inside a Table", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <FlatTable>
+      <FlatTableBody>
+        <tr>
+          <td>
+            <ActionPopover>
+              <ActionPopoverItem>Item 1</ActionPopoverItem>
+            </ActionPopover>
+          </td>
+        </tr>
+      </FlatTableBody>
+    </FlatTable>,
+  );
+
+  const menuButton = screen.getByRole("button");
+  menuButton.focus();
+  await user.keyboard("{ArrowUp}");
+
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("blocks opening the menu via down arrow key when inside a Table", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <FlatTable>
+      <FlatTableBody>
+        <tr>
+          <td>
+            <ActionPopover>
+              <ActionPopoverItem>Item 1</ActionPopoverItem>
+            </ActionPopover>
+          </td>
+        </tr>
+      </FlatTableBody>
+    </FlatTable>,
+  );
+
+  const menuButton = screen.getByRole("button");
+  menuButton.focus();
+  await user.keyboard("{ArrowDown}");
+
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test.each([
+  ["default", undefined],
+  ["string", "Actions"],
+  ["nested text", <span key="label">Actions</span>],
+])("does not set aria-label if button has %s label text", (_, buttonLabel) => {
+  render(
+    <ActionPopover buttonLabel={buttonLabel}>
+      <ActionPopoverItem>Item 1</ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  const menuButton = screen.getByRole("button", { name: "Actions" });
+  expect(menuButton).not.toHaveAttribute("aria-label");
+});
+
+test("sets a default aria-label when the button label contains only an icon", () => {
+  render(
+    <ActionPopover buttonLabel={<Icon type="ellipsis_vertical" />}>
+      <ActionPopoverItem>Item 1</ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  expect(screen.getByRole("button", { name: "actions" })).toHaveAttribute(
+    "aria-label",
+    "actions",
+  );
+});
+
+test.each([false, true])(
+  "Escape closes the action popover before its parent dialog with submenu open=%s",
+  async (openSubmenu) => {
+    const onCancel = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <Dialog open title="Parent dialog" onCancel={onCancel}>
+        <ActionPopover>
+          <ActionPopoverItem
+            submenu={
+              <>
+                <ActionPopoverItem>Submenu item</ActionPopoverItem>
+              </>
+            }
+          >
+            Item 1
+          </ActionPopoverItem>
+        </ActionPopover>
+      </Dialog>,
+    );
+
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
+    const menuButton = screen.getByRole("button", { name: "Actions" });
+    await user.click(menuButton);
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(screen.getByRole("button", { name: /Item 1/ })).toHaveFocus();
+    expect(menuButton).toHaveAttribute("aria-expanded", "true");
+    if (openSubmenu) {
+      await user.click(screen.getByRole("button", { name: /Item 1/ }));
+    }
+    expect(
+      screen.queryByRole("button", { name: "Submenu item" }) !== null,
+    ).toBe(openSubmenu);
+
+    await user.keyboard("{Escape}");
+
+    expect(onCancel).not.toHaveBeenCalled();
+    expect(screen.getByRole("dialog", { name: /Parent dialog/ })).toBeVisible();
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    expect(menuButton).toHaveAttribute("aria-expanded", "false");
+    expect(menuButton).toHaveFocus();
+
+    await user.keyboard("{Escape}");
+
+    expect(onCancel).toHaveBeenCalledTimes(1);
+  },
+);

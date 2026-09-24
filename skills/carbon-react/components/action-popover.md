@@ -13,36 +13,37 @@ description: Carbon ActionPopover component props and usage examples.
 - Props interface: `ActionPopoverProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| children | React.ReactNode | No |  | Children for popover component |  |
-| horizontalAlignment | Alignment \| undefined | No |  | Horizontal alignment of menu items content |  |
-| id | string \| undefined | No |  | Unique ID |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| onClose | (() => void) \| undefined | No |  | Callback to be called on menu close |  |
-| onOpen | (() => void) \| undefined | No |  | Callback to be called on menu open |  |
-| placement | "bottom" \| "top" \| undefined | No |  | Set whether the menu should open above or below the button |  |
-| renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  | Render a custom menu button to override default ellipsis icon |  |
-| rightAlignMenu | boolean \| undefined | No |  | Boolean to control whether menu should align to right |  |
-| submenuPosition | Alignment \| undefined | No |  | Sets submenu position |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| aria-describedby | string \| undefined | No |  | Prop to specify an aria-describedby for the component |  |
-| aria-label | string \| undefined | No |  | Prop to specify an aria-label for the component |  |
-| aria-labelledby | string \| undefined | No |  | Prop to specify an aria-labelledby for the component |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| buttonLabel | React.ReactNode | No |  |  |  | Content for the action popover button. |  |
+| children | React.ReactNode | No |  |  |  | Children for popover component |  |
+| id | string \| undefined | No |  |  |  | Unique ID |  |
+| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| onClose | (() => void) \| undefined | No |  |  |  | Callback to be called on menu close |  |
+| onOpen | (() => void) \| undefined | No |  |  |  | Callback to be called on menu open |  |
+| renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  |  |  | Render a custom menu button to override default ellipsis icon |  |
+| rightAlignMenu | boolean \| undefined | No |  |  |  | Boolean to control whether menu should align to right |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-describedby | string \| undefined | No |  |  |  | Prop to specify an aria-describedby for the component |  |
+| aria-label | string \| undefined | No |  |  |  | Prop to specify an aria-label for the component |  |
+| aria-labelledby | string \| undefined | No |  |  |  | Prop to specify an aria-labelledby for the component |  |
+| horizontalAlignment | Alignment \| undefined | No |  | Yes | This prop is no longer supported and has no effect. |  |  |
+| placement | "bottom" \| "top" \| undefined | No |  | Yes | This prop will be removed in a future release. |  |  |
+| submenuPosition | Alignment \| undefined | No |  | Yes | This prop is no longer supported and has no effect. |  |  |
 
 ## Examples
 ### Default
@@ -61,7 +62,7 @@ description: Carbon ActionPopover component props and usage examples.
     </ActionPopoverMenu>
   );
   const submenuWithIcons = (
-    <ActionPopoverMenu>
+    <>
       <ActionPopoverItem icon="graph" onClick={() => {}}>
         Sub Menu 1
       </ActionPopoverItem>
@@ -71,7 +72,7 @@ description: Carbon ActionPopover component props and usage examples.
       <ActionPopoverItem icon="print" disabled onClick={() => {}}>
         Sub Menu 3
       </ActionPopoverItem>
-    </ActionPopoverMenu>
+    </>
   );
   return (
     <Box mt={40} height={275}>
@@ -199,25 +200,6 @@ description: Carbon ActionPopover component props and usage examples.
         <ActionPopoverItem onClick={() => {}} icon="delete">
           Delete
         </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Content Aligned Right
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
-      <ActionPopover horizontalAlignment="right">
-        <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem icon="delete">Delete</ActionPopoverItem>
       </ActionPopover>
     </Box>
   );
@@ -397,70 +379,6 @@ description: Carbon ActionPopover component props and usage examples.
 ```
 
 
-### Sub Menu Positioned Right
-
-**Render**
-
-```tsx
-() => {
-  const submenu = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
-      <ActionPopoverItem disabled onClick={() => {}}>
-        Sub Menu 3
-      </ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
-  return (
-    <Box height={250}>
-      <ActionPopover submenuPosition="right">
-        <ActionPopoverItem icon="email" submenu={submenu}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem icon="delete" submenu={submenu}>
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Menu Opening Above
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box pt={120} height={250}>
-      <ActionPopover placement="top">
-        <ActionPopoverItem
-          icon="print"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
 ### Keyboard Navigation
 
 **Render**
@@ -499,58 +417,6 @@ description: Carbon ActionPopover component props and usage examples.
   return (
     <Box height={250}>
       <ActionPopover>
-        <ActionPopoverItem
-          icon="csv"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Download
-        </ActionPopoverItem>
-        <ActionPopoverItem
-          icon="pdf"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Keyboard Navigation Right Aligned Submenu
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
-      <ActionPopover ml={0} rightAlignMenu submenuPosition="right">
         <ActionPopoverItem
           icon="csv"
           onClick={() => {}}
@@ -699,10 +565,6 @@ description: Carbon ActionPopover component props and usage examples.
 
 ```tsx
 () => {
-  const [highlightedRow, setHighlightedRow] = useState("");
-  const handleHighlightRow = (id: string) => {
-    setHighlightedRow(id);
-  };
   return (
     <Box pt={120} height={250}>
       <FlatTable>
@@ -715,18 +577,12 @@ description: Carbon ActionPopover component props and usage examples.
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("one")}
-            highlighted={highlightedRow === "one"}
-          >
+          <FlatTableRow>
             <FlatTableCell>John Doe</FlatTableCell>
             <FlatTableCell>London</FlatTableCell>
             <FlatTableCell>Single</FlatTableCell>
             <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("one")}
-              >
+              <ActionPopover>
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}
@@ -750,18 +606,12 @@ description: Carbon ActionPopover component props and usage examples.
               </ActionPopover>
             </FlatTableCell>
           </FlatTableRow>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("two")}
-            highlighted={highlightedRow === "two"}
-          >
+          <FlatTableRow>
             <FlatTableCell>Jane Doe</FlatTableCell>
             <FlatTableCell>York</FlatTableCell>
             <FlatTableCell>Married</FlatTableCell>
             <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("two")}
-              >
+              <ActionPopover>
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}

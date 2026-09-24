@@ -22,7 +22,7 @@ import {
 import Confirm from "../confirm";
 import { Accordion } from "../accordion";
 import Dialog from "../dialog";
-import Button from "../button";
+import Button from "../button/__next__";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -53,7 +53,7 @@ export const Default: Story = () => {
     </ActionPopoverMenu>
   );
   const submenuWithIcons = (
-    <ActionPopoverMenu>
+    <>
       <ActionPopoverItem icon="graph" onClick={() => {}}>
         Sub Menu 1
       </ActionPopoverItem>
@@ -63,7 +63,7 @@ export const Default: Story = () => {
       <ActionPopoverItem icon="print" disabled onClick={() => {}}>
         Sub Menu 3
       </ActionPopoverItem>
-    </ActionPopoverMenu>
+    </>
   );
   return (
     <Box mt={40} height={275}>
@@ -178,19 +178,6 @@ export const MenuRightAligned: Story = () => {
   );
 };
 MenuRightAligned.storyName = "Menu Right Aligned";
-
-export const ContentAlignedRight: Story = () => {
-  return (
-    <Box height={250}>
-      <ActionPopover horizontalAlignment="right">
-        <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem icon="delete">Delete</ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-ContentAlignedRight.storyName = "Content Aligned Right";
 
 export const NoIcons: Story = () => {
   return (
@@ -340,58 +327,6 @@ export const DisabledSubmenu: Story = () => {
 };
 DisabledSubmenu.storyName = "Disabled Submenu";
 
-export const SubmenuPositionedRight: Story = () => {
-  const submenu = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
-      <ActionPopoverItem disabled onClick={() => {}}>
-        Sub Menu 3
-      </ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
-  return (
-    <Box height={250}>
-      <ActionPopover submenuPosition="right">
-        <ActionPopoverItem icon="email" submenu={submenu}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem icon="delete" submenu={submenu}>
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-SubmenuPositionedRight.storyName = "Sub Menu Positioned Right";
-
-export const MenuOpeningAbove: Story = () => {
-  return (
-    <Box pt={120} height={250}>
-      <ActionPopover placement="top">
-        <ActionPopoverItem
-          icon="print"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-MenuOpeningAbove.storyName = "Menu Opening Above";
-
 export const KeyboardNavigation: Story = () => {
   return (
     <Box height={250}>
@@ -461,53 +396,6 @@ export const KeyboardNavigationLeftAlignedSubmenu: Story = () => {
 };
 KeyboardNavigationLeftAlignedSubmenu.storyName =
   "Keyboard Navigation Left Aligned Submenu";
-
-export const KeyboardNavigationRightAlignedSubmenu: Story = () => {
-  return (
-    <Box height={250}>
-      <ActionPopover ml={0} rightAlignMenu submenuPosition="right">
-        <ActionPopoverItem
-          icon="csv"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Download
-        </ActionPopoverItem>
-        <ActionPopoverItem
-          icon="pdf"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-KeyboardNavigationRightAlignedSubmenu.storyName =
-  "Keyboard Navigation Right Aligned Submenu";
 
 export const AdditionalOptions: Story = () => {
   return (
@@ -591,10 +479,6 @@ export const InOverflowHiddenContainer: Story = () => {
 InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
 
 export const InFlatTable: Story = () => {
-  const [highlightedRow, setHighlightedRow] = useState("");
-  const handleHighlightRow = (id: string) => {
-    setHighlightedRow(id);
-  };
   return (
     <Box pt={120} height={250}>
       <FlatTable>
@@ -607,18 +491,12 @@ export const InFlatTable: Story = () => {
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("one")}
-            highlighted={highlightedRow === "one"}
-          >
+          <FlatTableRow>
             <FlatTableCell>John Doe</FlatTableCell>
             <FlatTableCell>London</FlatTableCell>
             <FlatTableCell>Single</FlatTableCell>
             <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("one")}
-              >
+              <ActionPopover>
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}
@@ -642,18 +520,12 @@ export const InFlatTable: Story = () => {
               </ActionPopover>
             </FlatTableCell>
           </FlatTableRow>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("two")}
-            highlighted={highlightedRow === "two"}
-          >
+          <FlatTableRow>
             <FlatTableCell>Jane Doe</FlatTableCell>
             <FlatTableCell>York</FlatTableCell>
             <FlatTableCell>Married</FlatTableCell>
             <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("two")}
-              >
+              <ActionPopover>
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}
