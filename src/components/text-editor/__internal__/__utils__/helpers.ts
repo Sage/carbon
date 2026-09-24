@@ -16,13 +16,20 @@ const classToStyleMap: Record<string, string> = {
   textUnderline: "text-decoration: underline;",
 };
 
+const tagToStyleMap: Record<string, string> = {
+  STRONG: "font-weight: bold;",
+  B: "font-weight: bold;",
+  EM: "font-style: italic;",
+  I: "font-style: italic;",
+  U: "text-decoration: underline;",
+};
+
 /**
- * Post-processes HTML serialised from the Lexical editor, converting class-based
- * text formatting to inline styles and applying brand-consistent defaults to all elements.
+ * Post-processes HTML serialised from the Lexical editor, adding inline text
+ * formatting and applying brand-consistent defaults to all elements.
  *
  * Specifically:
- * - Converts Lexical's text format classes (textBold, textItalic, textUnderline)
- *   to their inline style equivalents
+ * - Converts text format classes and semantic formatting tags to inline styles
  * - Applies the Sage UI font family to all elements
  * - Applies link styles (color, cursor, underline) to anchor elements
  * - Preserves any existing inline styles set by Lexical (e.g. white-space: pre-wrap)
@@ -49,6 +56,11 @@ const generateHTMLWithInlineStyles = (html: string): string => {
         element.classList.remove(className);
       }
     });
+
+    const mappedTagStyle = tagToStyleMap[element.tagName];
+    if (mappedTagStyle) {
+      newStyles.push(mappedTagStyle);
+    }
 
     // Apply link styles
     if (element.tagName === "A") {
