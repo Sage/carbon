@@ -1,3 +1,9 @@
+## [162.3.1](https://github.com/Sage/carbon/compare/v162.3.0...v162.3.1) (2026-09-24)
+
+### Bug Fixes
+
+* **text-editor:** keep texteditor typography separate from text formatting ([346327a](https://github.com/Sage/carbon/commit/346327adbd56e310d623488823f471c62d0cf3a0))
+
 ## [162.3.0](https://github.com/Sage/carbon/compare/v162.2.4...v162.3.0) (2026-09-23)
 
 ### Features
