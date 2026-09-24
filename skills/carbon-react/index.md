@@ -4,6 +4,7 @@
 
 - [Accordion](components/accordion.md)
 - [AccordionGroup](components/accordion-group.md) (deprecated)
+- [ActionOption](components/action-option.md)
 - [ActionPopover](components/action-popover.md)
 - [ActionPopoverDivider](components/action-popover-divider.md)
 - [ActionPopoverItem](components/action-popover-item.md)

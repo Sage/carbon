@@ -1,5 +1,7 @@
 export { default as Option } from "./option";
 export type { OptionProps } from "./option";
+export { default as ActionOption } from "./action-option";
+export type { ActionOptionProps } from "./action-option";
 export { default as OptionRow } from "./option-row";
 export type { OptionRowProps } from "./option-row";
 export { default as OptionGroupHeader } from "./option-group-header";

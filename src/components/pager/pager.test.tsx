@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pager from ".";
 import { setupSelectMocks } from "../select";
@@ -358,7 +358,7 @@ test("calls `onPagination` when Enter is pressed in the page size select", async
   expect(onPagination).toHaveBeenCalledWith(1, 25, "page-select");
 });
 
-test("resets page size select to the previous value when selection is not completed", async () => {
+test("calls `onPagination` when Tab is pressed in the page size select", async () => {
   const user = userEvent.setup();
   const onPagination = jest.fn();
   render(
@@ -371,7 +371,26 @@ test("resets page size select to the previous value when selection is not comple
   await user.keyboard("{ArrowDown}");
   await user.tab();
 
+  expect(onPagination).toHaveBeenCalledWith(1, 25, "page-select");
+  expect(select).toHaveValue("25");
+});
+
+test("does not call `onPagination` when the page size select highlight changes without confirmation", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager onPagination={onPagination} showPageSizeSelection pageSize={10} />,
+  );
+
+  const select = screen.getByRole("combobox", { name: "Items per page" });
+  await user.click(select);
+  await user.keyboard("2");
+
   expect(onPagination).not.toHaveBeenCalled();
+  expect(select).toHaveValue("25");
+
+  fireEvent.blur(select);
+
   expect(select).toHaveValue("10");
 });
 
