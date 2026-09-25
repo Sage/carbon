@@ -9,15 +9,10 @@ import { sidebarPreview } from "../../../playwright/components/sidebar";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
-  continuePressingSHIFTTAB,
-  continuePressingTAB,
-  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import {
   Default,
   DefaultNested,
-  SidebarBackgroundScrollTestComponent,
-  SidebarBackgroundScrollWithOtherFocusableContainers,
   SidebarComponentFocusable,
 } from "./components.test-pw";
 
@@ -197,73 +192,6 @@ test.describe("Browser-specific rendering", () => {
       "max-width",
       1366,
     );
-  });
-
-  test.describe("Check background scroll when tabbing", () => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing forward through the sidebar and back to the start should not make the background scroll to the bottom", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SidebarBackgroundScrollTestComponent />);
-
-      await continuePressingTAB(page, 3);
-      const closeIconButtonElement = closeIconButton(page);
-
-      await expect(closeIconButtonElement).toBeFocused();
-
-      const boxElement = page.getByText("I should not be scrolled into view");
-      await expect(boxElement).not.toBeInViewport();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing backward through the sidebar and back to the start should not make the background scroll to the bottom", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SidebarBackgroundScrollTestComponent />);
-
-      await continuePressingSHIFTTAB(page, 1);
-      const closeIconButtonElement = closeIconButton(page);
-
-      await expect(closeIconButtonElement).toBeFocused();
-
-      const boxElement = page.getByText("I should not be scrolled into view");
-      await expect(boxElement).not.toBeInViewport();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing forward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SidebarBackgroundScrollWithOtherFocusableContainers />);
-
-      await continuePressingTAB(page, 6);
-      await waitForAnimationEnd(sidebarPreview(page));
-      const closeIconButtonElement = closeIconButton(page).nth(0);
-
-      await expect(closeIconButtonElement).toBeFocused();
-
-      const boxElement = page.getByText("I should not be scrolled into view");
-      await expect(boxElement).not.toBeInViewport();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing backward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SidebarBackgroundScrollWithOtherFocusableContainers />);
-
-      await continuePressingSHIFTTAB(page, 7);
-      const closeIconButtonElement = closeIconButton(page).nth(0);
-
-      await expect(closeIconButtonElement).toBeFocused();
-
-      const boxElement = page.getByText("I should not be scrolled into view");
-      await expect(boxElement).not.toBeInViewport();
-    });
   });
 });
 

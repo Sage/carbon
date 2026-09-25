@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 import Typography from "../../../src/components/typography";
 import Button from "../button";
@@ -70,97 +70,6 @@ export const DefaultNested = () => {
         </Sidebar>
       </Sidebar>
     </>
-  );
-};
-
-export const SidebarComponentWithOnCancel = (props: Partial<SidebarProps>) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const handleOnCancel = () => {
-    setIsOpen(false);
-  };
-  return (
-    <>
-      <Sidebar
-        aria-label="sidebar"
-        open={isOpen}
-        position="right"
-        size="medium"
-        onCancel={handleOnCancel}
-        {...props}
-      >
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        <Box mb="3000px">Main content</Box>
-      </Sidebar>
-    </>
-  );
-};
-
-export const SidebarBackgroundScrollTestComponent = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Box height="2000px" position="relative">
-      <Box
-        data-element="test-box"
-        height="100px"
-        position="absolute"
-        bottom="0px"
-      >
-        I should not be scrolled into view
-      </Box>
-      <Sidebar open onCancel={() => {}}>
-        <Textbox
-          label="textbox"
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-      </Sidebar>
-    </Box>
-  );
-};
-
-export const SidebarBackgroundScrollWithOtherFocusableContainers = () => {
-  const toast1Ref = useRef(null);
-  const toast2Ref = useRef(null);
-  const [value, setValue] = useState("");
-
-  return (
-    <Box height="2000px" position="relative">
-      <Box
-        data-element="test-box"
-        height="100px"
-        position="absolute"
-        bottom="0px"
-      >
-        I should not be scrolled into view
-      </Box>
-      <Sidebar
-        open
-        onCancel={() => {}}
-        focusableContainers={[toast1Ref, toast2Ref]}
-      >
-        <Textbox
-          label="textbox"
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-      </Sidebar>
-      <Toast open onDismiss={() => {}} ref={toast1Ref} targetPortalId="stacked">
-        Toast message 1
-      </Toast>
-      <Toast open onDismiss={() => {}} ref={toast2Ref} targetPortalId="stacked">
-        Toast message 2
-      </Toast>
-    </Box>
   );
 };
 
