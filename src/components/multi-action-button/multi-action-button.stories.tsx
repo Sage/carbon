@@ -9,7 +9,6 @@ import MultiActionButton, {
 } from ".";
 import Button from "../button/__next__";
 import Box from "../box";
-import Loader from "../../components/loader/__next__";
 import { Badge } from "../..";
 
 import MultiActionButtonDivider from "./multi-action-button-divider/multi-action-button-divider.component";
@@ -41,9 +40,10 @@ export const DefaultStory: Story = {
   render: (args: MultiActionButtonProps) => {
     return (
       <MultiActionButton {...args}>
-        <Button href="#">Button 1</Button>
+        <Button>Button 1</Button>
         <Button>Button 2</Button>
         <Button>Button 3</Button>
+        <Button>Button 4</Button>
       </MultiActionButton>
     );
   },
@@ -157,45 +157,6 @@ FullWidth.args = {
   fullWidth: true,
 };
 
-export const ButtonTypes: Story = () => {
-  return (["primary", "secondary", "tertiary", "subtle"] as const).map(
-    (buttonType: MultiActionButtonProps["variantType"]) => (
-      <Box key={buttonType} mb={3}>
-        <MultiActionButton
-          variantType={buttonType}
-          text={`Multi Action Button - ${buttonType}`}
-        >
-          <Button href="#">Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    ),
-  );
-};
-ButtonTypes.storyName = "Button Types";
-
-export const LoadingState: Story = () => {
-  return (["primary", "secondary", "tertiary"] as const).map(
-    (buttonType: MultiActionButtonProps["buttonType"]) => (
-      <Box key={buttonType} mb={3}>
-        <Button>
-          <Loader variant="inline" loaderType="ring" size="extra-small" />
-        </Button>
-        <Button>
-          <Loader
-            variant="inline"
-            loaderType="ring"
-            loaderLabel="Chargement..."
-            size="extra-small"
-          />
-        </Button>
-      </Box>
-    ),
-  );
-};
-LoadingState.storyName = "Loading State";
-
 export const BadgeState: Story = () => {
   return (
     <Box mb={3}>
@@ -295,26 +256,6 @@ export const Position: Story = () => {
 Position.storyName = "Position";
 Position.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Subtext: Story = {
-  ...DefaultStory,
-  args: {
-    ...DefaultStory.args,
-    size: "large",
-    text: "Multi Action Button",
-    subtext: "subtext",
-    children: (
-      <>
-        <Button size="large" href="#">
-          Button 1
-        </Button>
-        <Button size="large">Button 2</Button>
-        <Button size="large">Button 3</Button>
-      </>
-    ),
-  },
-  name: "Subtext",
-};
-
 export const WithChildrenButtonsWithIcons: Story = () => {
   return (
     <>
@@ -369,28 +310,5 @@ export const WithDivider: Story = () => {
 };
 WithDivider.storyName = "With Divider";
 WithDivider.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const IconOnly: Story = () => {
-  return (
-    <>
-      <MultiActionButton text="Multi Action Button" iconOnly>
-        <Button iconPosition="before" iconType="add">
-          Child Button 1
-        </Button>
-        <Button iconPosition="before" iconType="upload">
-          Child Button 2
-        </Button>
-        <MultiActionButtonDivider />
-        <Button iconPosition="before" iconType="clock">
-          Child Button 3
-        </Button>
-      </MultiActionButton>
-    </>
-  );
-};
-IconOnly.storyName = "Icon Only";
-IconOnly.parameters = {
   chromatic: { disableSnapshot: true },
 };

@@ -42,12 +42,6 @@ Using a `ref`, you can access its `focusMainButton()` method to set focus on the
 
 <Canvas of={MultiActionButtonStories.ProgrammaticFocus} />
 
-### Variant type
-
-Use the `variantType` prop to specify the variant of the Multi Action Button.
-
-<Canvas of={MultiActionButtonStories.ButtonTypes} />
-
 ### Disabled
 
 <Canvas of={MultiActionButtonStories.Disabled} />
@@ -74,7 +68,7 @@ You can use the `fullWidth` prop to make the menu match the Multi Action Button'
 
 You can use the `menuWidth` prop to set a custom width with any valid CSS width value.
 
-<Canvas of={MultiActionButtonStories.FullWidth} />
+<Canvas of={MultiActionButtonStories.MenuWidth} />
 
 ### Multi action button divider
 
@@ -82,15 +76,9 @@ You can use the `<MultiActionButtonDivider/>` to set a divider.
 
 <Canvas of={MultiActionButtonStories.WithDivider} />
 
-### Icon only
-
-Use the `iconOnly` boolean prop to display only the icon of the Multi Action Button.
-
-<Canvas of={MultiActionButtonStories.IconOnly} />
-
 ### (Deprecated) Custom width
 
-The `width` prop has been deprecated and will be removed in a future version. Please use `menuWidth` instead.
+The `width` prop has been deprecated and will be removed in a future version.
 
 Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values.
 String values are passed as raw CSS values. `size` prop can still be used to set desired height.
@@ -99,15 +87,7 @@ String values are passed as raw CSS values. `size` prop can still be used to set
 
 ### (Deprecated) Button types
 
-The `buttonType` prop has been deprecated and it will be removed in a future version. Please use `variantType` instead.
-
-### (Deprecated) Subtext
-
-The `subtext` prop has been deprecated and it will be removed in a future version. 
-
-Subtext only works when `size` is `large`
-
-<Canvas of={MultiActionButtonStories.Subtext} />
+The `buttonType` prop has been deprecated and it will be removed in a future version. Only the primary variant is available for the Multi Action Button.
 
 ### (Deprecated) Button text alignment
 
