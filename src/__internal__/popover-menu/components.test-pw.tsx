@@ -18,6 +18,7 @@ interface PopoverMenuComponentProps {
   width?: string;
   withDisabledItems?: boolean;
   openByDefault?: boolean;
+  maxHeight?: string;
 }
 
 export const PopoverMenuComponent = ({
@@ -164,6 +165,40 @@ export const PopoverButtonMenuComponent = ({
             Action 3
           </Button>
         </MenuItem>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+export const OverflowingPopoverButtonMenuComponent = ({
+  maxHeight,
+  actionCount = 8,
+}: Pick<PopoverMenuComponentProps, "maxHeight"> & { actionCount?: number }) => {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div style={{ margin: "200px", paddingBottom: "400px" }}>
+      <PopoverMenu<HTMLButtonElement>
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        isButtonMenu
+        maxHeight={maxHeight}
+        popoverControl={(ref, { role, ...props }) => (
+          <Button
+            ref={ref}
+            {...props}
+            onClick={() => setOpen((currentOpen) => !currentOpen)}
+          >
+            Overflow control
+          </Button>
+        )}
+      >
+        {Array.from({ length: actionCount }, (_, index) => (
+          <MenuItem key={index}>
+            <Button>{`Overflow action ${index + 1}`}</Button>
+          </MenuItem>
+        ))}
       </PopoverMenu>
     </div>
   );
