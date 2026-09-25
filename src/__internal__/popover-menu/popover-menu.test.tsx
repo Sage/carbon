@@ -833,6 +833,31 @@ describe("PopoverMenu - button menu", () => {
     expect(screen.getByRole("button", { name: "Subitem 2" })).toBeVisible();
   });
 
+  it("renders a submenu via a portal to the document body when its control has no popover-menu ancestor", async () => {
+    const controlReference = {
+      current: document.createElement("li"),
+    } as React.RefObject<HTMLLIElement>;
+
+    render(
+      <PopoverMenu
+        isSubmenu
+        isButtonMenu
+        open
+        onClose={() => {}}
+        controlReference={controlReference}
+        popoverControl={(ref, props) => (
+          <Button {...props} ref={ref}>
+            Submenu control
+          </Button>
+        )}
+      >
+        <Button>Subitem 1</Button>
+      </PopoverMenu>,
+    );
+
+    expect(screen.getByRole("button", { name: "Subitem 1" })).toBeVisible();
+  });
+
   it("does not display a submenu when the user clicks on a disabled item that has one", async () => {
     const user = userEvent.setup();
     render(

@@ -35,6 +35,7 @@ export default {
     "PopoverMenuButtonLarge",
     "PopoverMenuButtonSmallDisabledItems",
     "PopoverMenuButtonPlacementStart",
+    "PopoverMenuButtonOverflow",
   ],
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -2007,3 +2008,39 @@ export const PopoverMenuButtonPlacementStart = () => {
 
 PopoverMenuButtonPlacementStart.storyName =
   "popover menu with buttons placement start";
+
+export const PopoverMenuButtonOverflow = () => {
+  const [open, setOpen] = React.useState<boolean>(true);
+
+  return (
+    <div style={{ display: "flex", gap: "24px", margin: "180px" }}>
+      <PopoverMenu<HTMLButtonElement>
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        isButtonMenu
+        popoverControl={(ref, { role, ...props }) => (
+          <ButtonNext
+            ref={ref}
+            {...props}
+            onClick={() => setOpen((currentOpen) => !currentOpen)}
+            variantType="tertiary"
+          >
+            Overflow menu
+          </ButtonNext>
+        )}
+      >
+        {Array.from({ length: 8 }, (_, index) => (
+          <MenuItem key={index}>
+            <ButtonNext>{`Overflow action ${index + 1}`}</ButtonNext>
+          </MenuItem>
+        ))}
+      </PopoverMenu>
+    </div>
+  );
+};
+
+PopoverMenuButtonOverflow.storyName = "popover menu button overflow";
+PopoverMenuButtonOverflow.parameters = {
+  chromatic: { disableSnapshot: false },
+};
