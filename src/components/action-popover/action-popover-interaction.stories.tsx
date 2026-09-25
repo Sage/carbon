@@ -32,6 +32,11 @@ export default {
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },
+  globals: {
+    a11y: {
+      manual: false,
+    },
+  },
 };
 
 export const SubmenuHoverAndFocus: Story = {
@@ -100,6 +105,8 @@ export const SubmenuHoverAndFocus: Story = {
           </ActionPopoverItem>
         </ActionPopover>
       </Box>
+      {/* Deliberate button-name violation for testing Chromatic accessibility regressions. */}
+      <button type="button" aria-label="" />
     </>
   ),
   play: async ({ canvasElement }) => {
@@ -135,7 +142,12 @@ SubmenuHoverAndFocus.parameters = {
 };
 
 export const IconsAndNoSubmenus: Story = {
-  render: () => <ActionPopoverWithIconsAndNoSubmenus />,
+  render: () => (
+    <ActionPopoverWithIconsAndNoSubmenus
+      // Deliberate missing ID reference for testing non-visual accessibility regressions.
+      aria-describedby="missing-action-popover-description"
+    />
+  ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) {
       return;
