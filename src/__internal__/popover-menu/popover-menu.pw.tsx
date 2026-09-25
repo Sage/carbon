@@ -1,11 +1,33 @@
 import React from "react";
+import type { Locator } from "@playwright/test";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import {
   PopoverMenuComponent,
   PopoverMenuWithPreselection,
   PopoverButtonMenuComponent,
+  OverflowingPopoverButtonMenuComponent,
 } from "./components.test-pw";
+
+const isVisibleInScrollport = (element: Element) => {
+  const scrollport = element.closest("[role='list']");
+  const elementBox = element.getBoundingClientRect();
+  const scrollportBox = scrollport?.getBoundingClientRect();
+
+  return (
+    !!scrollportBox &&
+    elementBox.top >= scrollportBox.top &&
+    elementBox.bottom <= scrollportBox.bottom
+  );
+};
+
+const getBoundingBox = async (locator: Locator) => {
+  const boundingBox = await locator.boundingBox();
+
+  expect(boundingBox).not.toBeNull();
+
+  return boundingBox as Exclude<typeof boundingBox, null>;
+};
 
 test.describe("Accessibility tests", () => {
   test("passes accessibility tests when open", async ({ mount, page }) => {
@@ -148,6 +170,7 @@ test("closes the main and sub menus when the user tabs forward from an item", as
 }) => {
   await mount(<PopoverButtonMenuComponent openByDefault />);
 
+  await page.getByRole("button", { name: "Action 3" }).click();
   await page.getByRole("button", { name: "Subaction 1" }).focus();
   await page.keyboard.press("Tab");
 
@@ -160,6 +183,7 @@ test("closes the main and sub menus and focuses the control when the user Shift+
 }) => {
   await mount(<PopoverButtonMenuComponent openByDefault />);
 
+  await page.getByRole("button", { name: "Action 3" }).click();
   await page.getByRole("button", { name: "Subaction 1" }).focus();
 
   await page.keyboard.down("Shift");
@@ -168,4 +192,236 @@ test("closes the main and sub menus and focuses the control when the user Shift+
 
   await expect(page.getByRole("button", { name: "Control" })).toBeFocused();
   await expect(page.getByRole("list")).toHaveCount(0);
+});
+
+test("contains and reaches overflowing button-menu actions with pointer scrolling", async ({
+  mount,
+  page,
+}) => {
+  await mount(<OverflowingPopoverButtonMenuComponent />);
+
+  const menu = page.getByRole("list");
+  const finalAction = menu.getByRole("button", { name: "Overflow action 8" });
+
+  expect(
+    await menu.evaluate(
+      (element) => element.scrollHeight > element.clientHeight,
+    ),
+  ).toBe(true);
+
+  const menuBoxBeforePointerScroll = await menu.boundingBox();
+
+  expect(menuBoxBeforePointerScroll).not.toBeNull();
+  await page.mouse.move(
+    (menuBoxBeforePointerScroll?.x ?? 0) +
+      (menuBoxBeforePointerScroll?.width ?? 0) / 2,
+    (menuBoxBeforePointerScroll?.y ?? 0) +
+      (menuBoxBeforePointerScroll?.height ?? 0) / 2,
+  );
+  await page.mouse.wheel(0, 1000);
+
+  await expect
+    .poll(() => menu.evaluate((element) => element.scrollTop))
+    .toBeGreaterThan(0);
+  expect(await finalAction.evaluate(isVisibleInScrollport)).toBe(true);
+  await expect(finalAction).toBeVisible();
+  await finalAction.click();
+
+  const [menuBox, finalActionBox] = await Promise.all([
+    getBoundingBox(menu),
+    getBoundingBox(finalAction),
+  ]);
+
+  expect(finalActionBox.y).toBeGreaterThanOrEqual(menuBox.y);
+  expect(finalActionBox.y + finalActionBox.height).toBeLessThanOrEqual(
+    menuBox.y + menuBox.height,
+  );
+});
+
+test("keeps keyboard focus in an overflowing button menu and scrolls the focused action into view", async ({
+  mount,
+  page,
+}) => {
+  await mount(<OverflowingPopoverButtonMenuComponent />);
+
+  const menu = page.getByRole("list");
+  const finalAction = menu.getByRole("button", { name: "Overflow action 8" });
+
+  expect(
+    await menu.evaluate(
+      (element) => element.scrollHeight > element.clientHeight,
+    ),
+  ).toBe(true);
+  expect(await finalAction.evaluate(isVisibleInScrollport)).toBe(false);
+  await expect(
+    menu.getByRole("button", { name: "Overflow action 1" }),
+  ).toBeFocused();
+
+  for (let index = 0; index < 7; index += 1) {
+    await page.keyboard.press("ArrowDown");
+  }
+
+  await expect(finalAction).toBeFocused();
+  expect(await menu.evaluate((element) => element.scrollTop > 0)).toBe(true);
+  expect(await finalAction.evaluate(isVisibleInScrollport)).toBe(true);
+  await expect(finalAction).toBeVisible();
+  await checkAccessibility(page);
+});
+
+test("retains a supplied maximum height while keeping overflowing button-menu actions reachable", async ({
+  mount,
+  page,
+}) => {
+  await mount(<OverflowingPopoverButtonMenuComponent maxHeight="120px" />);
+
+  const menu = page.getByRole("list");
+  const finalAction = menu.getByRole("button", { name: "Overflow action 8" });
+
+  await expect(menu).toHaveCSS("max-height", "120px");
+  expect(
+    await menu.evaluate(
+      (element) => element.scrollHeight > element.clientHeight,
+    ),
+  ).toBe(true);
+
+  const menuBoxBeforePointerScroll = await menu.boundingBox();
+
+  expect(menuBoxBeforePointerScroll).not.toBeNull();
+  await page.mouse.move(
+    (menuBoxBeforePointerScroll?.x ?? 0) +
+      (menuBoxBeforePointerScroll?.width ?? 0) / 2,
+    (menuBoxBeforePointerScroll?.y ?? 0) +
+      (menuBoxBeforePointerScroll?.height ?? 0) / 2,
+  );
+  await page.mouse.wheel(0, 1000);
+
+  await expect
+    .poll(() => finalAction.evaluate(isVisibleInScrollport))
+    .toBe(true);
+  await expect(finalAction).toBeVisible();
+  await finalAction.click();
+});
+
+test("does not add scrolling to a non-overflowing button menu", async ({
+  mount,
+  page,
+}) => {
+  await mount(<OverflowingPopoverButtonMenuComponent actionCount={3} />);
+
+  const menu = page.getByRole("list");
+
+  expect(
+    await menu.evaluate(
+      (element) => element.scrollHeight === element.clientHeight,
+    ),
+  ).toBe(true);
+});
+
+test("renders a submenu opened from a scrolled-to action in an overflowing button menu fully visible", async ({
+  mount,
+  page,
+}) => {
+  await mount(<OverflowingPopoverButtonMenuComponent submenuOnLastItem />);
+
+  const menu = page.getByRole("list").filter({
+    has: page.getByRole("button", { name: "Overflow action 8" }),
+  });
+  const finalAction = menu.getByRole("button", { name: "Overflow action 8" });
+  const menuElement = await menu.elementHandle();
+
+  const menuBoxBeforePointerScroll = await menu.boundingBox();
+
+  expect(menuBoxBeforePointerScroll).not.toBeNull();
+  await page.mouse.move(
+    (menuBoxBeforePointerScroll?.x ?? 0) +
+      (menuBoxBeforePointerScroll?.width ?? 0) / 2,
+    (menuBoxBeforePointerScroll?.y ?? 0) +
+      (menuBoxBeforePointerScroll?.height ?? 0) / 2,
+  );
+  await page.mouse.wheel(0, 1000);
+
+  await expect
+    .poll(() => finalAction.evaluate(isVisibleInScrollport))
+    .toBe(true);
+  await finalAction.click();
+
+  const subaction = page.getByRole("button", { name: "Overflow subaction" });
+  await expect(subaction).toBeVisible();
+  await expect(
+    menu.getByRole("button", { name: "Overflow subaction" }),
+  ).toHaveCount(0);
+
+  expect(menuElement).not.toBeNull();
+
+  await expect
+    .poll(() =>
+      subaction.evaluate(
+        (element, parentMenu) =>
+          element
+            .closest("[data-component='popover-menu']")
+            ?.contains(parentMenu) ?? false,
+        menuElement,
+      ),
+    )
+    .toBe(true);
+  await checkAccessibility(page);
+});
+
+test("closes an open submenu when its trigger scrolls out of the parent menu", async ({
+  mount,
+  page,
+}) => {
+  await mount(<OverflowingPopoverButtonMenuComponent submenuOnLastItem />);
+
+  const menu = page.getByRole("list").filter({
+    has: page.getByRole("button", { name: "Overflow action 8" }),
+  });
+  const trigger = menu.getByRole("button", { name: "Overflow action 8" });
+
+  await menu.evaluate((element) => element.scrollTo({ top: 1000 }));
+  await trigger.click();
+
+  const submenu = page.getByRole("list").filter({
+    has: page.getByRole("button", { name: "Overflow subaction" }),
+  });
+
+  await expect(submenu).toBeVisible();
+  await menu.evaluate((element) => element.scrollTo({ top: 0 }));
+
+  await expect(submenu).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  await menu.evaluate((element) => element.scrollTo({ top: 1000 }));
+  await expect(trigger).toBeVisible();
+  await expect(submenu).toHaveCount(0);
+});
+
+test("keeps the user's scroll position when scrolling closes the submenu and returns focus to its trigger", async ({
+  mount,
+  page,
+}) => {
+  await mount(<OverflowingPopoverButtonMenuComponent submenuOnLastItem />);
+
+  const menu = page.getByRole("list").filter({
+    has: page.getByRole("button", { name: "Overflow action 8" }),
+  });
+  const trigger = menu.getByRole("button", { name: "Overflow action 8" });
+
+  await menu.evaluate((element) => element.scrollTo({ top: 1000 }));
+  await trigger.click();
+  await expect(
+    page.getByRole("button", { name: "Overflow subaction" }),
+  ).toBeVisible();
+
+  const menuBox = await getBoundingBox(menu);
+
+  await page.mouse.move(menuBox.x + 10, menuBox.y + 10);
+  await page.mouse.wheel(0, -1000);
+
+  await expect(
+    page.getByRole("button", { name: "Overflow subaction" }),
+  ).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  await expect
+    .poll(() => menu.evaluate((element) => element.scrollTop))
+    .toBe(0);
 });

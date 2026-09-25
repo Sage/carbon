@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import PopoverMenu, {
   FocusableHandle,
   PopoverMenuProps,
@@ -831,6 +831,30 @@ describe("PopoverMenu - button menu", () => {
 
     expect(screen.getByRole("button", { name: "Subitem 1" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Subitem 2" })).toBeVisible();
+  });
+
+  it("makes the parent item own its portaled submenu only while the submenu is open", async () => {
+    const user = userEvent.setup();
+    render(
+      <PopoverMenuWithState<HTMLButtonElement>
+        isButtonMenu
+        popoverControl={popoverControlButton}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Button label" }));
+
+    const [, parentItem] = within(screen.getByRole("list")).getAllByRole(
+      "listitem",
+    );
+
+    expect(parentItem).not.toHaveAttribute("aria-owns");
+
+    await user.click(screen.getByRole("button", { name: "Item 2" }));
+
+    const [, submenuList] = screen.getAllByRole("list");
+
+    expect(parentItem).toHaveAttribute("aria-owns", submenuList.id);
   });
 
   it("does not display a submenu when the user clicks on a disabled item that has one", async () => {
