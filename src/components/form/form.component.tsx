@@ -12,6 +12,7 @@ import {
 } from "./form.style";
 import { FormButtonAlignment, formSpacing } from "./form.config";
 import ModalContext from "../../__internal__/modal/modal.context";
+import SidebarContext from "../sidebar/__internal__/sidebar.context";
 
 export interface FormProps extends SpaceProps, TagProps {
   /** Alignment of buttons */
@@ -78,6 +79,7 @@ export const Form = ({
   const formRef = useRef<HTMLFormElement>(null);
   const formFooterRef = useRef<HTMLDivElement>(null);
   const { isInModal } = useContext(ModalContext);
+  const { isStickyContentFocusable } = useContext(SidebarContext);
 
   const renderFooter = !!(
     footerChildren ||
@@ -106,7 +108,7 @@ export const Form = ({
         data-element="form-content"
         data-role="form-content"
         $stickyFooter={stickyFooter}
-        tabIndex={-1}
+        tabIndex={stickyFooter && isStickyContentFocusable ? 0 : -1}
         $isInModal={isInModal}
         $fieldSpacing={formSpacing[fieldSpacing]}
       >
