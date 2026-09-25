@@ -13,16 +13,15 @@ export interface DtProps extends SpaceProps, TagProps {
 
 const Dt = ({ children, ...rest }: DtProps) => {
   const { asSingleColumn, dtTextAlign } = useDlContext();
-  const { mb, pr } = rest;
+  const { pr, ...restProps } = rest;
   return (
     <StyledDt
       data-element="dt"
       data-role="dt"
-      mb={mb || asSingleColumn ? undefined : 2}
-      pr={pr || asSingleColumn ? undefined : 3}
       dtTextAlign={dtTextAlign}
       asSingleColumn={asSingleColumn}
-      {...rest}
+      pr={pr ?? (asSingleColumn ? undefined : 3)}
+      {...restProps}
       {...tagComponent("dt", rest)}
     >
       {children}

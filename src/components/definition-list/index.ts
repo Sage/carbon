@@ -1,4 +1,4 @@
-export type { DlProps } from "./dl.component";
+export type { DefinitionListSpacing, DlProps } from "./dl.component";
 export { default as Dl } from "./dl.component";
 export type { DtProps } from "./dt/dt.component";
 export { default as Dt } from "./dt/dt.component";

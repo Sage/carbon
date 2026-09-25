@@ -4,14 +4,20 @@ import {
   DLComponent,
   DLReactFragment,
   DLBoxComponent,
+  DLBoxWrappedPairs,
 } from "./components.test-pw";
-import { UsingBoxToOverrideBackgroundColor } from "./definition-list-test.stories";
 import Dl, { DlProps } from "./dl.component";
 import Dt from "./dt/dt.component";
 import Dd from "./dd/dd.component";
 import Box from "../box";
 import Icon from "../icon";
-import { getDataElementByValue } from "../../../playwright/components/index";
+import Pill from "../pill";
+import Link from "../link";
+import Button from "../button/__next__";
+import {
+  getDataElementByValue,
+  getDataRoleByValue,
+} from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
@@ -67,11 +73,134 @@ test.describe("definition list", () => {
     await expect(box.locator("dl")).toBeVisible();
   });
 
+  test("should render grouped pairs with multiple descriptions and dividers", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dl divider spacing="small">
+        <Dt>Account holder</Dt>
+        <Dd>Sage Ltd</Dd>
+        <Dd>Company number 01234567</Dd>
+        <Dt>Account status</Dt>
+        <Dd>Open</Dd>
+      </Dl>,
+    );
+
+    const pairs = page.locator("dl > div");
+
+    await expect(pairs).toHaveCount(2);
+    await expect(pairs.first().locator("dt")).toHaveCount(1);
+    await expect(pairs.first().locator("dd")).toHaveCount(2);
+    await expect(pairs.first()).toHaveCSS("padding-bottom", "4px");
+    await checkAccessibility(page);
+  });
+
+  test("should not render a divider after the last pair", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dl divider>
+        <Dt>First</Dt>
+        <Dd>Description 1</Dd>
+        <Dt>Second</Dt>
+        <Dd>Description 2</Dd>
+      </Dl>,
+    );
+
+    const pairs = page.locator("dl > div");
+
+    await expect(pairs.first()).toHaveCSS("border-bottom-width", "1px");
+    await expect(pairs.last()).toHaveCSS("border-bottom-width", "0px");
+  });
+
+  test("should apply 4px of top and bottom padding when spacing is small", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dl spacing="small">
+        <Dt>First</Dt>
+        <Dd>Description 1</Dd>
+      </Dl>,
+    );
+
+    const pair = page.locator("dl > div").first();
+
+    await expect(pair).toHaveCSS("padding-bottom", "4px");
+    await expect(pair).toHaveCSS("padding-top", "4px");
+  });
+
+  test("should apply 12px of top and bottom padding by default", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dl>
+        <Dt>First</Dt>
+        <Dd>Description 1</Dd>
+      </Dl>,
+    );
+
+    const pair = page.locator("dl > div").first();
+
+    await expect(pair).toHaveCSS("padding-bottom", "12px");
+    await expect(pair).toHaveCSS("padding-top", "12px");
+  });
+
+  test("should left-align the term by default", async ({ mount, page }) => {
+    await mount(
+      <Dl>
+        <Dt>Term</Dt>
+        <Dd>Description</Dd>
+      </Dl>,
+    );
+
+    await expect(page.locator("dt").first()).toHaveCSS("text-align", "left");
+  });
+
+  test("should render the provided rightChildren content next to the description", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dl>
+        <Dt>Account status</Dt>
+        <Dd rightChildren={<Pill>Verified</Pill>}>Open</Dd>
+      </Dl>,
+    );
+
+    const rightChildren = getDataRoleByValue(page, "dd-right-children");
+
+    await expect(rightChildren).toBeVisible();
+    await expect(rightChildren.getByText("Verified")).toBeVisible();
+  });
+
+  test("should support multiple Dd elements under one Dt, each with their own rightChildren", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dl>
+        <Dt>Account holder</Dt>
+        <Dd rightChildren={<Link href="#">Edit</Link>}>Sage Ltd</Dd>
+        <Dd rightChildren={<Pill>Verified</Pill>}>123 North East Street</Dd>
+      </Dl>,
+    );
+
+    const rightChildren = getDataRoleByValue(page, "dd-right-children");
+
+    await expect(rightChildren).toHaveCount(2);
+    await expect(rightChildren.first().getByText("Edit")).toBeVisible();
+    await expect(rightChildren.last().getByText("Verified")).toBeVisible();
+  });
+
   test("should render dt and dd children when wrapped in a Box", async ({
     mount,
     page,
   }) => {
-    await mount(<UsingBoxToOverrideBackgroundColor />);
+    await mount(<DLBoxWrappedPairs />);
 
     const box1 = getDataElementByValue(page, "box1");
     await expect(box1.first()).toBeVisible();
@@ -190,6 +319,51 @@ test.describe("definition list", () => {
       await mount(<DLBoxComponent />);
 
       await checkAccessibility(page);
+    });
+
+    test("should pass accessibility tests when rendered with rightChildren", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <Dl divider>
+          <Dt>Account holder</Dt>
+          <Dd rightChildren={<Pill>Verified</Pill>}>Sage Ltd</Dd>
+          <Dd rightChildren={<Link href="#">Edit</Link>}>
+            123 North East Street
+          </Dd>
+          <Dt>Account status</Dt>
+          <Dd
+            rightChildren={
+              <Button variantType="secondary" size="small">
+                Manage
+              </Button>
+            }
+          >
+            Open
+          </Dd>
+        </Dl>,
+      );
+
+      await checkAccessibility(page);
+    });
+
+    (["small", "medium"] as DlProps["spacing"][]).forEach((spacing) => {
+      test(`should pass accessibility tests when spacing is ${spacing}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <Dl spacing={spacing} divider>
+            <Dt>First</Dt>
+            <Dd>Description 1</Dd>
+            <Dt>Second</Dt>
+            <Dd>Description 2</Dd>
+          </Dl>,
+        );
+
+        await checkAccessibility(page);
+      });
     });
   });
 });
