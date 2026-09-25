@@ -155,3 +155,33 @@ jobs:
           MIN_RELEASE_AGE: ${{ steps.age.outputs.min-release-age }}
       - run: npm ci
       - run: npm run build
+      - name: Upload package build for size checking
+        uses: actions/upload-artifact@v6
+        with:
+          name: carbon-package-build
+          path: |
+            lib/
+            esm/
+          retention-days: 1
+
+  bundle-size:
+    name: Bundle size
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ">=24.11.0 24"
+          check-latest: true
+      - name: Update npm to 11.19.1
+        run: npm install -g npm@11.19.1
+      - run: npm ci
+      - uses: actions/download-artifact@v7
+        with:
+          name: carbon-package-build
+      - run: mkdir -p bundle-size
+      - run: npx size-limit --json > bundle-size/head.json
+      - run: node ./scripts/bundle-size/format-summary.mjs bundle-size/head.json >> "$GITHUB_STEP_SUMMARY"
