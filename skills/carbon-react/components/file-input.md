@@ -40,6 +40,7 @@ description: Carbon FileInput component props and usage examples.
 | ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
 | mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
+| multiple | boolean \| undefined | No |  | Flag to allow multiple file selection. |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  | Name of the input |  |
@@ -433,6 +434,129 @@ description: Carbon FileInput component props and usage examples.
         onAction: () => {},
       }}
       onChange={() => {}}
+    />
+  );
+}
+```
+
+
+### Multiple Files
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <FileInput label="Multiple file selection" multiple onChange={() => {}} />
+  );
+}
+```
+
+
+### Multiple Files (Upload Status)
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <FileInput
+      label="Multiple uploaded files"
+      multiple
+      uploadStatus={[
+        {
+          status: "completed",
+          filename: "file-one.txt",
+          href: "#",
+          onAction: () => {},
+        },
+        {
+          status: "completed",
+          filename: "file-two.pdf",
+          href: "#",
+          onAction: () => {},
+        },
+      ]}
+      onChange={() => {}}
+    />
+  );
+}
+```
+
+
+### Multiple Files (Interactive)
+
+**Render**
+
+```tsx
+() => {
+  const [files, setFiles] = useState<FileUploadStatusProps[]>([]);
+  const onChange = (fileList: FileList) => {
+    const newFiles = Array.from(fileList).map((file) => ({
+      status: "uploading" as const,
+      filename: file.name,
+      progress: 0,
+      message: "0% uploaded",
+      onAction: () => removeFile(file.name),
+    }));
+
+    // append new session files (don't overwrite existing ones)
+    setFiles((prev) => [...prev, ...newFiles]);
+
+    // simulate upload progression per file
+    newFiles.forEach((file) => {
+      let progress = 0;
+
+      const interval = setInterval(() => {
+        progress += Math.random() * 25;
+
+        if (progress >= 100) {
+          clearInterval(interval);
+
+          setFiles((prev) =>
+            prev.map((f) =>
+              f.filename === file.filename
+                ? {
+                    ...f,
+                    status: "completed",
+                    progress: undefined,
+                    message: "File uploaded",
+                    href: "#",
+                    onAction: () => removeFile(file.filename),
+                  }
+                : f,
+            ),
+          );
+          return;
+        }
+
+        setFiles((prev) =>
+          prev.map((f) =>
+            f.filename === file.filename
+              ? {
+                  ...f,
+                  status: "uploading",
+                  progress,
+                  message: `${Math.round(progress)}% uploaded`,
+                  onAction: () => removeFile(file.filename),
+                }
+              : f,
+          ),
+        );
+      }, 300);
+    });
+  };
+
+  const removeFile = (filename: string) => {
+    setFiles((prev) => prev.filter((f) => f.filename !== filename));
+  };
+
+  return (
+    <FileInput
+      label="Multiple file upload (interactive)"
+      multiple
+      uploadStatus={files}
+      onChange={onChange}
     />
   );
 }

@@ -24,10 +24,18 @@ interface StyledFileInputPresentationProps
   minHeight?: string;
   minWidth?: string;
   isVertical?: boolean;
+  isPartOfMultiUpload?: boolean;
 }
 
 export const StyledFileInputPresentation = styled.div<StyledFileInputPresentationProps>`
-  ${({ hasUploadStatus, minWidth, minHeight, maxWidth, maxHeight }) => css`
+  ${({
+    hasUploadStatus,
+    minWidth,
+    minHeight,
+    maxWidth,
+    maxHeight,
+    isPartOfMultiUpload,
+  }) => css`
     min-width: ${minWidth};
     min-height: ${minHeight};
     max-width: ${maxWidth};
@@ -36,6 +44,11 @@ export const StyledFileInputPresentation = styled.div<StyledFileInputPresentatio
       padding: 11px; /* not 12px to account for 1px border */
       max-height: ${maxHeight};
       box-sizing: border-box;
+    `}
+    ${hasUploadStatus &&
+    isPartOfMultiUpload &&
+    css`
+      margin-top: 8px;
     `}
   `}
 
