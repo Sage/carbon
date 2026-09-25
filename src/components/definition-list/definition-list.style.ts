@@ -47,7 +47,7 @@ export const StyledDlPair = styled.div.attrs(applyBaseTheme)<DlPairProps>`
 export const StyledDt = styled.dt.attrs(applyBaseTheme)<
   Pick<DlProps, "asSingleColumn" | "dtTextAlign"> & SpaceProps
 >`
-  margin: 0;
+  margin: var(--global-space-none);
   ${space}
   font: var(--global-font-static-comp-medium-s);
   color: var(--container-standard-txt-default);
@@ -88,6 +88,6 @@ export const StyledDdContent = styled.div`
   min-width: 0;
 `;
 
-export const StyledDdRightChildren = styled.span`
+export const StyledDdRightChildren = styled.div`
   flex-shrink: 0;
 `;
