@@ -1,8 +1,9 @@
 import React from "react";
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MultiActionButton, { MultiActionButtonHandle } from ".";
-import Button from "../button";
+import Button from "../button/__next__";
+
 import {
   FlatTable,
   FlatTableBody,
@@ -21,14 +22,14 @@ test("should render with provided 'text'", () => {
   expect(screen.getByRole("button", { name: "Main Button" })).toBeVisible();
 });
 
-test("should render with provided 'subtext' when 'size' is 'large'", () => {
+test("should not render with provided 'subtext' when 'size' is 'large'", () => {
   render(
     <MultiActionButton text="Main Button" subtext="Subtext" size="large">
       <Button>First</Button>
     </MultiActionButton>,
   );
 
-  expect(screen.getByText("Subtext")).toBeVisible();
+  expect(screen.queryByText("Subtext")).not.toBeInTheDocument();
 });
 
 test("should render when children are non-Carbon Button children", async () => {
@@ -188,10 +189,10 @@ test("closes additional buttons popup when focus is lost from it", async () => {
   const childButton = await screen.findByRole("button", { name: "First" });
   expect(childButton).toBeVisible();
 
-  await user.tab();
+  await user.keyboard("{ArrowDown}");
   expect(childButton).toHaveFocus();
 
-  await user.tab({ shift: true });
+  await user.keyboard("{Tab}");
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
@@ -210,10 +211,10 @@ test("should keep additional buttons open when focus moves between child buttons
   const firstButton = screen.getByRole("button", { name: "First" });
   const secondButton = screen.getByRole("button", { name: "Second" });
 
-  firstButton.focus();
-  expect(firstButton).toHaveFocus();
+  await waitFor(() => expect(firstButton).toHaveFocus());
 
-  await user.tab();
+  await user.keyboard("{ArrowDown}");
+
   expect(secondButton).toHaveFocus();
   expect(screen.getByRole("list")).toBeInTheDocument();
 });
@@ -267,6 +268,19 @@ test("closes additional buttons popup when Escape key is pressed", async () => {
   ).not.toBeInTheDocument();
 });
 
+test("should render the main button with the 'buttonType' prop's styling", () => {
+  render(
+    <MultiActionButton text="Main Button" buttonType="tertiary">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  expect(screen.getByRole("button", { name: "Main Button" })).toHaveStyleRule(
+    "background-color",
+    "var(--button-typical-tertiary-bg-default)",
+  );
+});
+
 test("should render main button as disabled when 'disabled' prop is true", () => {
   render(
     <MultiActionButton text="Main Button" disabled>
@@ -291,9 +305,25 @@ test("should render with expected styles when 'width' prop is set", () => {
   expect(screen.getByTestId("multi-action-button")).toHaveStyle({
     width: "50%",
   });
-  expect(screen.getByRole("button", { name: "Main Button" })).toHaveStyle({
-    width: "100%",
-    justifyContent: "space-between",
+});
+
+test("should render with expected styles when 'menuWidth' prop is set", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <MultiActionButton
+      text="Main Button"
+      menuWidth="150px"
+      data-role="multi-action-button"
+    >
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Main Button" }));
+
+  expect(screen.getByTestId("menu-wrapper")).toHaveStyle({
+    width: "150px",
   });
 });
 
@@ -356,10 +386,12 @@ test("should focus first child button when ArrowDown is pressed while buttons ar
   await user.keyboard("{ArrowDown}");
 
   expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+  await waitFor(() =>
+    expect(screen.getByRole("button", { name: "First" })).toHaveFocus(),
+  );
 
   mainButton.focus();
   await user.keyboard("{ArrowDown}");
-
   expect(screen.getByRole("button", { name: "First" })).toHaveFocus();
 });
 
@@ -427,6 +459,30 @@ test("renders backdrop when opened inside FlatTable", async () => {
   await user.click(screen.getByRole("button", { name: "Main Button" }));
 
   expect(screen.getByTestId("popup-backdrop")).toBeVisible();
+});
+
+test("closes additional buttons popup when the backdrop is clicked inside FlatTable", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <FlatTable>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>
+            <MultiActionButton text="Main Button" size="small">
+              <Button>First</Button>
+            </MultiActionButton>
+          </FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Main Button" }));
+
+  await user.click(screen.getByTestId("popup-backdrop"));
+
+  expect(screen.queryByTestId("popup-backdrop")).not.toBeInTheDocument();
 });
 
 testStyledSystemMargin(
