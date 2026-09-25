@@ -39,6 +39,11 @@ export default {
       disableSnapshot: true,
     },
   },
+  globals: {
+    a11y: {
+      manual: false,
+    },
+  },
 };
 
 export const HrefItemsBasic = () => (
