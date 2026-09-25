@@ -12,7 +12,6 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
-import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import ButtonContext from "./__next__/button.context";
 
@@ -226,13 +225,11 @@ const Button = React.forwardRef<
       iconPosition: iconPositionContext,
       fullWidth: fullWidthContext,
     } = useContext(ButtonBarContext);
-    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
 
     const buttonType = buttonTypeContext || buttonTypeProp;
     const size = sizeContext || sizeProp;
     const iconPosition = iconPositionContext || iconPositionProp;
     const fullWidth = fullWidthContext || fullWidthProp;
-    const isDisabled = disabled || batchSelectionDisabled;
 
     invariant(
       children !== undefined || !!iconType,
@@ -308,12 +305,12 @@ const Button = React.forwardRef<
         }
         aria-labelledby={ariaLabelledBy}
         aria-describedby={ariaDescribedBy}
-        as={!isDisabled && href ? "a" : "button"}
+        as={!disabled && href ? "a" : "button"}
         onKeyDown={href ? handleLinkKeyDown : undefined}
         onClick={handleClick}
         draggable={false}
         buttonType={buttonType}
-        disabled={isDisabled}
+        disabled={disabled}
         destructive={destructive}
         isWhite={isWhite}
         type={href ? undefined : "button"}
@@ -344,7 +341,7 @@ const Button = React.forwardRef<
             size,
             subtext,
             children,
-            disabled: isDisabled,
+            disabled,
             buttonType,
             destructive,
           })}

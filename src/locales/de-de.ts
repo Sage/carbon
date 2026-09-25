@@ -20,7 +20,11 @@ const deDE: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} ausgewählt`,
+    ariaLabels: {
+      close: () => "Schließen",
+    },
+    selected: (count, total) =>
+      total ? `${count} von ${total} ausgewählt` : `${count} ausgewählt`,
   },
   breadcrumbs: {
     ariaLabel: () => "Breadcrumbs",
@@ -254,8 +258,8 @@ const deDE: Partial<Locale> = {
     closeIconAriaLabel: () => "Schließen",
   },
   switch: {
-    on: () => "EIN",
-    off: () => "AUS",
+    on: () => "Ein",
+    off: () => "Aus",
     processingLabel: () => "Verarbeitung",
   },
   tileSelect: {
@@ -264,8 +268,8 @@ const deDE: Partial<Locale> = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "h",
-    minutesLabelText: () => "min",
+    hoursLabelText: () => "Stunden",
+    minutesLabelText: () => "Minuten",
     hoursAriaLabelText: () => "Stunden",
     minutesAriaLabelText: () => "Minuten",
   },

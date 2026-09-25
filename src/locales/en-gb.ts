@@ -20,7 +20,11 @@ const enGB: Locale = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} selected`,
+    ariaLabels: {
+      close: () => "Close",
+    },
+    selected: (count, total) =>
+      total ? `${count} of ${total} items selected` : `${count} selected`,
   },
   breadcrumbs: {
     ariaLabel: () => "breadcrumbs",
@@ -280,8 +284,8 @@ const enGB: Locale = {
     closeIconAriaLabel: () => "Close",
   },
   switch: {
-    on: () => "ON",
-    off: () => "OFF",
+    on: () => "On",
+    off: () => "Off",
     processingLabel: () => "Processing...",
   },
   tileSelect: {
@@ -290,8 +294,8 @@ const enGB: Locale = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "Hrs.",
-    minutesLabelText: () => "Mins.",
+    hoursLabelText: () => "Hours",
+    minutesLabelText: () => "Minutes",
     hoursAriaLabelText: () => "Hours",
     minutesAriaLabelText: () => "Minutes",
   },

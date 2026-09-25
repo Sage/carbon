@@ -20,7 +20,13 @@ const esES: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `Registros seleccionados: ${count}`,
+    ariaLabels: {
+      close: () => "Cerrar",
+    },
+    selected: (count, total) =>
+      total
+        ? `Elementos seleccionados: ${count} de ${total}`
+        : `Elementos seleccionados: ${count}`,
   },
   breadcrumbs: {
     ariaLabel: () => "ruta de navegación",
@@ -261,8 +267,8 @@ const esES: Partial<Locale> = {
     closeIconAriaLabel: () => "Cerrar",
   },
   switch: {
-    on: () => "SÍ",
-    off: () => "NO",
+    on: () => "Sí",
+    off: () => "No",
     processingLabel: () => "Procesando",
   },
   tileSelect: {
@@ -271,8 +277,8 @@ const esES: Partial<Locale> = {
   time: {
     amText: () => "a. m.",
     pmText: () => "p. m.",
-    hoursLabelText: () => "h",
-    minutesLabelText: () => "min",
+    hoursLabelText: () => "Horas",
+    minutesLabelText: () => "Minutos",
     hoursAriaLabelText: () => "Horas",
     minutesAriaLabelText: () => "Minutos",
   },

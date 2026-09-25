@@ -20,8 +20,15 @@ const ptPT: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) =>
-      count === 1 ? `${count} selecionado` : `${count} selecionados`,
+    ariaLabels: {
+      close: () => "Fechar",
+    },
+    selected: (count, total) =>
+      total
+        ? `${count} de ${total} registos selecionados`
+        : count === 1
+          ? `${count} selecionado`
+          : `${count} selecionados`,
   },
   breadcrumbs: {
     ariaLabel: () => "caminho de navegação",
@@ -270,8 +277,8 @@ const ptPT: Partial<Locale> = {
     closeIconAriaLabel: () => "Fechar",
   },
   switch: {
-    on: () => "ON",
-    off: () => "OFF",
+    on: () => "On",
+    off: () => "Off",
     processingLabel: () => "A processar",
   },
   tileSelect: {
@@ -280,8 +287,8 @@ const ptPT: Partial<Locale> = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "h",
-    minutesLabelText: () => "min",
+    hoursLabelText: () => "Horas",
+    minutesLabelText: () => "Minutos",
     hoursAriaLabelText: () => "Horas",
     minutesAriaLabelText: () => "Minutos",
   },

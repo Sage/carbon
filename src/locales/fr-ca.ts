@@ -20,7 +20,13 @@ const frCA: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} sélectionné(s)`,
+    ariaLabels: {
+      close: () => "Fermer",
+    },
+    selected: (count, total) =>
+      total
+        ? `${count} sur ${total} éléments sélectionnés`
+        : `${count} sélectionné(s)`,
   },
   breadcrumbs: {
     ariaLabel: () => "chemins de navigation",
@@ -264,8 +270,8 @@ const frCA: Partial<Locale> = {
     closeIconAriaLabel: () => "Fermer",
   },
   switch: {
-    on: () => "OUI",
-    off: () => "NON",
+    on: () => "Oui",
+    off: () => "Non",
     processingLabel: () => "Traitement en cours",
   },
   tileSelect: {
@@ -274,8 +280,8 @@ const frCA: Partial<Locale> = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "Hres",
-    minutesLabelText: () => "Mins.",
+    hoursLabelText: () => "Heures",
+    minutesLabelText: () => "Minutes",
     hoursAriaLabelText: () => "Heures",
     minutesAriaLabelText: () => "Minutes",
   },

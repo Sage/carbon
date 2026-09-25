@@ -1,3 +1,51 @@
+## [162.4.0](https://github.com/Sage/carbon/compare/v162.3.1...v162.4.0) (2026-09-24)
+
+### Features
+
+* **batch-selection:** align with Fusion DS ([201f825](https://github.com/Sage/carbon/commit/201f825633d75370f27b052caae9ee4199827435))
+
+## [162.3.1](https://github.com/Sage/carbon/compare/v162.3.0...v162.3.1) (2026-09-24)
+
+### Bug Fixes
+
+* **text-editor:** keep texteditor typography separate from text formatting ([346327a](https://github.com/Sage/carbon/commit/346327adbd56e310d623488823f471c62d0cf3a0))
+
+## [162.3.0](https://github.com/Sage/carbon/compare/v162.2.4...v162.3.0) (2026-09-23)
+
+### Features
+
+* **message:** add subtle border color to give parity with DS ([e623fb8](https://github.com/Sage/carbon/commit/e623fb8bf3f687cfa4557004f47b397f1a375f2c))
+
+## [162.2.4](https://github.com/Sage/carbon/compare/v162.2.3...v162.2.4) (2026-09-22)
+
+### Bug Fixes
+
+* **switch:** adjust uppercase labels to sentence case accross all locales ([0a92c4b](https://github.com/Sage/carbon/commit/0a92c4bacf18d6c4bd35cd8254f82ec14ec056c3))
+
+## [162.2.3](https://github.com/Sage/carbon/compare/v162.2.2...v162.2.3) (2026-09-21)
+
+### Bug Fixes
+
+* **dialog:** fullscreen should have 16px padding ([517d069](https://github.com/Sage/carbon/commit/517d0693c4575bf0ffebe40872a7fd90c40a7886)), closes [#8159](https://github.com/Sage/carbon/issues/8159)
+
+## [162.2.2](https://github.com/Sage/carbon/compare/v162.2.1...v162.2.2) (2026-09-17)
+
+### Bug Fixes
+
+* **pager:** prevent pager inputs inheriting form field spacing ([5a546fd](https://github.com/Sage/carbon/commit/5a546fd4a2cb69fe70648c47b0d5766b72ac14a4))
+
+## [162.2.1](https://github.com/Sage/carbon/compare/v162.2.0...v162.2.1) (2026-09-17)
+
+### Bug Fixes
+
+* **dialog:** ensure dialog content stays on smaller screens ([7772a69](https://github.com/Sage/carbon/commit/7772a69f4dd99e348a41d533703f3a60809cb134)), closes [#8144](https://github.com/Sage/carbon/issues/8144)
+
+## [162.2.0](https://github.com/Sage/carbon/compare/v162.1.0...v162.2.0) (2026-09-17)
+
+### Features
+
+* **time:** align Time with FE-7233 audit requirements ([9aaf847](https://github.com/Sage/carbon/commit/9aaf84781a67de79e6419f41a3b495d2fd36f03e))
+
 ## [162.1.0](https://github.com/Sage/carbon/compare/v162.0.1...v162.1.0) (2026-09-16)
 
 ### Features
