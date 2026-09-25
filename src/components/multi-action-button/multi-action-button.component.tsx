@@ -5,7 +5,6 @@ import React, {
   useContext,
   useEffect,
   useCallback,
-  // useState,
 } from "react";
 import { WidthProps } from "styled-system";
 
@@ -107,7 +106,6 @@ export const MultiActionButton = forwardRef<
     },
     ref,
   ) => {
-    // const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const { isInFlatTable } = useContext(FlatTableContext);
     const submenuId = useRef(guid());
@@ -129,14 +127,6 @@ export const MultiActionButton = forwardRef<
       buttonNode,
       handleToggleButtonKeyDown,
     } = useChildButtons(buttonRef);
-
-    // const showButtons = () => {
-    //   setShowAdditionalButtons(true);
-    // };
-
-    // const hideButtons = useCallback(() => {
-    //   setShowAdditionalButtons(false);
-    // }, []);
 
     const handleInsideClick = useClickAwayListener(hideButtons);
 
