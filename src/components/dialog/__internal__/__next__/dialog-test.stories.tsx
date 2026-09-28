@@ -278,3 +278,24 @@ export const DialogStickyFormSmallScreen: Story = {
     );
   },
 };
+
+// a small dialog with a dialog header and long title
+export const TEST_TEST: StoryObj<typeof Dialog> = {
+  render: () => (
+    <Dialog
+      open
+      size="small"
+      title={
+        <DialogHeader
+          title="Really long title for a small Dialog that should wrap"
+          subtitle="Really long subtitle for a small Dialog that should also wrap several times inside the header"
+          status="info"
+        />
+      }
+      onCancel={() => {}}
+      footer={<Buttons />}
+    >
+      {dialogContent}
+    </Dialog>
+  ),
+};
