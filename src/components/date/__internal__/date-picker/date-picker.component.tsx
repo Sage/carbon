@@ -78,7 +78,7 @@ export const DatePicker = ({
   ) => {
     if (!date) return;
     onDayClick?.(date, event as React.MouseEvent<HTMLDivElement>);
-    onRequestPickerClose();
+    closePickerAndRestoreFocus();
   };
 
   const handleEscape = useCallback(() => {

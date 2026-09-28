@@ -180,7 +180,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const datePickerTriggerRef = useRef<HTMLButtonElement>(null);
     const alreadyFocused = useRef(false);
     const isBlurBlocked = useRef(false);
-    const focusedViaPicker = useRef(false);
     const locale = useLocale();
     const { dateFnsLocale, dateFormatOverride } = locale.date;
     const { format, formats } = useMemo(
@@ -242,11 +241,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       onChange(createDateChangeEvent({ type: "change", target: ev.target }));
     };
 
-    const focusInput = () => {
-      focusedViaPicker.current = true;
-      internalInputRef.current?.focus();
-    };
-
     const handleDayClick = (
       day: Date,
       ev: React.MouseEvent<HTMLDivElement>,
@@ -260,7 +254,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           },
         }),
       );
-      focusInput();
     };
 
     const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {

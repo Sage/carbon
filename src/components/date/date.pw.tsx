@@ -109,14 +109,15 @@ test.describe("Functionality tests", () => {
     await containsClass(todayCell, "rdp-today");
   });
 
-  test("completes a typical keyboard selection journey after pointer opening", async ({
+  test("returns focus to the typical trigger after selecting a date", async ({
     mount,
     page,
   }) => {
     await mount(<DateInputTypicalControlled value="01/05/2022" />);
 
     const input = page.getByRole("textbox", { name: "Date" });
-    await page.getByRole("button", { name: "Open calendar" }).click();
+    const trigger = page.getByRole("button", { name: "Open calendar" });
+    await trigger.click();
 
     await expect(
       page.getByRole("button", {
@@ -133,8 +134,8 @@ test.describe("Functionality tests", () => {
       .press("Enter");
 
     await expect(input).toHaveValue("15/06/2022");
-    await expect(input).toBeFocused();
     await expect(page.getByRole("dialog")).toBeHidden();
+    await expect(trigger).toBeFocused();
   });
 
   test("moves focus to today's date when the typical trigger opens an unselected picker", async ({
