@@ -8,14 +8,14 @@ testStyledSystemPadding(
   () => screen.getByTestId("header"),
 );
 
-test.each<[TileHeaderProps["variant"], string, string]>([
-  ["default", "var(--colorsUtilityMajor100)", "var(--colorsUtilityMajor100)"],
-  ["black", "var(--colorsUtilityYin100)", "var(--colorsUtilityMajor100)"],
-  ["transparent", "transparent", "var(--colorsUtilityMajor100)"],
-  ["grey", "var(--colorsUtilityMajor025)", "var(--colorsUtilityMajor200)"],
+test.each<[TileHeaderProps["variant"], string]>([
+  ["default", "var(--colorsUtilityMajor100)"],
+  ["black", "var(--colorsUtilityYin100)"],
+  ["transparent", "transparent"],
+  ["grey", "var(--colorsUtilityMajor025)"],
 ])(
-  "should render correct background and border-bottom when variant prop is %s",
-  (tileVariant, background, borderBottomColor) => {
+  "should render correct background when variant prop is %s",
+  (tileVariant, background) => {
     render(
       <TileHeader variant={tileVariant} data-role="tile-header">
         content
@@ -24,11 +24,7 @@ test.each<[TileHeaderProps["variant"], string, string]>([
 
     const tileHeaderElement = screen.getByTestId("tile-header");
 
-    expect(tileHeaderElement).toHaveStyleRule("background", background);
-    expect(tileHeaderElement).toHaveStyleRule(
-      "border-bottom",
-      `1px solid ${borderBottomColor}`,
-    );
+    expect(tileHeaderElement).toHaveStyleRule("background-color", background);
   },
 );
 

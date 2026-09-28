@@ -5,30 +5,41 @@ import { TileFooterProps } from "./tile-footer.component";
 
 const getBackgroundColor = (variant: TileFooterProps["variant"]) => {
   switch (variant) {
-    case "transparent":
-      return "transparent";
-    case "black":
-      return "var(--colorsUtilityYin100)";
-    case "grey":
-      return "var(--colorsUtilityMajor025)";
+    case "selected":
+      return "var(--container-action-bg-footer-active)";
+    case "active":
+      return "var(--container-action-bg-footer-activated)";
     default:
-      return "var(--colorsUtilityMajor100)";
+      return "transparent";
   }
 };
 
 const StyledTileFooter = styled.div.attrs(applyBaseTheme)<{
   variant: TileFooterProps["variant"];
 }>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--global-space-comp-xl);
+  height: var(--global-size-l);
   ${padding}
-  border-bottom-left-radius: calc(var(--tileBorderRadius) - 1px);
-  border-bottom-right-radius: calc(var(--tileBorderRadius) - 1px);
 
   ${({ variant }) => css`
+    border-bottom-left-radius: calc(
+      var(--tileBorderRadius) - ${variant ? "3px" : "0px"}
+    );
+    border-bottom-right-radius: calc(
+      var(--tileBorderRadius) - ${variant ? "3px" : "0px"}
+    );
     background: ${getBackgroundColor(variant)};
     border-top: 1px solid
-      ${variant === "grey"
-        ? "var(--colorsUtilityMajor200)"
-        : "var(--colorsUtilityMajor100)"};
+      ${variant === "selected" || variant === "active"
+        ? "transparent"
+        : "var(--container-standard-border-default)"};
+    ${variant && `font: var(--global-font-static-comp-medium-l)`};
+    ${variant &&
+    `color: var(--container-action-label-footer-${variant === "selected" ? "activated" : "active"})`};
   `}
 `;
 
