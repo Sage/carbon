@@ -321,7 +321,7 @@ test.describe("Functionality tests", () => {
     expect(pickerStyles.overflowY).toBe("auto");
   });
 
-  test(`should allow a user to tab into the picker and through its controls`, async ({
+  test(`should visibly focus the selected day when opening the picker and tab through its controls`, async ({
     mount,
     page,
   }) => {
@@ -373,7 +373,7 @@ test.describe("Functionality tests", () => {
     await expect(page.getByRole("button", { name: "Close" })).toBeFocused();
   });
 
-  test(`should focus today's date if no day selected when tabbing to day elements`, async ({
+  test(`should visibly focus today's date if no day is selected`, async ({
     mount,
     page,
   }) => {

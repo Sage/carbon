@@ -21,7 +21,7 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
   width: var(--date-picker-popover-width);
   min-width: var(--date-picker-popover-min-width);
   max-width: var(--date-picker-popover-width);
-  padding: var(--global-space-comp-xs);
+  padding: var(--global-space-layout-2-xs) var(--global-space-comp-xs);
   background: var(--popover-bg-default);
   box-shadow: var(--global-depth-lvl1);
   border-radius: var(--global-radius-action-m);
@@ -128,10 +128,10 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
     color: inherit;
     text-align: center;
     cursor: pointer;
-    /* rotate(0deg) creates a stacking context so z-index works on the :focus-visible ring */
+    /* rotate(0deg) creates a stacking context so z-index works on the focus ring */
     transform: rotate(0deg);
 
-    &:focus-visible {
+    &:focus {
       ${addFocusStyling()}
       border-radius: var(--global-radius-action-circle);
     }
