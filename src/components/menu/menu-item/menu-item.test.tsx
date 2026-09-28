@@ -201,12 +201,21 @@ describe("When MenuItem has no submenu", () => {
       </Menu>,
     );
 
+    const wrapper = screen.getByTestId("menu-item-wrapper");
     expect(screen.getByRole("link", { name: "Item One" })).toHaveStyle({
-      maxWidth: "inherit",
-      textOverflow: "ellipsis",
       overflow: "hidden",
-      whiteSpace: "nowrap",
-      verticalAlign: "bottom",
+    });
+    expect(wrapper).toHaveStyleRule("max-width", "inherit", {
+      modifier: "&&& a",
+    });
+    expect(wrapper).toHaveStyleRule("text-overflow", "ellipsis", {
+      modifier: "&&& a",
+    });
+    expect(wrapper).toHaveStyleRule("white-space", "nowrap", {
+      modifier: "&&& a",
+    });
+    expect(wrapper).toHaveStyleRule("vertical-align", "bottom", {
+      modifier: "&&& a",
     });
   });
 

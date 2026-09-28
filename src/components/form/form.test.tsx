@@ -179,7 +179,6 @@ test("has the correct styles when the `stickyFooter` prop is set", () => {
   );
 
   expect(screen.getByTestId("form-footer")).toHaveStyle({
-    "box-shadow": "var(--boxShadow150)",
     "box-sizing": "border-box",
     padding: "16px 32px",
     width: "100%",
@@ -187,6 +186,10 @@ test("has the correct styles when the `stickyFooter` prop is set", () => {
     position: "sticky",
     bottom: "0",
   });
+  expect(screen.getByTestId("form-footer")).toHaveStyleRule(
+    "box-shadow",
+    "var(--boxShadow150)",
+  );
   expect(screen.getByTestId("form-footer")).toHaveStyleRule(
     "background-color",
     "var(--colorsUtilityYang100)",
