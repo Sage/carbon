@@ -8,7 +8,6 @@ export const StyledWrapper = styled.div<{ $disabled?: boolean }>`
   display: inline-flex;
   align-items: center;
   width: max-content;
-  min-width: var(--global-size-4-xl);
   color: var(--input-dropdown-label-default);
 
   ${({ $disabled }) =>
@@ -29,14 +28,14 @@ export const StyledSelect = styled.select`
   border: none;
   outline: none;
   border-radius: var(--global-radius-container-m);
+  /*  On the right calc: 4px text gap + 20px caret container + 4px edge gap */
   padding: var(--global-space-comp-xs)
     calc(
-      var(--global-space-comp-m) + var(--global-size-2-xs) +
+      var(--global-space-comp-xs) + var(--global-size-2-xs) +
         var(--global-space-comp-xs)
     )
-    var(--global-space-comp-xs) var(--global-space-comp-m);
+    var(--global-space-comp-xs) var(--global-space-comp-xs);
   min-height: var(--global-size-s);
-  min-width: var(--global-size-4-xl);
   width: auto;
   font: var(--global-font-static-comp-medium-s);
   color: inherit;
@@ -157,7 +156,7 @@ export const StyledSelect = styled.select`
 
 export const StyledIcon = styled.span<{ $disabled?: boolean }>`
   position: absolute;
-  inset-inline-end: var(--global-space-comp-m);
+  inset-inline-end: var(--global-space-comp-xs);
   z-index: 3;
   display: flex;
   align-items: center;
