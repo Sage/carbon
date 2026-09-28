@@ -66,8 +66,6 @@ const renderTable = ({
     </Table>,
   );
 
-let elementsFromPointSpy: jest.SpyInstance;
-
 beforeAll(() => {
   Object.defineProperty(document, "elementsFromPoint", {
     configurable: true,
@@ -76,13 +74,20 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-  elementsFromPointSpy = jest
-    .spyOn(document, "elementsFromPoint")
-    .mockReturnValue([]);
+  jest.spyOn(document, "elementsFromPoint").mockReturnValue([]);
+
+  jest.spyOn(window, "ResizeObserver").mockImplementation(
+    () =>
+      ({
+        observe: jest.fn(),
+        unobserve: jest.fn(),
+        disconnect: jest.fn(),
+      }) as unknown as ResizeObserver,
+  );
 });
 
 afterEach(() => {
-  elementsFromPointSpy.mockRestore();
+  jest.restoreAllMocks();
 });
 
 describe("drag and drop", () => {
@@ -101,13 +106,45 @@ describe("drag and drop", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("renders the drag handle when isDraggable is true", () => {
+  it("uses the drag handle as the native drag source when isDraggable is true", () => {
     renderTable({
       isDraggable: true,
       rows: createRow("one", "Row one"),
     });
 
-    expect(screen.getByTestId("table-cell-drag-handle")).toBeInTheDocument();
+    expect(screen.getByTestId("table-cell-drag-handle")).toHaveAttribute(
+      "draggable",
+      "true",
+    );
+    expect(screen.getByRole("row", { name: "Row one" })).not.toHaveAttribute(
+      "draggable",
+    );
+  });
+
+  it("does not start dragging when the gesture begins outside the drag handle", () => {
+    const getOrder = jest.fn();
+    renderTable({
+      isDraggable: true,
+      getOrder,
+      rows: [createRow("one", "Row one"), createRow("two", "Row two")],
+    });
+
+    const draggedRow = screen.getByRole("row", { name: "Row one" });
+    const draggedCell = screen.getByRole("cell", { name: "Row one" });
+    const dropTarget = screen.getByRole("row", { name: "Row two" });
+
+    jest.mocked(document.elementsFromPoint).mockReturnValue([draggedCell]);
+
+    fireEvent.dragStart(draggedRow);
+    fireEvent.dragEnter(dropTarget);
+    fireEvent.dragOver(dropTarget);
+    fireEvent.drop(dropTarget);
+
+    expect(screen.getAllByRole("row").map((row) => row.textContent)).toEqual([
+      "Row one",
+      "Row two",
+    ]);
+    expect(getOrder).not.toHaveBeenCalled();
   });
 
   it("keeps the dragged row in place until drop, then reorders and reports the new order", () => {
@@ -122,13 +159,12 @@ describe("drag and drop", () => {
       ],
     });
 
-    const draggedRow = screen.getByRole("row", { name: "Row one" });
-    const dragHandle = screen.getByRole("cell", { name: "Row one" });
+    const dragHandle = screen.getAllByTestId("table-cell-drag-handle")[0];
     const dropTarget = screen.getByRole("row", { name: "Row three" });
 
     jest.mocked(document.elementsFromPoint).mockReturnValue([dragHandle]);
 
-    fireEvent.dragStart(draggedRow);
+    fireEvent.dragStart(dragHandle);
     fireEvent.dragEnter(dropTarget);
     fireEvent.dragOver(dropTarget);
 
@@ -158,13 +194,12 @@ describe("drag and drop", () => {
       ],
     });
 
-    const draggedRow = screen.getByRole("row", { name: "Row one" });
-    const dragHandle = screen.getByRole("cell", { name: "Row one" });
+    const dragHandle = screen.getAllByTestId("table-cell-drag-handle")[0];
     const dropTarget = screen.getByRole("row", { name: "Row three" });
 
     jest.mocked(document.elementsFromPoint).mockReturnValue([dragHandle]);
 
-    fireEvent.dragStart(draggedRow);
+    fireEvent.dragStart(dragHandle);
     fireEvent.dragEnter(dropTarget);
     fireEvent.dragOver(dropTarget);
 
@@ -186,13 +221,12 @@ describe("drag and drop", () => {
       ],
     });
 
-    const draggedRow = screen.getByRole("row", { name: "Row three" });
-    const dragHandle = screen.getByRole("cell", { name: "Row three" });
+    const dragHandle = screen.getAllByTestId("table-cell-drag-handle")[2];
     const dropTarget = screen.getByRole("row", { name: "Row one" });
 
     jest.mocked(document.elementsFromPoint).mockReturnValue([dragHandle]);
 
-    fireEvent.dragStart(draggedRow);
+    fireEvent.dragStart(dragHandle);
     fireEvent.dragEnter(dropTarget);
     fireEvent.dragOver(dropTarget);
 
@@ -209,12 +243,11 @@ describe("drag and drop", () => {
       rows: [createRow("one", "Row one"), createRow("two", "Row two")],
     });
 
-    const draggedRow = screen.getByRole("row", { name: "Row one" });
-    const dragHandle = screen.getByRole("cell", { name: "Row one" });
+    const dragHandle = screen.getAllByTestId("table-cell-drag-handle")[0];
 
     jest.mocked(document.elementsFromPoint).mockReturnValue([dragHandle]);
 
-    fireEvent.dragStart(draggedRow);
+    fireEvent.dragStart(dragHandle);
     fireEvent.drop(window);
 
     expect(screen.getAllByRole("row").map((row) => row.textContent)).toEqual([
@@ -238,12 +271,11 @@ describe("drag and drop", () => {
     );
     const { rerender } = render(draggableTable("one"));
 
-    const draggedRow = screen.getByRole("row", { name: "Row one" });
-    const dragHandle = screen.getByRole("cell", { name: "Row one" });
+    const dragHandle = screen.getAllByTestId("table-cell-drag-handle")[0];
 
     jest.mocked(document.elementsFromPoint).mockReturnValue([dragHandle]);
 
-    fireEvent.dragStart(draggedRow);
+    fireEvent.dragStart(dragHandle);
     rerender(draggableTable("renamed"));
 
     const dropTarget = screen.getByRole("row", { name: "Row two" });
@@ -270,13 +302,12 @@ describe("drag and drop", () => {
       ],
     });
 
-    const draggedRow = screen.getByRole("row", { name: "Row one" });
-    const dragHandle = screen.getByRole("cell", { name: "Row one" });
+    const dragHandle = screen.getAllByTestId("table-cell-drag-handle")[0];
     const dropTarget = screen.getByRole("row", { name: "Row three" });
 
     jest.mocked(document.elementsFromPoint).mockReturnValue([dragHandle]);
 
-    fireEvent.dragStart(draggedRow);
+    fireEvent.dragStart(dragHandle);
     fireEvent.dragEnter(dropTarget);
     fireEvent.dragOver(dropTarget);
     fireEvent.dragLeave(dropTarget);
@@ -294,9 +325,13 @@ describe("drag and drop", () => {
 describe("expandable rows", () => {
   it("expands and collapses sub rows when the user clicks the first cell", async () => {
     const user = userEvent.setup();
+    const onExpansionChange = jest.fn();
     const subRow = createRow("one-child", "Child row");
     renderTable({
-      rows: createRow("one", "Parent row", { subRows: subRow }),
+      rows: createRow("one", "Parent row", {
+        subRows: subRow,
+        onExpansionChange,
+      }),
     });
 
     expect(screen.getByTestId("table-cell-expand-icon")).toBeVisible();
@@ -304,16 +339,45 @@ describe("expandable rows", () => {
       screen.queryByRole("row", { name: "Child row" }),
     ).not.toBeInTheDocument();
 
-    const expandableCell = screen.getByRole("cell", { name: "Parent row" });
-    await user.click(expandableCell);
+    const expandableButton = screen.getByRole("button", { name: "Parent row" });
+    expect(expandableButton).toHaveAttribute("aria-expanded", "false");
+    expect(expandableButton).not.toHaveAttribute("aria-controls");
+
+    await user.click(expandableButton);
 
     expect(screen.getByRole("row", { name: "Child row" })).toBeVisible();
+    expect(expandableButton).toHaveAttribute("aria-expanded", "true");
+    expect(expandableButton).toHaveAttribute("aria-controls", "one-child");
+    expect(onExpansionChange).toHaveBeenLastCalledWith(true);
 
-    await user.click(expandableCell);
+    await user.click(expandableButton);
 
     expect(
       screen.queryByRole("row", { name: "Child row" }),
     ).not.toBeInTheDocument();
+    expect(onExpansionChange).toHaveBeenLastCalledWith(false);
+  });
+
+  it("keeps isExpanded authoritative and reports requested changes", async () => {
+    const user = userEvent.setup();
+    const onExpansionChange = jest.fn();
+    renderTable({
+      rows: createRow("one", "Parent row", {
+        isExpanded: true,
+        onExpansionChange,
+        subRows: createRow("one-child", "Child row"),
+      }),
+    });
+
+    const expandableButton = screen.getByRole("button", {
+      name: "Parent row",
+    });
+
+    await user.click(expandableButton);
+
+    expect(onExpansionChange).toHaveBeenCalledWith(false);
+    expect(expandableButton).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("row", { name: "Child row" })).toBeVisible();
   });
 
   it.each([
@@ -427,7 +491,7 @@ describe("table props", () => {
     expect(cellContentContainer).toHaveStyle("text-align: center");
   });
 
-  it("sets the maximum width and overflow styles on the wrapper", () => {
+  it("sets the maximum width and overflow styles on the scroll container", () => {
     renderTable({
       rows: createRow("one", "Row one"),
       tableProps: { maxWidth: "480px" },
@@ -442,6 +506,52 @@ describe("table props", () => {
     expect(wrapper).toHaveStyleRule("overflow-y", "hidden", {
       modifier: "> div[data-element='table-scroll-container']",
     });
+  });
+
+  it("enables scrolling without requiring a maximum width", () => {
+    renderTable({
+      rows: createRow("one", "Row one"),
+    });
+
+    const wrapper = screen.getByTestId("table-inner-wrapper");
+
+    expect(wrapper).toHaveStyleRule("max-width", "100%");
+    expect(wrapper).toHaveStyleRule("overflow-x", "auto", {
+      modifier: "> div[data-element='table-scroll-container']",
+    });
+    expect(wrapper).toHaveStyleRule("overflow-y", "hidden", {
+      modifier: "> div[data-element='table-scroll-container']",
+    });
+  });
+
+  it("uses one container for horizontal and vertical scrolling", () => {
+    const scrollHeightSpy = jest
+      .spyOn(HTMLElement.prototype, "scrollHeight", "get")
+      .mockReturnValue(322);
+    const clientHeightSpy = jest
+      .spyOn(HTMLElement.prototype, "clientHeight", "get")
+      .mockReturnValue(320);
+
+    renderTable({
+      rows: createRow("one", "Row one"),
+      tableProps: { maxHeight: "320px", maxWidth: "480px" },
+    });
+
+    const wrapper = screen.getByTestId("table-inner-wrapper");
+
+    expect(wrapper).toHaveStyleRule("max-width", "480px");
+    expect(wrapper).toHaveStyleRule("max-height", "320px", {
+      modifier: "> div[data-element='table-scroll-container']",
+    });
+    expect(wrapper).toHaveStyleRule("overflow-x", "auto", {
+      modifier: "> div[data-element='table-scroll-container']",
+    });
+    expect(wrapper).toHaveStyleRule("overflow-y", "auto", {
+      modifier: "> div[data-element='table-scroll-container']",
+    });
+
+    scrollHeightSpy.mockRestore();
+    clientHeightSpy.mockRestore();
   });
 
   it("updates the scroll container tab stop when its overflow changes", () => {
@@ -630,7 +740,73 @@ describe("table props", () => {
     expect(table).toHaveStyle("--table-sticky-footer-height: 44px");
 
     unmount();
-    expect(disconnect).toHaveBeenCalledTimes(1);
+    expect(disconnect).toHaveBeenCalledTimes(2);
+
+    resizeObserverSpy.mockRestore();
+    offsetHeightSpy.mockRestore();
+  });
+
+  it("observes new sticky rows when the table children change", () => {
+    const observe = jest.fn();
+    const disconnect = jest.fn();
+    const resizeObserverSpy = jest
+      .spyOn(window, "ResizeObserver")
+      .mockImplementation(
+        () =>
+          ({
+            observe,
+            unobserve: jest.fn(),
+            disconnect,
+          }) as unknown as ResizeObserver,
+      );
+    const offsetHeightSpy = jest
+      .spyOn(HTMLElement.prototype, "offsetHeight", "get")
+      .mockImplementation(function (this: HTMLElement) {
+        if (this.id === "first-header") return 48;
+        if (this.id === "replacement-header") return 56;
+        if (this.tagName === "TFOOT") return 40;
+        return 0;
+      });
+    const testTable = (headerId?: string, includeFooter = false) => (
+      <Table stickyRow="both">
+        {headerId && (
+          <TableHead key={headerId} id={headerId}>
+            {createHeaderRow("header", "Header row")}
+          </TableHead>
+        )}
+        <TableBody>{createRow("one", "Row one")}</TableBody>
+        {includeFooter && (
+          <TableFoot>{createRow("footer", "Footer row")}</TableFoot>
+        )}
+      </Table>
+    );
+    const { rerender } = render(testTable());
+    const table = screen.getByRole("table");
+
+    expect(table).toHaveStyle("--table-sticky-header-height: 0px");
+    expect(table).toHaveStyle("--table-sticky-footer-height: 0px");
+
+    rerender(testTable("first-header", true));
+
+    const firstHeader = screen.getByTestId("table-head");
+    const footer = screen.getByTestId("table-footer");
+    expect(observe).toHaveBeenCalledWith(firstHeader);
+    expect(observe).toHaveBeenCalledWith(footer);
+    expect(table).toHaveStyle("--table-sticky-header-height: 48px");
+    expect(table).toHaveStyle("--table-sticky-footer-height: 40px");
+
+    rerender(testTable("replacement-header", true));
+
+    const replacementHeader = screen.getByTestId("table-head");
+    expect(replacementHeader).not.toBe(firstHeader);
+    expect(observe).toHaveBeenCalledWith(replacementHeader);
+    expect(table).toHaveStyle("--table-sticky-header-height: 56px");
+
+    rerender(testTable());
+
+    expect(table).toHaveStyle("--table-sticky-header-height: 0px");
+    expect(table).toHaveStyle("--table-sticky-footer-height: 0px");
+    expect(disconnect).toHaveBeenCalledTimes(2);
 
     resizeObserverSpy.mockRestore();
     offsetHeightSpy.mockRestore();
@@ -893,6 +1069,18 @@ describe("table props", () => {
       {
         modifier: "> div > table > :is(tbody,tfoot) > tr > td:first-child",
       },
+    );
+  });
+
+  it("retains the outer border on a prominent table", () => {
+    renderTable({
+      rows: createRow("one", "Row one"),
+      tableProps: { outerBorders: "none", variant: "prominent" },
+    });
+
+    expect(screen.getByTestId("table-inner-wrapper")).toHaveStyleRule(
+      "border",
+      "var(--global-borderwidth-xs) solid var(--table-row-border-default)",
     );
   });
 

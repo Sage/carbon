@@ -6,10 +6,51 @@ import borderThicknessStyles from "../__internal__/config";
 
 interface StyledTableCellProps {
   $isExpandable?: boolean;
-  $isDragHandle?: boolean;
   $size: TableContextProps["size"];
   $borderThickness?: BorderThickness;
 }
+
+interface CellContentProps {
+  $isExpandable?: boolean;
+  $align: "left" | "right" | "center";
+  $size: TableContextProps["size"];
+}
+
+const getSize = (size: TableContextProps["size"]) => {
+  switch (size) {
+    case "extra-small":
+      return {
+        height: "var(--global-size-xs)",
+        padding: "var(--global-space-none) var(--global-space-comp-s)",
+        font: "var(--global-font-static-comp-regular-s)",
+      };
+    case "small":
+      return {
+        height: "var(--global-size-s)",
+        padding: "var(--global-space-none) var(--global-space-comp-l)",
+        font: "var(--global-font-static-comp-regular-s)",
+      };
+    case "large":
+      return {
+        height: "var(--global-size-l)",
+        padding: "var(--global-space-none) var(--global-space-comp-l)",
+        font: "var(--global-font-static-comp-regular-l)",
+      };
+    case "extra-large":
+      return {
+        height: "var(--global-size-xxl)",
+        padding: "var(--global-space-none) var(--global-space-comp-l)",
+        font: "var(--global-font-static-comp-regular-l)",
+      };
+    // medium is default size
+    default:
+      return {
+        height: "var(--global-size-m)",
+        padding: "var(--global-space-none) var(--global-space-comp-l)",
+        font: "var(--global-font-static-comp-regular-m)",
+      };
+  }
+};
 
 const StyledTableCell = styled.td<StyledTableCellProps>`
   ${({ $borderThickness }) =>
@@ -20,40 +61,8 @@ const StyledTableCell = styled.td<StyledTableCellProps>`
       ]};
     `}
 
-  ${({ $isDragHandle }) =>
-    $isDragHandle &&
-    css`
-      cursor: grab;
-
-      &:active {
-        cursor: grabbing;
-      }
-    `}
-
   padding: 0;
-
-  ${({ $size }) => css`
-    ${$size === "extra-small" &&
-    css`
-      height: var(--global-size-xs);
-    `}
-    ${$size === "small" &&
-    css`
-      height: var(--global-size-s);
-    `}
-    ${$size === "medium" &&
-    css`
-      height: var(--global-size-m);
-    `}
-    ${$size === "large" &&
-    css`
-      height: var(--global-size-l);
-    `}
-    ${$size === "extra-large" &&
-    css`
-      height: var(--global-size-xxl);
-    `}
-  `}
+  height: ${({ $size }) => getSize($size).height};
 
   [data-element="table-cell-collapse"] {
     display: grid;
@@ -73,40 +82,9 @@ const StyledTableCell = styled.td<StyledTableCellProps>`
     box-sizing: border-box;
 
     ${({ $size }) => css`
-      ${$size === "extra-small" &&
-      css`
-        min-height: var(--global-size-xs);
-        padding: var(--global-space-none) var(--global-space-comp-s);
-        font: var(--global-font-static-comp-regular-s);
-      `}
-
-      ${$size === "small" &&
-      css`
-        min-height: var(--global-size-s);
-        padding: var(--global-space-none) var(--global-space-comp-l);
-        font: var(--global-font-static-comp-regular-s);
-      `}
-
-      ${$size === "medium" &&
-      css`
-        min-height: var(--global-size-m);
-        padding: var(--global-space-none) var(--global-space-comp-l);
-        font: var(--global-font-static-comp-regular-m);
-      `}
-
-      ${$size === "large" &&
-      css`
-        min-height: var(--global-size-l);
-        padding: var(--global-space-none) var(--global-space-comp-l);
-        font: var(--global-font-static-comp-regular-l);
-      `}
-
-      ${$size === "extra-large" &&
-      css`
-        min-height: var(--global-size-xxl);
-        padding: var(--global-space-none) var(--global-space-comp-l);
-        font: var(--global-font-static-comp-regular-l);
-      `}
+      min-height: ${getSize($size).height};
+      padding: ${getSize($size).padding};
+      font: ${getSize($size).font};
     `}
   }
 
@@ -149,10 +127,7 @@ export const StyledExpandIcon = styled.span<StyledExpandIconProps>`
   }
 `;
 
-export const CellContent = styled.div<{
-  $isExpandable?: boolean;
-  $align: "left" | "right" | "center";
-}>`
+export const CellContent = styled.div<CellContentProps>`
   border: none;
   background-color: transparent;
   text-align: ${({ $align }) => $align};
@@ -160,12 +135,34 @@ export const CellContent = styled.div<{
   ${({ $isExpandable }) =>
     $isExpandable &&
     css`
+      color: inherit;
+      font: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: transparent;
       cursor: pointer;
+
       &:focus {
         outline: none;
         ${addFocusStyling(true)}
       }
     `}
+
+  [data-element="table-cell-drag-handle"] {
+    display: inline-grid;
+    place-items: center;
+    min-width: 40px;
+    min-height: ${({ $size }) => getSize($size).height};
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
 `;
 
 export default StyledTableCell;

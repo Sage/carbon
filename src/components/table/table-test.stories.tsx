@@ -821,6 +821,7 @@ export const Expandable = () => {
           <TableRow
             id="expandable-table-row-1"
             isExpanded={expanded}
+            onExpansionChange={setExpanded}
             subRows={
               <>
                 <TableRow id="expandable-table-row-1-sub-row-1">
@@ -857,6 +858,7 @@ export const Expandable = () => {
           <TableRow
             id="expandable-table-row-2"
             isExpanded={expanded}
+            onExpansionChange={setExpanded}
             subRows={
               <>
                 <TableRow id="expandable-table-row-2-sub-row-1">

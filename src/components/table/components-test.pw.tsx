@@ -170,9 +170,15 @@ export const StickyHeaderFooterTableComponent = (
   <Table variant="prominent" stickyRow="both" {...props}>
     <TableHead>
       <TableRow id="sticky-head-row">
-        <TableHeader id="sticky-head-product">Product</TableHeader>
-        <TableHeader id="sticky-head-type">Type</TableHeader>
-        <TableHeader id="sticky-head-status">Status</TableHeader>
+        <TableHeader id="sticky-head-product" width="180px">
+          Product
+        </TableHeader>
+        <TableHeader id="sticky-head-type" width="180px">
+          Type
+        </TableHeader>
+        <TableHeader id="sticky-head-status" width="180px">
+          Status
+        </TableHeader>
       </TableRow>
     </TableHead>
     <TableBody>
@@ -342,6 +348,7 @@ export const ExpandableTableComponent = () => {
           <TableRow
             id="expandable-row-1"
             isExpanded={isExpanded}
+            onExpansionChange={setIsExpanded}
             subRows={
               <>
                 <TableRow id="expandable-row-1-sub-1">

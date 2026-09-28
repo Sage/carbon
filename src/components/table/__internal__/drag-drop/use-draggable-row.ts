@@ -54,14 +54,27 @@ function useDraggableRow({
 
     return combine(
       draggable({
-        element,
-        dragHandle,
+        // Use the handle as the native drag source. Mobile browsers are
+        // unreliable when `draggable` is applied directly to a table row,
+        // while the row remains the logical item and drop target.
+        element: dragHandle,
         getInitialData: () =>
           getDraggable({
             id,
             initialIndex: latestIndex.current,
             contextId,
           }),
+        onGenerateDragPreview: ({ nativeSetDragImage, location }) => {
+          /* istanbul ignore if -- unavailable on platforms without native previews */
+          if (!nativeSetDragImage) return;
+
+          const bounds = element.getBoundingClientRect();
+          nativeSetDragImage(
+            element,
+            location.current.input.clientX - bounds.left,
+            location.current.input.clientY - bounds.top,
+          );
+        },
         onDragStart: () => {
           setIsDragging(true);
           setDraggingId(id);

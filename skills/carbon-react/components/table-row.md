@@ -18,8 +18,9 @@ description: Carbon TableRow component props and usage examples.
 | children | React.ReactNode | Yes |  | The content of the table row. |  |
 | id | string | Yes |  | The id attribute for the table row. |  |
 | borderThickness | BorderThickness \| undefined | No |  | The border thickness of the table row. |  |
-| isExpanded | boolean \| undefined | No |  | Indicates whether the table row is expandable. |  |
+| isExpanded | boolean \| undefined | No |  | Controls whether the table row is expanded. When omitted, the row manages its own expansion state and is initially collapsed. |  |
 | isSelected | boolean \| undefined | No |  | Indicates whether the table row is selected. |  |
+| onExpansionChange | ((isExpanded: boolean) => void) \| undefined | No |  | Callback fired with the requested expansion state when the disclosure control is activated. |  |
 | subRows | React.ReactNode | No |  | The sub-rows of the expandable table row. |  |
 
 ## Examples

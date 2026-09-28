@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { TableContext, TableRowContext } from "../__internal__/contexts";
 import StyledTableCell, {
   CellContent,
@@ -56,6 +56,11 @@ export interface TableCellProps
    * The scope attribute specifies the set of data cells for which the header cell provides header information.
    */
   scope?: "row" | "col" | "rowgroup" | "colgroup";
+  /**
+   * @internal @private @ignore
+   * The ref for the drag handle element within the table cell.
+   */
+  dragHandleRef?: React.Ref<HTMLSpanElement>;
 }
 
 const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
@@ -69,6 +74,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
       id,
       borderThickness,
       align = "left",
+      dragHandleRef,
       ...props
     }: TableCellProps,
     ref,
@@ -76,22 +82,17 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
     const { size } = useContext(TableContext);
     const { isExpanded, setIsExpanded } = useContext(TableRowContext);
 
-    const handleExpandClick = useCallback(() => {
-      /* istanbul ignore else */
-      if (isExpandable) {
-        setIsExpanded((p) => !p);
-      }
-    }, [isExpandable, setIsExpanded]);
-
-    const handleExpandKeyDown = useCallback(
-      (e: React.KeyboardEvent<HTMLTableCellElement>) => {
-        /* istanbul ignore else */
-        if (isExpandable && (e.key === "Enter" || e.key === " ")) {
-          e.preventDefault();
-          setIsExpanded((p) => !p);
-        }
-      },
-      [isExpandable, setIsExpanded],
+    const expandableProps = useMemo(
+      () =>
+        isExpandable
+          ? {
+              type: "button",
+              "aria-expanded": isExpanded,
+              "aria-controls": isExpanded ? subRowIds : undefined,
+              onClick: () => setIsExpanded(!isExpanded),
+            }
+          : {},
+      [isExpandable, isExpanded, setIsExpanded, subRowIds],
     );
 
     return (
@@ -102,30 +103,28 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
         {...props}
         data-component={`${isSubRow ? "subrow-" : ""}table-cell`}
         data-role={`${isSubRow ? "subrow-" : ""}table-cell`}
-        onClick={handleExpandClick}
-        onKeyDown={handleExpandKeyDown}
         $isExpandable={isExpandable}
-        $isDragHandle={isDraggable}
         $borderThickness={borderThickness}
       >
         <div data-element="table-cell-collapse">
           <div data-element="table-cell-clip">
             <CellContent
+              as={isExpandable ? "button" : "div"}
               $isExpandable={isExpandable}
               $align={align}
-              as={isExpandable ? "button" : undefined}
-              type={isExpandable ? "button" : undefined}
               data-element="table-cell-content-container"
-              aria-expanded={isExpandable ? isExpanded : undefined}
-              aria-controls={isExpandable && isExpanded ? subRowIds : undefined}
+              $size={size}
+              {...expandableProps}
             >
               {isDraggable && (
-                <Icon
-                  type="drag"
-                  data-component="table-cell-drag-handle"
+                <span
+                  ref={dragHandleRef}
+                  data-element="table-cell-drag-handle"
                   data-role="table-cell-drag-handle"
-                  aria-hidden
-                />
+                  aria-hidden="true"
+                >
+                  <Icon type="drag" aria-hidden />
+                </span>
               )}
               {isExpandable && (
                 <StyledExpandIcon $isExpanded={isExpanded} aria-hidden="true">
@@ -145,7 +144,11 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
                   aria-hidden
                 />
               )}
-              <div data-element="table-cell-content">{children}</div>
+              {isExpandable ? (
+                <span data-element="table-cell-content">{children}</span>
+              ) : (
+                <div data-element="table-cell-content">{children}</div>
+              )}
             </CellContent>
           </div>
         </div>

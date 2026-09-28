@@ -12,6 +12,8 @@ const StyledTableWrapper = styled.div<StyledTableWrapperProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   height: auto;
 
   ${({ $maxWidth }) =>
@@ -24,38 +26,62 @@ const StyledTableWrapper = styled.div<StyledTableWrapperProps>`
 interface InnerWrapperProps {
   $variant: TableContextProps["variant"];
   $hasPagination: boolean;
+  $maxHeight?: string;
   $showOuterBorder?: boolean;
+  $isVerticallyScrollable: boolean;
 }
 
 const StyledInnerWrapper = styled.div<
   InnerWrapperProps & StyledTableWrapperProps
 >`
-  > div {
+  > div[data-element="table-scroll-container"] {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 
   border-radius: var(--global-radius-container-m);
   overflow: clip;
   isolation: isolate;
   width: auto;
+  min-width: 0;
+  max-width: 100%;
   height: auto;
   position: relative;
 
-  ${({ $maxWidth }) =>
-    $maxWidth &&
-    css`
-      max-width: ${$maxWidth};
+  &:has(> div[data-element="table-scroll-container"]:focus-visible) {
+    ${addFocusStyling()}
+  }
 
-      &:has(> div[data-element="table-scroll-container"]:focus) {
-        ${addFocusStyling()}
-      }
+  ${({ $maxHeight, $maxWidth, $isVerticallyScrollable }) =>
+    ($maxHeight || $maxWidth) &&
+    css`
+      ${$maxWidth &&
+      css`
+        max-width: ${$maxWidth};
+      `}
 
       > div[data-element="table-scroll-container"] {
-        max-width: ${$maxWidth};
-        overflow-x: auto;
-        overflow-y: hidden;
-        overscroll-behavior-x: none;
+        ${$maxWidth &&
+        css`
+          max-width: ${$maxWidth};
+          overscroll-behavior-x: none;
+        `}
+        ${$maxHeight &&
+        css`
+          max-height: ${$maxHeight};
+
+          ${$isVerticallyScrollable &&
+          css`
+            overflow-y: auto;
+            overscroll-behavior-y: none;
+          `}
+        `}
+        -webkit-overflow-scrolling: touch;
       }
     `}
 
@@ -71,7 +97,6 @@ const StyledInnerWrapper = styled.div<
     $variant !== "prominent" &&
     css`
       > div {
-        /* Straight side borders below the header */
         > table > :is(tbody, tfoot) > tr > td:first-child,
         > table > :is(tbody, tfoot) > tr > th:first-child {
           border-inline-start: var(--global-borderwidth-xs) solid
