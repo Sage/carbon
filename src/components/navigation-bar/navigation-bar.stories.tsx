@@ -32,20 +32,15 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
-export const DarkTheme: Story = () => {
-  return <NavigationBar navigationType="dark">Example content</NavigationBar>;
+export const Variants: Story = () => {
+  return (
+    <Box display="flex" flexDirection="column" gap={2}>
+      <NavigationBar variant="white">White variant</NavigationBar>
+      <NavigationBar variant="black">Black variant</NavigationBar>
+    </Box>
+  );
 };
-DarkTheme.storyName = "Dark Theme";
-
-export const WhiteTheme: Story = () => {
-  return <NavigationBar navigationType="white">Example content</NavigationBar>;
-};
-WhiteTheme.storyName = "White Theme";
-
-export const BlackTheme: Story = () => {
-  return <NavigationBar navigationType="black">Example content</NavigationBar>;
-};
-BlackTheme.storyName = "Black Theme";
+Variants.storyName = "Variants";
 
 export const ExampleWithMenu: Story = () => {
   return (

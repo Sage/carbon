@@ -14,7 +14,7 @@ import Toast from "../toast";
 import Message from "../message";
 
 import type { DialogProps } from ".";
-import Dialog from ".";
+import Dialog, { DialogHeadingStatus } from ".";
 
 const meta: Meta<typeof Dialog> = {
   title: "Dialog",
@@ -946,5 +946,220 @@ export const WithContentPaddingCustom: Story = {
   args: {
     ...DefaultStory.args,
     contentPadding: { py: 5, px: 8 },
+  },
+};
+
+export const WithStatusHeaderSubtle: Story = {
+  name: "With Status Header - Subtle",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+  render: function WithStatusHeaderSubtleRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="Information: Please review the details below"
+              subtitle="This is an informational message"
+              status="subtle"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithStatusHeaderPositive: Story = {
+  name: "With Status Header - Positive",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+  render: function WithStatusHeaderPositiveRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="Success: Your changes have been saved"
+              subtitle="All data has been successfully updated"
+              status="positive"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithStatusHeaderNegative: Story = {
+  name: "With Status Header - Negative",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+  render: function WithStatusHeaderNegativeRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="Error: Unable to complete the action"
+              subtitle="Please check your input and try again"
+              status="negative"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithStatusHeaderCaution: Story = {
+  name: "With Status Header - Caution",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+  render: function WithStatusHeaderCautionRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="Warning: This action cannot be undone"
+              subtitle="Please confirm before proceeding"
+              status="caution"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const WithStatusHeaderInfo: Story = {
+  name: "With Status Header - Info",
+  args: {
+    open: isChromatic(),
+    size: "medium",
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+  render: function WithStatusHeaderInfoRender({
+    onCancel,
+    ...args
+  }: Partial<DialogProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open Dialog
+        </Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          title={
+            <DialogHeadingStatus
+              title="New feature available"
+              subtitle="Learn about the latest updates"
+              status="info"
+            />
+          }
+          footer={<Buttons />}
+        >
+          {dialogContent}
+        </Dialog>
+      </>
+    );
   },
 };

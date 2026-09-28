@@ -65,25 +65,26 @@ export const DefaultStory = ({
   ...args
 }: TileProps & TileStoryProps) => {
   const contentOneProps = {
-    key: "one",
     children: contentOneChildren,
     width: contentOneWidth,
   };
   const contentTwoProps = {
-    key: "two",
     children: contentTwoChildren,
     width: contentTwoWidth,
   };
   const contentThreeProps = {
-    key: "three",
     children: contentThreeChildren,
     width: contentThreeWidth,
   };
   const tileContent = [
-    contentOneProps.children ? <TileContent {...contentOneProps} /> : undefined,
-    contentTwoProps.children ? <TileContent {...contentTwoProps} /> : undefined,
+    contentOneProps.children ? (
+      <TileContent key="one" {...contentOneProps} />
+    ) : undefined,
+    contentTwoProps.children ? (
+      <TileContent key="two" {...contentTwoProps} />
+    ) : undefined,
     contentThreeProps.children ? (
-      <TileContent {...contentThreeProps} />
+      <TileContent key="three" {...contentThreeProps} />
     ) : undefined,
   ];
   return (
@@ -115,7 +116,7 @@ export const GreyWithTextArea = () => {
     "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
   ];
   const [textAreaValue, setTextAreaValue] = useState("");
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextAreaValue(e.target.value);
   };
   const buttonAction = () => {

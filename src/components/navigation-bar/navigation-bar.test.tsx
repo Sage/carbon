@@ -61,28 +61,8 @@ test("renders with provided `aria-label` as its accessible name", () => {
   expect(screen.getByRole("navigation")).toHaveAccessibleName("test label");
 });
 
-test("renders `aria-label` as its accessible name when isGlobal is set and ariaLabel is set", () => {
-  render(
-    <NavigationBar ariaLabel="test label" isGlobal>
-      <div>test content</div>
-    </NavigationBar>,
-  );
-
-  expect(screen.getByRole("navigation")).toHaveAccessibleName("test label");
-});
-
-test("renders `aria-label` with default `Global Header` value when isGlobal is set and aria label is not set", () => {
-  render(
-    <NavigationBar isGlobal>
-      <div>test content</div>
-    </NavigationBar>,
-  );
-
-  expect(screen.getByRole("navigation")).toHaveAccessibleName("Global Header");
-});
-
 // coverage
-test("renders with correct styles when `navigationType` is 'light'", () => {
+test("maps to white variant with correct styles when `navigationType` is 'light'", () => {
   render(
     <NavigationBar navigationType="light">
       <div>test content</div>
@@ -91,16 +71,16 @@ test("renders with correct styles when `navigationType` is 'light'", () => {
 
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "background-color",
-    "var(--colorsComponentsMenuSpringStandard500)",
+    "var(--nav-tertiary-bg-default)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
-    "border-bottom",
-    "var(--borderWidth100) solid var(--colorsComponentsMenuSpringChildAlt500)",
+    "color",
+    "var(--nav-tertiary-label-default)",
   );
 });
 
 // coverage
-test("renders with correct styles when `navigationType` is 'dark'", () => {
+test("maps to black variant with correct styles when `navigationType` is 'dark'", () => {
   render(
     <NavigationBar navigationType="dark">
       <div>test content</div>
@@ -109,16 +89,16 @@ test("renders with correct styles when `navigationType` is 'dark'", () => {
 
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "background-color",
-    "var(--colorsComponentsMenuAutumnStandard500)",
+    "var(--nav-primary-bg-default)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "color",
-    "var(--colorsComponentsMenuYang100)",
+    "var(--nav-primary-label-default)",
   );
 });
 
 // coverage
-test("renders with correct styles when `navigationType` is 'black'", () => {
+test("maps to black variant with correct styles when `navigationType` is 'black'", () => {
   render(
     <NavigationBar navigationType="black">
       <div>test content</div>
@@ -127,16 +107,16 @@ test("renders with correct styles when `navigationType` is 'black'", () => {
 
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "background-color",
-    "var(--colorsComponentsMenuWinterStandard500)",
+    "var(--nav-primary-bg-default)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "color",
-    "var(--colorsComponentsMenuYang100)",
+    "var(--nav-primary-label-default)",
   );
 });
 
 // coverage
-test("renders with correct styles when `navigationType` is 'white'", () => {
+test("maps to white variant with correct styles when `navigationType` is 'white'", () => {
   render(
     <NavigationBar navigationType="white">
       <div>test content</div>
@@ -145,11 +125,47 @@ test("renders with correct styles when `navigationType` is 'white'", () => {
 
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "background-color",
-    "var(--colorsComponentsMenuSummerStandard500)",
+    "var(--nav-tertiary-bg-default)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
-    "border-bottom",
-    "var(--borderWidth100) solid var(--colorsComponentsMenuSummerChildAlt500)",
+    "color",
+    "var(--nav-tertiary-label-default)",
+  );
+});
+
+// coverage
+test("renders with correct styles when `variant` is 'white'", () => {
+  render(
+    <NavigationBar navigationType="white">
+      <div>test content</div>
+    </NavigationBar>,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "background-color",
+    "var(--nav-tertiary-bg-default)",
+  );
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "color",
+    "var(--nav-tertiary-label-default)",
+  );
+});
+
+// coverage
+test("renders with correct styles when `variant` is 'black'", () => {
+  render(
+    <NavigationBar variant="black">
+      <div>test content</div>
+    </NavigationBar>,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "color",
+    "var(--nav-primary-label-default)",
   );
 });
 

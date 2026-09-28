@@ -156,7 +156,7 @@ test("should apply readOnly colour when `readOnly` prop is true", () => {
   const label = screen.getByText("ReadOnly");
   expect(label).toHaveStyleRule(
     "color",
-    "var(--input-labelset-label-readOnly)",
+    "var(--input-labelset-label-read-only)",
   );
 });
 

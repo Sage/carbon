@@ -30,6 +30,8 @@ export interface SerializedSpanNode extends SerializedTextNode {
   lineHeight: string;
 }
 
+const CARBON_BASE_WEIGHT_ATTRIBUTE = "data-carbon-base-weight";
+
 export class StyledSpanNode extends TextNode {
   __fontWeight: string;
   __fontSize: string;
@@ -154,18 +156,27 @@ export class StyledSpanNode extends TextNode {
     let element: HTMLElement = document.createElement("span");
     const format = this.getFormat();
 
-    element.style.fontWeight = format & IS_BOLD ? "700" : this.__fontWeight;
+    // Span keeps base styles; bold weight is stored separately when needed.
+    const isBold = !!(format & IS_BOLD);
+    if (!isBold) {
+      element.style.fontWeight = this.__fontWeight;
+    }
     element.style.fontSize = this.__fontSize;
     element.style.lineHeight = this.__lineHeight;
-    if (format & IS_ITALIC) {
-      element.style.fontStyle = "italic";
-    }
-    if (format & IS_UNDERLINE) {
-      element.style.textDecoration = "underline";
-    }
     element.textContent = this.getTextContent();
 
-    if (format & IS_BOLD) {
+    const shouldStoreBaseWeight =
+      isBold ||
+      // Preserve non-preset 700/bold weights during legacy import.
+      ((this.__fontWeight === "700" || this.__fontWeight === "bold") &&
+        this.getTypographyKey() === "paragraph");
+
+    if (shouldStoreBaseWeight) {
+      // Preserve the base weight when the span omits it for bold rendering.
+      element.setAttribute(CARBON_BASE_WEIGHT_ATTRIBUTE, this.__fontWeight);
+    }
+
+    if (isBold) {
       const strong = document.createElement("strong");
       strong.appendChild(element);
       element = strong;
@@ -188,15 +199,25 @@ export class StyledSpanNode extends TextNode {
     return {
       span: (domNode: HTMLElement) => ({
         conversion: () => {
-          let fontWeight = domNode.style.fontWeight || "400";
+          const storedBaseWeight = domNode.getAttribute(
+            CARBON_BASE_WEIGHT_ATTRIBUTE,
+          );
+          let fontWeight =
+            storedBaseWeight && storedBaseWeight !== "true"
+              ? storedBaseWeight
+              : domNode.style.fontWeight || "400";
           const fontSize = domNode.style.fontSize || "14px";
           const lineHeight = domNode.style.lineHeight || "21px";
           let shouldApplyBoldFormat = false;
 
-          // If font-weight is bold/700 but doesn't match a typography preset
-          // that genuinely uses 700 (e.g. title at 24px/30px), it was likely
-          // set by format (e.g. parent <strong>) so normalise to base weight.
-          if (fontWeight === "700" || fontWeight === "bold") {
+          // Skip legacy recovery for current carbon exports.
+          const isCurrentCarbonExport = storedBaseWeight !== null;
+
+          // Recover bold formatting from legacy and foreign HTML.
+          if (
+            !isCurrentCarbonExport &&
+            (fontWeight === "700" || fontWeight === "bold")
+          ) {
             const matchesTypography = Object.values(typographyMap).some(
               (t) =>
                 t.weight === "700" &&
@@ -204,7 +225,11 @@ export class StyledSpanNode extends TextNode {
                 t.lineHeight === lineHeight,
             );
             if (!matchesTypography) {
-              fontWeight = "400";
+              // Recover the legacy base weight from matching size and line height.
+              const matchedTypography = Object.values(typographyMap).find(
+                (t) => t.size === fontSize && t.lineHeight === lineHeight,
+              );
+              fontWeight = matchedTypography ? matchedTypography.weight : "400";
               shouldApplyBoldFormat = !domNode.closest("strong, b");
             }
           }

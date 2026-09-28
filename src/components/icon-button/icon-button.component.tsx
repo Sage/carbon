@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback } from "react";
 import { SpaceProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import StyledIconButton from "./icon-button.style";
 import { IconProps } from "../icon";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
 /**
  * @deprecated `IconButton` has been deprecated. See the Carbon documentation for migration details.
@@ -45,8 +44,6 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     }: IconButtonProps,
     ref,
   ) => {
-    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
-    const isDisabled = disabled || batchSelectionDisabled;
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
     const ariaLabelValue =
       ariaLabel ||
@@ -77,11 +74,11 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         aria-label={ariaLabelValue}
         onClick={handleClick}
         ref={setRefs}
-        disabled={isDisabled}
+        disabled={disabled}
         {...tagComponent(rest["data-component"] ?? "icon-button", rest)}
       >
         <TooltipProvider
-          disabled={isDisabled}
+          disabled={disabled}
           focusable={false}
           target={internalRef}
         >

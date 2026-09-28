@@ -52,7 +52,7 @@ const OptionGroupHeader = React.forwardRef(
         {children || (
           <>
             {icon && <Icon type={icon} />}
-            <h4>{label}</h4>
+            <span data-role="option-group-header-label">{label}</span>
           </>
         )}
       </StyledOptionGroupHeader>

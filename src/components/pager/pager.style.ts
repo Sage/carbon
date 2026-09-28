@@ -28,6 +28,8 @@ const sizeMap = {
 
 export const StyledPagination = styled.nav<StyledPagerContainerProps>`
   ${({ $variant, $size }) => css`
+    --fieldSpacing: 0;
+
     display: flex;
     align-items: center;
     justify-content: space-between;

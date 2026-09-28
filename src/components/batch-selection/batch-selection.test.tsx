@@ -1,34 +1,89 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import BatchSelection from ".";
-import Button from "../button";
-import ButtonMinor from "../button-minor";
-import Icon from "../icon";
-import IconButton from "../icon-button";
-import Link from "../link";
+import Button from "../button/__next__";
 
 test("Renders with children", () => {
   render(
-    <BatchSelection selectedCount={0}>
-      <IconButton>
-        <Icon type="edit" />
-      </IconButton>
+    <BatchSelection selectedCount={0} totalItems={10}>
+      <Button>Button</Button>
     </BatchSelection>,
   );
 
-  const iconButton = screen.getByRole("button", { name: "edit" });
+  expect(screen.getByRole("button", { name: "Button" })).toBeVisible();
+});
 
-  expect(iconButton).toBeVisible();
-  expect(iconButton).toBeEnabled();
+test("Renders the selected count message using the `selectedCount` and `totalItems` props", () => {
+  render(
+    <BatchSelection selectedCount={1} totalItems={10}>
+      <Button>Button</Button>
+    </BatchSelection>,
+  );
+
+  expect(screen.getByText("1 of 10 items selected")).toBeVisible();
+});
+
+test("Renders the selected count message when only `selectedCount` is provided", () => {
+  render(
+    <BatchSelection selectedCount={1}>
+      <Button>Button</Button>
+    </BatchSelection>,
+  );
+
+  expect(screen.getByText("1 selected")).toBeVisible();
+});
+
+test("Renders close button that calls `onDismiss` when clicked", async () => {
+  const user = userEvent.setup();
+  const onDismiss = jest.fn();
+
+  render(
+    <BatchSelection selectedCount={0} totalItems={10} onDismiss={onDismiss}>
+      <Button>Button</Button>
+    </BatchSelection>,
+  );
+
+  const closeButton = screen.getByRole("button", { name: "Close" });
+  await user.click(closeButton);
+
+  expect(onDismiss).toHaveBeenCalledTimes(1);
+});
+
+test("Does not render a close button when `onDismiss` is not provided", () => {
+  render(
+    <BatchSelection selectedCount={0} totalItems={10}>
+      <Button>Button</Button>
+    </BatchSelection>,
+  );
+
+  expect(
+    screen.queryByRole("button", { name: "Close" }),
+  ).not.toBeInTheDocument();
+});
+
+test("Renders with the small screen layout when the `smallScreen` prop is true", () => {
+  render(
+    <BatchSelection
+      selectedCount={1}
+      totalItems={10}
+      onDismiss={() => {}}
+      smallScreen
+    >
+      <Button>Button</Button>
+    </BatchSelection>,
+  );
+
+  expect(screen.getByText("1 of 10 items selected")).toBeVisible();
+  expect(screen.getByRole("button", { name: "Close" })).toBeVisible();
+  expect(screen.getByRole("button", { name: "Button" })).toBeVisible();
 });
 
 test("Renders with provided data- attributes", () => {
   render(
     <BatchSelection data-element="bar" data-role="baz" selectedCount={0}>
-      <IconButton>
-        <Icon type="edit" />
-      </IconButton>
+      <Button>Button</Button>
     </BatchSelection>,
   );
 
@@ -38,9 +93,7 @@ test("Renders with provided data- attributes", () => {
 test("Renders as hidden when the `hidden` prop is true", () => {
   render(
     <BatchSelection data-role="batch-selection" selectedCount={0} hidden>
-      <IconButton>
-        <Icon type="bin" />
-      </IconButton>
+      <Button>Button</Button>
     </BatchSelection>,
   );
 
@@ -48,90 +101,3 @@ test("Renders as hidden when the `hidden` prop is true", () => {
 
   expect(batchSelection).not.toBeVisible();
 });
-
-test("`IconButton` children should be automatically disabled via context", () => {
-  render(
-    <BatchSelection colorTheme="dark" selectedCount={0} disabled>
-      <IconButton>
-        <Icon type="edit" />
-      </IconButton>
-    </BatchSelection>,
-  );
-
-  const iconButton = screen.getByRole("button", { name: "edit" });
-
-  expect(iconButton).toBeDisabled();
-});
-
-test("`Button` children should be automatically disabled via context", () => {
-  render(
-    <BatchSelection colorTheme="light" selectedCount={0} disabled>
-      <Button iconType="edit" />
-    </BatchSelection>,
-  );
-
-  const button = screen.getByRole("button", { name: "edit" });
-
-  expect(button).toBeDisabled();
-});
-
-test("`ButtonMinor` children should be automatically disabled via context", () => {
-  render(
-    <BatchSelection colorTheme="white" selectedCount={0} disabled>
-      <ButtonMinor iconType="edit" />
-    </BatchSelection>,
-  );
-
-  const minorButton = screen.getByRole("button", { name: "edit" });
-
-  expect(minorButton).toBeDisabled();
-});
-
-test("`Link` children should be automatically disabled via context", () => {
-  render(
-    <BatchSelection selectedCount={0} disabled>
-      <Link href="#">Link as an anchor</Link>
-    </BatchSelection>,
-  );
-
-  const link = screen.getByRole("link");
-
-  // eslint-disable-next-line jest-dom/prefer-enabled-disabled
-  expect(link).toHaveAttribute("disabled");
-  expect(link).toHaveAttribute("aria-disabled", "true");
-});
-
-test("`Link` children rendered as a button should be automatically disabled via context", () => {
-  render(
-    <BatchSelection selectedCount={0} disabled>
-      <Link onClick={() => {}}>Link as a button</Link>
-    </BatchSelection>,
-  );
-
-  const linkButton = screen.getByRole("button", {
-    name: "Link as a button",
-  });
-
-  expect(linkButton).toBeDisabled();
-  expect(linkButton).toHaveAttribute("aria-disabled", "true");
-});
-
-test.each([
-  [0, "0 selected"],
-  [1, "1 selected"],
-  [10, "10 selected"],
-  [100, "100 selected"],
-])(
-  "Renders correct text for different selectedCount values",
-  (count, expectedText) => {
-    render(
-      <BatchSelection selectedCount={count} data-role="batch-selection-count">
-        <IconButton>
-          <Icon type="edit" />
-        </IconButton>
-      </BatchSelection>,
-    );
-    const batchSelection = screen.getByTestId("batch-selection-count");
-    expect(batchSelection).toHaveTextContent(expectedText);
-  },
-);

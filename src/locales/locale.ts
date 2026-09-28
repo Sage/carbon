@@ -15,7 +15,10 @@ interface Locale {
     currentColorAssigned: (currentColor: string) => string;
   };
   batchSelection: {
-    selected: (count: number | string) => string;
+    ariaLabels: {
+      close: () => string;
+    };
+    selected: (count: number | string, total?: number | string) => string;
   };
   breadcrumbs: {
     ariaLabel: () => string;
@@ -72,6 +75,9 @@ interface Locale {
       delete: () => string;
     };
   };
+  globalHeader: {
+    ariaLabel: () => string;
+  };
   heading: {
     backLinkAriaLabel: () => string;
   };
@@ -101,6 +107,9 @@ interface Locale {
     neutral: () => string;
     ai: () => string;
     callout?: () => string;
+  };
+  note: {
+    created: () => string;
   };
   numeralDate: {
     validation: {
@@ -156,6 +165,11 @@ interface Locale {
   };
   pod: {
     undo: () => string;
+  };
+  popoverContainer: {
+    openButton: {
+      text: () => string;
+    };
   };
   tabs: {
     error: (tabTitle?: string) => string;

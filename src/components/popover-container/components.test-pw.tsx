@@ -15,7 +15,6 @@ export const PopoverContainerOverlappingAdaptiveSidebar = () => (
       <PopoverContainer
         title="notifications"
         containerAriaLabel="notifications"
-        openButtonAriaLabel="open"
         open
       >
         Notifications content
@@ -34,7 +33,6 @@ export const PopoverContainerWithSelect = () => {
     <Box height="100">
       <PopoverContainer
         containerAriaLabel="popover-container"
-        openButtonAriaLabel="open"
         title="select example"
       >
         <Select

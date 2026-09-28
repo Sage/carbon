@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import allModes from "../../../../../.storybook/modes";
+import isChromatic from "../../../../../.storybook/isChromatic";
 
 import Box from "../../../box";
 import Button from "../../../button/__next__/";
 import Typography from "../../../typography";
 import Textbox from "../../../textbox";
 
-import Dialog, { withDialogHeader } from "./dialog.component";
-
-const DialogWithHeadingVariant = withDialogHeader(Dialog);
+import Dialog from "./dialog.component";
+import DialogHeader from "./dialog-header/dialog-header.component";
+import { Form } from "../../../..";
 
 const meta: Meta<typeof Dialog> = {
   title: "Dialog/Test",
@@ -124,82 +125,156 @@ export const SizeFullScreen: Story = {
   ),
 };
 
-export const HeadingSubtle: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingSubtle: StoryObj<typeof Dialog> = {
   name: "Heading Subtle",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with subtle icon"
-      subtitle="Subheading"
-      statusIcon="subtle"
+      title={
+        <DialogHeader
+          title="Dialog with subtle icon"
+          subtitle="Subheading"
+          status="subtle"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
 };
 
-export const HeadingPositive: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingPositive: StoryObj<typeof Dialog> = {
   name: "Heading Positive",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with positive icon"
-      subtitle="Subheading"
-      statusIcon="positive"
+      title={
+        <DialogHeader
+          title="Dialog with positive icon"
+          subtitle="Subheading"
+          status="positive"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
 };
 
-export const HeadingNegative: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingNegative: StoryObj<typeof Dialog> = {
   name: "Heading Negative",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with negative icon"
-      subtitle="Subheading"
-      statusIcon="negative"
+      title={
+        <DialogHeader
+          title="Dialog with negative icon"
+          subtitle="Subheading"
+          status="negative"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
 };
 
-export const HeadingCaution: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingCaution: StoryObj<typeof Dialog> = {
   name: "Heading Caution",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with caution icon"
-      subtitle="Subheading"
-      statusIcon="caution"
+      title={
+        <DialogHeader
+          title="Dialog with caution icon"
+          subtitle="Subheading"
+          status="caution"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
 };
 
-export const HeadingInfo: StoryObj<typeof DialogWithHeadingVariant> = {
+export const HeadingInfo: StoryObj<typeof Dialog> = {
   name: "Heading Info",
   render: () => (
-    <DialogWithHeadingVariant
+    <Dialog
       open
-      title="Dialog with info icon"
-      subtitle="Subheading"
-      statusIcon="info"
+      title={
+        <DialogHeader
+          title="Dialog with info icon"
+          subtitle="Subheading"
+          status="info"
+        />
+      }
       onCancel={() => {}}
       footer={<Buttons />}
     >
       {dialogContent}
-    </DialogWithHeadingVariant>
+    </Dialog>
   ),
+};
+
+export const DialogStickyFormSmallScreen: Story = {
+  name: "Fullscreen Dialog Sticky Form Small Screen",
+  parameters: {
+    chromatic: {
+      modes: {
+        xsm: allModes.xsm,
+        lg: allModes.lg,
+      },
+    },
+  },
+  render: () => {
+    const [isOpen, setIsOpen] = useState(isChromatic());
+
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+        <Dialog
+          disableStickyOnSmallScreen
+          onCancel={() => setIsOpen(false)}
+          open={isOpen}
+          size="fullscreen"
+          subtitle="To test this behaviour, please make sure you have the viewport set to extra small in Storybook."
+          title="Dialog with bug on small screen"
+        >
+          <Form
+            leftSideButtons={<Button onClick={() => ""}>Cancel</Button>}
+            saveButton={
+              <Button variantType="primary" type="submit">
+                Save
+              </Button>
+            }
+            stickyFooter
+          >
+            <>
+              <Textbox label="First Name" onChange={() => ""} value="" />
+              <Textbox label="Middle Name" onChange={() => ""} value="" />
+              <Textbox label="Surname" onChange={() => ""} value="" />
+              <Textbox label="Birth Place" onChange={() => ""} value="" />
+              <Textbox label="Favourite Colour" onChange={() => ""} value="" />
+              <Textbox label="Address" onChange={() => ""} value="" />
+              <Textbox label="First Name" onChange={() => ""} value="" />
+              <Textbox label="Middle Name" onChange={() => ""} value="" />
+              <Textbox label="Surname" onChange={() => ""} value="" />
+              <Textbox label="Birth Place" onChange={() => ""} value="" />
+              <Textbox label="Favourite Colour" onChange={() => ""} value="" />
+              <Textbox label="Address" onChange={() => ""} value="" />
+            </>
+          </Form>
+        </Dialog>
+      </>
+    );
+  },
 };

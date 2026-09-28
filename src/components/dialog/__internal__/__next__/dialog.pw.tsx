@@ -9,6 +9,7 @@ import {
   DialogWithHeadingVariantPositive,
   DialogWithHeadingVariantSubtle,
   DialogWithHeadingVariantInfo,
+  DialogWithHeadingNoSubtitle,
 } from "./components-test.pw";
 import { checkAccessibility } from "../../../../../playwright/support/helper";
 
@@ -129,6 +130,14 @@ test.describe("Dialog component", () => {
       page,
     }) => {
       await mount(<DialogWithHeadingVariantInfo />);
+      await checkAccessibility(page, page.getByRole("dialog"));
+    });
+
+    test("should check accessibility with header variant without subtitle", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<DialogWithHeadingNoSubtitle />);
       await checkAccessibility(page, page.getByRole("dialog"));
     });
   });

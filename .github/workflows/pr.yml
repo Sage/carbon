@@ -5,12 +5,62 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  trigger-chromatic:
+  check-chromatic:
+    name: Check Chromatic
     # if not a fork or a draft
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check_approvals.outputs.should_run }}
     steps:
-      - uses: octokit/request-action@v2.x
+      - name: Check Approvals
+        id: check_approvals
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const REQUIRED_APPROVALS = 2;
+
+            const data = await github.graphql(
+              `query($owner: String!, $repo: String!, $number: Int!) {
+                repository(owner: $owner, name: $repo) {
+                  pullRequest(number: $number) {     
+                    latestReviews(first: 100) {
+                      nodes {
+                        state
+                        authorCanPushToRepository
+                      }
+                    }
+                  }
+                }
+              }`,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                number: context.payload.pull_request.number,
+              }
+            );
+
+            const pr = data.repository.pullRequest;
+            const approvals = pr.latestReviews.nodes.filter(
+              (review) =>
+                review.state === "APPROVED" && review.authorCanPushToRepository
+            ).length;
+            
+            if (approvals >= REQUIRED_APPROVALS) {
+              core.setOutput("should_run", "true");
+              return;
+            }
+
+            core.setOutput("should_run", "false");
+
+  trigger-chromatic:
+    name: Trigger Chromatic
+    needs: [check-chromatic]
+    if: ${{ needs.check-chromatic.outputs.should_run == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch Chromatic
+        uses: octokit/request-action@v3.x
         id: dispatch_chromatic
         with:
           route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches

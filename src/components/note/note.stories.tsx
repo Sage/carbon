@@ -96,6 +96,8 @@ export const WithInlineControls: Story = () => {
   const inlineControl = (
     <ActionPopover>
       <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Copy</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Forward</ActionPopoverItem>
       <ActionPopoverDivider />
       <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
     </ActionPopover>
@@ -113,6 +115,84 @@ export const WithInlineControls: Story = () => {
   );
 };
 WithInlineControls.storyName = "With Inline Controls";
+
+export const WithInlineControlsWithoutTitle: Story = () => {
+  const inlineControl = (
+    <ActionPopover>
+      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Copy</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Forward</ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+    </ActionPopover>
+  );
+
+  return (
+    <Box width="50%">
+      <Note
+        inlineControl={inlineControl}
+        noteContent="A note can display its actions menu without a title."
+        name="Lauren Smith"
+        createdDate="23 May 2020, 12:08 PM"
+      />
+    </Box>
+  );
+};
+WithInlineControlsWithoutTitle.storyName = "With Inline Controls and No Title";
+
+export const WithMention: Story = () => {
+  const noteContent = JSON.stringify({
+    root: {
+      children: [
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: "normal",
+              style: "",
+              text: "Please review this with ",
+              type: "text",
+              version: 1,
+            },
+            {
+              detail: 0,
+              format: 0,
+              mode: "token",
+              mention: "@Amanda Ball",
+              style: "",
+              text: "@Amanda Ball",
+              type: "mention",
+              version: 1,
+            },
+          ],
+          direction: "ltr",
+          format: "",
+          indent: 0,
+          type: "paragraph",
+          version: 1,
+        },
+      ],
+      direction: "ltr",
+      format: "",
+      indent: 0,
+      type: "root",
+      version: 1,
+    },
+  });
+
+  return (
+    <Box width="50%">
+      <Note
+        title="Review requested"
+        name="Lauren Smith"
+        noteContent={noteContent}
+        createdDate="20 Jan 16:49"
+      />
+    </Box>
+  );
+};
+WithMention.storyName = "With @mention";
 
 export const WithStatus: Story = () => {
   const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>

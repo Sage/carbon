@@ -25,6 +25,10 @@ const InputContainer = styled.div<InputContainerProps>`
     max-width: 100%;
     border-radius: var(--global-radius-action-m);
 
+    .time & {
+      box-sizing: border-box;
+    }
+
     ${$size === "small" &&
     css`
       min-height: var(--global-size-s);
@@ -34,12 +38,12 @@ const InputContainer = styled.div<InputContainerProps>`
     css`
       min-height: var(--global-size-m);
     `}
-
+ 
     ${$size === "large" &&
     css`
       min-height: var(--global-size-l);
     `}
-
+ 
     &&& {
       ${$isReadOnly &&
       css`
@@ -91,7 +95,7 @@ const InputContainer = styled.div<InputContainerProps>`
         ? `var(--global-borderwidth-s) solid var(--input-validation-border-error)`
         : `var(--global-borderwidth-xs) solid var(--input-typical-border-default)`};
     `}
-
+ 
     .input-text-container {
       display: flex;
       flex-wrap: wrap;
@@ -123,25 +127,25 @@ const InputContainer = styled.div<InputContainerProps>`
         css`
           color: var(--input-typical-txt-disabled);
         `}
-
+ 
         ${!$isReadOnly &&
         !$isDisabled &&
         css`
           color: var(--input-typical-txt-default);
         `}
-
+ 
         ${$size === "small" &&
         css`
           font: var(--global-font-static-comp-regular-s);
           padding: var(--global-space-none) var(--global-space-comp-s);
         `}
-
+ 
         ${$size === "medium" &&
         css`
           font: var(--global-font-static-comp-regular-m);
           padding: var(--global-space-none) var(--global-space-comp-m);
         `}
-
+ 
         ${$size === "large" &&
         css`
           font: var(--global-font-static-comp-regular-l);
@@ -157,13 +161,13 @@ const InputContainer = styled.div<InputContainerProps>`
   `}
 
   ${dateStyleOverrides}
-
+ 
   ${searchNewStyleOverrides}
   ${searchStyleOverrides}
-
+ 
   ${({ $size, $isDisabled, $isReadOnly }) =>
     selectStyleOverrides($size, $isDisabled, $isReadOnly)}
-
+ 
   ${numeralDateStyles}
  
   &[data-is-open="true"] {

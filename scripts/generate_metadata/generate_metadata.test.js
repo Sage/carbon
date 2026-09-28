@@ -1,6 +1,8 @@
 import fs from "fs";
-import fetch from "jest-fetch-mock";
+import fetch, { enableFetchMocks } from "jest-fetch-mock";
 import { generateMetadata, writeFile } from "./generate_metadata";
+
+enableFetchMocks();
 
 jest.mock("fs");
 const mockedFs = jest.mocked(fs);

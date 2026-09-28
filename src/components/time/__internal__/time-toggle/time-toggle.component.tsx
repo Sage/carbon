@@ -49,7 +49,7 @@ const Toggle = ({
     <ButtonToggleGroup
       {...wrapperProps}
       data-component="time-button-toggle-group"
-      m="0px 0px 0px 16px"
+      m="0px"
       id={internalId.current}
       onChange={handleChange}
       value={toggleValue}

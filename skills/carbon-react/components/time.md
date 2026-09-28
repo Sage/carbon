@@ -13,40 +13,42 @@ description: Carbon Time component props and usage examples.
 - Props interface: `TimeProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| onChange | (ev: TimeInputEvent) => void | Yes |  | Callback to handle change events in input elements |  |
-| value | TimeValue | Yes |  | The value of the input elements |  |
-| disabled | boolean \| undefined | No |  | If true, the component will be disabled |  |
-| fieldLabelsAlign | "left" \| "right" \| undefined | No |  | Field labels alignment |  |
-| hoursInputProps | TimeInputProps \| undefined | No |  | Set custom `data-` and `id` attributes on the input element. Set the `label` and `aria-label` values for the associated Label element. Set the `error` and `warning` states for the input |  |
-| inputHint | string \| undefined | No |  | Additional hint text rendered above the input elements |  |
-| label | string \| undefined | No |  | Label text for the component |  |
-| labelAlign | "left" \| "right" \| undefined | No |  | Label alignment |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| minutesInputProps | TimeInputProps \| undefined | No |  | Set custom `data-` and `id` attributes on the input element. Set the `label` and `aria-label` values for the associated Label element. Set the `error` and `warning` states for the input |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| name | string \| undefined | No |  | Set a name value on the component |  |
-| onBlur | ((ev?: React.FocusEvent<HTMLInputElement>, value?: TimeValue) => void) \| undefined | No |  | Callback called when focus is lost on input elements |  |
-| readOnly | boolean \| undefined | No |  | If true, the component will be read-only |  |
-| required | boolean \| undefined | No |  | Flag to configure component as mandatory |  |
-| size | Sizes \| undefined | No |  | Sets the size of the inputs |  |
-| toggleProps | ToggleDataProps \| undefined | No |  | Set custom data- attributes on the toggle elements |  |
-| validationMessagePositionTop | boolean \| undefined | No |  | Render the ValidationMessage above the Time inputs |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| onChange | (ev: TimeInputEvent) => void | Yes |  |  |  | Callback to handle change events in input elements |  |
+| value | TimeValue | Yes |  |  |  | The value of the input elements |  |
+| disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
+| hoursInputProps | TimeInputProps \| undefined | No |  |  |  | Set custom `data-` and `id` attributes on the input element. Set the `label` and `aria-label` values for the associated Label element. Set the `error` and `warning` states for the input |  |
+| legend | string \| undefined | No |  |  |  | Legend text for the component |  |
+| legendHint | string \| undefined | No |  |  |  | Additional hint text rendered below the legend |  |
+| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| minutesInputProps | TimeInputProps \| undefined | No |  |  |  | Set custom `data-` and `id` attributes on the input element. Set the `label` and `aria-label` values for the associated Label element. Set the `error` and `warning` states for the input |  |
+| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| name | string \| undefined | No |  |  |  | Set a name value on the component |  |
+| onBlur | ((ev?: React.FocusEvent<HTMLInputElement>, value?: TimeValue) => void) \| undefined | No |  |  |  | Callback called when focus is lost on input elements |  |
+| readOnly | boolean \| undefined | No |  |  |  | If true, the component will be read-only |  |
+| required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
+| size | Sizes \| undefined | No |  |  |  | Sets the size of the inputs |  |
+| toggleProps | ToggleDataProps \| undefined | No |  |  |  | Set custom data- attributes on the toggle elements |  |
+| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Time inputs |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| fieldLabelsAlign | "left" \| "right" \| undefined | No |  | Yes | Alignment is no longer supported and this prop will be removed |  |  |
+| inputHint | string \| undefined | No |  | Yes | Use `legendHint` instead. Additional hint text rendered below the legend |  |  |
+| label | string \| undefined | No |  | Yes | Use `legend` instead. Label text for the component |  |  |
+| labelAlign | "left" \| "right" \| undefined | No |  | Yes | Alignment is no longer supported and this prop will be removed |  |  |
 
 ## Examples
 ### Default

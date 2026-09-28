@@ -506,3 +506,9 @@ test("renders with expected styles when `variant` is 'alternate'", () => {
 
   expect(screen.getByRole("navigation")).toHaveStyleRule("border", "none");
 });
+
+test("does not inherit the field spacing applied by a parent Form", () => {
+  render(<Pager onPagination={() => {}} />);
+
+  expect(screen.getByRole("navigation")).toHaveStyleRule("--fieldSpacing", "0");
+});

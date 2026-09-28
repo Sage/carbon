@@ -30,19 +30,27 @@ export const Variants = ({ children, ...args }: NavigationBarProps) => {
       <NavigationBar {...args}>{children} Default</NavigationBar>
       <br></br>
       <NavigationBar ariaLabel="Dark Theme" navigationType="dark">
-        Dark theme
+        Dark theme (Deprecated - maps to black variant)
       </NavigationBar>
       <br></br>
       <NavigationBar ariaLabel="White Theme" navigationType="white">
-        White theme
+        White theme (Deprecated - maps to white variant)
       </NavigationBar>
       <br></br>
       <NavigationBar ariaLabel="Light Theme" navigationType="light">
-        Light theme
+        Light theme (Deprecated - maps to white variant)
       </NavigationBar>
       <br></br>
       <NavigationBar ariaLabel="Black Theme" navigationType="black">
-        Black theme
+        Black theme (Deprecated - maps to black variant)
+      </NavigationBar>
+      <br></br>
+      <NavigationBar ariaLabel="White variant" variant="white">
+        White variant
+      </NavigationBar>
+      <br></br>
+      <NavigationBar ariaLabel="Black variant" variant="black">
+        Black variant
       </NavigationBar>
       <br></br>
       Loading state

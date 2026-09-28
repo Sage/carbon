@@ -9,7 +9,7 @@ jobs:
   trigger-chromatic:
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
+      - uses: octokit/request-action@v3.x
         id: dispatch_chromatic
         with:
           route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches

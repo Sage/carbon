@@ -72,6 +72,53 @@ export const Default: Story = {
     legend: "Legend",
   },
 };
+
+export const FlexibleRawInput: Story = {
+  render: () => {
+    const [value, setValue] = useState<NumeralDateProps["value"]>({
+      dd: "twenty-first",
+      mm: "März",
+      yyyy: "two thousand and twenty-six",
+    });
+
+    return (
+      <>
+        <p>
+          Carbon forwards raw values such as Jan, März, and août unchanged. The
+          consuming application owns parsing, sanitisation, and acceptance.
+        </p>
+        <NumeralDate
+          legend="Flexible raw date"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+        />
+      </>
+    );
+  },
+};
+
+export const ConsumerValidation: Story = {
+  render: () => {
+    const [value, setValue] = useState<NumeralDateProps["value"]>({
+      dd: "21",
+      mm: "Not a month",
+      yyyy: "2026",
+    });
+    const acceptedMonths = ["Jan", "März", "août"];
+    const consumerError = acceptedMonths.includes(value.mm ?? "")
+      ? ""
+      : "The consuming application does not accept this month value.";
+
+    return (
+      <NumeralDate
+        legend="Consumer-validated raw date"
+        value={value}
+        error={consumerError}
+        onChange={(event) => setValue(event.target.value)}
+      />
+    );
+  },
+};
 export const WithLegendHint: Story = {
   ...Default,
   args: {

@@ -16,6 +16,8 @@ test("should render read-only editor as an article", () => {
 
   expect(readOnlyEditor).toBeVisible();
   expect(readOnlyEditor).toHaveTextContent("Hello, World!");
+  expect(readOnlyEditor).not.toHaveAttribute("aria-readonly");
+  expect(readOnlyEditor).toHaveAttribute("spellcheck", "false");
 });
 
 test("should wrap plain-text links with anchors in the editor", () => {

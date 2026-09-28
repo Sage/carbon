@@ -20,7 +20,13 @@ const frFR: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} sélectionné(s)`,
+    ariaLabels: {
+      close: () => "Fermer",
+    },
+    selected: (count, total) =>
+      total
+        ? `${count} sur ${total} éléments sélectionnés`
+        : `${count} sélectionné(s)`,
   },
   breadcrumbs: {
     ariaLabel: () => "Chemin de navigation",
@@ -274,8 +280,8 @@ const frFR: Partial<Locale> = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "h",
-    minutesLabelText: () => "min",
+    hoursLabelText: () => "Heures",
+    minutesLabelText: () => "Minutes",
     hoursAriaLabelText: () => "Heures",
     minutesAriaLabelText: () => "Minutes",
   },

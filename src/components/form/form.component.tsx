@@ -120,7 +120,7 @@ export const Form = ({
           $hasFooterChildren={!!footerChildren}
           $stickyFooter={stickyFooter}
           {...(stickyFooter && { $stickyFooterVariant: stickyFooterVariant })}
-          disableStickyOnSmallScreen={disableStickyOnSmallScreen}
+          $disableStickyOnSmallScreen={disableStickyOnSmallScreen}
           $buttonAlignment={buttonAlignment}
           $fullWidthButtons={fullWidthButtons}
           {...footerPadding}
