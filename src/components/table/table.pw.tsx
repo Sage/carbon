@@ -73,6 +73,67 @@ test("scrolls focused body controls clear of sticky headers and footers", async 
     .toBeGreaterThan(0);
 });
 
+test("keeps sticky rows visible while one container scrolls in both directions", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <div style={{ width: "320px" }}>
+      <StickyHeaderFooterTableComponent maxHeight="240px" />
+    </div>,
+  );
+
+  const scrollContainer = page.locator(
+    '[data-element="table-scroll-container"]',
+  );
+  const header = page.getByTestId("table-head");
+  const footer = page.getByTestId("table-footer");
+
+  await scrollContainer.evaluate((element) => {
+    element.scrollTo({ left: 120, top: 120 });
+  });
+
+  await expect
+    .poll(() =>
+      scrollContainer.evaluate((element) => ({
+        left: element.scrollLeft,
+        top: element.scrollTop,
+      })),
+    )
+    .toEqual({ left: 120, top: 120 });
+
+  const containerBounds = await scrollContainer.boundingBox();
+  const headerBounds = await header.boundingBox();
+  const footerBounds = await footer.boundingBox();
+
+  expect(containerBounds).not.toBeNull();
+  expect(headerBounds).not.toBeNull();
+  expect(footerBounds).not.toBeNull();
+  expect(headerBounds?.y).toBeCloseTo(containerBounds?.y ?? 0, 0);
+  expect((footerBounds?.y ?? 0) + (footerBounds?.height ?? 0)).toBeCloseTo(
+    (containerBounds?.y ?? 0) + (containerBounds?.height ?? 0),
+    0,
+  );
+});
+
+test("allows the viewport to scroll vertically when the table has no maximum height", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <div style={{ width: "320px" }}>
+      <StickyHeaderFooterTableComponent />
+    </div>,
+  );
+
+  await page.getByRole("table").hover();
+  await page.mouse.wheel(0, 300);
+
+  await expect
+    .poll(() => page.evaluate(() => window.scrollY))
+    .toBeGreaterThan(0);
+});
+
 test("stretches an expandable control to the height of a row with a taller sibling control", async ({
   mount,
   page,
@@ -110,7 +171,8 @@ test("reorders draggable rows when one row is dropped on another", async ({
   await expect(rows).toHaveText(["Row one", "Row two", "Row three"]);
 
   await page
-    .getByRole("cell", { name: "Row one" })
+    .getByRole("row", { name: "Row one" })
+    .locator('[data-element="table-cell-drag-handle"]')
     .dragTo(page.getByRole("row", { name: "Row three" }));
 
   await expect(rows).toHaveText(["Row two", "Row three", "Row one"]);
@@ -136,7 +198,8 @@ test("reorders draggable rows after changing pagination page", async ({
   await expect(rows).toHaveText(["Row 4", "Row 5", "Row 6"]);
 
   await page
-    .getByRole("cell", { name: "Row 4" })
+    .getByRole("row", { name: "Row 4" })
+    .locator('[data-element="table-cell-drag-handle"]')
     .dragTo(page.getByRole("row", { name: "Row 6" }));
 
   await expect(rows).toHaveText(["Row 5", "Row 6", "Row 4"]);
@@ -159,7 +222,8 @@ test("does not reorder draggable rows when one row is dropped on itself", async 
   await expect(rows).toHaveText(["Row one", "Row two", "Row three"]);
 
   await page
-    .getByRole("cell", { name: "Row one" })
+    .getByRole("row", { name: "Row one" })
+    .locator('[data-element="table-cell-drag-handle"]')
     .dragTo(page.getByRole("row", { name: "Row one" }));
 
   await expect(rows).toHaveText(["Row one", "Row two", "Row three"]);
@@ -176,7 +240,8 @@ test("does not reorder draggable rows when one row is dropped outside of the dra
   await expect(rows).toHaveText(["Row one", "Row two", "Row three"]);
 
   await page
-    .getByRole("cell", { name: "Row one" })
+    .getByRole("row", { name: "Row one" })
+    .locator('[data-element="table-cell-drag-handle"]')
     .dragTo(page.locator("body"), {
       targetPosition: { x: 0, y: 0 },
     });

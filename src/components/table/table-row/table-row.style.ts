@@ -35,13 +35,22 @@ const StyledTableRow = styled.tr<StyledTableRowProps>`
           content: "";
           position: absolute;
           z-index: 10;
-          right: -1px;
+          inset-inline: -1px;
           top: ${$dropIndicatorPosition === "top" ? "0" : "auto"};
           bottom: ${$dropIndicatorPosition === "bottom" ? "0" : "auto"};
-          left: -1px;
           height: 3px;
           background-color: var(--container-action-target-bg-default);
           pointer-events: none;
+        }
+
+        > th:first-child::before,
+        > td:first-child::before {
+          inset-inline-start: 0;
+        }
+
+        > th:last-child::before,
+        > td:last-child::before {
+          inset-inline-end: 0;
         }
       }
     `}

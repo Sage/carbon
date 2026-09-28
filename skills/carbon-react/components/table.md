@@ -19,8 +19,9 @@ description: Carbon Table component props and usage examples.
 | horizontalBorderThickness | BorderThickness \| undefined | No |  | The thickness of the horizontal borders within the table. | "small" |
 | isDraggable | boolean \| undefined | No |  | Indicates whether the table is draggable. | false |
 | isZebraStriped | boolean \| undefined | No |  | Indicates whether the table should have zebra striping. | false |
-| maxWidth | string \| undefined | No |  | The maximum width of the table. This will set an overflow-x on the table wrapper. |  |
-| outerBorders | "small" \| "none" \| undefined | No |  | The outer borders of the table. | "small" |
+| maxHeight | string \| undefined | No |  | The maximum height of the table's scroll container. This constrains the table scroll container and enables vertical scrolling. |  |
+| maxWidth | string \| undefined | No |  | The maximum width of the table. This constrains the table scroll container and enables horizontal scrolling. |  |
+| outerBorders | "small" \| "none" \| undefined | No |  | The outer borders of the table. This only applies to the `subtle-white` and `subtle-grey` variants; the `prominent` variant always has an outer border. | "small" |
 | pagination | React.ReactNode | No |  | The pagination component for the table. |  |
 | size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | The size of the table. | "medium" |
 | stickyColumn | "both" \| "first" \| "last" \| undefined | No |  | Indicates which column(s) should remain sticky when scrolling. |  |
@@ -67,6 +68,7 @@ description: Carbon Table component props and usage examples.
     variant: "prominent",
     size: "medium",
     isZebraStriped: false,
+    maxHeight: undefined,
     maxWidth: undefined,
     stickyRow: undefined,
     stickyColumn: undefined,
@@ -347,7 +349,6 @@ description: Carbon Table component props and usage examples.
                   </>
                 ) : undefined
               }
-              isExpanded={isExpandable && index === 0}
               draggableProps={isDraggable ? { index } : undefined}
             >
               {isSelectable && (
@@ -579,7 +580,6 @@ description: Carbon Table component props and usage examples.
       <TableBody>
         <TableRow
           id="expandable-row-1"
-          isExpanded
           subRows={
             <>
               <TableRow id="expandable-row-1-detail-1">
@@ -632,13 +632,24 @@ description: Carbon Table component props and usage examples.
 
 ```tsx
 () => (
-    <Table stickyRow="both">
+    <Table
+      maxHeight="240px"
+      maxWidth="420px"
+      stickyColumn="both"
+      stickyRow="both"
+    >
       <TableHead>
         <TableRow id="sticky-rows-head-row">
-          <TableHeader id="sticky-rows-head-product">Product</TableHeader>
-          <TableHeader id="sticky-rows-head-type">Type</TableHeader>
-          <TableHeader id="sticky-rows-head-status">Status</TableHeader>
-          <TableHeader id="sticky-rows-head-price" align="right">
+          <TableHeader id="sticky-rows-head-product" width="160px">
+            Product
+          </TableHeader>
+          <TableHeader id="sticky-rows-head-type" width="180px">
+            Type
+          </TableHeader>
+          <TableHeader id="sticky-rows-head-status" width="180px">
+            Status
+          </TableHeader>
+          <TableHeader id="sticky-rows-head-price" width="140px" align="right">
             Price
           </TableHeader>
         </TableRow>
@@ -661,7 +672,7 @@ description: Carbon Table component props and usage examples.
           <TableCell id="sticky-rows-foot-type">All types</TableCell>
           <TableCell id="sticky-rows-foot-status">Summary</TableCell>
           <TableCell id="sticky-rows-foot-price" align="right">
-            £89
+            £217
           </TableCell>
         </TableRow>
       </TableFoot>

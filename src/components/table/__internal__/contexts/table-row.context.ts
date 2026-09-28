@@ -1,10 +1,11 @@
-import { createContext, Dispatch, SetStateAction } from "react";
+import { createContext } from "react";
 
 export interface TableRowContextProps {
-  setIsExpanded: Dispatch<SetStateAction<boolean>>;
-  isExpanded?: boolean;
+  setIsExpanded: (isExpanded: boolean) => void;
+  isExpanded: boolean;
 }
 
 export default createContext(<TableRowContextProps>{
   setIsExpanded: /* istanbul ignore next */ () => {},
+  isExpanded: false,
 });

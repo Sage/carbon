@@ -28,9 +28,14 @@ export interface TableProps
   isDraggable?: boolean;
   /**
    * The maximum width of the table.
-   * This will set an overflow-x on the table wrapper.
+   * This constrains the table scroll container and enables horizontal scrolling.
    */
   maxWidth?: string;
+  /**
+   * The maximum height of the table's scroll container.
+   * This constrains the table scroll container and enables vertical scrolling.
+   */
+  maxHeight?: string;
   /**
    * The pagination component for the table.
    */
@@ -56,7 +61,8 @@ export interface TableProps
    */
   isZebraStriped?: boolean;
   /**
-   * The outer borders of the table.
+   * The outer borders of the table. This only applies to the `subtle-white`
+   * and `subtle-grey` variants; the `prominent` variant always has an outer border.
    */
   outerBorders?: "none" | "small";
   /**
@@ -74,6 +80,7 @@ const useIsomorphicEffect =
 
 const Table = ({
   children,
+  maxHeight,
   maxWidth,
   isDraggable = false,
   pagination,
@@ -97,7 +104,9 @@ const Table = ({
   const hasPagination = !!pagination;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
-  const [isScrollable, setIsScrollable] = useState(false);
+  const [isHorizontallyScrollable, setIsHorizontallyScrollable] =
+    useState(false);
+  const [isVerticallyScrollable, setIsVerticallyScrollable] = useState(false);
 
   const checkIsScrollable = useCallback(() => {
     const element = scrollContainerRef.current;
@@ -105,10 +114,8 @@ const Table = ({
     /* istanbul ignore if */
     if (!element) return;
 
-    setIsScrollable(
-      element.scrollWidth - element.clientWidth > 1 ||
-        element.scrollHeight - element.clientHeight > 1,
-    );
+    setIsHorizontallyScrollable(element.scrollWidth - element.clientWidth > 1);
+    setIsVerticallyScrollable(element.scrollHeight - element.clientHeight > 1);
   }, []);
 
   const handleBodyFocusCapture = useCallback(
@@ -145,10 +152,8 @@ const Table = ({
     const container = scrollContainerRef.current;
     const table = tableRef.current;
 
-    if (!container || !maxWidth) {
-      setIsScrollable(false);
-      return;
-    }
+    /* istanbul ignore if */
+    if (!container) return;
 
     const observer = new ResizeObserver(checkIsScrollable);
 
@@ -162,7 +167,7 @@ const Table = ({
     checkIsScrollable();
 
     return () => observer.disconnect();
-  }, [checkIsScrollable, maxWidth]);
+  }, [checkIsScrollable]);
 
   useIsomorphicEffect(() => {
     const table = tableRef.current;
@@ -197,7 +202,7 @@ const Table = ({
     updateStickyRowHeights();
 
     return () => observer.disconnect();
-  }, [hasStickyFooter, hasStickyHeader]);
+  }, [children, hasStickyFooter, hasStickyHeader]);
 
   const contextValues = useMemo(
     () => ({
@@ -217,7 +222,9 @@ const Table = ({
       >
         <StyledInnerWrapper
           $variant={variant}
+          $maxHeight={maxHeight}
           $maxWidth={maxWidth}
+          $isVerticallyScrollable={isVerticallyScrollable}
           $hasPagination={hasPagination}
           $showOuterBorder={showOuterBorder}
           data-component="table-inner-wrapper"
@@ -227,7 +234,9 @@ const Table = ({
             data-element="table-scroll-container"
             ref={scrollContainerRef}
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-            tabIndex={isScrollable ? 0 : undefined}
+            tabIndex={
+              isHorizontallyScrollable || isVerticallyScrollable ? 0 : undefined
+            }
           >
             <StyledTable
               ref={tableRef}

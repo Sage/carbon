@@ -54,6 +54,10 @@ import {
 
 Use this interactive example to explore Table props and behaviours with Storybook controls. Sorting remains available from the column headers.
 
+`outerBorders` applies to the `subtle-white` and `subtle-grey` variants only.
+The `prominent` variant always includes an outer border as part of its visual
+treatment.
+
 <Canvas of={TableStories.Playground} />
 
 <Controls
@@ -63,6 +67,7 @@ Use this interactive example to explore Table props and behaviours with Storyboo
     "variant",
     "size",
     "isZebraStriped",
+    "maxHeight",
     "maxWidth",
     "stickyRow",
     "stickyColumn",
@@ -127,6 +132,10 @@ Although `stickyRow` supports a `footer` or `both` rows for specialist cases, th
 <ArgTypes of={TableBodyStories} />
 
 ### TableRow
+
+Rows manage their own expansion state when `isExpanded` is omitted. Use
+`isExpanded` with `onExpansionChange` when expansion is controlled by the
+consuming application.
 
 <ArgTypes of={TableRowStories} />
 

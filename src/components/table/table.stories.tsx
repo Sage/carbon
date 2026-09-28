@@ -80,8 +80,11 @@ const meta: Meta<PlaygroundArgs> = {
       control: { type: "radio" },
     },
     outerBorders: {
+      description:
+        "Controls the outer border for subtle-white and subtle-grey variants. The prominent variant always has an outer border.",
       options: ["none", "small"],
       control: { type: "radio" },
+      if: { arg: "variant", neq: "prominent" },
     },
     horizontalBorderThickness: {
       options: ["none", "small", "medium", "large"],
@@ -92,6 +95,9 @@ const meta: Meta<PlaygroundArgs> = {
       control: { type: "radio" },
     },
     maxWidth: {
+      control: "text",
+    },
+    maxHeight: {
       control: "text",
     },
     isZebraStriped: {
@@ -579,7 +585,6 @@ export const Playground: Story = {
                   </>
                 ) : undefined
               }
-              isExpanded={isExpandable && index === 0}
               draggableProps={isDraggable ? { index } : undefined}
             >
               {isSelectable && (
@@ -654,6 +659,7 @@ export const Playground: Story = {
     variant: "prominent",
     size: "medium",
     isZebraStriped: false,
+    maxHeight: undefined,
     maxWidth: undefined,
     stickyRow: undefined,
     stickyColumn: undefined,
@@ -823,7 +829,6 @@ export const Expandable: Story = {
       <TableBody>
         <TableRow
           id="expandable-row-1"
-          isExpanded
           subRows={
             <>
               <TableRow id="expandable-row-1-detail-1">
@@ -871,13 +876,24 @@ export const Expandable: Story = {
 
 export const StickyRows: Story = {
   render: () => (
-    <Table stickyRow="both">
+    <Table
+      maxHeight="240px"
+      maxWidth="420px"
+      stickyColumn="both"
+      stickyRow="both"
+    >
       <TableHead>
         <TableRow id="sticky-rows-head-row">
-          <TableHeader id="sticky-rows-head-product">Product</TableHeader>
-          <TableHeader id="sticky-rows-head-type">Type</TableHeader>
-          <TableHeader id="sticky-rows-head-status">Status</TableHeader>
-          <TableHeader id="sticky-rows-head-price" align="right">
+          <TableHeader id="sticky-rows-head-product" width="160px">
+            Product
+          </TableHeader>
+          <TableHeader id="sticky-rows-head-type" width="180px">
+            Type
+          </TableHeader>
+          <TableHeader id="sticky-rows-head-status" width="180px">
+            Status
+          </TableHeader>
+          <TableHeader id="sticky-rows-head-price" width="140px" align="right">
             Price
           </TableHeader>
         </TableRow>
@@ -900,7 +916,7 @@ export const StickyRows: Story = {
           <TableCell id="sticky-rows-foot-type">All types</TableCell>
           <TableCell id="sticky-rows-foot-status">Summary</TableCell>
           <TableCell id="sticky-rows-foot-price" align="right">
-            £89
+            £217
           </TableCell>
         </TableRow>
       </TableFoot>

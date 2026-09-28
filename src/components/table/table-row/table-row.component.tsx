@@ -4,7 +4,7 @@ import React, {
   useContext,
   useMemo,
   useRef,
-  useEffect,
+  useCallback,
 } from "react";
 import {
   TableContext,
@@ -30,9 +30,15 @@ export interface TableRowProps {
    */
   children: ReactNode;
   /**
-   * Indicates whether the table row is expandable.
+   * Controls whether the table row is expanded. When omitted, the row manages
+   * its own expansion state and is initially collapsed.
    */
   isExpanded?: boolean;
+  /**
+   * Callback fired with the requested expansion state when the disclosure
+   * control is activated.
+   */
+  onExpansionChange?: (isExpanded: boolean) => void;
   /**
    * Indicates whether the table row is selected.
    */
@@ -74,7 +80,7 @@ interface DecorateFirstCellProps {
   /**
    * The ref object for the drag handle within the table cell.
    */
-  dragHandleRef: React.RefObject<HTMLTableCellElement>;
+  dragHandleRef: React.RefObject<HTMLSpanElement>;
   /**
    * The IDs of the sub-rows controlled by this table cell when it is expandable.
    */
@@ -96,7 +102,7 @@ const decorateFirstCell = (
 
   return [
     React.cloneElement(cell as React.ReactElement<TableCellProps>, {
-      ref: isDraggable ? dragHandleRef : undefined,
+      dragHandleRef: isDraggable ? dragHandleRef : undefined,
       isDraggable,
       isExpandable,
       isSubRow,
@@ -122,7 +128,8 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
   (
     {
       children,
-      isExpanded = false,
+      isExpanded,
+      onExpansionChange,
       isSelected = false,
       subRows,
       borderThickness,
@@ -133,9 +140,11 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
     ref,
   ) => {
     const rowRef = useRef<HTMLTableRowElement>(null);
-    const dragHandleRef = useRef<HTMLTableCellElement>(null);
+    const dragHandleRef = useRef<HTMLSpanElement>(null);
     const combinedRef = combineRefs(ref, rowRef);
-    const [expanded, setExpanded] = useState(isExpanded);
+    const [uncontrolledExpanded, setUncontrolledExpanded] = useState(false);
+    const isExpansionControlled = isExpanded !== undefined;
+    const expanded = isExpansionControlled ? isExpanded : uncontrolledExpanded;
     const { isDraggable } = useContext(TableContext);
     const { isInFooter } = useContext(TableFooterContext);
     const { isInHeader } = useContext(TableHeaderContext);
@@ -165,21 +174,28 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
       dragHandleRef: isValidDraggableRow ? dragHandleRef : null,
     });
 
+    const setExpanded = useCallback(
+      (nextExpanded: boolean) => {
+        if (!isExpansionControlled) {
+          setUncontrolledExpanded(nextExpanded);
+        }
+
+        onExpansionChange?.(nextExpanded);
+      },
+      [isExpansionControlled, onExpansionChange],
+    );
+
     const contextValue = useMemo(
       () => ({
         isExpanded: expanded,
         setIsExpanded: setExpanded,
       }),
-      [expanded],
+      [expanded, setExpanded],
     );
 
     const isSubRowVisible =
       transitionStatus === "entering" || transitionStatus === "entered";
     const shouldClipSubRow = transitionStatus !== "entered";
-
-    useEffect(() => {
-      setExpanded(isExpanded);
-    }, [isExpanded]);
 
     return (
       <TableRowContext.Provider value={contextValue}>
