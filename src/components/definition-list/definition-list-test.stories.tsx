@@ -22,14 +22,16 @@ export default {
 
 export const DefaultStory = (props: DlProps) => {
   return (
-    <Dl {...props}>
-      <Dt>First</Dt>
-      <Dd>Description</Dd>
-      <Dt>Second</Dt>
-      <Dd>Description</Dd>
-      <Dt>Third</Dt>
-      <Dd>Description</Dd>
-    </Dl>
+    <Box width={240}>
+      <Dl {...props}>
+        <Dt>First</Dt>
+        <Dd>Description</Dd>
+        <Dt>Second</Dt>
+        <Dd>Description</Dd>
+        <Dt>Third</Dt>
+        <Dd>Description</Dd>
+      </Dl>
+    </Box>
   );
 };
 
@@ -38,13 +40,15 @@ DefaultStory.story = {
   args: {
     children: "This is an example of a Definition-list",
     w: 50,
-    dtTextAlign: "right",
-    ddTextAlign: "left",
     asSingleColumn: false,
   },
 };
 
-export const TextOverflowExamples = () => {
+DefaultStory.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+const TextOverflowExamples = () => {
   const pairs = (
     <>
       <Dt>Term</Dt>
@@ -90,7 +94,7 @@ export const TextOverflowExamples = () => {
   );
 };
 
-export const TextOverflowWithLinks = () => {
+const TextOverflowWithLinks = () => {
   const pairs = (
     <>
       <Dt>Term</Dt>
@@ -138,7 +142,7 @@ export const TextOverflowWithLinks = () => {
   );
 };
 
-export const TextOverflowWithButtonsAndPills = () => {
+const TextOverflowWithButtonsAndPills = () => {
   const pairs = (
     <>
       <Dt>Term</Dt>
@@ -200,7 +204,7 @@ export const TextOverflowWithButtonsAndPills = () => {
 
 export const TextAlignExamples = () => {
   return (
-    <>
+    <Box width={480}>
       {(["left", "center", "right"] as const).map((textAlignValue) => {
         return (
           <Dl
@@ -213,7 +217,7 @@ export const TextAlignExamples = () => {
           </Dl>
         );
       })}
-    </>
+    </Box>
   );
 };
 
@@ -221,7 +225,7 @@ TextAlignExamples.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
-export const SpacingExamples = () => {
+const SpacingExamples = () => {
   const pairs = (
     <>
       <Dt>Term</Dt>
@@ -255,20 +259,34 @@ export const SpacingExamples = () => {
   );
 };
 
-SpacingExamples.parameters = {
+export const VisualRegressionMatrix = () => {
+  return (
+    <Box display="flex" flexDirection="column" gap={6} width="784px">
+      <TextOverflowExamples />
+      <TextOverflowWithLinks />
+      <TextOverflowWithButtonsAndPills />
+      <SpacingExamples />
+    </Box>
+  );
+};
+
+VisualRegressionMatrix.storyName = "Visual Regression Matrix";
+VisualRegressionMatrix.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
 export const CustomSpacingStylingDt = () => {
   return (
-    <Dl>
-      <Dt mb={4} pr={2}>
-        Title
-      </Dt>
-      <Dd>Description</Dd>
-      <Dt>Title</Dt>
-      <Dd>Description</Dd>
-    </Dl>
+    <Box width={400}>
+      <Dl>
+        <Dt mb={4} pr={2}>
+          Title
+        </Dt>
+        <Dd>Description</Dd>
+        <Dt>Title</Dt>
+        <Dd>Description</Dd>
+      </Dl>
+    </Box>
   );
 };
 

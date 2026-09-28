@@ -81,13 +81,13 @@ export const StyledDd = styled.dd<
   ${({ ddTextAlign }) => css`
     text-align: ${ddTextAlign};
   `}
-`;
 
-export const StyledDdContent = styled.div`
-  flex: 1;
-  min-width: 0;
-`;
+  > [data-element="dd-content"] {
+    flex: 1;
+    min-width: 0;
+  }
 
-export const StyledDdRightChildren = styled.div`
-  flex-shrink: 0;
+  > [data-element="dd-right-children"] {
+    flex-shrink: 0;
+  }
 `;

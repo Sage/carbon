@@ -7,7 +7,6 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import Dt from "./dt/dt.component";
 
 type ElementAlignment = "left" | "center" | "right";
-export type DefinitionListSpacing = "small" | "medium";
 
 export interface DlProps extends SpaceProps, TagProps {
   /** HTML id attribute of the definition list. */
@@ -19,7 +18,7 @@ export interface DlProps extends SpaceProps, TagProps {
   /** Render the DefinitionList as a single column */
   asSingleColumn?: boolean;
   /** Sets vertical top and bottom padding on each definition pair. */
-  spacing?: DefinitionListSpacing;
+  spacing?: "small" | "medium";
   /** Renders a divider between definition pairs. */
   divider?: boolean;
   /** This string will specify the text align styling of the `<dt></dt>`. */
@@ -54,13 +53,14 @@ const Dl = ({
         }}
       >
         {pairs.map((pair, index) => {
-          const isPair = isComponent(pair[0], Dt);
+          const firstPair = pair[0];
+          const isPair = isComponent(firstPair, Dt);
           const pairKey =
-            React.isValidElement(pair[0]) && pair[0].key != null
-              ? pair[0].key
+            React.isValidElement(firstPair) && firstPair.key != null
+              ? firstPair.key
               : index;
 
-          if (!isPair) return pair[0];
+          if (!isPair) return firstPair;
 
           return (
             <StyledDlPair

@@ -11,9 +11,8 @@ export interface DtProps extends SpaceProps, TagProps {
   children: React.ReactNode;
 }
 
-const Dt = ({ children, ...rest }: DtProps) => {
+const Dt = ({ children, pr, ...rest }: DtProps) => {
   const { asSingleColumn, dtTextAlign } = useDlContext();
-  const { pr, ...restProps } = rest;
   return (
     <StyledDt
       data-element="dt"
@@ -21,7 +20,7 @@ const Dt = ({ children, ...rest }: DtProps) => {
       dtTextAlign={dtTextAlign}
       asSingleColumn={asSingleColumn}
       pr={pr ?? (asSingleColumn ? undefined : 3)}
-      {...restProps}
+      {...rest}
       {...tagComponent("dt", rest)}
     >
       {children}

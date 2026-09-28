@@ -13,6 +13,7 @@ const meta: Meta<typeof Dl> = {
   title: "Definition List",
   component: Dl,
   argTypes: styledSystemProps,
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export default meta;

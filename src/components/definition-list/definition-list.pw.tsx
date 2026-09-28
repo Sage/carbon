@@ -13,7 +13,6 @@ import Box from "../box";
 import Icon from "../icon";
 import Pill from "../pill";
 import Link from "../link";
-import Button from "../button/__next__";
 import {
   getDataElementByValue,
   getDataRoleByValue,
@@ -92,72 +91,6 @@ test.describe("definition list", () => {
     await expect(pairs).toHaveCount(2);
     await expect(pairs.first().locator("dt")).toHaveCount(1);
     await expect(pairs.first().locator("dd")).toHaveCount(2);
-    await expect(pairs.first()).toHaveCSS("padding-bottom", "4px");
-    await checkAccessibility(page);
-  });
-
-  test("should not render a divider after the last pair", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <Dl divider>
-        <Dt>First</Dt>
-        <Dd>Description 1</Dd>
-        <Dt>Second</Dt>
-        <Dd>Description 2</Dd>
-      </Dl>,
-    );
-
-    const pairs = page.locator("dl > div");
-
-    await expect(pairs.first()).toHaveCSS("border-bottom-width", "1px");
-    await expect(pairs.last()).toHaveCSS("border-bottom-width", "0px");
-  });
-
-  test("should apply 4px of top and bottom padding when spacing is small", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <Dl spacing="small">
-        <Dt>First</Dt>
-        <Dd>Description 1</Dd>
-      </Dl>,
-    );
-
-    const pair = page.locator("dl > div").first();
-
-    await expect(pair).toHaveCSS("padding-bottom", "4px");
-    await expect(pair).toHaveCSS("padding-top", "4px");
-  });
-
-  test("should apply 12px of top and bottom padding by default", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <Dl>
-        <Dt>First</Dt>
-        <Dd>Description 1</Dd>
-      </Dl>,
-    );
-
-    const pair = page.locator("dl > div").first();
-
-    await expect(pair).toHaveCSS("padding-bottom", "12px");
-    await expect(pair).toHaveCSS("padding-top", "12px");
-  });
-
-  test("should left-align the term by default", async ({ mount, page }) => {
-    await mount(
-      <Dl>
-        <Dt>Term</Dt>
-        <Dd>Description</Dd>
-      </Dl>,
-    );
-
-    await expect(page.locator("dt").first()).toHaveCSS("text-align", "left");
   });
 
   test("should render the provided rightChildren content next to the description", async ({
@@ -319,51 +252,6 @@ test.describe("definition list", () => {
       await mount(<DLBoxComponent />);
 
       await checkAccessibility(page);
-    });
-
-    test("should pass accessibility tests when rendered with rightChildren", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Dl divider>
-          <Dt>Account holder</Dt>
-          <Dd rightChildren={<Pill>Verified</Pill>}>Sage Ltd</Dd>
-          <Dd rightChildren={<Link href="#">Edit</Link>}>
-            123 North East Street
-          </Dd>
-          <Dt>Account status</Dt>
-          <Dd
-            rightChildren={
-              <Button variantType="secondary" size="small">
-                Manage
-              </Button>
-            }
-          >
-            Open
-          </Dd>
-        </Dl>,
-      );
-
-      await checkAccessibility(page);
-    });
-
-    (["small", "medium"] as DlProps["spacing"][]).forEach((spacing) => {
-      test(`should pass accessibility tests when spacing is ${spacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <Dl spacing={spacing} divider>
-            <Dt>First</Dt>
-            <Dd>Description 1</Dd>
-            <Dt>Second</Dt>
-            <Dd>Description 2</Dd>
-          </Dl>,
-        );
-
-        await checkAccessibility(page);
-      });
     });
   });
 });

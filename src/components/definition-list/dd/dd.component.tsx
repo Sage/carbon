@@ -1,10 +1,6 @@
 import React from "react";
 import { SpaceProps } from "styled-system";
-import {
-  StyledDd,
-  StyledDdContent,
-  StyledDdRightChildren,
-} from "../definition-list.style";
+import { StyledDd } from "../definition-list.style";
 import { useDlContext } from "../__internal__/dl.context";
 import tagComponent, {
   TagProps,
@@ -28,11 +24,11 @@ const Dd = ({ children, rightChildren, ...rest }: DdProps) => {
       {...rest}
       {...tagComponent("dd", rest)}
     >
-      <StyledDdContent>{children}</StyledDdContent>
+      <div data-element="dd-content">{children}</div>
       {rightChildren && (
-        <StyledDdRightChildren data-role="dd-right-children">
+        <div data-element="dd-right-children" data-role="dd-right-children">
           {rightChildren}
-        </StyledDdRightChildren>
+        </div>
       )}
     </StyledDd>
   );
