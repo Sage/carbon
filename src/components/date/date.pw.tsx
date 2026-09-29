@@ -291,7 +291,7 @@ test.describe("Functionality tests", () => {
     await expect(yearSelector).toHaveValue("2023");
   });
 
-  test("limits the customizable year picker to twelve visible options", async ({
+  test("limits the customizable year picker to six visible options", async ({
     mount,
     page,
   }) => {
@@ -317,7 +317,7 @@ test.describe("Functionality tests", () => {
     });
 
     expect(pickerStyles.maxBlockSize).toBe(
-      12 * pickerStyles.optionBlockSize + 2 * pickerStyles.paddingBlock,
+      6 * pickerStyles.optionBlockSize + 2 * pickerStyles.paddingBlock,
     );
     expect(pickerStyles.overflowY).toBe("auto");
   });

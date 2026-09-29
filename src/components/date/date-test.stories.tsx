@@ -544,3 +544,29 @@ export const CrossMonthRangeRegression: StoryObj<typeof DateInput> = {
     themeProvider: { chromatic: { theme: "sage" } },
   },
 };
+
+const YearSelectorOffset = ({
+  label,
+  yearRangeOffset,
+}: Pick<DateInputProps, "label" | "yearRangeOffset">) => (
+  <RegressionDateInput
+    variant="typical"
+    label={label}
+    value="01/05/2022"
+    yearRangeOffset={yearRangeOffset}
+  />
+);
+
+export const YearSelectorOffsets: StoryObj<typeof DateInput> = {
+  name: "Year Selector - Offset Examples",
+  render: () => (
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="var(--global-space-layout-m)"
+    >
+      <YearSelectorOffset label="Year offset 0" yearRangeOffset={0} />
+      <YearSelectorOffset label="Year offset 15" yearRangeOffset={15} />
+    </Box>
+  ),
+};

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import addFocusStyling from "../../../../../style/utils/add-focus-styling";
 
-const MAX_VISIBLE_OPTIONS = 12;
+const MAX_VISIBLE_OPTIONS = 6;
 
 export const StyledWrapper = styled.div<{ $disabled?: boolean }>`
   position: relative;
@@ -106,7 +106,7 @@ export const StyledSelect = styled.select`
       border: none;
       border-radius: var(--global-radius-container-m);
       box-shadow: var(--global-depth-lvl1);
-      /* Limit the picker to 12 option rows and include its block padding so
+      /* Limit the picker to 6 option rows and include its block padding so
        * the final visible row is not clipped. */
       max-block-size: calc(
         ${MAX_VISIBLE_OPTIONS} * var(--calendar-select-option-block-size) + 2 *
