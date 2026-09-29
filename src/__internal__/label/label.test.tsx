@@ -184,3 +184,14 @@ test("should apply disabled colour when both `disabled` and `readOnly` props are
     "var(--input-labelset-label-disabled)",
   );
 });
+
+test("renders a required indicator when 'isRequired' is true", () => {
+  render(
+    <Label size="medium" isRequired>
+      foo
+    </Label>,
+  );
+
+  const label = screen.getByText("foo");
+  expect(label).toHaveStyleRule("content", '"*"', { modifier: "::after" });
+});

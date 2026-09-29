@@ -17,7 +17,7 @@ import * as FileInputStories from "./file-input.stories";
   Product Design System component
 </a>
 
-Allows a single file to be uploaded.
+Allows one or more files to be selected or dropped and presents their controlled upload states.
 
 ## Contents
 
@@ -49,9 +49,16 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas of={FileInputStories.Required} />
 
+### Required field validation
+
+FileInput never derives or clears `error` itself - it's a controlled prop. This example starts in the "required and no file uploaded" error
+state, as if a form had just been submitted empty, then clears the error once a file is added, the same way a real form's `onChange` would.
+
+<Canvas of={FileInputStories.RequiredFieldValidation} />
+
 ### Size variations
 
-By default the component has a width of `280px`. This allows both the text and button to render on a single line (as seen in all the examples above).
+By default the component has a width of `288px`. This allows both the text and button to render on a single line (as seen in all the examples above).
 
 You can increase the width and/or height of the component by setting the `maxWidth` and/or `minHeight` props. You might need to do this to fit especially long
 explanatory text, or to match the precise width/height of a particular design. Examples of increasing width and height are shown below:
@@ -72,49 +79,83 @@ Note that any valid CSS values can be used for these props, and that you can the
 
 #### Responsive width example
 
-You can use the CSS `min` function to set the width to grow to fill the available space if the container is wider than `280px`. This is useful for responsive 
-designs where the component should grow to fill the available space. You may also set the `minWidth` prop to allow the component to shrink to a smaller width 
-if the container is narrower than `280px`.
+You can use the CSS `min` function to set the width to grow to fill the available space if the container is wider than `288px`. This is useful for responsive
+designs where the component should grow to fill the available space. You may also set the `minWidth` prop to allow the component to shrink to a smaller width
+if the container is narrower than `288px`.
 
 <Canvas of={FileInputStories.ResponsiveWidth} />
 
-#### Vertical layout
+#### Layout
 
-One common variation is to have the text vertically stacked below the button, which can be achieved by setting the `isVertical` boolean prop to `true`. 
-Note that this will automatically be the case if the button and text no longer fit onto a single line, even if the `isVertical` prop is set to `false`.
+The `isVertical` prop controls whether the button and instruction text stack (the default) or sit side by side.
 
-<Canvas of={FileInputStories.Vertical} />
+<Canvas of={FileInputStories.Layout} />
 
-### Accept
+### Accept and file type validation
 
 The `accept` prop is passed directly to the underlying HTML `<input type="file">` element, and helps guide users towards uploading files of the correct format or type.
+Please see the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) for more details on this attribute. When selecting a file via the
+"select file" button, the operating system's file picker will either highlight the appropriate files, or make it impossible to select incorrect ones.
 
-Please see the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) for more details on this attribute. Note that it does not prevent the user
-from uploading a file of the incorrect type, for example via drag and drop - so you might still want to use the `onChange` prop to add an error message as soon as an
-inappropriate file is added. And of course nothing takes away the need for validation on the server side. However the `accept` prop is still recommended to guide the user -
-when selecting a file via the "select file" button, the operating system's file picker will either highlight the appropriate files, or make it impossible to select
-incorrect ones.
-
-<Canvas of={FileInputStories.Accept} />
-
-### Validation of file type
-
-Here is a simple example showing how the `onChange` and `error` props can be used in conjunction with `accept` to warn the user if they have chosen an inappropriate
-file.
+Note that `accept` does not prevent the user from uploading a file of the incorrect type via drag and drop, so you should still use the `onChange` prop to add an error
+message as soon as an inappropriate file is added - as shown below. And of course nothing takes away the need for validation on the server side.
 
 <Canvas of={FileInputStories.FileTypeValidation} />
 
+### Single file vs multiple files
+
+By default FileInput only accepts a single file (`multiple` defaults to `false`): the native input's picker restricts selection to one file, while the
+drop zone remains available alongside its status card so the user can select a replacement. The default instruction explicitly offers both options:
+drag and drop, or click the Select files button. If you supply `buttonText`, the default instruction uses that label; supply `dragAndDropText` to
+replace the instruction entirely.
+
+Set `multiple={true}` (or just `multiple`) when more than one file should be selectable. The drop zone is always visible alongside file status cards,
+so users can keep adding files.
+
+Dragging and dropping bypasses the native picker's restriction, so more than one file can still reach `onChange` even with the single-file default.
+FileInput never discards files or derives `error` on your behalf (the same rule that applies to a required field with no files), so your `onChange`
+should check `files.length` and set `error` yourself when it's greater than one - the example below does exactly that, showing the same Field-error
+treatment either for a missing required file or for too many files being dropped at once.
+
+<Canvas of={FileInputStories.SingleFile} />
+
 ### Tracking upload status
 
-The `uploadStatus` prop is used to indicate when a file has been added, as well as to display the current status or progress of its upload — 
-including options to cancel or remove the uploaded file. You must provide this prop (as a `FileUploadStatusProps` object) in order for users 
+The `uploadStatus` prop is used to indicate when a file has been added, as well as to display the current status or progress of its upload —
+including options to cancel or remove the uploaded file. You must provide this prop (as a `FileUploadStatusProps` object) in order for users
 to see any visual indication of the uploaded file.
 
-Note, that this component supports uploading a single file at a time. While the `uploadStatus` prop accepts an array, this is intended for 
-reuse of the component across uploads — not for handling multiple files in a single selection.
+The drop zone remains available while statuses are displayed in both single- and multi-file mode. Consumers own the status array and append, update,
+or remove entries as the upload lifecycle changes.
 
 For this reason the `onChange` function prop is mandatory - without providing an implementation for this event handler that updates the
 components `uploadStatus`, there will be no visual change once a file has been added to the input.
+
+#### Multiple files example
+
+This is the `multiple={true}` opt-in mode (single-file is the default), showing several files uploading side by side with every status-specific callback wired up and working:
+`onCancel` while a file is uploading, `onRetry` and `onRemove` for a file that failed, and `onDelete` for one that completed. Add a few files (or drop
+several at once) to try it.
+
+<Canvas of={FileInputStories.MultipleFiles} />
+
+#### Scrollable status list
+
+The status cards scroll vertically when they overflow the space available to
+File Input in a height-constrained parent.
+The collection label remains visible while the cards scroll.
+
+<Canvas of={FileInputStories.ScrollableStatusList} />
+
+#### Upload error summary
+
+After an upload fails, update that current item in `uploadStatus` to
+`status: "error"`. When there is more than one current file, File Input shows
+a summary below the current-files label. The summary updates as failed items
+are retried, removed, or changed to another status; previously uploaded files
+are not included.
+
+<Canvas of={FileInputStories.UploadErrorSummary} />
 
 #### Client side example
 
@@ -129,23 +170,55 @@ This example also contains validation to restrict the user from uploading large 
 browser freeze or even crash. If your application needs to process large files on the client side then consider
 [reading the file into an ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsArrayBuffer) and processing that piece-by-piece.
 
-<Canvas of={FileInputStories.UploadStatusClient} />
+#### Uploading with a progress percentage
 
-#### Other approaches
+With `progress` set, the status icon exposes a `progressbar` role with `aria-valuemin`,
+`aria-valuemax`, and `aria-valuenow` set to the percentage, so assistive technology announces the
+exact figure as it updates. `progress` alone only drives the ring loader's fill though - it isn't
+turned into visible text on its own, so pair it with a `message` (e.g. `"Loaded 56%"`) if you want
+the percentage shown as a label too.
 
-This example mocks an alternative approach where files added to the file input are immediately sent to the server, and the UI tracks the progress of the upload.
-This simple example mocks the progress (and the possibility of errors, such as network errors) with random numbers - in a real scenario this would poll an
-alternative endpoint for the upload progress, or use WebSocket messages sent from the server to update progress.
+The same example above (`UploadStatusTracked`) starts with exactly that - a static "Loaded 56%"
+card - so a tracked, in-progress state is visible right away, rather than only once you drop a file
+yourself (for a small file, the browser may fire so few progress events that it jumps straight to
+"completed"). Cancel clears it, or drop a real file to see the FileReader-driven version take over.
 
-<Canvas of={FileInputStories.UploadStatusAlternative} />
+<Canvas of={FileInputStories.UploadStatusTracked} />
 
-#### Uploading without progress percentage
+#### Uploading without a progress percentage
 
-Note that you can set the `uploading` without the `progress` property, to render an
-animated [LoaderBar component](../?path=/docs/deprecated-loader-bar--docs), rather
-than a [ProgressTracker](../?path=/docs/progress-tracker--docs) as it does when `progress` is provided.
+Without `progress`, there's no percentage to report at all - the icon renders the same ring loader
+but spins indefinitely to indicate an indeterminate upload, and its accessible label falls back to
+the status message instead (either your own `message`, or the localized default,
+`fileInput.uploading`).
 
-<Canvas of={FileInputStories.UploadStatusNoProgress} />
+The example below - the same `UploadStatusUntracked` story used for "Upload status (Untracked)"
+
+- uses this indeterminate, no-`progress` form: it sets `label="Upload status example"` but omits
+  `message`, so the default locale text ("Uploading…") is the status message a screen reader
+  announces, alongside `aria-label={filename}`. Cancel is wired to clear the status, so the drop zone
+  returns afterwards.
+
+<Canvas of={FileInputStories.UploadStatusUntracked} />
+
+#### Showing a thumbnail
+
+Supplying `thumbnailSrc` on a status object (any status - uploading, completed, error, or previously
+uploaded) adds a leading thumbnail column ahead of the filename, in place of the compact inline status
+icon shown otherwise. `SingleFile` and `MultipleFiles` above demonstrate this too, once you upload a real
+image, but this example shows the with-thumbnail File card layout without needing to upload anything.
+
+<Canvas of={FileInputStories.WithThumbnail} />
+
+#### Previously uploaded file
+
+A single-file input (the default) can also start already populated with a previously uploaded file, for example when editing an existing
+record. The Drop zone remains visible alongside that read-only card (only a Preview link is available, no Delete)
+
+- selecting or dropping a new file is the only way to replace it, since there's no Delete action to remove it first. The example below wires `onChange`
+  to swap the previously uploaded card for the newly selected file.
+
+<Canvas of={FileInputStories.PreviouslyUploaded} />
 
 ## Validation States
 
@@ -157,12 +230,13 @@ This component supports input validation, see our [Validations](../?path=/docs/d
 
 <ArgTypes of={FileInputStories} />
 
-Props for the `uploadStatus` prop. Note that only `status`,`filename` and `onAction` are required, and the other props are specific
-to the appropriate status(es) as described below.
+Props for `uploadStatus` are discriminated by `status`. Use `onCancel` for uploading, `onDelete` for completed files, and `onRemove` plus optional `onRetry` for failures. The deprecated `onAction` remains a primary-action fallback. Previously uploaded files are read-only and accept none of these callbacks. Completed and previous files accept optional `href`; filenames remain text. Every status accepts an optional decorative `thumbnailSrc`.
 
-Note in particular that, other than the 3 props noted above, and the `message` and `progress` props, all others are the same as the props of
-the [Link component](../?path=/docs/link--docs), to override the props of the link to the uploaded file. There is one exception here however,
-in that the `href` prop is mandatory. Note that none of these `Link` props can be given except for the statuses `completed` and `previously`.
+#### Migrating status props
+
+- Remove `onAction` from `status: "previously"` values; previously uploaded files are read-only.
+- Use `href` to provide the Preview link for completed and previously uploaded files.
+- Remove `download`; it is no longer accepted in file-status props.
 
 <ArgTypes of={FileUploadStatusStories} />
 
@@ -186,9 +260,57 @@ The following keys are available to override the translations for this component
       returnType: "string",
     },
     {
-      name: "fileInput.fileUploadStatus",
+      name: "fileInput.currentFiles",
       description:
-        "The default status to display while or after uploading a file",
+        "The label for the collection of files currently uploading, completed, or in error. The function should accept a single argument, the number of files in that collection.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.currentFilesErrorSummary",
+      description:
+        "The error summary shown below the current-files label when one or more files have failed in a multiple-file list. The function receives totalCount, uploadingCount, completedCount, and errorCount.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.previouslyUploadedFiles",
+      description:
+        "The label for the collection of previously uploaded files. The function should accept a single argument, the number of files in that collection.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.uploading",
+      description: "The default status message shown while a file is uploading",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.uploaded",
+      description:
+        "The default status message shown once a file has finished uploading",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.uploadError",
+      description:
+        "The default status message shown when a file fails to upload",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.filesAdded",
+      description:
+        "The live-region announcement made when files are added. The function should accept a single argument, an array of the added filenames.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.uploadComplete",
+      description:
+        "The live-region announcement made when files finish uploading. The function should accept a single argument, an array of the completed filenames.",
       type: "func",
       returnType: "string",
     },
@@ -205,9 +327,22 @@ The following keys are available to override the translations for this component
       returnType: "string",
     },
     {
-      name: "fileInput.actions.clear",
+      name: "fileInput.actions.remove",
       description:
-        "The text for the button that clears a file that has led to an error in upload",
+        "The text for the button that removes a file that failed to upload",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.actions.retry",
+      description: "The text for the button that retries a failed upload",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.actions.preview",
+      description:
+        "The text for the link that previews a completed or previously uploaded file",
       type: "func",
       returnType: "string",
     },

@@ -3,10 +3,16 @@ import { Page } from "@playwright/test";
 import path from "path";
 import { readFileSync } from "fs";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import FileInputComponent from "./components.test-pw";
+import FileInputComponent, {
+  DuplicateFilenameFocusPreservationHarness,
+  DropFocusHarness,
+  FocusPreservationHarness,
+  SecondaryActionFocusPreservationHarness,
+} from "./components.test-pw";
 import { selectFileButton } from "../../../playwright/components/file-input";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { FileUploadStatusProps } from ".";
+import Box from "../box";
 
 declare global {
   interface File {
@@ -17,7 +23,7 @@ declare global {
 // util needed for testing the file argument passed to onChange - browser File objects natively JSON serialise only to
 // the empty object.
 // Playwright uses JSON serialisation to send data between the browser and Node, but File objects by default all stringify
-// as empty objects. Therefore need to override this for the test to work properly
+// as empty objects. Therefore, need to override this for the test to work properly
 const enableFileJSON = (page: Page) => {
   return page.evaluate(() => {
     File.prototype.toJSON = function () {
@@ -83,7 +89,6 @@ const completedStatusProps: FileUploadStatusProps = {
 const previouslyStatusProps: FileUploadStatusProps = {
   status: "previously",
   filename: "foo.pdf",
-  onAction: () => {},
   href: "http://carbon.sage.com",
   target: "_blank",
   rel: "noreferrer",
@@ -104,20 +109,56 @@ const uploadStatuses = [
 ];
 
 test.describe("with uploadStatus prop", () => {
-  test("in the completed state, clicking a suitable file link downloads the file", async ({
+  test("in the completed state, the filename is plain text and Preview links to href", async ({
     mount,
     page,
   }) => {
-    const downloadStatusProps: FileUploadStatusProps = {
-      ...completedStatusProps,
-      href: "foo.pdf",
-    };
-    const downloadPromise = page.waitForEvent("download");
-    await mount(<FileInputComponent uploadStatus={downloadStatusProps} />);
-    const link = page.getByRole("link", { name: "foo.pdf" });
-    await link.click();
-    const download = await downloadPromise;
-    expect(download.suggestedFilename()).toBe("foo.pdf");
+    await mount(<FileInputComponent uploadStatus={completedStatusProps} />);
+    await expect(
+      page.getByRole("link", {
+        name: completedStatusProps.filename,
+        exact: true,
+      }),
+    ).toHaveCount(0);
+    const preview = page.getByRole("link", {
+      name: `Preview ${completedStatusProps.filename}`,
+    });
+    await expect(preview).toHaveAttribute(
+      "href",
+      completedStatusProps.href as string,
+    );
+    await expect(preview).toHaveAttribute("target", "_blank");
+    await expect(preview).toHaveAttribute("rel", "noreferrer");
+  });
+
+  test("scrolls a long status-card list inside a height-constrained parent", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Box height="600px" width="500px">
+        <FileInputComponent
+          multiple
+          uploadStatus={Array.from({ length: 10 }, (_, index) => ({
+            id: `file-${index}`,
+            status: "completed" as const,
+            filename: `file-${index}.pdf`,
+            onDelete: () => {},
+          }))}
+        />
+      </Box>,
+    );
+
+    const list = page.getByRole("list", { name: "Current files (10)" });
+    const listScroller = list.locator("..");
+    const clientHeight = await listScroller.evaluate(
+      (element) => element.clientHeight,
+    );
+    const scrollHeight = await listScroller.evaluate(
+      (element) => element.scrollHeight,
+    );
+    expect(clientHeight).toBeGreaterThan(0);
+    expect(scrollHeight).toBeGreaterThan(clientHeight);
   });
 });
 
@@ -157,7 +198,7 @@ test.describe("interactions", () => {
     await dragFile({
       page,
       eventName: "drop",
-      selector: '[data-component="file-input"] > div > div > div:last-child',
+      selector: '[data-role="file-input-presentation"]',
       filePath: path.join(process.cwd(), "playwright", "README.md"),
       fileName: "README.md",
       fileType: "text/markdown",
@@ -169,136 +210,55 @@ test.describe("interactions", () => {
     });
   });
 
-  test("while dragging a file, the component border becomes thicker", async ({
+  test("after a controlled drop, focuses Select files before the new file action", async ({
     mount,
     page,
   }) => {
-    await mount(<FileInputComponent />);
-    await dragFile({
-      page,
-      eventName: "dragover",
-      selector: "body",
-      filePath: path.join(process.cwd(), "playwright", "README.md"),
-      fileName: "README.md",
-      fileType: "text/markdown",
-    });
-    const borderWidth = await page
-      .getByText("or drag and drop your file")
-      .evaluate((el) =>
-        window
-          .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-width"),
-      );
-    expect(borderWidth).toBe("2px");
-  });
-
-  test("when dragging a file off the document, the component border returns to the original thickness", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FileInputComponent />);
-    await dragFile({
-      page,
-      eventName: "dragover",
-      selector: "body",
-      filePath: path.join(process.cwd(), "playwright", "README.md"),
-      fileName: "README.md",
-      fileType: "text/markdown",
-    });
-    await dragFile({
-      page,
-      eventName: "dragleave",
-      selector: "body",
-      filePath: path.join(process.cwd(), "playwright", "README.md"),
-      fileName: "README.md",
-      fileType: "text/markdown",
-    });
-    const borderWidth = await page
-      .getByText("or drag and drop your file")
-      .evaluate((el) =>
-        window
-          .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-width"),
-      );
-    expect(borderWidth).toBe("1px");
-  });
-
-  test("after dropping a file, the component border returns to the original thickness", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FileInputComponent />);
-    await dragFile({
-      page,
-      eventName: "dragover",
-      selector: "body",
-      filePath: path.join(process.cwd(), "playwright", "README.md"),
-      fileName: "README.md",
-      fileType: "text/markdown",
-    });
+    await mount(<DropFocusHarness />);
     await dragFile({
       page,
       eventName: "drop",
-      selector: "body",
+      selector: '[data-role="file-input-presentation"]',
       filePath: path.join(process.cwd(), "playwright", "README.md"),
       fileName: "README.md",
       fileType: "text/markdown",
     });
-    const borderWidth = await page
-      .getByText("or drag and drop your file")
-      .evaluate((el) =>
-        window
-          .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-width"),
-      );
-    expect(borderWidth).toBe("1px");
+
+    await expect(
+      page.getByRole("button", { name: /Select files$/ }),
+    ).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("button", { name: "Delete README.md" }),
+    ).toBeFocused();
   });
 
-  test("while dragging a file with the component in the error state, the border color changes", async ({
+  // A Field error must not prevent a real file drop from reaching onChange.
+  test("dropping a file while a Field error is present passes the file to onChange", async ({
     mount,
     page,
   }) => {
-    await mount(<FileInputComponent error />);
+    await enableFileJSON(page);
+    const onChangeCalls: File[] = [];
+    const onChange = (files: FileList) => {
+      onChangeCalls.push(files[0]);
+    };
+    await mount(
+      <FileInputComponent
+        error="Select at least one file"
+        onChange={onChange}
+      />,
+    );
     await dragFile({
       page,
-      eventName: "dragover",
-      selector: "body",
+      eventName: "drop",
+      selector: '[data-role="file-input-presentation"]',
       filePath: path.join(process.cwd(), "playwright", "README.md"),
       fileName: "README.md",
       fileType: "text/markdown",
     });
-    const borderColor = await page
-      .getByText("or drag and drop your file")
-      .evaluate((el) =>
-        window
-          .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-color"),
-      );
-    // TODO: should check token value (--colorsSemanticNegative600), rewrite this when we have the equivalent playwright util merged in
-    expect(borderColor).toBe("rgb(162, 44, 59)");
-  });
-
-  test("while dragging a file over the component, the background color changes", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FileInputComponent />);
-    await dragFile({
-      page,
-      eventName: "dragover",
-      selector: '[data-component="file-input"] > div > div > div:last-child',
-      filePath: path.join(process.cwd(), "playwright", "README.md"),
-      fileName: "README.md",
-      fileType: "text/markdown",
-    });
-    const backgroundColor = await page
-      .getByText("or drag and drop your file")
-      .evaluate((el) =>
-        window
-          .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("background-color"),
-      );
-    expect(backgroundColor).toBe("rgb(204, 214, 219)");
+    expect(onChangeCalls.length).toBe(1);
+    expect(onChangeCalls[0].name).toBe("README.md");
   });
 });
 
@@ -351,5 +311,86 @@ test.describe("accessibility tests for FileInput", () => {
       await mount(<FileInputComponent uploadStatus={statusProps} />);
       await checkAccessibility(page);
     });
+  });
+
+  test("should pass accessibility tests with a populated current and previous files collection", async ({
+    mount,
+    page,
+  }) => {
+    // Exercises the named-list markup with more than one item per
+    // collection, which the single-status checks above never render.
+    await mount(<FileInputComponent uploadStatus={uploadStatuses} />);
+    await checkAccessibility(page);
+  });
+});
+
+test.describe("focus management", () => {
+  test("removing the first card's focused action moves focus to the next card's action", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FocusPreservationHarness />);
+    await page.getByRole("button", { name: "Remove a.pdf" }).click();
+    await expect(
+      page.getByRole("button", { name: "Remove b.pdf" }),
+    ).toBeFocused();
+  });
+
+  test("removing a middle card's focused action moves focus to the next card's action", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FocusPreservationHarness />);
+    await page.getByRole("button", { name: "Remove b.pdf" }).click();
+    await expect(
+      page.getByRole("button", { name: "Remove c.pdf" }),
+    ).toBeFocused();
+  });
+
+  test("removing the last card's focused action moves focus to the previous card's action", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FocusPreservationHarness />);
+    await page.getByRole("button", { name: "Remove c.pdf" }).click();
+    await expect(
+      page.getByRole("button", { name: "Remove b.pdf" }),
+    ).toBeFocused();
+  });
+
+  test("removing the only remaining card's focused action returns focus to Select files", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FocusPreservationHarness />);
+    await page.getByRole("button", { name: "Remove a.pdf" }).click();
+    await page.getByRole("button", { name: "Remove b.pdf" }).click();
+    await page.getByRole("button", { name: "Remove c.pdf" }).click();
+    await expect(
+      page.getByRole("button", { name: /Select files$/ }),
+    ).toBeFocused();
+  });
+
+  test("removing the first of two same-named cards moves focus to the surviving duplicate's action, not a detached node", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DuplicateFilenameFocusPreservationHarness />);
+    const removeAButtons = page.getByRole("button", { name: "Remove a.pdf" });
+    await removeAButtons.first().click();
+    await expect(
+      page.getByRole("button", { name: "Remove a.pdf" }),
+    ).toBeFocused();
+  });
+
+  test("removing a card with Preview moves focus to the next card, not its removed secondary action", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SecondaryActionFocusPreservationHarness />);
+    await page.getByRole("button", { name: "Delete a.pdf" }).click();
+    await expect(
+      page.getByRole("button", { name: "Delete b.pdf" }),
+    ).toBeFocused();
   });
 });
