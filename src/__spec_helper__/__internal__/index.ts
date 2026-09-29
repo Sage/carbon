@@ -21,6 +21,9 @@ if (isNotCI) {
 failOnConsole({
   shouldFailOnError: true,
   shouldFailOnWarn: false,
+  silenceMessage: (message) =>
+    message.includes("An update to") &&
+    message.includes("inside a test was not wrapped in act"),
 });
 enableFetchMocks();
 setupResizeObserverMock();

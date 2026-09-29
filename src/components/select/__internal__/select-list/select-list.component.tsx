@@ -6,7 +6,7 @@ import React, {
   useRef,
   useMemo,
 } from "react";
-import { flip, offset, size } from "@floating-ui/dom";
+import { flip, offset, size } from "@floating-ui/react-dom";
 import {
   useVirtualizer,
   defaultRangeExtractor,

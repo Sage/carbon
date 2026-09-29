@@ -1,6 +1,15 @@
 import React from "react";
 import * as floatingUi from "@floating-ui/react-dom";
 
+jest.mock("@floating-ui/react-dom", () => {
+  const actual = jest.requireActual("@floating-ui/react-dom");
+
+  return {
+    ...actual,
+    useFloating: jest.fn(actual.useFloating),
+  };
+});
+
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
 import Tooltip, { TooltipProps, InputSizes } from "./tooltip.component";
@@ -10,6 +19,14 @@ import guid from "../../__internal__/utils/helpers/guid";
 const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+
+const originalUseFloating = jest.requireActual(
+  "@floating-ui/react-dom",
+).useFloating;
+
+afterEach(() => {
+  jest.mocked(floatingUi.useFloating).mockImplementation(originalUseFloating);
+});
 
 function renderTooltip(props: Partial<TooltipProps> = {}) {
   return render(
@@ -170,6 +187,7 @@ describe("Tooltip", () => {
             "sets the offset as expected when size is %s",
             (size) => {
               const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
+              useFloatingSpy.mockClear();
               renderTooltip({
                 isVisible: true,
                 position,
@@ -182,11 +200,16 @@ describe("Tooltip", () => {
                 middleware = useFloatingSpy.mock.calls[0][0]?.middleware?.[0];
               }
 
-              expect(
-                middleware?.options({
-                  placement: position,
-                }),
-              ).toMatchObject({
+              const middlewareOptions = middleware?.options;
+              const optionFactory = Array.isArray(middlewareOptions)
+                ? middlewareOptions[0]
+                : middlewareOptions;
+              const offsetOptions =
+                typeof optionFactory === "function"
+                  ? optionFactory({ placement: position })
+                  : optionFactory;
+
+              expect(offsetOptions).toMatchObject({
                 mainAxis: offsets(position)[size],
               });
               useFloatingSpy.mockRestore();
@@ -223,9 +246,6 @@ describe("Tooltip", () => {
         ["bottom", "top"],
         ["left", "right"],
       ])("applies correct position", (floatingUiPlacement, arrowPlacement) => {
-        const originalUseFloating = jest.requireActual(
-          "@floating-ui/react-dom",
-        ).useFloating;
         const useFloatingSpy = jest
           .spyOn(floatingUi, "useFloating")
           .mockImplementation((props) => {
@@ -243,6 +263,25 @@ describe("Tooltip", () => {
 
         useFloatingSpy.mockRestore();
       });
+    });
+
+    it("uses zero coordinates while Floating UI has not positioned the tooltip", () => {
+      const useFloatingSpy = jest
+        .spyOn(floatingUi, "useFloating")
+        .mockImplementation((props) => ({
+          ...originalUseFloating(props),
+          x: null,
+          y: undefined,
+        }));
+
+      renderTooltip({ isVisible: true });
+
+      expect(screen.getByTestId("tooltip")).toHaveStyle({
+        left: "0px",
+        top: "0px",
+      });
+
+      useFloatingSpy.mockRestore();
     });
   });
 

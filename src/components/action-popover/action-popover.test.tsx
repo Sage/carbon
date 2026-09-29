@@ -1,7 +1,13 @@
 import React, { useRef } from "react";
-import { render, screen, act, within, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  act,
+  within,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as floatingUi from "@floating-ui/dom";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -287,8 +293,6 @@ test.each<["top" | "bottom", boolean, string]>([
 ])(
   "applies proper %s prop to Popover component when rightAlignMenu is %s",
   async (placement, rightAlignMenu, result) => {
-    const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
-
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -297,14 +301,12 @@ test.each<["top" | "bottom", boolean, string]>([
 
     await user.click(screen.getByRole("button"));
 
-    const placements = computePositionSpy.mock.calls.map(
-      (call) => call[2]?.placement,
+    await waitFor(() =>
+      expect(screen.getByRole("list")).toHaveAttribute(
+        "data-floating-placement",
+        result,
+      ),
     );
-
-    expect(placements.length).toBeGreaterThan(0);
-    expect(placements.every((p) => p === result)).toBe(true);
-
-    computePositionSpy.mockRestore();
   },
 );
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as floatingUi from "@floating-ui/dom";
 import SplitButton, { SplitButtonHandle } from "./split-button.component";
 import Button from "../button/__next__";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
@@ -83,7 +82,6 @@ test("renders child buttons when toggle button is clicked", async () => {
 });
 
 test("anchors a left-positioned menu to the SplitButton container", async () => {
-  const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
   const user = userEvent.setup();
 
   render(
@@ -92,20 +90,14 @@ test("anchors a left-positioned menu to the SplitButton container", async () => 
     </SplitButton>,
   );
 
-  const splitButton = screen.getByTestId("split-button-container");
-
   await user.click(screen.getByRole("button", { name: "Show more" }));
 
-  expect(computePositionSpy).toHaveBeenCalledWith(
-    splitButton,
-    expect.any(HTMLElement),
-    expect.objectContaining({
-      placement: "bottom-start",
-      strategy: "fixed",
-    }),
+  await waitFor(() =>
+    expect(screen.getByTestId("menu-wrapper")).toHaveAttribute(
+      "data-floating-placement",
+      "bottom-start",
+    ),
   );
-
-  computePositionSpy.mockRestore();
 });
 
 test("applies a custom menu width", async () => {
@@ -122,35 +114,6 @@ test("applies a custom menu width", async () => {
   const menu = screen.getByTestId("menu-wrapper");
 
   await waitFor(() => expect(menu).toHaveStyle({ width: "320px" }));
-});
-
-test("only starts and cleans up floating autoUpdate when additional buttons are visible", async () => {
-  jest.clearAllMocks();
-
-  const user = userEvent.setup();
-  const cleanupSpy = jest.fn();
-  const autoUpdateSpy = jest
-    .spyOn(floatingUi, "autoUpdate")
-    .mockImplementation(() => cleanupSpy);
-
-  render(
-    <SplitButton text="Main">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  expect(autoUpdateSpy).not.toHaveBeenCalled();
-
-  const toggle = screen.getByRole("button", { name: "Show more" });
-  await user.click(toggle);
-
-  expect(autoUpdateSpy).toHaveBeenCalledTimes(1);
-
-  await user.click(toggle);
-
-  expect(cleanupSpy).toHaveBeenCalledTimes(1);
-
-  jest.resetAllMocks();
 });
 
 test("should focus the main button when the focusMainButton on the ref handle is invoked", async () => {

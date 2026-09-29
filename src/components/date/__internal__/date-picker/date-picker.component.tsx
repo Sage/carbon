@@ -1,4 +1,4 @@
-import { flip, offset } from "@floating-ui/dom";
+import { flip, offset } from "@floating-ui/react-dom";
 import type { Day, Month } from "date-fns";
 import React, {
   useCallback,
@@ -253,6 +253,7 @@ export const DatePicker = ({
           aria-label={datePickerAriaLabel}
           aria-labelledby={datePickerAriaLabelledBy}
         >
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
           <div
             id={pickerTabGuardId}
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
