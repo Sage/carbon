@@ -1,6 +1,8 @@
 import { Meta, ArgTypes, Canvas, Story } from "@storybook/addon-docs/blocks";
 
 import * as AnchorNavigationItemStories from "./anchor-navigation-item/anchor-navigation-item.stories";
+import * as AnchorNavigationContentStories from "./anchor-navigation-content.stories";
+import * as AnchorNavigationMenuStories from "./anchor-navigation-menu.stories";
 import * as AnchorNavigationStories from "./anchor-navigation.stories";
 
 <Meta of={AnchorNavigationStories} />
@@ -26,63 +28,66 @@ Easily navigate through long scrollable content.
 
 ## Quick Start
 
-To use `AnchorNavigation` import `AnchorNavigation`, `AnchorNavigationItem` and `AnchorSectionDivider` from Carbon.
+To use Anchor Navigation, import `AnchorNavigation`, `AnchorNavigationMenu`, `AnchorNavigationContent`, `AnchorNavigationItem`, and `AnchorSectionDivider` from Carbon.
 
 ```javascript
 import {
   AnchorNavigation,
+  AnchorNavigationContent,
   AnchorNavigationItem,
+  AnchorNavigationMenu,
   AnchorSectionDivider,
 } from "carbon-react/lib/components/anchor-navigation";
 ```
 
 - Create `refs` which will be used internally in `AnchorNavigation` to measure positions of the elements.
 
-- Pass proper structure of `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop.
+- Render `AnchorNavigationItem` components with assigned `refs` inside `AnchorNavigationMenu`.
 
-- Pass children where elements which are meant to serve as sections have `refs` assigned.
+- Render the elements that serve as sections inside `AnchorNavigationContent`.
+
+- Set `initiallySelected` on one item to preserve the initial current location during server rendering.
 
 - Keep in mind that to assign a `ref` to a component it either has to be a `Class` component or it has to be wrapped in `React.forwardRef()` in case of a function component.
 
-- **It is necessary to maintain the same order of navigation items and children when assigning the `refs`**
+- The navigation items register with their parent, so they can be conditional or rendered by a child component. They must still produce valid list items inside `AnchorNavigationMenu`.
 
-- **It is necessary to maintain `stickyNavigation` prop structure as shown below**
-
-```javascript
-const MyComponent = () => (
+```jsx
+const MyComponent = () => {
   const ref1 = React.useRef();
   const ref2 = React.useRef();
   const ref3 = React.useRef();
 
-  <AnchorNavigation
-    stickyNavigation={
-      <>
-        <AnchorNavigationItem target={ ref1 }>
+  return (
+    <AnchorNavigation>
+      <AnchorNavigationMenu>
+        <AnchorNavigationItem initiallySelected target={ref1}>
           First
         </AnchorNavigationItem>
-        <AnchorNavigationItem target={ ref2 }>
-          Second
-        </AnchorNavigationItem>
-        <AnchorNavigationItem target={ ref3 }>
-          Third
-        </AnchorNavigationItem>
-      </>
-    }
-  >
-    <Box ref={ ref1 }>
-      <h2>Section 1</h2>
-    </Box>
-    <AnchorSectionDivider />
-    <Box ref={ ref2 }>
-      <h2>Section 2</h2>
-    </Box>
-    <AnchorSectionDivider />
-    <Box ref={ ref3 }>
-      <h2>Section 3</h2>
-    </Box>
-  </AnchorNavigation>
-);
+        <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
+        <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+      </AnchorNavigationMenu>
+      <AnchorNavigationContent>
+        <Box ref={ref1}>
+          <h2>Section 1</h2>
+        </Box>
+        <AnchorSectionDivider />
+        <Box ref={ref2}>
+          <h2>Section 2</h2>
+        </Box>
+        <AnchorSectionDivider />
+        <Box ref={ref3}>
+          <h2>Section 3</h2>
+        </Box>
+      </AnchorNavigationContent>
+    </AnchorNavigation>
+  );
+};
 ```
+
+### Deprecated composition
+
+`stickyNavigation` remains supported for compatibility but is deprecated and will be removed in the next major version. To migrate, remove `stickyNavigation`, move its `AnchorNavigationItem` children into `AnchorNavigationMenu`, and wrap the existing section content in `AnchorNavigationContent`. Set `initiallySelected` on exactly one item. `isSelected` applies only to a standalone item outside `AnchorNavigation`; `onClick` and `onKeyDown` remain available as additional handlers and can cancel activation with `event.preventDefault()`. Do not use `stickyNavigation` together with `AnchorNavigationMenu`.
 
 ## Examples
 
@@ -107,3 +112,11 @@ const MyComponent = () => (
 ### AnchorNavigationItem
 
 <ArgTypes of={AnchorNavigationItemStories} />
+
+### AnchorNavigationMenu
+
+<ArgTypes of={AnchorNavigationMenuStories} />
+
+### AnchorNavigationContent
+
+<ArgTypes of={AnchorNavigationContentStories} />
