@@ -137,12 +137,20 @@ const deDE: Partial<Locale> = {
     },
   },
   pager: {
-    firstAriaLabel: () => "Zur ersten Seite",
-    lastAriaLabel: () => "Zur letzten Seite",
-    nextAriaLabel: () => "Zur nächsten Seite",
-    previousAriaLabel: () => "Zur vorherigen Seite",
-    pageX: (currentPage?: number | string) => `Seite ${currentPage}`,
-    ofTotalPages: (totalPages: number | string) => `von ${totalPages} Seiten`,
+    firstAriaLabel: (totalPages?: string | number) =>
+      `Zur ersten Seite ${totalPages ? `(Seite 1 von ${totalPages})` : ""}`,
+    lastAriaLabel: (totalPages?: string | number) =>
+      `Zur letzten Seite ${totalPages ? `(Seite ${totalPages} von ${totalPages})` : ""}`,
+    nextAriaLabel: (nextPage?: number | string, totalPages?: string | number) =>
+      `Zur nächsten Seite ${nextPage && totalPages ? `(Seite ${nextPage} von ${totalPages})` : ""}`,
+    previousAriaLabel: (
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) =>
+      `Zur vorherigen Seite ${previousPage && totalPages ? `(Seite ${previousPage} von ${totalPages})` : ""}`,
+    pageX: (currentPage?: number | string) =>
+      `Seite${currentPage ? ` ${currentPage}` : ""}`,
+    ofY: (totalPages: number | string) => `von ${totalPages}`,
     itemsPerPage: () => "Elemente pro Seite",
     totalItems: () => "Elemente gesamt",
     ariaLabel: () => "Seitennavigation",

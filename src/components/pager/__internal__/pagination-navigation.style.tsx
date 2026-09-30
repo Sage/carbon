@@ -9,24 +9,22 @@ const sizeMap = {
   },
 };
 
-export const StyledPaginationNavigation = styled.div<{
-  $interactivePageNumber?: boolean;
-}>`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+interface StyledPaginationNavigationProps {
+  $alignment?: "fill" | "centred";
+}
 
-  ${({ $interactivePageNumber }) =>
-    $interactivePageNumber &&
+export const StyledPaginationNavigation = styled.div<StyledPaginationNavigationProps>`
+  ${({ $alignment }) => css`
+    display: flex;
+    align-items: center;
+    gap: var(--global-space-comp-xs);
+    flex: 1 0 0;
+
+    ${$alignment === "centred" &&
     css`
-      gap: var(--global-space-comp-l);
+      justify-content: center;
     `}
-`;
-
-export const StyledNavigationButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: var(--global-space-comp-xs);
+  `}
 `;
 
 export const StyledButtonWrapper = styled.div<{ $visible?: boolean }>`
@@ -39,10 +37,12 @@ export const StyledCurrentPageContainer = styled.div`
   display: flex;
   align-items: center;
   gap: var(--global-space-comp-s);
+  white-space: nowrap;
 `;
 
 export const StyledCurrentPage = styled.span`
   padding: 0 var(--global-space-layout-3-xs);
+  white-space: nowrap;
 `;
 
 export const StyledInputWrapper = styled.div<{

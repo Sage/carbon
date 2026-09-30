@@ -3,7 +3,6 @@ import useLocale from "../../../hooks/__internal__/useLocale";
 
 import {
   StyledPaginationNavigation,
-  StyledNavigationButtonContainer,
   StyledButtonWrapper,
   StyledCurrentPageContainer,
   StyledInputWrapper,
@@ -62,6 +61,8 @@ export interface PaginationNavigationProps {
   interactivePageNumber?: boolean;
   /** Size of the button */
   size?: "small" | "medium";
+  /** Alignment of the content. */
+  alignment?: "fill" | "centred";
 }
 
 const PaginationNavigation = ({
@@ -77,6 +78,7 @@ const PaginationNavigation = ({
   showFirstAndLastButtons,
   interactivePageNumber,
   size,
+  alignment,
 }: PaginationNavigationProps) => {
   const locale = useLocale();
 
@@ -87,6 +89,7 @@ const PaginationNavigation = ({
   const nextRef = useRef<PaginationButtonRef>(null);
   const { current: currentPageDescriptionId } = useRef(guid());
 
+  const hasNavigationButtons = totalPages > 1;
   const showFirst = currentPage > 1 && showFirstAndLastButtons;
   const showPrevious = currentPage > 1;
   const showNext = currentPage < totalPages;
@@ -166,64 +169,64 @@ const PaginationNavigation = ({
     onPagination(totalPages, pageSize, "last");
   };
 
-  const renderNavigationButtons = () => {
-    return (
-      <StyledNavigationButtonContainer>
-        {showFirstAndLastButtons && (
-          <StyledButtonWrapper $visible={showFirst}>
-            <Button
-              variantType="subtle"
-              aria-label={locale.pager.firstAriaLabel?.(totalPages)}
-              size={size}
-              onClick={handleFirstButtonClick}
-            >
-              <Icon type="chevron_first_pagination" />
-            </Button>
-          </StyledButtonWrapper>
-        )}
-        <StyledButtonWrapper $visible={showPrevious}>
+  const renderNavigationButtonsBefore = () => (
+    <>
+      {showFirstAndLastButtons && (
+        <StyledButtonWrapper $visible={showFirst}>
           <Button
             variantType="subtle"
-            aria-label={locale.pager.previousAriaLabel?.(
-              currentPage - 1,
-              totalPages,
-            )}
+            aria-label={locale.pager.firstAriaLabel?.(totalPages)}
             size={size}
-            onClick={handlePreviousButtonClick}
-            ref={previousRef}
+            onClick={handleFirstButtonClick}
           >
-            <Icon type="chevron_left_thick" />
+            <Icon type="chevron_first_pagination" />
           </Button>
         </StyledButtonWrapper>
-        <StyledButtonWrapper $visible={showNext}>
+      )}
+      <StyledButtonWrapper $visible={showPrevious}>
+        <Button
+          variantType="subtle"
+          aria-label={locale.pager.previousAriaLabel?.(
+            currentPage - 1,
+            totalPages,
+          )}
+          size={size}
+          onClick={handlePreviousButtonClick}
+          ref={previousRef}
+        >
+          <Icon type="chevron_left_thick" />
+        </Button>
+      </StyledButtonWrapper>
+    </>
+  );
+
+  const renderNavigationButtonsAfter = () => (
+    <>
+      <StyledButtonWrapper $visible={showNext}>
+        <Button
+          variantType="subtle"
+          aria-label={locale.pager.nextAriaLabel?.(currentPage + 1, totalPages)}
+          size={size}
+          onClick={handleNextButtonClick}
+          ref={nextRef}
+        >
+          <Icon type="chevron_right_thick" />
+        </Button>
+      </StyledButtonWrapper>
+      {showFirstAndLastButtons && (
+        <StyledButtonWrapper $visible={showLast}>
           <Button
             variantType="subtle"
-            aria-label={locale.pager.nextAriaLabel?.(
-              currentPage + 1,
-              totalPages,
-            )}
+            aria-label={locale.pager.lastAriaLabel?.(totalPages)}
             size={size}
-            onClick={handleNextButtonClick}
-            ref={nextRef}
+            onClick={handleLastButtonClick}
           >
-            <Icon type="chevron_right_thick" />
+            <Icon type="chevron_last_pagination" />
           </Button>
         </StyledButtonWrapper>
-        {showFirstAndLastButtons && (
-          <StyledButtonWrapper $visible={showLast}>
-            <Button
-              variantType="subtle"
-              aria-label={locale.pager.lastAriaLabel?.(totalPages)}
-              size={size}
-              onClick={handleLastButtonClick}
-            >
-              <Icon type="chevron_last_pagination" />
-            </Button>
-          </StyledButtonWrapper>
-        )}
-      </StyledNavigationButtonContainer>
-    );
-  };
+      )}
+    </>
+  );
 
   const handleCurrentPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentPageInputValue(e.target.value);
@@ -269,8 +272,9 @@ const PaginationNavigation = ({
       return (
         <StyledCurrentPageContainer>
           <Typography id={currentPageDescriptionId} screenReaderOnly>
-            {`${locale.pager.pageX(currentPage)} ${locale.pager.ofTotalPages?.(totalPages)}`}
+            {`${locale.pager.pageX(currentPage)} ${locale.pager.ofY?.(totalPages)}`}
           </Typography>
+          <div aria-hidden="true">{locale.pager.pageX()}</div>
           <StyledInputWrapper
             $size={size || /* istanbul ignore next */ "medium"}
           >
@@ -285,25 +289,23 @@ const PaginationNavigation = ({
               inputMode="numeric"
             />
           </StyledInputWrapper>
-          <div aria-hidden="true">
-            {locale.pager.ofTotalPages?.(totalPages)}
-          </div>
+          <div aria-hidden="true">{locale.pager.ofY?.(totalPages)}</div>
         </StyledCurrentPageContainer>
       );
     }
 
     return (
       <StyledCurrentPage>
-        {locale.pager.pageX(currentPage)}{" "}
-        {locale.pager.ofTotalPages?.(totalPages)}
+        {locale.pager.pageX(currentPage)} {locale.pager.ofY?.(totalPages)}
       </StyledCurrentPage>
     );
   };
 
   return (
-    <StyledPaginationNavigation $interactivePageNumber={interactivePageNumber}>
+    <StyledPaginationNavigation $alignment={alignment}>
+      {hasNavigationButtons && renderNavigationButtonsBefore()}
       {renderCurrentPage()}
-      {totalPages > 1 && renderNavigationButtons()}
+      {hasNavigationButtons && renderNavigationButtonsAfter()}
     </StyledPaginationNavigation>
   );
 };

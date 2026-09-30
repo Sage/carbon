@@ -154,20 +154,20 @@ const enGB: Locale = {
     },
   },
   pager: {
-    firstAriaLabel: (totalPages: string | number) =>
-      `Go to first page (page 1 of ${totalPages})`,
-    lastAriaLabel: (totalPages: string | number) =>
-      `Go to last page (page ${totalPages} of ${totalPages})`,
-    nextAriaLabel: (
-      currentPage: number | string,
-      totalPages: string | number,
-    ) => `Go to next page (page ${currentPage} of ${totalPages})`,
+    firstAriaLabel: (totalPages?: string | number) =>
+      `Go to first page ${totalPages ? `(page 1 of ${totalPages})` : ""} `,
+    lastAriaLabel: (totalPages?: string | number) =>
+      `Go to last page ${totalPages ? `(page ${totalPages} of ${totalPages})` : ""} `,
+    nextAriaLabel: (nextPage?: number | string, totalPages?: string | number) =>
+      `Go to next page ${nextPage && totalPages ? `(page ${nextPage} of ${totalPages})` : ""} `,
     previousAriaLabel: (
-      currentPage: number | string,
-      totalPages: string | number,
-    ) => `Go to previous page (page ${currentPage} of ${totalPages})`,
-    pageX: (currentPage?: number | string) => `Page ${currentPage}`,
-    ofTotalPages: (totalPages: number | string) => `of ${totalPages} pages`,
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) =>
+      `Go to previous page ${previousPage && totalPages ? `(page ${previousPage} of ${totalPages})` : ""} `,
+    pageX: (currentPage?: number | string) =>
+      `Page${currentPage ? ` ${currentPage}` : ""}`,
+    ofY: (totalPages: number | string) => `of ${totalPages}`,
     itemsPerPage: () => "Items per page",
     totalItems: () => "total items",
     ariaLabel: () => "Pagination",

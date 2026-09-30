@@ -52,15 +52,11 @@ To set your own custom set of page size options, pass them in an array to `pageS
 
 <Canvas of={PagerStories.WithPageSizeSelection}/>
 
-### Layout and Alignment
+### With Total Records
 
-Use the `layout` prop to control the maximum number of lines used to render the component. Available options are `"single"`, `"two-row"`, and `"three-row"`.
+To display the total number of records, set the `showTotalRecords` prop to `true`.
 
-Use `showNumberOfItems` to render the total items text. When both page info elements are shown, the divider is rendered in `"single"` and `"two-row"` layouts. In `"three-row"`, the page number is always plain text and the divider is hidden.
-
-Use the `alignment` prop to switch between `"fill"` and `"centred"` content alignment. `"fill"` is the default and only applies when the component renders in a single row with a visible page info section.
-
-<Canvas of={PagerStories.LayoutExamples}/>
+<Canvas of={PagerStories.WithTotalRecords}/>
 
 ### Non-Interactive Page
 
@@ -80,15 +76,28 @@ The `"alternate"` variant can be set to render the component with a transparent 
 
 <Canvas of={PagerStories.AlternateVariant}/>
 
-### Sizes
+### Small Size
 
-Use the `size` prop to change the size of the component, available options are `"small"` and `"medium"` (default).
+By default, the component will render in size `"medium"`, but you can change it to `"small"` using the `size` prop.
 
-#### Small
 <Canvas of={PagerStories.SmallSize}/>
 
-#### Medium
-<Canvas of={PagerStories.MediumSize}/>
+### Layout
+
+Use the `layout` prop to manually control the layout of the component, available options are `"single"`, `"two-row"`, and `"three-row"`.
+
+This allows for flexible arrangement of the pager elements, depending on the available space and your design requirements.
+Please note that depending on the chosen layout and elements shown, certain layout options may not be applicable.
+
+<Canvas of={PagerStories.RowLayouts}/>
+
+### Alignment
+
+When using `"single"` row layout and both page size selection and total records are displayed, you can use the `alignment` prop to manually control the alignment of the content, 
+available options are `"fill"` and `"centred"`.
+Please note that depending on the chosen layout and elements shown, certain alignment options may not be applicable and will be ignored.
+
+<Canvas of={PagerStories.Alignment}/>
 
 ## Props
 
@@ -139,9 +148,9 @@ The following keys are available to override the translations for this component
       returnType: "string",
     },
     {
-      name: "pager.ofTotalPages",
+      name: "pager.ofX",
       description:
-        "Visible text after the current page. Will be concatenated with 'pageX' and set to the accessible description of the input, e.g.: 'Page 2 of 10 pages'.",
+        "Visible text after the current page. Will be concatenated with 'pageX' and set to the accessible description of the input, e.g.: 'Page 2 of 10'.",
       type: "func",
       returnType: "string",
     },

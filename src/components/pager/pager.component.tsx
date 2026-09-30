@@ -7,10 +7,10 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import {
   StyledPagination,
   StyledPageInfo,
-  StyledPageInfoDivider,
   StyledPageSizeSelect,
   StyledTotalRecords,
 } from "./pager.style";
+import Divider from "../divider";
 import Events from "../../__internal__/utils/helpers/events";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
@@ -21,7 +21,6 @@ type PageSizeOption = {
 
 type PagerLayout = "single" | "two-row" | "three-row";
 type PagerAlignment = "fill" | "centred";
-type PagerSize = "small" | "medium";
 
 // TODO update to PaginationProps when public export is updated to Pagination
 export interface PagerProps extends TagProps {
@@ -67,14 +66,15 @@ export interface PagerProps extends TagProps {
   showFirstAndLastButtons?: boolean;
   /** The component's variant. */
   variant?: "default" | "alternate";
-  /** Size of the component. */
-  size?: PagerSize;
+  /**
+   * Size of the component.
+   * **Deprecation:** The "large" size is no longer supported.
+   */
+  size?: "small" | "medium" | "large";
   /** Maximum number of lines used to render the component. */
   layout?: PagerLayout;
   /** Alignment of the content. */
   alignment?: PagerAlignment;
-  /** Flag to render the total number of items. */
-  showNumberOfItems?: boolean;
   /** Set an accessible label for the Pagination nav */
   "aria-label"?: string;
   /**
@@ -94,7 +94,6 @@ export interface PagerProps extends TagProps {
   showPageSizeLabelAfter?: boolean;
   /**
    * Should the total records label be shown.
-   * @deprecated Use `showNumberOfItems` instead.
    */
   showTotalRecords?: boolean;
   /**
@@ -136,7 +135,6 @@ export const Pagination = ({
   size = "medium",
   layout = "single",
   alignment = "fill",
-  showNumberOfItems = false,
   showTotalRecords = false,
   "aria-label": ariaLabel,
   ...rest
@@ -162,27 +160,40 @@ export const Pagination = ({
 
   const [totalPages, setTotalPages] = useState(getTotalPages());
 
-  const shouldShowTotalRecords = showNumberOfItems || showTotalRecords;
-  const pageInfoCount =
-    Number(showPageSizeSelection) + Number(shouldShowTotalRecords);
-  const effectiveLayout: PagerLayout =
-    pageInfoCount === 0
-      ? "single"
-      : layout === "three-row" && pageInfoCount === 1
-        ? "two-row"
-        : layout;
-  const hasNavigationControls = totalPages > 1;
-  const effectiveAlignment: PagerAlignment =
+  const hasPageInfo = showPageSizeSelection || showTotalRecords;
+
+  let effectiveLayout: PagerLayout;
+  if (!showPageSizeSelection && !showTotalRecords) {
+    effectiveLayout = "single";
+  } else if (
+    (!showPageSizeSelection || !showTotalRecords) &&
+    layout === "three-row"
+  ) {
+    effectiveLayout = "two-row";
+  } else {
+    effectiveLayout = layout;
+  }
+
+  // Can only fill when both controls are active and layout is single
+  let effectiveAlignment: PagerAlignment;
+  if (
     alignment === "fill" &&
-    effectiveLayout === "single" &&
-    pageInfoCount > 0 &&
-    hasNavigationControls
-      ? "fill"
-      : "centred";
-  const shouldShowDivider =
-    pageInfoCount === 2 && effectiveLayout !== "three-row";
-  const useInteractivePageNumber =
+    showPageSizeSelection &&
+    showTotalRecords &&
+    effectiveLayout === "single"
+  ) {
+    effectiveAlignment = "fill";
+  } else {
+    effectiveAlignment = "centred";
+  }
+
+  const showDivider =
+    showPageSizeSelection &&
+    showTotalRecords &&
+    effectiveLayout !== "three-row";
+  const hasInteractivePageNumber =
     effectiveLayout !== "three-row" && interactivePageNumber;
+  const effectiveSize = size === "large" ? "medium" : size;
 
   useEffect(() => {
     setInternalPageSize(+pageSize);
@@ -232,7 +243,7 @@ export const Pagination = ({
           onBlur={() => setPageSelectValue(internalPageSize)}
           onKeyDown={handleSelectKeyDown}
           id={pageSizeSelectId}
-          size={size}
+          size={effectiveSize}
         >
           {pageSizeSelectionOptions.map((sizeOption) => (
             <Option
@@ -249,9 +260,10 @@ export const Pagination = ({
 
   const renderTotalRecords = () => {
     return (
-      <StyledTotalRecords>
-        {normalizedTotalRecords} {locale.pager.totalItems?.()}
-      </StyledTotalRecords>
+      <div data-role="total-records">
+        <StyledTotalRecords>{normalizedTotalRecords}</StyledTotalRecords>
+        {locale.pager.totalItems?.()}
+      </div>
     );
   };
 
@@ -259,9 +271,8 @@ export const Pagination = ({
     <StyledPagination
       aria-label={ariaLabel || locale.pager.ariaLabel?.()}
       $variant={variant}
-      $size={size}
+      $size={effectiveSize}
       $layout={effectiveLayout}
-      $alignment={effectiveAlignment}
       {...rest}
       {...tagComponent("pager", rest)}
     >
@@ -269,7 +280,7 @@ export const Pagination = ({
         currentPage={internalCurrentPage}
         pageSize={internalPageSize}
         totalPages={totalPages}
-        interactivePageNumber={useInteractivePageNumber}
+        interactivePageNumber={hasInteractivePageNumber}
         setCurrentPage={setInternalCurrentPage}
         onNext={onNext}
         onPrevious={onPrevious}
@@ -277,13 +288,18 @@ export const Pagination = ({
         onLast={onLast}
         onPagination={onPagination}
         showFirstAndLastButtons={showFirstAndLastButtons}
-        size={size}
+        size={effectiveSize}
+        alignment={effectiveAlignment}
       />
-      {pageInfoCount > 0 && (
-        <StyledPageInfo $layout={effectiveLayout}>
+      {hasPageInfo && (
+        <StyledPageInfo
+          data-role="page-info"
+          $layout={effectiveLayout}
+          $alignment={effectiveAlignment}
+        >
           {showPageSizeSelection && renderPageSizeSelect()}
-          {shouldShowDivider && <StyledPageInfoDivider aria-hidden="true" />}
-          {shouldShowTotalRecords && renderTotalRecords()}
+          {showDivider && <Divider p={0} aria-hidden={true} height="32px" />}
+          {showTotalRecords && renderTotalRecords()}
         </StyledPageInfo>
       )}
     </StyledPagination>

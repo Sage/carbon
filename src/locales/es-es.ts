@@ -146,12 +146,20 @@ const esES: Partial<Locale> = {
     },
   },
   pager: {
-    firstAriaLabel: () => "Ir a primera página",
-    lastAriaLabel: () => "Ir a última página",
-    nextAriaLabel: () => "Ir a página siguiente",
-    previousAriaLabel: () => "Ir a página anterior",
-    pageX: (currentPage?: number | string) => `Página ${currentPage}`,
-    ofTotalPages: (totalPages: number | string) => `de ${totalPages} páginas`,
+    firstAriaLabel: (totalPages?: string | number) =>
+      `Ir a primera página ${totalPages ? `(página 1 de ${totalPages})` : ""} `,
+    lastAriaLabel: (totalPages?: string | number) =>
+      `Ir a última página ${totalPages ? `(página ${totalPages} de ${totalPages})` : ""} `,
+    nextAriaLabel: (nextPage?: number | string, totalPages?: string | number) =>
+      `Ir a página siguiente ${nextPage && totalPages ? `(página ${nextPage} de ${totalPages})` : ""}`,
+    previousAriaLabel: (
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) =>
+      `Ir a página anterior ${previousPage && totalPages ? `(página ${previousPage} de ${totalPages})` : ""}`,
+    pageX: (currentPage?: number | string) =>
+      `Página${currentPage ? ` ${currentPage}` : ""}`,
+    ofY: (totalPages: number | string) => `de ${totalPages}`,
     itemsPerPage: () => "Elementos por página",
     totalItems: () => "elementos en total",
     ariaLabel: () => "Paginación",

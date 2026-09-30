@@ -11,12 +11,6 @@ const enUS: Partial<Locale> = {
       nextMonthButton: () => "Next month",
     },
   },
-  pager: {
-    pageX: (currentPage?: number | string) => `Page ${currentPage}`,
-    ofTotalPages: (totalPages: number | string) => `of ${totalPages} pages`,
-    itemsPerPage: () => "Items per page",
-    totalItems: () => "total items",
-  },
 };
 
 export default enUS;

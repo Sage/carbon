@@ -150,12 +150,20 @@ const ptPT: Partial<Locale> = {
     },
   },
   pager: {
-    firstAriaLabel: () => "Aceder à primeira página",
-    lastAriaLabel: () => "Aceder à última página",
-    nextAriaLabel: () => "Aceder à página seguinte",
-    previousAriaLabel: () => "Aceder à página anterior",
-    pageX: (currentPage?: number | string) => `Página ${currentPage}`,
-    ofTotalPages: (totalPages: number | string) => `de ${totalPages} páginas`,
+    firstAriaLabel: (totalPages?: string | number) =>
+      `Aceder à primeira página ${totalPages ? `(página 1 de ${totalPages})` : ""}`,
+    lastAriaLabel: (totalPages?: string | number) =>
+      `Aceder à última página ${totalPages ? `(página ${totalPages} de ${totalPages})` : ""}`,
+    nextAriaLabel: (nextPage?: number | string, totalPages?: string | number) =>
+      `Aceder à página seguinte ${nextPage && totalPages ? `(página ${nextPage} de ${totalPages})` : ""}`,
+    previousAriaLabel: (
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) =>
+      `Aceder à página anterior ${previousPage && totalPages ? `(página ${previousPage} de ${totalPages})` : ""}`,
+    pageX: (currentPage?: number | string) =>
+      `Página${currentPage ? ` ${currentPage}` : ""}`,
+    ofY: (totalPages: number | string) => `de ${totalPages}`,
     itemsPerPage: () => "registos por página",
     totalItems: () => "registos no total",
     ariaLabel: () => "Paginação",

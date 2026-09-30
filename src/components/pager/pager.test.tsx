@@ -39,7 +39,7 @@ test("does not render navigation buttons or current page input when there is onl
 
   expect(screen.queryAllByRole("button").length).toBe(0);
   expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
-  expect(screen.getByText("Page 1 of 1 pages")).toBeVisible();
+  expect(screen.getByText("Page 1 of 1")).toBeVisible();
 });
 
 test("does not render current page input if `interactivePageNumber` is false", () => {
@@ -53,7 +53,7 @@ test("does not render current page input if `interactivePageNumber` is false", (
   );
 
   expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
-  expect(screen.getByText("Page 1 of 10 pages")).toBeVisible();
+  expect(screen.getByText("Page 1 of 10")).toBeVisible();
 });
 
 test("calls the `onFirst` callback when the `First` button is clicked", async () => {
@@ -133,7 +133,7 @@ test("calls the `onLast` callback when the `Last` button is clicked", async () =
 test("the total number of records is set to 1 if the `totalRecords` prop is an invalid value", () => {
   render(<Pager totalRecords={-100} pageSize={10} onPagination={() => {}} />);
 
-  expect(screen.getByText("Page 1 of 1 pages")).toBeVisible();
+  expect(screen.getByText("Page 1 of 1")).toBeVisible();
 });
 
 test("sets the current page to the last available page when `currentPage` is larger than the total", () => {
@@ -545,55 +545,47 @@ test("renders with expected styles when `variant` is 'alternate'", () => {
   expect(screen.getByRole("navigation")).toHaveStyleRule("border", "none");
 });
 
+// coverage
 test("renders total items when `showNumberOfItems` is true", () => {
-  render(
-    <Pager
-      onPagination={() => {}}
-      totalRecords={100}
-      showNumberOfItems
-      showPageSizeSelection
-    />,
-  );
+  render(<Pager onPagination={() => {}} totalRecords={100} showTotalRecords />);
 
-  expect(screen.getByText("100 total items")).toBeVisible();
-  expect(
-    screen.getByRole("combobox", { name: "Items per page" }),
-  ).toBeInTheDocument();
+  const totalRecords = screen.getByTestId("total-records");
+  expect(totalRecords).toBeVisible();
+  // spacing between number and text added using gap
+  expect(totalRecords).toHaveTextContent("100total items");
 });
 
-test("uses single layout when no page info elements are shown", () => {
+// coverage
+test("sets layout to 'single' when `showPageSizeSelection` and `showTotalRecords` are false", () => {
   render(<Pager onPagination={() => {}} layout="three-row" />);
 
-  expect(screen.getByRole("navigation")).toHaveStyleRule(
-    "justify-content",
-    "center",
-  );
-  expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
-  expect(screen.queryByText("0 total items")).not.toBeInTheDocument();
+  expect(screen.getByRole("navigation")).toHaveStyle({ flexDirection: "row" });
 });
 
+// coverage
 test("falls back from three-row to two-row when only one page info element is shown", () => {
   render(
     <Pager
       onPagination={() => {}}
       layout="three-row"
-      showNumberOfItems
+      showTotalRecords
       totalRecords={100}
       currentPage={2}
       pageSize={10}
     />,
   );
 
-  expect(screen.getByRole("textbox", { name: "Page 2" })).toBeInTheDocument();
-  expect(screen.getByText("100 total items")).toBeVisible();
+  expect(screen.getByRole("textbox", { name: "Page 2" })).toBeVisible();
+  expect(screen.getByTestId("total-records")).toBeVisible();
 });
 
-test("renders plain text page number and no divider in three-row layout", () => {
+// coverage
+test("applies 'three-row' `layout` when `showPageSizeSelection` and `showTotalRecords` are true", () => {
   render(
     <Pager
       onPagination={() => {}}
       layout="three-row"
-      showNumberOfItems
+      showTotalRecords
       showPageSizeSelection
       totalRecords={100}
       currentPage={2}
@@ -601,57 +593,36 @@ test("renders plain text page number and no divider in three-row layout", () => 
     />,
   );
 
-  expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
-  expect(screen.getByText("Page 2 of 10 pages")).toBeVisible();
-  expect(screen.getByText("100 total items")).toBeVisible();
-  expect(screen.getByRole("navigation")).toHaveStyleRule(
-    "flex-direction",
-    "column",
-  );
+  expect(screen.getByTestId("page-info")).toHaveStyle({
+    flexDirection: "column",
+  });
 });
 
-test("centres page controls when the right data section is hidden", () => {
+// coverage
+test("applies 'fill' `alignment` when `layout` is 'single' and `showPageSizeSelection` and `showTotalRecords` are true", () => {
   render(
     <Pager
       onPagination={() => {}}
       alignment="fill"
-      totalRecords={100}
-      currentPage={2}
-      pageSize={10}
-    />,
-  );
-
-  expect(screen.getByRole("navigation")).toHaveStyleRule(
-    "justify-content",
-    "center",
-  );
-});
-
-test("centres content when page info is shown but navigation controls are inactive", () => {
-  render(
-    <Pager
-      onPagination={() => {}}
-      alignment="fill"
-      showNumberOfItems
+      showTotalRecords
       showPageSizeSelection
-      totalRecords={10}
+      totalRecords={100}
+      currentPage={2}
       pageSize={10}
-      currentPage={1}
     />,
   );
 
-  expect(screen.getByRole("navigation")).toHaveStyleRule(
-    "justify-content",
-    "center",
-  );
+  expect(screen.getByTestId("page-info")).toHaveStyle({
+    justifyContent: "flex-end",
+  });
 });
 
-test("uses fill alignment only in a single-row layout with page info", () => {
+// coverage
+test("overrides 'large' `size` to 'medium'", () => {
   render(
     <Pager
       onPagination={() => {}}
-      alignment="fill"
-      showNumberOfItems
+      size="large"
       totalRecords={100}
       currentPage={2}
       pageSize={10}
@@ -659,27 +630,8 @@ test("uses fill alignment only in a single-row layout with page info", () => {
   );
 
   expect(screen.getByRole("navigation")).toHaveStyleRule(
-    "justify-content",
-    "space-between",
-  );
-});
-
-test("uses centred alignment for two-row layout even when fill is requested", () => {
-  render(
-    <Pager
-      onPagination={() => {}}
-      alignment="fill"
-      layout="two-row"
-      showNumberOfItems
-      totalRecords={100}
-      currentPage={2}
-      pageSize={10}
-    />,
-  );
-
-  expect(screen.getByRole("navigation")).toHaveStyleRule(
-    "justify-content",
-    "center",
+    "padding",
+    "var(--global-space-comp-l)",
   );
 });
 
