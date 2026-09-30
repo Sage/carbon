@@ -34,6 +34,12 @@ export default {
         type: "select",
       },
     },
+    variantType: {
+      options: ["primary", "secondary"],
+      control: {
+        type: "select",
+      },
+    },
     size: {
       options: ["small", "medium", "large"],
       control: {
@@ -61,13 +67,11 @@ export default {
 };
 
 export const SplitButtonStory = ({
-  buttonType,
   subtext,
   ...args
 }: Partial<SplitButtonProps>) => (
   <Box height={400} mt={100} ml={100}>
     <SplitButton
-      buttonType={buttonType}
       text="text"
       subtext={subtext}
       {...args}
@@ -85,7 +89,7 @@ SplitButtonStory.story = {
   args: {
     iconType: "",
     iconPosition: "before",
-    buttonType: "primary",
+    variantType: "primary",
     dataElement: "data-element",
     dataRole: "",
     disabled: false,
