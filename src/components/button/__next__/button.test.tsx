@@ -343,7 +343,7 @@ test("renders correctly with wrapping text", () => {
 
   expect(button).toBeInTheDocument();
   expect(button).toHaveStyle("flex-flow: wrap");
-  expect(button).toHaveStyle("height: unset");
+  expect(button).toHaveStyleRule("height", "unset");
   expect(button).toHaveStyleRule("min-height", "var(--global-size-m)");
 });
 

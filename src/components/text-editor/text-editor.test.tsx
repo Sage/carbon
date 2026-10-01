@@ -75,6 +75,20 @@ const initialValue = {
   },
 };
 
+const placeCaretAfterSampleText = () => {
+  // JSDOM 30 places a click at the start; set the text-node caret explicitly.
+  // eslint-disable-next-line testing-library/no-node-access
+  const textNode = screen.getByText("Sample text").firstChild;
+  if (!textNode) throw new Error("Sample text node was not rendered");
+
+  act(() => {
+    window
+      .getSelection()
+      ?.collapse(textNode, textNode.textContent?.length ?? 0);
+    document.dispatchEvent(new Event("selectionchange"));
+  });
+};
+
 test("should display deprecation warning once when rendered with value prop", async () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
 
@@ -117,6 +131,7 @@ test("rendering and basic functionality", async () => {
   // Click the editor space and send a few key presses
   const editor = screen.getByRole(`textbox`);
   await user.click(editor);
+  placeCaretAfterSampleText();
   await user.keyboard(" abc");
 
   // expect the edited value to be visible
@@ -627,6 +642,7 @@ test("should reset the content to the default if the Cancel button is pressed", 
   // Click the editor space and send a few key presses
   const editor = screen.getByRole(`textbox`);
   await user.click(editor);
+  placeCaretAfterSampleText();
   await user.keyboard(" abc");
 
   // expect the edited value to be visible
@@ -672,6 +688,7 @@ describe("shortcut keys", () => {
     // Click the editor space and send a few key presses
     const editor = screen.getByRole(`textbox`);
     await user.click(editor);
+    placeCaretAfterSampleText();
     await user.keyboard(" not bold");
 
     // expect the edited value to be visible
@@ -681,13 +698,13 @@ describe("shortcut keys", () => {
 
     // expect the text to be bold
     expect(screen.getByText("Sample text not bold")).toHaveStyle(
-      "font-weight: bold",
+      "font-weight: 700",
     );
     await user.keyboard(`{Control>}b{/Control>}`);
 
     // expect the text to be normal
     expect(screen.getByText("Sample text not bold")).not.toHaveStyle(
-      "font-weight: bold",
+      "font-weight: 700",
     );
   });
 
@@ -711,6 +728,7 @@ describe("shortcut keys", () => {
     // Click the editor space and send a few key presses
     const editor = screen.getByRole(`textbox`);
     await user.click(editor);
+    placeCaretAfterSampleText();
     await user.keyboard(" not italic");
 
     // expect the edited value to be visible
@@ -764,6 +782,7 @@ describe("shortcut keys", () => {
 
     const editor = screen.getByRole("textbox", { name: "Subject" });
     await user.click(editor);
+    placeCaretAfterSampleText();
     await user.keyboard(" - test content");
 
     expect(screen.getByText("Sample text - test content")).toBeVisible();

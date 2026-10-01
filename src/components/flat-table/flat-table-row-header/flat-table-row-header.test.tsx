@@ -476,7 +476,9 @@ test("should render with the expected border width when `verticalBorder` prop is
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-right-width: 1px");
+  expect(cell).toHaveStyleRule("border-right-width", "1px", {
+    modifier: "&&&&",
+  });
 });
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'small' and the `stickyAlignment` prop is 'right`", () => {
@@ -491,7 +493,9 @@ test("should render with the expected border width when `verticalBorder` prop is
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-left-width: 1px");
+  expect(cell).toHaveStyleRule("border-left-width", "1px", {
+    modifier: "&&&&",
+  });
 });
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'medium' and the `stickyAlignment` prop is 'left`", () => {
@@ -506,7 +510,9 @@ test("should render with the expected border width when `verticalBorder` prop is
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-right-width: 2px");
+  expect(cell).toHaveStyleRule("border-right-width", "2px", {
+    modifier: "&&&&",
+  });
 });
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'medium' and the `stickyAlignment` prop is 'right`", () => {
@@ -521,7 +527,9 @@ test("should render with the expected border width when `verticalBorder` prop is
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-left-width: 2px");
+  expect(cell).toHaveStyleRule("border-left-width", "2px", {
+    modifier: "&&&&",
+  });
 });
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'large' and the `stickyAlignment` prop is 'left`", () => {
@@ -536,7 +544,9 @@ test("should render with the expected border width when `verticalBorder` prop is
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-right-width: 4px");
+  expect(cell).toHaveStyleRule("border-right-width", "4px", {
+    modifier: "&&&&",
+  });
 });
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'large' and the `stickyAlignment` prop is 'right`", () => {
@@ -551,7 +561,9 @@ test("should render with the expected border width when `verticalBorder` prop is
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-left-width: 4px");
+  expect(cell).toHaveStyleRule("border-left-width", "4px", {
+    modifier: "&&&&",
+  });
 });
 
 test("should render with the expected border color when `verticalBorderColor` prop is passed '#FF113344' and the `stickyAlignment` prop is 'left`", () => {

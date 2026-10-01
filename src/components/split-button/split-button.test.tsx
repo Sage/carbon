@@ -703,7 +703,7 @@ test("can navigate through additional buttons via down key presses", async () =>
   });
 
   // Focus automatically moves to button1 when menu opens via click
-  expect(button1).toHaveFocus();
+  await waitFor(() => expect(button1).toHaveFocus());
   await user.keyboard("{arrowDown}");
   expect(button2).toHaveFocus();
   await user.keyboard("{arrowDown}");
@@ -768,7 +768,7 @@ test("focuses last child button when End key is pressed", async () => {
   });
 
   // Focus automatically moves to button1 when menu opens
-  expect(button1).toHaveFocus();
+  await waitFor(() => expect(button1).toHaveFocus());
   await user.keyboard("{end}");
   expect(button3).toHaveFocus();
 });
@@ -793,7 +793,7 @@ test("focuses first child button when Home key is pressed", async () => {
   });
 
   // Focus automatically moves to button1 when menu opens
-  expect(button1).toHaveFocus();
+  await waitFor(() => expect(button1).toHaveFocus());
   await user.keyboard("{End}");
   expect(button3).toHaveFocus();
 

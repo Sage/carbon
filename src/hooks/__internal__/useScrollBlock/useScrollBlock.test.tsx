@@ -34,7 +34,10 @@ test("sets proper styles on the body element on mount and resets them on unmount
   const { unmount } = render(<TestComponent />);
 
   expect(document.documentElement).toHaveStyle({ overflow: "" });
-  expect(document.documentElement).toHaveStyle({ position: "" });
+  expect(document.documentElement).not.toHaveAttribute(
+    "style",
+    expect.stringMatching(/(?:^|;)\s*position\s*:/),
+  );
   expect(document.body).toHaveStyle({ overflow: "hidden" });
   expect(document.body).toHaveStyle({ position: "relative" });
   expect(document.body).toHaveStyle({ paddingRight: "20px" });
@@ -44,9 +47,15 @@ test("sets proper styles on the body element on mount and resets them on unmount
   });
 
   expect(document.documentElement).toHaveStyle({ overflow: "" });
-  expect(document.documentElement).toHaveStyle({ position: "" });
+  expect(document.documentElement).not.toHaveAttribute(
+    "style",
+    expect.stringMatching(/(?:^|;)\s*position\s*:/),
+  );
   expect(document.body).toHaveStyle({ overflow: "" });
-  expect(document.body).toHaveStyle({ position: "" });
+  expect(document.body).not.toHaveAttribute(
+    "style",
+    expect.stringMatching(/(?:^|;)\s*position\s*:/),
+  );
   expect(document.body).toHaveStyle({ paddingRight: "" });
 });
 

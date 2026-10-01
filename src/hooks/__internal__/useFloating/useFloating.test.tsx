@@ -171,16 +171,13 @@ test("when using size middleware, the original width and height are restored aft
   const { rerender } = render(<MockComponent isOpen middleware={middleWare} />);
 
   const floatingElement = await screen.findByTestId("floating-element");
-  const positionedStyle = window.getComputedStyle(floatingElement);
-
-  expect(positionedStyle.width).not.toBe("");
-  expect(positionedStyle.height).not.toBe("");
+  expect(floatingElement).toHaveStyle({ height: "0px", width: "0px" });
 
   rerender(<MockComponent isOpen={false} middleware={middleWare} />);
-  const originalStyle = window.getComputedStyle(floatingElement);
-
-  expect(originalStyle.height).toBe("");
-  expect(originalStyle.width).toBe("");
+  expect(floatingElement).not.toHaveAttribute(
+    "style",
+    expect.stringMatching(/(?:^|;)\s*(?:height|width)\s*:/),
+  );
 });
 
 test("data-floating-placement attribute is added with correct placement when open and removed when closed", async () => {
