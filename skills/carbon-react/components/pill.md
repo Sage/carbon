@@ -19,7 +19,6 @@ A compact visual indicator that highlights information or status.
 ## Pitfalls
 
 - Give a removable pill a clear, unique accessible label that describes the relationship between the pill and its removal button.
-- Use a left icon only with size L.
 - Keep the Pill itself out of the tab order; only its removal button should receive keyboard focus.
 - Add visually hidden context when the pill's meaning is not clear from its visible label and surroundings.
 

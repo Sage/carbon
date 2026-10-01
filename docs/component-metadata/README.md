@@ -26,15 +26,14 @@ maintainers to author product guidance that cannot be inferred reliably.
    `pill.json` as the structural example, but assess the component independently.
 2. Inspect Carbon's Storybook MDX and stories as the primary developer guidance.
    Consult Fusion for supplementary design context when it is available and
-   relevant, but do not make curation depend on access to it or let it override
-   Carbon's documented behaviour.
+   relevant, but do not make curation depend on access to it.
 3. Write a concise `summary` that distinguishes the component. Add optional
    sections only when they change an agent's decision; do not repeat the summary
    in `useWhen` or add text merely to fill a section.
-4. Describe what props and visual variants enable without deciding when a
-   designer should choose them. Include prescriptive guidance only for component
-   selection, accessibility, implementation correctness, or an explicit Carbon
-   requirement.
+4. Metadata may condense Carbon documentation or supplement it with reviewed
+   design-system guidance. Do not contradict public component behaviour or
+   present a design recommendation as an enforced technical constraint. Preserve
+   whether the source describes a recommendation or requirement.
 5. Select only stories that demonstrate useful consumer behaviour. Playground
    stories are interactive documentation and should not be curated by default.
    A selected story must resolve to public consumer imports after generation,
@@ -66,10 +65,11 @@ and curated examples that retain source-relative imports.
 ## Completion checklist
 
 - The metadata adds decision-making value and contains no duplicated filler.
-- Guidance is grounded in Carbon documentation and behaviour rather than
-  inferred from the component name or API shape.
-- Visual variant guidance explains capability without making contextual design
-  decisions for the consumer.
+- Guidance is grounded in reviewed Carbon documentation, component behaviour, or
+  supplementary design-system guidance rather than inferred from the component
+  name or API shape.
+- Design guidance does not contradict public behaviour or overstate a
+  recommendation as a technical constraint.
 - Alternatives and selected stories use current, public APIs.
 - Curated examples are focused, accessible, syntactically valid, and readable
   without interpreting Storybook composition.
