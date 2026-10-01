@@ -1,6 +1,12 @@
 import React from "react";
 import Box, { BoxProps } from ".";
 
+const greenBackground: React.CSSProperties = {
+  width: "fit-content",
+  backgroundColor: "rgb(0, 125, 90)",
+  color: "rgb(255, 255, 255)",
+};
+
 export default {
   title: "Box/Test",
   includeStories: ["Default"],
@@ -11,12 +17,6 @@ export default {
     },
   },
   argTypes: {
-    scrollVariant: {
-      options: ["dark", "light"],
-      control: {
-        type: "select",
-      },
-    },
     boxSizing: {
       options: ["content-box", "border-box"],
       control: {
@@ -27,11 +27,6 @@ export default {
       options: ["break-word", "anywhere"],
       control: {
         type: "select",
-      },
-    },
-    tabIndex: {
-      control: {
-        type: "number",
       },
     },
     gap: {
@@ -50,27 +45,17 @@ export default {
         type: "text",
       },
     },
-    boxShadow: {
-      control: {
-        type: "text",
-      },
-    },
   },
 };
 
 export const Default = (props: Partial<BoxProps>) => {
   return (
-    <Box
-      m={3}
-      p={3}
-      width={400}
-      height={400}
-      data-element="box"
-      bg="primary"
-      color="white"
-      {...props}
-    >
-      This is some sample text
+    <Box m={3}>
+      <div style={greenBackground}>
+        <Box p={3} width={400} height={400} data-element="box" {...props}>
+          This is some sample text
+        </Box>
+      </div>
     </Box>
   );
 };

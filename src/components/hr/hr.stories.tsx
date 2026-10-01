@@ -9,6 +9,10 @@ import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
 
+const greenBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 126, 69)",
+};
+
 const styledSystemProps = generateStyledSystemProps(
   {
     margin: true,
@@ -55,13 +59,13 @@ export const InverseType: Story = () => {
   const heights = ["small", "medium", "large"] as const;
   return (
     <>
-      <Box backgroundColor="var(--colorsActionMajor500)">
+      <div style={greenBackground}>
         {heights.map((height) => (
           <Box key={height} mb={3}>
             <Hr type="inverse" height={height} />
           </Box>
         ))}
-      </Box>
+      </div>
     </>
   );
 };

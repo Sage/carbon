@@ -5,6 +5,15 @@ import Box from "../../box";
 import Icon from "../../icon";
 import { Loader } from "../../loader/__next__/loader.component";
 
+const darkGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-2-xs)",
+  display: "flex",
+  flexDirection: "row",
+  gap: "var(--global-space-layout-3-xs)",
+  alignItems: "flex-start",
+  backgroundColor: "rgb(51, 51, 51)",
+};
+
 const meta: Meta<typeof Button> = {
   title: "Button",
   component: Button,
@@ -144,14 +153,7 @@ FullWidth.storyName = "Full-Width";
 
 export const Inverse: Story = () => {
   return (
-    <Box
-      backgroundColor="#333"
-      p={2}
-      display="flex"
-      flexDirection="row"
-      gap={1}
-      alignItems="flex-start"
-    >
+    <div style={darkGreyBackground}>
       <Button variant="default" variantType="primary" size="medium" inverse>
         Primary Medium
       </Button>
@@ -164,7 +166,7 @@ export const Inverse: Story = () => {
       <Button variant="default" variantType="subtle" size="medium" inverse>
         Subtle Medium
       </Button>
-    </Box>
+    </div>
   );
 };
 Inverse.storyName = "Inverse";

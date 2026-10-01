@@ -730,12 +730,7 @@ description: Carbon Textarea component props and usage examples.
     setState(target.value);
   };
   return (
-    <Box
-      bg="var(--colorsUtilityMajor040)"
-      height={200}
-      width={800}
-      borderRadius="borderRadius200"
-    >
+    <div style={lightGreyBackground}>
       <Textarea
         label="Borderless Textarea"
         value={state}
@@ -744,7 +739,7 @@ description: Carbon Textarea component props and usage examples.
         hideBorders
         m={2}
       />
-    </Box>
+    </div>
   );
 }
 ```
