@@ -309,12 +309,7 @@ description: Carbon AdaptiveSidebar component props and usage examples.
     useState(defaultOpenState);
 
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      height="100%"
-      backgroundColor="#f2f5f6"
-    >
+    <div style={lightGreyBackground}>
       {CommonTemplate(adaptiveSidebarOpen, setAdaptiveSidebarOpen)}
 
       <AdaptiveSidebar
@@ -340,7 +335,7 @@ description: Carbon AdaptiveSidebar component props and usage examples.
           </Box>
         </Box>
       </AdaptiveSidebar>
-    </Box>
+    </div>
   );
 }
 ```

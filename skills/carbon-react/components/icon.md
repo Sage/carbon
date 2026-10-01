@@ -88,9 +88,9 @@ description: Carbon Icon component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box p={2} backgroundColor="#000000">
+    <div style={blackBackground}>
       <Icon type="add" inverse />
-    </Box>
+    </div>
   );
 }
 ```

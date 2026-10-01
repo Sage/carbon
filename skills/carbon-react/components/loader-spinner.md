@@ -111,15 +111,15 @@ description: Carbon LoaderSpinner component props and usage examples.
   <Box display="flex">
     <LoaderSpinner mx="3" showSpinnerLabel={false} variant="action" />
     <LoaderSpinner mx="3" showSpinnerLabel={false} variant="neutral" />
-    <Box backgroundColor="black">
+    <div style={blackBackground}>
       <LoaderSpinner mx="3" showSpinnerLabel={false} variant="inverse" />
-    </Box>
-    <Box backgroundColor="lightgrey">
+    </div>
+    <div style={lightGreyBackground}>
       <LoaderSpinner mx="3" showSpinnerLabel={false} variant="gradient-grey" />
-    </Box>
-    <Box backgroundColor="lightgrey">
+    </div>
+    <div style={lightGreyBackground}>
       <LoaderSpinner mx="3" showSpinnerLabel={false} variant="gradient-white" />
-    </Box>
+    </div>
   </Box>
 )
 ```
@@ -131,10 +131,10 @@ description: Carbon LoaderSpinner component props and usage examples.
 
 ```tsx
 () => (
-  <Box display="flex" backgroundColor="black" height="80px" width="220px" p={2}>
+  <div style={blackLoaderBackground}>
     <LoaderSpinner mx="3" variant="inverse" />
     <LoaderSpinner mx="3" variant="gradient-white" />
-  </Box>
+  </div>
 )
 ```
 

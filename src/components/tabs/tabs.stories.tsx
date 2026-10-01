@@ -10,6 +10,17 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Textbox from "../textbox";
 import { Tabs, Tab, TabsHandle } from ".";
 
+const lightGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-s)",
+  backgroundColor: "rgb(242, 245, 246)",
+};
+
+const whiteBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-s)",
+  height: "calc(100% - 64px)",
+  backgroundColor: "rgb(255, 255, 255)",
+};
+
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
@@ -116,7 +127,7 @@ ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const PositionedLeft: Story = () => {
   return (
-    <Box p="32px" bg="#f2f5f6">
+    <div style={lightGreyBackground}>
       <Tabs align="left" position="left">
         <Tab
           errorMessage="error"
@@ -126,9 +137,7 @@ export const PositionedLeft: Story = () => {
           title="Tab 1"
           key="tab-1"
         >
-          <Box bg="white" p="32px" height="calc(100% - 64px)">
-            Content for tab 1
-          </Box>
+          <div style={whiteBackground}>Content for tab 1</div>
         </Tab>
         <Tab
           errorMessage="error"
@@ -171,7 +180,7 @@ export const PositionedLeft: Story = () => {
           Content for tab 5
         </Tab>
       </Tabs>
-    </Box>
+    </div>
   );
 };
 PositionedLeft.storyName = "Positioned Left";

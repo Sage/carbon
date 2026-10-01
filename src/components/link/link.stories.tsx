@@ -6,6 +6,14 @@ import Box from "../box";
 import { Menu, MenuItem } from "../menu";
 import Typography from "../typography";
 
+const blackBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-2-xs)",
+  display: "flex",
+  flexDirection: "row",
+  gap: "var(--global-space-layout-s)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const meta: Meta<typeof Link> = {
   title: "Link",
   component: Link,
@@ -204,9 +212,9 @@ export const Inverse: Story = {
   },
   decorators: [
     (Story) => (
-      <Box p={2} display="flex" flexDirection="row" gap={4} bg="#000">
+      <div style={blackBackground}>
         <Story />
-      </Box>
+      </div>
     ),
   ],
 };

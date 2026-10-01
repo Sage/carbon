@@ -8,6 +8,26 @@ import Pill from "../pill";
 import Typography from "../typography";
 import Box from "../box";
 
+const yellowBackground: React.CSSProperties = {
+  display: "flex",
+  gridColumn: "1 / -1",
+  alignItems: "center",
+  paddingTop: "var(--global-space-layout-2-xs)",
+  paddingBottom: "var(--global-space-layout-2-xs)",
+  justifyContent: "space-between",
+  backgroundColor: "rgb(255, 255, 0)",
+};
+
+const yellowGreenBackground: React.CSSProperties = {
+  display: "flex",
+  gridColumn: "1 / -1",
+  alignItems: "baseline",
+  paddingTop: "var(--global-space-layout-2-xs)",
+  paddingBottom: "var(--global-space-layout-2-xs)",
+  justifyContent: "space-between",
+  backgroundColor: "rgb(173, 255, 47)",
+};
+
 export default {
   title: "Definition-list/Test",
   parameters: {
@@ -51,15 +71,7 @@ export const UsingBoxToOverrideBackgroundColor = () => (
         </Typography>
       </Dt>
       <Dd>Bar</Dd>
-      <Box
-        backgroundColor="yellow"
-        display="flex"
-        gridColumn="1 / -1"
-        alignItems="center"
-        py={2}
-        justifyContent="space-between"
-        data-element="box1"
-      >
+      <div data-element="box1" style={yellowBackground}>
         <Dt mb={0}>
           <Box display="inline-flex" alignItems="center">
             <Icon type="tick" mr={1} />
@@ -67,7 +79,7 @@ export const UsingBoxToOverrideBackgroundColor = () => (
           </Box>
         </Dt>
         <Dd mb={0}>Bar</Dd>
-      </Box>
+      </div>
       <Dt>
         <Pill>Foo</Pill>
       </Dt>
@@ -95,21 +107,13 @@ export const UsingBoxToOverrideBackgroundColor = () => (
         </Box>
       </Dt>
       <Dd>Bar</Dd>
-      <Box
-        backgroundColor="greenyellow"
-        display="flex"
-        gridColumn="1 / -1"
-        alignItems="baseline"
-        py={2}
-        justifyContent="space-between"
-        data-element="box2"
-      >
+      <div data-element="box2" style={yellowGreenBackground}>
         <Dt mb={0}>
           Foo
           <Typography mb={0}>(foo)</Typography>
         </Dt>
         <Dd>Bar</Dd>
-      </Box>
+      </div>
       <Box display="flex" gridColumn="1 / -1" justifyContent="space-between">
         <Dt>Foo</Dt>
         <Dd>Bar</Dd>

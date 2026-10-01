@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import Box from "../box";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import I18nProvider from "../i18n-provider";
 
 import Textarea from ".";
 import useMultiInput from "../../hooks/use-multi-input";
 import { CarbonProvider } from "../..";
+
+const lightGreyBackground: React.CSSProperties = {
+  borderRadius: "var(--global-radius-container-l)",
+  height: "200px",
+  width: "800px",
+  backgroundColor: "rgb(237, 241, 242)",
+};
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -327,12 +333,7 @@ export const BorderlessExample: Story = () => {
     setState(target.value);
   };
   return (
-    <Box
-      bg="var(--colorsUtilityMajor040)"
-      height={200}
-      width={800}
-      borderRadius="borderRadius200"
-    >
+    <div style={lightGreyBackground}>
       <Textarea
         label="Borderless Textarea"
         value={state}
@@ -341,7 +342,7 @@ export const BorderlessExample: Story = () => {
         hideBorders
         m={2}
       />
-    </Box>
+    </div>
   );
 };
 BorderlessExample.storyName = "Borderless Example";

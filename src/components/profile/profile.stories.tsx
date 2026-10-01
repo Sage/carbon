@@ -7,6 +7,26 @@ import Box from "../box";
 import Button from "../button/__next__";
 import Profile, { ProfileProps } from ".";
 
+const blackBackground: React.CSSProperties = {
+  borderRadius: "var(--global-radius-container-l)",
+  padding: "var(--global-space-layout-2-xs)",
+  width: "190px",
+  height: "50px",
+  display: "flex",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
+const customContentCard: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "flex-start",
+  width: "200px",
+  minHeight: "88px",
+  padding: "var(--global-space-layout-3-xs)",
+  boxShadow:
+    "0 3px 3px 0 rgba(0, 20, 30, 0.2), 0 2px 4px 0 rgba(0, 20, 30, 0.15)",
+};
+
 type ProfileVariant = NonNullable<ProfileProps["variant"]>;
 
 const PROFILE_VARIANTS: ProfileVariant[] = [
@@ -66,14 +86,7 @@ Variant.storyName = "Variant";
 
 export const DarkBackground: Story = () => {
   return (
-    <Box
-      p={2}
-      backgroundColor="black"
-      width="190px"
-      height="50px"
-      borderRadius="borderRadius200"
-      display="flex"
-    >
+    <div style={blackBackground}>
       <Profile
         darkBackground
         email="email@email.com"
@@ -81,7 +94,7 @@ export const DarkBackground: Story = () => {
         name="John Doe"
         text="+33 657 22 34 71"
       />
-    </Box>
+    </div>
   );
 };
 DarkBackground.storyName = "Dark Background";
@@ -184,15 +197,7 @@ Responsive.parameters = {
 
 export const WithCustomContent: Story = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      alignItems="flex-start"
-      boxShadow="boxShadow050"
-      width="200px"
-      minHeight="88px"
-      p={1}
-    >
+    <div style={customContentCard}>
       <Profile
         initials="JD"
         name="John Doe"
@@ -209,7 +214,7 @@ export const WithCustomContent: Story = () => {
           View profile
         </Button>
       </Profile>
-    </Box>
+    </div>
   );
 };
 WithCustomContent.storyName = "With Custom Content";

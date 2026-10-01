@@ -402,43 +402,25 @@ description: Carbon TextEditor component props and usage examples.
             <Typography variant="h4" mb={1}>
               HTML (with Classes)
             </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
+            <div style={transparentBackground}>
               {data?.htmlString || "No content"}
-            </Box>
+            </div>
           </Box>
           <Box>
             <Typography variant="h4" mb={1}>
               HTML (with Inline Styles)
             </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
+            <div style={transparentBackground}>
               {data?.htmlStringWithInlineStyles || "No content"}
-            </Box>
+            </div>
           </Box>
           <Box>
             <Typography variant="h4" mb={1}>
               JSON
             </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
+            <div style={transparentBackground}>
               {JSON.stringify(data?.json, null, 2) || "No content"}
-            </Box>
+            </div>
           </Box>
         </Box>
       )}
