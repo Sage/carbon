@@ -10,7 +10,11 @@ const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
 
-const meta: Meta<typeof Message> = {
+type MessageStoryArgs = React.ComponentProps<typeof Message> & {
+  dismissible?: boolean;
+};
+
+const meta: Meta<MessageStoryArgs> = {
   title: "Message",
   component: Message,
   parameters: {
@@ -28,19 +32,33 @@ const meta: Meta<typeof Message> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Message>;
+type Story = StoryObj<MessageStoryArgs>;
 
-export const Default: Story = {
-  render: (args) => <Message {...args}>Some custom message</Message>,
-};
-
-export const WithCloseButton: Story = {
-  render: (args) => (
-    <Message onDismiss={() => {}} {...args}>
-      Some custom message
+export const Playground: Story = {
+  render: ({ dismissible, ...args }) => (
+    <Message {...args} onDismiss={dismissible ? () => {} : undefined}>
+      {args.children}
     </Message>
   ),
+  args: {
+    children: "Some custom message",
+    variant: "info",
+    title: "",
+    open: true,
+    dismissible: false,
+    closeButtonAriaLabel: "Close message",
+    width: "100%",
+    size: "medium",
+  },
+  argTypes: {
+    dismissible: {
+      control: "boolean",
+      description: "Render the Message with a dismiss button",
+      table: { category: "Story" },
+    },
+  },
 };
+Playground.storyName = "Playground";
 
 export const ProgrammaticFocus: Story = () => {
   const [isOpenError, setIsOpenError] = useState(false);
@@ -85,105 +103,3 @@ export const ProgrammaticFocus: Story = () => {
   );
 };
 ProgrammaticFocus.storyName = "Programmatic Focus";
-
-export const WithTitle: Story = {
-  ...Default,
-  args: {
-    title: "Title",
-  },
-};
-
-export const Variant: Story = {
-  render: (args) => (
-    <>
-      <Message onDismiss={() => {}} variant="success" title="Success" {...args}>
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="error" title="Error" {...args}>
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="warning" title="Warning" {...args}>
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="info" title="Info" {...args}>
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="ai" title="AI" {...args}>
-        Some custom message
-      </Message>
-    </>
-  ),
-  args: {
-    mb: 2,
-  },
-  parameters: {
-    chromatic: { disableSnapshot: false },
-  },
-};
-
-export const SubtleVariant: Story = {
-  render: (args) => (
-    <>
-      <Message
-        onDismiss={() => {}}
-        variant="success-subtle"
-        title="Success"
-        {...args}
-      >
-        Some custom message
-      </Message>
-      <Message
-        onDismiss={() => {}}
-        variant="warning-subtle"
-        title="Warning"
-        {...args}
-      >
-        Some custom message
-      </Message>
-      <Message
-        onDismiss={() => {}}
-        variant="info-subtle"
-        title="Info"
-        {...args}
-      >
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="ai-subtle" title="AI" {...args}>
-        Some custom message
-      </Message>
-      <Message
-        onDismiss={() => {}}
-        variant="callout-subtle"
-        title="Callout"
-        {...args}
-      >
-        Some custom message
-      </Message>
-    </>
-  ),
-  args: {
-    mb: 2,
-  },
-  parameters: {
-    chromatic: { disableSnapshot: false },
-  },
-};
-
-export const SizeLarge: Story = {
-  render: (args) => (
-    <>
-      <Message onDismiss={() => {}} {...args}>
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="info-subtle" {...args}>
-        Some custom message
-      </Message>
-    </>
-  ),
-  args: {
-    title: "Large",
-    size: "large",
-    mb: 2,
-  },
-  parameters: { chromatic: { disableSnapshot: false } },
-};

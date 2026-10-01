@@ -17,8 +17,20 @@ const meta: Meta<typeof Icon> = {
   component: Icon,
   argTypes: {
     ...styledSystemProps,
+    type: {
+      options: Object.keys(ICONS),
+      control: { type: "select" },
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
     color: {
       options: ICON_COLOR_TYPES,
+      control: { type: "select" },
+    },
+    inverse: {
+      control: "boolean",
     },
   },
 };
@@ -26,84 +38,30 @@ const meta: Meta<typeof Icon> = {
 export default meta;
 type Story = StoryObj<typeof Icon>;
 
-export const Default: Story = () => {
-  return <Icon type="add" />;
-};
-Default.storyName = "Default";
-
-export const Sizes: Story = () => {
-  return (
-    <>
-      {(["small", "medium", "large"] as const).map((size) => (
-        <Icon type="add" size={size} key={size} />
-      ))}
-    </>
-  );
-};
-Sizes.storyName = "Sizes";
-
-export const Inverse: Story = () => {
-  return (
-    <Box p={2} backgroundColor="#000000">
-      <Icon type="add" inverse />
-    </Box>
-  );
-};
-Inverse.storyName = "Inverse";
-
-export const VariousBgShapes: Story = () => {
-  return (
-    <>
-      {(["circle", "rounded-rect", "square"] as const).map((bgShape) => (
-        <Icon type="add" bgShape={bgShape} bg="#00b000" mr={1} key={bgShape} />
-      ))}
-    </>
-  );
-};
-VariousBgShapes.storyName = "Various Background Shapes";
-
-export const VariousBgSizes: Story = () => {
-  return (
-    <>
-      {(["small", "medium", "large"] as const).map((bgSize) => (
-        <Icon type="add" bg="#00b000" bgSize={bgSize} mr={1} key={bgSize} />
-      ))}
-    </>
-  );
-};
-VariousBgSizes.storyName = "Various Background Sizes";
-
-export const BgSizesAndFontSizes: Story = () => {
-  return (
-    <>
-      {(["small", "medium", "large"] as const).map((fontSize) => {
-        return (["small", "medium", "large"] as const).map((bgSize) => (
-          <Icon
-            type="add"
-            bg="#00b000"
-            fontSize={fontSize}
-            bgSize={bgSize}
-            mr={1}
-            key={`${fontSize}_${bgSize}`}
-          />
-        ));
-      })}
-    </>
-  );
-};
-BgSizesAndFontSizes.storyName = "Background Sizes and Font Sizes";
-
-export const ColorPresets: Story = () => (
-  <Box display="flex" flexDirection="column" gap={1}>
-    {ICON_COLOR_TYPES.map((color) => (
-      <Box display="flex" alignItems="center" gap={1} key={color}>
-        <Icon type="add" color={color} />
-        <span>{color}</span>
+export const Playground: Story = {
+  render: (args) => <Icon {...args} />,
+  args: {
+    type: "add",
+    size: "medium",
+    color: "neutral",
+    inverse: false,
+  },
+  decorators: [
+    (Story, { args }) => (
+      <Box
+        p={2}
+        backgroundColor={
+          args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)"
+        }
+      >
+        <Story />
       </Box>
-    ))}
-  </Box>
-);
-ColorPresets.storyName = "Color Presets";
+    ),
+  ],
+};
+Playground.storyName = "Playground";
 
 export const ListOfIcons: Story = () => {
   return (

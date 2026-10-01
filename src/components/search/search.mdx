@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as SearchStories from "./search.stories";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
@@ -33,11 +33,28 @@ it provides a familiar input pattern with a built-in search button.
 import Search, { type SearchHandle, type SearchListGroup, type SearchListData } from "carbon-react/lib/components/search";
 ```
 
+## Playground
+
+Use this interactive example to explore Search props with Storybook controls.
+
+<Canvas of={SearchStories.Playground} />
+
+<Controls
+  of={SearchStories.Playground}
+  include={[
+    "label",
+    "inputHint",
+    "size",
+    "inputWidth",
+    "maxWidth",
+    "required",
+    "triggerOnClear",
+    "inverse",
+    "error",
+  ]}
+/>
+
 ## Examples
-
-### Default
-
-<Canvas of={SearchStories.Default} />
 
 ### With Dropdown
 
@@ -71,61 +88,21 @@ Each group in `listData` has the following shape:
 
 Each item within a group has the following shape:
 
-| Property      | Type              | Required | Description                                              |
-| ------------- | ----------------- | -------- | -------------------------------------------------------- |
-| `value`       | `string`          | Yes      | The value passed to `onListItemSelect` when chosen.      |
-| `label`       | `string`          | Yes      | The primary display text for the item.                   |
-| `labelPrefix` | `string`          | No       | An optional prefix rendered before the label.            |
-| `subtext`     | `string`          | No       | Secondary text rendered below the label.                 |
-| `selectedIcon`| `boolean`         | No       | Enables selected-state tick icon behavior for that item. |
-| `leading`     | `React.ReactNode` | No       | Optional leading slot content, e.g. an icon or avatar.  |
-| `disabled`    | `boolean`         | No       | When `true`, the item is non-interactive.                |
-| `id`          | `string`          | No       | Optional `id` attribute for the list item element.       |
-| `onClick`     | `(event, value) => void` | No | Optional per-item click handler.                         |
+| Property       | Type                     | Required | Description                                              |
+| -------------- | ------------------------ | -------- | -------------------------------------------------------- |
+| `value`        | `string`                 | Yes      | The value passed to `onListItemSelect` when chosen.      |
+| `label`        | `string`                 | Yes      | The primary display text for the item.                   |
+| `labelPrefix`  | `string`                 | No       | An optional prefix rendered before the label.            |
+| `subtext`      | `string`                 | No       | Secondary text rendered below the label.                 |
+| `selectedIcon` | `boolean`                | No       | Enables selected-state tick icon behavior for that item. |
+| `leading`      | `React.ReactNode`        | No       | Optional leading slot content, e.g. an icon or avatar.   |
+| `disabled`     | `boolean`                | No       | When `true`, the item is non-interactive.                |
+| `id`           | `string`                 | No       | Optional `id` attribute for the list item element.       |
+| `onClick`      | `(event, value) => void` | No       | Optional per-item click handler.                         |
 
 Search `"term"` below to see the dropdown in action.
 
 <Canvas of={SearchStories.WithDropdown} />
-
-### With Label and Hint Text
-
-You can pass a visible label and hint text to the `Search` component via the `label` & `inputHint` props.
-
-When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
-before any other announcements, which helps screen reader users understand the hint fully.
-
-<Canvas of={SearchStories.WithLabelAndInputHint} />
-
-### Sizes
-
-The `Search` component supports three size options: `"small"`, `"medium"`, and `"large"`.
-The size prop controls the height and spacing of both the input and button.
-
-<Canvas of={SearchStories.Sizes} />
-
-### Sizes with Dropdown
-
-Each size prop also controls the default max-height of the dropdown. Search `"term"` in any of the inputs below to see the dropdown in action.
-
-<Canvas of={SearchStories.SizesWithDropdown} />
-
-### Custom Width & Max Width
-
-You can set a custom width for the `Search` input by using `inputWidth` prop, or set a custom max-width using the `maxWidth` prop.
-
-<Canvas of={SearchStories.CustomWidths} />
-
-### Inverse
-
-The `Search` component can be styled to render on dark backgrounds by passing the `inverse` prop.
-
-<Canvas of={SearchStories.Inverse} />
-
-### Label Inline
-
-You can render the label inline with the input by passing the `labelInline` prop.
-
-<Canvas of={SearchStories.LabelInline} />
 
 ## Props
 
@@ -142,7 +119,8 @@ to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
   translationData={[
     {
       name: "search.searchButtonText",
-      description: "The text for the `Search` button (now only used as the default accessible name for the Search button if no `ariaLabel` prop is provided).",
+      description:
+        "The text for the `Search` button (now only used as the default accessible name for the Search button if no `ariaLabel` prop is provided).",
       type: "func",
       returnType: "string",
     },

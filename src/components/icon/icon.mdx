@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as IconStories from "./icon.stories";
 
@@ -22,8 +22,7 @@ Many other components allow you to specify one of the standard Carbon icons to a
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Examples](#examples)
-- [Color presets](#color-presets)
+- [Playground](#playground)
 - [Icon naming conventions](#icon-naming-conventions)
 - [List of icons](#list-of-icons)
 - [Props](#props)
@@ -34,44 +33,34 @@ Many other components allow you to specify one of the standard Carbon icons to a
 import Icon from "carbon-react/lib/components/icon";
 ```
 
-## Examples
+## Playground
 
-### Default
+Use this interactive example to explore Icon props with Storybook controls.
 
-<Canvas of={IconStories.Default} />
+The `color` control supports the semantic presets `neutral`, `subtle`,
+`caution`, `info`, `negative`, and `positive`.
 
-### Sizes
+<Canvas of={IconStories.Playground} />
 
-Use the `size` prop to control the Icon's rendered dimensions.
-
-<Canvas of={IconStories.Sizes} />
-
-### Inverse
-
-Use the `inverse` prop when rendering an Icon on a dark background.
-
-<Canvas of={IconStories.Inverse} />
-
-### Color presets
-
-Use the `color` prop to apply one of the supported semantic icon colors: `neutral`, `subtle`, `caution`, `info`, `negative`, or `positive`.
-
-<Canvas of={IconStories.ColorPresets} />
+<Controls
+  of={IconStories.Playground}
+  include={["type", "size", "color", "inverse"]}
+/>
 
 ## Icon naming conventions
 
 Icons use a `snake_case` naming convention and are organised into the following categories:
 
-| Category | Examples |
-|---|---|
-| **Navigation** | `arrow_*`, `chevron_*`, `caret_*`, `caret_large_*` |
-| **Actions** | `add`, `bin`, `close`, `copy`, `create`, `delete`, `drag`, `download`, `edit`, `export`, `filter`, `search`, `settings`, `upload` |
-| **Status** | `alert`, `blocked`, `double_tick`, `error`, `error_square`, `info`, `tick`, `warning` |
-| **Communication** | `call`, `chat`, `email`, `fax`, `message` |
-| **Finance** | `bank`, `cash`, `coins`, `credit_card`, `euro`, `receipt` |
-| **Social / App** | `app_facebook`, `app_instagram`, `app_tiktok`, `app_twitter`, `app_youtube` |
-| **Documents & Files** | `attach`, `document_*`, `file_*` |
-| **Charts** | `chart_bar`, `chart_bar_arrow_up`, `chart_line`, `chart_pie` |
+| Category              | Examples                                                                                                                          |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Navigation**        | `arrow_*`, `chevron_*`, `caret_*`, `caret_large_*`                                                                                |
+| **Actions**           | `add`, `bin`, `close`, `copy`, `create`, `delete`, `drag`, `download`, `edit`, `export`, `filter`, `search`, `settings`, `upload` |
+| **Status**            | `alert`, `blocked`, `double_tick`, `error`, `error_square`, `info`, `tick`, `warning`                                             |
+| **Communication**     | `call`, `chat`, `email`, `fax`, `message`                                                                                         |
+| **Finance**           | `bank`, `cash`, `coins`, `credit_card`, `euro`, `receipt`                                                                         |
+| **Social / App**      | `app_facebook`, `app_instagram`, `app_tiktok`, `app_twitter`, `app_youtube`                                                       |
+| **Documents & Files** | `attach`, `document_*`, `file_*`                                                                                                  |
+| **Charts**            | `chart_bar`, `chart_bar_arrow_up`, `chart_line`, `chart_pie`                                                                      |
 
 ## List of icons
 
