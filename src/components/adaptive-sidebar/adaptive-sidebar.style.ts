@@ -2,36 +2,37 @@ import styled, { css } from "styled-components";
 
 import { margin, MarginProps, padding, PaddingProps } from "styled-system";
 
-import Box from "../box";
 import Sidebar, { SidebarProps } from "../sidebar";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 import { AdaptiveSidebarProps } from "./adaptive-sidebar.component";
 
 import { getColors } from "./__internal__/utils";
 
-type StyledAdaptiveSidebarProps = Pick<
-  AdaptiveSidebarProps,
-  "backgroundColor" | "borderColor" | "height" | "width"
-> &
-  MarginProps &
+type StyledAdaptiveSidebarProps = MarginProps &
   PaddingProps & {
-    tabIndex: number;
+    $backgroundColor: AdaptiveSidebarProps["backgroundColor"];
+    $borderColor?: AdaptiveSidebarProps["borderColor"];
+    $height: AdaptiveSidebarProps["height"];
+    $width: AdaptiveSidebarProps["width"];
   };
 
-const StyledAdaptiveSidebar = styled(Box)<StyledAdaptiveSidebarProps>`
-  ${({ backgroundColor, borderColor, height, hidden, width }) => css`
-    ${getColors(backgroundColor)}
-    ${borderColor &&
+const StyledAdaptiveSidebar = styled.div.attrs(
+  applyBaseTheme,
+)<StyledAdaptiveSidebarProps>`
+  ${({ $backgroundColor, $borderColor, $height, hidden, $width }) => css`
+    ${getColors($backgroundColor)}
+    ${$borderColor &&
     css`
-      border-left: 1px solid var(${borderColor});
+      border-left: 1px solid var(${$borderColor});
     `}
     ${hidden &&
     css`
       display: none;
     `}
-    max-height: ${height};
-    max-width: ${width};
-    min-width: ${width};
+    max-height: ${$height};
+    max-width: ${$width};
+    min-width: ${$width};
     overflow-y: auto;
     outline: none;
 

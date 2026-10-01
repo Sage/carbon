@@ -237,14 +237,7 @@ description: Carbon Button component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box
-      backgroundColor="#333"
-      p={2}
-      display="flex"
-      flexDirection="row"
-      gap={1}
-      alignItems="flex-start"
-    >
+    <div style={darkGreyBackground}>
       <Button variant="default" variantType="primary" size="medium" inverse>
         Primary Medium
       </Button>
@@ -257,7 +250,7 @@ description: Carbon Button component props and usage examples.
       <Button variant="default" variantType="subtle" size="medium" inverse>
         Subtle Medium
       </Button>
-    </Box>
+    </div>
   );
 }
 ```
@@ -646,12 +639,7 @@ description: Carbon Button component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -718,7 +706,7 @@ description: Carbon Button component props and usage examples.
           Disabled, Destructive & White
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 }
 ```
@@ -871,12 +859,7 @@ description: Carbon Button component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -894,7 +877,7 @@ description: Carbon Button component props and usage examples.
           Large
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 }
 ```
@@ -907,12 +890,7 @@ description: Carbon Button component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -930,7 +908,7 @@ description: Carbon Button component props and usage examples.
           Large
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 }
 ```
@@ -943,12 +921,7 @@ description: Carbon Button component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -986,7 +959,7 @@ description: Carbon Button component props and usage examples.
           Medium
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 }
 ```
@@ -999,12 +972,7 @@ description: Carbon Button component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -1016,7 +984,7 @@ description: Carbon Button component props and usage examples.
           Full Width
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 }
 ```
@@ -1029,11 +997,11 @@ description: Carbon Button component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box backgroundColor="var(--colorsUtilityYin100)" width="80px">
+    <div style={narrowBlackBackground}>
       <Button my={2} buttonType="darkBackground" noWrap>
         Long button text
       </Button>
-    </Box>
+    </div>
   );
 }
 ```
