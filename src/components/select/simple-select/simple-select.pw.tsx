@@ -29,19 +29,19 @@ async function navigateAndConfirmSelection(
   highlightedOptions: string[],
 ) {
   await dropdownButton(page).click();
-  await expect(selectList(page)).toBeVisible();
+  await expect(page.getByRole("listbox")).toBeVisible();
 
-  const input = selectInput(page);
+  const input = page.getByRole("combobox");
   for (const option of highlightedOptions) {
     await input.press(key);
-    await expect(selectOptionByText(page, option)).toHaveAttribute(
-      "aria-selected",
+    await expect(page.getByRole("option", { name: option })).toHaveAttribute(
+      "data-has-focus",
       "true",
     );
   }
 
   await input.press("Enter");
-  await expect(selectList(page)).toBeHidden();
+  await expect(page.getByRole("listbox")).toBeHidden();
 }
 
 test.describe("SimpleSelect component", () => {
@@ -601,10 +601,6 @@ test.describe("Selection confirmed", () => {
     await mount(<SelectionConfirmed />);
 
     await navigateAndConfirmSelection(page, "ArrowDown", ["One"]);
-    await dropdownButton(page).click();
-    const inputElement = page.getByRole("combobox");
-    await inputElement.press("ArrowDown");
-    await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-1"]'),
     ).toBeVisible();
@@ -629,10 +625,6 @@ test.describe("Selection confirmed", () => {
     await mount(<SelectionConfirmed />);
 
     await navigateAndConfirmSelection(page, "ArrowUp", ["Nine"]);
-    await dropdownButton(page).click();
-    const inputElement = page.getByRole("combobox");
-    await inputElement.press("ArrowUp");
-    await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-9"]'),
     ).toBeVisible();
