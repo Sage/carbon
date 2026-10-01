@@ -1,19 +1,20 @@
 import styled, { css } from "styled-components";
 
+import { MenuVariantType } from "../menu.component";
 import { VariantType } from "../menu-item";
 import menuConfigVariants from "../menu.config";
 
 interface StyledTitleProps {
   $variant?: VariantType;
-  $menuVariant: "white" | "black";
+  $menuVariant: MenuVariantType;
   $shouldWrap?: boolean;
   $isInFullscreen?: boolean;
 }
 
 const StyledTitle = styled.h2<StyledTitleProps>`
   ${({ $menuVariant, $variant, $shouldWrap, $isInFullscreen }) => css`
-    margin: 0;
-    padding: 0 var(--global-space-comp-l);
+    margin: var(--global-space-none);
+    padding: var(--global-space-none) var(--global-space-comp-l);
     text-transform: uppercase;
     cursor: default;
     white-space: ${$shouldWrap ? "normal" : "nowrap"};

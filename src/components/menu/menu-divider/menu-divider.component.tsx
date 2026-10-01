@@ -12,7 +12,7 @@ export interface MenuDividerProps extends TagProps {
 
 const MenuDivider = React.forwardRef<HTMLDivElement, MenuDividerProps>(
   ({ size = "default", ...rest }: MenuDividerProps, ref) => {
-    const { variant, inFullscreenView } = useStrictMenuContext();
+    const { menuVariant, inFullscreenView } = useStrictMenuContext();
 
     return (
       <StyledMenuItem
@@ -24,7 +24,7 @@ const MenuDivider = React.forwardRef<HTMLDivElement, MenuDividerProps>(
         <StyledDivider
           $size={size}
           {...tagComponent("menu-divider", rest)}
-          $menuVariant={variant}
+          $menuVariant={menuVariant}
           $inFullscreenView={inFullscreenView}
           ref={ref}
         />

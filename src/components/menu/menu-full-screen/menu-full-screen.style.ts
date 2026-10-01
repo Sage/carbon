@@ -61,7 +61,7 @@ export const StyledMenuFullscreenHeader = styled.div<StyledMenuModalProps>`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0 var(--global-space-comp-l);
+    padding: var(--global-space-none) var(--global-space-comp-l);
     margin-bottom: var(--global-space-comp-s);
     background-color: ${menuConfigVariants[$menuVariant].fullScreenHeader};
   `}

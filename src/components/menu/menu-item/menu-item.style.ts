@@ -6,6 +6,7 @@ import menuConfigVariants from "../menu.config";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
+import { MenuVariantType } from "../menu.component";
 import { VariantType } from "./menu-item.component";
 
 export interface StyledMenuItemProps {
@@ -77,7 +78,7 @@ const popoverOpenButtonOverrides = css`
 `;
 
 export interface StyledMenuItemWrapperProps {
-  $menuVariant: "white" | "black";
+  $menuVariant: MenuVariantType;
   $selected?: boolean;
   $hasSubmenu?: boolean;
   $isOpen?: boolean;
@@ -105,6 +106,7 @@ export const StyledMenuItemWrapper = styled.a.attrs(
     $asDiv,
     $inSubmenu,
     $submenuMaxWidth,
+    theme,
   }) => css`
     position: relative;
     display: flex;
@@ -143,6 +145,7 @@ export const StyledMenuItemWrapper = styled.a.attrs(
     !$asDiv &&
     css`
       &:hover {
+        cursor: pointer;
         background-color: ${menuConfigVariants[$menuVariant].backgroundHover};
         color: ${menuConfigVariants[$menuVariant].colorHover};
       }
@@ -190,19 +193,17 @@ export const StyledMenuItemWrapper = styled.a.attrs(
     ${!$inFullscreenView &&
     css`
       ${$hasSubmenu &&
+      $isOpen &&
       css`
-        ${$isOpen &&
+        // render above submenu popover to prevent submenu box-shadow and border from being above item
+        z-index: calc(${theme.zIndex.popover} + 1);
+        background-color: ${menuConfigVariants[$menuVariant]
+          .submenuOpenedBackground};
+        ${$menuVariant === "white" &&
         css`
-          // render above submenu popover to prevent submenu box-shadow and border from being above item
-          z-index: 6001;
-          background-color: ${menuConfigVariants[$menuVariant]
-            .submenuOpenedBackground};
-          ${$menuVariant === "white" &&
-          css`
-            box-shadow:
-              inset 1px 0 0 var(--nav-tertiary-border-default),
-              inset -1px 0 0 var(--nav-tertiary-border-default);
-          `}
+          box-shadow:
+            inset 1px 0 0 var(--nav-tertiary-border-default),
+            inset -1px 0 0 var(--nav-tertiary-border-default);
         `}
       `}
 
@@ -224,7 +225,7 @@ export const StyledMenuItemWrapper = styled.a.attrs(
       `}
     `}
 
-    :has([data-component='popover-container']) {
+    &:has([data-component='popover-container']) {
       ${popoverOpenButtonOverrides}
     }
   `}
@@ -240,7 +241,6 @@ export const StyledMenuItemContent = styled.span<StyledMenuItemContentProps>`
     align-items: center;
     gap: var(--global-space-comp-s);
     width: 100%;
-    height: 100%;
 
     ${$hasMaxWidth &&
     css`

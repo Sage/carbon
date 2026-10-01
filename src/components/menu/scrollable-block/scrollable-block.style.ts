@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const StyledScrollableBlock = styled.li`
   [data-last-menu-item="true"] {
-    border-bottom-right-radius: 0;
+    border-bottom-right-radius: var(--global-radius-none);
   }
 `;
 
@@ -17,6 +17,7 @@ export const ScrollableContainer = styled.ul<ScrollableContainerProps>`
     margin: 0;
     padding: 0;
     overflow-y: scroll;
+    overscroll-behavior-y: none;
 
     ${$height &&
     css`

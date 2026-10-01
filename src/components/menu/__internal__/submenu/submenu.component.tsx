@@ -98,12 +98,8 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
     >(null);
     const submenuId = useRef(guid());
 
-    const {
-      inFullscreenView,
-      openSubmenuId,
-      setOpenSubmenuId,
-      variant: menuVariant,
-    } = useStrictMenuContext();
+    const { inFullscreenView, openSubmenuId, setOpenSubmenuId, menuVariant } =
+      useStrictMenuContext();
 
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusId, setSubmenuFocusId] = useState<string | null>(null);
@@ -265,7 +261,16 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
             nextIndex = numberOfChildren - 1;
           }
 
-          if (event.key.length === 1) {
+          const eventIsFromInput = Events.composedPath(event.nativeEvent).find(
+            (p) =>
+              p instanceof HTMLElement &&
+              (p.getAttribute("data-element") === "input" ||
+                p.getAttribute("data-element") === "input-icon-toggle"),
+          );
+
+          // characters typed into a nested input (e.g. Search) should not trigger
+          // menu item character navigation, which would steal focus from the input
+          if (event.key.length === 1 && !eventIsFromInput) {
             event.stopPropagation();
 
             if (characterTimer.current) {
@@ -278,13 +283,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
           } else {
             setCharacterString("");
           }
-
-          const eventIsFromInput = Events.composedPath(event.nativeEvent).find(
-            (p) =>
-              p instanceof HTMLElement &&
-              (p.getAttribute("data-element") === "input" ||
-                p.getAttribute("data-element") === "input-icon-toggle"),
-          );
 
           if (!eventIsFromInput) {
             if (Events.isEnterKey(event)) {

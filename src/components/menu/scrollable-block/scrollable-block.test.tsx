@@ -12,7 +12,7 @@ import {
 } from "../__internal__/strict-menu.context";
 
 const menuContextValues: StrictMenuContextType = {
-  variant: "white",
+  menuVariant: "white",
   setOpenSubmenuId: () => {},
   openSubmenuId: null,
 };
