@@ -59,9 +59,8 @@ const MenuFullscreenRoot = ({
   const contentRef = useRef<HTMLUListElement>(null);
   const isTopModal = useModalAria(modalRef);
 
-  const { variant } = useStrictMenuContext();
+  const { menuVariant } = useStrictMenuContext();
 
-  const isDarkVariant = variant === "black";
   const transitionDuration = 200;
   const locale = useLocale();
 
@@ -121,16 +120,16 @@ const MenuFullscreenRoot = ({
             data-component="menu-fullscreen"
             data-element={dataElement}
             data-role={dataRole}
-            $menuVariant={variant}
+            $menuVariant={menuVariant}
             ref={modalRef}
             role="dialog"
             tabIndex={-1}
           >
-            <StyledMenuFullscreenHeader $menuVariant={variant}>
+            <StyledMenuFullscreenHeader $menuVariant={menuVariant}>
               <Button
                 variantType="subtle"
                 size="small"
-                inverse={isDarkVariant}
+                inverse={Boolean(menuVariant === "black")}
                 aria-label={locale.menuFullscreen.ariaLabels.closeButton()}
                 onClick={(ev) =>
                   onClose(ev as React.MouseEvent<HTMLButtonElement>)
@@ -150,7 +149,7 @@ const MenuFullscreenRoot = ({
                 <StrictMenuProvider
                   value={{
                     inFullscreenView: true,
-                    variant,
+                    menuVariant,
                     openSubmenuId: null,
                     setOpenSubmenuId: /* istanbul ignore next */ () => {},
                   }}

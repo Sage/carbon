@@ -11,7 +11,7 @@ interface StyledDividerProps {
 const StyledDivider = styled.div<StyledDividerProps>`
   ${({ $menuVariant, $size, $inFullscreenView }) => css`
     background-color: ${menuConfigVariants[$menuVariant].divider};
-    margin: 0 var(--global-space-comp-l);
+    margin: var(--global-space-none) var(--global-space-comp-l);
     height: 1px;
 
     ${$inFullscreenView &&
@@ -21,7 +21,7 @@ const StyledDivider = styled.div<StyledDividerProps>`
 
     ${$size === "large" &&
     css`
-      margin: 0;
+      margin: var(--global-space-none);
       height: 4px;
     `}
   `}

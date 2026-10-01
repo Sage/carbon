@@ -192,7 +192,7 @@ export const MenuItem = forwardRef<
       unregisterItem,
       focusId,
       updateFocusId,
-      variant: menuVariant,
+      menuVariant,
     } = useStrictMenuContext();
 
     const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);

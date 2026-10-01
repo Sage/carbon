@@ -60,8 +60,10 @@ export const StyledSubmenu = styled.ul.attrs(
       z-index: ${theme.zIndex.popover};
       box-shadow: var(--global-depth-lvl1);
       width: max-content;
-      border-radius: 0 0 var(--global-radius-container-m)
-        var(--global-radius-container-m);
+      min-width: 100%;
+      box-sizing: border-box;
+      border-radius: var(--global-radius-none) var(--global-radius-none)
+        var(--global-radius-container-m) var(--global-radius-container-m);
       overflow-y: auto;
 
       ${$menuVariant === "white" &&

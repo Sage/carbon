@@ -36,7 +36,7 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
     }: MenuTitleProps,
     ref,
   ) => {
-    const { variant: menuVariant, inFullscreenView } = useStrictMenuContext();
+    const { menuVariant, inFullscreenView } = useStrictMenuContext();
     const { submenuMaxWidth } = useContext(SubmenuContext);
 
     return (

@@ -12,7 +12,7 @@ import Submenu from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 
 const menuContextValues: StrictMenuContextType = {
-  variant: "white",
+  menuVariant: "white",
   setOpenSubmenuId: () => {},
   openSubmenuId: null,
 };

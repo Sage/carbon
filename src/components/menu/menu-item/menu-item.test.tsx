@@ -1371,7 +1371,7 @@ describe("when MenuItem has a submenu", () => {
   it("should call the `handleKeyDown` function when one is passed via `submenuContext`", () => {
     const handleKeyDown = jest.fn();
     const contextValues: StrictMenuContextType = {
-      variant: "white",
+      menuVariant: "white",
       setOpenSubmenuId: () => {},
       openSubmenuId: null,
       registerItem: () => {},

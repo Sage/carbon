@@ -26,8 +26,8 @@ test("should map `menuType` 'light' to 'white' `variant", () => {
     </Menu>,
   );
 
-  const firstMenuItem = screen.getByTestId("menu-item-wrapper");
-  expect(firstMenuItem).toHaveStyleRule(
+  const menuItem = screen.getByRole("link");
+  expect(menuItem).toHaveStyleRule(
     "background-color",
     "var(--nav-tertiary-bg-default)",
   );
@@ -40,8 +40,8 @@ test("should map `menuType='white'` to 'white' `variant", () => {
     </Menu>,
   );
 
-  const firstMenuItem = screen.getByTestId("menu-item-wrapper");
-  expect(firstMenuItem).toHaveStyleRule(
+  const menuItem = screen.getByRole("link");
+  expect(menuItem).toHaveStyleRule(
     "background-color",
     "var(--nav-tertiary-bg-default)",
   );
@@ -54,8 +54,8 @@ test("should map `menuType='dark'` to 'black' `variant", () => {
     </Menu>,
   );
 
-  const firstMenuItem = screen.getByTestId("menu-item-wrapper");
-  expect(firstMenuItem).toHaveStyleRule(
+  const menuItem = screen.getByRole("link");
+  expect(menuItem).toHaveStyleRule(
     "background-color",
     "var(--nav-primary-bg-default)",
   );
@@ -68,8 +68,8 @@ test("should map `menuType='black'` to 'black' `variant", () => {
     </Menu>,
   );
 
-  const firstMenuItem = screen.getByTestId("menu-item-wrapper");
-  expect(firstMenuItem).toHaveStyleRule(
+  const menuItem = screen.getByRole("link");
+  expect(menuItem).toHaveStyleRule(
     "background-color",
     "var(--nav-primary-bg-default)",
   );

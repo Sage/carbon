@@ -11,6 +11,7 @@ import { MENU_ITEM_CHILDREN_LOCATOR } from "./__internal__/locators";
 
 /** @deprecated */
 export type MenuType = "light" | "dark" | "white" | "black";
+export type MenuVariantType = "white" | "black";
 
 export interface MenuProps
   extends TagProps,
@@ -31,7 +32,7 @@ export interface MenuProps
    */
   menuType?: MenuType;
   /** Set the color variant of the component */
-  variant?: "white" | "black";
+  variant?: MenuVariantType;
 }
 
 export const Menu = ({
@@ -96,7 +97,7 @@ export const Menu = ({
     >
       <StrictMenuProvider
         value={{
-          variant: computedVariant,
+          menuVariant: computedVariant,
           openSubmenuId,
           setOpenSubmenuId,
           focusId,

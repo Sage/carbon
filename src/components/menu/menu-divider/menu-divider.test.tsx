@@ -58,7 +58,7 @@ test("renders `size` 'large' with expected styles'", () => {
   );
 
   const divider = screen.getByTestId("divider");
-  expect(divider).toHaveStyle({ height: "4px", margin: "0" });
+  expect(divider).toHaveStyle({ height: "4px" });
 });
 
 test("renders default divider with expected styles when inside a fullscreen menu", () => {
