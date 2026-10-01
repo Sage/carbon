@@ -175,6 +175,11 @@ const preview: Preview = {
   argTypesEnhancers: [deprecatedJsDocArgTypesEnhancer],
   globalTypes,
   loaders,
+  initialGlobals: {
+    a11y: {
+      manual: true,
+    },
+  },
 };
 
 export default preview;
