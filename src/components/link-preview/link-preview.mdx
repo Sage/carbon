@@ -1,10 +1,21 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
 import * as LinkPreviewStories from "./link-preview.stories.tsx";
 
 <Meta of={LinkPreviewStories} />
 
 # LinkPreview
+
+<a
+  target="_blank"
+  href="https://designsystem.sage.com/fusion/latest/pages/components/link-preview"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
 
 ## Contents
 
@@ -18,33 +29,60 @@ import * as LinkPreviewStories from "./link-preview.stories.tsx";
 import LinkPreview from "carbon-react/lib/components/link-preview";
 ```
 
+This component is intended to provide a preview of a given Link within either `TextEditor` or `Note` components. 
+- To see an example of how this can be used within `TextEditor`, please see [this example](../?path=/docs/text-editor--docs#with-link-previews).
+- To see an example of how this can be used within `Note`, please see [this example](../?path=/docs/note--docs#with-previews).
+
 ## Examples
 
 ### Default
 
-By default the component will render an anchor element if it is not in a loading state. This means the whole component can
-be focused via tabbing and pressing enter or clicking will open the target in a new tab. The component surfaces a range of
-props which can be seen in the table below. If no `image` props are passed a placeholder will be used.
+To use this component, pass a `url` prop with the link you want to preview. 
+A `title`, `description` and `image` can also be passed to provide additional context for the link, 
+if no `image` is provided, a default placeholder will be used.
 
-<Canvas of={LinkPreviewStories.DefaultStory} />
+By default, the component will be rendered as an anchor element and will navigate to the provided `url` when clicked.
 
-### With loading state
+<Canvas of={LinkPreviewStories.Default} />
 
-If no `url` is passed or the `isLoading` prop is true the component will display in a loading state. When in this state, it
-renders as a `div` element: it cannot be focused via tabbing and clicking will not trigger anything.
+### Loading State
 
-<Canvas of={LinkPreviewStories.LinkPreviewLoadingState} />
+If no `url` is passed or the `isLoading` prop is true, the component will display in a loading state. 
+When in this state, the component will render as a `div` element.
 
-### With close icon
+<Canvas of={LinkPreviewStories.LoadingState} />
 
-If the component is rendered in edit mode as a `div` element, it is possible to pass an `onClose` callback which will render
-a close icon and pass the callback to it. The icon can be focused via tabbing and the callback will be triggered via click or
-via pressing enter or space when focused.
+### With Close Button
 
-<Canvas of={LinkPreviewStories.LinkPreviewCloseIcon} />
+If the component is rendered as a `div` element, it is possible to pass an `onClose` callback which will render a close button and pass the callback to it. 
+
+<Canvas of={LinkPreviewStories.WithCloseButton} />
+
+### Sizes
+
+The `size` prop can be used to control the size of the component.
+
+<Canvas of={LinkPreviewStories.Sizes} />
 
 ## Props
 
 ### LinkPreview
 
 <ArgTypes of={LinkPreviewStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "linkPreview.closeButtonAriaLabel",
+      description:
+        "The aria label of the close button.",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
