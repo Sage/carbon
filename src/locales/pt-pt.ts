@@ -110,6 +110,9 @@ const ptPT: Partial<Locale> = {
   link: {
     skipLinkLabel: () => "Ir para o conteúdo principal",
   },
+  linkPreview: {
+    closeButtonAriaLabel: () => "Fechar",
+  },
   loader: {
     loading: () => "A carregar...",
   },

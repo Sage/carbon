@@ -109,6 +109,9 @@ const frCA: Partial<Locale> = {
   link: {
     skipLinkLabel: () => "Passer au contenu principal",
   },
+  linkPreview: {
+    closeButtonAriaLabel: () => "Fermer",
+  },
   loader: {
     loading: () => "Chargement...",
   },

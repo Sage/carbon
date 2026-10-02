@@ -19,7 +19,8 @@ description: Carbon LinkPreview component props and usage examples.
 | description | string \| undefined | No |  | The description to be displayed |  |
 | image | ImageShape \| undefined | No |  | The config for the image to be displayed |  |
 | isLoading | boolean \| undefined | No |  | Flag to trigger the loading animation |  |
-| onClose | ((url?: string) => void) \| undefined | No |  | The callback to handle the deleting of a Preview, to hide the close button do not set this prop |  |
+| onClose | ((url?: string) => void) \| undefined | No |  | The callback for the close button. The button is rendered when this is set alongside `as="div"`. |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  | Set the component's size. | "medium" |
 | title | string \| undefined | No |  | The title to be displayed |  |
 | url | string \| undefined | No |  | The url string to be displayed and to serve as the link's src |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -28,47 +29,78 @@ description: Carbon LinkPreview component props and usage examples.
 ## Examples
 ### Default
 
+**Args**
+
+```tsx
+{
+    title: "Title",
+    url: "https://carbon.sage.com",
+    description: "Description",
+    image: { url: carbonLogo, alt: "Carbon logo" },
+  }
+```
+
 **Render**
 
 ```tsx
-() => {
-  return (
-    <LinkPreview
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets?"
-    />
-  );
-}
+(args) => <LinkPreview {...args} />
 ```
 
 
-### Link Preview Loading State
+### LoadingState
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  return <LinkPreview isLoading />;
-}
+{
+    ...Default.args,
+    isLoading: true,
+  }
 ```
 
 
-### Link Preview Close Icon
+### WithCloseButton
+
+**Args**
+
+```tsx
+{
+    ...Default.args,
+    as: "div",
+  }
+```
 
 **Render**
 
 ```tsx
-() => {
-  return (
+(args) => (
     <LinkPreview
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets?"
-      as="div"
-      onClose={(url) => action("close icon clicked")(url)}
+      onClose={(url) => action("close button clicked")(url)}
+      {...args}
     />
-  );
-}
+  )
+```
+
+
+### Sizes
+
+**Args**
+
+```tsx
+{
+    ...Default.args,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <>
+      <LinkPreview size="small" {...args} />
+      <LinkPreview size="medium" {...args} />
+      <LinkPreview size="large" {...args} />
+    </>
+  )
 ```
 
