@@ -16,7 +16,7 @@ description: Carbon TableBody component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | The content of the table body. |  |
-| getOrder | ((draggableItemIds?: (string \| number \| undefined)[]) => void) \| undefined | No |  | Callback function that provides the current order of draggable item IDs. |  |
+| getOrder | ((draggableItemIds: string[]) => void) \| undefined | No |  | Callback function that provides the current order of draggable item IDs. |  |
 
 ## Examples
 ### Default

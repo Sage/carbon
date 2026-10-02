@@ -458,7 +458,6 @@ export const SortableTableComponent = () => {
             id="sortable-head-product"
             sortType={sortColumn === "product" ? sortDirection : "unsorted"}
             onSort={() => handleSort("product")}
-            aria-sort={sortColumn === "product" ? sortDirection : "none"}
           >
             Product
           </TableHeader>
@@ -466,7 +465,6 @@ export const SortableTableComponent = () => {
             id="sortable-head-price"
             sortType={sortColumn === "price" ? sortDirection : "unsorted"}
             onSort={() => handleSort("price")}
-            aria-sort={sortColumn === "price" ? sortDirection : "none"}
           >
             Price
           </TableHeader>

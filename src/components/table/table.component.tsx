@@ -17,7 +17,10 @@ import {
 export type BorderThickness = "none" | "small" | "medium" | "large";
 
 export interface TableProps
-  extends Pick<React.TableHTMLAttributes<HTMLTableElement>, "summary"> {
+  extends Pick<
+    React.TableHTMLAttributes<HTMLTableElement>,
+    "summary" | "aria-label" | "aria-labelledby" | "aria-describedby"
+  > {
   /**
    * The content of the table.
    */

@@ -29,6 +29,9 @@ description: Carbon Table component props and usage examples.
 | summary | string \| undefined | No |  |  |  |
 | variant | "prominent" \| "subtle-white" \| "subtle-grey" \| undefined | No |  | The variant of the table. | "prominent" |
 | verticalBorderThickness | BorderThickness \| undefined | No |  | The thickness of the vertical borders within the table. | "small" |
+| aria-describedby | string \| undefined | No |  | Identifies the element (or elements) that describes the object. |  |
+| aria-label | string \| undefined | No |  | Defines a string value that labels the current element. |  |
+| aria-labelledby | string \| undefined | No |  | Identifies the element (or elements) that labels the current element. |  |
 
 ## Examples
 ### SortByPriceDescending
@@ -231,7 +234,7 @@ description: Carbon Table component props and usage examples.
                   }
                   data-component="table-cell-select-checkbox"
                   data-role="table-cell-select-checkbox"
-                  aria-labelledby="playground-head-select"
+                  aria-labelledby="playground-head-product"
                 />
               </TableHeader>
             )}
@@ -359,7 +362,7 @@ description: Carbon Table component props and usage examples.
                     onClick={(ev) => ev.stopPropagation()}
                     data-component="table-cell-select-checkbox"
                     data-role="table-cell-select-checkbox"
-                    aria-labelledby={`playground-body-select-${id}`}
+                    aria-labelledby={`playground-body-product-${id}`}
                   />
                 </TableCell>
               )}

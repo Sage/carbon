@@ -14,6 +14,7 @@ import {
 } from "../__internal__/drag-drop";
 import { TableRowProps } from "../table-row/table-row.component";
 import flattenChildren from "../__internal__/utils";
+import TableBodyContext from "../../../__internal__/table-body-context";
 
 const StyledTableBody = styled.tbody``;
 
@@ -28,7 +29,7 @@ export interface TableBodyProps {
   /**
    * Callback function that provides the current order of draggable item IDs.
    */
-  getOrder?: (draggableItemIds?: (string | number | undefined)[]) => void;
+  getOrder?: (draggableItemIds: string[]) => void;
 }
 
 const DraggableTableBodyInner = ({
@@ -39,18 +40,20 @@ const DraggableTableBodyInner = ({
 } & Omit<React.ComponentPropsWithoutRef<"tbody">, "children">) => {
   return (
     <StyledTableBody {...props} data-role="draggable-table-body">
-      {draggableItems.map((child, index) => {
-        /* istanbul ignore if */
-        if (!React.isValidElement<TableRowProps>(child)) return null;
+      <TableBodyContext.Provider value={{ isInTable: true }}>
+        {draggableItems.map((child, index) => {
+          /* istanbul ignore if */
+          if (!React.isValidElement<TableRowProps>(child)) return null;
 
-        const rowId = `${child.props.id}`;
+          const rowId = `${child.props.id}`;
 
-        return React.cloneElement(child, {
-          key: rowId,
-          id: rowId,
-          draggableProps: { index },
-        });
-      })}
+          return React.cloneElement(child, {
+            key: rowId,
+            id: rowId,
+            draggableProps: { index },
+          });
+        })}
+      </TableBodyContext.Provider>
     </StyledTableBody>
   );
 };
@@ -135,7 +138,13 @@ const TableBody = ({ children, getOrder, ...props }: TableBodyProps) => {
     );
   }
 
-  return <StyledTableBody {...props}>{children}</StyledTableBody>;
+  return (
+    <StyledTableBody {...props}>
+      <TableBodyContext.Provider value={{ isInTable: true }}>
+        {children}
+      </TableBodyContext.Provider>
+    </StyledTableBody>
+  );
 };
 
 export default TableBody;

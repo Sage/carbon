@@ -36,7 +36,7 @@ import {
   getItems,
   checkChildrenForString,
 } from "./__internal__/action-popover.utils";
-import FlatTableContext from "../flat-table/__internal__/flat-table.context";
+import TableBodyContext from "../../__internal__/table-body-context";
 
 export interface RenderButtonProps {
   tabIndex: number;
@@ -113,7 +113,7 @@ export const ActionPopover = forwardRef<
     const [guid] = useState(createGuid());
     const buttonRef = useRef<HTMLDivElement>(null);
     const menu = useRef<HTMLUListElement>(null);
-    const { isInFlatTable } = useContext(FlatTableContext);
+    const { isInTable } = useContext(TableBodyContext);
 
     const [selectedSubmenuRef, setSelectedSubmenuRef] =
       useState<HTMLUListElement | null>(null);
@@ -375,7 +375,7 @@ export const ActionPopover = forwardRef<
             <Popover
               placement={mappedPlacement}
               reference={buttonRef}
-              disableBackgroundUI={isInFlatTable}
+              disableBackgroundUI={isInTable}
               portalTarget={popoverTarget}
             >
               <ActionPopoverMenu

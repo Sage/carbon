@@ -117,7 +117,7 @@ Horizontal scrolling applies to the whole table, including its sticky columns, a
 
 ## Sticky rows
 
-Use a sticky `header` to keep column headings visible while users move through longer tables. The vertical scrolling relies on the viewport so that it works on mobile screens as well.
+Use a sticky `header` to keep column headings visible while users move through longer tables. Without `maxHeight`, vertical scrolling relies on the viewport; setting `maxHeight` creates an internal scroll container.
 
 Although `stickyRow` supports a `footer` or `both` rows for specialist cases, the recommended pattern is a sticky header only. Avoid sticky footers and internally scrolling tables where possible, as they can introduce nested scrolling regions that are difficult for keyboard and screen-reader users to navigate.
 

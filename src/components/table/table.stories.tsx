@@ -467,7 +467,7 @@ export const Playground: Story = {
                   }
                   data-component="table-cell-select-checkbox"
                   data-role="table-cell-select-checkbox"
-                  aria-labelledby="playground-head-select"
+                  aria-labelledby="playground-head-product"
                 />
               </TableHeader>
             )}
@@ -595,7 +595,7 @@ export const Playground: Story = {
                     onClick={(ev) => ev.stopPropagation()}
                     data-component="table-cell-select-checkbox"
                     data-role="table-cell-select-checkbox"
-                    aria-labelledby={`playground-body-select-${id}`}
+                    aria-labelledby={`playground-body-product-${id}`}
                   />
                 </TableCell>
               )}
