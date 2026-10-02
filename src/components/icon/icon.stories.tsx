@@ -8,6 +8,11 @@ import Box from "../box";
 
 import { ICONS } from "./icon-config";
 
+const blackBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
@@ -44,9 +49,9 @@ Sizes.storyName = "Sizes";
 
 export const Inverse: Story = () => {
   return (
-    <Box p={2} backgroundColor="#000000">
+    <div style={blackBackground}>
       <Icon type="add" inverse />
-    </Box>
+    </div>
   );
 };
 Inverse.storyName = "Inverse";

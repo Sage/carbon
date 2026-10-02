@@ -27,6 +27,11 @@ import Textbox from "../textbox";
 import Divider from "./divider.component";
 import Typography from "../typography";
 
+const blackBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-m)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const styledSystemProps = generateStyledSystemProps(
   {
     spacing: true,
@@ -118,7 +123,7 @@ Variants.storyName = "Variants";
 
 export const Inverse: Story = () => {
   return (
-    <Box bg="#000000" p={5}>
+    <div style={blackBackground}>
       <Typography inverse>Typical (default)</Typography>
       <Box display="inline-flex">
         <Square />
@@ -147,7 +152,7 @@ export const Inverse: Story = () => {
         <Square />
         <Divider variant="prominent" inverse />
       </Box>
-    </Box>
+    </div>
   );
 };
 Inverse.storyName = "Inverse";

@@ -4,6 +4,18 @@ import Button from ".";
 import Box from "../box";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
+const blackBackground: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
+const narrowBlackBackground: React.CSSProperties = {
+  width: "80px",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const styledSystemProps = generateStyledSystemProps(
   {
     spacing: true,
@@ -219,12 +231,7 @@ SecondaryButtonNoWrap.storyName = "Secondary/No Wrap";
 
 export const SecondaryButtonWhite: Story = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -291,7 +298,7 @@ export const SecondaryButtonWhite: Story = () => {
           Disabled, Destructive & White
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 };
 SecondaryButtonWhite.storyName = "Secondary/White";
@@ -403,12 +410,7 @@ TertiaryButtonNoWrap.storyName = "Tertiary/No Wrap";
 
 export const DarkBackgroundButton: Story = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -426,7 +428,7 @@ export const DarkBackgroundButton: Story = () => {
           Large
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 };
 DarkBackgroundButton.storyName = "Dark Background";
@@ -434,12 +436,7 @@ DarkBackgroundButton.parameters = { chromatic: { disableSnapshot: false } };
 
 export const DarkBackgroundButtonDisabled: Story = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -457,7 +454,7 @@ export const DarkBackgroundButtonDisabled: Story = () => {
           Large
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 };
 DarkBackgroundButtonDisabled.storyName = "Dark Background/Disabled";
@@ -467,12 +464,7 @@ DarkBackgroundButtonDisabled.parameters = {
 
 export const DarkBackgroundButtonIcon: Story = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -510,7 +502,7 @@ export const DarkBackgroundButtonIcon: Story = () => {
           Medium
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 };
 DarkBackgroundButtonIcon.storyName = "Dark Background/Icon";
@@ -518,12 +510,7 @@ DarkBackgroundButtonIcon.parameters = { chromatic: { disableSnapshot: false } };
 
 export const DarkBackgroundButtonFullWidth: Story = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackBackground}>
       <Box
         height="80px"
         display="flex"
@@ -535,7 +522,7 @@ export const DarkBackgroundButtonFullWidth: Story = () => {
           Full Width
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 };
 DarkBackgroundButtonFullWidth.storyName = "Dark Background/Full Width";
@@ -545,11 +532,11 @@ DarkBackgroundButtonFullWidth.parameters = {
 
 export const DarkBackgroundButtonNoWrap: Story = () => {
   return (
-    <Box backgroundColor="var(--colorsUtilityYin100)" width="80px">
+    <div style={narrowBlackBackground}>
       <Button my={2} buttonType="darkBackground" noWrap>
         Long button text
       </Button>
-    </Box>
+    </div>
   );
 };
 DarkBackgroundButtonNoWrap.storyName = "Dark Background/No Wrap";

@@ -9,7 +9,39 @@ import {
   testStyledSystemGrid,
   testStyledSystemPosition,
 } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 import Box from "./box.component";
+
+test("does not log a deprecation warning when Box uses a supported as prop", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <Box as="div" />
+      <Box as="span" />
+    </>,
+  );
+
+  expect(loggerSpy).not.toHaveBeenCalled();
+  loggerSpy.mockRestore();
+});
+
+test("logs a deprecation warning only once when two Boxes use an unsupported as prop", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <Box as="section" />
+      <Box as="section" />
+    </>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The value 'section' for the 'as' prop is deprecated and will soon be removed. Please use 'div' or 'span' instead.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+  loggerSpy.mockRestore();
+});
 
 testStyledSystemSpacing(
   (props) => <Box data-role="box" {...props} />,

@@ -135,14 +135,14 @@ description: Carbon Pill component props and usage examples.
 ```tsx
 (args) => {
     return (
-      <Box backgroundColor="#262626" p={2} display="flex" gap={1}>
+      <div style={darkGreyBackground}>
         <Pill {...args} inverse>
           {args.children}
         </Pill>
         <Pill {...args} inverse fill>
           {args.children}
         </Pill>
-      </Box>
+      </div>
     );
   }
 ```

@@ -23,6 +23,15 @@ import {
   TileHeader,
 } from ".";
 
+const lightGreyBackground: React.CSSProperties = {
+  backgroundColor: "rgb(222, 222, 222)",
+};
+
+const fullWidthLightGreyBackground: React.CSSProperties = {
+  width: "100%",
+  backgroundColor: "rgb(222, 222, 222)",
+};
+
 const styledSystemProps = generateStyledSystemProps(
   {
     spacing: true,
@@ -853,17 +862,17 @@ export const CustomGaps: Story = () => {
         <FlexTileContainer>
           <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
             <FlexTileDivider />
-            <Box backgroundColor="#dedede">Test Body One</Box>
+            <div style={lightGreyBackground}>Test Body One</div>
           </FlexTileCell>
           <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
             <FlexTileDivider />
-            <Box backgroundColor="#dedede">Test Body Two</Box>
+            <div style={lightGreyBackground}>Test Body Two</div>
           </FlexTileCell>
           <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
             <FlexTileDivider />
-            <Box backgroundColor="#dedede">
+            <div style={lightGreyBackground}>
               Test Body Three With a very very long text
-            </Box>
+            </div>
           </FlexTileCell>
         </FlexTileContainer>
       </Tile>
@@ -871,17 +880,17 @@ export const CustomGaps: Story = () => {
         <FlexTileContainer columnGap={6}>
           <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
             <FlexTileDivider />
-            <Box backgroundColor="#dedede">Test Body One</Box>
+            <div style={lightGreyBackground}>Test Body One</div>
           </FlexTileCell>
           <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
             <FlexTileDivider />
-            <Box backgroundColor="#dedede">Test Body Two</Box>
+            <div style={lightGreyBackground}>Test Body Two</div>
           </FlexTileCell>
           <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
             <FlexTileDivider />
-            <Box backgroundColor="#dedede">
+            <div style={lightGreyBackground}>
               Test Body Three With a very very long text
-            </Box>
+            </div>
           </FlexTileCell>
         </FlexTileContainer>
       </Tile>
@@ -896,39 +905,27 @@ export const FixedContainers: Story = () => {
       <FlexTileContainer>
         <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Fixed fit-content
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Fixed fit-content</div>
         </FlexTileCell>
         <FlexTileCell flexGrow={0} flexBasis="80px" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Fixed 80px
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Fixed 80px</div>
         </FlexTileCell>
         <FlexTileCell flexGrow={0} flexBasis="120px" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Fixed 120px
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Fixed 120px</div>
         </FlexTileCell>
         <FlexTileCell flexGrow={0} flexBasis="160px" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Fixed 160px
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Fixed 160px</div>
         </FlexTileCell>
         <FlexTileCell flexGrow={0} flexBasis="200px" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Fixed 200px
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Fixed 200px</div>
         </FlexTileCell>
         <FlexTileCell flexGrow={0} flexBasis="240px" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Fixed 240px
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Fixed 240px</div>
         </FlexTileCell>
       </FlexTileContainer>
     </Tile>
@@ -942,33 +939,25 @@ export const FlexContainers: Story = () => {
       <FlexTileContainer>
         <FlexTileCell flexBasis="80px" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Flex 80px
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Flex 80px</div>
         </FlexTileCell>
         <FlexTileCell flexBasis="120px" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Flex 120px
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Flex 120px</div>
         </FlexTileCell>
         <FlexTileCell flexBasis="160px" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Flex 160px
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Flex 160px</div>
         </FlexTileCell>
         <FlexTileCell flexBasis="200px" py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Flex 200px
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Flex 200px</div>
         </FlexTileCell>
         <FlexTileCell flexBasis="240px" py={2} maxWidth="400px">
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
+          <div style={fullWidthLightGreyBackground}>
             Flex 240px - maxWidth 400px
-          </Box>
+          </div>
         </FlexTileCell>
       </FlexTileContainer>
     </Tile>
@@ -982,21 +971,15 @@ export const ProportionateWidths: Story = () => {
       <FlexTileContainer>
         <FlexTileCell flexGrow={1} py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Flex 160px normal
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Flex 160px normal</div>
         </FlexTileCell>
         <FlexTileCell flexGrow={2} py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Flex 160px wide
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Flex 160px wide</div>
         </FlexTileCell>
         <FlexTileCell flexGrow={3} py={2}>
           <FlexTileDivider />
-          <Box backgroundColor="#dedede" width="100%">
-            Flex 160px extra-wide
-          </Box>
+          <div style={fullWidthLightGreyBackground}>Flex 160px extra-wide</div>
         </FlexTileCell>
       </FlexTileContainer>
     </Tile>

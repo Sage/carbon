@@ -2,7 +2,13 @@ import React from "react";
 import Loader, { LoaderProps } from ".";
 import Button from "../button";
 import { LOADER_SIZES } from "./loader.config";
-import Box from "../box";
+
+const blackBackground: React.CSSProperties = {
+  marginTop: "var(--global-space-layout-2-xs)",
+  padding: "var(--global-space-layout-2-xs)",
+  width: "fit-content",
+  backgroundColor: "rgb(0, 0, 0)",
+};
 
 export default {
   title: "Deprecated/Loader/Test",
@@ -98,11 +104,11 @@ export const InsideButtons = () => {
       <Button ml={2} buttonType="secondary" aria-label="Loading">
         <Loader isInsideButton />
       </Button>
-      <Box id="dark-background" mt={2} p={2} width="fit-content" bg="#000000">
+      <div id="dark-background" style={blackBackground}>
         <Button m={2} buttonType="darkBackground" aria-label="Loading">
           <Loader isInsideButton />
         </Button>
-      </Box>
+      </div>
     </>
   );
 };

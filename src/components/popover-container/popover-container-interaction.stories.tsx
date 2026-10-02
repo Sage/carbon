@@ -17,6 +17,18 @@ import Typography from "../typography";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 
+const greenBackground: React.CSSProperties = {
+  borderRadius:
+    "var(--global-radius-none) var(--global-radius-none) var(--global-radius-container-l) var(--global-radius-container-l)",
+  display: "flex",
+  padding: "var(--global-space-layout-xs) var(--global-space-layout-s)",
+  boxSizing: "border-box",
+  marginLeft: "0",
+  maxHeight: "410px",
+  overflowY: "auto",
+  backgroundColor: "rgb(0, 126, 69)",
+};
+
 type Story = StoryObj<typeof PopoverContainer>;
 
 export default {
@@ -185,18 +197,15 @@ const CreatePopoverInMenu = () => {
               </Box>
             )}
           >
-            <Box
-              display="flex"
-              flexDirection={!isMid ? "row" : "column"}
-              gap={!isMid ? "64px" : "24px"}
-              padding="24px 32px"
-              borderRadius="borderRadius000 borderRadius000 borderRadius200 borderRadius200"
-              backgroundColor="var(--colorsActionMajor500)"
-              boxSizing="border-box"
-              marginLeft="0"
-              maxHeight="410px"
-              overflowY="auto"
-              {...(isSmall && { width: "100vw" })}
+            <div
+              style={{
+                ...greenBackground,
+                flexDirection: isMid ? "column" : "row",
+                gap: isMid
+                  ? "var(--global-space-layout-xs)"
+                  : "var(--global-space-layout-2-xl)",
+                width: isSmall ? "100vw" : "auto",
+              }}
             >
               <Box
                 display="flex"
@@ -256,7 +265,7 @@ const CreatePopoverInMenu = () => {
                   </Box>
                 </Box>
               </Box>
-            </Box>
+            </div>
           </PopoverContainer>
         </MenuItem>
       </Menu>
