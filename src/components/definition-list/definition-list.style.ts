@@ -56,7 +56,6 @@ export const StyledDt = styled.dt.attrs(applyBaseTheme)<
   ${space}
   font: var(--global-font-static-comp-medium-s);
   color: var(--container-standard-txt-default);
-  max-width: var(--container-size-layout-maxwidth-s);
 
   ${({ asSingleColumn }) =>
     !asSingleColumn &&
@@ -66,6 +65,22 @@ export const StyledDt = styled.dt.attrs(applyBaseTheme)<
   ${({ dtTextAlign }) => css`
     text-align: ${dtTextAlign};
   `}
+
+  > [data-element="dt-content"] {
+    max-width: var(--container-size-layout-maxwidth-s);
+
+    ${({ dtTextAlign }) =>
+      dtTextAlign === "center" &&
+      css`
+        margin-inline: auto;
+      `}
+
+    ${({ dtTextAlign }) =>
+      dtTextAlign === "right" &&
+      css`
+        margin-left: auto;
+      `}
+  }
 `;
 
 export const StyledDd = styled.dd<
@@ -75,7 +90,6 @@ export const StyledDd = styled.dd<
   ${space}
   font: var(--global-font-static-comp-regular-s);
   color: var(--container-standard-txt-default);
-  max-width: var(--container-size-layout-maxwidth-s);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -92,6 +106,19 @@ export const StyledDd = styled.dd<
   > [data-element="dd-content"] {
     flex: 1;
     min-width: 0;
+    max-width: var(--container-size-layout-maxwidth-s);
+
+    ${({ ddTextAlign }) =>
+      ddTextAlign === "center" &&
+      css`
+        margin-inline: auto;
+      `}
+
+    ${({ ddTextAlign }) =>
+      ddTextAlign === "right" &&
+      css`
+        margin-left: auto;
+      `}
   }
 
   > [data-element="dd-right-children"] {

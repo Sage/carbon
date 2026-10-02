@@ -23,7 +23,7 @@ const Dt = ({ children, pr, ...rest }: DtProps) => {
       {...rest}
       {...tagComponent("dt", rest)}
     >
-      {children}
+      <div data-element="dt-content">{children}</div>
     </StyledDt>
   );
 };

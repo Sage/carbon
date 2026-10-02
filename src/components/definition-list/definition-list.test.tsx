@@ -457,6 +457,102 @@ test("uses a horizontal grid and honours explicit term alignment", () => {
   expect(term).toHaveStyleRule("text-align", "center");
 });
 
+test("does not center or right-align the term content when dtTextAlign is left", () => {
+  render(
+    <Dl data-role="dl" dtTextAlign="left">
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+    </Dl>,
+  );
+
+  const term = screen.getByTestId("dt");
+
+  expect(term).not.toHaveStyleRule("margin-inline", expect.anything(), {
+    modifier: '> [data-element="dt-content"]',
+  });
+  expect(term).not.toHaveStyleRule("margin-left", expect.anything(), {
+    modifier: '> [data-element="dt-content"]',
+  });
+});
+
+test("centers the term content when dtTextAlign is center", () => {
+  render(
+    <Dl data-role="dl" dtTextAlign="center">
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+    </Dl>,
+  );
+
+  const term = screen.getByTestId("dt");
+
+  expect(term).toHaveStyleRule("margin-inline", "auto", {
+    modifier: '> [data-element="dt-content"]',
+  });
+});
+
+test("right-aligns the term content when dtTextAlign is right", () => {
+  render(
+    <Dl data-role="dl" dtTextAlign="right">
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+    </Dl>,
+  );
+
+  const term = screen.getByTestId("dt");
+
+  expect(term).toHaveStyleRule("margin-left", "auto", {
+    modifier: '> [data-element="dt-content"]',
+  });
+});
+
+test("does not center or right-align the description content when ddTextAlign is left", () => {
+  render(
+    <Dl data-role="dl" ddTextAlign="left">
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+    </Dl>,
+  );
+
+  const description = screen.getByTestId("dd");
+
+  expect(description).not.toHaveStyleRule("margin-inline", expect.anything(), {
+    modifier: '> [data-element="dd-content"]',
+  });
+  expect(description).not.toHaveStyleRule("margin-left", expect.anything(), {
+    modifier: '> [data-element="dd-content"]',
+  });
+});
+
+test("centers the description content when ddTextAlign is center", () => {
+  render(
+    <Dl data-role="dl" ddTextAlign="center">
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+    </Dl>,
+  );
+
+  const description = screen.getByTestId("dd");
+
+  expect(description).toHaveStyleRule("margin-inline", "auto", {
+    modifier: '> [data-element="dd-content"]',
+  });
+});
+
+test("right-aligns the description content when ddTextAlign is right", () => {
+  render(
+    <Dl data-role="dl" ddTextAlign="right">
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+    </Dl>,
+  );
+
+  const description = screen.getByTestId("dd");
+
+  expect(description).toHaveStyleRule("margin-left", "auto", {
+    modifier: '> [data-element="dd-content"]',
+  });
+});
+
 specialCharacters.forEach((text) => {
   test("should render Dt and Dd with special characters", () => {
     render(
