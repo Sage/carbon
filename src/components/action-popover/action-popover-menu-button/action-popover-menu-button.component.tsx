@@ -37,6 +37,10 @@ export interface ActionPopoverMenuButtonProps {
   tabIndex: number;
 }
 
+/**
+ * @deprecated This component will be removed in a future major release.
+ * Use the `renderButton` prop with your own button implementation instead.
+ */
 export const ActionPopoverMenuButton = ({
   buttonType,
   iconType,

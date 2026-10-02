@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import React, { createContext, useContext } from "react";
 import invariant from "invariant";
 
 export type Alignment = "left" | "right";
@@ -8,8 +8,9 @@ type ActionPopoverContextType = {
   focusButton: () => void;
   horizontalAlignment: Alignment;
   submenuPosition: Alignment;
-  selectedSubmenuRef: HTMLUListElement | null;
-  setSelectedSubmenuRef: (ref: HTMLUListElement | null) => void;
+  /** id of the submenu that is currently open, so only one can be open at a time */
+  openSubmenuId: string | null;
+  setOpenSubmenuId: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 const ActionPopoverContext = createContext<ActionPopoverContextType | null>(
