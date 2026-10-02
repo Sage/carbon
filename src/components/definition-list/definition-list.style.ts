@@ -17,7 +17,7 @@ type DlPairProps = Pick<
 
 const pairSpacing = {
   small: "var(--global-space-comp-xs)",
-  medium: "var(--global-space-comp-m)",
+  large: "var(--global-space-comp-m)",
 };
 
 export const StyledDlPair = styled.div.attrs(applyBaseTheme)<DlPairProps>`
@@ -31,16 +31,21 @@ export const StyledDlPair = styled.div.attrs(applyBaseTheme)<DlPairProps>`
           grid-template-columns: ${w}% minmax(0, 1fr);
         `}
 
-  ${({ spacing }) => css`
-    padding-bottom: ${pairSpacing[spacing || "medium"]};
-    padding-top: ${pairSpacing[spacing || "medium"]};
+  ${({ spacing, divider }) => css`
+    padding-bottom: ${pairSpacing[spacing || "large"]};
+
+    ${divider &&
+    css`
+      padding-top: ${pairSpacing[spacing || "large"]};
+    `}
   `}
 
   ${({ divider, isLast }) =>
     divider &&
     !isLast &&
     css`
-      border-bottom: 1px solid var(--container-standard-border-default);
+      border-bottom: var(--global-borderwidth-xs) solid
+        var(--container-standard-border-default);
     `}
 `;
 
@@ -51,6 +56,7 @@ export const StyledDt = styled.dt.attrs(applyBaseTheme)<
   ${space}
   font: var(--global-font-static-comp-medium-s);
   color: var(--container-standard-txt-default);
+  max-width: var(--container-size-layout-maxwidth-s);
 
   ${({ asSingleColumn }) =>
     !asSingleColumn &&
@@ -69,6 +75,7 @@ export const StyledDd = styled.dd<
   ${space}
   font: var(--global-font-static-comp-regular-s);
   color: var(--container-standard-txt-default);
+  max-width: var(--container-size-layout-maxwidth-s);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;

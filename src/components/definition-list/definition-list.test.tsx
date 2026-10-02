@@ -318,7 +318,7 @@ test("applies the selected top and bottom pair padding and dividers", () => {
   );
   expect(pairs[0]).toHaveStyleRule(
     "border-bottom",
-    "1px solid var(--container-standard-border-default)",
+    "var(--global-borderwidth-xs) solid var(--container-standard-border-default)",
   );
 
   expect(pairs[1]).toHaveStyleRule(
@@ -327,17 +327,40 @@ test("applies the selected top and bottom pair padding and dividers", () => {
   );
   expect(pairs[1]).not.toHaveStyleRule(
     "border-bottom",
-    "1px solid var(--container-standard-border-default)",
+    "var(--global-borderwidth-xs) solid var(--container-standard-border-default)",
   );
 });
 
+test("only applies bottom pair padding when divider is false", () => {
+  render(
+    <Dl data-role="dl" spacing="small">
+      <Dt>First</Dt>
+      <Dd>Description</Dd>
+    </Dl>,
+  );
+
+  const pair = screen.getByTestId("dl-pair");
+
+  expect(pair).toHaveStyleRule("padding-bottom", "var(--global-space-comp-xs)");
+  expect(pair).not.toHaveStyleRule("padding-top", expect.anything());
+});
+
 // Required for coverage: `spacing` is not passed down when `StyledDlPair` is used outside `Dl`, which always defaults it
-test("falls back to medium spacing when no spacing prop is provided to StyledDlPair", () => {
+test("falls back to large spacing when no spacing prop is provided to StyledDlPair", () => {
   render(<StyledDlPair data-role="dl-pair" w={50} />);
 
   const pair = screen.getByTestId("dl-pair");
 
   expect(pair).toHaveStyleRule("padding-bottom", "var(--global-space-comp-m)");
+  expect(pair).not.toHaveStyleRule("padding-top", expect.anything());
+});
+
+// Required for coverage: `spacing` is not passed down when `StyledDlPair` is used outside `Dl`, which always defaults it
+test("falls back to large spacing for padding-top when divider is set but no spacing prop is provided to StyledDlPair", () => {
+  render(<StyledDlPair data-role="dl-pair" w={50} divider />);
+
+  const pair = screen.getByTestId("dl-pair");
+
   expect(pair).toHaveStyleRule("padding-top", "var(--global-space-comp-m)");
 });
 

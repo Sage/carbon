@@ -18,7 +18,7 @@ export interface DlProps extends SpaceProps, TagProps {
   /** Render the DefinitionList as a single column */
   asSingleColumn?: boolean;
   /** Sets vertical top and bottom padding on each definition pair. */
-  spacing?: "small" | "medium";
+  spacing?: "small" | "large";
   /** Renders a divider between definition pairs. */
   divider?: boolean;
   /** This string will specify the text align styling of the `<dt></dt>`. */
@@ -33,7 +33,7 @@ const Dl = ({
   dtTextAlign = "left",
   ddTextAlign = "left",
   asSingleColumn = false,
-  spacing = "medium",
+  spacing = "large",
   divider = false,
   ...rest
 }: DlProps) => {

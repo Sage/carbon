@@ -237,7 +237,7 @@ const SpacingExamples = () => {
 
   return (
     <Box display="flex" flexWrap="wrap" gap={6}>
-      {(["small", "medium"] as const).map((spacingValue) =>
+      {(["small", "large"] as const).map((spacingValue) =>
         [false, true].map((divider) =>
           [false, true].map((asSingleColumn) => (
             <Tile
