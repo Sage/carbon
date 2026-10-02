@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import MenuContext from "../menu/__internal__/menu.context";
+import { Menu, MenuItem } from "../menu";
 import Search, { SearchHandle } from "./search.component";
-import { within } from "@testing-library/react";
 
 const StatefulSearch = ({
   triggerOnClear,
@@ -155,9 +154,11 @@ test("supports programmatic focus through ref handle inside Menu context", async
         <button type="button" onClick={() => ref.current?.focus()}>
           focus
         </button>
-        <MenuContext.Provider value={{ inMenu: true }}>
-          <Search ref={ref} value="" onChange={jest.fn()} />
-        </MenuContext.Provider>
+        <Menu>
+          <MenuItem>
+            <Search ref={ref} value="" onChange={jest.fn()} />
+          </MenuItem>
+        </Menu>
       </>
     );
   };
@@ -165,7 +166,7 @@ test("supports programmatic focus through ref handle inside Menu context", async
   render(<SearchWithRefHandleInMenu />);
   await user.click(screen.getByRole("button", { name: "focus" }));
 
-  expect(screen.getByRole("textbox", { name: "Search" })).toHaveFocus();
+  expect(screen.getByRole("searchbox", { name: "Search" })).toHaveFocus();
 });
 
 test("supports programmatic button focus through ref handle", async () => {
@@ -495,32 +496,6 @@ test("provides the popover assistive hint as the combobox description", () => {
   ).toHaveAccessibleDescription(
     "When search suggestions are available use up and down arrows to browse results and enter to select. Touch device users, explore by touch or with swipe gestures.",
   );
-});
-
-test("renders legacy Search search component when rendered inside Menu context", () => {
-  const onClick = jest.fn();
-
-  render(
-    <MenuContext.Provider value={{ inMenu: true }}>
-      <Search value="" triggerOnClear onClick={onClick} onChange={jest.fn()} />
-    </MenuContext.Provider>,
-  );
-
-  expect(screen.getByRole("textbox", { name: "Search" })).toBeVisible();
-  expect(
-    screen.queryByRole("button", { name: "Search" }),
-  ).not.toBeInTheDocument();
-});
-
-test("does not render popover menu when `open` is true inside Menu context", () => {
-  render(
-    <MenuContext.Provider value={{ inMenu: true }}>
-      <Search value="" open onChange={jest.fn()} />
-    </MenuContext.Provider>,
-  );
-
-  expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-  expect(screen.getByRole("textbox", { name: "Search" })).toBeVisible();
 });
 
 test("renders subtext for listData items that include a subtext property", () => {

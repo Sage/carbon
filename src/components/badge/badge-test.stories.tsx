@@ -106,7 +106,7 @@ SizesWithChildren.args = { counter: 99 };
 
 export const InMenu = ({ ...args }) => {
   return (
-    <Menu menuType="black">
+    <Menu variant="black">
       <MenuItem onClick={() => {}}>
         MenuItem
         <Badge ml={1} counter={2} {...args} />

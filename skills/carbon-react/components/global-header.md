@@ -57,7 +57,7 @@ description: Carbon GlobalHeader component props and usage examples.
   return (
     <GlobalHeader logo={<img height={28} src={carbonLogo} alt="Carbon logo" />}>
       <Divider h="100%" pt={1} pb={1} pr={0} pl={2} />
-      <Menu menuType="black" flex="1">
+      <Menu variant="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem href="#">Product A</MenuItem>
         </MenuItem>
@@ -126,7 +126,7 @@ description: Carbon GlobalHeader component props and usage examples.
       logo={<Logo />}
       aria-label="Global header component with basic menu"
     >
-      <Menu menuType="black" flex="1">
+      <Menu variant="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem href="#">Product A</MenuItem>
         </MenuItem>
@@ -192,7 +192,7 @@ description: Carbon GlobalHeader component props and usage examples.
       logo={<Logo />}
       aria-label="Global header component with responsive menu"
     >
-      <Menu menuType="black" flex="1">
+      <Menu variant="black" flex="1">
         {fullscreenViewBreakPoint ? (
           <>
             <MenuItem
@@ -234,7 +234,7 @@ description: Carbon GlobalHeader component props and usage examples.
         logo={<Logo />}
         aria-label="Global header component with local nav bar"
       >
-        <Menu menuType="black" flex="1" aria-label="Menu bar">
+        <Menu variant="black" flex="1" aria-label="Menu bar">
           <MenuItem flex="1" submenu="Product Switcher">
             <MenuItem href="#">Product A</MenuItem>
           </MenuItem>

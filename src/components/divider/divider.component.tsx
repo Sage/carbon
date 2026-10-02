@@ -40,6 +40,8 @@ export interface DividerProps extends SpaceProps, TagProps {
    * Only available for `horizontal` type.
    * */
   adaptiveMxBreakpoint?: number;
+  /** @private @internal @ignore */
+  as?: React.ElementType;
 }
 
 export const Divider = ({
@@ -53,6 +55,7 @@ export const Divider = ({
   adaptiveMxBreakpoint,
   ml,
   mr,
+  as,
   ...rest
 }: DividerProps): JSX.Element => {
   const { inMenu } = useContext(MenuContext);
@@ -90,7 +93,7 @@ export const Divider = ({
       ml={ml}
       mr={mr}
       {...rest}
-      as={inMenu ? "li" : "div"}
+      as={as || (inMenu ? "li" : undefined)}
       aria-hidden={inMenu || ariaHidden}
       {...tagComponent("divider", { ...rest })}
     >
