@@ -248,6 +248,7 @@ export const StyledButton = styled.button<
     $size: Size;
     $variant: Variant;
     $variantType: VariantType;
+    $align?: "left" | "right";
   }
 >`
   align-items: center;
@@ -365,6 +366,14 @@ export const StyledButton = styled.button<
       position: relative;
       z-index: 1;
     }
+  }
+
+  [class*="popover-menu-item"] &[data-align="left"] {
+    justify-content: flex-start;
+  }
+
+  [class*="popover-menu-item"] &[data-align="right"] {
+    justify-content: flex-end;
   }
 
   ${menuItemOverrides}
