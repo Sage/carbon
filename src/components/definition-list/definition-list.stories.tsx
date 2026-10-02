@@ -61,7 +61,7 @@ export const WithDividers: Story = {
 
 export const Spacing: Story = {
   render: () => (
-    <Box>
+    <>
       <Box mb={4}>
         <Dl spacing="small">
           <Dt>Small pair padding</Dt>
@@ -92,7 +92,7 @@ export const Spacing: Story = {
         <Dt>Account status</Dt>
         <Dd>Open</Dd>
       </Dl>
-    </Box>
+    </>
   ),
 };
 
