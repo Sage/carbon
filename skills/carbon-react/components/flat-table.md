@@ -11,6 +11,8 @@ description: Carbon FlatTable component props and usage examples.
 ## Source
 - Export: `./components/flat-table`
 - Props interface: `FlatTableProps`
+- Deprecated: Yes
+- Deprecation reason: Use the new `Table` component instead.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |

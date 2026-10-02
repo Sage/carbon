@@ -44,7 +44,7 @@ type SelectedRow = keyof SelectedRows;
 type HighlightedRow = "one" | "two" | "three" | "four" | "";
 
 const meta: Meta<typeof FlatTable> = {
-  title: "Flat Table",
+  title: "Deprecated/Flat Table",
   component: FlatTable,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

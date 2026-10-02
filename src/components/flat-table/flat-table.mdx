@@ -11,10 +11,17 @@ import * as FlatTableCheckboxStories from "./flat-table-checkbox/flat-table-chec
 import * as SortStories from "./sort/sort.stories";
 import * as FlatTableStories from "./flat-table.stories";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={FlatTableStories} />
 
 # Flat Table
+
+<DeprecationWarning>
+   `FlatTable` is deprecated and will be removed in a future release. For new
+   implementations, use `Table`. Existing consumers should follow the
+   [FlatTable to Table migration guide](?path=/docs/migrations-flat-table--docs).
+</DeprecationWarning>
 
 <a
   target="_blank"
@@ -190,9 +197,9 @@ Setting the `hasOuterVerticalBorders` prop to `false` removes the table's outerm
 
 <Canvas of={FlatTableStories.WithSortingHeaders} />
 
-### With sorting headers and custom accessible name 
+### With sorting headers and custom accessible name
 
-A custom accessible name can be provided to the `<Sort>` component with the `accessibleName` prop. It is recommended 
+A custom accessible name can be provided to the `<Sort>` component with the `accessibleName` prop. It is recommended
 that text content of the `<Sort>` component as well as the current `sortType` are included
 in this accessible name.
 
@@ -324,11 +331,12 @@ The following keys are available to override the translations for this component
   translationData={[
     {
       name: "sort.accessibleName",
-      description: "The accessible name that is announced on interaction with the component."+
-      " It is recommended that the current sort type as well as the current content of the component"+
-      " are included in this string. Both can be accessed via the `sortContent` and `sortType` parameters.",
+      description:
+        "The accessible name that is announced on interaction with the component." +
+        " It is recommended that the current sort type as well as the current content of the component" +
+        " are included in this string. Both can be accessed via the `sortContent` and `sortType` parameters.",
       type: "func",
       returnType: "string",
-    }
+    },
   ]}
 />

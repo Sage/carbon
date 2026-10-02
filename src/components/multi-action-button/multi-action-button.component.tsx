@@ -24,8 +24,8 @@ import {
 } from "../../style/utils";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
-import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import guid from "../../__internal__/utils/helpers/guid";
+import TableBodyContext from "../../__internal__/table-body-context";
 
 export interface MultiActionButtonProps
   extends WidthProps,
@@ -64,7 +64,7 @@ export const MultiActionButton = forwardRef<
     ref,
   ) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
-    const { isInFlatTable } = useContext(FlatTableContext);
+    const { isInTable } = useContext(TableBodyContext);
     const submenuId = useRef(guid());
 
     useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
@@ -118,7 +118,7 @@ export const MultiActionButton = forwardRef<
     const renderAdditionalButtons = () => (
       <Popover
         isOpen={showAdditionalButtons}
-        disableBackgroundUI={isInFlatTable && showAdditionalButtons}
+        disableBackgroundUI={isInTable && showAdditionalButtons}
         disablePortal
         placement={
           position === "left"
