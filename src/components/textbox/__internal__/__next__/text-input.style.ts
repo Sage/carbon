@@ -90,6 +90,7 @@ const LabelWrapper = styled.div<LabelWrapperProps>`
       justify-content: flex-start;
       align-items: flex-end;
       align-self: stretch;
+      text-align: right;
       width: var(--label-spacing, auto);
     `}
 
