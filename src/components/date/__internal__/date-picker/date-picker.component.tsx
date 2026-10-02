@@ -26,8 +26,8 @@ import { defaultFocusableSelectors } from "../../../../__internal__/focus-trap/f
 import Events from "../../../../__internal__/utils/helpers/events";
 import FlatTableContext from "../../../flat-table/__internal__/flat-table.context";
 import Logger from "../../../../__internal__/utils/logger";
-
 import StyledDayPicker from "./day-picker.style";
+import TableBodyContext from "../../../../__internal__/table-body-context";
 
 export interface PickerProps
   extends Omit<DayPickerProps, "mode" | "modifiers"> {
@@ -204,7 +204,8 @@ export const DatePicker = ({
     }, 0);
   };
 
-  const { isInFlatTable, setHasOpenDatePicker } = useContext(FlatTableContext);
+  const { setHasOpenDatePicker } = useContext(FlatTableContext);
+  const { isInTable } = useContext(TableBodyContext);
 
   useEffect(() => {
     setHasOpenDatePicker?.(!!open);
@@ -239,7 +240,7 @@ export const DatePicker = ({
         reference={inputElement}
         middleware={popoverMiddleware}
         disablePortal={disablePortal}
-        disableBackgroundUI={isInFlatTable}
+        disableBackgroundUI={isInTable}
         popoverStrategy="fixed"
       >
         <StyledDayPicker

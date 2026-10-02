@@ -38,11 +38,11 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import { BoxProps } from "../box";
-import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
 import MenuContext from "../menu/__internal__/menu.context";
 import Button from "../button/__next__";
 import useLocale from "../../hooks/__internal__/useLocale";
+import TableBodyContext from "../../__internal__/table-body-context";
 
 type Size = "small" | "medium" | "large";
 
@@ -304,7 +304,7 @@ export const PopoverContainer = forwardRef<
       position === "center",
       offset,
     );
-    const { isInFlatTable } = useContext(FlatTableContext);
+    const { isInTable } = useContext(TableBodyContext);
 
     const getPlacement = () => {
       if (position === "center") {
@@ -580,7 +580,7 @@ export const PopoverContainer = forwardRef<
             }
             middleware={popoverMiddleware}
             childRefOverride={popoverContentNodeRef}
-            disableBackgroundUI={isInFlatTable}
+            disableBackgroundUI={isInTable}
             portalTarget={popoverTarget}
           >
             {childrenToRender()}
