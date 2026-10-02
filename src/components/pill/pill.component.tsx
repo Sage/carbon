@@ -37,7 +37,7 @@ export interface PillProps extends StyledPillProps, TagProps {
    * @deprecated Use `inverse` prop instead.
    */
   isDarkBackground?: boolean;
-  /** Whether to apply inverse styling to the pill. */
+  /** Set to allow for inverse styling to be used on dark backgrounds. */
   inverse?: boolean;
   /**
    * A React node displayed to the left of the pill content.
