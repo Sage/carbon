@@ -27,6 +27,8 @@
     "generate-metadata": "node ./scripts/generate_metadata/index.mjs",
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch",
+    "check:public-api": "node ./scripts/check-public-api/index.mjs",
+    "test:public-api-check": "jest --config=./jest.config.ts --selectProjects Scripts --runInBand --coverage=false --runTestsByPath ./scripts/check-public-api/index.test.js ./scripts/check-public-api/index.integration.test.js",
     "build:types": "tsc -p tsconfig-build.json --outDir ./lib && tsc -p tsconfig-build.json --outDir ./esm",
     "prepare": "husky install",
     "test:ct": "npm run generate-tokens && playwright test -c playwright-ct.config.ts",
