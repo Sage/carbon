@@ -252,6 +252,7 @@ description: Carbon SplitButton component props and usage examples.
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | value | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
+| variantType | "primary" \| "secondary" \| undefined | No |  |  |  | The variant type of the main and toggle buttons. Takes precedence over the deprecated `buttonType` prop. |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -307,7 +308,7 @@ description: Carbon SplitButton component props and usage examples.
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | align | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. |  |  |
-| buttonType | "primary" \| "secondary" \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. SplitButton only supports the primary variant. |  |  |
+| buttonType | "primary" \| "secondary" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Please use `variantType` instead. SplitButton variant type. |  |  |
 | isWhite | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Renders the white variant of the secondary split button |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
@@ -423,6 +424,32 @@ description: Carbon SplitButton component props and usage examples.
             <Button size={size}>Button 1</Button>
             <Button size={size}>Button 2</Button>
             <Button size={size}>Button 3</Button>
+          </SplitButton>
+        </Box>
+      ))}
+    </>
+  );
+}
+```
+
+
+### Variant Types
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      {(["primary", "secondary"] as const).map((variantType) => (
+        <Box key={variantType} mb={3}>
+          <SplitButton
+            variantType={variantType}
+            text={`Split button - ${variantType}`}
+          >
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
           </SplitButton>
         </Box>
       ))}
