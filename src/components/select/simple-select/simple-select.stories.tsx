@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
@@ -42,15 +42,41 @@ type Story = StoryObj<typeof SimpleSelect>;
 
 const DIALOG_CLOSE_FOCUS_DELAY = 350;
 
-const PlaygroundStory = (args: Partial<SimpleSelectProps>) => {
+const PLAYGROUND_VIRTUAL_OPTION_COUNT = 10000;
+
+const PlaygroundStory = (args: SimpleSelectProps) => {
   const [value, setValue] = useState(args.value ?? "select");
 
   useEffect(() => {
     setValue(args.value ?? "select");
   }, [args.value]);
 
+  const virtualOptions = useMemo(() => {
+    if (!args.enableVirtualScroll) return null;
+
+    return Array.from(
+      { length: PLAYGROUND_VIRTUAL_OPTION_COUNT - 5 },
+      (_, index) => {
+        const optionNumber = index + 6;
+        return (
+          <Option
+            key={optionNumber}
+            text={`Color ${optionNumber}`}
+            value={String(optionNumber)}
+          />
+        );
+      },
+    );
+  }, [args.enableVirtualScroll]);
+
   return (
     <Box height={500}>
+      {args.isLoading && (
+        <Typography mb={2}>
+          The loading spinner appears at the end of the option list. Scroll down
+          to see it.
+        </Typography>
+      )}
       <Select
         {...args}
         value={value}
@@ -62,6 +88,7 @@ const PlaygroundStory = (args: Partial<SimpleSelectProps>) => {
         <Option text="Blue" value="3" />
         <Option text="Green" value="4" />
         <Option text="Orange" value="5" />
+        {virtualOptions}
       </Select>
     </Box>
   );
@@ -82,7 +109,6 @@ export const Playground: Story = {
     flipEnabled: true,
     enableVirtualScroll: false,
     virtualScrollOverscan: 5,
-    disableNavigationLoop: false,
     typeaheadTimeout: 1500,
     value: "select",
   },
@@ -105,7 +131,6 @@ export const Playground: Story = {
         "typeaheadTimeout",
         "virtualScrollOverscan",
         "enableVirtualScroll",
-        "disableNavigationLoop",
         "labelInline",
         "openOnFocus",
         "isLoading",
@@ -125,6 +150,9 @@ export const Playground: Story = {
     variant: {
       options: ["typical", "subtle"],
       control: { type: "radio" },
+    },
+    value: {
+      control: { type: "text" },
     },
     error: {
       control: { type: "text" },
@@ -150,9 +178,11 @@ Playground.storyName = "Playground";
 
 export const LazyLoading: Story = () => {
   const preventLoading = useRef(false);
-  const [value, setValue] = useState("select");
+  const [value, setValue] = useState("amber");
   const [isLoading, setIsLoading] = useState(true);
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+  const initialOptions = [<Option text="Amber" value="amber" key="Amber" />];
+  const [optionList, setOptionList] =
+    useState<React.ReactElement[]>(initialOptions);
 
   function loadList() {
     if (preventLoading.current) {
@@ -163,7 +193,6 @@ export const LazyLoading: Story = () => {
     setIsLoading(true);
     setTimeout(() => {
       setOptionList([
-        <Option text="Select an option" value="select" key="Select" />,
         <Option text="Amber" value="amber" key="Amber" />,
         <Option text="Black" value="black" key="Black" />,
         <Option text="Blue" value="blue" key="Blue" />,
@@ -175,8 +204,8 @@ export const LazyLoading: Story = () => {
   }
 
   function reset() {
-    setOptionList([]);
-    setValue("select");
+    setOptionList(initialOptions);
+    setValue("amber");
     setIsLoading(true);
     preventLoading.current = false;
   }
@@ -207,10 +236,9 @@ export const WithInfiniteScroll: Story = () => {
   const preventLoading = useRef(false);
   const preventLazyLoading = useRef(false);
   const lazyLoadingCounter = useRef(0);
-  const [value, setValue] = useState("select");
+  const [value, setValue] = useState("amber");
   const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
-    <Option text="Select an option" value="select" key="Select" />,
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
     <Option text="Blue" value="blue" key="Blue" />,
@@ -238,7 +266,7 @@ export const WithInfiniteScroll: Story = () => {
     ];
   };
   const [optionList, setOptionList] = useState<React.ReactElement[]>([
-    <Option text="Select an option" value="select" key="Select" />,
+    asyncList[0],
   ]);
 
   useEffect(() => {
@@ -272,8 +300,8 @@ export const WithInfiniteScroll: Story = () => {
     }, 2000);
   }
   function clearData() {
-    setOptionList([]);
-    setValue("select");
+    setOptionList([asyncList[0]]);
+    setValue("amber");
     preventLoading.current = false;
   }
   return (
@@ -319,7 +347,7 @@ export const Virtualised: Story = () => {
             <Option
               key={`option-${index + 1}`}
               value={`${index}`}
-              text={index === 0 ? "Select an option" : `Option ${index + 1}`}
+              text={`Option ${index + 1}`}
             />
           ))}
       </Select>
@@ -330,7 +358,7 @@ Virtualised.storyName = "Virtualised";
 
 export const SelectionConfirmedStory: Story = () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-  const [value, setValue] = useState("select");
+  const [value, setValue] = useState("1");
   return (
     <Box height={380}>
       <Typography variant="strong">
@@ -351,7 +379,6 @@ export const SelectionConfirmedStory: Story = () => {
         id="selection confirmed"
         label="color"
       >
-        <Option text="Select an option" value="select" />
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -369,16 +396,14 @@ export const SelectionConfirmedStory: Story = () => {
 };
 SelectionConfirmedStory.storyName = "Selection Confirmed";
 
-const options = ["Select an option", "A", "B", "C", "D", "E"];
+const options = ["A", "B", "C", "D", "E"];
 const allOptions = ["All"];
 
 export const SelectWithDynamicallyAddedOption: Story = () => {
   const [optionsList, setOptionsList] = useState(options);
-  const [currentOption, setCurrentOption] = useState<string | null>(
-    "Select an option",
-  );
+  const [currentOption, setCurrentOption] = useState<string | null>("A");
   useEffect(() => {
-    if (currentOption && currentOption !== "Select an option") {
+    if (currentOption && currentOption !== "A") {
       setOptionsList([...allOptions, ...options]);
     }
   }, [currentOption]);
@@ -504,7 +529,7 @@ export const AddOptionFromDialog: Story = () => {
 AddOptionFromDialog.storyName = "Add Option From Dialog";
 
 export const ComplexCompositions: Story = () => {
-  const [value, setValue] = useState("select");
+  const [value, setValue] = useState("1");
   return (
     <Box height={500}>
       <Select
@@ -515,7 +540,6 @@ export const ComplexCompositions: Story = () => {
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
       >
-        <Option text="Select an option" value="select" />
         <Option
           text="Option with an icon"
           value="1"

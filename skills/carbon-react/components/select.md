@@ -34,7 +34,6 @@ No props metadata found.
     flipEnabled: true,
     enableVirtualScroll: false,
     virtualScrollOverscan: 5,
-    disableNavigationLoop: false,
     typeaheadTimeout: 1500,
     value: "select",
   }
@@ -54,9 +53,11 @@ No props metadata found.
 ```tsx
 () => {
   const preventLoading = useRef(false);
-  const [value, setValue] = useState("select");
+  const [value, setValue] = useState("amber");
   const [isLoading, setIsLoading] = useState(true);
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+  const initialOptions = [<Option text="Amber" value="amber" key="Amber" />];
+  const [optionList, setOptionList] =
+    useState<React.ReactElement[]>(initialOptions);
 
   function loadList() {
     if (preventLoading.current) {
@@ -67,7 +68,6 @@ No props metadata found.
     setIsLoading(true);
     setTimeout(() => {
       setOptionList([
-        <Option text="Select an option" value="select" key="Select" />,
         <Option text="Amber" value="amber" key="Amber" />,
         <Option text="Black" value="black" key="Black" />,
         <Option text="Blue" value="blue" key="Blue" />,
@@ -79,8 +79,8 @@ No props metadata found.
   }
 
   function reset() {
-    setOptionList([]);
-    setValue("select");
+    setOptionList(initialOptions);
+    setValue("amber");
     setIsLoading(true);
     preventLoading.current = false;
   }
@@ -117,10 +117,9 @@ No props metadata found.
   const preventLoading = useRef(false);
   const preventLazyLoading = useRef(false);
   const lazyLoadingCounter = useRef(0);
-  const [value, setValue] = useState("select");
+  const [value, setValue] = useState("amber");
   const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
-    <Option text="Select an option" value="select" key="Select" />,
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
     <Option text="Blue" value="blue" key="Blue" />,
@@ -148,7 +147,7 @@ No props metadata found.
     ];
   };
   const [optionList, setOptionList] = useState<React.ReactElement[]>([
-    <Option text="Select an option" value="select" key="Select" />,
+    asyncList[0],
   ]);
 
   useEffect(() => {
@@ -182,8 +181,8 @@ No props metadata found.
     }, 2000);
   }
   function clearData() {
-    setOptionList([]);
-    setValue("select");
+    setOptionList([asyncList[0]]);
+    setValue("amber");
     preventLoading.current = false;
   }
   return (
@@ -235,7 +234,7 @@ No props metadata found.
             <Option
               key={`option-${index + 1}`}
               value={`${index}`}
-              text={index === 0 ? "Select an option" : `Option ${index + 1}`}
+              text={`Option ${index + 1}`}
             />
           ))}
       </Select>
@@ -252,7 +251,7 @@ No props metadata found.
 ```tsx
 () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-  const [value, setValue] = useState("select");
+  const [value, setValue] = useState("1");
   return (
     <Box height={380}>
       <Typography variant="strong">
@@ -273,7 +272,6 @@ No props metadata found.
         id="selection confirmed"
         label="color"
       >
-        <Option text="Select an option" value="select" />
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -299,11 +297,9 @@ No props metadata found.
 ```tsx
 () => {
   const [optionsList, setOptionsList] = useState(options);
-  const [currentOption, setCurrentOption] = useState<string | null>(
-    "Select an option",
-  );
+  const [currentOption, setCurrentOption] = useState<string | null>("A");
   useEffect(() => {
-    if (currentOption && currentOption !== "Select an option") {
+    if (currentOption && currentOption !== "A") {
       setOptionsList([...allOptions, ...options]);
     }
   }, [currentOption]);
@@ -441,7 +437,7 @@ No props metadata found.
 
 ```tsx
 () => {
-  const [value, setValue] = useState("select");
+  const [value, setValue] = useState("1");
   return (
     <Box height={500}>
       <Select
@@ -452,7 +448,6 @@ No props metadata found.
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
       >
-        <Option text="Select an option" value="select" />
         <Option
           text="Option with an icon"
           value="1"
