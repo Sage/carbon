@@ -1,21 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { expect, test } from "../../../../playwright/helpers/base-test";
 
 import Loader from ".";
+import MotionToggle from "./components.test-pw";
 import { checkAccessibility } from "../../../../playwright/support/helper";
-
-const MotionToggle = () => {
-  const [hasMotion, setHasMotion] = useState(true);
-
-  return (
-    <>
-      <button type="button" onClick={() => setHasMotion(false)}>
-        Disable motion
-      </button>
-      <Loader loaderType="star" hasMotion={hasMotion} showLabel={false} />
-    </>
-  );
-};
 
 test.describe("Accessibility tests for Loader component", () => {
   (["typical", "ai"] as const).forEach((variant) => {
