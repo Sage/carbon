@@ -33,7 +33,7 @@ type InteractiveComponentProps = Omit<
 const InteractiveComponent = ({
   children,
   onChange,
-  value = "",
+  value = "1",
   ...props
 }: InteractiveComponentProps) => {
   const [internalValue, setValue] = useState(value);
@@ -456,14 +456,18 @@ export const ComplexOptions: Story = {
         label="Select"
         aria-label="aria label"
         name="name"
-        value="value"
+        value="load-error"
         isLoading={false}
         readOnly={false}
         onChange={() => {}}
         onOpen={() => {}}
         onListScrollBottom={() => {}}
       >
-        <Option id="load-error-message">
+        <Option
+          id="load-error-message"
+          value="load-error"
+          text="Something went wrong"
+        >
           <Box
             width="100%"
             display="flex"
@@ -521,6 +525,7 @@ export const NestedInDialog: Story = {
           onChange={() => {}}
           name="testSelect"
           id="testSelect"
+          value="opt1"
         >
           <Option value="opt1" text="red" />
           <Option value="opt2" text="green" />
