@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { expect, test } from "../../../../playwright/helpers/base-test";
 
 import Loader from ".";
 import { checkAccessibility } from "../../../../playwright/support/helper";
+
+const MotionToggle = () => {
+  const [hasMotion, setHasMotion] = useState(true);
+
+  return (
+    <>
+      <button type="button" onClick={() => setHasMotion(false)}>
+        Disable motion
+      </button>
+      <Loader loaderType="star" hasMotion={hasMotion} showLabel={false} />
+    </>
+  );
+};
 
 test.describe("Accessibility tests for Loader component", () => {
   (["typical", "ai"] as const).forEach((variant) => {
@@ -75,6 +88,19 @@ test.describe("loader SVG motion", () => {
     await expect(innerArc).toHaveCSS("animation-duration", "0.783s");
   });
 
+  test("motion-disabled loading rings keep a partial foreground arc", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Loader loaderType="ring" hasMotion={false} showLabel={false} />,
+    );
+
+    const innerArc = page.getByTestId("inner-arc");
+    await expect(innerArc).toHaveCSS("stroke-dasharray", "0.34px, 1px");
+    await expect(innerArc).toHaveCSS("stroke-dashoffset", "-0.66px");
+  });
+
   test("AI ring uses the v5 tokenized gradient", async ({ mount, page }) => {
     await mount(
       <Loader loaderType="ring" variant="ai-stacked" showLabel={false} />,
@@ -109,8 +135,41 @@ test.describe("loader SVG motion", () => {
       "transform",
       "translate(3.375 30.679) rotate(-90) translate(10 10)",
     );
-    await expect(stars.first()).toHaveCSS("animation-duration", "6s");
-    await expect(stars.first()).toHaveCSS("animation-play-state", "paused");
+    await expect(stars.first()).toHaveCSS("animation-name", "none");
+    await expect(stars.first()).toHaveCSS("opacity", "1");
+    await expect(stars.first()).toHaveCSS(
+      "transform",
+      "matrix(1, 0, 0, 1, 0, 0)",
+    );
+  });
+
+  test("disabling sparkle motion during playback leaves every path visible", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MotionToggle />);
+
+    const stars = page.getByTestId("sparkle-star");
+    await expect
+      .poll(() =>
+        stars
+          .first()
+          .evaluate((element) =>
+            Number(element.getAnimations()[0]?.currentTime ?? 0),
+          ),
+      )
+      .toBeGreaterThan(600);
+    await page.getByRole("button", { name: "Disable motion" }).click();
+
+    await expect(stars).toHaveCount(6);
+    for (let index = 0; index < 6; index += 1) {
+      await expect(stars.nth(index)).toHaveCSS("animation-name", "none");
+      await expect(stars.nth(index)).toHaveCSS("opacity", "1");
+      await expect(stars.nth(index)).toHaveCSS(
+        "transform",
+        "matrix(1, 0, 0, 1, 0, 0)",
+      );
+    }
   });
 
   test("each SVG loader instance has private definitions", async ({

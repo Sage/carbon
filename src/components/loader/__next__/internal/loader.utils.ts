@@ -7,7 +7,7 @@ import type { LoaderProps } from "../loader.component";
 export const getAnimationTime = (
   animationTime: LoaderProps["animationTime"],
   fallback: number,
-) => animationTime ?? fallback;
+) => animationTime || fallback;
 
 export const useGeneratedId = () => {
   const generatedId = useRef<string>();

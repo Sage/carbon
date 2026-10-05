@@ -236,6 +236,15 @@ test("renders correctly when `loaderType` is `standalone` and `animationTime` pr
   );
 });
 
+test("uses the standalone fallback duration when `animationTime` is zero", () => {
+  render(<Loader animationTime={0} />);
+
+  expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
+    "animation",
+    expect.stringContaining("0.983s cubic-bezier(0.66,0,0.34,1) infinite"),
+  );
+});
+
 test("uses the v4 standalone geometry and default duration", () => {
   render(<Loader />);
 
@@ -443,6 +452,45 @@ test("renders correctly when `loaderType` is `ring` and `animationTime` prop is 
   );
 });
 
+test("uses the ring fallback duration when `animationTime` is zero", () => {
+  render(<Loader loaderType="ring" animationTime={0} />);
+
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
+    "animation",
+    expect.stringContaining("0.783s linear infinite"),
+  );
+});
+
+test("uses a partial static arc for a motion-disabled loading ring", () => {
+  render(<Loader loaderType="ring" hasMotion={false} />);
+
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
+    "stroke-dasharray",
+    "0.34 1",
+  );
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
+    "stroke-dashoffset",
+    "-0.66",
+  );
+});
+
+test("keeps terminal ring states complete when motion is disabled", () => {
+  const { rerender } = render(
+    <Loader loaderType="ring" hasMotion={false} isSuccess />,
+  );
+
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
+    "stroke-dasharray",
+    "1 1",
+  );
+
+  rerender(<Loader loaderType="ring" hasMotion={false} isError />);
+  expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
+    "stroke-dasharray",
+    "1 1",
+  );
+});
+
 test("when the user disallows animations or their preference cannot be determined and the `loaderType` is `star` alternative loading text is rendered", () => {
   render(<Loader loaderType="star" />);
 
@@ -489,23 +537,14 @@ test("renders the six sparkle paths with tokenized gradient stops", () => {
   );
 });
 
-test("applies custom animation time and paused motion to sparkle paths", () => {
+test("uses explicit visible static styles for motion-disabled sparkle paths", () => {
   render(<Loader loaderType="star" animationTime={6} hasMotion={false} />);
 
   screen.getAllByTestId("sparkle-star").forEach((star) => {
-    expect(star).toHaveStyleRule("animation", expect.stringContaining("6s"));
-    expect(star).toHaveStyleRule("animation-play-state", "paused");
+    expect(star).toHaveStyleRule("animation", "none");
+    expect(star).toHaveStyleRule("opacity", "1");
+    expect(star).toHaveStyleRule("transform", "scale(1)");
   });
-});
-
-test("freezes each sparkle at its own visible animation point", () => {
-  render(<Loader loaderType="star" animationTime={1} hasMotion={false} />);
-
-  const delays = screen
-    .getAllByTestId("sparkle-star")
-    .map((star) => window.getComputedStyle(star).animationDelay);
-
-  expect(new Set(delays).size).toBeGreaterThan(1);
 });
 
 test("uses unique SVG definition IDs for each loader instance", () => {

@@ -236,8 +236,8 @@ export const StyledRingArc = styled.circle<RingArcProps>`
   stroke-dasharray: 1 1;
   stroke-dashoffset: 0;
 
-  ${({ isGradientVariant }) =>
-    isGradientVariant &&
+  ${({ hasMotion, isGradientVariant, isSuccess, isError }) =>
+    (isGradientVariant || (!hasMotion && !isSuccess && !isError)) &&
     css`
       stroke-dasharray: 0.34 1;
       stroke-dashoffset: -0.66;
