@@ -1,6 +1,7 @@
 import React from "react";
 import { flushSync } from "react-dom";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import type { Virtualizer } from "@tanstack/react-virtual";
 import PopoverMenu, {
   FocusableHandle,
   PopoverMenuProps,
@@ -25,6 +26,11 @@ let mockVirtualizerOptions: {
   getScrollElement?: () => Element | null;
   estimateSize?: () => number;
   getItemKey?: (index: number) => React.Key;
+  measureElement?: (
+    element: HTMLElement,
+    entry: ResizeObserverEntry | undefined,
+    instance: Virtualizer<HTMLElement, HTMLElement>,
+  ) => number;
   rangeExtractor?: (range: {
     startIndex: number;
     endIndex: number;
@@ -523,6 +529,50 @@ describe("PopoverMenu - typeahead (Search)", () => {
     );
   });
 
+  it("focuses the selected option only when opted in and follows selection changes", () => {
+    const menu = (selectedItem: number, highlightSelectedOption = false) => (
+      <PopoverMenu
+        open
+        onClose={() => {}}
+        popoverControl={popoverControlInput}
+        focusSelectedOnOpen
+        highlightSelectedOption={highlightSelectedOption}
+      >
+        <MenuItem selected={selectedItem === 1}>Item 1</MenuItem>
+        <MenuItem selected={selectedItem === 2}>Item 2</MenuItem>
+      </PopoverMenu>
+    );
+    const { rerender } = render(menu(1));
+    const [firstOption, secondOption] = screen.getAllByRole("option");
+
+    expect(firstOption).not.toHaveAttribute("data-has-focus", "true");
+
+    rerender(menu(1, true));
+    expect(firstOption).toHaveAttribute("data-has-focus", "true");
+
+    rerender(menu(2, true));
+    expect(firstOption).not.toHaveAttribute("data-has-focus", "true");
+    expect(secondOption).toHaveAttribute("data-has-focus", "true");
+  });
+
+  it("does not highlight a selected disabled option", () => {
+    renderPopoverMenu({
+      open: true,
+      focusSelectedOnOpen: true,
+      highlightSelectedOption: true,
+      children: (
+        <MenuItem selected disabled>
+          Item 1
+        </MenuItem>
+      ),
+    });
+
+    expect(screen.getByRole("option")).not.toHaveAttribute(
+      "data-has-focus",
+      "true",
+    );
+  });
+
   it("shows list when user clicks the control and focuses selected item on ArrowDown", async () => {
     const user = userEvent.setup();
     render(
@@ -999,6 +1049,35 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(mockVirtualizerOptions.getItemKey?.(0)).toBeDefined();
   });
 
+  it("measures virtualised items after layout and reuses cached sizes before layout", () => {
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      children: <MenuItem key="alpha">Alpha</MenuItem>,
+    });
+
+    const element = screen.getByRole("option");
+    const instance = {
+      getVirtualItems: () => [{ index: 0, size: 48 }],
+      options: { horizontal: false },
+    } as unknown as Virtualizer<HTMLElement, HTMLElement>;
+    const resizeEntry = {
+      borderBoxSize: [{ blockSize: 52 }],
+    } as unknown as ResizeObserverEntry;
+
+    expect(
+      mockVirtualizerOptions.measureElement?.(element, resizeEntry, instance),
+    ).toBe(52);
+    expect(
+      mockVirtualizerOptions.measureElement?.(element, undefined, instance),
+    ).toBe(48);
+
+    element.setAttribute("data-index", "1");
+    expect(
+      mockVirtualizerOptions.measureElement?.(element, undefined, instance),
+    ).toBe(40);
+  });
+
   it("scrolls to the initial virtualised item after the list is mounted", async () => {
     mockScrollToIndex.mockClear();
     renderPopoverMenu({
@@ -1167,12 +1246,11 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(input).toHaveAttribute("aria-activedescendant", "page-item-1");
   });
 
-  it("navigates a virtualised menu from its bounds without looping", async () => {
+  it("loops a virtualised menu and clamps page navigation at its bounds", async () => {
     const user = userEvent.setup();
     renderPopoverMenu({
       open: true,
       enableVirtualScroll: true,
-      disableNavigationLoop: true,
       enablePageNavigation: true,
       children: Array.from({ length: 12 }, (_, index) => (
         <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
@@ -1188,7 +1266,9 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(input).toHaveAttribute("aria-activedescendant", "item-12");
 
     await user.keyboard("{ArrowDown}");
+    expect(input).toHaveAttribute("aria-activedescendant", "item-1");
     await user.keyboard("{ArrowDown}");
+    expect(input).toHaveAttribute("aria-activedescendant", "item-2");
     await user.keyboard("{Home}");
     await user.keyboard("{PageUp}");
     expect(input).toHaveAttribute("aria-activedescendant", "item-1");
@@ -1299,11 +1379,10 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(input).toHaveAttribute("aria-activedescendant", "item-1");
   });
 
-  it("does not loop the highlight when ArrowDown reaches the last option with looping disabled", async () => {
+  it("loops the highlight when ArrowDown reaches the last option", async () => {
     const user = userEvent.setup();
     renderPopoverMenu({
       open: true,
-      disableNavigationLoop: true,
       children: (
         <>
           <MenuItem id="dl-1">Item 1</MenuItem>
@@ -1318,14 +1397,13 @@ describe("PopoverMenu - typeahead (Search)", () => {
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{ArrowDown}");
 
-    expect(input).toHaveAttribute("aria-activedescendant", "dl-2");
+    expect(input).toHaveAttribute("aria-activedescendant", "dl-1");
   });
 
-  it("does not loop the highlight when ArrowUp reaches the first option with looping disabled", async () => {
+  it("loops the highlight when ArrowUp reaches the first option", async () => {
     const user = userEvent.setup();
     renderPopoverMenu({
       open: true,
-      disableNavigationLoop: true,
       children: (
         <>
           <MenuItem id="ul-1">Item 1</MenuItem>
@@ -1340,7 +1418,7 @@ describe("PopoverMenu - typeahead (Search)", () => {
     await user.keyboard("{ArrowUp}");
     await user.keyboard("{ArrowUp}");
 
-    expect(input).toHaveAttribute("aria-activedescendant", "ul-1");
+    expect(input).toHaveAttribute("aria-activedescendant", "ul-2");
   });
 
   it("uses the selected option as the PageDown base when nothing is highlighted", async () => {
@@ -1474,12 +1552,11 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(input).toHaveAttribute("aria-activedescendant", "item-2");
   });
 
-  it("moves the virtualised highlight up from an active option when looping is disabled", async () => {
+  it("loops the virtualised highlight at both ends", async () => {
     const user = userEvent.setup();
     renderPopoverMenu({
       open: true,
       enableVirtualScroll: true,
-      disableNavigationLoop: true,
       children: Array.from({ length: 5 }, (_, index) => (
         <MenuItem key={`item-${index + 1}`} id={`item-${index + 1}`}>
           Item {index + 1}
@@ -1489,11 +1566,12 @@ describe("PopoverMenu - typeahead (Search)", () => {
 
     const input = screen.getByRole("combobox", { name: "combobox-label" });
     input.focus();
-    await user.keyboard("{End}");
+    await user.keyboard("{Home}");
     await user.keyboard("{ArrowUp}");
-    await user.keyboard("{ArrowUp}");
+    expect(input).toHaveAttribute("aria-activedescendant", "item-5");
 
-    expect(input).toHaveAttribute("aria-activedescendant", "item-3");
+    await user.keyboard("{ArrowDown}");
+    expect(input).toHaveAttribute("aria-activedescendant", "item-1");
   });
 
   it("moves the virtualised highlight from PageUp without an active option", async () => {
@@ -1618,8 +1696,13 @@ describe("PopoverMenu - typeahead (Search)", () => {
     );
 
     const input = screen.getByRole("combobox", { name: "combobox-label" });
+    const outside = screen.getByRole("button", { name: "Outside" });
+
+    fireEvent.focusOut(outside, { relatedTarget: input });
+    expect(onClose).not.toHaveBeenCalled();
+
     input.focus();
-    screen.getByRole("button", { name: "Outside" }).focus();
+    outside.focus();
 
     expect(onClose).toHaveBeenCalled();
   });
