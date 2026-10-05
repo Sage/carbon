@@ -1,3 +1,9 @@
+## [162.5.0](https://github.com/Sage/carbon/compare/v162.4.0...v162.5.0) (2026-10-05)
+
+### Features
+
+* **sidebar:** align with fusion ds ([b65a526](https://github.com/Sage/carbon/commit/b65a5261c08c39da03bb69aab882041906a996a2))
+
 ## [162.4.0](https://github.com/Sage/carbon/compare/v162.3.1...v162.4.0) (2026-09-24)
 
 ### Features
