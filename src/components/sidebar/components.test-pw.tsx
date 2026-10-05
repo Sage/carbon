@@ -1,19 +1,20 @@
 import React, { useState, useRef } from "react";
 
-import Typography from "../../../src/components/typography";
-import Button from "../button";
+import Typography from "../typography";
+import Button from "../button/__next__";
 import Sidebar, { SidebarProps } from ".";
 import Box from "../box";
-import Toast from "../toast";
+import Form from "../form";
+import Message from "../message";
+import Portal from "../portal";
 import Textbox from "../textbox";
 
-export const Default = ({
+export const ControlledSidebar = ({
   open = true,
   restoreFocusOnClose,
   onCancel: onCancelProp,
-}: {
-  open?: boolean;
-  restoreFocusOnClose?: boolean;
+  ...props
+}: Partial<SidebarProps> & {
   onCancel?: () => void;
 }) => {
   const [isOpen, setIsOpen] = useState(open);
@@ -29,10 +30,11 @@ export const Default = ({
         open={isOpen}
         onCancel={handleCancel}
         restoreFocusOnClose={restoreFocusOnClose}
+        {...props}
       >
         <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
+          <Button variantType="primary">Test</Button>
+          <Button variantType="secondary" ml={2}>
             Last
           </Button>
         </Box>
@@ -42,7 +44,7 @@ export const Default = ({
   );
 };
 
-export const DefaultNested = () => {
+export const NestedSidebars = () => {
   const [isFirstSidebarOpen, setIsFirstSidebarOpen] = useState(false);
   const [isNestedSidebarOpen, setIsNestedSidebarOpen] = useState(false);
   return (
@@ -62,8 +64,8 @@ export const DefaultNested = () => {
           onCancel={() => setIsNestedSidebarOpen(false)}
         >
           <Box mb={2}>
-            <Button buttonType="primary">Test</Button>
-            <Button buttonType="secondary" ml={2}>
+            <Button variantType="primary">Test</Button>
+            <Button variantType="secondary" ml={2}>
               Last
             </Button>
           </Box>
@@ -73,34 +75,7 @@ export const DefaultNested = () => {
   );
 };
 
-export const SidebarComponentWithOnCancel = (props: Partial<SidebarProps>) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const handleOnCancel = () => {
-    setIsOpen(false);
-  };
-  return (
-    <>
-      <Sidebar
-        aria-label="sidebar"
-        open={isOpen}
-        position="right"
-        size="medium"
-        onCancel={handleOnCancel}
-        {...props}
-      >
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        <Box mb="3000px">Main content</Box>
-      </Sidebar>
-    </>
-  );
-};
-
-export const SidebarBackgroundScrollTestComponent = () => {
+export const SidebarWithBackgroundScrollTarget = () => {
   const [value, setValue] = useState("");
 
   return (
@@ -126,9 +101,9 @@ export const SidebarBackgroundScrollTestComponent = () => {
   );
 };
 
-export const SidebarBackgroundScrollWithOtherFocusableContainers = () => {
-  const toast1Ref = useRef(null);
-  const toast2Ref = useRef(null);
+export const SidebarWithBackgroundScrollTargetAndFocusableContainers = () => {
+  const message1Ref = useRef(null);
+  const message2Ref = useRef(null);
   const [value, setValue] = useState("");
 
   return (
@@ -144,7 +119,7 @@ export const SidebarBackgroundScrollWithOtherFocusableContainers = () => {
       <Sidebar
         open
         onCancel={() => {}}
-        focusableContainers={[toast1Ref, toast2Ref]}
+        focusableContainers={[message1Ref, message2Ref]}
       >
         <Textbox
           label="textbox"
@@ -154,20 +129,26 @@ export const SidebarBackgroundScrollWithOtherFocusableContainers = () => {
           }}
         />
       </Sidebar>
-      <Toast open onDismiss={() => {}} ref={toast1Ref} targetPortalId="stacked">
-        Toast message 1
-      </Toast>
-      <Toast open onDismiss={() => {}} ref={toast2Ref} targetPortalId="stacked">
-        Toast message 2
-      </Toast>
+      <Portal inertOptOut>
+        <Box ref={message1Ref} position="fixed" top="0px">
+          <Message open onDismiss={() => {}}>
+            Message 1
+          </Message>
+        </Box>
+        <Box ref={message2Ref} position="fixed" top="100px">
+          <Message open onDismiss={() => {}}>
+            Message 2
+          </Message>
+        </Box>
+      </Portal>
     </Box>
   );
 };
 
-export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
-  const [setIsDialogOpen] = React.useState(false);
-  const [isToastOpen, setIsToastOpen] = React.useState(false);
-  const toastRef = React.useRef(null);
+export const SidebarWithFocusableContainer = (props: Partial<SidebarProps>) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
+  const messageRef = useRef(null);
   const CUSTOM_SELECTOR = "button, .focusable-container input";
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
@@ -175,10 +156,10 @@ export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
   return (
     <>
       <Sidebar
-        open
-        onCancel={() => setIsDialogOpen}
+        open={isSidebarOpen}
+        onCancel={() => setIsSidebarOpen(false)}
         header={<Typography variant="h3">Sidebar header</Typography>}
-        focusableContainers={[toastRef]}
+        focusableContainers={[messageRef]}
         focusableSelectors={CUSTOM_SELECTOR}
         {...props}
       >
@@ -200,23 +181,91 @@ export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
         </Box>
         <Box className="focusable-container">
           <Button
-            buttonType="primary"
-            data-element="open-toast"
-            onClick={() => setIsToastOpen(true)}
+            variantType="primary"
+            data-element="open-message"
+            onClick={() => setIsMessageOpen(true)}
           >
-            Show toast
+            Show message
           </Button>
         </Box>
       </Sidebar>
-      <Toast
-        open={isToastOpen}
-        onDismiss={() => setIsToastOpen(false)}
-        ref={toastRef}
-        targetPortalId="stacked"
-        data-role="toast"
-      >
-        Toast Message
-      </Toast>
+      <Portal inertOptOut>
+        <Message
+          open={isMessageOpen}
+          onDismiss={() => setIsMessageOpen(false)}
+          ref={messageRef}
+          data-role="message"
+        >
+          Message
+        </Message>
+      </Portal>
     </>
   );
 };
+
+export const SidebarWithStickyForm = (props: Partial<SidebarProps> = {}) => (
+  <Sidebar
+    open
+    onCancel={() => {}}
+    header="Sidebar with sticky footer"
+    {...props}
+  >
+    <Form
+      saveButton={<Button variantType="primary">Save</Button>}
+      stickyFooter
+      onSubmit={(event) => event.preventDefault()}
+    >
+      <Box height="1200px">Long content</Box>
+    </Form>
+  </Sidebar>
+);
+
+export const SidebarWithTallStickyFormFooter = () => (
+  <Sidebar open onCancel={() => {}} header="Sidebar with tall sticky footer">
+    <Form
+      footerChildren={<Box height="128px">Footer content</Box>}
+      stickyFooter
+    >
+      content
+    </Form>
+  </Sidebar>
+);
+
+export const SidebarWithStickyCustomFooter = (
+  props: Partial<SidebarProps> = {},
+) => (
+  <Sidebar
+    open
+    onCancel={() => {}}
+    header="Sidebar with custom sticky footer"
+    footer={<Button variantType="primary">Save</Button>}
+    stickyFooter
+    {...props}
+  >
+    <Box height="1200px">Long content</Box>
+  </Sidebar>
+);
+
+export const SidebarWithShortStickyCustomFooter = () => (
+  <Sidebar
+    open
+    onCancel={() => {}}
+    header="Sidebar with short custom sticky footer"
+    footer={<Button variantType="primary">Save</Button>}
+    stickyFooter
+  >
+    Short content
+  </Sidebar>
+);
+
+export const SidebarWithTallStickyCustomFooter = () => (
+  <Sidebar
+    open
+    onCancel={() => {}}
+    header="Sidebar with tall custom sticky footer"
+    footer={<Box height="128px">Footer content</Box>}
+    stickyFooter
+  >
+    Short content
+  </Sidebar>
+);
