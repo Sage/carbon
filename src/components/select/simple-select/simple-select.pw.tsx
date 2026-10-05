@@ -1,6 +1,7 @@
 import React from "react";
 import type { Page } from "@playwright/test";
 import Option from "../option";
+import { Select } from "..";
 import { test, expect } from "../../../../playwright/helpers/base-test";
 import {
   SimpleSelectComponent,
@@ -241,6 +242,40 @@ test("renders loader when isLoading prop is set to true", async ({
 });
 
 test.describe("Check virtual scrolling", () => {
+  test("virtualized options have no extra spacing", async ({ mount, page }) => {
+    await mount(
+      <Select
+        label="Color"
+        enableVirtualScroll
+        value="Amber"
+        onChange={() => {}}
+      >
+        <Option text="Amber" value="Amber" />
+        <Option text="Black" value="Black" />
+        <Option text="Blue" value="Blue" />
+        <Option text="Green" value="Green" />
+        <Option text="Orange" value="Orange" />
+      </Select>,
+    );
+
+    await page.getByRole("combobox").click();
+    await page.getByRole("listbox").waitFor();
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+      );
+    });
+
+    const gaps = await page.getByRole("option").evaluateAll((options) =>
+      options.slice(1).map((option, index) => {
+        const previous = options[index].getBoundingClientRect();
+        return option.getBoundingClientRect().top - previous.bottom;
+      }),
+    );
+    expect(gaps).toEqual([0, 0, 0, 0]);
+  });
+
   test("does not render all virtualised options", async ({ mount, page }) => {
     await mount(<WithVirtualScrolling />);
 
@@ -435,24 +470,21 @@ test.describe("Check virtual scrolling", () => {
     ).toBeInViewport();
   });
 
-  test("does not loop virtual keyboard navigation when disabled", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithVirtualScrolling disableNavigationLoop />);
+  test("loops virtual keyboard navigation", async ({ mount, page }) => {
+    await mount(<WithVirtualScrolling />);
 
     const inputElement = page.getByRole("combobox");
     await inputElement.click();
     await inputElement.press("Home");
     await inputElement.press("ArrowUp");
     await inputElement.press("Enter");
-    await expect(inputElement).toHaveValue("Option 1");
+    await expect(inputElement).toHaveValue("Option 20");
 
     await inputElement.click();
     await inputElement.press("End");
     await inputElement.press("ArrowDown");
     await inputElement.press("Enter");
-    await expect(inputElement).toHaveValue("Option 20");
+    await expect(inputElement).toHaveValue("Option 1");
   });
 });
 
@@ -900,24 +932,21 @@ test.describe("Keyboard navigation", () => {
     ).toBeFocused();
   });
 
-  test("does not loop keyboard navigation when disabled", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectComponent disableNavigationLoop />);
+  test("loops keyboard navigation", async ({ mount, page }) => {
+    await mount(<SimpleSelectComponent />);
 
     const inputElement = page.getByRole("combobox");
     await inputElement.click();
     await inputElement.press("Home");
     await inputElement.press("ArrowUp");
     await inputElement.press("Enter");
-    await expect(inputElement).toHaveValue("Amber");
+    await expect(inputElement).toHaveValue("Yellow");
 
     await inputElement.click();
     await inputElement.press("End");
     await inputElement.press("ArrowDown");
     await inputElement.press("Enter");
-    await expect(inputElement).toHaveValue("Yellow");
+    await expect(inputElement).toHaveValue("Amber");
   });
 
   test("keeps typed characters in the default typeahead buffer for 1500ms", async ({

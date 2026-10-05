@@ -78,8 +78,6 @@ export interface NextSelectListProps {
   /** The number of options to render into the DOM at once, either side of the currently-visible ones.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
-  /** When set, keyboard navigation stops at the first/last option instead of looping around. */
-  disableNavigationLoop?: boolean;
   /** Whether the list may flip to the opposite placement when space is limited. */
   flipEnabled?: boolean;
   /** Callback triggered when the user scrolls to the bottom of the list. */
@@ -119,7 +117,6 @@ const SelectList = ({
   onClose,
   enableVirtualScroll,
   virtualScrollOverscan,
-  disableNavigationLoop,
   flipEnabled = true,
   onListScrollBottom,
   selectOnSpaceAndTab,
@@ -309,11 +306,11 @@ const SelectList = ({
       popoverControl={popoverControl}
       enableVirtualScroll={enableVirtualScroll}
       virtualScrollOverscan={virtualScrollOverscan}
-      disableNavigationLoop={disableNavigationLoop}
       flipEnabled={flipEnabled}
       selectOnSpaceAndTab={selectOnSpaceAndTab}
       enablePageNavigation
       focusSelectedOnOpen
+      highlightSelectedOption
       closeOnFocusOut
       initialScrollIndex={initialScrollIndex}
       // The legacy SelectList was positioned beneath a fixed backdrop, so its
