@@ -3,7 +3,7 @@ import { userEvent, within, expect } from "storybook/test";
 import React, { useState, useRef } from "react";
 
 import Sidebar from ".";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
@@ -22,7 +22,7 @@ const BasicSidebar = ({ children }: { children?: React.ReactNode }) => {
         mt={2}
         ml={2}
         mr={2}
-        buttonType="primary"
+        variantType="primary"
       >
         Focus
       </Button>
@@ -55,17 +55,17 @@ export default {
 export const Focus: Story = {
   render: () => (
     <>
-      <Button buttonType="secondary" mt={2}>
+      <Button variantType="secondary" mt={2}>
         {" "}
         No Focus
       </Button>
       <BasicSidebar>
         Content
-        <Button buttonType="primary" ml={2}>
+        <Button variantType="primary" ml={2}>
           Button
         </Button>
       </BasicSidebar>
-      <Button buttonType="secondary" mt={2}>
+      <Button variantType="secondary" mt={2}>
         {" "}
         No Focus
       </Button>
@@ -115,7 +115,7 @@ export const Scroll: Story = {
   render: () => (
     <BasicSidebar>
       <Box mt="600px">
-        <Button mt="600px" buttonType="primary">
+        <Button mt="600px" variantType="primary">
           Button
         </Button>
       </Box>
