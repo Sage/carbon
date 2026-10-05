@@ -39,7 +39,6 @@ export const useHandleDropdownMenuKeyDown = (
     isButtonMenu?: boolean;
     isSubmenu?: boolean;
     controlReference?: React.RefObject<HTMLLIElement>;
-    disableNavigationLoop?: boolean;
     enablePageNavigation?: boolean;
     selectOnSpaceAndTab?: boolean;
   },
@@ -59,7 +58,6 @@ export const useHandleDropdownMenuKeyDown = (
       const {
         isButtonMenu,
         isSubmenu,
-        disableNavigationLoop,
         enablePageNavigation,
         selectOnSpaceAndTab,
       } = submenuOptions;
@@ -98,17 +96,6 @@ export const useHandleDropdownMenuKeyDown = (
           return;
         }
 
-        if (!isButtonMenu && lastItem === highlightedItem) {
-          // stay on the last item instead of wrapping when looping is disabled
-          if (disableNavigationLoop) return;
-          setAriaActivedescendant(
-            firstItem?.id ?? /* istanbul ignore next */ "",
-          );
-          setFocus(firstItem, highlightedItem, isButtonMenu);
-
-          return;
-        }
-
         const currentIndex = items.indexOf(highlightedItem);
         const nextIndex = isButtonMenu
           ? Math.min(currentIndex + 1, items.length - 1)
@@ -132,17 +119,6 @@ export const useHandleDropdownMenuKeyDown = (
             itemToFocus?.id ?? /* istanbul ignore next */ "",
           );
           setFocus(itemToFocus, highlightedItem, isButtonMenu);
-
-          return;
-        }
-
-        if (!isButtonMenu && firstItem === highlightedItem) {
-          // stay on the first item instead of wrapping when looping is disabled
-          if (disableNavigationLoop) return;
-          setAriaActivedescendant(
-            lastItem?.id ?? /* istanbul ignore next */ "",
-          );
-          setFocus(lastItem, highlightedItem, isButtonMenu);
 
           return;
         }

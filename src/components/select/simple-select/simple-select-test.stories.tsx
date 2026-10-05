@@ -215,7 +215,7 @@ ChromaticSnapshotDropdownClosed.parameters = {
 };
 
 export const ChromaticSnapshotDropdownOpen = () => {
-  const [value, setValue] = useState("select");
+  const [value, setValue] = useState("1");
 
   return (
     <Box height={800} p={4}>
@@ -229,7 +229,6 @@ export const ChromaticSnapshotDropdownOpen = () => {
         value={value}
         onChange={(event) => setValue(event.target.value)}
       >
-        <Option text="Select an option" value="select" />
         <OptionGroupHeader label="Basic options" icon="settings" />
         <Option text="Text only" value="1" />
         <Option

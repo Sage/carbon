@@ -65,73 +65,35 @@ export interface SimpleSelectProps
   children: React.ReactNode;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
-  /** @deprecated `info` has been deprecated, the functionality will no longer work. */
+  /** @deprecated `info` no longer has any effect in SimpleSelect. */
   info?: CommonTextboxProps["info"];
-  /**
-   * @deprecated `fieldHelp` has been deprecated, `inputHint` should be used instead.
-   */
+  /** @deprecated `fieldHelp` no longer has any effect in SimpleSelect. Use `inputHint` instead. */
   fieldHelp?: CommonTextboxProps["fieldHelp"];
-  /**
-   * @deprecated `labelHelp` has been deprecated, `inputHint` should be used instead.
-   */
+  /** @deprecated `labelHelp` no longer has any effect in SimpleSelect. Use `inputHint` instead. */
   labelHelp?: CommonTextboxProps["labelHelp"];
-  /**
-   * @deprecated `labelWidth` has been deprecated.
-   */
+  /** @deprecated `labelWidth` no longer has any effect in SimpleSelect. */
   labelWidth?: CommonTextboxProps["labelWidth"];
-  /**
-   * @deprecated `placeholder` has been deprecated for SimpleSelect.
-   */
+  /** @deprecated `placeholder` no longer has any effect in SimpleSelect. */
   placeholder?: FormInputPropTypes["placeholder"];
-  /**
-   * @deprecated `onChangeDeferred` has been deprecated.
-   * Deferred callback to be called after the onChange event
-   */
+  /** @deprecated `onChangeDeferred` is no longer called by SimpleSelect. */
   onChangeDeferred?: CommonTextboxProps["onChangeDeferred"];
-  /**
-   * @deprecated `deferTimeout` has been deprecated.
-   * Integer to determine a timeout for the deferred callback
-   */
+  /** @deprecated `deferTimeout` no longer has any effect in SimpleSelect. */
   deferTimeout?: CommonTextboxProps["deferTimeout"];
-  /**
-   * @deprecated `iconOnClick` has been deprecated.
-   * Optional handler for click event on Textbox icon
-   */
+  /** @deprecated `iconOnClick` is no longer called by SimpleSelect. */
   iconOnClick?: CommonTextboxProps["iconOnClick"];
-  /**
-   * @deprecated `iconOnMouseDown` has been deprecated.
-   * Optional handler for mouse down event on Textbox icon
-   */
+  /** @deprecated `iconOnMouseDown` is no longer called by SimpleSelect. */
   iconOnMouseDown?: CommonTextboxProps["iconOnMouseDown"];
-  /**
-   * @deprecated `iconTabIndex` has been deprecated.
-   * Overrides the default tabindex of the component
-   */
+  /** @deprecated `iconTabIndex` no longer has any effect in SimpleSelect. */
   iconTabIndex?: CommonTextboxProps["iconTabIndex"];
-  /**
-   * @deprecated `inputIcon` has been deprecated.
-   * Type of the icon that will be rendered next to the input
-   */
+  /** @deprecated `inputIcon` no longer has any effect in SimpleSelect. */
   inputIcon?: CommonTextboxProps["inputIcon"];
-  /**
-   * @deprecated `align` has been deprecated.
-   * Sets the input's text alignment. Does not affect the position of the input's prefix or suffix icons.
-   */
+  /** @deprecated `align` no longer has any effect in SimpleSelect. */
   align?: TextInputProps["align"];
-  /**
-   * @private
-   * @ignore
-   */
+  /** @deprecated `leftChildren` no longer has any effect in SimpleSelect. */
   leftChildren?: TextInputProps["leftChildren"];
-  /**
-   * @deprecated `inert` has been deprecated.
-   */
+  /** @deprecated `inert` is no longer applied by SimpleSelect. */
   inert?: HTMLAttributes<HTMLInputElement>["inert"];
-  /**
-   * @deprecated `multiColumn` has been deprecated.
-   * When true component will work in multi column mode.
-   * Children should consist of OptionRow components in this mode
-   */
+  /** @deprecated `multiColumn` no longer enables multi-column options in SimpleSelect. */
   multiColumn?: boolean;
   /** A callback that is triggered when a user scrolls to the bottom of the list */
   onListScrollBottom?: () => void;
@@ -139,11 +101,7 @@ export interface SimpleSelectProps
   onOpen?: () => void;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
-  /**
-   * @deprecated `tableHeader` has been deprecated.
-   * SelectList table header, should consist of multiple th elements.
-   * Works only in multiColumn mode
-   */
+  /** @deprecated `tableHeader` is no longer rendered by SimpleSelect. */
   tableHeader?: React.ReactNode;
   /**
    * @deprecated `transparent` has been deprecated. Use `variant="subtle"` instead.
@@ -154,17 +112,11 @@ export interface SimpleSelectProps
   variant?: "typical" | "subtle";
   /** The selected value(s) */
   value: string | Record<string, unknown>;
-  /**
-   * @deprecated `tooltipPosition` has been deprecated.
-   * [Legacy] Overrides the default tooltip position
-   */
+  /** @deprecated `tooltipPosition` no longer has any effect in SimpleSelect. */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Maximum list height in pixels. Defaults to five and a half options for the selected size. */
   listMaxHeight?: number;
-  /**
-   * @deprecated `listPlacement` has been deprecated. The select list is positioned automatically.
-   * Placement of the select list in relation to the input element.
-   */
+  /** @deprecated `listPlacement` no longer has any effect; the list is positioned automatically. */
   listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
@@ -175,23 +127,15 @@ export interface SimpleSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
-  /** When set, keyboard navigation stops at the first/last option instead of looping back around to the other end. */
-  disableNavigationLoop?: boolean;
   /** The time in milliseconds before the typeahead keyboard buffer is cleared. Defaults to 1500. */
   typeaheadTimeout?: number;
-  /**
-   * @deprecated `isRequired` has been deprecated.
-   * Flag to configure component as mandatory
-   */
+  /** @deprecated `isRequired` no longer has any effect in SimpleSelect. Use `required` instead. */
   isRequired?: boolean;
   /** Specify a callback triggered on change */
   onChange: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
-  /**
-   * @deprecated `listWidth` has been deprecated.
-   * Override the default width of the list element. Number passed is converted into pixel value
-   */
+  /** @deprecated `listWidth` no longer has any effect in SimpleSelect. */
   listWidth?: number;
 }
 
@@ -259,7 +203,6 @@ export const SimpleSelect = React.forwardRef<
       flipEnabled = true,
       enableVirtualScroll,
       virtualScrollOverscan,
-      disableNavigationLoop = false,
       typeaheadTimeout = TYPEAHEAD_TIMEOUT,
       required,
       listWidth,
@@ -428,23 +371,6 @@ export const SimpleSelect = React.forwardRef<
       setTextValue(newText);
     }, [selectedValue, childOptions]);
 
-    // Preserve the legacy keyboard cursor without changing shared menu navigation.
-    useEffect(() => {
-      if (!isOpen) return;
-
-      const listbox = document.getElementById(selectListId.current);
-      const selectedOption = listbox?.querySelector<HTMLElement>(
-        '[aria-selected="true"]',
-      );
-
-      if (!selectedOption) return;
-
-      listbox
-        ?.querySelector<HTMLElement>('[data-has-focus="true"]')
-        ?.setAttribute("data-has-focus", "false");
-      selectedOption.setAttribute("data-has-focus", "true");
-    }, [isOpen, selectedValue]);
-
     useEffect(() => {
       const clickEvent = "click";
 
@@ -560,8 +486,6 @@ export const SimpleSelect = React.forwardRef<
       [ref],
     );
 
-    const isSubtle = variant === "subtle" || transparent;
-
     function getTextboxProps() {
       return {
         id: inputId.current,
@@ -578,7 +502,7 @@ export const SimpleSelect = React.forwardRef<
         onKeyDown: handleTextboxKeydown,
         onBlur: handleTextboxBlur,
         required,
-        ...(isSubtle && { variant: "subtle" as const }),
+        variant: transparent ? "subtle" : variant,
         ...filterPropsByName(
           filterOutStyledSystemSpacingProps(props) as Record<string, unknown>,
           SIMPLE_SELECT_NON_FUNCTIONING_PROPS,
@@ -600,7 +524,6 @@ export const SimpleSelect = React.forwardRef<
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}
-        $staticPosition
         {...marginProps}
       >
         <NextSelectList
@@ -616,7 +539,6 @@ export const SimpleSelect = React.forwardRef<
           controlReference={containerRef}
           enableVirtualScroll={enableVirtualScroll}
           virtualScrollOverscan={virtualScrollOverscan}
-          disableNavigationLoop={disableNavigationLoop}
           flipEnabled={flipEnabled}
           onListScrollBottom={onListScrollBottom}
           isLoading={isLoading}
