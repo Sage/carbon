@@ -252,15 +252,6 @@ const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
         0 -2px 4px 0 rgba(0, 0, 0, 0.1),
         0 -10px 60px 0 rgba(0, 0, 0, 0.1);
     `}
-
-  ${({ $disableStickyOnSmallScreen }) =>
-    $disableStickyOnSmallScreen &&
-    css`
-      @media screen and (max-width: ${smallScreenBreakpoint}) {
-        position: static;
-        box-shadow: none;
-      }
-    `}
 `;
 
 const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
