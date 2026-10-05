@@ -11,6 +11,7 @@ import styled, { css } from "styled-components";
 import type { CSSObject } from "styled-components";
 import {
   useVirtualizer,
+  measureElement as measureVirtualElement,
   defaultRangeExtractor,
   type Range,
 } from "@tanstack/react-virtual";
@@ -190,15 +191,14 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   virtualScrollOverscan?: number;
   /** Index of the item to scroll into view when the menu opens. Only used if the `enableVirtualScroll` prop is set. */
   initialScrollIndex?: number;
-  /** When set, keyboard navigation stops at the first/last item instead of looping around. */
-  disableNavigationLoop?: boolean;
   /** When set, PageUp and PageDown move the focus by a fixed number of items. */
   enablePageNavigation?: boolean;
   /** When set, Space and Tab confirm the currently-focused item (single-select listbox behaviour). */
   selectOnSpaceAndTab?: boolean;
-  /** When set, the option marked as `aria-selected` is scrolled into view on open.
-   * Does not affect virtualised menus, which use `initialScrollIndex`. */
+  /** When set, scrolls the selected option into view on open in non-virtualised menus. */
   focusSelectedOnOpen?: boolean;
+  /** When set, highlights the selected option on open and when selection changes. */
+  highlightSelectedOption?: boolean;
   /** When set, closes a listbox menu when focus leaves its control. */
   closeOnFocusOut?: boolean;
 }
@@ -395,10 +395,10 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     enableVirtualScroll = false,
     virtualScrollOverscan = 5,
     initialScrollIndex,
-    disableNavigationLoop = false,
     enablePageNavigation = false,
     selectOnSpaceAndTab = false,
     focusSelectedOnOpen = false,
+    highlightSelectedOption = false,
     closeOnFocusOut = false,
     flipEnabled = true,
     menuWrapperDataElement,
@@ -427,6 +427,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const itemsArray = useMemo(
     () => (wrappedChildren ?? []) as React.ReactElement[],
     [wrappedChildren],
+  );
+  const selectedItemIndex = itemsArray.findIndex(
+    (item) => item.props.selected || item.props["aria-selected"] === true,
   );
   const canVirtualize =
     enableVirtualScroll &&
@@ -464,6 +467,18 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     getScrollElement: () =>
       open && canVirtualize ? internalListRef.current : null,
     estimateSize: () => 40,
+    // Ref callbacks run before the popover has its final width, so measuring
+    // their offsetHeight can cache a temporarily wrapped option. ResizeObserver
+    // supplies the settled size (and later changes) through its entry.
+    measureElement: (element, entry, instance) =>
+      entry
+        ? measureVirtualElement(element, entry, instance)
+        : (instance
+            .getVirtualItems()
+            .find(
+              (item) =>
+                item.index === Number(element.getAttribute("data-index")),
+            )?.size ?? 40),
     getItemKey: itemKeyForIndex,
     overscan: virtualScrollOverscan,
     // Ensure the currently-active and selected items are always rendered so keyboard navigation
@@ -560,6 +575,21 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, canVirtualize, initialScrollIndex, focusSelectedOnOpen]);
 
+  useEffect(() => {
+    if (!open || !highlightSelectedOption || selectedItemIndex < 0) return;
+
+    const listbox = internalListRef.current;
+    const selectedOption = listbox?.querySelector<HTMLElement>(
+      '[aria-selected="true"]',
+    );
+    if (!selectedOption) return;
+
+    listbox
+      ?.querySelector<HTMLElement>('[data-has-focus="true"]')
+      ?.setAttribute("data-has-focus", "false");
+    selectedOption.setAttribute("data-has-focus", "true");
+  }, [open, highlightSelectedOption, selectedItemIndex]);
+
   const moveActiveIndex = useCallback(
     (nextIndex: number) => {
       setActiveIndex(nextIndex);
@@ -589,9 +619,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           moveToPosition(
             activePosition < 0
               ? Math.max(initialPosition, 0)
-              : disableNavigationLoop
-                ? Math.min(activePosition + 1, lastPosition)
-                : (activePosition + 1) % count,
+              : (activePosition + 1) % count,
           );
           break;
         case "ArrowUp":
@@ -602,9 +630,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
               ? initialPosition >= 0
                 ? initialPosition
                 : lastPosition
-              : disableNavigationLoop
-                ? Math.max(activePosition - 1, 0)
-                : (activePosition - 1 + count) % count,
+              : (activePosition - 1 + count) % count,
           );
           break;
         case "Home":
@@ -671,7 +697,6 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       enabledIndexes,
       resolvedActiveIndex,
       initialScrollIndex,
-      disableNavigationLoop,
       enablePageNavigation,
       selectOnSpaceAndTab,
       moveActiveIndex,
@@ -749,7 +774,6 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     {
       isButtonMenu,
       isSubmenu,
-      disableNavigationLoop,
       enablePageNavigation,
       selectOnSpaceAndTab,
     },
