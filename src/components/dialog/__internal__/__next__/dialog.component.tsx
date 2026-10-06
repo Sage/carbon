@@ -145,7 +145,7 @@ export interface DialogProps extends ModalProps, TagProps {
 }
 
 export type DialogHandle = {
-  /** Programmatically focus on root container of Dialog. */
+  /** Programmatically focus on root container of Dixalog. */
   focus: () => void;
 } | null;
 
