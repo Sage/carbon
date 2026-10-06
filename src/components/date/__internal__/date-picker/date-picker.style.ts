@@ -132,7 +132,7 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
     transform: rotate(0deg);
 
     &:focus {
-      ${addFocusStyling()}
+      ${addFocusStyling(true)}
       border-radius: var(--global-radius-action-circle);
     }
   }
