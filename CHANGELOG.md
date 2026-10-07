@@ -1,3 +1,9 @@
+## [162.6.1](https://github.com/Sage/carbon/compare/v162.6.0...v162.6.1) (2026-10-07)
+
+### Bug Fixes
+
+* **dialog-header:** ensure icon is not misaligned when title text wraps ([7c28c83](https://github.com/Sage/carbon/commit/7c28c83abb315029dd6c16a8eb0e1c1a5e9cd2ee)), closes [#8200](https://github.com/Sage/carbon/issues/8200)
+
 ## [162.6.0](https://github.com/Sage/carbon/compare/v162.5.0...v162.6.0) (2026-10-07)
 
 ### Features
