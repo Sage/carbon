@@ -1,3 +1,9 @@
+## [162.6.0](https://github.com/Sage/carbon/compare/v162.5.0...v162.6.0) (2026-10-07)
+
+### Features
+
+* **icon:** added 4 new icons ([d4685fa](https://github.com/Sage/carbon/commit/d4685fae3dde7d766782c842376b9a9cc51ae58b))
+
 ## [162.5.0](https://github.com/Sage/carbon/compare/v162.4.0...v162.5.0) (2026-10-05)
 
 ### Features
