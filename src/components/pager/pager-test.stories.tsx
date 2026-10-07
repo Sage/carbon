@@ -27,7 +27,6 @@ const meta: Meta<typeof Pager> = {
         "hideDisabledElements",
         "showPageSizeLabelBefore",
         "showPageSizeLabelAfter",
-        "showTotalRecords",
         "showPreviousAndNextButtons",
         "showPageCount",
         "smallScreenBreakpoint",
@@ -73,27 +72,43 @@ export const AllVariants: Story = {
       <ControlledPager totalRecords={100} currentPage={10} {...args} />
 
       <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showTotalRecords
+        {...args}
+      />
+      <ControlledPager
         totalRecords={10}
         currentPage={1}
         showPageSizeSelection
+        showTotalRecords
         {...args}
       />
       <ControlledPager
         totalRecords={100}
         currentPage={1}
         showPageSizeSelection
+        showTotalRecords
         {...args}
       />
       <ControlledPager
         totalRecords={100}
         currentPage={2}
         showPageSizeSelection
+        showTotalRecords
         {...args}
       />
       <ControlledPager
         totalRecords={1000}
         currentPage={10}
         showPageSizeSelection
+        showTotalRecords
         pageSize={100}
         {...args}
       />
@@ -122,6 +137,7 @@ export const AllVariants: Story = {
         currentPage={1}
         showFirstAndLastButtons={false}
         showPageSizeSelection
+        showTotalRecords
         {...args}
       />
       <ControlledPager
@@ -129,6 +145,7 @@ export const AllVariants: Story = {
         currentPage={2}
         showFirstAndLastButtons={false}
         showPageSizeSelection
+        showTotalRecords
         {...args}
       />
       <ControlledPager
@@ -136,6 +153,7 @@ export const AllVariants: Story = {
         currentPage={10}
         showFirstAndLastButtons={false}
         showPageSizeSelection
+        showTotalRecords
         pageSize={100}
         {...args}
       />
@@ -144,14 +162,51 @@ export const AllVariants: Story = {
         totalRecords={100}
         currentPage={2}
         showPageSizeSelection
+        showTotalRecords
         variant="alternate"
+        {...args}
+      />
+
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showTotalRecords
+        layout="two-row"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showTotalRecords
+        layout="two-row"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        layout="two-row"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showTotalRecords
+        layout="three-row"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        showTotalRecords
+        alignment="centred"
         {...args}
       />
     </Box>
   ),
-  parameters: {
-    chromatic: { viewports: [1200, 320] },
-  },
 };
 
 export const AllVariantsSmall: Story = {
@@ -159,17 +214,63 @@ export const AllVariantsSmall: Story = {
   args: {
     size: "small",
   },
-  parameters: {
-    chromatic: { viewports: [1200, 320] },
-  },
 };
 
-export const AllVariantsLarge: Story = {
-  ...AllVariants,
+export const SmallViewport: Story = {
+  render: (args) => (
+    <Box display="flex" gap={2} flexDirection="column">
+      <ControlledPager
+        showTotalRecords
+        interactivePageNumber={false}
+        layout="two-row"
+        {...args}
+      />
+      <ControlledPager
+        showPageSizeSelection
+        interactivePageNumber={false}
+        layout="two-row"
+        {...args}
+      />
+      <ControlledPager
+        showPageSizeSelection
+        showTotalRecords
+        layout="three-row"
+        {...args}
+      />
+      <ControlledPager
+        showFirstAndLastButtons={false}
+        showTotalRecords
+        interactivePageNumber={false}
+        layout="two-row"
+        {...args}
+      />
+      <ControlledPager
+        showFirstAndLastButtons={false}
+        showPageSizeSelection
+        interactivePageNumber={false}
+        layout="two-row"
+        {...args}
+      />
+      <ControlledPager
+        showFirstAndLastButtons={false}
+        showPageSizeSelection
+        showTotalRecords
+        layout="three-row"
+        {...args}
+      />
+    </Box>
+  ),
   args: {
-    size: "large",
+    totalRecords: 1000,
+    currentPage: 2,
+    size: "small",
   },
   parameters: {
-    chromatic: { viewports: [1200, 320] },
+    chromatic: { viewports: [320] },
+  },
+  globals: {
+    viewport: {
+      value: "mobile",
+    },
   },
 };
