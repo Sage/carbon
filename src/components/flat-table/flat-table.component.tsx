@@ -20,6 +20,7 @@ import Events from "../../__internal__/utils/helpers/events/events";
 import { StrictFlatTableProvider } from "./__internal__/strict-flat-table.context";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import FlatTableContext from "./__internal__/flat-table.context";
+import TableBodyContext from "../../__internal__/table-body-context";
 
 export interface FlatTableProps extends MarginProps, TagProps {
   /** The HTML id of the element that contains a description of this table. */
@@ -64,6 +65,9 @@ export interface FlatTableProps extends MarginProps, TagProps {
 const FOCUSABLE_ROW_AND_CELL_QUERY =
   "tbody tr[tabindex], tbody tr td[tabindex], tbody tr th[tabindex]";
 
+/**
+ * @deprecated Use the new `Table` component instead.
+ */
 export const FlatTable = ({
   caption,
   children,
@@ -265,7 +269,6 @@ export const FlatTable = ({
 
   const flatTableValue = useMemo(
     () => ({
-      isInFlatTable: true,
       setHasOpenDatePicker,
     }),
     [setHasOpenDatePicker],
@@ -316,7 +319,9 @@ export const FlatTable = ({
           {caption ? <caption>{caption}</caption> : null}
           <StrictFlatTableProvider value={strictFlatTableValue}>
             <FlatTableContext.Provider value={flatTableValue}>
-              {children}
+              <TableBodyContext.Provider value={{ isInTable: true }}>
+                {children}
+              </TableBodyContext.Provider>
             </FlatTableContext.Provider>
           </StrictFlatTableProvider>
         </StyledFlatTable>

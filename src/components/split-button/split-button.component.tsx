@@ -24,8 +24,8 @@ import {
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import SplitButtonContext from "./__internal__/split-button.context";
 import useLocale from "../../hooks/__internal__/useLocale";
-import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import TableBodyContext from "../../__internal__/table-body-context";
 
 export interface SplitButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -107,7 +107,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     const buttonNode = useRef<HTMLDivElement>(null);
     const toggleWrapperRef = useRef<HTMLDivElement>(null);
 
-    const { isInFlatTable } = useContext(FlatTableContext);
+    const { isInTable } = useContext(TableBodyContext);
 
     const shouldRenderIsWhiteVariant = buttonType === "secondary" && isWhite;
 
@@ -133,7 +133,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     }, []);
 
     useEffect(() => {
-      if (!isInFlatTable) return;
+      if (!isInTable) return;
 
       const handleClickOnPopupBackdrop = (ev: MouseEvent) => {
         if (
@@ -150,7 +150,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       return () => {
         document.removeEventListener("click", handleClickOnPopupBackdrop);
       };
-    }, [hideButtons, isInFlatTable, showAdditionalButtons]);
+    }, [hideButtons, isInTable, showAdditionalButtons]);
 
     const handleMainClick = (
       ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
@@ -198,7 +198,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
         ref={buttonNode}
         {...filterStyledSystemMarginProps(rest)}
       >
-        {isInFlatTable && showAdditionalButtons && (
+        {isInTable && showAdditionalButtons && (
           <StyledBackdrop
             data-role="popup-backdrop"
             data-testid="popup-backdrop"

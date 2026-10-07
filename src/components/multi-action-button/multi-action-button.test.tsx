@@ -3,12 +3,7 @@ import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MultiActionButton, { MultiActionButtonHandle } from ".";
 import Button from "../button";
-import {
-  FlatTable,
-  FlatTableBody,
-  FlatTableRow,
-  FlatTableCell,
-} from "../flat-table";
+import { Table, TableBody, TableRow, TableCell } from "../table";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with provided 'text'", () => {
@@ -407,21 +402,21 @@ test("should close additional buttons when Space is pressed while buttons are al
   ).not.toBeInTheDocument();
 });
 
-test("renders backdrop when opened inside FlatTable", async () => {
+test("renders backdrop when opened inside Table", async () => {
   const user = userEvent.setup();
 
   render(
-    <FlatTable>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableCell>
+    <Table>
+      <TableBody>
+        <TableRow id="foo">
+          <TableCell>
             <MultiActionButton text="Main Button">
               <Button>First</Button>
             </MultiActionButton>
-          </FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>,
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>,
   );
 
   await user.click(screen.getByRole("button", { name: "Main Button" }));

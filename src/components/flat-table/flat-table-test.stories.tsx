@@ -42,7 +42,7 @@ import PopoverContainer from "../popover-container";
 import Typography from "../typography";
 
 export default {
-  title: "Flat Table/Test",
+  title: "Deprecated/Flat Table/Test",
   parameters: {
     info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },

@@ -29,7 +29,6 @@ import {
   DisabledSubmenu,
   DownloadButton,
   Icons,
-  InFlatTable,
   InOverflowHiddenContainer,
   KeyboardNavigationLeftAlignedSubmenu,
   KeyboardNavigationRightAlignedSubmenu,
@@ -632,16 +631,6 @@ test.describe("Accessibility tests for ActionPopover", () => {
     await mount(<InOverflowHiddenContainer />);
     const accordionIcon = getDataElementByValue(page, "accordion-icon");
     await accordionIcon.click();
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests in FlatTable", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<InFlatTable />);
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
 
