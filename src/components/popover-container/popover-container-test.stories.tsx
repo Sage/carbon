@@ -327,8 +327,7 @@ export const WithFullWidthButton = () => {
 WithFullWidthButton.storyName = "with full width button";
 WithFullWidthButton.parameters = {
   chromatic: {
-    disableSnapshot: false,
-    delay: 2000,
+    disableSnapshot: true,
   },
   themeProvider: { chromatic: { theme: "sage" } },
 };
@@ -418,3 +417,268 @@ export const OnCloseTest = () => {
 };
 
 OnCloseTest.storyName = "On Close Test";
+
+const ChromaticRow = ({ children }: { children: React.ReactNode }) => (
+  <Box
+    display="grid"
+    gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+    columnGap={4}
+    rowGap="220px"
+    minHeight="220px"
+  >
+    {children}
+  </Box>
+);
+
+export const Chromatic = () => (
+  <Box display="flex" flexDirection="column" gap={4} padding={4}>
+    <ChromaticRow>
+      <PopoverContainer title="Default" open onClose={() => {}}>
+        Contents
+      </PopoverContainer>
+
+      <PopoverContainer title="Zero offset" offset={0} open onClose={() => {}}>
+        Contents
+      </PopoverContainer>
+    </ChromaticRow>
+    <ChromaticRow>
+      <PopoverContainer
+        title="Small with curved roundness"
+        size="small"
+        roundness="curved"
+        open
+        onClose={() => {}}
+      >
+        Contents
+      </PopoverContainer>
+      <PopoverContainer
+        title="Medium with moderate roundness"
+        size="medium"
+        roundness="moderate"
+        open
+        onClose={() => {}}
+      >
+        Contents
+      </PopoverContainer>
+
+      <PopoverContainer
+        title="Large with moderate roundness"
+        size="large"
+        roundness="moderate"
+        open
+        onClose={() => {}}
+      >
+        Contents
+      </PopoverContainer>
+      <PopoverContainer
+        title="Custom border radius"
+        borderRadius="borderRadius200"
+        open
+        onClose={() => {}}
+      >
+        Contents
+      </PopoverContainer>
+      <PopoverContainer
+        title="Cover button"
+        shouldCoverButton
+        open
+        onClose={() => {}}
+      >
+        Contents
+      </PopoverContainer>
+    </ChromaticRow>
+  </Box>
+);
+
+Chromatic.storyName = "Chromatic Visual States";
+Chromatic.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+    delay: 2000,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const ChromaticContentStates = () => (
+  <Box display="flex" flexDirection="column" gap={4} padding={4} pt={10}>
+    <ChromaticRow>
+      <PopoverContainer
+        title="Custom buttons"
+        open
+        onClose={() => {}}
+        renderOpenComponent={({ ref, onClick }) => (
+          <Button ref={ref} onClick={onClick}>
+            Open
+          </Button>
+        )}
+        renderCloseComponent={({ ref, onClick, "aria-label": ariaLabel }) => (
+          <Button ref={ref} onClick={onClick} aria-label={ariaLabel}>
+            Close
+          </Button>
+        )}
+      >
+        Custom button content
+      </PopoverContainer>
+      <PopoverContainer
+        title="Select content"
+        open
+        onClose={() => {}}
+        containerAriaLabel="select example"
+      >
+        <Select
+          label="my select"
+          value="red"
+          onChange={() => {}}
+          openOnFocus
+          autoFocus
+        >
+          <Option value="red" text="red" />
+          <Option value="green" text="green" />
+          <Option value="blue" text="blue" />
+        </Select>
+      </PopoverContainer>
+      <PopoverContainer title="MultiSelect content" open onClose={() => {}}>
+        <MultiSelect
+          label="my multiselect"
+          value={[]}
+          onChange={() => {}}
+          openOnFocus
+          autoFocus
+        >
+          <Option value="red" text="red" />
+          <Option value="green" text="green" />
+          <Option value="blue" text="blue" />
+        </MultiSelect>
+      </PopoverContainer>
+    </ChromaticRow>
+    <ChromaticRow>
+      <PopoverContainer title="Radio buttons" open onClose={() => {}} p={0}>
+        <Box p={2}>
+          <RadioButtonGroup
+            name="chromatic-radio"
+            value="1"
+            onChange={() => {}}
+          >
+            <RadioButton value="1" label="radio 1" />
+            <RadioButton value="2" label="radio 2" />
+          </RadioButtonGroup>
+        </Box>
+      </PopoverContainer>
+      <Box mt="120px">
+        <PopoverContainer
+          title="Full width button"
+          hasFullWidth
+          open
+          onClose={() => {}}
+          renderOpenComponent={({ ref, ...rest }) => (
+            <Button
+              iconPosition="after"
+              iconType="filter_new"
+              fullWidth
+              ref={ref}
+              {...rest}
+            >
+              Filter
+            </Button>
+          )}
+        >
+          Content
+        </PopoverContainer>
+      </Box>
+    </ChromaticRow>
+    <Box>
+      <GlobalHeader pt={2}>
+        <Menu menuType="black" flex="1">
+          <MenuItem href="#">Menu item</MenuItem>
+          <MenuItem>
+            <PopoverContainer
+              title="Header notifications"
+              position="left"
+              shouldCoverButton
+              open
+              onClose={() => {}}
+              renderOpenComponent={({ ref, onClick }) => (
+                <Button aria-label="Notifications" ref={ref} onClick={onClick}>
+                  Notifications
+                </Button>
+              )}
+            >
+              Notification content
+            </PopoverContainer>
+          </MenuItem>
+        </Menu>
+      </GlobalHeader>
+    </Box>
+  </Box>
+);
+
+ChromaticContentStates.storyName = "Chromatic Content States";
+ChromaticContentStates.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+    delay: 2000,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const ChromaticPosition = () => (
+  <Box display="flex" flexDirection="column" gap={4} padding={4}>
+    <Box
+      width="100%"
+      minHeight="220px"
+      display="flex"
+      justifyContent="flex-end"
+      alignItems="flex-start"
+    >
+      <PopoverContainer
+        title="Left position"
+        position="left"
+        open
+        onClose={() => {}}
+      >
+        Contents
+      </PopoverContainer>
+    </Box>
+    <Box
+      width="100%"
+      minHeight="220px"
+      display="flex"
+      justifyContent="center"
+      alignItems="flex-start"
+    >
+      <PopoverContainer
+        title="Center position"
+        position="center"
+        open
+        onClose={() => {}}
+      >
+        Contents
+      </PopoverContainer>
+    </Box>
+    <Box
+      width="100%"
+      minHeight="220px"
+      display="flex"
+      justifyContent="flex-start"
+      alignItems="flex-start"
+    >
+      <PopoverContainer
+        title="Right Position"
+        position="right"
+        open
+        onClose={() => {}}
+      >
+        Contents
+      </PopoverContainer>
+    </Box>
+  </Box>
+);
+
+ChromaticPosition.storyName = "Chromatic Positions";
+ChromaticPosition.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+    delay: 2000,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
