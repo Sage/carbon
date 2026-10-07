@@ -109,7 +109,7 @@ export const InMenu = ({ ...args }) => {
     <Menu variant="black">
       <MenuItem onClick={() => {}}>
         MenuItem
-        <Badge ml={1} counter={2} {...args} />
+        <Badge counter={2} {...args} />
       </MenuItem>
       <MenuItem ariaLabel="Notifications" onClick={() => {}}>
         <Badge size="small" inverse counter={6} {...args}>

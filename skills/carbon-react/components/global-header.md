@@ -56,7 +56,7 @@ description: Carbon GlobalHeader component props and usage examples.
 () => {
   return (
     <GlobalHeader logo={<img height={28} src={carbonLogo} alt="Carbon logo" />}>
-      <Divider h="100%" pt={1} pb={1} pr={0} pl={2} />
+      <Divider p={0} height={24} inverse />
       <Menu variant="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem href="#">Product A</MenuItem>

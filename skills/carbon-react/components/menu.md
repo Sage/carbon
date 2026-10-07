@@ -504,12 +504,17 @@ description: Carbon Menu component props and usage examples.
 
 ```tsx
 () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenWhite, setIsOpenWhite] = useState(false);
+    const [isOpenBlack, setIsOpenBlack] = useState(false);
+
     return (
       <>
         <Menu>
-          <MenuItem onClick={() => setIsOpen(true)}>Open Menu</MenuItem>
-          <MenuFullscreen isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <MenuItem onClick={() => setIsOpenWhite(true)}>Open Menu</MenuItem>
+          <MenuFullscreen
+            isOpen={isOpenWhite}
+            onClose={() => setIsOpenWhite(false)}
+          >
             <MenuItem href="#">Menu Item One</MenuItem>
             <MenuItem href="#">Menu Item Two</MenuItem>
             <MenuItem submenu="Submenu">
@@ -534,8 +539,11 @@ description: Carbon Menu component props and usage examples.
         </Menu>
 
         <Menu variant="black">
-          <MenuItem onClick={() => setIsOpen(true)}>Open Menu</MenuItem>
-          <MenuFullscreen isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <MenuItem onClick={() => setIsOpenBlack(true)}>Open Menu</MenuItem>
+          <MenuFullscreen
+            isOpen={isOpenBlack}
+            onClose={() => setIsOpenBlack(false)}
+          >
             <MenuItem href="#">Menu Item One</MenuItem>
             <MenuItem href="#">Menu Item Two</MenuItem>
             <MenuItem submenu="Submenu">

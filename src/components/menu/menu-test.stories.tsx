@@ -21,9 +21,7 @@ const meta: Meta<typeof Menu> = {
   title: "Menu/Test",
   component: Menu,
   parameters: {
-    chromatic: {
-      themeProvider: { chromatic: { theme: "sage" } },
-    },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
 };
 
@@ -119,13 +117,28 @@ export const MenuFullScreenWhite: Story = {
     </Menu>
   ),
   parameters: {
-    chromatic: { viewports: [1200, 320] },
+    chromatic: {
+      modes: {
+        "1200px": {
+          viewport: {
+            width: 1200,
+            height: 1500,
+          },
+        },
+        "320px": {
+          viewport: {
+            width: 320,
+            height: 1700,
+          },
+        },
+      },
+    },
   },
   decorators: [
     (Story) => (
       <>
         {defaultOpenState ? (
-          <Box width="100%" height={900}>
+          <Box width="100%" height="1700px">
             <Story />
           </Box>
         ) : (
@@ -142,13 +155,28 @@ export const MenuFullScreenBlack: Story = {
     variant: "black",
   },
   parameters: {
-    chromatic: { viewports: [1200, 320] },
+    chromatic: {
+      modes: {
+        "1200px": {
+          viewport: {
+            width: 1200,
+            height: 1500,
+          },
+        },
+        "320px": {
+          viewport: {
+            width: 320,
+            height: 1700,
+          },
+        },
+      },
+    },
   },
   decorators: [
     (Story) => (
       <>
         {defaultOpenState ? (
-          <Box width="100%" height={900}>
+          <Box width="100%" height="1700px">
             <Story />
           </Box>
         ) : (

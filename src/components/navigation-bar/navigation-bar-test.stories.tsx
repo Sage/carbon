@@ -221,8 +221,8 @@ WithPills.parameters = {
 export const WithMenuAndWrappedText = () => {
   return (
     <Box maxWidth="320px">
-      <NavigationBar>
-        <Menu>
+      <NavigationBar variant="black">
+        <Menu variant="black">
           <MenuItem href="#">Menu Item One Menu Item One</MenuItem>
           <MenuItem href="#">
             Menu Item Two Menu Item Two Menu Item Two
