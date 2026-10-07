@@ -1,3 +1,9 @@
+## [162.7.0](https://github.com/Sage/carbon/compare/v162.6.1...v162.7.0) (2026-10-07)
+
+### Features
+
+* **pager:** add layout, alignment, and totals display ([83b1911](https://github.com/Sage/carbon/commit/83b1911aba0ae5700c264482d57eb166de58ac0c))
+
 ## [162.6.1](https://github.com/Sage/carbon/compare/v162.6.0...v162.6.1) (2026-10-07)
 
 ### Bug Fixes
