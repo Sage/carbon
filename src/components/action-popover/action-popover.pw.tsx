@@ -657,6 +657,25 @@ test.describe("Accessibility tests for ActionPopover", () => {
 });
 
 test.describe("when nested inside a Dialog component", () => {
+  test("should close the confirm dialog when clicking the cancel button after opening it from the action popover", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<OpeningAModal />);
+
+    await page.getByRole("button", { name: "Open Actions" }).click();
+    await page.getByRole("button", { name: "Open Confirm Dialog" }).click();
+
+    const confirmDialog = page.getByRole("alertdialog", {
+      name: "Are you sure?",
+    });
+    await expect(confirmDialog).toBeVisible();
+
+    await page.getByRole("button", { name: "No" }).click();
+
+    await expect(confirmDialog).toBeHidden();
+  });
+
   test("should not close the Dialog when component is closed by pressing an escape key", async ({
     mount,
     page,
