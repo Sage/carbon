@@ -3,8 +3,6 @@ import React from "react";
 import { useStrictMenuContext } from "../__internal__/strict-menu.context";
 import MenuItem, { VariantType } from "../menu-item";
 import StyledScrollableBlock from "./scrollable-block.style";
-import Box from "../../box";
-import { ScrollVariant } from "../../box/box.component";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
@@ -37,13 +35,6 @@ export const ScrollableBlock = ({
 }: ScrollableBlockProps) => {
   const { menuType, inFullscreenView } = useStrictMenuContext();
 
-  const scrollVariants: Record<string, ScrollVariant> = {
-    light: "light",
-    dark: "dark",
-    white: "light",
-    black: "dark",
-  };
-
   return (
     <StyledScrollableBlock
       menuType={menuType}
@@ -64,17 +55,12 @@ export const ScrollableBlock = ({
           {parent}
         </MenuItem>
       )}
-      <Box
-        overflowY="scroll"
-        scrollVariant={scrollVariants[menuType]}
-        height={height}
-        maxHeight={maxHeight}
-        p={0}
-        as="ul"
-        role="list"
+      <ul
+        data-element="scrollable-block-list"
+        style={{ height, maxHeight, overflowY: "scroll", padding: 0 }}
       >
         {children}
-      </Box>
+      </ul>
     </StyledScrollableBlock>
   );
 };

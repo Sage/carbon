@@ -6,6 +6,13 @@ import Button from "../button";
 import Pill from "../pill";
 import Typography from "../typography";
 
+const lightGreyBackground: React.CSSProperties = {
+  backgroundColor: "rgb(211, 211, 211)",
+  display: "flex",
+  flexDirection: "row",
+  height: "100%",
+};
+
 export const DefaultAdaptiveSidebar = ({ ...props }) => {
   const [adaptiveSidebarOpen, setAdaptiveSidebarOpen] = useState(false);
 
@@ -89,12 +96,7 @@ export const DefaultWithCustomHeight = ({ ...props }) => {
 
   return (
     <>
-      <Box
-        display="flex"
-        flexDirection="row"
-        height="100%"
-        backgroundColor="lightgray"
-      >
+      <div style={lightGreyBackground}>
         <Box>
           <Button
             data-role="adaptive-sidebar-control-button"
@@ -115,7 +117,7 @@ export const DefaultWithCustomHeight = ({ ...props }) => {
         <AdaptiveSidebar open={adaptiveSidebarOpen} {...props}>
           Adaptive sidebar content
         </AdaptiveSidebar>
-      </Box>
+      </div>
     </>
   );
 };

@@ -258,14 +258,16 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
                 )}
               </Box>
               {prefixAdornment && (
-                <Box
+                <div
                   data-element="prefix-adornment"
                   data-role="prefix-adornment"
-                  mr={3}
-                  opacity={disabled ? "0.3" : undefined}
+                  style={{
+                    marginRight: "var(--global-space-layout-xs)",
+                    opacity: disabled ? 0.3 : undefined,
+                  }}
                 >
                   {prefixAdornment}
-                </Box>
+                </div>
               )}
             </Box>
           </StyledTileSelect>

@@ -23,7 +23,6 @@ import {
   StyledResponsiveMenu,
 } from "./responsive-vertical-menu.style";
 
-import Box from "../../box";
 import Modal from "../../../__internal__/modal";
 
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
@@ -293,13 +292,15 @@ const BaseMenu = forwardRef<
                 id="responsive-vertical-menu-dialog"
                 {...modalAriaProps()}
               >
-                <Box
-                  boxSizing="border-box"
-                  display="flex"
-                  justifyContent="flex-end"
-                  width="100%"
-                  backgroundColor="var(--colorsGray850)"
-                  p={1}
+                <div
+                  style={{
+                    backgroundColor: "rgb(38, 38, 38)",
+                    boxSizing: "border-box",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    padding: "var(--global-space-layout-3-xs)",
+                    width: "100%",
+                  }}
                 >
                   <StyledCloseButton
                     aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuCloseButton()}
@@ -313,7 +314,7 @@ const BaseMenu = forwardRef<
                       setActiveMenuItem(null);
                     }}
                   />
-                </Box>
+                </div>
                 <StyledResponsiveMenu
                   height={height}
                   id="responsive-vertical-menu-primary"

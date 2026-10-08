@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import Search, { SearchProps, SearchListGroup } from ".";
 import Box from "../box";
 
+const blackBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 0, 0)",
+  height: "140px",
+  width: "700px",
+};
+
 export const SearchComponentWithLabelHintAndError = () => {
   return (
     <Search
@@ -15,7 +21,7 @@ export const SearchComponentWithLabelHintAndError = () => {
 };
 
 export const SearchComponentInverseWithLabelHintAndError = () => (
-  <Box width="700px" height="140px" backgroundColor="#000000">
+  <div style={blackBackground}>
     <Search
       label="Search"
       inputHint="Hint text"
@@ -24,7 +30,7 @@ export const SearchComponentInverseWithLabelHintAndError = () => (
       inverse
       error="Error message"
     />
-  </Box>
+  </div>
 );
 
 export const SearchComponent = (props: Partial<SearchProps>) => {

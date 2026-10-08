@@ -3,7 +3,6 @@ import StyledScrollableBlock from "../../../menu/scrollable-block/scrollable-blo
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 import { StyledLink } from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
-import StyledBox from "../../../box/box.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import StyledIcon from "../../../icon/icon.style";
 import menuConfigVariants from "../../menu.config";
@@ -168,7 +167,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       }
 
       &&&& ${StyledScrollableBlock} {
-        ${StyledBox} {
+        [data-element="scrollable-block-list"] {
           border-bottom-right-radius: var(--borderRadius000);
           border-bottom-left-radius: ${applyFocusRadiusStyling
             ? "var(--borderRadius100)"

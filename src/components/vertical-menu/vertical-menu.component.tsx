@@ -27,14 +27,8 @@ export const VerticalMenu = ({
 }: VerticalMenuProps) => {
   return (
     <StyledVerticalMenu
-      boxSizing="border-box"
-      scrollVariant="dark"
-      backgroundColor="var(--colorsComponentsLeftnavWinterStandardBackground)"
-      width={width}
-      height={height}
-      py={1}
-      as="nav"
-      overflow="auto"
+      $width={width}
+      $height={height}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       {...tagComponent("vertical-menu", rest)}

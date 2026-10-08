@@ -24,6 +24,12 @@ const nestedDialogTitle = "Nested Dialog";
 
 const defaultOpenState = isChromatic();
 
+const lightGreyIndentedContent: React.CSSProperties = {
+  backgroundColor: "rgb(230, 235, 237)",
+  marginLeft: "88px",
+  padding: "var(--global-space-layout-xs)",
+};
+
 export const DialogComponent = (props: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
@@ -253,7 +259,7 @@ export const Editable = () => {
               disabled={isDisabled}
             />
           </RadioButtonGroup>
-          <Box p="24px" bg="slateTint90" ml="88px">
+          <div style={lightGreyIndentedContent}>
             <Textbox
               value=""
               onChange={() => {}}
@@ -282,7 +288,7 @@ export const Editable = () => {
                 label="Postcode"
               />
             </Fieldset>
-          </Box>
+          </div>
         </Form>
       </Dialog>
     </>
@@ -311,7 +317,7 @@ export const WithHelp = () => {
             </Button>
           }
         >
-          <Box p="24px" bg="slateTint90" ml="88px">
+          <div style={lightGreyIndentedContent}>
             <Textbox
               value=""
               onChange={() => {}}
@@ -340,7 +346,7 @@ export const WithHelp = () => {
                 label="Postcode"
               />
             </Fieldset>
-          </Box>
+          </div>
         </Form>
       </Dialog>
     </>

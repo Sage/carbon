@@ -122,6 +122,30 @@ it("applies the boxShadow styling correctly when a design token is passed in", (
   expect(box).toHaveStyleRule("box-shadow", "var(--boxShadow100)");
 });
 
+it("applies the scroll styling when scrollVariant is passed in", () => {
+  render(<Box scrollVariant="dark" data-role="box" />);
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyleRule("scrollbar-color", "#b3b3b3 #4d4d4d");
+  expect(box).toHaveStyleRule("width", "8px", {
+    modifier: "::-webkit-scrollbar",
+  });
+  expect(box).toHaveStyleRule("background-color", "#4d4d4d", {
+    modifier: "::-webkit-scrollbar-track",
+  });
+  expect(box).toHaveStyleRule("background-color", "#b3b3b3", {
+    modifier: "::-webkit-scrollbar-thumb",
+  });
+});
+
+it("applies box sizing when boxSizing is passed in", () => {
+  render(<Box boxSizing="border-box" data-role="box" />);
+
+  expect(screen.getByTestId("box")).toHaveStyle({
+    boxSizing: "border-box",
+  });
+});
+
 test("sets the correct border radius when `borderRadius` is passed with multiple border radius values", () => {
   render(
     <Box

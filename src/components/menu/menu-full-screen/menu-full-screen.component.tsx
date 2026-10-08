@@ -135,12 +135,7 @@ const MenuFullscreenRoot = ({
                 <Icon type="close" inverse={isDarkVariant} />
               </IconButton>
             </StyledMenuFullscreenHeader>
-            <Box
-              overflowY="auto"
-              scrollVariant={isDarkVariant ? "dark" : "light"}
-              width="100%"
-              height="calc(100% - 40px)"
-            >
+            <Box overflowY="auto" width="100%" height="calc(100% - 40px)">
               <StyledMenuWrapper
                 data-component="menu"
                 menuType={menuType}

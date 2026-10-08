@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
 import menuConfigVariants from "../menu.config";
 import { VariantType } from "../menu-item";
-import StyledBox from "../../box/box.style";
 import { StyledMenuItem } from "../menu.style";
 import { StyledLink } from "../../link/link.style";
 
@@ -26,7 +25,7 @@ const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
       padding-right: var(--spacing150);
     }
 
-    ${StyledBox} {
+    [data-element="scrollable-block-list"] {
       border-radius: var(--borderRadius000);
       border-bottom-left-radius: var(--borderRadius100);
 

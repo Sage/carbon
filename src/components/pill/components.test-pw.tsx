@@ -1,6 +1,9 @@
 import React from "react";
 import Pill, { PillProps } from ".";
-import Box from "../box";
+
+const darkGreyBackground: React.CSSProperties = {
+  backgroundColor: "rgb(38, 38, 38)",
+};
 
 export const PillComponent = ({
   children = "noop",
@@ -14,8 +17,8 @@ export const PillOnDarkBackground = ({
   ...args
 }: Partial<PillProps>) => {
   return (
-    <Box backgroundColor="#262626">
+    <div style={darkGreyBackground}>
       <Pill {...args}>{children}</Pill>
-    </Box>
+    </div>
   );
 };

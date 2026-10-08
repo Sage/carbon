@@ -3,18 +3,29 @@ import Box, { BoxProps } from ".";
 import Typography from "../typography";
 import Button from "../button";
 
+const greenBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 125, 90)",
+  color: "rgb(255, 255, 255)",
+  height: "100px",
+  width: "100px",
+};
+
+const darkTealBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 26, 37)",
+  display: "inline-block",
+};
+
+const boxShadowExample: React.CSSProperties = {
+  boxShadow:
+    "0 10px 20px 0 rgba(0, 20, 30, 0.2), 0 20px 40px 0 rgba(0, 20, 30, 0.1)",
+  height: "100px",
+  margin: "var(--global-space-layout-xs)",
+  padding: "var(--global-space-layout-xs)",
+};
+
 export const Default = (props: Partial<BoxProps>) => {
   return (
-    <Box
-      m={3}
-      p={3}
-      width={400}
-      height={400}
-      data-element="box"
-      bg="primary"
-      color="white"
-      {...props}
-    >
+    <Box m={3} p={3} width={400} height={400} data-element="box" {...props}>
       This is some sample text
     </Box>
   );
@@ -22,8 +33,8 @@ export const Default = (props: Partial<BoxProps>) => {
 
 export const Spacing = () => {
   return (
-    <Box m={3} p={3} bg="secondary">
-      <Box height="100px" bg="primary" />
+    <Box m={3} p={3}>
+      <Box height="100px" />
     </Box>
   );
 };
@@ -31,43 +42,22 @@ export const Spacing = () => {
 export const Position = () => {
   return (
     <Box>
-      <Box
-        display="inline-block"
-        size="350px"
-        overflow="auto"
-        scrollVariant="light"
-        mr="20px"
-        bg="secondary"
-      >
-        <Box
-          width="400px"
-          height="80px"
-          m={2}
-          bg="primary"
-          position="sticky"
-          top="0"
-        >
+      <Box display="inline-block" size="350px" overflow="auto" mr="20px">
+        <Box width="400px" height="80px" m={2} position="sticky" top="0">
           <Typography inverse>This box has position sticky</Typography>
           <Button buttonType="primary" destructive>
             Button
           </Button>
         </Box>
         <Box size="500px" />
-        <Box
-          width="400px"
-          height="80px"
-          m={2}
-          bg="primary"
-          position="sticky"
-          bottom="0"
-        >
+        <Box width="400px" height="80px" m={2} position="sticky" bottom="0">
           <Typography inverse>This box has position sticky</Typography>
           <Button buttonType="primary" destructive>
             Button
           </Button>
         </Box>
       </Box>
-      <Box size="500px" position="fixed" right="0" bg="primary">
+      <Box size="500px" position="fixed" right="0">
         <Box>
           <Typography inverse>This box has position fixed</Typography>
         </Box>
@@ -78,18 +68,14 @@ export const Position = () => {
 
 export const Color = () => {
   return (
-    <Box m={3} p={3} bg="secondary">
-      <Box width="100px" height="100px" bg="primary" color="yellow">
-        This is some sample text
-      </Box>
+    <Box m={3} p={3}>
+      <div style={greenBackground}>This is some sample text</div>
     </Box>
   );
 };
 
 export const BoxShadow = () => {
-  return (
-    <Box m={3} p={3} height="100px" bg="secondary" boxShadow="boxShadow200" />
-  );
+  return <div style={boxShadowExample} />;
 };
 
 export const Flex = () => {
@@ -102,9 +88,9 @@ export const Flex = () => {
         alignItems="stretch"
         m="5px"
       >
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
       </Box>
       <Box
         display="flex"
@@ -114,9 +100,9 @@ export const Flex = () => {
         height="400px"
         m="5px"
       >
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
       </Box>
     </Box>
   );
@@ -127,55 +113,55 @@ export const Gap = () => {
     <Box display="flex" flexDirection="column" gap={2}>
       <Box display="flex" columnGap={1}>
         <Box display="flex" flexDirection="column" rowGap={2}>
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
         </Box>
         <Box display="flex" flexDirection="column" rowGap={3}>
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
         </Box>
         <Box display="flex" flexDirection="column" rowGap={4}>
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
         </Box>
         <Box display="flex" flexDirection="column" rowGap={5}>
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
         </Box>
         <Box display="flex" flexDirection="column" rowGap={6}>
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
         </Box>
         <Box display="flex" flexDirection="column" rowGap={7}>
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
         </Box>
         <Box display="flex" flexDirection="column" rowGap={8}>
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
-          <Box width="100px" height="100px" bg="primary" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
+          <Box width="100px" height="100px" />
         </Box>
       </Box>
       <Box display="flex" gap={4}>
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
       </Box>
       <Box display="flex" gap={8}>
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
       </Box>
       <Box display="flex" gap="72px">
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
-        <Box width="100px" height="100px" bg="primary" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
+        <Box width="100px" height="100px" />
       </Box>
     </Box>
   );
@@ -184,27 +170,9 @@ export const Gap = () => {
 export const Layout = () => {
   return (
     <Box display="block" size="150px" overflow="hidden">
-      <Box
-        width="100px"
-        height="100px"
-        bg="primary"
-        display="inline-block"
-        m="5px"
-      />
-      <Box
-        width="100px"
-        height="100px"
-        bg="primary"
-        display="inline-block"
-        m="5px"
-      />
-      <Box
-        width="100px"
-        height="100px"
-        bg="primary"
-        display="inline-block"
-        m="5px"
-      />
+      <Box width="100px" height="100px" display="inline-block" m="5px" />
+      <Box width="100px" height="100px" display="inline-block" m="5px" />
+      <Box width="100px" height="100px" display="inline-block" m="5px" />
     </Box>
   );
 };
@@ -235,65 +203,18 @@ export const OverflowWrap = () => {
 export const Scroll = () => {
   return (
     <div>
-      <Box
-        display="inline-block"
-        size="150px"
-        overflow="auto"
-        scrollVariant="light"
-        mr="20px"
-      >
-        <Box
-          width="100px"
-          height="100px"
-          bg="primary"
-          display="inline-block"
-          m="5px"
-        />
-        <Box
-          width="100px"
-          height="100px"
-          bg="primary"
-          display="inline-block"
-          m="5px"
-        />
-        <Box
-          width="100px"
-          height="100px"
-          bg="primary"
-          display="inline-block"
-          m="5px"
-        />
+      <Box display="inline-block" size="150px" overflow="auto" mr="20px">
+        <Box width="100px" height="100px" display="inline-block" m="5px" />
+        <Box width="100px" height="100px" display="inline-block" m="5px" />
+        <Box width="100px" height="100px" display="inline-block" m="5px" />
       </Box>
-      <Box backgroundColor="rgb(0, 26, 37)" display="inline-block">
-        <Box
-          display="inline-block"
-          size="150px"
-          overflow="auto"
-          scrollVariant="dark"
-        >
-          <Box
-            width="100px"
-            height="100px"
-            bg="primary"
-            display="inline-block"
-            m="5px"
-          />
-          <Box
-            width="100px"
-            height="100px"
-            bg="primary"
-            display="inline-block"
-            m="5px"
-          />
-          <Box
-            width="100px"
-            height="100px"
-            bg="primary"
-            display="inline-block"
-            m="5px"
-          />
+      <div style={darkTealBackground}>
+        <Box display="inline-block" size="150px" overflow="auto">
+          <Box width="100px" height="100px" display="inline-block" m="5px" />
+          <Box width="100px" height="100px" display="inline-block" m="5px" />
+          <Box width="100px" height="100px" display="inline-block" m="5px" />
         </Box>
-      </Box>
+      </div>
     </div>
   );
 };

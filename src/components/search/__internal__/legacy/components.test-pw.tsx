@@ -1,7 +1,12 @@
 import React from "react";
 import Search, { SearchProps } from "../..";
-import Box from "../../../box";
 import MenuContext from "../../../menu/__internal__/menu.context";
+
+const darkTealBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 51, 73)",
+  height: "108px",
+  width: "700px",
+};
 
 const MenuContextProvider = ({ children }: { children: React.ReactNode }) => (
   <MenuContext.Provider value={{ inMenu: true }}>
@@ -30,7 +35,7 @@ export const SearchComponentDarkBackground = (
 ) => {
   const [value, setValue] = React.useState("foo");
   return (
-    <Box width="700px" height="108px" bg="#003349">
+    <div style={darkTealBackground}>
       <MenuContextProvider>
         <Search
           placeholder="Search..."
@@ -40,6 +45,6 @@ export const SearchComponentDarkBackground = (
           {...props}
         />
       </MenuContextProvider>
-    </Box>
+    </div>
   );
 };
