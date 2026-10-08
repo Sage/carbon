@@ -11,6 +11,8 @@ description: Carbon TileContent component props and usage examples.
 ## Source
 - Export: `./components/tile`
 - Props interface: `TileContentProps`
+- Deprecated: Yes
+- Deprecation reason: The `TileContent` component is deprecated and will be removed in a future version. Please use the `Box` component instead.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |
