@@ -317,3 +317,29 @@ test("should apply large size styling with children", () => {
   expect(badge).toHaveStyleRule("min-width", "var(--global-size-2-xs,20px)");
   expect(badge).toHaveStyleRule("height", "var(--global-size-xs,24px)");
 });
+
+test("should render the wrapper as inline-block by default", () => {
+  render(
+    <Badge counter={9}>
+      <span>Test</span>
+    </Badge>,
+  );
+
+  const wrapper = screen.getByTestId("badge-wrapper");
+
+  expect(wrapper).toHaveStyleRule("display", "inline-block");
+  expect(wrapper).not.toHaveStyleRule("width", "100%");
+});
+
+test("should apply full width styling to the wrapper when fullWidth is true", () => {
+  render(
+    <Badge counter={9} fullWidth>
+      <span>Test</span>
+    </Badge>,
+  );
+
+  const wrapper = screen.getByTestId("badge-wrapper");
+
+  expect(wrapper).toHaveStyleRule("display", "block");
+  expect(wrapper).toHaveStyleRule("width", "100%");
+});

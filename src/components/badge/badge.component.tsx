@@ -32,6 +32,8 @@ export interface BadgeProps extends TagProps, MarginProps {
   variant?: "typical" | "subtle";
   /** Set the style of the Badge to inverse */
   inverse?: boolean;
+  /** Apply fullWidth style to the badge wrapper */
+  fullWidth?: boolean;
 }
 
 export const Badge = ({
@@ -44,6 +46,7 @@ export const Badge = ({
   size = "medium",
   variant = "typical",
   inverse = false,
+  fullWidth,
   ...rest
 }: BadgeProps) => {
   if (onClick && !deprecateOnClickTriggered) {
@@ -156,7 +159,7 @@ export const Badge = ({
 
   if (children) {
     return (
-      <StyledBadgeWrapper data-role="badge-wrapper">
+      <StyledBadgeWrapper data-role="badge-wrapper" fullWidth={fullWidth}>
         {children}
         {renderBadge()}
       </StyledBadgeWrapper>

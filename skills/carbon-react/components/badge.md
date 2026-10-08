@@ -17,6 +17,7 @@ description: Carbon Badge component props and usage examples.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  |  |  | The badge will be positioned relative to this element |  |
 | counter | string \| number \| undefined | No |  |  |  | The number rendered in the badge component | 0 |
+| fullWidth | boolean \| undefined | No |  |  |  | Apply fullWidth style to the badge wrapper |  |
 | id | string \| undefined | No |  |  |  | Unique identifier for the component. |  |
 | inverse | boolean \| undefined | No |  |  |  | Set the style of the Badge to inverse | false |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |

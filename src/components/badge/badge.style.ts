@@ -63,10 +63,18 @@ const getPosition = (size?: string) => {
   }
 };
 
-const StyledBadgeWrapper = styled.div`
+const StyledBadgeWrapper = styled.div<{ fullWidth?: boolean }>`
   ${margin}
   position: relative;
   display: inline-block;
+  box-sizing: border-box;
+
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      display: block;
+      width: 100%;
+    `}
 `;
 
 const StyledCounter = styled.div`
