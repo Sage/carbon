@@ -1,3 +1,9 @@
+## [162.8.0](https://github.com/Sage/carbon/compare/v162.7.0...v162.8.0) (2026-10-08)
+
+### Features
+
+* **tile:** align component with Fusion DS ([6bf8000](https://github.com/Sage/carbon/commit/6bf8000216c4ad7f06d9e495e9fed4a6e812236e))
+
 ## [162.7.0](https://github.com/Sage/carbon/compare/v162.6.1...v162.7.0) (2026-10-07)
 
 ### Features
