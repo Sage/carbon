@@ -22,7 +22,7 @@ description: Carbon Password component props and usage examples.
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
-| autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
+| autoCapitalize | "none" \| (string & {}) \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoComplete | HTMLInputAutoCompleteAttribute \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  | If true, the input will automatically receive focus when the component is mounted. |  |
@@ -57,7 +57,7 @@ description: Carbon Password component props and usage examples.
 | id | string \| undefined | No |  |  |  | Sets the input's id attribute, is not set a unique id will be generated and used. The label's htmlFor attribute will be set to match the input's id to ensure they are properly associated. |  |
 | inlist | any | No |  |  |  |  |  |
 | inputHint | React.ReactNode | No |  |  |  | A hint element rendered before the input but after the label. Intended to describe the purpose or content of the input |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage (e.g., 50 for 50%) |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
@@ -69,26 +69,26 @@ description: Carbon Password component props and usage examples.
 | lang | string \| undefined | No |  |  |  |  |  |
 | leftChildren | React.ReactNode | No |  |  |  | Slot to render additional content to the left of the input, such as a prefix. |  |
 | list | string \| undefined | No |  |  |  |  |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |  |  |
+| margin | SpacingProperty | No |  |  |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |  |  |
 | max | string \| number \| undefined | No |  |  |  |  |  |
 | maxLength | number \| undefined | No |  |  |  |  |  |
 | maxWidth | string \| undefined | No |  |  |  | The maximum width of the component container |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| mb | SpacingProperty | No |  |  |  |  |  |
 | min | string \| number \| undefined | No |  |  |  |  |  |
 | minLength | number \| undefined | No |  |  |  |  |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| ml | SpacingProperty | No |  |  |  |  |  |
+| mr | SpacingProperty | No |  |  |  |  |  |
+| mt | SpacingProperty | No |  |  |  |  |  |
 | multiple | boolean \| undefined | No |  |  |  |  |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| mx | SpacingProperty | No |  |  |  |  |  |
+| my | SpacingProperty | No |  |  |  |  |  |
 | name | string \| undefined | No |  |  |  | Name of the input |  |
 | nonce | string \| undefined | No |  |  |  |  |  |
 | onAbort | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -334,7 +334,7 @@ description: Carbon Password component props and usage examples.
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | prefix | string \| undefined | No |  | Yes | `prefix` has been deprecated and will be removed in a future release. |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples

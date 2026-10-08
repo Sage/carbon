@@ -1,5 +1,5 @@
+import type { PaddingProps } from "../../../../style/utils/spacing";
 import React from "react";
-import { PaddingProps } from "styled-system";
 
 import SidebarContext from "../sidebar.context";
 import SidebarFooter from "../sidebar-footer";

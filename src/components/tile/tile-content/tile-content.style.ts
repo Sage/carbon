@@ -1,5 +1,6 @@
+import { space } from "../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import computeSizing from "../../../style/utils/element-sizing";
 import { TileContentProps } from "./tile-content.component";

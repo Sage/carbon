@@ -17,20 +17,20 @@ description: Carbon DraggableItem component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | The content of the component. |  |
 | id | string \| number | Yes |  | The id of the `DraggableItem`. Use this prop to make `Draggable` work |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom | 1 |
+| p | SpacingProperty | No |  |  |  |
+| padding | SpacingProperty | No |  |  |  |
+| paddingBottom | SpacingProperty | No |  |  |  |
+| paddingLeft | SpacingProperty | No |  |  |  |
+| paddingRight | SpacingProperty | No |  |  |  |
+| paddingTop | SpacingProperty | No |  |  |  |
+| paddingX | SpacingProperty | No |  |  |  |
+| paddingY | SpacingProperty | No |  |  |  |
+| pb | SpacingProperty | No |  |  |  |
+| pl | SpacingProperty | No |  |  |  |
+| pr | SpacingProperty | No |  |  |  |
+| pt | SpacingProperty | No |  |  |  |
+| px | SpacingProperty | No |  |  |  |
+| py | SpacingProperty | No |  |  | 1 |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

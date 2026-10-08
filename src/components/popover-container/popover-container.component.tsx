@@ -1,3 +1,4 @@
+import type { PaddingProps } from "../../style/utils/spacing";
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, {
@@ -11,7 +12,7 @@ import React, {
   forwardRef,
   useContext,
 } from "react";
-import { PaddingProps } from "styled-system";
+
 import { CSSTransition } from "react-transition-group";
 import { flip, offset, shift } from "@floating-ui/dom";
 

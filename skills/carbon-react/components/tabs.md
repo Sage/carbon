@@ -16,20 +16,20 @@ description: Carbon Tabs component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  |  |  | The child elements of Tabs need to be Tab components. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |  |  |
+| margin | SpacingProperty | No |  |  |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |  |  |
+| mb | SpacingProperty | No |  |  |  |  |  |
+| ml | SpacingProperty | No |  |  |  |  |  |
+| mr | SpacingProperty | No |  |  |  |  |  |
+| mt | SpacingProperty | No |  |  |  |  |  |
+| mx | SpacingProperty | No |  |  |  |  |  |
+| my | SpacingProperty | No |  |  |  |  |  |
 | onTabChange | ((tabId: string) => void) \| undefined | No |  |  |  | A callback for when a tab is changed. You can use this to manually control tab changing or to fire other events when a tab is changed. |  |
 | position | "left" \| "top" \| undefined | No |  |  |  | The position of the tab title. |  |
 | selectedTabId | string \| undefined | No |  |  |  | Allows manual control over the currently selected tab. |  |

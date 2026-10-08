@@ -1,5 +1,6 @@
+import type { MarginProps, PaddingProps } from "../../../style/utils/spacing";
 import React, { ReactNode, useState, useContext } from "react";
-import { PaddingProps, MarginProps } from "styled-system";
+
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";

@@ -26,23 +26,23 @@ description: Carbon Search component props and usage examples.
 | label | string \| undefined | No |  |  |  | Label content |  |
 | labelInline | boolean \| undefined | No |  |  |  | When true label is inline. |  |
 | listData | SearchListGroup[] \| undefined | No |  |  |  | Structured list data to render as grouped menu items in the popover. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |  |  |
+| margin | SpacingProperty | No |  |  |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |  |  |
 | maxHeight | string \| undefined | No |  |  |  | Optional max-height for the dropdown list. Overrides size-based defaults when provided. |  |
 | maxWidth | string \| undefined | No |  |  |  | Prop for specifying the max-width of the Search input. Leaving the `maxWidth` prop with no value will default the width to '100%' |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| mb | SpacingProperty | No |  |  |  |  |  |
 | minQueryLength | number \| undefined | No |  |  |  | Minimum number of characters required before announcing available results. |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| ml | SpacingProperty | No |  |  |  |  |  |
+| mr | SpacingProperty | No |  |  |  |  |  |
+| mt | SpacingProperty | No |  |  |  |  |  |
+| mx | SpacingProperty | No |  |  |  |  |  |
+| my | SpacingProperty | No |  |  |  |  |  |
 | name | string \| undefined | No |  |  |  | Name of the input |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Event handler for the blur event |  |
 | onClick | ((ev: SearchEvent) => void) \| undefined | No |  |  |  | Prop for `onClick` events on the Search button. `onClick` events are triggered when the Search button is clicked or when the Search input's cross icon is clicked if the `triggerOnClear` prop is set to `true`. |  |

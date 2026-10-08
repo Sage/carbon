@@ -451,7 +451,7 @@ describe("Modal Dialog", () => {
 
     const content = screen.getByTestId("dialog-content");
 
-    expect(content).toHaveStyleRule("padding", "var(--spacing000)");
+    expect(content).toHaveStyleRule("padding", "0px");
   });
 
   test("background scroll remains disabled when returning to outer dialog after closing inner dialog", async () => {
@@ -600,7 +600,7 @@ describe("Fullscreen Dialog", () => {
     );
 
     const content = screen.getByTestId("dialog-content");
-    expect(content).toHaveStyleRule("padding", "var(--spacing000)");
+    expect(content).toHaveStyleRule("padding", "0px");
   });
 
   test("when the title prop is a string, this value is set as the dialog's accessible name", () => {

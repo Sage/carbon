@@ -33,21 +33,21 @@ description: Carbon NavigationBar component props and usage examples.
 | offset | string \| undefined | No |  |  |  | Defines the offset of navigation bar | "0px" |
 | order | ResponsiveValue<CSS.Property.Order, ThemeType> \| undefined | No |  |  |  | The order CSS property sets the order to lay out an item in a flex or grid container. Items in a container are sorted by ascending order value and then by their source code order. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/order) |  |
 | orientation | Orientation \| undefined | No |  |  |  | Defines whether the navigation bar should be positioned top or bottom |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
+| p | SpacingProperty | No |  |  |  |  |  |
+| padding | SpacingProperty | No |  |  |  |  |  |
+| paddingBottom | SpacingProperty | No |  |  |  |  |  |
+| paddingLeft | SpacingProperty | No |  |  |  |  |  |
+| paddingRight | SpacingProperty | No |  |  |  |  |  |
+| paddingTop | SpacingProperty | No |  |  |  |  |  |
+| paddingX | SpacingProperty | No |  |  |  |  |  |
+| paddingY | SpacingProperty | No |  |  |  |  |  |
+| pb | SpacingProperty | No |  |  |  |  |  |
+| pl | SpacingProperty | No |  |  |  |  |  |
 | position | Position \| undefined | No |  |  |  | Defines whether the navigation bar should be positioned fixed or sticky |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| pr | SpacingProperty | No |  |  |  |  |  |
+| pt | SpacingProperty | No |  |  |  |  |  |
+| px | SpacingProperty | No |  |  |  |  |  |
+| py | SpacingProperty | No |  |  |  |  |  |
 | variant | "white" \| "black" \| undefined | No |  |  |  | Defines the colour variant of the navigation bar |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

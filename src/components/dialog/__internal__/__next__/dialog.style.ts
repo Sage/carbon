@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../../../style/utils/spacing";
+import { padding } from "../../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { padding as paddingFn, PaddingProps } from "styled-system";
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 import StyledButton from "../../../button/__next__/button.style";
 import Typography from "../../../typography";
@@ -98,7 +99,7 @@ const applyContentPadding =
     return css`
       ${!hasContentPadding(props) && applyDefaultPadding()}
 
-      ${paddingFn(props)}
+      ${padding(props)}
     `;
   };
 
@@ -185,7 +186,7 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
           padding: ${disableContentPadding
             ? "0px"
             : "var(--global-space-layout-xs) var(--global-space-layout-s)"};
-          ${paddingFn}
+          ${padding}
 
           &:has(${StyledForm}.sticky) {
             display: flex;
@@ -196,7 +197,7 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
               ${StyledFormContent} {
                 padding: var(--global-space-layout-xs)
                   var(--global-space-layout-s);
-                ${paddingFn}
+                ${padding}
               }
 
               ${StyledFormFooter} {

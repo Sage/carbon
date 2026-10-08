@@ -734,7 +734,7 @@ describe("when MenuItem has a submenu", () => {
 
       expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
         "right",
-        `var(--spacing${padding}00)`,
+        padding === 8 ? "8px" : `var(--spacing${padding}00)`,
         { modifier: "a::before" },
       );
     },

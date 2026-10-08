@@ -95,6 +95,7 @@
 - [MultiActionButton](components/multi-action-button.md)
 - [MultiSelect](components/multi-select.md)
 - [NavigationBar](components/navigation-bar.md)
+- [NextBoxNext](components/next-box-next.md)
 - [NextLoader](components/next-loader.md)
 - [Note](components/note.md)
 - [Number](components/number.md) (deprecated)

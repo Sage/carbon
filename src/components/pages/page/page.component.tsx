@@ -1,6 +1,6 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
-import { PaddingProps } from "styled-system";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";

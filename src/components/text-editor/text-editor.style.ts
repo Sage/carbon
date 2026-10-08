@@ -1,5 +1,5 @@
+import { margin } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
 
 const sizeMap = {
   small: {

@@ -23,34 +23,34 @@ description: Carbon AdaptiveSidebar component props and usage examples.
 | children | React.ReactNode | No |  | The content of the sidebar |  |
 | height | string \| undefined | No |  | The height of the sidebar, relative to the wrapping component | "100%" |
 | hidden | boolean \| undefined | No |  | Whether the sidebar is hidden from view. In this state, the adaptive sidebar will continue to receive updates, etc. but will not be visible to users | false |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |
+| margin | SpacingProperty | No |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |
+| mb | SpacingProperty | No |  |  |  |
+| ml | SpacingProperty | No |  |  |  |
+| mr | SpacingProperty | No |  |  |  |
+| mt | SpacingProperty | No |  |  |  |
+| mx | SpacingProperty | No |  |  |  |
+| my | SpacingProperty | No |  |  |  |
+| p | SpacingProperty | No |  |  |  |
+| padding | SpacingProperty | No |  |  |  |
+| paddingBottom | SpacingProperty | No |  |  |  |
+| paddingLeft | SpacingProperty | No |  |  |  |
+| paddingRight | SpacingProperty | No |  |  |  |
+| paddingTop | SpacingProperty | No |  |  |  |
+| paddingX | SpacingProperty | No |  |  |  |
+| paddingY | SpacingProperty | No |  |  |  |
+| pb | SpacingProperty | No |  |  |  |
+| pl | SpacingProperty | No |  |  |  |
+| pr | SpacingProperty | No |  |  |  |
+| pt | SpacingProperty | No |  |  |  |
+| px | SpacingProperty | No |  |  |  |
+| py | SpacingProperty | No |  |  |  |
 | renderAsModal | boolean \| undefined | No |  | Whether to render the sidebar as a modal component instead of as an inline sidebar | false |
 | restoreFocusOnClose | boolean \| undefined | No |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. | false |
 | width | string \| undefined | No |  | The width of the sidebar | "320px" |

@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useImperativeHandle, useRef, forwardRef } from "react";
-import { MarginProps } from "styled-system";
+
 import {
   StyledStepFlow,
   StyledStepContent,

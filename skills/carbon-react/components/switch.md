@@ -26,20 +26,20 @@ description: Carbon Switch component props and usage examples.
 | labelSpacing | 1 \| 2 \| undefined | No |  |  |  | Spacing between the label and switch when labelInline is true (multiplier of base spacing unit) |  |
 | labelWidth | number \| undefined | No |  |  |  | Label width as a percentage when labelInline is true |  |
 | loading | boolean \| undefined | No |  |  |  | Triggers the loading state — hides On/Off text and shows a spinner |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |  |  |
+| margin | SpacingProperty | No |  |  |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |  |  |
+| mb | SpacingProperty | No |  |  |  |  |  |
+| ml | SpacingProperty | No |  |  |  |  |  |
+| mr | SpacingProperty | No |  |  |  |  |  |
+| mt | SpacingProperty | No |  |  |  |  |  |
+| mx | SpacingProperty | No |  |  |  |  |  |
+| my | SpacingProperty | No |  |  |  |  |  |
 | name | string \| undefined | No |  |  |  | The name attribute of the hidden input |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnBlur event handler |  |
 | onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnFocus event handler |  |

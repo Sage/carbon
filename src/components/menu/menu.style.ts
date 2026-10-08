@@ -1,11 +1,6 @@
+import type { PaddingProps } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import {
-  layout,
-  flexbox,
-  FlexboxProps,
-  LayoutProps,
-  PaddingProps,
-} from "styled-system";
+import { layout, flexbox, FlexboxProps, LayoutProps } from "styled-system";
 import menuConfigVariants from "./menu.config";
 
 import {

@@ -1,6 +1,6 @@
+import type { MarginProps, PaddingProps } from "../../style/utils/spacing";
+import { margin, padding } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-
-import { margin, MarginProps, padding, PaddingProps } from "styled-system";
 
 import Box from "../box";
 import Sidebar, { SidebarProps } from "../sidebar";

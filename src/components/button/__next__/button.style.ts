@@ -1,5 +1,6 @@
+import type { SpaceProps } from "../../../style/utils/spacing";
+import { space } from "../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { space, SpaceProps } from "styled-system";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import {
   colourSettings,

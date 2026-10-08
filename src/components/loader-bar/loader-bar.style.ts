@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
+import { margin } from "../../style/utils/spacing";
 import styled, { css, keyframes } from "styled-components";
-import { margin, MarginProps } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 export interface StyledLoaderBarProps {

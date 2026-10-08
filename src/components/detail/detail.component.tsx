@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React from "react";
-import { MarginProps } from "styled-system";
+
 import { IconType } from "../icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, {

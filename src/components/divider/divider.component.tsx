@@ -1,5 +1,6 @@
+import type { SpaceProps } from "../../style/utils/spacing";
 import React, { useContext } from "react";
-import { SpaceProps } from "styled-system";
+
 import MenuContext from "../menu/__internal__/menu.context";
 import {
   StyledVerticalDividerWrapper,

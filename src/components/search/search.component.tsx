@@ -1,3 +1,4 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, {
   useEffect,
   useRef,
@@ -9,7 +10,7 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import invariant from "invariant";
-import { MarginProps } from "styled-system";
+
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { CommonTextboxProps } from "../textbox";
 import Button from "../button/__next__";

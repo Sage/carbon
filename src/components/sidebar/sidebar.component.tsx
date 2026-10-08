@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../style/utils/spacing";
 import React, { useCallback, useRef, RefObject } from "react";
-import { PaddingProps, WidthProps } from "styled-system";
+import { WidthProps } from "styled-system";
 
 import type { ModalProps } from "../../__internal__/modal";
 import { StyledSidebar, StyledSidebarModal } from "./sidebar.style";

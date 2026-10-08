@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
+import { margin } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { margin, MarginProps } from "styled-system";
 
 import styleConfig from "./pill.style.config";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
@@ -201,7 +202,6 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
         font-size: 16px;
         padding: 0 12px;
       `}
-
 
       ${isDeletable &&
       css`

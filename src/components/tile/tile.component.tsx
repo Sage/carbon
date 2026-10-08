@@ -1,6 +1,7 @@
+import type { SpaceProps } from "../../style/utils/spacing";
 import React from "react";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
-import { SpaceProps, WidthProps } from "styled-system";
+import { WidthProps } from "styled-system";
 
 import StyledTile from "./tile.style";
 import { TileProvider } from "./__internal__/tile.context";

@@ -1,5 +1,7 @@
+import type { PaddingProps } from "../../style/utils/spacing";
+import { padding } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { padding, flexbox, PaddingProps, FlexboxProps } from "styled-system";
+import { flexbox, FlexboxProps } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { Position, Orientation } from "./navigation-bar.component";
 

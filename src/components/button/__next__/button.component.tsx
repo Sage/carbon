@@ -1,5 +1,5 @@
+import type { SpaceProps } from "../../../style/utils/spacing";
 import React, { forwardRef, ReactNode, useContext } from "react";
-import { SpaceProps } from "styled-system";
 
 import { ButtonProps as LegacyButtonProps } from "../button.component";
 import StyledButton, { StyledContentContainer } from "./button.style";

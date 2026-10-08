@@ -23,20 +23,20 @@ description: Carbon LoaderNext component props and usage examples.
 | isTracked | boolean \| undefined | No |  | If set to `true` the animation type will become tracked, this is used specifically for when wait times are predictable | false |
 | loaderLabel | string \| undefined | No |  | Specify a label for the loader |  |
 | loaderType | LOADER_TYPES \| undefined | No |  | The loader type can be specified in order to change the loader | "standalone" |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |
+| margin | SpacingProperty | No |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |
+| mb | SpacingProperty | No |  |  |  |
+| ml | SpacingProperty | No |  |  |  |
+| mr | SpacingProperty | No |  |  |  |
+| mt | SpacingProperty | No |  |  |  |
+| mx | SpacingProperty | No |  |  |  |
+| my | SpacingProperty | No |  |  |  |
 | showLabel | boolean \| undefined | No |  | Specify if the label should be visible or not | true |
 | size | LOADER_SIZES \| undefined | No |  | The size prop allows a specific size to be set ranging from `extra-small` to `large` |  |
 | variant | LOADER_VARIANTS \| undefined | No |  | Toggle between the different Loader variants |  |

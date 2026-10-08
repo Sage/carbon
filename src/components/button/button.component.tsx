@@ -1,5 +1,6 @@
+import type { SpaceProps } from "../../style/utils/spacing";
 import React, { useCallback, useState, useContext } from "react";
-import { SpaceProps } from "styled-system";
+
 import invariant from "invariant";
 
 import Icon, { IconType, IconProps } from "../icon";

@@ -1,6 +1,6 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
+import { padding, resolveSpacingValue } from "../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-
-import { padding, PaddingProps } from "styled-system";
 
 import menuConfigVariants from "../menu.config";
 import Link from "../../link";
@@ -82,6 +82,24 @@ const parsePadding = (props: Partial<PaddingProps>) => {
   }
 };
 
+const getPaddingRight = (
+  props: Partial<PaddingProps> & {
+    theme?: Parameters<typeof resolveSpacingValue>[1];
+  },
+) => {
+  const value =
+    props.paddingRight ??
+    props.pr ??
+    props.paddingX ??
+    props.px ??
+    props.padding ??
+    props.p;
+
+  return typeof value === "string" || typeof value === "number"
+    ? resolveSpacingValue(value, props.theme)
+    : undefined;
+};
+
 const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
   as: Link,
 })<StyledMenuItemWrapperProps>`
@@ -102,6 +120,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     hasFocusableChild,
     hasInput,
     inSubmenu,
+    ...spacingProps
   }) => css`
     display: flex;
     align-items: center;
@@ -431,7 +450,9 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
         &&& {
           > a,
           > button:not(${StyledIconButton}) {
-            padding-right: ${(props) => parsePadding(padding(props)).padding};
+            padding-right: ${parsePadding({
+              paddingRight: getPaddingRight(spacingProps),
+            }).padding};
           }
         }
 
@@ -441,7 +462,8 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
           margin-top: -1px;
           pointer-events: none;
           position: absolute;
-          right: ${(props) => parsePadding(padding(props)).iconSpacing};
+          right: ${parsePadding({ paddingRight: getPaddingRight(spacingProps) })
+            .iconSpacing};
           top: 50%;
           z-index: 2;
           content: "";

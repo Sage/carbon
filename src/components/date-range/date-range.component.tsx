@@ -1,3 +1,4 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, {
   useCallback,
   useEffect,
@@ -5,7 +6,7 @@ import React, {
   useState,
   useContext,
 } from "react";
-import { MarginProps } from "styled-system";
+
 import {
   formatToISO,
   formattedValue,

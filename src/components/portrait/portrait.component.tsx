@@ -1,5 +1,5 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useEffect, useState } from "react";
-import { MarginProps } from "styled-system";
 
 import { IconType } from "../icon";
 import Tooltip from "../tooltip";

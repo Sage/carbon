@@ -1,6 +1,7 @@
+import type { MarginProps } from "../../../style/utils/spacing";
+import { margin } from "../../../style/utils/spacing";
 import React from "react";
 import styled from "styled-components";
-import { margin, MarginProps } from "styled-system";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 
 export interface RequiredIndicatorProps extends MarginProps {

@@ -27,21 +27,21 @@ description: Carbon FlatTable component props and usage examples.
 | hasStickyHead | boolean \| undefined | No |  | If true, the header does not scroll with the content |  |
 | height | string \| number \| undefined | No |  | Set the height of the table. String can be any valid CSS string, numbers will be converted to pixels. |  |
 | isZebra | boolean \| undefined | No |  | Toggles the zebra striping for the table rows |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
+| m | SpacingProperty | No |  |  |  |
+| margin | SpacingProperty | No |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |
+| mb | SpacingProperty | No |  |  |  |
 | minHeight | string \| number \| undefined | No |  | Set the min-height of the table. String can be any valid CSS string, numbers will be converted to pixels. |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
+| ml | SpacingProperty | No |  |  |  |
+| mr | SpacingProperty | No |  |  |  |
+| mt | SpacingProperty | No |  |  |  |
+| mx | SpacingProperty | No |  |  |  |
+| my | SpacingProperty | No |  |  |  |
 | overflowX | string \| undefined | No |  | Set the overflow X of the table wrapper. Any valid CSS string |  |
 | size | "small" \| "medium" \| "large" \| "compact" \| "extraLarge" \| undefined | No |  | Used to define the tables size Renders as: 'compact', 'small', 'medium', 'large' and 'extraLarge' | "medium" |
 | title | string \| undefined | No |  | The title to describe the table when one or more tables are used on a single page |  |

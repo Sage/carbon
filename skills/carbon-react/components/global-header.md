@@ -30,20 +30,20 @@ description: Carbon GlobalHeader component props and usage examples.
 | justifySelf | ResponsiveValue<CSS.Property.JustifySelf, ThemeType> \| undefined | No |  | The CSS justify-self property set the way a box is justified inside its alignment container along the appropriate axis. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self) |  |
 | logo | React.ReactNode | No |  | Logo to render |  |
 | order | ResponsiveValue<CSS.Property.Order, ThemeType> \| undefined | No |  | The order CSS property sets the order to lay out an item in a flex or grid container. Items in a container are sorted by ascending order value and then by their source code order. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/order) |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
+| p | SpacingProperty | No |  |  |  |
+| padding | SpacingProperty | No |  |  |  |
+| paddingBottom | SpacingProperty | No |  |  |  |
+| paddingLeft | SpacingProperty | No |  |  |  |
+| paddingRight | SpacingProperty | No |  |  |  |
+| paddingTop | SpacingProperty | No |  |  |  |
+| paddingX | SpacingProperty | No |  |  |  |
+| paddingY | SpacingProperty | No |  |  |  |
+| pb | SpacingProperty | No |  |  |  |
+| pl | SpacingProperty | No |  |  |  |
+| pr | SpacingProperty | No |  |  |  |
+| pt | SpacingProperty | No |  |  |  |
+| px | SpacingProperty | No |  |  |  |
+| py | SpacingProperty | No |  |  |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

@@ -20,35 +20,35 @@ description: Carbon Tile component props and usage examples.
 | children | React.ReactNode | No |  | The content to render within the tile. Each child will be wrapped with a TileContent wrapper, which allows any individual child component to take a percentage-based width prop, dictating the percentage of the tile width it will take up. Width will have no effect on a child component if the tile orientation is set to 'vertical'. |  |
 | height | string \| number \| undefined | No |  | Set a percentage-based height for the whole Tile component, relative to its parent. |  |
 | highlightVariant | string \| undefined | No |  | Sets the highlight variant |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |
+| margin | SpacingProperty | No |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |
+| mb | SpacingProperty | No |  |  |  |
+| ml | SpacingProperty | No |  |  |  |
+| mr | SpacingProperty | No |  |  |  |
+| mt | SpacingProperty | No |  |  |  |
+| mx | SpacingProperty | No |  |  |  |
+| my | SpacingProperty | No |  |  |  |
 | orientation | "horizontal" \| "vertical" \| undefined | No |  | The orientation of the tile - set to either horizontal or vertical | "horizontal" |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right | 3 |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
+| p | SpacingProperty | No |  |  | 3 |
+| padding | SpacingProperty | No |  |  |  |
+| paddingBottom | SpacingProperty | No |  |  |  |
+| paddingLeft | SpacingProperty | No |  |  |  |
+| paddingRight | SpacingProperty | No |  |  |  |
+| paddingTop | SpacingProperty | No |  |  |  |
+| paddingX | SpacingProperty | No |  |  |  |
+| paddingY | SpacingProperty | No |  |  |  |
+| pb | SpacingProperty | No |  |  |  |
+| pl | SpacingProperty | No |  |  |  |
+| pr | SpacingProperty | No |  |  |  |
+| pt | SpacingProperty | No |  |  |  |
+| px | SpacingProperty | No |  |  |  |
+| py | SpacingProperty | No |  |  |  |
 | roundness | "small" \| "large" \| "default" \| undefined | No |  | Sets the level of roundness of the corners, "default" is 8px, "large" is 16px and "small" is 4px | "default" |
 | variant | "transparent" \| "grey" \| "tile" \| "active" \| undefined | No |  | Sets the theme of the tile | "tile" |
 | width | string \| number \| undefined | No |  | Set a percentage-based width for the whole Tile component, relative to its parent. If unset or zero, this will default to 100%. | "100%" |

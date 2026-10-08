@@ -1,6 +1,6 @@
+import { space, padding } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
 
-import { space, padding } from "styled-system";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { FormButtonAlignment } from "./form.config";

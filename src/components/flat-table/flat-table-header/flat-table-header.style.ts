@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
+import { padding } from "../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { PaddingProps, padding } from "styled-system";
 import getAlternativeBackgroundColor from "./flat-table-header-utils";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import { toColor } from "../../../style/utils/color";

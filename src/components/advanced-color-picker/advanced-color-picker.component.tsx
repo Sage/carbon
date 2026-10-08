@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { MarginProps } from "styled-system";
+
 import {
   StyledAdvancedColorPickerWrapper,
   HiddenCurrentColorList,

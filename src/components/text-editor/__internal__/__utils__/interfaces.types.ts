@@ -1,5 +1,4 @@
-import { MarginProps } from "styled-system";
-
+import type { MarginProps } from "../../../../style/utils/spacing";
 import { TagProps } from "../../../../__internal__/utils/helpers/tags";
 import { LexicalEditor } from "lexical";
 import { RefObject } from "react";

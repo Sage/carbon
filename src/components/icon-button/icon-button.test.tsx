@@ -127,7 +127,7 @@ test("should render with default padding when no padding props are passed", () =
 
   const iconButton = screen.getByRole("button");
 
-  expect(iconButton).toHaveStyleRule("padding", "var(--spacing000)", {
+  expect(iconButton).toHaveStyleRule("padding", "0px", {
     modifier: "&&",
   });
 });

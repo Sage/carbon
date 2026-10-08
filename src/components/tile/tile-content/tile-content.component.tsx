@@ -1,5 +1,6 @@
+import type { SpaceProps } from "../../../style/utils/spacing";
 import React from "react";
-import { SpaceProps } from "styled-system";
+
 import StyledTileContent from "./tile-content.style";
 import { useTileContext } from "../__internal__/tile.context";
 import tagComponent, {

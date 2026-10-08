@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useRef, useEffect } from "react";
-import { MarginProps } from "styled-system";
+
 import Label from "../../__internal__/legacy-label";
 import StyledInlineInputs, {
   StyledContentContainer,

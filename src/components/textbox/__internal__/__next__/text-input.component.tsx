@@ -1,6 +1,5 @@
+import type { MarginProps } from "../../../../style/utils/spacing";
 import React, { useCallback, useContext, useRef } from "react";
-
-import { MarginProps } from "styled-system";
 
 import Input, { InputProps } from "../../../../__internal__/input";
 import ValidationMessage from "../../../../__internal__/validation-message/__next__";

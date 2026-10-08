@@ -1,4 +1,4 @@
-import { PaddingProps } from "styled-system";
+import type { PaddingProps } from "./spacing";
 import filterObjectProperties from "../../__internal__/filter-object-properties";
 
 export const paddingNames: (keyof PaddingProps)[] = ["p", "padding"];

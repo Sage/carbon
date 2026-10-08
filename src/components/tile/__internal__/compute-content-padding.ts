@@ -1,4 +1,4 @@
-import { PaddingProps } from "styled-system";
+import type { PaddingProps } from "../../../style/utils/spacing";
 import {
   paddingNames,
   paddingLeftPropertyNames,

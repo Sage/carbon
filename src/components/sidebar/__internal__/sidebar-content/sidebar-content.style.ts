@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../../../style/utils/spacing";
+import { padding } from "../../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { PaddingProps, padding as paddingFn } from "styled-system";
 
 import {
   StyledForm,
@@ -25,7 +26,7 @@ const StyledSidebarBody = styled.div<StyledSidebarBodyProps>`
   box-sizing: border-box;
   flex: 1 0 auto;
   padding: var(--global-space-comp-xl);
-  ${paddingFn}
+  ${padding}
 
   &:has(${StyledForm}.sticky) {
     padding: var(--global-space-comp-none);
@@ -57,7 +58,7 @@ const StyledSidebarContent = styled.div<StyledSidebarContentProps>`
   color: var(--container-standard-txt-default);
   font: var(--global-font-static-body-regular-m);
   padding: var(--global-space-comp-xl);
-  ${paddingFn}
+  ${padding}
 
   ${({ $hasCustomFooter, $stickyFooter }) =>
     $hasCustomFooter &&
@@ -82,7 +83,7 @@ const StyledSidebarContent = styled.div<StyledSidebarContentProps>`
     ${StyledForm}.sticky {
       ${StyledFormContent} {
         padding: var(--global-space-comp-xl);
-        ${paddingFn}
+        ${padding}
       }
 
       ${StyledFormFooter} {

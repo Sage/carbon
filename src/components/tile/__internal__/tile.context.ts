@@ -1,4 +1,4 @@
-import { PaddingProps } from "styled-system";
+import type { PaddingProps } from "../../../style/utils/spacing";
 import createStrictContext from "../../../__internal__/utils/createStrictContext";
 
 interface TileContextType {

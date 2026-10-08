@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useMemo } from "react";
-import { MarginProps } from "styled-system";
+
 import Logger from "../../__internal__/utils/logger";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";

@@ -1,3 +1,4 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, {
   useCallback,
   useImperativeHandle,
@@ -5,7 +6,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import { MarginProps } from "styled-system";
+
 import { ValidationProps } from "../../__internal__/validations";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { Sizes } from "../../__internal__/legacy-input/input-presentation.component";

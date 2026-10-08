@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../../../style/utils/spacing";
+import { margin } from "../../../../style/utils/spacing";
 import styled from "styled-components";
-import { margin, MarginProps } from "styled-system";
 
 interface StyledResponsiveVerticalMenuDividerProps {
   depth: number;

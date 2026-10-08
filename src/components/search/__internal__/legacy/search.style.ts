@@ -1,4 +1,5 @@
-import { margin } from "styled-system";
+import { margin } from "../../../../style/utils/spacing";
+
 import styled, { css } from "styled-components";
 
 import StyledInputIconToggle from "../../../../__internal__/input-icon-toggle/input-icon-toggle.style";

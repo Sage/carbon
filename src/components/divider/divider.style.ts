@@ -1,7 +1,7 @@
+import { margin, space } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
 import { DividerProps } from "./divider.component";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import { margin, space } from "styled-system";
 
 type ColorMapProps = {
   variant: DividerProps["variant"];

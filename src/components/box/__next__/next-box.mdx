@@ -1,0 +1,165 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+
+import * as NextBoxStories from "./next-box.stories";
+
+<Meta of={NextBoxStories} />
+
+# Next Box
+
+Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Spacing tokens](#spacing-tokens)
+- [Token alias interface](#token-alias-interface)
+- [Migrating spacing values](#migrating-spacing-values)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import the box component to start using
+
+```javascript
+import NextBox from "carbon-react/lib/components/box/__next__";
+```
+
+## Spacing tokens
+
+Use the approved 8px layout scale for numeric spacing props. These values resolve
+directly to pixels, so `<NextBox p={24} />` applies `padding: 24px`.
+
+| Token                     | Alias  | Numeric prop value | Alias CSS value                   |
+| ------------------------- | ------ | -----------------: | --------------------------------- |
+| `global.space.none`       | `none` |                `0` | `var(--global-space-none)`        |
+| `global.space.layout.3XS` | `3xs`  |                `8` | `var(--global-space-layout-3-xs)` |
+| `global.space.layout.2XS` | `2xs`  |               `16` | `var(--global-space-layout-2-xs)` |
+| `global.space.layout.XS`  | `xs`   |               `24` | `var(--global-space-layout-xs)`   |
+| `global.space.layout.S`   | `s`    |               `32` | `var(--global-space-layout-s)`    |
+| `global.space.layout.M`   | `m`    |               `40` | `var(--global-space-layout-m)`    |
+| `global.space.layout.L`   | `l`    |               `48` | `var(--global-space-layout-l)`    |
+| `global.space.layout.XL`  | `xl`   |               `56` | `var(--global-space-layout-xl)`   |
+| `global.space.layout.2XL` | `2xl`  |               `64` | `var(--global-space-layout-2-xl)` |
+| `global.space.layout.3XL` | `3xl`  |               `72` | `var(--global-space-layout-3-xl)` |
+| `global.space.layout.4XL` | `4xl`  |               `80` | `var(--global-space-layout-4-xl)` |
+
+Use a numeric value when explicit pixel CSS is required. Use a short token alias
+when the CSS declaration should retain the token variable, for example
+`<NextBox p="3xs" />` emits `padding: var(--global-space-layout-3-xs)`.
+
+## Token alias interface
+
+Every NextBox spacing prop accepts an approved numeric value, a short token alias,
+or any valid CSS string. The token aliases are lowercase and exact:
+
+```ts
+type SpacingToken =
+  | "none"
+  | "3xs"
+  | "2xs"
+  | "xs"
+  | "s"
+  | "m"
+  | "l"
+  | "xl"
+  | "2xl"
+  | "3xl"
+  | "4xl";
+```
+
+Use them with shorthand (`m`, `p`, `mt`, `px`), longhand (`marginTop`,
+`paddingLeft`), or axis aliases (`marginX`, `marginY`, `paddingX`, `paddingY`):
+
+```jsx
+<NextBox p="m" px="2xs" marginY="xl" />
+```
+
+Each alias emits its matching `var(--global-space-...)` CSS variable in the Styles
+tab; the Computed tab shows the resolved pixel value.
+
+Full token paths such as `global.space.layout.3XS` are not aliases. Use the short
+alias from the table above, an approved numeric value, or an explicit CSS string.
+
+CSS strings are also supported when a more granular value is needed, including CSS
+variables, calculations, percentages, and negative margins. For example,
+`<NextBox mt="calc(100% - 24px)" ml="-8px" />` passes those values through to CSS.
+
+> Legacy numeric indices remain supported temporarily for compatibility. Migrate to
+> the documented 8px scale above or use an explicit CSS string for other values.
+
+## Migrating spacing values
+
+The spacing prop names are unchanged. Continue to use shorthand props such as
+`m`, `p`, `mt`, and `px`; longhand props such as `marginTop` and `paddingLeft`;
+and the `marginX`, `marginY`, `paddingX`, and `paddingY` aliases.
+
+Previous spacing props treated a number as an index into the theme spacing scale.
+Migrate those values to their explicit approved pixel values:
+
+| Legacy numeric index | Previous spacing | Use now |
+| -------------------: | ---------------: | ------: |
+|                  `0` |            `0px` |     `0` |
+|                  `1` |            `8px` |     `8` |
+|                  `2` |           `16px` |    `16` |
+|                  `3` |           `24px` |    `24` |
+|                  `4` |           `32px` |    `32` |
+|                  `5` |           `40px` |    `40` |
+|                  `6` |           `48px` |    `48` |
+|                  `7` |           `56px` |    `56` |
+|                  `8` |           `64px` |    `64` |
+|                  `9` |           `72px` |    `72` |
+|                 `10` |           `80px` |    `80` |
+
+For example:
+
+```jsx
+// Before: numeric values are theme spacing indexes
+<NextBox p={1} />
+<NextBox p={2} />
+<NextBox p={3} />
+
+// After: numeric values are explicit approved pixel values
+<NextBox p={8} />
+<NextBox p={16} />
+<NextBox p={24} />
+```
+
+Short token aliases are also available when you want the CSS declaration to retain
+the design token:
+
+```jsx
+<NextBox p="none" />
+<NextBox p="3xs" />
+```
+
+> **Important:** `8` is ambiguous. It previously meant spacing index `8` (64px),
+> but now resolves to the approved explicit value of 8px. Migrate existing
+> `p={8}` usage to `p={64}` when the intended spacing is 64px.
+
+Use CSS strings for values outside the approved scale, including negative margins,
+CSS variables, percentages, and calculations:
+
+```jsx
+<NextBox mt="-8px" p="var(--spacing300)" pb="5%" />
+<NextBox mx="calc(100% - 24px)" />
+```
+
+Legacy numeric indices remain available temporarily when they are unambiguous, but
+they are a compatibility path only. Use the approved numeric scale for new and
+migrated code, or an explicit CSS string where the scale does not fit.
+
+## Examples
+
+### Spacing
+
+The spacing example demonstrates approved numeric values alongside CSS strings and
+the temporary legacy numeric compatibility path. See
+[Migrating spacing values](#migrating-spacing-values) for how to update existing
+numeric props.
+
+<Canvas of={NextBoxStories.Spacing} />
+
+## Props
+
+<ArgTypes of={NextBoxStories} />

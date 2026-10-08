@@ -4,6 +4,7 @@ import filterOutStyledSystemSpacingProps from "./filter-out-styled-system-spacin
 import filterStyledSystemLayoutProps from "./filter-styled-system-layout-props";
 import filterStyledSystemFlexboxProps from "./filter-styled-system-flexbox-props";
 import filterStyledSystemGridProps from "./filter-styled-system-grid-props";
+import { margin, padding, space, spacingCss } from "./spacing";
 
 export {
   filterStyledSystemPaddingProps,
@@ -12,4 +13,8 @@ export {
   filterStyledSystemLayoutProps,
   filterStyledSystemFlexboxProps,
   filterStyledSystemGridProps,
+  margin,
+  padding,
+  space,
+  spacingCss,
 };

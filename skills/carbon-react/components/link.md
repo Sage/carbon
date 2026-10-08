@@ -90,7 +90,7 @@ description: Carbon Link component props and usage examples.
 | isDarkBackground | boolean \| undefined | No |  | Yes | The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. |  |  |
 | tooltipMessage | string \| undefined | No |  | Yes | The tooltipMessage prop in Link is deprecated and will soon be removed. | [Legacy] A message to display as a tooltip to the link. |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | The tooltipPosition prop in Link is deprecated and will soon be removed. | [Legacy] Positions the tooltip with the link. |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples

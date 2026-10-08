@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
 import React from "react";
-import { PaddingProps } from "styled-system";
+
 import StyledTileHeader from "./tile-header.style";
 import tagComponent, {
   TagProps,

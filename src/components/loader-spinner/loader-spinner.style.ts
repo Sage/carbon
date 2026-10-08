@@ -1,5 +1,6 @@
+import { margin } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
+
 import { LoaderSpinnerProps } from "./loader-spinner.component";
 import { LOADER_SPINNER_SIZE_PARAMS } from "./loader-spinner.config";
 import Typography from "../typography";

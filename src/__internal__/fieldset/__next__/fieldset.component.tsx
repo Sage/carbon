@@ -1,3 +1,4 @@
+import type { MarginProps } from "../../../style/utils/spacing";
 /**
  * Internal Fieldset component used as base for any grouped inputs.
  *
@@ -6,7 +7,6 @@
  */
 
 import React, { useRef } from "react";
-import { MarginProps } from "styled-system";
 
 import {
   StyledFieldset,

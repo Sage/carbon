@@ -1,5 +1,6 @@
+import { padding } from "../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { padding } from "styled-system";
+
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import { TileHeaderProps } from "./tile-header.component";
 

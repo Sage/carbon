@@ -1,5 +1,5 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useRef } from "react";
-import { MarginProps } from "styled-system";
 
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import guid from "../../__internal__/utils/helpers/guid";

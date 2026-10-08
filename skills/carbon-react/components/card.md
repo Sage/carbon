@@ -21,25 +21,25 @@ description: Carbon Card component props and usage examples.
 | header | React.ReactNode | No |  |  |  | The header to render above the Card content |  |
 | height | string \| undefined | No |  |  |  | Height of the component (any valid CSS value) |  |
 | href | string \| undefined | No |  |  |  | The path to navigate to. Renders an anchor element when passed and no draggable prop set |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |  |  |
+| margin | SpacingProperty | No |  |  |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |  |  |
+| mb | SpacingProperty | No |  |  |  |  |  |
+| ml | SpacingProperty | No |  |  |  |  |  |
+| mr | SpacingProperty | No |  |  |  |  |  |
+| mt | SpacingProperty | No |  |  |  |  |  |
+| mx | SpacingProperty | No |  |  |  |  |  |
+| my | SpacingProperty | No |  |  |  |  |  |
 | onClick | ((event: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLDivElement> \| React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLDivElement>) => void) \| undefined | No |  |  |  | Action to be executed when card is clicked or enter pressed. Renders a button when passed and no draggable or href props set |  |
 | rel | string \| undefined | No |  |  |  | String for rel property when card has an href prop set |  |
 | rightChildren | React.ReactNode | No |  |  |  | Slot rendered on the opposite side of the drag handle, only visible when `draggable` is true. Intended for accessibility controls (e.g. move-up / move-down buttons) for keyboard users. |  |
 | roundness | "large" \| "default" \| "moderate" \| "curved" \| undefined | No |  |  |  | Sets the level of roundness of the corners. "moderate" is 16px and "curved" is 20px. **Note:** The values "default" and "large" are deprecated. Use "moderate" or "curved" instead. | "moderate" |
-| spacing | "small" \| "medium" \| "large" \| "none" \| "extra-small" \| undefined | No |  |  |  | Size padding applied to the card. | "medium" |
+| spacing | "none" \| "small" \| "medium" \| "large" \| "extra-small" \| undefined | No |  |  |  | Size padding applied to the card. | "medium" |
 | target | string \| undefined | No |  |  |  | Target property in which link should open ie: _blank, _self, _parent, _top |  |
 | variant | "standard" \| "outlined" \| undefined | No |  |  |  | Visual style variant of the card | "standard" |
 | width | string \| undefined | No |  |  |  | Style value for width of card | "500px" |
