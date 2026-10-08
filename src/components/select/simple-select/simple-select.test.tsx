@@ -5,6 +5,7 @@ import {
   render,
   screen,
   waitFor,
+  within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Box from "../../box";
@@ -12,6 +13,7 @@ import Button from "../../button";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 import SimpleSelect, { CustomSelectChangeEvent, SimpleSelectProps } from ".";
+import ActionOption from "../action-option";
 import Option from "../option";
 import { CHARACTERS } from "../../../../playwright/support/constants";
 import setupSelectMocks from "../setup-select-mocks";
@@ -229,6 +231,37 @@ test("displays the selected option text, when value prop matches an option", () 
   );
 
   expect(screen.getByText("amber", { ignore: "li" })).toBeVisible();
+});
+
+test("keeps a selectable ActionOption displayed and selected in a controlled flow", async () => {
+  const user = userEvent.setup();
+  const onChange = jest.fn();
+
+  render(
+    <InteractiveComponent label="Colour" onChange={onChange}>
+      <Option text="amber" value="amber" />
+      <ActionOption text="Add an item" value="add" />
+    </InteractiveComponent>,
+  );
+
+  const input = screen.getByRole("combobox");
+  await user.click(input);
+  await user.click(await screen.findByRole("option", { name: "Add an item" }));
+
+  expect(onChange).toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: expect.objectContaining({ value: "add" }),
+      selectionConfirmed: true,
+    }),
+  );
+  await waitFor(() => expect(input).toHaveValue("Add an item"));
+
+  await user.click(input);
+  const selectedAction = await screen.findByRole("option", {
+    name: "Add an item",
+  });
+  expect(selectedAction).toHaveAttribute("aria-selected", "true");
+  expect(within(selectedAction).getByTestId("selected-icon")).toBeVisible();
 });
 
 test("clears option selection when value prop is set to an empty string", () => {
@@ -506,6 +539,70 @@ test("ignores the deprecated listPlacement prop", async () => {
 });
 
 describe("typing into the input", () => {
+  it("skips callback-backed ActionOptions", async () => {
+    const user = userEvent.setup();
+    const onAction = jest.fn();
+    const onChange = jest.fn();
+    render(
+      <InteractiveComponent label="Colour" onChange={onChange}>
+        <ActionOption
+          text="Add an option"
+          value="add-option"
+          onClick={onAction}
+        />
+        <Option text="Amber" value="amber" />
+      </InteractiveComponent>,
+    );
+
+    await user.type(screen.getByRole("combobox"), "a");
+
+    expect(onAction).not.toHaveBeenCalled();
+    expect(onChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: "amber" }),
+      }),
+    );
+    expect(screen.getByRole("combobox")).toHaveValue("Amber");
+  });
+
+  it("includes selectable ActionOptions", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    render(
+      <InteractiveComponent label="Colour" onChange={onChange}>
+        <ActionOption text="Add an option" value="add-option" />
+      </InteractiveComponent>,
+    );
+
+    await user.type(screen.getByRole("combobox"), "a");
+
+    expect(onChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: "add-option" }),
+      }),
+    );
+    expect(screen.getByRole("combobox")).toHaveValue("Add an option");
+  });
+
+  it("uses filtered candidate indexes when cycling matches", async () => {
+    const user = userEvent.setup();
+    render(
+      <InteractiveComponent label="Colour" value="amber" onChange={() => {}}>
+        <ActionOption
+          text="Add an option"
+          value="add-option"
+          onClick={() => {}}
+        />
+        <Option text="Amber" value="amber" />
+        <Option text="Azure" value="azure" />
+      </InteractiveComponent>,
+    );
+
+    await user.type(screen.getByRole("combobox"), "a");
+
+    expect(screen.getByRole("combobox")).toHaveValue("Azure");
+  });
+
   it("selects the first option with text starting with the typed printable character", async () => {
     const user = userEvent.setup();
     render(
@@ -926,6 +1023,34 @@ describe("dropdown list", () => {
     await waitFor(() => {
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
+  });
+
+  it("remains open when a disabled option is clicked", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} value="">
+        <Option text="amber" value="amber" disabled />
+      </SimpleSelect>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.click(await screen.findByRole("option", { name: "amber" }));
+
+    expect(screen.getByRole("listbox")).toBeVisible();
+  });
+
+  it("remains open when the list padding is clicked", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} value="">
+        <Option text="amber" value="amber" />
+      </SimpleSelect>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.click(await screen.findByRole("listbox"));
+
+    expect(screen.getByRole("listbox")).toBeVisible();
   });
 
   it("closes when an option is focused and Enter key is pressed", async () => {

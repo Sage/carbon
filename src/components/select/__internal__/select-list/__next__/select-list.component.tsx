@@ -141,6 +141,18 @@ const SelectList = ({
   }, [open, onListScrollBottom]);
 
   const mappedChildren = useMemo(() => {
+    const normalizedChildren = React.Children.map(children, (child) => {
+      if (
+        (isOptionElement(child) || isOptionGroupHeaderElement(child)) &&
+        child.key === null &&
+        child.props.id
+      ) {
+        return React.cloneElement(child, { key: child.props.id });
+      }
+
+      return child;
+    });
+
     const renderOption = (option: React.ReactElement<OptionProps>) => {
       const isAction = option.type === ActionOption;
       const {
@@ -173,7 +185,7 @@ const SelectList = ({
 
       const menuItem = (
         <MenuItem
-          key={option.key ?? optionId ?? (value ? String(value) : text)}
+          key={option.key}
           id={optionId}
           {...optionHtmlProps}
           action={isAction}
@@ -202,12 +214,7 @@ const SelectList = ({
         return [menuItem];
       }
 
-      return [
-        menuItem,
-        <MenuItemDivider
-          key={`${option.key ?? optionId ?? String(value)}-divider`}
-        />,
-      ];
+      return [menuItem, <MenuItemDivider key={`${option.key}-divider`} />];
     };
 
     const output: React.ReactNode[] = [];
@@ -224,11 +231,18 @@ const SelectList = ({
           label,
           icon,
           id: headerId,
+          style: headerStyle,
           children: headerChildren,
+          "data-element": headerDataElement,
+          "data-role": headerDataRole,
         } = groupHeader.props;
         output.push(
           <MenuItemHeading
-            key={groupHeader.key ?? headerId ?? label}
+            key={groupHeader.key}
+            id={headerId}
+            style={headerStyle}
+            data-element={headerDataElement}
+            data-role={headerDataRole}
             text={label ?? ""}
             icon={icon ? <Icon type={icon} /> : undefined}
             headingContent={headerChildren}
@@ -245,7 +259,7 @@ const SelectList = ({
       groupItems = [];
     };
 
-    React.Children.forEach(children, (child) => {
+    React.Children.forEach(normalizedChildren, (child) => {
       if (isOptionGroupHeaderElement(child)) {
         flushGroup();
         groupHeader = child;
