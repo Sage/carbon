@@ -1,38 +1,13 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import StyledButton from "../button/button.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import StyledIcon from "../icon/icon.style";
 import { MultiActionButtonProps } from "./multi-action-button.component";
 import computeSizing from "../../style/utils/element-sizing";
 
-const borderRadiusStyling = `
-  > {
-    &:first-child:last-child > * {
-      border-radius: var(--borderRadius100);
-    }
-
-    &:first-child:not(:last-child) > * {
-      border-top-left-radius: var(--borderRadius100);
-      border-top-right-radius: var(--borderRadius100);
-      border-bottom-right-radius: var(--borderRadius000);
-      border-bottom-left-radius: var(--borderRadius000);
-    }
-
-    &:not(:first-child):not(:last-child) > * {
-      border-radius: var(--borderRadius000);
-    }
-
-    &:last-child:not(:first-child) > * {
-      border-top-right-radius: var(--borderRadius000);
-      border-top-left-radius: var(--borderRadius000);
-      border-bottom-left-radius: var(--borderRadius100);
-      border-bottom-right-radius: var(--borderRadius100);
-    }
-  }
-`;
-
-type StyledMultiActionButtonProps = Pick<MultiActionButtonProps, "width"> & {
+type StyledMultiActionButtonProps = Pick<
+  MultiActionButtonProps,
+  "width" | "menuWidth" | "fullWidth"
+> & {
   displayed: boolean;
 };
 
@@ -48,120 +23,12 @@ const StyledMultiActionButton = styled.div.attrs(
     width &&
     css`
       ${computeSizing({ width })}
-
-      ${StyledButton} {
-        width: 100%;
-        justify-content: space-between;
-      }
-
-      /* The toggle button's dropdown icon is a child nested inside the
-         main-text span, so the button's space-between has nothing to push
-         apart. Stretch the wrapper and main-text full width and space them
-         out here so the icon sits at the button's end (as it did before the
-         icon was moved into children to inherit the button colour). */
-      & > ${StyledButton} {
-        > span {
-          flex: 1;
-          min-width: 0;
-        }
-
-        [data-element="main-text"] {
-          width: 100%;
-          justify-content: space-between;
-        }
-      }
     `}
 
-  & > ${StyledButton} {
-    margin: 0;
-
-    ${StyledIcon} {
-      margin-left: 0;
-      left: 8px;
-    }
-
-    &:focus {
-      background-color: var(--colorsActionMajor700);
-      border: 3px solid var(--colorsActionMajor700);
-      outline: none;
-      margin: 0 -1px;
-
-      &,
-      ${StyledIcon} {
-        color: var(--colorsActionMajorYang100);
-      }
-    }
-
-    &:active {
-      background-color: var(--colorsActionMajor700);
-      border-color: var(--colorsActionMajor700);
-
-      &&& {
-        color: var(--colorsActionMajorYang100);
-      }
-
-      &&& [data-component="icon"]:not([data-color]) {
-        color: var(--colorsActionMajorYang100);
-      }
-    }
-
-    ${({ displayed }) =>
-      displayed &&
-      css`
-        background-color: var(--colorsActionMajor700);
-        border-color: var(--colorsActionMajor700);
-
-        &,
-        ${StyledIcon} {
-          color: var(--colorsActionMajorYang100);
-        }
-
-        &:focus {
-          margin: 0 -1px;
-        }
-      `}
+  /* TODO: Revisit this override once the PopoverMenu overflow/scroll behaviour has been updated as part of FE-7800 and investigate whether it can be removed or refactored. */
+  [data-component="scroll-wrapper"] {
+    overflow-y: auto;
   }
 `;
 
-type StyledButtonChildrenContainerProps = {
-  align: "left" | "right";
-  minWidth: number;
-};
-
-const StyledButtonChildrenContainer = styled.ul.attrs(
-  applyBaseTheme,
-)<StyledButtonChildrenContainerProps>`
-  ${({ theme, align, minWidth }) => css`
-    background-color: var(--colorsActionMajorYang100);
-    min-width: ${minWidth}px;
-    white-space: nowrap;
-    z-index: ${theme.zIndex.popover};
-    box-shadow: var(--boxShadow100);
-    border-radius: var(--borderRadius100);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    ${borderRadiusStyling}
-
-    ${StyledButton} {
-      border: 1px solid var(--colorsActionMajorTransparent);
-      display: flex;
-      justify-content: ${align};
-      margin-left: 0;
-      min-width: 100%;
-      text-align: ${align};
-
-      & + & {
-        margin-top: 3px;
-      }
-
-      &:focus {
-        position: relative;
-        z-index: 1;
-      }
-    }
-  `}
-`;
-
-export { StyledButtonChildrenContainer, StyledMultiActionButton };
+export default StyledMultiActionButton;
