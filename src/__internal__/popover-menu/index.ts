@@ -1,4 +1,6 @@
 export { default as PopoverMenu } from "./popover-menu.component";
+export { handleAlphaKeyNavigation } from "./hooks";
+export type { TypeaheadHandler } from "./hooks";
 export {
   MenuItem,
   MenuItemLeading,
