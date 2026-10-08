@@ -293,6 +293,7 @@ const MenuItem = ({
   submenuWidth,
   id,
   measureElement,
+  "aria-describedby": ariaDescribedBy,
   ...rest
 }: MenuItemProps) => {
   const ref = useRef<HTMLLIElement | null>(null);
@@ -316,6 +317,9 @@ const MenuItem = ({
   const submenuRef = useRef<HTMLUListElement | null>(null);
   const context = useContext(MenuHeadingContext);
   const headingId = context?.headingId;
+  const resolvedAriaDescribedBy = [ariaDescribedBy, headingId]
+    .filter(Boolean)
+    .join(" ");
   const itemId = useRef(id ?? `popover-menu-item-${guid()}`).current;
 
   const handleKeydown = useCallback(
@@ -425,7 +429,7 @@ const MenuItem = ({
       $isButtonMenu={isButtonMenu}
       $action={action}
       {...rest}
-      aria-describedby={headingId}
+      aria-describedby={resolvedAriaDescribedBy || undefined}
     >
       <MenuItemContext.Provider value={{ isDisabled: !!isDisabled }}>
         {children}

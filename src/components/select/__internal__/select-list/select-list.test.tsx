@@ -64,9 +64,14 @@ const SelectListWithInput = ({
 describe("rendered content", () => {
   it("includes an ActionOption in the option set and preserves its `li` element", async () => {
     const onClick = jest.fn();
+    const onSelect = jest.fn();
+    const onSelectListClose = jest.fn();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <SelectListWithInput>
+      <SelectListWithInput
+        onSelect={onSelect}
+        onSelectListClose={onSelectListClose}
+      >
         <ActionOption
           id="add-item"
           value="add"
@@ -82,6 +87,8 @@ describe("rendered content", () => {
 
     await user.click(action);
     expect(onClick).toHaveBeenCalledWith("add");
+    expect(onSelect).not.toHaveBeenCalled();
+    expect(onSelectListClose).toHaveBeenCalledTimes(1);
   });
 
   it("renders custom action button when listActionButton prop is provided", () => {
@@ -389,6 +396,34 @@ describe("keyboard navigation", () => {
         selectionType: "enterKey",
       }),
     );
+  });
+
+  it("runs a callback-backed ActionOption and closes without selecting it when Enter is pressed", async () => {
+    const onClick = jest.fn();
+    const onSelect = jest.fn();
+    const onSelectListClose = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <SelectListWithInput
+        onSelect={onSelect}
+        onSelectListClose={onSelectListClose}
+        highlightedValue="add"
+      >
+        <ActionOption
+          id="add"
+          value="add"
+          text="Add an item"
+          onClick={onClick}
+        />
+      </SelectListWithInput>,
+    );
+
+    await user.keyboard("{Enter}");
+
+    expect(onClick).toHaveBeenCalledWith("add");
+    expect(onSelect).not.toHaveBeenCalled();
+    expect(onSelectListClose).toHaveBeenCalledTimes(1);
   });
 
   it("calls onSelect to confirm selection when option row is selected by pressing Enter key", async () => {

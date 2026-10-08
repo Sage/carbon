@@ -19,6 +19,7 @@ import Popover, { PopoverProps } from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
 import { MenuItem } from "./menu-item";
+import type { MenuItemProps } from "./menu-item/menu-item.component";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import {
   useHandleDropdownMenuKeyDown,
@@ -183,8 +184,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   menuWrapperDataElement?: string;
   /** Tab index applied to the listbox/menu element. */
   listTabIndex?: number;
-  /** Set this prop to only render the currently-visible items into the DOM. Only supported for listbox menus
-   * whose children are all `MenuItem`s (no headings or dividers). */
+  /** Set this prop to only render the currently-visible rows into the DOM. Virtual rows may contain one
+   * `MenuItem` together with non-interactive heading or divider content. */
   enableVirtualScroll?: boolean;
   /** The number of items to render into the DOM at once, either side of the currently-visible ones.
    * Only used if the `enableVirtualScroll` prop is set. */
@@ -231,6 +232,37 @@ export const menuPopoverMiddleware = (
 
 const focusControl = (handle: FocusableHandle | HTMLElement | null) => {
   handle?.focus();
+};
+
+const getMenuItemsInRow = (
+  row: React.ReactElement,
+): React.ReactElement<MenuItemProps>[] => {
+  if (row.type === MenuItem) {
+    return [row as React.ReactElement<MenuItemProps>];
+  }
+
+  const menuItems: React.ReactElement<MenuItemProps>[] = [];
+  React.Children.forEach(row.props.children, (child) => {
+    if (React.isValidElement(child)) {
+      menuItems.push(...getMenuItemsInRow(child));
+    }
+  });
+  return menuItems;
+};
+
+const cloneRowMenuItem = (
+  row: React.ReactElement,
+  props: Partial<MenuItemProps>,
+): React.ReactElement => {
+  if (row.type === MenuItem) {
+    return React.cloneElement(row as React.ReactElement<MenuItemProps>, props);
+  }
+
+  return React.cloneElement(row, {
+    children: React.Children.map(row.props.children, (child) =>
+      React.isValidElement(child) ? cloneRowMenuItem(child, props) : child,
+    ),
+  });
 };
 
 interface MenuProps {
@@ -428,23 +460,34 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     () => (wrappedChildren ?? []) as React.ReactElement[],
     [wrappedChildren],
   );
-  const selectedItemIndex = itemsArray.findIndex(
-    (item) => item.props.selected || item.props["aria-selected"] === true,
+  const rowMenuItems = useMemo(
+    () =>
+      itemsArray.map((item) => {
+        const menuItems = getMenuItemsInRow(item);
+        return menuItems.length === 1 ? menuItems[0] : undefined;
+      }),
+    [itemsArray],
+  );
+  const selectedItemIndex = rowMenuItems.findIndex(
+    (item) => item?.props.selected || item?.props["aria-selected"] === true,
   );
   const canVirtualize =
     enableVirtualScroll &&
     !isButtonMenu &&
     itemsArray.length > 0 &&
-    itemsArray.every((child) => child.type === MenuItem);
+    rowMenuItems.every(Boolean);
 
   const itemKeyForIndex = useCallback(
     (index: number) =>
-      itemsArray[index].props.id ?? (itemsArray[index].key as React.Key),
-    [itemsArray],
+      rowMenuItems[index]?.props.id ??
+      rowMenuItems[index]?.key ??
+      (itemsArray[index].key as React.Key),
+    [itemsArray, rowMenuItems],
   );
   const enabledIndexes = useMemo(
     () =>
-      itemsArray.reduce<number[]>((indexes, item, index) => {
+      rowMenuItems.reduce<number[]>((indexes, item, index) => {
+        if (!item) return indexes;
         const ariaDisabled = item.props["aria-disabled"];
         if (
           !item.props.disabled &&
@@ -455,8 +498,13 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         }
         return indexes;
       }, []),
-    [itemsArray],
+    [rowMenuItems],
   );
+  const optionCount = rowMenuItems.filter(Boolean).length;
+  const optionPositions = useMemo(() => {
+    let position = 0;
+    return rowMenuItems.map((item) => (item ? (position += 1) : undefined));
+  }, [rowMenuItems]);
 
   const [activeIndex, setActiveIndex] = useState(-1);
   const resolvedActiveIndex = enabledIndexes.includes(activeIndex)
@@ -500,35 +548,51 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
 
   const optionIdForIndex = useCallback(
     (index: number) =>
-      itemsArray[index]?.props.id ??
+      rowMenuItems[index]?.props.id ??
       `${listId.current}-option-${encodeURIComponent(
         String(itemKeyForIndex(index)),
       )}`,
-    [itemKeyForIndex, itemsArray],
+    [itemKeyForIndex, rowMenuItems],
   );
 
   const renderedChildren = canVirtualize
     ? [
-        ...virtualItems.map((virtualItem) =>
-          React.cloneElement(itemsArray[virtualItem.index], {
-            key: virtualItem.key,
+        ...virtualItems.map((virtualItem) => {
+          const row = itemsArray[virtualItem.index];
+          const optionProps = {
             id: optionIdForIndex(virtualItem.index),
-            "data-index": virtualItem.index,
-            "aria-setsize": itemsArray.length,
-            "aria-posinset": virtualItem.index + 1,
+            "aria-setsize": optionCount,
+            "aria-posinset": optionPositions[virtualItem.index],
             "data-has-focus":
               resolvedActiveIndex === virtualItem.index ? "true" : undefined,
-            measureElement: virtualizer.measureElement,
-            style: {
-              ...itemsArray[virtualItem.index].props.style,
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              transform: `translateY(${virtualItem.start}px)`,
-            },
-          }),
-        ),
+          };
+          const positionedStyle: React.CSSProperties = {
+            ...row.props.style,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            transform: `translateY(${virtualItem.start}px)`,
+          };
+
+          if (row.type === MenuItem) {
+            return React.cloneElement(row, {
+              key: virtualItem.key,
+              ...optionProps,
+              "data-index": virtualItem.index,
+              measureElement: virtualizer.measureElement,
+              style: positionedStyle,
+            });
+          }
+
+          const rowWithOption = cloneRowMenuItem(row, optionProps);
+          return React.cloneElement(rowWithOption, {
+            key: virtualItem.key,
+            "data-index": virtualItem.index,
+            ref: virtualizer.measureElement,
+            style: positionedStyle,
+          });
+        }),
         // In-flow spacer establishes the listbox's scroll range; the options above
         // are absolutely positioned and cannot size the scroll container themselves.
         <li
@@ -595,9 +659,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       ?.querySelector<HTMLElement>('[data-has-focus="true"]')
       ?.setAttribute("data-has-focus", "false");
 
-    const selectedOption = hasEnabledSelection
-      ? listbox?.querySelector<HTMLElement>('[aria-selected="true"]')
-      : undefined;
+    const selectedOption = listbox?.querySelector<HTMLElement>(
+      '[role="option"][aria-selected="true"]:not([aria-disabled="true"])',
+    );
 
     if (!selectedOption) {
       setAriaActivedescendant("");

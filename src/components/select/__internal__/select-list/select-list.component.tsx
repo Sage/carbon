@@ -329,10 +329,18 @@ const SelectList = React.forwardRef(
 
         const optionChildIndex = optionChildrenList.indexOf(child);
         const isOption = optionChildIndex > -1;
+        const actionOnClick =
+          child?.type === ActionOption ? child.props.onClick : undefined;
 
         const newProps = {
           index,
-          onSelect: handleSelect,
+          onSelect: actionOnClick ? undefined : handleSelect,
+          ...(actionOnClick && {
+            onClick: (value: string | Record<string, unknown>) => {
+              actionOnClick(value);
+              onSelectListClose();
+            },
+          }),
           hidden: isLoading && childrenList.length === 1,
           // these need to be inline styles rather than implemented in styled-components to avoid it generating thousands of classes
           style: {
@@ -491,6 +499,16 @@ const SelectList = React.forwardRef(
           }
 
           const { text, value } = currentOption.props;
+          const actionOnClick =
+            currentOption.type === ActionOption
+              ? currentOption.props.onClick
+              : undefined;
+
+          if (actionOnClick && value) {
+            actionOnClick(value);
+            onSelectListClose();
+            return;
+          }
 
           onSelect({
             id: childElementRefs.current[currentOptionsListIndexRef.current]

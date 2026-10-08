@@ -3,6 +3,7 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import {
+  ActionOption,
   FilterableSelect,
   Option,
   FilterableSelectProps,
@@ -1653,6 +1654,32 @@ describe("when the user interacts with a child Option", () => {
       }),
     );
   });
+});
+
+test("does not change its value when a callback-backed ActionOption is clicked", async () => {
+  const user = userEvent.setup();
+  const onActionClick = jest.fn();
+  const onChange = jest.fn();
+
+  render(
+    <FilterableSelect
+      label="filterable-select"
+      onChange={onChange}
+      value="amber"
+    >
+      <Option value="amber" text="Amber" />
+      <ActionOption value="add" text="Add a colour" onClick={onActionClick} />
+    </FilterableSelect>,
+  );
+
+  const input = screen.getByRole("combobox");
+  await waitFor(() => expect(input).toHaveValue("Amber"));
+  await user.click(input);
+  await user.click(await screen.findByRole("option", { name: "Add a colour" }));
+
+  expect(onActionClick).toHaveBeenCalledWith("add");
+  expect(onChange).not.toHaveBeenCalled();
+  expect(input).toHaveValue("Amber");
 });
 
 test("should close the list when the user presses `Escape` key", async () => {

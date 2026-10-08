@@ -4,7 +4,12 @@ import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 import MultiSelect, { MultiSelectProps } from ".";
-import { CustomSelectChangeEvent, Option, setupSelectMocks } from "..";
+import {
+  ActionOption,
+  CustomSelectChangeEvent,
+  Option,
+  setupSelectMocks,
+} from "..";
 import { CHARACTERS } from "../../../../playwright/support/constants";
 
 import Modal from "../../../__internal__/modal";
@@ -925,6 +930,26 @@ test("clears the input after an option is selected", async () => {
   await user.click(await screen.findByRole("option", { name: "amber" }));
 
   expect(screen.getByRole("combobox")).toHaveValue("");
+});
+
+test("does not change its values when a callback-backed ActionOption is clicked", async () => {
+  const user = userEvent.setup();
+  const onActionClick = jest.fn();
+  const onChange = jest.fn();
+
+  render(
+    <MultiSelect label="Colour" value={["amber"]} onChange={onChange}>
+      <Option text="amber" value="amber" />
+      <ActionOption text="Add a colour" value="add" onClick={onActionClick} />
+    </MultiSelect>,
+  );
+
+  await user.click(screen.getByRole("combobox"));
+  await user.click(await screen.findByRole("option", { name: "Add a colour" }));
+
+  expect(onActionClick).toHaveBeenCalledWith("add");
+  expect(onChange).not.toHaveBeenCalled();
+  expect(screen.getByTitle("amber")).toBeVisible();
 });
 
 describe("when onClick prop is passed", () => {
