@@ -84,6 +84,9 @@ interface Locale {
   link: {
     skipLinkLabel: () => string;
   };
+  linkPreview: {
+    closeButtonAriaLabel?: () => string;
+  };
   loader: {
     loading: () => string;
   };

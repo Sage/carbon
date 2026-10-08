@@ -107,6 +107,9 @@ const esES: Partial<Locale> = {
   link: {
     skipLinkLabel: () => "Ir al contenido principal",
   },
+  linkPreview: {
+    closeButtonAriaLabel: () => "Cerrar",
+  },
   loader: {
     loading: () => "Cargando...",
   },

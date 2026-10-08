@@ -21,7 +21,6 @@ import {
 import Button from "../button/__next__";
 import ReadOnlyEditor from "../text-editor/__internal__/__ui__/ReadOnlyEditor/read-only-rte.component";
 import TextEditorContext from "../text-editor/text-editor.context";
-import LinkPreview, { LinkPreviewProps } from "../link-preview";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import isValidISOString from "./note.utils";
@@ -39,7 +38,7 @@ export interface NoteProps extends MarginProps, TagProps {
   noteContent: string;
   /** Callback to report a url when a link is added */
   onLinkAdded?: (url: string) => void;
-  /** The previews to display of any links added to the Editor */
+  /** LinkPreviews to display of any links added to the Editor */
   previews?: React.ReactNode;
   /** Adds a status and timestamp below the created details */
   status?: {
@@ -50,13 +49,6 @@ export interface NoteProps extends MarginProps, TagProps {
   title?: React.ReactNode;
   /** Set a percentage-based width for the whole Note component, relative to its parent. */
   width?: number;
-}
-
-function hasExpectedDisplayName(
-  child: React.ReactElement,
-  displayName: string,
-) {
-  return (child.type as React.FunctionComponent).displayName === displayName;
 }
 
 export const Note = ({
@@ -146,17 +138,9 @@ export const Note = ({
           </StyledNoteContent>
         </StyledNoteMain>
 
-        {!!React.Children.count(previews) && (
-          <StyledNoteContent data-role="note-previews">
-            {React.Children.map(previews, (preview) =>
-              React.isValidElement(preview) &&
-              hasExpectedDisplayName(preview, LinkPreview.displayName)
-                ? React.cloneElement<LinkPreviewProps>(
-                    preview as React.ReactElement<LinkPreviewProps>,
-                    { as: "a", onClose: undefined },
-                  )
-                : preview,
-            )}
+        {previews && (
+          <StyledNoteContent data-role="note-previews" $isPreviews>
+            {previews}
           </StyledNoteContent>
         )}
 

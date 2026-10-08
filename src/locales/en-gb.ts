@@ -111,6 +111,9 @@ const enGB: Locale = {
   link: {
     skipLinkLabel: () => "Skip to main content",
   },
+  linkPreview: {
+    closeButtonAriaLabel: () => "Close",
+  },
   loader: {
     loading: () => "Loading...",
   },

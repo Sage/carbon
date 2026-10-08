@@ -1,55 +1,75 @@
 import React from "react";
-import { StoryObj } from "@storybook/react-vite";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { within, expect, userEvent } from "storybook/test";
+
 import LinkPreview from ".";
+import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import { action } from "storybook/actions";
+
+const meta: Meta<typeof LinkPreview> = {
+  title: "Link Preview/Interactions",
+  component: LinkPreview,
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
+};
+export default meta;
 type Story = StoryObj<typeof LinkPreview>;
 
-export default {
-  title: "Link Preview/Interactions",
+export const FocusAndHover: Story = {
+  render: () => (
+    <LinkPreview
+      title="Title"
+      url="https://carbon.sage.com"
+      description="Description"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    const canvas = within(canvasElement);
+    const link = canvas.getByRole("link");
+
+    await userEvent.tab();
+    await expect(link).toHaveFocus();
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
   parameters: {
-    info: { disable: true },
-    themeProvider: { chromatic: { theme: "sage" } },
-    chromatic: {
-      disableSnapshot: false,
+    pseudo: {
+      hover: "a",
     },
   },
 };
 
-export const Focus: Story = {
+export const CloseButtonFocus: Story = {
   render: () => (
     <LinkPreview
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets?"
-    />
-  ),
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-Focus.storyName = "Focus and hover state";
-Focus.parameters = {
-  pseudo: {
-    focus: true,
-    hover: true,
-  },
-};
-
-export const closeIconFocus: Story = {
-  render: () => (
-    <LinkPreview
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets?"
+      title="Title"
+      url="https://carbon.sage.com"
+      description="Description"
       as="div"
-      onClose={(url) => action("close icon clicked")(url)}
+      onClose={() => {}}
     />
   ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+
+    await userEvent.tab();
+    await expect(button).toHaveFocus();
+  },
   decorators: [
     (StoryToRender) => (
       <DefaultDecorator>
@@ -57,10 +77,4 @@ export const closeIconFocus: Story = {
       </DefaultDecorator>
     ),
   ],
-};
-closeIconFocus.storyName = "Close Icon Focus";
-closeIconFocus.parameters = {
-  pseudo: {
-    focus: true,
-  },
 };

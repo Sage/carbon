@@ -1,27 +1,76 @@
 import React from "react";
-import { action } from "storybook/actions";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import carbonLogo from "../../../logo/carbon-logo.png";
+import carbonSageLogo from "../../../.assets/carbon-by-sage-logo.png";
+import LinkPreview from ".";
+import Box from "../box";
 
-import LinkPreview from "./link-preview.component";
-
-export default {
+const meta: Meta<typeof LinkPreview> = {
   title: "Link Preview/Test",
-  includeStories: ["Default"],
+  component: LinkPreview,
   parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
 };
+export default meta;
+type Story = StoryObj<typeof LinkPreview>;
 
-export const Default = () => (
-  <LinkPreview
-    as="div"
-    onClose={(url) => action("close icon clicked")(url)}
-    title="This is an example of a title"
-    url="https://www.sage.com"
-    description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
-  />
-);
+export const Chromatic: Story = {
+  render: (args) => (
+    <Box display="flex" flexDirection="column" gap={2}>
+      <LinkPreview {...args} size="small" title="Small" />
+      <LinkPreview {...args} size="medium" title="Medium" />
+      <LinkPreview {...args} size="large" title="Large" />
 
-Default.storyName = "default";
+      <LinkPreview
+        {...args}
+        size="small"
+        title="Small"
+        onClose={() => {}}
+        as="div"
+      />
+      <LinkPreview
+        {...args}
+        size="medium"
+        title="Medium"
+        onClose={() => {}}
+        as="div"
+      />
+      <LinkPreview
+        {...args}
+        size="large"
+        title="Large"
+        onClose={() => {}}
+        as="div"
+      />
+
+      <LinkPreview {...args} size="small" isLoading />
+      <LinkPreview {...args} size="medium" isLoading />
+      <LinkPreview {...args} size="large" isLoading />
+
+      <LinkPreview {...args} url="" />
+
+      <LinkPreview {...args} image={{ url: carbonLogo }} />
+      <LinkPreview {...args} image={{ url: carbonSageLogo }} />
+
+      <LinkPreview
+        {...args}
+        title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat aliquid dolor dolores, dolorum facere suscipit veniam magni harum quidem repellendus laboriosam fugiat ab facilis voluptatem ipsum rerum? Nisi, odio accusamus!"
+        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, tempora."
+        url="lorem-ipsum-dolor-sit-amet-consectetur-adipisicing-elit-Atque-tempora.com"
+      />
+      <LinkPreview
+        {...args}
+        title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat aliquid dolor dolores, dolorum facere suscipit veniam magni harum quidem repellendus laboriosam fugiat ab facilis voluptatem ipsum rerum? Nisi, odio accusamus!"
+        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, tempora."
+        onClose={() => {}}
+        as="div"
+      />
+    </Box>
+  ),
+  args: {
+    title: "Title",
+    url: "https://carbon.sage.com",
+    description: "Description",
+  },
+};
