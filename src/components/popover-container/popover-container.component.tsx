@@ -553,7 +553,7 @@ export const PopoverContainer = forwardRef<
         $hasFullWidth={hasFullWidth}
         {...tagComponent("popover-container", rest)}
       >
-        <div ref={setPopoverReference}>
+        <div className="popover-open-component" ref={setPopoverReference}>
           {renderOpenComponent(renderOpenComponentProps)}
         </div>
         <CSSTransition

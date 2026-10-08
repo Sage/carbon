@@ -167,7 +167,7 @@ export const Complex: Story = () => {
     <>
       <GlobalHeader aria-label="Global header component with basic menu">
         Example
-        <Menu menuType="black" flex="1" flexDirection="row-reverse">
+        <Menu variant="black" flex="1" flexDirection="row-reverse">
           <MenuItem
             onClick={() => setAdaptiveSidebarOpen(!adaptiveSidebarOpen)}
           >

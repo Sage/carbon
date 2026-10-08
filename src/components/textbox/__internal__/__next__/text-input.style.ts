@@ -63,10 +63,6 @@ const StyledTextInput = styled.div.attrs(applyBaseTheme)<StyledTextInputProps>`
   .time & {
     gap: var(--global-space-comp-xs);
   }
-
-  .legacy-search & {
-    flex: 1 1 0%;
-  }
 `;
 
 const LabelWrapper = styled.div<LabelWrapperProps>`
