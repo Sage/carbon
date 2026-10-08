@@ -1,5 +1,6 @@
+import { padding } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { padding } from "styled-system";
+
 import { TransitionStatus } from "react-transition-group";
 
 import applyBaseTheme from "../../style/themes/apply-base-theme";

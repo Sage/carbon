@@ -1,5 +1,6 @@
+import type { PaddingProps, SpaceProps } from "../../style/utils/spacing";
 import React, { useContext, useRef } from "react";
-import { SpaceProps, PaddingProps } from "styled-system";
+
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import FormSummary from "./__internal__/form-summary.component";

@@ -1,5 +1,5 @@
+import { margin } from "../../style/utils/spacing";
 import styled from "styled-components";
-import { margin } from "styled-system";
 
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";

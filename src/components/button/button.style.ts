@@ -1,6 +1,6 @@
+import type { SpaceProps } from "../../style/utils/spacing";
+import { space } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-
-import { space, SpaceProps } from "styled-system";
 
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";

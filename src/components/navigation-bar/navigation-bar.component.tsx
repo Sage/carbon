@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../style/utils/spacing";
 import React, { useRef } from "react";
-import { PaddingProps, FlexboxProps } from "styled-system";
+import { FlexboxProps } from "styled-system";
 import StyledNavigationBar from "./navigation-bar.style";
 import { FixedNavigationBarContextProvider } from "./__internal__/fixed-navigation-bar.context";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";

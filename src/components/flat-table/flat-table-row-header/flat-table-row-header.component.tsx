@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
 import React, { useCallback, useRef } from "react";
-import { PaddingProps } from "styled-system";
+
 import { TableBorderSize, TableCellAlign } from "..";
 
 import Icon from "../../icon";

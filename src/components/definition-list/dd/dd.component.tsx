@@ -1,5 +1,6 @@
+import type { SpaceProps } from "../../../style/utils/spacing";
 import React from "react";
-import { SpaceProps } from "styled-system";
+
 import { StyledDd } from "../definition-list.style";
 import { useDlContext } from "../__internal__/dl.context";
 import tagComponent, {

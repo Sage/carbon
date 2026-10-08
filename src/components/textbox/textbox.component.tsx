@@ -1,6 +1,5 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useCallback, useRef, useState } from "react";
-
-import { MarginProps } from "styled-system";
 
 import { IconType } from "../icon";
 import { CommonInputProps } from "../../__internal__/legacy-input";

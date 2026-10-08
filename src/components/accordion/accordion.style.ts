@@ -1,6 +1,5 @@
+import { space, margin } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-
-import { space, margin } from "styled-system";
 
 import Icon from "../icon";
 import applyBaseTheme from "../../style/themes/apply-base-theme";

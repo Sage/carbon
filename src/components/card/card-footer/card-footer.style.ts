@@ -1,5 +1,6 @@
+import type { SpaceProps } from "../../../style/utils/spacing";
+import { space } from "../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { space, SpaceProps } from "styled-system";
 import StyledCardColumn from "../card-column/card-column.style";
 import { CardContextProps } from "../__internal__/card.context";
 import { CardFooterProps } from "./card-footer.component";

@@ -1,5 +1,6 @@
+import { margin } from "../../style/utils/spacing";
 import styled from "styled-components";
-import { margin } from "styled-system";
+
 import StyledDateInput from "../date/date.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 

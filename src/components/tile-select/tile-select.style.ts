@@ -1,5 +1,6 @@
+import { margin } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
+
 import Fieldset from "../fieldset";
 import { Input } from "../../__internal__/legacy-input";
 import {

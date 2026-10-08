@@ -1,9 +1,9 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
 import styled, { css } from "styled-components";
 import {
   grid,
   flexbox,
   padding,
-  PaddingProps,
   GridAreaProps,
   GridColumnProps,
   GridRowProps,
