@@ -1,12 +1,11 @@
 import React from "react";
 import { SpaceProps } from "styled-system";
-import StyledTileContent from "./tile-content.style";
-import { useTileContext } from "../__internal__/tile.context";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 import filterStyledSystemPaddingProps from "../../../style/utils/filter-styled-system-padding-props";
 import filterStyledSystemMarginProps from "../../../style/utils/filter-styled-system-margin-props";
+import Box from "../../box";
 
 export interface TileContentProps extends SpaceProps, TagProps {
   children?: React.ReactNode;
@@ -14,14 +13,13 @@ export interface TileContentProps extends SpaceProps, TagProps {
   height?: string | number;
 }
 
+/** @deprecated The `TileContent` component is deprecated and will be removed in a future version. Please use the `Box` component instead. */
 const TileContent = ({
   children,
   width,
   height,
   ...rest
 }: TileContentProps) => {
-  const { isHorizontal, paddingPropsFromTile } = useTileContext();
-
   if (!children) {
     return null;
   }
@@ -32,16 +30,19 @@ const TileContent = ({
   };
 
   return (
-    <StyledTileContent
+    <Box
+      data-role="tile-content"
       width={width}
       height={height}
-      isHorizontal={isHorizontal}
-      {...paddingPropsFromTile}
+      flexGrow={width || height ? 0 : 1}
+      position="relative"
+      boxSizing="border-box"
+      display="inline"
       {...spacingProps}
       {...tagComponent("tile-content", rest)}
     >
       {children}
-    </StyledTileContent>
+    </Box>
   );
 };
 
