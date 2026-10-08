@@ -186,6 +186,37 @@ export const WithVirtualScrolling = (
   );
 };
 
+export const WithGroupedVirtualScrolling = () => {
+  const [value, setValue] = useState("");
+  const renderOptions = (start: number, end: number) =>
+    Array.from({ length: end - start + 1 }, (_, offset) => {
+      const optionNumber = start + offset;
+      return (
+        <Option
+          key={`grouped-option-${optionNumber}`}
+          value={String(optionNumber)}
+          text={`Grouped option ${optionNumber}`}
+          divider
+        />
+      );
+    });
+
+  return (
+    <SimpleSelect
+      label="Grouped virtual options"
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      enableVirtualScroll
+      virtualScrollOverscan={1}
+    >
+      <OptionGroupHeader key="first-group" label="First group" />
+      {renderOptions(1, 20)}
+      <OptionGroupHeader key="second-group" label="Second group" />
+      {renderOptions(21, 40)}
+    </SimpleSelect>
+  );
+};
+
 export const VirtualTypeaheadSelect = () => {
   const [value, setValue] = useState("amber");
 
@@ -199,6 +230,23 @@ export const VirtualTypeaheadSelect = () => {
       <Option text="Amber" value="amber" />
       <Option text="Black" value="black" />
       <Option text="Blue" value="blue" />
+    </Select>
+  );
+};
+
+export const GroupedTypeaheadSelect = () => {
+  const [value, setValue] = useState("amber");
+
+  return (
+    <Select
+      label="Color"
+      value={value}
+      onChange={(event) => setValue(event.target.value as string)}
+    >
+      <OptionGroupHeader label="Warm colours" />
+      <Option text="Amber" value="amber" />
+      <OptionGroupHeader label="Neutral colours" />
+      <Option text="Black" value="black" />
     </Select>
   );
 };

@@ -48,6 +48,23 @@ test("renders custom heading content when provided", () => {
   expect(screen.queryByText("Heading")).not.toBeInTheDocument();
 });
 
+test("visually hides a repeated virtual heading while retaining its group label", () => {
+  render(
+    <MenuItemHeading text="Heading" semanticGroup visuallyHiddenHeading>
+      <li role="option" aria-selected="false">
+        item
+      </li>
+    </MenuItemHeading>,
+  );
+
+  const group = screen.getByRole("group", { name: "Heading" });
+  expect(group).toContainElement(screen.getByRole("option"));
+  expect(screen.getByTestId("visually-hidden-heading")).toHaveStyleRule(
+    "position",
+    "absolute",
+  );
+});
+
 test.each([
   ["small", "var(--global-space-comp-2-xs)"],
   ["medium", "var(--global-space-comp-xs)"],
