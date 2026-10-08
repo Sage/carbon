@@ -118,6 +118,26 @@ export const Sizes: Story = () => {
 };
 Sizes.storyName = "Sizes";
 
+export const VariantTypes: Story = () => {
+  return (
+    <>
+      {(["primary", "secondary"] as const).map((variantType) => (
+        <Box key={variantType} mb={3}>
+          <SplitButton
+            variantType={variantType}
+            text={`Split button - ${variantType}`}
+          >
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+          </SplitButton>
+        </Box>
+      ))}
+    </>
+  );
+};
+VariantTypes.storyName = "Variant Types";
+
 export const CustomMenuWidth: Story = () => {
   return (
     <SplitButton menuWidth="320px" text="Split button">

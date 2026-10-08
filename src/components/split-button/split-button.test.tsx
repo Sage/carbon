@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/dom";
 import SplitButton, { SplitButtonHandle } from "./split-button.component";
 import Button from "../button/__next__";
+import { StyledButton } from "../button/__next__/button.style";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 import {
@@ -302,6 +303,267 @@ test("should render with the correct styles when 'buttonType' prop is 'primary' 
 
   expect(screen.getByRole("button", { name: "Show more" })).toHaveStyle({
     position: "relative",
+  });
+});
+
+describe("actualVariant resolution", () => {
+  it("uses 'secondary' when only 'variantType' is set to 'secondary'", () => {
+    render(
+      <SplitButton text="Main" variantType="secondary">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const main = screen.getByRole("button", { name: "Main" });
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(main).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-bg-default)",
+    );
+    expect(toggle).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-bg-default)",
+    );
+  });
+
+  it("uses 'secondary' when only 'buttonType' is set to 'secondary'", () => {
+    render(
+      <SplitButton text="Main" buttonType="secondary">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const main = screen.getByRole("button", { name: "Main" });
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(main).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-bg-default)",
+    );
+    expect(toggle).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-bg-default)",
+    );
+  });
+
+  it("prefers 'variantType' ('primary') over 'buttonType' ('secondary') when both are set", () => {
+    render(
+      <SplitButton text="Main" variantType="primary" buttonType="secondary">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const main = screen.getByRole("button", { name: "Main" });
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(main).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-primary-bg-default)",
+    );
+    expect(toggle).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-primary-bg-default)",
+    );
+  });
+
+  it("prefers 'variantType' ('secondary') over 'buttonType' ('primary') when both are set", () => {
+    render(
+      <SplitButton text="Main" variantType="secondary" buttonType="primary">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const main = screen.getByRole("button", { name: "Main" });
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(main).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-bg-default)",
+    );
+    expect(toggle).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-bg-default)",
+    );
+  });
+
+  it("defaults to 'primary' when neither 'variantType' nor 'buttonType' is set", () => {
+    render(
+      <SplitButton text="Main">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const main = screen.getByRole("button", { name: "Main" });
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(main).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-primary-bg-default)",
+    );
+    expect(toggle).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-primary-bg-default)",
+    );
+  });
+
+  it("applies the secondary 'isWhite' background when 'variantType' is 'secondary', 'isWhite' is set and the toggle is displayed", async () => {
+    const user = userEvent.setup();
+    render(
+      <SplitButton text="Main" variantType="secondary" isWhite>
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const toggle = screen.getByRole("button", { name: "Show more" });
+    await user.click(toggle);
+
+    expect(toggle).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-bg-active)",
+      {
+        modifier: "&:not(:disabled)",
+      },
+    );
+  });
+});
+
+describe("separator and variant-specific spacing", () => {
+  it("does not render the removed separator on the toggle button for the 'primary' variant", () => {
+    render(
+      <SplitButton text="Main" variantType="primary">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(toggle).not.toHaveStyleRule("content", '""', {
+      modifier: "::before",
+    });
+  });
+
+  it("does not render the removed separator on the toggle button for the 'secondary' variant", () => {
+    render(
+      <SplitButton text="Main" variantType="secondary">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(toggle).not.toHaveStyleRule("content", '""', {
+      modifier: "::before",
+    });
+  });
+
+  it("applies a 2px left margin to the toggle button when the 'primary' variant is the default", () => {
+    render(
+      <SplitButton text="Main">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(toggle).toHaveStyleRule(
+      "margin-left",
+      "var(--global-space-comp-2-xs)",
+    );
+    expect(toggle).toHaveStyleRule("position", "relative");
+  });
+
+  it("applies a 2px left margin to the toggle button when 'variantType' is explicitly 'primary'", () => {
+    render(
+      <SplitButton text="Main" variantType="primary">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(toggle).toHaveStyleRule(
+      "margin-left",
+      "var(--global-space-comp-2-xs)",
+    );
+    expect(toggle).toHaveStyleRule("position", "relative");
+  });
+
+  it("overlaps the toggle button's border with the main button's border for the 'secondary' variant", () => {
+    render(
+      <SplitButton text="Main" variantType="secondary">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(toggle).toHaveStyleRule(
+      "margin-left",
+      "calc(-1 * var(--global-borderwidth-s))",
+    );
+  });
+
+  it("raises the toggle button above the main button on hover, active and focus for the 'secondary' variant", () => {
+    render(
+      <SplitButton text="Main" variantType="secondary">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const toggle = screen.getByRole("button", { name: "Show more" });
+
+    expect(toggle).toHaveStyleRule("z-index", "1", { modifier: "&:hover" });
+    expect(toggle).toHaveStyleRule("z-index", "1", { modifier: "&:active" });
+    expect(toggle).toHaveStyleRule("z-index", "2", { modifier: "&:focus" });
+  });
+
+  it("raises the main button above the toggle button on hover, active and focus for the 'secondary' variant", () => {
+    render(
+      <SplitButton
+        text="Main"
+        variantType="secondary"
+        data-role="split-button-container"
+      >
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const splitButtonContainer = screen.getByTestId("split-button-container");
+
+    expect(splitButtonContainer).toHaveStyleRule("position", "relative", {
+      modifier: `> ${StyledButton}`,
+    });
+    expect(splitButtonContainer).toHaveStyleRule("z-index", "1", {
+      modifier: `> ${StyledButton}:hover`,
+    });
+    expect(splitButtonContainer).toHaveStyleRule("z-index", "1", {
+      modifier: `> ${StyledButton}:active`,
+    });
+    expect(splitButtonContainer).toHaveStyleRule("z-index", "2", {
+      modifier: `> ${StyledButton}:focus`,
+    });
+  });
+
+  it("does not add a hover or active 'z-index' rule to the main button for the 'primary' variant", () => {
+    render(
+      <SplitButton
+        text="Main"
+        variantType="primary"
+        data-role="split-button-container"
+      >
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const splitButtonContainer = screen.getByTestId("split-button-container");
+
+    expect(splitButtonContainer).not.toHaveStyleRule("z-index", "1", {
+      modifier: `> ${StyledButton}:hover`,
+    });
+    expect(splitButtonContainer).not.toHaveStyleRule("z-index", "1", {
+      modifier: `> ${StyledButton}:active`,
+    });
   });
 });
 

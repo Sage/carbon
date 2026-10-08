@@ -1,9 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import { StyledButton } from "../button/__next__/button.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-const StyledSplitButton = styled.div.attrs(applyBaseTheme)`
+const StyledSplitButton = styled.div.attrs(applyBaseTheme)<{
+  $variantType: "primary" | "secondary";
+}>`
   ${margin}
   display: inline-flex;
   align-items: stretch;
@@ -21,6 +23,21 @@ const StyledSplitButton = styled.div.attrs(applyBaseTheme)`
       z-index: 1;
     }
   }
+
+  ${({ $variantType }) =>
+    $variantType === "secondary" &&
+    css`
+      & > ${StyledButton} {
+        position: relative;
+        &:hover,
+        &:active {
+          z-index: 1;
+        }
+        &:focus {
+          z-index: 2;
+        }
+      }
+    `}
 `;
 
 const StyledPopoverMenuWrapper = styled.div`
