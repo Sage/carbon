@@ -514,10 +514,13 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             key: virtualItem.key,
             id: optionIdForIndex(virtualItem.index),
             "data-index": virtualItem.index,
+            "aria-setsize": itemsArray.length,
+            "aria-posinset": virtualItem.index + 1,
             "data-has-focus":
               resolvedActiveIndex === virtualItem.index ? "true" : undefined,
             measureElement: virtualizer.measureElement,
             style: {
+              ...itemsArray[virtualItem.index].props.style,
               position: "absolute",
               top: 0,
               left: 0,
@@ -556,6 +559,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       if (canVirtualize) {
         setActiveIndex(-1);
         virtualizer.measure();
+      } else {
+        setAriaActivedescendant("");
       }
       return;
     }
@@ -576,19 +581,38 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   }, [open, canVirtualize, initialScrollIndex, focusSelectedOnOpen]);
 
   useEffect(() => {
-    if (!open || !highlightSelectedOption || selectedItemIndex < 0) return;
+    if (!open || !highlightSelectedOption) return;
+
+    const hasEnabledSelection = enabledIndexes.includes(selectedItemIndex);
+
+    if (canVirtualize) {
+      setActiveIndex(hasEnabledSelection ? selectedItemIndex : -1);
+      return;
+    }
 
     const listbox = internalListRef.current;
-    const selectedOption = listbox?.querySelector<HTMLElement>(
-      '[aria-selected="true"]',
-    );
-    if (!selectedOption) return;
-
     listbox
       ?.querySelector<HTMLElement>('[data-has-focus="true"]')
       ?.setAttribute("data-has-focus", "false");
+
+    const selectedOption = hasEnabledSelection
+      ? listbox?.querySelector<HTMLElement>('[aria-selected="true"]')
+      : undefined;
+
+    if (!selectedOption) {
+      setAriaActivedescendant("");
+      return;
+    }
+
     selectedOption.setAttribute("data-has-focus", "true");
-  }, [open, highlightSelectedOption, selectedItemIndex]);
+    setAriaActivedescendant(selectedOption.id);
+  }, [
+    open,
+    highlightSelectedOption,
+    selectedItemIndex,
+    enabledIndexes,
+    canVirtualize,
+  ]);
 
   const moveActiveIndex = useCallback(
     (nextIndex: number) => {

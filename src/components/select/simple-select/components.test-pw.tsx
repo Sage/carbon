@@ -186,6 +186,23 @@ export const WithVirtualScrolling = (
   );
 };
 
+export const VirtualTypeaheadSelect = () => {
+  const [value, setValue] = useState("amber");
+
+  return (
+    <Select
+      label="Color"
+      enableVirtualScroll
+      value={value}
+      onChange={(event) => setValue(event.target.value as string)}
+    >
+      <Option text="Amber" value="amber" />
+      <Option text="Black" value="black" />
+      <Option text="Blue" value="blue" />
+    </Select>
+  );
+};
+
 export const SimpleSelectNestedInDialog = ({
   openOnFocus = false,
   autofocus = false,
