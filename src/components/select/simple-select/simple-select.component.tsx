@@ -28,6 +28,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
+import ActionOption from "../action-option";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 
@@ -236,6 +237,15 @@ export const SimpleSelect = React.forwardRef<
       [children],
     ) as React.ReactElement[];
 
+    const typeaheadOptions = useMemo(
+      () =>
+        childOptions.filter(
+          (child) =>
+            child.type !== ActionOption || child.props.onClick === undefined,
+        ),
+      [childOptions],
+    );
+
     const createCustomEvent = useCallback(
       (
         newValue?: string | Record<string, unknown>,
@@ -257,14 +267,14 @@ export const SimpleSelect = React.forwardRef<
 
     const selectValueStartingWithText = useCallback(
       (newFilterText: string) => {
-        const previousIndex = childOptions.findIndex(
+        const previousIndex = typeaheadOptions.findIndex(
           (child) =>
             React.isValidElement(child) &&
             isExpectedOption(child, selectedValue),
         );
         const match = getNextChildByText(
           newFilterText,
-          childOptions,
+          typeaheadOptions,
           previousIndex,
         );
 
@@ -272,7 +282,7 @@ export const SimpleSelect = React.forwardRef<
           onChange(createCustomEvent(match.props.value));
         }
       },
-      [childOptions, createCustomEvent, onChange, selectedValue],
+      [typeaheadOptions, createCustomEvent, onChange, selectedValue],
     );
 
     const triggerFilterChange = useCallback(
@@ -342,16 +352,8 @@ export const SimpleSelect = React.forwardRef<
       [isOpen, triggerFilterChange, onKeyDown, onOpen, readOnly],
     );
 
-    const handleGlobalClick = useCallback((event: MouseEvent) => {
-      const notInContainer =
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node);
-
+    const handleGlobalClick = useCallback(() => {
       isMouseDownReported.current = false;
-
-      if (notInContainer) {
-        setOpenState(false);
-      }
     }, []);
 
     useEffect(() => {
