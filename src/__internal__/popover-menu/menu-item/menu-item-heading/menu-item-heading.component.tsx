@@ -2,6 +2,7 @@ import React, { useContext, useRef } from "react";
 import styled from "styled-components";
 import { PopoverMenuContext, MenuHeadingContext } from "../../contexts";
 import guid from "../../../utils/helpers/guid";
+import type { TagProps } from "../../../utils/helpers/tags";
 
 const StyledMenuHeadingWithIcon = styled.div<{ $size: string }>`
   display: flex;
@@ -33,20 +34,28 @@ const StyledMenuHeading = styled.li<{ $size: string }>`
   }
 `;
 
-const MenuItemHeading = ({
-  children,
-  text,
-  icon,
-  headingContent,
-  semanticGroup = false,
-}: {
+interface MenuItemHeadingProps extends TagProps {
   children: React.ReactNode;
   text: string;
   icon?: React.ReactNode;
   headingContent?: React.ReactNode;
   /** @internal Render the heading and its options as one labelled listbox group. */
   semanticGroup?: boolean;
-}) => {
+  id?: string;
+  style?: React.CSSProperties;
+}
+
+const MenuItemHeading = ({
+  children,
+  text,
+  icon,
+  headingContent,
+  semanticGroup = false,
+  id,
+  style,
+  "data-element": dataElement,
+  "data-role": dataRole,
+}: MenuItemHeadingProps) => {
   const { size } = useContext(PopoverMenuContext);
   const headingId = useRef(`popover-menu-heading-${guid()}`);
 
@@ -81,6 +90,10 @@ const MenuItemHeading = ({
     <StyledMenuHeading
       as={semanticGroup ? "div" : undefined}
       data-component="popover-menu-item-heading"
+      data-element={dataElement}
+      data-role={dataRole}
+      id={id}
+      style={style}
       $size={size}
       role={semanticGroup ? "group" : "option"}
       aria-labelledby={semanticGroup ? headingId.current : undefined}
