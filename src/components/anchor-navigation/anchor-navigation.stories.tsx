@@ -8,6 +8,8 @@ import Button from "../button";
 import Dialog from "../dialog";
 import {
   AnchorNavigation,
+  AnchorNavigationContent,
+  AnchorNavigationMenu,
   AnchorSectionDivider,
   AnchorNavigationItem,
 } from ".";
@@ -48,38 +50,39 @@ export const DefaultStory: Story = () => {
   const ref4 = useRef<HTMLDivElement>(null);
   const ref5 = useRef<HTMLDivElement>(null);
   return (
-    <AnchorNavigation
-      stickyNavigation={
-        <>
-          <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-          <AnchorNavigationItem target={ref4}>
-            Navigation item with very long label
-          </AnchorNavigationItem>
-          <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-        </>
-      }
-    >
-      <Box ref={ref1}>
-        <Content title="First section" />
-      </Box>
-      <AnchorSectionDivider />
-      <Box ref={ref2}>
-        <Content title="Second section" />
-      </Box>
-      <AnchorSectionDivider />
-      <Box ref={ref3}>
-        <Content noTextbox title="Third section" />
-      </Box>
-      <AnchorSectionDivider />
-      <Box ref={ref4}>
-        <Content title="Fourth section" />
-      </Box>
-      <AnchorSectionDivider />
-      <Box ref={ref5}>
-        <Content title="Fifth section" />
-      </Box>
+    <AnchorNavigation>
+      <AnchorNavigationMenu>
+        <AnchorNavigationItem initiallySelected target={ref1}>
+          First
+        </AnchorNavigationItem>
+        <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
+        <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+        <AnchorNavigationItem target={ref4}>
+          Navigation item with very long label
+        </AnchorNavigationItem>
+        <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
+      </AnchorNavigationMenu>
+      <AnchorNavigationContent>
+        <Box ref={ref1}>
+          <Content title="First section" />
+        </Box>
+        <AnchorSectionDivider />
+        <Box ref={ref2}>
+          <Content title="Second section" />
+        </Box>
+        <AnchorSectionDivider />
+        <Box ref={ref3}>
+          <Content noTextbox title="Third section" />
+        </Box>
+        <AnchorSectionDivider />
+        <Box ref={ref4}>
+          <Content title="Fourth section" />
+        </Box>
+        <AnchorSectionDivider />
+        <Box ref={ref5}>
+          <Content title="Fifth section" />
+        </Box>
+      </AnchorNavigationContent>
     </AnchorNavigation>
   );
 };
@@ -109,44 +112,45 @@ export const InFullScreenDialogStory: Story = () => {
     <>
       <Button onClick={() => setIsOpen(true)}>Open AnchorNavigation</Button>
       <Dialog
-        fullscreen
+        size="fullscreen"
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         title="Title"
         subtitle="Subtitle"
       >
-        <AnchorNavigation
-          stickyNavigation={
-            <>
-              <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
-              <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-              <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-              <AnchorNavigationItem target={ref4}>
-                Navigation item with very long label
-              </AnchorNavigationItem>
-              <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-            </>
-          }
-        >
-          <Box ref={ref1}>
-            <Content title="First section" />
-          </Box>
-          <AnchorSectionDivider />
-          <Box ref={ref2}>
-            <Content title="Second section" />
-          </Box>
-          <AnchorSectionDivider />
-          <Box ref={ref3}>
-            <Content noTextbox title="Third section" />
-          </Box>
-          <AnchorSectionDivider />
-          <Box ref={ref4}>
-            <Content title="Fourth section" />
-          </Box>
-          <AnchorSectionDivider />
-          <Box ref={ref5}>
-            <Content title="Fifth section" />
-          </Box>
+        <AnchorNavigation>
+          <AnchorNavigationMenu>
+            <AnchorNavigationItem initiallySelected target={ref1}>
+              First
+            </AnchorNavigationItem>
+            <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
+            <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+            <AnchorNavigationItem target={ref4}>
+              Navigation item with very long label
+            </AnchorNavigationItem>
+            <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
+          </AnchorNavigationMenu>
+          <AnchorNavigationContent>
+            <Box ref={ref1}>
+              <Content title="First section" />
+            </Box>
+            <AnchorSectionDivider />
+            <Box ref={ref2}>
+              <Content title="Second section" />
+            </Box>
+            <AnchorSectionDivider />
+            <Box ref={ref3}>
+              <Content noTextbox title="Third section" />
+            </Box>
+            <AnchorSectionDivider />
+            <Box ref={ref4}>
+              <Content title="Fourth section" />
+            </Box>
+            <AnchorSectionDivider />
+            <Box ref={ref5}>
+              <Content title="Fifth section" />
+            </Box>
+          </AnchorNavigationContent>
         </AnchorNavigation>
       </Dialog>
     </>

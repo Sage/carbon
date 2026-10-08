@@ -1,11 +1,13 @@
 import React, { useRef } from "react";
-import { render, screen, act, within } from "@testing-library/react";
+import { render, screen, act, fireEvent, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Textbox from "../textbox";
 import {
   AnchorNavigation,
+  AnchorNavigationContent,
   AnchorNavigationItem,
+  AnchorNavigationMenu,
   AnchorSectionDivider,
 } from ".";
 
@@ -580,51 +582,371 @@ test("cleans up event listeners after unmounting", () => {
   ).toHaveLength(1);
 });
 
-describe("validates incorrect stickyNavigation prop content", () => {
-  let mockGlobal: jest.SpyInstance;
+test("supports the compound navigation and content slots", async () => {
+  const firstRef = React.createRef<HTMLDivElement>();
+  const secondRef = React.createRef<HTMLDivElement>();
 
-  beforeEach(() => {
-    mockGlobal = jest
-      .spyOn(global.console, "error")
-      .mockImplementation(() => undefined);
+  const NavigationItems = () => (
+    <>
+      <AnchorNavigationItem initiallySelected target={firstRef}>
+        First
+      </AnchorNavigationItem>
+      <AnchorNavigationItem target={secondRef}>Second</AnchorNavigationItem>
+    </>
+  );
+
+  render(
+    <AnchorNavigation aria-label="page sections">
+      <AnchorNavigationMenu>
+        <NavigationItems />
+      </AnchorNavigationMenu>
+      <AnchorNavigationContent>
+        <div ref={firstRef}>
+          <h2>First section</h2>
+        </div>
+        <div ref={secondRef}>
+          <h2>Second section</h2>
+        </div>
+      </AnchorNavigationContent>
+    </AnchorNavigation>,
+  );
+
+  expect(
+    screen.getByRole("navigation", { name: "page sections" }),
+  ).toContainElement(screen.getByRole("list"));
+  expect(screen.getByRole("link", { name: "First" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  await user.click(screen.getByRole("link", { name: "Second" }));
+  act(() => {
+    jest.advanceTimersByTime(10);
   });
 
-  afterEach(() => {
-    mockGlobal.mockReset();
+  expect(screen.getByRole("heading", { name: "Second section" })).toHaveFocus();
+  expect(screen.getByRole("link", { name: "Second" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+});
+
+test("does not re-invoke a callback ref when the selected item changes", async () => {
+  const firstRef = React.createRef<HTMLDivElement>();
+  const secondRef = React.createRef<HTMLDivElement>();
+  const itemRef = jest.fn();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <AnchorNavigation>
+      <AnchorNavigationMenu>
+        <AnchorNavigationItem initiallySelected target={firstRef}>
+          First
+        </AnchorNavigationItem>
+        <AnchorNavigationItem ref={itemRef} target={secondRef}>
+          Second
+        </AnchorNavigationItem>
+      </AnchorNavigationMenu>
+      <AnchorNavigationContent>
+        <div ref={firstRef}>
+          <h2>First section</h2>
+        </div>
+        <div ref={secondRef}>
+          <h2>Second section</h2>
+        </div>
+      </AnchorNavigationContent>
+    </AnchorNavigation>,
+  );
+
+  itemRef.mockClear();
+  await user.click(screen.getByRole("link", { name: "Second" }));
+  act(() => {
+    jest.advanceTimersByTime(10);
   });
 
-  test("items that are not AnchorNavigationItems", () => {
-    const error = `\`stickyNavigation\` prop in \`AnchorNavigation\` should be a React Fragment that only contains children of type \`${AnchorNavigationItem.displayName}\``;
+  expect(itemRef).not.toHaveBeenCalled();
+});
 
-    expect(() => {
-      render(
-        <AnchorNavigation
-          stickyNavigation={
-            <>
-              <p>Invalid children</p>
-            </>
-          }
-        />,
-      );
-    }).toThrow(error);
+test("selects the first compound item when none is initially selected", () => {
+  render(
+    <AnchorNavigation>
+      <AnchorNavigationMenu>
+        <AnchorNavigationItem>First</AnchorNavigationItem>
+        <AnchorNavigationItem>Second</AnchorNavigationItem>
+      </AnchorNavigationMenu>
+      <AnchorNavigationContent />
+    </AnchorNavigation>,
+  );
+
+  expect(screen.getByRole("link", { name: "First" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+});
+
+test("keeps the selected item aligned with focused section content", () => {
+  const firstRef = React.createRef<HTMLDivElement>();
+  const secondRef = React.createRef<HTMLDivElement>();
+
+  render(
+    <AnchorNavigation>
+      <AnchorNavigationMenu>
+        <AnchorNavigationItem initiallySelected target={firstRef}>
+          First
+        </AnchorNavigationItem>
+        <AnchorNavigationItem target={secondRef}>Second</AnchorNavigationItem>
+      </AnchorNavigationMenu>
+      <AnchorNavigationContent>
+        <div ref={firstRef}>
+          <input aria-label="First field" />
+        </div>
+        <div ref={secondRef}>
+          <input aria-label="Second field" />
+        </div>
+        <input aria-label="Unrelated field" />
+      </AnchorNavigationContent>
+    </AnchorNavigation>,
+  );
+
+  act(() => {
+    screen.getByRole("textbox", { name: "Unrelated field" }).focus();
+  });
+  expect(screen.getByRole("link", { name: "First" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+
+  act(() => {
+    screen.getByRole("textbox", { name: "Second field" }).focus();
+    window.dispatchEvent(new Event("scroll"));
+  });
+  expect(screen.getByRole("link", { name: "First" })).not.toHaveAttribute(
+    "aria-current",
+  );
+  expect(screen.getByRole("link", { name: "Second" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+
+  act(() => {
+    jest.advanceTimersByTime(150);
+  });
+});
+
+test("calls item event handlers alongside navigation activation", async () => {
+  const firstRef = React.createRef<HTMLDivElement>();
+  const secondRef = React.createRef<HTMLDivElement>();
+  const onClick = jest.fn((event: React.MouseEvent<HTMLAnchorElement>) => {
+    expect(event.defaultPrevented).toBe(false);
+  });
+  const onKeyDown = jest.fn((event: React.KeyboardEvent<HTMLAnchorElement>) => {
+    expect(event.defaultPrevented).toBe(false);
+  });
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <AnchorNavigation>
+      <AnchorNavigationMenu>
+        <AnchorNavigationItem initiallySelected target={firstRef}>
+          First
+        </AnchorNavigationItem>
+        <AnchorNavigationItem
+          target={secondRef}
+          onClick={onClick}
+          onKeyDown={onKeyDown}
+        >
+          Second
+        </AnchorNavigationItem>
+      </AnchorNavigationMenu>
+      <AnchorNavigationContent>
+        <div ref={firstRef}>
+          <h2>First section</h2>
+        </div>
+        <div ref={secondRef}>
+          <h2>Second section</h2>
+        </div>
+      </AnchorNavigationContent>
+    </AnchorNavigation>,
+  );
+
+  const secondItem = screen.getByRole("link", { name: "Second" });
+  await user.click(secondItem);
+  act(() => {
+    jest.advanceTimersByTime(10);
   });
 
-  test("container that is not a React Fragment", () => {
-    const error =
-      "`stickyNavigation` prop in `AnchorNavigation` should be a React Fragment.";
+  expect(onClick).toHaveBeenCalledTimes(1);
+  expect(secondItem).toHaveAttribute("aria-current", "location");
 
-    expect(() => {
-      render(
-        <AnchorNavigation
-          stickyNavigation={
-            <div>
-              <AnchorNavigationItem>First</AnchorNavigationItem>
-            </div>
-          }
-        />,
-      );
-    }).toThrow(error);
+  fireEvent.keyDown(secondItem, { key: "Enter" });
+  act(() => {
+    jest.advanceTimersByTime(10);
   });
+
+  expect(onKeyDown).toHaveBeenCalledTimes(1);
+  expect(secondItem).toHaveAttribute("aria-current", "location");
+});
+
+test("allows item event handlers to cancel navigation activation", async () => {
+  const firstRef = React.createRef<HTMLDivElement>();
+  const secondRef = React.createRef<HTMLDivElement>();
+  const preventActivation = (event: React.SyntheticEvent) =>
+    event.preventDefault();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <AnchorNavigation>
+      <AnchorNavigationMenu>
+        <AnchorNavigationItem initiallySelected target={firstRef}>
+          First
+        </AnchorNavigationItem>
+        <AnchorNavigationItem
+          target={secondRef}
+          onClick={preventActivation}
+          onKeyDown={preventActivation}
+        >
+          Second
+        </AnchorNavigationItem>
+      </AnchorNavigationMenu>
+      <AnchorNavigationContent>
+        <div ref={firstRef} />
+        <div ref={secondRef} />
+      </AnchorNavigationContent>
+    </AnchorNavigation>,
+  );
+
+  const secondItem = screen.getByRole("link", { name: "Second" });
+  await user.click(secondItem);
+  fireEvent.keyDown(secondItem, { key: "Enter" });
+  act(() => {
+    jest.advanceTimersByTime(10);
+  });
+
+  expect(screen.getByRole("link", { name: "First" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+  expect(secondItem).not.toHaveAttribute("aria-current");
+});
+
+test("renders a single legacy item without a fragment", () => {
+  render(
+    <AnchorNavigation
+      stickyNavigation={<AnchorNavigationItem>Item</AnchorNavigationItem>}
+    />,
+  );
+
+  expect(screen.getByRole("link", { name: "Item" })).toHaveAttribute(
+    "href",
+    "#",
+  );
+});
+
+test("preserves an explicitly selected legacy item", () => {
+  const firstRef = React.createRef<HTMLDivElement>();
+  const secondRef = React.createRef<HTMLDivElement>();
+
+  render(
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          <AnchorNavigationItem target={firstRef}>First</AnchorNavigationItem>
+          <AnchorNavigationItem initiallySelected target={secondRef}>
+            Second
+          </AnchorNavigationItem>
+        </>
+      }
+    />,
+  );
+
+  expect(screen.getByRole("link", { name: "First" })).not.toHaveAttribute(
+    "aria-current",
+  );
+  expect(screen.getByRole("link", { name: "Second" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+});
+
+test.each([
+  ["text", "Invalid"],
+  ["an element other than AnchorNavigationItem", <p>Invalid</p>],
+])("rejects legacy stickyNavigation containing %s", (_description, child) => {
+  const consoleError = jest
+    .spyOn(global.console, "error")
+    .mockImplementation(() => undefined);
+
+  expect(() => {
+    render(<AnchorNavigation stickyNavigation={child} />);
+  }).toThrow(
+    "`stickyNavigation` must contain only AnchorNavigationItem components.",
+  );
+
+  consoleError.mockRestore();
+});
+
+test("uses item props when rendered outside AnchorNavigation", async () => {
+  const onClick = jest.fn();
+  const onKeyDown = jest.fn();
+  const setRef = jest.fn();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <AnchorNavigationItem
+      ref={setRef}
+      href="#section"
+      isSelected
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+    >
+      Item
+    </AnchorNavigationItem>,
+  );
+
+  const item = screen.getByRole("link", { name: "Item" });
+  expect(item).toHaveAttribute("aria-current", "location");
+  expect(setRef).toHaveBeenCalledWith(item);
+
+  await user.click(item);
+  expect(onClick).toHaveBeenCalledTimes(1);
+
+  item.focus();
+  await user.keyboard("{Enter}");
+  expect(onKeyDown).toHaveBeenCalledTimes(1);
+});
+
+test("forwards an object ref when rendered outside AnchorNavigation", () => {
+  const ref = React.createRef<HTMLAnchorElement>();
+
+  render(<AnchorNavigationItem ref={ref}>Item</AnchorNavigationItem>);
+
+  expect(ref.current).toHaveTextContent("Item");
+});
+
+test("does not allow the deprecated and compound composition APIs together", () => {
+  const ref = React.createRef<HTMLDivElement>();
+  const consoleError = jest
+    .spyOn(global.console, "error")
+    .mockImplementation(() => undefined);
+
+  expect(() => {
+    render(
+      <AnchorNavigation
+        stickyNavigation={
+          <AnchorNavigationItem target={ref}>Legacy</AnchorNavigationItem>
+        }
+      >
+        <AnchorNavigationMenu>
+          <AnchorNavigationItem target={ref}>Compound</AnchorNavigationItem>
+        </AnchorNavigationMenu>
+      </AnchorNavigation>,
+    );
+  }).toThrow(
+    "`stickyNavigation` cannot be used with `AnchorNavigationMenu`. Use one composition API at a time.",
+  );
+
+  consoleError.mockRestore();
 });
 
 test("renders not selected navigation item with proper background when hovered", async () => {

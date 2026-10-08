@@ -32,11 +32,15 @@ export type { AlertProps } from "./components/alert";
 export {
   AnchorNavigationItem,
   AnchorNavigation,
+  AnchorNavigationContent,
+  AnchorNavigationMenu,
   AnchorSectionDivider,
 } from "./components/anchor-navigation";
 export type {
   AnchorNavigationItemProps,
   AnchorNavigationProps,
+  AnchorNavigationContentProps,
+  AnchorNavigationMenuProps,
 } from "./components/anchor-navigation";
 
 export { default as Badge } from "./components/badge";
