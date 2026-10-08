@@ -383,6 +383,7 @@ const SelectList = React.forwardRef(
         if (
           (React.isValidElement(nextElement) &&
             nextElement.type !== Option &&
+            nextElement.type !== ActionOption &&
             nextElement.type !== OptionRow) ||
           nextElement.props.disabled
         ) {
