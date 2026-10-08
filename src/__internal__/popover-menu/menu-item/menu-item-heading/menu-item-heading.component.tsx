@@ -34,6 +34,18 @@ const StyledMenuHeading = styled.li<{ $size: string }>`
   }
 `;
 
+const VisuallyHiddenHeading = styled.div`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`;
+
 interface MenuItemHeadingProps extends TagProps {
   children: React.ReactNode;
   text: string;
@@ -41,6 +53,8 @@ interface MenuItemHeadingProps extends TagProps {
   headingContent?: React.ReactNode;
   /** @internal Render the heading and its options as one labelled listbox group. */
   semanticGroup?: boolean;
+  /** @internal Visually hide a repeated virtual group heading while retaining its accessible label. */
+  visuallyHiddenHeading?: boolean;
   id?: string;
   style?: React.CSSProperties;
 }
@@ -51,6 +65,7 @@ const MenuItemHeading = ({
   icon,
   headingContent,
   semanticGroup = false,
+  visuallyHiddenHeading = false,
   id,
   style,
   "data-element": dataElement,
@@ -98,7 +113,13 @@ const MenuItemHeading = ({
       role={semanticGroup ? "group" : "option"}
       aria-labelledby={semanticGroup ? headingId.current : undefined}
     >
-      {heading}
+      {visuallyHiddenHeading ? (
+        <VisuallyHiddenHeading data-role="visually-hidden-heading">
+          {heading}
+        </VisuallyHiddenHeading>
+      ) : (
+        heading
+      )}
       {items}
     </StyledMenuHeading>
   );

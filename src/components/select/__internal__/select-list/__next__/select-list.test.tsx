@@ -114,6 +114,7 @@ test("forwards supported Option attributes without overriding listbox semantics"
     selectedValue: "amber",
     children: (
       <Option
+        aria-describedby="amber-description"
         aria-label="Custom amber label"
         className="consumer-option"
         data-element="custom-option"
@@ -132,6 +133,7 @@ test("forwards supported Option attributes without overriding listbox semantics"
   expect(option).toHaveClass("consumer-option");
   expect(option).toHaveAttribute("data-element", "custom-option");
   expect(option).toHaveAttribute("data-role", "colour-option");
+  expect(option).toHaveAttribute("aria-describedby", "amber-description");
   expect(option).toHaveAttribute("title", "Warm colour");
   expect(option).toHaveStyle({ color: "rgb(255, 0, 0)" });
 });
@@ -175,7 +177,6 @@ test("preserves Option keys when object-valued options are reordered", () => {
 
 test("gives object-valued options and dividers distinct nested-array identities", () => {
   renderSelectList({
-    enableVirtualScroll: true,
     children: [
       [
         <Option
@@ -202,6 +203,27 @@ test("gives object-valued options and dividers distinct nested-array identities"
 
   expect(new Set(optionIds).size).toBe(optionIds.length);
   expect(screen.getAllByTestId("divider")).toHaveLength(4);
+});
+
+test("builds virtual rows for grouped options and options with dividers", () => {
+  renderSelectList({
+    enableVirtualScroll: true,
+    children: [
+      <Option key="ungrouped" text="Ungrouped" value="ungrouped" divider />,
+      <OptionGroupHeader
+        key="group"
+        id="group"
+        label="Grouped options"
+        data-element="group-heading"
+        data-role="group-heading"
+        style={{ color: "red" }}
+      />,
+      <Option key="first" text="First grouped option" value="first" />,
+      <Option key="second" text="Second grouped option" value="second" />,
+    ],
+  });
+
+  expect(screen.getByTestId("virtual-scroll-spacer")).toBeInTheDocument();
 });
 
 test("renders an unkeyed informational Option", () => {
@@ -276,6 +298,40 @@ test("calls an ActionOption's `onClick` and closes without selecting it", async 
   expect(onClose).toHaveBeenCalledWith(undefined, "add");
 });
 
+test.each([
+  { value: "custom", closeValue: "custom", valueType: "string" },
+  {
+    value: { action: "custom" },
+    closeValue: undefined,
+    valueType: "object",
+  },
+])(
+  "calls an ordinary Option's `onClick` with its $valueType value and closes without selecting it",
+  async ({ value, closeValue }) => {
+    const user = userEvent.setup();
+    const onClick = jest.fn();
+    const onSelect = jest.fn();
+    const onClose = jest.fn();
+    renderSelectList({
+      onSelect,
+      onClose,
+      children: <Option text="Custom option" value={value} onClick={onClick} />,
+    });
+
+    const option = screen.getByRole("option", { name: "Custom option" });
+    expect(option).not.toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-bg-default)",
+    );
+
+    await user.click(option);
+
+    expect(onClick).toHaveBeenCalledWith(value);
+    expect(onSelect).not.toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalledWith(undefined, closeValue);
+  },
+);
+
 test("treats an ActionOption without `onClick` as a selectable Option", async () => {
   const user = userEvent.setup();
   const onSelect = jest.fn();
@@ -346,7 +402,12 @@ test("groups options below an option group header", () => {
   renderSelectList({
     children: [
       <OptionGroupHeader key="warm" label="Warm colours" />,
-      <Option key="amber" text="Amber" value="amber" />,
+      <Option
+        key="amber"
+        aria-describedby="amber-description"
+        text="Amber"
+        value="amber"
+      />,
       <Option key="blue" text="Blue" value="blue" />,
     ],
   });
@@ -357,6 +418,10 @@ test("groups options below an option group header", () => {
 
   expect(group).toContainElement(amber);
   expect(group).toContainElement(blue);
+  expect(amber).toHaveAttribute(
+    "aria-describedby",
+    `amber-description ${group.getAttribute("aria-labelledby")}`,
+  );
   expect(screen.getAllByRole("option")).toHaveLength(2);
 });
 

@@ -485,6 +485,29 @@ describe("PopoverMenu - typeahead (Search)", () => {
     );
   });
 
+  it("activates a selected option nested inside a semantic group", () => {
+    render(
+      <PopoverMenu
+        open
+        onClose={() => {}}
+        popoverControl={popoverControlInput}
+        highlightSelectedOption
+      >
+        <MenuItemHeading text="Colours" semanticGroup>
+          <MenuItem selected>Amber</MenuItem>
+        </MenuItemHeading>
+      </PopoverMenu>,
+    );
+
+    const selectedOption = screen.getByRole("option", { name: "Amber" });
+
+    expect(selectedOption).toHaveAttribute("data-has-focus", "true");
+    expect(screen.getByRole("combobox")).toHaveAttribute(
+      "aria-activedescendant",
+      selectedOption.id,
+    );
+  });
+
   it("rederives the selected option id when a non-virtualised menu reopens", () => {
     const menu = (open: boolean) => (
       <PopoverMenu
@@ -1053,6 +1076,51 @@ describe("PopoverMenu - typeahead (Search)", () => {
       "aria-posinset",
       "8",
     );
+  });
+
+  it("virtualises rows containing an option and non-interactive content", async () => {
+    const user = userEvent.setup();
+    const onItem1Click = jest.fn();
+    const onItem2Click = jest.fn();
+    const VirtualRow = React.forwardRef<
+      HTMLLIElement,
+      React.LiHTMLAttributes<HTMLLIElement>
+    >(({ children, ...props }, ref) => (
+      <li ref={ref} {...props}>
+        <ul role="presentation">{children}</ul>
+      </li>
+    ));
+
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      children: [
+        <VirtualRow key="row-1" data-virtual-menu-row="true">
+          <MenuItem onClick={onItem1Click}>Item 1</MenuItem>
+          <MenuItemDivider />
+          Non-interactive row content
+        </VirtualRow>,
+        <VirtualRow key="row-2" data-virtual-menu-row="true">
+          <MenuItem onClick={onItem2Click}>Item 2</MenuItem>
+          <MenuItemDivider />
+        </VirtualRow>,
+      ],
+    });
+
+    const input = screen.getByRole("combobox");
+    input.focus();
+    await user.keyboard("{End}");
+
+    const secondOption = screen.getByRole("option", { name: "Item 2" });
+
+    expect(secondOption).toHaveAttribute("aria-setsize", "2");
+    expect(secondOption).toHaveAttribute("aria-posinset", "2");
+
+    await user.keyboard("{Enter}");
+
+    expect(secondOption).toHaveAttribute("data-has-focus", "true");
+    expect(onItem1Click).not.toHaveBeenCalled();
+    expect(onItem2Click).toHaveBeenCalledTimes(1);
   });
 
   it("preserves consumer styles without overriding virtual positioning", () => {
