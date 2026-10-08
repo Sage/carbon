@@ -173,7 +173,38 @@ test("preserves Option keys when object-valued options are reordered", () => {
   );
 });
 
-test("renders an unkeyed informational Option using its text as the fallback key", () => {
+test("gives object-valued options and dividers distinct nested-array identities", () => {
+  renderSelectList({
+    enableVirtualScroll: true,
+    children: [
+      [
+        <Option
+          key="colour"
+          text="Amber"
+          value={{ colour: "amber" }}
+          divider
+        />,
+        <Option text="Blue" value={{ colour: "blue" }} divider />,
+      ],
+      [
+        <Option
+          key="colour"
+          text="Green"
+          value={{ colour: "green" }}
+          divider
+        />,
+        <Option text="Red" value={{ colour: "red" }} divider />,
+      ],
+    ],
+  });
+
+  const optionIds = screen.getAllByRole("option").map(({ id }) => id);
+
+  expect(new Set(optionIds).size).toBe(optionIds.length);
+  expect(screen.getAllByTestId("divider")).toHaveLength(4);
+});
+
+test("renders an unkeyed informational Option", () => {
   renderSelectList({ children: <Option text="Informational" /> });
 
   expect(screen.getByRole("option", { name: "Informational" })).toBeVisible();
@@ -185,15 +216,13 @@ test.each([
       <OptionGroupHeader id="warm-colours">Custom heading</OptionGroupHeader>
     ),
     expectedText: "Custom heading",
-    fallback: "id",
   },
   {
     children: <OptionGroupHeader label="Cool colours" />,
     expectedText: "Cool colours",
-    fallback: "label",
   },
 ])(
-  "renders an unkeyed OptionGroupHeader using its $fallback as the fallback key",
+  "renders an unkeyed OptionGroupHeader with $expectedText",
   ({ children, expectedText }) => {
     renderSelectList({ children });
 
@@ -347,10 +376,17 @@ test("renders a small option group header with an icon", () => {
   );
 });
 
-test("renders custom group header content with its icon and ignores non-option children", () => {
+test("forwards custom group header content and attributes while ignoring non-option children", () => {
   renderSelectList({
     children: [
-      <OptionGroupHeader key="group" id="custom" icon="home">
+      <OptionGroupHeader
+        key="group"
+        id="custom"
+        icon="home"
+        data-element="custom-heading"
+        data-role="colour-heading"
+        style={{ color: "red" }}
+      >
         Custom colours
       </OptionGroupHeader>,
       <Option key="amber" text="Amber" value="amber" />,
@@ -358,7 +394,11 @@ test("renders custom group header content with its icon and ignores non-option c
     ],
   });
 
-  expect(screen.getByText("Custom colours")).toBeVisible();
+  const group = screen.getByRole("group", { name: "Custom colours" });
+  expect(group).toHaveAttribute("id", "custom");
+  expect(group).toHaveAttribute("data-element", "custom-heading");
+  expect(group).toHaveAttribute("data-role", "colour-heading");
+  expect(group).toHaveStyle({ color: "rgb(255, 0, 0)" });
   expect(screen.getByRole("option", { name: "Amber" })).toBeVisible();
 });
 
