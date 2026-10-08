@@ -6,6 +6,7 @@ import { test, expect } from "../../../../playwright/helpers/base-test";
 import {
   SimpleSelectComponent,
   WithVirtualScrolling,
+  WithGroupedVirtualScrolling,
   SimpleSelectNestedInDialog,
   SimpleSelectNestedInDialogWithStickyFooter,
   SelectWithOptionGroupHeader,
@@ -15,6 +16,7 @@ import {
   WithObjectAsValue,
   SimpleSelectObjectAsValueComponent,
   VirtualTypeaheadSelect,
+  GroupedTypeaheadSelect,
 } from "./components.test-pw";
 import { commonDataElementInputPreview } from "../../../../playwright/components";
 import { dialogWithRole } from "../../../../playwright/components/dialog";
@@ -243,6 +245,33 @@ test("renders loader when isLoading prop is set to true", async ({
 });
 
 test.describe("Check virtual scrolling", () => {
+  test("virtualizes grouped options and dividers while preserving navigation", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithGroupedVirtualScrolling />);
+
+    const inputElement = page.getByRole("combobox");
+    await inputElement.click();
+
+    await expect(
+      page.getByRole("group", { name: "First group" }).first(),
+    ).toBeVisible();
+    expect(await page.getByRole("option").count()).toBeLessThan(40);
+    expect(await page.getByTestId("divider").count()).toBeLessThan(40);
+
+    await inputElement.press("End");
+    const lastOption = page.getByRole("option", {
+      name: "Grouped option 40",
+    });
+    await expect(lastOption).toHaveAttribute("data-has-focus", "true");
+
+    await inputElement.press("Enter");
+
+    await expect(inputElement).toHaveValue("Grouped option 40");
+    await expect(page.getByRole("listbox")).toBeHidden();
+  });
+
   test("virtualized options have no extra spacing", async ({ mount, page }) => {
     await mount(
       <Select
@@ -800,6 +829,30 @@ test.describe("Selection confirmed", () => {
 });
 
 test.describe("Keyboard navigation", () => {
+  test("confirms a grouped typeahead selection without additional navigation", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<GroupedTypeaheadSelect />);
+
+    const inputElement = page.getByRole("combobox");
+    await inputElement.click();
+    await inputElement.press("b");
+
+    const selectedOption = page.getByRole("option", { name: "Black" });
+    await expect(selectedOption).toHaveAttribute("aria-selected", "true");
+    await expect(selectedOption).toHaveAttribute("data-has-focus", "true");
+    await expect(inputElement).toHaveAttribute(
+      "aria-activedescendant",
+      (await selectedOption.getAttribute("id")) as string,
+    );
+
+    await inputElement.press("Enter");
+
+    await expect(inputElement).toHaveValue("Black");
+    await expect(page.getByRole("listbox")).toBeHidden();
+  });
+
   (
     ["ArrowDown", "ArrowUp", "Home", "End", "PageDown", "PageUp"] as const
   ).forEach((key) => {
