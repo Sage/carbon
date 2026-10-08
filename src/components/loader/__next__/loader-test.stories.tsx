@@ -8,6 +8,11 @@ import generateStyledSystemProps from "../../../../.storybook/utils/styled-syste
 
 import Loader, { LoaderProps } from ".";
 
+const darkGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-3-xs)",
+  backgroundColor: "rgb(28, 28, 28)",
+};
+
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
@@ -113,33 +118,33 @@ export const Variants: Story = {
         <Loader loaderType="standalone" variant="typical" />
       </Box>
       <h2>Standalone Typical Inversed</h2>
-      <Box backgroundColor="#1c1c1c" p="8px">
+      <div style={darkGreyBackground}>
         <Loader loaderType="standalone" variant="typical" inverse />
-      </Box>
+      </div>
       <h2>Standalone AI</h2>
       <Box>
         <Loader loaderType="standalone" variant="ai" />
       </Box>
       <h2>Standalone AI Inversed</h2>
-      <Box backgroundColor="#1c1c1c" p="8px">
+      <div style={darkGreyBackground}>
         <Loader loaderType="standalone" variant="ai" inverse />
-      </Box>
+      </div>
       <h2>Ring Stacked</h2>
       <Box>
         <Loader loaderType="ring" variant="stacked" />
       </Box>
       <h2>Ring Stacked Inversed</h2>
-      <Box backgroundColor="#1c1c1c" p="8px">
+      <div style={darkGreyBackground}>
         <Loader loaderType="ring" variant="stacked" inverse />
-      </Box>
+      </div>
       <h2>Ring Inline</h2>
       <Box>
         <Loader loaderType="ring" variant="inline" />
       </Box>
       <h2>Ring Inline Inversed</h2>
-      <Box backgroundColor="#1c1c1c" p="8px">
+      <div style={darkGreyBackground}>
         <Loader loaderType="ring" variant="inline" inverse />
-      </Box>
+      </div>
       <h2>Ring AI Stacked</h2>
       <Box>
         <Loader loaderType="ring" variant="ai-stacked" />
@@ -149,13 +154,13 @@ export const Variants: Story = {
         <Loader loaderType="ring" variant="ai-inline" />
       </Box>
       <h2>Ring AI Stacked Inversed</h2>
-      <Box backgroundColor="#1c1c1c" p="8px">
+      <div style={darkGreyBackground}>
         <Loader loaderType="ring" variant="ai-stacked" inverse />
-      </Box>
+      </div>
       <h2>Ring AI Inline Inversed</h2>
-      <Box backgroundColor="#1c1c1c" p="8px">
+      <div style={darkGreyBackground}>
         <Loader loaderType="ring" variant="ai-inline" inverse />
-      </Box>
+      </div>
     </>
   ),
 };

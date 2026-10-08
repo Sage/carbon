@@ -7,6 +7,11 @@ import NavigationBar from "./navigation-bar.component";
 import { Menu, MenuDivider, MenuItem } from "../menu";
 import Box from "../box";
 
+const greenBackground: React.CSSProperties = {
+  height: "1000px",
+  backgroundColor: "rgb(0, 128, 0)",
+};
+
 const styledSystemProps = generateStyledSystemProps({
   padding: true,
   flexBox: true,
@@ -149,7 +154,7 @@ export const Sticky: Story = () => {
           </Menu>
         </Box>
       </NavigationBar>
-      <Box height={1000} backgroundColor="green" />
+      <div style={greenBackground} />
       <NavigationBar
         position="sticky"
         orientation="bottom"
@@ -213,7 +218,7 @@ export const Fixed: Story = () => {
           </MenuItem>
         </Menu>
       </NavigationBar>
-      <Box height={1000} backgroundColor="green" />
+      <div style={greenBackground} />
       <NavigationBar
         position="fixed"
         orientation="bottom"

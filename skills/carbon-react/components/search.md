@@ -426,13 +426,7 @@ description: Carbon Search component props and usage examples.
 () => {
   const [value, setValue] = useState("Here is some text");
   return (
-    <Box
-      width="700px"
-      display="flex"
-      flexDirection="column"
-      p={3}
-      backgroundColor="#000000"
-    >
+    <div style={blackBackground}>
       <Search
         label="Inverse"
         inputHint="Use this prop on darker backgrounds"
@@ -440,7 +434,7 @@ description: Carbon Search component props and usage examples.
         value={value}
         inverse
       />
-    </Box>
+    </div>
   );
 }
 ```

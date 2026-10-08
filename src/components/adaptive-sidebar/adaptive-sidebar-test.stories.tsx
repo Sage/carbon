@@ -18,6 +18,14 @@ import Typography from "../typography";
 
 import isChromatic from "../../../.storybook/isChromatic";
 
+const lightGreyBackground: React.CSSProperties = {
+  borderRadius: "var(--global-radius-container-l)",
+  padding: "var(--global-space-layout-2-xs)",
+  margin: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgb(242, 245, 246)",
+  color: "rgba(0, 0, 0, 0.9019607843137255)",
+};
+
 const defaultOpenState = isChromatic();
 
 export default {
@@ -275,13 +283,7 @@ export const ExampleImplementation: StoryObj = () => {
         width="768px"
         borderColor="var(--colorsUtilityYin050)"
       >
-        <Box
-          p={2}
-          borderRadius="borderRadius200"
-          m={2}
-          backgroundColor="var(--colorsUtilityMajor025)"
-          color="var(--colorsUtilityYin090)"
-        >
+        <div style={lightGreyBackground}>
           <Box
             display="flex"
             justifyContent="space-between"
@@ -447,7 +449,7 @@ export const ExampleImplementation: StoryObj = () => {
               </Tile>
             </Box>
           </Box>
-        </Box>
+        </div>
       </AdaptiveSidebar>
     </Box>
   );
@@ -479,7 +481,11 @@ export const WithDropdown: StoryObj = () => {
   const [selected2, setSelected2] = useState("");
 
   return (
-    <Box margin="var(--spacing200)" display="flex" flexDirection="row">
+    <Box
+      margin="var(--global-space-layout-2-xs)"
+      display="flex"
+      flexDirection="row"
+    >
       <Box width="50%" display="flex" flexDirection="column">
         <Typography variant="h1">Page content</Typography>
         <Select

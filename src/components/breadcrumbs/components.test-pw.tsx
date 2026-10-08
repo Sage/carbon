@@ -1,7 +1,11 @@
 import React from "react";
 import { Breadcrumbs, BreadcrumbsProps } from ".";
 import { Crumb } from "./crumb";
-import Box from "../box";
+
+const blackBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 0, 0)",
+  padding: "var(--global-space-layout-2-xs)",
+};
 
 export const Default = (props: Partial<BreadcrumbsProps>) => {
   return (
@@ -37,7 +41,7 @@ export const FocusedCrumbBecomesCurrent = ({ hasHref = false }) => {
 
 export const Inverse = () => {
   return (
-    <Box p={2} bg="#000">
+    <div style={blackBackground}>
       <Breadcrumbs inverse>
         <Crumb href="#">Breadcrumb 1</Crumb>
         <Crumb href="#">Breadcrumb 2</Crumb>
@@ -46,6 +50,6 @@ export const Inverse = () => {
           Current Page
         </Crumb>
       </Breadcrumbs>
-    </Box>
+    </div>
   );
 };

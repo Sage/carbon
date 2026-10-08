@@ -724,7 +724,7 @@ description: Carbon Tabs component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box p="32px" bg="#f2f5f6">
+    <div style={lightGreyBackground}>
       <Tabs align="left" position="left">
         <Tab
           errorMessage="error"
@@ -734,9 +734,7 @@ description: Carbon Tabs component props and usage examples.
           title="Tab 1"
           key="tab-1"
         >
-          <Box bg="white" p="32px" height="calc(100% - 64px)">
-            Content for tab 1
-          </Box>
+          <div style={whiteBackground}>Content for tab 1</div>
         </Tab>
         <Tab
           errorMessage="error"
@@ -779,7 +777,7 @@ description: Carbon Tabs component props and usage examples.
           Content for tab 5
         </Tab>
       </Tabs>
-    </Box>
+    </div>
   );
 }
 ```

@@ -4,6 +4,13 @@ import Button, { ButtonProps } from ".";
 import Box from "../box";
 import { ButtonIconPosition, ButtonTypes } from "./button.component";
 
+const blackFlexBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 0, 0)",
+  display: "flex",
+  flexDirection: "row",
+  gap: "var(--global-space-layout-2-xs)",
+};
+
 export const ButtonDefault = ({
   subtext,
   children,
@@ -122,12 +129,7 @@ export const SecondaryButtonIconAfter = () => {
 
 export const SecondaryButtonWhite = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackFlexBackground}>
       <Button size="small" isWhite>
         Small
       </Button>
@@ -137,7 +139,7 @@ export const SecondaryButtonWhite = () => {
       <Button size="large" isWhite>
         Large
       </Button>
-    </Box>
+    </div>
   );
 };
 

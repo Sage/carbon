@@ -51,7 +51,7 @@ export const DismissibleBox = ({
   return (
     <StyledDismissibleBox
       p="20px 24px 20px 20px"
-      borderRadius={borderRadius}
+      $borderRadius={borderRadius}
       {...rest}
       {...tagComponent("dismissible-box", rest)}
     >

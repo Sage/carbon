@@ -90,13 +90,13 @@ description: Carbon Hr component props and usage examples.
   const heights = ["small", "medium", "large"] as const;
   return (
     <>
-      <Box backgroundColor="var(--colorsActionMajor500)">
+      <div style={greenBackground}>
         {heights.map((height) => (
           <Box key={height} mb={3}>
             <Hr type="inverse" height={height} />
           </Box>
         ))}
-      </Box>
+      </div>
     </>
   );
 }

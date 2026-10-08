@@ -9,7 +9,39 @@ import {
   testStyledSystemGrid,
   testStyledSystemPosition,
 } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 import Box from "./box.component";
+
+test("does not log a deprecation warning when Box uses a supported as prop", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <Box as="div" />
+      <Box as="span" />
+    </>,
+  );
+
+  expect(loggerSpy).not.toHaveBeenCalled();
+  loggerSpy.mockRestore();
+});
+
+test("logs a deprecation warning only once when two Boxes use an unsupported as prop", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <Box as="section" />
+      <Box as="section" />
+    </>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The value 'section' for the 'as' prop is deprecated and will soon be removed. Please use 'div' or 'span' instead.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+  loggerSpy.mockRestore();
+});
 
 testStyledSystemSpacing(
   (props) => <Box data-role="box" {...props} />,
@@ -88,6 +120,30 @@ it("applies the boxShadow styling correctly when a design token is passed in", (
 
   const box = screen.getByTestId("box");
   expect(box).toHaveStyleRule("box-shadow", "var(--boxShadow100)");
+});
+
+it("applies the scroll styling when scrollVariant is passed in", () => {
+  render(<Box scrollVariant="dark" data-role="box" />);
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyleRule("scrollbar-color", "#b3b3b3 #4d4d4d");
+  expect(box).toHaveStyleRule("width", "8px", {
+    modifier: "::-webkit-scrollbar",
+  });
+  expect(box).toHaveStyleRule("background-color", "#4d4d4d", {
+    modifier: "::-webkit-scrollbar-track",
+  });
+  expect(box).toHaveStyleRule("background-color", "#b3b3b3", {
+    modifier: "::-webkit-scrollbar-thumb",
+  });
+});
+
+it("applies box sizing when boxSizing is passed in", () => {
+  render(<Box boxSizing="border-box" data-role="box" />);
+
+  expect(screen.getByTestId("box")).toHaveStyle({
+    boxSizing: "border-box",
+  });
 });
 
 test("sets the correct border radius when `borderRadius` is passed with multiple border radius values", () => {

@@ -29,6 +29,14 @@ import TextEditor, {
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
+const transparentBackground: React.CSSProperties = {
+  borderRadius: "var(--global-radius-container-xs)",
+  padding: "var(--global-space-layout-2-xs)",
+  maxHeight: "200px",
+  overflow: "auto",
+  backgroundColor: "rgba(0, 0, 0, 0)",
+};
+
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
@@ -342,43 +350,25 @@ export const OnFormSubmission: Story = () => {
             <Typography variant="h4" mb={1}>
               HTML (with Classes)
             </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
+            <div style={transparentBackground}>
               {data?.htmlString || "No content"}
-            </Box>
+            </div>
           </Box>
           <Box>
             <Typography variant="h4" mb={1}>
               HTML (with Inline Styles)
             </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
+            <div style={transparentBackground}>
               {data?.htmlStringWithInlineStyles || "No content"}
-            </Box>
+            </div>
           </Box>
           <Box>
             <Typography variant="h4" mb={1}>
               JSON
             </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
+            <div style={transparentBackground}>
               {JSON.stringify(data?.json, null, 2) || "No content"}
-            </Box>
+            </div>
           </Box>
         </Box>
       )}

@@ -2,6 +2,11 @@ import React from "react";
 import Link, { LinkProps } from "./link.component";
 import Box from "../box";
 
+const blackBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 0, 0)",
+  margin: "100px",
+};
+
 export const LinkComponent = (props: LinkProps) => {
   return (
     <Box m="100px">
@@ -14,11 +19,11 @@ export const LinkComponent = (props: LinkProps) => {
 
 export const LinkComponentWithDarkBackground = (props: LinkProps) => {
   return (
-    <Box m="100px" bg="black">
+    <div style={blackBackground}>
       <Link href="#foo" target="_blank" rel="noreferrer noopener" {...props}>
         This is a link
       </Link>
-    </Box>
+    </div>
   );
 };
 
