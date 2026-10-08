@@ -723,6 +723,49 @@ describe("keyboard navigation", () => {
     );
   });
 
+  it("navigates to an ActionOption at the end of the list with the End key", async () => {
+    const onSelect = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <SelectListWithInput onSelect={onSelect}>
+        <Option id="red" value="red" text="red" />
+        <ActionOption id="add" value="add" text="Add an item" />
+      </SelectListWithInput>,
+    );
+
+    await user.keyboard("{End}");
+
+    expect(onSelect).toHaveBeenCalledWith(
+      expect.objectContaining({
+        value: "add",
+        selectionConfirmed: false,
+        selectionType: "navigationKey",
+      }),
+    );
+  });
+
+  it("navigates an ActionOption-only list with the ArrowDown key", async () => {
+    const onSelect = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <SelectListWithInput onSelect={onSelect}>
+        <ActionOption id="add" value="add" text="Add an item" />
+      </SelectListWithInput>,
+    );
+
+    await user.keyboard("{ArrowDown}");
+
+    expect(onSelect).toHaveBeenCalledWith(
+      expect.objectContaining({
+        value: "add",
+        selectionConfirmed: false,
+        selectionType: "navigationKey",
+      }),
+    );
+  });
+
   it("calls onSelect when attempting to navigate to last option row in list by pressing the End key", async () => {
     const onSelect = jest.fn();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });

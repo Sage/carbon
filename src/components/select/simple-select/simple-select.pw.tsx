@@ -14,6 +14,7 @@ import {
   SimpleSelectControlled,
   WithObjectAsValue,
   SimpleSelectObjectAsValueComponent,
+  VirtualTypeaheadSelect,
 } from "./components.test-pw";
 import { commonDataElementInputPreview } from "../../../../playwright/components";
 import { dialogWithRole } from "../../../../playwright/components/dialog";
@@ -412,6 +413,31 @@ test.describe("Check virtual scrolling", () => {
 
     await expect(inputElement).toHaveValue("Option 1");
     await expect(inputElement).toBeFocused();
+    await expect(page.getByRole("listbox")).toBeHidden();
+  });
+
+  test("confirms a typeahead selection after virtual keyboard navigation", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<VirtualTypeaheadSelect />);
+
+    const inputElement = page.getByRole("combobox");
+    await inputElement.click();
+    await inputElement.press("Home");
+    await expect(page.getByRole("option", { name: "Amber" })).toHaveAttribute(
+      "data-has-focus",
+      "true",
+    );
+
+    await inputElement.press("b");
+    await expect(page.getByRole("option", { name: "Black" })).toHaveAttribute(
+      "data-has-focus",
+      "true",
+    );
+    await inputElement.press("Enter");
+
+    await expect(inputElement).toHaveValue("Black");
     await expect(page.getByRole("listbox")).toBeHidden();
   });
 

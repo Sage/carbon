@@ -451,7 +451,7 @@ describe("PopoverMenu - typeahead (Search)", () => {
     );
   });
 
-  it("focuses the selected option only when opted in and follows selection changes", () => {
+  it("activates the selected option only when opted in and follows selection changes", () => {
     const menu = (selectedItem: number, highlightSelectedOption = false) => (
       <PopoverMenu
         open
@@ -471,10 +471,45 @@ describe("PopoverMenu - typeahead (Search)", () => {
 
     rerender(menu(1, true));
     expect(firstOption).toHaveAttribute("data-has-focus", "true");
+    expect(screen.getByRole("combobox")).toHaveAttribute(
+      "aria-activedescendant",
+      firstOption.id,
+    );
 
     rerender(menu(2, true));
     expect(firstOption).not.toHaveAttribute("data-has-focus", "true");
     expect(secondOption).toHaveAttribute("data-has-focus", "true");
+    expect(screen.getByRole("combobox")).toHaveAttribute(
+      "aria-activedescendant",
+      secondOption.id,
+    );
+  });
+
+  it("rederives the selected option id when a non-virtualised menu reopens", () => {
+    const menu = (open: boolean) => (
+      <PopoverMenu
+        open={open}
+        onClose={() => {}}
+        popoverControl={popoverControlInput}
+        highlightSelectedOption
+      >
+        <MenuItem selected>Item 1</MenuItem>
+      </PopoverMenu>
+    );
+    const { rerender } = render(menu(true));
+    const input = screen.getByRole("combobox");
+    const initialOptionId = screen.getByRole("option").id;
+
+    expect(input).toHaveAttribute("aria-activedescendant", initialOptionId);
+
+    rerender(menu(false));
+    expect(input).not.toHaveAttribute("aria-activedescendant");
+
+    rerender(menu(true));
+    const reopenedOptionId = screen.getByRole("option").id;
+
+    expect(reopenedOptionId).not.toBe(initialOptionId);
+    expect(input).toHaveAttribute("aria-activedescendant", reopenedOptionId);
   });
 
   it("does not highlight a selected disabled option", () => {
@@ -492,6 +527,26 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(screen.getByRole("option")).not.toHaveAttribute(
       "data-has-focus",
       "true",
+    );
+    expect(screen.getByRole("combobox")).not.toHaveAttribute(
+      "aria-activedescendant",
+    );
+  });
+
+  it("does not activate a selected disabled option in a virtualised menu", () => {
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      highlightSelectedOption: true,
+      children: (
+        <MenuItem selected disabled>
+          Item 1
+        </MenuItem>
+      ),
+    });
+
+    expect(screen.getByRole("combobox")).not.toHaveAttribute(
+      "aria-activedescendant",
     );
   });
 
@@ -969,6 +1024,124 @@ describe("PopoverMenu - typeahead (Search)", () => {
       "-option-",
     );
     expect(mockVirtualizerOptions.getItemKey?.(0)).toBeDefined();
+  });
+
+  it("describes each virtualised item's position in the complete option set", () => {
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      initialScrollIndex: 7,
+      children: Array.from({ length: 12 }, (_, index) => (
+        <MenuItem key={`item-${index + 1}`}>Item {index + 1}</MenuItem>
+      )),
+    });
+
+    expect(screen.getAllByRole("option")).toHaveLength(2);
+    expect(screen.getByRole("option", { name: "Item 1" })).toHaveAttribute(
+      "aria-setsize",
+      "12",
+    );
+    expect(screen.getByRole("option", { name: "Item 1" })).toHaveAttribute(
+      "aria-posinset",
+      "1",
+    );
+    expect(screen.getByRole("option", { name: "Item 8" })).toHaveAttribute(
+      "aria-setsize",
+      "12",
+    );
+    expect(screen.getByRole("option", { name: "Item 8" })).toHaveAttribute(
+      "aria-posinset",
+      "8",
+    );
+  });
+
+  it("preserves consumer styles without overriding virtual positioning", () => {
+    renderPopoverMenu({
+      open: true,
+      enableVirtualScroll: true,
+      children: (
+        <MenuItem
+          key="item-1"
+          style={{
+            color: "red",
+            position: "relative",
+            top: 12,
+            transform: "scale(2)",
+          }}
+        >
+          Item 1
+        </MenuItem>
+      ),
+    });
+
+    expect(screen.getByRole("option", { name: "Item 1" })).toHaveStyle({
+      color: "rgb(255, 0, 0)",
+      position: "absolute",
+      top: "0px",
+      width: "100%",
+      transform: "translateY(0px)",
+    });
+  });
+
+  it("keeps virtualised selection, active state and confirmation synchronized", async () => {
+    const user = userEvent.setup();
+    const onItem1Click = jest.fn();
+    const onItem2Click = jest.fn();
+    const onItem3Click = jest.fn();
+    const menu = (selectedItem: number) => (
+      <PopoverMenu
+        open
+        onClose={() => {}}
+        popoverControl={popoverControlInput}
+        enableVirtualScroll
+        highlightSelectedOption
+      >
+        <MenuItem
+          id="item-1"
+          selected={selectedItem === 1}
+          onClick={onItem1Click}
+        >
+          Item 1
+        </MenuItem>
+        <MenuItem
+          id="item-2"
+          selected={selectedItem === 2}
+          onClick={onItem2Click}
+        >
+          Item 2
+        </MenuItem>
+        <MenuItem
+          id="item-3"
+          selected={selectedItem === 3}
+          onClick={onItem3Click}
+        >
+          Item 3
+        </MenuItem>
+      </PopoverMenu>
+    );
+    const { rerender } = render(menu(1));
+    const input = screen.getByRole("combobox");
+    input.focus();
+
+    await waitFor(() =>
+      expect(input).toHaveAttribute("aria-activedescendant", "item-1"),
+    );
+    await user.keyboard("{ArrowDown}");
+    expect(input).toHaveAttribute("aria-activedescendant", "item-2");
+
+    rerender(menu(3));
+    await waitFor(() =>
+      expect(input).toHaveAttribute("aria-activedescendant", "item-3"),
+    );
+    expect(screen.getByRole("option", { name: "Item 3" })).toHaveAttribute(
+      "data-has-focus",
+      "true",
+    );
+
+    await user.keyboard("{Enter}");
+    expect(onItem3Click).toHaveBeenCalledTimes(1);
+    expect(onItem1Click).not.toHaveBeenCalled();
+    expect(onItem2Click).not.toHaveBeenCalled();
   });
 
   it("measures virtualised items after layout and reuses cached sizes before layout", () => {
