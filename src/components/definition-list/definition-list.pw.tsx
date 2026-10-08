@@ -4,14 +4,19 @@ import {
   DLComponent,
   DLReactFragment,
   DLBoxComponent,
+  DLBoxWrappedPairs,
 } from "./components.test-pw";
-import { UsingBoxToOverrideBackgroundColor } from "./definition-list-test.stories";
 import Dl, { DlProps } from "./dl.component";
 import Dt from "./dt/dt.component";
 import Dd from "./dd/dd.component";
 import Box from "../box";
 import Icon from "../icon";
-import { getDataElementByValue } from "../../../playwright/components/index";
+import Pill from "../pill";
+import Link from "../link";
+import {
+  getDataElementByValue,
+  getDataRoleByValue,
+} from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
@@ -67,11 +72,68 @@ test.describe("definition list", () => {
     await expect(box.locator("dl")).toBeVisible();
   });
 
+  test("should render grouped pairs with multiple descriptions and dividers", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dl divider spacing="small">
+        <Dt>Account holder</Dt>
+        <Dd>Sage Ltd</Dd>
+        <Dd>Company number 01234567</Dd>
+        <Dt>Account status</Dt>
+        <Dd>Open</Dd>
+      </Dl>,
+    );
+
+    const pairs = page.locator("dl > div");
+
+    await expect(pairs).toHaveCount(2);
+    await expect(pairs.first().locator("dt")).toHaveCount(1);
+    await expect(pairs.first().locator("dd")).toHaveCount(2);
+  });
+
+  test("should render the provided rightChildren content next to the description", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dl>
+        <Dt>Account status</Dt>
+        <Dd rightChildren={<Pill>Verified</Pill>}>Open</Dd>
+      </Dl>,
+    );
+
+    const rightChildren = getDataRoleByValue(page, "dd-right-children");
+
+    await expect(rightChildren).toBeVisible();
+    await expect(rightChildren.getByText("Verified")).toBeVisible();
+  });
+
+  test("should support multiple Dd elements under one Dt, each with their own rightChildren", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dl>
+        <Dt>Account holder</Dt>
+        <Dd rightChildren={<Link href="#">Edit</Link>}>Sage Ltd</Dd>
+        <Dd rightChildren={<Pill>Verified</Pill>}>123 North East Street</Dd>
+      </Dl>,
+    );
+
+    const rightChildren = getDataRoleByValue(page, "dd-right-children");
+
+    await expect(rightChildren).toHaveCount(2);
+    await expect(rightChildren.first().getByText("Edit")).toBeVisible();
+    await expect(rightChildren.last().getByText("Verified")).toBeVisible();
+  });
+
   test("should render dt and dd children when wrapped in a Box", async ({
     mount,
     page,
   }) => {
-    await mount(<UsingBoxToOverrideBackgroundColor />);
+    await mount(<DLBoxWrappedPairs />);
 
     const box1 = getDataElementByValue(page, "box1");
     await expect(box1.first()).toBeVisible();
