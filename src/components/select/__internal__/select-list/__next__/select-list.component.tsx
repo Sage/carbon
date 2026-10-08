@@ -31,6 +31,20 @@ const StyledSelectPopoverMenu = styled(SelectPopoverMenu)`
   }
 `;
 
+const VirtualOptionRow = styled.li.attrs({
+  "data-virtual-menu-row": "true",
+})`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+`;
+
 export interface SelectListOnSelectData {
   /** The id of the selected option */
   id?: string;
@@ -194,7 +208,7 @@ const SelectList = ({
           onClick={() => {
             if (disabled || !value) return;
 
-            if (isAction && optionOnClick) {
+            if (optionOnClick) {
               optionOnClick(value);
               onClose(undefined, typeof value === "string" ? value : undefined);
               return;
@@ -219,7 +233,7 @@ const SelectList = ({
 
     const output: React.ReactNode[] = [];
     let groupHeader: React.ReactElement<OptionGroupHeaderProps> | null = null;
-    let groupItems: React.ReactNode[] = [];
+    let groupItems: React.ReactNode[][] = [];
 
     const flushGroup = () => {
       if (groupItems.length === 0 && !groupHeader) {
@@ -236,23 +250,64 @@ const SelectList = ({
           "data-element": headerDataElement,
           "data-role": headerDataRole,
         } = groupHeader.props;
-        output.push(
+        const renderGroup = (
+          items: React.ReactNode[],
+          index: number,
+          key: React.Key | null,
+        ) => (
           <MenuItemHeading
-            key={groupHeader.key}
-            id={headerId}
-            style={headerStyle}
-            data-element={headerDataElement}
-            data-role={headerDataRole}
+            key={key}
+            id={index === 0 ? headerId : undefined}
+            style={index === 0 ? headerStyle : undefined}
+            data-element={index === 0 ? headerDataElement : undefined}
+            data-role={index === 0 ? headerDataRole : undefined}
             text={label ?? ""}
             icon={icon ? <Icon type={icon} /> : undefined}
             headingContent={headerChildren}
             semanticGroup
+            visuallyHiddenHeading={index > 0}
           >
-            {groupItems}
-          </MenuItemHeading>,
+            {items}
+          </MenuItemHeading>
         );
+
+        if (enableVirtualScroll) {
+          groupItems.forEach((items, index) => {
+            const optionKey = (items[0] as React.ReactElement).key;
+            output.push(
+              <VirtualOptionRow
+                key={`${String(groupHeader?.key)}-${String(optionKey)}-row`}
+                data-virtual-menu-row="true"
+                role="presentation"
+              >
+                {renderGroup(
+                  items,
+                  index,
+                  `${String(groupHeader?.key)}-${String(optionKey)}-group`,
+                )}
+              </VirtualOptionRow>,
+            );
+          });
+        } else {
+          output.push(renderGroup(groupItems.flat(), 0, groupHeader.key));
+        }
       } else {
-        output.push(...groupItems);
+        groupItems.forEach((items) => {
+          if (enableVirtualScroll && items.length > 1) {
+            const optionKey = (items[0] as React.ReactElement).key;
+            output.push(
+              <VirtualOptionRow
+                key={`${String(optionKey)}-row`}
+                data-virtual-menu-row="true"
+                role="presentation"
+              >
+                <ul role="presentation">{items}</ul>
+              </VirtualOptionRow>,
+            );
+          } else {
+            output.push(...items);
+          }
+        });
       }
 
       groupHeader = null;
@@ -267,14 +322,14 @@ const SelectList = ({
       }
 
       if (isOptionElement(child)) {
-        groupItems.push(...renderOption(child));
+        groupItems.push(renderOption(child));
       }
     });
 
     flushGroup();
 
     return output;
-  }, [children, selectedValue, onSelect, onClose]);
+  }, [children, selectedValue, onSelect, onClose, enableVirtualScroll]);
 
   const initialScrollIndex = useMemo(() => {
     let index = -1;
