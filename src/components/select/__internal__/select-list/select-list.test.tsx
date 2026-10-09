@@ -426,6 +426,46 @@ describe("keyboard navigation", () => {
     expect(onSelectListClose).toHaveBeenCalledTimes(1);
   });
 
+  it("focuses a callback-backed ActionOption without selecting it and activates it with Enter", async () => {
+    const onClick = jest.fn();
+    const onHighlight = jest.fn();
+    const onSelect = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <SelectListWithInput
+        highlightedValue="amber"
+        onHighlight={onHighlight}
+        onSelect={onSelect}
+      >
+        <Option id="amber" value="amber" text="Amber" />
+        <ActionOption
+          id="add"
+          value="add"
+          text="Add an item"
+          onClick={onClick}
+        />
+      </SelectListWithInput>,
+    );
+
+    await user.keyboard("{ArrowDown}");
+
+    expect(onHighlight).toHaveBeenCalledWith("add");
+    expect(onSelect).not.toHaveBeenCalled();
+
+    await user.keyboard("{ArrowDown}");
+    expect(onSelect).toHaveBeenCalledWith(
+      expect.objectContaining({ value: "amber" }),
+    );
+
+    onSelect.mockClear();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Enter}");
+
+    expect(onClick).toHaveBeenCalledWith("add");
+    expect(onSelect).not.toHaveBeenCalled();
+  });
+
   it("calls onSelect to confirm selection when option row is selected by pressing Enter key", async () => {
     const onSelect = jest.fn();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
