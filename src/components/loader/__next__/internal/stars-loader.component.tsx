@@ -8,16 +8,26 @@ import {
 } from "../loader.style";
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import { LoaderProps } from "../loader.component";
+import { getAnimationTime, useGeneratedId } from "./loader.utils";
 
-const StarsLoader = ({ loaderLabel, showLabel }: LoaderProps) => {
+const StarsLoader = ({
+  animationTime,
+  hasMotion,
+  loaderLabel,
+  showLabel,
+}: LoaderProps) => {
   const locale = useLocale();
+  const generatedId = useGeneratedId();
+  const resolvedAnimationTime = getAnimationTime(animationTime, 3.159);
 
   return (
     <StyledStarLoaderWrapper>
       <StyledStars>
-        <Star starContainerClassName="star-1" gradientId="gradient1" />
-        <Star starContainerClassName="star-2" gradientId="gradient2" />
-        <Star starContainerClassName="star-3" gradientId="gradient3" />
+        <Star
+          animationTime={resolvedAnimationTime}
+          gradientId={`loader-star-gradient-${generatedId}`}
+          hasMotion={hasMotion}
+        />
       </StyledStars>
 
       {showLabel && (

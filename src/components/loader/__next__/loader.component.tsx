@@ -80,32 +80,44 @@ export const Loader = ({
   const loaderContent = (() => {
     switch (loaderTypeValue) {
       case "star":
-        return StarsLoader({ loaderLabel, showLabel, loaderType });
+        return (
+          <StarsLoader
+            animationTime={animationTime}
+            hasMotion={hasMotion}
+            loaderLabel={loaderLabel}
+            showLabel={showLabel}
+            loaderType={loaderType}
+          />
+        );
       case "ring":
-        return RingLoader({
-          inverse: resolvedInverse,
-          size,
-          variant,
-          hasMotion,
-          isTracked,
-          animationTime,
-          loaderLabel,
-          showLabel,
-          loaderType,
-          isSuccess,
-          isError,
-        });
+        return (
+          <RingLoader
+            inverse={resolvedInverse}
+            size={size}
+            variant={variant}
+            hasMotion={hasMotion}
+            isTracked={isTracked}
+            animationTime={animationTime}
+            loaderLabel={loaderLabel}
+            showLabel={showLabel}
+            loaderType={loaderType}
+            isSuccess={isSuccess}
+            isError={isError}
+          />
+        );
       default:
-        return StandaloneLoader({
-          size,
-          variant,
-          inverse: resolvedInverse,
-          loaderLabel,
-          showLabel,
-          loaderType,
-          animationTime,
-          hasMotion,
-        });
+        return (
+          <StandaloneLoader
+            size={size}
+            variant={variant}
+            inverse={resolvedInverse}
+            loaderLabel={loaderLabel}
+            showLabel={showLabel}
+            loaderType={loaderType}
+            animationTime={animationTime}
+            hasMotion={hasMotion}
+          />
+        );
     }
   })();
 
