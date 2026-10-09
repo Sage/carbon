@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Tile, TileContent, TileHeader, TileProps } from ".";
+import { within } from "storybook/test";
+import {
+  FlexTileCell,
+  FlexTileContainer,
+  Tile,
+  TileContent,
+  TileHeader,
+  TileProps,
+} from ".";
 import {
   TILE_BORDER_VARIANTS,
   TILE_ORIENTATIONS,
@@ -243,4 +251,25 @@ export const DeprecatedTileContentAndTileHeader = () => {
       </Tile>
     </Box>
   );
+};
+
+export const ResponsiveFocusHalo = () => (
+  <Tile my={1} py={0} roundness="moderate">
+    <FlexTileContainer>
+      <FlexTileCell py={2}>
+        <Button fullWidth>Action</Button>
+      </FlexTileCell>
+    </FlexTileContainer>
+  </Tile>
+);
+
+ResponsiveFocusHalo.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+ResponsiveFocusHalo.play = async ({
+  canvasElement,
+}: {
+  canvasElement: HTMLElement;
+}) => {
+  within(canvasElement).getByRole("button", { name: "Action" }).focus();
 };

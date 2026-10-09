@@ -28,6 +28,8 @@ export const FlexTileContainer = ({
       overflow={overflow}
       width="100%"
       data-component="flex-tile-container"
+      mx="-4px"
+      px="4px"
     >
       {children}
     </Box>
