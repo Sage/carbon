@@ -1682,6 +1682,65 @@ test("does not change its value when a callback-backed ActionOption is clicked",
   expect(input).toHaveValue("Amber");
 });
 
+test("focuses and activates a callback-backed ActionOption without changing its controlled value", async () => {
+  const user = userEvent.setup();
+  const onActionClick = jest.fn();
+  const onChange = jest.fn();
+
+  render(
+    <FilterableSelect label="Colours" onChange={onChange} value="amber">
+      <Option id="amber" value="amber" text="Amber" />
+      <ActionOption
+        id="add"
+        value="add"
+        text="Add a colour"
+        onClick={onActionClick}
+      />
+    </FilterableSelect>,
+  );
+
+  const input = screen.getByRole("combobox", { name: "Colours" });
+  await waitFor(() => expect(input).toHaveValue("Amber"));
+  await user.click(input);
+  await user.keyboard("{ArrowDown}");
+
+  expect(input).toHaveAttribute("aria-activedescendant", "add");
+  expect(onChange).not.toHaveBeenCalled();
+
+  await user.keyboard("{Enter}");
+
+  expect(onActionClick).toHaveBeenCalledWith("add");
+  expect(onChange).not.toHaveBeenCalled();
+  expect(input).toHaveValue("Amber");
+});
+
+test("excludes callback-backed ActionOptions from controlled typing matches", async () => {
+  const user = userEvent.setup();
+  const onActionClick = jest.fn();
+  const onChange = jest.fn();
+
+  render(
+    <FilterableSelect label="Colours" onChange={onChange} value="">
+      <ActionOption value="add" text="Add a colour" onClick={onActionClick} />
+      <Option value="address" text="Address" />
+    </FilterableSelect>,
+  );
+
+  await user.type(screen.getByRole("combobox", { name: "Colours" }), "Add");
+
+  expect(onChange).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      target: expect.objectContaining({ value: "address" }),
+    }),
+  );
+  expect(onChange).not.toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: expect.objectContaining({ value: "add" }),
+    }),
+  );
+  expect(onActionClick).not.toHaveBeenCalled();
+});
+
 test("should close the list when the user presses `Escape` key", async () => {
   const user = userEvent.setup();
   render(

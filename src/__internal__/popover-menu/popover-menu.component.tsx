@@ -506,10 +506,13 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     return rowMenuItems.map((item) => (item ? (position += 1) : undefined));
   }, [rowMenuItems]);
 
-  const [activeIndex, setActiveIndex] = useState(-1);
-  const resolvedActiveIndex = enabledIndexes.includes(activeIndex)
-    ? activeIndex
-    : -1;
+  const selectedItemKey =
+    selectedItemIndex >= 0 ? itemKeyForIndex(selectedItemIndex) : null;
+  const selectedItemEnabled = enabledIndexes.includes(selectedItemIndex);
+  const [activeItemKey, setActiveItemKey] = useState<React.Key | null>(null);
+  const resolvedActiveIndex = enabledIndexes.find(
+    (index) => itemKeyForIndex(index) === activeItemKey,
+  );
   const virtualizer = useVirtualizer({
     count: canVirtualize ? itemsArray.length : 0,
     getScrollElement: () =>
@@ -533,7 +536,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     // and `aria-activedescendant` always reference a real element.
     rangeExtractor: (range: Range) => {
       const indexes = new Set(defaultRangeExtractor(range));
-      if (resolvedActiveIndex >= 0) {
+      if (resolvedActiveIndex !== undefined) {
         indexes.add(resolvedActiveIndex);
       }
       if (initialScrollIndex !== undefined && initialScrollIndex >= 0) {
@@ -613,7 +616,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     : wrappedChildren;
 
   const resolvedActivedescendant = canVirtualize
-    ? resolvedActiveIndex >= 0
+    ? resolvedActiveIndex !== undefined
       ? optionIdForIndex(resolvedActiveIndex)
       : ""
     : ariaActivedescendant;
@@ -621,7 +624,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   useLayoutEffect(() => {
     if (!open) {
       if (canVirtualize) {
-        setActiveIndex(-1);
+        setActiveItemKey(null);
         virtualizer.measure();
       } else {
         setAriaActivedescendant("");
@@ -647,10 +650,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   useEffect(() => {
     if (!open || !highlightSelectedOption) return;
 
-    const hasEnabledSelection = enabledIndexes.includes(selectedItemIndex);
-
     if (canVirtualize) {
-      setActiveIndex(hasEnabledSelection ? selectedItemIndex : -1);
+      setActiveItemKey(selectedItemEnabled ? selectedItemKey : null);
       return;
     }
 
@@ -673,17 +674,26 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   }, [
     open,
     highlightSelectedOption,
-    selectedItemIndex,
-    enabledIndexes,
+    selectedItemKey,
+    selectedItemEnabled,
     canVirtualize,
   ]);
 
+  useEffect(() => {
+    if (
+      activeItemKey !== null &&
+      !enabledIndexes.some((index) => itemKeyForIndex(index) === activeItemKey)
+    ) {
+      setActiveItemKey(null);
+    }
+  }, [activeItemKey, enabledIndexes, itemKeyForIndex]);
+
   const moveActiveIndex = useCallback(
     (nextIndex: number) => {
-      setActiveIndex(nextIndex);
+      setActiveItemKey(itemKeyForIndex(nextIndex));
       virtualizer.scrollToIndex(nextIndex, { align: "auto" });
     },
-    [virtualizer],
+    [itemKeyForIndex, virtualizer],
   );
 
   const handleVirtualKeyDown = useCallback(
@@ -693,11 +703,15 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       if (count === 0) return;
 
       const lastPosition = count - 1;
-      const activePosition = enabledIndexes.indexOf(resolvedActiveIndex);
+      const activePosition =
+        resolvedActiveIndex === undefined
+          ? -1
+          : enabledIndexes.indexOf(resolvedActiveIndex);
       const initialPosition = enabledIndexes.indexOf(initialScrollIndex ?? -1);
       const moveToPosition = (position: number) =>
         moveActiveIndex(enabledIndexes[position]);
       const confirmActiveItem = () =>
+        resolvedActiveIndex !== undefined &&
         document.getElementById(optionIdForIndex(resolvedActiveIndex))?.click();
 
       switch (ev.key) {
@@ -757,21 +771,21 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           break;
         case "Enter":
           /* istanbul ignore else */
-          if (resolvedActiveIndex >= 0) {
+          if (resolvedActiveIndex !== undefined) {
             ev.preventDefault();
             ev.stopPropagation();
             confirmActiveItem();
           }
           break;
         case " ":
-          if (selectOnSpaceAndTab && resolvedActiveIndex >= 0) {
+          if (selectOnSpaceAndTab && resolvedActiveIndex !== undefined) {
             ev.preventDefault();
             ev.stopPropagation();
             confirmActiveItem();
           }
           break;
         case "Tab":
-          if (selectOnSpaceAndTab && resolvedActiveIndex >= 0) {
+          if (selectOnSpaceAndTab && resolvedActiveIndex !== undefined) {
             confirmActiveItem();
           }
           onClose(ev.nativeEvent);
