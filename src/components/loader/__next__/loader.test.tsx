@@ -497,7 +497,7 @@ test("when the user disallows animations or their preference cannot be determine
   expect(screen.getByText("Loading...")).toBeVisible();
 });
 
-test("renders the six sparkle paths with tokenized gradient stops", () => {
+test("renders the six sparkle paths with gradient stops", () => {
   render(<Loader loaderType="star" />);
 
   expect(screen.getAllByTestId("sparkle-star")).toHaveLength(6);
@@ -516,11 +516,30 @@ test("renders the six sparkle paths with tokenized gradient stops", () => {
   );
   expect(stops[1]).toHaveAttribute("offset", "40%");
   expect(stops[2]).toHaveAttribute("offset", "90%");
-  expect(gradients[0]).toHaveAttribute("x2", "15.375");
-  expect(gradients[2]).toHaveAttribute("x1", "-26.25");
-  expect(gradients[3]).toHaveAttribute("y2", "23.625");
-  expect(gradients[4]).toHaveAttribute("x1", "-13.5");
+  expect(stops[1]).toHaveAttribute(
+    "stop-color",
+    "var(--mode-color-ai-alt-stop-2)",
+  );
+  expect(stops[2]).toHaveAttribute("stop-color", "var(--mode-color-ai-stop-3)");
+  expect(stops[5]).toHaveAttribute("stop-color", "var(--mode-color-ai-stop-3)");
+  expect(stops[8]).toHaveAttribute(
+    "stop-color",
+    "var(--mode-color-ai-alt-stop-3)",
+  );
+  expect(stops[11]).toHaveAttribute(
+    "stop-color",
+    "var(--mode-color-ai-stop-3)",
+  );
+  expect(stops[14]).toHaveAttribute(
+    "stop-color",
+    "var(--mode-color-ai-stop-3)",
+  );
+  expect(gradients[0]).toHaveAttribute("x2", "5.375");
+  expect(gradients[2]).toHaveAttribute("x1", "-30.25");
+  expect(gradients[3]).toHaveAttribute("y2", "13.625");
+  expect(gradients[4]).toHaveAttribute("x1", "-19.5");
   const stars = screen.getAllByTestId("sparkle-star");
+  expect(stars[0]).toHaveAttribute("fill", "var(--mode-color-ai-alt-stop-1)");
   expect(stars[3]).toHaveAttribute("fill", expect.stringContaining("-4)"));
   const starGroups = screen.getAllByTestId("sparkle-star-group");
   expect(starGroups[4]).toHaveAttribute(
@@ -545,6 +564,15 @@ test("uses explicit visible static styles for motion-disabled sparkle paths", ()
     expect(star).toHaveStyleRule("opacity", "1");
     expect(star).toHaveStyleRule("transform", "scale(1)");
   });
+});
+
+test("keeps delayed sparkle paths hidden before their animation starts", () => {
+  render(<Loader loaderType="star" />);
+
+  expect(screen.getAllByTestId("sparkle-star")[1]).toHaveStyleRule(
+    "transform",
+    "scale(0)",
+  );
 });
 
 test("uses unique SVG definition IDs for each loader instance", () => {

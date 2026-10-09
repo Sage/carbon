@@ -1,42 +1,21 @@
 import styled, { css, keyframes } from "styled-components";
 
-const star1Scale = keyframes`
+const firstStarScale = keyframes`
   0% { transform: scale(0); animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
   15.29% { transform: scale(1.1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
   30.64%, 100% { transform: scale(0); }
 `;
 
-const star2Scale = keyframes`
-  0%, 15.29% { transform: scale(0); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
-  30.64% { transform: scale(1.1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
-  45.36%, 100% { transform: scale(0); }
+const starScale = keyframes`
+  0% { transform: scale(0); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
+  15.29% { transform: scale(1.1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
+  30.64%, 100% { transform: scale(0); }
 `;
 
-const star3Scale = keyframes`
-  0%, 30.61% { transform: scale(0); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
-  45.36% { transform: scale(1.1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
-  60.68%, 100% { transform: scale(0); }
-`;
-
-const star4Scale = keyframes`
-  0%, 45.35% { opacity: 0; transform: scale(0); }
-  45.36% { opacity: 1; transform: scale(0); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
-  60.68% { opacity: 1; transform: scale(1.1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
-  75.69%, 100% { opacity: 1; transform: scale(0); }
-`;
-
-const star5Scale = keyframes`
-  0%, 60.67% { opacity: 0; transform: scale(0); }
-  60.68% { opacity: 1; transform: scale(0); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
-  75.97% { opacity: 1; transform: scale(1.1); animation-timing-function: cubic-bezier(1, 0, 0, 1); }
-  90.76%, 100% { opacity: 1; transform: scale(0); }
-`;
-
-const star6Scale = keyframes`
-  0%, 75.96% { opacity: 0; transform: scale(0); }
-  75.97% { opacity: 1; transform: scale(0); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
-  90.76% { opacity: 1; transform: scale(1.1); animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1); }
-  100% { opacity: 1; transform: scale(0.117); }
+const lastStarScale = keyframes`
+  0% { transform: scale(0); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
+  14.79% { transform: scale(1.1); animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1); }
+  24.03%, 100% { transform: scale(0); }
 `;
 
 interface StarScaleProps {
@@ -46,13 +25,17 @@ interface StarScaleProps {
 
 const starScaleStyles = (
   animation: ReturnType<typeof keyframes>,
+  delay = 0,
 ) => css<StarScaleProps>`
+  transform: scale(0);
   transform-box: fill-box;
   transform-origin: center;
   ${({ $animationTime, $hasMotion }) =>
     $hasMotion
       ? css`
           animation: ${animation} ${$animationTime}s linear infinite;
+          animation-delay: ${($animationTime ??
+            /* istanbul ignore next */ 3.159) * delay}s;
         `
       : css`
           animation: none;
@@ -77,20 +60,20 @@ export const StyledStarSVG = styled.svg`
 `;
 
 export const StyledStar1Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star1Scale)}
+  ${starScaleStyles(firstStarScale)}
 `;
 export const StyledStar2Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star2Scale)}
+  ${starScaleStyles(starScale, 0.1529)}
 `;
 export const StyledStar3Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star3Scale)}
+  ${starScaleStyles(starScale, 0.3061)}
 `;
 export const StyledStar4Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star4Scale)}
+  ${starScaleStyles(starScale, 0.4536)}
 `;
 export const StyledStar5Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star5Scale)}
+  ${starScaleStyles(starScale, 0.6068)}
 `;
 export const StyledStar6Scale = styled.path<StarScaleProps>`
-  ${starScaleStyles(star6Scale)}
+  ${starScaleStyles(lastStarScale, 0.7597)}
 `;

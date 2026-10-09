@@ -30,9 +30,10 @@ interface GradientProps {
   y1: string;
   x2: string;
   y2: string;
+  endColor: string;
 }
 
-const StarGradient = ({ id, x1, y1, x2, y2 }: GradientProps) => (
+const StarGradient = ({ id, x1, y1, x2, y2, endColor }: GradientProps) => (
   <linearGradient
     data-role="star-gradient"
     id={id}
@@ -52,11 +53,7 @@ const StarGradient = ({ id, x1, y1, x2, y2 }: GradientProps) => (
       offset="40%"
       stopColor="var(--mode-color-ai-alt-stop-2)"
     />
-    <stop
-      data-role="sparkle-gradient-stop"
-      offset="90%"
-      stopColor="var(--mode-color-ai-alt-stop-3)"
-    />
+    <stop data-role="sparkle-gradient-stop" offset="90%" stopColor={endColor} />
   </linearGradient>
 );
 
@@ -81,38 +78,43 @@ const Star = ({
         <defs>
           <StarGradient
             id={star2GradientId}
-            x1="-2.625"
-            y1="18.321"
-            x2="15.375"
-            y2="6.82104"
+            x1="-12.625"
+            y1="8.321"
+            x2="5.375"
+            y2="-3.17896"
+            endColor="var(--mode-color-ai-stop-3)"
           />
           <StarGradient
             id={star3GradientId}
-            x1="-3.125"
-            y1="12.5"
-            x2="15.875"
-            y2="-2"
+            x1="-9.125"
+            y1="6.5"
+            x2="9.875"
+            y2="-8"
+            endColor="var(--mode-color-ai-stop-3)"
           />
           <StarGradient
             id={star4GradientId}
-            x1="-26.25"
-            y1="9.5"
-            x2="10.75"
-            y2="-25"
+            x1="-30.25"
+            y1="5.5"
+            x2="6.75"
+            y2="-29"
+            endColor="var(--mode-color-ai-alt-stop-3)"
           />
           <StarGradient
             id={star5GradientId}
-            x1="2.1792"
-            y1="4.125"
-            x2="25.6792"
-            y2="23.625"
+            x1="-7.8208"
+            y1="-5.875"
+            x2="15.6792"
+            y2="13.625"
+            endColor="var(--mode-color-ai-stop-3)"
           />
           <StarGradient
             id={star6GradientId}
-            x1="-13.5"
-            y1="-14.5"
-            x2="9"
-            y2="9"
+            x1="-19.5"
+            y1="-20.5"
+            x2="3"
+            y2="3"
+            endColor="var(--mode-color-ai-stop-3)"
           />
         </defs>
         <g data-role="sparkle-star-group" transform="translate(7.125 29.5)">

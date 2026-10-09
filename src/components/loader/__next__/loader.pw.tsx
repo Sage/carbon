@@ -117,8 +117,8 @@ test.describe("loader SVG motion", () => {
     const gradients = page.getByTestId("star-gradient");
     await expect(stars).toHaveCount(6);
     await expect(gradients).toHaveCount(5);
-    await expect(gradients.nth(2)).toHaveAttribute("x1", "-26.25");
-    await expect(gradients.nth(3)).toHaveAttribute("y2", "23.625");
+    await expect(gradients.nth(2)).toHaveAttribute("x1", "-30.25");
+    await expect(gradients.nth(3)).toHaveAttribute("y2", "13.625");
     await expect(stars.nth(4).locator("..")).toHaveAttribute(
       "transform",
       "translate(3.375 30.679) rotate(-90) translate(10 10)",
@@ -129,6 +129,18 @@ test.describe("loader SVG motion", () => {
       "transform",
       "matrix(1, 0, 0, 1, 0, 0)",
     );
+  });
+
+  test("sparkle loader uses the reference pop timing and stagger", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Loader loaderType="star" showLabel={false} />);
+
+    const stars = page.getByTestId("sparkle-star");
+    await expect(stars.first()).toHaveCSS("animation-duration", "3.159s");
+    await expect(stars.nth(1)).toHaveCSS("animation-delay", "0.483011s");
+    await expect(stars.nth(5)).toHaveCSS("animation-delay", "2.39989s");
   });
 
   test("disabling sparkle motion during playback leaves every path visible", async ({
