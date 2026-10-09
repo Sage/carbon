@@ -1,0 +1,3 @@
+const SEARCH_RESULT_COUNT = 100;
+
+export default SEARCH_RESULT_COUNT;

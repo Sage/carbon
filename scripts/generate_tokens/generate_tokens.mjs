@@ -1,5 +1,5 @@
-import fs from "fs";
 import path from "path";
+import writeIfChanged from "./write-if-changed.mjs";
 
 import tokenJSON from "@sage/design-tokens-fusion/json/global.json" with { type: "json" };
 import modeJSON from "@sage/design-tokens-fusion/json/light.json" with { type: "json" };
@@ -139,16 +139,13 @@ ${zIndexTokens}
 }
 
 const outputDir = path.join(projectRoot, "src/components/tokens-wrapper/__internal__/static-tokens");
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-}
 
 // Also generate as a JS string for styled-components
 const jsExport = `
 export default \`${staticTokensCSS}\`;
 `;
 
-fs.writeFileSync(
+writeIfChanged(
   path.join(outputDir, "index.js"),
   jsExport
 );
@@ -210,11 +207,8 @@ const generateComponentTokenFiles = async (configs) => {
     }
 
     const dir = path.join(projectRoot, config.targetDir);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
 
-    fs.writeFileSync(
+    writeIfChanged(
       path.join(dir, "index.ts"),
       lines.join("\n") + "\n"
     );
