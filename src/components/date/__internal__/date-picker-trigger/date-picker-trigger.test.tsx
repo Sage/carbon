@@ -15,9 +15,12 @@ describe("typical variant", () => {
   test("renders a visually hidden span in the DOM", () => {
     render(<DatePickerTrigger {...defaultProps} variant="typical" />);
 
-    const span = screen.getByText("Instructions on how to use", {
-      selector: "span",
-    });
+    const span = screen.getByText(
+      "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+      {
+        selector: "span",
+      },
+    );
 
     expect(span).toBeInTheDocument();
   });
@@ -26,9 +29,12 @@ describe("typical variant", () => {
     render(<DatePickerTrigger {...defaultProps} variant="typical" />);
 
     const button = screen.getByRole("button", { name: "Open calendar" });
-    const span = screen.getByText("Instructions on how to use", {
-      selector: "span",
-    });
+    const span = screen.getByText(
+      "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+      {
+        selector: "span",
+      },
+    );
 
     const descId = button.getAttribute("aria-describedby");
     expect(descId).toBeTruthy();
@@ -39,11 +45,16 @@ describe("typical variant", () => {
   test("hidden span text matches locale openCalendarDescription", () => {
     render(<DatePickerTrigger {...defaultProps} variant="typical" />);
 
-    const span = screen.getByText("Instructions on how to use", {
-      selector: "span",
-    });
+    const span = screen.getByText(
+      "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+      {
+        selector: "span",
+      },
+    );
 
-    expect(span).toHaveTextContent("Instructions on how to use");
+    expect(span).toHaveTextContent(
+      "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+    );
   });
 
   test("hidden span text uses locale override when provided", () => {
@@ -74,9 +85,12 @@ describe("typical variant", () => {
   test("hidden span is not hidden with display:none or visibility:hidden", () => {
     render(<DatePickerTrigger {...defaultProps} variant="typical" />);
 
-    const span = screen.getByText("Instructions on how to use", {
-      selector: "span",
-    });
+    const span = screen.getByText(
+      "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+      {
+        selector: "span",
+      },
+    );
 
     expect(span).not.toHaveStyle("display: none");
     expect(span).not.toHaveStyle("visibility: hidden");
@@ -88,9 +102,12 @@ describe("typical variant", () => {
     );
 
     const button = screen.getByRole("button", { name: "Open calendar" });
-    const span = screen.getByText("Instructions on how to use", {
-      selector: "span",
-    });
+    const span = screen.getByText(
+      "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+      {
+        selector: "span",
+      },
+    );
 
     const idBefore = button.getAttribute("aria-describedby");
 
@@ -109,7 +126,9 @@ describe("legacy variant", () => {
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
     // No instructions text
     expect(
-      screen.queryByText("Instructions on how to use"),
+      screen.queryByText(
+        "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+      ),
     ).not.toBeInTheDocument();
   });
 });
