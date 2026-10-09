@@ -649,6 +649,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         labelId={labelId}
         anchorElement={textboxRef?.parentElement || undefined}
         onSelect={onSelectOption}
+        onHighlight={setActiveDescendantId}
         onSelectListClose={onSelectListClose}
         onMouseDown={handleListMouseDown}
         filterText={filterText.trim()}

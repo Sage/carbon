@@ -66,6 +66,8 @@ export interface SelectListProps {
   anchorElement?: HTMLElement;
   /** A callback for when a child is selected */
   onSelect: (data: OnSelectData) => void;
+  /** A callback for when a child receives keyboard focus without being selected */
+  onHighlight?: (id: string) => void;
   /** A callback for when the list should be closed */
   onSelectListClose: () => void;
   /** Text value to highlight an option */
@@ -124,6 +126,7 @@ const SelectList = React.forwardRef(
       labelId,
       children,
       onSelect,
+      onHighlight,
       onSelectListClose,
       filterText,
       anchorElement,
@@ -406,8 +409,13 @@ const SelectList = React.forwardRef(
     const highlightNextItem = useCallback(
       (key: string) => {
         let currentIndex = currentOptionsListIndexRef.current;
+        const currentOption = childrenList[currentIndex];
+        const isCurrentCallbackAction =
+          React.isValidElement(currentOption) &&
+          currentOption.type === ActionOption &&
+          Boolean(currentOption.props.onClick);
 
-        if (highlightedValue) {
+        if (highlightedValue && !isCurrentCallbackAction) {
           const indexOfHighlighted = getIndexOfMatch(highlightedValue);
 
           currentIndex = indexOfHighlighted;
@@ -420,8 +428,20 @@ const SelectList = React.forwardRef(
         }
 
         const { text, value } = childrenList[nextIndex].props;
+        const isCallbackAction =
+          childrenList[nextIndex].type === ActionOption &&
+          Boolean(childrenList[nextIndex].props.onClick);
 
         currentOptionsListIndexRef.current = nextIndex;
+
+        if (isCallbackAction) {
+          setCurrentOptionsListIndex(nextIndex);
+          onHighlight?.(
+            childElementRefs.current[nextIndex]?.id ??
+              /* istanbul ignore next */ "",
+          );
+          return;
+        }
 
         onSelect({
           id: childElementRefs.current[nextIndex]?.id,
@@ -436,6 +456,7 @@ const SelectList = React.forwardRef(
         getIndexOfMatch,
         getNextHighlightableItemIndex,
         highlightedValue,
+        onHighlight,
         onSelect,
       ],
     );
