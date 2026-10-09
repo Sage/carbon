@@ -1212,6 +1212,96 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(onItem2Click).not.toHaveBeenCalled();
   });
 
+  it.each([
+    ["the loading state changes", "loading"],
+    ["options are appended", "options"],
+  ])(
+    "preserves the active virtualised option when %s",
+    async (_description, update) => {
+      const user = userEvent.setup();
+      const onItem1Click = jest.fn();
+      const onItem2Click = jest.fn();
+      const menu = (applyUpdate = false) => (
+        <PopoverMenu
+          open
+          onClose={() => {}}
+          popoverControl={popoverControlInput}
+          enableVirtualScroll
+          highlightSelectedOption
+        >
+          <MenuItem id="item-1" selected onClick={onItem1Click}>
+            Item 1
+          </MenuItem>
+          <MenuItem id="item-2" onClick={onItem2Click}>
+            Item 2
+          </MenuItem>
+          {applyUpdate && update === "loading" && (
+            <MenuItem id="loader" disabled>
+              Loading
+            </MenuItem>
+          )}
+          {applyUpdate && update === "options" && (
+            <MenuItem id="item-3">Item 3</MenuItem>
+          )}
+        </PopoverMenu>
+      );
+      const { rerender } = render(menu());
+      const input = screen.getByRole("combobox");
+      input.focus();
+
+      await waitFor(() =>
+        expect(input).toHaveAttribute("aria-activedescendant", "item-1"),
+      );
+      await user.keyboard("{ArrowDown}");
+      expect(input).toHaveAttribute("aria-activedescendant", "item-2");
+
+      rerender(menu(true));
+
+      expect(input).toHaveAttribute("aria-activedescendant", "item-2");
+      await user.keyboard("{Enter}");
+      expect(onItem2Click).toHaveBeenCalledTimes(1);
+      expect(onItem1Click).not.toHaveBeenCalled();
+    },
+  );
+
+  it("clears the active virtualised option when it becomes disabled", async () => {
+    const user = userEvent.setup();
+    const onItem2Click = jest.fn();
+    const menu = (disableItem2 = false) => (
+      <PopoverMenu
+        open
+        onClose={() => {}}
+        popoverControl={popoverControlInput}
+        enableVirtualScroll
+        highlightSelectedOption
+      >
+        <MenuItem id="item-1" selected>
+          Item 1
+        </MenuItem>
+        <MenuItem id="item-2" disabled={disableItem2} onClick={onItem2Click}>
+          Item 2
+        </MenuItem>
+      </PopoverMenu>
+    );
+    const { rerender } = render(menu());
+    const input = screen.getByRole("combobox");
+    input.focus();
+
+    await waitFor(() =>
+      expect(input).toHaveAttribute("aria-activedescendant", "item-1"),
+    );
+    await user.keyboard("{ArrowDown}");
+    expect(input).toHaveAttribute("aria-activedescendant", "item-2");
+
+    rerender(menu(true));
+
+    await waitFor(() =>
+      expect(input).not.toHaveAttribute("aria-activedescendant"),
+    );
+    await user.keyboard("{Enter}");
+    expect(onItem2Click).not.toHaveBeenCalled();
+  });
+
   it("measures virtualised items after layout and reuses cached sizes before layout", () => {
     renderPopoverMenu({
       open: true,
