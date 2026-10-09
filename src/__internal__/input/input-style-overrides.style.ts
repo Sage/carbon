@@ -6,9 +6,66 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
  */
 export const dateStyleOverrides = css`
   .date & {
+    box-sizing: border-box;
+    width: 100%;
+
+    .input-text-container {
+      margin: calc(-1 * var(--global-borderwidth-xs));
+      max-width: calc(100% + (2 * var(--global-borderwidth-xs)));
+    }
+
+    &:has(.input-text-container input[aria-invalid="true"])
+      .input-text-container {
+      margin: calc(-1 * var(--global-borderwidth-s));
+      max-width: calc(100% + (2 * var(--global-borderwidth-s)));
+    }
+
     .input-text-container input {
-      padding: 0 0 0 12px;
-      margin-right: -12px;
+      padding-inline-end: 0;
+    }
+  }
+
+  .date-typical [data-role="date-input-wrapper"] & {
+    /* Restore the outer field border covered by the full-size trigger hover background. */
+    &:has(button:hover) {
+      position: relative;
+      isolation: isolate;
+    }
+
+    &:has(button:hover)::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      inset: calc(-1 * var(--global-borderwidth-xs));
+      border: var(--global-borderwidth-xs) solid
+        var(--input-typical-border-default);
+      border-radius: inherit;
+    }
+
+    &:has(.input-text-container input[aria-invalid="true"]):has(
+        button:hover
+      )::after {
+      inset: calc(-1 * var(--global-borderwidth-s));
+      border: var(--global-borderwidth-s) solid
+        var(--input-validation-border-error);
+    }
+
+    &:has(.input-text-container input[aria-invalid="true"]) button:focus {
+      border-color: var(--input-validation-border-error);
+    }
+
+    &:focus-within {
+      box-shadow: none;
+      outline: none;
+    }
+
+    .input-text-container input:focus {
+      border-radius: var(--global-radius-action-m) var(--global-radius-none)
+        var(--global-radius-none) var(--global-radius-action-m);
+      ${addFocusStyling()}
+      position: relative;
+      z-index: 2;
     }
   }
 `;
@@ -144,7 +201,6 @@ const searchNewBaseStyles = css`
 
     &:focus-within:has(:focus:not(button)) {
       box-shadow: none;
-      -webkit-box-shadow: none;
     }
 
     .input-text-container input[type="search"]:focus {
@@ -331,7 +387,6 @@ export const passwordStyleOverrides = css`
   [data-component="password"] & {
     &:focus-within {
       box-shadow: none !important;
-      -webkit-box-shadow: none !important;
       outline: none !important;
     }
 

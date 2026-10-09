@@ -1,0 +1,124 @@
+import React, { useMemo, useRef } from "react";
+
+import type { DatePickerProps } from "../date-picker";
+import {
+  buildYearRange,
+  getMonthYearTransition,
+  normalizeDateBounds,
+  parseSelectInteger,
+} from "../date-picker/date-picker.utils";
+
+export const DEFAULT_YEAR_RANGE_OFFSET = 10;
+
+interface UseDatePickerMonthYearSelectionProps {
+  minDate?: string;
+  maxDate?: string;
+  dayPickerProps?: DatePickerProps["dayPickerProps"];
+  focusedMonth?: Date;
+  setFocusedMonth: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  markSelectorChanged: (selector: "month" | "year") => void;
+  /** Number of years shown either side of the bounds/anchor year in the year selector. */
+  yearRangeOffset?: number;
+}
+
+/** Manages bounded month/year navigation and selector changes. */
+const useDatePickerMonthYearSelection = ({
+  minDate,
+  maxDate,
+  dayPickerProps,
+  focusedMonth,
+  setFocusedMonth,
+  markSelectorChanged,
+  yearRangeOffset = DEFAULT_YEAR_RANGE_OFFSET,
+}: UseDatePickerMonthYearSelectionProps) => {
+  const navigationBounds = useMemo(
+    () =>
+      normalizeDateBounds({
+        minDate,
+        maxDate,
+        startMonth: dayPickerProps?.startMonth,
+        endMonth: dayPickerProps?.endMonth,
+      }),
+    [minDate, maxDate, dayPickerProps?.startMonth, dayPickerProps?.endMonth],
+  );
+  const { minMonth, maxMonth } = navigationBounds;
+  const currentMonth = focusedMonth ?? new Date();
+  // Only clamp into range when minDate/maxDate just changed (including on
+  // mount), so month/year selector navigation to an out-of-range month is
+  // never immediately overridden.
+  const previousBounds = useRef<{ min?: number; max?: number }>();
+  const boundsChanged =
+    previousBounds.current?.min !== minMonth?.getTime() ||
+    previousBounds.current?.max !== maxMonth?.getTime();
+  previousBounds.current = {
+    min: minMonth?.getTime(),
+    max: maxMonth?.getTime(),
+  };
+  const displayedMonth =
+    boundsChanged && minMonth && currentMonth < minMonth
+      ? minMonth
+      : boundsChanged && maxMonth && currentMonth > maxMonth
+        ? maxMonth
+        : currentMonth;
+  const displayedYear = displayedMonth.getFullYear();
+  // Keep an unbounded default range stable as the user navigates. Re-anchoring
+  // to each selected year would continually move the options and allow an
+  // effectively unlimited range instead of the documented +/- 100 years.
+  const initialDisplayedYear = useRef(displayedYear);
+  const years = useMemo(
+    () =>
+      buildYearRange({
+        minMonth,
+        maxMonth,
+        anchorYear: initialDisplayedYear.current,
+        includedYear: displayedYear,
+        offset: yearRangeOffset,
+      }),
+    [displayedYear, minMonth, maxMonth, yearRangeOffset],
+  );
+
+  const navigateToMonthAndYear = ({
+    month,
+    year,
+  }: {
+    month: number;
+    year: number;
+  }) => {
+    const transition = getMonthYearTransition({
+      displayedMonth,
+      month,
+      year,
+    });
+    setFocusedMonth(transition.date);
+    return transition;
+  };
+
+  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const month = parseSelectInteger(event.target.value);
+    if (month === undefined || month < 0 || month > 11) return;
+
+    markSelectorChanged("month");
+    const year = displayedMonth.getFullYear();
+    navigateToMonthAndYear({ month, year });
+  };
+
+  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const year = parseSelectInteger(event.target.value);
+    if (year === undefined || !years.includes(year)) return;
+
+    markSelectorChanged("year");
+    navigateToMonthAndYear({
+      month: displayedMonth.getMonth(),
+      year,
+    });
+  };
+
+  return {
+    displayedMonth,
+    years,
+    handleMonthChange,
+    handleYearChange,
+  };
+};
+
+export default useDatePickerMonthYearSelection;

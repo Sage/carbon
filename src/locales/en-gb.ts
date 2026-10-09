@@ -50,6 +50,13 @@ const enGB: Locale = {
     ariaLabels: {
       previousMonthButton: () => "Previous month",
       nextMonthButton: () => "Next month",
+      openCalendarButton: () => "Open calendar",
+      chooseMonth: () => "Choose the month",
+      chooseYear: () => "Choose the year",
+      closeButton: () => "Close",
+      openCalendarDescription: () =>
+        "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+      chooseDate: () => "Choose a date",
     },
     dateFormatOverride: undefined,
   },
