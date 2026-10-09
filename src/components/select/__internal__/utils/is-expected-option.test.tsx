@@ -1,4 +1,5 @@
 import React from "react";
+import ActionOption from "../../action-option";
 import Option from "../../option";
 import isExpectedOption from "./is-expected-option";
 
@@ -15,6 +16,21 @@ test("returns true when the element is an Option whose value property matches ex
 test("returns false when the element is an Option whose value property does not match expectedValue", () => {
   expect(
     isExpectedOption(<Option value="foo" text="bar" />, "bar"),
+  ).toBeFalsy();
+});
+
+test("returns true for a matching ActionOption without an onClick callback", () => {
+  expect(
+    isExpectedOption(<ActionOption value="foo" text="bar" />, "foo"),
+  ).toBeTruthy();
+});
+
+test("returns false for a matching ActionOption with an onClick callback", () => {
+  expect(
+    isExpectedOption(
+      <ActionOption value="foo" text="bar" onClick={() => {}} />,
+      "foo",
+    ),
   ).toBeFalsy();
 });
 

@@ -55,6 +55,7 @@ const RingLoader = ({
       <StyledRingCircleSvg
         inverse={inverse}
         role="presentation"
+        data-role="ring-loader-svg"
         size={ringSize}
         variant={ringVariant}
         hasMotion={hasMotion}
