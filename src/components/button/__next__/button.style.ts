@@ -241,6 +241,11 @@ export const StyledContentContainer = styled.span`
   gap: var(--global-space-comp-s);
   align-items: center;
   justify-content: center;
+
+  [data-component="popover-menu-item"] & {
+    width: 100%;
+    justify-content: start;
+  }
 `;
 
 export const StyledButton = styled.button<

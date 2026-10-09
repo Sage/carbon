@@ -4,6 +4,7 @@ import React, {
   useRef,
   forwardRef,
   useState,
+  useContext,
 } from "react";
 import styled, { css } from "styled-components";
 import type { CSSObject } from "styled-components";
@@ -11,7 +12,11 @@ import Popover, { PopoverProps } from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import { useHandleDropdownMenuKeyDown, setFocus } from "./hooks";
+import {
+  useHandleDropdownMenuKeyDown,
+  setFocus,
+  type TypeaheadHandler,
+} from "./hooks";
 import guid from "../utils/helpers/guid";
 import {
   PopoverMenuContext,
@@ -21,6 +26,7 @@ import {
 } from "./contexts";
 import { TagProps } from "../utils/helpers/tags";
 import combineRefs from "../utils/helpers/combine-refs";
+import FlatTableContext from "../../components/flat-table/__internal__/flat-table.context";
 
 const PopoverControlWrapper = styled.div<{
   $controlWrapperStyle?: CSSObject;
@@ -155,6 +161,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   isSubmenu?: boolean;
   /** Ref to the listbox/menu element */
   listRef?: React.Ref<HTMLUListElement>;
+  /** Callback for handling typeahead keyboard navigation */
+  typeahead?: (args: TypeaheadHandler) => void;
 }
 
 const OFFSET = 8;
@@ -332,6 +340,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     listRef,
     controlWrapperStyle,
     maxHeight,
+    typeahead,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -347,7 +356,16 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const combinedWrapperRef = combineRefs(wrapperRef, ref);
   const wrappedChildren = wrapChildrenInItem(children);
   const controlRef = useRef<TRef>(null);
-  const handleClickInside = useClickAwayListener(onClose);
+  const lastClickAwayEvent = useRef<Event | null>(null);
+  const handleClickAway = useCallback(
+    (ev: Event) => {
+      if (!open || lastClickAwayEvent.current === ev) return;
+      lastClickAwayEvent.current = ev;
+      onClose(ev);
+    },
+    [open, onClose],
+  );
+  const handleClickInside = useClickAwayListener(handleClickAway);
   const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
   const computedMiddleware = menuPopoverMiddleware(
     width,
@@ -376,10 +394,11 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       if (open && ev.key === "Escape") {
         ev.preventDefault();
         ev.stopPropagation();
-        onClose();
         if (isSubmenu) {
           handleSubmenuParentFocus();
-        } else {
+        }
+        onClose(ev);
+        if (!isSubmenu) {
           focusControl(controlRef.current);
         }
       }
@@ -418,7 +437,10 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       isButtonMenu,
       isSubmenu,
     },
+    typeahead,
   );
+
+  const { isInFlatTable } = useContext(FlatTableContext);
 
   const handleControlKeyDown: React.KeyboardEventHandler<HTMLElement> =
     useCallback(
@@ -430,7 +452,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           handleDropdownMenuKeyDown(ev);
 
           return;
-        } else if (!open && isButtonMenu && !isSubmenu) {
+        } else if (!open && isButtonMenu && !isInFlatTable && !isSubmenu) {
           if (ev.key === "ArrowDown") {
             ev.preventDefault();
             onOpen?.();
@@ -449,7 +471,14 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           }
         }
       },
-      [open, handleDropdownMenuKeyDown, isButtonMenu, onOpen, isSubmenu],
+      [
+        open,
+        handleDropdownMenuKeyDown,
+        isButtonMenu,
+        isInFlatTable,
+        onOpen,
+        isSubmenu,
+      ],
     );
 
   useEffect(() => {
@@ -484,13 +513,21 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           onClose={(ev) => {
             props.onClose();
 
-            // need to call both submenu and parent menu close handlers when clicking outside
+            // Closing the submenu can replace the parent's document listener
+            // during dispatch. Forward outside clicks, deduplicated by event.
             if (
-              (ev?.type === "click" &&
-                !wrapperRef.current?.contains(ev?.target as Node)) ||
-              (ev as KeyboardEvent)?.key === "Tab"
+              ev?.type === "click" &&
+              !wrapperRef.current?.contains(ev.target as Node)
+            ) {
+              handleClickAway(ev);
+            } else if (
+              (ev as KeyboardEvent)?.key === "Tab" ||
+              (ev as KeyboardEvent)?.key === "Escape"
             ) {
               onClose(ev);
+              if ((ev as KeyboardEvent).key === "Escape") {
+                focusControl(controlRef.current);
+              }
             }
           }}
           size={props.size}
@@ -501,12 +538,13 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           popoverControl={(_ref, controlProps) => props.control(controlProps)}
           placement="right-start"
           controlReference={props.triggerRef}
+          typeahead={typeahead}
         >
           {props.submenu}
         </PopoverMenu>
       );
     },
-    [onClose],
+    [onClose, handleClickAway, typeahead],
   );
   /* eslint-enable @typescript-eslint/no-use-before-define */
 

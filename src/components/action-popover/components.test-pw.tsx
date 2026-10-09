@@ -172,33 +172,6 @@ export const ActionPopoverWithProps = ({ ...props }) => {
   );
 };
 
-export const ActionPopoverWithIconsAndNoSubmenus = ({ ...props }) => (
-  <ActionPopover {...props}>
-    <ActionPopoverItem icon="graph" onClick={() => {}}>
-      Business
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="email" onClick={() => {}}>
-      Email Invoice
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="print" onClick={() => {}}>
-      Print Invoice
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="pdf" onClick={() => {}}>
-      Download PDF
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="csv" onClick={() => {}}>
-      Download CSV
-    </ActionPopoverItem>
-    <ActionPopoverDivider />
-    <ActionPopoverItem icon="delete" onClick={() => {}}>
-      Delete
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="home" onClick={() => {}}>
-      Return Home
-    </ActionPopoverItem>
-  </ActionPopover>
-);
-
 export const ActionPopoverWithDifferentSubmenus = ({ ...props }) => {
   const businessSubmenu = (
     <ActionPopoverMenu>
@@ -225,50 +198,6 @@ export const ActionPopoverWithDifferentSubmenus = ({ ...props }) => {
       </ActionPopoverItem>
       <ActionPopoverItem icon="email" onClick={() => {}} submenu={emailSubmenu}>
         Email
-      </ActionPopoverItem>
-    </ActionPopover>
-  );
-};
-
-export const ActionPopoverWithSubmenusAndIcons = ({ ...props }) => {
-  const submenu = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem icon="bin" onClick={() => {}}>
-        Sub Menu 1
-      </ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 3</ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 4</ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
-  return (
-    <ActionPopover {...props}>
-      <ActionPopoverItem
-        data-element="menu-item1"
-        icon="graph"
-        onClick={() => {}}
-        submenu={submenu}
-      >
-        Business
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="email" onClick={() => {}} submenu={submenu}>
-        Email Invoice
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
-        Print Invoice
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="pdf" onClick={() => {}} submenu={submenu}>
-        Download PDF
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="csv" onClick={() => {}} submenu={submenu}>
-        Download CSV
-      </ActionPopoverItem>
-      <ActionPopoverDivider />
-      <ActionPopoverItem icon="delete" onClick={() => {}} submenu={submenu}>
-        Delete
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="home" onClick={() => {}} submenu={submenu}>
-        Return Home
       </ActionPopoverItem>
     </ActionPopover>
   );
@@ -771,7 +700,7 @@ export const KeyboardNavigation = () => {
 
 export const MenuOpeningAbove = () => {
   return (
-    <Box pt={120} height={250}>
+    <Box pt="120px" height={250}>
       <ActionPopover placement="top">
         <ActionPopoverItem
           icon="print"

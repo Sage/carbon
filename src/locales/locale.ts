@@ -8,6 +8,7 @@ interface Locale {
   };
   actionPopover: {
     ariaLabel: () => string;
+    buttonLabel?: () => string;
   };
   advancedColorPicker: {
     ariaLabel: () => string;
