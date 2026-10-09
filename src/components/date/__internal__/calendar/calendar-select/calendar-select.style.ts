@@ -120,11 +120,18 @@ export const StyledSelect = styled.select`
       display: none;
     }
 
+    option {
+      position: relative;
+      padding-inline-start: var(--global-size-2-xs);
+    }
+
     option::checkmark {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      position: absolute;
+      inset-inline-start: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      text-align: center;
       width: var(--global-size-2-xs);
       height: var(--global-size-2-xs);
       margin: 0;
@@ -133,7 +140,7 @@ export const StyledSelect = styled.select`
       font-size: 12px;
       font-style: normal;
       font-weight: normal;
-      line-height: 12px;
+      line-height: var(--global-size-2-xs);
       content: "\\f003";
     }
 
