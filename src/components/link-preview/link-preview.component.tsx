@@ -8,7 +8,7 @@ import {
   StyledUrl,
 } from "./link-preview.style";
 import Image from "../image";
-import Preview from "../preview";
+import Skeleton from "../skeleton";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Placeholder from "./__internal__/placeholder.component";
@@ -85,13 +85,13 @@ export const LinkPreview = ({
     >
       {imageProps().src ? <Image {...imageProps()} /> : <Placeholder />}
       <StyledPreviewWrapper isLoading={loadingState}>
-        <Preview loading={loadingState} lines={4}>
+        <Skeleton loading={loadingState} lines={4}>
           <StyledTitle>{title}</StyledTitle>
           <StyledDescription>
             <div>{description}</div>
           </StyledDescription>
           <StyledUrl>{displayUrl()}</StyledUrl>
-        </Preview>
+        </Skeleton>
       </StyledPreviewWrapper>
       {onClose && as === "div" && (
         <StyledCloseIconWrapper>
