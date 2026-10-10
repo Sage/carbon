@@ -5,25 +5,20 @@ import userEvent from "@testing-library/user-event";
 import { Menu, MenuItem } from "..";
 import MenuFullscreen from ".";
 
-import Logger from "../../../__internal__/utils/logger";
 import { sageTheme } from "../../../style/themes";
 
 import CarbonProvider from "../../carbon-provider";
 
-test("logs error if not used within Menu", () => {
-  const loggerErrorSpy = jest
-    .spyOn(Logger, "error")
+test("throws an error if not used within Menu", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
     .mockImplementation(() => {});
 
-  render(<MenuFullscreen onClose={() => {}} />);
-
-  expect(loggerErrorSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
+  expect(() => render(<MenuFullscreen onClose={() => {}} />)).toThrow(
+    "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerErrorSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("should not render the menu when `isOpen` is falsy", () => {

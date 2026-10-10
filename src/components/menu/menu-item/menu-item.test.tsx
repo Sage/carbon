@@ -21,26 +21,21 @@ import {
   testStyledSystemFlexBox,
   testStyledSystemPadding,
 } from "../../../__spec_helper__/__internal__/test-utils";
-import Logger from "../../../__internal__/utils/logger";
 
 import Icon from "../../icon/icon.component";
 import IconButton from "../../icon-button";
 import Search from "../../search";
 
-test("logs error if not used within Menu", () => {
-  const loggerErrorSpy = jest
-    .spyOn(Logger, "error")
+test("throws an error if not used within Menu", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
     .mockImplementation(() => {});
 
-  render(<MenuItem>content</MenuItem>);
-
-  expect(loggerErrorSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
+  expect(() => render(<MenuItem>content</MenuItem>)).toThrow(
+    "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerErrorSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 describe("When MenuItem has no submenu", () => {

@@ -1,6 +1,6 @@
 import React from "react";
 
-type CreateStrictContextArgs<ContextType> = {
+type CreateStrictContextArgs = {
   /** The display name of the context. */
   name?: string;
   /** Error message to throw if context is accessed outside its provider. */
@@ -28,7 +28,7 @@ type CreateStrictContextReturn<ContextType> = readonly [
 function createStrictContext<ContextType>({
   name,
   errorMessage,
-}: CreateStrictContextArgs<ContextType>): CreateStrictContextReturn<ContextType> {
+}: CreateStrictContextArgs): CreateStrictContextReturn<ContextType> {
   const Context = React.createContext<ContextType | null>(null);
   Context.displayName = name;
 
