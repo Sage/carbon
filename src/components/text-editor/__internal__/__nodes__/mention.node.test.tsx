@@ -90,6 +90,7 @@ describe("MentionNode", () => {
 
         expect(domElement.className).toBe("mention");
         expect(domElement.spellcheck).toBe(false);
+        expect(domElement.style.cssText).toContain("font: inherit");
         expect(domElement.style.cssText).toContain("box-shadow");
         expect(domElement.style.cssText).toContain("border");
         expect(domElement.style.cssText).toContain("border-radius");

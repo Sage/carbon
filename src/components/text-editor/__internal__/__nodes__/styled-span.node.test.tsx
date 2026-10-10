@@ -239,6 +239,65 @@ describe("StyledSpanNode", () => {
       });
     });
 
+    test("should not set inline font size or line height on paragraph nodes", () => {
+      editor?.update(() => {
+        const node = StyledSpanNode.createFromOption("paragraph", "Body text");
+        const domElement = node.createDOM(staticConfig);
+
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.fontSize).toBe("");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.lineHeight).toBe("");
+      });
+    });
+
+    test("should keep bold on a paragraph node without setting an inline font size", () => {
+      editor?.update(() => {
+        const node = StyledSpanNode.createFromOption("paragraph", "Body text");
+        node.toggleFormat("bold");
+
+        const domElement = node.createDOM(staticConfig);
+
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.fontWeight).toBe("700");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.fontSize).toBe("");
+      });
+    });
+
+    test("should apply inline styles when a paragraph node becomes a title", () => {
+      editor?.update(() => {
+        const prevNode = StyledSpanNode.createFromOption("paragraph", "Text");
+        const currentNode = StyledSpanNode.createFromOption("title", "Text");
+        const domElement = prevNode.createDOM(staticConfig);
+
+        currentNode.updateDOM(prevNode, domElement, staticConfig);
+
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.fontSize).toBe("24px");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.lineHeight).toBe("30px");
+      });
+    });
+
+    test("should clear inline styles when a title node becomes a paragraph", () => {
+      editor?.update(() => {
+        const prevNode = StyledSpanNode.createFromOption("title", "Text");
+        const currentNode = StyledSpanNode.createFromOption(
+          "paragraph",
+          "Text",
+        );
+        const domElement = prevNode.createDOM(staticConfig);
+
+        currentNode.updateDOM(prevNode, domElement, staticConfig);
+
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.fontSize).toBe("");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.lineHeight).toBe("");
+      });
+    });
+
     test("should update DOM when styles change", () => {
       editor?.update(() => {
         const prevNode = new StyledSpanNode("Test", "400", "14px", "21px");
