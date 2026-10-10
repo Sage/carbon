@@ -1,25 +1,20 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Logger from "../../../__internal__/utils/logger";
 
 import CardRow from "./card-row.component";
 
 import Card from "../card.component";
 
-test("logs console error if not wrapped in Card", () => {
-  const loggerErrorSpy = jest
-    .spyOn(Logger, "error")
+test("throws an error if not wrapped in Card", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
     .mockImplementation(() => {});
 
-  render(<CardRow>content</CardRow>);
-
-  expect(loggerErrorSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon Card: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
+  expect(() => render(<CardRow>content</CardRow>)).toThrow(
+    "Carbon Card: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerErrorSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("renders content correctly when children are passed into CardRow", () => {

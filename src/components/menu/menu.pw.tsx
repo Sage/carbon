@@ -274,12 +274,15 @@ test.describe("Prop tests for Menu component", () => {
   }) => {
     await mount(<ClosedMenuFullScreenWithButtons />);
 
-    await page.keyboard.press("Tab");
     const button1 = page.getByRole("button").nth(0);
+    const button2 = page.getByRole("button").nth(1);
+
+    await button1.focus();
     await expect(button1).toBeFocused();
     await page.keyboard.press("Tab");
-    const button2 = page.getByRole("button").nth(1);
     await expect(button2).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(button1).toBeFocused();
   });
 
   test(`should focus the next menu item on tab press when the current item has a Search input with searchButton but no value`, async ({
@@ -425,9 +428,15 @@ test.describe("Event tests for Menu component", () => {
   }) => {
     await mount(<MenuFullScreenBackgroundScrollTest />);
 
-    await continuePressingTAB(page, 4);
+    const fullscreen = getComponent(page, "menu-fullscreen");
+    await expect(fullscreen).toBeVisible();
+    await waitForAnimationEnd(fullscreen);
 
     const closeIcon = closeIconButton(page);
+    await expect(closeIcon).toBeFocused();
+
+    await continuePressingTAB(page, 4);
+
     await expect(closeIcon).toBeFocused();
 
     const offscreenText = page.getByText("I should not be scrolled into view");
@@ -440,9 +449,15 @@ test.describe("Event tests for Menu component", () => {
   }) => {
     await mount(<MenuFullScreenBackgroundScrollTest />);
 
-    await continuePressingSHIFTTAB(page, 3);
+    const fullscreen = getComponent(page, "menu-fullscreen");
+    await expect(fullscreen).toBeVisible();
+    await waitForAnimationEnd(fullscreen);
 
     const closeIcon = closeIconButton(page);
+    await expect(closeIcon).toBeFocused();
+
+    await continuePressingSHIFTTAB(page, 3);
+
     await expect(closeIcon).toBeFocused();
 
     const offscreenText = page.getByText("I should not be scrolled into view");

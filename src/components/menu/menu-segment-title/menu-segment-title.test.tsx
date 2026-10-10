@@ -4,30 +4,26 @@ import userEvent from "@testing-library/user-event";
 
 import MenuSegmentTitle from "./menu-segment-title.component";
 
-import Logger from "../../../__internal__/utils/logger";
-
 import { Menu, MenuItem } from "..";
 import menuConfigVariants from "../menu.config";
 import MenuFullScreen from "../menu-full-screen";
 
-test("logs error if not used within Menu", () => {
-  const loggerErrorSpy = jest
-    .spyOn(Logger, "error")
+test("throws an error if not used within Menu", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
     .mockImplementation(() => {});
 
-  render(
-    <MenuSegmentTitle text="foo">
-      <li>bar</li>
-    </MenuSegmentTitle>,
-  );
-
-  expect(loggerErrorSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  expect(() =>
+    render(
+      <MenuSegmentTitle text="foo">
+        <li>bar</li>
+      </MenuSegmentTitle>,
     ),
+  ).toThrow(
+    "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerErrorSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("should render with correct colour when 'light' `menuType` received from context", async () => {
