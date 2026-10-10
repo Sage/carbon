@@ -2,20 +2,16 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import { StepFlow, StepFlowTitle } from "..";
 
-import Logger from "../../../__internal__/utils/logger";
+test("throws an error when not used within StepFlow", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-test("logs error when not used within StepFlow", () => {
-  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
-
-  render(<StepFlowTitle titleString="title" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon StepFlow: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
+  expect(() => render(<StepFlowTitle titleString="title" />)).toThrow(
+    "Carbon StepFlow: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("when the 'titleString' prop is passed, the correct visible element and text renders", () => {

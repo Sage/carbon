@@ -9,9 +9,6 @@ const [BreadcrumbsProvider, useBreadcrumbsContext] =
     name: "BreadcrumbsContext",
     errorMessage:
       "Carbon Breadcrumbs: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    defaultValue: {
-      inverse: false,
-    },
   });
 
 export { BreadcrumbsProvider, useBreadcrumbsContext };

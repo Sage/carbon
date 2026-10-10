@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Logger from "../../../__internal__/utils/logger";
 import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
 import FlatTableCell from "./flat-table-cell.component";
@@ -9,26 +8,26 @@ import FlatTable from "../flat-table.component";
 import Button from "../../button";
 import Icon from "../../icon";
 
-test("logs error if used outside of FlatTable", () => {
-  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+test("throws an error if used outside of FlatTable", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-  render(
-    <table>
-      <tbody>
-        <tr>
-          <FlatTableCell>Foo</FlatTableCell>
-        </tr>
-      </tbody>
-    </table>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  expect(() =>
+    render(
+      <table>
+        <tbody>
+          <tr>
+            <FlatTableCell>Foo</FlatTableCell>
+          </tr>
+        </tbody>
+      </table>,
     ),
+  ).toThrow(
+    "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 testStyledSystemPadding(

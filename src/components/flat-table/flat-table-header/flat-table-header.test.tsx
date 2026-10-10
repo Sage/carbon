@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Logger from "../../../__internal__/utils/logger";
 
 import FlatTableHeader from "./flat-table-header.component";
 
@@ -11,26 +10,26 @@ import FlatTableHead from "../flat-table-head/flat-table-head.component";
 import FlatTableBody from "../flat-table-body";
 import Sort from "../sort";
 
-test("logs error when not used within FlatTable", () => {
-  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+test("throws an error when not used within FlatTable", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-  render(
-    <table>
-      <tbody>
-        <tr>
-          <FlatTableHeader>Foo</FlatTableHeader>
-        </tr>
-      </tbody>
-    </table>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  expect(() =>
+    render(
+      <table>
+        <tbody>
+          <tr>
+            <FlatTableHeader>Foo</FlatTableHeader>
+          </tr>
+        </tbody>
+      </table>,
     ),
+  ).toThrow(
+    "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("should render with proper `width` styling on cell and first child when prop is passed", () => {

@@ -19,9 +19,6 @@ const [RadioButtonGroupProvider, useRadioButtonGroupContext] =
     name: "RadioButtonGroupContext",
     errorMessage:
       "Carbon RadioButtonGroup: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    defaultValue: {
-      size: "medium",
-    },
   });
 
 export { RadioButtonGroupProvider, useRadioButtonGroupContext };
