@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import { Shapes } from "./preview.component";
+import { SkeletonShape } from "./preview.component";
 
 const StyledPreview = styled.div.attrs(applyBaseTheme)`
   ${margin}
@@ -10,27 +10,29 @@ const StyledPreview = styled.div.attrs(applyBaseTheme)`
 interface StyledPreviewPlaceholderProps {
   height?: string;
   width?: string;
-  shape: Shapes;
+  shape: SkeletonShape;
   disableAnimation?: boolean;
-  isLastLine: boolean;
 }
 
 const shimmer = keyframes`
-  0% { 
-    opacity: 0.1;
-  }
-  70% { 
-    opacity: 1;
-  }
-  100% { 
-    opacity: 0.1;
-  }
+  from { background-position: -100% 0; }
+  to { background-position: 100% 0; }
 `;
 
-function getBorderRadius(shape: Shapes) {
+const presetHeights: Record<string, string> = {
+  h1: "38px",
+  h2: "30px",
+  h3: "26px",
+  h4: "23px",
+  paragraph: "21px",
+  button: "40px",
+};
+
+function getBorderRadius(shape: SkeletonShape) {
   switch (shape) {
+    case "rectangle-curved":
     case "rectangle-round":
-      return "var(--borderRadius400)";
+      return "var(--borderRadiusCircle)";
     case "circle":
       return "var(--borderRadiusCircle)";
     default:
@@ -38,55 +40,45 @@ function getBorderRadius(shape: Shapes) {
   }
 }
 
-function getHeight(shape: Shapes) {
-  if (shape.includes("rectangle")) {
-    return "var(--sizing400)";
-  }
-
+function getHeight(shape: SkeletonShape) {
   switch (shape) {
     case "circle":
-      return "var(--sizing700)";
+      return "40px";
     default:
-      return "var(--sizing175)";
+      return "21px";
   }
 }
 
-function getWidth(shape: Shapes) {
-  if (shape.includes("rectangle")) {
-    return "var(--sizing1500)";
-  }
-
+function getWidth() {
   return "100%";
 }
 
 const StyledPreviewPlaceholder = styled.span<StyledPreviewPlaceholderProps>`
-  ${({ shape, disableAnimation, isLastLine, height, width }) => {
+  ${({ shape, disableAnimation, height, width }) => {
     return css`
       display: block;
-      background: linear-gradient(
-        135deg,
-        var(--colorsUtilityMajor100),
-        var(--colorsUtilityMajor040)
+      background-color: var(--colorsUtilityMajor040);
+      background-image: linear-gradient(
+        90deg,
+        var(--colorsUtilityMajor040) 0%,
+        var(--colorsUtilityMajor100) 50%,
+        var(--colorsUtilityMajor040) 100%
       );
+      background-size: 200% 100%;
       border-radius: ${getBorderRadius(shape)};
-      height: ${height || getHeight(shape)};
-      width: ${width || getWidth(shape)};
-      animation: ${shimmer} 2s ease infinite;
-
-      ${isLastLine &&
-      shape === "text" &&
-      css`
-        width: calc(${width || getWidth(shape)}*0.8);
-      `}
+      height: ${height ? presetHeights[height] || height : getHeight(shape)};
+      width: ${width || (shape === "circle" ? "40px" : getWidth())};
+      animation: ${shimmer} 1.5s linear infinite;
 
       ${shape === "circle" &&
       css`
-        width: ${height || getHeight(shape)};
+        width: ${height ? presetHeights[height] || height : getHeight(shape)};
       `}
 
       ${disableAnimation &&
       css`
         animation: none;
+        background-image: none;
       `}
 
       & + & {

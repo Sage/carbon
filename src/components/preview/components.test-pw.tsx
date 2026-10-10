@@ -1,7 +1,7 @@
 import React from "react";
-import Preview, { PreviewProps } from ".";
+import Skeleton, { SkeletonProps } from "../skeleton";
 
-const PreviewComponent = (props: PreviewProps) => {
-  return <Preview loading {...props} />;
+const SkeletonComponent = (props: SkeletonProps) => {
+  return <Skeleton loading {...props} />;
 };
-export default PreviewComponent;
+export default SkeletonComponent;

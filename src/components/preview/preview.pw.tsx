@@ -1,20 +1,20 @@
 import React from "react";
 import { test } from "../../../playwright/helpers/base-test";
-import PreviewComponent from "./components.test-pw";
-import Preview from "../../../src/components/preview";
+import SkeletonComponent from "./components.test-pw";
+import Skeleton from "../../../src/components/skeleton";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const lines = [5, 6, 8, 10];
 
-test.describe("Accessibility tests for Preview component", () => {
+test.describe("Accessibility tests for Skeleton component", () => {
   testData.forEach((children) => {
     test(`should check accessibility when children is ${children}`, async ({
       mount,
       page,
     }) => {
-      await mount(<Preview>{children}</Preview>);
+      await mount(<Skeleton>{children}</Skeleton>);
 
       await checkAccessibility(page);
     });
@@ -25,7 +25,7 @@ test.describe("Accessibility tests for Preview component", () => {
       mount,
       page,
     }) => {
-      await mount(<PreviewComponent loading={bool} />);
+      await mount(<SkeletonComponent loading={bool} />);
 
       await checkAccessibility(page);
     });
@@ -36,7 +36,7 @@ test.describe("Accessibility tests for Preview component", () => {
       mount,
       page,
     }) => {
-      await mount(<PreviewComponent lines={line} />);
+      await mount(<SkeletonComponent lines={line} />);
 
       await checkAccessibility(page);
     });

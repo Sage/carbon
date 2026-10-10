@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import Preview from "./preview.component";
+import Skeleton from "../skeleton";
 import Box from "../box";
 import Button from "../button";
 
-const meta: Meta<typeof Preview> = {
-  title: "Preview/Test",
-  component: Preview,
+const meta: Meta<typeof Skeleton> = {
+  title: "Skeleton/Test",
+  component: Skeleton,
   parameters: {
     info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },
@@ -14,23 +14,23 @@ const meta: Meta<typeof Preview> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Preview>;
+type Story = StoryObj<typeof Skeleton>;
 
 export const PreviewChromaticSnapshots: Story = {
   render: () => (
     <Box display="flex" flexDirection="column" gap={2} width="320px">
-      <Preview loading />
-      <Preview loading lines={6} />
-      <Preview loading width="256px" />
-      <Preview loading height="256px" />
-      <Preview mb={2} loading shape="rectangle" />
-      <Preview mb={2} loading shape="rectangle-round" />
-      <Preview loading shape="circle" />
-      <Preview loading disableAnimation />
+      <Skeleton loading />
+      <Skeleton loading lines={6} />
+      <Skeleton loading width="256px" />
+      <Skeleton loading height="256px" />
+      <Skeleton mb={2} loading shape="rectangle-moderate" />
+      <Skeleton mb={2} loading shape="rectangle-curved" />
+      <Skeleton loading shape="circle" />
+      <Skeleton loading disableAnimation />
     </Box>
   ),
 };
-PreviewChromaticSnapshots.storyName = "Preview Chromatic Snapshots";
+PreviewChromaticSnapshots.storyName = "Skeleton Chromatic Snapshots";
 
 export const SnapshotWithChildren: Story = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,9 +39,9 @@ export const SnapshotWithChildren: Story = () => {
   };
   return (
     <>
-      <Preview loading={isLoading} lines={3}>
+      <Skeleton loading={isLoading} lines={3}>
         This the where the children are rendered
-      </Preview>
+      </Skeleton>
       <Button mt={2} onClick={handleOnClick}>
         {isLoading ? "Click to preview children" : "Click to see loading state"}
       </Button>
