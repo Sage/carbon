@@ -487,10 +487,12 @@ export const MenuFullScreenBackgroundScrollTest = () => {
       <Box height="100px" position="absolute" bottom="0px">
         I should not be scrolled into view
       </Box>
-      <MenuFullscreen isOpen onClose={() => {}}>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-      </MenuFullscreen>
+      <Menu>
+        <MenuFullscreen isOpen onClose={() => {}}>
+          <MenuItem href="#">Menu Item One</MenuItem>
+          <MenuItem href="#">Menu Item Two</MenuItem>
+        </MenuFullscreen>
+      </Menu>
     </Box>
   );
 };
@@ -706,10 +708,12 @@ export const ClosedMenuFullScreenWithButtons = () => {
       <button type="button" id="button-1">
         Button 1
       </button>
-      <MenuFullscreen isOpen={false} onClose={() => {}}>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-      </MenuFullscreen>
+      <Menu>
+        <MenuFullscreen isOpen={false} onClose={() => {}}>
+          <MenuItem href="#">Menu Item One</MenuItem>
+          <MenuItem href="#">Menu Item Two</MenuItem>
+        </MenuFullscreen>
+      </Menu>
       <button type="button" id="button-2">
         Button 2
       </button>

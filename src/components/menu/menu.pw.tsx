@@ -274,8 +274,9 @@ test.describe("Prop tests for Menu component", () => {
   }) => {
     await mount(<ClosedMenuFullScreenWithButtons />);
 
-    const button1 = page.getByRole("button").nth(0);
-    const button2 = page.getByRole("button").nth(1);
+    await expect(page.getByRole("button")).toHaveCount(2);
+    const button1 = page.locator("#button-1");
+    const button2 = page.locator("#button-2");
 
     await button1.focus();
     await expect(button1).toBeFocused();
