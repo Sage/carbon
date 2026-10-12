@@ -81,6 +81,8 @@ const StyledNavigationBar = styled.nav.attrs(
     ${$variant === "white" &&
     css`
       background-color: var(--nav-tertiary-bg-default);
+      border-bottom: var(--global-borderwidth-xs) solid
+        var(--nav-tertiary-border-default);
       color: var(--nav-tertiary-label-default);
     `}
   `}
