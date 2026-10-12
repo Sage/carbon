@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 
+import focusDayWithPickerDescription from "./focusDayWithPickerDescription";
+
 interface UseDatePickerFocusProps {
   open?: boolean;
+  pickerDescriptionId: string;
   getPickerDayFocusTarget: () => HTMLElement | null | undefined;
   resetChangedSelector: () => void;
 }
@@ -9,6 +12,7 @@ interface UseDatePickerFocusProps {
 /** Moves focus to the preferred day when the picker opens. */
 const useDatePickerFocus = ({
   open,
+  pickerDescriptionId,
   getPickerDayFocusTarget,
   resetChangedSelector,
 }: UseDatePickerFocusProps) => {
@@ -20,9 +24,27 @@ const useDatePickerFocus = ({
     }
 
     // Wait for the popover content and DayPicker focus effects to finish mounting.
-    const timeout = setTimeout(() => getPickerDayFocusTarget()?.focus(), 0);
-    return () => clearTimeout(timeout);
-  }, [getPickerDayFocusTarget, open, resetChangedSelector]);
+    let removePickerDescriptionFromDay: (() => void) | undefined;
+    const timeout = setTimeout(() => {
+      const target = getPickerDayFocusTarget();
+      if (target) {
+        removePickerDescriptionFromDay = focusDayWithPickerDescription(
+          target,
+          pickerDescriptionId,
+        );
+      }
+    }, 0);
+
+    return () => {
+      clearTimeout(timeout);
+      removePickerDescriptionFromDay?.();
+    };
+  }, [
+    getPickerDayFocusTarget,
+    open,
+    pickerDescriptionId,
+    resetChangedSelector,
+  ]);
 };
 
 export default useDatePickerFocus;

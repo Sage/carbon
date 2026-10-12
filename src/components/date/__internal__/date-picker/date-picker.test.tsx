@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { enGB as enGBDateLocale } from "date-fns/locale/en-GB";
 
 import Logger from "../../../../__internal__/utils/logger";
 import deDE from "../../../../locales/de-de";
@@ -91,6 +92,49 @@ test("renders the calendar dialog with a static aria-label from locale", () => {
   expect(screen.getByRole("dialog")).toHaveAttribute(
     "aria-label",
     "Choose a date",
+  );
+});
+
+test("describes the calendar dialog with keyboard instructions from locale", () => {
+  render(
+    <DatePickerWithInput onRequestPickerClose={() => {}} open disablePortal />,
+  );
+
+  const dialog = screen.getByRole("dialog");
+  const description = screen.getByText(
+    "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+  );
+
+  expect(dialog).toHaveAccessibleDescription(
+    "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+  );
+  expect(dialog).toContainElement(description);
+  expect(description).toHaveAttribute(
+    "id",
+    dialog.getAttribute("aria-describedby"),
+  );
+});
+
+test("describes the calendar dialog with a locale override", () => {
+  render(
+    <I18nProvider
+      locale={{
+        date: {
+          dateFnsLocale: () => enGBDateLocale,
+          ariaLabels: {
+            previousMonthButton: () => "Previous month",
+            nextMonthButton: () => "Next month",
+            openCalendarDescription: () => "Custom instructions",
+          },
+        },
+      }}
+    >
+      <DatePickerWithInput onRequestPickerClose={() => {}} open disablePortal />
+    </I18nProvider>,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
+    "Custom instructions",
   );
 });
 

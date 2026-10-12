@@ -2,8 +2,13 @@ import styled from "styled-components";
 
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
+import visuallyHidden from "../../../../style/utils/visually-hidden";
 
 export const datePickerPopoverHugBreakpoint = 368;
+
+export const DatePickerDescription = styled.span`
+  ${visuallyHidden}
+`;
 
 const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
   --date-picker-day-cell-size: var(--global-size-m);

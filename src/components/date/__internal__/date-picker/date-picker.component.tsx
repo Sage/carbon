@@ -4,7 +4,9 @@ import React, { useCallback, useRef, useState } from "react";
 import Popover from "../../../../__internal__/popover";
 import guid from "../../../../__internal__/utils/helpers/guid";
 import Logger from "../../../../__internal__/utils/logger";
-import StyledDatePickerDialog from "./date-picker.style";
+import StyledDatePickerDialog, {
+  DatePickerDescription,
+} from "./date-picker.style";
 import Calendar from "../calendar/calendar.component";
 import CalendarCloseButton from "../calendar/calendar-close-button.component";
 import CalendarNavigation from "../calendar/calendar-navigation.component";
@@ -53,6 +55,7 @@ export const DatePicker = ({
   );
   const {
     datePickerDialogAriaLabel,
+    datePickerDescription,
     closeButtonLabel,
     localize,
     weekStartsOn,
@@ -61,10 +64,13 @@ export const DatePicker = ({
   } = useDatePickerLocale();
 
   const pickerRef = useRef<HTMLDivElement>(null);
-  const [{ monthSelectId, yearSelectId }] = useState(() => ({
-    monthSelectId: `date-picker-month-${guid()}`,
-    yearSelectId: `date-picker-year-${guid()}`,
-  }));
+  const [{ monthSelectId, yearSelectId, pickerDescriptionId }] = useState(
+    () => ({
+      monthSelectId: `date-picker-month-${guid()}`,
+      yearSelectId: `date-picker-year-${guid()}`,
+      pickerDescriptionId: `date-picker-description-${guid()}`,
+    }),
+  );
 
   const closePickerAndRestoreFocus = useCallback(() => {
     const input = inputContainerRef.current?.querySelector("input");
@@ -117,6 +123,7 @@ export const DatePicker = ({
   });
   useDatePickerFocus({
     open,
+    pickerDescriptionId,
     getPickerDayFocusTarget,
     resetChangedSelector,
   });
@@ -147,7 +154,11 @@ export const DatePicker = ({
         onKeyDown={handleKeyDown}
         role="dialog"
         aria-label={datePickerDialogAriaLabel}
+        aria-describedby={pickerDescriptionId}
       >
+        <DatePickerDescription id={pickerDescriptionId}>
+          {datePickerDescription}
+        </DatePickerDescription>
         {/* When portaled, redirects Tab focus from the input into the calendar. */}
         {!disablePortal && (
           // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -169,7 +180,8 @@ export const DatePicker = ({
           onYearChange={handleYearChange}
         />
         <Calendar
-          dayPickerProps={dayPickerProps}
+          // DatePicker manages initial focus so it can attach the accessible calendar description before focus lands.
+          dayPickerProps={{ ...dayPickerProps, autoFocus: false }}
           focusedMonth={displayedMonth}
           selectedDays={selectedDate}
           minDate={minDate}

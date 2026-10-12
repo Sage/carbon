@@ -676,16 +676,28 @@ test.describe("When nested inside of a Dialog component", () => {
   }) => {
     await mount(<DateInputInsideDialog />);
 
+    const dialog = page.getByRole("dialog", { name: "Dialog", exact: true });
+    // Wait for the Dialog animation so it does not take focus from the picker.
+    await expect(page.getByTestId("modal")).toHaveAttribute(
+      "data-state",
+      "open",
+    );
+
     const calendarIcon = getDataElementByValue(page, "calendar_today");
     await calendarIcon.click();
 
     const datePicker = page.getByTestId("date-picker");
     await datePicker.waitFor();
 
-    await datePicker.press("Escape");
+    await expect(
+      datePicker.getByRole("button", {
+        name: "Sunday, May 1st, 2022, selected",
+      }),
+    ).toBeFocused();
+    await page.keyboard.press("Escape");
 
     await expect(datePicker).toBeHidden();
-    await expect(page.getByRole("dialog", { name: "Dialog" })).toBeVisible();
+    await expect(dialog).toBeVisible();
   });
 });
 
