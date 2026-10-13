@@ -73,7 +73,7 @@ const MenuWrapper = styled.div<ListProps>`
   z-index: var(--carbon-zindex-small-overlay);
 
   padding: ${({ $size }) => css`
-    ${paddingSize[$size]} var(--global-space-none)
+    ${paddingSize[$size]} ${paddingSize[$size]}
   `};
 
   ${({ $isButtonMenu }) =>
