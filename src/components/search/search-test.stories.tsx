@@ -6,6 +6,22 @@ import Icon from "../icon";
 import Portrait from "../portrait";
 import isChromatic from "../../../.storybook/isChromatic";
 
+const compactBlackBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-xs)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
+const wideBlackBackground: React.CSSProperties = {
+  width: "700px",
+  padding: "var(--global-space-layout-s)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
+const blackBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-s)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const defaultSearchControlsInclude = [
   "value",
   "aria-label",
@@ -118,11 +134,7 @@ const DefaultTestStory = (args: SearchProps) => {
   );
 
   if (rest.inverse) {
-    return (
-      <Box p={3} backgroundColor="#000000">
-        {search}
-      </Box>
-    );
+    return <div style={compactBlackBackground}>{search}</div>;
   }
 
   return search;
@@ -161,7 +173,7 @@ export const HoverAndFocusStyling = () => (
         data-role="search-default"
       />
     </Box>
-    <Box width="700px" p={4} backgroundColor="#000000">
+    <div style={wideBlackBackground}>
       <Search
         placeholder="Search..."
         onChange={() => {}}
@@ -170,7 +182,7 @@ export const HoverAndFocusStyling = () => (
         aria-label="Search inverse"
         data-role="search-inverse"
       />
-    </Box>
+    </div>
 
     <Box mb={4} width="700px" p={4}>
       <AutoFocusSearch
@@ -217,14 +229,14 @@ export const RegressionMatrix = () => (
       />
     </Box>
 
-    <Box p={4} backgroundColor="#000000">
+    <div style={blackBackground}>
       <Search
         onChange={() => {}}
         value="Inverse configuration"
         inverse
         aria-label="Inverse configuration"
       />
-    </Box>
+    </div>
 
     <Box p={4}>
       <Search
@@ -236,7 +248,7 @@ export const RegressionMatrix = () => (
       />
     </Box>
 
-    <Box p={4} backgroundColor="#000000">
+    <div style={blackBackground}>
       <Search
         onChange={() => {}}
         value="Inverse with label and input hint"
@@ -245,7 +257,7 @@ export const RegressionMatrix = () => (
         inputHint="Input hint"
         aria-label="Inverse with label and input hint"
       />
-    </Box>
+    </div>
 
     <Box p={4}>
       <Search
@@ -258,7 +270,7 @@ export const RegressionMatrix = () => (
       />
     </Box>
 
-    <Box p={4} backgroundColor="#000000">
+    <div style={blackBackground}>
       <Search
         onChange={() => {}}
         value="Inverse with label, input hint and error"
@@ -268,7 +280,7 @@ export const RegressionMatrix = () => (
         error="Error message above"
         aria-label="Inverse with label, input hint and error"
       />
-    </Box>
+    </div>
 
     <Box p={4}>
       <Search
@@ -282,7 +294,7 @@ export const RegressionMatrix = () => (
       />
     </Box>
 
-    <Box p={4} backgroundColor="#000000">
+    <div style={blackBackground}>
       <Search
         onChange={() => {}}
         value="Inverse with label, input hint and error"
@@ -293,7 +305,7 @@ export const RegressionMatrix = () => (
         validationMessagePositionTop={false}
         aria-label="Inverse with label, input hint and error"
       />
-    </Box>
+    </div>
 
     <Box p={4}>
       <Search
@@ -306,7 +318,7 @@ export const RegressionMatrix = () => (
       />
     </Box>
 
-    <Box p={4} backgroundColor="#000000">
+    <div style={blackBackground}>
       <Search
         onChange={() => {}}
         value="Inverse with label inline and input hint"
@@ -316,7 +328,7 @@ export const RegressionMatrix = () => (
         labelInline
         aria-label="Inverse with label inline and input hint"
       />
-    </Box>
+    </div>
 
     <Box p={4}>
       <Search
@@ -329,7 +341,7 @@ export const RegressionMatrix = () => (
       />
     </Box>
 
-    <Box p={4} backgroundColor="#000000">
+    <div style={blackBackground}>
       <Search
         onChange={() => {}}
         value="Inverse required with label and input hint"
@@ -339,7 +351,7 @@ export const RegressionMatrix = () => (
         required
         aria-label="Inverse required with label and input hint"
       />
-    </Box>
+    </div>
   </Box>
 );
 RegressionMatrix.storyName = "Regression Matrix";

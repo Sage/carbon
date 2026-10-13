@@ -4,6 +4,17 @@ import Button, { ButtonProps } from "./button.component";
 import Box from "../../box";
 import { Variant, VariantType } from "./button.config";
 
+const blackBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
+const blackFlexBackground: React.CSSProperties = {
+  ...blackBackground,
+  display: "flex",
+  flexDirection: "row",
+  gap: "var(--global-space-layout-2-xs)",
+};
+
 export const ButtonDefault = ({ children, ...args }: Partial<ButtonProps>) => (
   <Button onClick={() => {}} {...args}>
     {children}
@@ -163,12 +174,7 @@ export const SecondaryButtonIconAfter = () => {
 
 export const SecondaryButtonWhite = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
+    <div style={blackFlexBackground}>
       <Button size="small" inverse>
         Small
       </Button>
@@ -178,7 +184,7 @@ export const SecondaryButtonWhite = () => {
       <Button size="large" inverse>
         Large
       </Button>
-    </Box>
+    </div>
   );
 };
 
@@ -188,7 +194,7 @@ export const TertiaryButtonIconBefore = () => {
 
 export const DarkBackgroundButtonIconBefore = () => {
   return (
-    <Box backgroundColor="var(--colorsUtilityYin100)">
+    <div style={blackBackground}>
       <Button
         variant="default"
         variantType="primary"
@@ -247,6 +253,6 @@ export const DarkBackgroundButtonIconBefore = () => {
       >
         Large Destructive
       </Button>
-    </Box>
+    </div>
   );
 };

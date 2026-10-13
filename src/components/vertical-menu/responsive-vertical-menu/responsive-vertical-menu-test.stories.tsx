@@ -13,6 +13,24 @@ import Icon from "../../icon";
 import Loader from "../../loader/__next__";
 import Typography from "../../typography";
 
+const whiteTextColumn: React.CSSProperties = {
+  display: "flex",
+  width: "100%",
+  alignItems: "center",
+  gap: "var(--global-space-layout-3-xs)",
+  flexDirection: "column",
+  justifyContent: "center",
+  color: "rgb(255, 255, 255)",
+};
+
+const whiteTextRow: React.CSSProperties = {
+  display: "flex",
+  width: "100%",
+  alignItems: "center",
+  gap: "var(--global-space-layout-3-xs)",
+  color: "rgb(255, 255, 255)",
+};
+
 export default {
   title: "Vertical Menu/Responsive/Test",
   component: ResponsiveVerticalMenu,
@@ -375,18 +393,10 @@ export const WithFullIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
           id="loading-menu"
           label="Loading"
         >
-          <Box
-            display="flex"
-            width="100%"
-            alignItems="center"
-            gap={1}
-            flexDirection="column"
-            justifyContent="center"
-            color="white"
-          >
+          <div style={whiteTextColumn}>
             <Loader loaderType="ring" inverse showLabel={false} />
             <span>Loading, please wait...</span>
-          </Box>
+          </div>
         </ResponsiveVerticalMenuItem>
       </ResponsiveVerticalMenu>
     </GlobalHeader>
@@ -419,18 +429,10 @@ export const NoIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
           <ResponsiveVerticalMenuItem id="sales" label="Sales" />
         </ResponsiveVerticalMenuItem>
         <ResponsiveVerticalMenuItem id="loading-menu" label="Loading">
-          <Box
-            display="flex"
-            width="100%"
-            alignItems="center"
-            gap={1}
-            flexDirection="column"
-            justifyContent="center"
-            color="white"
-          >
+          <div style={whiteTextColumn}>
             <Loader loaderType="ring" inverse showLabel={false} />
             <span>Loading, please wait...</span>
-          </Box>
+          </div>
         </ResponsiveVerticalMenuItem>
       </ResponsiveVerticalMenu>
     </GlobalHeader>
@@ -458,33 +460,19 @@ export const MixedIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
         <ResponsiveVerticalMenuItem
           id="primary-menu"
           label={
-            <Box
-              display="flex"
-              width="100%"
-              alignItems="center"
-              gap={1}
-              color="white"
-            >
+            <div style={whiteTextRow}>
               <span>Primary Menu Item</span>
               <Icon type="link" />
-            </Box>
+            </div>
           }
         >
           <ResponsiveVerticalMenuItem id="sales" label="Sales" />
         </ResponsiveVerticalMenuItem>
         <ResponsiveVerticalMenuItem id="loading-menu" label="Loading">
-          <Box
-            display="flex"
-            width="100%"
-            alignItems="center"
-            gap={1}
-            flexDirection="column"
-            justifyContent="center"
-            color="white"
-          >
+          <div style={whiteTextColumn}>
             <Loader loaderType="ring" inverse showLabel={false} />
             <span>Loading, please wait...</span>
-          </Box>
+          </div>
         </ResponsiveVerticalMenuItem>
       </ResponsiveVerticalMenu>
     </GlobalHeader>
