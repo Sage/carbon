@@ -787,6 +787,9 @@ describe("PopoverMenu - button menu", () => {
     );
 
     await user.click(screen.getByRole("button", { name: "Button label" }));
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Item 1" })).toHaveFocus(),
+    );
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{ArrowDown}");
@@ -1077,6 +1080,7 @@ describe("PopoverMenu - button menu", () => {
     expect(screen.getByRole("button", { name: "Subitem 1" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Subitem 2" })).toBeVisible();
 
+    screen.getByRole("button", { name: "Subitem 1" }).focus();
     await user.keyboard("{Escape}");
 
     expect(
@@ -1085,6 +1089,8 @@ describe("PopoverMenu - button menu", () => {
     expect(
       screen.queryByRole("button", { name: "Subitem 2" }),
     ).not.toBeInTheDocument();
+
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveFocus();
 
     screen.getAllByRole("button").forEach((item) => {
       expect(item).toBeVisible();

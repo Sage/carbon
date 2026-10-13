@@ -25,7 +25,7 @@ export default {
     info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },
     chromatic: {
-      disableSnapshot: false,
+      disableSnapshot: true,
     },
   },
 };
@@ -265,6 +265,11 @@ const CreatePopoverInMenu = () => {
 };
 
 export const CreatePopoverInMenuStory: Story = {
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+    },
+  },
   render: () => <CreatePopoverInMenu />,
   play: async ({ canvas }) => {
     if (!allowInteractions()) {

@@ -390,9 +390,7 @@ describe("Modal Dialog", () => {
 
   test("maximum height of the dialog is 90% of the viewport height", () => {
     render(<Dialog open title="My dialog" />);
-    expect(screen.getByRole("dialog")).toHaveStyle({
-      maxHeight: "90vh",
-    });
+    expect(screen.getByRole("dialog")).toHaveStyleRule("max-height", "90vh");
   });
 
   test("dialog element has correct data-* props", () => {
@@ -453,7 +451,7 @@ describe("Modal Dialog", () => {
 
     const content = screen.getByTestId("dialog-content");
 
-    expect(content).toHaveStyle({ padding: "var(--spacing000)" });
+    expect(content).toHaveStyleRule("padding", "var(--spacing000)");
   });
 
   test("background scroll remains disabled when returning to outer dialog after closing inner dialog", async () => {

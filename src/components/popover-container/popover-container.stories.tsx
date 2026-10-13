@@ -31,6 +31,9 @@ const meta: Meta<typeof PopoverContainer> = {
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: {
+      disableSnapshot: true,
+    },
   },
   decorators: [
     (Story) => (

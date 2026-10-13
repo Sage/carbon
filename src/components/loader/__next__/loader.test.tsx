@@ -316,9 +316,11 @@ test("renders correctly when `loaderType` is `ring` and `inverse` prop is set", 
 test("renders correctly when `loaderType` is `ring` and `trackedAnimation` prop is set", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" isTracked />);
   const element = screen.getByRole("presentation");
-  const styles = window.getComputedStyle(element);
-
-  expect(styles.animationName).not.toBe("none");
+  expect(element).toHaveStyleRule(
+    "animation-name",
+    expect.not.stringMatching(/^none$/),
+    { modifier: "circle[data-role='inner-arc']" },
+  );
 
   expect(element).toHaveStyleRule(
     "animation-duration",

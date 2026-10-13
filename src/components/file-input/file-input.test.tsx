@@ -251,7 +251,10 @@ describe("interactions", () => {
       dataTransfer: { files: [file], types: ["Files"] },
     });
 
-    expect(inputArea).toHaveStyle("background: var(--colorsUtilityMajor100)");
+    expect(inputArea).toHaveStyleRule(
+      "background",
+      "var(--colorsUtilityMajor100)",
+    );
   });
 
   it("dragging a file over the input area and then away causes the background of the input area to return to the default", () => {
@@ -269,7 +272,10 @@ describe("interactions", () => {
       dataTransfer: { files: [file], types: ["Files"] },
     });
 
-    expect(inputArea).toHaveStyle("background: var(--colorsUtilityYang100)");
+    expect(inputArea).toHaveStyleRule(
+      "background",
+      "var(--colorsUtilityYang100)",
+    );
   });
 
   it("dragging something that isn't a file over the input area has no effect", () => {
@@ -281,7 +287,10 @@ describe("interactions", () => {
       dataTransfer: { files: [], types: [] },
     });
 
-    expect(inputArea).toHaveStyle("background: var(--colorsUtilityYang100)");
+    expect(inputArea).toHaveStyleRule(
+      "background",
+      "var(--colorsUtilityYang100)",
+    );
   });
 
   it("dragging and dropping a file over the input area calls the onChange prop with the dragged file as argument", () => {

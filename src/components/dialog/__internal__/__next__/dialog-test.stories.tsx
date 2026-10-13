@@ -278,3 +278,32 @@ export const DialogStickyFormSmallScreen: Story = {
     );
   },
 };
+
+export const WrappedHeaderWithIcon: StoryObj<typeof Dialog> = {
+  name: "Wrapped Header With Icon",
+  parameters: {
+    chromatic: {
+      modes: {
+        // as we are constraining width anyways we only need to test the desktop mode for Chromatic
+        desktop: allModes.chromatic,
+      },
+    },
+  },
+  render: () => (
+    <Dialog
+      open
+      size="small"
+      title={
+        <DialogHeader
+          status="info"
+          subtitle="Subtitle"
+          title="Really really really really really really really really really really really really really really really really really really really really really really really really long title."
+        />
+      }
+      onCancel={() => {}}
+      footer={<Buttons />}
+    >
+      {dialogContent}
+    </Dialog>
+  ),
+};

@@ -303,9 +303,10 @@ test("renders expected delete spacing for size XL", () => {
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    padding: "0 calc(32px + var(--global-space-comp-xs)) 0 12px",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "padding",
+    "0 calc(32px + var(--global-space-comp-xs)) 0 12px",
+  );
   expect(screen.getByRole("button")).toHaveStyle({
     width: "32px",
     padding: "0",
@@ -332,10 +333,10 @@ test("renders expected delete spacing for size S", () => {
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    padding:
-      "0 calc(20px + var(--global-space-comp-xs)) 0 var(--global-space-comp-s)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "padding",
+    "0 calc(20px + var(--global-space-comp-xs)) 0 var(--global-space-comp-s)",
+  );
   expect(screen.getByRole("button")).toHaveStyle({
     width: "20px",
     padding: "0",
@@ -349,10 +350,10 @@ test("renders expected delete spacing for size M", () => {
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    padding:
-      "0 calc(24px + var(--global-space-comp-xs)) 0 var(--global-space-comp-s)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "padding",
+    "0 calc(24px + var(--global-space-comp-xs)) 0 var(--global-space-comp-s)",
+  );
   expect(screen.getByRole("button")).toHaveStyle({
     width: "24px",
     padding: "0",
@@ -366,10 +367,10 @@ test("renders expected delete spacing for size L", () => {
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    padding:
-      "0 calc(28px + var(--global-space-comp-xs)) 0 var(--global-space-comp-s)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "padding",
+    "0 calc(28px + var(--global-space-comp-xs)) 0 var(--global-space-comp-s)",
+  );
   expect(screen.getByRole("button")).toHaveStyle({
     width: "28px",
     padding: "0",

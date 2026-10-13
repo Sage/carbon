@@ -87,7 +87,7 @@ it("applies the boxShadow styling correctly when a design token is passed in", (
   render(<Box boxShadow="boxShadow100" data-role="box" />);
 
   const box = screen.getByTestId("box");
-  expect(box).toHaveStyle(`box-shadow: var(--boxShadow100)`);
+  expect(box).toHaveStyleRule("box-shadow", "var(--boxShadow100)");
 });
 
 test("sets the correct border radius when `borderRadius` is passed with multiple border radius values", () => {

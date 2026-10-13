@@ -87,7 +87,7 @@ test("applies transparent background and no border to input, when transparent pr
   );
 
   expect(screen.getByRole("combobox")).toHaveStyle(
-    "background-color: transparent",
+    "background-color: rgba(0, 0, 0, 0)",
   );
 });
 

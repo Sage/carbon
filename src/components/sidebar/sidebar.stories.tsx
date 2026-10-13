@@ -4,18 +4,15 @@ import isChromatic from "../../../.storybook/isChromatic";
 import allModes from "../../../.storybook/modes";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import Button from "../button";
+import Button from "../button/__next__";
 import Typography from "../typography";
 import Form from "../form";
-import Toast from "../toast";
 import Textbox from "../textbox";
 import Box from "../box";
 import Dialog from "../dialog";
-import Confirm from "../confirm";
 import Message from "../message";
 
-import Sidebar from ".";
-import Icon from "../icon";
+import Sidebar, { SidebarProps } from ".";
 
 const styledSystemProps = generateStyledSystemProps({
   padding: true,
@@ -74,8 +71,8 @@ export const DefaultStory: Story = () => {
         }}
       >
         <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
+          <Button variantType="primary">Test</Button>
+          <Button variantType="secondary" ml={2}>
             Last
           </Button>
         </Box>
@@ -85,7 +82,151 @@ export const DefaultStory: Story = () => {
   );
 };
 DefaultStory.storyName = "Default";
-DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
+
+export const ResponsiveBehavior: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header="Responsive sidebar"
+      >
+        <Form
+          leftSideButtons={<Button variantType="tertiary">Cancel</Button>}
+          saveButton={<Button variantType="primary">Save</Button>}
+          stickyFooter
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <Box height="1000px">Long content</Box>
+        </Form>
+      </Sidebar>
+    </>
+  );
+};
+ResponsiveBehavior.storyName = "Sticky Form Footer: Responsive Behavior";
+ResponsiveBehavior.parameters = {
+  chromatic: {
+    modes: {
+      aboveBreakpoint: {
+        ...allModes.chromatic,
+        viewport: { ...allModes.chromatic.viewport, width: 769 },
+      },
+      atBreakpoint: {
+        ...allModes.chromatic,
+        viewport: { ...allModes.chromatic.viewport, width: 768 },
+      },
+    },
+  },
+};
+
+export const CustomFooter: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header="Sidebar with custom footer"
+        footer={
+          <>
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button variantType="primary">Save</Button>
+          </>
+        }
+        stickyFooter
+      >
+        <Box height="1000px">Long content</Box>
+      </Sidebar>
+    </>
+  );
+};
+CustomFooter.storyName = "Custom Footer (Sticky)";
+
+export const NonStickyCustomFooter: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header="Sidebar with non-sticky custom footer"
+        footer={
+          <>
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button variantType="primary">Save</Button>
+          </>
+        }
+      >
+        <Box height="1000px">Long content</Box>
+      </Sidebar>
+    </>
+  );
+};
+NonStickyCustomFooter.storyName = "Custom Footer (Non-sticky)";
+
+export const SmallScreenBehavior: Story = {
+  name: "Custom Footer: Disable Sticky on Small Screens",
+  args: {
+    open: isChromatic(),
+    header: "Small screen sidebar",
+    disableStickyOnSmallScreen: true,
+  },
+  render: function SmallScreenBehaviorRender({
+    onCancel,
+    ...args
+  }: Partial<SidebarProps>) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
+          Open sidebar
+        </Button>
+        <Typography mt={2}>
+          Although <code>stickyFooter</code> is enabled{" "}
+          <code>disableStickyOnSmallScreen</code>
+          disables sticky behavior on small screens at 768px and below. The
+          header, content, and custom footer then scroll together
+        </Typography>
+        <Sidebar
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            setOpen(false);
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }}
+          footer={
+            <>
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button variantType="primary">Save</Button>
+            </>
+          }
+          stickyFooter
+        >
+          <Box height="1000px">Long content</Box>
+        </Sidebar>
+      </>
+    );
+  },
+  parameters: {
+    chromatic: {
+      modes: {
+        atBreakpoint: {
+          ...allModes.chromatic,
+          viewport: { ...allModes.chromatic.viewport, width: 768 },
+        },
+      },
+    },
+  },
+};
 
 export const RestoreFocusOnCloseStory: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -106,10 +247,10 @@ export const RestoreFocusOnCloseStory: Story = () => {
       {showMessage && (
         <Message
           ref={messageRef}
-          variant="error"
+          variant="info"
           onDismiss={() => setShowMessage(false)}
         >
-          Some custom message
+          Sidebar closed; focus moved to this message.
         </Message>
       )}
       <Sidebar
@@ -123,8 +264,8 @@ export const RestoreFocusOnCloseStory: Story = () => {
         restoreFocusOnClose={false}
       >
         <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
+          <Button variantType="primary">Test</Button>
+          <Button variantType="secondary" ml={2}>
             Last
           </Button>
         </Box>
@@ -133,27 +274,48 @@ export const RestoreFocusOnCloseStory: Story = () => {
     </>
   );
 };
-RestoreFocusOnCloseStory.storyName = "With Restore Focus On Close";
+RestoreFocusOnCloseStory.storyName = "Without Automatic Focus Restoration";
 RestoreFocusOnCloseStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const CustomPaddingAroundContent: Story = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar open={isOpen} onCancel={() => setIsOpen(false)} p={0}>
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        Main Content
-      </Sidebar>
-    </>
-  );
+export const CustomPaddingAroundContent: Story = {
+  args: {
+    p: "var(--global-space-comp-xl)",
+  },
+  parameters: {
+    controls: { include: ["p"] },
+  },
+  render: function CustomPaddingAroundContentRender({
+    p,
+  }: Partial<SidebarProps>) {
+    const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+        <Typography mt={2}>
+          Use the <code>p</code> control to override the default content
+          padding. Set it to <code>var(--global-space-comp-none)</code> for
+          edge-to-edge content.
+        </Typography>
+        <Sidebar
+          aria-label="Sidebar with custom content padding"
+          open={isOpen}
+          onCancel={() => setIsOpen(false)}
+          p={p}
+        >
+          <Box mb={2}>
+            <Button variantType="primary">Test</Button>
+            <Button variantType="secondary" ml={2}>
+              Last
+            </Button>
+          </Box>
+          Main Content
+        </Sidebar>
+      </>
+    );
+  },
 };
-CustomPaddingAroundContent.storyName = "Custom Padding Around Content";
+CustomPaddingAroundContent.storyName = "Content Padding (p Prop)";
 
 export const WithHeader: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -163,11 +325,11 @@ export const WithHeader: Story = () => {
       <Sidebar
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
+        header="Sidebar header"
       >
         <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
+          <Button variantType="primary">Test</Button>
+          <Button variantType="secondary" ml={2}>
             Last
           </Button>
         </Box>
@@ -177,7 +339,6 @@ export const WithHeader: Story = () => {
   );
 };
 WithHeader.storyName = "With Header";
-WithHeader.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHeaderAndSubheader: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -187,16 +348,16 @@ export const WithHeaderAndSubheader: Story = () => {
       <Sidebar
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
+        header="Sidebar header"
         subHeader={
-          <Button iconType="chevron_left_thick" buttonType="tertiary">
+          <Button iconType="chevron_left_thick" variantType="tertiary">
             Action
           </Button>
         }
       >
         <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
+          <Button variantType="primary">Test</Button>
+          <Button variantType="secondary" ml={2}>
             Last
           </Button>
         </Box>
@@ -207,17 +368,8 @@ export const WithHeaderAndSubheader: Story = () => {
 };
 WithHeaderAndSubheader.storyName = "With Header And Subheader";
 
-export const WithDarkHeader: Story = () => {
+export const WithInverseHeader: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
-
-  const headerNode = (
-    <Box display="flex" alignItems="center" gap="8px">
-      <Icon type="chat" inverse />
-      <Typography variant="h2" inverse>
-        Sidebar header
-      </Typography>
-    </Box>
-  );
 
   return (
     <>
@@ -225,12 +377,12 @@ export const WithDarkHeader: Story = () => {
       <Sidebar
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={headerNode}
-        headerVariant="dark"
+        header="Sidebar header"
+        headerVariant="inverse"
       >
         <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
+          <Button variantType="primary">Test</Button>
+          <Button variantType="secondary" ml={2}>
             Last
           </Button>
         </Box>
@@ -239,7 +391,26 @@ export const WithDarkHeader: Story = () => {
     </>
   );
 };
-WithDarkHeader.storyName = "With Dark Header";
+WithInverseHeader.storyName = "With Inverse Header";
+
+export const WithGradientKeyLine: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header="Sidebar header"
+        gradientKeyLine
+      >
+        Main Content
+      </Sidebar>
+    </>
+  );
+};
+WithGradientKeyLine.storyName = "With Gradient Keyline";
 
 export const WithScroll: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -249,11 +420,11 @@ export const WithScroll: Story = () => {
       <Sidebar
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
+        header="Sidebar header"
       >
         <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
+          <Button variantType="primary">Test</Button>
+          <Button variantType="secondary" ml={2}>
             Last
           </Button>
         </Box>
@@ -265,106 +436,20 @@ export const WithScroll: Story = () => {
 WithScroll.storyName = "With Scroll";
 WithScroll.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithTypography: Story = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar
-        aria-label="sidebar"
-        position="left"
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar Header</Typography>}
-      >
-        <Form
-          rightSideButtons={<Button>Action button</Button>}
-          stickyFooter
-          buttonAlignment="right"
-        >
-          <Typography variant="p">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus
-            massa, suscipit vitae pellentesque quis, facilisis non ante.
-            Curabitur fringilla sapien non ante elementum venenatis. Curabitur
-            viverra, massa ac congue imperdiet, purus ligula dictum quam, id
-            tincidunt diam risus quis eros. Vivamus semper sem ac tempor
-            malesuada. Proin nec sollicitudin mi. Nunc egestas ipsum ac lorem
-            pretium blandit. Quisque ac ultricies lacus. Phasellus vel enim id
-            est ornare finibus eget vitae ipsum. Maecenas non accumsan dolor.
-            Morbi sed mauris mollis lorem finibus feugiat. Maecenas scelerisque
-            nec orci ac finibus. Nulla dictum, quam vel gravida lobortis, nisl
-            eros vulputate augue, eget malesuada lacus elit sed leo. In a ex id
-            metus vulputate sollicitudin at eget neque. Aliquam cursus quis odio
-            in consequat.
-          </Typography>
-          <Typography variant="p">
-            In a finibus tellus, non rutrum est. Nam sed cursus diam. Sed
-            commodo metus laoreet, tristique velit in, scelerisque lectus.
-            Nullam suscipit eu nulla vel porttitor. Donec aliquet faucibus nunc
-            consequat feugiat. Donec libero arcu, consequat in laoreet eu,
-            maximus a nunc. Sed tincidunt nisl vitae diam dapibus, eu varius
-            ipsum vestibulum. Suspendisse auctor mattis turpis, in placerat nunc
-            ornare vitae. Phasellus id ante a mi ultricies pellentesque. Donec
-            laoreet lectus sit amet blandit varius. Orci varius natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Nullam quis est tempus, posuere elit in, hendrerit risus.
-          </Typography>
-          <Typography variant="p">
-            In ac nisi ante. Duis ut tellus lacus. Mauris vitae ultrices ipsum.
-            Integer pretium non risus a convallis. Vivamus eu egestas magna, in
-            blandit elit. In at efficitur urna. Quisque nec interdum nisi. Sed
-            pharetra neque ac ipsum bibendum semper. Ut et egestas metus. Nullam
-            nec porttitor turpis. Pellentesque a dapibus libero.
-          </Typography>
-          <Typography variant="p">
-            Duis accumsan luctus risus. Ut eu nisi sed mi sodales sodales.
-            Pellentesque habitant morbi tristique senectus et netus et malesuada
-            fames ac turpis egestas. Etiam id turpis et diam varius sollicitudin
-            quis ullamcorper orci. Vivamus et est eget ante pellentesque
-            commodo. Sed sed lacus vitae arcu ullamcorper fermentum et in
-            mauris. Fusce tempor tellus vitae nibh sodales hendrerit. Cras erat
-            purus, feugiat vitae tellus in, iaculis aliquet elit. In nec neque
-            tristique, faucibus dui a, fermentum ipsum. Vestibulum rutrum, augue
-            eget bibendum mattis, purus augue commodo urna, nec porta mi turpis
-            eget risus. Curabitur ut tincidunt tellus. Fusce vel elit bibendum,
-            varius eros sit amet, convallis nisl. Nunc venenatis sed lacus at
-            consectetur. Etiam tincidunt varius lorem. Aliquam finibus finibus
-            rutrum.
-          </Typography>
-          <Typography variant="p">
-            Nam augue urna, congue ac dictum vel, porttitor ac tortor. Phasellus
-            in dictum sem, ut fringilla nibh. Vivamus efficitur tortor auctor
-            augue aliquet ullamcorper. Aliquam et velit ut turpis tempor rutrum
-            at et erat. Nam imperdiet sapien eros, a mollis felis tristique
-            quis. Suspendisse sed ipsum sit amet eros scelerisque volutpat quis
-            non libero. Vivamus non venenatis orci, at consequat leo.
-            Suspendisse non turpis quis odio malesuada vehicula dignissim non
-            est. Ut eu tortor at ligula venenatis porttitor. Vestibulum euismod
-            felis et elementum luctus. Integer in libero at turpis sodales
-            aliquam. Donec pellentesque metus sit amet lorem ullamcorper, ac
-            ullamcorper odio tincidunt.
-          </Typography>
-        </Form>
-      </Sidebar>
-    </>
-  );
-};
-WithTypography.storyName = "With Typography";
-
 export const OtherFocusableContainers: Story = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isToast1Open, setIsToast1Open] = useState(false);
-  const [isToast2Open, setIsToast2Open] = useState(false);
-  const toast1Ref = useRef(null);
-  const toast2Ref = useRef(null);
+  const [isMessage1Open, setIsMessage1Open] = useState(false);
+  const [isMessage2Open, setIsMessage2Open] = useState(false);
+  const message1Ref = useRef(null);
+  const message2Ref = useRef(null);
   return (
     <>
       <Button onClick={() => setIsSidebarOpen(true)}>Open sidebar</Button>
       <Sidebar
         open={isSidebarOpen}
         onCancel={() => setIsSidebarOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
-        focusableContainers={[toast1Ref, toast2Ref]}
+        header="Sidebar header"
+        focusableContainers={[message1Ref, message2Ref]}
       >
         <Form
           stickyFooter
@@ -373,7 +458,7 @@ export const OtherFocusableContainers: Story = () => {
             <Button onClick={() => setIsSidebarOpen(false)}>Cancel</Button>
           }
           saveButton={
-            <Button buttonType="primary" type="submit">
+            <Button variantType="primary" type="submit">
               Save
             </Button>
           }
@@ -384,34 +469,37 @@ export const OtherFocusableContainers: Story = () => {
           <Textbox label="First Name" value="" onChange={() => {}} />
           <Textbox label="Middle Name" onChange={() => {}} value="" />
           <Textbox label="Surname" onChange={() => {}} value="" />
-          <Button onClick={() => setIsToast1Open(true)}>
-            Show first toast
-          </Button>
-          <Button
-            ml={2}
-            buttonType="primary"
-            onClick={() => setIsToast2Open(true)}
-          >
-            Show second toast
-          </Button>
+          <Box display="flex" gap={2}>
+            <Button onClick={() => setIsMessage1Open(true)}>
+              Show first message
+            </Button>
+            <Button
+              variantType="primary"
+              onClick={() => setIsMessage2Open(true)}
+            >
+              Show second message
+            </Button>
+          </Box>
         </Form>
       </Sidebar>
-      <Toast
-        open={isToast1Open}
-        onDismiss={() => setIsToast1Open(false)}
-        ref={toast1Ref}
-        targetPortalId="stacked"
-      >
-        Toast message 1
-      </Toast>
-      <Toast
-        open={isToast2Open}
-        onDismiss={() => setIsToast2Open(false)}
-        ref={toast2Ref}
-        targetPortalId="stacked"
-      >
-        Toast message 2
-      </Toast>
+      {(isMessage1Open || isMessage2Open) && (
+        <Box mt={2}>
+          <Message
+            open={isMessage1Open}
+            onDismiss={() => setIsMessage1Open(false)}
+            ref={message1Ref}
+          >
+            Message 1
+          </Message>
+          <Message
+            open={isMessage2Open}
+            onDismiss={() => setIsMessage2Open(false)}
+            ref={message2Ref}
+          >
+            Message 2
+          </Message>
+        </Box>
+      )}
     </>
   );
 };
@@ -428,7 +516,7 @@ export const CustomWidth: Story = () => {
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         width="25%"
-        header={<Typography variant="h3">Sidebar</Typography>}
+        header="Sidebar"
       >
         <Box
           mb={2}
@@ -437,8 +525,8 @@ export const CustomWidth: Story = () => {
           flexWrap="nowrap"
           gap={1}
         >
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
+          <Button variantType="primary">Test</Button>
+          <Button variantType="secondary" ml={2}>
             Last
           </Button>
         </Box>
@@ -449,47 +537,48 @@ export const CustomWidth: Story = () => {
 };
 CustomWidth.storyName = "Custom Width";
 
-export const WithHeaderAndFooterPadding: Story = () => {
+export const CustomHeaderPadding: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
       <Sidebar
-        aria-label="sidebar"
-        position="left"
         open={isOpen}
         onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar Header</Typography>}
-        p={2}
-        headerPadding={{ p: 2 }}
+        header="Sidebar Header"
+        headerPadding={{ p: "var(--global-space-comp-l)" }}
       >
-        <Form
-          rightSideButtons={<Button>Action button</Button>}
-          stickyFooter
-          buttonAlignment="right"
-          footerPadding={{ p: 2 }}
-        >
-          <Typography variant="p">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus
-            massa, suscipit vitae pellentesque quis, facilisis non ante.
-            Curabitur fringilla sapien non ante elementum venenatis. Curabitur
-            viverra, massa ac congue imperdiet, purus ligula dictum quam, id
-            tincidunt diam risus quis eros. Vivamus semper sem ac tempor
-            malesuada. Proin nec sollicitudin mi. Nunc egestas ipsum ac lorem
-            pretium blandit. Quisque ac ultricies lacus. Phasellus vel enim id
-            est ornare finibus eget vitae ipsum. Maecenas non accumsan dolor.
-            Morbi sed mauris mollis lorem finibus feugiat. Maecenas scelerisque
-            nec orci ac finibus. Nulla dictum, quam vel gravida lobortis, nisl
-            eros vulputate augue, eget malesuada lacus elit sed leo. In a ex id
-            metus vulputate sollicitudin at eget neque. Aliquam cursus quis odio
-            in consequat.
-          </Typography>
-        </Form>
+        <Typography variant="p">
+          The header uses <code>headerPadding</code> with the compact
+          <code>comp-l</code> token. Content retains the default padding.
+        </Typography>
       </Sidebar>
     </>
   );
 };
-WithHeaderAndFooterPadding.storyName = "With Header and Footer Padding";
+CustomHeaderPadding.storyName = "Header Padding";
+
+export const CustomHeaderAndContentPadding: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header="Sidebar Header"
+        headerPadding={{ p: "var(--global-space-comp-l)" }}
+        p="var(--global-space-comp-none)"
+      >
+        <Typography variant="p">
+          The header uses compact padding while the <code>p</code> prop removes
+          content padding for edge-to-edge content.
+        </Typography>
+      </Sidebar>
+    </>
+  );
+};
+CustomHeaderAndContentPadding.storyName = "Custom Header and Content Padding";
 
 export const TopModalOverride: Story = () => {
   const [isOpenAll, setIsOpenAll] = useState(defaultOpenState);
@@ -509,14 +598,23 @@ export const TopModalOverride: Story = () => {
       >
         Open dialogs
       </Button>
-      <Confirm
+      <Dialog
         open={isOpenDialogFullScreen && isOpenAll}
         onCancel={() => setIsOpenDialogFullScreen(false)}
+        role="alertdialog"
         title="Confirm"
-        onConfirm={() => {}}
+        showCloseIcon={false}
       >
         <Textbox label="Confirm textbox" value="" onChange={() => {}} />
-      </Confirm>
+        <Box mt="var(--spacing600)" display="flex" justifyContent="flex-end">
+          <Button onClick={() => setIsOpenDialogFullScreen(false)}>
+            Cancel
+          </Button>
+          <Button variantType="primary" ml="var(--spacing110)">
+            Confirm
+          </Button>
+        </Box>
+      </Dialog>
       <Sidebar
         open={isOpenSidebar && isOpenAll}
         onCancel={() => setIsOpenSidebar(false)}

@@ -57,7 +57,7 @@ test("renders with expected styles when `variant` is 'secondary'", () => {
 
   const title = screen.getByTestId("content-title");
 
-  expect(title).toHaveStyle({ fontWeight: "normal" });
+  expect(title).toHaveStyleRule("font-weight", "normal");
   expect(title).toHaveStyleRule("color", "var(--colorsUtilityYin055)");
 });
 
