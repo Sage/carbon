@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import { StepFlow, StepFlowTitle } from "..";
+import { StepFlowProvider } from "../__internal__/step-flow.context";
 
 test("throws an error when not used within StepFlow", () => {
   const consoleErrorSpy = jest
@@ -12,6 +13,19 @@ test("throws an error when not used within StepFlow", () => {
   );
 
   consoleErrorSpy.mockRestore();
+});
+
+test("does not render screen reader step text when total steps is zero", () => {
+  render(
+    <StepFlowProvider
+      value={{ validatedCurrentStep: 1, totalSteps: 0, titleVariant: "h1" }}
+    >
+      <StepFlowTitle titleString="title" />
+    </StepFlowProvider>,
+  );
+
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("title");
+  expect(screen.queryByText(/Step 1 of 0/)).not.toBeInTheDocument();
 });
 
 test("when the 'titleString' prop is passed, the correct visible element and text renders", () => {

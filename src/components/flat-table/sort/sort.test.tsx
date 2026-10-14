@@ -10,6 +10,7 @@ import FlatTableHead from "../flat-table-head";
 import FlatTableRow from "../flat-table-row";
 import FlatTableHeader from "../flat-table-header";
 import I18nProvider from "../../i18n-provider";
+import StyledSortButton from "./sort.style";
 
 test("throws an error when not within FlatTable", () => {
   const consoleErrorSpy = jest
@@ -21,6 +22,16 @@ test("throws an error when not within FlatTable", () => {
   );
 
   consoleErrorSpy.mockRestore();
+});
+
+test("uses default styles when rendered without sort button props", () => {
+  render(<StyledSortButton>Sort</StyledSortButton>);
+
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "color",
+    "var(--colorsUtilityYin090)",
+  );
+  expect(screen.getByRole("button")).toHaveStyleRule("font-size", "14px");
 });
 
 test("should not render Icon if `sortType` does not exist", () => {

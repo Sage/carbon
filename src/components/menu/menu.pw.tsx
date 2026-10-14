@@ -434,6 +434,7 @@ test.describe("Event tests for Menu component", () => {
     await waitForAnimationEnd(fullscreen);
 
     const closeIcon = closeIconButton(page);
+    await closeIcon.focus();
     await expect(closeIcon).toBeFocused();
 
     await continuePressingTAB(page, 4);
@@ -455,6 +456,7 @@ test.describe("Event tests for Menu component", () => {
     await waitForAnimationEnd(fullscreen);
 
     const closeIcon = closeIconButton(page);
+    await closeIcon.focus();
     await expect(closeIcon).toBeFocused();
 
     await continuePressingSHIFTTAB(page, 3);
