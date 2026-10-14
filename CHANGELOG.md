@@ -1,3 +1,9 @@
+## [162.9.1](https://github.com/Sage/carbon/compare/v162.9.0...v162.9.1) (2026-10-14)
+
+### Bug Fixes
+
+* **step-sequence:** fix min height ([ed01864](https://github.com/Sage/carbon/commit/ed01864894672aa48937c5f4adad9497fd3c7ee6)), closes [#8198](https://github.com/Sage/carbon/issues/8198)
+
 ## [162.9.0](https://github.com/Sage/carbon/compare/v162.8.0...v162.9.0) (2026-10-13)
 
 ### Features
