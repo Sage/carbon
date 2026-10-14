@@ -17,6 +17,17 @@ import GlobalHeader from "../global-header";
 
 import isChromatic from "../../../.storybook/isChromatic";
 
+const greyScrollBackground: React.CSSProperties = {
+  height: "500px",
+  width: "1100px",
+  backgroundColor: "rgb(204, 214, 219)",
+};
+
+const lightGreyMenuBackground: React.CSSProperties = {
+  marginTop: "-8px",
+  backgroundColor: "rgb(242, 245, 246)",
+};
+
 export default {
   title: "Popover Container/Test",
   component: PopoverContainer,
@@ -95,7 +106,7 @@ WithMultiSelect.storyName = "with multiSelect";
 export const InAScrollableBlock = () => {
   return (
     <Box>
-      <Box bg="#ccd6dbff" height={500} width={1100} />
+      <div style={greyScrollBackground} />
       <Box height={400} overflow="scroll">
         <Box height={400} position="fixed">
           <PopoverContainer
@@ -158,7 +169,7 @@ export const InsideMenu = () => {
           )}
           p={0}
         >
-          <Box mt="-8px" backgroundColor="#f2f5f6ff">
+          <div style={lightGreyMenuBackground}>
             <Heading
               title={
                 <Box mt={2} ml={2}>
@@ -167,7 +178,7 @@ export const InsideMenu = () => {
               }
               subheader={<Typography ml={2}>99 red balloons</Typography>}
             />
-          </Box>
+          </div>
           <Box display="flex" justifyContent="space-between" p={2}>
             <Button size="small">Mark all as read</Button>
             <Button buttonType="primary" size="small">
