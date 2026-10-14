@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
+import requiredIndicatorStyles from "../../style/utils/required-indicator";
 
 interface StyledSwitchProps {
   $labelInline?: boolean;
@@ -49,7 +50,6 @@ const StyledSwitchLabel = styled.label<StyledSwitchLabelProps>`
     $required,
     $size,
   }) => css`
-    display: flex;
     color: ${$disabled
       ? "var(--input-labelset-label-disabled)"
       : "var(--input-labelset-label-default)"};
@@ -57,17 +57,7 @@ const StyledSwitchLabel = styled.label<StyledSwitchLabelProps>`
       ? "var(--global-font-static-comp-medium-l)"
       : "var(--global-font-static-comp-medium-m)"};
     cursor: pointer;
-    ${$required &&
-    css`
-      ::after {
-        content: "*";
-        color: var(--input-labelset-label-required);
-        font: ${$size === "large"
-          ? "var(--global-font-static-comp-medium-l)"
-          : "var(--global-font-static-comp-medium-m)"};
-        margin-left: var(--global-space-comp-xs);
-      }
-    `}
+    ${$required && requiredIndicatorStyles}
     /* required to give space above the Switch input when focus styling is applied. */
     ${!$inputHint &&
     css`

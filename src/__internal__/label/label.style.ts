@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import labelStyleOverrides from "./label-style-overrides.style";
+import requiredIndicatorStyles from "../../style/utils/required-indicator";
 
 const getFontToken = (size: "small" | "medium" | "large") => {
   switch (size) {
@@ -42,27 +43,24 @@ const StyledLabel = styled.label<StyledLabelProps>`
 
   font: ${({ $size }) => getFontToken($size)};
 
-  ${({ $isRequired, $size, $disabled }) =>
+  ${({ $isRequired, $disabled }) =>
     $isRequired &&
     css`
-      display: inline-flex;
-      align-items: center;
+      ${requiredIndicatorStyles}
 
-      ::after {
-        content: "*";
-        color: ${$disabled
-          ? "var(--input-labelset-label-disabled)"
-          : "var(--input-labelset-label-required)"};
-        font: ${getFontToken($size)};
-        margin-left: 4px;
-      }
+      ${$disabled &&
+      css`
+        ::after {
+          color: var(--input-labelset-label-disabled);
+        }
+      `}
     `}
 
   ${labelStyleOverrides}
   .fieldset-required-input & {
     ::after {
       content: "";
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
 `;

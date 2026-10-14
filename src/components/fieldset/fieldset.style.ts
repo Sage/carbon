@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
+import requiredIndicatorStyles from "../../style/utils/required-indicator";
 
 const sizeMap = {
   small: {
@@ -53,21 +54,11 @@ export const StyledFieldset = styled.fieldset.attrs(applyBaseTheme)`
 
 export const StyledLegend = styled.legend<StyledFieldsetProps>`
   ${({ $isRequired, $size }) => css`
-    display: flex;
-    align-items: center;
     padding: 0;
     font: ${sizeMap[$size].legendFont};
     color: var(--input-labelset-label-default);
 
-    ${$isRequired &&
-    css`
-      ::after {
-        content: "*";
-        color: var(--input-labelset-label-required);
-        font: ${sizeMap[$size].legendFont};
-        margin-left: var(--global-space-comp-xs);
-      }
-    `}
+    ${$isRequired && requiredIndicatorStyles}
   `};
 `;
 

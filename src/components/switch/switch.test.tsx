@@ -459,15 +459,6 @@ describe("Switch", () => {
         "var(--global-font-static-comp-medium-l)",
       );
     });
-
-    it("applies large font to the required asterisk when size is 'large' and required is set", () => {
-      renderSwitch({ label: "Toggle me", size: "large", required: true });
-      expect(screen.getByText("Toggle me")).toHaveStyleRule(
-        "font",
-        "var(--global-font-static-comp-medium-l)",
-        { modifier: "::after" },
-      );
-    });
   });
 
   describe("inputHint", () => {
