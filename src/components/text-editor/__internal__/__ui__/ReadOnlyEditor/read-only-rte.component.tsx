@@ -15,6 +15,7 @@ import React, { useMemo } from "react";
 import { getTheme } from "../../__utils__/theme";
 import { MARKDOWN_NODES } from "../../__utils__/constants";
 import Logger from "../../../../../__internal__/utils/logger";
+import { StyledTextEditor } from "../../../text-editor.style";
 import StyledContentEditable from "../ContentEditor/content-editor.style";
 import { AutoLinkerPlugin } from "../../__plugins__";
 import { TextEditorProps } from "../../__utils__/interfaces.types";
@@ -68,32 +69,34 @@ const ReadOnlyEditor = ({
   }, [namespace, initialValue]);
 
   return (
-    <StyledContentEditable namespace={namespace} readOnly size={size}>
-      <LexicalComposer initialConfig={initialConfig}>
-        <RichTextPlugin
-          contentEditable={
-            <ContentEditable
-              aria-label={ariaLabel}
-              data-role={`${namespace}-content-editor`}
-              /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overriden */
-              aria-autocomplete={undefined}
-              aria-readonly={undefined}
-              spellCheck={false}
-              /**
-               * We don't have access to the underlying element, setting a role here means the element will remain a div
-               * but assistive technologies will recognise the element as an article. Which is more suitable for an element which
-               * is meant to be read-only and non interactive/editable.
-               */
-              role="article"
-            />
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        />
-        <LinkPlugin validateUrl={validateUrl} />
-        <ClickableLinkPlugin newTab />
-        <AutoLinkerPlugin />
-      </LexicalComposer>
-    </StyledContentEditable>
+    <StyledTextEditor data-role={`${namespace}-editor`} size={size}>
+      <StyledContentEditable namespace={namespace} readOnly size={size}>
+        <LexicalComposer initialConfig={initialConfig}>
+          <RichTextPlugin
+            contentEditable={
+              <ContentEditable
+                aria-label={ariaLabel}
+                data-role={`${namespace}-content-editor`}
+                spellCheck={false}
+                /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overriden */
+                aria-autocomplete={undefined}
+                aria-readonly={undefined}
+                /**
+                 * We don't have access to the underlying element, setting a role here means the element will remain a div
+                 * but assistive technologies will recognise the element as an article. Which is more suitable for an element which
+                 * is meant to be read-only and non interactive/editable.
+                 */
+                role="article"
+              />
+            }
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+          <LinkPlugin validateUrl={validateUrl} />
+          <ClickableLinkPlugin newTab />
+          <AutoLinkerPlugin />
+        </LexicalComposer>
+      </StyledContentEditable>
+    </StyledTextEditor>
   );
 };
 
