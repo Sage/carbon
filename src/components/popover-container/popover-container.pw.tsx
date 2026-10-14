@@ -75,7 +75,7 @@ test.describe("Check props of Popover Container component", () => {
       .evaluate((element) => parseInt(getComputedStyle(element).zIndex, 10));
 
     const sidebarZIndex = await page
-      .locator('[data-role="adaptive-sidebar-modal-view"]')
+      .getByRole("dialog", { name: "sidebar" })
       .evaluate((element) => parseInt(getComputedStyle(element).zIndex, 10));
 
     expect(sidebarZIndex).toBeGreaterThan(popoverZIndex);
