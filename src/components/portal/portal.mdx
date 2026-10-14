@@ -2,7 +2,7 @@ import { Meta, ArgTypes } from "@storybook/addon-docs/blocks";
 
 import PortalStories from "./portal.stories";
 
-<Meta title="Portal" component={PortalStories}/>
+<Meta title="Portal" component={PortalStories} />
 
 # Portal
 
@@ -22,7 +22,7 @@ import Portal from "carbon-react/lib/components/portal";
 
 ## Usage
 
-This example demonstrates how to render a Portal with a Box component as a child that uses a design-token for the background color.
+This example demonstrates how to render a Portal with a Box component as a child while applying the background color to a native wrapper.
 
 ```javascript
 import Portal from "carbon-react/lib/components/portal";
@@ -30,7 +30,9 @@ import Box from "carbon-react/lib/components/box";
 
 /* ... */
 <Portal>
-  <Box bg="var(--colorsUtilityMajor010)">Portal content</Box>
+  <div style={{ backgroundColor: "rgb(250, 251, 251)" }}>
+    <Box>Portal content</Box>
+  </div>
 </Portal>;
 ```
 

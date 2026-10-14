@@ -11,6 +11,11 @@ import Portrait from "../portrait";
 import { Tabs, TabList, Tab, TabPanel } from "../tabs/__next__";
 import Typography from "../typography";
 
+const lightGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-xs)",
+  backgroundColor: "rgb(242, 245, 246)",
+};
+
 const meta: Meta<typeof Badge> = {
   title: "Badge/Test",
   component: Badge,
@@ -43,10 +48,10 @@ export const Default = ({
   ...args
 }: BadgeTestProps) => {
   return (
-    <Box p={3} backgroundColor="--colorsUtilityMajor025">
+    <div style={lightGreyBackground}>
       <Badge mr={2} counter={counterAsString} {...args} />
       <Badge counter={counterAsNumber} {...args} />
-    </Box>
+    </div>
   );
 };
 Default.args = {
