@@ -4,6 +4,11 @@ import Pill, { PillProps } from "./pill.component";
 import Box from "../box";
 import { MultiSelect, Option } from "../select";
 
+const darkGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgb(38, 38, 38)",
+};
+
 export default {
   title: "Pill/Test",
   component: Pill,
@@ -96,7 +101,7 @@ export const PillVariationsAndFocus = {
           ))}
         </Box>
 
-        <Box backgroundColor="#262626" p={2}>
+        <div style={darkGreyBackground}>
           {inverseVariants.map((variant) => (
             <Box key={`inverse-${variant}`} mb={1}>
               <Pill variant={variant} inverse mr={1}>
@@ -113,7 +118,7 @@ export const PillVariationsAndFocus = {
               </Pill>
             </Box>
           ))}
-        </Box>
+        </div>
       </>
     );
   },
@@ -149,7 +154,7 @@ export const DeprecatedPropsCompatibility = {
           </Pill>
         </Box>
 
-        <Box backgroundColor="#262626" p={2}>
+        <div style={darkGreyBackground}>
           <Pill
             pillRole="status"
             colorVariant="neutralWhite"
@@ -158,7 +163,7 @@ export const DeprecatedPropsCompatibility = {
           >
             neutralWhite legacy
           </Pill>
-        </Box>
+        </div>
       </>
     );
   },

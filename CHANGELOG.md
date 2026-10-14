@@ -1,3 +1,9 @@
+## [162.9.0](https://github.com/Sage/carbon/compare/v162.8.0...v162.9.0) (2026-10-13)
+
+### Features
+
+* **box:** add deprecation annotations and warnings for future unsupported props and types ([0928236](https://github.com/Sage/carbon/commit/09282364db95e454888795cfe104f1b0aadb2846))
+
 ## [162.8.0](https://github.com/Sage/carbon/compare/v162.7.0...v162.8.0) (2026-10-08)
 
 ### Features

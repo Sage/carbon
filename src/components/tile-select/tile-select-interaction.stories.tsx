@@ -14,6 +14,13 @@ import flexibleSvg from "../../../.assets/flexible.svg";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 
+const greenBackground: React.CSSProperties = {
+  width: "100%",
+  height: "100px",
+  display: "inline-block",
+  backgroundColor: "rgb(0, 125, 90)",
+};
+
 type Story = StoryObj;
 
 export default {
@@ -137,20 +144,10 @@ const SnapshotComponent = () => {
         accordionContent={
           <Box display="flex" flexWrap="wrap">
             <Box flexGrow={1} pr={1}>
-              <Box
-                width="100%"
-                height="100px"
-                bg="primary"
-                display="inline-block"
-              />
+              <div style={greenBackground} />
             </Box>
             <Box flexGrow={1} pl={1}>
-              <Box
-                width="100%"
-                height="100px"
-                bg="primary"
-                display="inline-block"
-              />
+              <div style={greenBackground} />
             </Box>
           </Box>
         }
