@@ -196,7 +196,7 @@ description: Carbon Form component props and usage examples.
 (args: FormProps) => {
   const [state, setState] = useState("");
 
-  const setValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(ev.target.value);
   };
 

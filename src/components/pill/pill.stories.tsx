@@ -4,10 +4,17 @@ import { action } from "storybook/actions";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import Icon from "../icon";
 import Pill from ".";
+
+const darkGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-2-xs)",
+  display: "flex",
+  gap: "var(--global-space-layout-3-xs)",
+  backgroundColor: "rgb(38, 38, 38)",
+};
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -103,7 +110,16 @@ export const WithRemoveButton: Story = () => {
   return (
     <>
       <Button onClick={showPill}>Reset example</Button>
-      <Box m={1}>{isPillVisible && <Pill onDelete={hidePill}>Pill</Pill>}</Box>
+      <Box m={1}>
+        {isPillVisible && (
+          <Pill
+            ariaLabelOfRemoveButton="Remove ready to process status"
+            onDelete={hidePill}
+          >
+            Ready to process
+          </Pill>
+        )}
+      </Box>
     </>
   );
 };
@@ -112,14 +128,14 @@ WithRemoveButton.storyName = "With Remove Button";
 export const InverseOnDarkBackground: Story = {
   render: (args) => {
     return (
-      <Box backgroundColor="#262626" p={2} display="flex" gap={1}>
+      <div style={darkGreyBackground}>
         <Pill {...args} inverse>
           {args.children}
         </Pill>
         <Pill {...args} inverse fill>
           {args.children}
         </Pill>
-      </Box>
+      </div>
     );
   },
   args: {
@@ -130,4 +146,4 @@ export const InverseOnDarkBackground: Story = {
     icon: undefined,
   },
 };
-InverseOnDarkBackground.storyName = "Inverse on Dark Background";
+InverseOnDarkBackground.storyName = "Inverse";

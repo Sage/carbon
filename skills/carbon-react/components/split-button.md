@@ -19,12 +19,10 @@ description: Carbon SplitButton component props and usage examples.
 | text | string | Yes |  |  |  | The text to be displayed in the main button. |  |
 | about | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| align | "left" \| "right" \| undefined | No |  |  |  | Set align of the rendered content |  |
 | autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  |  |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
-| buttonType | "primary" \| "secondary" \| undefined | No |  |  |  | Button type: "primary" \| "secondary" |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
@@ -52,7 +50,6 @@ description: Carbon SplitButton component props and usage examples.
 | inlist | any | No |  |  |  |  |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
-| isWhite | boolean \| undefined | No |  |  |  | Renders the white variant of the secondary split button |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
 | itemRef | string \| undefined | No |  |  |  |  |  |
@@ -68,6 +65,7 @@ description: Carbon SplitButton component props and usage examples.
 | marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| menuWidth | string \| undefined | No |  |  |  | Set the width of the menu. Defaults to the width of the SplitButton. |  |
 | ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
 | mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
@@ -232,7 +230,6 @@ description: Carbon SplitButton component props and usage examples.
 | onWheel | WheelEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onWheelCapture | WheelEventHandler<T> \| undefined | No |  |  |  |  |  |
 | part | string \| undefined | No |  |  |  |  |  |
-| position | "left" \| "right" \| undefined | No |  |  |  | Sets rendering position of menu |  |
 | prefix | string \| undefined | No |  |  |  |  |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |
@@ -246,7 +243,6 @@ description: Carbon SplitButton component props and usage examples.
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
-| subtext | string \| undefined | No |  |  |  | Second text child, renders under main text, only when size is "large" |  |
 | suppressContentEditableWarning | boolean \| undefined | No |  |  |  |  |  |
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
@@ -310,8 +306,13 @@ description: Carbon SplitButton component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
+| align | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. |  |  |
+| buttonType | "primary" \| "secondary" \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. SplitButton only supports the primary variant. |  |  |
+| isWhite | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Renders the white variant of the secondary split button |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
+| position | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Sets rendering position of menu. |  |  |
+| subtext | string \| undefined | No |  | Yes | This prop is no longer supported on this component. Second text child, renders under main text, only when size is "large" |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
@@ -369,64 +370,13 @@ description: Carbon SplitButton component props and usage examples.
 ```tsx
 () => {
   return (
-    <>
-      <Box mb={3}>
-        <SplitButton disabled text="Split button">
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-      <Box p={2} width="298px" backgroundColor="#000">
-        <SplitButton
-          buttonType="secondary"
-          text="Split button - secondary - white"
-          isWhite
-          disabled
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-    </>
-  );
-}
-```
-
-
-### Button Types
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      {(["primary", "secondary"] as const).map((buttonType) => (
-        <Box key={buttonType} mb={3}>
-          <SplitButton
-            buttonType={buttonType}
-            text={`Split button - ${buttonType}`}
-          >
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-      <Box p={2} width="298px" backgroundColor="#000">
-        <SplitButton
-          buttonType="secondary"
-          text="Split button - secondary - white"
-          isWhite
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-    </>
+    <Box mb={3}>
+      <SplitButton disabled text="Split button">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButton>
+    </Box>
   );
 }
 ```
@@ -440,17 +390,17 @@ description: Carbon SplitButton component props and usage examples.
 () => {
   return (
     <SplitButton text="Split Button">
-      <Button>Default button</Button>
-      <Button buttonType="primary" destructive>
-        Primary - destructive
+      <Button variant="default" variantType="primary">
+        Primary
       </Button>
-      <Button buttonType="secondary">Secondary</Button>
-      <Button buttonType="secondary" destructive>
-        Secondary - destructive
+      <Button variant="default" variantType="secondary">
+        Secondary
       </Button>
-      <Button buttonType="tertiary">Tertiary</Button>
-      <Button buttonType="tertiary" destructive>
-        Tertiary - destructive
+      <Button variant="default" variantType="tertiary">
+        Tertiary
+      </Button>
+      <Button variant="destructive" variantType="primary">
+        Destructive Primary
       </Button>
       <Button disabled>Disabled</Button>
     </SplitButton>
@@ -482,65 +432,17 @@ description: Carbon SplitButton component props and usage examples.
 ```
 
 
-### Align
+### Custom Menu Width
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <>
-      {(["left", "right"] as const).map((align) => (
-        <Box key={align} mb={3}>
-          <SplitButton align={align} text={`Split button - ${align}`}>
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-    </>
-  );
-}
-```
-
-
-### Position
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <SplitButton position="left" text="Left position">
-        <Button href="#">Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-
-      <SplitButton position="right" text="Right position">
-        <Button href="#">Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-    </Box>
-  );
-}
-```
-
-
-### Subtext
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <SplitButton size="large" subtext="subtext" text="Split button">
-      <Button size="large">Button 1</Button>
-      <Button size="large">Button 2</Button>
-      <Button size="large">Button 3</Button>
+    <SplitButton menuWidth="320px" text="Split button">
+      <Button href="#">Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
     </SplitButton>
   );
 }
@@ -569,62 +471,6 @@ description: Carbon SplitButton component props and usage examples.
         </Box>
       ))}
     </>
-  );
-}
-```
-
-
-### In Overflow Hidden Container
-
-**Render**
-
-```tsx
-() => (
-  <Accordion title="Heading">
-    <Box p={4}>
-      <SplitButton size="large" subtext="subtext" text="Split button">
-        <Button size="large">Button 1</Button>
-        <Button size="large">Button 2</Button>
-        <Button size="large">Button 3</Button>
-      </SplitButton>
-    </Box>
-  </Accordion>
-)
-```
-
-
-### White variant
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box p={3} backgroundColor="#000" width="400px" height="200px">
-      <Box mb={3}>
-        <SplitButton
-          buttonType="secondary"
-          text="secondary - white variant"
-          isWhite
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-      <Box>
-        <SplitButton
-          buttonType="secondary"
-          text="secondary - white variant - disabled"
-          isWhite
-          disabled
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-    </Box>
   );
 }
 ```

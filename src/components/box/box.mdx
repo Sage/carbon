@@ -6,7 +6,7 @@ import * as BoxStories from "./box.stories";
 
 # Box
 
-Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes.
+Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Layout and FlexBox attributes.
 
 ## Contents
 
@@ -34,14 +34,6 @@ Please view [this example as a standalone canvas](../?path=/story/box--position)
 
 <Canvas of={BoxStories.Position} />
 
-### Color
-
-<Canvas of={BoxStories.Color} />
-
-### Box Shadow
-
-<Canvas of={BoxStories.BoxShadow} />
-
 ### Flex
 
 <Canvas of={BoxStories.Flex} />
@@ -67,20 +59,6 @@ how these props can be used.
 Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content within the `Box` wrapper.
 
 <Canvas of={BoxStories.OverflowWrap} />
-
-### Scroll
-
-Use the `scrollVariant` prop to indicate which theme scrollbar you would like to display. Use `light` or `dark` values to display as below. This will still require the use of the `overflow` prop and only displays in Chrome or Safari.
-If no `scrollVariant` prop is set then the scroll bar will resort to the browser default.
-
-<Canvas of={BoxStories.Scroll} />
-
-### Rounded corners
-
-Use the `borderRadius` to set the radius on the corners of the `Box`,
-see [prop table](#props) below for more information on the types it accepts
-
-<Canvas of={BoxStories.RoundedCorners} />
 
 ## Props
 

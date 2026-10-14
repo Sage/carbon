@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 
 import { TimeInputEvent, TimeValue } from "./time.component";
 import { Time } from ".";
@@ -154,86 +153,6 @@ Validation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
-
-export const LabelAlign: Story = ({ ...args }) => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-    period: "AM",
-  });
-
-  return (
-    <Box ml={2}>
-      <Time
-        {...args}
-        mb={2}
-        value={value}
-        onChange={(ev) => {
-          setValue(ev.target.value);
-          action("onChange")(ev);
-        }}
-        onBlur={action("onBlur")}
-        label="labelAlign left"
-      />
-      <Time
-        {...args}
-        mb={2}
-        value={value}
-        onChange={(ev) => {
-          setValue(ev.target.value);
-          action("onChange")(ev);
-        }}
-        onBlur={action("onBlur")}
-        label="labelAlign right"
-        labelAlign="right"
-      />
-      <Time
-        {...args}
-        value={value}
-        onChange={(ev) => {
-          setValue(ev.target.value);
-          action("onChange")(ev);
-        }}
-        onBlur={action("onBlur")}
-        label="labelAlign right and fieldLabelsAlign right"
-        labelAlign="right"
-        fieldLabelsAlign="right"
-      />
-    </Box>
-  );
-};
-LabelAlign.storyName = "Label Align";
-
-export const HintTextAlignment: Story = ({ ...args }) => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-    period: "AM",
-  });
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box ml={2}>
-      {["left", "right"].map((labelAlign) => (
-        <Box>
-          <Time
-            mb={2}
-            value={value}
-            onChange={handleChange}
-            label="labelAlign left"
-            inputHint="hint"
-            labelAlign={labelAlign as "left" | "right"}
-            {...args}
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-HintTextAlignment.storyName = "Hint Text Alignment";
 
 export const WithValueModifiers: Story = () => {
   const [value, setValue] = useState<TimeValue>({

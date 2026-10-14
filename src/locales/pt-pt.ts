@@ -20,8 +20,15 @@ const ptPT: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) =>
-      count === 1 ? `${count} selecionado` : `${count} selecionados`,
+    ariaLabels: {
+      close: () => "Fechar",
+    },
+    selected: (count, total) =>
+      total
+        ? `${count} de ${total} registos selecionados`
+        : count === 1
+          ? `${count} selecionado`
+          : `${count} selecionados`,
   },
   breadcrumbs: {
     ariaLabel: () => "caminho de navegação",
@@ -143,13 +150,22 @@ const ptPT: Partial<Locale> = {
     },
   },
   pager: {
-    firstAriaLabel: () => "Aceder à primeira página",
-    lastAriaLabel: () => "Aceder à última página",
-    nextAriaLabel: () => "Aceder à página seguinte",
-    previousAriaLabel: () => "Aceder à página anterior",
-    pageX: (currentPage?: number | string) => `Página ${currentPage}`,
-    ofTotalPages: (totalPages: number | string) => `de ${totalPages} páginas`,
-    itemsPerPage: () => "Resultados por página",
+    firstAriaLabel: (totalPages?: string | number) =>
+      `Aceder à primeira página ${totalPages ? `(página 1 de ${totalPages})` : ""}`,
+    lastAriaLabel: (totalPages?: string | number) =>
+      `Aceder à última página ${totalPages ? `(página ${totalPages} de ${totalPages})` : ""}`,
+    nextAriaLabel: (nextPage?: number | string, totalPages?: string | number) =>
+      `Aceder à página seguinte ${nextPage && totalPages ? `(página ${nextPage} de ${totalPages})` : ""}`,
+    previousAriaLabel: (
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) =>
+      `Aceder à página anterior ${previousPage && totalPages ? `(página ${previousPage} de ${totalPages})` : ""}`,
+    pageX: (currentPage?: number | string) =>
+      `Página${currentPage ? ` ${currentPage}` : ""}`,
+    ofY: (totalPages: number | string) => `de ${totalPages}`,
+    itemsPerPage: () => "registos por página",
+    totalItems: () => "registos no total",
     ariaLabel: () => "Paginação",
   },
   password: {
@@ -270,8 +286,8 @@ const ptPT: Partial<Locale> = {
     closeIconAriaLabel: () => "Fechar",
   },
   switch: {
-    on: () => "ON",
-    off: () => "OFF",
+    on: () => "On",
+    off: () => "Off",
     processingLabel: () => "A processar",
   },
   tileSelect: {
@@ -280,8 +296,8 @@ const ptPT: Partial<Locale> = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "h",
-    minutesLabelText: () => "min",
+    hoursLabelText: () => "Horas",
+    minutesLabelText: () => "Minutos",
     hoursAriaLabelText: () => "Horas",
     minutesAriaLabelText: () => "Minutos",
   },

@@ -36,7 +36,6 @@ description: Carbon Alert component props and usage examples.
 | greyBackground | boolean \| undefined | No |  |  |  | Change the background color of the content to grey |  |
 | headerChildren | React.ReactNode | No |  |  |  | Container for components to be displayed in the header |  |
 | height | string \| undefined | No |  |  |  | Allows developers to specify a specific height for the dialog. |  |
-| help | string \| undefined | No |  |  |  | Adds Help tooltip to Header |  |
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
 | restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
 | role | string \| undefined | No |  |  |  | The ARIA role to be applied to the Dialog container |  |
@@ -54,6 +53,7 @@ description: Carbon Alert component props and usage examples.
 | disableClose | boolean \| undefined | No |  | Yes | Use `showCloseIcon={false}` instead. |  |  |
 | disableContentPadding | boolean \| undefined | No |  | Yes | Use `contentPadding` instead. |  |  |
 | fullscreen | boolean \| undefined | No |  | Yes | Use `size="fullscreen"` instead. |  |  |
+| help | string \| undefined | No |  | Yes | This prop no longer has any effect and will be removed in a future release. | Adds Help tooltip to Header. |  |
 | highlightVariant | string \| undefined | No |  | Yes | Use `gradientKeyLine` instead. |  |  |
 | pagesStyling | boolean \| undefined | No |  | Yes | PagesStyling is now deprecated and will be removed in a future release |  |  |
 

@@ -20,7 +20,11 @@ const enGB: Locale = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} selected`,
+    ariaLabels: {
+      close: () => "Close",
+    },
+    selected: (count, total) =>
+      total ? `${count} of ${total} items selected` : `${count} selected`,
   },
   breadcrumbs: {
     ariaLabel: () => "breadcrumbs",
@@ -150,13 +154,22 @@ const enGB: Locale = {
     },
   },
   pager: {
-    firstAriaLabel: () => "Go to first page",
-    lastAriaLabel: () => "Go to last page",
-    nextAriaLabel: () => "Go to next page",
-    previousAriaLabel: () => "Go to previous page",
-    pageX: (currentPage?: number | string) => `Page ${currentPage}`,
-    ofTotalPages: (totalPages: number | string) => `of ${totalPages} pages`,
+    firstAriaLabel: (totalPages?: string | number) =>
+      `Go to first page ${totalPages ? `(page 1 of ${totalPages})` : ""} `,
+    lastAriaLabel: (totalPages?: string | number) =>
+      `Go to last page ${totalPages ? `(page ${totalPages} of ${totalPages})` : ""} `,
+    nextAriaLabel: (nextPage?: number | string, totalPages?: string | number) =>
+      `Go to next page ${nextPage && totalPages ? `(page ${nextPage} of ${totalPages})` : ""} `,
+    previousAriaLabel: (
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) =>
+      `Go to previous page ${previousPage && totalPages ? `(page ${previousPage} of ${totalPages})` : ""} `,
+    pageX: (currentPage?: number | string) =>
+      `Page${currentPage ? ` ${currentPage}` : ""}`,
+    ofY: (totalPages: number | string) => `of ${totalPages}`,
     itemsPerPage: () => "Items per page",
+    totalItems: () => "total items",
     ariaLabel: () => "Pagination",
   },
   password: {
@@ -176,6 +189,11 @@ const enGB: Locale = {
   },
   pod: {
     undo: () => "Undo",
+  },
+  popoverContainer: {
+    openButton: {
+      text: () => "Actions",
+    },
   },
   tabs: {
     error: (tabTitle) => `The ${tabTitle} tab contains errors`,
@@ -275,8 +293,8 @@ const enGB: Locale = {
     closeIconAriaLabel: () => "Close",
   },
   switch: {
-    on: () => "ON",
-    off: () => "OFF",
+    on: () => "On",
+    off: () => "Off",
     processingLabel: () => "Processing...",
   },
   tileSelect: {
@@ -285,8 +303,8 @@ const enGB: Locale = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "Hrs.",
-    minutesLabelText: () => "Mins.",
+    hoursLabelText: () => "Hours",
+    minutesLabelText: () => "Minutes",
     hoursAriaLabelText: () => "Hours",
     minutesAriaLabelText: () => "Minutes",
   },

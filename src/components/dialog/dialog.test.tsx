@@ -136,12 +136,12 @@ describe("Modal Dialog", () => {
     );
   });
 
-  test("help icon is displayed when help prop is passed", () => {
+  test("help icon is not displayed when deprecated help prop is passed", () => {
     render(<Dialog open title="My dialog" help="Help text" />);
 
-    const help = screen.getByLabelText("help");
+    const help = screen.queryByLabelText("help");
 
-    expect(help).toBeVisible();
+    expect(help).not.toBeInTheDocument();
   });
 
   test("close button is displayed when onCancel prop is passed", () => {
@@ -302,9 +302,7 @@ describe("Modal Dialog", () => {
 
   test("maximum height of the dialog is 90% of the viewport height", () => {
     render(<Dialog open title="My dialog" />);
-    expect(screen.getByRole("dialog")).toHaveStyle({
-      maxHeight: "90vh",
-    });
+    expect(screen.getByRole("dialog")).toHaveStyleRule("max-height", "90vh");
   });
 
   test("dialog element has correct data-* props", () => {
@@ -365,7 +363,7 @@ describe("Modal Dialog", () => {
 
     const content = screen.getByTestId("dialog-content");
 
-    expect(content).toHaveStyle({ padding: "var(--spacing000)" });
+    expect(content).toHaveStyleRule("padding", "var(--spacing000)");
   });
 
   test("background scroll remains disabled when returning to outer dialog after closing inner dialog", async () => {

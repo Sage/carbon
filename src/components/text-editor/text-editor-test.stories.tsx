@@ -23,6 +23,11 @@ import Form from "../form";
 import Note from "../note";
 import Button from "../button/__next__";
 
+const lightGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-3-xs)",
+  backgroundColor: "rgb(211, 211, 211)",
+};
+
 const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
   component: TextEditor,
@@ -278,12 +283,12 @@ export const ReadOnlyEditorForNotes = () => {
         will not appear in the actual component.
       </Typography>
       <Box p={1} display="flex" gap={2} flexDirection="column">
-        <Box p={1} backgroundColor="lightgray">
+        <div style={lightGreyBackground}>
           <ReadOnlyEditor initialValue={defaultValue} />
-        </Box>
-        <Box p={1} backgroundColor="lightgray">
+        </div>
+        <div style={lightGreyBackground}>
           <ReadOnlyEditor initialValue={htmlValue} />
-        </Box>
+        </div>
       </Box>
     </Box>
   );
@@ -530,10 +535,10 @@ export const DisplayHTMLContent: Story = () => {
 
   return (
     <Box
-      margin="var(--spacing200)"
+      margin="var(--global-space-layout-2-xs)"
       display="flex"
       flexDirection="column"
-      gap="var(--spacing200)"
+      gap="var(--global-space-layout-2-xs)"
       minWidth="320px"
       maxWidth="1024px"
     >

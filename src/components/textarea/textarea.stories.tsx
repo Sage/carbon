@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import Box from "../box";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import I18nProvider from "../i18n-provider";
 
 import Textarea from ".";
 import useMultiInput from "../../hooks/use-multi-input";
 import { CarbonProvider } from "../..";
+
+const lightGreyBackground: React.CSSProperties = {
+  borderRadius: "var(--global-radius-container-l)",
+  height: "200px",
+  width: "800px",
+  backgroundColor: "rgb(237, 241, 242)",
+};
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -26,7 +32,7 @@ type Story = StoryObj<typeof Textarea>;
 
 export const DefaultStory: Story = () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return <Textarea label="Textarea" value={state} onChange={setValue} />;
@@ -265,16 +271,18 @@ export const BorderRadiusStory: Story = () => {
   const [stateTwo, setStateTwo] = useState("");
   const [stateThree, setStateThree] = useState("");
   const [stateFour, setStateFour] = useState("");
-  const setValueOne = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueOne = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateOne(target.value);
   };
-  const setValueTwo = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueTwo = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateTwo(target.value);
   };
-  const setValueThree = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueThree = ({
+    target,
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateThree(target.value);
   };
-  const setValueFour = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValueFour = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setStateFour(target.value);
   };
   return (
@@ -321,16 +329,11 @@ BorderRadiusStory.storyName = "Border Radius";
 
 export const BorderlessExample: Story = () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (
-    <Box
-      bg="var(--colorsUtilityMajor040)"
-      height={200}
-      width={800}
-      borderRadius="borderRadius200"
-    >
+    <div style={lightGreyBackground}>
       <Textarea
         label="Borderless Textarea"
         value={state}
@@ -339,14 +342,14 @@ export const BorderlessExample: Story = () => {
         hideBorders
         m={2}
       />
-    </Box>
+    </div>
   );
 };
 BorderlessExample.storyName = "Borderless Example";
 
 export const ResizeStory: Story = () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (
@@ -379,7 +382,7 @@ ResizeStory.storyName = "Resize";
 
 export const SizeStory: Story = () => {
   const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState(target.value);
   };
   return (

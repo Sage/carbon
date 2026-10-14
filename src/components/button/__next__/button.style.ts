@@ -11,6 +11,17 @@ import {
   VariantType,
 } from "./button.config";
 
+// styling overrides to ensure buttons within menu items
+// fit the menu item style requirements
+const menuItemOverrides = css`
+  [data-component="menu-item"] & {
+    background-color: transparent;
+    padding: 6px var(--global-space-none);
+    border-radius: var(--global-radius-none);
+    border: none;
+  }
+`;
+
 const getCSSForGradientStyle = ({
   allowMotion = true,
   disabled,
@@ -239,8 +250,6 @@ export const StyledButton = styled.button<
     $variantType: VariantType;
   }
 >`
-  ${space}
-
   align-items: center;
   box-sizing: border-box;
   display: inline-flex;
@@ -357,6 +366,10 @@ export const StyledButton = styled.button<
       z-index: 1;
     }
   }
+
+  ${menuItemOverrides}
+
+  ${space}
 `;
 
 export default StyledButton;

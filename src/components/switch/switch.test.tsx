@@ -103,9 +103,9 @@ describe("Switch", () => {
   });
 
   describe("On/Off state text", () => {
-    it("renders OFF and ON text outside the track when not loading", () => {
+    it("renders Off and On text outside the track when not loading", () => {
       renderSwitch();
-      expect(screen.getByText(/^(ON|OFF)$/i)).toBeInTheDocument();
+      expect(screen.getByText(/^(On|Off)$/i)).toBeInTheDocument();
     });
 
     it("uses locale text for On/Off labels", () => {
@@ -231,7 +231,7 @@ describe("Switch", () => {
   describe("loading state", () => {
     it("hides On/Off state text when loading", () => {
       renderSwitch({ loading: true });
-      expect(screen.queryByText(/^(ON|OFF)$/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/^(On|Off)$/i)).not.toBeInTheDocument();
     });
 
     it("renders a loader element when loading", () => {
@@ -250,8 +250,8 @@ describe("Switch", () => {
           locale={{
             locale: () => "en-US",
             switch: {
-              on: () => "ON",
-              off: () => "OFF",
+              on: () => "On",
+              off: () => "Off",
               processingLabel: () => "En cours...",
             },
           }}

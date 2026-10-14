@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Textbox, { TextboxProps } from ".";
 import Box from "../box";
+
+const lightGreyBackground: React.CSSProperties = {
+  backgroundColor: "rgb(242, 245, 246)",
+};
 import Button from "../button";
 
 export const SIZES = ["small", "medium", "large"] as const;
@@ -103,7 +107,7 @@ export const TextboxValidationsAsAString = () => {
 
 export const TextboxNewValidationsAsAStringOnGreyBackground = () => {
   return (
-    <Box backgroundColor="var(--colorsUtilityMajor025)">
+    <div style={lightGreyBackground}>
       {VALIDATIONS.map((validationType) => (
         <div key={`${validationType}-string-component`}>
           <Textbox
@@ -123,7 +127,7 @@ export const TextboxNewValidationsAsAStringOnGreyBackground = () => {
           />
         </div>
       ))}
-    </Box>
+    </div>
   );
 };
 

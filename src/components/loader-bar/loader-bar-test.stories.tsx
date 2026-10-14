@@ -5,6 +5,11 @@ import { LOADER_BAR_SIZES } from "./loader-bar.config";
 import Box from "../box";
 import Typography from "../typography";
 
+const lightGreyBackground: React.CSSProperties = {
+  minHeight: "50px",
+  backgroundColor: "rgb(224, 224, 224)",
+};
+
 export default {
   title: "Deprecated/Loader Bar/Test",
   includeStories: ["DefaultStory", "LoaderBarWithMinHeight"],
@@ -33,9 +38,9 @@ DefaultStory.storyName = "default";
 export const LoaderBarWithMinHeight: StoryFn<typeof LoaderBar> = () => {
   return (
     <Box p={3}>
-      <Box backgroundColor="#e0e0e0" minHeight="50px">
+      <div style={lightGreyBackground}>
         <Typography>Small bar</Typography>
-      </Box>
+      </div>
       <LoaderBar m={0} size="small" />
     </Box>
   );

@@ -49,6 +49,7 @@ export const StyledStepSequenceItem = styled.li<StyledStepSequenceProps>`
 
     ${$orientation === "vertical" &&
     css`
+      box-sizing: border-box;
       min-height: 72px;
       padding: var(--global-space-comp-s) 0 var(--global-space-comp-l) 0;
     `}

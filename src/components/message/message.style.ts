@@ -17,6 +17,21 @@ type MessageStyleProps = {
   width?: string;
 };
 
+const getSubtleBorder = (variant: InternalMessageVariant) => {
+  switch (variant) {
+    case "info":
+      return "var(--global-borderwidth-xs) solid var(--message-contextual-info-border-alt)";
+    case "success":
+      return "var(--global-borderwidth-xs) solid var(--message-contextual-success-border-alt)";
+    case "warning":
+      return "var(--global-borderwidth-xs) solid var(--message-contextual-warning-border-alt)";
+    case "ai":
+      return "var(--global-borderwidth-xs) solid var(--message-contextual-ai-border-alt)";
+    default:
+      return "none";
+  }
+};
+
 export const MessageStyle = styled.div.attrs(applyBaseTheme)<
   MessageStyleProps & MarginProps
 >`
@@ -40,7 +55,7 @@ export const MessageStyle = styled.div.attrs(applyBaseTheme)<
   ${({ isSubtle, variant }) =>
     isSubtle &&
     css`
-      border: none;
+      border: ${getSubtleBorder(variant)};
       background-color: ${variantSubtleColor[
         variant as Exclude<InternalMessageVariant, "neutral">
       ]};

@@ -5,8 +5,22 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 
 import Badge from ".";
 import Button from "../button";
-import Box from "../box";
 import Icon from "../icon";
+
+const lightGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-xs)",
+  display: "flex",
+  justifyContent: "center",
+  gap: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgb(242, 245, 246)",
+};
+
+const translucentBlackBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-xs)",
+  display: "flex",
+  gap: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgba(0, 0, 0, 0.9019607843137255)",
+};
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -25,15 +39,9 @@ const meta: Meta<typeof Badge> = {
   },
   decorators: [
     (Story) => (
-      <Box
-        p={3}
-        display="flex"
-        justifyContent="center"
-        gap={2}
-        backgroundColor="--colorsUtilityMajor025"
-      >
+      <div style={lightGreyBackground}>
         <Story />
-      </Box>
+      </div>
     ),
   ],
 };
@@ -134,9 +142,9 @@ Inverse.args = {
 };
 Inverse.decorators = [
   (Story) => (
-    <Box p={3} display="flex" gap={2} backgroundColor="--colorsUtilityYin090">
+    <div style={translucentBlackBackground}>
       <Story />
-    </Box>
+    </div>
   ),
 ];
 

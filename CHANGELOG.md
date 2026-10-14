@@ -1,3 +1,144 @@
+## [162.9.1](https://github.com/Sage/carbon/compare/v162.9.0...v162.9.1) (2026-10-14)
+
+### Bug Fixes
+
+* **step-sequence:** fix min height ([ed01864](https://github.com/Sage/carbon/commit/ed01864894672aa48937c5f4adad9497fd3c7ee6)), closes [#8198](https://github.com/Sage/carbon/issues/8198)
+
+## [162.9.0](https://github.com/Sage/carbon/compare/v162.8.0...v162.9.0) (2026-10-13)
+
+### Features
+
+* **box:** add deprecation annotations and warnings for future unsupported props and types ([0928236](https://github.com/Sage/carbon/commit/09282364db95e454888795cfe104f1b0aadb2846))
+
+## [162.8.0](https://github.com/Sage/carbon/compare/v162.7.0...v162.8.0) (2026-10-08)
+
+### Features
+
+* **tile:** align component with Fusion DS ([6bf8000](https://github.com/Sage/carbon/commit/6bf8000216c4ad7f06d9e495e9fed4a6e812236e))
+
+## [162.7.0](https://github.com/Sage/carbon/compare/v162.6.1...v162.7.0) (2026-10-07)
+
+### Features
+
+* **pager:** add layout, alignment, and totals display ([83b1911](https://github.com/Sage/carbon/commit/83b1911aba0ae5700c264482d57eb166de58ac0c))
+
+## [162.6.1](https://github.com/Sage/carbon/compare/v162.6.0...v162.6.1) (2026-10-07)
+
+### Bug Fixes
+
+* **dialog-header:** ensure icon is not misaligned when title text wraps ([7c28c83](https://github.com/Sage/carbon/commit/7c28c83abb315029dd6c16a8eb0e1c1a5e9cd2ee)), closes [#8200](https://github.com/Sage/carbon/issues/8200)
+
+## [162.6.0](https://github.com/Sage/carbon/compare/v162.5.0...v162.6.0) (2026-10-07)
+
+### Features
+
+* **icon:** added 4 new icons ([d4685fa](https://github.com/Sage/carbon/commit/d4685fae3dde7d766782c842376b9a9cc51ae58b))
+
+## [162.5.0](https://github.com/Sage/carbon/compare/v162.4.0...v162.5.0) (2026-10-05)
+
+### Features
+
+* **sidebar:** align with fusion ds ([b65a526](https://github.com/Sage/carbon/commit/b65a5261c08c39da03bb69aab882041906a996a2))
+
+## [162.4.0](https://github.com/Sage/carbon/compare/v162.3.1...v162.4.0) (2026-09-24)
+
+### Features
+
+* **batch-selection:** align with Fusion DS ([201f825](https://github.com/Sage/carbon/commit/201f825633d75370f27b052caae9ee4199827435))
+
+## [162.3.1](https://github.com/Sage/carbon/compare/v162.3.0...v162.3.1) (2026-09-24)
+
+### Bug Fixes
+
+* **text-editor:** keep texteditor typography separate from text formatting ([346327a](https://github.com/Sage/carbon/commit/346327adbd56e310d623488823f471c62d0cf3a0))
+
+## [162.3.0](https://github.com/Sage/carbon/compare/v162.2.4...v162.3.0) (2026-09-23)
+
+### Features
+
+* **message:** add subtle border color to give parity with DS ([e623fb8](https://github.com/Sage/carbon/commit/e623fb8bf3f687cfa4557004f47b397f1a375f2c))
+
+## [162.2.4](https://github.com/Sage/carbon/compare/v162.2.3...v162.2.4) (2026-09-22)
+
+### Bug Fixes
+
+* **switch:** adjust uppercase labels to sentence case accross all locales ([0a92c4b](https://github.com/Sage/carbon/commit/0a92c4bacf18d6c4bd35cd8254f82ec14ec056c3))
+
+## [162.2.3](https://github.com/Sage/carbon/compare/v162.2.2...v162.2.3) (2026-09-21)
+
+### Bug Fixes
+
+* **dialog:** fullscreen should have 16px padding ([517d069](https://github.com/Sage/carbon/commit/517d0693c4575bf0ffebe40872a7fd90c40a7886)), closes [#8159](https://github.com/Sage/carbon/issues/8159)
+
+## [162.2.2](https://github.com/Sage/carbon/compare/v162.2.1...v162.2.2) (2026-09-17)
+
+### Bug Fixes
+
+* **pager:** prevent pager inputs inheriting form field spacing ([5a546fd](https://github.com/Sage/carbon/commit/5a546fd4a2cb69fe70648c47b0d5766b72ac14a4))
+
+## [162.2.1](https://github.com/Sage/carbon/compare/v162.2.0...v162.2.1) (2026-09-17)
+
+### Bug Fixes
+
+* **dialog:** ensure dialog content stays on smaller screens ([7772a69](https://github.com/Sage/carbon/commit/7772a69f4dd99e348a41d533703f3a60809cb134)), closes [#8144](https://github.com/Sage/carbon/issues/8144)
+
+## [162.2.0](https://github.com/Sage/carbon/compare/v162.1.0...v162.2.0) (2026-09-17)
+
+### Features
+
+* **time:** align Time with FE-7233 audit requirements ([9aaf847](https://github.com/Sage/carbon/commit/9aaf84781a67de79e6419f41a3b495d2fd36f03e))
+
+## [162.1.0](https://github.com/Sage/carbon/compare/v162.0.1...v162.1.0) (2026-09-16)
+
+### Features
+
+* **split-button:** update component with fusion design system ([717ef88](https://github.com/Sage/carbon/commit/717ef88c57605bf239f4aa75e5b4768898ae1980))
+
+## [162.0.1](https://github.com/Sage/carbon/compare/v162.0.0...v162.0.1) (2026-09-14)
+
+### Bug Fixes
+
+* **decimal:** default to decimal input mode ([ba29e9c](https://github.com/Sage/carbon/commit/ba29e9cd43e81af784bf6c14ac8be2e327a6fb59))
+* **numeral-date:** allow unrestricted date input ([c90c40b](https://github.com/Sage/carbon/commit/c90c40be44e78f758a38aae18d51002cafa5d374))
+* **time:** add numeric input mode hints ([2438431](https://github.com/Sage/carbon/commit/2438431abc3f4b41e7ca48ccc0f332eb84af4f5a))
+
+## [162.0.0](https://github.com/Sage/carbon/compare/v161.25.1...v162.0.0) (2026-09-14)
+
+### ⚠ BREAKING CHANGES
+
+* **textarea:** Textarea now renders a native textarea instead of the legacy
+Input. Its props and event handler types are based on HTMLTextAreaElement rather
+than HTMLInputElement, so consumers with typed handlers or previously-inherited
+input-only attributes may need to update their types
+
+### Bug Fixes
+
+* **textarea:** remove legacy FormField, Label and Input usage ([c8c6d6e](https://github.com/Sage/carbon/commit/c8c6d6e1f7f70504bd8f06013921f539a3de7f1d))
+
+## [161.25.1](https://github.com/Sage/carbon/compare/v161.25.0...v161.25.1) (2026-09-11)
+
+### Bug Fixes
+
+* **textarea:** restore backwards compatibility ([dfa6384](https://github.com/Sage/carbon/commit/dfa63842fd5ae3e8ebe3775cd9776e6240b7457b))
+
+## [161.25.0](https://github.com/Sage/carbon/compare/v161.24.0...v161.25.0) (2026-09-10)
+
+### Features
+
+* **dialog:** add dialog header component ([73628b1](https://github.com/Sage/carbon/commit/73628b1a6b941da9dda5cca5c0e454bf68080821))
+
+## [161.24.0](https://github.com/Sage/carbon/compare/v161.23.0...v161.24.0) (2026-09-10)
+
+### Features
+
+* **popover-container:** align component with fusion designs ([c4c4f63](https://github.com/Sage/carbon/commit/c4c4f63aaa140b08df09e08288621e503e8db8f4))
+
+## [161.23.0](https://github.com/Sage/carbon/compare/v161.22.1...v161.23.0) (2026-09-10)
+
+### Features
+
+* **textarea:** remove legacy FormField, Label and Input usage ([a1dc8e3](https://github.com/Sage/carbon/commit/a1dc8e3aa74c783ac4911c677145a5bf74a65e08))
+
 ## [161.22.1](https://github.com/Sage/carbon/compare/v161.22.0...v161.22.1) (2026-09-09)
 
 ### Bug Fixes

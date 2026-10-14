@@ -1,4 +1,5 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as RenderOpenStories from "./render-open/render-open.stories";
 import * as RenderCloseStories from "./render-close/render-close.stories";
@@ -23,6 +24,7 @@ import * as PopoverContainerStories from "./popover-container.stories";
 - [Examples](#examples)
 - [Props](#props)
 - [Ref methods](#ref-methods)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -53,18 +55,17 @@ of the screen.
 
 <Canvas of={PopoverContainerStories.RightPosition} />
 
-### Center Aligned
+### Roundness
 
-Use `position="center"` to center the `PopoverContainer` below the trigger element. This positioning is ideal when your trigger element is centrally located and you want the popover to appear directly underneath it, maintaining visual alignment.
-The center position automatically calculates the optimal placement to keep the popover centered relative to its trigger, while ensuring it stays within the viewport boundaries.
+Use the `roundness` prop to set the corner rounding of the `PopoverContainer` to either `moderate` or `curved`.
 
-<Canvas of={PopoverContainerStories.CenterPosition} />
+<Canvas of={PopoverContainerStories.Roundness} />
 
-### Border Radius
+### Sizes
 
-Use the `borderRadius` prop to customise the corner rounding of the `PopoverContainer`.
+Use the `size` prop to set the size of the `PopoverContainer` to either `small`, `medium`, or `large`.
 
-<Canvas of={PopoverContainerStories.BorderRadius} />
+<Canvas of={PopoverContainerStories.Sizes} />
 
 ### Offset
 
@@ -112,15 +113,6 @@ You can easily use many different components to create your own composition.
 
 <Canvas of={PopoverContainerStories.Complex} />
 
-### Filter component
-
-If you want to use the `PopoverContainer` to create for example `Filter` component.
-You can do it easily in this way:
-
-**Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
-
-<Canvas of={PopoverContainerStories.Filter} />
-
 ### Animation Disabled
 
 It is possible to disable the animations applied to the `PopoverContainer` by setting the `disableAnimation` prop to `true`.
@@ -148,3 +140,19 @@ It is possible to disable the animations applied to the `PopoverContainer` by se
 | Method Name      | Description                                  |
 | ---------------- | -------------------------------------------- |
 | `focusButton()` | Programmatically focuses the open button.    |
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "popoverContainer.openButton.text",
+      description: "The text for the button that opens the popover container",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

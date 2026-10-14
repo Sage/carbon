@@ -6,7 +6,9 @@ type FormStateBoolean = { [key: string]: boolean };
 export function useMultiInput(initialState: FormState = {}) {
   const [state, setState] = useState<FormState>(initialState);
 
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const setValue = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = target;
     setState((prev) => ({
       ...prev,

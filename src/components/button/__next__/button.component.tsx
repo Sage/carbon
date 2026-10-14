@@ -15,6 +15,7 @@ import {
   PopoverMenuContext,
   MenuItemContext,
 } from "../../../__internal__/popover-menu/contexts";
+import SplitButtonContext from "../../split-button/__internal__/split-button.context";
 
 type ButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
@@ -180,6 +181,8 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
     const { size: menuItemSize, isButtonMenu } = useContext(PopoverMenuContext);
     const { isDisabled: isMenuItemDisabled } =
       useContext(MenuItemContext) ?? /* istanbul ignore next */ {};
+    const { inSplitButton, onChildButtonClick } =
+      useContext(SplitButtonContext);
     const computedSize = isButtonMenu ? menuItemSize : size;
     const isDisabled = disabled || isMenuItemDisabled;
 
@@ -202,7 +205,11 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
     ) => {
       event.currentTarget.focus({ preventScroll: true });
 
-      onClick?.(event);
+      if (inSplitButton && onChildButtonClick) {
+        onChildButtonClick(onClick)?.(event);
+      } else {
+        onClick?.(event);
+      }
     };
 
     const setForwardedRef = (node: ButtonRef | null) => {

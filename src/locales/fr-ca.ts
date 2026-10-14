@@ -20,7 +20,13 @@ const frCA: Partial<Locale> = {
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} sélectionné(s)`,
+    ariaLabels: {
+      close: () => "Fermer",
+    },
+    selected: (count, total) =>
+      total
+        ? `${count} sur ${total} éléments sélectionnés`
+        : `${count} sélectionné(s)`,
   },
   breadcrumbs: {
     ariaLabel: () => "chemins de navigation",
@@ -142,13 +148,22 @@ const frCA: Partial<Locale> = {
     },
   },
   pager: {
-    firstAriaLabel: () => "Aller à la première page",
-    lastAriaLabel: () => "Aller à la dernière page",
-    nextAriaLabel: () => "Aller à la page suivante",
-    previousAriaLabel: () => "Aller à la page précédente",
-    pageX: (currentPage?: number | string) => `Page ${currentPage}`,
-    ofTotalPages: (totalPages: number | string) => `sur ${totalPages} pages`,
+    firstAriaLabel: (totalPages?: string | number) =>
+      `Aller à la première page ${totalPages ? `(page 1 sur ${totalPages})` : ""}`,
+    lastAriaLabel: (totalPages?: string | number) =>
+      `Aller à la dernière page ${totalPages ? `(page ${totalPages} sur ${totalPages})` : ""}`,
+    nextAriaLabel: (nextPage?: number | string, totalPages?: string | number) =>
+      `Aller à la page suivante ${nextPage && totalPages ? `(page ${nextPage} sur ${totalPages})` : ""}`,
+    previousAriaLabel: (
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) =>
+      `Aller à la page précédente ${previousPage && totalPages ? `(page ${previousPage} sur ${totalPages})` : ""}`,
+    pageX: (currentPage?: number | string) =>
+      `Page${currentPage ? ` ${currentPage}` : ""}`,
+    ofY: (totalPages: number | string) => `sur ${totalPages}`,
     itemsPerPage: () => "Éléments par page",
+    totalItems: () => "éléments au total",
     ariaLabel: () => "Pagination",
   },
   password: {
@@ -264,8 +279,8 @@ const frCA: Partial<Locale> = {
     closeIconAriaLabel: () => "Fermer",
   },
   switch: {
-    on: () => "OUI",
-    off: () => "NON",
+    on: () => "Oui",
+    off: () => "Non",
     processingLabel: () => "Traitement en cours",
   },
   tileSelect: {
@@ -274,8 +289,8 @@ const frCA: Partial<Locale> = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "Hres",
-    minutesLabelText: () => "Mins.",
+    hoursLabelText: () => "Heures",
+    minutesLabelText: () => "Minutes",
     hoursAriaLabelText: () => "Heures",
     minutesAriaLabelText: () => "Minutes",
   },

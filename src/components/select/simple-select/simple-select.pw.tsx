@@ -1,4 +1,5 @@
 import React from "react";
+import type { Page } from "@playwright/test";
 import Option from "../option";
 import { test, expect } from "../../../../playwright/helpers/base-test";
 import {
@@ -37,6 +38,27 @@ import { loader } from "../../../../playwright/components/loader";
 import { SimpleSelectProps } from "./simple-select.component";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+
+async function navigateAndConfirmSelection(
+  page: Page,
+  key: "ArrowDown" | "ArrowUp",
+  highlightedOptions: string[],
+) {
+  await dropdownButton(page).click();
+  await expect(selectList(page)).toBeVisible();
+
+  const input = selectInput(page);
+  for (const option of highlightedOptions) {
+    await input.press(key);
+    await expect(selectOptionByText(page, option)).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+  }
+
+  await input.press("Enter");
+  await expect(selectList(page)).toBeHidden();
+}
 
 test.describe("SimpleSelect component", () => {
   test("scroll position of option list doesn't change, if the component's options are dynamically changed", async ({
@@ -415,41 +437,19 @@ test.describe("Selection confirmed", () => {
   }) => {
     await mount(<SelectionConfirmed />);
 
-    await dropdownButton(page).click();
-    const inputElement = selectInput(page);
-    await inputElement.press("ArrowDown");
-    await inputElement.press("Enter");
+    await navigateAndConfirmSelection(page, "ArrowDown", ["One"]);
     await expect(
       page.locator('[data-element="confirmed-selection-1"]'),
     ).toBeVisible();
-    // to work around a race condition in the keydown handler, we fire a click first to ensure React knows the SelectList is open.
-    // This ensures the down-arrow press moves to the next option when the test runs.
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowDown");
-    await inputElement.press("ArrowDown");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-1"]'),
-    ).toBeHidden();
+    await navigateAndConfirmSelection(page, "ArrowDown", ["Two", "Three"]);
     await expect(
       page.locator('[data-element="confirmed-selection-3"]'),
     ).toBeVisible();
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowDown");
-    await inputElement.press("ArrowDown");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-3"]'),
-    ).toBeHidden();
+    await navigateAndConfirmSelection(page, "ArrowDown", ["Four", "Five"]);
     await expect(
       page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeVisible();
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowDown");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-5"]'),
-    ).toBeHidden();
+    await navigateAndConfirmSelection(page, "ArrowDown", ["Six"]);
     await expect(
       page.locator('[data-element="confirmed-selection-6"]'),
     ).toBeVisible();
@@ -491,41 +491,19 @@ test.describe("Selection confirmed", () => {
   }) => {
     await mount(<SelectionConfirmed />);
 
-    await dropdownButton(page).click();
-    const inputElement = selectInput(page);
-    await inputElement.press("ArrowUp");
-    await inputElement.press("Enter");
+    await navigateAndConfirmSelection(page, "ArrowUp", ["Nine"]);
     await expect(
       page.locator('[data-element="confirmed-selection-9"]'),
     ).toBeVisible();
-    // to work around a race condition in the keydown handler, we fire a click first to ensure React knows the SelectList is open.
-    // This ensures the up-arrow press moves to the next option when the test runs.
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowUp");
-    await inputElement.press("ArrowUp");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-9"]'),
-    ).toBeHidden();
+    await navigateAndConfirmSelection(page, "ArrowUp", ["Eight", "Seven"]);
     await expect(
       page.locator('[data-element="confirmed-selection-7"]'),
     ).toBeVisible();
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowUp");
-    await inputElement.press("ArrowUp");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-7"]'),
-    ).toBeHidden();
+    await navigateAndConfirmSelection(page, "ArrowUp", ["Six", "Five"]);
     await expect(
       page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeVisible();
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowUp");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-5"]'),
-    ).toBeHidden();
+    await navigateAndConfirmSelection(page, "ArrowUp", ["Four"]);
     await expect(
       page.locator('[data-element="confirmed-selection-4"]'),
     ).toBeVisible();

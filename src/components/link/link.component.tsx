@@ -14,7 +14,6 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
-import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 import Logger from "../../__internal__/utils/logger";
 
 export interface LinkProps
@@ -140,8 +139,6 @@ export const Link = React.forwardRef<
 
     const l = useLocale();
     const { inMenu } = useContext(MenuContext);
-    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
-    const isDisabled = disabled || batchSelectionDisabled;
     const linkRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
 
     if (!deprecatedDisabledWarning && disabled) {
@@ -217,7 +214,7 @@ export const Link = React.forwardRef<
       return hasProperAlignment ? (
         <Icon
           type={icon}
-          disabled={isDisabled}
+          disabled={disabled}
           ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
           tooltipMessage={tooltipMessage}
           tooltipPosition={tooltipPosition}
@@ -240,8 +237,8 @@ export const Link = React.forwardRef<
       onKeyDown,
       onMouseDown,
       onClick: handleClick,
-      disabled: isDisabled,
-      "aria-disabled": isDisabled || undefined,
+      disabled,
+      "aria-disabled": disabled || undefined,
       target,
       ref: setRefs,
       href,
@@ -296,7 +293,7 @@ export const Link = React.forwardRef<
     return (
       <StyledLink
         $isSkipLink={isSkipLink}
-        $disabled={isDisabled}
+        $disabled={disabled}
         $underline={underline}
         $iconAlign={iconAlign}
         className={className}

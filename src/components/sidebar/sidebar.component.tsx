@@ -1,19 +1,21 @@
 import React, { useCallback, useRef, RefObject } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
-import Modal, { ModalProps } from "../../__internal__/modal";
-import { StyledSidebar, StyledSidebarContent } from "./sidebar.style";
-import IconButton from "../icon-button";
-import Icon from "../icon";
+import type { ModalProps } from "../../__internal__/modal";
+import { StyledSidebar, StyledSidebarModal } from "./sidebar.style";
+import Button from "../button/__next__";
 import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader, { SidebarSubHeader } from "./__internal__/sidebar-header";
+import SidebarContent from "./__internal__/sidebar-content";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
-import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import tagComponent, {
+  type TagProps,
+} from "../../__internal__/utils/helpers/tags";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
-import SidebarContext from "./__internal__/sidebar.context";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import { smallScreenBreakpoint } from "./sidebar.config";
 
 export interface SidebarProps
   extends PaddingProps,
@@ -23,14 +25,13 @@ export interface SidebarProps
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
-   * Prop to specify the aria-label of the component.
-   * To be used only when the header prop is not defined, and the component is not labelled by any internal element.
+   * Provides an explicit accessible name for the component, overriding the
+   * automatic association with the header.
    */
   "aria-label"?: string;
   /**
-   * Prop to specify the aria-labelledby property of the component
-   * To be used when the header prop is a custom React Node,
-   * or the component is labelled by an internal element other than the header.
+   * Identifies the element that provides an explicit accessible name for the
+   * component, overriding the automatic association with the header.
    */
   "aria-labelledby"?: string;
   /** Modal content */
@@ -41,8 +42,22 @@ export interface SidebarProps
   disableEscKey?: boolean;
   /** Set this prop to false to hide the translucent background when the dialog is open. */
   enableBackgroundUI?: boolean;
+  /**
+   * Whether the Sidebar uses its full-screen presentation below the small-screen breakpoint.
+   * @private
+   * @internal
+   * @ignore
+   */
+  fullScreenOnSmallScreen?: boolean;
+  /**
+   * When true, header and footer become non-sticky and scroll with content
+   * for accessibility on small screen devices.
+   */
+  disableStickyOnSmallScreen?: boolean;
   /** Optional reference to an element meant to be focused on open */
   focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  /** Footer content to be rendered at the bottom of the Sidebar. */
+  footer?: React.ReactNode;
   /* Disables auto focus functionality on child elements */
   disableAutoFocus?: boolean;
   /**
@@ -59,8 +74,13 @@ export interface SidebarProps
   header?: React.ReactNode;
   /** Node that will be used as sidebar subheader. */
   subHeader?: React.ReactNode;
-  /** Header background variant for the sidebar. */
-  headerVariant?: "light" | "dark";
+  /**
+   * Header background variant for the sidebar.
+   * `light` and `dark` are deprecated aliases - use `typical` and `inverse` instead.
+   */
+  headerVariant?: "typical" | "inverse" | "light" | "dark";
+  /** Adds the Carbon AI gradient keyline to the header. */
+  gradientKeyLine?: boolean;
   /** A custom close event handler */
   onCancel?: (
     ev:
@@ -70,11 +90,15 @@ export interface SidebarProps
   ) => void;
   /** Sets the open state of the modal */
   open: boolean;
-  /** Sets the position of sidebar, either left or right. */
+  /** @deprecated This prop will be removed in a future release.
+   * Sidebar will always be positioned on the right.
+   * Update the layout to support a right-positioned Sidebar if it is set to
+   * left, otherwise remove the prop.
+   * */
   position?: "left" | "right";
   /** The ARIA role to be applied to the component container */
   role?: string;
-  /** Sets the size of the sidebar when open. */
+  /** @deprecated Use `width` to customise the Sidebar width. */
   size?:
     | "extra-small"
     | "small"
@@ -85,6 +109,8 @@ export interface SidebarProps
     | "extra-large";
   /** Enables width animation when the sidebar width changes. */
   widthAnimation?: boolean;
+  /** Makes the footer stick to the bottom of the Sidebar when content scrolls. */
+  stickyFooter?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
   focusableContainers?: RefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
@@ -116,20 +142,25 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       closeButtonDataProps,
       disableAutoFocus = false,
       disableEscKey = false,
+      disableStickyOnSmallScreen = false,
       enableBackgroundUI = false,
+      fullScreenOnSmallScreen = true,
       header,
-      headerVariant = "light",
+      headerVariant = "typical",
+      gradientKeyLine = false,
       subHeader,
       position = "right",
-      size = "medium",
+      size,
       children,
       onCancel,
       role = "dialog",
       focusFirstElement,
       focusableContainers,
       focusableSelectors,
+      footer,
       width,
       widthAnimation = false,
+      stickyFooter = false,
       headerPadding = {},
       subHeaderPadding = {},
       topModalOverride,
@@ -144,6 +175,9 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
 
     const allowMotion = useMediaQuery(
       "screen and (prefers-reduced-motion: no-preference)",
+    );
+    const isSmallScreen = Boolean(
+      useMediaQuery(`screen and (max-width: ${smallScreenBreakpoint})`),
     );
 
     const { current: headerId } = useRef<string>(createGuid());
@@ -163,29 +197,37 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
 
     const isTopModal = useModalAria(sidebarRef, hidden);
 
-    const closeIcon = () => {
+    const renderCloseButton = () => {
       if (!onCancel) return null;
       return (
-        <IconButton
+        <Button
           aria-label={locale.sidebar.ariaLabels.close()}
+          iconType="close"
+          inverse={headerVariant === "inverse" || headerVariant === "dark"}
           onClick={onCancel}
+          size="small"
+          variantType="subtle"
           {...tagComponent("close", {
             "data-element": "close",
             ...closeButtonDataProps,
           })}
-        >
-          <Icon type="close" />
-        </IconButton>
+        />
       );
     };
+
+    const closeButton = renderCloseButton();
+    const hasHeader = Boolean(header);
+    const hasSubHeader = Boolean(subHeader);
 
     const sidebar = (
       <StyledSidebar
         aria-modal={!enableBackgroundUI && isTopModal}
-        aria-describedby={!ariaDescribedBy ? subHeaderId : ariaDescribedBy}
+        aria-describedby={
+          !ariaDescribedBy && hasSubHeader ? subHeaderId : ariaDescribedBy
+        }
         aria-label={ariaLabel}
         aria-labelledby={
-          !ariaLabelledBy && !ariaLabel ? headerId : ariaLabelledBy
+          ariaLabelledBy || (!ariaLabel && hasHeader ? headerId : undefined)
         }
         data-component="sidebar"
         data-element={dataElement}
@@ -193,49 +235,51 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         ref={setRefs}
         position={position}
         size={size}
-        onCancel={onCancel}
         role={role}
         width={width}
         widthAnimation={widthAnimation && allowMotion}
+        $disableStickyOnSmallScreen={disableStickyOnSmallScreen}
+        $fullScreenOnSmallScreen={fullScreenOnSmallScreen}
         className={className}
       >
-        {header && (
+        {hasHeader && (
           <SidebarHeader
             headerVariant={headerVariant}
-            closeIcon={closeIcon()}
+            gradientKeyLine={gradientKeyLine}
+            closeButton={closeButton}
             {...headerPadding}
             id={headerId}
           >
             {header}
           </SidebarHeader>
         )}
-        {subHeader && (
+        {hasSubHeader && (
           <SidebarSubHeader {...subHeaderPadding} id={subHeaderId}>
             {subHeader}
           </SidebarSubHeader>
         )}
-        {!header && closeIcon()}
-        <StyledSidebarContent
-          data-element="sidebar-content"
-          data-role="sidebar-content"
-          tabIndex={-1}
+        {!hasHeader && closeButton}
+        <SidebarContent
+          disableStickyOnSmallScreen={disableStickyOnSmallScreen}
+          footer={footer}
+          isSmallScreen={isSmallScreen}
+          stickyFooter={stickyFooter}
           {...filterStyledSystemPaddingProps(rest)}
         >
-          <SidebarContext.Provider value={{ isInSidebar: true }}>
-            {children}
-          </SidebarContext.Provider>
-        </StyledSidebarContent>
+          {children}
+        </SidebarContent>
       </StyledSidebar>
     );
 
     return (
-      <Modal
+      <StyledSidebarModal
         open={open}
         onCancel={onCancel}
         disableEscKey={disableEscKey}
         enableBackgroundUI={enableBackgroundUI}
         topModalOverride={topModalOverride}
         restoreFocusOnClose={restoreFocusOnClose}
+        $fullScreenOnSmallScreen={fullScreenOnSmallScreen}
       >
         {enableBackgroundUI ? (
           sidebar
@@ -252,7 +296,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             {sidebar}
           </FocusTrap>
         )}
-      </Modal>
+      </StyledSidebarModal>
     );
   },
 );

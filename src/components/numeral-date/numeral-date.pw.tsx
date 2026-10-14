@@ -33,6 +33,46 @@ test.describe("NumeralDate component", () => {
     await expect(input).toHaveValue(inputValue);
   });
 
+  test("supports unrestricted text, keyboard clipboard commands, and caret movement", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <NumeralDateControlled
+        initialValue={{ dd: "long-day-value", mm: "Jan", yyyy: "2026" }}
+      />,
+    );
+
+    const dayInput = numeralDateInput(page, 0);
+    const monthInput = numeralDateInput(page, 1);
+    const yearInput = numeralDateInput(page, 2);
+
+    await monthInput.fill("März-long-raw-value");
+    await yearInput.fill("year-without-a-length-limit");
+    await expect(monthInput).toHaveValue("März-long-raw-value");
+    await expect(yearInput).toHaveValue("year-without-a-length-limit");
+
+    await dayInput.selectText();
+    await dayInput.press("ControlOrMeta+c");
+    await monthInput.selectText();
+    await monthInput.press("ControlOrMeta+v");
+    await expect(monthInput).toHaveValue("long-day-value");
+
+    await monthInput.press("End");
+    await monthInput.press("ArrowLeft");
+    await expect(monthInput).toHaveJSProperty(
+      "selectionStart",
+      "long-day-value".length - 1,
+    );
+    await monthInput.press("Home");
+    await expect(monthInput).toHaveJSProperty("selectionStart", 0);
+    await monthInput.press("End");
+    await expect(monthInput).toHaveJSProperty(
+      "selectionStart",
+      "long-day-value".length,
+    );
+  });
+
   dynamicValidations.forEach(([month, day, year, validationString]) => {
     test(`should display dynamic internal error message when month is ${month}, day is ${day} and year is ${year}`, async ({
       mount,

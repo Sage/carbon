@@ -43,6 +43,21 @@ test.each([
   },
 );
 
+test("should render a border radius composed of each value when the `inputBorderRadius` prop is passed an array", () => {
+  render(
+    <Input
+      inputBorderRadius={["borderRadius050", "borderRadius100"]}
+      value=""
+    />,
+  );
+
+  const input = screen.getByRole("textbox");
+  expect(input).toHaveStyleRule(
+    "border-radius",
+    "var(--borderRadius050) var(--borderRadius100)",
+  );
+});
+
 test("should invoke the `inputRef` callback from the input context provider, when the input is rendered", () => {
   const inputRef = jest.fn();
   render(
@@ -104,6 +119,17 @@ test("triggers a passed function via the `onBlur` prop from the input context pr
 
   await user.click(input);
   await user.tab();
+
+  expect(onBlurMock).toHaveBeenCalled();
+});
+
+test("triggers the `onBlur` function from the input context provider when the input is rendered as disabled", () => {
+  const onBlurMock = jest.fn();
+  render(
+    <InputContext.Provider value={{ onBlur: onBlurMock }}>
+      <Input disabled value="" />
+    </InputContext.Provider>,
+  );
 
   expect(onBlurMock).toHaveBeenCalled();
 });

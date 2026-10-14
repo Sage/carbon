@@ -105,6 +105,7 @@ export const AdaptiveSidebar = ({
         className="adaptive-sidebar-modal-view"
         data-role={"adaptive-sidebar-modal-view"}
         enableBackgroundUI={open && hidden}
+        fullScreenOnSmallScreen={false}
         hidden={hidden}
         restoreFocusOnClose={restoreFocusOnClose}
         open={open}
@@ -113,29 +114,28 @@ export const AdaptiveSidebar = ({
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
       >
-        <Box
+        <div
           data-role="adaptive-sidebar-content-wrapper"
-          height="100%"
-          {...colours}
+          style={{ height: "100%", ...colours }}
         >
           {children}
-        </Box>
+        </div>
       </StyledSidebar>
     );
   }
 
   return open ? (
     <StyledAdaptiveSidebar
-      backgroundColor={backgroundColor}
-      borderColor={borderColor === "none" ? undefined : borderColor}
+      $backgroundColor={backgroundColor}
+      $borderColor={borderColor === "none" ? undefined : borderColor}
       data-element="adaptive-sidebar"
       data-role="adaptive-sidebar"
-      height={height}
+      $height={height}
       hidden={hidden}
       ref={adaptiveSidebarRef}
       role="region"
       tabIndex={-1}
-      width={width}
+      $width={width}
       {...filterStyledSystemMarginProps(props)}
       {...filterStyledSystemPaddingProps(props)}
     >

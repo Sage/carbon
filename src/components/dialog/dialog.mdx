@@ -111,6 +111,51 @@ Use the `headerChildren` prop to render additional content — such as action bu
 
 <Canvas of={DialogStories.WithHeaderChildren} />
 
+### With status header
+
+Use the `DialogHeader` component (exported from Dialog) to render a status-styled header with an icon before the title. This is commonly used to indicate the status or severity of the dialog content. The icon is automatically marked as `aria-hidden="true"` since it's decorative - the status should be conveyed through the title text itself for accessibility.
+
+`DialogHeader` automatically generates IDs for its title and subtitle elements, which the Dialog component detects and uses for proper ARIA labeling. No additional `aria-label` or `aria-labelledby` props are needed:
+
+```tsx
+import Dialog, { DialogHeader } from "carbon-react/lib/components/dialog";
+
+<Dialog
+  open
+  title={
+    <DialogHeader
+      title="Dialog with status"
+      subtitle="Subheading"
+      status="positive"
+    />
+  }
+>
+  {/* Dialog content */}
+</Dialog>;
+```
+
+#### Available status variants
+
+**Subtle** - For informational dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderSubtle} />
+
+**Positive** - For success or confirmation dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderPositive} />
+
+**Negative** - For error or critical dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderNegative} />
+
+**Caution** - For warning dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderCaution} />
+
+**Info** - For general information dialogs
+
+<Canvas of={DialogStories.WithStatusHeaderInfo} />
+
 ### Gradient keyline
 
 Setting `gradientKeyLine` adds a decorative gradient keyline below the dialog header.

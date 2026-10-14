@@ -11,6 +11,11 @@ description: Carbon TileSelect component props and usage examples.
 ## Source
 - Export: `./components/tile-select`
 - Props interface: `TileSelectProps`
+- Deprecated: Yes
+- Deprecation reason: `TileSelect` has low adoption and is a poor fit for its intended
+selection UX. No like-for-like replacement has been validated; use a
+product-specific Fusion pattern. See the Carbon deprecation migration
+documentation for consumer-specific guidance.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |
@@ -567,20 +572,10 @@ description: Carbon TileSelect component props and usage examples.
       accordionContent={
         <Box display="flex" flexWrap="wrap">
           <Box flexGrow={1} pr={1}>
-            <Box
-              width="100%"
-              height="100px"
-              bg="primary"
-              display="inline-block"
-            />
+            <div style={greenBackground} />
           </Box>
           <Box flexGrow={1} pl={1}>
-            <Box
-              width="100%"
-              height="100px"
-              bg="primary"
-              display="inline-block"
-            />
+            <div style={greenBackground} />
           </Box>
         </Box>
       }
