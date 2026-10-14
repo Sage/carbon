@@ -7,41 +7,54 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 
-export type Shapes = "text" | "rectangle" | "rectangle-round" | "circle";
+export type SkeletonShape =
+  | "circle"
+  | "rectangle-curved"
+  | "rectangle-moderate"
+  /** @deprecated Use `rectangle-moderate` instead. */
+  | "rectangle"
+  /** @deprecated Use `rectangle-curved` instead. */
+  | "rectangle-round"
+  /** @deprecated Use `rectangle-moderate` instead. */
+  | "text";
 
-export interface PreviewProps extends MarginProps, TagProps {
+/** @deprecated Use `SkeletonShape` instead. */
+export type Shapes = SkeletonShape;
+
+export type SkeletonHeight = "h1" | "h2" | "h3" | "h4" | "paragraph" | "button";
+
+export interface SkeletonProps extends MarginProps, TagProps {
   /** Children content to render in the component. */
   children?: React.ReactNode;
   /** Sets loading state. */
   loading?: boolean;
-  /** Sets the height of the Preview. */
-  height?: string;
-  /** Sets the width of the Preview. */
+  /** Sets a preset or custom pixel/CSS height. Presets: h1 (38px), h2 (30px), h3 (26px), h4 (23px), paragraph (21px), button (40px). */
+  height?: SkeletonHeight | (string & {});
+  /** Sets the width of the Skeleton. Defaults to 100% (except circles, which match their height). */
   width?: string;
   /** The number of placeholder shapes to render. */
   lines?: number;
-  /** Sets the preview's shape. */
-  shape?: Shapes;
-  /** Removes Preview's animation, is true when prefer reduce-motion is on. */
+  /** Sets the Skeleton shape. Legacy values remain supported for Preview compatibility. */
+  shape?: SkeletonShape;
+  /** Removes the animation. Also disabled when the user prefers reduced motion. */
   disableAnimation?: boolean;
 }
 
-export const Preview = ({
+/** @deprecated Use `Skeleton` instead. */
+export type PreviewProps = SkeletonProps;
+
+export const Skeleton = ({
   children,
   loading,
   lines = 1,
   height,
   width,
-  shape = "text",
+  shape = "rectangle-moderate",
   disableAnimation,
   ...props
-}: PreviewProps) => {
+}: SkeletonProps) => {
   const marginProps = filterStyledSystemMarginProps(props);
   const hasPlaceholder = loading ?? !children;
-
-  const isLastLine = (index: number) => {
-    return lines > 1 && lines === index + 1;
-  };
 
   const reduceMotion = !useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
@@ -53,31 +66,36 @@ export const Preview = ({
     for (let i = 0; i < lines; i++) {
       placeholders.push(
         <StyledPreviewPlaceholder
-          data-role="preview-placeholder"
+          aria-hidden="true"
+          data-role="skeleton-placeholder"
           key={i}
           height={height}
           width={width}
-          isLastLine={isLastLine(i)}
           shape={shape}
           disableAnimation={disableAnimation || reduceMotion}
           {...props}
-          {...tagComponent("preview", props)}
+          {...tagComponent("skeleton", props)}
         />,
       );
     }
 
     return (
-      <StyledPreview data-role="preview-wrapper" {...marginProps}>
+      <StyledPreview data-role="skeleton-wrapper" {...marginProps}>
         {placeholders}
       </StyledPreview>
     );
   }
 
   return (
-    <StyledPreview data-role="preview-wrapper" {...marginProps}>
+    <StyledPreview data-role="skeleton-wrapper" {...marginProps}>
       {children}
     </StyledPreview>
   );
 };
 
-export default Preview;
+Skeleton.displayName = "Skeleton";
+
+/** @deprecated Use `Skeleton` instead. */
+export const Preview = Skeleton;
+
+export default Skeleton;

@@ -11,14 +11,16 @@ description: Carbon Preview component props and usage examples.
 ## Source
 - Export: `./components/preview`
 - Props interface: `PreviewProps`
+- Deprecated: Yes
+- Deprecation reason: Use `Skeleton` instead.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | Children content to render in the component. |  |
-| disableAnimation | boolean \| undefined | No |  | Removes Preview's animation, is true when prefer reduce-motion is on. |  |
-| height | string \| undefined | No |  | Sets the height of the Preview. |  |
-| lines | number \| undefined | No |  | The number of placeholder shapes to render. | 1 |
+| disableAnimation | boolean \| undefined | No |  | Removes the animation. Also disabled when the user prefers reduced motion. |  |
+| height | (string & {}) \| SkeletonHeight \| undefined | No |  | Sets a preset or custom pixel/CSS height. Presets: h1 (38px), h2 (30px), h3 (26px), h4 (23px), paragraph (21px), button (40px). |  |
+| lines | number \| undefined | No |  | The number of placeholder shapes to render. |  |
 | loading | boolean \| undefined | No |  | Sets loading state. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
@@ -34,104 +36,10 @@ description: Carbon Preview component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| shape | Shapes \| undefined | No |  | Sets the preview's shape. | "text" |
-| width | string \| undefined | No |  | Sets the width of the Preview. |  |
+| shape | SkeletonShape \| undefined | No |  | Sets the Skeleton shape. Legacy values remain supported for Preview compatibility. |  |
+| width | string \| undefined | No |  | Sets the width of the Skeleton. Defaults to 100% (except circles, which match their height). |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading />;
-}
-```
-
-
-### With Lines
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading lines={6} />;
-}
-```
-
-
-### With Children
-
-**Render**
-
-```tsx
-() => {
-  const [isLoading, setIsLoading] = useState(true);
-  const handleOnClick = () => {
-    setIsLoading(!isLoading);
-  };
-  return (
-    <>
-      <Preview loading={isLoading} lines={3}>
-        This the where the children are rendered
-      </Preview>
-      <Button mt={2} onClick={handleOnClick}>
-        {isLoading ? "Click to preview children" : "Click to see loading state"}
-      </Button>
-    </>
-  );
-}
-```
-
-
-### With Width
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading width="256px" />;
-}
-```
-
-
-### With Height
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading height="256px" />;
-}
-```
-
-
-### Shapes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Preview mb={2} loading shape="rectangle" />
-      <Preview mb={2} loading shape="rectangle-round" />
-      <Preview loading shape="circle" />
-    </>
-  );
-}
-```
-
-
-### Disable Animation
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading disableAnimation />;
-}
-```
-
+No Storybook examples found.

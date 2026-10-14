@@ -6,7 +6,7 @@ import LinkPreview from "./link-preview.component";
 test("renders with a placeholder image and four loading preview's", () => {
   render(<LinkPreview />);
   const placeholderImage = screen.getByTestId("link preview image placeholder");
-  const previews = screen.getAllByTestId("preview-placeholder");
+  const previews = screen.getAllByTestId("skeleton-placeholder");
 
   expect(placeholderImage).toBeVisible();
   expect(previews).toHaveLength(4);
@@ -125,7 +125,7 @@ test("should call the `onClose` callback when the close icon is clicked", async 
 
 test("renders with four loading preview's when the `isLoading` prop is true", () => {
   render(<LinkPreview isLoading />);
-  const previews = screen.getAllByTestId("preview-placeholder");
+  const previews = screen.getAllByTestId("skeleton-placeholder");
 
   expect(previews).toHaveLength(4);
 

@@ -319,7 +319,16 @@ export type { PortalProps } from "./components/portal";
 export { default as Portrait } from "./components/portrait";
 export type { PortraitProps } from "./components/portrait";
 
-export { default as Preview } from "./components/preview";
+export { default as Skeleton } from "./components/skeleton";
+export type {
+  SkeletonProps,
+  SkeletonShape,
+  SkeletonHeight,
+} from "./components/skeleton";
+
+/** @deprecated Use `Skeleton` instead. */
+export { Preview } from "./components/preview";
+/** @deprecated Use `SkeletonProps` instead. */
 export type { PreviewProps } from "./components/preview";
 
 export { default as Profile } from "./components/profile";
