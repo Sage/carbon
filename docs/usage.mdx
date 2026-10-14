@@ -100,9 +100,7 @@ We also provide a `i18nProvider` global for handling different locales. For more
 
 ### Validation
 
-Carbon provides built-in validation states for input components. For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-To opt into the new validation pattern, set the `validationRedesignOptIn` flag to true in the [CarbonProvider](../?path=/docs/carbon-provider--docs).
+Carbon provides built-in validation states for input components. For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
 
 ### PropTypes Support Removed
 

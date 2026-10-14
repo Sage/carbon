@@ -13,11 +13,11 @@ description: Carbon CarbonProvider component props and usage examples.
 - Props interface: `CarbonProviderProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| children | React.ReactNode | Yes |  |  |  |
-| theme | Partial<ThemeObject> \| undefined | No |  | Theme which specifies styles to apply to all child components. Set to `sageTheme` by default. | sageTheme |
-| validationRedesignOptIn | boolean \| undefined | No |  | Feature flag for opting in to the latest validation designs for components that support it. NOTE - Will eventually be set to `true` by default in the future. | false |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| children | React.ReactNode | Yes |  |  |  |  |  |
+| theme | Partial<ThemeObject> \| undefined | No |  |  |  | Theme which specifies styles to apply to all child components. Set to `sageTheme` by default. | sageTheme |
+| validationRedesignOptIn | boolean \| undefined | No |  | Yes | The new validation designs have been implemented across the library and this flag is no longer required. It will be removed in a future release, you can safely stop passing it. | Feature flag for opting in to the latest validation designs for components that support it. | true |
 
 ## Examples
 ### Using Latest Sage Theme
@@ -64,16 +64,5 @@ import { sageTheme } from "carbon-react/lib/style/themes";
 <Typography color="--colorsSemanticNegative500">
   This text is coloured with a design token!
 </Typography>
-```
-
-
-### MDX Example 4
-
-**Args**
-
-```tsx
-<CarbonProvider validationRedesignOptIn>
-  <MyApp />
-</CarbonProvider>
 ```
 

@@ -20,7 +20,8 @@ export interface CarbonProviderProps extends NewValidationContextProps {
 export const CarbonProvider = ({
   children,
   theme = sageTheme,
-  validationRedesignOptIn = false,
+  // true by default to ensure any remaining legacy internals still apply correct styles
+  validationRedesignOptIn = true,
 }: CarbonProviderProps) => (
   <ThemeProvider theme={theme}>
     <CarbonScopedTokensProvider>
