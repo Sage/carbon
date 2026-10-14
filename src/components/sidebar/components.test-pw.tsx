@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import Typography from "../typography";
 import Button from "../button/__next__";
@@ -72,76 +72,6 @@ export const NestedSidebars = () => {
         </Sidebar>
       </Sidebar>
     </>
-  );
-};
-
-export const SidebarWithBackgroundScrollTarget = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Box height="2000px" position="relative">
-      <Box
-        data-element="test-box"
-        height="100px"
-        position="absolute"
-        bottom="0px"
-      >
-        I should not be scrolled into view
-      </Box>
-      <Sidebar open onCancel={() => {}}>
-        <Textbox
-          label="textbox"
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-      </Sidebar>
-    </Box>
-  );
-};
-
-export const SidebarWithBackgroundScrollTargetAndFocusableContainers = () => {
-  const message1Ref = useRef(null);
-  const message2Ref = useRef(null);
-  const [value, setValue] = useState("");
-
-  return (
-    <Box height="2000px" position="relative">
-      <Box
-        data-element="test-box"
-        height="100px"
-        position="absolute"
-        bottom="0px"
-      >
-        I should not be scrolled into view
-      </Box>
-      <Sidebar
-        open
-        onCancel={() => {}}
-        focusableContainers={[message1Ref, message2Ref]}
-      >
-        <Textbox
-          label="textbox"
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-      </Sidebar>
-      <Portal inertOptOut>
-        <Box ref={message1Ref} position="fixed" top="0px">
-          <Message open onDismiss={() => {}}>
-            Message 1
-          </Message>
-        </Box>
-        <Box ref={message2Ref} position="fixed" top="100px">
-          <Message open onDismiss={() => {}}>
-            Message 2
-          </Message>
-        </Box>
-      </Portal>
-    </Box>
   );
 };
 
