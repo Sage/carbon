@@ -15,17 +15,52 @@ const setup = () => {
   };
 };
 
-test("describes the day before focusing it", () => {
-  const { day, teardown } = setup();
+test("describes the day and blurs the previous element before focusing it", () => {
+  const { day, other, teardown } = setup();
   let describedOnFocus: string | null = null;
+  const focusEvents: string[] = [];
+
+  other.focus();
+  other.addEventListener("blur", () => {
+    focusEvents.push("previous-blurred");
+  });
   day.addEventListener("focus", () => {
     describedOnFocus = day.getAttribute("aria-describedby");
+    focusEvents.push("day-focused");
   });
 
   focusDayWithPickerDescription(day, "description");
 
   expect(day).toHaveFocus();
   expect(describedOnFocus).toBe("description");
+  expect(focusEvents).toEqual(["previous-blurred", "day-focused"]);
+  teardown();
+});
+
+test("keeps focus on a day that is  already focused", () => {
+  const { day, teardown } = setup();
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("tabindex", "0");
+  document.body.append(svg);
+
+  svg.focus();
+  expect(svg).toHaveFocus();
+
+  focusDayWithPickerDescription(day, "description");
+
+  expect(day).toHaveFocus();
+  svg.remove();
+  teardown();
+});
+
+test("focuses the day when the activeElement is not an HTMLElement", () => {
+  const { day, teardown } = setup();
+
+  day.focus();
+  focusDayWithPickerDescription(day, "description");
+
+  expect(day).toHaveFocus();
+  expect(day).toHaveAttribute("aria-describedby", "description");
   teardown();
 });
 

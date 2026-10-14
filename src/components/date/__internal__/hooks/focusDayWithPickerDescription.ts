@@ -12,6 +12,13 @@ const focusDayWithPickerDescription = (
 
   day.setAttribute("aria-describedby", descriptionId);
   day.addEventListener("blur", removeDescription, { once: true });
+
+  // Make the transition from the opener to the day more seamless and explicit for assistive technology.
+  const { activeElement } = document;
+  if (activeElement instanceof HTMLElement && activeElement !== day) {
+    activeElement.blur();
+  }
+
   day.focus();
 
   return () => {
