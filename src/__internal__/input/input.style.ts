@@ -14,6 +14,7 @@ interface InputContainerProps {
   $error?: boolean;
   $isDisabled?: boolean;
   $isReadOnly?: boolean;
+  $isSimpleSelect?: boolean;
   $size?: "small" | "medium" | "large";
 }
 
@@ -32,16 +33,28 @@ const InputContainer = styled.div<InputContainerProps>`
     ${$size === "small" &&
     css`
       min-height: var(--global-size-s);
+
+      [data-component="simple-select"] & {
+        min-height: auto;
+      }
     `}
 
     ${$size === "medium" &&
     css`
       min-height: var(--global-size-m);
+
+      [data-component="simple-select"] & {
+        min-height: auto;
+      }
     `}
  
     ${$size === "large" &&
     css`
       min-height: var(--global-size-l);
+
+      [data-component="simple-select"] & {
+        min-height: auto;
+      }
     `}
  
     &&& {
@@ -69,6 +82,11 @@ const InputContainer = styled.div<InputContainerProps>`
         background: var(--input-typical-bg-disabled);
         border: var(--global-borderwidth-xs) solid
           var(--input-typical-border-disabled);
+
+        [data-component="simple-select"] &[data-is-subtle="true"] {
+          background: transparent;
+          border-color: transparent;
+        }
 
         * {
           cursor: not-allowed;
@@ -153,7 +171,7 @@ const InputContainer = styled.div<InputContainerProps>`
         `}
       }
 
-      [data-element="textbox-prefix"] {
+      [data-element="textbox-prefix"]:not([data-component="simple-select"] *) {
         font-weight: 500;
         margin-left: var(--global-space-comp-m);
       }
@@ -165,8 +183,8 @@ const InputContainer = styled.div<InputContainerProps>`
   ${searchNewStyleOverrides}
   ${searchStyleOverrides}
  
-  ${({ $size, $isDisabled, $isReadOnly }) =>
-    selectStyleOverrides($size, $isDisabled, $isReadOnly)}
+  ${({ $isSimpleSelect, $size }) =>
+    selectStyleOverrides($size, $isSimpleSelect)}
  
   ${numeralDateStyles}
  

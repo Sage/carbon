@@ -4,6 +4,7 @@ import React, {
   useRef,
   forwardRef,
   useState,
+  useMemo,
 } from "react";
 import styled, { css } from "styled-components";
 import type { CSSObject } from "styled-components";
@@ -12,6 +13,8 @@ import { flip, offset, size } from "@floating-ui/dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { useHandleDropdownMenuKeyDown, setFocus } from "./hooks";
+import useCloseOnFocusOut from "./hooks/useCloseOnFocusOut";
+import usePopoverMenuVirtualization from "./hooks/usePopoverMenuVirtualization";
 import guid from "../utils/helpers/guid";
 import {
   PopoverMenuContext,
@@ -33,6 +36,7 @@ interface ListProps {
   $size: PopoverMenuContextProps["size"];
   $maxHeight?: string;
   $isButtonMenu?: PopoverMenuContextProps["isButtonMenu"];
+  $virtualHeight?: number;
 }
 
 export const List = styled.ul<ListProps>`
@@ -54,6 +58,14 @@ export const List = styled.ul<ListProps>`
       -webkit-overflow-scrolling: touch;
       max-height: ${$maxHeight ??
       `calc(5 * var(--global-size-${$size.charAt(0)}))`};
+    `}
+
+  ${({ $virtualHeight }) =>
+    $virtualHeight !== undefined &&
+    css`
+      display: block;
+      position: relative;
+      height: ${$virtualHeight}px;
     `}
 `;
 
@@ -155,21 +167,50 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   isSubmenu?: boolean;
   /** Ref to the listbox/menu element */
   listRef?: React.Ref<HTMLUListElement>;
+  /** Whether the menu may flip to the opposite placement when space is limited. */
+  flipEnabled?: boolean;
+  /** Data element applied to the menu wrapper. */
+  menuWrapperDataElement?: string;
+  /** Tab index applied to the listbox/menu element. */
+  listTabIndex?: number;
+  /** Set this prop to only render the currently-visible rows into the DOM. Virtual rows may contain one
+   * `MenuItem` together with non-interactive heading or divider content. */
+  enableVirtualScroll?: boolean;
+  /** The number of items to render into the DOM at once, either side of the currently-visible ones.
+   * Only used if the `enableVirtualScroll` prop is set. */
+  virtualScrollOverscan?: number;
+  /** Index of the item to scroll into view when the menu opens. Only used if the `enableVirtualScroll` prop is set. */
+  initialScrollIndex?: number;
+  /** When set, PageUp and PageDown move the focus by a fixed number of items. */
+  enablePageNavigation?: boolean;
+  /** When set, Space and Tab confirm the currently-focused item (single-select listbox behaviour). */
+  selectOnSpaceAndTab?: boolean;
+  /** When set, scrolls the selected option into view on open in non-virtualised menus. */
+  focusSelectedOnOpen?: boolean;
+  /** When set, highlights the selected option on open and when selection changes. */
+  highlightSelectedOption?: boolean;
+  /** When set, closes a listbox menu when focus leaves its control. */
+  closeOnFocusOut?: boolean;
 }
 
 const OFFSET = 8;
 const SUBMENU_OFFSET = 0;
 
-const menuPopoverMiddleware = (
+export const menuPopoverMiddleware = (
   width?: string,
   isButtonMenu?: boolean,
   isSubmenu?: boolean,
   matchReferenceWidth?: boolean,
+  flipEnabled = true,
 ) => [
   offset(isSubmenu ? SUBMENU_OFFSET : OFFSET),
-  flip({
-    fallbackStrategy: "initialPlacement",
-  }),
+  ...(flipEnabled
+    ? [
+        flip({
+          fallbackStrategy: "initialPlacement",
+        }),
+      ]
+    : []),
   size({
     apply({ rects, elements }) {
       if (isButtonMenu && !matchReferenceWidth && !width) return;
@@ -200,6 +241,9 @@ interface MenuProps {
   listboxAriaLabel?: string;
   maxHeight?: string;
   popoverStrategy?: PopoverProps["popoverStrategy"];
+  virtualHeight?: number;
+  menuWrapperDataElement?: string;
+  listTabIndex?: number;
 }
 
 const Menu = ({
@@ -220,6 +264,9 @@ const Menu = ({
   portalTarget,
   maxHeight,
   popoverStrategy,
+  virtualHeight,
+  menuWrapperDataElement,
+  listTabIndex,
 }: MenuProps) => {
   return (
     <Popover
@@ -236,6 +283,7 @@ const Menu = ({
         $size={size}
         onKeyDown={onKeyDown}
         data-role="menu-wrapper"
+        data-element={menuWrapperDataElement}
         onMouseDown={(e) => e.preventDefault()}
         $isButtonMenu={isButtonMenu}
       >
@@ -249,6 +297,8 @@ const Menu = ({
             $isButtonMenu={isButtonMenu}
             aria-label={listboxAriaLabel}
             $maxHeight={maxHeight}
+            $virtualHeight={virtualHeight}
+            tabIndex={listTabIndex}
           >
             {children}
           </List>
@@ -332,6 +382,17 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     listRef,
     controlWrapperStyle,
     maxHeight,
+    enableVirtualScroll = false,
+    virtualScrollOverscan = 5,
+    initialScrollIndex,
+    enablePageNavigation = false,
+    selectOnSpaceAndTab = false,
+    focusSelectedOnOpen = false,
+    highlightSelectedOption = false,
+    closeOnFocusOut = false,
+    flipEnabled = true,
+    menuWrapperDataElement,
+    listTabIndex,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -345,15 +406,44 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const listId = useRef(id ?? `popover-menu-wrapper-${guid()}`);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const combinedWrapperRef = combineRefs(wrapperRef, ref);
-  const wrappedChildren = wrapChildrenInItem(children);
+  const wrappedChildren = useMemo(
+    () => wrapChildrenInItem(children),
+    [children],
+  );
   const controlRef = useRef<TRef>(null);
   const handleClickInside = useClickAwayListener(onClose);
   const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
+
+  const {
+    canVirtualize,
+    handleVirtualKeyDown,
+    renderedChildren,
+    resolvedActivedescendant,
+    virtualHeight,
+  } = usePopoverMenuVirtualization({
+    wrappedChildren,
+    open,
+    enableVirtualScroll,
+    isButtonMenu,
+    virtualScrollOverscan,
+    initialScrollIndex,
+    enablePageNavigation,
+    selectOnSpaceAndTab,
+    focusSelectedOnOpen,
+    highlightSelectedOption,
+    internalListRef,
+    listId: listId.current,
+    setAriaActivedescendant,
+    ariaActivedescendant,
+    onClose,
+  });
+
   const computedMiddleware = menuPopoverMiddleware(
     width,
     isButtonMenu,
     isSubmenu,
     matchReferenceWidth,
+    flipEnabled,
   );
   const direction = useRef<"up" | "down" | null>(null);
 
@@ -417,8 +507,30 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     {
       isButtonMenu,
       isSubmenu,
+      enablePageNavigation,
+      selectOnSpaceAndTab,
     },
   );
+
+  const handleListKeyDown = canVirtualize
+    ? handleVirtualKeyDown
+    : handleDropdownMenuKeyDown;
+
+  const handleMenuKeyDown = useCallback(
+    (ev: React.KeyboardEvent<HTMLElement>) => {
+      handleListKeyDown(ev);
+    },
+    [handleListKeyDown],
+  );
+
+  useCloseOnFocusOut({
+    open,
+    closeOnFocusOut,
+    isSubmenu,
+    isButtonMenu,
+    controlWrapperRef,
+    onClose,
+  });
 
   const handleControlKeyDown: React.KeyboardEventHandler<HTMLElement> =
     useCallback(
@@ -427,7 +539,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           open &&
           controlWrapperRef.current?.contains(document.activeElement)
         ) {
-          handleDropdownMenuKeyDown(ev);
+          handleMenuKeyDown(ev);
 
           return;
         } else if (!open && isButtonMenu && !isSubmenu) {
@@ -449,7 +561,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           }
         }
       },
-      [open, handleDropdownMenuKeyDown, isButtonMenu, onOpen, isSubmenu],
+      [open, handleMenuKeyDown, isButtonMenu, onOpen, isSubmenu],
     );
 
   useEffect(() => {
@@ -523,7 +635,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         onKeyDown={handleControlKeyDown}
         listId={listId.current}
         aria-activedescendant={
-          open && ariaActivedescendant ? ariaActivedescendant : undefined
+          open && resolvedActivedescendant
+            ? resolvedActivedescendant
+            : undefined
         }
       />
       <PopoverMenuContext.Provider
@@ -546,7 +660,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             listboxAriaLabelledBy={listboxAriaLabelledBy}
             listboxAriaLabel={listboxAriaLabel}
             isButtonMenu={isButtonMenu}
-            onKeyDown={handleDropdownMenuKeyDown}
+            onKeyDown={handleMenuKeyDown}
             middleware={computedMiddleware}
             scrollRef={scrollRef}
             listId={listId.current}
@@ -554,8 +668,11 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             portalTarget={isSubmenu ? controlReference?.current : undefined}
             maxHeight={maxHeight}
             popoverStrategy={popoverStrategy}
+            virtualHeight={virtualHeight}
+            menuWrapperDataElement={menuWrapperDataElement}
+            listTabIndex={listTabIndex}
           >
-            {wrappedChildren}
+            {renderedChildren}
           </Menu>
         )}
       </PopoverMenuContext.Provider>

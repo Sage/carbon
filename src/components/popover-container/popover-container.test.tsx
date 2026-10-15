@@ -729,6 +729,32 @@ describe("closing the popup", () => {
     expect(screen.getByRole("dialog")).toBeVisible();
   });
 
+  it("closes the popup when Escape is pressed and a nested Select input is focused but closed", async () => {
+    const onClose = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <PopoverContainer onClose={onClose}>
+        <Select
+          name="colour"
+          id="colour"
+          label="Select colour"
+          value="1"
+          onChange={() => {}}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+        </Select>
+      </PopoverContainer>,
+    );
+
+    await user.click(screen.getByRole("button"));
+    (await screen.findByRole("combobox")).focus();
+
+    await user.keyboard("{Escape}");
+
+    expect(onClose).toHaveBeenCalled();
+  });
+
   it("triggers closing animation sequence with correct timing when closing popup", async () => {
     const mockedUseMediaQuery = jest.mocked(useMediaQuery);
     mockedUseMediaQuery.mockReturnValue(true);

@@ -36,6 +36,7 @@ import isNavigationKey from "../utils/is-navigation-key";
 import ListActionButton from "../list-action-button";
 import Loader from "../../../loader";
 import Option, { OptionProps } from "../../option";
+import ActionOption from "../../action-option";
 import SelectListContext from "./select-list.context";
 
 type OnSelectData = {
@@ -65,6 +66,8 @@ export interface SelectListProps {
   anchorElement?: HTMLElement;
   /** A callback for when a child is selected */
   onSelect: (data: OnSelectData) => void;
+  /** A callback for when a child receives keyboard focus without being selected */
+  onHighlight?: (id: string) => void;
   /** A callback for when the list should be closed */
   onSelectListClose: () => void;
   /** Text value to highlight an option */
@@ -123,6 +126,7 @@ const SelectList = React.forwardRef(
       labelId,
       children,
       onSelect,
+      onHighlight,
       onSelectListClose,
       filterText,
       anchorElement,
@@ -302,7 +306,9 @@ const SelectList = React.forwardRef(
         childrenList.filter((child) => {
           return (
             React.isValidElement(child) &&
-            (child.type === Option || child.type === OptionRow)
+            (child.type === Option ||
+              child.type === ActionOption ||
+              child.type === OptionRow)
           );
         }),
       [childrenList],
@@ -326,10 +332,18 @@ const SelectList = React.forwardRef(
 
         const optionChildIndex = optionChildrenList.indexOf(child);
         const isOption = optionChildIndex > -1;
+        const actionOnClick =
+          child?.type === ActionOption ? child.props.onClick : undefined;
 
         const newProps = {
           index,
-          onSelect: handleSelect,
+          onSelect: actionOnClick ? undefined : handleSelect,
+          ...(actionOnClick && {
+            onClick: (value: string | Record<string, unknown>) => {
+              actionOnClick(value);
+              onSelectListClose();
+            },
+          }),
           hidden: isLoading && childrenList.length === 1,
           // these need to be inline styles rather than implemented in styled-components to avoid it generating thousands of classes
           style: {
@@ -346,7 +360,9 @@ const SelectList = React.forwardRef(
           "data-index": index,
         };
 
-        return child !== undefined ? React.cloneElement(child, newProps) : null;
+        return child !== undefined
+          ? React.cloneElement(child, newProps)
+          : /* istanbul ignore next */ null;
       })
       .filter((el) => el !== null);
 
@@ -354,7 +370,9 @@ const SelectList = React.forwardRef(
       childrenList,
       (child) =>
         React.isValidElement(child) &&
-        (child.type === Option || child.type === OptionRow),
+        (child.type === Option ||
+          child.type === ActionOption ||
+          child.type === OptionRow),
     );
 
     const getNextHighlightableItemIndex = useCallback(
@@ -376,6 +394,7 @@ const SelectList = React.forwardRef(
         if (
           (React.isValidElement(nextElement) &&
             nextElement.type !== Option &&
+            nextElement.type !== ActionOption &&
             nextElement.type !== OptionRow) ||
           nextElement.props.disabled
         ) {
@@ -390,8 +409,13 @@ const SelectList = React.forwardRef(
     const highlightNextItem = useCallback(
       (key: string) => {
         let currentIndex = currentOptionsListIndexRef.current;
+        const currentOption = childrenList[currentIndex];
+        const isCurrentCallbackAction =
+          React.isValidElement(currentOption) &&
+          currentOption.type === ActionOption &&
+          Boolean(currentOption.props.onClick);
 
-        if (highlightedValue) {
+        if (highlightedValue && !isCurrentCallbackAction) {
           const indexOfHighlighted = getIndexOfMatch(highlightedValue);
 
           currentIndex = indexOfHighlighted;
@@ -404,8 +428,20 @@ const SelectList = React.forwardRef(
         }
 
         const { text, value } = childrenList[nextIndex].props;
+        const isCallbackAction =
+          childrenList[nextIndex].type === ActionOption &&
+          Boolean(childrenList[nextIndex].props.onClick);
 
         currentOptionsListIndexRef.current = nextIndex;
+
+        if (isCallbackAction) {
+          setCurrentOptionsListIndex(nextIndex);
+          onHighlight?.(
+            childElementRefs.current[nextIndex]?.id ??
+              /* istanbul ignore next */ "",
+          );
+          return;
+        }
 
         onSelect({
           id: childElementRefs.current[nextIndex]?.id,
@@ -420,6 +456,7 @@ const SelectList = React.forwardRef(
         getIndexOfMatch,
         getNextHighlightableItemIndex,
         highlightedValue,
+        onHighlight,
         onSelect,
       ],
     );
@@ -483,6 +520,16 @@ const SelectList = React.forwardRef(
           }
 
           const { text, value } = currentOption.props;
+          const actionOnClick =
+            currentOption.type === ActionOption
+              ? currentOption.props.onClick
+              : undefined;
+
+          if (actionOnClick && value) {
+            actionOnClick(value);
+            onSelectListClose();
+            return;
+          }
 
           onSelect({
             id: childElementRefs.current[currentOptionsListIndexRef.current]
