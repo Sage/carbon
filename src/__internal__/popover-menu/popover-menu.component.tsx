@@ -520,14 +520,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
               !wrapperRef.current?.contains(ev.target as Node)
             ) {
               handleClickAway(ev);
-            } else if (
-              (ev as KeyboardEvent)?.key === "Tab" ||
-              (ev as KeyboardEvent)?.key === "Escape"
-            ) {
+            } else if ((ev as KeyboardEvent)?.key === "Tab") {
               onClose(ev);
-              if ((ev as KeyboardEvent).key === "Escape") {
-                focusControl(controlRef.current);
-              }
             }
           }}
           size={props.size}

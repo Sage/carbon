@@ -8,6 +8,11 @@ const MenuButton = styled.div.attrs(applyBaseTheme)`
   margin: auto;
   ${margin}
 
+  [data-component="popover-menu-item"] [data-role="button-child-container"] {
+    width: 100%;
+    justify-content: start;
+  }
+
   /*
    * PopoverMenu normally constrains its content to the width available from
    * its control wrapper. ActionPopover's control is an icon-only button, so

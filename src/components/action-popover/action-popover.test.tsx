@@ -141,6 +141,14 @@ test("allows menus to size to their content rather than the trigger width", () =
     "none",
     { modifier: '& [data-role="menu-wrapper"]' },
   );
+  expect(screen.getByTestId("action-popover-wrapper")).toHaveStyleRule(
+    "width",
+    "100%",
+    {
+      modifier:
+        '& [data-component="popover-menu-item"] [data-role="button-child-container"]',
+    },
+  );
 });
 
 test("has proper data attributes applied to elements", async () => {
@@ -786,7 +794,7 @@ test("pressing Escape when focused on a menu item focuses the MenuButton and clo
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
-test("pressing Escape in a fragment submenu closes both menus once and focuses the menu button", async () => {
+test("pressing Escape in a fragment submenu closes only the active menu and focuses its trigger", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onClose = jest.fn();
   render(
@@ -807,6 +815,15 @@ test("pressing Escape in a fragment submenu closes both menus once and focuses t
   await user.click(menuButton);
   await user.click(screen.getByRole("button", { name: "parent item" }));
   expect(screen.getByRole("button", { name: "submenu item" })).toHaveFocus();
+
+  await user.keyboard("{Escape}");
+
+  expect(
+    screen.queryByRole("button", { name: "submenu item" }),
+  ).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "parent item" })).toHaveFocus();
+  expect(menuButton).toHaveAttribute("aria-expanded", "true");
+  expect(onClose).not.toHaveBeenCalled();
 
   await user.keyboard("{Escape}");
 
@@ -1199,6 +1216,46 @@ test.each([
 );
 
 describe("when the renderButton prop is passed", () => {
+  it.each([
+    {
+      name: "button",
+      role: "button",
+      trigger: <button key="button">Nested trigger</button>,
+    },
+    {
+      name: "anchor",
+      role: "link",
+      trigger: (
+        <a key="anchor" href="#trigger">
+          Nested trigger
+        </a>
+      ),
+    },
+  ])(
+    "focuses a nested $name rather than its tagged wrapper",
+    ({ role, trigger }) => {
+      const ref = React.createRef<ActionPopoverHandle>();
+      render(
+        <ActionPopover
+          ref={ref}
+          renderButton={({ "data-element": dataElement }) => (
+            <div data-element={dataElement} tabIndex={-1}>
+              <span>{trigger}</span>
+            </div>
+          )}
+        >
+          <ActionPopoverItem>Menu item</ActionPopoverItem>
+        </ActionPopover>,
+      );
+
+      act(() => {
+        ref.current?.focusButton();
+      });
+
+      expect(screen.getByRole(role, { name: "Nested trigger" })).toHaveFocus();
+    },
+  );
+
   it("renders that component as the menu button", () => {
     render(
       <ActionPopover
@@ -1760,14 +1817,15 @@ test("sets a default aria-label when the button label contains only an icon", ()
 });
 
 test.each([false, true])(
-  "Escape closes the action popover before its parent dialog with submenu open=%s",
+  "Escape closes one menu at a time before its parent dialog with submenu open=%s",
   async (openSubmenu) => {
     const onCancel = jest.fn();
+    const onClose = jest.fn();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
       <Dialog open title="Parent dialog" onCancel={onCancel}>
-        <ActionPopover>
+        <ActionPopover onClose={onClose}>
           <ActionPopoverItem
             submenu={
               <>
@@ -1791,10 +1849,11 @@ test.each([false, true])(
       jest.runOnlyPendingTimers();
     });
 
-    expect(screen.getByRole("button", { name: /Item 1/ })).toHaveFocus();
+    const parentItem = screen.getByRole("button", { name: /Item 1/ });
+    expect(parentItem).toHaveFocus();
     expect(menuButton).toHaveAttribute("aria-expanded", "true");
     if (openSubmenu) {
-      await user.click(screen.getByRole("button", { name: /Item 1/ }));
+      await user.click(parentItem);
     }
     expect(
       screen.queryByRole("button", { name: "Submenu item" }) !== null,
@@ -1804,6 +1863,19 @@ test.each([false, true])(
 
     expect(onCancel).not.toHaveBeenCalled();
     expect(screen.getByRole("dialog", { name: /Parent dialog/ })).toBeVisible();
+    expect(
+      screen.queryByRole("button", { name: "Submenu item" }),
+    ).not.toBeInTheDocument();
+    expect(menuButton).toHaveAttribute("aria-expanded", String(openSubmenu));
+    expect(openSubmenu ? parentItem : menuButton).toHaveFocus();
+    expect(onClose).toHaveBeenCalledTimes(openSubmenu ? 0 : 1);
+
+    if (openSubmenu) {
+      await user.keyboard("{Escape}");
+    }
+
+    expect(onCancel).not.toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalledTimes(1);
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
     expect(menuButton).toHaveAttribute("aria-expanded", "false");
     expect(menuButton).toHaveFocus();
