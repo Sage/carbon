@@ -5,6 +5,11 @@ import Box from "../box";
 import Divider from "./divider.component";
 import Typography from "../typography";
 
+const blackBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-s)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const meta: Meta<typeof Divider> = {
   title: "Divider/Test",
   component: Divider,
@@ -52,7 +57,7 @@ export const AllChromaticScenarios: Story = () => {
 
       <Box>
         <Typography mb={2}>Inverse</Typography>
-        <Box bg="#000000" p={4}>
+        <div style={blackBackground}>
           <Box display="inline-flex" mb={3}>
             <Square />
             <Divider variant="typical" inverse />
@@ -62,7 +67,7 @@ export const AllChromaticScenarios: Story = () => {
           </Box>
           <Divider type="horizontal" inverse />
           <Divider type="horizontal" variant="prominent" inverse />
-        </Box>
+        </div>
       </Box>
 
       <Box>

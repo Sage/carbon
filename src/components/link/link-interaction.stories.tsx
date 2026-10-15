@@ -9,6 +9,15 @@ import { Menu, MenuItem } from "../menu";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 
+const blackBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-2-xs)",
+  width: "max-content",
+  display: "flex",
+  flexDirection: "column",
+  gap: "var(--global-space-layout-s)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 type Story = StoryObj<typeof Link>;
 
 export default {
@@ -76,14 +85,7 @@ export const FocusAndTooltipHover: Story = {
 
 export const FocusDark: Story = {
   render: ({ ...args }) => (
-    <Box
-      p={2}
-      width="max-content"
-      display="flex"
-      flexDirection="column"
-      gap="32px"
-      backgroundColor="#000000"
-    >
+    <div style={blackBackground}>
       <Link
         href="https://carbon.sage.com"
         target="_blank"
@@ -93,7 +95,7 @@ export const FocusDark: Story = {
       >
         Typical link
       </Link>
-    </Box>
+    </div>
   ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) {

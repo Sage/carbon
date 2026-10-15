@@ -6,6 +6,15 @@ import { TYPOGRAPHY_COLOR_TYPES } from "./__internal__/__next__/typography.compo
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Box from "../box";
 
+const blackBackground: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "var(--global-space-layout-3-xs)",
+  padding: "var(--global-space-layout-2-xs)",
+  gridColumn: "1 / -1",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const VARIANT_TYPES_ARG_TYPES: ArgTypes = {
   variant: {
     options: VARIANT_TYPES,
@@ -177,14 +186,7 @@ export const VisualRegressionMatrix = () => (
     p={2}
   >
     {/* Inverse */}
-    <Box
-      backgroundColor="black"
-      display="flex"
-      flexDirection="column"
-      gap={1}
-      p={2}
-      gridColumn="1 / -1"
-    >
+    <div style={blackBackground}>
       <Box
         display="grid"
         gridTemplateColumns="repeat(4, minmax(0, 1fr))"
@@ -249,7 +251,7 @@ export const VisualRegressionMatrix = () => (
           </Typography>
         </Box>
       </Box>
-    </Box>
+    </div>
 
     {/* Size */}
     <Box display="flex" flexDirection="column" gap={1}>

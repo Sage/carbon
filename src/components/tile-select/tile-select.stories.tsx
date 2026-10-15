@@ -13,6 +13,13 @@ import Image from "../image";
 import Typography from "../typography";
 import { TileSelect, TileSelectGroup, TileSelectDeselectEvent } from ".";
 
+const greenBackground: React.CSSProperties = {
+  width: "100%",
+  height: "100px",
+  display: "inline-block",
+  backgroundColor: "rgb(0, 125, 90)",
+};
+
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
@@ -492,20 +499,10 @@ export const WithAccordionFooter: Story = () => {
       accordionContent={
         <Box display="flex" flexWrap="wrap">
           <Box flexGrow={1} pr={1}>
-            <Box
-              width="100%"
-              height="100px"
-              bg="primary"
-              display="inline-block"
-            />
+            <div style={greenBackground} />
           </Box>
           <Box flexGrow={1} pl={1}>
-            <Box
-              width="100%"
-              height="100px"
-              bg="primary"
-              display="inline-block"
-            />
+            <div style={greenBackground} />
           </Box>
         </Box>
       }

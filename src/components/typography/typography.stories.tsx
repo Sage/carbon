@@ -4,6 +4,14 @@ import Box from "../box";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Typography from ".";
 
+const blackBackground: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "var(--global-space-layout-2-xs)",
+  padding: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const ALLOWED_CSS_TEXT_OVERRIDES_ARG_TYPES: ArgTypes = {
   textTransform: {
     control: "text",
@@ -160,13 +168,7 @@ export const FluidStory: Story = () => (
 FluidStory.storyName = "Fluid";
 
 export const InverseStory: Story = () => (
-  <Box
-    backgroundColor="black"
-    display="flex"
-    flexDirection="column"
-    gap={2}
-    p={2}
-  >
+  <div style={blackBackground}>
     <Typography variant="p" inverse>
       Paragraph (Default)
     </Typography>
@@ -221,7 +223,7 @@ export const InverseStory: Story = () => (
       <li>Ordered List</li>
       <li>Ordered List</li>
     </Typography>
-  </Box>
+  </div>
 );
 InverseStory.storyName = "Inverse";
 
