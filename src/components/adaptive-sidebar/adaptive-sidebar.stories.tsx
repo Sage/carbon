@@ -15,6 +15,13 @@ import Divider from "../divider";
 import { Menu, MenuItem } from "../menu";
 import SplitButton from "../split-button";
 
+const lightGreyBackground: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "row",
+  height: "100%",
+  backgroundColor: "rgb(242, 245, 246)",
+};
+
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
   padding: true,
@@ -292,12 +299,7 @@ export const WithCustomHeight: Story = () => {
     useState(defaultOpenState);
 
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      height="100%"
-      backgroundColor="#f2f5f6"
-    >
+    <div style={lightGreyBackground}>
       {CommonTemplate(adaptiveSidebarOpen, setAdaptiveSidebarOpen)}
 
       <AdaptiveSidebar
@@ -323,7 +325,7 @@ export const WithCustomHeight: Story = () => {
           </Box>
         </Box>
       </AdaptiveSidebar>
-    </Box>
+    </div>
   );
 };
 WithCustomHeight.storyName = "With Custom Height";

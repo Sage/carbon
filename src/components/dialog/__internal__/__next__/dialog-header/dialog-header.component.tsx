@@ -82,14 +82,22 @@ const DialogHeadingStatus: DialogHeadingStatusComponent = forwardRef<
       flexWrap="wrap"
       alignItems="center"
     >
-      <Icon type={iconType} color={color} size="medium" aria-hidden ml="-4px" />
-      <Typography
-        variant="h1"
-        ml="var(--global-space-comp-l)"
-        data-element="dialog-title"
-        id={titleId}
-      >
-        {title}
+      <Typography variant="h1" data-element="dialog-title" id={titleId}>
+        <Box
+          as="span"
+          display="flex"
+          alignItems="center"
+          gap="var(--global-space-comp-l)"
+        >
+          <Icon
+            type={iconType}
+            color={color}
+            size="medium"
+            aria-hidden
+            ml="-4px"
+          />
+          {title}
+        </Box>
       </Typography>
       {subtitle && (
         <StyledSubtitle

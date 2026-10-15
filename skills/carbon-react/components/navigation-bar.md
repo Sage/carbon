@@ -210,7 +210,7 @@ description: Carbon NavigationBar component props and usage examples.
           </Menu>
         </Box>
       </NavigationBar>
-      <Box height={1000} backgroundColor="green" />
+      <div style={greenBackground} />
       <NavigationBar
         position="sticky"
         orientation="bottom"
@@ -276,7 +276,7 @@ description: Carbon NavigationBar component props and usage examples.
           </MenuItem>
         </Menu>
       </NavigationBar>
-      <Box height={1000} backgroundColor="green" />
+      <div style={greenBackground} />
       <NavigationBar
         position="fixed"
         orientation="bottom"
