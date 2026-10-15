@@ -4,14 +4,18 @@ import { resolve } from "node:path";
 export default defineConfig({
   testDir: resolve(__dirname, "playwright/benchmarks"),
   testMatch: /.*\.benchmark\.pw\.tsx/,
-  outputDir: resolve(__dirname, "playwright/benchmark-results/test-output"),
+  outputDir: resolve(
+    __dirname,
+    process.env.BENCHMARK_OUTPUT_DIR ?? "playwright/benchmark-results",
+    "test-output",
+  ),
   timeout: 120_000,
   fullyParallel: false,
   workers: 1,
   retries: 0,
   reporter: "list",
   use: {
-    ctPort: 3101,
+    ctPort: Number(process.env.BENCHMARK_CT_PORT ?? 3101),
     ctCacheDir: "playwright/.benchmark-cache",
     trace: "off",
     ctViteConfig: {

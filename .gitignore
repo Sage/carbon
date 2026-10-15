@@ -30,3 +30,4 @@ src/components/*/__internal__/**/tokens/index.ts
 
 playwright/benchmark-results/
 playwright/.benchmark-cache/
+playwright/benchmark-baselines/

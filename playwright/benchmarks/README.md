@@ -51,6 +51,157 @@ per-sample commit counts and summed `actualDuration`, summary statistics, and
 browser/configuration metadata. Durations are milliseconds; timestamps are
 relative to the browser's performance time origin.
 
+## Local scenario baselines
+
+Benchmark runs write candidate reports; they never save or replace baselines.
+After reviewing a report, save that scenario explicitly:
+
+```sh
+npm run benchmark -- --grep 'search/type-query'
+npm run benchmark:save-baseline -- search/type-query
+```
+
+The baseline is saved as `playwright/benchmark-baselines/search/type-query.json`.
+Baselines and their history are ignored by Git for this local workflow. Each
+baseline contains the entire report, including raw commits and samples, plus a
+save timestamp and a SHA-256 digest of the source report. Saving does not rerun
+the benchmark or substitute metadata from the current checkout.
+
+If a baseline already exists, the command fails without changing it. Replacing
+it requires an explicit flag:
+
+```sh
+npm run benchmark:save-baseline -- search/type-query --replace
+```
+
+Replacement archives the previous file under
+`playwright/benchmark-baselines/history/search/type-query/` before updating the
+current baseline. The save uses a temporary file and rename, with a per-scenario
+lock to prevent concurrent saves from overwriting one another. A process killed
+during saving may leave a `.lock` file; remove that file only after confirming
+the saving process is no longer running.
+
+Select a particular report or another baseline directory when needed:
+
+```sh
+npm run benchmark:save-baseline -- search/type-query --report /path/to/report.json --directory /path/to/baselines
+```
+
+The default report directory respects `BENCHMARK_OUTPUT_DIR`. Review the report's
+`generatedAt` and configuration before saving: the command saves the existing
+file, which may be from an earlier run or a reduced-sample smoke check. It prints
+the sample count; it does not impose a minimum beyond one sample.
+
+Component report schema version 2 adds provenance captured before measurement:
+Git commit and dirty state, scenario source file, source fingerprints, installed
+React/Playwright/token versions, and host OS, architecture, CPU model and Node
+version. Browser version, viewport and hardware concurrency remain in
+`environment`; measurement settings remain in `configuration`.
+
+The scenario fingerprint conservatively covers all benchmark suite source files,
+including fixtures and workloads, so edits to another scenario may also change
+it. The build fingerprint additionally covers the local inputs in Playwright's
+browser build manifest, benchmark configuration and lockfile. Fingerprints use
+file contents and relative paths, not modification timestamps or checkout paths.
+They identify changed inputs; they do not make timing results from different
+machines directly comparable. Older reports lacking provenance must be rerun
+before they can be saved as baselines.
+
+Baselines are saved explicitly; comparisons do not create or replace them.
+Run storage and comparison tests with `npm run test:benchmarks`.
+
+## Automated base-branch comparison
+
+Run the same scenarios against a base Git reference and your current checkout:
+
+```sh
+npm run benchmark:compare -- --base origin/master --grep 'search/'
+```
+
+The default base is `origin/master`. Any locally available branch, tag or commit
+can be selected with `--base`. To refresh a remote branch first:
+
+```sh
+npm run benchmark:compare -- --base origin/master --fetch
+```
+
+Without `--fetch`, the command uses the reference already available locally; it
+does not assume a remote-tracking branch is up to date. The command compares the
+selected base tip, rather than automatically selecting a merge base.
+
+The workflow creates a detached temporary base worktree, copies the current
+benchmark suite and profiling configuration into it, and installs the base's
+locked dependencies using `npm ci` with Husky disabled. The base's component
+source, dependency manifests, providers and token generator remain its own.
+Using the current fixtures on both sides makes workload comparisons consistent
+and supports base branches that predate the benchmark harness. A fixture that
+depends on a feature absent from the base will fail; use a compatible fixture
+to measure a shared interaction.
+
+It first checks that the current suite and filter select tests, avoiding an
+unnecessary base install when the filter is empty. It generates tokens and runs
+the base benchmarks, then generates tokens and
+runs the candidate benchmarks in your current checkout, including uncommitted
+component and fixture changes. Your current branch is not switched, and the
+candidate's installed dependencies are not replaced. Install the current
+checkout's dependencies before running this command, as for a normal benchmark.
+The base install may require registry access and adds setup time. Each run gets
+a free local server port to avoid reusing an already-running component-test server.
+
+Each invocation writes a new directory under
+`playwright/benchmark-results/comparisons/`, containing `base/` and `candidate/`
+raw reports and test artifacts, `workflow.json`, `comparison.json`, a readable
+`comparison.txt`, and a self-contained `comparison.html`. Choose another parent
+directory with `--directory`. The
+temporary worktree is removed after normal completion or failure; partial
+reports are retained when a run fails. Forced process termination may require
+manual temporary-worktree cleanup.
+
+Results show changes in median React commit counts and render durations.
+Configuration, fixture, browser or host differences mark a comparison as
+incompatible. Dependency differences produce warnings so dependency upgrades
+remain visible. Different scenario sets fail rather than silently omitting
+missing scenarios. Timing comparisons use sequential base-then-candidate runs;
+they do not yet provide statistical significance tests, interleaving or automatic
+performance pass/fail decisions. No QA approval is implied by a successful run.
+
+For a short smoke check, override sample settings equally on both sides:
+
+```sh
+npm run benchmark:compare -- --base HEAD --grep 'split-button/open-menu' --samples 3 --warmups 1
+```
+
+Defaults are 30 samples and five warm-ups. `BENCHMARK_SAMPLES` and
+`BENCHMARK_WARMUPS` are also respected. Review a candidate and explicitly save
+it as a local baseline when appropriate:
+
+```sh
+npm run benchmark:save-baseline -- search/type-query --report /path/to/comparison/candidate/search--type-query.json
+```
+
+## HTML reports for QA
+
+Every successful `benchmark:compare` run generates `comparison.html` alongside
+the JSON and text reports. Open that file in a browser, or share the HTML file
+on its own: styles, charts, samples and metadata are embedded and require no
+server or internet access. The page provides scenario search, a warnings filter,
+base/candidate medians and changes, sample charts, raw React commits, and
+expandable run settings and dependency versions. Charts show sample order within
+each run, not paired trials. Timing changes are descriptive and do not imply
+statistical significance, QA approval or an automatic pass/fail result.
+
+Generate or refresh HTML for an existing comparison without rerunning tests:
+
+```sh
+npm run benchmark:report -- playwright/benchmark-results/comparisons/<run-directory>
+```
+
+Choose a different output file with `--output /path/to/report.html`. Regeneration
+needs `comparison.json` and the `base/` and `candidate/` raw reports in the same
+comparison folder. It works after moving or downloading that folder; opening
+the generated HTML does not need those other files. Regeneration replaces the
+derived HTML file and leaves raw reports and saved baselines intact.
+
 ## Runner timing diagnostics
 
 Each scenario also writes a separate report under
@@ -65,8 +216,8 @@ Runner timing schema version 2 groups phases to match those calls. To compare
 with a version 1 report, compare `settleAndStart` with the sum of
 `preparationSettling` and `collectorStart`, and `settleAndStop` with the sum of
 `actionSettling` and `collectorStop`. Compare totals or means; summing separate
-medians does not give the median of the combined durations. Component reports
-retain their existing schema and React measurement fields.
+medians does not give the median of the combined durations. Component report
+schema version 2 preserves the React measurement fields and adds provenance.
 
 Diagnostic reports include every iteration, marking warm-ups explicitly. Phase
 summaries include warm-ups because they contribute to overall execution time.
@@ -78,7 +229,8 @@ not represent browser interaction latency.
 `totalBeforeDiagnosticsMs` covers mounting through writing and attaching the
 component report. It excludes writing the diagnostic report itself, console
 output, unmounting, token generation, bundling, and Playwright startup. Profiling
-boundaries and frame waits are unchanged by this instrumentation.
+boundaries and frame waits are unchanged by this instrumentation. Run provenance
+is collected before mounting and is also outside these diagnostic timings.
 
 ## Search fixtures
 
@@ -186,8 +338,8 @@ SplitButton fixture records button callbacks through DOM attributes so it does
 not introduce its own state updates. The runner checks for a Profiler callback
 during mount to detect a disabled collector before recording samples.
 
-There are no performance pass/fail budgets, baseline comparisons, CPU throttling,
-statistical comparisons, or additional browser collectors yet. The suite runs
+There are no performance pass/fail budgets, CPU throttling, statistical
+significance tests, or additional browser collectors yet. The suite runs
 one Chromium worker with retries and tracing
 disabled. This establishes the authoring interface and collector for subsequent
 extensions.

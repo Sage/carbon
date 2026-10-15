@@ -1,6 +1,9 @@
 import React from "react";
 import type { Locator, Page, TestInfo } from "@playwright/test";
-import type { MountResult } from "@playwright/experimental-ct-react";
+import type {
+  MountResult,
+  PlaywrightTestConfig,
+} from "@playwright/experimental-ct-react";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { performance } from "node:perf_hooks";
@@ -8,6 +11,7 @@ import benchmarkConfig from "./benchmark.config";
 import type { BenchmarkDefinition } from "./define-benchmark";
 import ProfiledBenchmark from "./profiled-benchmark";
 import type { ProfileCommit, ProfileSample } from "./profiler.types";
+import collectMetadata from "../../scripts/benchmarks/collect-metadata.mjs";
 
 const runnerPhases = [
   "preparation",
@@ -73,6 +77,19 @@ const runBenchmark = async (
   },
   testInfo: TestInfo,
 ) => {
+  // Capture provenance before measurement; saving a report later must not
+  // substitute the then-current checkout for the code that produced it.
+  const { ctCacheDir } = testInfo.project.use as NonNullable<
+    PlaywrightTestConfig["use"]
+  >;
+  if (!ctCacheDir) {
+    throw new Error("Benchmark provenance requires a configured ctCacheDir.");
+  }
+  const provenance = await collectMetadata({
+    root: process.cwd(),
+    testFile: testInfo.file,
+    cacheDirectory: path.resolve(ctCacheDir),
+  });
   const runnerStartedAt = performance.now();
   const { page, mount } = fixtures;
   const component = await mount(
@@ -157,9 +174,10 @@ const runBenchmark = async (
     const metadataMs = performance.now() - metadataStartedAt;
     const reportingStartedAt = performance.now();
     const report = {
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: definition.id,
       generatedAt: new Date().toISOString(),
+      provenance,
       configuration: {
         samples: benchmarkConfig.samples,
         warmups: benchmarkConfig.warmups,

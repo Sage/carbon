@@ -48,6 +48,10 @@
     "test:tokens": "node --test ./scripts/generate_tokens/*.test.mjs",
     "benchmark": "npm run generate-tokens && playwright test -c playwright-benchmark.config.ts",
     "benchmark:clear-cache": "rimraf ./playwright/.benchmark-cache",
+    "benchmark:save-baseline": "node ./scripts/benchmarks/save-baseline-cli.mjs",
+    "benchmark:compare": "node ./scripts/benchmarks/compare-cli.mjs",
+    "benchmark:report": "node ./scripts/benchmarks/html-report-cli.mjs",
+    "test:benchmarks": "node --test ./scripts/benchmarks/*.test.mjs",
     "benchmark:component": "npm run benchmark -- --grep "
   },
   "repository": {
