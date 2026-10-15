@@ -39,7 +39,6 @@ import { TypeaheadHandler } from "../../__internal__/popover-menu/hooks";
 export interface RenderButtonProps {
   tabIndex: number;
   "data-element": string;
-  className?: string;
   ref?: React.Ref<HTMLElement>;
   ariaAttributes: {
     "aria-haspopup"?: string;
@@ -160,9 +159,10 @@ export const ActionPopover = forwardRef<
     );
 
     const focusButton = useCallback(() => {
-      buttonRef.current
-        ?.querySelector<HTMLElement>("[data-element='action-popover-button']")
-        ?.focus();
+      const trigger = buttonRef.current?.querySelector<HTMLElement>(
+        "[data-element='action-popover-button']",
+      );
+      (trigger?.querySelector<HTMLElement>("button, a") ?? trigger)?.focus();
     }, []);
 
     useImperativeHandle<ActionPopoverHandle, ActionPopoverHandle>(
@@ -306,7 +306,6 @@ export const ActionPopover = forwardRef<
       const commonProps: RenderButtonProps = {
         tabIndex: isOpen ? -1 : 0,
         "data-element": "action-popover-button",
-        className: isOpen ? "active" : "",
         ref: controlRef,
         ariaAttributes: {
           "aria-haspopup": controlProps["aria-haspopup"],
@@ -350,7 +349,6 @@ export const ActionPopover = forwardRef<
           data-element="action-popover-button"
           variant="default"
           variantType={isInTable ? "secondary" : "subtle"}
-          className={isOpen ? "active" : ""}
         >
           {resolvedButtonLabel}
         </Button>
@@ -362,6 +360,11 @@ export const ActionPopover = forwardRef<
         id={parentID}
         onClick={handleButtonClick}
         onKeyDown={handleButtonKeyDown}
+        onKeyDownCapture={(event) => {
+          if (isOpen && Events.isEscKey(event)) {
+            handledEscape.current = true;
+          }
+        }}
         onKeyUp={(event) => {
           // Dialogs close on keyup; consume the release of Escape handled by the menu.
           if (Events.isEscKey(event) && handledEscape.current) {
@@ -382,11 +385,9 @@ export const ActionPopover = forwardRef<
           <PopoverMenu<HTMLElement>
             open={isOpen}
             onOpen={() => setOpen(true)}
-            onClose={(event) => {
-              if (event instanceof KeyboardEvent && Events.isEscKey(event)) {
-                handledEscape.current = true;
-              }
+            onClose={() => {
               setOpen(false);
+              focusButton();
             }}
             placement={mappedPlacement}
             id={menuID}

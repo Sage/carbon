@@ -1122,7 +1122,7 @@ describe("PopoverMenu - button menu", () => {
     },
   );
 
-  it("closes the submenu and main menu once and focuses the control when the user presses Escape", async () => {
+  it("closes one menu at a time and focuses its trigger when the user presses Escape", async () => {
     const user = userEvent.setup();
     const onClose = jest.fn();
     render(
@@ -1148,6 +1148,14 @@ describe("PopoverMenu - button menu", () => {
     expect(
       screen.queryByRole("button", { name: "Subitem 2" }),
     ).not.toBeInTheDocument();
+
+    expect(screen.getByRole("button", { name: "Item 2" })).toHaveFocus();
+    expect(
+      screen.getByRole("button", { name: "Button label" }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(onClose).not.toHaveBeenCalled();
+
+    await user.keyboard("{Escape}");
 
     expect(
       screen.queryByRole("button", { name: "Item 2" }),
