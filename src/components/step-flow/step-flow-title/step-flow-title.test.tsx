@@ -28,6 +28,16 @@ test("does not render screen reader step text when total steps is zero", () => {
   expect(screen.queryByText(/Step 1 of 0/)).not.toBeInTheDocument();
 });
 
+test("renders a level one heading when no 'titleVariant' is provided via props or context", () => {
+  render(
+    <StepFlowProvider value={{}}>
+      <StepFlowTitle titleString="title" />
+    </StepFlowProvider>,
+  );
+
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("title");
+});
+
 test("when the 'titleString' prop is passed, the correct visible element and text renders", () => {
   render(
     <StepFlow

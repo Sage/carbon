@@ -437,7 +437,7 @@ test.describe("Event tests for Menu component", () => {
     await closeIcon.focus();
     await expect(closeIcon).toBeFocused();
 
-    await continuePressingTAB(page, 4);
+    await continuePressingTAB(page, 3);
 
     await expect(closeIcon).toBeFocused();
 
