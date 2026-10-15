@@ -265,11 +265,11 @@ const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
         position: static;
         border-radius: 0;
         ${$sticky &&
-          css`
-            border-top: none;
-            box-shadow: none;
-            padding-top: 0;
-          `}
+        css`
+          border-top: none;
+          box-shadow: none;
+          padding-top: 0;
+        `}
       }
     `}
 `;
