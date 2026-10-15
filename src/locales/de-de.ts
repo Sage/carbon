@@ -98,6 +98,9 @@ const deDE: Partial<Locale> = {
   link: {
     skipLinkLabel: () => "Zum Hauptinhalt springen",
   },
+  linkPreview: {
+    closeButtonAriaLabel: () => "Schließen",
+  },
   loader: {
     loading: () => "Laden...",
   },
