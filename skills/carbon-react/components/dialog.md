@@ -86,49 +86,51 @@ description: Carbon Dialog component props and usage examples.
           <Loader loaderType="ring" />
         ) : (
           <>
-            <Textbox
-              label="Textbox 1"
-              labelInline
-              autoFocus
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 2"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 3"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 4"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 5"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 6"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 7"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
+            <Box display="flex" flexDirection="column" gap={2}>
+              <Textbox
+                label="Textbox 1"
+                labelInline
+                autoFocus
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox
+                label="Textbox 2"
+                labelInline
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox
+                label="Textbox 3"
+                labelInline
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox
+                label="Textbox 4"
+                labelInline
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox
+                label="Textbox 5"
+                labelInline
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox
+                label="Textbox 6"
+                labelInline
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox
+                label="Textbox 7"
+                labelInline
+                value=""
+                onChange={() => {}}
+              />
+            </Box>
           </>
         )}
       </Dialog>
@@ -242,9 +244,11 @@ description: Carbon Dialog component props and usage examples.
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
+          <Box display="flex" flexDirection="column" gap={2}>
+            <Textbox label="First Name" value="" onChange={() => {}} />
+            <Textbox label="Middle Name" value="" onChange={() => {}} />
+            <Textbox label="Surname" value="" onChange={() => {}} />
+          </Box>
           <Button onClick={() => setIsToast1Open(true)}>
             Show first toast
           </Button>
@@ -305,7 +309,7 @@ function WithScrollableContentExample(args) {
         <Dialog open={isOpen} onCancel={() => setIsOpen(false)} {...rest}>
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div tabIndex={0}>
-            <Box margin={2}>{children}</Box>
+            <Box>{children}</Box>
           </div>
         </Dialog>
       </>
@@ -403,18 +407,30 @@ function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
             <Typography>
               This is an example of a dialog with a Form as content
             </Typography>
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
+            <Box display="flex" flexDirection="column" gap={2}>
+              <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+              <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+              <Textbox
+                m={0}
+                label="Favourite Colour"
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox m={0} label="Address" value="" onChange={() => {}} />
+              <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+              <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+              <Textbox
+                m={0}
+                label="Favourite Colour"
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox m={0} label="Address" value="" onChange={() => {}} />
+            </Box>
           </Form>
         </Dialog>
       </>
@@ -478,18 +494,30 @@ function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
+          <Box display="flex" flexDirection="column" gap={2}>
+            <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+            <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+            <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+            <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+            <Textbox
+              m={0}
+              label="Favourite Colour"
+              value=""
+              onChange={() => {}}
+            />
+            <Textbox m={0} label="Address" value="" onChange={() => {}} />
+            <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+            <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+            <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+            <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+            <Textbox
+              m={0}
+              label="Favourite Colour"
+              value=""
+              onChange={() => {}}
+            />
+            <Textbox m={0} label="Address" value="" onChange={() => {}} />
+          </Box>
         </Form>
       </Dialog>
     </>
@@ -634,9 +662,11 @@ function ResponsiveBehaviorRender({
               This dialog will shrink responsively when the viewport is smaller
               than the dialog&apos;s max-width.
             </Typography>
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
+            <Box display="flex" flexDirection="column" gap={2}>
+              <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+            </Box>
           </Form>
         </Dialog>
       </>
@@ -706,18 +736,30 @@ function SmallScreenBehaviorRender({
               small screens, both the dialog header and the Form&apos;s sticky
               footer are disabled.
             </Typography>
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
+            <Box display="flex" flexDirection="column" gap={2}>
+              <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+              <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+              <Textbox
+                m={0}
+                label="Favourite Colour"
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox m={0} label="Address" value="" onChange={() => {}} />
+              <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+              <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+              <Textbox
+                m={0}
+                label="Favourite Colour"
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox m={0} label="Address" value="" onChange={() => {}} />
+            </Box>
           </Form>
         </Dialog>
       </>
@@ -769,18 +811,30 @@ function StickyFooterRender({
             Dialog&apos;s own <code>stickyFooter</code> and <code>footer</code>{" "}
             props.
           </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
+          <Box display="flex" flexDirection="column" gap={2}>
+            <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+            <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+            <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+            <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+            <Textbox
+              m={0}
+              label="Favourite Colour"
+              value=""
+              onChange={() => {}}
+            />
+            <Textbox m={0} label="Address" value="" onChange={() => {}} />
+            <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+            <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+            <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+            <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+            <Textbox
+              m={0}
+              label="Favourite Colour"
+              value=""
+              onChange={() => {}}
+            />
+            <Textbox m={0} label="Address" value="" onChange={() => {}} />
+          </Box>
         </Dialog>
       </>
     );
@@ -839,18 +893,30 @@ function StickyFooterWithFormRender({
               This is an example of a dialog using a Form component with its own
               sticky footer. The Form manages the footer internally.
             </Typography>
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
+            <Box display="flex" flexDirection="column" gap={2}>
+              <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+              <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+              <Textbox
+                m={0}
+                label="Favourite Colour"
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox m={0} label="Address" value="" onChange={() => {}} />
+              <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+              <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+              <Textbox
+                m={0}
+                label="Favourite Colour"
+                value=""
+                onChange={() => {}}
+              />
+              <Textbox m={0} label="Address" value="" onChange={() => {}} />
+            </Box>
           </Form>
         </Dialog>
       </>
@@ -922,11 +988,18 @@ function FormLinkedToFooterButtonsRender({
           }
         >
           <Form id="dialog-form" onSubmit={handleSubmit}>
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
+            <Box display="flex" flexDirection="column" gap={2}>
+              <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+              <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+              <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+              <Textbox
+                m={0}
+                label="Favourite Colour"
+                value=""
+                onChange={() => {}}
+              />
+            </Box>
           </Form>
         </Dialog>
       </>

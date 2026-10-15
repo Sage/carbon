@@ -38,6 +38,14 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
   width: 100%;
   position: relative;
   box-sizing: border-box;
+  border-radius: var(--global-radius-action-m);
+
+  && > button,
+  && > a,
+  && > button:focus,
+  && > a:focus {
+    border-radius: var(--global-radius-action-m);
+  }
 
   &:not(:has(button)):not(:has(a)) {
     ${({ $disabled }) =>
@@ -126,6 +134,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         &[data-has-focus="true"] {
           outline: var(--focus-borderalt) solid var(--global-borderwidth-s);
           outline-offset: calc(var(--global-borderwidth-s) * -1);
+          border-radius: var(--global-radius-action-m);
         }
     `}
   `}

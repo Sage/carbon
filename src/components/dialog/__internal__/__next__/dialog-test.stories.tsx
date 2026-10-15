@@ -49,16 +49,16 @@ const Buttons = () => (
 );
 
 const dialogContent = (
-  <>
+  <Box display="flex" flexDirection="column" gap={2}>
     <Typography>
       This is an example of a dialog with a Form as content
     </Typography>
-    <Textbox label="First Name" value="" onChange={() => {}} />
-    <Textbox label="Middle Name" value="" onChange={() => {}} />
-    <Textbox label="Surname" value="" onChange={() => {}} />
-    <Textbox label="Birth Place" value="" onChange={() => {}} />
-    <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-  </>
+    <Textbox m={0} label="First Name" value="" onChange={() => {}} />
+    <Textbox m={0} label="Middle Name" value="" onChange={() => {}} />
+    <Textbox m={0} label="Surname" value="" onChange={() => {}} />
+    <Textbox m={0} label="Birth Place" value="" onChange={() => {}} />
+    <Textbox m={0} label="Favourite Colour" value="" onChange={() => {}} />
+  </Box>
 );
 
 export const SizeSmall: Story = {
@@ -259,18 +259,60 @@ export const DialogStickyFormSmallScreen: Story = {
             stickyFooter
           >
             <>
-              <Textbox label="First Name" onChange={() => ""} value="" />
-              <Textbox label="Middle Name" onChange={() => ""} value="" />
-              <Textbox label="Surname" onChange={() => ""} value="" />
-              <Textbox label="Birth Place" onChange={() => ""} value="" />
-              <Textbox label="Favourite Colour" onChange={() => ""} value="" />
-              <Textbox label="Address" onChange={() => ""} value="" />
-              <Textbox label="First Name" onChange={() => ""} value="" />
-              <Textbox label="Middle Name" onChange={() => ""} value="" />
-              <Textbox label="Surname" onChange={() => ""} value="" />
-              <Textbox label="Birth Place" onChange={() => ""} value="" />
-              <Textbox label="Favourite Colour" onChange={() => ""} value="" />
-              <Textbox label="Address" onChange={() => ""} value="" />
+              <Box display="flex" flexDirection="column" gap={2}>
+                <Textbox
+                  m={0}
+                  label="First Name"
+                  onChange={() => ""}
+                  value=""
+                />
+                <Textbox
+                  m={0}
+                  label="Middle Name"
+                  onChange={() => ""}
+                  value=""
+                />
+                <Textbox m={0} label="Surname" onChange={() => ""} value="" />
+                <Textbox
+                  m={0}
+                  label="Birth Place"
+                  onChange={() => ""}
+                  value=""
+                />
+                <Textbox
+                  m={0}
+                  label="Favourite Colour"
+                  onChange={() => ""}
+                  value=""
+                />
+                <Textbox m={0} label="Address" onChange={() => ""} value="" />
+                <Textbox
+                  m={0}
+                  label="First Name"
+                  onChange={() => ""}
+                  value=""
+                />
+                <Textbox
+                  m={0}
+                  label="Middle Name"
+                  onChange={() => ""}
+                  value=""
+                />
+                <Textbox m={0} label="Surname" onChange={() => ""} value="" />
+                <Textbox
+                  m={0}
+                  label="Birth Place"
+                  onChange={() => ""}
+                  value=""
+                />
+                <Textbox
+                  m={0}
+                  label="Favourite Colour"
+                  onChange={() => ""}
+                  value=""
+                />
+                <Textbox m={0} label="Address" onChange={() => ""} value="" />
+              </Box>
             </>
           </Form>
         </Dialog>

@@ -68,26 +68,45 @@ type StyledDialogPositionerProps = SharedTransientProps & {
   $fullscreen?: boolean;
 };
 
-const applyDefaultPadding = () => css`
-  padding: 0 var(--global-space-layout-2-xs);
+const applyDefaultPadding = (
+  $size?: Size,
+  section: "content" | "header" | "footer" = "content",
+) => {
+  const verticalPadding = css`
+    ${section === "header" &&
+    css`
+      padding-bottom: var(
+        --global-space-layout-xxs,
+        var(--global-space-layout-2-xs)
+      );
+    `}
+    ${section === "footer" &&
+    css`
+      padding-top: var(--global-space-layout-xs);
+      padding-bottom: var(--global-space-layout-xs);
+    `}
+  `;
 
-  @media screen and (min-width: 600px) {
-    padding: 0 var(--global-space-layout-xs);
-  }
-  @media screen and (min-width: 960px) {
-    padding: 0 var(--global-space-layout-s);
-  }
-  @media screen and (min-width: 1260px) {
-    padding: 0 var(--global-space-layout-m);
-  }
-`;
+  return css`
+    padding: var(--global-space-layout-s);
+    ${verticalPadding}
+
+    ${$size === "fullscreen" &&
+    css`
+      @media screen and (max-width: ${smallScreenBreakpoint}) {
+        padding: var(--global-space-layout-xs);
+        ${verticalPadding}
+      }
+    `}
+  `;
+};
 
 const hasContentPadding = (props: PaddingProps) =>
   paddingPropertyNames.some((key) => props[key] !== undefined);
 
 // istanbul ignore next
 const applyContentPadding =
-  (disableContentPadding = false) =>
+  (disableContentPadding = false, $size?: Size) =>
   (props: PaddingProps) => {
     if (disableContentPadding) {
       return css`
@@ -96,7 +115,7 @@ const applyContentPadding =
     }
 
     return css`
-      ${!hasContentPadding(props) && applyDefaultPadding()}
+      ${!hasContentPadding(props) && applyDefaultPadding($size)}
 
       ${paddingFn(props)}
     `;
@@ -144,11 +163,11 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
   overflow-y: auto;
   width: 100%;
 
-  ${({ disableContentPadding, $size, hasHeader, hasFooter, ...props }) =>
+  ${({ disableContentPadding, $size, ...props }) =>
     $size === "fullscreen"
       ? css`
           flex: 1;
-          ${applyContentPadding(disableContentPadding)(props)}
+          ${applyContentPadding(disableContentPadding, $size)(props)}
 
           &:has(${StyledForm}.sticky) {
             display: flex;
@@ -158,9 +177,10 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
 
             ${StyledForm}.sticky {
               ${StyledFormContent} {
-                ${applyContentPadding(disableContentPadding)(props)}
+                ${applyContentPadding(disableContentPadding, $size)(props)}
               }
               ${StyledFormFooter} {
+                ${applyDefaultPadding($size, "footer")}
                 border-top: 1px solid #a3adb5;
                 box-shadow:
                   0 -2px 4px 0 rgba(0, 0, 0, 0.1),
@@ -169,23 +189,10 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
               }
             }
           }
-
-          ${!hasHeader &&
-          css`
-            padding-top: var(--global-space-layout-xs);
-          `}
-
-          ${!hasFooter &&
-          css`
-            padding-bottom: var(--global-space-layout-xs);
-          `}
         `
       : css`
           flex-grow: 1;
-          padding: ${disableContentPadding
-            ? "0px"
-            : "var(--global-space-layout-xs) var(--global-space-layout-s)"};
-          ${paddingFn}
+          ${applyContentPadding(disableContentPadding, $size)(props)}
 
           &:has(${StyledForm}.sticky) {
             display: flex;
@@ -194,12 +201,11 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
 
             ${StyledForm}.sticky {
               ${StyledFormContent} {
-                padding: var(--global-space-layout-xs)
-                  var(--global-space-layout-s);
-                ${paddingFn}
+                ${applyContentPadding(disableContentPadding, $size)(props)}
               }
 
               ${StyledFormFooter} {
+                ${applyDefaultPadding($size, "footer")}
                 border-top: 1px solid #a3adb5;
                 box-shadow:
                   0 -2px 4px 0 rgba(0, 0, 0, 0.1),
@@ -229,11 +235,8 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
 const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
   box-sizing: border-box;
   width: 100%;
-  height: var(--global-size-3-xl);
-  padding-top: var(--global-space-comp-l);
-  padding-bottom: var(--global-space-comp-l);
-  padding-left: var(--global-space-comp-xl);
-  padding-right: var(--global-space-comp-xl);
+  min-height: var(--global-size-3-xl);
+  ${({ $size }) => applyDefaultPadding($size, "footer")}
   border-bottom-right-radius: var(--global-radius-container-xl);
   border-bottom-left-radius: var(--global-radius-container-xl);
   background: var(--container-standard-bg-default);
@@ -263,9 +266,8 @@ const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
 
 const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   background: var(--container-standard-bg-default);
-  padding: var(--global-space-comp-xl);
+  ${({ $size }) => applyDefaultPadding($size, "header")}
   gap: var(--global-space-comp-l);
-  border-bottom: 1px solid #a3adb5;
   border-top-right-radius: var(--global-radius-container-xl);
   border-top-left-radius: var(--global-radius-container-xl);
 
@@ -450,6 +452,22 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
         overflow-y: auto;
       }
     `}
+
+  ${StyledFullScreenHeading} {
+    ${({ $size }) => applyDefaultPadding($size, "header")}
+
+    &:has(~ ${StyledButton}) {
+      padding-right: 64px;
+    }
+
+    [data-element="dialog-title-container"]:has([data-element="dialog-title"]) {
+      margin-bottom: 0;
+
+      [data-element="dialog-title"] {
+        margin: 0;
+      }
+    }
+  }
 
   /* Legacy Pages component styling for fullscreen */
   ${({ $size, pagesStyling }) => computePagesStyling({ $size, pagesStyling })}
