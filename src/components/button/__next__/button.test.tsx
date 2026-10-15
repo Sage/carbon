@@ -15,6 +15,82 @@ jest.mock("../../../hooks/useMediaQuery", () => ({
 
 const sizes: Partial<Size>[] = ["small", "medium", "large"];
 
+describe.each([
+  {
+    name: "default",
+    variant: "default" as const,
+    inverse: false,
+    variantType: "primary" as const,
+    property: "background-color",
+    active: "var(--button-typical-primary-bg-active)",
+  },
+  {
+    name: "inverse",
+    variant: "default" as const,
+    inverse: true,
+    variantType: "primary" as const,
+    property: "background-color",
+    active: "var(--button-typical-primary-inverse-bg-active)",
+  },
+  {
+    name: "gradient",
+    variant: "gradient" as const,
+    inverse: false,
+    variantType: "secondary" as const,
+    property: "background",
+    active: /--button-ai-bg-active/,
+  },
+])(
+  "$name menu triggers",
+  ({ variant, inverse, variantType, property, active }) => {
+    it.each(["true", "menu"] as const)(
+      "uses active styling for an expanded aria-haspopup=%s menu",
+      (hasPopup) => {
+        render(
+          <div data-component="popover-menu-control">
+            <Button
+              variant={variant}
+              inverse={inverse}
+              variantType={variantType}
+              aria-haspopup={hasPopup}
+              aria-expanded
+            >
+              Menu
+            </Button>
+          </div>,
+        );
+        const trigger = screen.getByRole("button");
+        expect(trigger).not.toHaveClass("active");
+        expect(trigger).toHaveStyleRule(property, active, {
+          modifier: `[data-component="popover-menu-control"] &[aria-haspopup="${hasPopup}"][aria-expanded="true"]`,
+        });
+      },
+    );
+
+    it("keeps disabled styling when an expanded menu trigger is disabled", () => {
+      render(
+        <div data-component="popover-menu-control">
+          <Button
+            variant={variant}
+            inverse={inverse}
+            variantType={variantType}
+            aria-haspopup="true"
+            aria-expanded
+            disabled
+          >
+            Menu
+          </Button>
+        </div>,
+      );
+      expect(screen.getByRole("button")).toBeDisabled();
+      expect(screen.getByRole("button")).not.toHaveStyleRule(property, active, {
+        modifier:
+          '[data-component="popover-menu-control"] &[aria-haspopup="true"][aria-expanded="true"]',
+      });
+    });
+  },
+);
+
 test("renders correctly", () => {
   render(<Button>Test Button</Button>);
   const button = screen.getByRole("button");

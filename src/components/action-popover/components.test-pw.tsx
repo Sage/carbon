@@ -756,12 +756,26 @@ export const SubmenuPositionedRight = () => {
   );
 };
 
-export const ActionPopoverNestedInDialog = () => {
+export const ActionPopoverNestedInDialog = ({
+  withSubmenu = false,
+}: {
+  withSubmenu?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
       <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
+        <ActionPopoverItem
+          icon="email"
+          onClick={() => {}}
+          submenu={
+            withSubmenu ? (
+              <>
+                <ActionPopoverItem>Submenu item</ActionPopoverItem>
+              </>
+            ) : undefined
+          }
+        >
           Email Invoice
         </ActionPopoverItem>
         <ActionPopoverDivider />

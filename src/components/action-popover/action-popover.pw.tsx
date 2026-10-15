@@ -463,21 +463,72 @@ test.describe("Accessibility tests for ActionPopover", () => {
 });
 
 test.describe("when nested inside a Dialog component", () => {
-  test("should not close the Dialog when component is closed by pressing an escape key", async ({
+  test("Escape closes the main menu before the dialog", async ({
     mount,
     page,
   }) => {
     await mount(<ActionPopoverNestedInDialog />);
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
+    const dialogElement = dialog(page);
+    await expect(dialogElement).toBeFocused();
+    const trigger = actionPopoverButton(page).nth(0);
+    await trigger.click();
 
     await page.keyboard.press("Escape");
 
-    const actionPopoverElement = actionPopover(page);
-    await expect(actionPopoverElement).toBeHidden();
-
-    const dialogElement = dialog(page);
+    await expect(actionPopover(page)).toBeHidden();
     await expect(dialogElement).toBeVisible();
+    await expect(trigger).toBeFocused();
+
+    await page.keyboard.press("Escape");
+
+    await expect(dialogElement).toBeHidden();
+  });
+
+  test("Escape closes the submenu, main menu and dialog separately", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ActionPopoverNestedInDialog withSubmenu />);
+    const dialogElement = dialog(page);
+    await expect(dialogElement).toBeFocused();
+    const trigger = actionPopoverButton(page).nth(0);
+    await trigger.click();
+    const parentItem = page.getByRole("button", { name: /Email Invoice/ });
+    await parentItem.click();
+    const submenuItem = page.getByRole("button", { name: "Submenu item" });
+    await expect(submenuItem).toBeFocused();
+    const caretSpacing = await parentItem.evaluate((button) => {
+      const caret = button.querySelector('[data-element="submenu-icon"]');
+      if (!caret) throw new Error("Expected a submenu caret");
+      return {
+        inset:
+          button.getBoundingClientRect().right -
+          caret.getBoundingClientRect().right,
+        expectedInset: parseFloat(getComputedStyle(button).paddingRight),
+      };
+    });
+    expect(
+      Math.abs(caretSpacing.inset - caretSpacing.expectedInset),
+    ).toBeLessThan(1);
+    await expect(
+      parentItem.locator('[data-role="button-child-container"]'),
+    ).toHaveCSS("justify-content", "start");
+    await expect(
+      submenuItem.locator('[data-role="button-child-container"]'),
+    ).toHaveCSS("justify-content", "center");
+
+    await page.keyboard.press("Escape");
+
+    await expect(submenuItem).toBeHidden();
+    await expect(parentItem).toBeFocused();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(dialogElement).toBeVisible();
+
+    await page.keyboard.press("Escape");
+
+    await expect(actionPopover(page)).toBeHidden();
+    await expect(dialogElement).toBeVisible();
+    await expect(trigger).toBeFocused();
 
     await page.keyboard.press("Escape");
 
