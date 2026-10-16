@@ -981,7 +981,7 @@ test.describe("Prop tests", () => {
     await expect(actionPopover(page)).toHaveCount(1);
   });
 
-  test(`should render with action popover in a cell opened by Spaceber`, async ({
+  test(`should render with action popover in a cell opened by Spacebar`, async ({
     mount,
     page,
   }) => {
@@ -990,7 +990,8 @@ test.describe("Prop tests", () => {
     const popover = actionPopoverButton(page).nth(0);
     await popover.focus();
     await popover.press("Space");
-    await expect(popover).toHaveCount(1);
+    await expect(actionPopover(page)).toBeVisible();
+    await expect(popover).toHaveAttribute("aria-expanded", "true");
   });
 
   test(`should render with action popover in a cell opened by Enter key`, async ({
@@ -1002,7 +1003,8 @@ test.describe("Prop tests", () => {
     const popover = actionPopoverButton(page).nth(0);
     await popover.focus();
     await popover.press("Enter");
-    await expect(popover).toHaveCount(1);
+    await expect(actionPopover(page)).toBeVisible();
+    await expect(popover).toHaveAttribute("aria-expanded", "true");
   });
 
   (
@@ -1222,22 +1224,31 @@ test.describe("Scrollable tests", () => {
     await expect(multiActionButton).toBeInViewport();
   });
 
-  test("should prevent wrapper scrolling when ActionPopover is open in sticky footer table", async ({
+  test("should allow wrapper scrolling while ActionPopover stays open in sticky footer table", async ({
     mount,
     page,
   }) => {
     await mount(<FlatTableStickyFooterActionPopoverComponent />);
 
-    const actionPopover = page.getByRole("button", { name: "actions" });
+    const actionPopover = page.getByRole("button", { name: "Actions" });
 
     await actionPopover.click();
     const buttonList = page.getByRole("list");
     await buttonList.waitFor();
 
-    await page.getByTestId("popup-backdrop").hover();
+    const wrapper = flatTableWrapper(page);
+    const initialScrollTop = await wrapper.evaluate(
+      (element) => element.scrollTop,
+    );
+    await wrapper.hover({ position: { x: 10, y: 60 } });
     await page.mouse.wheel(0, 400);
 
-    await expect(actionPopover).toBeInViewport();
+    await expect
+      .poll(() => wrapper.evaluate((element) => element.scrollTop))
+      .toBeGreaterThan(initialScrollTop);
+    await expect(buttonList).toBeVisible();
+
+    await expect(actionPopover).toHaveAttribute("aria-expanded", "true");
   });
 });
 

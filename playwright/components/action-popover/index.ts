@@ -20,6 +20,8 @@ export const actionPopoverInnerItem = (page: Page, index: number) =>
   page
     .locator(ACTION_POPOVER_DATA_COMPONENT)
     .first()
+    .locator('ul[role="list"]')
+    .first()
     .locator("> li")
     .nth(index)
     .locator("button")
@@ -40,9 +42,6 @@ export const actionPopoverMenuItemInnerText = (page: Page) =>
 
 export const actionPopoverMenuItemChevron = (page: Page) =>
   page.locator(ACTION_POPOVER_MENU_ITEM_CHEVRON);
-
-export const actionPopoverSubmenuByIndex = (page: Page, index: number) =>
-  page.locator(ACTION_POPOVER_SUBMENU).nth(index);
 
 export const actionPopoverWrapper = (page: Page) =>
   page.locator(ACTION_POPOVER_WRAPPER);
