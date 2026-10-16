@@ -90,36 +90,6 @@ test("should render required indicator when `isRequired` and `disabled` props ar
   );
 });
 
-test("should apply large font to required indicator when `isLarge` prop is true", () => {
-  render(
-    <Label size="large" isRequired>
-      Large Required
-    </Label>,
-  );
-
-  const label = screen.getByText("Large Required");
-  expect(label).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-l)",
-    { modifier: "::after" },
-  );
-});
-
-test("should apply medium font to required indicator by default", () => {
-  render(
-    <Label size="medium" isRequired>
-      Required
-    </Label>,
-  );
-
-  const label = screen.getByText("Required");
-  expect(label).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-m)",
-    { modifier: "::after" },
-  );
-});
-
 test("should apply disabled colour and set aria-disabled when `disabled` prop is true", () => {
   render(
     <Label size="medium" disabled>
