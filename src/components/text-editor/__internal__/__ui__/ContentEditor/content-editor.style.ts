@@ -8,12 +8,15 @@ const FIXED_LINE_HEIGHT = 21;
 const sizeMap = {
   small: {
     padding: "var(--global-space-comp-s)",
+    previewGap: "var(--global-space-comp-xs)",
   },
   medium: {
     padding: "var(--global-space-comp-m)",
+    previewGap: "var(--global-space-comp-s)",
   },
   large: {
     padding: "var(--global-space-comp-l)",
+    previewGap: "var(--global-space-comp-m)",
   },
 };
 
@@ -72,6 +75,17 @@ const StyledContentEditable = styled.div<StyledContentEditableProps>`
       }
     }
   `}
+`;
+
+export const StyledPreviewContainer = styled.div<{
+  $size: "small" | "medium" | "large";
+}>`
+  ${({ $size }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${sizeMap[$size].previewGap};
+    padding: ${sizeMap[$size].padding};
+  `};
 `;
 
 export default StyledContentEditable;
