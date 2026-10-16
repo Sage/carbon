@@ -1,0 +1,26 @@
+{
+  "component": "Search",
+  "summary": "A search input for querying or filtering content.",
+  "alternatives": [
+    {
+      "component": "Textbox",
+      "when": "The user is entering general text rather than a search or filter query."
+    }
+  ],
+  "pitfalls": [
+    "Keep value controlled and update it from onChange.",
+    "Provide either a visible label or aria-label so the search input has an accessible name.",
+    "End inputHint text with a full stop so screen readers pause before subsequent announcements.",
+    "When using the suggestions dropdown, control open state and respond to onClose and onListItemSelect."
+  ],
+  "examples": [
+    {
+      "story": "WithLabelAndInputHint",
+      "description": "Provide a visible label and punctuated hint text for an accessible search input."
+    },
+    {
+      "story": "WithDropdown",
+      "description": "Filter grouped suggestions and control the dropdown's open, close and selection state."
+    }
+  ]
+}
