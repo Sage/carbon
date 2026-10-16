@@ -19,8 +19,7 @@ export const wrapChildrenInItem = (
     if (
       child.type === MenuItem ||
       child.type === MenuItemDivider ||
-      child.type === MenuItemHeading ||
-      child.props["data-virtual-menu-row"] === "true"
+      child.type === MenuItemHeading
     ) {
       return child;
     }
