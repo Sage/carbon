@@ -266,6 +266,7 @@ export { default as MultiActionButton } from "./components/multi-action-button";
 export type {
   MultiActionButtonProps,
   MultiActionButtonHandle,
+  MultiActionButtonDivider,
 } from "./components/multi-action-button";
 
 export { default as NavigationBar } from "./components/navigation-bar";

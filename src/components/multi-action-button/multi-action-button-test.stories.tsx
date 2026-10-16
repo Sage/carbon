@@ -3,7 +3,7 @@ import { action } from "storybook/actions";
 import MultiActionButton, {
   MultiActionButtonProps,
 } from "./multi-action-button.component";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import {
   MULTI_ACTION_BUTTON_ALIGNMENTS,
@@ -81,7 +81,7 @@ MultiActionButtonStory.story = {
   name: "default",
   args: {
     align: "left",
-    buttonType: "secondary",
+    buttonType: "primary",
     size: "medium",
     subtext: "",
     text: "Multi Action Button",
