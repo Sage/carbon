@@ -406,6 +406,61 @@ test.describe("Check virtual scrolling", () => {
     await expect(firstOption).toBeAttached();
   });
 
+  for (const grouped of [false, true]) {
+    const optionPrefix = grouped ? "Grouped option" : "Option";
+    const targets = [
+      ["ArrowDown", 20],
+      ["ArrowUp", grouped ? 40 : 20],
+    ] as const;
+
+    test(`keeps the active option visible during held arrow keys without scroll warnings (grouped=${grouped})`, async ({
+      mount,
+      page,
+    }) => {
+      const warnings: string[] = [];
+      page.on("console", (message) => {
+        if (
+          message.type() === "warning" &&
+          message.text().includes("Failed to scroll")
+        ) {
+          warnings.push(message.text());
+        }
+      });
+      await mount(
+        grouped ? <WithGroupedVirtualScrolling /> : <WithVirtualScrolling />,
+      );
+      const input = page.getByRole("combobox");
+      await input.click();
+
+      for (const [key, optionNumber] of targets) {
+        for (let repeat = 0; repeat < 60; repeat += 1) {
+          await page.keyboard.down(key);
+        }
+        await page.keyboard.up(key);
+        // Let outstanding animation-frame retries finish before checking the final position.
+        await page.evaluate(async () => {
+          for (let frame = 0; frame < 24; frame += 1) {
+            await new Promise<void>((resolve) =>
+              requestAnimationFrame(() => resolve()),
+            );
+          }
+        });
+        const active = page.locator('[role="option"][data-has-focus="true"]');
+        await expect(active).toHaveCount(1);
+        await expect(active).toHaveAccessibleName(
+          `${optionPrefix} ${optionNumber}`,
+        );
+        await expect(active).toBeInViewport({ ratio: 1 });
+        await expect(input).toHaveAttribute(
+          "aria-activedescendant",
+          (await active.getAttribute("id")) as string,
+        );
+        await expect(input).toBeFocused();
+        expect(warnings).toEqual([]);
+      }
+    });
+  }
+
   test("supports keyboard navigation and exposes the active virtual option", async ({
     mount,
     page,

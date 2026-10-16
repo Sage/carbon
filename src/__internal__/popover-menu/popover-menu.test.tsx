@@ -923,6 +923,103 @@ describe("PopoverMenu - typeahead (Search)", () => {
   });
 });
 
+describe("PopoverMenu - Select configuration", () => {
+  it("uses the selected option as the PageDown base when nothing is highlighted", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 15 }, (_, index) => (
+        <MenuItem
+          key={`pgs-${index}`}
+          id={`pgs-${index}`}
+          selected={index === 3}
+        >
+          Item {index}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageDown}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "pgs-13");
+  });
+
+  it("uses the first option as the PageDown base when nothing is highlighted or selected", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 15 }, (_, index) => (
+        <MenuItem key={`pgn-${index}`} id={`pgn-${index}`}>
+          Item {index}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageDown}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "pgn-10");
+  });
+
+  it("uses the last option as the PageUp base when nothing is highlighted or selected", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 15 }, (_, index) => (
+        <MenuItem key={`pgu-${index}`} id={`pgu-${index}`}>
+          Item {index}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageUp}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "pgu-4");
+  });
+
+  it("closes on Tab without confirming when no option is highlighted and selectOnSpaceAndTab is set", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    const onItemClick = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      selectOnSpaceAndTab: true,
+      onClose,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{Tab}");
+
+    expect(onItemClick).not.toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it("renders the empty listbox when the menu has no children", () => {
+    render(
+      <PopoverMenu open onClose={() => {}} popoverControl={popoverControlInput}>
+        {null}
+      </PopoverMenu>,
+    );
+
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
+  });
+});
+
 describe("PopoverMenu - button menu", () => {
   it("passes aria-haspopup='true' to the popoverControl button", () => {
     renderPopoverMenu<HTMLButtonElement>({
