@@ -1,3 +1,9 @@
+## [162.11.0](https://github.com/Sage/carbon/compare/v162.10.0...v162.11.0) (2026-10-16)
+
+### Features
+
+* **menu:** align with Fusion DS ([3e81ab1](https://github.com/Sage/carbon/commit/3e81ab11077ff74a74d74e25ee58da769cae6ccb))
+
 ## [162.10.0](https://github.com/Sage/carbon/compare/v162.9.1...v162.10.0) (2026-10-15)
 
 ### Features

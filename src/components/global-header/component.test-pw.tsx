@@ -7,7 +7,7 @@ import NavigationBar from "../navigation-bar";
 export const FullMenuExample = () => (
   <>
     <GlobalHeader>
-      <Menu menuType="black" flex="1">
+      <Menu variant="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem href="#">Product A</MenuItem>
         </MenuItem>
