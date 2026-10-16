@@ -45,7 +45,10 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
     font: ${sizeMap[$size].legendFont};
     color: var(--input-labelset-label-default);
 
-    ${$isRequired && requiredIndicatorStyles}
+    ${$isRequired &&
+    css`
+      ${requiredIndicatorStyles(sizeMap[$size].legendFont)}
+    `}
 
     ${$isReadOnly &&
     css`

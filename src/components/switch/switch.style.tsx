@@ -57,7 +57,14 @@ const StyledSwitchLabel = styled.label<StyledSwitchLabelProps>`
       ? "var(--global-font-static-comp-medium-l)"
       : "var(--global-font-static-comp-medium-m)"};
     cursor: pointer;
-    ${$required && requiredIndicatorStyles}
+    ${$required &&
+    css`
+      ${requiredIndicatorStyles(
+        $size === "large"
+          ? "var(--global-font-static-comp-medium-l)"
+          : "var(--global-font-static-comp-medium-m)",
+      )}
+    `}
     /* required to give space above the Switch input when focus styling is applied. */
     ${!$inputHint &&
     css`

@@ -43,10 +43,10 @@ const StyledLabel = styled.label<StyledLabelProps>`
 
   font: ${({ $size }) => getFontToken($size)};
 
-  ${({ $isRequired, $disabled }) =>
+  ${({ $isRequired, $size, $disabled }) =>
     $isRequired &&
     css`
-      ${requiredIndicatorStyles}
+      ${requiredIndicatorStyles(getFontToken($size))}
 
       ${$disabled &&
       css`

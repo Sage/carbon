@@ -58,7 +58,10 @@ export const StyledLegend = styled.legend<StyledFieldsetProps>`
     font: ${sizeMap[$size].legendFont};
     color: var(--input-labelset-label-default);
 
-    ${$isRequired && requiredIndicatorStyles}
+    ${$isRequired &&
+    css`
+      ${requiredIndicatorStyles(sizeMap[$size].legendFont)}
+    `}
   `};
 `;
 
