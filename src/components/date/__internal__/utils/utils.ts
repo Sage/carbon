@@ -8,7 +8,7 @@ import {
   parse,
   parseISO,
   parseWithOptions,
-} from "./date-fns-fp";
+} from "../date-fns-fp";
 
 const DATE_STRING_LENGTH = 10;
 const THRESHOLD_FOR_ADDITIONAL_YEARS = 69;

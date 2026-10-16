@@ -74,8 +74,10 @@ export const DateInputInDialog: StoryObj = {
       await expect(modal).toHaveAttribute("data-state", "open");
     });
 
-    const icon = await screen.findByTestId("icon");
-    await userEvent.click(icon);
+    const calendarButton = await screen.findByRole("button", {
+      name: "Open calendar",
+    });
+    await userEvent.click(calendarButton);
 
     const datePicker = await screen.findByTestId("date-picker");
     expect(datePicker).toBeVisible();
@@ -458,11 +460,10 @@ export const DateInPopoverContainer: StoryObj = {
   play: async () => {
     if (!allowInteractions()) return;
 
-    const icon = document.querySelector(
-      '[data-component="icon"][data-element="calendar"]',
-    );
-
-    if (icon) await userEvent.click(icon);
+    const calendarButton = await screen.findByRole("button", {
+      name: "Open calendar",
+    });
+    await userEvent.click(calendarButton);
 
     const datePicker = await screen.findByTestId("date-picker");
     expect(datePicker).toBeVisible();
