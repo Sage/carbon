@@ -335,6 +335,9 @@ export const StyledButton = styled.button<
     ${$fullWidth &&
     css`
       width: 100%;
+      [data-role="badge-wrapper"]:has(> &) {
+        width: 100%;
+      }
     `}
 
     ${$noWrap

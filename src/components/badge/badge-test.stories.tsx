@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import Badge, { BadgeProps } from ".";
 import Box from "../box";
-import Button from "../button";
+import Button from "../button/__next__";
 import MultiActionButton from "../multi-action-button";
 import SplitButton from "../split-button";
 import { Menu, MenuItem } from "../menu";
@@ -164,3 +164,24 @@ InTabs.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
   chromatic: { disableSnapshot: false },
 };
+
+export const WithFullWidthButtons: Story = () => {
+  return (
+    <>
+      <Box display="flex" gap={2}>
+        <Badge counter={3}>
+          <Button fullWidth>Button 1</Button>
+        </Badge>
+        <Button fullWidth>Button 2</Button>
+      </Box>
+
+      <Box display="flex" gap={2} flexDirection={"column"} mt={1}>
+        <Badge counter={3}>
+          <Button fullWidth>Button 1</Button>
+        </Badge>
+        <Button fullWidth>Button 2</Button>
+      </Box>
+    </>
+  );
+};
+WithFullWidthButtons.storyName = "With Full Width Buttons";
