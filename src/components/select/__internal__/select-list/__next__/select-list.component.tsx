@@ -20,6 +20,10 @@ import OptionGroupHeader, {
 import Icon from "../../../../icon";
 import Loader from "../../../../loader/__next__";
 import isExpectedOption from "../../utils/is-expected-option";
+import guid from "../../../../../__internal__/utils/helpers/guid";
+import useSelectListVirtualization, {
+  type SelectVirtualRow,
+} from "./use-select-list-virtualization";
 
 const SelectPopoverMenu = (props: PopoverMenuProps<HTMLInputElement>) => (
   <PopoverMenu<HTMLInputElement> {...props} />
@@ -31,9 +35,7 @@ const StyledSelectPopoverMenu = styled(SelectPopoverMenu)`
   }
 `;
 
-const VirtualOptionRow = styled.li.attrs({
-  "data-virtual-menu-row": "true",
-})`
+const VirtualOptionRow = styled.li`
   margin: 0;
   padding: 0;
   list-style: none;
@@ -114,6 +116,66 @@ const isOptionGroupHeaderElement = (
 ): child is React.ReactElement<OptionGroupHeaderProps> =>
   React.isValidElement(child) && child.type === OptionGroupHeader;
 
+interface OptionRow extends SelectVirtualRow {
+  option?: React.ReactElement<OptionProps>;
+  group?: React.ReactElement<OptionGroupHeaderProps>;
+  groupIndex: number;
+}
+
+interface OptionGroup {
+  key: React.Key;
+  header?: React.ReactElement<OptionGroupHeaderProps>;
+  rows: OptionRow[];
+}
+
+// Retain nested-array and fragment key paths without cloning the supplied options.
+const buildOptionGroups = (
+  children: React.ReactNode,
+  selectedValue: NextSelectListProps["selectedValue"],
+) => {
+  const groups: OptionGroup[] = [{ key: "ungrouped", rows: [] }];
+  const visit = (nodes: React.ReactNode, prefix = "", fallbackIndex = 0) => {
+    if (Array.isArray(nodes)) {
+      nodes.forEach((node, index) =>
+        visit(node, Array.isArray(node) ? `${prefix}${index}:` : prefix, index),
+      );
+      return;
+    }
+    React.Children.forEach(nodes, (child) => {
+      if (!React.isValidElement(child)) return;
+      const key = `${prefix}${child.key === null ? fallbackIndex : `$${child.key}`}`;
+      if (child.type === React.Fragment) {
+        visit(child.props.children, `${key}/`);
+      } else if (isOptionGroupHeaderElement(child)) {
+        groups.push({
+          key:
+            child.props.id === undefined
+              ? `key:${key}`
+              : `id:${child.props.id}`,
+          header: child,
+          rows: [],
+        });
+      } /* istanbul ignore else */ else if (isOptionElement(child)) {
+        const group = groups[groups.length - 1];
+        group.rows.push({
+          key:
+            child.props.id === undefined
+              ? `key:${key}`
+              : `id:${child.props.id}`,
+          id: child.props.id,
+          option: child,
+          group: group.header,
+          groupIndex: group.rows.length,
+          disabled: child.props.disabled,
+          selected: isExpectedOption(child, selectedValue),
+        });
+      }
+    });
+  };
+  visit(children);
+  return groups;
+};
+
 const SelectList = ({
   id,
   labelId,
@@ -129,8 +191,8 @@ const SelectList = ({
   listboxAriaLabel,
   onSelect,
   onClose,
-  enableVirtualScroll,
-  virtualScrollOverscan,
+  enableVirtualScroll = false,
+  virtualScrollOverscan = 5,
   flipEnabled = true,
   onListScrollBottom,
   selectOnSpaceAndTab,
@@ -154,209 +216,220 @@ const SelectList = ({
     return () => list.removeEventListener("scroll", handleScroll);
   }, [open, onListScrollBottom]);
 
-  const mappedChildren = useMemo(() => {
-    const normalizedChildren = React.Children.map(children, (child) => {
-      if (
-        (isOptionElement(child) || isOptionGroupHeaderElement(child)) &&
-        child.key === null &&
-        child.props.id
-      ) {
-        return React.cloneElement(child, { key: child.props.id });
-      }
+  const listId = useRef(id ?? `select-list-${guid()}`).current;
+  const groups = useMemo(
+    () => buildOptionGroups(children, selectedValue),
+    [children, selectedValue],
+  );
+  const rows = useMemo<OptionRow[]>(
+    () => [
+      ...groups.flatMap((group) => group.rows),
+      ...(isLoading
+        ? [
+            {
+              key: "select-list-loader",
+              disabled: true,
+              isLoader: true,
+              groupIndex: 0,
+            },
+          ]
+        : []),
+    ],
+    [groups, isLoading],
+  );
+  const virtualization = useSelectListVirtualization({
+    rows,
+    open,
+    enabled: enableVirtualScroll,
+    overscan: virtualScrollOverscan,
+    listRef,
+    listId,
+    selectOnSpaceAndTab,
+    onClose,
+  });
 
-      return child;
-    });
-
-    const renderOption = (option: React.ReactElement<OptionProps>) => {
-      const isAction = option.type === ActionOption;
-      const {
-        value,
-        text,
-        children: optionChildren,
-        disabled,
-        leading,
-        prefix,
-        subtext,
-        divider,
-        id: optionId,
-        // These props either belong to the legacy Option implementation or
-        // are owned by the listbox/menu item rendered in its place.
-        borderColor: _borderColor,
-        fill: _fill,
-        inert: _inert,
-        index: _index,
-        onClick: optionOnClick,
-        onSelect: _onSelect,
-        role: _role,
-        variant: _variant,
-        "aria-disabled": _ariaDisabled,
-        "aria-selected": _ariaSelected,
-        ...optionHtmlProps
-      } = option.props;
-
-      const selected = isExpectedOption(option, selectedValue);
-      const label = optionChildren ?? text;
-
-      const menuItem = (
-        <MenuItem
-          key={option.key}
-          id={optionId}
-          {...optionHtmlProps}
-          action={isAction}
-          disabled={disabled}
-          selected={selected}
-          onClick={() => {
-            if (disabled || !value) return;
-
-            if (optionOnClick) {
-              optionOnClick(value);
-              onClose(undefined, typeof value === "string" ? value : undefined);
-              return;
-            }
-
-            onSelect({ id: optionId, text, value });
-            onClose(undefined, typeof value === "string" ? value : undefined);
-          }}
-        >
-          <MenuItemLeading selectedIcon={selected}>{leading}</MenuItemLeading>
-          <MenuItemLabel prefix={prefix}>{label}</MenuItemLabel>
-          {subtext && <MenuItemSubtext>{subtext}</MenuItemSubtext>}
-        </MenuItem>
-      );
-
-      if (!divider) {
-        return [menuItem];
-      }
-
-      return [menuItem, <MenuItemDivider key={`${option.key}-divider`} />];
-    };
-
-    const output: React.ReactNode[] = [];
-    let groupHeader: React.ReactElement<OptionGroupHeaderProps> | null = null;
-    let groupItems: React.ReactNode[][] = [];
-
-    const flushGroup = () => {
-      if (groupItems.length === 0 && !groupHeader) {
-        return;
-      }
-
-      if (groupHeader) {
-        const {
-          label,
-          icon,
-          id: headerId,
-          style: headerStyle,
-          children: headerChildren,
-          "data-element": headerDataElement,
-          "data-role": headerDataRole,
-        } = groupHeader.props;
-        const renderGroup = (
-          items: React.ReactNode[],
-          index: number,
-          key: React.Key | null,
-        ) => (
-          <MenuItemHeading
-            key={key}
-            id={index === 0 ? headerId : undefined}
-            style={index === 0 ? headerStyle : undefined}
-            data-element={index === 0 ? headerDataElement : undefined}
-            data-role={index === 0 ? headerDataRole : undefined}
-            text={label ?? ""}
-            icon={icon ? <Icon type={icon} /> : undefined}
-            headingContent={headerChildren}
-            semanticGroup
-            visuallyHiddenHeading={index > 0}
-          >
-            {items}
-          </MenuItemHeading>
-        );
-
-        if (enableVirtualScroll) {
-          groupItems.forEach((items, index) => {
-            const optionKey = (items[0] as React.ReactElement).key;
-            output.push(
-              <VirtualOptionRow
-                key={`${String(groupHeader?.key)}-${String(optionKey)}-row`}
-                data-virtual-menu-row="true"
-                role="presentation"
-              >
-                {renderGroup(
-                  items,
-                  index,
-                  `${String(groupHeader?.key)}-${String(optionKey)}-group`,
-                )}
-              </VirtualOptionRow>,
-            );
-          });
-        } else {
-          output.push(renderGroup(groupItems.flat(), 0, groupHeader.key));
-        }
-      } else {
-        groupItems.forEach((items) => {
-          if (enableVirtualScroll && items.length > 1) {
-            const optionKey = (items[0] as React.ReactElement).key;
-            output.push(
-              <VirtualOptionRow
-                key={`${String(optionKey)}-row`}
-                data-virtual-menu-row="true"
-                role="presentation"
-              >
-                <ul role="presentation">{items}</ul>
-              </VirtualOptionRow>,
-            );
-          } else {
-            output.push(...items);
-          }
-        });
-      }
-
-      groupHeader = null;
-      groupItems = [];
-    };
-
-    React.Children.forEach(normalizedChildren, (child) => {
-      if (isOptionGroupHeaderElement(child)) {
-        flushGroup();
-        groupHeader = child;
-        return;
-      }
-
-      if (isOptionElement(child)) {
-        groupItems.push(renderOption(child));
-      }
-    });
-
-    flushGroup();
-
-    return output;
-  }, [children, selectedValue, onSelect, onClose, enableVirtualScroll]);
-
-  const initialScrollIndex = useMemo(() => {
-    let index = -1;
-    let optionIndex = 0;
-    React.Children.forEach(children, (child) => {
-      if (isOptionElement(child)) {
-        if (isExpectedOption(child, selectedValue)) {
-          index = optionIndex;
-        }
-        optionIndex += 1;
-      }
-    });
-    return index;
-  }, [children, selectedValue]);
-
-  const listContent = isLoading
-    ? [
-        ...mappedChildren,
-        <MenuItem key="select-list-loader" disabled>
+  const renderOption = (
+    row: OptionRow,
+    virtualProps?: ReturnType<typeof virtualization.optionProps>,
+    positionProps?: {
+      "data-index": number;
+      measureElement: React.RefCallback<HTMLLIElement>;
+      style: React.CSSProperties;
+    },
+  ) => {
+    const { option, key } = row;
+    if (!option) {
+      return (
+        <MenuItem key={key} disabled {...positionProps}>
           <Loader
             loaderType="ring"
             size={size}
             data-role="select-list-loader"
           />
-        </MenuItem>,
+        </MenuItem>
+      );
+    }
+    const isAction = option.type === ActionOption;
+    const {
+      value,
+      text,
+      children: optionChildren,
+      disabled,
+      leading,
+      prefix,
+      subtext,
+      divider,
+      id: optionId,
+      // These props either belong to the legacy Option implementation or
+      // are owned by the listbox/menu item rendered in its place.
+      borderColor: _borderColor,
+      fill: _fill,
+      inert: _inert,
+      index: _index,
+      onClick: optionOnClick,
+      onSelect: _onSelect,
+      role: _role,
+      variant: _variant,
+      "aria-disabled": _ariaDisabled,
+      "aria-selected": _ariaSelected,
+      ...optionHtmlProps
+    } = option.props;
+
+    const { selected } = row;
+    const label = optionChildren ?? text;
+
+    const menuItem = (
+      <MenuItem
+        key={row.key}
+        id={optionId}
+        {...optionHtmlProps}
+        {...virtualProps}
+        {...positionProps}
+        action={isAction}
+        disabled={disabled}
+        selected={selected}
+        onClick={() => {
+          if (disabled || !value) return;
+
+          if (optionOnClick) {
+            optionOnClick(value);
+            onClose(undefined, typeof value === "string" ? value : undefined);
+            return;
+          }
+
+          onSelect({ id: optionId, text, value });
+          onClose(undefined, typeof value === "string" ? value : undefined);
+        }}
+      >
+        <MenuItemLeading selectedIcon={selected}>{leading}</MenuItemLeading>
+        <MenuItemLabel prefix={prefix}>{label}</MenuItemLabel>
+        {subtext && <MenuItemSubtext>{subtext}</MenuItemSubtext>}
+      </MenuItem>
+    );
+
+    if (!divider) {
+      return menuItem;
+    }
+
+    return [menuItem, <MenuItemDivider key={`${row.key}-divider`} />];
+  };
+
+  const renderGroup = (
+    header: React.ReactElement<OptionGroupHeaderProps>,
+    items: React.ReactNode,
+    index: number,
+    key: React.Key,
+  ) => {
+    const {
+      label,
+      icon,
+      id: headerId,
+      style,
+      children: headingContent,
+      "data-element": dataElement,
+      "data-role": dataRole,
+    } = header.props;
+    return (
+      <MenuItemHeading
+        key={key}
+        id={index === 0 ? headerId : undefined}
+        style={index === 0 ? style : undefined}
+        data-element={index === 0 ? dataElement : undefined}
+        data-role={index === 0 ? dataRole : undefined}
+        text={label ?? ""}
+        icon={icon ? <Icon type={icon} /> : undefined}
+        headingContent={headingContent}
+        semanticGroup
+        visuallyHiddenHeading={index > 0}
+      >
+        {items}
+      </MenuItemHeading>
+    );
+  };
+
+  const listContent = enableVirtualScroll
+    ? [
+        ...virtualization.virtualItems.map((item) => {
+          const row = rows[item.index];
+          const style: React.CSSProperties = {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            transform: `translateY(${item.start}px)`,
+          };
+          const optionProps = row.isLoader
+            ? undefined
+            : virtualization.optionProps(item.index);
+          if (!row.group && !row.option?.props.divider) {
+            return renderOption(row, optionProps, {
+              "data-index": item.index,
+              measureElement: virtualization.measureElement,
+              style: { ...row.option?.props.style, ...style },
+            });
+          }
+          const option = renderOption(row, optionProps);
+          return (
+            <VirtualOptionRow
+              key={item.key}
+              role="presentation"
+              data-index={item.index}
+              ref={virtualization.measureElement}
+              style={style}
+            >
+              {row.group ? (
+                renderGroup(row.group, option, row.groupIndex, row.key)
+              ) : (
+                <ul role="presentation">{option}</ul>
+              )}
+            </VirtualOptionRow>
+          );
+        }),
+        // Absolutely positioned options need an in-flow spacer to establish the scroll range.
+        <li
+          key="virtual-scroll-spacer"
+          data-role="virtual-scroll-spacer"
+          role="presentation"
+          aria-hidden="true"
+          style={{
+            display: "block",
+            height: virtualization.virtualHeight,
+            margin: 0,
+            padding: 0,
+            listStyle: "none",
+            pointerEvents: "none",
+          }}
+        />,
       ]
-    : mappedChildren;
+    : [
+        ...groups.flatMap((group) => {
+          const options = group.rows.map((row) => renderOption(row));
+          return group.header
+            ? [renderGroup(group.header, options, 0, group.key)]
+            : options;
+        }),
+        ...(isLoading ? [renderOption(rows[rows.length - 1])] : []),
+      ];
 
   return (
     <StyledSelectPopoverMenu
@@ -365,7 +438,7 @@ const SelectList = ({
       size={size}
       maxHeight={resolvedMaxHeight}
       placement={placement}
-      id={id}
+      id={listId}
       controlReference={controlReference}
       controlWrapperStyle={controlWrapperStyle}
       listboxAriaLabelledBy={labelId}
@@ -373,15 +446,27 @@ const SelectList = ({
       listRef={listRef}
       onClose={onClose}
       popoverControl={popoverControl}
-      enableVirtualScroll={enableVirtualScroll}
-      virtualScrollOverscan={virtualScrollOverscan}
+      wrapItems={false}
+      onListKeyDown={
+        enableVirtualScroll ? virtualization.handleVirtualKeyDown : undefined
+      }
+      activeDescendant={
+        enableVirtualScroll ? virtualization.activeDescendant : undefined
+      }
+      listStyle={
+        enableVirtualScroll
+          ? {
+              display: "block",
+              position: "relative",
+              height: virtualization.virtualHeight,
+            }
+          : undefined
+      }
       flipEnabled={flipEnabled}
       selectOnSpaceAndTab={selectOnSpaceAndTab}
       enablePageNavigation
       focusSelectedOnOpen
       highlightSelectedOption
-      closeOnFocusOut
-      initialScrollIndex={initialScrollIndex}
       // The legacy SelectList was positioned beneath a fixed backdrop, so its
       // flip boundary was the viewport rather than an overflowing parent such
       // as FlatTable. Preserve that behaviour for SimpleSelect.
