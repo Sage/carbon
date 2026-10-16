@@ -64,7 +64,7 @@ export const StyledWrapper = styled.div<StyledProps>`
       text-decoration: underline;
     }
 
-    a:not([data-component="link-preview"]) {
+    a:not([data-component="link-preview"]):not([data-role="link-anchor"]) {
       color: var(--link-typical-label-default);
       cursor: pointer;
 
