@@ -17,11 +17,6 @@ const [StrictMenuProvider, useStrictMenuContext] =
     name: "MenuContext",
     errorMessage:
       "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    defaultValue: {
-      menuType: "light",
-      openSubmenuId: null,
-      setOpenSubmenuId: /* istanbul ignore next */ () => {},
-    },
   });
 
 export { StrictMenuProvider, useStrictMenuContext };

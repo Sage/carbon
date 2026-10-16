@@ -4,26 +4,20 @@ import userEvent from "@testing-library/user-event";
 
 import MenuDivider from "./menu-divider.component";
 
-import Logger from "../../../__internal__/utils/logger";
-
 import MenuItem from "../menu-item/menu-item.component";
 import menuConfigVariants from "../menu.config";
 import Menu from "../menu.component";
 
-test("logs error if not used within Menu", () => {
-  const loggerErrorSpy = jest
-    .spyOn(Logger, "error")
+test("throws an error if not used within Menu", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
     .mockImplementation(() => {});
 
-  render(<MenuDivider data-role="divider" />);
-
-  expect(loggerErrorSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
+  expect(() => render(<MenuDivider data-role="divider" />)).toThrow(
+    "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerErrorSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("should apply the 'light' background-color passed as `menuType` via context", async () => {

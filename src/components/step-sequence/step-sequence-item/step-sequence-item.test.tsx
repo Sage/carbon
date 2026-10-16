@@ -4,19 +4,17 @@ import { render, screen, within } from "@testing-library/react";
 import StepSequenceItem from ".";
 
 import StepSequence from "../step-sequence.component";
-import Logger from "../../../__internal__/utils/logger";
 
-test("logs error when not used within StepSequence", () => {
-  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+test("throws an error when not used within StepSequence", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-  render(<StepSequenceItem indicator="1" title="Step" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon StepSequence: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
+  expect(() => render(<StepSequenceItem indicator="1" title="Step" />)).toThrow(
+    "Carbon StepSequence: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
-  loggerSpy.mockRestore();
+
+  consoleErrorSpy.mockRestore();
 });
 
 test("renders with provided title and indicator", () => {
