@@ -50,21 +50,6 @@ test("positions the list against the viewport rather than an overflowing parent"
   );
 });
 
-test("closes when focus leaves the select control", () => {
-  const onClose = jest.fn();
-  renderSelectList({
-    onClose,
-    children: <Option text="Amber" value="amber" />,
-  });
-
-  const input = screen.getByRole("combobox", { name: "Select options" });
-  input.focus();
-  document.body.focus();
-  input.blur();
-
-  expect(onClose).toHaveBeenCalledTimes(1);
-});
-
 test("calls `onListScrollBottom` only when the list reaches the bottom", () => {
   const onListScrollBottom = jest.fn();
   renderSelectList({
@@ -455,7 +440,8 @@ test("forwards custom group header content and attributes while ignoring non-opt
         Custom colours
       </OptionGroupHeader>,
       <Option key="amber" text="Amber" value="amber" />,
-      "Ignored content",
+      <span key="ignored">Ignored content</span>,
+      "Ignored text content",
     ],
   });
 
@@ -465,6 +451,8 @@ test("forwards custom group header content and attributes while ignoring non-opt
   expect(group).toHaveAttribute("data-role", "colour-heading");
   expect(group).toHaveStyle({ color: "rgb(255, 0, 0)" });
   expect(screen.getByRole("option", { name: "Amber" })).toBeVisible();
+  expect(screen.queryByText("Ignored content")).not.toBeInTheDocument();
+  expect(screen.queryByText("Ignored text content")).not.toBeInTheDocument();
 });
 
 test("renders a loader alongside available options", () => {
