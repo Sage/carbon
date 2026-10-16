@@ -11,9 +11,15 @@ import {
   AnchorNavigationItem,
 } from ".";
 
+/**
+ * This file contains private test stories for deprecated stickyNavigation.
+ * The `!dev` tag keeps them out of Storybook's component list.
+ */
+
 const meta: Meta<typeof AnchorNavigation> = {
   component: AnchorNavigation,
   includeStories: ["DefaultStory", "InFullScreenDialogStory"],
+  tags: ["!dev"],
   title: "Anchor Navigation/Test",
   parameters: {
     info: { disable: true },
@@ -100,7 +106,7 @@ export const InFullScreenDialogStory: Story = () => {
     <>
       <Button onClick={() => setIsOpen(true)}>Open AnchorNavigation</Button>
       <Dialog
-        fullscreen
+        size="fullscreen"
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         title="Title"
