@@ -824,7 +824,6 @@ export const NoIcons = () => {
 
 export const OpeningAModal = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Box>
@@ -837,8 +836,7 @@ export const OpeningAModal = () => {
         >
           <ActionPopoverItem
             onClick={() => {
-              setIsOpen(!isOpen);
-              setIsConfirmOpen(isConfirmOpen);
+              setIsConfirmOpen(!isConfirmOpen);
             }}
           >
             Open Confirm Dialog

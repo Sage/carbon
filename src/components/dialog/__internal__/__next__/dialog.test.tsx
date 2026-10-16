@@ -838,7 +838,33 @@ describe("disableStickyOnSmallScreen", () => {
     );
 
     const dialog = screen.getByRole("dialog");
+    const footer = screen.getByTestId("dialog-footer");
+    const media = "screen and (max-width: 600px)";
 
     expect(dialog).toBeVisible();
+    expect(footer).toHaveStyleRule("position", "static", { media });
+    expect(footer).toHaveStyleRule("border-radius", "0", { media });
+    expect(footer).toHaveStyleRule("border-top", "none", { media });
+    expect(footer).toHaveStyleRule("box-shadow", "none", { media });
+    expect(footer).toHaveStyleRule("padding-top", "0", { media });
+  });
+
+  test("preserves footer padding when it is not sticky", () => {
+    render(
+      <Dialog
+        open
+        title="My dialog"
+        disableStickyOnSmallScreen
+        footer={<button type="button">Save</button>}
+      >
+        Content
+      </Dialog>,
+    );
+
+    expect(screen.getByTestId("dialog-footer")).not.toHaveStyleRule(
+      "padding-top",
+      "0",
+      { media: "screen and (max-width: 600px)" },
+    );
   });
 });
