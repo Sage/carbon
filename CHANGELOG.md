@@ -1,3 +1,9 @@
+## [162.12.0](https://github.com/Sage/carbon/compare/v162.11.0...v162.12.0) (2026-10-16)
+
+### Features
+
+* **definition-list:** align component with the fusion DS ([d505e00](https://github.com/Sage/carbon/commit/d505e008d83bf5ae58d4465e5f37edabb6633e50))
+
 ## [162.11.0](https://github.com/Sage/carbon/compare/v162.10.0...v162.11.0) (2026-10-16)
 
 ### Features
