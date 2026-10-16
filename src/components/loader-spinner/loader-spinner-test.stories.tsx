@@ -1,10 +1,16 @@
 import React from "react";
-import Box from "../box";
 import { LoaderSpinner, LoaderSpinnerProps } from ".";
 import {
   LOADER_SPINNER_SIZES,
   LOADER_SPINNER_VARIANTS,
 } from "./loader-spinner.config";
+
+const greyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-xs)",
+  width: "100%",
+  height: "200px",
+  backgroundColor: "rgb(169, 169, 169)",
+};
 
 export default {
   title: "Deprecated/Loader Spinner/Test",
@@ -57,9 +63,9 @@ export default {
 };
 
 export const Default = (props: Partial<LoaderSpinnerProps>) => (
-  <Box p={3} backgroundColor="darkgrey" width="100%" height="200px">
+  <div style={greyBackground}>
     <LoaderSpinner {...props} />
-  </Box>
+  </div>
 );
 
 Default.storyName = "default";

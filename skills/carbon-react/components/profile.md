@@ -94,14 +94,7 @@ description: Carbon Profile component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box
-      p={2}
-      backgroundColor="black"
-      width="190px"
-      height="50px"
-      borderRadius="borderRadius200"
-      display="flex"
-    >
+    <div style={blackBackground}>
       <Profile
         darkBackground
         email="email@email.com"
@@ -109,7 +102,7 @@ description: Carbon Profile component props and usage examples.
         name="John Doe"
         text="+33 657 22 34 71"
       />
-    </Box>
+    </div>
   );
 }
 ```
@@ -237,15 +230,7 @@ description: Carbon Profile component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      alignItems="flex-start"
-      boxShadow="boxShadow050"
-      width="200px"
-      minHeight="88px"
-      p={1}
-    >
+    <div style={customContentCard}>
       <Profile
         initials="JD"
         name="John Doe"
@@ -262,7 +247,7 @@ description: Carbon Profile component props and usage examples.
           View profile
         </Button>
       </Profile>
-    </Box>
+    </div>
   );
 }
 ```

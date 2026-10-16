@@ -9,6 +9,36 @@ import Typography from "../typography";
 
 import carbonLogo from "../../../logo/carbon-logo.png";
 
+const inverseContainer: React.CSSProperties = {
+  padding: "var(--global-space-layout-s)",
+};
+
+const blackBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-2-xs)",
+  display: "flex",
+  flexDirection: "row",
+  gap: "var(--global-space-layout-s)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
+const lightGreyBackground: React.CSSProperties = {
+  padding: "25px",
+  width: "250px",
+  backgroundColor: "rgb(242, 245, 246)",
+};
+
+const redBackground: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "flex-end",
+  alignItems: "center",
+  width: "60px",
+  height: "40px",
+  marginLeft: "var(--global-space-layout-m)",
+  marginRight: "var(--global-space-layout-m)",
+  backgroundColor: "rgb(255, 0, 0)",
+};
+
 const meta: Meta<typeof Link> = {
   title: "Link/Test",
   component: Link,
@@ -35,12 +65,14 @@ const meta: Meta<typeof Link> = {
 export default meta;
 type Story = StoryObj<typeof Link>;
 
-const getBackgroundColor = (inverse?: boolean) =>
-  inverse ? "#000000" : "transparent";
-
 export const Default: Story = {
   render: ({ inverse, onClick, children, ...args }: LinkProps) => (
-    <Box p={4} backgroundColor={getBackgroundColor(inverse)}>
+    <div
+      style={{
+        ...inverseContainer,
+        backgroundColor: inverse ? "rgb(0, 0, 0)" : "rgba(0, 0, 0, 0)",
+      }}
+    >
       <Link
         onClick={onClick ? action("click") : undefined}
         inverse={inverse}
@@ -48,7 +80,7 @@ export const Default: Story = {
       >
         {children}
       </Link>
-    </Box>
+    </div>
   ),
   args: {
     children: "Link",
@@ -94,13 +126,7 @@ export const AllVariantsWithIcons: Story = {
           </Link>
         </Typography>
       </Box>
-      <Box
-        p={2}
-        display="flex"
-        flexDirection="row"
-        gap={4}
-        backgroundColor="#000"
-      >
+      <div style={blackBackground}>
         <Typography>
           <Link variant="typical" inverse {...args}>
             This is a typical link
@@ -116,14 +142,8 @@ export const AllVariantsWithIcons: Story = {
             This is a subtle link
           </Link>
         </Typography>
-      </Box>
-      <Box
-        p={2}
-        display="flex"
-        flexDirection="row"
-        gap={4}
-        backgroundColor="#000"
-      >
+      </div>
+      <div style={blackBackground}>
         <Typography>
           <Link variant="typical" linkSize="large" inverse {...args}>
             This is a large typical link
@@ -139,14 +159,8 @@ export const AllVariantsWithIcons: Story = {
             This is a large subtle link
           </Link>
         </Typography>
-      </Box>
-      <Box
-        p={2}
-        display="flex"
-        flexDirection="row"
-        gap={4}
-        backgroundColor="#000"
-      >
+      </div>
+      <div style={blackBackground}>
         <Typography>
           <Link variant="typical" linkSize="large" inverse {...args}>
             This is a large typical link
@@ -162,7 +176,7 @@ export const AllVariantsWithIcons: Story = {
             This is a large subtle link
           </Link>
         </Typography>
-      </Box>
+      </div>
       <Box p={2} display="flex" flexDirection="row" gap={4}>
         <Typography>
           <Link {...args}>Default link</Link>
@@ -195,11 +209,7 @@ export const AllVariantsWithIcons: Story = {
           </Link>
         </Typography>
       </Box>
-      <Box
-        padding="25px"
-        width="250px"
-        backgroundColor="--colorsUtilityMajor025"
-      >
+      <div style={lightGreyBackground}>
         <Typography>We&apos;ll be sorry to see you go</Typography>
         <Typography>
           If your subscription isn&apos;t quite right, we can help you{" "}
@@ -212,7 +222,7 @@ export const AllVariantsWithIcons: Story = {
             find one that suits your business needs (new tab)
           </Link>
         </Typography>
-      </Box>
+      </div>
     </>
   ),
   parameters: {
@@ -241,18 +251,9 @@ export const AllVariantsOnHover: Story = {
 
 export const FlexContainer = () => {
   const link = (
-    <Box
-      display="flex"
-      flexDirection="row"
-      justifyContent="flex-end"
-      alignItems="center"
-      width="60px"
-      height="40px"
-      bg="red"
-      mx={5}
-    >
+    <div style={redBackground}>
       <Link icon="close" variant="neutral" />
-    </Box>
+    </div>
   );
   return (
     <div
