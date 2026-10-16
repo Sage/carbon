@@ -1,5 +1,4 @@
 import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import terser from "@rollup/plugin-terser";
 import path from "path";
@@ -110,12 +109,6 @@ export default {
       moduleDirectories: ["node_modules"],
       exportConditions: ["node", "default"],
     }),
-    commonjs({
-      include: "node_modules/**",
-      requireReturnsDefault: "auto",
-      transformMixedEsModules: true,
-      ignoreDynamicRequires: true,
-    }),
     json(),
     postcss({
       extract: true,
@@ -174,19 +167,12 @@ export default {
     copy({
       targets: [
         { src: "src/style/assets/**/*", dest: "lib/style/assets" },
-        { src: "src/style/assets/**/*", dest: "esm/style/assets" },
         {
           src: "src/components/icon/fonts/*.{woff,woff2}",
           dest: "lib/components/icon/fonts",
         },
-        {
-          src: "src/components/icon/fonts/*.{woff,woff2}",
-          dest: "esm/components/icon/fonts",
-        },
         { src: "src/style/fonts.css", dest: "lib/style/" },
-        { src: "src/style/fonts.css", dest: "esm/style/" },
         { src: "src/global.d.ts", dest: "lib/" },
-        { src: "src/global.d.ts", dest: "esm/" },
       ],
     }),
     visualizer({
@@ -197,26 +183,13 @@ export default {
       title: "Carbon Bundle Stats",
     }),
   ],
-  output: [
-    {
-      dir: "lib",
-      format: "cjs",
-      preserveModules: true,
-      preserveModulesRoot: "src",
-      entryFileNames: "[name].js",
-      /* Preserves the folder structure of the source files */
-      chunkFileNames: ({ name }) => `${name}.js`,
-      exports: "named",
-      interop: "auto",
-    },
-    {
-      dir: "esm",
-      format: "esm",
-      preserveModules: true,
-      preserveModulesRoot: "src",
-      entryFileNames: "[name].js",
-      /* Preserves the folder structure of the source files */
-      chunkFileNames: ({ name }) => `${name}.js`,
-    },
-  ],
+  output: {
+    dir: "lib",
+    format: "esm",
+    preserveModules: true,
+    preserveModulesRoot: "src",
+    entryFileNames: "[name].js",
+    /* Preserves the folder structure of the source files */
+    chunkFileNames: ({ name }) => `${name}.js`,
+  },
 };

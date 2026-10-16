@@ -101,7 +101,7 @@ test("keeps authored metadata and generated skills out of the npm package", () =
     fs.readFileSync(path.join(repoRoot, "package.json"), "utf8"),
   );
 
-  assert.deepEqual([...packageJson.files].sort(), ["esm", "lib"]);
+  assert.deepEqual([...packageJson.files].sort(), ["lib"]);
   assert.equal(
     path
       .relative(repoRoot, path.join(repoRoot, "docs", "component-metadata"))

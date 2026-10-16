@@ -1,5 +1,5 @@
 module.exports = (api) => {
-  const useCJSModules = api.env(["test", "cjs"]);
+  const isTest = api.env("test");
 
   return {
     presets: [
@@ -12,7 +12,7 @@ module.exports = (api) => {
               "last 2 Chrome versions, last 2 Firefox versions, last 2 Edge versions, last 2 Safari versions",
           },
           corejs: "3.20",
-          modules: useCJSModules ? "auto" : false,
+          modules: isTest ? "auto" : false,
         },
       ],
       "@babel/preset-react",
