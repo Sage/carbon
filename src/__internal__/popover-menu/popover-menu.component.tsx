@@ -12,6 +12,7 @@ import { flip, offset, size } from "@floating-ui/dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { useHandleDropdownMenuKeyDown, setFocus } from "./hooks";
+import type { TypeaheadHandler } from "./hooks";
 import guid from "../utils/helpers/guid";
 import {
   PopoverMenuContext,
@@ -155,6 +156,12 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   isSubmenu?: boolean;
   /** Ref to the listbox/menu element */
   listRef?: React.Ref<HTMLUListElement>;
+  /** Render the menu above a modal overlay, trapping interaction to the menu */
+  disableBackgroundUI?: boolean;
+  /** Opt in to type-ahead by passing a handler, e.g. `handleAlphaKeyNavigation` */
+  typeahead?: TypeaheadHandler;
+  /** Element to portal the menu into, e.g. a scoped tokens wrapper */
+  portalTarget?: HTMLElement | null;
 }
 
 const OFFSET = 8;
@@ -197,9 +204,10 @@ interface MenuProps {
   listId: string;
   disablePortal?: boolean;
   portalTarget?: HTMLElement | null;
+  popoverStrategy?: PopoverProps["popoverStrategy"];
   listboxAriaLabel?: string;
   maxHeight?: string;
-  popoverStrategy?: PopoverProps["popoverStrategy"];
+  disableBackgroundUI?: boolean;
 }
 
 const Menu = ({
@@ -218,8 +226,9 @@ const Menu = ({
   listId,
   disablePortal,
   portalTarget,
-  maxHeight,
   popoverStrategy,
+  maxHeight,
+  disableBackgroundUI,
 }: MenuProps) => {
   return (
     <Popover
@@ -231,6 +240,7 @@ const Menu = ({
       disablePortal={disablePortal}
       portalTarget={portalTarget}
       popoverStrategy={popoverStrategy}
+      disableBackgroundUI={disableBackgroundUI}
     >
       <MenuWrapper
         $size={size}
@@ -332,6 +342,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     listRef,
     controlWrapperStyle,
     maxHeight,
+    disableBackgroundUI,
+    typeahead,
+    portalTarget,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -417,6 +430,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     {
       isButtonMenu,
       isSubmenu,
+      typeahead,
     },
   );
 
@@ -550,10 +564,11 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             middleware={computedMiddleware}
             scrollRef={scrollRef}
             listId={listId.current}
-            disablePortal={!isSubmenu}
-            portalTarget={isSubmenu ? controlReference?.current : undefined}
-            maxHeight={maxHeight}
+            disablePortal={!isSubmenu && !portalTarget}
+            portalTarget={isSubmenu ? controlReference?.current : portalTarget}
             popoverStrategy={popoverStrategy}
+            disableBackgroundUI={disableBackgroundUI}
+            maxHeight={maxHeight}
           >
             {wrappedChildren}
           </Menu>

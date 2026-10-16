@@ -18,9 +18,7 @@ export const actionPopover = (page: Page) =>
 
 export const actionPopoverInnerItem = (page: Page, index: number) =>
   page
-    .locator(ACTION_POPOVER_DATA_COMPONENT)
-    .first()
-    .locator("> li")
+    .locator('[data-component="popover-menu-item"]')
     .nth(index)
     .locator("button")
     .first();
@@ -28,7 +26,7 @@ export const actionPopoverInnerItem = (page: Page, index: number) =>
 export const actionPopoverSubmenu = (page: Page, index: number) =>
   page
     .locator(ACTION_POPOVER_SUBMENU)
-    .nth(1)
+    .first()
     .locator(`> li:nth-child(${index + 1})`)
     .locator("button");
 
