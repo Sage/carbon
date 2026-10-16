@@ -29,7 +29,10 @@ import guid from "../../__internal__/utils/helpers/guid";
 
 export interface MultiActionButtonProps
   extends WidthProps,
-    Omit<SplitButtonProps, "buttonType" | "iconPosition" | "iconType"> {
+    Omit<
+      SplitButtonProps,
+      "buttonType" | "iconPosition" | "iconType" | "variantType"
+    > {
   /** Button type: "primary" | "secondary" | "tertiary" */
   buttonType?: "primary" | "secondary" | "tertiary";
   /** Second text child, renders under main text, only when size is "large" */

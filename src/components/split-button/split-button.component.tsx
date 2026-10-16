@@ -36,9 +36,13 @@ export interface SplitButtonProps
    */
   align?: "left" | "right";
   /**
-   * @deprecated This prop is deprecated and has no effect. It will be removed in a future release.
-   * SplitButton only supports the primary variant. */
+   * @deprecated This prop is deprecated and will be removed in a future release. Please use `variantType` instead.
+   * SplitButton variant type. */
   buttonType?: "primary" | "secondary";
+  /**
+   * The variant type of the main and toggle buttons. Takes precedence over the deprecated `buttonType` prop.
+   */
+  variantType?: "primary" | "secondary";
   /** The additional button to display. */
   children: React.ReactNode;
   /** Prop to specify an aria-label for the component */
@@ -81,7 +85,8 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     {
       align: _align,
       position = "right",
-      buttonType = "primary",
+      buttonType,
+      variantType,
       children,
       disabled = false,
       iconPosition = "before",
@@ -109,7 +114,9 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
 
     const { isInFlatTable } = useContext(FlatTableContext);
 
-    const shouldRenderIsWhiteVariant = buttonType === "secondary" && isWhite;
+    const actualVariant = variantType ?? buttonType ?? "primary";
+
+    const shouldRenderIsWhiteVariant = actualVariant === "secondary" && isWhite;
 
     useImperativeHandle<SplitButtonHandle, SplitButtonHandle>(
       ref,
@@ -195,6 +202,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
         data-component="split-button"
         data-element={dataElement}
         data-role={dataRole}
+        $variantType={actualVariant}
         ref={buttonNode}
         {...filterStyledSystemMarginProps(rest)}
       >
@@ -210,7 +218,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
           size={size}
           iconType={iconType}
           disabled={disabled}
-          variantType={buttonType}
+          variantType={actualVariant}
           iconPosition={iconPosition}
           onClick={handleMainClick}
           isWhite={shouldRenderIsWhiteVariant}
@@ -248,7 +256,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
                     $displayed={showAdditionalButtons}
                     $size={size}
                     $variant="default"
-                    $variantType={buttonType}
+                    $variantType={actualVariant}
                     onClick={handleToggleClick}
                     isWhite={shouldRenderIsWhiteVariant}
                   >
