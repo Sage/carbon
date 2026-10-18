@@ -15,7 +15,6 @@ import GlobalHeader from "../global-header";
 import { Menu, MenuItem } from "../menu";
 import Typography from "../typography";
 import Icon from "../icon";
-import IconButton from "../icon-button";
 
 const greenBackground: React.CSSProperties = {
   borderRadius:
@@ -153,7 +152,7 @@ const CreatePopoverInMenu = () => {
 
   return (
     <GlobalHeader>
-      <Menu menuType="black" flex="1">
+      <Menu variant="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem href="#">Product A</MenuItem>
         </MenuItem>
@@ -179,21 +178,22 @@ const CreatePopoverInMenu = () => {
                 onClick={onClick}
                 data-popover-container-button={dataPopoverContainerButton}
               >
-                <Box alignItems="center" display="flex" px={2}>
-                  <Icon type="plus" />
-                  Create
-                </Box>
+                <Icon type="plus" />
+                Create
               </Button>
             )}
             renderCloseComponent={({ ref, onClick }) => (
               <Box position="absolute" right="15px" top="15px">
-                <IconButton
+                <Button
                   aria-label="Close Create Popover"
                   ref={ref}
                   onClick={onClick}
+                  inverse
+                  variantType="subtle"
+                  size="small"
                 >
-                  <Icon color="var(--colorsActionMajorYang100)" type="close" />
-                </IconButton>
+                  <Icon type="close" />
+                </Button>
               </Box>
             )}
           >
