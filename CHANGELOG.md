@@ -1,3 +1,9 @@
+## [162.13.0](https://github.com/Sage/carbon/compare/v162.12.0...v162.13.0) (2026-10-19)
+
+### Features
+
+* **multi-action-button:** align component with the Fusion DS ([f1e75e0](https://github.com/Sage/carbon/commit/f1e75e0915e6da58c7c4f9b0ec105c39f5e4024f))
+
 ## [162.12.0](https://github.com/Sage/carbon/compare/v162.11.0...v162.12.0) (2026-10-16)
 
 ### Features
