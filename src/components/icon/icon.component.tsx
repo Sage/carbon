@@ -90,7 +90,7 @@ export interface IconProps
    * - `large` — 40px
    */
   size?: IconSize;
-  /** Renders the Icon in a light colour, suitable for use on dark backgrounds. */
+  /** Whether to apply inverse styling. */
   inverse?: boolean;
   /**
    * @deprecated Use the `size` prop instead. The `extra-large` value is no longer
