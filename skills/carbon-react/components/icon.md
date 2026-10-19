@@ -5,6 +5,18 @@ description: Carbon Icon component props and usage examples.
 
 # Icon
 
+Displays a visual symbol from Carbon's bundled icon set.
+
+## Choose instead
+
+- **ButtonNext:** The icon needs to perform an action rather than convey or support information.
+
+## Pitfalls
+
+- Hide decorative icons from assistive technologies with aria-hidden.
+- For an icon that conveys meaning on its own, set role to img and provide ariaLabel.
+- Prefer a semantic color preset over an arbitrary CSS color.
+
 ## Import
 `import Icon from "carbon-react/lib/components/icon";`
 
@@ -19,7 +31,7 @@ description: Carbon Icon component props and usage examples.
 | ariaLabel | string \| undefined | No |  |  |  | Aria label for accessibility purposes |  |
 | color | string \| undefined | No |  |  |  | Override the icon color with a semantic preset. - `neutral` — default content icon color - `subtle` — alternative, lower-emphasis content icon color - `caution` — caution status color - `info` — information status color - `negative` — negative status color - `positive` — positive status color Arbitrary CSS color strings remain supported for backward compatibility, but semantic presets are preferred. Legacy `color="white"` (and common equivalent expressions) maps to the `inverse` neutral token. |  |
 | id | string \| undefined | No |  |  |  | Id passed to the icon. |  |
-| inverse | boolean \| undefined | No |  |  |  | Renders the Icon in a light colour, suitable for use on dark backgrounds. |  |
+| inverse | boolean \| undefined | No |  |  |  | Whether to apply inverse styling. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
@@ -53,145 +65,7 @@ description: Carbon Icon component props and usage examples.
 | tooltipVisible | boolean \| undefined | No |  | Yes |  |  |  |
 
 ## Examples
-### Default
+Load only the example needed for the current task; playground stories are intentionally omitted.
 
-**Render**
-
-```tsx
-() => {
-  return <Icon type="add" />;
-}
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      {(["small", "medium", "large"] as const).map((size) => (
-        <Icon type="add" size={size} key={size} />
-      ))}
-    </>
-  );
-}
-```
-
-
-### Inverse
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <div style={blackBackground}>
-      <Icon type="add" inverse />
-    </div>
-  );
-}
-```
-
-
-### Various Background Shapes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      {(["circle", "rounded-rect", "square"] as const).map((bgShape) => (
-        <Icon type="add" bgShape={bgShape} bg="#00b000" mr={1} key={bgShape} />
-      ))}
-    </>
-  );
-}
-```
-
-
-### Various Background Sizes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      {(["small", "medium", "large"] as const).map((bgSize) => (
-        <Icon type="add" bg="#00b000" bgSize={bgSize} mr={1} key={bgSize} />
-      ))}
-    </>
-  );
-}
-```
-
-
-### Background Sizes and Font Sizes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      {(["small", "medium", "large"] as const).map((fontSize) => {
-        return (["small", "medium", "large"] as const).map((bgSize) => (
-          <Icon
-            type="add"
-            bg="#00b000"
-            fontSize={fontSize}
-            bgSize={bgSize}
-            mr={1}
-            key={`${fontSize}_${bgSize}`}
-          />
-        ));
-      })}
-    </>
-  );
-}
-```
-
-
-### Color Presets
-
-**Render**
-
-```tsx
-() => (
-  <Box display="flex" flexDirection="column" gap={1}>
-    {ICON_COLOR_TYPES.map((color) => (
-      <Box display="flex" alignItems="center" gap={1} key={color}>
-        <Icon type="add" color={color} />
-        <span>{color}</span>
-      </Box>
-    ))}
-  </Box>
-)
-```
-
-
-### List of Icons
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box m={2} display="grid" gridTemplateColumns="repeat(4, 1fr)">
-      {ICONS.sort().map((type) => {
-        return (
-          <Box m={1} key={`icon-${type}`}>
-            <Icon m={1} type={type} />
-            {type}
-          </Box>
-        );
-      })}
-    </Box>
-  );
-}
-```
-
+- [Default](../examples/icon/default.md) — Render a decorative icon that is hidden from assistive technologies.
+- [With Accessible Label](../examples/icon/with-accessible-label.md) — Give a meaningful standalone icon an image role and accessible name.
