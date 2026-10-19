@@ -11,7 +11,10 @@ source-of-truth split, metadata fields, example criteria, and completion checks.
 Keep the task to one active component unless the user requests a wider scope. If
 a component has not been chosen, run `npm run skills:status` and select from the
 active components awaiting review; do not spend coverage effort on deprecated
-components unless migration guidance is specifically needed.
+components unless migration guidance is specifically needed. Confirm each target
+appears in that report before adding metadata. If it does not, establish whether
+it is internal, deprecated, or available only from a secondary entry point; do
+not expand the public API solely to make it eligible for skill generation.
 
 Inspect the component source, its Storybook stories and MDX, and its current
 generated component file before authoring metadata. Carbon source and Storybook
@@ -30,20 +33,32 @@ is needed for component selection, accessibility, implementation correctness, or
 an explicit requirement.
 
 Curate a small set of focused, consumer-useful stories. Do not curate playground
-stories or examples using deprecated APIs. Preserve the Storybook patterns the
-project wants to use; improve the extractor or source story when necessary
-rather than rewriting stories merely for extraction. If a selected example is
-incomplete or inaccessible, correct the source story so Storybook and the skill
-remain aligned.
+stories or examples using deprecated APIs or components. Preserve the Storybook
+patterns the project wants to use; improve the extractor or source story when
+necessary rather than rewriting stories merely for extraction. If a selected
+example is incomplete or inaccessible, correct the source story so Storybook and
+the skill remain aligned. Inspect the generated example for unresolved references
+to module-level helpers, constants, or assets as well as invalid imports; it must
+stand alone outside Storybook.
+
+If valid source information or a supported Storybook pattern is extracted
+incorrectly, fix the generator instead of changing the component to suit it. Add
+a focused regression test, regenerate and review every affected output, and keep
+the generator fix in a separate commit before the component-curation commit.
 
 Never edit `skills/carbon-react/` directly. Run `npm run build:skills`, inspect
-the generated component and every linked example, then run:
+the generated component and every linked example. Use the Node version declared
+by `.nvmrc`, then run:
 
 ```shell
 npm run test:skills
 npm run build:skills -- --check
 npm run type-check
+npm run lint
 ```
+
+Run relevant component or Storybook tests when source behaviour or stories have
+changed.
 
 Finish only when the generated guidance is concise, imports and props are
 current, deprecations are represented accurately, examples are understandable
