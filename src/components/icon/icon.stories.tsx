@@ -32,9 +32,14 @@ export default meta;
 type Story = StoryObj<typeof Icon>;
 
 export const Default: Story = () => {
-  return <Icon type="add" />;
+  return <Icon type="add" aria-hidden />;
 };
 Default.storyName = "Default";
+
+export const WithAccessibleLabel: Story = () => {
+  return <Icon type="warning" role="img" ariaLabel="Warning" />;
+};
+WithAccessibleLabel.storyName = "With Accessible Label";
 
 export const Sizes: Story = () => {
   return (
