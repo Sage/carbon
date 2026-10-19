@@ -193,6 +193,17 @@ test("generated component imports match their public export binding", () => {
   }
 });
 
+test("generated props follow aliased public type re-exports", () => {
+  const markdown = fs.readFileSync(
+    path.join(repoRoot, "skills", "carbon-react", "components", "image.md"),
+    "utf8",
+  );
+
+  assert.ok(markdown.includes("- Props interface: `ImageProps`"));
+  assert.ok(markdown.includes("| alt | string \\| undefined |"));
+  assert.ok(markdown.includes("| src | string \\| undefined |"));
+});
+
 test("generated curated examples contain valid TSX", () => {
   const exampleFiles = fg.sync("skills/carbon-react/examples/**/*.md", {
     cwd: repoRoot,

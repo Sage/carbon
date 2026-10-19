@@ -74,7 +74,7 @@
 - [I18nProvider](components/i18n-provider.md)
 - [Icon](components/icon.md)
 - [IconButton](components/icon-button.md) (deprecated)
-- [Image](components/image.md)
+- [Image](components/image.md) — Renders either an img element from src or a container with CSS background styling.
 - [InlineInputs](components/inline-inputs.md) (deprecated)
 - [Link](components/link.md) — Navigates the user to another location.
 - [LinkPreview](components/link-preview.md)

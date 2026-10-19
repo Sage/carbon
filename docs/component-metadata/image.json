@@ -1,0 +1,18 @@
+{
+  "component": "Image",
+  "summary": "Renders either an img element from src or a container with CSS background styling.",
+  "pitfalls": [
+    "When src is provided, supply meaningful alt text or set decorative with an empty alt value for a decorative image.",
+    "Do not pass children when src is provided; children are supported only in background-image container mode."
+  ],
+  "examples": [
+    {
+      "story": "AsAnImg",
+      "description": "Render an informative img element with meaningful alternative text."
+    },
+    {
+      "story": "DecorativeStory",
+      "description": "Mark a decorative img element with decorative and an empty alt value."
+    }
+  ]
+}
