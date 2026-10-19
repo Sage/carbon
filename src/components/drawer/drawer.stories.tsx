@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Drawer from ".";
-import Button from "../button";
+import ButtonNext from "../button/__next__";
 import Typography from "../typography";
 import Box from "../box";
 
@@ -74,7 +74,7 @@ export const WithFooter: Story = {
     ...WithTitle.args,
     footer: (
       <Box display="flex" justifyContent="flex-end">
-        <Button buttonType="primary">Footer Action</Button>
+        <ButtonNext variantType="primary">Footer Action</ButtonNext>
       </Box>
     ),
   },
@@ -127,17 +127,14 @@ export const Controlled = () => {
         expanded={isExpanded}
         height="225px"
         sidebar={<Box p={3}>Drawer content</Box>}
+        title={<Typography variant="h2">Filters</Typography>}
       >
         <Box p={3}>Main body content</Box>
       </Drawer>
 
-      <Button
-        mt={2}
-        buttonType="primary"
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        Show/Hide Drawer
-      </Button>
+      <ButtonNext mt={2} onClick={() => setIsExpanded((previous) => !previous)}>
+        {isExpanded ? "Hide filters" : "Show filters"}
+      </ButtonNext>
     </>
   );
 };

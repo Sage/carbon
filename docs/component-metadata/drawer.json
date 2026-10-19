@@ -1,0 +1,14 @@
+{
+  "component": "Drawer",
+  "summary": "Displays sidebar content alongside a main content area.",
+  "pitfalls": [
+    "Use title to label the sidebar automatically, or provide sidebarAriaLabel when no title is rendered.",
+    "Do not switch expanded between controlled and uncontrolled usage during the component's lifetime."
+  ],
+  "examples": [
+    {
+      "story": "Controlled",
+      "description": "Control sidebar visibility with expanded while keeping the sidebar labelled."
+    }
+  ]
+}

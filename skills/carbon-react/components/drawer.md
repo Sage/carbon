@@ -5,6 +5,13 @@ description: Carbon Drawer component props and usage examples.
 
 # Drawer
 
+Displays sidebar content alongside a main content area.
+
+## Pitfalls
+
+- Use title to label the sidebar automatically, or provide sidebarAriaLabel when no title is rendered.
+- Do not switch expanded between controlled and uncontrolled usage during the component's lifetime.
+
 ## Import
 `import Drawer from "carbon-react/lib/components/drawer";`
 
@@ -35,175 +42,6 @@ description: Carbon Drawer component props and usage examples.
 | showControls | boolean \| undefined | No |  | Yes | This prop will soon be removed, this component is now intended to be non-dismissible. | Enables expand/collapse button that controls drawer |  |
 
 ## Examples
-### Default
+Load only the example needed for the current task; playground stories are intentionally omitted.
 
-**Args**
-
-```tsx
-{
-    sidebar: <Box p={3}>Drawer content</Box>,
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <Drawer {...args}>
-      <Box p={3}>Main body content</Box>
-    </Drawer>
-  )
-```
-
-
-### Height
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    height: "100px",
-  }
-```
-
-
-### SidebarWidth
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    expandedWidth: "400px",
-  }
-```
-
-
-### WithTitle
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    title: <Typography variant="h2">Drawer Title</Typography>,
-  }
-```
-
-
-### WithFooter
-
-**Args**
-
-```tsx
-{
-    ...WithTitle.args,
-    footer: (
-      <Box display="flex" justifyContent="flex-end">
-        <Button buttonType="primary">Footer Action</Button>
-      </Box>
-    ),
-  }
-```
-
-
-### StickyHeaderAndFooter
-
-**Args**
-
-```tsx
-{
-    ...WithFooter.args,
-    stickyHeader: true,
-    stickyFooter: true,
-    height: "300px",
-    sidebar: (
-      <Box p={3}>
-        <Typography>Drawer Content</Typography>
-        <Typography>Drawer Content</Typography>
-        <Typography>Drawer Content</Typography>
-        <Typography>Drawer Content</Typography>
-        <Typography>Drawer Content</Typography>
-      </Box>
-    ),
-  }
-```
-
-
-### SidebarAriaLabel
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    sidebarAriaLabel: "This is a Drawer",
-  }
-```
-
-
-### WithBackgroundColor
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    backgroundColor: "var(--colorsUtilityMajor050)",
-  }
-```
-
-
-### Controlled
-
-**Render**
-
-```tsx
-() => {
-  const [isExpanded, setIsExpanded] = useState(true);
-
-  return (
-    <>
-      <Drawer
-        expanded={isExpanded}
-        height="225px"
-        sidebar={<Box p={3}>Drawer content</Box>}
-      >
-        <Box p={3}>Main body content</Box>
-      </Drawer>
-
-      <Button
-        mt={2}
-        buttonType="primary"
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        Show/Hide Drawer
-      </Button>
-    </>
-  );
-}
-```
-
-
-### FocusedToggle
-
-**Args**
-
-```tsx
-{
-    sidebar: <Box p={3}>Drawer content</Box>,
-    showControls: true,
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <Drawer {...args} data-role="target">
-      <Box p={3}>Main body</Box>
-    </Drawer>
-  )
-```
-
+- [Controlled](../examples/drawer/controlled.md) — Control sidebar visibility with expanded while keeping the sidebar labelled.
