@@ -3,7 +3,7 @@ import { userEvent, within, expect } from "storybook/test";
 import React from "react";
 
 import MultiActionButton from ".";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import { Accordion } from "../accordion";
 
@@ -180,8 +180,8 @@ export const SmallLeft: Story = {
     const button = canvas.getByRole("button", { name: "Multi Action Button" });
     await userEvent.click(button);
 
-    await userEvent.tab();
-    await userEvent.tab();
+    await userEvent.keyboard("{ArrowDown}");
+    await userEvent.keyboard("{ArrowDown}");
     const menuButton = within(document.body).getByText("Button 2");
     await expect(menuButton).toBeVisible();
   },
@@ -252,8 +252,8 @@ export const LargeRight: Story = {
     const button = canvas.getByRole("button", { name: "Multi Action Button" });
     await userEvent.click(button);
 
-    await userEvent.tab();
-    await userEvent.tab();
+    await userEvent.keyboard("{ArrowDown}");
+    await userEvent.keyboard("{ArrowDown}");
     const menuButton = within(document.body).getByText("Button 2");
     await expect(menuButton).toBeVisible();
   },
