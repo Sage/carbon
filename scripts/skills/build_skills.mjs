@@ -643,6 +643,20 @@ function resolvePropsDefinition(
     return null;
   }
 
+  // Follow the public export binding first. This handles aliased re-exports
+  // such as `export type { StyledImageProps as ImageProps }`, where the public
+  // type name does not exist as a declaration in the component module.
+  const exportedDeclarations =
+    entryFile.getExportedDeclarations().get(propsName) ?? [];
+  for (const declaration of exportedDeclarations) {
+    if (
+      declaration.isKind(SyntaxKind.InterfaceDeclaration) ||
+      declaration.isKind(SyntaxKind.TypeAliasDeclaration)
+    ) {
+      return { name: propsName, node: declaration };
+    }
+  }
+
   for (const exportDecl of entryFile.getExportDeclarations()) {
     if (!exportDecl.isTypeOnly()) {
       continue;
