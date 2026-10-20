@@ -100,6 +100,7 @@ description: Carbon DismissibleBox component props and usage examples.
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-atomic | "true" \| "false" \| undefined | No |  |  |  | Indicates whether AT will announce all, or only parts of, the changed region |  |
 | aria-hidden | "true" \| "false" \| undefined | No |  |  |  | Set the container to be hidden from screen readers |  |
+| aria-label | string \| undefined | No |  |  |  | Set the aria-label attribute of the Box component. Should be used alongside the `role` attribute to provide an accessible name for the component. |  |
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Make the container an aria-live region |  |
 | borderRadius | BorderRadiusType \| undefined | No |  | Yes | This prop is marked for deprecation. Its behavior will be maintained until removal. | Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. | "borderRadius100" |
 | boxShadow | BoxShadowsType \| undefined | No |  | Yes | This prop is marked for deprecation. Its behavior will be maintained until removal. | Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. |  |

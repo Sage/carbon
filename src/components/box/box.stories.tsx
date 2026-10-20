@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import Box from ".";
+import Box, { BoxProps } from ".";
 import Button from "../button";
 import Typography from "../typography";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -22,6 +22,14 @@ const meta: Meta<typeof Box> = {
   },
   argTypes: {
     ...styledSystemProps,
+    "aria-label": {
+      control: {
+        type: "text",
+      },
+    },
+  },
+  args: {
+    "aria-label": "Test aria-label value",
   },
 };
 
@@ -58,9 +66,9 @@ const scrollContainerStyle: React.CSSProperties = {
   scrollbarWidth: "thin",
 };
 
-export const Spacing: Story = () => {
+export const Spacing: Story = (args: Partial<BoxProps>) => {
   return (
-    <Box m={3}>
+    <Box m={3} {...args}>
       <div style={darkGreenBackground}>
         <Box p={3}>
           <Box height="100px">
@@ -73,9 +81,9 @@ export const Spacing: Story = () => {
 };
 Spacing.storyName = "Spacing";
 
-export const Position: Story = () => {
+export const Position: Story = (args: Partial<BoxProps>) => {
   return (
-    <Box>
+    <Box {...args}>
       <div style={scrollContainerStyle}>
         <Box width="400px" height="80px" m={2} position="sticky" top="0">
           <div style={greenBackground}>
@@ -105,9 +113,9 @@ export const Position: Story = () => {
 };
 Position.storyName = "Position";
 
-export const Flex: Story = () => {
+export const Flex: Story = (args: Partial<BoxProps>) => {
   return (
-    <Box>
+    <Box {...args}>
       <Box
         display="flex"
         flexDirection="row"
@@ -148,9 +156,9 @@ export const Flex: Story = () => {
 };
 Flex.storyName = "Flex";
 
-export const grid: Story = () => {
+export const grid: Story = (args: Partial<BoxProps>) => {
   return (
-    <Box>
+    <Box {...args}>
       <Box display="grid" gap={1} gridTemplateColumns="auto auto auto">
         <Box padding={50} position="relative" gridColumn="1 / 3" gridRow="1">
           <div style={gridBlockStyle} />
@@ -213,9 +221,9 @@ export const grid: Story = () => {
 };
 grid.storyName = "Grid";
 
-export const Gap: Story = () => {
+export const Gap: Story = (args: Partial<BoxProps>) => {
   return (
-    <Box display="flex" flexDirection="column" gap={2}>
+    <Box {...args} display="flex" flexDirection="column" gap={2}>
       <Box display="flex" columnGap={1}>
         <Box display="flex" flexDirection="column" rowGap={2}>
           <Box width="100px" height="100px">
@@ -333,9 +341,9 @@ export const Gap: Story = () => {
 };
 Gap.storyName = "Gap";
 
-export const Layout: Story = () => {
+export const Layout: Story = (args: Partial<BoxProps>) => {
   return (
-    <Box display="block" size="150px" overflow="hidden">
+    <Box {...args} display="block" size="150px" overflow="hidden">
       <Box width="100px" height="100px" display="inline-block" m="5px">
         <div style={greenBackground} />
       </Box>
@@ -350,9 +358,9 @@ export const Layout: Story = () => {
 };
 Layout.storyName = "Layout";
 
-export const OverflowWrap: Story = () => {
+export const OverflowWrap: Story = (args: Partial<BoxProps>) => {
   return (
-    <Box display="inline-flex">
+    <Box {...args} display="inline-flex">
       <div
         style={{
           border: "solid 1px #00815D",
