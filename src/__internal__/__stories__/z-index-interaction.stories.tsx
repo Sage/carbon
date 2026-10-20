@@ -5,6 +5,7 @@ import { allowInteractions } from "../../../.storybook/interaction-toggle/reduce
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 
 import Button from "../../components/button";
+import NextButton from "../../components/button/__next__";
 import DateInput from "../../components/date";
 import Dialog from "../../components/dialog";
 import { Option, Select } from "../../components/select";
@@ -217,9 +218,9 @@ export const MultiActionButtonInDialog: StoryObj = {
         saveButton={<Button buttonType="primary">Accept</Button>}
       >
         <MultiActionButton text="Multi Action Button">
-          <Button onClick={() => {}}>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
+          <NextButton onClick={() => {}}>Button 1</NextButton>
+          <NextButton>Button 2</NextButton>
+          <NextButton>Button 3</NextButton>
         </MultiActionButton>
       </Form>
     </Dialog>
@@ -479,7 +480,7 @@ export const DateInPopoverContainer: StoryObj = {
 export const PopoverInGlobalHeader: StoryObj = {
   render: () => (
     <GlobalHeader>
-      <Menu menuType="black" flex="1">
+      <Menu variant="black" flex="1">
         <MenuItem flex="0 0 auto">
           <PopoverContainer
             title="Notifications"

@@ -1,5 +1,4 @@
 import React, {
-  useContext,
   useEffect,
   useMemo,
   useState,
@@ -8,7 +7,6 @@ import React, {
 } from "react";
 
 import Icon, { IconType } from "../icon";
-import MenuContext from "../menu/__internal__/menu.context";
 import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent, {
   TagProps,
@@ -51,8 +49,6 @@ export interface LinkProps
   ariaLabel?: string;
   /** allows to set rel property in <a> tag */
   rel?: string;
-  /** @ignore @private internal prop to be set when no aria-label should be specified */
-  removeAriaLabelOnIcon?: boolean;
   /**
    * @private
    * @internal
@@ -126,7 +122,6 @@ export const Link = React.forwardRef<
       variant = "typical",
       isDarkBackground,
       inverse,
-      removeAriaLabelOnIcon,
       className,
       linkSize = "medium",
       download,
@@ -138,7 +133,6 @@ export const Link = React.forwardRef<
     const [hasFocus, setHasFocus] = useState(false);
 
     const l = useLocale();
-    const { inMenu } = useContext(MenuContext);
     const linkRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
 
     if (!deprecatedDisabledWarning && disabled) {
@@ -215,7 +209,7 @@ export const Link = React.forwardRef<
         <Icon
           type={icon}
           disabled={disabled}
-          ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
+          ariaLabel={ariaLabel}
           tooltipMessage={tooltipMessage}
           tooltipPosition={tooltipPosition}
         />
@@ -300,7 +294,6 @@ export const Link = React.forwardRef<
         $hasContent={Boolean(children)}
         $variant={effectiveVariant}
         $inverse={effectiveInverse}
-        $isMenuItem={inMenu}
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
         $hasFocus={hasFocus}

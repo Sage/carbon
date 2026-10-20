@@ -1,8 +1,8 @@
 import createStrictContext from "../../../__internal__/utils/createStrictContext";
-import type { MenuType } from "../menu.types";
+import { MenuVariantType } from "../menu.component";
 
 export interface StrictMenuContextType {
-  menuType: MenuType;
+  menuVariant: MenuVariantType;
   openSubmenuId: string | null;
   inFullscreenView?: boolean;
   setOpenSubmenuId: (id: string | null) => void;
