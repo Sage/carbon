@@ -290,6 +290,7 @@ test.each([
 );
 
 test.each([
+  ["subtle", "var(--global-radius-container-m)"],
   ["curved", "var(--global-radius-container-xl)"],
   ["moderate", "var(--global-radius-container-l)"],
 ] as const)(

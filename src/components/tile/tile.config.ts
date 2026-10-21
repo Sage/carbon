@@ -53,6 +53,7 @@ export const TILE_ROUNDNESS_VALUE_MAP: Record<
   Roundness
 > = {
   default: "curved",
+  subtle: "subtle",
   curved: "curved",
   moderate: "moderate",
   small: "moderate",

@@ -101,6 +101,11 @@ description: Carbon Tile component props and usage examples.
 () => {
   return (
     <>
+      <Tile roundness="subtle" mb={3}>
+        <Box width="30%">Test Body One</Box>
+        <Box width="40%">Test Body Two</Box>
+        <Box width="30%">Test Body Three</Box>
+      </Tile>
       <Tile roundness="moderate" mb={3}>
         <Box width="30%">Test Body One</Box>
         <Box width="40%">Test Body Two</Box>

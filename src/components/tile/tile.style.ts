@@ -65,6 +65,8 @@ const getColorMappingByVariant = ({
 
 const getBorderRadius = (roundness: TileProps["roundness"]) => {
   switch (roundness) {
+    case "subtle":
+      return "var(--global-radius-container-m)";
     case "moderate":
       return "var(--global-radius-container-l)";
     default:

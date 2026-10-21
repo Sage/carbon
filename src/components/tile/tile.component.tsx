@@ -16,7 +16,7 @@ import {
 } from "./tile.config";
 import Logger from "../../__internal__/utils/logger";
 
-export type Roundness = "curved" | "moderate";
+export type Roundness = "curved" | "moderate" | "subtle";
 export type LegacyRoundness = "default" | "large" | "small";
 type DesignTokensType = keyof typeof DesignTokens;
 type HighlightVariantType = (typeof TILE_HIGHLIGHT_VARIANTS)[number];
