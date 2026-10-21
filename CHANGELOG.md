@@ -1,3 +1,9 @@
+## [162.14.1](https://github.com/Sage/carbon/compare/v162.14.0...v162.14.1) (2026-10-21)
+
+### Bug Fixes
+
+* position required indicators after multiline labels ([9a1065b](https://github.com/Sage/carbon/commit/9a1065b1f96ad8e21b674cb61eb2c243a3a96ffd)), closes [#8121](https://github.com/Sage/carbon/issues/8121)
+
 ## [162.14.0](https://github.com/Sage/carbon/compare/v162.13.0...v162.14.0) (2026-10-20)
 
 ### Features
