@@ -83,13 +83,72 @@ const deDE: Partial<Locale> = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "oder per Drag & Drop ablegen",
-    selectFile: () => "Datei auswählen",
-    fileUploadStatus: () => "Status",
+    dragAndDrop: (selectButtonText, multiple = false) => {
+      if (!selectButtonText) return "oder per Drag & Drop ablegen";
+
+      return `Ziehen Sie Ihre ${
+        multiple ? "Dateien" : "Datei"
+      } per Drag & Drop hierher oder wählen Sie sie über ${selectButtonText} aus.`;
+    },
+    selectFile: (multiple = false) =>
+      multiple ? "Dateien auswählen" : "Datei auswählen",
+    requiredDescription: () => "Pflichtfeld",
+    currentFiles: (count) =>
+      count === 1 ? `Aktuelle Datei (${count})` : `Aktuelle Dateien (${count})`,
+    currentFilesProgressSummary: ({
+      totalCount,
+      uploadingCount,
+      completedCount,
+    }) => {
+      const summaries: string[] = [];
+
+      if (uploadingCount > 0) {
+        summaries.push(
+          `${uploadingCount} ${
+            uploadingCount === 1
+              ? "Datei wird hochgeladen"
+              : "Dateien werden hochgeladen"
+          }`,
+        );
+      }
+
+      if (completedCount > 0) {
+        summaries.push(
+          completedCount === 1 && totalCount === 1
+            ? "1 Datei hochgeladen"
+            : `${completedCount} von ${totalCount} Dateien hochgeladen`,
+        );
+      }
+
+      return summaries.length > 0 ? `${summaries.join(", ")}.` : "";
+    },
+    currentFilesErrorSummary: ({ errorCount }) =>
+      errorCount === 1
+        ? "1 Datei konnte nicht hochgeladen werden."
+        : `${errorCount} Dateien konnten nicht hochgeladen werden.`,
+    previouslyUploadedFiles: (count) =>
+      count === 1
+        ? `Zuvor hochgeladene Datei (${count})`
+        : `Zuvor hochgeladene Dateien (${count})`,
+    uploading: () => "Hochladen...",
+    uploaded: () => "Datei hochgeladen",
+    uploadErrorDetails: () => "Fehlerdetails",
+    announcements: {
+      filesAdded: (files) =>
+        files.length === 1
+          ? `Ausgewählte Datei: ${files[0]}`
+          : `Ausgewählte Dateien: ${files.join(", ")}`,
+      uploadComplete: (files) => `Upload abgeschlossen: ${files.join(", ")}`,
+      fileDeleted: (file) => `Datei gelöscht: ${file}`,
+      fileRemoved: (file) => `Datei entfernt: ${file}`,
+      uploadCancelled: (file) => `Upload abgebrochen: ${file}`,
+    },
     actions: {
-      cancel: () => "Upload abbrechen",
-      clear: () => "Löschen",
-      delete: () => "Datei löschen",
+      cancel: () => "Abbrechen",
+      delete: () => "Löschen",
+      remove: () => "Entfernen",
+      retry: () => "Erneut versuchen",
+      preview: () => "Vorschau",
     },
   },
   heading: {

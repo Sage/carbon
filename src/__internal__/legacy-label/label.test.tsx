@@ -10,6 +10,15 @@ test("renders with children", () => {
   expect(screen.getByText("foo")).toBeVisible();
 });
 
+test("renders the required marker when isRequired is true", () => {
+  render(<Label isRequired>Name</Label>);
+
+  const label = screen.getByText("Name");
+  expect(label).toHaveStyleRule("content", '"*"', {
+    modifier: "::after",
+  });
+});
+
 test("calls `onMouseEnter` and `onMouseLeave` callbacks passed from InputContext", async () => {
   const user = userEvent.setup();
   const onMouseEnter = jest.fn();
