@@ -100,13 +100,47 @@ const enGB: Locale = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "or drag and drop your file",
-    selectFile: () => "Select file",
-    fileUploadStatus: () => "File upload status",
+    dragAndDrop: (selectButtonText, multiple = false) => {
+      const fileNoun = multiple ? "files" : "file";
+
+      if (!selectButtonText) return `or drag and drop your ${fileNoun}`;
+
+      return `Drag and drop your ${fileNoun}, or use ${selectButtonText} to choose ${
+        multiple ? "them" : "it"
+      }`;
+    },
+    selectFile: (multiple = false) =>
+      multiple ? "Select files" : "Select file",
+    requiredDescription: () => "This field is required.",
+    currentFiles: (count) =>
+      count === 1 ? `Current file (${count})` : `Current files (${count})`,
+    currentFilesErrorSummary: ({ errorCount }) =>
+      errorCount === 1
+        ? "1 file couldn't be uploaded"
+        : `${errorCount} files couldn't be uploaded`,
+    previouslyUploadedFiles: (count) =>
+      count === 1
+        ? `Previously uploaded file (${count})`
+        : `Previously uploaded files (${count})`,
+    uploading: () => "Uploading…",
+    uploaded: () => "File uploaded",
+    uploadErrorDetails: () => "Error details",
+    announcements: {
+      filesAdded: (files) =>
+        files.length === 1
+          ? `Selected file: ${files[0]}.`
+          : `Selected files: ${files.join(", ")}.`,
+      uploadComplete: (files) => `Upload complete: ${files.join(", ")}.`,
+      fileDeleted: (file) => `File deleted: ${file}.`,
+      fileRemoved: (file) => `File removed: ${file}.`,
+      uploadCancelled: (file) => `Upload cancelled: ${file}.`,
+    },
     actions: {
-      cancel: () => "Cancel upload",
-      clear: () => "Clear",
-      delete: () => "Delete file",
+      cancel: () => "Cancel",
+      delete: () => "Delete",
+      remove: () => "Remove",
+      retry: () => "Retry",
+      preview: () => "Preview",
     },
   },
   globalHeader: {

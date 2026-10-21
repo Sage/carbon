@@ -96,12 +96,14 @@ test.describe("Focus management and interaction tests for Sidebar component", ()
   }) => {
     await mount(<SidebarWithFocusableContainer />);
 
+    await expect(sidebarPreview(page)).toBeFocused();
     const messageElement = getDataRoleByValue(page, "message");
 
     await expect(messageElement).toBeHidden();
 
     const openMessageElement = getDataElementByValue(page, "open-message");
     await openMessageElement.click();
+    await expect(openMessageElement).toBeFocused();
 
     await expect(messageElement).toBeVisible();
 
