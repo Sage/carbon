@@ -73,7 +73,10 @@ export interface PagerProps extends TagProps {
   size?: "small" | "medium" | "large";
   /** Maximum number of lines used to render the component. */
   layout?: PagerLayout;
-  /** Alignment of the content. */
+  /**
+   * Alignment of the content when rendered in a single row layout.
+   * Will only be applied if `showTotalRecords` and/or `showPageSizeSelection` are true.
+   */
   alignment?: PagerAlignment;
   /** Set an accessible label for the Pagination nav */
   "aria-label"?: string;
@@ -174,14 +177,9 @@ export const Pagination = ({
     effectiveLayout = layout;
   }
 
-  // Can only fill when both controls are active and layout is single
+  // Can only fill when page size select and/or total items are displayed, and layout is single
   let effectiveAlignment: PagerAlignment;
-  if (
-    alignment === "fill" &&
-    showPageSizeSelection &&
-    showTotalRecords &&
-    effectiveLayout === "single"
-  ) {
+  if (alignment === "fill" && effectiveLayout === "single" && hasPageInfo) {
     effectiveAlignment = "fill";
   } else {
     effectiveAlignment = "centred";
