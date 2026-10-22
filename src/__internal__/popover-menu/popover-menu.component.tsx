@@ -29,6 +29,9 @@ import {
 import { TagProps } from "../utils/helpers/tags";
 import combineRefs from "../utils/helpers/combine-refs";
 import { TableBodyContext } from "../../components/table/__internal__/contexts";
+import { getWindow } from "../dom/globals";
+
+const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
 
 const PopoverControlWrapper = styled.div<{
   $controlWrapperStyle?: CSSObject;
@@ -423,7 +426,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const handleClickInside = useClickAwayListener(handleClickAway);
   const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!open) {
       setAriaActivedescendant("");
     } else if (focusSelectedOnOpen && !onListKeyDown) {
