@@ -74,6 +74,10 @@ test("maps to white variant with correct styles when `navigationType` is 'light'
     "var(--nav-tertiary-bg-default)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "border-bottom",
+    "var(--global-borderwidth-xs) solid var(--nav-tertiary-border-default)",
+  );
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
     "color",
     "var(--nav-tertiary-label-default)",
   );
@@ -136,7 +140,7 @@ test("maps to white variant with correct styles when `navigationType` is 'white'
 // coverage
 test("renders with correct styles when `variant` is 'white'", () => {
   render(
-    <NavigationBar navigationType="white">
+    <NavigationBar variant="white">
       <div>test content</div>
     </NavigationBar>,
   );
@@ -144,6 +148,10 @@ test("renders with correct styles when `variant` is 'white'", () => {
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "background-color",
     "var(--nav-tertiary-bg-default)",
+  );
+  expect(screen.getByRole("navigation")).toHaveStyleRule(
+    "border-bottom",
+    "var(--global-borderwidth-xs) solid var(--nav-tertiary-border-default)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "color",
