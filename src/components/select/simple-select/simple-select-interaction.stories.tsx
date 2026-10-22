@@ -502,8 +502,9 @@ export const ComplexOptions: Story = {
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox");
     await userEvent.click(select, { delay: 100 });
+    const listbox = await within(document.body).findByRole("listbox");
     await expect(
-      await within(document.body).findByText("Something went wrong"),
+      within(listbox).getByText("Something went wrong"),
     ).toBeVisible();
   },
   decorators: [
