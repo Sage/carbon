@@ -12,13 +12,13 @@ import {
   ActionPopoverMenuButton,
 } from ".";
 import {
-  FlatTable,
-  FlatTableHead,
-  FlatTableBody,
-  FlatTableRow,
-  FlatTableHeader,
-  FlatTableCell,
-} from "../flat-table";
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeader,
+  TableCell,
+} from "../table";
 
 import exampleDownload from "../../../playwright/download-test/example.txt";
 
@@ -48,19 +48,19 @@ export const ActionPopoverCustom = ({ ...props }) => {
         height: "275px",
       }}
     >
-      <FlatTable isZebra>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>&nbsp;</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
+      <Table isZebraStriped>
+        <TableHead>
+          <TableRow id="row-1">
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>&nbsp;</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow id="row-2">
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   disabled
@@ -87,12 +87,12 @@ export const ActionPopoverCustom = ({ ...props }) => {
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Jane</FlatTableCell>
-            <FlatTableCell>Smith</FlatTableCell>
-            <FlatTableCell>
+            </TableCell>
+          </TableRow>
+          <TableRow id="row-3">
+            <TableCell>Jane</TableCell>
+            <TableCell>Smith</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   download
@@ -103,12 +103,12 @@ export const ActionPopoverCustom = ({ ...props }) => {
                   Download
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Bob</FlatTableCell>
-            <FlatTableCell>Jones</FlatTableCell>
-            <FlatTableCell>
+            </TableCell>
+          </TableRow>
+          <TableRow id="row-4">
+            <TableCell>Bob</TableCell>
+            <TableCell>Jones</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   icon="csv"
@@ -118,10 +118,10 @@ export const ActionPopoverCustom = ({ ...props }) => {
                   Download CSV
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 };
@@ -133,19 +133,19 @@ export const ActionPopoverWithProps = ({ ...props }) => {
         height: "250px",
       }}
     >
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>Third Column</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
+      <Table>
+        <TableHead>
+          <TableRow id="row-1">
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>Third Column</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow id="row-2">
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
               <ActionPopover {...props}>
                 <ActionPopoverItem
                   data-element="menu-item1"
@@ -164,10 +164,10 @@ export const ActionPopoverWithProps = ({ ...props }) => {
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 };
@@ -513,99 +513,6 @@ export const Icons = () => {
           Delete
         </ActionPopoverItem>
       </ActionPopover>
-    </Box>
-  );
-};
-
-export const InFlatTable = () => {
-  const [highlightedRow, setHighlightedRow] = useState("");
-  const handleHighlightRow = (id: string) => {
-    setHighlightedRow(id);
-  };
-  return (
-    <Box pt={120} height={250}>
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("one")}
-            highlighted={highlightedRow === "one"}
-          >
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("one")}
-              >
-                <ActionPopoverItem
-                  icon="print"
-                  onClick={() => {}}
-                  submenu={
-                    <ActionPopoverMenu>
-                      <ActionPopoverItem onClick={() => {}}>
-                        CSV
-                      </ActionPopoverItem>
-                      <ActionPopoverItem onClick={() => {}}>
-                        PDF
-                      </ActionPopoverItem>
-                    </ActionPopoverMenu>
-                  }
-                >
-                  Print
-                </ActionPopoverItem>
-                <ActionPopoverDivider />
-                <ActionPopoverItem onClick={() => {}} icon="delete">
-                  Delete
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("two")}
-            highlighted={highlightedRow === "two"}
-          >
-            <FlatTableCell>Jane Doe</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("two")}
-              >
-                <ActionPopoverItem
-                  icon="print"
-                  onClick={() => {}}
-                  submenu={
-                    <ActionPopoverMenu>
-                      <ActionPopoverItem onClick={() => {}}>
-                        CSV
-                      </ActionPopoverItem>
-                      <ActionPopoverItem onClick={() => {}}>
-                        PDF
-                      </ActionPopoverItem>
-                    </ActionPopoverMenu>
-                  }
-                >
-                  Print
-                </ActionPopoverItem>
-                <ActionPopoverDivider />
-                <ActionPopoverItem onClick={() => {}} icon="delete">
-                  Delete
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
     </Box>
   );
 };
