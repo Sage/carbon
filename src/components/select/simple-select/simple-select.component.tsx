@@ -53,6 +53,7 @@ export interface SimpleSelectProps
     | "inputIcon"
     | "fieldHelp"
     | "labelHelp"
+    | "labelInline"
     | "labelWidth"
     | "placeholder"
   > {
@@ -72,6 +73,8 @@ export interface SimpleSelectProps
   fieldHelp?: CommonTextboxProps["fieldHelp"];
   /** @deprecated `labelHelp` no longer has any effect in SimpleSelect. Use `inputHint` instead. */
   labelHelp?: CommonTextboxProps["labelHelp"];
+  /** When true label is inline */
+  labelInline?: boolean;
   /** @deprecated `labelWidth` no longer has any effect in SimpleSelect. */
   labelWidth?: CommonTextboxProps["labelWidth"];
   /** @deprecated `placeholder` no longer has any effect in SimpleSelect. */
@@ -207,6 +210,7 @@ export const SimpleSelect = React.forwardRef<
       typeaheadTimeout = TYPEAHEAD_TIMEOUT,
       required,
       listWidth,
+      validationMessagePositionTop = true,
       ...props
     },
     ref,
@@ -562,6 +566,7 @@ export const SimpleSelect = React.forwardRef<
               {...getTextboxProps()}
               {...controlProps}
               inputWidth={mappedInputWidth}
+              validationMessagePositionTop={validationMessagePositionTop}
               onChange={() => {}}
             />
           )}

@@ -320,6 +320,10 @@ const simpleSelectStyles = ($size?: string, $isSimpleSelect?: boolean) =>
     [data-element="dropdown"] {
       color: var(--simple-select-caret-color);
     }
+
+    [data-element="input-icon-toggle"] {
+      justify-content: right;
+    }
   `;
 
 export const selectStyleOverrides = (
