@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { userEvent, within } from "storybook/test";
+import type { SimpleSelectProps } from "./simple-select.component";
 import {
   Select,
   Option,
@@ -127,11 +129,11 @@ export const ChromaticSnapshotDropdownClosed = () => {
         {chromaticOptions}
       </Select>
       <Select
-        name="snapshot-error-above"
-        id="snapshot-error-above"
-        label="Error above — medium"
-        error="Tests validation above the input"
-        validationMessagePositionTop
+        name="snapshot-error-below"
+        id="snapshot-error-below"
+        label="Error below — medium"
+        error="Tests validation below the input"
+        validationMessagePositionTop={false}
         value="green"
         onChange={() => {}}
       >
@@ -554,3 +556,80 @@ export const DropdownSubtle = () => {
   );
 };
 DropdownSubtle.storyName = "Dropdown: subtle";
+
+const AllItemPropsSelect = ({
+  size = "medium",
+}: Pick<SimpleSelectProps, "size">) => {
+  const [value, setValue] = useState("2");
+  return (
+    <Box width={336} flexShrink={0}>
+      <Typography variant="h3" mb={3}>
+        {size.charAt(0).toUpperCase() + size.slice(1)}
+      </Typography>
+      <Select
+        name={`complexCompositions-${size}`}
+        id={`complexCompositions-${size}`}
+        size={size}
+        label="Label"
+        inputHint="Hint text"
+        required
+        prefix="prefix:"
+        listMaxHeight={650}
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        {Array.from({ length: 8 }, (_, index) => {
+          const optionNumber = index + 1;
+          return (
+            <React.Fragment key={optionNumber}>
+              {(optionNumber === 1 || optionNumber === 6) && (
+                <OptionGroupHeader label="Heading" />
+              )}
+              <Option
+                text={`Option ${optionNumber}`}
+                value={String(optionNumber)}
+                prefix="prefix:"
+                subtext="Subtext"
+                divider={optionNumber === 5}
+                leading={
+                  <>
+                    <Portrait size="XS" />
+                    <Icon type="placeholder" />
+                  </>
+                }
+              />
+            </React.Fragment>
+          );
+        })}
+      </Select>
+    </Box>
+  );
+};
+
+export const AllSizesWithAllItemProps = () => (
+  <Box height={950}>
+    <Typography variant="h2" mb={6}>
+      All menu item props on
+    </Typography>
+    <Box display="flex" gap="var(--global-space-comp-xl)">
+      {(["small", "medium", "large"] as const).map((size) => (
+        <AllItemPropsSelect key={size} size={size} />
+      ))}
+    </Box>
+  </Box>
+);
+AllSizesWithAllItemProps.storyName = "AllSizesWithAllItemProps";
+AllSizesWithAllItemProps.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+AllSizesWithAllItemProps.play = async ({
+  canvasElement,
+}: {
+  canvasElement: HTMLElement;
+}) => {
+  const canvas = within(canvasElement);
+  for (const select of canvas.getAllByRole("combobox")) {
+    select.focus();
+    await userEvent.keyboard("{ArrowDown}");
+  }
+};

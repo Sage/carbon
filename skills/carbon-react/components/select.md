@@ -113,95 +113,68 @@ No props metadata found.
 
 ```tsx
 () => {
-  const selectRef = useRef<HTMLInputElement>(null);
-  const preventLoading = useRef(false);
-  const preventLazyLoading = useRef(false);
-  const lazyLoadingCounter = useRef(0);
-  const [value, setValue] = useState("amber");
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const getLazyLoaded = () => {
-    const counter = lazyLoadingCounter.current;
-    return [
-      <Option
-        text={`Lazy Loaded A${counter}`}
-        value={`lazyA${counter}`}
-        key={`lazyA${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded B${counter}`}
-        value={`lazyB${counter}`}
-        key={`lazyB${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded C${counter}`}
-        value={`lazyC${counter}`}
-        key={`lazyC${counter}`}
-      />,
-    ];
-  };
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([
-    asyncList[0],
-  ]);
+  const loadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [value, setValue] = useState("1");
+  const [optionCount, setOptionCount] = useState(INFINITE_SCROLL_BATCH_SIZE);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (!isLoading) {
-      selectRef.current?.focus();
-    }
-  }, [isLoading]);
+  useEffect(
+    () => () => {
+      if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    },
+    [],
+  );
 
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
+  function loadMoreOptions() {
+    if (loadTimer.current !== null) return;
+
     setIsLoading(true);
-    setTimeout(() => {
-      setOptionList(asyncList);
+    loadTimer.current = setTimeout(() => {
+      setOptionCount((count) => count + INFINITE_SCROLL_BATCH_SIZE);
       setIsLoading(false);
-    }, 2000);
+      loadTimer.current = null;
+    }, 1000);
   }
-  function onLazyLoading() {
-    if (preventLazyLoading.current) {
-      return;
+
+  function reset() {
+    if (loadTimer.current !== null) {
+      clearTimeout(loadTimer.current);
+      loadTimer.current = null;
     }
-    preventLazyLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      preventLazyLoading.current = false;
-      lazyLoadingCounter.current += 1;
-      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
-      setIsLoading(false);
-    }, 2000);
+    setOptionCount(INFINITE_SCROLL_BATCH_SIZE);
+    setValue("1");
+    setIsLoading(false);
   }
-  function clearData() {
-    setOptionList([asyncList[0]]);
-    setValue("amber");
-    preventLoading.current = false;
-  }
+
   return (
     <Box height={400}>
-      <Button onClick={clearData} mb={2}>
-        reset
+      <Typography mb={2}>
+        Scroll to the bottom to load {INFINITE_SCROLL_BATCH_SIZE} more options.
+        Currently {optionCount} options loaded.
+      </Typography>
+      <Button onClick={reset} mb={2}>
+        Reset
       </Button>
       <Select
-        ref={selectRef}
         name="infiniteScroll"
         id="infiniteScroll"
-        label="color"
+        label="Options"
         value={value}
         onChange={(event) => setValue(event.target.value)}
-        onOpen={() => loadList()}
+        enableVirtualScroll={false}
         isLoading={isLoading}
-        onListScrollBottom={onLazyLoading}
+        onListScrollBottom={loadMoreOptions}
       >
-        {optionList}
+        {Array.from({ length: optionCount }, (_, index) => {
+          const optionNumber = index + 1;
+          return (
+            <Option
+              key={optionNumber}
+              text={`Option ${optionNumber}`}
+              value={String(optionNumber)}
+            />
+          );
+        })}
       </Select>
     </Box>
   );
@@ -341,6 +314,7 @@ No props metadata found.
   const [value, setValue] = useState("option-1");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [newOptionLabel, setNewOptionLabel] = useState("");
+  const [optionLabelError, setOptionLabelError] = useState("");
   const [optionList, setOptionList] = useState([
     { value: "option-1", text: "Dropdown item 1" },
     { value: "option-2", text: "Dropdown item 2" },
@@ -360,13 +334,17 @@ No props metadata found.
   }, [dialogOpen]);
 
   const closeDialogAndFocusSelect = () => {
+    setOptionLabelError("");
     shouldRestoreSelectFocus.current = true;
     setDialogOpen(false);
   };
 
   const addOption = () => {
     const text = newOptionLabel.trim();
-    if (!text) return;
+    if (!text) {
+      setOptionLabelError("Enter an option label.");
+      return;
+    }
 
     const optionValue = `option-${nextOptionId.current}`;
     nextOptionId.current += 1;
@@ -407,14 +385,10 @@ No props metadata found.
         title="Add an option"
         footer={
           <Box display="flex" justifyContent="flex-end" gap={1}>
-            <Button onClick={closeDialogAndFocusSelect}>Cancel</Button>
-            <Button
-              buttonType="primary"
-              disabled={!newOptionLabel.trim()}
-              onClick={addOption}
-            >
-              Add
+            <Button variantType="subtle" onClick={closeDialogAndFocusSelect}>
+              Cancel
             </Button>
+            <Button onClick={addOption}>Add</Button>
           </Box>
         }
       >
@@ -422,7 +396,11 @@ No props metadata found.
           autoFocus
           label="Option label"
           value={newOptionLabel}
-          onChange={(event) => setNewOptionLabel(event.target.value)}
+          error={optionLabelError || undefined}
+          onChange={(event) => {
+            setNewOptionLabel(event.target.value);
+            setOptionLabelError("");
+          }}
         />
       </Dialog>
     </Box>

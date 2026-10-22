@@ -366,6 +366,7 @@ export {
   FilterableSelect,
   MultiSelect,
   Select,
+  Select as Dropdown,
   Option,
   ActionOption,
   OptionGroupHeader,
