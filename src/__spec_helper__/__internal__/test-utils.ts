@@ -5,7 +5,7 @@ import {
   BackgroundProps,
   PositionProps,
   GridProps,
-} from "styled-system";
+} from "../../style/utils/styled-system-compat";
 
 import { space } from "../../style/themes/base/base-theme.config";
 import { mockMatchMedia } from "../mock-match-media";

@@ -1,6 +1,6 @@
-import type { SpaceProps } from "../../../style/utils/spacing";
 import React from "react";
-import { GridProps } from "styled-system";
+import type { SpaceProps } from "../../../style/utils/spacing";
+import { GridProps } from "../../../style/utils/styled-system-compat";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";

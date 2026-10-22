@@ -18,6 +18,7 @@
 - [Badge](components/badge.md)
 - [BatchSelection](components/batch-selection.md)
 - [Box](components/box.md)
+- [BoxNext](components/box-next.md)
 - [Breadcrumbs](components/breadcrumbs.md)
 - [Button](components/button.md) (deprecated)
 - [ButtonBar](components/button-bar.md) (deprecated)

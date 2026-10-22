@@ -30,20 +30,20 @@ describe("resolveSpacingValue", () => {
     expect(resolveSpacingValue(alias, {})).toBe(expectedValue);
   });
 
-  it("should use theme.space array for numbers when available", () => {
+  it("treats numeric values as literal pixels independent of theme.space", () => {
     const theme = {
       space: ["0px", "4px", "8px", "16px", "32px"],
     };
     expect(resolveSpacingValue(0, theme)).toBe("0px");
-    expect(resolveSpacingValue(1, theme)).toBe("4px");
-    expect(resolveSpacingValue(3, theme)).toBe("16px");
+    expect(resolveSpacingValue(1, theme)).toBe("1px");
+    expect(resolveSpacingValue(3, theme)).toBe("3px");
   });
 
-  it("should fallback to 8px multiplier when theme.space array does not contain index", () => {
+  it("does not use the legacy scale when a theme space value is absent", () => {
     const theme = {
       space: ["0px", "4px", "8px"],
     };
-    expect(resolveSpacingValue(5, theme)).toBe("40px");
+    expect(resolveSpacingValue(5, theme)).toBe("5px");
   });
 
   it("should resolve the approved layout scale as explicit pixels", () => {
@@ -53,18 +53,18 @@ describe("resolveSpacingValue", () => {
     expect(resolveSpacingValue(80, {})).toBe("80px");
   });
 
-  it("should retain legacy numeric values during the transition", () => {
-    expect(resolveSpacingValue(2, {})).toBe("16px");
-    expect(resolveSpacingValue(3, {})).toBe("24px");
+  it("keeps every numeric value literal", () => {
+    expect(resolveSpacingValue(2, {})).toBe("2px");
+    expect(resolveSpacingValue(3, {})).toBe("3px");
   });
 
-  it("supports negative legacy numeric margins", () => {
-    expect(resolveSpacingValue(-1, { space: ["0px", "4px"] })).toBe("-4px");
+  it("supports explicit negative numeric margins", () => {
+    expect(resolveSpacingValue(-1, { space: ["0px", "4px"] })).toBe("-1px");
   });
 
-  it("should fallback to 8px multiplier when no theme is provided", () => {
-    expect(resolveSpacingValue(1)).toBe("8px");
-    expect(resolveSpacingValue(4)).toBe("32px");
+  it("uses literal pixels when no theme is provided", () => {
+    expect(resolveSpacingValue(1)).toBe("1px");
+    expect(resolveSpacingValue(4)).toBe("4px");
   });
 
   it("should pass through string values unchanged", () => {
@@ -80,76 +80,76 @@ describe("resolveSpacingValue", () => {
 describe("spacingCss", () => {
   it("should apply padding shorthand (p)", () => {
     const result = cssToString(spacingCss({ p: 2 }));
-    expect(result).toContain("padding: 16px");
+    expect(result).toContain("padding: 2px");
   });
 
   it("should apply padding-top (pt)", () => {
     const result = cssToString(spacingCss({ pt: 3 }));
-    expect(result).toContain("padding-top: 24px");
+    expect(result).toContain("padding-top: 3px");
   });
 
   it("should apply padding-right (pr)", () => {
     const result = cssToString(spacingCss({ pr: 1 }));
-    expect(result).toContain("padding-right: 8px");
+    expect(result).toContain("padding-right: 1px");
   });
 
   it("should apply padding-bottom (pb)", () => {
     const result = cssToString(spacingCss({ pb: 2 }));
-    expect(result).toContain("padding-bottom: 16px");
+    expect(result).toContain("padding-bottom: 2px");
   });
 
   it("should apply padding-left (pl)", () => {
     const result = cssToString(spacingCss({ pl: 4 }));
-    expect(result).toContain("padding-left: 32px");
+    expect(result).toContain("padding-left: 4px");
   });
 
   it("should apply padding horizontal (px) to left and right", () => {
     const result = cssToString(spacingCss({ px: 2 }));
-    expect(result).toContain("padding-left: 16px");
-    expect(result).toContain("padding-right: 16px");
+    expect(result).toContain("padding-left: 2px");
+    expect(result).toContain("padding-right: 2px");
   });
 
   it("should apply padding vertical (py) to top and bottom", () => {
     const result = cssToString(spacingCss({ py: 3 }));
-    expect(result).toContain("padding-top: 24px");
-    expect(result).toContain("padding-bottom: 24px");
+    expect(result).toContain("padding-top: 3px");
+    expect(result).toContain("padding-bottom: 3px");
   });
 
   it("should apply margin shorthand (m)", () => {
     const result = cssToString(spacingCss({ m: 2 }));
-    expect(result).toContain("margin: 16px");
+    expect(result).toContain("margin: 2px");
   });
 
   it("should apply margin-top (mt)", () => {
     const result = cssToString(spacingCss({ mt: 1 }));
-    expect(result).toContain("margin-top: 8px");
+    expect(result).toContain("margin-top: 1px");
   });
 
   it("should apply margin-right (mr)", () => {
     const result = cssToString(spacingCss({ mr: 2 }));
-    expect(result).toContain("margin-right: 16px");
+    expect(result).toContain("margin-right: 2px");
   });
 
   it("should apply margin-bottom (mb)", () => {
     const result = cssToString(spacingCss({ mb: 3 }));
-    expect(result).toContain("margin-bottom: 24px");
+    expect(result).toContain("margin-bottom: 3px");
   });
 
   it("should apply margin-left (ml)", () => {
     const result = cssToString(spacingCss({ ml: 4 }));
-    expect(result).toContain("margin-left: 32px");
+    expect(result).toContain("margin-left: 4px");
   });
 
   it("should apply margin horizontal (mx) to left and right", () => {
     const result = cssToString(spacingCss({ mx: 2 }));
-    expect(result).toContain("margin-left: 16px");
-    expect(result).toContain("margin-right: 16px");
+    expect(result).toContain("margin-left: 2px");
+    expect(result).toContain("margin-right: 2px");
   });
 
   it("should apply margin vertical (my) to top and bottom", () => {
     const result = cssToString(spacingCss({ my: 3 }));
-    expect(result).toContain("margin-top: 24px");
-    expect(result).toContain("margin-bottom: 24px");
+    expect(result).toContain("margin-top: 3px");
+    expect(result).toContain("margin-bottom: 3px");
   });
 
   it("should apply longhand properties", () => {
@@ -167,19 +167,19 @@ describe("spacingCss", () => {
         paddingLeft: 5,
       }),
     );
-    expect(result).toContain("margin: 8px");
-    expect(result).toContain("margin-top: 16px");
-    expect(result).toContain("margin-right: 24px");
-    expect(result).toContain("margin-bottom: 32px");
-    expect(result).toContain("margin-left: 40px");
-    expect(result).toContain("padding: 8px");
-    expect(result).toContain("padding-top: 16px");
-    expect(result).toContain("padding-right: 24px");
-    expect(result).toContain("padding-bottom: 32px");
-    expect(result).toContain("padding-left: 40px");
+    expect(result).toContain("margin: 1px");
+    expect(result).toContain("margin-top: 2px");
+    expect(result).toContain("margin-right: 3px");
+    expect(result).toContain("margin-bottom: 4px");
+    expect(result).toContain("margin-left: 5px");
+    expect(result).toContain("padding: 1px");
+    expect(result).toContain("padding-top: 2px");
+    expect(result).toContain("padding-right: 3px");
+    expect(result).toContain("padding-bottom: 4px");
+    expect(result).toContain("padding-left: 5px");
   });
 
-  it("should use theme.space array when provided", () => {
+  it("should keep numeric values independent of theme.space", () => {
     const props = {
       p: 2,
       theme: {
@@ -187,7 +187,7 @@ describe("spacingCss", () => {
       },
     };
     const result = cssToString(spacingCss(props));
-    expect(result).toContain("padding: 8px");
+    expect(result).toContain("padding: 2px");
   });
 
   it("should handle string values", () => {

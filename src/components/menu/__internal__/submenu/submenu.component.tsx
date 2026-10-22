@@ -7,7 +7,7 @@ import React, {
   useState,
   useLayoutEffect,
 } from "react";
-import { MaxWidthProps } from "styled-system";
+import { MaxWidthProps } from "../../../../style/utils/styled-system-compat";
 
 import { StyledMenuItemWrapper } from "../../menu-item/menu-item.style";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";

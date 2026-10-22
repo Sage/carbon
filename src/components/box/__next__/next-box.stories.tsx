@@ -39,7 +39,7 @@ export const Spacing: Story = () => {
       </NextBox>
 
       <NextBox m={3} p={3}>
-        Legacy numeric index (temporary compatibility; see migration guidance)
+        Literal numeric pixels (3px)
       </NextBox>
     </>
   );

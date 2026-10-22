@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 export {
-  resolveSpacingValue,
-  spacingCss,
+  resolveTokenSpacingValue as resolveSpacingValue,
+  tokenSpacingCss as spacingCss,
 } from "../../../../style/utils/spacing";
 
 const flexboxKeys = {

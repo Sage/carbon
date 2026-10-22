@@ -7,7 +7,7 @@ import {
   GridAreaProps,
   GridColumnProps,
   GridRowProps,
-} from "styled-system";
+} from "../../../style/utils/styled-system-compat";
 
 export function getSpacing(prop?: PaddingProps[keyof PaddingProps]) {
   if (typeof prop === "number") {

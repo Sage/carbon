@@ -1,4 +1,4 @@
-import { PositionProps } from "styled-system";
+import { PositionProps } from "./styled-system-compat";
 import filterObjectProperties from "../../__internal__/filter-object-properties";
 
 export const positionPropertyNames = [

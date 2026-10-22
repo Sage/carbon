@@ -1,6 +1,6 @@
-import type { PaddingProps } from "../../style/utils/spacing";
 import React, { useCallback, useRef, RefObject } from "react";
-import { WidthProps } from "styled-system";
+import type { PaddingProps } from "../../style/utils/spacing";
+import { WidthProps } from "../../style/utils/styled-system-compat";
 
 import type { ModalProps } from "../../__internal__/modal";
 import { StyledSidebar, StyledSidebarModal } from "./sidebar.style";
@@ -11,9 +11,7 @@ import SidebarContent from "./__internal__/sidebar-content";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
-import tagComponent, {
-  type TagProps,
-} from "../../__internal__/utils/helpers/tags";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import { smallScreenBreakpoint } from "./sidebar.config";
@@ -26,13 +24,14 @@ export interface SidebarProps
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
-   * Provides an explicit accessible name for the component, overriding the
-   * automatic association with the header.
+   * Prop to specify the aria-label of the component.
+   * To be used only when the header prop is not defined, and the component is not labelled by any internal element.
    */
   "aria-label"?: string;
   /**
-   * Identifies the element that provides an explicit accessible name for the
-   * component, overriding the automatic association with the header.
+   * Prop to specify the aria-labelledby property of the component
+   * To be used when the header prop is a custom React Node,
+   * or the component is labelled by an internal element other than the header.
    */
   "aria-labelledby"?: string;
   /** Modal content */
@@ -43,17 +42,9 @@ export interface SidebarProps
   disableEscKey?: boolean;
   /** Set this prop to false to hide the translucent background when the dialog is open. */
   enableBackgroundUI?: boolean;
-  /**
-   * Whether the Sidebar uses its full-screen presentation below the small-screen breakpoint.
-   * @private
-   * @internal
-   * @ignore
-   */
+  /** @private @internal @ignore Whether the Sidebar is full-screen on small screens. */
   fullScreenOnSmallScreen?: boolean;
-  /**
-   * When true, header and footer become non-sticky and scroll with content
-   * for accessibility on small screen devices.
-   */
+  /** When true, header and footer scroll with the content on small screens. */
   disableStickyOnSmallScreen?: boolean;
   /** Optional reference to an element meant to be focused on open */
   focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
@@ -75,10 +66,7 @@ export interface SidebarProps
   header?: React.ReactNode;
   /** Node that will be used as sidebar subheader. */
   subHeader?: React.ReactNode;
-  /**
-   * Header background variant for the sidebar.
-   * `light` and `dark` are deprecated aliases - use `typical` and `inverse` instead.
-   */
+  /** Header background variant for the sidebar. */
   headerVariant?: "typical" | "inverse" | "light" | "dark";
   /** Adds the Carbon AI gradient keyline to the header. */
   gradientKeyLine?: boolean;
@@ -91,15 +79,11 @@ export interface SidebarProps
   ) => void;
   /** Sets the open state of the modal */
   open: boolean;
-  /** @deprecated This prop will be removed in a future release.
-   * Sidebar will always be positioned on the right.
-   * Update the layout to support a right-positioned Sidebar if it is set to
-   * left, otherwise remove the prop.
-   * */
+  /** Sets the position of sidebar, either left or right. */
   position?: "left" | "right";
   /** The ARIA role to be applied to the component container */
   role?: string;
-  /** @deprecated Use `width` to customise the Sidebar width. */
+  /** Sets the size of the sidebar when open. */
   size?:
     | "extra-small"
     | "small"

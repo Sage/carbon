@@ -1,4 +1,3 @@
-import type { MarginProps, PaddingProps } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
 import {
   margin,
@@ -7,7 +6,8 @@ import {
   padding,
   BackgroundProps,
   LayoutProps,
-} from "styled-system";
+} from "../../style/utils/styled-system-compat";
+import type { MarginProps, PaddingProps } from "../../style/utils/spacing";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 

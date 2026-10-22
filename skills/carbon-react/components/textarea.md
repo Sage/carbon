@@ -19,7 +19,7 @@ description: Carbon Textarea component props and usage examples.
 | value | string | Yes |  |  |  | The value of the Textbox |  |
 | about | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| autoCapitalize | "none" \| (string & {}) \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
+| autoCapitalize | "none" \| "off" \| (string & {}) \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoComplete | string \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  | Automatically focus the input on component mount |  |
@@ -30,7 +30,7 @@ description: Carbon Textarea component props and usage examples.
 | color | string \| undefined | No |  |  |  |  |  |
 | cols | number \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
-| contentEditable | "inherit" \| Booleanish \| "plaintext-only" \| undefined | No |  |  |  |  |  |
+| contentEditable | Booleanish \| "inherit" \| "plaintext-only" \| undefined | No |  |  |  |  |  |
 | contextMenu | string \| undefined | No |  |  |  |  |  |
 | dangerouslySetInnerHTML | { __html: string \| TrustedHTML; } \| undefined | No |  |  |  |  |  |
 | datatype | string \| undefined | No |  |  |  |  |  |

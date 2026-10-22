@@ -1,0 +1,85 @@
+# styled-system migration
+
+Carbon is replacing its internal `styled-system` implementation without changing
+the existing component spacing contract. Existing components continue to treat a
+numeric spacing prop as an index into `theme.space`.
+
+| API                                  | `p={8}`                                                  | Preferred new value                                                       |
+| ------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Existing components, including `Box` | `theme.space[8]` (`var(--spacing800)` in the base theme) | Keep the value during the compatibility period                            |
+| `BoxNext` (preview)                  | `8px`                                                    | `p="var(--global-space-layout-3-xs)"` for a token-backed 8px layout space |
+
+`BoxNext` is an opt-in token-first API. Its numeric values are literal pixels,
+while its aliases (`none`, `3xs`, `2xs`, `xs`, `s`, `m`, through `4xl`) emit the
+corresponding global-space CSS variables.
+
+## Consumer migration
+
+Install a Carbon version that includes the migration executable, then run the
+codemod in dry-run mode first. It only rewrites components imported from
+`carbon-react` and requires confirmation that the affected files use Carbon's
+base legacy theme.
+
+```sh
+npx carbon-migrate-spacing --assume-base-theme src/path/to/component.tsx
+```
+
+When run with `--write`, it converts static legacy indexes from `0` through
+`10` to the corresponding base-theme global-space CSS variables. For example,
+`p={8}` becomes `p="var(--global-space-layout-2-xl)"`. Dynamic expressions,
+responsive values, and values outside that range are reported for manual review;
+custom themes can assign different values to their legacy spacing scale.
+
+| Legacy index | Global-space replacement          |
+| -----------: | --------------------------------- |
+|          `0` | `var(--global-space-none)`        |
+|          `1` | `var(--global-space-layout-3-xs)` |
+|          `2` | `var(--global-space-layout-2-xs)` |
+|          `3` | `var(--global-space-layout-xs)`   |
+|          `4` | `var(--global-space-layout-s)`    |
+|          `5` | `var(--global-space-layout-m)`    |
+|          `6` | `var(--global-space-layout-l)`    |
+|          `7` | `var(--global-space-layout-xl)`   |
+|          `8` | `var(--global-space-layout-2-xl)` |
+|          `9` | `var(--global-space-layout-3-xl)` |
+|         `10` | `var(--global-space-layout-4-xl)` |
+
+```sh
+npx carbon-migrate-spacing --assume-base-theme --write src/path/to/component.tsx
+```
+
+Repository contributors can use the equivalent command:
+
+```sh
+npm run migrate:spacing -- --assume-base-theme --write src/path/to/component.tsx
+```
+
+### Custom legacy themes
+
+Do not use `--assume-base-theme` when `theme.space` is customised. The codemod
+cannot infer a custom scale, so it reports those values for manual review.
+Map each legacy index to the appropriate approved global-space token before
+moving the component to `BoxNext`.
+
+## ESLint advisory
+
+To catch accidental numeric pixel values on the token-first API, add Carbon's
+optional ESLint rule to a flat config:
+
+```js
+import carbon from "carbon-react/eslint";
+
+export default [
+  {
+    plugins: { carbon },
+    rules: { "carbon/no-numeric-token-spacing": "warn" },
+  },
+];
+```
+
+The rule warns for bare numeric spacing props on `BoxNext` and `NextBox`; use a
+global-space CSS variable, a token alias, or an explicit CSS length instead.
+
+Do not change existing components from `p={8}` to `p={8}` on `BoxNext`: those
+expressions have different meanings. Use the generated global-space value, or
+choose an approved token alias deliberately.

@@ -25,7 +25,7 @@ description: Carbon Number component props and usage examples.
 | align | "left" \| "right" \| undefined | No |  |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
 | as | React.ElementType<any, keyof React.JSX.IntrinsicElements> \| undefined | No |  |  |  | Override the variant component |  |
-| autoCapitalize | "none" \| (string & {}) \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
+| autoCapitalize | "none" \| "off" \| (string & {}) \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoComplete | HTMLInputAutoCompleteAttribute \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  | If true the Component will be focused when rendered |  |
@@ -37,7 +37,7 @@ description: Carbon Number component props and usage examples.
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
-| contentEditable | "inherit" \| Booleanish \| "plaintext-only" \| undefined | No |  |  |  |  |  |
+| contentEditable | Booleanish \| "inherit" \| "plaintext-only" \| undefined | No |  |  |  |  |  |
 | contextMenu | string \| undefined | No |  |  |  |  |  |
 | dangerouslySetInnerHTML | { __html: string \| TrustedHTML; } \| undefined | No |  |  |  |  |  |
 | datatype | string \| undefined | No |  |  |  |  |  |

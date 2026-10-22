@@ -1,4 +1,3 @@
-import type { PaddingProps } from "../../../style/utils/spacing";
 import React, {
   useRef,
   useEffect,
@@ -8,7 +7,12 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import { FlexboxProps, LayoutProps, MaxWidthProps } from "styled-system";
+import type { PaddingProps } from "../../../style/utils/spacing";
+import {
+  FlexboxProps,
+  LayoutProps,
+  MaxWidthProps,
+} from "../../../style/utils/styled-system-compat";
 import invariant from "invariant";
 
 import { defaultFocusableSelectors as focusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";

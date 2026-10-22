@@ -17,7 +17,7 @@ description: Carbon FlexTileContainer component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | The child elements of FlexTileContainer need to be FlexTileCell components. |  |
 | columnGap | Gap \| undefined | No |  | Column gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." | 2 |
-| overflow | ResponsiveValue<CSS.Property.Overflow, ThemeType> \| undefined | No |  | The overflow CSS property sets what to do when an element's content is too big to fit in its block formatting context. It is a shorthand for overflow-x and overflow-y. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) | "hidden" |
+| overflow | ResponsiveValue<CSSValue> \| undefined | No |  |  | "hidden" |
 
 ## Examples
 ### Default

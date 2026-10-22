@@ -9,7 +9,7 @@ import {
   BackgroundProps,
   TypographyProps,
   ColorProps,
-} from "styled-system";
+} from "../../src/style/utils/styled-system-compat";
 
 interface StyledSystemDefaults
   extends SpaceProps,
@@ -55,11 +55,11 @@ interface ControlType {
 
 interface Mapping {
   [key: string]: {
-    [option: string]: any;
+    [option: string]: unknown;
   };
 }
 
-type Conditional = boolean | ((props: any) => boolean);
+type Conditional = boolean | ((props: unknown) => boolean);
 
 interface PropType {
   control?: ControlType | { type: ControlType };

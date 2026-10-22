@@ -99,13 +99,21 @@ const spacingProperties: Record<string, string | string[]> = {
   paddingLeft: "padding-left",
 };
 
-const approvedPixelValues = new Set([0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80]);
+function createDeclarationsWithResolver(
+  properties: string | string[],
+  value: SpacingValue,
+  theme: SpacingTheme | undefined,
+  resolver: (value: SpacingValue, theme?: SpacingTheme) => SpacingValue,
+) {
+  return (Array.isArray(properties) ? properties : [properties])
+    .map((property) => `${property}: ${resolver(value, theme)};`)
+    .join("\n");
+}
 
 /**
- * Resolves approved layout values as pixels while retaining styled-system's
- * numeric-index behaviour for legacy values during the migration period.
- * CSS strings are deliberately passed through unchanged: the browser remains
- * responsible for handling invalid values and values such as negative padding.
+ * Legacy resolver used by the established component APIs. Numeric values are
+ * scale indexes, just as they were with styled-system. CSS strings deliberately
+ * pass through unchanged so browsers handle invalid values consistently.
  */
 export const resolveSpacingValue = (
   value: SpacingValue,
@@ -117,7 +125,10 @@ export const resolveSpacingValue = (
       : value;
   }
 
-  if (approvedPixelValues.has(value)) return `${value}px`;
+  // styled-system serialises the CSS zero value directly rather than looking
+  // it up in the scale. Consumers (and the established component contract)
+  // therefore receive `0px`, even though the base scale also has an entry at 0.
+  if (value === 0) return "0px";
 
   const space = theme?.space;
   const spaceValue = Array.isArray(space)
@@ -127,28 +138,33 @@ export const resolveSpacingValue = (
     return value < 0 ? `-${spaceValue}` : spaceValue;
   }
 
-  return `${value * 8}px`;
+  return `${value}px`;
+};
+
+/** Explicit-pixel resolver for token-first APIs such as NextBox. */
+export const resolveTokenSpacingValue = (value: SpacingValue): SpacingValue => {
+  if (typeof value === "string") {
+    return value in spacingTokenValues
+      ? spacingTokenValues[value as SpacingToken]
+      : value;
+  }
+
+  return `${value}px`;
 };
 
 const getBreakpoint = (theme: SpacingTheme | undefined, index: number) => {
   const breakpoints = theme?.breakpoints;
   if (Array.isArray(breakpoints)) return breakpoints[index - 1];
-  return breakpoints && Object.values(breakpoints)[index - 1];
-};
+  if (breakpoints) return Object.values(breakpoints)[index - 1];
 
-const createDeclarations = (
-  properties: string | string[],
-  value: SpacingValue,
-  theme: SpacingTheme | undefined,
-) =>
-  (Array.isArray(properties) ? properties : [properties])
-    .map((property) => `${property}: ${resolveSpacingValue(value, theme)};`)
-    .join("\n");
+  return ["40em", "52em", "64em"][index - 1];
+};
 
 const createResponsiveDeclarations = (
   properties: string | string[],
   value: ResponsiveSpacingValue,
   theme: SpacingTheme | undefined,
+  resolver: (value: SpacingValue, theme?: SpacingTheme) => SpacingValue,
 ) => {
   if (value === null) return "";
 
@@ -156,7 +172,12 @@ const createResponsiveDeclarations = (
     return value
       .map((item, index) => {
         if (item === null || item === undefined) return "";
-        const declarations = createDeclarations(properties, item, theme);
+        const declarations = createDeclarationsWithResolver(
+          properties,
+          item,
+          theme,
+          resolver,
+        );
         if (index === 0) return declarations;
 
         const breakpoint = getBreakpoint(theme, index);
@@ -171,21 +192,34 @@ const createResponsiveDeclarations = (
     return Object.entries(value)
       .map(([breakpoint, item]) => {
         if (item === undefined) return "";
-        const declarations = createDeclarations(properties, item, theme);
+        const declarations = createDeclarationsWithResolver(
+          properties,
+          item,
+          theme,
+          resolver,
+        );
+        if (breakpoint === "_") return declarations;
+
         const mediaQuery = theme?.mediaQueries?.[breakpoint];
+        const namedBreakpoint = !Array.isArray(theme?.breakpoints)
+          ? theme?.breakpoints?.[breakpoint]
+          : undefined;
         return mediaQuery
-          ? `@media ${mediaQuery} { ${declarations} }`
-          : declarations;
+          ? `@media ${String(mediaQuery).replace(/^@media\s+/, "")} { ${declarations} }`
+          : namedBreakpoint
+            ? `@media screen and (min-width: ${namedBreakpoint}) { ${declarations} }`
+            : declarations;
       })
       .join("\n");
   }
 
-  return createDeclarations(properties, value, theme);
+  return createDeclarationsWithResolver(properties, value, theme, resolver);
 };
 
 const createSpacingCss = (
   props: object & PropsWithTheme,
   supportedProperties?: string[],
+  resolver = resolveSpacingValue,
 ): FlattenSimpleInterpolation => {
   const declarations: string[] = [];
   const values = props as Record<string, ResponsiveSpacingValue | undefined>;
@@ -194,10 +228,10 @@ const createSpacingCss = (
     const properties = spacingProperties[prop];
     if (!properties) return;
     if (supportedProperties && !supportedProperties.includes(prop)) return;
-    if (value === undefined || value === null) return;
+    if (value === undefined) return;
 
     declarations.push(
-      createResponsiveDeclarations(properties, value, props.theme),
+      createResponsiveDeclarations(properties, value, props.theme, resolver),
     );
   });
 
@@ -208,6 +242,9 @@ const createSpacingCss = (
 
 export const spacingCss = <T extends object & PropsWithTheme>(props: T) =>
   createSpacingCss(props);
+
+export const tokenSpacingCss = <T extends object & PropsWithTheme>(props: T) =>
+  createSpacingCss(props, undefined, resolveTokenSpacingValue);
 
 const marginProperties = Object.keys(spacingProperties).filter(
   (property) => property.startsWith("m") || property === "margin",
