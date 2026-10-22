@@ -1,3 +1,9 @@
+## [162.16.1](https://github.com/Sage/carbon/compare/v162.16.0...v162.16.1) (2026-10-22)
+
+### Bug Fixes
+
+* **navigation-bar:** restore white variant bottom border ([76072ec](https://github.com/Sage/carbon/commit/76072ec540881dac9ef4f32bd23c5a61322fd5a3))
+
 ## [162.16.0](https://github.com/Sage/carbon/compare/v162.15.0...v162.16.0) (2026-10-22)
 
 ### Features
