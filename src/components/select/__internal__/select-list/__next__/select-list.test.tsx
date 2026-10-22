@@ -94,6 +94,78 @@ test("renders a selected option with its leading content, prefix, subtext and di
   expect(screen.getByTestId("divider")).toBeVisible();
 });
 
+test.each([
+  [
+    "small",
+    "var(--global-space-comp-xs) var(--global-space-comp-m)",
+    "var(--global-space-comp-xs)",
+  ],
+  [
+    "medium",
+    "var(--global-space-comp-s) var(--global-space-comp-m)",
+    "var(--global-space-comp-s)",
+  ],
+  [
+    "large",
+    "var(--global-space-comp-m) var(--global-space-comp-m)",
+    "var(--global-space-comp-s)",
+  ],
+] as const)(
+  "applies the %s divider and leading-content spacing tokens",
+  (size, dividerPadding, leadingPadding) => {
+    renderSelectList({
+      size,
+      children: (
+        <Option text="Amber" value="amber" leading="Leading content" divider />
+      ),
+    });
+
+    const menu = screen.getByTestId("select-list-popover-menu");
+    const dividerModifier = '& [data-component="popover-menu-divider"]';
+
+    expect(menu).toHaveStyleRule("margin", "0", {
+      modifier: dividerModifier,
+    });
+    expect(menu).toHaveStyleRule("padding", dividerPadding, {
+      modifier: dividerModifier,
+    });
+    expect(screen.getByText("Leading content")).toHaveStyleRule(
+      "padding-right",
+      leadingPadding,
+    );
+  },
+);
+
+test("aligns option content and resets the group heading spacing within the Select list", () => {
+  renderSelectList({
+    children: [
+      <OptionGroupHeader key="warm" label="Warm colours" />,
+      <Option key="amber" text="Amber" value="amber" />,
+    ],
+  });
+
+  const menu = screen.getByTestId("select-list-popover-menu");
+  expect(menu).toHaveStyleRule("column-gap", "0", {
+    modifier: '& [data-component="popover-menu-item"]',
+  });
+
+  const headingModifier =
+    '& [data-component="popover-menu-item-heading"] > [data-element="text"]';
+  expect(menu).toHaveStyleRule("margin", "0", { modifier: headingModifier });
+  expect(menu).toHaveStyleRule("padding-top", "var(--global-space-comp-m)", {
+    modifier: headingModifier,
+  });
+  expect(menu).toHaveStyleRule("padding-right", "var(--global-space-comp-m)", {
+    modifier: headingModifier,
+  });
+  expect(menu).toHaveStyleRule("padding-bottom", "0", {
+    modifier: headingModifier,
+  });
+  expect(menu).toHaveStyleRule("padding-left", "var(--global-space-comp-xl)", {
+    modifier: headingModifier,
+  });
+});
+
 test("forwards supported Option attributes without overriding listbox semantics", () => {
   renderSelectList({
     selectedValue: "amber",

@@ -33,6 +33,33 @@ const StyledSelectPopoverMenu = styled(SelectPopoverMenu)`
   [data-element="select-list-wrapper"] {
     z-index: var(--carbon-zindex-popover);
   }
+
+  [data-component="popover-menu-item"] {
+    column-gap: 0;
+  }
+
+  [data-component="popover-menu-divider"] {
+    margin: 0;
+    padding: ${({ size }) =>
+      `var(--global-space-comp-${size === "small" ? "xs" : size === "large" ? "m" : "s"}) var(--global-space-comp-m)`};
+  }
+
+  [data-component="popover-menu-item-heading"] > [data-element="text"] {
+    margin: 0;
+    padding-top: var(--global-space-comp-m);
+    padding-right: var(--global-space-comp-m);
+    padding-bottom: 0;
+    padding-left: var(--global-space-comp-xl);
+  }
+`;
+
+const StyledOptionLeading = styled.span<{
+  $size: PopoverMenuProps["size"];
+}>`
+  display: flex;
+  align-items: center;
+  padding-right: ${({ $size }) =>
+    `var(--global-space-comp-${$size === "small" ? "xs" : "s"})`};
 `;
 
 const VirtualOptionRow = styled.li`
@@ -321,7 +348,11 @@ const SelectList = ({
           onClose(undefined, typeof value === "string" ? value : undefined);
         }}
       >
-        <MenuItemLeading selectedIcon={selected}>{leading}</MenuItemLeading>
+        <MenuItemLeading selectedIcon={selected}>
+          {leading && (
+            <StyledOptionLeading $size={size}>{leading}</StyledOptionLeading>
+          )}
+        </MenuItemLeading>
         <MenuItemLabel prefix={prefix}>{label}</MenuItemLabel>
         {subtext && <MenuItemSubtext>{subtext}</MenuItemSubtext>}
       </MenuItem>
