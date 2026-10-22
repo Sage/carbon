@@ -1,3 +1,9 @@
+## [162.16.0](https://github.com/Sage/carbon/compare/v162.15.0...v162.16.0) (2026-10-22)
+
+### Features
+
+* **table:** add new component aligned with fusion designs ([a3d9fda](https://github.com/Sage/carbon/commit/a3d9fda6b241661ecab3a9fb301e6938e0059723))
+
 ## [162.15.0](https://github.com/Sage/carbon/compare/v162.14.2...v162.15.0) (2026-10-22)
 
 ### Features
