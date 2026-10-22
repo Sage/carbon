@@ -48,6 +48,8 @@
 - [DraggableContainer](components/draggable-container.md)
 - [DraggableItem](components/draggable-item.md)
 - [Drawer](components/drawer.md) — Displays sidebar content alongside a main content area.
+- [Drawer](components/drawer.md)
+- [Dropdown](components/dropdown.md)
 - [Dt](components/dt.md)
 - [DuellingPicklist](components/duelling-picklist.md) (deprecated)
 - [Fieldset](components/fieldset.md)
