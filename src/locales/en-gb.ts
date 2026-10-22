@@ -307,6 +307,11 @@ const enGB: Locale = {
     off: () => "Off",
     processingLabel: () => "Processing...",
   },
+  table: {
+    sort: {
+      ariaRoleDescription: () => "Sortable column header",
+    },
+  },
   tileSelect: {
     deselect: () => "Deselect",
   },

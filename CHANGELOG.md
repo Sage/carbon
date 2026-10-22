@@ -1,3 +1,21 @@
+## [162.16.0](https://github.com/Sage/carbon/compare/v162.15.0...v162.16.0) (2026-10-22)
+
+### Features
+
+* **table:** add new component aligned with fusion designs ([a3d9fda](https://github.com/Sage/carbon/commit/a3d9fda6b241661ecab3a9fb301e6938e0059723))
+
+## [162.15.0](https://github.com/Sage/carbon/compare/v162.14.2...v162.15.0) (2026-10-22)
+
+### Features
+
+* **split-button:** secondary variant added to the component ([6098239](https://github.com/Sage/carbon/commit/6098239bb68854c7c41a8f6d80e39bf82120736a))
+
+## [162.14.2](https://github.com/Sage/carbon/compare/v162.14.1...v162.14.2) (2026-10-22)
+
+### Bug Fixes
+
+* **text-editor:** scale paragraph content font with the size prop ([e39ef22](https://github.com/Sage/carbon/commit/e39ef225de909b9b6c8ce972c4fe93fc62e853ba))
+
 ## [162.14.1](https://github.com/Sage/carbon/compare/v162.14.0...v162.14.1) (2026-10-21)
 
 ### Bug Fixes

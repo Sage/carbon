@@ -134,6 +134,15 @@ export class StyledSpanNode extends TextNode {
     writable.__lineHeight = lineHeight;
   }
 
+  usesParagraphPreset(): boolean {
+    const { weight, size, lineHeight } = typographyMap.paragraph;
+    return (
+      this.__fontWeight === weight &&
+      this.__fontSize === size &&
+      this.__lineHeight === lineHeight
+    );
+  }
+
   /**
    * Determine the typography key based on the current styles
    * @returns the variant of this styled span
@@ -279,8 +288,10 @@ export class StyledSpanNode extends TextNode {
     const dom = super.createDOM(_config);
     const format = this.__format;
     dom.style.fontWeight = format & IS_BOLD ? "700" : this.__fontWeight;
-    dom.style.fontSize = this.__fontSize;
-    dom.style.lineHeight = this.__lineHeight;
+    if (!this.usesParagraphPreset()) {
+      dom.style.fontSize = this.__fontSize;
+      dom.style.lineHeight = this.__lineHeight;
+    }
     if (format & IS_ITALIC) {
       dom.style.fontStyle = "italic";
     }
@@ -303,12 +314,16 @@ export class StyledSpanNode extends TextNode {
       dom.style.fontWeight = nextEffectiveWeight;
       updated = true;
     }
-    if (this.__fontSize !== prevNode.__fontSize) {
-      dom.style.fontSize = this.__fontSize;
+
+    const isParagraph = this.usesParagraphPreset();
+    const presetChanged = isParagraph !== prevNode.usesParagraphPreset();
+
+    if (this.__fontSize !== prevNode.__fontSize || presetChanged) {
+      dom.style.fontSize = isParagraph ? "" : this.__fontSize;
       updated = true;
     }
-    if (this.__lineHeight !== prevNode.__lineHeight) {
-      dom.style.lineHeight = this.__lineHeight;
+    if (this.__lineHeight !== prevNode.__lineHeight || presetChanged) {
+      dom.style.lineHeight = isParagraph ? "" : this.__lineHeight;
       updated = true;
     }
 
