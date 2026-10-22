@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
+import requiredIndicatorStyles from "../../../style/utils/required-indicator";
 
 const sizeMap = {
   small: {
@@ -40,28 +41,19 @@ export type StyledLegendProps = {
 
 export const StyledLegend = styled.legend<StyledLegendProps>`
   ${({ $isRequired, $isDisabled, $isReadOnly, $size }) => css`
-    display: flex;
-    align-items: center;
     padding: 0;
     font: ${sizeMap[$size].legendFont};
     color: var(--input-labelset-label-default);
 
     ${$isRequired &&
-    css`
-      ::after {
-        content: "*";
-        font: ${sizeMap[$size].legendFont};
-        color: var(--input-labelset-label-required);
-        margin-left: var(--global-space-comp-xs);
-      }
-    `}
+    requiredIndicatorStyles({
+      font: sizeMap[$size].legendFont,
+      disabled: $isDisabled,
+    })}
 
     ${$isReadOnly &&
     css`
       color: var(--input-labelset-label-read-only);
-      ::after {
-        color: var(--input-labelset-label-read-only);
-      }
     `}
  
     ${$isDisabled &&

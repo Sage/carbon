@@ -30,8 +30,6 @@ export type StyledLegendProps = {
 };
 
 export const StyledLegend = styled.legend<StyledLegendProps>`
-  display: flex;
-  align-items: center;
   padding: 0;
   line-height: 24px;
   font-weight: var(--fontWeights500);
@@ -48,10 +46,11 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
     css`
       ::after {
         content: "*";
+        display: inline;
         line-height: 24px;
         color: var(--colorsSemanticNegative500);
         font-weight: var(--fontWeights500);
-        margin-left: var(--spacing050);
+        margin-inline-start: var(--spacing050);
         position: relative;
         top: 1px;
       }
@@ -93,5 +92,7 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
 `;
 
 export const StyledIconWrapper = styled.div`
+  display: inline-flex;
+  vertical-align: top;
   margin-left: var(--spacing050);
 `;
