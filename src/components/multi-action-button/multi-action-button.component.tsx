@@ -233,7 +233,7 @@ export const MultiActionButton = forwardRef<
                     onKeyDown={handleToggleButtonKeyDown}
                     onClick={handleClick}
                     isWhite={isWhite}
-                    fullWidth
+                    fullWidth={!!width}
                     {...filterOutStyledSystemSpacingProps(rest)}
                   >
                     {text}
