@@ -1,3 +1,9 @@
+## [162.16.2](https://github.com/Sage/carbon/compare/v162.16.1...v162.16.2) (2026-10-22)
+
+### Bug Fixes
+
+* **badge:** ensure fullWidth Button children render correctly ([392c6b9](https://github.com/Sage/carbon/commit/392c6b92d3f2ad28c5cbff5a111a372964a669e5)), closes [#8202](https://github.com/Sage/carbon/issues/8202)
+
 ## [162.16.1](https://github.com/Sage/carbon/compare/v162.16.0...v162.16.1) (2026-10-22)
 
 ### Bug Fixes
