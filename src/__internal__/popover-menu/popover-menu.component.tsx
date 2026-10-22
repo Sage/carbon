@@ -23,6 +23,9 @@ import {
 } from "./contexts";
 import { TagProps } from "../utils/helpers/tags";
 import combineRefs from "../utils/helpers/combine-refs";
+import { getWindow } from "../dom/globals";
+
+const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
 
 const PopoverControlWrapper = styled.div<{
   $controlWrapperStyle?: CSSObject;
@@ -402,7 +405,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const handleClickInside = useClickAwayListener(onClose);
   const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!open) {
       setAriaActivedescendant("");
     } else if (focusSelectedOnOpen && !onListKeyDown) {
