@@ -1,3 +1,21 @@
+## [162.15.0](https://github.com/Sage/carbon/compare/v162.14.2...v162.15.0) (2026-10-22)
+
+### Features
+
+* **split-button:** secondary variant added to the component ([6098239](https://github.com/Sage/carbon/commit/6098239bb68854c7c41a8f6d80e39bf82120736a))
+
+## [162.14.2](https://github.com/Sage/carbon/compare/v162.14.1...v162.14.2) (2026-10-22)
+
+### Bug Fixes
+
+* **text-editor:** scale paragraph content font with the size prop ([e39ef22](https://github.com/Sage/carbon/commit/e39ef225de909b9b6c8ce972c4fe93fc62e853ba))
+
+## [162.14.1](https://github.com/Sage/carbon/compare/v162.14.0...v162.14.1) (2026-10-21)
+
+### Bug Fixes
+
+* position required indicators after multiline labels ([9a1065b](https://github.com/Sage/carbon/commit/9a1065b1f96ad8e21b674cb61eb2c243a3a96ffd)), closes [#8121](https://github.com/Sage/carbon/issues/8121)
+
 ## [162.14.0](https://github.com/Sage/carbon/compare/v162.13.0...v162.14.0) (2026-10-20)
 
 ### Features

@@ -127,7 +127,7 @@ export const DatePicker = ({
     getPickerDayFocusTarget,
     resetChangedSelector,
   });
-  const { isInFlatTable } = useDatePickerInFlatTable(open);
+  const { isInTable } = useDatePickerInFlatTable(open);
 
   if (!open) return null;
 
@@ -141,7 +141,7 @@ export const DatePicker = ({
       reference={inputContainerRef}
       middleware={pickerPopoverMiddleware}
       disablePortal={disablePortal}
-      disableBackgroundUI={isInFlatTable}
+      disableBackgroundUI={isInTable}
       popoverStrategy="fixed"
     >
       <StyledDatePickerDialog
