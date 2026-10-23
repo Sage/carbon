@@ -16,7 +16,7 @@ description: Carbon Pager component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | onPagination | (currentPage: number, pageSize: number, origin: string) => void | Yes |  |  |  | Function called when pager changes (Current page, Page size, Origin component). |  |
-| alignment | PagerAlignment \| undefined | No |  |  |  | Alignment of the content. |  |
+| alignment | PagerAlignment \| undefined | No |  |  |  | Alignment of the content when rendered in a single row layout. Will only be applied if `showTotalRecords` and/or `showPageSizeSelection` are true. |  |
 | currentPage | string \| number \| undefined | No |  |  |  | Current visible page. |  |
 | interactivePageNumber | boolean \| undefined | No |  |  |  | Flag to set if the current page number renders as an input. |  |
 | layout | PagerLayout \| undefined | No |  |  |  | Maximum number of lines used to render the component. |  |
