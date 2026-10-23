@@ -1,21 +1,41 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import { StepFlow, StepFlowTitle } from "..";
+import { StepFlowProvider } from "../__internal__/step-flow.context";
 
-import Logger from "../../../__internal__/utils/logger";
+test("throws an error when not used within StepFlow", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-test("logs error when not used within StepFlow", () => {
-  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
-
-  render(<StepFlowTitle titleString="title" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon StepFlow: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
+  expect(() => render(<StepFlowTitle titleString="title" />)).toThrow(
+    "Carbon StepFlow: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
+});
+
+test("does not render screen reader step text when total steps is zero", () => {
+  render(
+    <StepFlowProvider
+      value={{ validatedCurrentStep: 1, totalSteps: 0, titleVariant: "h1" }}
+    >
+      <StepFlowTitle titleString="title" />
+    </StepFlowProvider>,
+  );
+
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("title");
+  expect(screen.queryByText(/Step 1 of 0/)).not.toBeInTheDocument();
+});
+
+test("renders a level one heading when no 'titleVariant' is provided via props or context", () => {
+  render(
+    <StepFlowProvider value={{}}>
+      <StepFlowTitle titleString="title" />
+    </StepFlowProvider>,
+  );
+
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("title");
 });
 
 test("when the 'titleString' prop is passed, the correct visible element and text renders", () => {

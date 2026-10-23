@@ -5,18 +5,16 @@ import { VerticalMenu, VerticalMenuItem } from ".";
 import logger from "../../__internal__/utils/logger";
 
 describe("VerticalMenu", () => {
-  it("logs error if not within VerticalMenu or VerticalMenuFullscreen", () => {
-    const loggerSpy = jest.spyOn(logger, "error").mockImplementation(() => {});
+  it("throws an error if not within VerticalMenu or VerticalMenuFullscreen", () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
-    render(<VerticalMenuItem title="Item1" />);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      expect.stringContaining(
-        "Carbon VerticalMenu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-      ),
+    expect(() => render(<VerticalMenuItem title="Item1" />)).toThrow(
+      "Carbon VerticalMenu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
     );
 
-    loggerSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
   });
 
   it("does not log error if within VerticalMenu", () => {

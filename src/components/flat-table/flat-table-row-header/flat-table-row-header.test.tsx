@@ -11,26 +11,26 @@ import FlatTableRow from "../flat-table-row/flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import Button from "../../button/button.component";
 
-test("logs error if used outside of FlatTable", () => {
-  const loggerSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+test("throws an error if used outside of FlatTable", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-  render(
-    <table>
-      <thead>
-        <tr>
-          <FlatTableRowHeader>Foo</FlatTableRowHeader>
-        </tr>
-      </thead>
-    </table>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  expect(() =>
+    render(
+      <table>
+        <thead>
+          <tr>
+            <FlatTableRowHeader>Foo</FlatTableRowHeader>
+          </tr>
+        </thead>
+      </table>,
     ),
+  ).toThrow(
+    "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 testStyledSystemPadding(
