@@ -3,7 +3,7 @@ import { Decorator } from "@storybook/react";
 import TokensWrapper from "./tokens-wrapper-demo";
 
 const withFusionTokens: Decorator = (Story, context) => (
-  <TokensWrapper>
+  <TokensWrapper modernisation={context.globals.modernisation === "on"}>
     <Story {...context} />
   </TokensWrapper>
 );
