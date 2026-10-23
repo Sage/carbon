@@ -4,9 +4,9 @@ import * as PreviewStories from "./preview.stories";
 
 <Meta of={PreviewStories} />
 
-# Preview
+# Skeleton
 
-Applies a preview loading state animation.
+Skeletons indicate that content is loading.
 
 ## Contents
 
@@ -17,7 +17,7 @@ Applies a preview loading state animation.
 ## Quick Start
 
 ```javascript
-import Preview from "carbon-react/lib/components/preview";
+import Skeleton from "carbon-react/lib/components/skeleton";
 ```
 
 ## Examples
@@ -40,33 +40,36 @@ You can pass children to the component which will render when the `loading` prop
 
 ### With Custom Width
 
-You can use the `width` prop to specify the width of the Preview.
+You can use the `width` prop to specify the width of the Skeleton. It fills the available width by default.
 
 <Canvas of={PreviewStories.WithWidth} />
 
 ### With Custom Height
 
-You can use the `height` prop to specify the height of the Preview.
+You can use the `height` prop to specify a custom CSS height or one of the presets: `h1` (38px), `h2` (30px), `h3` (26px), `h4` (23px), `paragraph` (21px), or `button` (40px).
 
 <Canvas of={PreviewStories.WithHeight} />
 
-### Shapes 
+### Shapes
 
-By default, the shape of the Preview is "text", however you can use the `shape` prop to change this.
-You may also use the `lines` prop to render multiple Previews with the specified shape and the `width` and `height` props to change the default dimensions.
+Choose `circle`, `rectangle-curved`, or `rectangle-moderate` with the `shape` prop. The default is `rectangle-moderate`.
 
-Note that when the `shape` prop is set to "circle", the `height` prop will determine the diameter and the `width` prop will be ignored.
+Use `lines` to render multiple Skeletons. Circles remain circular: their width always follows their height, so `width` is ignored for circles.
 
 <Canvas of={PreviewStories.Shapes} />
 
+### Height Presets
+
+<Canvas of={PreviewStories.HeightPresets} />
+
 ### Disable Animation
 
-You can set the `disableAnimation` prop to true to disable the loading animation. This will automatically be set to true when prefer reduce-motion is enabled.
+The animated gradient moves from left to right. Set `disableAnimation` to render a solid static placeholder; animation is also disabled when the user prefers reduced motion.
 
 <Canvas of={PreviewStories.DisableAnimation} />
 
 ## Props
 
-### Preview
+### Skeleton
 
 <ArgTypes of={PreviewStories} />

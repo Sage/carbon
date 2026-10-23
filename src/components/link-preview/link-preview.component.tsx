@@ -10,8 +10,9 @@ import {
   StyledThumbnailWrapper,
   StyledThumbnailImage,
 } from "./link-preview.style";
-import Preview from "../preview";
-import Button from "../button/__next__";
+import Image from "../image";
+import Skeleton from "../skeleton";
+import IconButton from "../icon-button";
 import Icon from "../icon";
 import Divider from "../divider";
 import Placeholder from "./__internal__/placeholder.component";
@@ -143,20 +144,26 @@ export const LinkPreview = ({
       {...rest}
       {...tagComponent("link-preview", rest)}
     >
-      <StyledThumbnailWrapper>
-        {showPlaceholderImage ? (
-          <Placeholder />
-        ) : (
-          <StyledThumbnailImage
-            {...(!image?.alt && { "aria-hidden": "true" })}
-            {...imageProps()}
-          />
-        )}
-      </StyledThumbnailWrapper>
-      <Divider m={0} type="horizontal" />
-      <StyledWrapper $size={size} $isLoading={internalIsLoading}>
-        {internalIsLoading ? preview : content}
-      </StyledWrapper>
+      {imageProps().src ? <Image {...imageProps()} /> : <Placeholder />}
+      <StyledPreviewWrapper isLoading={loadingState}>
+        <Skeleton loading={loadingState} lines={4}>
+          <StyledTitle>{title}</StyledTitle>
+          <StyledDescription>
+            <div>{description}</div>
+          </StyledDescription>
+          <StyledUrl>{displayUrl()}</StyledUrl>
+        </Skeleton>
+      </StyledPreviewWrapper>
+      {onClose && as === "div" && (
+        <StyledCloseIconWrapper>
+          <IconButton
+            aria-label="link preview close button"
+            onClick={() => onClose(url)}
+          >
+            <Icon type="close" />
+          </IconButton>
+        </StyledCloseIconWrapper>
+      )}
     </StyledLinkPreview>
   );
 };
