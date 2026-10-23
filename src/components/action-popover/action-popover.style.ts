@@ -12,20 +12,6 @@ const MenuButton = styled.div.attrs(applyBaseTheme)`
     width: 100%;
     justify-content: start;
   }
-
-  /*
-   * PopoverMenu normally constrains its content to the width available from
-   * its control wrapper. ActionPopover's control is an icon-only button, so
-   * that available width is only the icon width and causes both menus and
-   * submenus to collapse. Allow these menus to use their max-content width.
-   */
-  [data-role="menu-wrapper"] {
-    max-width: none;
-
-    ul[role="list"] {
-      max-height: none;
-    }
-  }
 `;
 
 export default MenuButton;

@@ -48,8 +48,6 @@ export const List = styled.ul<ListProps>`
   display: flex;
   flex-direction: column;
 
-  max-height: ${({ $maxHeight, $size }) =>
-    $maxHeight ?? `calc(5 * var(--global-size-${$size.charAt(0)}))`};
   list-style-type: "";
   list-style: none;
 
@@ -74,7 +72,6 @@ const MenuWrapper = styled.div<ListProps>`
   border-radius: var(--global-radius-container-m);
   background-color: var(--popover-bg-default);
   width: max-content;
-  max-width: 100%;
   position: relative;
   z-index: var(--carbon-zindex-small-overlay);
 
@@ -86,6 +83,7 @@ const MenuWrapper = styled.div<ListProps>`
     !$isButtonMenu &&
     css`
       overflow: hidden;
+      max-width: 100%;
       max-height: 100%;
     `}
 `;

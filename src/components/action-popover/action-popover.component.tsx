@@ -348,7 +348,7 @@ export const ActionPopover = forwardRef<
           aria-expanded={isOpen}
           data-element="action-popover-button"
           variant="default"
-          variantType={isInTable ? "secondary" : "subtle"}
+          variantType={isInTable ? "tertiary" : "subtle"}
         >
           {resolvedButtonLabel}
         </Button>
@@ -396,6 +396,7 @@ export const ActionPopover = forwardRef<
             popoverControl={renderControl}
             controlWrapperStyle={{ width: "100%" }}
             typeahead={handleAlphaKeyNavigation}
+            popoverStrategy="fixed"
           >
             {popoverChildren}
           </PopoverMenu>
