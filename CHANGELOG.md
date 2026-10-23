@@ -1,3 +1,75 @@
+## [162.17.0](https://github.com/Sage/carbon/compare/v162.16.2...v162.17.0) (2026-10-23)
+
+### Features
+
+* **required-fields-indicator:** add `as` prop ([6565f58](https://github.com/Sage/carbon/commit/6565f5819c1ec299eceb8602d71f01c574e14f42))
+
+## [162.16.2](https://github.com/Sage/carbon/compare/v162.16.1...v162.16.2) (2026-10-22)
+
+### Bug Fixes
+
+* **badge:** ensure fullWidth Button children render correctly ([392c6b9](https://github.com/Sage/carbon/commit/392c6b92d3f2ad28c5cbff5a111a372964a669e5)), closes [#8202](https://github.com/Sage/carbon/issues/8202)
+
+## [162.16.1](https://github.com/Sage/carbon/compare/v162.16.0...v162.16.1) (2026-10-22)
+
+### Bug Fixes
+
+* **navigation-bar:** restore white variant bottom border ([76072ec](https://github.com/Sage/carbon/commit/76072ec540881dac9ef4f32bd23c5a61322fd5a3))
+
+## [162.16.0](https://github.com/Sage/carbon/compare/v162.15.0...v162.16.0) (2026-10-22)
+
+### Features
+
+* **table:** add new component aligned with fusion designs ([a3d9fda](https://github.com/Sage/carbon/commit/a3d9fda6b241661ecab3a9fb301e6938e0059723))
+
+## [162.15.0](https://github.com/Sage/carbon/compare/v162.14.2...v162.15.0) (2026-10-22)
+
+### Features
+
+* **split-button:** secondary variant added to the component ([6098239](https://github.com/Sage/carbon/commit/6098239bb68854c7c41a8f6d80e39bf82120736a))
+
+## [162.14.2](https://github.com/Sage/carbon/compare/v162.14.1...v162.14.2) (2026-10-22)
+
+### Bug Fixes
+
+* **text-editor:** scale paragraph content font with the size prop ([e39ef22](https://github.com/Sage/carbon/commit/e39ef225de909b9b6c8ce972c4fe93fc62e853ba))
+
+## [162.14.1](https://github.com/Sage/carbon/compare/v162.14.0...v162.14.1) (2026-10-21)
+
+### Bug Fixes
+
+* position required indicators after multiline labels ([9a1065b](https://github.com/Sage/carbon/commit/9a1065b1f96ad8e21b674cb61eb2c243a3a96ffd)), closes [#8121](https://github.com/Sage/carbon/issues/8121)
+
+## [162.14.0](https://github.com/Sage/carbon/compare/v162.13.0...v162.14.0) (2026-10-20)
+
+### Features
+
+* **date:** align with fusion ds ([88ba851](https://github.com/Sage/carbon/commit/88ba8516c9793ee70045c50a3ddb7a7931c26d2b))
+
+## [162.13.0](https://github.com/Sage/carbon/compare/v162.12.0...v162.13.0) (2026-10-19)
+
+### Features
+
+* **multi-action-button:** align component with the Fusion DS ([f1e75e0](https://github.com/Sage/carbon/commit/f1e75e0915e6da58c7c4f9b0ec105c39f5e4024f))
+
+## [162.12.0](https://github.com/Sage/carbon/compare/v162.11.0...v162.12.0) (2026-10-16)
+
+### Features
+
+* **definition-list:** align component with the fusion DS ([d505e00](https://github.com/Sage/carbon/commit/d505e008d83bf5ae58d4465e5f37edabb6633e50))
+
+## [162.11.0](https://github.com/Sage/carbon/compare/v162.10.0...v162.11.0) (2026-10-16)
+
+### Features
+
+* **menu:** align with Fusion DS ([3e81ab1](https://github.com/Sage/carbon/commit/3e81ab11077ff74a74d74e25ee58da769cae6ccb))
+
+## [162.10.0](https://github.com/Sage/carbon/compare/v162.9.1...v162.10.0) (2026-10-15)
+
+### Features
+
+* **link-preview:** align with Fusion DS ([1876717](https://github.com/Sage/carbon/commit/1876717442b400c494d5008301fa89ec36a3df3b))
+
 ## [162.9.1](https://github.com/Sage/carbon/compare/v162.9.0...v162.9.1) (2026-10-14)
 
 ### Bug Fixes

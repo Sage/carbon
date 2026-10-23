@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import Badge, { BadgeProps } from ".";
 import Box from "../box";
-import Button from "../button";
+import Button from "../button/__next__";
 import MultiActionButton from "../multi-action-button";
 import SplitButton from "../split-button";
 import { Menu, MenuItem } from "../menu";
@@ -20,9 +20,10 @@ const meta: Meta<typeof Badge> = {
   title: "Badge/Test",
   component: Badge,
   parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
     info: { disable: true },
     chromatic: {
-      disableSnapshot: true,
+      disableSnapshot: false,
     },
   },
   argTypes: {
@@ -59,6 +60,10 @@ Default.args = {
   counterAsNumber: 99,
 };
 
+Default.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
 export const WithOtherButtons: Story = ({ ...args }) => {
   return (
     <>
@@ -82,7 +87,6 @@ export const WithOtherButtons: Story = ({ ...args }) => {
 WithOtherButtons.args = { counter: 2 };
 WithOtherButtons.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
 };
 
 export const SizesWithChildren: Story = ({ ...args }) => {
@@ -109,12 +113,16 @@ export const SizesWithChildren: Story = ({ ...args }) => {
 SizesWithChildren.storyName = "Sizes with Children";
 SizesWithChildren.args = { counter: 99 };
 
+SizesWithChildren.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
 export const InMenu = ({ ...args }) => {
   return (
-    <Menu menuType="black">
+    <Menu variant="black">
       <MenuItem onClick={() => {}}>
         MenuItem
-        <Badge ml={1} counter={2} {...args} />
+        <Badge counter={2} {...args} />
       </MenuItem>
       <MenuItem ariaLabel="Notifications" onClick={() => {}}>
         <Badge size="small" inverse counter={6} {...args}>
@@ -136,7 +144,6 @@ export const InMenu = ({ ...args }) => {
 };
 InMenu.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
 };
 
 export const InTabs = ({ ...args }) => {
@@ -167,5 +174,25 @@ export const InTabs = ({ ...args }) => {
 };
 InTabs.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
 };
+
+export const WithFullWidthButtons: Story = () => {
+  return (
+    <>
+      <Box display="flex" gap={2}>
+        <Badge counter={3}>
+          <Button fullWidth>Button 1</Button>
+        </Badge>
+        <Button fullWidth>Button 2</Button>
+      </Box>
+
+      <Box display="flex" gap={2} flexDirection={"column"} mt={1}>
+        <Badge counter={3}>
+          <Button fullWidth>Button 1</Button>
+        </Badge>
+        <Button fullWidth>Button 2</Button>
+      </Box>
+    </>
+  );
+};
+WithFullWidthButtons.storyName = "With Full Width Buttons";

@@ -171,7 +171,7 @@ const componentTokenConfigs = [
       },
     ],
   },
-    {
+  {
     component: "textarea",
     targetDir: "src/components/textarea/__internal__/tokens/",
     imports: [
@@ -184,6 +184,20 @@ const componentTokenConfigs = [
           "globalSpaceCompXs",
           "globalSpaceCompS",
           "globalSpaceCompM",
+        ],
+      },
+    ],
+  },
+  {
+    component: "multi-action-button",
+    targetDir: "src/components/multi-action-button/__internal__/tokens/",
+    imports: [
+      {
+        module: "@sage/design-tokens-fusion/js/es6/global.js",
+        names: [
+          "globalSizeS",
+          "globalSizeM",
+          "globalSizeL",
         ],
       },
     ],

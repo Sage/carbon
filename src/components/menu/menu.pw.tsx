@@ -1,14 +1,9 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import { Menu, MenuItem, MenuWithChildren, MenuDividerProps } from ".";
-import Box from "../box";
+import { MenuDividerProps } from ".";
 import {
   submenuBlock,
-  innerMenu,
   submenu,
-  scrollBlock,
-  lastSubmenuElement,
-  fullscreenMenu,
   menuItem,
 } from "../../../playwright/components/menu/index";
 import {
@@ -20,7 +15,6 @@ import {
   closeIconButton,
 } from "../../../playwright/components/index";
 import {
-  continuePressingTAB,
   continuePressingSHIFTTAB,
   checkAccessibility,
   waitForAnimationEnd,
@@ -33,48 +27,40 @@ import {
   MenuComponentSearch,
   MenuWithChildrenUpdating,
   MenuComponentFullScreen,
-  MenuComponentFullScreenSimple,
   MenuFullScreenBackgroundScrollTest,
   MenuComponentItems,
   MenuFullScreenWithSearchButton,
   MenuComponentScrollableParent,
   MenuComponentWithIcon,
-  MenuComponentButtonIcon,
   ClosedMenuFullScreenWithButtons,
   MenuDividerComponent,
-  MenuComponentScrollableWithSearch,
   MenuSegmentTitleComponentWithAdditionalMenuItem,
-  MenuComponentFullScreenWithLongSubmenuText,
-  MenuItemWithPopoverContainerChild,
-  SubmenuMaxWidth,
+  MenuWithSegmentTitle,
 } from "./component.test-pw";
 
-const span = "span";
-const div = "div";
-
 test.describe("Prop tests for Menu component", () => {
-  test(`should verify number and type of elements in submenu`, async ({
+  test("should verify the Search component is focusable by pressing the 'ArrowDown' and 'ArrowUp' keys", async ({
     mount,
     page,
   }) => {
-    const position = [1, 2, 4, 5] as const;
-    await mount(<MenuComponent />);
+    await mount(<MenuComponentSearch />);
 
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const subMenuBlock = submenuBlock(page).first().locator("li");
-    await expect(subMenuBlock).toHaveCount(5);
-    for (let i = 0; i < position.length; i++) {
-      await expect(innerMenu(page, position[i], span).first()).toHaveAttribute(
-        "data-component",
-        "link",
-      );
-    }
-    const menuItemDivider = innerMenu(page, 3, div).first();
-    await expect(menuItemDivider).toHaveAttribute(
-      "data-component",
-      "menu-divider",
-    );
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Enter");
+    const search = page.getByRole("searchbox");
+    await expect(search).toBeVisible();
+
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+    await expect(search).toBeFocused();
+
+    await page.keyboard.press("ArrowDown");
+    await expect(
+      page.getByRole("link", { name: "Item Submenu Two" }),
+    ).toBeFocused();
+
+    await page.keyboard.press("ArrowUp");
+    await expect(search).toBeFocused();
   });
 
   test(`should verify submenu is not closed when Enter key is pressed on search component`, async ({
@@ -92,68 +78,35 @@ test.describe("Prop tests for Menu component", () => {
     await expect(subMenuBlock).toBeVisible();
   });
 
-  (
-    [
-      ["selected", true, "rgb(230, 235, 237)"],
-      ["not selected", false, "rgb(255, 255, 255)"],
-    ] as [string, MenuWithChildren["selected"], string][]
-  ).forEach(([state, boolVal, color]) => {
-    test(`should render with first Menu Item ${state}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentItems selected={boolVal} />);
-
-      const subMenu = submenu(page).first().locator("span").first();
-      await expect(subMenu).toHaveCSS("background-color", color);
-    });
-  });
-
   test(`should render with Item target ${CHARACTERS.STANDARD}`, async ({
     mount,
     page,
   }) => {
-    await mount(<MenuComponentItems target={CHARACTERS.STANDARD} />);
+    await mount(<MenuComponentItems href="#" target={CHARACTERS.STANDARD} />);
 
-    const item = menuItem(page).first().locator("button");
-    await expect(item).toHaveAttribute("target", CHARACTERS.STANDARD);
-  });
-
-  (
-    [
-      [true, 32],
-      [false, 16],
-    ] as [MenuWithChildren["showDropdownArrow"], number][]
-  ).forEach(([boolVal, padding]) => {
-    test(`should render with padding of ${padding}px on menu item when showDropdownArrow prop is ${boolVal}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentItems showDropdownArrow={boolVal} />);
-
-      const subMenu = submenu(page).first().locator("button");
-      await expect(subMenu).toHaveCSS("padding-right", `${padding}px`);
-    });
+    const link = page.getByRole("link").first();
+    await expect(link).toHaveAttribute("target", CHARACTERS.STANDARD);
   });
 
   test(`should render with Menu Item ariaLabel set to ${CHARACTERS.STANDARD}`, async ({
     mount,
     page,
   }) => {
-    await mount(<MenuComponentItems ariaLabel={CHARACTERS.STANDARD} />);
+    await mount(
+      <MenuComponentItems href="#" ariaLabel={CHARACTERS.STANDARD} />,
+    );
 
-    const subMenu = submenu(page).first().locator("button");
-    await expect(subMenu).toHaveAttribute("aria-label", CHARACTERS.STANDARD);
+    const link = page.getByRole("link").first();
+    await expect(link).toHaveAttribute("aria-label", CHARACTERS.STANDARD);
   });
 
   test("when a Menu Fullscreen is opened and then closed, the call to action element should be focused", async ({
     mount,
     page,
   }) => {
-    await mount(<MenuComponentFullScreenSimple open={false} />);
+    await mount(<MenuComponentFullScreen open={false} />);
 
-    await page.setViewportSize({ width: 1200, height: 800 });
-    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    const item = page.getByRole("button", { name: "Menu" });
     await item.click();
     const fullscreen = getComponent(page, "menu-fullscreen");
     await waitForAnimationEnd(fullscreen);
@@ -166,9 +119,8 @@ test.describe("Prop tests for Menu component", () => {
     mount,
     page,
   }) => {
-    await mount(<MenuComponentFullScreenSimple />);
+    await mount(<MenuComponentFullScreen />);
 
-    await page.setViewportSize({ width: 1200, height: 800 });
     const fullscreen = getComponent(page, "menu-fullscreen");
     await waitForAnimationEnd(fullscreen);
     await expect(fullscreen).toBeVisible();
@@ -196,76 +148,6 @@ test.describe("Prop tests for Menu component", () => {
     await subMenu.hover();
     const scrollBlockParent = getComponent(page, "scrollable-block-parent");
     await expect(scrollBlockParent).toHaveCount(1);
-  });
-
-  test(`when the menu item contains a very long text, the text is wrapped`, async ({
-    mount,
-    page,
-  }) => {
-    await page.setViewportSize({ width: 300, height: 800 });
-    await mount(<MenuComponentFullScreenWithLongSubmenuText />);
-
-    const item = menuItem(page).first();
-    await item.click();
-    const fullscreen = getComponent(page, "menu-fullscreen").first();
-    await waitForAnimationEnd(fullscreen);
-
-    const fullSubmenuItem = fullscreenMenu(page, 3)
-      .locator("li")
-      .locator("a")
-      .first();
-
-    const fullSubmenuItemTextWrap = await fullSubmenuItem.evaluate(
-      (element) => {
-        const style = window.getComputedStyle(element);
-        return style.getPropertyValue("text-wrap");
-      },
-    );
-
-    const fullSubmenuItemHeight = await fullSubmenuItem.evaluate((element) => {
-      const style = window.getComputedStyle(element);
-      return style.getPropertyValue("height");
-    });
-
-    expect(fullSubmenuItemTextWrap).toEqual("wrap");
-    expect(fullSubmenuItemHeight).not.toEqual("40px");
-
-    const fullMenuItemWrapper = fullscreenMenu(page, 3).first();
-
-    const fullMenuItemWrapperTextWrap = await fullMenuItemWrapper.evaluate(
-      (element) => {
-        const style = window.getComputedStyle(element);
-        return style.getPropertyValue("text-wrap");
-      },
-    );
-
-    const fullMenuItemWrapperHeight = await fullMenuItemWrapper.evaluate(
-      (element) => {
-        const style = window.getComputedStyle(element);
-        return style.getPropertyValue("height");
-      },
-    );
-
-    expect(fullMenuItemWrapperTextWrap).toEqual("wrap");
-    expect(fullMenuItemWrapperHeight).not.toEqual("40px");
-
-    const fullMenuItem = fullscreenMenu(page, 3)
-      .locator("span")
-      .locator("button")
-      .first();
-
-    const fullMenuItemTextWrap = await fullMenuItem.evaluate((element) => {
-      const style = window.getComputedStyle(element);
-      return style.getPropertyValue("text-wrap");
-    });
-
-    const fullMenuItemHeight = await fullMenuItem.evaluate((element) => {
-      const style = window.getComputedStyle(element);
-      return style.getPropertyValue("height");
-    });
-
-    expect(fullMenuItemTextWrap).toEqual("wrap");
-    expect(fullMenuItemHeight).not.toEqual("40px");
   });
 
   test(`should verify that Menu Fullscreen has no effect on the tab order when isOpen prop is false`, async ({
@@ -381,51 +263,16 @@ test.describe("Event tests for Menu component", () => {
     await expect(lastMenuItem).toHaveCSS("border-radius", "0px 0px 8px 8px");
   });
 
-  test(`renders last MenuItem in a scrollable block without rounded corner, if there is no overflow in the block`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentScrollableWithSearch />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const searchInput = searchDefaultInput(page);
-    await searchInput.fill("app");
-    const scrollableBlock = scrollBlock(page);
-
-    await expect(scrollableBlock).toHaveCSS("border-radius", "0px 0px 0px 8px");
-
-    const scrollableItem = scrollBlock(page).locator("a").last();
-
-    await expect(scrollableItem).toHaveCSS("border-radius", "0px");
-  });
-
-  test(`renders last MenuItem in a scrollable block with rounded corner, if there is overflow within the block`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentScrollableWithSearch />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const searchInput = searchDefaultInput(page);
-    await searchInput.fill("r");
-    const scrollableBlock = scrollBlock(page);
-
-    await expect(scrollableBlock).toHaveCSS("border-radius", "0px 0px 0px 8px");
-
-    const scrollableItem = scrollBlock(page).locator("a").last();
-
-    await expect(scrollableItem).toHaveCSS("border-radius", "0px 0px 0px 8px");
-  });
-
   test(`should verify that tabbing forward through the menu and back to the start should not make the background scroll to the bottom`, async ({
     mount,
     page,
   }) => {
     await mount(<MenuFullScreenBackgroundScrollTest />);
 
-    await continuePressingTAB(page, 4);
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
 
     const closeIcon = closeIconButton(page);
     await expect(closeIcon).toBeFocused();
@@ -453,72 +300,20 @@ test.describe("Event tests for Menu component", () => {
     page,
     mount,
   }) => {
-    await page.setViewportSize({ width: 1200, height: 800 });
     await mount(<MenuComponentScrollable />);
 
-    const menuItemThree = page
-      .getByRole("listitem")
-      .filter({ hasText: "Menu Item Three" })
-      .first();
-    await menuItemThree.getByRole("button").press("ArrowDown");
+    const menuItemThree = page.getByRole("button", { name: "Menu Item Three" });
+    await menuItemThree.press("ArrowDown");
 
-    const submenuList = menuItemThree.getByRole("list");
-    await submenuList.waitFor();
+    const submenuItem = page.getByRole("link", { name: "Item Submenu One" });
+    await submenuItem.waitFor();
 
-    const lastSubmenuItem = menuItemThree.getByRole("listitem").last();
-    await lastSubmenuItem.getByRole("link").focus();
+    const lastSubmenuItem = page.getByRole("link", {
+      name: "Item Submenu Twelve",
+    });
+    await lastSubmenuItem.focus();
 
     await expect(lastSubmenuItem).toBeInViewport();
-  });
-
-  test("should render the menu with the expected styling when menu item has a PopoverContainer child with renderOpenComponent passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuItemWithPopoverContainerChild />);
-
-    const menuItemAnchor = menuItem(page).first().locator("a");
-    const buttonChild = menuItemAnchor.locator("button");
-
-    await expect(menuItemAnchor).toHaveCSS("height", "40px");
-    await expect(buttonChild).toHaveCSS("height", "40px");
-  });
-
-  test("should render the menu with the expected hover styling when menu item has a PopoverContainer child with renderOpenComponent passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuItemWithPopoverContainerChild />);
-
-    const popoverContainerButton = page.getByRole("button", {
-      name: "notification",
-    });
-    await popoverContainerButton.hover();
-
-    await expect(popoverContainerButton).toHaveCSS("border-radius", "0px");
-    await expect(popoverContainerButton).toHaveCSS(
-      "background-color",
-      "rgba(0, 0, 0, 0)",
-    );
-  });
-
-  test(`should verify that submenu item text wraps when it would overflow the container and submenuMaxWidth is set`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SubmenuMaxWidth />);
-
-    const submenuElement = submenu(page).first();
-    await submenuElement.hover();
-    const lastItem = lastSubmenuElement(page, "li");
-    const submenuBlockElement = submenuBlock(page).first();
-
-    const cssItemHeight = await lastItem.evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue("height"),
-    );
-
-    await expect(submenuBlockElement).toHaveCSS("max-width", "300px");
-    expect(parseInt(cssItemHeight)).toBeGreaterThan(40);
   });
 });
 
@@ -527,113 +322,91 @@ test.describe("Accessibility tests for Menu component", () => {
     mount,
     page,
   }) => {
-    await mount(<MenuComponent />);
+    await mount(
+      <>
+        <MenuComponent />
+        <MenuComponent variant="black" />
+      </>,
+    );
 
     await checkAccessibility(page);
   });
 
-  test(`should pass accessibility tests when submenu's are passed as a node`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentWithSubmenuNodes />);
-
-    await checkAccessibility(page);
-  });
-
-  test(`should pass accessibility tests when expanded`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    await checkAccessibility(page);
-  });
-
-  // We can allow the accessibility checks with exception to the heading-order violation.
-  test(`should pass accessibility tests when variant is light and search component is focused`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch menuType="light" />);
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("Tab");
-    const subMenu = getComponent(page, "submenu").first();
-    await waitForAnimationEnd(subMenu);
-    await checkAccessibility(page, undefined, "heading-order");
-  });
-
-  test(`should pass accessibility tests when variant is black and search component is focused`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch menuType="black" />);
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("Tab");
-    const subMenu = getComponent(page, "submenu").first();
-    await waitForAnimationEnd(subMenu);
-    await checkAccessibility(page, undefined, "heading-order");
-  });
-
-  test(`should pass accessibility tests when a submenu has a long label`, async ({
+  test(`should pass accessibility tests when submenu is a node`, async ({
     mount,
     page,
   }) => {
     await mount(
-      <Box mb={150}>
-        <Menu menuType="white">
-          <MenuItem submenu="Menu Item One">
-            <MenuItem href="#">
-              Item Submenu One Is A Very Long Submenu Item Indeed
-            </MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Two
-            </MenuItem>
-          </MenuItem>
-        </Menu>
-      </Box>,
+      <>
+        <MenuComponentWithSubmenuNodes />
+        <MenuComponentWithSubmenuNodes variant="black" />
+      </>,
     );
+
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests when submenu is expanded`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponent />);
 
     const subMenu = submenu(page).first();
     await subMenu.hover();
     await checkAccessibility(page);
   });
 
-  test(`should pass accessibility tests when a menu item has a long label`, async ({
+  test(`should pass accessibility tests when submenu is expanded and variant is 'black'`, async ({
     mount,
     page,
   }) => {
-    await mount(
-      <Box mb={150}>
-        <Menu menuType="white">
-          <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Two
-            </MenuItem>
-          </MenuItem>
-        </Menu>
-      </Box>,
-    );
+    await mount(<MenuComponent variant="black" />);
 
     const subMenu = submenu(page).first();
     await subMenu.hover();
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests when search component is focused`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentSearch />);
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+
+    await expect(page.getByRole("searchbox")).toBeFocused();
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests when search component is focused and variant is 'black'`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentSearch variant="black" />);
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+
+    await expect(page.getByRole("searchbox")).toBeFocused();
     await checkAccessibility(page);
   });
 
   (["default", "large"] as MenuDividerProps["size"][]).forEach((size) => {
-    test(`should pass accessibility tests when size is ${size}px`, async ({
+    test(`should pass accessibility tests when divider is ${size}`, async ({
       mount,
       page,
     }) => {
       await mount(<MenuDividerComponent size={size} />);
 
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
       await checkAccessibility(page);
     });
   });
@@ -643,7 +416,7 @@ test.describe("Accessibility tests for Menu component", () => {
     CHARACTERS.DIACRITICS,
     CHARACTERS.SPECIALCHARACTERS,
   ].forEach((text) => {
-    test(`should pass accessibility tests when item text is ${text}`, async ({
+    test(`should pass accessibility tests when submenu item text is ${text}`, async ({
       mount,
       page,
     }) => {
@@ -664,17 +437,6 @@ test.describe("Accessibility tests for Menu component", () => {
     await checkAccessibility(page);
   });
 
-  test(`should pass accessibility tests for Menu with button icon`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentButtonIcon />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    await checkAccessibility(page);
-  });
-
   test(`should pass accessibility tests for Menu with icon`, async ({
     mount,
     page,
@@ -683,20 +445,25 @@ test.describe("Accessibility tests for Menu component", () => {
 
     await checkAccessibility(page);
   });
-});
 
-test.describe("Accessibility tests for Menu Fullscreen component", () => {
-  test(`should pass accessibility tests for Menu Fullscreen`, async ({
+  test(`should pass accessibility tests for submenu with Segment Title`, async ({
     mount,
     page,
   }) => {
-    await page.setViewportSize({ width: 1200, height: 800 });
-    await mount(<MenuComponentFullScreen />);
+    await mount(<MenuWithSegmentTitle />);
 
-    const item = menuItem(page).first();
-    await item.click();
-    const fullscreen = getComponent(page, "menu-fullscreen").first();
-    await waitForAnimationEnd(fullscreen);
+    await page.getByRole("button", { name: "Submenu" }).hover();
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests for black menu variant submenu with Segment Title`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuWithSegmentTitle variant="black" />);
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
     await checkAccessibility(page);
   });
 });
