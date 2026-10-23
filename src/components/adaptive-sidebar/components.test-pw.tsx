@@ -4,7 +4,7 @@ import AdaptiveSidebar from ".";
 import Box from "../box";
 import Button from "../button/__next__";
 
-const DefaultAdaptiveSidebar = ({ ...props }) => {
+export const DefaultAdaptiveSidebar = ({ ...props }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -18,4 +18,16 @@ const DefaultAdaptiveSidebar = ({ ...props }) => {
   );
 };
 
-export default DefaultAdaptiveSidebar;
+export const HiddenAdaptiveSidebar = ({ ...props }) => {
+  const [hidden, setHidden] = useState(true);
+
+  return (
+    <Box display="flex" flexDirection="row">
+      <Button onClick={() => setHidden(false)}>Show sidebar</Button>
+      <AdaptiveSidebar open hidden={hidden} {...props}>
+        <Button onClick={() => setHidden(true)}>Hide sidebar</Button>
+        <span id="accessible-name">Adaptive sidebar content</span>
+      </AdaptiveSidebar>
+    </Box>
+  );
+};

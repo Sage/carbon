@@ -1,7 +1,10 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 
-import DefaultAdaptiveSidebar from "./components.test-pw";
+import {
+  DefaultAdaptiveSidebar,
+  HiddenAdaptiveSidebar,
+} from "./components.test-pw";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 test.describe("Adaptive Sidebar", () => {
@@ -53,6 +56,24 @@ test.describe("Adaptive Sidebar", () => {
     await expect(sidebar).toBeVisible();
 
     await page.getByRole("button", { name: "Close sidebar" }).click();
+    await expect(sidebar).toBeHidden();
+    await expect(trigger).not.toBeFocused();
+  });
+
+  test("renders Sidebar as hidden when rendered as a modal", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<HiddenAdaptiveSidebar renderAsModal />);
+
+    const trigger = page.getByRole("button", { name: "Show sidebar" });
+    const sidebar = page.getByRole("dialog");
+    await expect(sidebar).toBeHidden();
+
+    await trigger.click();
+    await expect(sidebar).toBeVisible();
+
+    await page.getByRole("button", { name: "Hide sidebar" }).click();
     await expect(sidebar).toBeHidden();
     await expect(trigger).not.toBeFocused();
   });

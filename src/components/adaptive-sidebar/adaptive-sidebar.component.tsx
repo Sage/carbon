@@ -117,13 +117,13 @@ export const AdaptiveSidebar = ({
         className="adaptive-sidebar-modal-view"
         enableBackgroundUI={open && hidden}
         fullScreenOnSmallScreen={false}
+        hidden={hidden}
         restoreFocusOnClose={restoreFocusOnClose}
         open={open}
         p={0}
         ref={adaptiveSidebarRef}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
-        $hidden={hidden}
         $variant={computedVariant()}
         {...tagComponent("adaptive-sidebar", { ...props })}
       >

@@ -54,15 +54,14 @@ export const StyledAdaptiveSidebar = styled.div.attrs(
 `;
 
 interface StyledSidebarProps {
-  $hidden?: boolean;
   $variant: "standard" | "alt" | "inverse";
 }
 
 export const StyledSidebar = styled(Sidebar)<StyledSidebarProps>`
-  ${({ $hidden, $variant }) => css`
+  ${({ hidden, $variant }) => css`
     background-color: ${variantColor[$variant].backgroundColor};
 
-    ${$hidden &&
+    ${hidden &&
     css`
       display: none;
     `}
