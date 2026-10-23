@@ -60,3 +60,20 @@ export const DLBoxComponent = () => {
     </div>
   );
 };
+
+export const DLBoxWrappedPairs = () => {
+  return (
+    <Dl>
+      <Dt>First</Dt>
+      <Dd>Description 1</Dd>
+      <Box display="flex" justifyContent="space-between" data-element="box1">
+        <Dt mb={0}>Second</Dt>
+        <Dd mb={0}>Description 2</Dd>
+      </Box>
+      <Box display="flex" justifyContent="space-between" data-element="box2">
+        <Dt mb={0}>Third</Dt>
+        <Dd mb={0}>Description 3</Dd>
+      </Box>
+    </Dl>
+  );
+};

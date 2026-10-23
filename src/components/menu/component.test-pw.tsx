@@ -8,237 +8,113 @@ import {
   MenuItem,
   MenuWithChildren,
   MenuFullscreen,
-  MenuFullscreenProps,
   MenuProps,
   MenuDividerProps,
   ScrollableBlockProps,
 } from ".";
-import Search, { SearchEvent } from "../search";
+import Search from "../search";
 import Box from "../box/box.component";
-import Typography from "../typography/typography.component";
-import useMediaQuery from "../../hooks/useMediaQuery";
-import Button from "../button";
-import PopoverContainer from "../popover-container";
-import Icon from "../icon";
 import Portrait from "../portrait";
+import Icon from "../icon";
 
-import type { MenuType } from "./menu.types";
-
-const menuTypes: MenuType[] = ["white", "light", "dark", "black"];
-
-export const MenuComponent = (props: Partial<MenuProps> & MenuDividerProps) => {
+export const MenuComponent = (props: Partial<MenuProps>) => {
   return (
-    <Box mb={150}>
-      {menuTypes.map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType} {...props}>
-            <MenuItem href="#">Menu Item One</MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
-            <MenuItem submenu="Menu Item Three">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuDivider size={props.size} />
-              <MenuItem icon="settings" href="#">
-                Item Submenu Three
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Four</MenuItem>
-            </MenuItem>
-            <MenuItem submenu="Menu Item Four" onClick={() => {}}>
-              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle text="segment title" />
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-            </MenuItem>
-          </Menu>
-        </div>
-      ))}
-    </Box>
+    <Menu {...props}>
+      <MenuItem href="#">Menu Item One</MenuItem>
+      <MenuItem href="#">Menu Item Two</MenuItem>
+      <MenuItem submenu="Menu Item Three">
+        <MenuItem href="#">Item Submenu One</MenuItem>
+        <MenuItem href="#">Item Submenu Two</MenuItem>
+        <MenuDivider />
+        <MenuItem href="#">Item Submenu Three</MenuItem>
+        <MenuItem href="#">Item Submenu Four</MenuItem>
+      </MenuItem>
+    </Menu>
   );
 };
 
-export const MenuComponentWithSubmenuNodes = () => (
-  <Box mb={150}>
-    {menuTypes.map((menuType) => {
-      const submenuNode = (initials: string, name: string) => (
-        <Box display="flex" alignItems="baseline" gap="10px">
-          <Portrait initials={initials} />
-          <Typography
-            variant="b"
-            inverse={menuType === "black" || menuType === "dark"}
-          >
-            {name}
-          </Typography>
-        </Box>
-      );
-      return (
-        <Box key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem
-              href="#"
-              submenu={submenuNode("JD", "John Doe")}
-              ariaLabel="John Doe"
-            >
-              <MenuItem>Item Submenu One</MenuItem>
-              <MenuItem>Item Submenu Two</MenuItem>
-            </MenuItem>
-            <MenuItem
-              href="#"
-              submenu={submenuNode("JS", "Jane Smith")}
-              ariaLabel="Jane Smith"
-            >
-              <MenuItem>Item Submenu One</MenuItem>
-              <MenuItem>Item Submenu Two</MenuItem>
-            </MenuItem>
-            <MenuItem
-              href="#"
-              submenu={submenuNode("AB", "Alice Brown")}
-              ariaLabel="Alice Brown"
-            >
-              <MenuItem>Item Submenu One</MenuItem>
-              <MenuItem>Item Submenu Two</MenuItem>
-            </MenuItem>
-            <MenuItem
-              href="#"
-              submenu={submenuNode("BC", "Bob Clark")}
-              ariaLabel="Bob Clark"
-            >
-              <MenuItem>Item Submenu One</MenuItem>
-              <MenuItem>Item Submenu Two</MenuItem>
-            </MenuItem>
-          </Menu>
-        </Box>
-      );
-    })}
-  </Box>
-);
-
-export const MenuComponentScrollable = (
-  props: Partial<ScrollableBlockProps>,
-) => {
-  return (
-    <Box mb={150}>
-      {menuTypes.map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
-            <MenuItem submenu="Menu Item Three">
-              <ScrollableBlock height="200px" {...props}>
-                <MenuItem href="#">Item Submenu One</MenuItem>
-                <MenuItem href="#">Item Submenu Two</MenuItem>
-                <MenuItem href="#">Item Submenu Three</MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-                <MenuItem href="#">Item Submenu Five</MenuItem>
-                <MenuItem href="#">Item Submenu Six</MenuItem>
-                <MenuItem href="#">Item Submenu Seven</MenuItem>
-                <MenuItem href="#">Item Submenu Eight</MenuItem>
-                <MenuItem href="#">Item Submenu Nine</MenuItem>
-                <MenuItem href="#">Item Submenu Ten</MenuItem>
-                <MenuItem href="#">Item Submenu Eleven</MenuItem>
-                <MenuItem href="#">Item Submenu Twelve</MenuItem>
-              </ScrollableBlock>
-            </MenuItem>
-            <MenuItem submenu="Menu Item Four">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <ScrollableBlock variant="alternate" height="200px">
-                <MenuItem href="#">Item Submenu Three</MenuItem>
-                <MenuItem href="#">Item Submenu Four</MenuItem>
-                <MenuItem href="#">Item Submenu Five</MenuItem>
-                <MenuItem href="#">Item Submenu Six</MenuItem>
-                <MenuItem href="#">Item Submenu Seven</MenuItem>
-                <MenuItem href="#">Item Submenu Eight</MenuItem>
-                <MenuItem href="#">Item Submenu Nine</MenuItem>
-                <MenuItem href="#">Item Submenu Ten</MenuItem>
-                <MenuItem href="#">Item Submenu Eleven</MenuItem>
-                <MenuItem href="#">Item Submenu Twelve</MenuItem>
-              </ScrollableBlock>
-            </MenuItem>
-          </Menu>
-        </div>
-      ))}
+export const MenuComponentWithSubmenuNodes = (props: Partial<MenuProps>) => {
+  const submenuNode = (initials: string, name: string) => (
+    <Box display="flex" alignItems="baseline" gap="10px">
+      <Portrait initials={initials} />
+      {name}
     </Box>
+  );
+  return (
+    <Menu {...props}>
+      <MenuItem
+        href="#"
+        submenu={submenuNode("JD", "John Doe")}
+        ariaLabel="John Doe"
+      >
+        <MenuItem>Item Submenu One</MenuItem>
+        <MenuItem>Item Submenu Two</MenuItem>
+      </MenuItem>
+      <MenuItem
+        href="#"
+        submenu={submenuNode("JS", "Jane Smith")}
+        ariaLabel="Jane Smith"
+      >
+        <MenuItem>Item Submenu One</MenuItem>
+        <MenuItem>Item Submenu Two</MenuItem>
+      </MenuItem>
+      <MenuItem
+        href="#"
+        submenu={submenuNode("AB", "Alice Brown")}
+        ariaLabel="Alice Brown"
+      >
+        <MenuItem>Item Submenu One</MenuItem>
+        <MenuItem>Item Submenu Two</MenuItem>
+      </MenuItem>
+      <MenuItem
+        href="#"
+        submenu={submenuNode("BC", "Bob Clark")}
+        ariaLabel="Bob Clark"
+      >
+        <MenuItem>Item Submenu One</MenuItem>
+        <MenuItem>Item Submenu Two</MenuItem>
+      </MenuItem>
+    </Menu>
   );
 };
 
-export const MenuComponentScrollableWithSearch = () => {
-  const items = [
-    "apple",
-    "banana",
-    "carrot",
-    "grapefruit",
-    "melon",
-    "orange",
-    "pear",
-    "strawberry",
-  ];
-  const [itemSearch, setItemSearch] = React.useState(items);
-  const [searchString, setSearchString] = React.useState("");
-  const handleTextChange = (e: SearchEvent) => {
-    const searchStr = e.target.value;
-    setSearchString(searchStr);
-    let found;
-    if (searchStr.length > 0) {
-      found = items.filter((item) => item.includes(searchStr));
-    } else {
-      found = items;
-    }
-    setItemSearch(found);
-  };
+export const MenuComponentScrollable = () => {
   return (
-    <Box mb={300}>
-      <Menu>
-        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
+    <Menu>
+      <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+      <MenuItem href="#">Menu Item Two</MenuItem>
+      <MenuItem submenu="Menu Item Three">
+        <ScrollableBlock height="200px">
           <MenuItem href="#">Item Submenu One</MenuItem>
-          <ScrollableBlock
-            variant="alternate"
-            height="200px"
-            parent={
-              <Search
-                placeholder="search"
-                value={searchString}
-                onChange={handleTextChange}
-              />
-            }
-          >
-            {itemSearch.map((item) => (
-              <MenuItem key={item} href="#">
-                {item}
-              </MenuItem>
-            ))}
-          </ScrollableBlock>
-        </MenuItem>
-      </Menu>
-    </Box>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuItem href="#">Item Submenu Three</MenuItem>
+          <MenuItem href="#">Item Submenu Four</MenuItem>
+          <MenuItem href="#">Item Submenu Five</MenuItem>
+          <MenuItem href="#">Item Submenu Six</MenuItem>
+          <MenuItem href="#">Item Submenu Seven</MenuItem>
+          <MenuItem href="#">Item Submenu Eight</MenuItem>
+          <MenuItem href="#">Item Submenu Nine</MenuItem>
+          <MenuItem href="#">Item Submenu Ten</MenuItem>
+          <MenuItem href="#">Item Submenu Eleven</MenuItem>
+          <MenuItem href="#">Item Submenu Twelve</MenuItem>
+        </ScrollableBlock>
+      </MenuItem>
+    </Menu>
   );
 };
 
-export const MenuComponentSearch = ({ menuType }: Partial<MenuProps>) => {
+export const MenuComponentSearch = (props: Partial<MenuProps>) => {
   const [searchValue, setSearchValue] = useState("");
   return (
-    <Menu menuType={menuType}>
+    <Menu {...props}>
       <MenuItem submenu="Menu One">
         <MenuItem href="#">Item Submenu One</MenuItem>
         <MenuDivider size="large" />
-        <MenuSegmentTitle text="segment title" />
         <MenuItem variant="alternate">
           <Search
-            placeholder="Search"
-            variant={
-              menuType === "black" || menuType === "dark" ? "dark" : "default"
-            }
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
+            inverse={props.variant == "black"}
           />
         </MenuItem>
         <MenuItem href="#">Item Submenu Two</MenuItem>
@@ -273,93 +149,7 @@ export const MenuWithChildrenUpdating = () => {
   );
 };
 
-export const MenuComponentFullScreen = (
-  props: Partial<MenuFullscreenProps>,
-) => {
-  const [menuOpen, setMenuOpen] = useState({
-    light: false,
-    dark: false,
-    white: false,
-    black: false,
-  });
-  const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
-  const responsiveMenuItems = (
-    startPosition: "left" | "right",
-    menu: MenuType,
-  ) => {
-    if (fullscreenViewBreakPoint) {
-      return [
-        <MenuItem
-          key="fullscreen-menu-item-1"
-          onClick={() => setMenuOpen((state) => ({ ...state, [menu]: true }))}
-        >
-          Menu
-        </MenuItem>,
-        <MenuFullscreen
-          key="fullscreen-menu-1"
-          startPosition={startPosition}
-          isOpen={menuOpen[menu]}
-          onClose={() => setMenuOpen((state) => ({ ...state, [menu]: false }))}
-          {...props}
-        >
-          <MenuItem href="#">Menu Item One</MenuItem>
-          <MenuItem onClick={() => {}} submenu="Menu Item Two">
-            <MenuItem href="#">Submenu Item One</MenuItem>
-            <MenuItem href="#">Submenu Item Two</MenuItem>
-          </MenuItem>
-          <MenuItem href="#">Menu Item Three</MenuItem>
-          <MenuItem href="#">Menu Item Four</MenuItem>
-          <MenuItem submenu="Menu Item Five">
-            <MenuItem href="#">Submenu Item One</MenuItem>
-            <MenuItem href="#">Submenu Item Two</MenuItem>
-          </MenuItem>
-          <MenuItem href="#">Menu Item Six</MenuItem>
-        </MenuFullscreen>,
-      ];
-    }
-    return [
-      <MenuItem key="default-menu-item-1" href="#">
-        Menu Item One
-      </MenuItem>,
-      <MenuItem key="default-menu-item-2" submenu="Menu Item Two">
-        <MenuItem href="#">Submenu Item One</MenuItem>
-        <MenuItem href="#">Submenu Item Two</MenuItem>
-      </MenuItem>,
-      <MenuItem key="default-menu-item-3" href="#">
-        Menu Item Three
-      </MenuItem>,
-      <MenuItem key="default-menu-item-4" href="#">
-        Menu Item Four
-      </MenuItem>,
-      <MenuItem key="default-menu-item-5" submenu="Menu Item Five">
-        <MenuItem href="#">Submenu Item One</MenuItem>
-        <MenuItem href="#">Submenu Item Two</MenuItem>
-      </MenuItem>,
-      <MenuItem key="default-menu-item-6" href="#">
-        Menu Item Six
-      </MenuItem>,
-    ];
-  };
-  return (
-    <Box>
-      {menuTypes.map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            {React.Children.map(
-              responsiveMenuItems("left", menuType),
-              (items) => items,
-            )}
-          </Menu>
-        </div>
-      ))}
-    </Box>
-  );
-};
-
-export const MenuComponentFullScreenSimple = ({
+export const MenuComponentFullScreen = ({
   open = true,
 }: {
   open?: boolean;
@@ -367,7 +157,7 @@ export const MenuComponentFullScreenSimple = ({
   const [menuOpen, setMenuOpen] = useState(open);
 
   return (
-    <Menu menuType="light">
+    <Menu>
       <MenuItem key="menu-item" onClick={() => setMenuOpen(true)}>
         Menu
       </MenuItem>
@@ -383,146 +173,30 @@ export const MenuComponentFullScreenSimple = ({
   );
 };
 
-export const MenuComponentFullScreenWithLongSubmenuText = (
-  props: Partial<MenuFullscreenProps>,
-) => {
-  const [menuOpen, setMenuOpen] = useState({
-    light: false,
-    dark: false,
-    white: false,
-    black: false,
-  });
-  const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
-  const responsiveMenuItems = (
-    startPosition: "left" | "right",
-    menu: MenuType,
-  ) => {
-    if (fullscreenViewBreakPoint) {
-      return [
-        <MenuItem
-          key="fullscreen-menu-item-1"
-          onClick={() => setMenuOpen((state) => ({ ...state, [menu]: true }))}
-        >
-          Menu
-        </MenuItem>,
-        <MenuFullscreen
-          key="fullscreen-menu-1"
-          startPosition={startPosition}
-          isOpen={menuOpen[menu]}
-          onClose={() => setMenuOpen((state) => ({ ...state, [menu]: false }))}
-          {...props}
-        >
-          <MenuItem href="#">Menu Item One</MenuItem>
-          <MenuItem
-            onClick={() => {}}
-            submenu="Menu item with a really long topic where the text should not be truncated but instead it should be wrapped"
-          >
-            <MenuItem href="#">
-              Submenu item with a really long topic where the text should not be
-              truncated but instead it should be wrapped
-            </MenuItem>
-            <MenuItem href="#">Submenu Item Two</MenuItem>
-          </MenuItem>
-          <MenuItem href="#">Menu Item Three</MenuItem>
-          <MenuItem href="#">Menu Item Four</MenuItem>
-          <MenuItem submenu="Menu Item Five">
-            <MenuItem href="#">Submenu Item One</MenuItem>
-            <MenuItem href="#">Submenu Item Two</MenuItem>
-          </MenuItem>
-          <MenuItem href="#">Menu Item Six</MenuItem>
-        </MenuFullscreen>,
-      ];
-    }
-    return [
-      <MenuItem key="default-menu-item-1" href="#">
-        Menu Item One
-      </MenuItem>,
-      <MenuItem
-        key="default-menu-item-2"
-        submenu="Menu item with a really long topic where the text should not be truncated but instead it should be wrapped"
-      >
-        <MenuItem href="#">
-          Submenu item with a really long topic where the text should not be
-          truncated but instead it should be wrapped
-        </MenuItem>
-        <MenuItem href="#">Submenu Item Two</MenuItem>
-      </MenuItem>,
-      <MenuItem key="default-menu-item-3" href="#">
-        Menu Item Three
-      </MenuItem>,
-      <MenuItem key="default-menu-item-4" href="#">
-        Menu Item Four
-      </MenuItem>,
-      <MenuItem key="default-menu-item-5" submenu="Menu Item Five">
-        <MenuItem href="#">Submenu Item One</MenuItem>
-        <MenuItem href="#">Submenu Item Two</MenuItem>
-      </MenuItem>,
-      <MenuItem key="default-menu-item-6" href="#">
-        Menu Item Six
-      </MenuItem>,
-    ];
-  };
-  return (
-    <Box>
-      {menuTypes.map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            {React.Children.map(
-              responsiveMenuItems("left", menuType),
-              (items) => items,
-            )}
-          </Menu>
-        </div>
-      ))}
-    </Box>
-  );
-};
-
 export const MenuFullScreenBackgroundScrollTest = () => {
   return (
     <Box height="2000px" position="relative">
       <Box height="100px" position="absolute" bottom="0px">
         I should not be scrolled into view
       </Box>
-      <MenuFullscreen isOpen onClose={() => {}}>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-      </MenuFullscreen>
+      <Menu>
+        <MenuFullscreen isOpen onClose={() => {}}>
+          <MenuItem href="#">Menu Item One</MenuItem>
+          <MenuItem href="#">Menu Item Two</MenuItem>
+        </MenuFullscreen>
+      </Menu>
     </Box>
   );
 };
 
-export const MenuComponentItems = (
-  props: MenuWithChildren & MenuDividerProps,
-) => {
+export const MenuComponentItems = (props: Partial<MenuWithChildren>) => {
   return (
-    <Box mb={150}>
-      <Typography textTransform="capitalize" my={2} />
-      <Menu menuType="white">
-        <MenuItem submenu="Menu Item One" submenuDirection="right" {...props}>
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider size={props.size} />
-          <MenuItem icon="settings" href="#">
-            Item Submenu Three
-          </MenuItem>
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-        </MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem
-          submenu="Menu Item Three"
-          submenuDirection="left"
-          onClick={() => {}}
-          {...props}
-        >
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </Box>
+    <Menu>
+      <MenuItem {...props}>Menu Item One</MenuItem>
+      <MenuItem href="#">Menu Item Two</MenuItem>
+      <MenuItem href="#">Menu Item Two</MenuItem>
+      <MenuItem href="#">Menu Item Two</MenuItem>
+    </Menu>
   );
 };
 
@@ -538,13 +212,7 @@ export const MenuFullScreenWithSearchButton = ({
       <MenuFullscreen isOpen onClose={() => {}}>
         <MenuItem href="#">Menu Item before Search</MenuItem>
         <MenuItem variant="alternate">
-          <Search
-            placeholder="Dark variant"
-            variant="dark"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            searchButton
-          />
+          <Search value={value} onChange={(e) => setValue(e.target.value)} />
         </MenuItem>
         <MenuItem variant="alternate" href="#">
           Menu Item after Search
@@ -585,13 +253,7 @@ export const MenuComponentScrollableParent = (
           <ScrollableBlock
             variant="alternate"
             height="200px"
-            parent={
-              <Search
-                placeholder="parent"
-                value={searchString}
-                onChange={handleTextChange}
-              />
-            }
+            parent={<Search value={searchString} onChange={handleTextChange} />}
             {...props}
           >
             {itemSearch.map((item) => (
@@ -608,60 +270,26 @@ export const MenuComponentScrollableParent = (
 
 export const MenuComponentWithIcon = () => {
   return (
-    <Box mb={150}>
-      {menuTypes.map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem icon="home" href="#">
-              Home
-            </MenuItem>
-            <MenuItem icon="person" href="#" ariaLabel="Account" />
-            <MenuItem icon="settings" submenu="Settings">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuDivider />
-              <MenuItem icon="settings" href="#" ariaLabel="settings" />
-              <MenuItem href="#">Item Submenu Four</MenuItem>
-            </MenuItem>
-            <MenuItem icon="arrow_right" submenu ariaLabel="Actions">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-            </MenuItem>
-          </Menu>
-        </div>
-      ))}
-    </Box>
-  );
-};
-
-export const MenuComponentButtonIcon = () => {
-  return (
-    <div
-      style={{
-        minHeight: "250px",
-      }}
-    >
-      <Menu menuType="dark">
-        <MenuItem icon="settings" submenu="Settings">
-          <MenuItem href="#" icon="settings" onClick={() => {}}>
-            onClick and Icon
-          </MenuItem>
-          <MenuItem onClick={() => {}}>
-            <Box ml="21px">onClick</Box>
-          </MenuItem>
-          <MenuDivider />
-          <MenuItem icon="settings" href="#">
-            href and Icon
-          </MenuItem>
-          <MenuItem href="#">
-            <Box ml="21px">href</Box>
-          </MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
+    <Menu>
+      <MenuItem icon="home" href="#">
+        Home
+      </MenuItem>
+      <MenuItem onClick={() => {}}>
+        <Icon type="settings" /> Settings
+      </MenuItem>
+      <MenuItem icon="person" onClick={() => {}} ariaLabel="Account" />
+      <MenuItem icon="settings" submenu="Settings">
+        <MenuItem href="#">Item Submenu One</MenuItem>
+        <MenuItem href="#">Item Submenu Two</MenuItem>
+        <MenuDivider />
+        <MenuItem icon="settings" href="#" ariaLabel="settings" />
+        <MenuItem href="#">Item Submenu Four</MenuItem>
+      </MenuItem>
+      <MenuItem icon="arrow_right" submenu ariaLabel="Actions">
+        <MenuItem href="#">Item Submenu One</MenuItem>
+        <MenuItem href="#">Item Submenu Two</MenuItem>
+      </MenuItem>
+    </Menu>
   );
 };
 
@@ -669,34 +297,25 @@ export const MenuSegmentTitleComponentWithAdditionalMenuItem = (
   props: Partial<MenuTitleProps>,
 ) => {
   return (
-    <Box mb={150}>
-      {menuTypes.map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem href="#">Menu Item One</MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
-            <MenuItem submenu="Menu Item Three">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuItem icon="settings" href="#">
-                Item Submenu Three
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Four</MenuItem>
-            </MenuItem>
-            <MenuItem submenu="Menu Item Four" onClick={() => {}}>
-              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle {...props} text="segment title">
-                <MenuItem href="#">Last Segment Child</MenuItem>
-              </MenuSegmentTitle>
-              <MenuItem href="#">Menu Item Five</MenuItem>
-            </MenuItem>
-          </Menu>
-        </div>
-      ))}
-    </Box>
+    <Menu>
+      <MenuItem href="#">Menu Item One</MenuItem>
+      <MenuItem href="#">Menu Item Two</MenuItem>
+      <MenuItem submenu="Menu Item Three">
+        <MenuItem href="#">Item Submenu One</MenuItem>
+        <MenuItem href="#">Item Submenu Two</MenuItem>
+        <MenuItem icon="settings" href="#">
+          Item Submenu Three
+        </MenuItem>
+        <MenuItem href="#">Item Submenu Four</MenuItem>
+      </MenuItem>
+      <MenuItem submenu="Menu Item Four" onClick={() => {}}>
+        <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+        <MenuSegmentTitle {...props} text="segment title">
+          <MenuItem href="#">Last Segment Child</MenuItem>
+        </MenuSegmentTitle>
+        <MenuItem href="#">Menu Item Five</MenuItem>
+      </MenuItem>
+    </Menu>
   );
 };
 
@@ -719,82 +338,33 @@ export const ClosedMenuFullScreenWithButtons = () => {
 
 export const MenuDividerComponent = (props: MenuDividerProps) => {
   return (
-    <Box mb={150}>
-      {menuTypes.map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem href="#">Menu Item One</MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
-            <MenuItem submenu="Menu Item Three">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuDivider {...props} />
-              <MenuItem icon="settings" href="#">
-                Item Submenu Three
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Four</MenuItem>
-            </MenuItem>
-            <MenuItem submenu="Menu Item Four" onClick={() => {}}>
-              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle text="segment title" />
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-            </MenuItem>
-          </Menu>
-        </div>
-      ))}
-    </Box>
-  );
-};
-
-export const MenuItemWithPopoverContainerChild = () => {
-  return (
-    <Menu menuType="black">
-      <MenuItem>
-        <PopoverContainer
-          disableAnimation
-          containerAriaLabel="notifications"
-          closeButtonAriaLabel="closeContainerAriaLabel"
-          position="left"
-          shouldCoverButton
-          onOpen={() => {}}
-          onClose={() => {}}
-          open={false}
-          renderOpenComponent={({ ref, onClick }) => (
-            <Box data-role="gblnav-notificationui-bell">
-              <Button aria-label="Notifications" ref={ref} onClick={onClick}>
-                <Box alignItems="center" display="flex" px={2}>
-                  <Icon type="alert" />
-                  notifications
-                </Box>
-              </Button>
-            </Box>
-          )}
-        >
-          Content
-        </PopoverContainer>
+    <Menu>
+      <MenuItem href="#">Menu Item One</MenuItem>
+      <MenuItem href="#">Menu Item Two</MenuItem>
+      <MenuItem submenu="Submenu">
+        <MenuItem href="#">Item Submenu One</MenuItem>
+        <MenuItem href="#">Item Submenu Two</MenuItem>
+        <MenuDivider {...props} />
+        <MenuItem href="#">Item Submenu Three</MenuItem>
+        <MenuItem href="#">Item Submenu Four</MenuItem>
       </MenuItem>
     </Menu>
   );
 };
 
-export const SubmenuMaxWidth = () => (
-  <Menu>
-    <MenuItem
-      maxWidth="240px"
-      submenuMaxWidth="300px"
-      submenu="This is a very long menu item title "
-    >
-      <MenuItem href="#">Item Submenu One</MenuItem>
-      <MenuSegmentTitle text="segment title that should wrap when it will overflow">
-        <MenuItem href="#">Item Two</MenuItem>
-        <MenuItem href="#">
-          This is a longer text string that will wrap when it will overflow the
-          width of the submenu container
-        </MenuItem>
-      </MenuSegmentTitle>
-    </MenuItem>
-  </Menu>
-);
+export const MenuWithSegmentTitle = (props: Partial<MenuProps>) => {
+  return (
+    <Menu {...props}>
+      <MenuItem href="#">Menu Item One</MenuItem>
+      <MenuItem href="#">Menu Item Two</MenuItem>
+      <MenuItem submenu="Submenu">
+        <MenuItem href="#">Item Submenu One</MenuItem>
+        <MenuItem href="#">Item Submenu Two</MenuItem>
+        <MenuSegmentTitle text="segment title">
+          <MenuItem href="#">Item Submenu Three</MenuItem>
+          <MenuItem onClick={() => {}}>Item Submenu Four</MenuItem>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>
+  );
+};

@@ -37,6 +37,18 @@ interface Locale {
     ariaLabels: {
       previousMonthButton: () => string;
       nextMonthButton: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      openCalendarButton?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      chooseMonth?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      chooseYear?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      closeButton?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      openCalendarDescription?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      chooseDate?: () => string;
     };
     dateFormatOverride?: string;
   };
@@ -83,6 +95,9 @@ interface Locale {
   };
   link: {
     skipLinkLabel: () => string;
+  };
+  linkPreview: {
+    closeButtonAriaLabel?: () => string;
   };
   loader: {
     loading: () => string;
@@ -270,6 +285,11 @@ interface Locale {
     on: () => string;
     off: () => string;
     processingLabel: () => string;
+  };
+  table: {
+    sort: {
+      ariaRoleDescription: () => string;
+    };
   };
   tileSelect: {
     deselect: () => string;

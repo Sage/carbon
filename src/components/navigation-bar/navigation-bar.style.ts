@@ -21,10 +21,10 @@ const StyledNavigationBar = styled.nav.attrs(
   display: flex;
   align-items: center;
   padding: 0 40px;
+  min-height: 40px;
 
   & > * {
     box-sizing: border-box;
-    min-height: 40px;
     vertical-align: middle;
   }
 
@@ -65,8 +65,6 @@ const StyledNavigationBar = styled.nav.attrs(
     `}
 
   ${({ $variant }) => css`
-    min-height: 40px;
-
     &[data-component="global-header"] {
       z-index: var(--carbon-zindex-global-nav);
     }
@@ -83,6 +81,8 @@ const StyledNavigationBar = styled.nav.attrs(
     ${$variant === "white" &&
     css`
       background-color: var(--nav-tertiary-bg-default);
+      border-bottom: var(--global-borderwidth-xs) solid
+        var(--nav-tertiary-border-default);
       color: var(--nav-tertiary-label-default);
     `}
   `}

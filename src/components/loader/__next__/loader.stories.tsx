@@ -7,6 +7,11 @@ import Loader, { LoaderProps } from ".";
 
 import Button from "../../button/button.component";
 
+const darkGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-3-xs)",
+  backgroundColor: "rgb(28, 28, 28)",
+};
+
 const meta: Meta<typeof Loader> = {
   title: "Loader",
   component: Loader,
@@ -100,9 +105,9 @@ StandaloneTypicalVariant.storyName = "Standalone Typical Variant";
 
 export const StandaloneTypicalVariantInversed: Story = {
   render: () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="standalone" variant="typical" inverse />
-    </Box>
+    </div>
   ),
 };
 StandaloneTypicalVariantInversed.storyName =
@@ -119,9 +124,9 @@ StandaloneAiVariant.storyName = "Standalone AI Variant";
 
 export const StandaloneAiVariantInversed: Story = {
   render: () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="standalone" variant="ai" inverse />
-    </Box>
+    </div>
   ),
 };
 StandaloneAiVariantInversed.storyName = "Standalone AI Variant Inversed";
@@ -137,9 +142,9 @@ RingStackedVariant.storyName = "Ring Stacked Variant";
 
 export const RingStackedVariantInversed: Story = {
   render: () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="ring" variant="stacked" inverse />
-    </Box>
+    </div>
   ),
 };
 RingStackedVariantInversed.storyName = "Ring Stacked Variant Inversed";
@@ -155,9 +160,9 @@ RingInlineVariant.storyName = "Ring Inline Variant";
 
 export const RingInlineVariantInversed: Story = {
   render: () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="ring" variant="inline" inverse />
-    </Box>
+    </div>
   ),
 };
 RingInlineVariantInversed.storyName = "Ring Inline Variant Inversed";
@@ -182,9 +187,9 @@ RingAiInlineVariant.storyName = "Ring AI Inline Variant";
 
 export const RingAiInlineVariantInversed: Story = {
   render: () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="ring" variant="ai-inline" inverse />
-    </Box>
+    </div>
   ),
 };
 RingAiInlineVariantInversed.storyName = "Ring AI Inline Variant Inversed";

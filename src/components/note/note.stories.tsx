@@ -302,15 +302,15 @@ export const WithPreviews: Story = () => {
   const previews = [
     <LinkPreview
       key="link1"
-      title="This is an example of a title"
+      title="This is a LinkPreview"
       url="https://www.bbc.co.uk"
-      description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
+      description="This is the description of the LinkPreview. Click to go to the linked page."
     />,
     <LinkPreview
       key="link2"
-      title="This is an example of a title"
+      title="This is a LinkPreview"
       url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
+      description="This is the description of the LinkPreview. Click to go to the linked page."
     />,
   ];
   return (

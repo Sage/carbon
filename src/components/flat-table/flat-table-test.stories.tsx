@@ -41,13 +41,19 @@ import DateRange, { DateRangeChangeEvent } from "../date-range";
 import PopoverContainer from "../popover-container";
 import Typography from "../typography";
 
+const redBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-s)",
+  width: "300px",
+  backgroundColor: "rgb(255, 0, 0)",
+};
+
 export default {
-  title: "Flat Table/Test",
+  title: "Deprecated/Flat Table/Test",
   parameters: {
     info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },
     chromatic: {
-      disableSnapshot: false,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -350,7 +356,6 @@ FlatTableStory.args = {
   verticalBorder: undefined,
   verticalBorderColor: "",
 };
-FlatTableStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ExpandableWithLinkAndActionPopover = () => {
   const SubRows = [
@@ -419,9 +424,6 @@ export const ExpandableWithLinkAndActionPopover = () => {
     </FlatTable>
   );
 };
-ExpandableWithLinkAndActionPopover.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const SubRowsAsAComponent = () => {
   const SubRowsComponent = () => (
@@ -479,7 +481,6 @@ export const SubRowsAsAComponent = () => {
     </FlatTable>
   );
 };
-SubRowsAsAComponent.parameters = { chromatic: { disableSnapshot: true } };
 
 export const FlatTableInsideDrawer = () => {
   return (
@@ -805,9 +806,6 @@ export const FlatRowHeaderWithNoPaddingAndButtons = () => {
 };
 FlatRowHeaderWithNoPaddingAndButtons.storyName =
   "Row Header With No Padding and Buttons";
-FlatRowHeaderWithNoPaddingAndButtons.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 const themes: Array<FlatTableProps["colorTheme"]> = [
   "dark",
@@ -1676,7 +1674,7 @@ export const FlatTableWrappingAndTruncation = () => (
   <main>
     <Box mb={2}>
       <h2> With long table header and cell content</h2>
-      <Box p={4} width="300px" backgroundColor="red">
+      <div style={redBackground}>
         <FlatTable title="Table with Long Table Header and Cell">
           <FlatTableHead>
             <FlatTableRow>
@@ -1697,7 +1695,7 @@ export const FlatTableWrappingAndTruncation = () => (
             </FlatTableRow>
           </FlatTableBody>
         </FlatTable>
-      </Box>
+      </div>
     </Box>
     <Box mb={2}>
       <h2> Truncated header</h2>
@@ -2336,7 +2334,4 @@ export const IconColorInsideButtonDebug = () => {
   );
 };
 
-IconColorInsideButtonDebug.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 FlatTableZebraAndDraggable.storyName = "Zebra and Draggable";

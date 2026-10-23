@@ -67,6 +67,9 @@ const StyledBadgeWrapper = styled.div`
   ${margin}
   position: relative;
   display: inline-block;
+  &:has([data-has-full-width="true"]) {
+    width: 100%;
+  }
 `;
 
 const StyledCounter = styled.div`

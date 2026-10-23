@@ -9,7 +9,7 @@ import { $getRoot } from "lexical";
 import Box from "../box";
 import Button from "../button";
 import I18nProvider from "../i18n-provider";
-import EditorLinkPreview from "../link-preview";
+import LinkPreview from "../link-preview";
 import Typography from "../typography";
 import Link from "../link";
 import Form, { FormProps } from "../form";
@@ -28,6 +28,14 @@ import TextEditor, {
 } from ".";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+const transparentBackground: React.CSSProperties = {
+  borderRadius: "var(--global-radius-container-xs)",
+  padding: "var(--global-space-layout-2-xs)",
+  maxHeight: "200px",
+  overflow: "auto",
+  backgroundColor: "rgba(0, 0, 0, 0)",
+};
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -342,43 +350,25 @@ export const OnFormSubmission: Story = () => {
             <Typography variant="h4" mb={1}>
               HTML (with Classes)
             </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
+            <div style={transparentBackground}>
               {data?.htmlString || "No content"}
-            </Box>
+            </div>
           </Box>
           <Box>
             <Typography variant="h4" mb={1}>
               HTML (with Inline Styles)
             </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
+            <div style={transparentBackground}>
               {data?.htmlStringWithInlineStyles || "No content"}
-            </Box>
+            </div>
           </Box>
           <Box>
             <Typography variant="h4" mb={1}>
               JSON
             </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
+            <div style={transparentBackground}>
               {JSON.stringify(data?.json, null, 2) || "No content"}
-            </Box>
+            </div>
           </Box>
         </Box>
       )}
@@ -446,36 +436,48 @@ export const WithLinkAddedCallback: Story = () => {
 WithLinkAddedCallback.storyName = "Link Added Callback";
 
 export const WithLinkPreviews: Story = () => {
-  const initialValue = `<p><span data-lexical-text="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nisi ipsum, facilisis ut luctus non, gravida in orci. Aliquam risus massa, consequat non facilisis vel, bibendum quis nunc. Cras sit amet velit vel libero molestie accumsan. Integer id ipsum nec nunc porta bibendum. Aenean ut porta risus, eget dignissim felis. Praesent vitae tempus ante. Mauris nibh risus, congue ac augue ac, congue auctor metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas vitae enim arcu. Integer quis mattis nunc, in porta neque. Proin sit amet purus congue, faucibus mauris id, consectetur justo. Vestibulum odio nisi, vehicula at odio ut, dapibus scelerisque tortor. Etiam vulputate massa orci, porttitor sollicitudin odio sollicitudin vitae. Mauris et eleifend dolor. Curabitur luctus lacinia sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span></p>`;
-  const value = createFromHTML(initialValue);
+  const defaultHTML = `<a href="https://carbon.sage.com" rel="noreferrer"><span data-lexical-text="true">Carbon</span></a></br><a href="https://www.sage.com" rel="noreferrer"><span data-lexical-text="true">Sage</span></a>`;
+  const value = createFromHTML(defaultHTML);
 
-  const firstRender = useRef(false);
-  const previews = useRef<React.JSX.Element[]>([]);
-  const removeUrl = (reportedUrl: string | undefined) => {
-    previews.current = previews.current.filter(
-      (preview) => reportedUrl !== preview.props.url,
+  const [previews, setPreviews] = useState<React.JSX.Element[]>([]);
+
+  const removeUrl = useCallback((reportedUrl?: string) => {
+    setPreviews((currentPreviews) =>
+      currentPreviews.filter((preview) => reportedUrl !== preview.props.url),
     );
-  };
+  }, []);
 
-  if (!firstRender.current) {
-    firstRender.current = true;
-    previews.current.push(
-      <EditorLinkPreview
-        onClose={(urlString) => removeUrl(urlString)}
-        title="Han Shot First"
-        url="https://en.wikipedia.org/wiki/Han_shot_first"
-        description="Had a slight weapons malfunction but, uh everything's perfectly all right now. We're fine. We're all fine here now. Thank you. How are you?"
+  useEffect(() => {
+    setPreviews([
+      <LinkPreview
         key="key-1"
+        title="This is a LinkPreview"
+        url="https://carbon.sage.com"
+        description="Click on the close button to remove this LinkPreview. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima, obcaecati!"
+        as="div"
+        onClose={(url) => {
+          removeUrl(url);
+        }}
       />,
-    );
-  }
+      <LinkPreview
+        key="key-2"
+        title="This is a LinkPreview"
+        url="https://www.sage.com"
+        description="Click on the close button to remove this LinkPreview. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima, obcaecati!"
+        as="div"
+        onClose={(url) => {
+          removeUrl(url);
+        }}
+      />,
+    ]);
+  }, [removeUrl]);
 
   return (
     <Box mx={2} my={0}>
       <TextEditor
-        namespace="storybook-complexlinkpreviews"
+        namespace="storybook-link-previews"
         labelText="Text Editor"
-        previews={previews.current}
+        previews={previews}
         initialValue={value}
       />
     </Box>

@@ -58,7 +58,7 @@ type SubRowsShapeChildrenOnlySelectableStoryKey =
   keyof SubRowsShapeChildrenOnlySelectableStory;
 
 const meta: Meta<typeof FlatTable> = {
-  title: "Flat Table/Expandable",
+  title: "Deprecated/Flat Table/Expandable",
   component: FlatTable,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -124,7 +124,6 @@ export const DefaultStory: Story = (args: FlatTableCellProps) => {
   );
 };
 DefaultStory.storyName = "Default";
-DefaultStory.parameters = { chromatic: { disableSnapshot: false } };
 
 export const KeyboardAccessibleSubRows: Story = () => {
   const SubRows = [
@@ -293,7 +292,6 @@ export const InitiallyExpanded: Story = () => {
   );
 };
 InitiallyExpanded.storyName = "Initially Expanded";
-InitiallyExpanded.parameters = { chromatic: { disableSnapshot: false } };
 
 export const RowHeaders: Story = () => {
   const SubRows = [
@@ -352,7 +350,6 @@ export const RowHeaders: Story = () => {
   );
 };
 RowHeaders.storyName = "Row Headers";
-RowHeaders.parameters = { chromatic: { disableSnapshot: false } };
 
 export const RowHeadersWithCustomPaddings: Story = () => {
   const SubRows = [
@@ -413,9 +410,6 @@ export const RowHeadersWithCustomPaddings: Story = () => {
   );
 };
 RowHeadersWithCustomPaddings.storyName = "Row Headers with Custom Paddings";
-RowHeadersWithCustomPaddings.parameters = {
-  chromatic: { disableSnapshot: false },
-};
 
 export const Paginated: Story = () => {
   const SubRows = [
@@ -621,7 +615,6 @@ export const Paginated: Story = () => {
   );
 };
 Paginated.storyName = "Paginated";
-Paginated.parameters = { chromatic: { disableSnapshot: false } };
 
 export const BothParentAndChildrenSelectable: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -1325,7 +1318,6 @@ export const TruncatedCellContent: Story = () => {
   );
 };
 TruncatedCellContent.storyName = "Truncated Cell Content";
-TruncatedCellContent.parameters = { chromatic: { disableSnapshot: false } };
 
 export const Controlled: Story = () => {
   const [expanded, setExpanded] = useState(true);
@@ -1596,4 +1588,3 @@ export const Sizes: Story = () => {
   );
 };
 Sizes.storyName = "Sizes";
-Sizes.parameters = { chromatic: { disableSnapshot: false } };

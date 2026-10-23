@@ -1,10 +1,10 @@
 import React from "react";
 
-import { useStrictMenuContext } from "../__internal__/strict-menu.context";
+import MenuItemVariantContext from "../__internal__/menu-item-variant.context";
 import MenuItem, { VariantType } from "../menu-item";
-import StyledScrollableBlock from "./scrollable-block.style";
-import Box from "../../box";
-import { ScrollVariant } from "../../box/box.component";
+import StyledScrollableBlock, {
+  ScrollableContainer,
+} from "./scrollable-block.style";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
@@ -16,7 +16,7 @@ export interface ScrollableBlockProps extends TagProps {
   height?: string | number;
   /** A custom max height to be applied to the component. */
   maxHeight?: string | number;
-  /** set the colour variant for a menuType */
+  /** Set the variant of the ScrollableBlock */
   variant?: VariantType;
   /** the element, if any, displayed at the top of the block to be its semantic "parent",
    * but not part of the scrollable section
@@ -35,46 +35,26 @@ export const ScrollableBlock = ({
   parentVariant,
   ...rest
 }: ScrollableBlockProps) => {
-  const { menuType, inFullscreenView } = useStrictMenuContext();
-
-  const scrollVariants: Record<string, ScrollVariant> = {
-    light: "light",
-    dark: "dark",
-    white: "light",
-    black: "dark",
-  };
-
   return (
     <StyledScrollableBlock
-      menuType={menuType}
-      variant={variant}
-      $inFullscreenView={inFullscreenView}
       {...rest}
       {...tagComponent("submenu-scrollable-block", rest)}
     >
       {parent && (
         <MenuItem
           data-component="scrollable-block-parent"
-          overrideColor
           variant={parentVariant}
-          p="2px 16px"
           as="div"
           data-role="scrollable-block-parent-menu-item"
         >
           {parent}
         </MenuItem>
       )}
-      <Box
-        overflowY="scroll"
-        scrollVariant={scrollVariants[menuType]}
-        height={height}
-        maxHeight={maxHeight}
-        p={0}
-        as="ul"
-        role="list"
-      >
-        {children}
-      </Box>
+      <ScrollableContainer role="list" $height={height} $maxHeight={maxHeight}>
+        <MenuItemVariantContext.Provider value={{ menuItemVariant: variant }}>
+          {children}
+        </MenuItemVariantContext.Provider>
+      </ScrollableContainer>
     </StyledScrollableBlock>
   );
 };

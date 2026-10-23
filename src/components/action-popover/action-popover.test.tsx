@@ -15,12 +15,7 @@ import {
 } from ".";
 
 import Button from "../button";
-import {
-  FlatTable,
-  FlatTableBody,
-  FlatTableRow,
-  FlatTableCell,
-} from "../flat-table";
+import { Table, TableBody, TableRow, TableCell } from "../table";
 import iconUnicodes from "../icon/icon-unicodes";
 import guid from "../../__internal__/utils/helpers/guid";
 import TokensWrapper from "../tokens-wrapper";
@@ -2424,21 +2419,21 @@ test("a menu item's icons are hidden from assistive technologies", async () => {
   expect(itemIcon).toHaveAttribute("aria-hidden", "true");
 });
 
-test("renders backdrop when opened inside FlatTable", async () => {
+test("renders backdrop when opened inside Table", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <FlatTable>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableCell>
+    <Table>
+      <TableBody>
+        <TableRow id="foo">
+          <TableCell>
             <ActionPopover>
               <ActionPopoverItem>example item</ActionPopoverItem>
             </ActionPopover>
-          </FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>,
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>,
   );
 
   await user.click(screen.getByRole("button"));
