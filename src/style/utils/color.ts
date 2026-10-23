@@ -1,4 +1,4 @@
-import { color as styledColor } from "styled-system";
+import { color as styledColor } from "./styled-system-compat";
 import tokens from "@sage/design-tokens/js/base/common";
 import type { ThemeObject } from "../themes/theme.types";
 

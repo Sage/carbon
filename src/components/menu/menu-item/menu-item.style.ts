@@ -1,6 +1,11 @@
 import styled, { css } from "styled-components";
 
-import { padding, layout, flexbox, MaxWidthProps } from "styled-system";
+import {
+  padding,
+  layout,
+  flexbox,
+} from "../../../style/utils/styled-system-compat";
+import type { MaxWidthProps } from "../../../style/utils/styled-system-compat";
 
 import menuConfigVariants from "../menu.config";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";

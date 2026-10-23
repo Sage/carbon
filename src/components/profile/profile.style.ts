@@ -1,5 +1,5 @@
+import { margin } from "../../style/utils/spacing";
 import styled from "styled-components";
-import { margin } from "styled-system";
 
 import Portrait from "../portrait";
 import Typography from "../typography";

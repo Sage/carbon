@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useRef, useState, useEffect } from "react";
-import { MarginProps } from "styled-system";
+
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { ValidationProps } from "../../__internal__/validations";
 import { InputProps } from "../../__internal__/legacy-input";

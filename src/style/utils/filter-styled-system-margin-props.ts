@@ -1,4 +1,4 @@
-import { MarginProps } from "styled-system";
+import type { MarginProps } from "./spacing";
 import filterObjectProperties from "../../__internal__/filter-object-properties";
 
 export const marginPropertyNames = [

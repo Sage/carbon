@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { forwardRef, useEffect, useMemo, useState } from "react";
-import { MarginProps } from "styled-system";
+
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import {
   Tabs as NextTabs,

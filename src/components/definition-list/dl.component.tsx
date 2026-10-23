@@ -1,5 +1,5 @@
 import React from "react";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "../../style/utils/spacing";
 import { StyledDl, StyledDlPair } from "./definition-list.style";
 import { DlProvider } from "./__internal__/dl.context";
 import { groupPairs, isComponent } from "./__internal__/utils";

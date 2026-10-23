@@ -1,11 +1,11 @@
+import type { SpaceProps } from "../../style/utils/spacing";
 import React from "react";
 import {
-  SpaceProps,
   LayoutProps,
   FlexboxProps,
   PositionProps,
   GridProps,
-} from "styled-system";
+} from "../../style/utils/styled-system-compat";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { type Gap } from "../../style/utils/box-gap";
 import {

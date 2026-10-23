@@ -227,8 +227,8 @@ describe("When type is set to 'horizontal'", () => {
     );
     const hr = screen.getByTestId("divider");
 
-    expect(hr).toHaveStyleRule("margin-left", "var(--spacing000)");
-    expect(hr).toHaveStyleRule("margin-right", "var(--spacing000)");
+    expect(hr).toHaveStyleRule("margin-left", "0px");
+    expect(hr).toHaveStyleRule("margin-right", "0px");
   });
 
   test("should apply the 'aria-hidden' attribute when the `aria-hidden` prop is true", () => {

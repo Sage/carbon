@@ -1,5 +1,6 @@
+import type { SpaceProps } from "../../style/utils/spacing";
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { SpaceProps } from "styled-system";
+
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";

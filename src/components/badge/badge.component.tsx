@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useState, useRef } from "react";
-import { MarginProps } from "styled-system";
+
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { StyledBadgeWrapper, StyledCounter, StyledBadge } from "./badge.style";
 import Icon from "../icon";

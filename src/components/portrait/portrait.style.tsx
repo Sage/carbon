@@ -1,8 +1,8 @@
+import type { MarginProps } from "../../style/utils/spacing";
+import { margin } from "../../style/utils/spacing";
 import React from "react";
 
 import styled from "styled-components";
-
-import { margin, MarginProps } from "styled-system";
 
 import Icon from "../icon";
 

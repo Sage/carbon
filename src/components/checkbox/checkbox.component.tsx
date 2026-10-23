@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useContext, useRef, useEffect, ReactNode } from "react";
-import { MarginProps } from "styled-system";
+
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import { StyledCheckbox, StyledCheckboxContentWrapper } from "./checkbox.style";

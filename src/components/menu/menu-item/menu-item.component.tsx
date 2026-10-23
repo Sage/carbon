@@ -7,12 +7,12 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
+import type { PaddingProps } from "../../../style/utils/spacing";
 import {
   FlexboxProps,
   LayoutProps,
   MaxWidthProps,
-  PaddingProps,
-} from "styled-system";
+} from "../../../style/utils/styled-system-compat";
 import invariant from "invariant";
 
 import { defaultFocusableSelectors as focusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";

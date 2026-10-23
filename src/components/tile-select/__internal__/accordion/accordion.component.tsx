@@ -1,5 +1,5 @@
+import type { SpaceProps } from "../../../../style/utils/spacing";
 import React, { useRef, useState } from "react";
-import { SpaceProps } from "styled-system";
 
 import { StyledContentContainer, StyledContent } from "./accordion.style";
 import useResizeObserver from "../../../../hooks/__internal__/useResizeObserver";

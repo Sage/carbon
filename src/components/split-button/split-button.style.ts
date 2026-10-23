@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
+import { margin } from "../../style/utils/spacing";
 import { StyledButton } from "../button/__next__/button.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 

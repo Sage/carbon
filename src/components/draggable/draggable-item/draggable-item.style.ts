@@ -1,7 +1,8 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
+import { padding, margin } from "../../../style/utils/spacing";
 /* istanbul ignore file: Test with Playwright for better reliability */
 
 import styled, { css } from "styled-components";
-import { padding, margin, PaddingProps } from "styled-system";
 import { type Edge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
 
 import applyBaseTheme from "../../../style/themes/apply-base-theme";

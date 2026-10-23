@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { space, grid, MarginProps, GridProps } from "styled-system";
+import { grid, GridProps } from "../../../style/utils/styled-system-compat";
+import { space, type MarginProps } from "../../../style/utils/spacing";
 
 const StyledGridContainer = styled.div<MarginProps & GridProps>`
   display: grid;

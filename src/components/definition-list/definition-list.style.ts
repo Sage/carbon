@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { SpaceProps, space } from "styled-system";
+import { space } from "../../style/utils/spacing";
+import type { SpaceProps } from "../../style/utils/spacing";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { DlProps } from "./dl.component";
 

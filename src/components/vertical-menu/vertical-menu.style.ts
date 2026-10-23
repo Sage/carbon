@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../style/utils/spacing";
+import { margin, padding } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { margin, padding, PaddingProps } from "styled-system";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 

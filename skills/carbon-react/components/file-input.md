@@ -24,24 +24,24 @@ description: Carbon FileInput component props and usage examples.
 | inputHint | React.ReactNode | No |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | isVertical | boolean \| undefined | No |  | Sets the default layout to vertical - with the button below the explanatory text rather than next to it. This is the equivalent of removing the maxHeight prop - it will be over-ridden if this prop is set explicitly. |  |
 | label | string \| undefined | No |  | Label content |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |
+| margin | SpacingProperty | No |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |
 | maxHeight | string \| undefined | No |  | A valid CSS string for the max-height CSS property. |  |
 | maxWidth | string \| undefined | No |  | A valid CSS string for the max-width CSS property. Defaults to the same as the minWidth. |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
+| mb | SpacingProperty | No |  |  |  |
 | minHeight | string \| undefined | No |  | A valid CSS string for the min-height CSS property. |  |
 | minWidth | string \| undefined | No |  | A valid CSS string for the min-width CSS property. |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
+| ml | SpacingProperty | No |  |  |  |
+| mr | SpacingProperty | No |  |  |  |
+| mt | SpacingProperty | No |  |  |  |
+| mx | SpacingProperty | No |  |  |  |
+| my | SpacingProperty | No |  |  |  |
 | name | string \| undefined | No |  | Name of the input |  |
 | required | boolean \| undefined | No |  | Flag to configure component as mandatory. |  |
 | uploadStatus | FileUploadStatusProps \| FileUploadStatusProps[] \| undefined | No |  | used to control how to display the progress of uploaded file(s) within the component |  |

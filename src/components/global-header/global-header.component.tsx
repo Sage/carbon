@@ -1,6 +1,7 @@
 import React from "react";
+import type { PaddingProps } from "../../style/utils/spacing";
 import styled from "styled-components";
-import { PaddingProps, FlexboxProps } from "styled-system";
+import { FlexboxProps } from "../../style/utils/styled-system-compat";
 import NavigationBar from "../navigation-bar";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { GlobalHeaderProvider } from "./__internal__/global-header.context";

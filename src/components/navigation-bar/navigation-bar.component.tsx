@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { PaddingProps, FlexboxProps } from "styled-system";
+import type { PaddingProps } from "../../style/utils/spacing";
+import { FlexboxProps } from "../../style/utils/styled-system-compat";
 import StyledNavigationBar from "./navigation-bar.style";
 import { FixedNavigationBarContextProvider } from "./__internal__/fixed-navigation-bar.context";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
@@ -49,13 +50,16 @@ export const NavigationBar = ({
 }: NavigationBarProps): JSX.Element => {
   const navbarRef = useRef(null);
 
-  const isBlackNavigationType =
-    navigationType === "dark" || navigationType === "black";
   return (
     <StyledNavigationBar
       role="navigation"
       aria-label={ariaLabel}
-      $variant={variant || (isBlackNavigationType ? "black" : "white")}
+      $variant={
+        variant ||
+        (navigationType === "dark" || navigationType === "black"
+          ? "black"
+          : "white")
+      }
       $orientation={orientation}
       $offset={offset}
       $position={position}

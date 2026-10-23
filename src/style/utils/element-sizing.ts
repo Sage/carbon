@@ -1,4 +1,4 @@
-import { layout, styleFn, LayoutProps } from "styled-system";
+import { layout, styleFn, LayoutProps } from "./styled-system-compat";
 
 /*
  * styled-system/layout allows users to use a width, height, minWidth, maxWidth, minHeight, maxHeight,

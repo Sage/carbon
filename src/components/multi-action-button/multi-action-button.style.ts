@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
+import { margin } from "../../style/utils/spacing";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { MultiActionButtonProps } from "./multi-action-button.component";
 import computeSizing from "../../style/utils/element-sizing";

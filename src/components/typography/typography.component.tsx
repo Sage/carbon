@@ -1,5 +1,6 @@
+import type { SpaceProps } from "../../style/utils/spacing";
 import React from "react";
-import { SpaceProps } from "styled-system";
+
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import type { TypographyProps as NextTypographyProps } from "./__internal__/__next__/";
 import type { AllowedCSSTextOverrides } from "./__internal__/__next__/typography.component";

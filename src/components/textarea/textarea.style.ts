@@ -1,5 +1,5 @@
+import { margin } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
 
 import StyledHintText from "../../__internal__/hint-text/hint-text.style";
 import InputPresentationStyle from "../../__internal__/legacy-input/input-presentation.style";

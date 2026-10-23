@@ -1,7 +1,7 @@
+import type { MarginProps } from "../../style/utils/spacing";
 /* istanbul ignore file: Test with Playwright for better reliability */
 
 import React, { useEffect, useState, useRef } from "react";
-import { MarginProps } from "styled-system";
 
 import invariant from "invariant";
 import { filterStyledSystemMarginProps } from "../../style/utils";
