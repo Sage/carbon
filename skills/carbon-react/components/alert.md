@@ -10,7 +10,7 @@ description: Carbon Alert component props and usage examples.
 
 ## Source
 - Export: `./components/alert`
-- Props interface: `DialogProps`
+- Props interface: `AlertProps`
 - Deprecated: Yes
 - Deprecation reason: Alert has been deprecated. See the Carbon documentation for migration details.
 

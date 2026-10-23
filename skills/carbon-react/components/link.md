@@ -5,6 +5,17 @@ description: Carbon Link component props and usage examples.
 
 # Link
 
+Navigates the user to another location.
+
+## Choose instead
+
+- **ButtonNext:** The element performs an on-page action rather than navigation.
+
+## Pitfalls
+
+- Provide href for navigation even when onClick handles client-side routing, so Link renders an anchor rather than a button styled as a link.
+- If underline is set to never, ensure the surrounding context still makes the link identifiable.
+
 ## Import
 `import Link from "carbon-react/lib/components/link";`
 
@@ -23,7 +34,7 @@ description: Carbon Link component props and usage examples.
 | href | string \| undefined | No |  |  |  | An href for an anchor tag. |  |
 | icon | IconType \| undefined | No |  |  |  | An icon to display next to the link. |  |
 | iconAlign | "left" \| "right" \| undefined | No |  |  |  | Which side of the link to the render the link. |  |
-| inverse | boolean \| undefined | No |  |  |  | Sets the colour styling when component is rendered on a dark background |  |
+| inverse | boolean \| undefined | No |  |  |  | Whether to apply inverse styling. |  |
 | isSkipLink | boolean \| undefined | No |  |  |  | Allows to create skip link |  |
 | linkSize | "medium" \| "large" \| undefined | No |  |  |  | Sets the correct link size |  |
 | onClick | ((ev: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Function called when the mouse is clicked. |  |
@@ -94,250 +105,6 @@ description: Carbon Link component props and usage examples.
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### Default
+Load only the example needed for the current task; playground stories are intentionally omitted.
 
-**Args**
-
-```tsx
-{
-    children: "This is an anchor link",
-    href: "https://carbon.sage.com",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => <Link {...args}>{args.children}</Link>
-```
-
-
-### WithUnderlineOnlyOnHover
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    children: "This is an anchor link with an underline applied on hover",
-    underline: "hover",
-  }
-```
-
-
-### WithNoUnderline
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    children: "This is an anchor link with no underline",
-    underline: "never",
-  }
-```
-
-
-### WithIcon
-
-**Args**
-
-```tsx
-{
-    href: "https://carbon.sage.com",
-    icon: "settings",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <>
-      <Typography>
-        <Link iconAlign="left" {...args}>
-          Link with left icon
-        </Link>
-      </Typography>
-      <Typography>
-        <Link iconAlign="right" {...args}>
-          Link with right icon
-        </Link>
-      </Typography>
-    </>
-  )
-```
-
-
-### As Skip Link
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Link href="#main-content" isSkipLink />
-      <Menu>
-        <MenuItem href="#">Menu Item 1</MenuItem>
-        <MenuItem href="#">Menu Item 2</MenuItem>
-        <MenuItem href="#">Menu Item 3</MenuItem>
-        <MenuItem href="#">Menu Item 4</MenuItem>
-        <MenuItem href="#">Menu Item 5</MenuItem>
-      </Menu>
-      <Box py={2} id="main-content">
-        <Typography mb={1} variant="h2">
-          This is header of main content container
-        </Typography>
-        <Typography variant="p">
-          Laborum anim magna pariatur ea mollit elit cillum exercitation irure
-          consectetur. Lorem qui dolor reprehenderit reprehenderit ut ad. Esse
-          magna aliquip ea culpa nulla laborum deserunt cupidatat ullamco fugiat
-          in enim. Sunt velit tempor anim occaecat. Culpa ut consectetur sunt
-          tempor eu est deserunt veniam. Voluptate commodo consequat ipsum
-          aliquip elit aute pariatur occaecat eiusmod culpa dolore voluptate
-          Lorem commodo. Consectetur anim exercitation esse irure est amet
-          adipisicing cupidatat laborum non commodo id. Ex id nostrud aute
-          deserunt. Qui non aute ea eu commodo anim labore dolor minim enim
-          cillum eiusmod commodo ipsum. Consectetur ipsum consectetur Lorem
-          tempor proident cillum eu minim. Adipisicing in nostrud sit Lorem ex
-          aute tempor aliquip aute. Duis dolore laboris labore exercitation enim
-          dolore anim occaecat anim laboris dolor ut. Lorem ullamco adipisicing
-          duis aute non minim. Adipisicing consequat labore non aliquip anim.
-        </Typography>
-        <Link href="https://carbon.sage.com">Carbon Page</Link>
-      </Box>
-    </>
-  );
-}
-```
-
-
-### LinkSize
-
-**Args**
-
-```tsx
-{
-    href: "https://carbon.sage.com",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <>
-      <Typography>
-        <Link linkSize="medium" {...args}>
-          This is a medium link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link linkSize="large" {...args}>
-          This is a large link
-        </Link>
-      </Typography>
-    </>
-  )
-```
-
-
-### Bold
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    children: "This is a bold link",
-    bold: true,
-  }
-```
-
-
-### Variants
-
-**Args**
-
-```tsx
-{
-    href: "https://carbon.sage.com",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <>
-      <Typography>
-        <Link variant="typical" {...args}>
-          This is a typical link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="negative" {...args}>
-          This is a negative link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="subtle" {...args}>
-          This is a subtle link
-        </Link>
-      </Typography>
-    </>
-  )
-```
-
-
-### Inverse
-
-**Args**
-
-```tsx
-{
-    href: "https://carbon.sage.com",
-    inverse: true,
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <>
-      <Typography>
-        <Link variant="typical" {...args}>
-          This is an inverse typical link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="negative" {...args}>
-          This is an inverse negative link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="subtle" {...args}>
-          This is an inverse subtle link
-        </Link>
-      </Typography>
-    </>
-  )
-```
-
-
-### With On Click
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Link onClick={() => {}}>
-      This is actually a button but looks like a link
-    </Link>
-  );
-}
-```
-
+- [As Skip Link](../examples/link/as-skip-link.md) — Allow keyboard users to bypass repeated navigation and move to the main content.
