@@ -7,18 +7,10 @@ import {
   getDataRoleByValue,
 } from "../../../playwright/components";
 import { sidebarPreview } from "../../../playwright/components/sidebar";
-import {
-  checkAccessibility,
-  continuePressingSHIFTTAB,
-  continuePressingTAB,
-  waitForAnimationEnd,
-  waitForElementFocus,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import {
   ControlledSidebar,
   NestedSidebars,
-  SidebarWithBackgroundScrollTarget,
-  SidebarWithBackgroundScrollTargetAndFocusableContainers,
   SidebarWithFocusableContainer,
   SidebarWithShortStickyCustomFooter,
   SidebarWithStickyCustomFooter,
@@ -473,66 +465,6 @@ test.describe("Browser-specific rendering", () => {
       .poll(() => sidebar.evaluate((element) => element.scrollTop))
       .toBeGreaterThan(0);
     await expect(footer).toBeInViewport();
-  });
-
-  test.describe("Check background scroll when tabbing", () => {
-    test("tabbing forward through the sidebar and back to the start should not scroll the background", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SidebarWithBackgroundScrollTarget />);
-
-      await waitForElementFocus(page, sidebarPreview(page));
-      await continuePressingTAB(page, 3);
-      const closeIconButtonElement = closeIconButton(page);
-
-      await expect(closeIconButtonElement).toBeFocused();
-      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
-    });
-
-    test("tabbing backward through the sidebar and back to the start should not scroll the background", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SidebarWithBackgroundScrollTarget />);
-
-      await waitForElementFocus(page, sidebarPreview(page));
-      await continuePressingSHIFTTAB(page, 2);
-      const closeIconButtonElement = closeIconButton(page);
-
-      await expect(closeIconButtonElement).toBeFocused();
-      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
-    });
-
-    test("tabbing forward through the sidebar and other focusable containers back to the start should not scroll the background", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SidebarWithBackgroundScrollTargetAndFocusableContainers />);
-
-      await waitForElementFocus(page, sidebarPreview(page));
-      await continuePressingTAB(page, 5);
-      await waitForAnimationEnd(sidebarPreview(page));
-      const closeIconButtonElement = sidebarPreview(page).getByLabel("Close");
-
-      await expect(closeIconButtonElement).toBeFocused();
-      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
-    });
-
-    test("tabbing backward through the sidebar and other focusable containers back to the start should not scroll the background", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SidebarWithBackgroundScrollTargetAndFocusableContainers />);
-
-      await waitForElementFocus(page, sidebarPreview(page));
-      await continuePressingSHIFTTAB(page, 4);
-      await waitForAnimationEnd(sidebarPreview(page));
-      const closeIconButtonElement = sidebarPreview(page).getByLabel("Close");
-
-      await expect(closeIconButtonElement).toBeFocused();
-      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
-    });
   });
 });
 

@@ -21,13 +21,13 @@ import {
 } from "../../style/utils";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
-import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import guid from "../../__internal__/utils/helpers/guid";
 import { PopoverMenu } from "../../__internal__/popover-menu";
 import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import MultiActionButtonContext from "./__internal__/multi-action-button.context";
 import { globalSizeS, globalSizeM, globalSizeL } from "./__internal__/tokens";
 import { MAX_VISIBLE_ITEMS } from "./multi-action-button.config";
+import { TableBodyContext } from "../table/__internal__/contexts";
 
 export interface MultiActionButtonProps
   extends Omit<
@@ -107,7 +107,7 @@ export const MultiActionButton = forwardRef<
     ref,
   ) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
-    const { isInFlatTable } = useContext(FlatTableContext);
+    const { isInTable } = useContext(TableBodyContext);
     const submenuId = useRef(guid());
 
     useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
@@ -161,7 +161,7 @@ export const MultiActionButton = forwardRef<
     useAdaptiveSidebarModalFocus(() => hideButtons());
 
     useEffect(() => {
-      if (!isInFlatTable) return;
+      if (!isInTable) return;
 
       const handleClickOnPopupBackdrop = (ev: MouseEvent) => {
         if (
@@ -178,7 +178,7 @@ export const MultiActionButton = forwardRef<
       return () => {
         document.removeEventListener("click", handleClickOnPopupBackdrop);
       };
-    }, [hideButtons, isInFlatTable, showAdditionalButtons]);
+    }, [hideButtons, isInTable, showAdditionalButtons]);
 
     return (
       <StyledMultiActionButton
@@ -190,7 +190,7 @@ export const MultiActionButton = forwardRef<
         width={width}
         {...filterStyledSystemMarginProps(rest)}
       >
-        {isInFlatTable && showAdditionalButtons && (
+        {isInTable && showAdditionalButtons && (
           <StyledBackdrop data-role="popup-backdrop" />
         )}
         <SplitButtonContext.Provider
@@ -233,7 +233,7 @@ export const MultiActionButton = forwardRef<
                     onKeyDown={handleToggleButtonKeyDown}
                     onClick={handleClick}
                     isWhite={isWhite}
-                    fullWidth
+                    fullWidth={!!width}
                     {...filterOutStyledSystemSpacingProps(rest)}
                   >
                     {text}
