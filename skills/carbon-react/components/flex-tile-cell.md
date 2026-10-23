@@ -96,6 +96,7 @@ description: Carbon FlexTileCell component props and usage examples.
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-atomic | "true" \| "false" \| undefined | No |  |  |  | Indicates whether AT will announce all, or only parts of, the changed region |  |
 | aria-hidden | "true" \| "false" \| undefined | No |  |  |  | Set the container to be hidden from screen readers |  |
+| aria-label | string \| undefined | No |  |  |  | Set the aria-label attribute of the Box component. Should be used alongside the `role` attribute to provide an accessible name for the component. |  |
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Make the container an aria-live region |  |
 | backgroundColor | string \| undefined | No |  | Yes | This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal. | Set the backgroundColor attribute of the Box component |  |
 | bg | string \| undefined | No |  | Yes | This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal. | Set the bg attribute of the Box component |  |

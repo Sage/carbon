@@ -202,6 +202,22 @@ it("applies the correct styling from the cssProps, when the width and height are
 });
 
 describe("ARIA attributes", () => {
+  describe("aria-label", () => {
+    test("visible element renders with the 'aria-label' attribute and correct value when passed", () => {
+      render(<Box as="div" aria-label="test-label" data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).toHaveAttribute("aria-label", "test-label");
+    });
+
+    test("visible element renders without the 'aria-label' attribute if not passed", () => {
+      render(<Box as="div" data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).not.toHaveAttribute("aria-label");
+    });
+  });
+
   describe("aria-hidden", () => {
     test("visible element renders with the 'aria-hidden' attribute and correct value when 'true' is passed", () => {
       render(<Box aria-hidden="true" data-role="box" />);

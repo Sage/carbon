@@ -117,6 +117,8 @@ export interface BoxProps
   tabIndex?: number;
   /** Indicates whether AT will announce all, or only parts of, the changed region */
   "aria-atomic"?: "true" | "false";
+  /** Set the aria-label attribute of the Box component. Should be used alongside the `role` attribute to provide an accessible name for the component. */
+  "aria-label"?: string;
 }
 
 let deprecateUnsupportedAs = false;
@@ -149,6 +151,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       "aria-hidden": ariaHidden,
       "aria-live": ariaLive,
       "aria-atomic": ariaAtomic,
+      "aria-label": ariaLabel,
       ...rest
     }: BoxProps,
     ref,
@@ -205,6 +208,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         hidden={hidden}
         aria-live={ariaLive}
         aria-atomic={ariaAtomic}
+        aria-label={ariaLabel}
         {...tagComponent(dataComponent, rest)}
         {...filterStyledSystemMarginProps(rest)}
         {...filterStyledSystemPaddingProps(rest)}

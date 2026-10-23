@@ -96,6 +96,7 @@ description: Carbon Box component props and usage examples.
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-atomic | "true" \| "false" \| undefined | No |  |  |  | Indicates whether AT will announce all, or only parts of, the changed region |  |
 | aria-hidden | "true" \| "false" \| undefined | No |  |  |  | Set the container to be hidden from screen readers |  |
+| aria-label | string \| undefined | No |  |  |  | Set the aria-label attribute of the Box component. Should be used alongside the `role` attribute to provide an accessible name for the component. |  |
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Make the container an aria-live region |  |
 | backgroundColor | string \| undefined | No |  | Yes | This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal. | Set the backgroundColor attribute of the Box component |  |
 | bg | string \| undefined | No |  | Yes | This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal. | Set the bg attribute of the Box component |  |
@@ -111,9 +112,9 @@ description: Carbon Box component props and usage examples.
 **Render**
 
 ```tsx
-() => {
+(args: Partial<BoxProps>) => {
   return (
-    <Box m={3}>
+    <Box m={3} {...args}>
       <div style={darkGreenBackground}>
         <Box p={3}>
           <Box height="100px">
@@ -132,9 +133,9 @@ description: Carbon Box component props and usage examples.
 **Render**
 
 ```tsx
-() => {
+(args: Partial<BoxProps>) => {
   return (
-    <Box>
+    <Box {...args}>
       <div style={scrollContainerStyle}>
         <Box width="400px" height="80px" m={2} position="sticky" top="0">
           <div style={greenBackground}>
@@ -170,9 +171,9 @@ description: Carbon Box component props and usage examples.
 **Render**
 
 ```tsx
-() => {
+(args: Partial<BoxProps>) => {
   return (
-    <Box>
+    <Box {...args}>
       <Box
         display="flex"
         flexDirection="row"
@@ -219,9 +220,9 @@ description: Carbon Box component props and usage examples.
 **Render**
 
 ```tsx
-() => {
+(args: Partial<BoxProps>) => {
   return (
-    <Box>
+    <Box {...args}>
       <Box display="grid" gap={1} gridTemplateColumns="auto auto auto">
         <Box padding={50} position="relative" gridColumn="1 / 3" gridRow="1">
           <div style={gridBlockStyle} />
@@ -290,9 +291,9 @@ description: Carbon Box component props and usage examples.
 **Render**
 
 ```tsx
-() => {
+(args: Partial<BoxProps>) => {
   return (
-    <Box display="flex" flexDirection="column" gap={2}>
+    <Box {...args} display="flex" flexDirection="column" gap={2}>
       <Box display="flex" columnGap={1}>
         <Box display="flex" flexDirection="column" rowGap={2}>
           <Box width="100px" height="100px">
@@ -416,9 +417,9 @@ description: Carbon Box component props and usage examples.
 **Render**
 
 ```tsx
-() => {
+(args: Partial<BoxProps>) => {
   return (
-    <Box display="block" size="150px" overflow="hidden">
+    <Box {...args} display="block" size="150px" overflow="hidden">
       <Box width="100px" height="100px" display="inline-block" m="5px">
         <div style={greenBackground} />
       </Box>
@@ -439,9 +440,9 @@ description: Carbon Box component props and usage examples.
 **Render**
 
 ```tsx
-() => {
+(args: Partial<BoxProps>) => {
   return (
-    <Box display="inline-flex">
+    <Box {...args} display="inline-flex">
       <div
         style={{
           border: "solid 1px #00815D",
