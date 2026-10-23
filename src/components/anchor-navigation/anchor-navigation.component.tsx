@@ -6,57 +6,39 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import invariant from "invariant";
 import throttle from "lodash/throttle";
 
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
-import Event from "../../__internal__/utils/helpers/events";
-import {
-  StyledAnchorNavigation,
-  StyledNavigationWrapper,
-  StyledNavigation,
-  StyledContent,
-} from "./anchor-navigation.style";
-import AnchorNavigationItem, {
-  AnchorNavigationItemProps,
-} from "./anchor-navigation-item/anchor-navigation-item.component";
+import { StyledAnchorNavigation } from "./anchor-navigation.style";
+import AnchorNavigationContext, {
+  AnchorNavigationItemId,
+  AnchorNavigationItemEntry,
+} from "./anchor-navigation.context";
+import AnchorNavigationLegacyAdapter from "./anchor-navigation-legacy-adapter.component";
+export {
+  AnchorNavigationContent,
+  AnchorNavigationMenu,
+} from "./anchor-navigation-menu.component";
+export type {
+  AnchorNavigationContentProps,
+  AnchorNavigationMenuProps,
+} from "./anchor-navigation-menu.component";
 
 export interface AnchorNavigationProps
   extends TagProps,
     Pick<AriaAttributes, "aria-label" | "aria-labelledby"> {
   /** Child elements */
   children?: React.ReactNode;
-  /** The AnchorNavigationItems components to be rendered in the sticky navigation.
-  It is important to maintain proper structure.
-  List of AnchorNavigationItems has to be wrapped in React.Fragment */
+  /**
+   * @deprecated Use AnchorNavigationMenu and AnchorNavigationContent.
+   * The prop will be removed in the next major version.
+   */
   stickyNavigation?: React.ReactNode;
 }
 
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
-
-const flattenNavigationChildren = (
-  children: React.ReactNode,
-): React.ReactElement[] => {
-  const result: React.ReactElement[] = [];
-
-  React.Children.forEach(children, (child) => {
-    if (!React.isValidElement(child)) return;
-
-    if (child.type === React.Fragment) {
-      const fragment = child as React.ReactElement<{
-        children?: React.ReactNode;
-      }>;
-      result.push(...flattenNavigationChildren(fragment.props.children));
-      return;
-    }
-
-    result.push(child);
-  });
-
-  return result;
-};
 
 const AnchorNavigation = ({
   children,
@@ -66,76 +48,89 @@ const AnchorNavigation = ({
   "data-element": dataElement,
   "data-role": dataRole,
 }: AnchorNavigationProps): JSX.Element => {
-  invariant(
-    React.isValidElement(stickyNavigation) &&
-      stickyNavigation.type === React.Fragment,
-    "`stickyNavigation` prop in `AnchorNavigation` should be a React Fragment.",
+  const usesLegacyStickyNavigation = stickyNavigation !== undefined;
+  const [selectedItemId, setSelectedItemId] =
+    useState<AnchorNavigationItemId>();
+  const itemRegistry = useRef(
+    new Map<AnchorNavigationItemId, AnchorNavigationItemEntry>(),
   );
 
-  const navigationChildren = useMemo(
-    () => flattenNavigationChildren(stickyNavigation.props.children),
-    [stickyNavigation],
-  );
+  const navigationRef = useRef<HTMLUListElement | null>(null);
 
-  const hasCorrectItemStructure = useMemo(() => {
-    const incorrectChild = navigationChildren.find((child) => {
-      return (
-        (child.type as React.FunctionComponent).displayName !==
-        "AnchorNavigationItem"
+  const isScrollSelectionPaused = useRef(false);
+
+  const scrollSelectionResumeTimer = useRef<NodeJS.Timeout>();
+
+  const registerItem = useCallback((item: AnchorNavigationItemEntry) => {
+    itemRegistry.current.set(item.id, item);
+    setSelectedItemId((current) =>
+      item.initiallySelected ? item.id : (current ?? item.id),
+    );
+
+    return () => {
+      itemRegistry.current.delete(item.id);
+      setSelectedItemId((current) =>
+        current === item.id
+          ? itemRegistry.current.keys().next().value
+          : current,
       );
-    });
+    };
+  }, []);
 
-    return !incorrectChild;
-  }, [navigationChildren]);
-
-  invariant(
-    hasCorrectItemStructure,
-    `\`stickyNavigation\` prop in \`AnchorNavigation\` should be a React Fragment that only contains children of type \`${AnchorNavigationItem.displayName}\``,
+  const setNavigationElement = useCallback(
+    (element: HTMLUListElement | null) => {
+      navigationRef.current = element;
+    },
+    [],
   );
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const pauseScrollSelection = useCallback(() => {
+    // Ignore scroll events caused by focus or programmatic navigation.
+    isScrollSelectionPaused.current = true;
 
-  const sectionRefs = useRef<(React.RefObject<HTMLElement> | undefined)[]>([]);
-  // Keep the targets in sync when conditional navigation items are added,
-  // removed or reordered after the initial render.
-  sectionRefs.current = navigationChildren.map(
-    (child) =>
-      (
-        child as React.ReactElement<
-          AnchorNavigationItemProps,
-          typeof AnchorNavigationItem
-        >
-      ).props.target,
+    if (scrollSelectionResumeTimer.current !== undefined) {
+      window.clearTimeout(scrollSelectionResumeTimer.current);
+    }
+
+    scrollSelectionResumeTimer.current = setTimeout(() => {
+      isScrollSelectionPaused.current = false;
+    }, SCROLL_THROTTLE + 50);
+  }, []);
+
+  const handleFocus = useCallback(
+    (event: React.FocusEvent<HTMLDivElement>) => {
+      const focusedItem = Array.from(itemRegistry.current.values()).find(
+        (item) => item.target?.current?.contains(event.target),
+      );
+
+      if (focusedItem) {
+        setSelectedItemId(focusedItem.id);
+        pauseScrollSelection();
+      }
+    },
+    [pauseScrollSelection],
   );
 
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const navigationRef = useRef<HTMLUListElement>(null);
-
-  const isUserScroll = useRef(true);
-
-  const isUserScrollTimer = useRef<NodeJS.Timeout>();
-
-  const setSelectedAnchorBasedOnScroll = useCallback(() => {
+  const setSelectedItemBasedOnScroll = useCallback(() => {
     // istanbul ignore if
     // function is called only after component is rendered, so ref cannot hold a null value
     if (navigationRef.current === null) return;
 
-    const offsetsWithIndexes = sectionRefs.current
-      .map((sectionRef, index) => [
-        index,
-        sectionRef?.current?.getBoundingClientRect().top,
+    const offsetsWithIds = Array.from(itemRegistry.current.values())
+      .map((item) => [
+        item.id,
+        item.target?.current?.getBoundingClientRect().top,
       ])
       .filter(
-        (offsetWithIndex): offsetWithIndex is [number, number] =>
-          offsetWithIndex[1] !== undefined,
+        (offsetWithId): offsetWithId is [AnchorNavigationItemId, number] =>
+          offsetWithId[1] !== undefined,
       );
 
-    if (offsetsWithIndexes.length === 0) return;
+    if (offsetsWithIds.length === 0) return;
 
     const { top: navTopOffset } = navigationRef.current.getBoundingClientRect();
 
-    const [indexOfSmallestNegativeTopOffset] = offsetsWithIndexes.reduce(
+    const [idOfSmallestNegativeTopOffset] = offsetsWithIds.reduce(
       (currentTop, offsetWithIndex) => {
         const [, offset] = offsetWithIndex;
 
@@ -143,28 +138,23 @@ const AnchorNavigation = ({
           return currentTop;
         return offset > currentTop[1] ? offsetWithIndex : currentTop;
       },
-      offsetsWithIndexes[0],
+      offsetsWithIds[0],
     );
 
-    setSelectedIndex(indexOfSmallestNegativeTopOffset);
+    setSelectedItemId(idOfSmallestNegativeTopOffset);
   }, []);
 
   const scrollHandler = useMemo(
     () =>
       throttle(() => {
-        /* istanbul ignore else */
-        if (isUserScroll.current) {
-          setSelectedAnchorBasedOnScroll();
-        } else {
-          if (isUserScrollTimer.current !== undefined) {
-            window.clearTimeout(isUserScrollTimer.current);
-          }
-          isUserScrollTimer.current = setTimeout(() => {
-            isUserScroll.current = true;
-          }, SCROLL_THROTTLE + 50);
+        if (isScrollSelectionPaused.current) {
+          pauseScrollSelection();
+          return;
         }
+
+        setSelectedItemBasedOnScroll();
       }, SCROLL_THROTTLE),
-    [setSelectedAnchorBasedOnScroll],
+    [pauseScrollSelection, setSelectedItemBasedOnScroll],
   );
 
   useEffect(() => {
@@ -189,76 +179,67 @@ const AnchorNavigation = ({
     focusTarget.focus({ preventScroll: true });
   };
 
-  const scrollToSection = (index: number): void => {
-    const sectionToScroll = sectionRefs.current[index]?.current;
+  const activateItem = useCallback(
+    (id: AnchorNavigationItemId): void => {
+      const sectionToScroll = itemRegistry.current.get(id)?.target?.current;
 
-    if (!sectionToScroll) return;
+      if (!sectionToScroll) return;
 
-    focusSectionHeading(sectionToScroll);
+      focusSectionHeading(sectionToScroll);
 
-    // workaround due to preventScroll focus method option on firefox not working consistently
-    window.setTimeout(() => {
-      isUserScroll.current = false;
-      sectionToScroll.scrollIntoView({
-        block: "start",
-        inline: "nearest",
-        behavior: "smooth",
-      });
-      setSelectedIndex(index);
-    }, 10);
-  };
+      // workaround due to preventScroll focus method option on firefox not working consistently
+      window.setTimeout(() => {
+        pauseScrollSelection();
+        sectionToScroll.scrollIntoView({
+          block: "start",
+          inline: "nearest",
+          behavior: "smooth",
+        });
+        setSelectedItemId(id);
+      }, 10);
+    },
+    [pauseScrollSelection],
+  );
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    index: number,
-  ): void => {
-    event.preventDefault();
-    scrollToSection(index);
-  };
-
-  const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLAnchorElement>,
-    index: number,
-  ): void => {
-    if (Event.isEnterKey(event)) {
-      scrollToSection(index);
-    }
-  };
+  const contextValue = useMemo(
+    () => ({
+      registerItem,
+      usesLegacyStickyNavigation,
+      selectedItemId,
+      activateItem,
+      setNavigationElement,
+      ariaLabel,
+      ariaLabelledby,
+    }),
+    [
+      activateItem,
+      ariaLabel,
+      ariaLabelledby,
+      registerItem,
+      usesLegacyStickyNavigation,
+      selectedItemId,
+      setNavigationElement,
+    ],
+  );
 
   return (
-    <StyledAnchorNavigation
-      ref={contentRef}
-      data-component="anchor-navigation"
-      data-element={dataElement}
-      data-role={dataRole}
-    >
-      <StyledNavigationWrapper
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledby}
+    <AnchorNavigationContext.Provider value={contextValue}>
+      <StyledAnchorNavigation
+        onFocus={handleFocus}
+        data-component="anchor-navigation"
+        data-element={dataElement}
+        data-role={dataRole}
       >
-        {/* role="list" is explicit to restore list semantics in VoiceOver when list-style: none is applied */}
-        <StyledNavigation
-          ref={navigationRef}
-          role="list"
-          data-element="anchor-sticky-navigation"
-        >
-          {navigationChildren.map((child, index) =>
-            React.cloneElement(child, {
-              key: child.key ?? index,
-              href: child.props.href || "#", // need to pass an href to ensure the link is tabbable by default
-              isSelected: index === selectedIndex,
-              onClick: (event: React.MouseEvent<HTMLAnchorElement>) =>
-                handleClick(event, index),
-              onKeyDown: (event: React.KeyboardEvent<HTMLAnchorElement>) =>
-                handleKeyDown(event, index),
-            }),
-          )}
-        </StyledNavigation>
-      </StyledNavigationWrapper>
-      <StyledContent>{children}</StyledContent>
-    </StyledAnchorNavigation>
+        {usesLegacyStickyNavigation ? (
+          <AnchorNavigationLegacyAdapter stickyNavigation={stickyNavigation}>
+            {children}
+          </AnchorNavigationLegacyAdapter>
+        ) : (
+          children
+        )}
+      </StyledAnchorNavigation>
+    </AnchorNavigationContext.Provider>
   );
 };
 
-AnchorNavigation.displayName = "AnchorNavigation";
 export default AnchorNavigation;
