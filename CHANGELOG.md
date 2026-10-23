@@ -1,3 +1,9 @@
+## [162.17.0](https://github.com/Sage/carbon/compare/v162.16.2...v162.17.0) (2026-10-23)
+
+### Features
+
+* **required-fields-indicator:** add `as` prop ([6565f58](https://github.com/Sage/carbon/commit/6565f5819c1ec299eceb8602d71f01c574e14f42))
+
 ## [162.16.2](https://github.com/Sage/carbon/compare/v162.16.1...v162.16.2) (2026-10-22)
 
 ### Bug Fixes
