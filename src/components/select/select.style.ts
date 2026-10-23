@@ -15,8 +15,6 @@ const StyledSelect = styled.div.attrs(applyBaseTheme)<StyledSelectProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin}
 
-  position: relative;
-
   ${InputIconToggleStyle} {
     margin-right: 0;
   }
