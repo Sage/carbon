@@ -97,8 +97,8 @@ const StyledGridItem = styled.div<StyledGridItemProps>`
   ${({
     alignSelf,
     justifySelf,
-    gridArea = "auto / 1 / auto / 13",
-    gridColumn,
+    gridArea,
+    gridColumn = "1 / 13",
     gridRow,
     responsiveSettings,
   }) => css`

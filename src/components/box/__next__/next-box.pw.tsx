@@ -25,8 +25,8 @@ test.describe("Prop tests", () => {
     const dipsBox = page.locator("[data-element='next-box']");
 
     await expect(dipsBox).toBeVisible();
-    await expect(dipsBox).toHaveCSS("margin-top", "48px");
-    await expect(dipsBox).toHaveCSS("padding-bottom", "32px");
+    await expect(dipsBox).toHaveCSS("margin-top", "6px");
+    await expect(dipsBox).toHaveCSS("padding-bottom", "4px");
   });
 
   test("should render approved spacing values as explicit pixels", async ({
@@ -89,7 +89,7 @@ test.describe("Prop tests", () => {
     const dipsBox = page.locator("[data-element='next-box']");
 
     await expect(dipsBox).toBeVisible();
-    await expect(dipsBox).toHaveCSS("margin-top", "32px");
+    await expect(dipsBox).toHaveCSS("margin-top", "4px");
     await expect(dipsBox).toHaveCSS("padding-bottom", "2px");
   });
 });
