@@ -18,6 +18,7 @@ interface PopoverMenuComponentProps {
   width?: string;
   withDisabledItems?: boolean;
   openByDefault?: boolean;
+  maxHeight?: string;
 }
 
 export const PopoverMenuComponent = ({
@@ -115,7 +116,7 @@ export const PopoverButtonMenuComponent = ({
   openByDefault = false,
 }: PopoverMenuComponentProps) => {
   const [open, setOpen] = useState(openByDefault);
-  const [openSubmenu, setOpenSubmenu] = useState(openByDefault);
+  const [openSubmenu, setOpenSubmenu] = useState(false);
 
   return (
     <div style={{ margin: "200px", paddingBottom: "400px" }}>
@@ -164,6 +165,59 @@ export const PopoverButtonMenuComponent = ({
             Action 3
           </Button>
         </MenuItem>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+export const OverflowingPopoverButtonMenuComponent = ({
+  maxHeight,
+  actionCount = 8,
+  submenuOnLastItem = false,
+}: Pick<PopoverMenuComponentProps, "maxHeight"> & {
+  actionCount?: number;
+  submenuOnLastItem?: boolean;
+}) => {
+  const [open, setOpen] = useState(true);
+  const [openSubmenu, setOpenSubmenu] = useState(false);
+
+  return (
+    <div style={{ margin: "200px", paddingBottom: "400px" }}>
+      <PopoverMenu<HTMLButtonElement>
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        isButtonMenu
+        maxHeight={maxHeight}
+        popoverControl={(ref, { role, ...props }) => (
+          <Button
+            ref={ref}
+            {...props}
+            onClick={() => setOpen((currentOpen) => !currentOpen)}
+          >
+            Overflow control
+          </Button>
+        )}
+      >
+        {Array.from({ length: actionCount }, (_, index) => {
+          const isLastItem = index === actionCount - 1;
+          const label = `Overflow action ${index + 1}`;
+
+          return (
+            <MenuItem
+              key={index}
+              {...(submenuOnLastItem &&
+                isLastItem && {
+                  onSubmenuOpen: () => setOpenSubmenu(true),
+                  onSubmenuClose: () => setOpenSubmenu(false),
+                  submenuOpen: openSubmenu,
+                  submenu: <Button>Overflow subaction</Button>,
+                })}
+            >
+              <Button>{label}</Button>
+            </MenuItem>
+          );
+        })}
       </PopoverMenu>
     </div>
   );
