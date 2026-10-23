@@ -42,7 +42,7 @@ test.describe("Time component", () => {
     expect(count).toBe(0);
     await page.keyboard.press("Tab");
     await expect(minutesInput).not.toBeFocused();
-    expect(count).toBe(1);
+    await expect.poll(() => count).toBe(1);
   });
 
   test("should only call onBlur when the user navigates via shift tabbing and neither input is focused", async ({
@@ -66,7 +66,7 @@ test.describe("Time component", () => {
     expect(count).toBe(0);
     await page.keyboard.press("Shift+Tab");
     await expect(hoursInput).not.toBeFocused();
-    expect(count).toBe(1);
+    await expect.poll(() => count).toBe(1);
   });
 
   (Object.keys(sizeMap) as Array<keyof typeof sizeMap>).forEach((size) => {
