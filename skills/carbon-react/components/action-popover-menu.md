@@ -11,6 +11,9 @@ description: Carbon ActionPopoverMenu component props and usage examples.
 ## Source
 - Export: `./components/action-popover`
 - Props interface: `ActionPopoverMenuProps`
+- Deprecated: Yes
+- Deprecation reason: This has been kept for backward compatibility.
+Wrap ActionPopoverItems in a fragment and pass to `submenu` directly
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |

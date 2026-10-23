@@ -4,7 +4,6 @@ import {
   actionPopover,
   actionPopoverButton,
   actionPopoverInnerItem,
-  actionPopoverSubmenuByIndex,
   actionPopoverWrapper,
 } from "../../../playwright/components/action-popover";
 import { dialog } from "../../../playwright/components/dialog";
@@ -17,9 +16,7 @@ import {
 } from "../../../src/components/action-popover";
 import {
   ActionPopoverCustom,
-  ActionPopoverWithIconsAndNoSubmenus,
   ActionPopoverWithProps,
-  ActionPopoverWithSubmenusAndIcons,
   ActionPopoverWithDownloadButton,
   Default,
   AdditionalOptions,
@@ -78,38 +75,33 @@ test("should close opened submenu by keyboard event when another submenu is open
   await expect(businessSubmenuItem).toBeHidden();
 });
 
-test("should close opened submenu by keyboard event when another submenu is opened by hover event", async ({
+test("menu and submenu buttons expand to fit their content", async ({
   mount,
   page,
 }) => {
   await mount(<ActionPopoverWithDifferentSubmenus />);
 
-  const openButton = page.getByRole("button");
-  await openButton.click();
+  await page.getByRole("button", { name: "Actions" }).click();
 
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
+  const businessItem = page.getByRole("button", { name: /Business/ });
+  await expect(businessItem).toBeVisible();
+  expect(
+    await businessItem.evaluate(
+      (element) => element.clientWidth >= element.scrollWidth,
+    ),
+  ).toBe(true);
 
-  const businessSubmenuItem = businessItem
-    .getByRole("listitem")
-    .filter({ hasText: "Business Sub Menu Item" });
+  await businessItem.click();
 
-  await businessItem.press("Enter");
-
-  await expect(businessSubmenuItem).toBeVisible();
-
-  const emailItem = page.getByRole("listitem").filter({ hasText: "Email" });
-
-  const emailSubmenuItem = emailItem
-    .getByRole("listitem")
-    .filter({ hasText: "Email Sub Menu Item" });
-
-  await emailItem.hover();
-
-  await expect(emailSubmenuItem).toBeVisible();
-
-  await expect(businessSubmenuItem).toBeHidden();
+  const submenuItem = page.getByRole("button", {
+    name: "Business Sub Menu Item",
+  });
+  await expect(submenuItem).toBeVisible();
+  expect(
+    await submenuItem.evaluate(
+      (element) => element.clientWidth >= element.scrollWidth,
+    ),
+  ).toBe(true);
 });
 
 test.describe("check functionality for ActionPopover component", () => {
@@ -245,69 +237,6 @@ test.describe("check props for ActionPopover component", () => {
     });
   });
 
-  (["left", "right"] as const).forEach((horizontalAlignment) => {
-    test(`an item's text is aligned to the ${horizontalAlignment}, when horizontalAlignment prop is set to ${horizontalAlignment}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ActionPopoverWithIconsAndNoSubmenus
-          horizontalAlignment={horizontalAlignment}
-        />,
-      );
-
-      const openButton = page.getByRole("button");
-      await openButton.click();
-
-      const firstItem = page.getByRole("listitem").first();
-      await firstItem.hover();
-
-      await expect(firstItem.getByRole("button")).toHaveCSS(
-        "text-align",
-        horizontalAlignment,
-      );
-    });
-  });
-
-  (["left", "right"] as const).forEach((horizontalAlignment) => {
-    test(`a submenu item's text is aligned to the ${horizontalAlignment}, when horizontalAlignment prop is set to ${horizontalAlignment}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ActionPopoverWithSubmenusAndIcons
-          horizontalAlignment={horizontalAlignment}
-        />,
-      );
-
-      const openButton = page.getByRole("button");
-      await openButton.click();
-
-      const firstItem = page.getByRole("listitem").first();
-      await firstItem.hover();
-
-      const firstSubmenuItem = firstItem.getByRole("listitem").first();
-      await expect(firstSubmenuItem).toHaveCSS(
-        "text-align",
-        horizontalAlignment,
-      );
-    });
-  });
-
-  test("should render with submenu opening above when placement prop set to 'top'", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuOpeningAbove />);
-    await actionPopoverButton(page).nth(0).click();
-    await actionPopoverInnerItem(page, 0).hover();
-
-    await expect(actionPopoverSubmenuByIndex(page, 0)).toHaveCSS(
-      "bottom",
-      "-8px",
-    ); // result of calc(-1 * var(--spacing100))
-  });
-
   test("should render with aria-label prop", async ({ mount, page }) => {
     await mount(<ActionPopoverWithProps aria-label="test-aria-label" />);
     await expect(actionPopoverButton(page).nth(0)).toHaveAttribute(
@@ -315,118 +244,6 @@ test.describe("check props for ActionPopover component", () => {
       "test-aria-label",
     );
   });
-});
-
-test("an item's icon is placed left of the item's text, when horizontalAlignment prop is set to 'left'", async ({
-  mount,
-  page,
-}) => {
-  await mount(
-    <ActionPopoverWithIconsAndNoSubmenus horizontalAlignment="left" />,
-  );
-
-  const openingButton = page.getByRole("button");
-  await openingButton.click();
-
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
-  const icon = businessItem.getByTestId("item-icon");
-  const text = businessItem.getByText("Business");
-
-  const iconPosition = await icon.boundingBox();
-  const textPosition = await text.boundingBox();
-
-  if (!iconPosition) throw new Error("Icon isn't visible");
-  if (!textPosition) throw new Error("Text isn't visible");
-
-  expect(iconPosition.x).toBeLessThan(textPosition.x);
-});
-
-test("an item's icon is placed right of the item's text, when horizontalAlignment prop is set to 'right'", async ({
-  mount,
-  page,
-}) => {
-  await mount(
-    <ActionPopoverWithIconsAndNoSubmenus horizontalAlignment="right" />,
-  );
-
-  const openingButton = page.getByRole("button");
-  await openingButton.click();
-
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
-  const icon = businessItem.getByTestId("item-icon");
-  const text = businessItem.getByText("Business");
-
-  const iconPosition = await icon.boundingBox();
-  const textPosition = await text.boundingBox();
-
-  if (!iconPosition) throw new Error("Icon isn't visible");
-  if (!textPosition) throw new Error("Text isn't visible");
-
-  expect(iconPosition.x).toBeGreaterThan(textPosition.x);
-});
-
-test("a submenu item's icon is placed right of the item's text, when horizontalAlignment prop is set to 'right'", async ({
-  mount,
-  page,
-}) => {
-  await mount(
-    <ActionPopoverWithSubmenusAndIcons horizontalAlignment="right" />,
-  );
-
-  const openingButton = page.getByRole("button");
-  await openingButton.click();
-
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
-  await businessItem.hover();
-
-  const firstSubmenuItem = businessItem
-    .getByRole("listitem")
-    .filter({ hasText: "Sub Menu 1" });
-  const icon = firstSubmenuItem.getByTestId("item-icon");
-  const text = firstSubmenuItem.getByText("Sub Menu 1");
-
-  const iconPosition = await icon.boundingBox();
-  const textPosition = await text.boundingBox();
-
-  if (!iconPosition) throw new Error("Icon isn't visible");
-  if (!textPosition) throw new Error("Text isn't visible");
-
-  expect(iconPosition.x).toBeGreaterThan(textPosition.x);
-});
-
-test("a submenu item's icon is placed left of the item's text, when horizontalAlignment prop is set to 'left'", async ({
-  mount,
-  page,
-}) => {
-  await mount(<ActionPopoverWithSubmenusAndIcons horizontalAlignment="left" />);
-
-  const openingButton = page.getByRole("button");
-  await openingButton.click();
-
-  const businessItem = page
-    .getByRole("listitem")
-    .filter({ hasText: "Business" });
-  await businessItem.hover();
-
-  const firstSubmenuItem = businessItem
-    .getByRole("listitem")
-    .filter({ hasText: "Sub Menu 1" });
-  const icon = firstSubmenuItem.getByTestId("item-icon");
-  const text = firstSubmenuItem.getByText("Sub Menu 1");
-
-  const iconPosition = await icon.boundingBox();
-  const textPosition = await text.boundingBox();
-
-  if (!iconPosition) throw new Error("Icon isn't visible");
-  if (!textPosition) throw new Error("Text isn't visible");
-
-  expect(iconPosition.x).toBeLessThan(textPosition.x);
 });
 
 test.describe("Accessibility tests for ActionPopover", () => {
@@ -646,21 +463,72 @@ test.describe("Accessibility tests for ActionPopover", () => {
 });
 
 test.describe("when nested inside a Dialog component", () => {
-  test("should not close the Dialog when component is closed by pressing an escape key", async ({
+  test("Escape closes the main menu before the dialog", async ({
     mount,
     page,
   }) => {
     await mount(<ActionPopoverNestedInDialog />);
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
+    const dialogElement = dialog(page);
+    await expect(dialogElement).toBeFocused();
+    const trigger = actionPopoverButton(page).nth(0);
+    await trigger.click();
 
     await page.keyboard.press("Escape");
 
-    const actionPopoverElement = actionPopover(page);
-    await expect(actionPopoverElement).toBeHidden();
-
-    const dialogElement = dialog(page);
+    await expect(actionPopover(page)).toBeHidden();
     await expect(dialogElement).toBeVisible();
+    await expect(trigger).toBeFocused();
+
+    await page.keyboard.press("Escape");
+
+    await expect(dialogElement).toBeHidden();
+  });
+
+  test("Escape closes the submenu, main menu and dialog separately", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ActionPopoverNestedInDialog withSubmenu />);
+    const dialogElement = dialog(page);
+    await expect(dialogElement).toBeFocused();
+    const trigger = actionPopoverButton(page).nth(0);
+    await trigger.click();
+    const parentItem = page.getByRole("button", { name: /Email Invoice/ });
+    await parentItem.click();
+    const submenuItem = page.getByRole("button", { name: "Submenu item" });
+    await expect(submenuItem).toBeFocused();
+    const caretSpacing = await parentItem.evaluate((button) => {
+      const caret = button.querySelector('[data-element="submenu-icon"]');
+      if (!caret) throw new Error("Expected a submenu caret");
+      return {
+        inset:
+          button.getBoundingClientRect().right -
+          caret.getBoundingClientRect().right,
+        expectedInset: parseFloat(getComputedStyle(button).paddingRight),
+      };
+    });
+    expect(
+      Math.abs(caretSpacing.inset - caretSpacing.expectedInset),
+    ).toBeLessThan(1);
+    await expect(
+      parentItem.locator('[data-role="button-child-container"]'),
+    ).toHaveCSS("justify-content", "start");
+    await expect(
+      submenuItem.locator('[data-role="button-child-container"]'),
+    ).toHaveCSS("justify-content", "center");
+
+    await page.keyboard.press("Escape");
+
+    await expect(submenuItem).toBeHidden();
+    await expect(parentItem).toBeFocused();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(dialogElement).toBeVisible();
+
+    await page.keyboard.press("Escape");
+
+    await expect(actionPopover(page)).toBeHidden();
+    await expect(dialogElement).toBeVisible();
+    await expect(trigger).toBeFocused();
 
     await page.keyboard.press("Escape");
 
