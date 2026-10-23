@@ -1,5 +1,5 @@
 import React from "react";
-import { PaddingProps } from "styled-system";
+import type { PaddingProps } from "../../../style/utils/spacing";
 import Box from "../../box";
 import tagComponent, {
   TagProps,

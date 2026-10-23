@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-
-import { margin, MarginProps, padding, PaddingProps } from "styled-system";
+import { margin, padding } from "../../style/utils/spacing";
+import type { MarginProps, PaddingProps } from "../../style/utils/spacing";
 
 import Sidebar, { SidebarProps } from "../sidebar";
 import applyBaseTheme from "../../style/themes/apply-base-theme";

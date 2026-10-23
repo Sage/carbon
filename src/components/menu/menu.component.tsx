@@ -1,6 +1,9 @@
 import React, { useCallback, useState, useRef } from "react";
 
-import { FlexboxProps, LayoutProps } from "styled-system";
+import type {
+  FlexboxProps,
+  LayoutProps,
+} from "../../style/utils/styled-system-compat";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import { StyledMenuWrapper } from "./menu.style";

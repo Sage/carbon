@@ -138,7 +138,10 @@ export const resolveSpacingValue = (
     return value < 0 ? `-${spaceValue}` : spaceValue;
   }
 
-  return `${value}px`;
+  // styled-system's default space scale uses four-pixel increments when a
+  // component is rendered without a theme. Retain that legacy behaviour for
+  // established APIs; token-first APIs use resolveTokenSpacingValue instead.
+  return `${value * 4}px`;
 };
 
 /** Explicit-pixel resolver for token-first APIs such as NextBox. */
