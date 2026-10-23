@@ -7,6 +7,10 @@ import fg from "fast-glob";
 import ts from "typescript";
 
 import { validateComponentMetadata } from "./component-metadata.mjs";
+import {
+  findDeprecatedImport,
+  hasStorybookImport,
+} from "./example-imports.mjs";
 
 const repoRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -108,6 +112,85 @@ test("keeps authored metadata and generated skills out of the npm package", () =
       .split(path.sep)[0],
     "docs",
   );
+});
+
+test("checks deprecations against the imported binding rather than its module", () => {
+  const deprecatedComponents = [
+    {
+      name: "List",
+      importName: "List",
+      importPath: "carbon-react/lib/components/typography",
+      supportsDefaultImport: false,
+      supportsNamedImport: true,
+    },
+  ];
+
+  assert.equal(
+    findDeprecatedImport(
+      'import Typography from "carbon-react/lib/components/typography";',
+      deprecatedComponents,
+    ),
+    null,
+  );
+  assert.equal(
+    findDeprecatedImport(
+      'import { List as LegacyList } from "carbon-react/lib/components/typography";',
+      deprecatedComponents,
+    )?.name,
+    "List",
+  );
+});
+
+test("identifies Storybook-only example imports", () => {
+  assert.equal(
+    hasStorybookImport('import { action } from "storybook/actions";'),
+    true,
+  );
+  assert.equal(
+    hasStorybookImport('import { Meta } from "@storybook/react-vite";'),
+    true,
+  );
+  assert.equal(hasStorybookImport('import "storybook/preview-api";'), true);
+  assert.equal(hasStorybookImport('import { useState } from "react";'), false);
+});
+
+test("generated component imports match their public export binding", () => {
+  const expectedImports = new Map([
+    [
+      "typography.md",
+      'import Typography from "carbon-react/lib/components/typography";',
+    ],
+    [
+      "list.md",
+      'import { List } from "carbon-react/lib/components/typography";',
+    ],
+    ["pages.md", 'import Pages from "carbon-react/lib/components/pages";'],
+    ["page.md", 'import { Page } from "carbon-react/lib/components/pages";'],
+    ["card.md", 'import Card from "carbon-react/lib/components/card";'],
+    [
+      "card-column.md",
+      'import { CardColumn } from "carbon-react/lib/components/card";',
+    ],
+    [
+      "radio-button.md",
+      'import RadioButton from "carbon-react/lib/components/radio-button";',
+    ],
+    [
+      "radio-button-group.md",
+      'import { RadioButtonGroup } from "carbon-react/lib/components/radio-button";',
+    ],
+  ]);
+
+  for (const [fileName, importStatement] of expectedImports) {
+    const markdown = fs.readFileSync(
+      path.join(repoRoot, "skills", "carbon-react", "components", fileName),
+      "utf8",
+    );
+    assert.ok(
+      markdown.includes(`\`${importStatement}\``),
+      `${fileName} should document ${importStatement}`,
+    );
+  }
 });
 
 test("generated curated examples contain valid TSX", () => {
