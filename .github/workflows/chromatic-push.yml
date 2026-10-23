@@ -25,6 +25,6 @@ jobs:
         run: npm install -g npm@11.19.1
       - run: npm ci
       - name: Run chromatic
-        run: npx chromatic --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --only-changed --exit-once-uploaded
+        run: npx chromatic --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-once-uploaded
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
