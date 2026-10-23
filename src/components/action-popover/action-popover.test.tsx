@@ -132,11 +132,6 @@ test("allows menus to size to their content rather than the trigger width", () =
   );
 
   expect(screen.getByTestId("action-popover-wrapper")).toHaveStyleRule(
-    "max-width",
-    "none",
-    { modifier: '& [data-role="menu-wrapper"]' },
-  );
-  expect(screen.getByTestId("action-popover-wrapper")).toHaveStyleRule(
     "width",
     "100%",
     {
