@@ -6,6 +6,8 @@ import applyBaseTheme from "../../../style/themes/apply-base-theme";
 export interface RequiredIndicatorProps extends MarginProps {
   /** Content to be displayed alongside the required fields indicator */
   children?: React.ReactNode;
+  /** Override the underlying HTML element rendered by the component. */
+  as?: "div" | "span";
 }
 
 const StyledIndicatorContainer = styled.div.attrs(applyBaseTheme)`
@@ -24,9 +26,12 @@ const StyledIndicatorContainer = styled.div.attrs(applyBaseTheme)`
 
 export const RequiredFieldsIndicator = ({
   children,
+  as = "div",
   ...rest
 }: RequiredIndicatorProps) => (
-  <StyledIndicatorContainer {...rest}>{children}</StyledIndicatorContainer>
+  <StyledIndicatorContainer {...rest} as={as}>
+    {children}
+  </StyledIndicatorContainer>
 );
 
 export default RequiredFieldsIndicator;
