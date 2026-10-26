@@ -220,7 +220,14 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
 
         ${StyledFormFooter} {
           position: static;
+        }
+
+        &:has(${StyledForm}.sticky) ${StyledForm}.sticky ${StyledFormFooter} {
           box-shadow: none;
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+          border-top: none;
+          padding-top: 0;
         }
       }
     `}
@@ -251,12 +258,18 @@ const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
         0 -10px 60px 0 rgba(0, 0, 0, 0.1);
     `}
 
-  ${({ $disableStickyOnSmallScreen }) =>
+  ${({ $disableStickyOnSmallScreen, $sticky }) =>
     $disableStickyOnSmallScreen &&
     css`
       @media screen and (max-width: ${smallScreenBreakpoint}) {
         position: static;
         border-radius: 0;
+        ${$sticky &&
+        css`
+          border-top: none;
+          box-shadow: none;
+          padding-top: 0;
+        `}
       }
     `}
 `;
