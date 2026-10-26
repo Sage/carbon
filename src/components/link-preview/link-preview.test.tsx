@@ -3,13 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import LinkPreview from "./link-preview.component";
 
-test("renders with a placeholder image and four loading preview's", () => {
-  render(<LinkPreview />);
-  const placeholderImage = screen.getByTestId("link preview image placeholder");
-  const previews = screen.getAllByTestId("skeleton-placeholder");
-
-  expect(placeholderImage).toBeVisible();
-  expect(previews).toHaveLength(4);
+test("renders as an anchor using the `url` as its href when a `url` is provided", () => {
+  render(<LinkPreview url="https://foo" />);
 
   const link = screen.getByRole("link");
   expect(link).toHaveAttribute("data-component", "link-preview");
@@ -89,13 +84,13 @@ test("renders a placeholder instead of an image when no `image` is provided", ()
 test("renders four loading placeholders when `isLoading` is true", () => {
   render(<LinkPreview url="foo" isLoading />);
 
-  expect(screen.getAllByTestId("preview-placeholder")).toHaveLength(4);
+  expect(screen.getAllByTestId("skeleton-placeholder")).toHaveLength(4);
 });
 
 test('renders three loading placeholders when `isLoading` is true and `size` is "small"', () => {
   render(<LinkPreview url="foo" isLoading size="small" />);
 
-  expect(screen.getAllByTestId("preview-placeholder")).toHaveLength(3);
+  expect(screen.getAllByTestId("skeleton-placeholder")).toHaveLength(3);
 });
 
 test.each(["small", "medium", "large"] as const)(
@@ -113,9 +108,10 @@ test('does not render a close button when `onClose` is set but `as` is not "div"
   expect(screen.queryByRole("button")).not.toBeInTheDocument();
 });
 
-test("renders with four loading preview's when the `isLoading` prop is true", () => {
-  render(<LinkPreview isLoading />);
-  const previews = screen.getAllByTestId("skeleton-placeholder");
+test("calls the `onClose` callback with the `url` when the close button is clicked", async () => {
+  const user = userEvent.setup();
+  const onClose = jest.fn();
+  render(<LinkPreview as="div" url="foo" onClose={onClose} />);
 
   await user.click(screen.getByRole("button", { name: "Close" }));
 

@@ -10,9 +10,8 @@ import {
   StyledThumbnailWrapper,
   StyledThumbnailImage,
 } from "./link-preview.style";
-import Image from "../image";
 import Skeleton from "../skeleton";
-import IconButton from "../icon-button";
+import Button from "../button/__next__";
 import Icon from "../icon";
 import Divider from "../divider";
 import Placeholder from "./__internal__/placeholder.component";
@@ -88,16 +87,15 @@ export const LinkPreview = ({
   const internalIsLoading = isLoading || !url;
   const showPlaceholderImage = internalIsLoading || !imageProps().src;
 
-  // TODO: check when Preview is aligned with Fusion
   const preview = (
     <>
-      <Preview
+      <Skeleton
         loading
         my="var(--global-space-comp-s)"
         height={size === "small" ? "16px" : "20px"}
         width="100%"
       />
-      <Preview
+      <Skeleton
         loading
         my="var(--global-space-comp-s)"
         height="10px"
@@ -144,26 +142,20 @@ export const LinkPreview = ({
       {...rest}
       {...tagComponent("link-preview", rest)}
     >
-      {imageProps().src ? <Image {...imageProps()} /> : <Placeholder />}
-      <StyledPreviewWrapper isLoading={loadingState}>
-        <Skeleton loading={loadingState} lines={4}>
-          <StyledTitle>{title}</StyledTitle>
-          <StyledDescription>
-            <div>{description}</div>
-          </StyledDescription>
-          <StyledUrl>{displayUrl()}</StyledUrl>
-        </Skeleton>
-      </StyledPreviewWrapper>
-      {onClose && as === "div" && (
-        <StyledCloseIconWrapper>
-          <IconButton
-            aria-label="link preview close button"
-            onClick={() => onClose(url)}
-          >
-            <Icon type="close" />
-          </IconButton>
-        </StyledCloseIconWrapper>
-      )}
+      <StyledThumbnailWrapper>
+        {showPlaceholderImage ? (
+          <Placeholder />
+        ) : (
+          <StyledThumbnailImage
+            {...(!image?.alt && { "aria-hidden": "true" })}
+            {...imageProps()}
+          />
+        )}
+      </StyledThumbnailWrapper>
+      <Divider m={0} type="horizontal" />
+      <StyledWrapper $size={size} $isLoading={internalIsLoading}>
+        {internalIsLoading ? preview : content}
+      </StyledWrapper>
     </StyledLinkPreview>
   );
 };
