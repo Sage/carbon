@@ -17,6 +17,7 @@ import FileInputComponent, {
 import { selectFileButton } from "../../../playwright/components/file-input";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { FileUploadStatusProps } from ".";
+import TokensWrapper from "../tokens-wrapper";
 
 declare global {
   interface File {
@@ -186,6 +187,71 @@ test.describe("responsive sizing", () => {
 });
 
 test.describe("interactions", () => {
+  (["light", "dark"] as const).forEach((mode) => {
+    test(`error drag-over maintains 3:1 border contrast in ${mode} mode`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TokensWrapper modeSupportOptIn modeOverride={mode}>
+          <FileInputComponent error="Choose a valid file" />
+        </TokensWrapper>,
+      );
+      const dropZone = page.getByTestId("file-input-presentation");
+      const initialBackground = await dropZone.evaluate(
+        (element) => getComputedStyle(element).backgroundColor,
+      );
+      const dragArgs = {
+        page,
+        selector: '[data-role="file-input-presentation"]',
+        filePath: path.join(process.cwd(), "playwright", "README.md"),
+        fileName: "README.md",
+      };
+
+      await dragFile({ ...dragArgs, eventName: "dragover" });
+      await expect(dropZone).not.toHaveCSS(
+        "background-color",
+        initialBackground,
+      );
+
+      const contrast = await dropZone.evaluate((element) => {
+        const border = element.querySelector("rect");
+        if (!border) throw new Error("File Input dashed border was not found");
+
+        // WCAG relative luminance: https://www.w3.org/TR/WCAG22/#dfn-relative-luminance
+        const luminance = (color: string) => {
+          const match = /^rgb\((\d+), (\d+), (\d+)\)$/.exec(color);
+          if (!match) throw new Error(`Expected an opaque RGB color: ${color}`);
+          const [red, green, blue] = match.slice(1).map((channel) => {
+            const value = Number(channel) / 255;
+            return value <= 0.04045
+              ? value / 12.92
+              : ((value + 0.055) / 1.055) ** 2.4;
+          });
+          return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+        };
+        const background = luminance(getComputedStyle(element).backgroundColor);
+        const stroke = luminance(getComputedStyle(border).stroke);
+        return (
+          (Math.max(background, stroke) + 0.05) /
+          (Math.min(background, stroke) + 0.05)
+        );
+      });
+      expect(contrast).toBeGreaterThanOrEqual(3);
+
+      await dragFile({ ...dragArgs, eventName: "dragleave" });
+      await expect(dropZone).toHaveCSS("background-color", initialBackground);
+
+      await dragFile({ ...dragArgs, eventName: "dragover" });
+      await expect(dropZone).not.toHaveCSS(
+        "background-color",
+        initialBackground,
+      );
+      await dragFile({ ...dragArgs, eventName: "drop" });
+      await expect(dropZone).toHaveCSS("background-color", initialBackground);
+    });
+  });
+
   test("clicking empty drop-zone space does not open the file picker", async ({
     mount,
     page,
@@ -774,7 +840,8 @@ test.describe("accessibility tests for FileInput", () => {
     await mount(<FileInputComponent multiple uploadStatus={uploadStatuses} />);
     await expect(
       page.getByRole("list", {
-        name: "Current files (3) 1 file couldn't be uploaded",
+        name: "Current files (3) 1 file uploading, 1 of 3 files uploaded successfully. 1 file couldn't be uploaded.",
+        exact: true,
       }),
     ).toBeVisible();
     await checkAccessibility(page);

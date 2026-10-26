@@ -14,6 +14,7 @@ import {
 export interface FileUploadStatusListProps {
   items: FileUploadStatusProps[];
   label: string;
+  statusSummary?: string;
   errorSummary?: string;
   moveFocusAfterAction: (
     element: HTMLElement,
@@ -30,6 +31,7 @@ export interface FileUploadStatusListProps {
 const FileUploadStatusList = ({
   items,
   label,
+  statusSummary,
   errorSummary,
   moveFocusAfterAction,
   maxHeight,
@@ -40,6 +42,7 @@ const FileUploadStatusList = ({
   announceInitialErrors,
 }: FileUploadStatusListProps) => {
   const labelId = useRef(guid());
+  const statusSummaryId = useRef(guid());
   const errorSummaryId = useRef(guid());
 
   return (
@@ -52,6 +55,15 @@ const FileUploadStatusList = ({
         >
           {label}
         </StyledFileUploadStatusListLabel>
+        {statusSummary && (
+          <StyledFileUploadStatusListLabel
+            variant="p"
+            id={statusSummaryId.current}
+            $visuallyHidden={!multiple}
+          >
+            {statusSummary}
+          </StyledFileUploadStatusListLabel>
+        )}
         {errorSummary && (
           <StyledFileUploadStatusListErrorSummary
             variant="p"
@@ -66,11 +78,13 @@ const FileUploadStatusList = ({
         tabIndex={-1}
         // The summary joins the list name, which screen readers announce on
         // entering the list; a list description is rarely read from its items.
-        aria-labelledby={
-          errorSummary
-            ? `${labelId.current} ${errorSummaryId.current}`
-            : labelId.current
-        }
+        aria-labelledby={[
+          labelId.current,
+          statusSummary ? statusSummaryId.current : undefined,
+          errorSummary ? errorSummaryId.current : undefined,
+        ]
+          .filter(Boolean)
+          .join(" ")}
         aria-describedby={removalAnnouncementId}
         $hasMultipleItems={items.length > 1}
       >

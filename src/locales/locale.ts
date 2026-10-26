@@ -7,6 +7,11 @@ export interface CurrentFileStatusCounts {
   errorCount: number;
 }
 
+export type CurrentFileProgressCounts = Pick<
+  CurrentFileStatusCounts,
+  "totalCount" | "uploadingCount" | "completedCount"
+>;
+
 interface Locale {
   locale: () => string;
   actions: {
@@ -95,6 +100,7 @@ interface Locale {
     fileUploadStatus?: () => string;
     requiredDescription?: () => string;
     currentFiles?: (count: number) => string;
+    currentFilesProgressSummary?: (counts: CurrentFileProgressCounts) => string;
     currentFilesErrorSummary?: (counts: CurrentFileStatusCounts) => string;
     previouslyUploadedFiles?: (count: number) => string;
     uploading?: () => string;

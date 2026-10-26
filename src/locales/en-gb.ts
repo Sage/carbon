@@ -114,10 +114,33 @@ const enGB: Locale = {
     requiredDescription: () => "This field is required.",
     currentFiles: (count) =>
       count === 1 ? `Current file (${count})` : `Current files (${count})`,
+    currentFilesProgressSummary: ({
+      totalCount,
+      uploadingCount,
+      completedCount,
+    }) => {
+      const summaries: string[] = [];
+
+      if (uploadingCount > 0) {
+        summaries.push(
+          `${uploadingCount} file${uploadingCount === 1 ? "" : "s"} uploading`,
+        );
+      }
+
+      if (completedCount > 0) {
+        summaries.push(
+          completedCount === 1 && totalCount === 1
+            ? "1 file uploaded successfully"
+            : `${completedCount} of ${totalCount} files uploaded successfully`,
+        );
+      }
+
+      return summaries.length > 0 ? `${summaries.join(", ")}.` : "";
+    },
     currentFilesErrorSummary: ({ errorCount }) =>
       errorCount === 1
-        ? "1 file couldn't be uploaded"
-        : `${errorCount} files couldn't be uploaded`,
+        ? "1 file couldn't be uploaded."
+        : `${errorCount} files couldn't be uploaded.`,
     previouslyUploadedFiles: (count) =>
       count === 1
         ? `Previously uploaded file (${count})`

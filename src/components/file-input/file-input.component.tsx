@@ -176,6 +176,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
       dragAndDrop,
       announcements,
       currentFiles,
+      currentFilesProgressSummary,
       currentFilesErrorSummary,
       previouslyUploadedFiles,
       requiredDescription,
@@ -201,6 +202,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
     const currentStatusCounts = countStatuses(currentStatuses);
     const hasFiles =
       currentStatuses.length > 0 || previouslyUploadedStatuses.length > 0;
+    const canSelectFiles = multiple || !hasFiles;
 
     // Errors on statuses present at first render stay silent (no page-load
     // noise); errors on statuses added after mount are announced to screen
@@ -259,7 +261,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
     });
 
     const addFiles = (files: FileList) => {
-      if (disabled || !files.length || (!multiple && hasFiles)) return;
+      if (disabled || !files.length || !canSelectFiles) return;
       if (!multiple && files.length === 1) {
         requestFileStatusFocus();
       }
@@ -346,7 +348,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
                 {label && (
                   <Label
                     size="medium"
-                    htmlFor={inputId}
+                    htmlFor={canSelectFiles ? inputId : undefined}
                     id={labelId}
                     isRequired={required}
                     disabled={disabled}
@@ -381,7 +383,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
                   addFiles(event.currentTarget.files as FileList);
                 }}
               />
-              {(multiple || !hasFiles) && (
+              {canSelectFiles && (
                 <StyledFileInputDropZone
                   data-role="file-input-presentation"
                   $minWidth={minWidth}
@@ -447,9 +449,19 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
                     {...sharedStatusListProps}
                     items={currentStatuses}
                     label={currentFiles(currentStatuses.length)}
+                    // In single-file mode the status card already conveys the
+                    // file's state, so collection summaries would duplicate it.
+                    statusSummary={
+                      multiple
+                        ? currentFilesProgressSummary({
+                            totalCount: currentStatusCounts.totalCount,
+                            uploadingCount: currentStatusCounts.uploadingCount,
+                            completedCount: currentStatusCounts.completedCount,
+                          })
+                        : undefined
+                    }
                     errorSummary={
-                      currentStatuses.length > 1 &&
-                      currentStatusCounts.errorCount > 0
+                      multiple && currentStatusCounts.errorCount > 0
                         ? currentFilesErrorSummary(currentStatusCounts)
                         : undefined
                     }

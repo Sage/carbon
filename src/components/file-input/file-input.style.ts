@@ -62,11 +62,16 @@ interface FileInputDropZoneProps {
 
 const getDropZoneBackground = ({
   $disabled,
+  $error,
   $isDraggedOver,
-}: Pick<FileInputDropZoneProps, "$disabled" | "$isDraggedOver">) => {
+}: Pick<FileInputDropZoneProps, "$disabled" | "$error" | "$isDraggedOver">) => {
   if ($disabled) return "var(--input-typical-bg-disabled)";
-  /* istanbul ignore next -- verified by Chromatic drag-over state */
-  if ($isDraggedOver) return "var(--input-typical-bg-hover)";
+  /* istanbul ignore next -- verified by Playwright drag-over contrast checks */
+  if ($isDraggedOver) {
+    return $error
+      ? "var(--mode-color-status-negative-default-alt)"
+      : "var(--input-typical-bg-hover)";
+  }
   return "var(--input-typical-bg-default)";
 };
 

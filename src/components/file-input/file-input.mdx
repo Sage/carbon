@@ -331,6 +331,13 @@ File action text is also used in each action's accessible name, followed by the 
       returnType: "string",
     },
     {
+      name: "fileInput.currentFilesProgressSummary",
+      description:
+        "The summary of uploading and successfully uploaded files shown beneath the current-files label in a multiple-file list. The function receives totalCount, uploadingCount, and completedCount; failures are reported by currentFilesErrorSummary.",
+      type: "func",
+      returnType: "string",
+    },
+    {
       name: "fileInput.currentFilesErrorSummary",
       description:
         "The error summary shown below the current-files label when one or more files have failed in a multiple-file list. The function receives totalCount, uploadingCount, completedCount, and errorCount.",

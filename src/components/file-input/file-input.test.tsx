@@ -432,6 +432,46 @@ test("associates a single-file status with the field label when it replaces the 
   ).toBeVisible();
 });
 
+test("does not associate the label with the input when a single-file status replaces the drop zone", () => {
+  render(
+    <FileInput
+      label="Files"
+      onChange={() => {}}
+      uploadStatus={{
+        status: "completed",
+        filename: "a.pdf",
+        onDelete: () => {},
+      }}
+    />,
+  );
+
+  expect(
+    screen.queryByLabelText("Files", { selector: "input" }),
+  ).not.toBeInTheDocument();
+});
+
+test.each([
+  ["no file is present", false, undefined],
+  [
+    "multiple files are allowed and a status is present",
+    true,
+    { status: "completed", filename: "a.pdf", onDelete: () => {} } as const,
+  ],
+])("associates the label with the input when %s", (_, multiple, status) => {
+  render(
+    <FileInput
+      label="Files"
+      multiple={multiple}
+      onChange={() => {}}
+      uploadStatus={status}
+    />,
+  );
+
+  expect(
+    screen.getByLabelText("Files", { selector: "input" }),
+  ).toBeInTheDocument();
+});
+
 test("keeps the drop zone and renders named current and previous lists", () => {
   render(
     <FileInput
@@ -466,7 +506,7 @@ test("keeps the drop zone and renders named current and previous lists", () => {
   ).toBeVisible();
   expect(
     screen.getByRole("list", {
-      name: "Current files (2) 1 file couldn't be uploaded",
+      name: "Current files (2) 1 file uploading. 1 file couldn't be uploaded.",
     }),
   ).toBeVisible();
   expect(
@@ -495,10 +535,10 @@ test("shows an error summary when any of multiple current files fails", () => {
     />,
   );
 
-  expect(screen.getByText("1 file couldn't be uploaded")).toBeVisible();
+  expect(screen.getByText("1 file couldn't be uploaded.")).toBeVisible();
   expect(
     screen.getByRole("list", {
-      name: "Current files (2) 1 file couldn't be uploaded",
+      name: "Current files (2) 1 of 2 files uploaded successfully. 1 file couldn't be uploaded.",
     }),
   ).toBeInTheDocument();
 
@@ -514,24 +554,128 @@ test("shows an error summary when any of multiple current files fails", () => {
     />,
   );
 
+  expect(screen.getByText("1 file couldn't be uploaded.")).toBeVisible();
   expect(
-    screen.queryByText("1 file couldn't be uploaded"),
+    screen.getByRole("list", {
+      name: "Current file (1) 1 file couldn't be uploaded.",
+    }),
+  ).toBeInTheDocument();
+});
+
+describe("default current-files summaries", () => {
+  const uploading = (filename: string): FileUploadStatusProps => ({
+    status: "uploading",
+    filename,
+    onCancel: () => {},
+  });
+  const completed = (filename: string): FileUploadStatusProps => ({
+    status: "completed",
+    filename,
+    onDelete: () => {},
+  });
+  const failed = (filename: string): FileUploadStatusProps => ({
+    status: "error",
+    filename,
+    onRemove: () => {},
+  });
+
+  test.each([
+    {
+      scenario: "one completed file",
+      statuses: [completed("a.pdf")],
+      visibleSummaries: ["1 file uploaded successfully."],
+      listName: "Current file (1) 1 file uploaded successfully.",
+    },
+    {
+      scenario: "several uploading files",
+      statuses: [uploading("a.pdf"), uploading("b.pdf")],
+      visibleSummaries: ["2 files uploading."],
+      listName: "Current files (2) 2 files uploading.",
+    },
+    {
+      scenario: "uploading and completed files",
+      statuses: [uploading("a.pdf"), completed("b.pdf"), completed("c.pdf")],
+      visibleSummaries: [
+        "1 file uploading, 2 of 3 files uploaded successfully.",
+      ],
+      listName:
+        "Current files (3) 1 file uploading, 2 of 3 files uploaded successfully.",
+    },
+    {
+      scenario: "uploading, completed, and failed files",
+      statuses: [
+        uploading("a.pdf"),
+        uploading("b.pdf"),
+        completed("c.pdf"),
+        failed("d.pdf"),
+        failed("e.pdf"),
+      ],
+      visibleSummaries: [
+        "2 files uploading, 1 of 5 files uploaded successfully.",
+        "2 files couldn't be uploaded.",
+      ],
+      listName:
+        "Current files (5) 2 files uploading, 1 of 5 files uploaded successfully. 2 files couldn't be uploaded.",
+    },
+    {
+      scenario: "only failed files",
+      statuses: [failed("a.pdf"), failed("b.pdf")],
+      visibleSummaries: ["2 files couldn't be uploaded."],
+      listName: "Current files (2) 2 files couldn't be uploaded.",
+    },
+  ])(
+    "punctuates and joins the summaries for $scenario",
+    ({ statuses, visibleSummaries, listName }) => {
+      render(
+        <FileInput multiple onChange={() => {}} uploadStatus={statuses} />,
+      );
+
+      visibleSummaries.forEach((summary) => {
+        expect(screen.getByText(summary)).toBeVisible();
+      });
+      expect(screen.getByRole("list", { name: listName })).toBeVisible();
+    },
+  );
+});
+
+test("does not add collection summaries in single-file mode", () => {
+  render(
+    <FileInput
+      onChange={() => {}}
+      uploadStatus={{
+        status: "error",
+        filename: "failed.pdf",
+        onRemove: () => {},
+      }}
+    />,
+  );
+
+  expect(
+    screen.queryByText("1 file couldn't be uploaded."),
   ).not.toBeInTheDocument();
   expect(
     screen.getByRole("list", { name: "Current file (1)" }),
   ).toBeInTheDocument();
 });
 
-test("provides all current status counts to the error-summary translation", () => {
+test("provides all current status counts to the summaries", () => {
   const currentFilesErrorSummary = jest.fn(
     ({ errorCount, totalCount }) => `${errorCount} out of ${totalCount} failed`,
+  );
+  const currentFilesProgressSummary = jest.fn(
+    ({ uploadingCount, completedCount }) =>
+      `${uploadingCount} uploading, ${completedCount} uploaded`,
   );
 
   render(
     <I18nProvider
       locale={{
         ...enGB,
-        fileInput: { ...enGB.fileInput, currentFilesErrorSummary },
+        fileInput: {
+          ...enGB.fileInput,
+          currentFilesErrorSummary,
+          currentFilesProgressSummary,
+        },
       }}
     >
       <FileInput
@@ -560,7 +704,16 @@ test("provides all current status counts to the error-summary translation", () =
     completedCount: 1,
     errorCount: 1,
   });
-  expect(screen.getByText("1 out of 3 failed")).toBeVisible();
+  expect(currentFilesProgressSummary).toHaveBeenCalledWith({
+    totalCount: 3,
+    uploadingCount: 1,
+    completedCount: 1,
+  });
+  expect(
+    screen.getByRole("list", {
+      name: "Current files (3) 1 uploading, 1 uploaded 1 out of 3 failed",
+    }),
+  ).toBeVisible();
 });
 
 test("accepts legacy locale keys without using them at runtime", () => {
