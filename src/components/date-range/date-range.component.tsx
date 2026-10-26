@@ -28,6 +28,7 @@ import DateRangeContext, {
   SetInputRefMapValue,
 } from "./__internal__/date-range.context";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
+import FieldsetContext from "../fieldset/__internal__/fieldset.context";
 
 interface DateInputValue {
   formattedValue: string;
@@ -163,6 +164,8 @@ export const DateRange = ({
   ...rest
 }: DateRangeProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
+  const { size: fieldsetSize } = useContext(FieldsetContext);
+  const size = fieldsetSize || startDateProps.size || "medium";
   const labelsInlineWithNewValidation = validationRedesignOptIn
     ? false
     : labelsInline;
@@ -387,6 +390,7 @@ export const DateRange = ({
     <StyledDateRange
       {...tagComponent("date-range", rest)}
       labelsInline={labelsInlineWithNewValidation}
+      $size={size}
       {...filterStyledSystemMarginProps(rest)}
       validationMessagePositionTop={validationMessagePositionTop}
     >
