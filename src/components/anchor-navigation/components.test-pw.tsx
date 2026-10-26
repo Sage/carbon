@@ -1,13 +1,11 @@
 import React, { useRef, useState } from "react";
 
-import Textbox from "../textbox";
+import TextInput from "../textbox/__internal__/__next__";
 import Typography from "../typography";
-import Button from "../button";
+import Button from "../button/__next__";
 import Dialog from "../dialog";
 import {
   AnchorNavigation,
-  AnchorNavigationContent,
-  AnchorNavigationMenu,
   AnchorSectionDivider,
   AnchorNavigationItem,
 } from ".";
@@ -23,7 +21,7 @@ const Content = ({ title, noTextbox }: ContentProps) => {
       <div>
         <h2>{title}</h2>
         {!noTextbox && (
-          <Textbox
+          <TextInput
             label={title}
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -57,39 +55,38 @@ export const InFullScreenDialog = () => {
         title="Title"
         subtitle="Subtitle"
       >
-        <AnchorNavigation>
-          <AnchorNavigationMenu>
-            <AnchorNavigationItem initiallySelected target={ref1}>
-              First
-            </AnchorNavigationItem>
-            <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-            <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-            <AnchorNavigationItem target={ref4}>
-              Navigation item with very long label
-            </AnchorNavigationItem>
-            <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-          </AnchorNavigationMenu>
-          <AnchorNavigationContent>
-            <div ref={ref1}>
-              <Content title="First section" />
-            </div>
-            <AnchorSectionDivider />
-            <div ref={ref2}>
-              <Content title="Second section" />
-            </div>
-            <AnchorSectionDivider />
-            <div ref={ref3}>
-              <Content noTextbox title="Third section" />
-            </div>
-            <AnchorSectionDivider />
-            <div ref={ref4}>
-              <Content title="Fourth section" />
-            </div>
-            <AnchorSectionDivider />
-            <div ref={ref5}>
-              <Content title="Fifth section" />
-            </div>
-          </AnchorNavigationContent>
+        <AnchorNavigation
+          stickyNavigation={
+            <>
+              <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref4}>
+                Navigation item with very long label
+              </AnchorNavigationItem>
+              <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
+            </>
+          }
+        >
+          <div ref={ref1}>
+            <Content title="First section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref2}>
+            <Content title="Second section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref3}>
+            <Content noTextbox title="Third section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref4}>
+            <Content title="Fourth section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref5}>
+            <Content title="Fifth section" />
+          </div>
         </AnchorNavigation>
       </Dialog>
     </>
@@ -103,55 +100,16 @@ export const AnchorNavigationComponent = () => {
   const ref4 = useRef<HTMLDivElement>(null);
   const ref5 = useRef<HTMLDivElement>(null);
   return (
-    <AnchorNavigation>
-      <AnchorNavigationMenu>
-        <AnchorNavigationItem initiallySelected target={ref1}>
-          First
-        </AnchorNavigationItem>
-        <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-        <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-        <AnchorNavigationItem target={ref4}>
-          Navigation item with very long label
-        </AnchorNavigationItem>
-        <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-      </AnchorNavigationMenu>
-      <AnchorNavigationContent>
-        <div ref={ref1}>
-          <Content title="First section" />
-        </div>
-        <AnchorSectionDivider />
-        <div ref={ref2}>
-          <Content title="Second section" />
-        </div>
-        <AnchorSectionDivider />
-        <div ref={ref3}>
-          <Content noTextbox title="Third section" />
-        </div>
-        <AnchorSectionDivider />
-        <div ref={ref4}>
-          <Content title="Fourth section" />
-        </div>
-        <AnchorSectionDivider />
-        <div ref={ref5}>
-          <Content title="Fifth section" />
-        </div>
-      </AnchorNavigationContent>
-    </AnchorNavigation>
-  );
-};
-
-export const LegacyAnchorNavigationComponent = () => {
-  const ref1 = useRef<HTMLDivElement>(null);
-  const ref2 = useRef<HTMLDivElement>(null);
-  const ref3 = useRef<HTMLDivElement>(null);
-
-  return (
     <AnchorNavigation
       stickyNavigation={
         <>
           <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
           <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
           <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+          <AnchorNavigationItem target={ref4}>
+            Navigation item with very long label
+          </AnchorNavigationItem>
+          <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
         </>
       }
     >
@@ -164,7 +122,15 @@ export const LegacyAnchorNavigationComponent = () => {
       </div>
       <AnchorSectionDivider />
       <div ref={ref3}>
-        <Content title="Third section" />
+        <Content noTextbox title="Third section" />
+      </div>
+      <AnchorSectionDivider />
+      <div ref={ref4}>
+        <Content title="Fourth section" />
+      </div>
+      <AnchorSectionDivider />
+      <div ref={ref5}>
+        <Content title="Fifth section" />
       </div>
     </AnchorNavigation>
   );

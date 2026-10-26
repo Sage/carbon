@@ -3,13 +3,11 @@ import React, { useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Box from "../box";
-import Textbox from "../textbox";
-import Button from "../button";
+import TextInput from "../textbox/__internal__/__next__";
+import Button from "../button/__next__";
 import Dialog from "../dialog";
 import {
   AnchorNavigation,
-  AnchorNavigationContent,
-  AnchorNavigationMenu,
   AnchorSectionDivider,
   AnchorNavigationItem,
 } from ".";
@@ -34,7 +32,7 @@ export const DefaultStory: Story = () => {
   const Content = ({ title, noTextbox }: ContentProps) => (
     <Box>
       <h2>{title}</h2>
-      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <TextInput label={title} value="" onChange={() => {}} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
@@ -50,39 +48,38 @@ export const DefaultStory: Story = () => {
   const ref4 = useRef<HTMLDivElement>(null);
   const ref5 = useRef<HTMLDivElement>(null);
   return (
-    <AnchorNavigation>
-      <AnchorNavigationMenu>
-        <AnchorNavigationItem initiallySelected target={ref1}>
-          First
-        </AnchorNavigationItem>
-        <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-        <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-        <AnchorNavigationItem target={ref4}>
-          Navigation item with very long label
-        </AnchorNavigationItem>
-        <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-      </AnchorNavigationMenu>
-      <AnchorNavigationContent>
-        <Box ref={ref1}>
-          <Content title="First section" />
-        </Box>
-        <AnchorSectionDivider />
-        <Box ref={ref2}>
-          <Content title="Second section" />
-        </Box>
-        <AnchorSectionDivider />
-        <Box ref={ref3}>
-          <Content noTextbox title="Third section" />
-        </Box>
-        <AnchorSectionDivider />
-        <Box ref={ref4}>
-          <Content title="Fourth section" />
-        </Box>
-        <AnchorSectionDivider />
-        <Box ref={ref5}>
-          <Content title="Fifth section" />
-        </Box>
-      </AnchorNavigationContent>
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
+          <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
+          <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+          <AnchorNavigationItem target={ref4}>
+            Navigation item with very long label
+          </AnchorNavigationItem>
+          <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
+        </>
+      }
+    >
+      <Box ref={ref1}>
+        <Content title="First section" />
+      </Box>
+      <AnchorSectionDivider />
+      <Box ref={ref2}>
+        <Content title="Second section" />
+      </Box>
+      <AnchorSectionDivider />
+      <Box ref={ref3}>
+        <Content noTextbox title="Third section" />
+      </Box>
+      <AnchorSectionDivider />
+      <Box ref={ref4}>
+        <Content title="Fourth section" />
+      </Box>
+      <AnchorSectionDivider />
+      <Box ref={ref5}>
+        <Content title="Fifth section" />
+      </Box>
     </AnchorNavigation>
   );
 };
@@ -92,7 +89,7 @@ export const InFullScreenDialogStory: Story = () => {
   const Content = ({ title, noTextbox }: ContentProps) => (
     <Box>
       <h2>{title}</h2>
-      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <TextInput label={title} value="" onChange={() => {}} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
@@ -118,39 +115,38 @@ export const InFullScreenDialogStory: Story = () => {
         title="Title"
         subtitle="Subtitle"
       >
-        <AnchorNavigation>
-          <AnchorNavigationMenu>
-            <AnchorNavigationItem initiallySelected target={ref1}>
-              First
-            </AnchorNavigationItem>
-            <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
-            <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
-            <AnchorNavigationItem target={ref4}>
-              Navigation item with very long label
-            </AnchorNavigationItem>
-            <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
-          </AnchorNavigationMenu>
-          <AnchorNavigationContent>
-            <Box ref={ref1}>
-              <Content title="First section" />
-            </Box>
-            <AnchorSectionDivider />
-            <Box ref={ref2}>
-              <Content title="Second section" />
-            </Box>
-            <AnchorSectionDivider />
-            <Box ref={ref3}>
-              <Content noTextbox title="Third section" />
-            </Box>
-            <AnchorSectionDivider />
-            <Box ref={ref4}>
-              <Content title="Fourth section" />
-            </Box>
-            <AnchorSectionDivider />
-            <Box ref={ref5}>
-              <Content title="Fifth section" />
-            </Box>
-          </AnchorNavigationContent>
+        <AnchorNavigation
+          stickyNavigation={
+            <>
+              <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref4}>
+                Navigation item with very long label
+              </AnchorNavigationItem>
+              <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
+            </>
+          }
+        >
+          <Box ref={ref1}>
+            <Content title="First section" />
+          </Box>
+          <AnchorSectionDivider />
+          <Box ref={ref2}>
+            <Content title="Second section" />
+          </Box>
+          <AnchorSectionDivider />
+          <Box ref={ref3}>
+            <Content noTextbox title="Third section" />
+          </Box>
+          <AnchorSectionDivider />
+          <Box ref={ref4}>
+            <Content title="Fourth section" />
+          </Box>
+          <AnchorSectionDivider />
+          <Box ref={ref5}>
+            <Content title="Fifth section" />
+          </Box>
         </AnchorNavigation>
       </Dialog>
     </>

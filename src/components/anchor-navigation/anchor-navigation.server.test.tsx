@@ -1,17 +1,9 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
 
-import {
-  AnchorNavigation,
-  AnchorNavigationContent,
-  AnchorNavigationItem,
-  AnchorNavigationMenu,
-} from ".";
+import { AnchorNavigation, AnchorNavigationItem } from ".";
 
-const currentLinkWithLabel = (label: string) =>
-  new RegExp(`<a[^>]*aria-current="location"[^>]*>(?:(?!<\\/a>).)*${label}`);
-
-test("marks the first legacy item as the current location during server rendering", () => {
+test("renders in a server-side environment", () => {
   const view = renderToString(
     <AnchorNavigation
       stickyNavigation={
@@ -23,47 +15,6 @@ test("marks the first legacy item as the current location during server renderin
     />,
   );
 
-  expect(view).toMatch(currentLinkWithLabel("First"));
-  expect(view).not.toMatch(currentLinkWithLabel("Second"));
-});
-
-test("marks a direct legacy item as the current location during server rendering", () => {
-  const view = renderToString(
-    <AnchorNavigation
-      stickyNavigation={<AnchorNavigationItem>Item</AnchorNavigationItem>}
-    />,
-  );
-
-  expect(view).toMatch(currentLinkWithLabel("Item"));
-});
-
-test("preserves an explicitly initially selected legacy item during server rendering", () => {
-  const view = renderToString(
-    <AnchorNavigation
-      stickyNavigation={
-        <>
-          <AnchorNavigationItem>First</AnchorNavigationItem>
-          <AnchorNavigationItem initiallySelected>Second</AnchorNavigationItem>
-        </>
-      }
-    />,
-  );
-
-  expect(view).not.toMatch(currentLinkWithLabel("First"));
-  expect(view).toMatch(currentLinkWithLabel("Second"));
-});
-
-test("marks the initially selected compound item as the current location during server rendering", () => {
-  const view = renderToString(
-    <AnchorNavigation>
-      <AnchorNavigationMenu>
-        <AnchorNavigationItem initiallySelected>First</AnchorNavigationItem>
-        <AnchorNavigationItem>Second</AnchorNavigationItem>
-      </AnchorNavigationMenu>
-      <AnchorNavigationContent />
-    </AnchorNavigation>,
-  );
-
-  expect(view).toMatch(currentLinkWithLabel("First"));
-  expect(view).not.toMatch(currentLinkWithLabel("Second"));
+  expect(view).toContain("First");
+  expect(view).toContain("Second");
 });

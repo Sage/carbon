@@ -4,8 +4,7 @@ import { expect, test } from "../../../playwright/helpers/base-test";
 import {
   AnchorNavigationComponent,
   InFullScreenDialog,
-  LegacyAnchorNavigationComponent,
-} from "../anchor-navigation/components.test-pw";
+} from "./components.test-pw";
 
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { DIALOG_FULL_SCREEN } from "../../../playwright/components/dialog/locators";
@@ -92,44 +91,11 @@ test("uses the responsive sticky offset", async ({ mount, page }) => {
   await expect.poll(getTop).toBeGreaterThan(narrowTop);
 });
 
-test("keeps the selected item aligned when tabbing into section content", async ({
+test("selects an item and focuses its section heading on click and Enter", async ({
   mount,
   page,
 }) => {
   await mount(<AnchorNavigationComponent />);
-
-  await page.getByRole("link", { name: "First" }).focus();
-
-  for (let tabIndex = 0; tabIndex < 6; tabIndex += 1) {
-    await page.keyboard.press("Tab");
-  }
-
-  await expect(page.getByLabel("Second section")).toBeFocused();
-  await expect(page.getByRole("link", { name: "First" })).not.toHaveAttribute(
-    "aria-current",
-    "location",
-  );
-  await expect(page.getByRole("link", { name: "Second" })).toHaveAttribute(
-    "aria-current",
-    "location",
-  );
-
-  await page.keyboard.press("Tab");
-
-  await expect(page.getByLabel("Fourth section")).toBeFocused();
-  await expect(page.getByRole("link", { name: "Third" })).not.toHaveAttribute(
-    "aria-current",
-  );
-  await expect(
-    page.getByRole("link", { name: "Navigation item with very long label" }),
-  ).toHaveAttribute("aria-current", "location");
-});
-
-test("preserves click and Enter navigation for deprecated stickyNavigation", async ({
-  mount,
-  page,
-}) => {
-  await mount(<LegacyAnchorNavigationComponent />);
 
   const secondItem = page.getByRole("link", { name: "Second" });
   await secondItem.click();
@@ -147,4 +113,7 @@ test("preserves click and Enter navigation for deprecated stickyNavigation", asy
     page.getByRole("heading", { name: "Third section" }),
   ).toBeFocused();
   await expect(thirdItem).toHaveAttribute("aria-current", "location");
+  await expect(secondItem).not.toHaveAttribute("aria-current");
+
+  await checkAccessibility(page);
 });

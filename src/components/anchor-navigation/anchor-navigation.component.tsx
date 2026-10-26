@@ -3,6 +3,7 @@ import React, {
   useState,
   useRef,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useCallback,
 } from "react";
@@ -10,35 +11,32 @@ import throttle from "lodash/throttle";
 
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
-import { StyledAnchorNavigation } from "./anchor-navigation.style";
-import AnchorNavigationContext, {
-  AnchorNavigationItemId,
+import { getWindow } from "../../__internal__/dom/globals";
+import {
+  StyledAnchorNavigation,
+  StyledNavigationWrapper,
+  StyledNavigation,
+  StyledContent,
+} from "./anchor-navigation.style";
+import {
+  AnchorNavigationProvider,
   AnchorNavigationItemEntry,
-} from "./anchor-navigation.context";
-import AnchorNavigationLegacyAdapter from "./anchor-navigation-legacy-adapter.component";
-export {
-  AnchorNavigationContent,
-  AnchorNavigationMenu,
-} from "./anchor-navigation-menu.component";
-export type {
-  AnchorNavigationContentProps,
-  AnchorNavigationMenuProps,
-} from "./anchor-navigation-menu.component";
+} from "./__internal__/anchor-navigation.context";
 
 export interface AnchorNavigationProps
   extends TagProps,
     Pick<AriaAttributes, "aria-label" | "aria-labelledby"> {
   /** Child elements */
   children?: React.ReactNode;
-  /**
-   * @deprecated Use AnchorNavigationMenu and AnchorNavigationContent.
-   * The prop will be removed in the next major version.
-   */
+  /** The AnchorNavigationItems components to be rendered in the sticky navigation.
+  Items can be rendered conditionally or from within other components. */
   stickyNavigation?: React.ReactNode;
 }
 
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
+
+const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
 
 const AnchorNavigation = ({
   children,
@@ -48,113 +46,105 @@ const AnchorNavigation = ({
   "data-element": dataElement,
   "data-role": dataRole,
 }: AnchorNavigationProps): JSX.Element => {
-  const usesLegacyStickyNavigation = stickyNavigation !== undefined;
-  const [selectedItemId, setSelectedItemId] =
-    useState<AnchorNavigationItemId>();
-  const itemRegistry = useRef(
-    new Map<AnchorNavigationItemId, AnchorNavigationItemEntry>(),
+  const [selectedItem, setSelectedItem] = useState<HTMLAnchorElement | null>(
+    null,
   );
 
-  const navigationRef = useRef<HTMLUListElement | null>(null);
+  const [registryVersion, setRegistryVersion] = useState(0);
 
-  const isScrollSelectionPaused = useRef(false);
+  const itemsByElement = useRef(
+    new Map<HTMLAnchorElement, AnchorNavigationItemEntry>(),
+  );
 
-  const scrollSelectionResumeTimer = useRef<NodeJS.Timeout>();
+  const navigationRef = useRef<HTMLUListElement>(null);
 
-  const registerItem = useCallback((item: AnchorNavigationItemEntry) => {
-    itemRegistry.current.set(item.id, item);
-    setSelectedItemId((current) =>
-      item.initiallySelected ? item.id : (current ?? item.id),
-    );
+  const isUserScroll = useRef(true);
 
-    return () => {
-      itemRegistry.current.delete(item.id);
-      setSelectedItemId((current) =>
-        current === item.id
-          ? itemRegistry.current.keys().next().value
-          : current,
-      );
-    };
-  }, []);
+  const isUserScrollTimer = useRef<NodeJS.Timeout>();
 
-  const setNavigationElement = useCallback(
-    (element: HTMLUListElement | null) => {
-      navigationRef.current = element;
+  // Items are ordered by their position in the DOM rather than by registration order,
+  // so conditionally added or reordered items follow the rendered order.
+  const getOrderedItems = useCallback(
+    () =>
+      Array.from(itemsByElement.current).sort(([a], [b]) =>
+        a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING
+          ? -1
+          : 1,
+      ),
+    [],
+  );
+
+  const registerItem = useCallback(
+    (element: HTMLAnchorElement, entry: AnchorNavigationItemEntry) => {
+      itemsByElement.current.set(element, entry);
+      setRegistryVersion((version) => version + 1);
+
+      return () => {
+        itemsByElement.current.delete(element);
+        setRegistryVersion((version) => version + 1);
+      };
     },
     [],
   );
 
-  const pauseScrollSelection = useCallback(() => {
-    // Ignore scroll events caused by focus or programmatic navigation.
-    isScrollSelectionPaused.current = true;
+  // Keep the current selection while its item is rendered, otherwise fall back to the first item.
+  useIsomorphicLayoutEffect(() => {
+    setSelectedItem((current) =>
+      current && itemsByElement.current.has(current)
+        ? current
+        : (getOrderedItems()[0]?.[0] ?? null),
+    );
+  }, [registryVersion, getOrderedItems]);
 
-    if (scrollSelectionResumeTimer.current !== undefined) {
-      window.clearTimeout(scrollSelectionResumeTimer.current);
-    }
-
-    scrollSelectionResumeTimer.current = setTimeout(() => {
-      isScrollSelectionPaused.current = false;
-    }, SCROLL_THROTTLE + 50);
-  }, []);
-
-  const handleFocus = useCallback(
-    (event: React.FocusEvent<HTMLDivElement>) => {
-      const focusedItem = Array.from(itemRegistry.current.values()).find(
-        (item) => item.target?.current?.contains(event.target),
-      );
-
-      if (focusedItem) {
-        setSelectedItemId(focusedItem.id);
-        pauseScrollSelection();
-      }
-    },
-    [pauseScrollSelection],
-  );
-
-  const setSelectedItemBasedOnScroll = useCallback(() => {
+  const setSelectedAnchorBasedOnScroll = useCallback(() => {
     // istanbul ignore if
     // function is called only after component is rendered, so ref cannot hold a null value
     if (navigationRef.current === null) return;
 
-    const offsetsWithIds = Array.from(itemRegistry.current.values())
-      .map((item) => [
-        item.id,
-        item.target?.current?.getBoundingClientRect().top,
+    const offsetsWithItems = getOrderedItems()
+      .map(([element, entry]) => [
+        element,
+        entry.getTarget()?.current?.getBoundingClientRect().top,
       ])
       .filter(
-        (offsetWithId): offsetWithId is [AnchorNavigationItemId, number] =>
-          offsetWithId[1] !== undefined,
+        (offsetWithItem): offsetWithItem is [HTMLAnchorElement, number] =>
+          offsetWithItem[1] !== undefined,
       );
 
-    if (offsetsWithIds.length === 0) return;
+    if (offsetsWithItems.length === 0) return;
 
     const { top: navTopOffset } = navigationRef.current.getBoundingClientRect();
 
-    const [idOfSmallestNegativeTopOffset] = offsetsWithIds.reduce(
-      (currentTop, offsetWithIndex) => {
-        const [, offset] = offsetWithIndex;
+    const [itemOfSmallestNegativeTopOffset] = offsetsWithItems.reduce(
+      (currentTop, offsetWithItem) => {
+        const [, offset] = offsetWithItem;
 
         if (offset - SECTION_VISIBILITY_OFFSET > navTopOffset)
           return currentTop;
-        return offset > currentTop[1] ? offsetWithIndex : currentTop;
+        return offset > currentTop[1] ? offsetWithItem : currentTop;
       },
-      offsetsWithIds[0],
+      offsetsWithItems[0],
     );
 
-    setSelectedItemId(idOfSmallestNegativeTopOffset);
-  }, []);
+    setSelectedItem(itemOfSmallestNegativeTopOffset);
+  }, [getOrderedItems]);
 
   const scrollHandler = useMemo(
     () =>
       throttle(() => {
-        if (isScrollSelectionPaused.current) {
-          pauseScrollSelection();
-          return;
+        /* istanbul ignore else */
+        if (isUserScroll.current) {
+          setSelectedAnchorBasedOnScroll();
+        } else {
+          if (isUserScrollTimer.current !== undefined) {
+            window.clearTimeout(isUserScrollTimer.current);
+          }
+          isUserScrollTimer.current = setTimeout(() => {
+            isUserScroll.current = true;
+          }, SCROLL_THROTTLE + 50);
         }
-
-        setSelectedItemBasedOnScroll();
       }, SCROLL_THROTTLE),
-    [pauseScrollSelection, setSelectedItemBasedOnScroll],
+    [setSelectedAnchorBasedOnScroll],
   );
 
   useEffect(() => {
@@ -180,8 +170,8 @@ const AnchorNavigation = ({
   };
 
   const activateItem = useCallback(
-    (id: AnchorNavigationItemId): void => {
-      const sectionToScroll = itemRegistry.current.get(id)?.target?.current;
+    (element: HTMLAnchorElement, target?: React.RefObject<HTMLElement>) => {
+      const sectionToScroll = target?.current;
 
       if (!sectionToScroll) return;
 
@@ -189,57 +179,55 @@ const AnchorNavigation = ({
 
       // workaround due to preventScroll focus method option on firefox not working consistently
       window.setTimeout(() => {
-        pauseScrollSelection();
+        if (!itemsByElement.current.has(element)) return;
+
+        isUserScroll.current = false;
         sectionToScroll.scrollIntoView({
           block: "start",
           inline: "nearest",
           behavior: "smooth",
         });
-        setSelectedItemId(id);
+        setSelectedItem(element);
       }, 10);
     },
-    [pauseScrollSelection],
+    [],
   );
 
   const contextValue = useMemo(
     () => ({
+      isInAnchorNavigation: true,
+      selectedItem,
       registerItem,
-      usesLegacyStickyNavigation,
-      selectedItemId,
       activateItem,
-      setNavigationElement,
-      ariaLabel,
-      ariaLabelledby,
     }),
-    [
-      activateItem,
-      ariaLabel,
-      ariaLabelledby,
-      registerItem,
-      usesLegacyStickyNavigation,
-      selectedItemId,
-      setNavigationElement,
-    ],
+    [selectedItem, registerItem, activateItem],
   );
 
   return (
-    <AnchorNavigationContext.Provider value={contextValue}>
-      <StyledAnchorNavigation
-        onFocus={handleFocus}
-        data-component="anchor-navigation"
-        data-element={dataElement}
-        data-role={dataRole}
+    <StyledAnchorNavigation
+      data-component="anchor-navigation"
+      data-element={dataElement}
+      data-role={dataRole}
+    >
+      <StyledNavigationWrapper
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledby}
       >
-        {usesLegacyStickyNavigation ? (
-          <AnchorNavigationLegacyAdapter stickyNavigation={stickyNavigation}>
-            {children}
-          </AnchorNavigationLegacyAdapter>
-        ) : (
-          children
-        )}
-      </StyledAnchorNavigation>
-    </AnchorNavigationContext.Provider>
+        {/* role="list" is explicit to restore list semantics in VoiceOver when list-style: none is applied */}
+        <StyledNavigation
+          ref={navigationRef}
+          role="list"
+          data-element="anchor-sticky-navigation"
+        >
+          <AnchorNavigationProvider value={contextValue}>
+            {stickyNavigation}
+          </AnchorNavigationProvider>
+        </StyledNavigation>
+      </StyledNavigationWrapper>
+      <StyledContent>{children}</StyledContent>
+    </StyledAnchorNavigation>
   );
 };
 
+AnchorNavigation.displayName = "AnchorNavigation";
 export default AnchorNavigation;

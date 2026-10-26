@@ -6,7 +6,7 @@ const StyledAnchorNavigation = styled.div`
   width: 100%;
 `;
 
-const StyledNavigationMenuWrapper = styled.nav`
+const StyledNavigationWrapper = styled.nav`
   position: sticky;
   top: var(--global-space-layout-2-xs);
   max-width: 240px;
@@ -16,13 +16,13 @@ const StyledNavigationMenuWrapper = styled.nav`
   }
 `;
 
-const StyledNavigationMenu = styled.ul`
+const StyledNavigation = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
 `;
 
-const StyledNavigationContent = styled.div`
+const StyledContent = styled.div`
   flex: 1;
   margin-left: var(--global-space-layout-s);
 
@@ -33,7 +33,7 @@ const StyledNavigationContent = styled.div`
 
 export {
   StyledAnchorNavigation,
-  StyledNavigationMenuWrapper,
-  StyledNavigationMenu,
-  StyledNavigationContent,
+  StyledNavigationWrapper,
+  StyledNavigation,
+  StyledContent,
 };

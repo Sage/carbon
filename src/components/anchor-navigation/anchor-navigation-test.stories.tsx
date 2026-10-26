@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import Textbox from "../textbox";
-import Button from "../button";
+import TextInput from "../textbox/__internal__/__next__";
+import Button from "../button/__next__";
 import Dialog from "../dialog";
 import {
   AnchorNavigation,
@@ -11,15 +11,9 @@ import {
   AnchorNavigationItem,
 } from ".";
 
-/**
- * This file contains private test stories for deprecated stickyNavigation.
- * The `!dev` tag keeps them out of Storybook's component list.
- */
-
 const meta: Meta<typeof AnchorNavigation> = {
   component: AnchorNavigation,
   includeStories: ["DefaultStory", "InFullScreenDialogStory"],
-  tags: ["!dev"],
   title: "Anchor Navigation/Test",
   parameters: {
     info: { disable: true },
@@ -40,7 +34,7 @@ const Content = ({ title, noTextbox }: ContentProps) => (
   <>
     <div>
       <h2>{title}</h2>
-      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <TextInput label={title} value="" onChange={() => {}} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>

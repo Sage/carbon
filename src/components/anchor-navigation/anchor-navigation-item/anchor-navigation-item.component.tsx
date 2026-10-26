@@ -1,8 +1,8 @@
-import React, { useContext, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import Typography from "../../typography";
 import { getWindow } from "../../../__internal__/dom/globals";
-import Event from "../../../__internal__/utils/helpers/events";
-import AnchorNavigationContext from "../anchor-navigation.context";
+import combineRefs from "../../../__internal__/utils/helpers/combine-refs";
+import { useAnchorNavigationContext } from "../__internal__/anchor-navigation.context";
 import StyledNavigationItem from "./anchor-navigation-item.style";
 
 export interface AnchorNavigationItemProps {
@@ -10,13 +10,11 @@ export interface AnchorNavigationItemProps {
   target?: React.RefObject<HTMLElement>;
   /** href to be passed to the anchor element, can be linked with id passed to the scrollable section */
   href?: string;
-  /** Marks this item as initially selected inside AnchorNavigation, including during server rendering. Only one item in a navigation should use this prop. */
-  initiallySelected?: boolean;
-  /** Indicates selection when this item is rendered without an AnchorNavigation parent. */
+  /** Indicates if a component is selected. Inside AnchorNavigation the selection is managed by AnchorNavigation and this prop is ignored. */
   isSelected?: boolean;
-  /** Called when the item is clicked. Prevent the default event to cancel navigation activation. */
+  /** onClick handler */
   onClick?: (ev: React.MouseEvent<HTMLAnchorElement>) => void;
-  /** Called when a key is pressed on the item. Prevent the default event to cancel navigation activation. */
+  /** OnKeyDown handler */
   onKeyDown?: (ev: React.KeyboardEvent<HTMLAnchorElement>) => void;
   /** tabIndex passed to the anchor element */
   tabIndex?: number;
@@ -24,68 +22,53 @@ export interface AnchorNavigationItemProps {
   children?: React.ReactNode;
 }
 
+const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
+
 const AnchorNavigationItem = React.forwardRef<
   HTMLAnchorElement,
   AnchorNavigationItemProps
 >(({ target, ...props }: AnchorNavigationItemProps, ref) => {
-  const context = useContext(AnchorNavigationContext);
-  const registerItem = context?.registerItem;
-  const {
-    children,
-    onKeyDown,
-    onClick,
-    href,
-    tabIndex,
-    isSelected,
-    initiallySelected,
-  } = props;
-  const itemId = useRef<symbol>();
-
-  if (!itemId.current) itemId.current = Symbol("anchor-navigation-item");
-
-  const useIsomorphicLayoutEffect = getWindow()
-    ? React.useLayoutEffect
-    : React.useEffect;
+  const { children, onKeyDown, onClick, href, tabIndex, isSelected } = props;
+  const { isInAnchorNavigation, selectedItem, registerItem, activateItem } =
+    useAnchorNavigationContext();
+  const anchorRef = useRef<HTMLAnchorElement | null>(null);
+  // Read the latest target on scroll, so a new ref object does not re-register the item.
+  const targetRef = useRef(target);
+  targetRef.current = target;
 
   useIsomorphicLayoutEffect(() => {
-    if (!registerItem || !itemId.current) return undefined;
+    // istanbul ignore if
+    // effect runs after the anchor is rendered, so ref cannot hold a null value
+    if (!anchorRef.current) return undefined;
 
-    return registerItem({
-      id: itemId.current,
-      target,
-      initiallySelected,
+    return registerItem(anchorRef.current, {
+      getTarget: () => targetRef.current,
     });
-  }, [initiallySelected, registerItem, target]);
-  const selected = context
-    ? context.selectedItemId === itemId.current ||
-      (context.selectedItemId === undefined && initiallySelected)
+  }, [registerItem]);
+
+  // Inside AnchorNavigation the selection is managed by the navigation, as before.
+  const selected = isInAnchorNavigation
+    ? selectedItem !== null && selectedItem === anchorRef.current
     : isSelected;
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     onClick?.(event);
 
-    if (!context || !itemId.current || event.defaultPrevented) return;
+    if (!isInAnchorNavigation) return;
 
     event.preventDefault();
-    context.activateItem(itemId.current);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement>) => {
-    onKeyDown?.(event);
-
-    if (!context || !itemId.current || event.defaultPrevented) return;
-
-    if (Event.isEnterKey(event)) context.activateItem(itemId.current);
+    activateItem(event.currentTarget, target);
   };
 
   return (
     <StyledNavigationItem isSelected={selected}>
       <a
-        onKeyDown={handleKeyDown}
+        onKeyDown={onKeyDown}
         onClick={handleClick}
         tabIndex={tabIndex}
-        ref={ref}
-        href={context ? href || "#" : href}
+        ref={combineRefs(anchorRef, ref)}
+        // need to pass an href to ensure the link is tabbable by default
+        href={isInAnchorNavigation ? href || "#" : href}
         aria-current={selected ? "location" : undefined}
         data-element="anchor-navigation-item"
       >
