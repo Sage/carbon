@@ -1,13 +1,13 @@
 {
   "name": "carbon-react",
-  "version": "162.14.1",
+  "version": "162.17.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
     "esm"
   ],
   "engines": {
-    "npm": ">=11.19.1"
+    "npm": ">=11.21.1"
   },
   "scripts": {
     "setup": "npm ci && npm run prepare",
@@ -170,15 +170,14 @@
     "rollup-plugin-visualizer": "^5.14.0",
     "semantic-release": "^25.0.8",
     "semver": "^7.8.5",
-    "sprintf-js": "^1.1.3",
-    "storybook": "~10.4.2",
+    "storybook": "^10.6.2",
     "storybook-addon-pseudo-states": "~10.4.2",
     "styled-components": "^5.3.11",
     "ts-morph": "^27.0.2",
     "typescript": "^5.8.3",
     "url-loader": "^4.1.1",
     "uuid": "^14.0.0",
-    "vite": "^6.3.4",
+    "vite": "^6.4.4",
     "vite-plugin-static-copy": "^3.1.2"
   },
   "dependencies": {
@@ -209,7 +208,10 @@
   "overrides": {
     "playwright-core": "$@playwright/experimental-ct-react",
     "jsdom": "$jsdom",
-    "storybook": "$storybook"
+    "storybook": "$storybook",
+    "rollup-plugin-postcss": {
+      "postcss-selector-parser": "^7.1.6"
+    }
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
