@@ -245,10 +245,14 @@ test("uses the standalone fallback duration when `animationTime` is zero", () =>
   );
 });
 
-test("uses the v4 standalone geometry and default duration", () => {
+test("uses standalone geometry and default duration", () => {
   render(<Loader />);
 
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule("width", "50%");
+  expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
+    "transform",
+    "translateX(calc(-100% - 1px))",
+  );
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
     "animation",
     expect.stringContaining("0.983s cubic-bezier(0.66,0,0.34,1) infinite"),
@@ -257,6 +261,11 @@ test("uses the v4 standalone geometry and default duration", () => {
 
 test("renders correctly when `loaderType` is `ring`", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" />);
+
+  expect(screen.getByTestId("ring-rotator")).toHaveStyleRule(
+    "transform",
+    "rotate(-115deg)",
+  );
 
   expect(screen.getByTestId("outer-arc")).toBeVisible();
   expect(screen.getByRole("presentation")).toHaveAttribute(
@@ -267,10 +276,6 @@ test("renders correctly when `loaderType` is `ring`", () => {
   expect(screen.getByTestId("inner-arc")).toHaveStyleRule(
     "stroke-dasharray",
     "1 1",
-  );
-  expect(screen.getByTestId("ring-rotator")).toHaveStyleRule(
-    "transform",
-    "rotate(-90deg)",
   );
 });
 
@@ -554,6 +559,9 @@ test("renders the six sparkle paths with gradient stops", () => {
     "animation",
     expect.stringContaining("3.159s linear infinite"),
   );
+  expect(stars[3]).toHaveStyleRule("opacity", "0");
+  expect(stars[4]).toHaveStyleRule("opacity", "0");
+  expect(stars[5]).toHaveStyleRule("opacity", "0");
 });
 
 test("uses explicit visible static styles for motion-disabled sparkle paths", () => {

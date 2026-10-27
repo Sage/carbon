@@ -131,7 +131,7 @@ test.describe("loader SVG motion", () => {
     );
   });
 
-  test("sparkle loader uses the reference pop timing and stagger", async ({
+  test("sparkle loader uses the documented global timeline", async ({
     mount,
     page,
   }) => {
@@ -139,7 +139,8 @@ test.describe("loader SVG motion", () => {
 
     const stars = page.getByTestId("sparkle-star");
     await expect(stars.first()).toHaveCSS("animation-duration", "3.159s");
-    await expect(stars.nth(1)).toHaveCSS("animation-delay", "0.483011s");
+    await expect(stars.nth(1)).toHaveCSS("animation-delay", "0s");
+    await expect(stars.nth(2)).toHaveCSS("animation-delay", "0s");
     await expect(stars.nth(5)).toHaveCSS("animation-delay", "2.39989s");
   });
 

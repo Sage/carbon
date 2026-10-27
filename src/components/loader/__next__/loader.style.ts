@@ -33,7 +33,8 @@ const ringInlineLabelMargins: Record<string, string> = {
 
 const innerBarAnimation = keyframes`
   0% {
-    transform: translateX(-100%);
+    transform: translateX(calc(-100% - 1px));
+    animation-timing-function: cubic-bezier(0.66, 0, 0.34, 1);
   }
   100% {
     transform: translateX(200%);
@@ -42,10 +43,12 @@ const innerBarAnimation = keyframes`
 
 const rotateRing = keyframes`
   0% {
-    transform: rotate(-90deg);
+    transform: rotate(-115deg);
+    animation-timing-function: cubic-bezier(0.17, 0.17, 0.83, 1);
   }
   100% {
-    transform: rotate(270deg);
+    transform: rotate(237.5deg);
+    animation-timing-function: cubic-bezier(0.17, 0.17, 0.83, 0.83);
   }
 `;
 
@@ -67,13 +70,14 @@ const trimRing = keyframes`
     stroke-dashoffset: -0.9;
   }
   61.686% {
-    animation-timing-function: cubic-bezier(0.502, 0, 0.463, 0.996);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.77, 1);
     stroke-dasharray: 0.35 1;
     stroke-dashoffset: -0.65;
   }
   100% {
-    stroke-dasharray: 0.1 1;
-    stroke-dashoffset: -0.9;
+    animation-timing-function: cubic-bezier(0.33, 0.66, 0.61, 0.92);
+    stroke-dasharray: 0.128 1;
+    stroke-dashoffset: -0.872;
   }
 `;
 
@@ -141,8 +145,10 @@ export const InnerBar = styled.div<{
     background: ${getBarStyles(variant, inverse).innerBarBackground};
     border-radius: ${barBorderRadii[size]};
     height: ${barHeights[size]};
+    left: 0;
+    position: absolute;
     width: 50%;
-    transform: translateX(${hasMotion ? "-100%" : "50%"});
+    transform: translateX(${hasMotion ? "calc(-100% - 1px)" : "50%"});
     ${hasMotion
       ? css`
           animation: ${innerBarAnimation} ${animationTime}s
@@ -212,7 +218,7 @@ export const StyledRingTrack = styled.circle<RingSvgProps>`
 `;
 
 export const StyledRingRotator = styled.g<RingSvgProps>`
-  transform: rotate(-90deg);
+  transform: rotate(-115deg);
   transform-origin: 32px 32px;
   ${({ hasMotion, isTracked, animationTime }) =>
     hasMotion &&
