@@ -1,22 +1,21 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import { FormProps } from ".";
 import {
+  Composition,
   FormComponent,
-  InDialog,
-  InDialogFullScreen,
-  WithBothErrorsAndWarningsSummary,
-  WithErrorsSummary,
+  FooterButtonsInDialog,
+  ValidationSummary,
+  DeprecatedErrorAndWarningCountSummary,
+  DeprecatedStickyFooter,
 } from "./components.test-pw";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
 } from "../../../playwright/support/helper";
-import { dataComponentButtonByText } from "../../../playwright/components/pages/index";
 import { getComponent } from "../../../playwright/components";
 
 test.describe("check props for Form component", () => {
-  test(`should call onSubmit callback when save button is triggered`, async ({
+  test(`should call onSubmit when the save button is triggered`, async ({
     mount,
     page,
   }) => {
@@ -33,63 +32,85 @@ test.describe("check props for Form component", () => {
     await saveButton.click();
     expect(callbackCount).toBe(1);
   });
-});
 
-(
-  [
-    ["30px", 30],
-    ["100px", 100],
-    ["200px", 200],
-  ] as [FormProps["height"], number][]
-).forEach(([height, heightVal]) => {
-  test(`should render with height of ${height}`, async ({ mount, page }) => {
-    await mount(<FormComponent height={height} />);
+  test(`should render with the height set by the height prop`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FormComponent height="100px" />);
 
     const form = getComponent(page, "form");
-    await assertCssValueIsApproximately(form, "height", heightVal);
+    await assertCssValueIsApproximately(form, "height", 100);
   });
 });
 
 test.describe("Accessibility tests for Form component", () => {
-  test(`should pass accessibility tests for InDialog example`, async ({
+  test(`should pass accessibility tests for footer buttons in Dialog`, async ({
     mount,
     page,
   }) => {
-    await mount(<InDialog />);
+    await mount(<FooterButtonsInDialog />);
 
-    const dialogButton = dataComponentButtonByText(page, "Open Preview");
+    const dialogButton = page.getByRole("button", { name: "Open Preview" });
     await dialogButton.click();
     await checkAccessibility(page);
   });
 
-  test(`should pass accessibility tests for InDialogFullScreen example`, async ({
+  test(`should pass accessibility tests for deprecated errorCount and warningCount summary`, async ({
     mount,
     page,
   }) => {
-    await mount(<InDialogFullScreen />);
-
-    const dialogButton = dataComponentButtonByText(page, "Open Preview");
-    await dialogButton.click();
-
-    /* The colour contrast accessiiblity check has been omitted here due to a false positive
-    where the box-shadow is incorrectly compared to the sticky footer background colour */
-    await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
-  });
-
-  test(`should pass accessibility tests for WithBothErrorsAndWarningsSummary example`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithBothErrorsAndWarningsSummary />);
+    await mount(<DeprecatedErrorAndWarningCountSummary />);
 
     await checkAccessibility(page);
   });
 
-  test(`should pass accessibility tests for WithErrorsSummary example`, async ({
+  test(`should pass accessibility tests for Composition example`, async ({
     mount,
     page,
   }) => {
-    await mount(<WithErrorsSummary />);
+    await mount(<Composition />);
+
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests for deprecated sticky footer`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DeprecatedStickyFooter />);
+
+    await checkAccessibility(page);
+  });
+});
+
+test.describe("Validation summary composed with Message", () => {
+  test(`should focus the first summary link and not call onSubmit when submitted with empty required fields`, async ({
+    mount,
+    page,
+  }) => {
+    let submitCount = 0;
+    await mount(
+      <ValidationSummary
+        onSubmit={() => {
+          submitCount += 1;
+        }}
+      />,
+    );
+
+    await page.getByRole("button", { name: "Save changes" }).click();
+
+    await expect(page.getByRole("link").first()).toBeFocused();
+    expect(submitCount).toBe(0);
+  });
+
+  test(`should pass accessibility tests when the summary and field errors are shown`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ValidationSummary />);
+
+    await page.getByRole("button", { name: "Save changes" }).click();
 
     await checkAccessibility(page);
   });

@@ -7,7 +7,6 @@ import { FormButtonAlignment } from "./form.config";
 import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 import StyledSelect from "../select/select.style";
 import { StyledSelectMultiSelect } from "../select/multi-select/multi-select.style";
-import { StyledSwitch } from "../switch/switch.style";
 
 interface StyledFormContentProps {
   $stickyFooter?: boolean;
@@ -33,15 +32,14 @@ export const StyledFormContent = styled.div<StyledFormContentProps>`
       --fieldSpacing: ${$fieldSpacing};
 
       ${StyledFormField} {
-        margin-top: var(--spacing000);
+        margin-top: var(--global-space-none);
       }
 
       // field spacing is also applied to form field here so we need to override
       ${StyledInlineInputs} ${StyledFormField},
       ${StyledInlineInputs} ${StyledSelect},
-      ${StyledInlineInputs} ${StyledSelectMultiSelect},
-      ${StyledSwitch} ${StyledFormField} {
-        margin-bottom: var(--spacing000);
+      ${StyledInlineInputs} ${StyledSelectMultiSelect} {
+        margin-bottom: var(--global-space-none);
       }
     `}
 `;
@@ -64,7 +62,7 @@ export const StyledFormFooter = styled.div.attrs(
       align-items: center;
       display: flex;
       flex-wrap: wrap;
-      gap: var(--sizing200);
+      gap: var(--global-space-comp-m);
     `}
 
   ${({ $buttonAlignment }) =>
@@ -76,7 +74,7 @@ export const StyledFormFooter = styled.div.attrs(
   ${({ $stickyFooter, $stickyFooterVariant, $fullWidthButtons }) => css`
     ${!$stickyFooter &&
     css`
-      margin-top: 48px;
+      margin-top: var(--global-space-layout-l);
     `}
 
     ${$stickyFooter &&
@@ -88,7 +86,7 @@ export const StyledFormFooter = styled.div.attrs(
       box-sizing: border-box;
       ${$stickyFooterVariant === "grey" &&
       "border-top: 1px solid var(--colorsUtilityMajor050);"}
-      padding: 16px 32px;
+      padding: var(--global-space-layout-2-xs) var(--global-space-layout-s);
       width: 100%;
       z-index: 1000;
       position: sticky;
@@ -147,7 +145,7 @@ export const StyledRightButtons = styled.div<{
   $buttonAlignment?: FormButtonAlignment;
 }>`
   display: flex;
-  gap: var(--sizing200);
+  gap: var(--global-space-comp-m);
 
   ${({ $buttonAlignment }) => $buttonAlignment === "left" && "flex-grow: 1;"}
 `;
@@ -157,7 +155,7 @@ export const StyledLeftButtons = styled.div<{
 }>`
   display: flex;
   justify-content: flex-end;
-  gap: var(--sizing200);
+  gap: var(--global-space-comp-m);
 
   ${({ $buttonAlignment }) => $buttonAlignment === "right" && "flex-grow: 1;"}
 `;

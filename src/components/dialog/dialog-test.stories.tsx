@@ -7,7 +7,7 @@ import { DIALOG_SIZES } from "./dialog.config";
 
 import Form from "../form";
 import Textbox from "../textbox";
-import Button from "../button";
+import Button from "../button/__next__";
 import Icon from "../icon";
 import DateInput, { DateChangeEvent } from "../date";
 import { Checkbox } from "../checkbox";
@@ -129,9 +129,13 @@ export const Default = ({
       >
         <Form
           stickyFooter={stickyFooter}
-          leftSideButtons={<Button onClick={handleCancel}>Cancel</Button>}
+          leftSideButtons={
+            <Button variantType="subtle" onClick={handleCancel}>
+              Cancel
+            </Button>
+          }
           saveButton={
-            <Button buttonType="primary" type="submit">
+            <Button variantType="primary" type="submit">
               Save
             </Button>
           }
@@ -237,9 +241,9 @@ export const MaxSizeTest: StoryType = () => {
     <Dialog size="maximise" open title="Title" subtitle="Subtitle">
       <Form
         stickyFooter
-        leftSideButtons={<Button>Cancel</Button>}
+        leftSideButtons={<Button variantType="subtle">Cancel</Button>}
         saveButton={
-          <Button buttonType="primary" type="submit">
+          <Button variantType="primary" type="submit">
             Save
           </Button>
         }
@@ -281,9 +285,9 @@ export const MaxSizeTestNonOverflowedForm: StoryType = () => {
     <Dialog size="maximise" open title="Title" subtitle="Subtitle">
       <Form
         stickyFooter
-        leftSideButtons={<Button>Cancel</Button>}
+        leftSideButtons={<Button variantType="subtle">Cancel</Button>}
         saveButton={
-          <Button buttonType="primary" type="submit">
+          <Button variantType="primary" type="submit">
             Save
           </Button>
         }
@@ -422,9 +426,13 @@ export const WithWrappedStickyForm: StoryType = {
       <Box p="0px 40px" minHeight="0">
         <Form
           stickyFooter
-          leftSideButtons={<Button onClick={() => {}}>Cancel</Button>}
+          leftSideButtons={
+            <Button variantType="subtle" onClick={() => {}}>
+              Cancel
+            </Button>
+          }
           saveButton={
-            <Button buttonType="primary" type="submit">
+            <Button variantType="primary" type="submit">
               Save
             </Button>
           }
