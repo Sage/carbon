@@ -1,3 +1,9 @@
+## [162.18.0](https://github.com/Sage/carbon/compare/v162.17.0...v162.18.0) (2026-10-27)
+
+### Features
+
+* **pager:** ensure alignment prop works as expected ([568b5ca](https://github.com/Sage/carbon/commit/568b5caa48e005ed3317d8d0cd6a91d531fdb78e))
+
 ## [162.17.0](https://github.com/Sage/carbon/compare/v162.16.2...v162.17.0) (2026-10-23)
 
 ### Features
