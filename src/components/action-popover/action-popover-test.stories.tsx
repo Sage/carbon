@@ -10,13 +10,13 @@ import {
   ActionPopoverMenuButton,
 } from ".";
 import {
-  FlatTable,
-  FlatTableHead,
-  FlatTableBody,
-  FlatTableRow,
-  FlatTableHeader,
-  FlatTableCell,
-} from "../flat-table";
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeader,
+  TableCell,
+} from "../table";
 import Box from "../box";
 import { FlexTileCell, FlexTileContainer, Tile } from "../tile";
 import Typography from "../typography";
@@ -84,19 +84,19 @@ export const Default = () => {
   );
   return (
     <div style={{ marginTop: "40px", height: "275px" }}>
-      <FlatTable isZebra>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>Options</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
+      <Table isZebraStriped>
+        <TableHead>
+          <TableRow id="header-row">
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>Options</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow id="row-1">
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
               <ActionPopover
                 onOpen={action("popover opened")}
                 onClose={action("popover closed")}
@@ -134,23 +134,23 @@ export const Default = () => {
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Jane</FlatTableCell>
-            <FlatTableCell>Smith</FlatTableCell>
-            <FlatTableCell>
+            </TableCell>
+          </TableRow>
+          <TableRow id="row-2">
+            <TableCell>Jane</TableCell>
+            <TableCell>Smith</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem icon="csv" onClick={action("csv")}>
                   Download CSV
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Bob</FlatTableCell>
-            <FlatTableCell>Jones</FlatTableCell>
-            <FlatTableCell>
+            </TableCell>
+          </TableRow>
+          <TableRow id="row-3">
+            <TableCell>Bob</TableCell>
+            <TableCell>Jones</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   icon="csv"
@@ -160,10 +160,10 @@ export const Default = () => {
                   Download CSV
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 };
@@ -198,19 +198,19 @@ export const ActionPopoverCustom = ({ ...props }) => {
         height: "275px",
       }}
     >
-      <FlatTable isZebra>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>Options</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
+      <Table isZebraStriped>
+        <TableHead>
+          <TableRow id="header-row-custom-popover">
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>Options</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow id="row-1-custom-popover">
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   disabled
@@ -237,12 +237,12 @@ export const ActionPopoverCustom = ({ ...props }) => {
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Jane</FlatTableCell>
-            <FlatTableCell>Smith</FlatTableCell>
-            <FlatTableCell>
+            </TableCell>
+          </TableRow>
+          <TableRow id="row-2-custom-popover">
+            <TableCell>Jane</TableCell>
+            <TableCell>Smith</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   download
@@ -253,12 +253,12 @@ export const ActionPopoverCustom = ({ ...props }) => {
                   Download
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Bob</FlatTableCell>
-            <FlatTableCell>Jones</FlatTableCell>
-            <FlatTableCell>
+            </TableCell>
+          </TableRow>
+          <TableRow id="row-3-custom-popover">
+            <TableCell>Bob</TableCell>
+            <TableCell>Jones</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   icon="csv"
@@ -268,10 +268,10 @@ export const ActionPopoverCustom = ({ ...props }) => {
                   Download CSV
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 };
@@ -283,19 +283,19 @@ export const ActionPopoverWithProps = ({ ...props }) => {
         height: "250px",
       }}
     >
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>Third Column</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
+      <Table>
+        <TableHead>
+          <TableRow id="header-row-action-popover">
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>Third Column</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow id="row-1-action-popover">
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
               <ActionPopover {...props}>
                 <ActionPopoverItem
                   data-element="menu-item1"
@@ -314,10 +314,10 @@ export const ActionPopoverWithProps = ({ ...props }) => {
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 };

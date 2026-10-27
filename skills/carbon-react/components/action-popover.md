@@ -53,13 +53,13 @@ description: Carbon ActionPopover component props and usage examples.
 ```tsx
 () => {
   const submenu = (
-    <ActionPopoverMenu>
+    <>
       <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
       <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
       <ActionPopoverItem disabled onClick={() => {}}>
         Sub Menu 3
       </ActionPopoverItem>
-    </ActionPopoverMenu>
+    </>
   );
   const submenuWithIcons = (
     <>
@@ -235,63 +235,17 @@ description: Carbon ActionPopover component props and usage examples.
   return (
     <Box height={250}>
       <ActionPopover
-        renderButton={({
-          tabIndex,
-          "data-element": dataElement,
-          ariaAttributes,
-        }) => (
-          <ActionPopoverMenuButton
-            buttonType="tertiary"
+        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
+          <Button
+            variantType="tertiary"
             iconType="dropdown"
             iconPosition="after"
             size="small"
-            tabIndex={tabIndex}
             data-element={dataElement}
-            ariaAttributes={ariaAttributes}
-            aria-label={undefined}
+            {...ariaAttributes}
           >
             More
-          </ActionPopoverMenuButton>
-        )}
-      >
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-      <ActionPopover
-        renderButton={({
-          tabIndex,
-          "data-element": dataElement,
-          ariaAttributes,
-        }) => (
-          <ActionPopoverMenuButton
-            buttonType="tertiary"
-            iconType="dropdown"
-            iconPosition="after"
-            size="small"
-            tabIndex={tabIndex}
-            data-element={dataElement}
-            ariaAttributes={ariaAttributes}
-          />
-        )}
-      >
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-      <ActionPopover
-        renderButton={({ "data-element": dataElement }) => (
-          <Link onClick={() => {}} data-element={dataElement}>
-            More
-          </Link>
+          </Button>
         )}
       >
         <ActionPopoverItem icon="email" onClick={() => {}}>
@@ -321,13 +275,13 @@ description: Carbon ActionPopover component props and usage examples.
           icon="print"
           onClick={() => {}}
           submenu={
-            <ActionPopoverMenu>
+            <>
               <ActionPopoverItem disabled onClick={() => {}}>
                 CSV
               </ActionPopoverItem>
               <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
               <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </ActionPopoverMenu>
+            </>
           }
         >
           Print
@@ -360,10 +314,10 @@ description: Carbon ActionPopover component props and usage examples.
           icon="print"
           onClick={() => {}}
           submenu={
-            <ActionPopoverMenu>
+            <>
               <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
               <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </ActionPopoverMenu>
+            </>
           }
         >
           Print
@@ -421,14 +375,14 @@ description: Carbon ActionPopover component props and usage examples.
           icon="csv"
           onClick={() => {}}
           submenu={
-            <ActionPopoverMenu>
+            <>
               <ActionPopoverItem icon="csv" onClick={() => {}}>
                 CSV
               </ActionPopoverItem>
               <ActionPopoverItem icon="pdf" onClick={() => {}}>
                 PDF
               </ActionPopoverItem>
-            </ActionPopoverMenu>
+            </>
           }
         >
           Download
@@ -437,14 +391,14 @@ description: Carbon ActionPopover component props and usage examples.
           icon="pdf"
           onClick={() => {}}
           submenu={
-            <ActionPopoverMenu>
+            <>
               <ActionPopoverItem icon="csv" onClick={() => {}}>
                 CSV
               </ActionPopoverItem>
               <ActionPopoverItem icon="pdf" onClick={() => {}}>
                 PDF
               </ActionPopoverItem>
-            </ActionPopoverMenu>
+            </>
           }
         >
           Print
@@ -559,7 +513,7 @@ description: Carbon ActionPopover component props and usage examples.
 ```
 
 
-### In Flat Table
+### In Table
 
 **Render**
 
@@ -567,34 +521,34 @@ description: Carbon ActionPopover component props and usage examples.
 () => {
   return (
     <Box pt={120} height={250}>
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>
+      <Table size="large">
+        <TableHead>
+          <TableRow id="header-row-in-table">
+            <TableHeader>Name</TableHeader>
+            <TableHeader>Location</TableHeader>
+            <TableHeader>Relationship Status</TableHeader>
+            <TableHeader width="60px">Dependents</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow id="row-1-in-table">
+            <TableCell>John Doe</TableCell>
+            <TableCell>London</TableCell>
+            <TableCell>Single</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}
                   submenu={
-                    <ActionPopoverMenu>
+                    <>
                       <ActionPopoverItem onClick={() => {}}>
                         CSV
                       </ActionPopoverItem>
                       <ActionPopoverItem onClick={() => {}}>
                         PDF
                       </ActionPopoverItem>
-                    </ActionPopoverMenu>
+                    </>
                   }
                 >
                   Print
@@ -604,26 +558,26 @@ description: Carbon ActionPopover component props and usage examples.
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Jane Doe</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>
+            </TableCell>
+          </TableRow>
+          <TableRow id="row-2-in-table">
+            <TableCell>Jane Doe</TableCell>
+            <TableCell>York</TableCell>
+            <TableCell>Married</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}
                   submenu={
-                    <ActionPopoverMenu>
+                    <>
                       <ActionPopoverItem onClick={() => {}}>
                         CSV
                       </ActionPopoverItem>
                       <ActionPopoverItem onClick={() => {}}>
                         PDF
                       </ActionPopoverItem>
-                    </ActionPopoverMenu>
+                    </>
                   }
                 >
                   Print
@@ -633,10 +587,10 @@ description: Carbon ActionPopover component props and usage examples.
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </Box>
   );
 }
@@ -654,10 +608,10 @@ description: Carbon ActionPopover component props and usage examples.
     <>
       <Box>
         <ActionPopover
-          renderButton={({ ...props }) => (
-            <ActionPopoverMenuButton {...props}>
+          renderButton={({ "data-element": dataElement, ariaAttributes }) => (
+            <Button data-element={dataElement} {...ariaAttributes}>
               Open Actions
-            </ActionPopoverMenuButton>
+            </Button>
           )}
         >
           <ActionPopoverItem
@@ -723,17 +677,21 @@ description: Carbon ActionPopover component props and usage examples.
   const ref = useRef<ActionPopoverHandle>(null);
   const refMore = useRef<ActionPopoverHandle>(null);
 
-  const renderButton = (props: RenderButtonProps) => (
-    <ActionPopoverMenuButton
-      buttonType="tertiary"
+  const renderButton = ({
+    "data-element": dataElement,
+    ariaAttributes,
+  }: RenderButtonProps) => (
+    <Button
+      variantType="tertiary"
       iconType="ellipsis_vertical"
       iconPosition="after"
       size="small"
       aria-label={undefined}
-      {...props}
+      data-element={dataElement}
+      {...ariaAttributes}
     >
       More
-    </ActionPopoverMenuButton>
+    </Button>
   );
 
   return (
