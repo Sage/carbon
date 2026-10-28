@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Box from "../box";
-import TextInput from "../textbox/__internal__/__next__";
+import Textbox from "../textbox";
 import Button from "../button/__next__";
 import Dialog from "../dialog";
 import {
@@ -32,7 +32,7 @@ export const DefaultStory: Story = () => {
   const Content = ({ title, noTextbox }: ContentProps) => (
     <Box>
       <h2>{title}</h2>
-      {!noTextbox && <TextInput label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
@@ -89,7 +89,7 @@ export const InFullScreenDialogStory: Story = () => {
   const Content = ({ title, noTextbox }: ContentProps) => (
     <Box>
       <h2>{title}</h2>
-      {!noTextbox && <TextInput label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>

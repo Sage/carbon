@@ -10,7 +10,10 @@ export interface AnchorNavigationItemProps {
   target?: React.RefObject<HTMLElement>;
   /** href to be passed to the anchor element, can be linked with id passed to the scrollable section */
   href?: string;
-  /** Indicates if a component is selected. Inside AnchorNavigation the selection is managed by AnchorNavigation and this prop is ignored. */
+  /**
+   * Indicates if a component is selected.
+   * @deprecated The selected item is managed by `AnchorNavigation`, which ignores this prop. Remove it and let `AnchorNavigation` handle selection. Support will be removed in a future release.
+   */
   isSelected?: boolean;
   /** onClick handler */
   onClick?: (ev: React.MouseEvent<HTMLAnchorElement>) => void;

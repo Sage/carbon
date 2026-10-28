@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import TextInput from "../textbox/__internal__/__next__";
+import Textbox from "../textbox";
 import Button from "../button/__next__";
 import Dialog from "../dialog";
 import {
@@ -34,7 +34,7 @@ const Content = ({ title, noTextbox }: ContentProps) => (
   <>
     <div>
       <h2>{title}</h2>
-      {!noTextbox && <TextInput label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>

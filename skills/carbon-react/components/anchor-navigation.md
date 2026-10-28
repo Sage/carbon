@@ -32,7 +32,7 @@ description: Carbon AnchorNavigation component props and usage examples.
   const Content = ({ title, noTextbox }: ContentProps) => (
     <Box>
       <h2>{title}</h2>
-      {!noTextbox && <TextInput label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
@@ -95,7 +95,7 @@ description: Carbon AnchorNavigation component props and usage examples.
   const Content = ({ title, noTextbox }: ContentProps) => (
     <Box>
       <h2>{title}</h2>
-      {!noTextbox && <TextInput label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>

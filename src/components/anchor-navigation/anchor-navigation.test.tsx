@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { render, screen, act, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import TextInput from "../textbox/__internal__/__next__";
+import Textbox from "../textbox";
 import Logger from "../../__internal__/utils/logger";
 import {
   AnchorNavigation,
@@ -44,12 +44,12 @@ const MockComponent = () => {
         ref={ref1}
         data-role="section-1"
       >
-        <TextInput label="First section" value="" onChange={() => {}} />
+        <Textbox label="First section" value="" onChange={() => {}} />
         <h2>First section</h2>
       </div>
       <AnchorSectionDivider />
       <div ref={ref2} data-role="section-2">
-        <TextInput label="Second section" value="" onChange={() => {}} />
+        <Textbox label="Second section" value="" onChange={() => {}} />
         <h2>Second section</h2>
       </div>
       <AnchorSectionDivider />
@@ -817,19 +817,14 @@ test("preserves the fallback selection when an item is removed before its delaye
   expect(scrollIntoView).not.toHaveBeenCalled();
 });
 
-test("calls the item's onClick and onKeyDown handlers", async () => {
+test("calls the item's onClick handler when the item is clicked", async () => {
   const ref = React.createRef<HTMLDivElement>();
   const onClick = jest.fn();
-  const onKeyDown = jest.fn();
 
   render(
     <AnchorNavigation
       stickyNavigation={
-        <AnchorNavigationItem
-          target={ref}
-          onClick={onClick}
-          onKeyDown={onKeyDown}
-        >
+        <AnchorNavigationItem target={ref} onClick={onClick}>
           Item
         </AnchorNavigationItem>
       }
@@ -842,10 +837,32 @@ test("calls the item's onClick and onKeyDown handlers", async () => {
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   await user.click(screen.getByRole("link", { name: "Item" }));
+
+  expect(onClick).toHaveBeenCalledTimes(1);
+});
+
+test("calls the item's onKeyDown handler when a key is pressed on the item", async () => {
+  const ref = React.createRef<HTMLDivElement>();
+  const onKeyDown = jest.fn();
+
+  render(
+    <AnchorNavigation
+      stickyNavigation={
+        <AnchorNavigationItem target={ref} onKeyDown={onKeyDown}>
+          Item
+        </AnchorNavigationItem>
+      }
+    >
+      <div ref={ref}>
+        <h2>Section</h2>
+      </div>
+    </AnchorNavigation>,
+  );
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   screen.getByRole("link", { name: "Item" }).focus();
   await user.keyboard("{ArrowDown}");
 
-  expect(onClick).toHaveBeenCalledTimes(1);
   expect(onKeyDown).toHaveBeenCalledTimes(1);
 });
 

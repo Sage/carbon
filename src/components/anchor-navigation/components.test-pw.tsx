@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import TextInput from "../textbox/__internal__/__next__";
+import Textbox from "../textbox";
 import Typography from "../typography";
 import Button from "../button/__next__";
 import Dialog from "../dialog";
@@ -21,7 +21,7 @@ const Content = ({ title, noTextbox }: ContentProps) => {
       <div>
         <h2>{title}</h2>
         {!noTextbox && (
-          <TextInput
+          <Textbox
             label={title}
             value={value}
             onChange={(e) => setValue(e.target.value)}
