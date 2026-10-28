@@ -1,6 +1,7 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, { useContext, useRef, useState } from "react";
 import invariant from "invariant";
-import { MarginProps } from "styled-system";
+
 import guid from "../utils/helpers/guid";
 import Icon from "../../components/icon";
 import Tooltip from "../../components/tooltip";

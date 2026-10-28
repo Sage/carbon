@@ -21,20 +21,20 @@ description: Carbon Tab component props and usage examples.
 | children | React.ReactNode | No |  |  |  | The child elements of Tab component. |  |
 | error | string \| boolean \| undefined | No |  |  |  | The error state of the tab |  |
 | leftSlot | React.ReactNode | No |  |  |  | The item shown to the left of the label |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| p | SpacingProperty | No |  |  |  |  |  |
+| padding | SpacingProperty | No |  |  |  |  |  |
+| paddingBottom | SpacingProperty | No |  |  |  |  |  |
+| paddingLeft | SpacingProperty | No |  |  |  |  |  |
+| paddingRight | SpacingProperty | No |  |  |  |  |  |
+| paddingTop | SpacingProperty | No |  |  |  |  |  |
+| paddingX | SpacingProperty | No |  |  |  |  |  |
+| paddingY | SpacingProperty | No |  |  |  |  |  |
+| pb | SpacingProperty | No |  |  |  |  |  |
+| pl | SpacingProperty | No |  |  |  |  |  |
+| pr | SpacingProperty | No |  |  |  |  |  |
+| pt | SpacingProperty | No |  |  |  |  |  |
+| px | SpacingProperty | No |  |  |  |  |  |
+| py | SpacingProperty | No |  |  |  |  |  |
 | rightSlot | React.ReactNode | No |  |  |  | The item shown to the right of the label |  |
 | titleProps | { "data-role"?: string; } \| undefined | No |  |  |  | Additional props to be passed to the Tab's corresponding title. |  |
 | warning | string \| boolean \| undefined | No |  |  |  | The warning state of the tab |  |

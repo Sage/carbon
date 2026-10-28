@@ -21,7 +21,7 @@ description: Carbon Table component props and usage examples.
 | isZebraStriped | boolean \| undefined | No |  | Indicates whether the table should have zebra striping. | false |
 | maxHeight | string \| undefined | No |  | The maximum height of the table's scroll container. This constrains the table scroll container and enables vertical scrolling. |  |
 | maxWidth | string \| undefined | No |  | The maximum width of the table. This constrains the table scroll container and enables horizontal scrolling. |  |
-| outerBorders | "small" \| "none" \| undefined | No |  | The outer borders of the table. This only applies to the `subtle-white` and `subtle-grey` variants; the `prominent` variant always has an outer border. | "small" |
+| outerBorders | "none" \| "small" \| undefined | No |  | The outer borders of the table. This only applies to the `subtle-white` and `subtle-grey` variants; the `prominent` variant always has an outer border. | "small" |
 | pagination | React.ReactNode | No |  | The pagination component for the table. |  |
 | size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | The size of the table. | "medium" |
 | stickyColumn | "both" \| "first" \| "last" \| undefined | No |  | Indicates which column(s) should remain sticky when scrolling. |  |

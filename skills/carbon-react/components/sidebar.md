@@ -13,53 +13,53 @@ description: Carbon Sidebar component props and usage examples.
 - Props interface: `SidebarProps`
 
 ## Props
-| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| open | boolean | Yes |  |  |  | Sets the open state of the modal |  |
-| children | React.ReactNode | No |  |  |  | Modal content |  |
-| closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  |  |  | Data tag prop bag for close Button |  |
-| disableAutoFocus | boolean \| undefined | No |  |  |  |  |  |
-| disableEscKey | boolean \| undefined | No |  |  |  | Determines if the Esc Key closes the modal |  |
-| disableStickyOnSmallScreen | boolean \| undefined | No |  |  |  | When true, header and footer become non-sticky and scroll with content for accessibility on small screen devices. |  |
-| enableBackgroundUI | boolean \| undefined | No |  |  |  | Set this prop to false to hide the translucent background when the dialog is open. |  |
-| focusableContainers | React.RefObject<HTMLElement>[] \| undefined | No |  |  |  | an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar |  |
-| focusableSelectors | string \| undefined | No |  |  |  | Optional selector to identify the focusable elements, if not provided a default selector is used |  |
-| focusFirstElement | React.MutableRefObject<HTMLElement \| null> \| undefined | No |  |  |  | Optional reference to an element meant to be focused on open |  |
-| footer | React.ReactNode | No |  |  |  | Footer content to be rendered at the bottom of the Sidebar. |  |
-| gradientKeyLine | boolean \| undefined | No |  |  |  | Adds the Carbon AI gradient keyline to the header. |  |
-| header | React.ReactNode | No |  |  |  | Node that will be used as sidebar header. |  |
-| headerPadding | PaddingProps | No |  |  |  | Padding to be set on the Sidebar header |  |
-| headerVariant | "typical" \| "dark" \| "light" \| "inverse" \| undefined | No |  |  |  | Header background variant for the sidebar. `light` and `dark` are deprecated aliases - use `typical` and `inverse` instead. |  |
-| onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
-| role | string \| undefined | No |  |  |  | The ARIA role to be applied to the component container |  |
-| stickyFooter | boolean \| undefined | No |  |  |  | Makes the footer stick to the bottom of the Sidebar when content scrolls. |  |
-| subHeader | React.ReactNode | No |  |  |  | Node that will be used as sidebar subheader. |  |
-| subHeaderPadding | PaddingProps | No |  |  |  | Padding to be set on the Sidebar subheader |  |
-| topModalOverride | boolean \| undefined | No |  |  |  | Manually override the internal modal stacking order to set this as top |  |
-| width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
-| widthAnimation | boolean \| undefined | No |  |  |  | Enables width animation when the sidebar width changes. |  |
-| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| aria-describedby | string \| undefined | No |  |  |  | Prop to specify the aria-describedby property of the component |  |
-| aria-label | string \| undefined | No |  |  |  | Provides an explicit accessible name for the component, overriding the automatic association with the header. |  |
-| aria-labelledby | string \| undefined | No |  |  |  | Identifies the element that provides an explicit accessible name for the component, overriding the automatic association with the header. |  |
-| position | "left" \| "right" \| undefined | No |  | Yes | This prop will be removed in a future release. Sidebar will always be positioned on the right. Update the layout to support a right-positioned Sidebar if it is set to left, otherwise remove the prop. |  |  |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Yes | Use `width` to customise the Sidebar width. |  |  |
+| Name | Type | Required | Literals | Description | Default |
+| --- | --- | --- | --- | --- | --- |
+| open | boolean | Yes |  | Sets the open state of the modal |  |
+| children | React.ReactNode | No |  | Modal content |  |
+| closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  | Data tag prop bag for close Button |  |
+| disableAutoFocus | boolean \| undefined | No |  |  |  |
+| disableEscKey | boolean \| undefined | No |  | Determines if the Esc Key closes the modal |  |
+| disableStickyOnSmallScreen | boolean \| undefined | No |  | When true, header and footer scroll with the content on small screens. |  |
+| enableBackgroundUI | boolean \| undefined | No |  | Set this prop to false to hide the translucent background when the dialog is open. |  |
+| focusableContainers | React.RefObject<HTMLElement>[] \| undefined | No |  | an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar |  |
+| focusableSelectors | string \| undefined | No |  | Optional selector to identify the focusable elements, if not provided a default selector is used |  |
+| focusFirstElement | React.MutableRefObject<HTMLElement \| null> \| undefined | No |  | Optional reference to an element meant to be focused on open |  |
+| footer | React.ReactNode | No |  | Footer content to be rendered at the bottom of the Sidebar. |  |
+| gradientKeyLine | boolean \| undefined | No |  | Adds the Carbon AI gradient keyline to the header. |  |
+| header | React.ReactNode | No |  | Node that will be used as sidebar header. |  |
+| headerPadding | PaddingProps \| undefined | No |  | Padding to be set on the Sidebar header |  |
+| headerVariant | "typical" \| "dark" \| "light" \| "inverse" \| undefined | No |  | Header background variant for the sidebar. |  |
+| onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | A custom close event handler |  |
+| p | SpacingProperty | No |  |  |  |
+| padding | SpacingProperty | No |  |  |  |
+| paddingBottom | SpacingProperty | No |  |  |  |
+| paddingLeft | SpacingProperty | No |  |  |  |
+| paddingRight | SpacingProperty | No |  |  |  |
+| paddingTop | SpacingProperty | No |  |  |  |
+| paddingX | SpacingProperty | No |  |  |  |
+| paddingY | SpacingProperty | No |  |  |  |
+| pb | SpacingProperty | No |  |  |  |
+| pl | SpacingProperty | No |  |  |  |
+| position | "left" \| "right" \| undefined | No |  | Sets the position of sidebar, either left or right. |  |
+| pr | SpacingProperty | No |  |  |  |
+| pt | SpacingProperty | No |  |  |  |
+| px | SpacingProperty | No |  |  |  |
+| py | SpacingProperty | No |  |  |  |
+| restoreFocusOnClose | boolean \| undefined | No |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
+| role | string \| undefined | No |  | The ARIA role to be applied to the component container |  |
+| size | "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Sets the size of the sidebar when open. |  |
+| stickyFooter | boolean \| undefined | No |  | Makes the footer stick to the bottom of the Sidebar when content scrolls. |  |
+| subHeader | React.ReactNode | No |  | Node that will be used as sidebar subheader. |  |
+| subHeaderPadding | PaddingProps \| undefined | No |  | Padding to be set on the Sidebar subheader |  |
+| topModalOverride | boolean \| undefined | No |  | Manually override the internal modal stacking order to set this as top |  |
+| width | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |
+| widthAnimation | boolean \| undefined | No |  | Enables width animation when the sidebar width changes. |  |
+| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-describedby | string \| undefined | No |  | Prop to specify the aria-describedby property of the component |  |
+| aria-label | string \| undefined | No |  | Prop to specify the aria-label of the component. To be used only when the header prop is not defined, and the component is not labelled by any internal element. |  |
+| aria-labelledby | string \| undefined | No |  | Prop to specify the aria-labelledby property of the component To be used when the header prop is a custom React Node, or the component is labelled by an internal element other than the header. |  |
 
 ## Examples
 ### Default

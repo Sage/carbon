@@ -1,3 +1,4 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, {
   useContext,
   useRef,
@@ -7,7 +8,7 @@ import React, {
   useState,
   useCallback,
 } from "react";
-import { MarginProps } from "styled-system";
+
 import Icon, { IconType } from "../icon";
 import Button from "../button/__next__";
 import StyledSplitButton, {

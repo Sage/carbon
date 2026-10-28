@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { WidthProps } from "styled-system";
+import type { WidthProps } from "../../style/utils/styled-system-compat";
 
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";

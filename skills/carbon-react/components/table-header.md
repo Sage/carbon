@@ -20,7 +20,7 @@ description: Carbon TableHeader component props and usage examples.
 | about | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
 | align | "left" \| "right" \| "center" \| undefined | No |  |  |  | The alignment of the header cell content. | "left" |
-| autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
+| autoCapitalize | "none" \| "off" \| (string & {}) \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  |  |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
@@ -29,7 +29,7 @@ description: Carbon TableHeader component props and usage examples.
 | color | string \| undefined | No |  |  |  |  |  |
 | colSpan | number \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
-| contentEditable | "inherit" \| Booleanish \| "plaintext-only" \| undefined | No |  |  |  |  |  |
+| contentEditable | Booleanish \| "inherit" \| "plaintext-only" \| undefined | No |  |  |  |  |  |
 | contextMenu | string \| undefined | No |  |  |  |  |  |
 | dangerouslySetInnerHTML | { __html: string \| TrustedHTML; } \| undefined | No |  |  |  |  |  |
 | datatype | string \| undefined | No |  |  |  |  |  |
@@ -43,7 +43,7 @@ description: Carbon TableHeader component props and usage examples.
 | hidden | boolean \| undefined | No |  |  |  |  |  |
 | id | string \| undefined | No |  |  |  | The id attribute for the header cell. |  |
 | inlist | any | No |  |  |  |  |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
@@ -289,7 +289,7 @@ description: Carbon TableHeader component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples

@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
 import React, { useRef } from "react";
-import { PaddingProps } from "styled-system";
+
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import StyledCardRow from "./card-row.style";
 import tagComponent, {

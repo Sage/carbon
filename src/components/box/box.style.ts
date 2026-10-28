@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, CSSObject } from "styled-components";
 import {
   space,
   layout,
@@ -6,21 +6,21 @@ import {
   grid,
   position as positionFn,
   PositionProps,
-} from "styled-system";
+} from "../../style/utils/styled-system-compat";
 import boxGap from "../../style/utils/box-gap";
 import styledColor from "../../style/utils/color";
 import { BoxProps } from "./box.component";
 import boxConfig from "./box.config";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-const calculatePosition = (props: Omit<PositionProps, "zIndex">) => {
+const calculatePosition = (props: Omit<PositionProps, "zIndex">): CSSObject => {
   const { position, ...rest } = positionFn(props);
 
   return {
-    position,
-    zIndex: ["sticky", "fixed"].includes(position) ? 3 : undefined,
     ...rest,
-  };
+    position,
+    zIndex: ["sticky", "fixed"].includes(position || "") ? 3 : undefined,
+  } as CSSObject;
 };
 
 const StyledBox = styled.div.attrs(applyBaseTheme)<

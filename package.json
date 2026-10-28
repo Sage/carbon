@@ -4,8 +4,14 @@
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
-    "esm"
+    "esm",
+    "eslint.mjs",
+    "scripts/codemods/migrate-styled-system-spacing.mjs",
+    "scripts/eslint-rules/no-numeric-token-spacing.mjs"
   ],
+  "bin": {
+    "carbon-migrate-spacing": "scripts/codemods/migrate-styled-system-spacing.mjs"
+  },
   "engines": {
     "npm": ">=11.21.1"
   },
@@ -44,6 +50,8 @@
     "build:skills": "node ./scripts/skills/build_skills.mjs",
     "skills:status": "node ./scripts/skills/build_skills.mjs --metadata-status",
     "test:skills": "node --test ./scripts/skills/*.test.mjs",
+    "test:codemods": "node --test ./scripts/codemods/*.test.mjs ./scripts/eslint-rules/*.test.mjs",
+    "migrate:spacing": "node ./scripts/codemods/migrate-styled-system-spacing.mjs",
     "generate-tokens": "node ./scripts/generate_tokens/generate_tokens.mjs --include-dark"
   },
   "repository": {
@@ -173,7 +181,6 @@
     "storybook": "^10.6.2",
     "storybook-addon-pseudo-states": "~10.4.2",
     "styled-components": "^5.3.11",
-    "ts-morph": "^27.0.2",
     "typescript": "^5.8.3",
     "url-loader": "^4.1.1",
     "uuid": "^14.0.0",
@@ -189,9 +196,7 @@
     "@lexical/link": "0.38.2",
     "@lexical/react": "0.38.2",
     "@lexical/selection": "0.38.2",
-    "@styled-system/prop-types": "^5.1.5",
     "@tanstack/react-virtual": "^3.13.12",
-    "@types/styled-system": "^5.1.22",
     "chalk": "^4.1.2",
     "date-fns": "^4.1.0",
     "invariant": "^2.2.4",
@@ -200,7 +205,7 @@
     "prop-types": "^15.8.1",
     "react-day-picker": "~9.3.2",
     "react-transition-group": "^4.4.5",
-    "styled-system": "^5.1.5"
+    "ts-morph": "^27.0.2"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.9.5"

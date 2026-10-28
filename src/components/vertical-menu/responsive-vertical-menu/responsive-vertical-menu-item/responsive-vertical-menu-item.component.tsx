@@ -1,3 +1,7 @@
+import type {
+  MarginProps,
+  PaddingProps,
+} from "../../../../style/utils/spacing";
 import React, {
   createContext,
   forwardRef,
@@ -7,7 +11,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { MarginProps, PaddingProps } from "styled-system";
+
 import { StyledResponsiveMenu } from "../responsive-vertical-menu.style";
 import {
   StyledIcon,

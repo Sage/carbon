@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React from "react";
-import { MarginProps } from "styled-system";
+
 import Heading, { HeadingType } from "../heading";
 import tagComponent, {
   TagProps,

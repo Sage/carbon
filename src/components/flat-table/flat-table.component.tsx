@@ -1,3 +1,4 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, {
   useLayoutEffect,
   useRef,
@@ -6,7 +7,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { MarginProps } from "styled-system";
+
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 
 import {

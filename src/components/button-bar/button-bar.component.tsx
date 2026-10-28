@@ -1,5 +1,6 @@
+import type { SpaceProps } from "../../style/utils/spacing";
 import React from "react";
-import { SpaceProps } from "styled-system";
+
 import StyledButtonBar from "./button-bar.style";
 import ButtonBarContext, {
   ButtonBarContextProps,

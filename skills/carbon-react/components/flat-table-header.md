@@ -20,20 +20,20 @@ description: Carbon FlatTableHeader component props and usage examples.
 | children | React.ReactNode | No |  | Header content |  |
 | colspan | string \| number \| undefined | No |  | Number of columns that a header cell should span |  |
 | id | string \| undefined | No |  | Sets an id string on the element |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
+| p | SpacingProperty | No |  |  |  |
+| padding | SpacingProperty | No |  |  |  |
+| paddingBottom | SpacingProperty | No |  |  |  |
+| paddingLeft | SpacingProperty | No |  |  |  |
+| paddingRight | SpacingProperty | No |  |  |  |
+| paddingTop | SpacingProperty | No |  |  |  |
+| paddingX | SpacingProperty | No |  |  |  |
+| paddingY | SpacingProperty | No |  |  |  |
+| pb | SpacingProperty | No |  |  |  |
+| pl | SpacingProperty | No |  |  |  |
+| pr | SpacingProperty | No |  |  |  |
+| pt | SpacingProperty | No |  |  |  |
+| px | SpacingProperty | No |  |  |  |
+| py | SpacingProperty | No |  |  |  |
 | rowspan | string \| number \| undefined | No |  | Number of rows that a header cell should span |  |
 | verticalBorder | TableBorderSize \| undefined | No |  | Sets a custom vertical right border |  |
 | verticalBorderColor | string \| undefined | No |  | Sets the color of the right border |  |

@@ -1,3 +1,4 @@
+import type { MarginProps } from "../../style/utils/spacing";
 import React, {
   useRef,
   useEffect,
@@ -5,7 +6,6 @@ import React, {
   useCallback,
   useState,
 } from "react";
-import { MarginProps } from "styled-system";
 
 import { IconType } from "../icon";
 import { ValidationProps } from "../../__internal__/validations";

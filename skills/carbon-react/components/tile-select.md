@@ -31,20 +31,20 @@ documentation for consumer-specific guidance.
 | disabled | boolean \| undefined | No |  | disables the TileSelect input |  |
 | footer | React.ReactNode | No |  | footer of the TileSelect |  |
 | id | string \| undefined | No |  | input id |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |
+| margin | SpacingProperty | No |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |
+| mb | SpacingProperty | No |  |  |  |
+| ml | SpacingProperty | No |  |  |  |
+| mr | SpacingProperty | No |  |  |  |
+| mt | SpacingProperty | No |  |  |  |
+| mx | SpacingProperty | No |  |  |  |
+| my | SpacingProperty | No |  |  |  |
 | name | string \| undefined | No |  | input name |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  | Callback triggered when the user blurs this tile |  |
 | onChange | ((ev: React.ChangeEvent<HTMLInputElement> \| TileSelectDeselectEvent) => void) \| undefined | No |  | Callback triggered when user selects or deselects this tile |  |

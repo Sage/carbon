@@ -19,7 +19,7 @@ description: Carbon GridContainer component props and usage examples.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | about | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
+| autoCapitalize | "none" \| "off" \| (string & {}) \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  |  |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
@@ -27,7 +27,7 @@ description: Carbon GridContainer component props and usage examples.
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
-| contentEditable | "inherit" \| Booleanish \| "plaintext-only" \| undefined | No |  |  |  |  |  |
+| contentEditable | Booleanish \| "inherit" \| "plaintext-only" \| undefined | No |  |  |  |  |  |
 | contextMenu | string \| undefined | No |  |  |  |  |  |
 | dangerouslySetInnerHTML | { __html: string \| TrustedHTML; } \| undefined | No |  |  |  |  |  |
 | datatype | string \| undefined | No |  |  |  |  |  |
@@ -37,19 +37,22 @@ description: Carbon GridContainer component props and usage examples.
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
-| gridArea | ResponsiveValue<CSS.Property.GridArea, ThemeType> \| undefined | No |  |  |  | The grid-area CSS property is a shorthand property for grid-row-start, grid-column-start, grid-row-end and grid-column-end, specifying a grid item’s size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area) |  |
-| gridAutoColumns | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The grid-auto-columns CSS property specifies the size of an implicitly-created grid column track. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns) |  |
-| gridAutoFlow | ResponsiveValue<CSS.Property.GridAutoFlow, ThemeType> \| undefined | No |  |  |  | The grid-auto-flow CSS property controls how the auto-placement algorithm works, specifying exactly how auto-placed items get flowed into the grid. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow) |  |
-| gridAutoRows | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The grid-auto-rows CSS property specifies the size of an implicitly-created grid row track. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows) |  |
-| gridColumn | ResponsiveValue<CSS.Property.GridColumn, ThemeType> \| undefined | No |  |  |  | The grid-column CSS property is a shorthand property for grid-column-start and grid-column-end specifying a grid item's size and location within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column) |  |
-| gridRow | ResponsiveValue<CSS.Property.GridRow, ThemeType> \| undefined | No |  |  |  | The grid-row CSS property is a shorthand property for grid-row-start and grid-row-end specifying a grid item’s size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row) |  |
-| gridTemplateAreas | ResponsiveValue<CSS.Property.GridTemplateAreas, ThemeType> \| undefined | No |  |  |  | The grid-template-areas CSS property specifies named grid areas. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) |  |
-| gridTemplateColumns | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The grid-template-columns CSS property defines the line names and track sizing functions of the grid columns. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns) |  |
-| gridTemplateRows | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The grid-template-rows CSS property defines the line names and track sizing functions of the grid rows. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/row-template-rows) |  |
+| gridArea | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridAutoColumns | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridAutoFlow | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridAutoRows | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridColumn | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridColumnGap | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridGap | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridRow | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridRowGap | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridTemplateAreas | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridTemplateColumns | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
+| gridTemplateRows | ResponsiveValue<CSSValue> \| undefined | No |  |  |  |  |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
 | id | string \| undefined | No |  |  |  |  |  |
 | inlist | any | No |  |  |  |  |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
@@ -57,20 +60,20 @@ description: Carbon GridContainer component props and usage examples.
 | itemScope | boolean \| undefined | No |  |  |  |  |  |
 | itemType | string \| undefined | No |  |  |  |  |  |
 | lang | string \| undefined | No |  |  |  |  |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| m | SpacingProperty | No |  |  |  |  |  |
+| margin | SpacingProperty | No |  |  |  |  |  |
+| marginBottom | SpacingProperty | No |  |  |  |  |  |
+| marginLeft | SpacingProperty | No |  |  |  |  |  |
+| marginRight | SpacingProperty | No |  |  |  |  |  |
+| marginTop | SpacingProperty | No |  |  |  |  |  |
+| marginX | SpacingProperty | No |  |  |  |  |  |
+| marginY | SpacingProperty | No |  |  |  |  |  |
+| mb | SpacingProperty | No |  |  |  |  |  |
+| ml | SpacingProperty | No |  |  |  |  |  |
+| mr | SpacingProperty | No |  |  |  |  |  |
+| mt | SpacingProperty | No |  |  |  |  |  |
+| mx | SpacingProperty | No |  |  |  |  |  |
+| my | SpacingProperty | No |  |  |  |  |  |
 | nonce | string \| undefined | No |  |  |  |  |  |
 | onAbort | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onAbortCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -228,23 +231,23 @@ description: Carbon GridContainer component props and usage examples.
 | onWaitingCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onWheel | WheelEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onWheelCapture | WheelEventHandler<T> \| undefined | No |  |  |  |  |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| p | SpacingProperty | No |  |  |  |  |  |
+| padding | SpacingProperty | No |  |  |  |  |  |
+| paddingBottom | SpacingProperty | No |  |  |  |  |  |
+| paddingLeft | SpacingProperty | No |  |  |  |  |  |
+| paddingRight | SpacingProperty | No |  |  |  |  |  |
+| paddingTop | SpacingProperty | No |  |  |  |  |  |
+| paddingX | SpacingProperty | No |  |  |  |  |  |
+| paddingY | SpacingProperty | No |  |  |  |  |  |
 | part | string \| undefined | No |  |  |  |  |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
+| pb | SpacingProperty | No |  |  |  |  |  |
+| pl | SpacingProperty | No |  |  |  |  |  |
+| pr | SpacingProperty | No |  |  |  |  |  |
 | prefix | string \| undefined | No |  |  |  |  |  |
 | property | string \| undefined | No |  |  |  |  |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| pt | SpacingProperty | No |  |  |  |  |  |
+| px | SpacingProperty | No |  |  |  |  |  |
+| py | SpacingProperty | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |
 | rel | string \| undefined | No |  |  |  |  |  |
 | resource | string \| undefined | No |  |  |  |  |  |
@@ -316,12 +319,9 @@ description: Carbon GridContainer component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| gridColumnGap | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Yes | use column-gap [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/column-gap) | The column-gap CSS property sets the size of the gap (gutter) between an element's columns. |  |
-| gridGap | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Yes | use gap [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/gap) | The gap CSS property sets the gaps (gutters) between rows and columns. It is a shorthand for row-gap and column-gap. |  |
-| gridRowGap | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Yes | use row-gap [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap) | The row-gap CSS property sets the size of the gap (gutter) between an element's rows. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples

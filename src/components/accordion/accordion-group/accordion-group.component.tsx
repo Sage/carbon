@@ -1,5 +1,6 @@
+import type { MarginProps } from "../../../style/utils/spacing";
 import React, { useMemo, useCallback } from "react";
-import { MarginProps } from "styled-system";
+
 import invariant from "invariant";
 
 import Events from "../../../__internal__/utils/helpers/events";

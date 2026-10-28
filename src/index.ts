@@ -47,6 +47,12 @@ export type { BatchSelectionProps } from "./components/batch-selection";
 
 export { default as Box } from "./components/box";
 export type { BoxProps } from "./components/box";
+/**
+ * Preview token-first Box API. Numeric spacing values are explicit pixels;
+ * use token aliases such as `"m"` for token-backed spacing.
+ */
+export { default as BoxNext } from "./components/box/__next__";
+export type { NextBoxProps as BoxNextProps } from "./components/box/__next__";
 
 export { Breadcrumbs, Crumb } from "./components/breadcrumbs";
 export type { BreadcrumbsProps, CrumbProps } from "./components/breadcrumbs";

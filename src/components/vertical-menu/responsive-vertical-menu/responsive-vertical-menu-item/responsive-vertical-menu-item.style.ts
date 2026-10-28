@@ -1,5 +1,5 @@
+import { margin, padding } from "../../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { margin, padding } from "styled-system";
 
 import Icon from "../../../icon";
 
@@ -157,7 +157,6 @@ export const StyledResponsiveMenuItem = styled.button<StyledResponsiveMenuItemPr
       color: var(--colorsUtilityYang080);
       cursor: default;
     `}
-
 
   ${({ depth }) =>
     depth >= 2 &&

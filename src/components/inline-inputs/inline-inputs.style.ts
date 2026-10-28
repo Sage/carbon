@@ -1,5 +1,6 @@
+import { margin } from "../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { margin } from "styled-system";
+
 import InputPresentation from "../../__internal__/legacy-input/input-presentation.style";
 import { StyledLabelContainer } from "../../__internal__/legacy-label/label.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";

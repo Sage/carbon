@@ -1,6 +1,5 @@
+import type { MarginProps, PaddingProps } from "../../style/utils/spacing";
 import React, { useEffect, useRef } from "react";
-
-import { PaddingProps, MarginProps } from "styled-system";
 
 import { getColors, kebabToCamelCase } from "./__internal__/utils";
 

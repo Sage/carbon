@@ -1,4 +1,4 @@
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "./spacing";
 import { marginPropertyNames } from "./filter-styled-system-margin-props";
 import { paddingPropertyNames } from "./filter-styled-system-padding-props";
 

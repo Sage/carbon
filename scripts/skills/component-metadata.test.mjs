@@ -101,7 +101,16 @@ test("keeps authored metadata and generated skills out of the npm package", () =
     fs.readFileSync(path.join(repoRoot, "package.json"), "utf8"),
   );
 
-  assert.deepEqual([...packageJson.files].sort(), ["esm", "lib"]);
+  assert.deepEqual(
+    [...packageJson.files].sort(),
+    [
+      "eslint.mjs",
+      "esm",
+      "lib",
+      "scripts/codemods/migrate-styled-system-spacing.mjs",
+      "scripts/eslint-rules/no-numeric-token-spacing.mjs",
+    ].sort(),
+  );
   assert.equal(
     path
       .relative(repoRoot, path.join(repoRoot, "docs", "component-metadata"))

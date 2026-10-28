@@ -1,5 +1,6 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
+import { padding } from "../../../style/utils/spacing";
 import styled, { css } from "styled-components";
-import { PaddingProps, padding } from "styled-system";
 import { FlatTableCellProps } from "./flat-table-cell.component";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import { toColor } from "../../../style/utils/color";

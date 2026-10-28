@@ -1,13 +1,13 @@
+import type { PaddingProps } from "../../../style/utils/spacing";
 import styled, { css } from "styled-components";
 import {
   grid,
   flexbox,
   padding,
-  PaddingProps,
   GridAreaProps,
   GridColumnProps,
   GridRowProps,
-} from "styled-system";
+} from "../../../style/utils/styled-system-compat";
 
 export function getSpacing(prop?: PaddingProps[keyof PaddingProps]) {
   if (typeof prop === "number") {
@@ -97,8 +97,8 @@ const StyledGridItem = styled.div<StyledGridItemProps>`
   ${({
     alignSelf,
     justifySelf,
-    gridArea = "auto / 1 / auto / 13",
-    gridColumn,
+    gridArea,
+    gridColumn = "1 / 13",
     gridRow,
     responsiveSettings,
   }) => css`

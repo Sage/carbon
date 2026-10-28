@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { layout, flexbox } from "styled-system";
+import { layout, flexbox } from "../../style/utils/styled-system-compat";
 
 interface StyledMenuProps {
   $inFullscreenView?: boolean;
