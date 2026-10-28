@@ -62,7 +62,6 @@ test("uploading shows status, a numeric progress ring, and status-specific Cance
   );
   expect(screen.queryByRole("presentation")).not.toBeInTheDocument();
   const cancelButton = screen.getByRole("button", { name: "Cancel a.pdf" });
-  expect(cancelButton).toHaveAccessibleDescription("Uploading…");
   await userEvent.click(cancelButton);
   expect(onCancel).toHaveBeenCalledTimes(1);
   expect(fallback).not.toHaveBeenCalled();
@@ -177,7 +176,6 @@ test("completed keeps filename as text and provides Preview and Delete", async (
     "/preview",
   );
   const deleteButton = screen.getByRole("button", { name: "Delete a.pdf" });
-  expect(deleteButton).toHaveAccessibleDescription("File uploaded");
   await userEvent.click(deleteButton);
   expect(onDelete).toHaveBeenCalled();
   expect(moveFocusAfterAction).toHaveBeenCalledWith(
@@ -334,10 +332,10 @@ test("exposes error details through a status while keeping actions outside it", 
   );
   expect(
     screen.getByRole("button", { name: "Remove bad.pdf" }),
-  ).toHaveAccessibleDescription("Virus found");
+  ).not.toHaveAttribute("aria-describedby");
   expect(
     screen.getByRole("button", { name: "Retry bad.pdf" }),
-  ).toHaveAccessibleDescription("Virus found");
+  ).not.toHaveAttribute("aria-describedby");
   expect(screen.getByText("Virus found")).toBeVisible();
   await userEvent.click(screen.getByRole("button", { name: "Retry bad.pdf" }));
   await userEvent.click(screen.getByRole("button", { name: "Remove bad.pdf" }));

@@ -117,8 +117,7 @@ treatment either for a missing required file or for too many files being dropped
 FileInput is controlled: update `uploadStatus` in `onChange` to show a selected file and provide its remove action. The Default story demonstrates this
 single-file flow and reports an error if multiple files are dropped together. Focus remains on the Select file button while a controlled status is pending,
 then moves to the status card's first action or Preview link when it appears, or to the named status list when the card has neither.
-When the primary action (Cancel, Delete, or Remove) receives focus this way, it is described by the visible status message, so uploading,
-completion, or error state is announced alongside the action.
+Cancel, Delete, Remove, and Retry (status actions) are announced by their action and filename only (for example, "Delete report.pdf, button").
 In multiple-file mode, focus remains on the Select file button so users can continue adding files. The polite selection announcement also becomes the
 button's accessible description, ensuring the selection result is available when assistive technology announces the returning focus.
 The description clears when focus leaves the button, and later announcements, such as upload completion, are made through the live region only.

@@ -113,9 +113,9 @@ const uploadStatuses = [
   errorStatusProps,
 ];
 const actionableUploadStatuses = [
-  { statusProps: uploadingStatusProps, actionName: "Cancel" },
-  { statusProps: completedStatusProps, actionName: "Delete" },
-  { statusProps: errorStatusProps, actionName: "Remove" },
+  uploadingStatusProps,
+  completedStatusProps,
+  errorStatusProps,
 ];
 
 test.describe("responsive sizing", () => {
@@ -494,9 +494,6 @@ test.describe("focus management", () => {
       page.getByRole("button", { name: "Delete README.md" }),
     ).toBeFocused();
     await expect(
-      page.getByRole("button", { name: "Delete README.md" }),
-    ).toHaveAccessibleDescription("File uploaded");
-    await expect(
       page.getByRole("link", { name: "Preview README.md" }),
     ).not.toBeFocused();
   });
@@ -518,9 +515,6 @@ test.describe("focus management", () => {
     await expect(
       page.getByRole("button", { name: "Cancel README.md" }),
     ).toBeFocused();
-    await expect(
-      page.getByRole("button", { name: "Cancel README.md" }),
-    ).toHaveAccessibleDescription("Uploading…");
   });
 
   test("after a controlled drop, focuses Remove before Retry for a failed file", async ({
@@ -540,9 +534,6 @@ test.describe("focus management", () => {
     await expect(
       page.getByRole("button", { name: "Remove README.md" }),
     ).toBeFocused();
-    await expect(
-      page.getByRole("button", { name: "Remove README.md" }),
-    ).toHaveAccessibleDescription("Error details");
     await expect(
       page.getByRole("button", { name: "Retry README.md" }),
     ).not.toBeFocused();
@@ -685,16 +676,16 @@ test.describe("focus management", () => {
     await page.getByRole("button", { name: "Delete a.pdf" }).click();
     await expect(nextDeleteButton).toBeFocused();
     await expect(nextDeleteButton).toHaveAccessibleDescription(
-      "File deleted: a.pdf. File uploaded",
+      "File deleted: a.pdf.",
     );
     await expect(nextDeleteButton).toHaveAttribute(
       "data-description-when-focused",
-      "File deleted: a.pdf. File uploaded",
+      "File deleted: a.pdf.",
     );
     await expect(page.locator('[aria-live="polite"]')).toBeEmpty();
 
     await page.getByRole("link", { name: "Preview b.pdf" }).focus();
-    await expect(nextDeleteButton).toHaveAccessibleDescription("File uploaded");
+    await expect(nextDeleteButton).toHaveAccessibleDescription("");
   });
 
   test("prepares a cancellation description before focus returns to Select files", async ({
@@ -810,17 +801,12 @@ test.describe("accessibility tests for FileInput", () => {
     await checkAccessibility(page);
   });
 
-  actionableUploadStatuses.forEach(({ statusProps, actionName }) => {
+  actionableUploadStatuses.forEach((statusProps) => {
     test(`should pass accessibility tests with upload status ${statusProps.status}`, async ({
       mount,
       page,
     }) => {
       await mount(<FileInputComponent uploadStatus={statusProps} />);
-      await expect(
-        page.getByRole("button", {
-          name: `${actionName} ${statusProps.filename}`,
-        }),
-      ).toHaveAccessibleDescription(statusProps.message as string);
       await checkAccessibility(page);
     });
   });

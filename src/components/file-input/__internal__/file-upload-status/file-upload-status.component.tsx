@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button, { type ButtonProps } from "../../../button/__next__";
 import Icon, { type IconType } from "../../../icon";
 import {
@@ -18,7 +18,6 @@ import type { ResolvedFileInputLocale } from "../file-input.types";
 import ThumbnailContent, {
   UploadingIndicator,
 } from "./thumbnail-content.component";
-import guid from "../../../../__internal__/utils/helpers/guid";
 
 interface SharedStatusProps {
   /**
@@ -242,7 +241,6 @@ export const FileUploadStatus = (
     const frame = requestAnimationFrame(() => setIsErrorRegionReady(true));
     return () => cancelAnimationFrame(frame);
   }, [isErrorRegionReady]);
-  const statusMessageId = useRef(guid()).current;
   const hasThumbnailProp = thumbnailSrc !== undefined;
 
   let primaryAction: PrimaryActionConfig | undefined;
@@ -286,11 +284,6 @@ export const FileUploadStatus = (
   }
 
   const statusMessage = message ?? defaultStatusMessage;
-  const actionDescription =
-    [removalAnnouncementId, statusMessage ? statusMessageId : undefined]
-      .filter(Boolean)
-      .join(" ") || undefined;
-
   const retryText = fileInputLocale.actions.retry();
 
   const previewText = fileInputLocale.actions.preview();
@@ -365,11 +358,7 @@ export const FileUploadStatus = (
             </StyledFileNameRow>
           )}
           {statusMessage && (
-            <StyledStatusMessage
-              id={statusMessageId}
-              variant="p"
-              $hasError={status === "error"}
-            >
+            <StyledStatusMessage variant="p" $hasError={status === "error"}>
               {statusMessage}
             </StyledStatusMessage>
           )}
@@ -385,7 +374,7 @@ export const FileUploadStatus = (
                 primaryAction.removalAnnouncement,
               )}
               aria-label={`${primaryAction.text} ${filename}`}
-              aria-describedby={actionDescription}
+              aria-describedby={removalAnnouncementId}
             >
               {primaryAction.text}
             </Button>
@@ -396,7 +385,7 @@ export const FileUploadStatus = (
               size="small"
               onClick={invoke(props.onRetry)}
               aria-label={`${retryText} ${filename}`}
-              aria-describedby={actionDescription}
+              aria-describedby={removalAnnouncementId}
             >
               {retryText}
             </Button>

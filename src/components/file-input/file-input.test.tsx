@@ -351,9 +351,7 @@ test("moves focus to the next file action and describes it with the deletion res
 
   const nextAction = screen.getByRole("button", { name: "Delete b.pdf" });
   expect(nextAction).toHaveFocus();
-  expect(nextAction).toHaveAccessibleDescription(
-    "File deleted: a.pdf. File uploaded",
-  );
+  expect(nextAction).toHaveAccessibleDescription("File deleted: a.pdf.");
 });
 
 test("multiple=false replaces the picker with a removable file and restores it after deletion", async () => {
