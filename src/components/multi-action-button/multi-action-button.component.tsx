@@ -223,7 +223,6 @@ export const MultiActionButton = forwardRef<
                     {...props}
                     className={showAdditionalButtons ? "active" : ""}
                     data-element="toggle-button"
-                    key="toggle-button"
                     ref={combinedRef}
                     iconPosition="after"
                     disabled={disabled}
