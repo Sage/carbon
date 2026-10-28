@@ -18,7 +18,7 @@ description: Carbon Skeleton component props and usage examples.
 | children | React.ReactNode | No |  | Children content to render in the component. |  |
 | disableAnimation | boolean \| undefined | No |  | Removes the animation. Also disabled when the user prefers reduced motion. |  |
 | height | (string & {}) \| SkeletonHeight \| undefined | No |  | Sets a preset or custom pixel/CSS height. Presets: h1 (38px), h2 (30px), h3 (26px), h4 (23px), paragraph (21px), button (40px). |  |
-| lines | number \| undefined | No |  | The number of placeholder shapes to render. |  |
+| lines | number \| undefined | No |  | The number of placeholder shapes to render. | 1 |
 | loading | boolean \| undefined | No |  | Sets loading state. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
@@ -34,7 +34,7 @@ description: Carbon Skeleton component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| shape | SkeletonShape \| undefined | No |  | Sets the Skeleton shape. Legacy values remain supported for Preview compatibility. |  |
+| shape | SkeletonShape \| undefined | No |  | Sets the Skeleton shape. | "rectangle-moderate" |
 | width | string \| undefined | No |  | Sets the width of the Skeleton. Defaults to 100% (except circles, which match their height). |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -144,12 +144,23 @@ description: Carbon Skeleton component props and usage examples.
 () => {
   return (
     <>
-      <Skeleton loading height="h1" />
-      <Skeleton loading height="h2" />
-      <Skeleton loading height="h3" />
-      <Skeleton loading height="h4" />
-      <Skeleton loading height="paragraph" />
-      <Skeleton loading height="button" />
+      {(
+        [
+          ["h1", "38px"],
+          ["h2", "30px"],
+          ["h3", "26px"],
+          ["h4", "23px"],
+          ["paragraph", "21px"],
+          ["button", "40px"],
+        ] as const
+      ).map(([preset, height]) => (
+        <div key={preset} style={{ marginBottom: "8px" }}>
+          <div>
+            {preset} ({height})
+          </div>
+          <Skeleton loading height={preset} />
+        </div>
+      ))}
     </>
   );
 }

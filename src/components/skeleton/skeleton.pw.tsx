@@ -1,7 +1,7 @@
 import React from "react";
 import { test } from "../../../playwright/helpers/base-test";
 import SkeletonComponent from "./components.test-pw";
-import Skeleton from "../../../src/components/skeleton";
+import Skeleton from ".";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
 

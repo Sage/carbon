@@ -1,8 +1,8 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 
-import * as PreviewStories from "./preview.stories";
+import * as SkeletonStories from "./skeleton.stories";
 
-<Meta of={PreviewStories} />
+<Meta of={SkeletonStories} />
 
 # Skeleton
 
@@ -24,31 +24,31 @@ import Skeleton from "carbon-react/lib/components/skeleton";
 
 ### Default
 
-<Canvas of={PreviewStories.Default} />
+<Canvas of={SkeletonStories.Default} />
 
 ### With Lines
 
 You can use the `lines` prop to specify the number of placeholder shapes to render.
 
-<Canvas of={PreviewStories.WithLines} />
+<Canvas of={SkeletonStories.WithLines} />
 
 ### With Children
 
 You can pass children to the component which will render when the `loading` prop is `false` or undefined.
 
-<Canvas of={PreviewStories.WithChildren} />
+<Canvas of={SkeletonStories.WithChildren} />
 
 ### With Custom Width
 
 You can use the `width` prop to specify the width of the Skeleton. It fills the available width by default.
 
-<Canvas of={PreviewStories.WithWidth} />
+<Canvas of={SkeletonStories.WithWidth} />
 
 ### With Custom Height
 
 You can use the `height` prop to specify a custom CSS height or one of the presets: `h1` (38px), `h2` (30px), `h3` (26px), `h4` (23px), `paragraph` (21px), or `button` (40px).
 
-<Canvas of={PreviewStories.WithHeight} />
+<Canvas of={SkeletonStories.WithHeight} />
 
 ### Shapes
 
@@ -56,20 +56,22 @@ Choose `circle`, `rectangle-curved`, or `rectangle-moderate` with the `shape` pr
 
 Use `lines` to render multiple Skeletons. Circles remain circular: their width always follows their height, so `width` is ignored for circles.
 
-<Canvas of={PreviewStories.Shapes} />
+<Canvas of={SkeletonStories.Shapes} />
 
 ### Height Presets
 
-<Canvas of={PreviewStories.HeightPresets} />
+Each placeholder below uses the height named beside it, from `h1` through `button`.
+
+<Canvas of={SkeletonStories.HeightPresets} />
 
 ### Disable Animation
 
 The animated gradient moves from left to right. Set `disableAnimation` to render a solid static placeholder; animation is also disabled when the user prefers reduced motion.
 
-<Canvas of={PreviewStories.DisableAnimation} />
+<Canvas of={SkeletonStories.DisableAnimation} />
 
 ## Props
 
 ### Skeleton
 
-<ArgTypes of={PreviewStories} />
+<ArgTypes of={SkeletonStories} />

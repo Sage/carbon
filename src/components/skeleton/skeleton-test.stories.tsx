@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import Skeleton from "../skeleton";
+import Skeleton from ".";
 import Box from "../box";
 import Button from "../button";
 
@@ -16,7 +16,7 @@ const meta: Meta<typeof Skeleton> = {
 export default meta;
 type Story = StoryObj<typeof Skeleton>;
 
-export const PreviewChromaticSnapshots: Story = {
+export const SkeletonChromaticSnapshots: Story = {
   render: () => (
     <Box display="flex" flexDirection="column" gap={2} width="320px">
       <Skeleton loading />
@@ -30,7 +30,7 @@ export const PreviewChromaticSnapshots: Story = {
     </Box>
   ),
 };
-PreviewChromaticSnapshots.storyName = "Skeleton Chromatic Snapshots";
+SkeletonChromaticSnapshots.storyName = "Skeleton Chromatic Snapshots";
 
 export const SnapshotWithChildren: Story = () => {
   const [isLoading, setIsLoading] = useState(true);
