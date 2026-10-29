@@ -42,7 +42,7 @@ type Story = StoryObj<typeof Dialog>;
 const Buttons = () => (
   <Box display="flex" flexDirection="column" alignItems="flex-end">
     <Box display="flex" gap={1}>
-      <Button>Cancel</Button>
+      <Button variantType="subtle">Cancel</Button>
       <Button variantType="primary">Save</Button>
     </Box>
   </Box>
@@ -250,7 +250,11 @@ export const DialogStickyFormSmallScreen: Story = {
           title="Dialog with bug on small screen"
         >
           <Form
-            leftSideButtons={<Button onClick={() => ""}>Cancel</Button>}
+            leftSideButtons={
+              <Button variantType="subtle" onClick={() => ""}>
+                Cancel
+              </Button>
+            }
             saveButton={
               <Button variantType="primary" type="submit">
                 Save
