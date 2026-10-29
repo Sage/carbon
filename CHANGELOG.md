@@ -1,3 +1,9 @@
+## [162.20.0](https://github.com/Sage/carbon/compare/v162.19.0...v162.20.0) (2026-10-29)
+
+### Features
+
+* **date-range:** update component with fusion design system ([6db1ef0](https://github.com/Sage/carbon/commit/6db1ef049c49d061868ac7ff3200acb870d1671b))
+
 ## [162.19.0](https://github.com/Sage/carbon/compare/v162.18.0...v162.19.0) (2026-10-28)
 
 ### Features
