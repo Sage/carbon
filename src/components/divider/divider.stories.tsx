@@ -8,19 +8,8 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import Box from "../box";
 import Icon from "../icon";
 import Dialog from "../dialog";
-import Button from "../button";
-import { Tile, TileContent } from "../tile";
-import Content from "../content";
-import { GridContainer, GridItem } from "../grid";
+import Button from "../button/__next__";
 import { Menu, MenuItem } from "../menu";
-import {
-  FlatTable,
-  FlatTableHead,
-  FlatTableBody,
-  FlatTableHeader,
-  FlatTableRow,
-  FlatTableCell,
-} from "../flat-table";
 import Form from "../form";
 import Textbox from "../textbox";
 
@@ -184,7 +173,7 @@ InAFlexContainer.storyName = "In a Flex Container";
 
 export const InANonFlexContainer: Story = () => {
   return (
-    <Box display="inline-block" width={620} height="auto" my={0} mx={180}>
+    <Box display="inline-block" height="auto" mx={160}>
       <Icon type="home" />
       <Divider displayInline />
       <Icon type="settings" />
@@ -283,122 +272,6 @@ export const InADialog: Story = () => {
 };
 InADialog.storyName = "In a Dialog";
 
-export const InATile: Story = () => {
-  return (
-    <Tile width={800} orientation="vertical">
-      <TileContent>
-        <Content title="Test Title One">Test Body One</Content>
-      </TileContent>
-      <TileContent>
-        <Box display="inline-flex">
-          <Square size="40px" />
-          <Divider pt={1} pb={1} pl={3} pr={3} mr={3} />
-          <Square size="40px" />
-          <Divider pt={1} pb={1} pl={3} pr={3} />
-          <Square size="40px" />
-          <Divider pt={1} pb={1} pl={3} pr={3} />
-          <Square size="40px" />
-          <Divider pt={1} pb={1} pl={3} pr={3} />
-          <Square size="40px" />
-          <Divider pt={1} pb={1} pl={3} pr={3} />
-          <Square size="40px" />
-          <Divider pt={1} pb={1} pl={3} pr={3} />
-          <Square size="40px" />
-          <Divider pt={1} pb={1} pl={3} pr={3} />
-          <Square size="40px" />
-          <Divider pt={1} pb={1} pl={3} pr={3} />
-          <Square size="40px" />
-        </Box>
-      </TileContent>
-    </Tile>
-  );
-};
-InATile.storyName = "In a Tile";
-
-export const InGridContainer: Story = () => {
-  return (
-    <GridContainer>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="1"
-        gridRow="1 / 2"
-      >
-        <Square size="40px" />
-        <Divider h={100} />
-        <Square size="40px" />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="3 / 4"
-        gridRow="1 /2 "
-      >
-        <Divider h={180} />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="5 / 6"
-        gridRow="1 / 2"
-      >
-        <Square size="40px" />
-        <Divider h={100} />
-        <Square size="40px" />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="7 / 8"
-        gridRow="1 / 2"
-      >
-        <Divider h={180} />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="9 / 10"
-        gridRow="1 / 2"
-      >
-        <Square size="40px" />
-        <Divider h={100} />
-        <Square size="40px" />
-      </GridItem>
-    </GridContainer>
-  );
-};
-InGridContainer.storyName = "In Grid Container";
-
-export const InATable: Story = () => {
-  return (
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>Dish Name</FlatTableHeader>
-          <FlatTableHeader>Ingredients</FlatTableHeader>
-          <FlatTableHeader>Cooking Time</FlatTableHeader>
-          <FlatTableHeader>Prep Time</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableCell>Pancakes</FlatTableCell>
-          <FlatTableCell>
-            Eggs
-            <Divider displayInline />
-            Flour
-            <Divider displayInline />
-            Milk
-          </FlatTableCell>
-          <FlatTableCell>5 minutes</FlatTableCell>
-          <FlatTableCell>5 minutes</FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
-  );
-};
-InATable.storyName = "In a Table";
-
 export const InAMenu: Story = () => {
   return (
     <Box minHeight={120}>
@@ -421,48 +294,36 @@ export const DifferentSpacing: Story = () => {
 DifferentSpacing.storyName = "Different Spacing";
 
 export const InsideForm: Story = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+
   return (
     <Form
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
+      leftSideButtons={<Button variantType="secondary">Cancel</Button>}
+      saveButton={<Button type="submit">Save</Button>}
       stickyFooter={false}
     >
-      <Textbox label="Textbox" value="" onChange={() => {}} />
-      <Textbox label="Textbox" value="" onChange={() => {}} />
+      <Textbox
+        label="First name"
+        value={firstName}
+        onChange={(ev) => setFirstName(ev.target.value)}
+      />
+      <Textbox
+        label="Last name"
+        value={lastName}
+        onChange={(ev) => setLastName(ev.target.value)}
+      />
       <Divider type="horizontal" mb={7} mt={7} />
-      <Textbox label="Textbox" value="" onChange={() => {}} />
+      <Textbox
+        label="Email"
+        value={email}
+        onChange={(ev) => setEmail(ev.target.value)}
+      />
     </Form>
   );
 };
 InsideForm.storyName = "Inside Form";
-
-export const InsideFormInlineLabels: Story = () => {
-  return (
-    <Form
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      stickyFooter={false}
-    >
-      <Box width="60%">
-        <Textbox label="Textbox" labelInline value="" onChange={() => {}} />
-        <Textbox label="Textbox" labelInline value="" onChange={() => {}} />
-        <Box ml="17%">
-          <Divider type="horizontal" mb={7} mt={7} />
-        </Box>
-        <Textbox label="Textbox" labelInline value="" onChange={() => {}} />
-      </Box>
-    </Form>
-  );
-};
-InsideFormInlineLabels.storyName = "Inside Form with Inline Labels";
 
 export const EnablingAdaptiveBehaviour: Story = () => {
   return (
