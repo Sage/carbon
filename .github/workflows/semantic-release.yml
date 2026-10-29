@@ -13,6 +13,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     outputs:
       version: ${{ steps.versionNumber.outputs.version }}
     steps:
@@ -40,7 +43,6 @@ jobs:
         env:
           # A personal access token is required to publish from protected branches
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GIT_COMMITTER_NAME: Sage Carbon
           GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }}
       - id: versionNumber
