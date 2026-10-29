@@ -42,6 +42,7 @@
 - [Detail](components/detail.md) (deprecated)
 - [Dialog](components/dialog.md)
 - [DismissibleBox](components/dismissible-box.md) (deprecated)
+- [Divider](components/divider.md) — A vertical or horizontal line that visually separates adjacent content.
 - [Dl](components/dl.md)
 - [DraggableContainer](components/draggable-container.md)
 - [DraggableItem](components/draggable-item.md)
