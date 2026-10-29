@@ -16,9 +16,7 @@ import * as DateRangeStories from "./date-range.stories";
   Product Design System component
 </a>
 
-Captures a start and end date.
-
-Used to filter a Table of data according to a start and end date, or to set two dates which are related to each other, for example, a hotel booking.
+A date range captures a start date and an end date selected or entered by a user.
 
 ## Contents
 
@@ -53,15 +51,17 @@ You can use the `required` prop to indicate if the fields are mandatory.
 <Canvas of={DateRangeStories.Required} />
 
 ### With disabled dates
-You can disable dates by using `startDateProps` and `endDateProps`, which allow you to pass properties directly to the start or end date. 
+
+You can disable dates by using `startDateProps` and `endDateProps`, which allow you to pass properties directly to the start or end date.
 For example, you can set a `minDate` or `maxDate`, or use `pickerProps` with a `disabled` option that accepts a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example).
 
 <Canvas of={DateRangeStories.WithDisabledDates} />
 
 ### Locale override
 
-The examples below illustrates how to override the locale passed into the DateRange component. In this example it has been set up for
-the French locale. Required locales can be imported like so `import { fr } from 'date-fns/locale';`
+The example below illustrates how to override the locale passed into the DateRange component. Locale values are merged with `en-GB`,
+so omitted accessibility labels fall back to British English. Applications should provide approved translations through
+`I18nProvider` for every language they support. Required date locales can be imported like so `import { fr } from 'date-fns/locale';`
 
 <Canvas of={DateRangeStories.LocaleOverrideExampleImplementation} />
 

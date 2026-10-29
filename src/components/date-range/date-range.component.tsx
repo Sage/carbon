@@ -11,7 +11,7 @@ import {
   formattedValue,
   parseISODate,
   checkISOFormatAndLength,
-} from "../date/__internal__/utils";
+} from "../date/__internal__/utils/utils";
 import DateInput, { DateChangeEvent, DateInputProps } from "../date";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, {
@@ -28,6 +28,7 @@ import DateRangeContext, {
   SetInputRefMapValue,
 } from "./__internal__/date-range.context";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
+import FieldsetContext from "../fieldset/__internal__/fieldset.context";
 
 interface DateInputValue {
   formattedValue: string;
@@ -116,13 +117,25 @@ export interface DateRangeProps
   required?: boolean;
   /** Date format string to be applied to the date inputs */
   dateFormatOverride?: string;
-  /** Prop to specify the aria-label attribute of the start date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerStartAriaLabel?: string;
-  /** Prop to specify the aria-labelledby attribute of the start date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerStartAriaLabelledBy?: string;
-  /** Prop to specify the aria-label attribute of the end date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerEndAriaLabel?: string;
-  /** Prop to specify the aria-labelledby attribute of the end date picker */
+  /**
+   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * Remove this prop; it has no effect.
+   */
   datePickerEndAriaLabelledBy?: string;
   /** Render the ValidationMessage above the Date inputs when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
@@ -151,6 +164,8 @@ export const DateRange = ({
   ...rest
 }: DateRangeProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
+  const { size: fieldsetSize } = useContext(FieldsetContext);
+  const size = fieldsetSize || startDateProps.size || "medium";
   const labelsInlineWithNewValidation = validationRedesignOptIn
     ? false
     : labelsInline;
@@ -375,6 +390,7 @@ export const DateRange = ({
     <StyledDateRange
       {...tagComponent("date-range", rest)}
       labelsInline={labelsInlineWithNewValidation}
+      $size={size}
       {...filterStyledSystemMarginProps(rest)}
       validationMessagePositionTop={validationMessagePositionTop}
     >

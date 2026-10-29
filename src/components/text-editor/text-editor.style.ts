@@ -3,18 +3,21 @@ import { margin } from "styled-system";
 
 const sizeMap = {
   small: {
+    paragraphFont: "var(--global-font-static-comp-regular-s)",
     contentMargin: "var(--global-space-comp-xs)",
     validationGap: "var(--global-space-comp-xs)",
     headerPadding: "var(--global-space-comp-s)",
     footerPadding: "var(--global-space-comp-s)",
   },
   medium: {
+    paragraphFont: "var(--global-font-static-comp-regular-m)",
     contentMargin: "var(--global-space-comp-s)",
     validationGap: "var(--global-space-comp-s)",
     headerPadding: "var(--global-space-comp-m)",
     footerPadding: "var(--global-space-comp-m)",
   },
   large: {
+    paragraphFont: "var(--global-font-static-comp-regular-l)",
     contentMargin: "var(--global-space-comp-m)",
     validationGap: "var(--global-space-comp-s)",
     headerPadding: "var(--global-space-comp-l)",
@@ -22,9 +25,13 @@ const sizeMap = {
   },
 };
 
-export const StyledTextEditor = styled.div<{ error?: boolean }>`
+export const StyledTextEditor = styled.div<{
+  error?: boolean;
+  size: "small" | "medium" | "large";
+}>`
   position: relative;
   box-sizing: border-box;
+  font: ${({ size }) => sizeMap[size].paragraphFont};
   ${({ error }) =>
     error &&
     css`

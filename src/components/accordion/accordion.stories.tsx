@@ -50,7 +50,7 @@ export const Subtitle: Story = {
 export const WithCustomTitle: Story = ({ ...args }) => {
   const title = (
     <Box display="flex" alignItems="center" gap="16px">
-      <Image size="60px" src={collaborateSvg} decorative />
+      <Image size="60px" src={collaborateSvg} decorative alt="" />
       <Box>
         <Typography variant="segment-header" as="h2">
           Custom Title

@@ -5,7 +5,13 @@ import { existsSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
 import { JSDoc, Project, SyntaxKind } from "ts-morph";
+import { sourceFileHasRuntimeExport } from "./component-exports.mjs";
 import { loadComponentMetadata } from "./component-metadata.mjs";
+import {
+  findDeprecatedImport,
+  hasNamespaceImportFrom,
+  hasStorybookImport,
+} from "./example-imports.mjs";
 
 /**
  * @typedef {Object} ComponentCandidate
@@ -41,7 +47,9 @@ import { loadComponentMetadata } from "./component-metadata.mjs";
  * @property {PropInfo[]} props
  * @property {boolean} missingPropsInterface
  * @property {string | null} propsInterfaceName
- * @property {boolean} hasDefaultExport
+ * @property {"default" | "named"} importStyle
+ * @property {boolean} supportsDefaultImport
+ * @property {boolean} supportsNamedImport
  * @property {boolean} deprecated
  * @property {string | null} deprecationReason
  */
@@ -168,6 +176,9 @@ for (const exportDecl of indexFile.getExportDeclarations()) {
   // exports (Props, handles) would create false component entries.
 
   for (const namedExport of namedExports) {
+    if (namedExport.isTypeOnly()) {
+      continue;
+    }
     const exportName =
       namedExport.getAliasNode()?.getText() ?? namedExport.getName();
     if (exportName === "default" || exportName.endsWith("Props")) {
@@ -230,6 +241,18 @@ for (const candidate of uniqueComponentCandidates) {
   // so deprecated components still yield accurate props.
   const defaultsMap = collectDefaultProps(project, moduleFiles, candidate.name);
   const hasDefaultExport = moduleHasDefaultExport(project, modulePath);
+  const hasNamedExport = moduleHasNamedExport(
+    project,
+    modulePath,
+    candidate.name,
+  );
+  const defaultMatchesNamedExport =
+    hasNamedExport &&
+    moduleDefaultMatchesNamedExport(project, modulePath, candidate.name);
+  const supportsDefaultImport =
+    hasDefaultExport && (!hasNamedExport || defaultMatchesNamedExport);
+  const supportsNamedImport = hasNamedExport;
+  const importStyle = supportsDefaultImport ? "default" : "named";
   const deprecationInfo = detectDeprecation(
     project,
     modulePath,
@@ -251,7 +274,9 @@ for (const candidate of uniqueComponentCandidates) {
     props,
     missingPropsInterface: !propsDefinition,
     propsInterfaceName: propsDefinition?.name ?? null,
-    hasDefaultExport,
+    importStyle,
+    supportsDefaultImport,
+    supportsNamedImport,
     deprecated: deprecationInfo.deprecated,
     deprecationReason: deprecationInfo.reason,
   });
@@ -688,6 +713,52 @@ function moduleHasDefaultExport(projectInstance, modulePath) {
     .getExportAssignments()
     .find((assignment) => !assignment.isExportEquals());
   return Boolean(exportAssignment);
+}
+
+/**
+ * Determine whether a module exposes a named runtime binding.
+ * @param {import("ts-morph").Project} projectInstance
+ * @param {string} modulePath
+ * @param {string} exportName
+ * @returns {boolean}
+ */
+function moduleHasNamedExport(projectInstance, modulePath, exportName) {
+  const sourceFile =
+    projectInstance.getSourceFile(modulePath) ||
+    projectInstance.addSourceFileAtPathIfExists(modulePath);
+  return sourceFile
+    ? sourceFileHasRuntimeExport(sourceFile, exportName)
+    : false;
+}
+
+/**
+ * Determine whether a module's default and named exports resolve to the same
+ * runtime declaration, in which case the conventional default import is valid.
+ * @param {import("ts-morph").Project} projectInstance
+ * @param {string} modulePath
+ * @param {string} exportName
+ * @returns {boolean}
+ */
+function moduleDefaultMatchesNamedExport(
+  projectInstance,
+  modulePath,
+  exportName,
+) {
+  const sourceFile =
+    projectInstance.getSourceFile(modulePath) ||
+    projectInstance.addSourceFileAtPathIfExists(modulePath);
+  if (!sourceFile) return false;
+
+  const exported = sourceFile.getExportedDeclarations();
+  const defaultDeclarations = exported.get("default") ?? [];
+  const namedDeclarations = exported.get(exportName) ?? [];
+  const declarationKey = (/** @type {import("ts-morph").Node} */ declaration) =>
+    `${declaration.getSourceFile().getFilePath()}:${declaration.getStart()}:${declaration.getKind()}`;
+  const namedKeys = new Set(namedDeclarations.map(declarationKey));
+
+  return defaultDeclarations.some((declaration) =>
+    namedKeys.has(declarationKey(declaration)),
+  );
 }
 
 /**
@@ -1752,9 +1823,10 @@ function renderComponentMarkdown(
   }
 
   const importPath = `${packageName}/${buildOutputFolder}/${component.moduleSpecifier.replace("./", "")}`;
-  const importStatement = component.hasDefaultExport
-    ? `import ${component.importName} from "${importPath}";`
-    : `import { ${component.importName} } from "${importPath}";`;
+  const importStatement =
+    component.importStyle === "default"
+      ? `import ${component.importName} from "${importPath}";`
+      : `import { ${component.importName} } from "${importPath}";`;
 
   lines.push("## Import");
   lines.push(`\`${importStatement}\`\n`);
@@ -1914,11 +1986,15 @@ function renderExampleMarkdown(component, story) {
   const exampleName = `${component.name}${story.exportName}Example`;
   let render = normalizeCodeIndentation(story.renderText.trim());
 
-  if (story.argsText && /^(?:async\s+)?\(\s*args\s*\)\s*=>\s*\{/.test(render)) {
+  const argsFunctionPattern =
+    /^(async\s+)?\(\s*(?:args|\{\s*\.\.\.args\s*\})\s*\)\s*=>\s*\{/;
+
+  if (story.argsText && argsFunctionPattern.test(render)) {
+    const argsText = normalizeCodeIndentation(story.argsText.trim());
     render = render.replace(
-      /^(async\s+)?\(\s*args\s*\)\s*=>\s*\{/,
+      argsFunctionPattern,
       (_, asyncKeyword = "") =>
-        `${asyncKeyword}() => {\n  const args = ${story.argsText};`,
+        `${asyncKeyword}() => {\n  const args = ${argsText.replace(/\n/g, "\n  ")};`,
     );
   } else if (story.argsText && /\bargs\b/.test(render)) {
     throw new Error(
@@ -2013,10 +2089,21 @@ function validateMetadataReferences(
   );
   const deprecatedImports = components
     .filter(({ deprecated }) => deprecated)
-    .map(({ name, moduleSpecifier }) => ({
-      name,
-      importPath: `${packageName}/${buildOutputFolder}/${moduleSpecifier.replace("./", "")}`,
-    }));
+    .map(
+      ({
+        name,
+        importName,
+        moduleSpecifier,
+        supportsDefaultImport,
+        supportsNamedImport,
+      }) => ({
+        name,
+        importName,
+        supportsDefaultImport,
+        supportsNamedImport,
+        importPath: `${packageName}/${buildOutputFolder}/${moduleSpecifier.replace("./", "")}`,
+      }),
+    );
 
   for (const metadata of metadataByComponent.values()) {
     if (!componentNames.has(metadata.component)) {
@@ -2065,15 +2152,29 @@ function validateMetadataReferences(
         );
       }
       const imports = rewriteExampleImports(story.importsText, story.source);
+      if (hasStorybookImport(imports)) {
+        throw new Error(
+          `Curated story ${metadata.component}.${example.story} imports Storybook-only code that is unavailable to consumers`,
+        );
+      }
       if (/from\s+["']\./.test(imports)) {
         throw new Error(
           `Curated story ${metadata.component}.${example.story} contains a relative import that cannot be used by a consumer`,
         );
       }
-      const deprecatedDependency = deprecatedImports.find(({ importPath }) =>
-        new RegExp(
-          `from\\s+["']${importPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`,
-        ).test(imports),
+      if (
+        hasNamespaceImportFrom(
+          imports,
+          `${packageName}/${buildOutputFolder}/components/`,
+        )
+      ) {
+        throw new Error(
+          `Curated story ${metadata.component}.${example.story} uses a namespace import from a Carbon component module; use explicit default or named imports`,
+        );
+      }
+      const deprecatedDependency = findDeprecatedImport(
+        imports,
+        deprecatedImports,
       );
       if (deprecatedDependency) {
         throw new Error(
