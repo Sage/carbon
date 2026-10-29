@@ -1,3 +1,9 @@
+## [162.20.1](https://github.com/Sage/carbon/compare/v162.20.0...v162.20.1) (2026-10-29)
+
+### Bug Fixes
+
+* **dialog:** remove redundant sticky footer styling on small screens ([a680443](https://github.com/Sage/carbon/commit/a680443733fa753e4ece67407f9f673a91605d91))
+
 ## [162.20.0](https://github.com/Sage/carbon/compare/v162.19.0...v162.20.0) (2026-10-29)
 
 ### Features
