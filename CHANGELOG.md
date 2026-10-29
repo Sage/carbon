@@ -1,3 +1,63 @@
+## [162.20.1](https://github.com/Sage/carbon/compare/v162.20.0...v162.20.1) (2026-10-29)
+
+### Bug Fixes
+
+* **dialog:** remove redundant sticky footer styling on small screens ([a680443](https://github.com/Sage/carbon/commit/a680443733fa753e4ece67407f9f673a91605d91))
+
+## [162.20.0](https://github.com/Sage/carbon/compare/v162.19.0...v162.20.0) (2026-10-29)
+
+### Features
+
+* **date-range:** update component with fusion design system ([6db1ef0](https://github.com/Sage/carbon/commit/6db1ef049c49d061868ac7ff3200acb870d1671b))
+
+## [162.19.0](https://github.com/Sage/carbon/compare/v162.18.0...v162.19.0) (2026-10-28)
+
+### Features
+
+* **adaptive-sidebar:** align with Fusion DS ([5d62e33](https://github.com/Sage/carbon/commit/5d62e33063b54bc811fb862b17991d54f5492c0b))
+
+## [162.18.0](https://github.com/Sage/carbon/compare/v162.17.0...v162.18.0) (2026-10-27)
+
+### Features
+
+* **pager:** ensure alignment prop works as expected ([568b5ca](https://github.com/Sage/carbon/commit/568b5caa48e005ed3317d8d0cd6a91d531fdb78e))
+
+## [162.17.0](https://github.com/Sage/carbon/compare/v162.16.2...v162.17.0) (2026-10-23)
+
+### Features
+
+* **required-fields-indicator:** add `as` prop ([6565f58](https://github.com/Sage/carbon/commit/6565f5819c1ec299eceb8602d71f01c574e14f42))
+
+## [162.16.2](https://github.com/Sage/carbon/compare/v162.16.1...v162.16.2) (2026-10-22)
+
+### Bug Fixes
+
+* **badge:** ensure fullWidth Button children render correctly ([392c6b9](https://github.com/Sage/carbon/commit/392c6b92d3f2ad28c5cbff5a111a372964a669e5)), closes [#8202](https://github.com/Sage/carbon/issues/8202)
+
+## [162.16.1](https://github.com/Sage/carbon/compare/v162.16.0...v162.16.1) (2026-10-22)
+
+### Bug Fixes
+
+* **navigation-bar:** restore white variant bottom border ([76072ec](https://github.com/Sage/carbon/commit/76072ec540881dac9ef4f32bd23c5a61322fd5a3))
+
+## [162.16.0](https://github.com/Sage/carbon/compare/v162.15.0...v162.16.0) (2026-10-22)
+
+### Features
+
+* **table:** add new component aligned with fusion designs ([a3d9fda](https://github.com/Sage/carbon/commit/a3d9fda6b241661ecab3a9fb301e6938e0059723))
+
+## [162.15.0](https://github.com/Sage/carbon/compare/v162.14.2...v162.15.0) (2026-10-22)
+
+### Features
+
+* **split-button:** secondary variant added to the component ([6098239](https://github.com/Sage/carbon/commit/6098239bb68854c7c41a8f6d80e39bf82120736a))
+
+## [162.14.2](https://github.com/Sage/carbon/compare/v162.14.1...v162.14.2) (2026-10-22)
+
+### Bug Fixes
+
+* **text-editor:** scale paragraph content font with the size prop ([e39ef22](https://github.com/Sage/carbon/commit/e39ef225de909b9b6c8ce972c4fe93fc62e853ba))
+
 ## [162.14.1](https://github.com/Sage/carbon/compare/v162.14.0...v162.14.1) (2026-10-21)
 
 ### Bug Fixes

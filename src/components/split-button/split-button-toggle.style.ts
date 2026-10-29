@@ -19,7 +19,7 @@ const StyledSplitButtonToggle = styled(
 ).attrs<StyledSplitButtonToggleProps>(({ isWhite }) => ({
   $inverse: isWhite,
 }))<StyledSplitButtonToggleProps>`
-  ${({ $displayed, $size, isWhite }) => css`
+  ${({ $displayed, $size, isWhite, $variantType }) => css`
     border-top-left-radius: var(--global-size-none);
     border-bottom-left-radius: var(--global-size-none);
 
@@ -42,15 +42,21 @@ const StyledSplitButtonToggle = styled(
       : ""}
 
     position: relative;
-    &::before {
-      content: "";
-      width: var(--global-size-6-xs);
-      height: calc(100% + var(--global-size-5-xs));
-      background: var(--button-typical-primary-label-default);
-      position: absolute;
-      left: -2px;
-      z-index: 2;
-    }
+
+    ${$variantType === "secondary"
+      ? css`
+          margin-left: calc(-1 * var(--global-borderwidth-s));
+          &:hover,
+          &:active {
+            z-index: 1;
+          }
+          &:focus {
+            z-index: 2;
+          }
+        `
+      : css`
+          margin-left: var(--global-space-comp-2-xs);
+        `}
 
     width: ${buttonDimensions[$size]};
     min-height: ${buttonDimensions[$size]};

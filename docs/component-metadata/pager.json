@@ -1,0 +1,14 @@
+{
+  "component": "Pager",
+  "summary": "Navigates between pages of records and can expose page-size and total-record controls.",
+  "pitfalls": [
+    "Update currentPage from onPagination so the consuming view and Pager remain in sync.",
+    "Some layout and alignment combinations are normalised when the corresponding page-size or total-record controls are not shown."
+  ],
+  "examples": [
+    {
+      "story": "Default",
+      "description": "Keep the current page controlled by updating it from onPagination."
+    }
+  ]
+}
