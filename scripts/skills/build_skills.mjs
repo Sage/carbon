@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
 import { JSDoc, Project, SyntaxKind } from "ts-morph";
 import { sourceFileHasRuntimeExport } from "./component-exports.mjs";
-import { loadComponentMetadata } from "./component-metadata.mjs";
+import { loadComponentMetadata, toKebabCase } from "./component-metadata.mjs";
 import {
   findDeprecatedImport,
   hasNamespaceImportFrom,
@@ -2224,19 +2224,6 @@ function storyUsesDeprecatedProp(code, prop) {
  */
 function escapePipes(value) {
   return value?.replace(/\|/g, "\\|") ?? "";
-}
-
-/**
- * Convert a string to kebab-case.
- * @param {string} value
- * @returns {string}
- */
-function toKebabCase(value) {
-  return value
-    .replace(/([a-z])([A-Z])/g, "$1-$2")
-    .replace(/\s+/g, "-")
-    .replace(/_/g, "-")
-    .toLowerCase();
 }
 
 /**
