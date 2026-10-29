@@ -8,7 +8,10 @@ import { Project } from "ts-morph";
 import ts from "typescript";
 
 import { sourceFileHasRuntimeExport } from "./component-exports.mjs";
-import { validateComponentMetadata } from "./component-metadata.mjs";
+import {
+  toKebabCase,
+  validateComponentMetadata,
+} from "./component-metadata.mjs";
 import {
   findDeprecatedImport,
   hasNamespaceImportFrom,
@@ -100,6 +103,16 @@ test("rejects empty optional sections", () => {
         pitfalls: [],
       }),
     /field "pitfalls" must be a non-empty array when provided/,
+  );
+});
+
+test("separates single-letter words when kebab-casing names", () => {
+  assert.equal(toKebabCase("InAFlexContainer"), "in-a-flex-container");
+  assert.equal(toKebabCase("InAMenu"), "in-a-menu");
+  assert.equal(toKebabCase("ButtonNext"), "button-next");
+  assert.equal(
+    toKebabCase("InverseOnDarkBackground"),
+    "inverse-on-dark-background",
   );
 });
 

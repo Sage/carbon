@@ -206,9 +206,10 @@ function rejectUnknownKeys(value, allowedKeys, filePath, field) {
 }
 
 /** @param {string} value */
-function toKebabCase(value) {
+export function toKebabCase(value) {
   return value
     .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z])([A-Z][a-z])/g, "$1-$2")
     .replace(/\s+/g, "-")
     .replace(/_/g, "-")
     .toLowerCase();
