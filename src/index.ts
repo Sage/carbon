@@ -108,6 +108,9 @@ export type { DdProps, DlProps, DtProps } from "./components/definition-list";
 export { default as Detail } from "./components/detail";
 export type { DetailProps } from "./components/detail";
 
+export { default as Divider } from "./components/divider";
+export type { DividerProps } from "./components/divider";
+
 export { default as Dialog } from "./components/dialog";
 export type {
   DialogProps,
