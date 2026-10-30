@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { userEvent, within } from "storybook/test";
 import type { SimpleSelectProps } from "./simple-select.component";
 import {
   Select,
@@ -563,18 +562,15 @@ const AllItemPropsSelect = ({
   const [value, setValue] = useState("2");
   return (
     <Box width={336} flexShrink={0}>
-      <Typography variant="h3" mb={3}>
-        {size.charAt(0).toUpperCase() + size.slice(1)}
-      </Typography>
       <Select
         name={`complexCompositions-${size}`}
         id={`complexCompositions-${size}`}
         size={size}
-        label="Label"
+        label={size.charAt(0).toUpperCase() + size.slice(1)}
         inputHint="Hint text"
         required
         prefix="prefix:"
-        listMaxHeight={650}
+        listMaxHeight={700}
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
       >
@@ -607,29 +603,10 @@ const AllItemPropsSelect = ({
 };
 
 export const AllSizesWithAllItemProps = () => (
-  <Box height={950}>
-    <Typography variant="h2" mb={6}>
-      All menu item props on
-    </Typography>
-    <Box display="flex" gap="var(--global-space-comp-xl)">
-      {(["small", "medium", "large"] as const).map((size) => (
-        <AllItemPropsSelect key={size} size={size} />
-      ))}
-    </Box>
+  <Box height={950} display="flex" gap="var(--global-space-comp-xl)">
+    {(["small", "medium", "large"] as const).map((size) => (
+      <AllItemPropsSelect key={size} size={size} />
+    ))}
   </Box>
 );
 AllSizesWithAllItemProps.storyName = "AllSizesWithAllItemProps";
-AllSizesWithAllItemProps.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-AllSizesWithAllItemProps.play = async ({
-  canvasElement,
-}: {
-  canvasElement: HTMLElement;
-}) => {
-  const canvas = within(canvasElement);
-  for (const select of canvas.getAllByRole("combobox")) {
-    select.focus();
-    await userEvent.keyboard("{ArrowDown}");
-  }
-};
