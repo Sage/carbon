@@ -52,12 +52,16 @@ DefaultStory.storyName = "Default";
 DefaultStory.parameters = { info: { disable: true } };
 
 export const AsAnImg: Story = () => {
+  const imageSrc =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23CCD6DB'/%3E%3Ccircle cx='100' cy='60' r='32' fill='%23007E45'/%3E%3C/svg%3E";
+
   return (
-    <>
-      <Image m={3} ml={8} alt="Example alt text" src={pointSvg} />
-      <Image m={3} ml={5} size="200px" alt="Example alt text" src={brushSvg} />
-      <Image m={3} size="300px" alt="Example alt text" src={collaborateSvg} />
-    </>
+    <Image
+      width="200px"
+      height="120px"
+      alt="Green circle on a grey background"
+      src={imageSrc}
+    />
   );
 };
 AsAnImg.storyName = "As An Img";
@@ -134,7 +138,10 @@ CustomResponsiveBehaviour.parameters = {
 };
 
 export const DecorativeStory: Story = () => {
-  return <Image alt="" src={pointSvg} decorative />;
+  const imageSrc =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23CCD6DB'/%3E%3Ccircle cx='100' cy='60' r='32' fill='%23007E45'/%3E%3C/svg%3E";
+
+  return <Image alt="" src={imageSrc} decorative />;
 };
 DecorativeStory.storyName = "Decorative";
 DecorativeStory.parameters = { info: { disable: true } };
