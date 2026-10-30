@@ -358,6 +358,8 @@ const MenuItem = ({
           <StyledMenuItem
             ref={ref}
             id={itemId}
+            // the submenu is portaled outside this item, so keep it in the accessibility tree as a child
+            aria-owns={controlProps["aria-controls"]}
             data-component="popover-menu-item"
             className={`popover-menu-item${isDisabled ? "-disabled" : ""}`}
             $size={size}

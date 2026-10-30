@@ -11,7 +11,12 @@ import Popover, { PopoverProps } from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import { useHandleDropdownMenuKeyDown, setFocus } from "./hooks";
+import {
+  useCloseSubmenuWhenTriggerIsOutOfView,
+  useHandleDropdownMenuKeyDown,
+  setFocus,
+  useSubmenuPortalTarget,
+} from "./hooks";
 import guid from "../utils/helpers/guid";
 import {
   PopoverMenuContext,
@@ -29,6 +34,8 @@ const PopoverControlWrapper = styled.div<{
   ${({ $controlWrapperStyle }) => $controlWrapperStyle}
 `;
 
+const DEFAULT_MAX_VISIBLE_MENU_ITEMS = 5;
+
 interface ListProps {
   $size: PopoverMenuContextProps["size"];
   $maxHeight?: string;
@@ -43,18 +50,12 @@ export const List = styled.ul<ListProps>`
   flex-direction: column;
 
   max-height: ${({ $maxHeight, $size }) =>
-    $maxHeight ?? `calc(5 * var(--global-size-${$size.charAt(0)}))`};
-  list-style-type: "";
+    $maxHeight ??
+    `calc(${DEFAULT_MAX_VISIBLE_MENU_ITEMS} * var(--global-size-${$size.charAt(0)}))`};
   list-style: none;
 
-  ${({ $isButtonMenu, $size, $maxHeight }) =>
-    !$isButtonMenu &&
-    css`
-      overflow: hidden auto;
-      -webkit-overflow-scrolling: touch;
-      max-height: ${$maxHeight ??
-      `calc(5 * var(--global-size-${$size.charAt(0)}))`};
-    `}
+  overflow: hidden auto;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const paddingSize = {
@@ -178,8 +179,11 @@ const menuPopoverMiddleware = (
   }),
 ];
 
-const focusControl = (handle: FocusableHandle | HTMLElement | null) => {
-  handle?.focus();
+const focusControl = (
+  handle: FocusableHandle | HTMLElement | null,
+  options?: FocusOptions,
+) => {
+  handle?.focus(options);
 };
 
 interface MenuProps {
@@ -246,7 +250,6 @@ const Menu = ({
             role={isButtonMenu ? "list" : "listbox"}
             id={listId}
             aria-labelledby={listboxAriaLabelledBy}
-            $isButtonMenu={isButtonMenu}
             aria-label={listboxAriaLabel}
             $maxHeight={maxHeight}
           >
@@ -347,6 +350,10 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const combinedWrapperRef = combineRefs(wrapperRef, ref);
   const wrappedChildren = wrapChildrenInItem(children);
   const controlRef = useRef<TRef>(null);
+  const submenuPortalTarget = useSubmenuPortalTarget(
+    isSubmenu,
+    controlReference,
+  );
   const handleClickInside = useClickAwayListener(onClose);
   const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
   const computedMiddleware = menuPopoverMiddleware(
@@ -357,19 +364,30 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   );
   const direction = useRef<"up" | "down" | null>(null);
 
-  const handleSubmenuParentFocus = useCallback(() => {
-    /* istanbul ignore else */
-    if (isSubmenu) {
-      const node = controlReference?.current?.querySelector(
-        "button, a",
-      ) as HTMLElement | null;
-
+  const handleSubmenuParentFocus = useCallback(
+    (options?: FocusOptions) => {
       /* istanbul ignore else */
-      if (node) {
-        focusControl(node);
+      if (isSubmenu) {
+        const node = controlReference?.current?.querySelector(
+          "button, a",
+        ) as HTMLElement | null;
+
+        /* istanbul ignore else */
+        if (node) {
+          focusControl(node, options);
+        }
       }
-    }
-  }, [isSubmenu, controlReference]);
+    },
+    [isSubmenu, controlReference],
+  );
+
+  useCloseSubmenuWhenTriggerIsOutOfView(
+    isSubmenu,
+    open,
+    controlReference,
+    onClose,
+    handleSubmenuParentFocus,
+  );
 
   const handleMainWrapperKeyDown = useCallback(
     (ev: KeyboardEvent) => {
@@ -551,7 +569,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             scrollRef={scrollRef}
             listId={listId.current}
             disablePortal={!isSubmenu}
-            portalTarget={isSubmenu ? controlReference?.current : undefined}
+            portalTarget={isSubmenu ? submenuPortalTarget : undefined}
             maxHeight={maxHeight}
             popoverStrategy={popoverStrategy}
           >
