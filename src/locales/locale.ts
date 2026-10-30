@@ -1,5 +1,17 @@
 import { Locale as DateFnsLocale } from "date-fns";
 
+export interface CurrentFileStatusCounts {
+  totalCount: number;
+  uploadingCount: number;
+  completedCount: number;
+  errorCount: number;
+}
+
+export type CurrentFileProgressCounts = Pick<
+  CurrentFileStatusCounts,
+  "totalCount" | "uploadingCount" | "completedCount"
+>;
+
 interface Locale {
   locale: () => string;
   actions: {
@@ -78,13 +90,40 @@ interface Locale {
     };
   };
   fileInput: {
-    dragAndDrop: () => string;
-    selectFile: () => string;
-    fileUploadStatus: () => string;
+    dragAndDrop: (selectButtonText?: string, multiple?: boolean) => string;
+    selectFile: (multiple?: boolean) => string;
+    /**
+     * @deprecated Type-only compatibility for legacy locale objects. This key
+     * is unused at runtime; use `uploading`, `uploaded`, or
+     * `uploadErrorDetails` for status-specific text.
+     */
+    fileUploadStatus?: () => string;
+    requiredDescription?: () => string;
+    currentFiles?: (count: number) => string;
+    currentFilesProgressSummary?: (counts: CurrentFileProgressCounts) => string;
+    currentFilesErrorSummary?: (counts: CurrentFileStatusCounts) => string;
+    previouslyUploadedFiles?: (count: number) => string;
+    uploading?: () => string;
+    uploaded?: () => string;
+    uploadErrorDetails?: () => string;
+    announcements?: {
+      filesAdded?: (files: string[]) => string;
+      uploadComplete?: (files: string[]) => string;
+      fileDeleted?: (file: string) => string;
+      fileRemoved?: (file: string) => string;
+      uploadCancelled?: (file: string) => string;
+    };
     actions: {
       cancel: () => string;
-      clear: () => string;
       delete: () => string;
+      /**
+       * @deprecated Type-only compatibility for legacy locale objects. This
+       * key is unused at runtime; use `remove` for failed uploads.
+       */
+      clear?: () => string;
+      remove?: () => string;
+      retry?: () => string;
+      preview?: () => string;
     };
   };
   globalHeader: {

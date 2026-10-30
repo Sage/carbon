@@ -21,6 +21,12 @@ afterAll(() => {
   jest.restoreAllMocks();
 });
 
+test("renders nothing while its media-query result is unresolved", () => {
+  mockUseMediaQuery.mockReturnValueOnce(undefined);
+  const { container } = render(<LoaderBar />);
+  expect(container).toBeEmptyDOMElement();
+});
+
 test("renders", () => {
   render(<LoaderBar />);
   const loaderBar = screen.getByRole("progressbar", { name: "Loading..." });

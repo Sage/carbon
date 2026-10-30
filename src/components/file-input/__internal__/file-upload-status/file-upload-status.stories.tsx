@@ -2,8 +2,8 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import FileUploadStatus from "./file-upload-status.component";
 
 /**
- * This file is used primarily as a means to generate the props table.
- * It contains the tag: ["!dev"] so that it is not included in the sidebar.
+ * Generates the `uploadStatus` props table in file-input.mdx. Tagged `!dev`
+ * so it does not appear in the sidebar.
  */
 
 const meta: Meta<typeof FileUploadStatus> = {
@@ -18,8 +18,4 @@ const meta: Meta<typeof FileUploadStatus> = {
 export default meta;
 type Story = StoryObj<typeof FileUploadStatus>;
 
-export const Default: Story = {
-  args: {
-    children: [],
-  },
-};
+export const Default: Story = {};
