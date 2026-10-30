@@ -41,19 +41,19 @@ description: Carbon RadioButtonGroup component props and usage examples.
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Callback fired when a RadioButton child is blurred. |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure RadioButtonGroup as mandatory. |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the RadioButtonGroup. | "medium" |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Size of the RadioButtonGroup. | "medium" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | adaptiveLegendBreakpoint | number \| undefined | No |  | Yes | The adaptive legend behaviour is no longer supported on this component. | Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set |  |
 | adaptiveSpacingBreakpoint | number \| undefined | No |  | Yes | The adaptive spacing behaviour is no longer supported on this component. | Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set |  |
 | info | string \| boolean \| undefined | No |  | Yes | Information validation is no longer supported on this component. | [Legacy] Indicate additional information. |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom spacing for labels is no longer supported on this component. | Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) |  |
-| legendAlign | "left" \| "right" \| undefined | No |  | Yes | Right legend alignment is no longer supported. | Alignment of the legend. |  |
+| labelSpacing | 1 \| 2 \| undefined | No | 1 \| 2 | Yes | Custom spacing for labels is no longer supported on this component. | Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) |  |
+| legendAlign | "left" \| "right" \| undefined | No | left \| right | Yes | Right legend alignment is no longer supported. | Alignment of the legend. |  |
 | legendHelp | string \| undefined | No |  | Yes | The `legendHelp` prop is deprecated and will be removed in a future release. Please use the `legendHint` prop instead. | The content for the RadioButtonGroup hint text, will only be rendered when `validationRedesignOptIn` is true. |  |
 | legendInline | boolean \| undefined | No |  | Yes | Inline legends are no longer supported on this component. | When true, legend is placed in line with the RadioButtons |  |
-| legendSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom spacing for legends is no longer supported on this component. | Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) |  |
+| legendSpacing | 1 \| 2 \| undefined | No | 1 \| 2 | Yes | Custom spacing for legends is no longer supported on this component. | Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) |  |
 | legendWidth | number \| undefined | No |  | Yes | Inline legends are no longer supported on this component. | Percentage width of legend (only when legend is inline) |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips are no longer supported on this component. | Overrides the default tooltip position |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top | Yes | Tooltips are no longer supported on this component. | Overrides the default tooltip position |  |
 | validationMessagePositionTop | boolean \| undefined | No |  | Yes | The `validationMessagePositionTop` prop is deprecated and will be removed in a future release. | Render the ValidationMessage above the RadioButtonGroup | true |
 | warning | string \| undefined | No |  | Yes | The `warning` state is deprecated and will be removed in a future release. | Warning message to be displayed when validation warning occurs. |  |
 

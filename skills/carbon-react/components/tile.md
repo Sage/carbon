@@ -47,16 +47,16 @@ description: Carbon Tile component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| roundness | Roundness \| LegacyRoundness \| undefined | No |  |  |  | Sets the level of roundness of the corners. Values can be `"curved"` or `"moderate"`. **Deprecated**: legacy values `"default"`, `"large"`, and `"small"` are deprecated and should not be used. | "curved" |
+| roundness | Roundness \| LegacyRoundness \| undefined | No | small \| large \| default \| moderate \| curved |  |  | Sets the level of roundness of the corners. Values can be `"curved"` or `"moderate"`. **Deprecated**: legacy values `"default"`, `"large"`, and `"small"` are deprecated and should not be used. | "curved" |
 | statusKeyline | string \| undefined | No |  |  |  | Sets the status keyline to indicate the status of the content within the tile |  |
-| variant | TileVariants \| DeprecatedTileVariants \| undefined | No |  |  |  | Sets the theme of the tile | "standard" |
+| variant | TileVariants \| DeprecatedTileVariants \| undefined | No | standard \| alt \| transparent \| grey \| negative \| positive \| tile \| unavailable \| active |  |  | Sets the theme of the tile | "standard" |
 | width | string \| number \| undefined | No |  |  |  | Set a percentage-based width for the whole Tile component, relative to its parent. If unset or zero, this will default to 100%. | "100%" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| borderVariant | "default" \| "info" \| "selected" \| "caution" \| "negative" \| "positive" \| undefined | No |  | Yes | The `borderVariant` prop has been deprecated and will be removed in a future version. Use the `outline` prop instead. | Sets the border variant that should be used |  |
-| borderWidth | "borderWidth100" \| "borderWidth200" \| "borderWidth300" \| "borderWidth400" \| "borderWidth600" \| "borderWidth000" \| undefined | No |  | Yes | The `borderWidth` prop is depreacted and will be removed in a future version. | Sets the border width by using these design tokens |  |
+| borderVariant | "default" \| "info" \| "selected" \| "caution" \| "negative" \| "positive" \| undefined | No | default \| info \| selected \| caution \| negative \| positive | Yes | The `borderVariant` prop has been deprecated and will be removed in a future version. Use the `outline` prop instead. | Sets the border variant that should be used |  |
+| borderWidth | "borderWidth100" \| "borderWidth200" \| "borderWidth300" \| "borderWidth400" \| "borderWidth600" \| "borderWidth000" \| undefined | No | borderWidth100 \| borderWidth200 \| borderWidth300 \| borderWidth400 \| borderWidth600 \| borderWidth000 | Yes | The `borderWidth` prop is depreacted and will be removed in a future version. | Sets the border width by using these design tokens |  |
 | highlightVariant | string \| undefined | No |  | Yes | The `highlightVariant` prop has been deprecated and will be removed in a future version. Use the `statusKeyline` prop instead. | Sets the highlight variant |  |
-| orientation | "horizontal" \| "vertical" \| undefined | No |  | Yes | The `orientation` prop has been deprecated and will be removed in a future version. | The orientation of the tile - set to either horizontal or vertical |  |
+| orientation | "horizontal" \| "vertical" \| undefined | No | horizontal \| vertical | Yes | The `orientation` prop has been deprecated and will be removed in a future version. | The orientation of the tile - set to either horizontal or vertical |  |
 
 ## Examples
 ### Default

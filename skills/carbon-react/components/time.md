@@ -40,15 +40,15 @@ description: Carbon Time component props and usage examples.
 | onBlur | ((ev?: React.FocusEvent<HTMLInputElement>, value?: TimeValue) => void) \| undefined | No |  |  |  | Callback called when focus is lost on input elements |  |
 | readOnly | boolean \| undefined | No |  |  |  | If true, the component will be read-only |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
-| size | Sizes \| undefined | No |  |  |  | Sets the size of the inputs | "medium" |
+| size | Sizes \| undefined | No | small \| medium \| large |  |  | Sets the size of the inputs | "medium" |
 | toggleProps | ToggleDataProps \| undefined | No |  |  |  | Set custom data- attributes on the toggle elements | {} |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Time inputs | true |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| fieldLabelsAlign | "left" \| "right" \| undefined | No |  | Yes | Alignment is no longer supported and this prop will be removed |  |  |
+| fieldLabelsAlign | "left" \| "right" \| undefined | No | left \| right | Yes | Alignment is no longer supported and this prop will be removed |  |  |
 | inputHint | string \| undefined | No |  | Yes | Use `legendHint` instead. Additional hint text rendered below the legend |  |  |
 | label | string \| undefined | No |  | Yes | Use `legend` instead. Label text for the component |  |  |
-| labelAlign | "left" \| "right" \| undefined | No |  | Yes | Alignment is no longer supported and this prop will be removed |  |  |
+| labelAlign | "left" \| "right" \| undefined | No | left \| right | Yes | Alignment is no longer supported and this prop will be removed |  |  |
 
 ## Examples
 ### Default

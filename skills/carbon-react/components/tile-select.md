@@ -53,7 +53,7 @@ documentation for consumer-specific guidance.
 | subtitle | React.ReactNode | No |  | subtitle of the TileSelect |  |
 | title | React.ReactNode | No |  | title of the TileSelect |  |
 | titleAdornment | React.ReactNode | No |  | adornment to be rendered next to the title |  |
-| type | "checkbox" \| "radio" \| undefined | No |  | Type of the TileSelect input | "checkbox" |
+| type | "checkbox" \| "radio" \| undefined | No | checkbox \| radio | Type of the TileSelect input | "checkbox" |
 | value | string \| undefined | No |  | the value that is represented by this TileSelect |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

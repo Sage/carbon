@@ -49,7 +49,7 @@ description: Carbon TextEditor component props and usage examples.
 | readOnly | boolean \| undefined | No |  |  |  | Whether the editor is read-only | false |
 | required | boolean \| undefined | No |  |  |  | Whether the content of the editor is required to have a value | false |
 | rows | number \| undefined | No |  |  |  | Number greater than 2 multiplied to override the default min-height of the editor |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the toolbar | "medium" |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | The size of the toolbar | "medium" |
 | toolbarControls | ToolbarControl[] \| undefined | No |  |  |  |  |  |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the TextEditor | false |
 | warning | string \| undefined | No |  |  |  | The message to be shown when the editor is in an warning state |  |

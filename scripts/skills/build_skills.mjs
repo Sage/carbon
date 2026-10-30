@@ -12,7 +12,10 @@ import {
   hasNamespaceImportFrom,
   hasStorybookImport,
 } from "./example-imports.mjs";
-import { extractDefaultsFromDeclaration } from "./prop-extraction.mjs";
+import {
+  extractDefaultsFromDeclaration,
+  getLiteralUnionValues,
+} from "./prop-extraction.mjs";
 
 /**
  * @typedef {Object} ComponentCandidate
@@ -902,52 +905,6 @@ function hasExcludedVisibilityTag(jsDocs) {
     }
   }
   return false;
-}
-
-/**
- * Return literal values for simple union types when all members are literals.
- * @param {import("ts-morph").Type} type
- * @returns {Array<string | number | boolean> | null}
- */
-function getLiteralUnionValues(type) {
-  if (!type.isUnion()) {
-    return null;
-  }
-  const unionTypes = type.getUnionTypes();
-  /** @type {Array<string | number | boolean>} */
-  const literals = [];
-
-  for (const unionType of unionTypes) {
-    if (unionType.isStringLiteral()) {
-      const literalValue = unionType.getLiteralValue();
-      if (literalValue === undefined) {
-        return null;
-      }
-      literals.push(String(literalValue));
-      continue;
-    }
-    if (unionType.isNumberLiteral()) {
-      const literalValue = unionType.getLiteralValue();
-      if (literalValue === undefined) {
-        return null;
-      }
-      literals.push(
-        typeof literalValue === "number" ? literalValue : String(literalValue),
-      );
-      continue;
-    }
-    if (unionType.isBooleanLiteral()) {
-      const literalValue = unionType.getLiteralValue();
-      if (literalValue === undefined) {
-        return null;
-      }
-      literals.push(Boolean(literalValue));
-      continue;
-    }
-    return null;
-  }
-
-  return literals;
 }
 
 /**

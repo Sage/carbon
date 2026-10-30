@@ -52,13 +52,13 @@ description: Carbon AdaptiveSidebar component props and usage examples.
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | renderAsModal | boolean \| undefined | No |  |  |  | Whether to render the sidebar as a modal component instead of as an inline sidebar | false |
 | restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. | false |
-| variant | "standard" \| "alt" \| "inverse" \| undefined | No |  |  |  | Set the variant of the component. | "standard" |
+| variant | "standard" \| "alt" \| "inverse" \| undefined | No | standard \| alt \| inverse |  |  | Set the variant of the component. | "standard" |
 | width | string \| undefined | No |  |  |  | The width of the sidebar | "320px" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-label | string \| undefined | No |  |  |  | Prop to specify the aria-label of the component, applied when the component is rendered as a modal |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the component, applied when the component is rendered as a modal |  |
-| backgroundColor | "white" \| "black" \| "app" \| undefined | No |  | Yes | Please use the `variant` prop instead. | The background color of the sidebar |  |
+| backgroundColor | "white" \| "black" \| "app" \| undefined | No | white \| black \| app | Yes | Please use the `variant` prop instead. | The background color of the sidebar |  |
 | borderColor | string \| undefined | No |  | Yes | Changing the border colour is no longer supported. | The color to use for the left-hand border of the sidebar. |  |
 
 ## Examples

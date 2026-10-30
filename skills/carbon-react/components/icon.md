@@ -35,21 +35,21 @@ description: Carbon Icon component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | role | string \| undefined | No |  |  |  | The ARIA role to be applied to the Icon |  |
-| size | IconSize \| undefined | No |  |  |  | Size of the Icon. - `small` — 24px (default) - `medium` — 32px - `large` — 40px | "small" |
+| size | IconSize \| undefined | No | small \| medium \| large |  |  | Size of the Icon. - `small` — 24px (default) - `medium` — 32px - `large` — 40px | "small" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-hidden | boolean \| undefined | No |  |  |  | Set whether icon should be recognised by assistive technologies |  |
 | bg | string \| undefined | No |  | Yes | Use CSS or a wrapper element to apply a background colour. |  |  |
-| bgShape | BackgroundShape \| undefined | No |  | Yes | Use CSS or a wrapper element to apply a background shape. |  |  |
-| bgSize | BgSize \| undefined | No |  | Yes | Use CSS or a wrapper element to control background size. |  |  |
+| bgShape | BackgroundShape \| undefined | No | circle \| rounded-rect \| square | Yes | Use CSS or a wrapper element to apply a background shape. |  |  |
+| bgSize | BgSize \| undefined | No | small \| medium \| large \| extra-large | Yes | Use CSS or a wrapper element to control background size. |  |  |
 | disabled | boolean \| undefined | No |  | Yes | Applies disabled styling to the icon. |  |  |
-| fontSize | FontSize \| undefined | No |  | Yes | Use the `size` prop instead. The `extra-large` value is no longer supported and will be mapped to `large`. |  |  |
+| fontSize | FontSize \| undefined | No | small \| medium \| large \| extra-large | Yes | Use the `size` prop instead. The `extra-large` value is no longer supported and will be mapped to `large`. |  |  |
 | tooltipBgColor | string \| undefined | No |  | Yes |  |  |  |
 | tooltipFlipOverrides | TooltipPositions[] \| undefined | No |  | Yes |  |  |  |
 | tooltipFontColor | string \| undefined | No |  | Yes |  |  |  |
 | tooltipId | string \| undefined | No |  | Yes |  |  |  |
 | tooltipMessage | React.ReactNode | No |  | Yes | Tooltip support has been removed from `Icon` and the use of tooltips is discouraged. This prop no longer has any effect. |  |  |
-| tooltipPosition | TooltipPositions \| undefined | No |  | Yes |  |  |  |
+| tooltipPosition | TooltipPositions \| undefined | No | left \| right \| bottom \| top | Yes |  |  |  |
 | tooltipVisible | boolean \| undefined | No |  | Yes |  |  |  |
 
 ## Examples

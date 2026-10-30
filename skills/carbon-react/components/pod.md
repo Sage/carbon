@@ -17,7 +17,7 @@ description: Carbon Pod component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| alignTitle | "left" \| "right" \| "center" \| undefined | No |  | Aligns the title to left, right or center | "left" |
+| alignTitle | "left" \| "right" \| "center" \| undefined | No | left \| right \| center | Aligns the title to left, right or center | "left" |
 | border | boolean \| undefined | No |  | Enables/disables the border around the pod. | true |
 | children | React.ReactNode | No |  | Children elements |  |
 | displayEditButtonOnHover | boolean \| undefined | No |  | Determines if the edit button should be hidden until the user hovers over the content |  |
@@ -42,12 +42,12 @@ description: Carbon Pod component props and usage examples.
 | onDelete | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Supplies a delete action to the pod |  |
 | onEdit | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Supplies an edit action to the pod |  |
 | onUndo | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Supplies an undo action to the pod in soft delete state. |  |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | Determines the padding around the pod | "medium" |
+| size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No | small \| medium \| large \| extra-small \| extra-large | Determines the padding around the pod | "medium" |
 | softDelete | boolean \| undefined | No |  | Sets soft boolean delete state |  |
 | subtitle | React.ReactNode | No |  | Optional subtitle for the pod |  |
 | title | React.ReactNode | No |  | Title for the pod |  |
 | triggerEditOnContent | boolean \| undefined | No |  | Determines if clicking the pod content calls the onEdit action |  |
-| variant | "primary" \| "secondary" \| "tertiary" \| "transparent" \| "tile" \| undefined | No |  | Prop to apply a theme to the Pod | "primary" |
+| variant | "primary" \| "secondary" \| "tertiary" \| "transparent" \| "tile" \| undefined | No | primary \| secondary \| tertiary \| transparent \| tile | Prop to apply a theme to the Pod | "primary" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

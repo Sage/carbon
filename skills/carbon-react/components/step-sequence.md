@@ -30,7 +30,7 @@ description: Carbon StepSequence component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| orientation | "horizontal" \| "vertical" \| undefined | No |  | Orientation of the component. | "horizontal" |
+| orientation | "horizontal" \| "vertical" \| undefined | No | horizontal \| vertical | Orientation of the component. | "horizontal" |
 | p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
 | padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
 | paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
@@ -45,7 +45,7 @@ description: Carbon StepSequence component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| size | "small" \| "medium" \| undefined | No |  | The size of the component. | "medium" |
+| size | "small" \| "medium" \| undefined | No | small \| medium | The size of the component. | "medium" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

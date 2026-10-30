@@ -34,9 +34,9 @@ description: Carbon Message component props and usage examples.
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onDismiss | ((e: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered on dismiss, will render the close button. |  |
 | open | boolean \| undefined | No |  |  |  | Flag to determine if the message is rendered. | true |
-| size | "medium" \| "large" \| undefined | No |  |  |  | Set the component's size. | "medium" |
+| size | "medium" \| "large" \| undefined | No | medium \| large |  |  | Set the component's size. | "medium" |
 | title | React.ReactNode | No |  |  |  | Set message title. |  |
-| variant | MessageVariant \| undefined | No |  |  |  | Set the component's variant. | "info" |
+| variant | MessageVariant \| undefined | No | error \| info \| warning \| ai \| success \| neutral \| error-subtle \| info-subtle \| success-subtle \| warning-subtle \| ai-subtle \| callout-subtle |  |  | Set the component's variant. | "info" |
 | width | string \| undefined | No |  |  |  | Set the component's width, accepts any valid css string. Please note the component has a max-width of 720px. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

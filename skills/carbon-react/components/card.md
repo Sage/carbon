@@ -38,16 +38,16 @@ description: Carbon Card component props and usage examples.
 | onClick | ((event: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLDivElement> \| React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLDivElement>) => void) \| undefined | No |  |  |  | Action to be executed when card is clicked or enter pressed. Renders a button when passed and no draggable or href props set |  |
 | rel | string \| undefined | No |  |  |  | String for rel property when card has an href prop set |  |
 | rightChildren | React.ReactNode | No |  |  |  | Slot rendered on the opposite side of the drag handle, only visible when `draggable` is true. Intended for accessibility controls (e.g. move-up / move-down buttons) for keyboard users. |  |
-| roundness | "large" \| "default" \| "moderate" \| "curved" \| undefined | No |  |  |  | Sets the level of roundness of the corners. "moderate" is 16px and "curved" is 20px. **Note:** The values "default" and "large" are deprecated. Use "moderate" or "curved" instead. | "moderate" |
-| spacing | "small" \| "medium" \| "large" \| "none" \| "extra-small" \| undefined | No |  |  |  | Size padding applied to the card. | "medium" |
+| roundness | "large" \| "default" \| "moderate" \| "curved" \| undefined | No | large \| default \| moderate \| curved |  |  | Sets the level of roundness of the corners. "moderate" is 16px and "curved" is 20px. **Note:** The values "default" and "large" are deprecated. Use "moderate" or "curved" instead. | "moderate" |
+| spacing | "small" \| "medium" \| "large" \| "none" \| "extra-small" \| undefined | No | small \| medium \| large \| none \| extra-small |  |  | Size padding applied to the card. | "medium" |
 | target | string \| undefined | No |  |  |  | Target property in which link should open ie: _blank, _self, _parent, _top |  |
-| variant | "standard" \| "outlined" \| undefined | No |  |  |  | Visual style variant of the card | "standard" |
+| variant | "standard" \| "outlined" \| undefined | No | standard \| outlined |  |  | Visual style variant of the card | "standard" |
 | width | string \| undefined | No |  |  |  | Style value for width of card | "500px" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-label | string \| undefined | No |  |  |  | Prop to specify an aria-label for the component |  |
-| boxShadow | BoxShadowsType \| undefined | No |  | Yes | Design token for custom Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Card component. |  |  |
-| hoverBoxShadow | BoxShadowsType \| undefined | No |  | Yes | Design token for custom Box Shadow on hover. One of `onClick` or `href` props must be true. Note: please check that the box shadow design token you are using is compatible with the Card component. |  |  |
+| boxShadow | BoxShadowsType \| undefined | No | boxShadow100 \| boxShadow150 \| boxShadow200 \| boxShadow300 \| boxShadow400 \| boxShadow010 \| boxShadow050 \| boxShadow075 \| boxShadow090 \| boxShadow091 | Yes | Design token for custom Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Card component. |  |  |
+| hoverBoxShadow | BoxShadowsType \| undefined | No | boxShadow100 \| boxShadow150 \| boxShadow200 \| boxShadow300 \| boxShadow400 \| boxShadow010 \| boxShadow050 \| boxShadow075 \| boxShadow090 \| boxShadow091 | Yes | Design token for custom Box Shadow on hover. One of `onClick` or `href` props must be true. Note: please check that the box shadow design token you are using is compatible with the Card component. |  |  |
 
 ## Examples
 ### Default
