@@ -7,7 +7,7 @@ import MultiActionButton, {
   MultiActionButtonProps,
   MultiActionButtonHandle,
 } from ".";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 
 const styledSystemProps = generateStyledSystemProps({

@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useRef, useState } from "react";
 import Button, { ButtonProps } from "./button.component";
 import Box from "../../box";
+import { Loader } from "../../loader/__next__/loader.component";
 
 const darkGreyBackground: React.CSSProperties = {
   padding: "var(--global-space-layout-2-xs)",

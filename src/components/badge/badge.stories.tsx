@@ -37,7 +37,7 @@ const meta: Meta<BadgeStoryArgs> = {
     ...styledSystemProps,
     counter: {
       control: {
-        type: "text",
+        type: "number",
       },
     },
     size: {
@@ -63,23 +63,17 @@ export const Playground: StoryObj<BadgeStoryArgs> = {
   render: (args) => {
     const { withButton, ...badgeProps } = args;
     return (
-      <div style={lightGreyBackground}>
-        <Badge
-          id="badge-playground"
-          {...badgeProps}
-          counter={badgeProps.counter ?? 0}
-        >
-          {withButton && (
-            <Button
-              inverse={badgeProps.inverse}
-              buttonType="secondary"
-              aria-describedby="badge-playground"
-            >
-              Filter
-            </Button>
-          )}
-        </Badge>
-      </div>
+      <Badge
+        id="badge-playground"
+        {...badgeProps}
+        counter={badgeProps.counter ?? 0}
+      >
+        {withButton && (
+          <Button buttonType="secondary" aria-describedby="badge-playground">
+            Filter
+          </Button>
+        )}
+      </Badge>
     );
   },
   args: {

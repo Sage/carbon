@@ -103,9 +103,9 @@ export const LinkSize: Story = {
 };
 
 export const Bold: Story = {
-  ...Default,
+  render: (args) => <Link {...args}>{args.children}</Link>,
   args: {
-    ...Default.args,
+    href: "https://carbon.sage.com",
     children: "This is a bold link",
     bold: true,
   },
