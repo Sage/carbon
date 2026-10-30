@@ -1,3 +1,9 @@
+## [162.20.3](https://github.com/Sage/carbon/compare/v162.20.2...v162.20.3) (2026-10-30)
+
+### Bug Fixes
+
+* **skills:** resolve frontmatter rendering issue ([a71a834](https://github.com/Sage/carbon/commit/a71a834a3f1da85e11cd4c7d55f45d9bc820343e))
+
 ## [162.20.2](https://github.com/Sage/carbon/compare/v162.20.1...v162.20.2) (2026-10-30)
 
 ### Bug Fixes
