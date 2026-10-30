@@ -4,6 +4,7 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
+import { format } from "prettier";
 import { Project } from "ts-morph";
 import ts from "typescript";
 
@@ -19,6 +20,32 @@ const repoRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../..",
 );
+
+test("skill frontmatter contains valid YAML", async () => {
+  const skillFiles = fg.sync(
+    ["skills/**/SKILL.md", ".github/skills/**/SKILL.md"],
+    { cwd: repoRoot },
+  );
+
+  for (const skillFile of skillFiles) {
+    const source = fs.readFileSync(path.join(repoRoot, skillFile), "utf8");
+    const frontmatter = source.match(
+      /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/,
+    )?.[1];
+
+    assert.ok(frontmatter, `${skillFile} must begin with YAML frontmatter`);
+    await assert.doesNotReject(
+      format(frontmatter, { parser: "yaml" }),
+      `${skillFile} must contain valid YAML frontmatter`,
+    );
+    assert.match(frontmatter, /^name:\s+\S+/m, `${skillFile} must have a name`);
+    assert.match(
+      frontmatter,
+      /^description:\s+\S+/m,
+      `${skillFile} must have a description`,
+    );
+  }
+});
 
 test("accepts concise authored component guidance", () => {
   const metadata = validateComponentMetadata({
