@@ -1,3 +1,9 @@
+## [162.20.2](https://github.com/Sage/carbon/compare/v162.20.1...v162.20.2) (2026-10-30)
+
+### Bug Fixes
+
+* **image:** add empty alt text to decorative images ([9668d17](https://github.com/Sage/carbon/commit/9668d170a778034ba4b91f9bc8639c73fe45568d))
+
 ## [162.20.1](https://github.com/Sage/carbon/compare/v162.20.0...v162.20.1) (2026-10-29)
 
 ### Bug Fixes
