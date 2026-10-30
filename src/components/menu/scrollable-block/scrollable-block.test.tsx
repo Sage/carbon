@@ -3,7 +3,6 @@ import { render, screen, within } from "@testing-library/react";
 
 import ScrollableBlock from ".";
 
-import Logger from "../../../__internal__/utils/logger";
 import MenuItem from "../menu-item";
 import menuConfigVariants from "../menu.config";
 import {
@@ -17,24 +16,22 @@ const menuContextValues: StrictMenuContextType = {
   openSubmenuId: null,
 };
 
-test("logs error if not used within Menu", () => {
-  const loggerErrorSpy = jest
-    .spyOn(Logger, "error")
+test("throws an error if not used within Menu", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
     .mockImplementation(() => {});
 
-  render(
-    <ScrollableBlock data-role="scrollable-block" variant="default">
-      <MenuItem href="#">Apple</MenuItem>
-    </ScrollableBlock>,
-  );
-
-  expect(loggerErrorSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  expect(() =>
+    render(
+      <ScrollableBlock data-role="scrollable-block" variant="default">
+        <MenuItem href="#">Apple</MenuItem>
+      </ScrollableBlock>,
     ),
+  ).toThrow(
+    "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerErrorSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("renders with children", () => {

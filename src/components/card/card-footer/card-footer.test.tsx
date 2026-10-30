@@ -1,25 +1,20 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Logger from "../../../__internal__/utils/logger";
 
 import CardFooter from ".";
 
 import Card from "../card.component";
 
-test("logs console error if not wrapped in Card", () => {
-  const loggerErrorSpy = jest
-    .spyOn(Logger, "error")
+test("throws an error if not wrapped in Card", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
     .mockImplementation(() => {});
 
-  render(<CardFooter>content</CardFooter>);
-
-  expect(loggerErrorSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon Card: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
+  expect(() => render(<CardFooter>content</CardFooter>)).toThrow(
+    "Carbon Card: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerErrorSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("when variant prop is `transparent`, render with transparent background", () => {
