@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Textbox from "../textbox";
-import Button from "../button";
+import Button from "../button/__next__";
 import Dialog from "../dialog";
 import {
   AnchorNavigation,
@@ -100,7 +100,7 @@ export const InFullScreenDialogStory: Story = () => {
     <>
       <Button onClick={() => setIsOpen(true)}>Open AnchorNavigation</Button>
       <Dialog
-        fullscreen
+        size="fullscreen"
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         title="Title"

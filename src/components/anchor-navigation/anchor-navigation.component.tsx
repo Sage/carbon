@@ -3,24 +3,25 @@ import React, {
   useState,
   useRef,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useCallback,
 } from "react";
-import invariant from "invariant";
 import throttle from "lodash/throttle";
 
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
-import Event from "../../__internal__/utils/helpers/events";
+import { getWindow } from "../../__internal__/dom/globals";
 import {
   StyledAnchorNavigation,
   StyledNavigationWrapper,
   StyledNavigation,
   StyledContent,
 } from "./anchor-navigation.style";
-import AnchorNavigationItem, {
-  AnchorNavigationItemProps,
-} from "./anchor-navigation-item/anchor-navigation-item.component";
+import {
+  AnchorNavigationProvider,
+  AnchorNavigationItemEntry,
+} from "./__internal__/anchor-navigation.context";
 
 export interface AnchorNavigationProps
   extends TagProps,
@@ -28,35 +29,14 @@ export interface AnchorNavigationProps
   /** Child elements */
   children?: React.ReactNode;
   /** The AnchorNavigationItems components to be rendered in the sticky navigation.
-  It is important to maintain proper structure.
-  List of AnchorNavigationItems has to be wrapped in React.Fragment */
+  Items can be rendered conditionally or from within other components. */
   stickyNavigation?: React.ReactNode;
 }
 
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
 
-const flattenNavigationChildren = (
-  children: React.ReactNode,
-): React.ReactElement[] => {
-  const result: React.ReactElement[] = [];
-
-  React.Children.forEach(children, (child) => {
-    if (!React.isValidElement(child)) return;
-
-    if (child.type === React.Fragment) {
-      const fragment = child as React.ReactElement<{
-        children?: React.ReactNode;
-      }>;
-      result.push(...flattenNavigationChildren(fragment.props.children));
-      return;
-    }
-
-    result.push(child);
-  });
-
-  return result;
-};
+const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
 
 const AnchorNavigation = ({
   children,
@@ -66,49 +46,15 @@ const AnchorNavigation = ({
   "data-element": dataElement,
   "data-role": dataRole,
 }: AnchorNavigationProps): JSX.Element => {
-  invariant(
-    React.isValidElement(stickyNavigation) &&
-      stickyNavigation.type === React.Fragment,
-    "`stickyNavigation` prop in `AnchorNavigation` should be a React Fragment.",
+  const [selectedItem, setSelectedItem] = useState<HTMLAnchorElement | null>(
+    null,
   );
 
-  const navigationChildren = useMemo(
-    () => flattenNavigationChildren(stickyNavigation.props.children),
-    [stickyNavigation],
+  const [registryVersion, setRegistryVersion] = useState(0);
+
+  const itemsByElement = useRef(
+    new Map<HTMLAnchorElement, AnchorNavigationItemEntry>(),
   );
-
-  const hasCorrectItemStructure = useMemo(() => {
-    const incorrectChild = navigationChildren.find((child) => {
-      return (
-        (child.type as React.FunctionComponent).displayName !==
-        "AnchorNavigationItem"
-      );
-    });
-
-    return !incorrectChild;
-  }, [navigationChildren]);
-
-  invariant(
-    hasCorrectItemStructure,
-    `\`stickyNavigation\` prop in \`AnchorNavigation\` should be a React Fragment that only contains children of type \`${AnchorNavigationItem.displayName}\``,
-  );
-
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const sectionRefs = useRef<(React.RefObject<HTMLElement> | undefined)[]>([]);
-  // Keep the targets in sync when conditional navigation items are added,
-  // removed or reordered after the initial render.
-  sectionRefs.current = navigationChildren.map(
-    (child) =>
-      (
-        child as React.ReactElement<
-          AnchorNavigationItemProps,
-          typeof AnchorNavigationItem
-        >
-      ).props.target,
-  );
-
-  const contentRef = useRef<HTMLDivElement>(null);
 
   const navigationRef = useRef<HTMLUListElement>(null);
 
@@ -116,38 +62,72 @@ const AnchorNavigation = ({
 
   const isUserScrollTimer = useRef<NodeJS.Timeout>();
 
+  // Items are ordered by their position in the DOM rather than by registration order,
+  // so conditionally added or reordered items follow the rendered order.
+  const getOrderedItems = useCallback(
+    () =>
+      Array.from(itemsByElement.current).sort(([a], [b]) =>
+        a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING
+          ? -1
+          : 1,
+      ),
+    [],
+  );
+
+  const registerItem = useCallback(
+    (element: HTMLAnchorElement, entry: AnchorNavigationItemEntry) => {
+      itemsByElement.current.set(element, entry);
+      setRegistryVersion((version) => version + 1);
+
+      return () => {
+        itemsByElement.current.delete(element);
+        setRegistryVersion((version) => version + 1);
+      };
+    },
+    [],
+  );
+
+  // Keep the current selection while its item is rendered, otherwise fall back to the first item.
+  useIsomorphicLayoutEffect(() => {
+    setSelectedItem((current) =>
+      current && itemsByElement.current.has(current)
+        ? current
+        : (getOrderedItems()[0]?.[0] ?? null),
+    );
+  }, [registryVersion, getOrderedItems]);
+
   const setSelectedAnchorBasedOnScroll = useCallback(() => {
     // istanbul ignore if
     // function is called only after component is rendered, so ref cannot hold a null value
     if (navigationRef.current === null) return;
 
-    const offsetsWithIndexes = sectionRefs.current
-      .map((sectionRef, index) => [
-        index,
-        sectionRef?.current?.getBoundingClientRect().top,
+    const offsetsWithItems = getOrderedItems()
+      .map(([element, entry]) => [
+        element,
+        entry.getTarget()?.current?.getBoundingClientRect().top,
       ])
       .filter(
-        (offsetWithIndex): offsetWithIndex is [number, number] =>
-          offsetWithIndex[1] !== undefined,
+        (offsetWithItem): offsetWithItem is [HTMLAnchorElement, number] =>
+          offsetWithItem[1] !== undefined,
       );
 
-    if (offsetsWithIndexes.length === 0) return;
+    if (offsetsWithItems.length === 0) return;
 
     const { top: navTopOffset } = navigationRef.current.getBoundingClientRect();
 
-    const [indexOfSmallestNegativeTopOffset] = offsetsWithIndexes.reduce(
-      (currentTop, offsetWithIndex) => {
-        const [, offset] = offsetWithIndex;
+    const [itemOfSmallestNegativeTopOffset] = offsetsWithItems.reduce(
+      (currentTop, offsetWithItem) => {
+        const [, offset] = offsetWithItem;
 
         if (offset - SECTION_VISIBILITY_OFFSET > navTopOffset)
           return currentTop;
-        return offset > currentTop[1] ? offsetWithIndex : currentTop;
+        return offset > currentTop[1] ? offsetWithItem : currentTop;
       },
-      offsetsWithIndexes[0],
+      offsetsWithItems[0],
     );
 
-    setSelectedIndex(indexOfSmallestNegativeTopOffset);
-  }, []);
+    setSelectedItem(itemOfSmallestNegativeTopOffset);
+  }, [getOrderedItems]);
 
   const scrollHandler = useMemo(
     () =>
@@ -189,45 +169,42 @@ const AnchorNavigation = ({
     focusTarget.focus({ preventScroll: true });
   };
 
-  const scrollToSection = (index: number): void => {
-    const sectionToScroll = sectionRefs.current[index]?.current;
+  const activateItem = useCallback(
+    (element: HTMLAnchorElement, target?: React.RefObject<HTMLElement>) => {
+      const sectionToScroll = target?.current;
 
-    if (!sectionToScroll) return;
+      if (!sectionToScroll) return;
 
-    focusSectionHeading(sectionToScroll);
+      focusSectionHeading(sectionToScroll);
 
-    // workaround due to preventScroll focus method option on firefox not working consistently
-    window.setTimeout(() => {
-      isUserScroll.current = false;
-      sectionToScroll.scrollIntoView({
-        block: "start",
-        inline: "nearest",
-        behavior: "smooth",
-      });
-      setSelectedIndex(index);
-    }, 10);
-  };
+      // workaround due to preventScroll focus method option on firefox not working consistently
+      window.setTimeout(() => {
+        if (!itemsByElement.current.has(element)) return;
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    index: number,
-  ): void => {
-    event.preventDefault();
-    scrollToSection(index);
-  };
+        isUserScroll.current = false;
+        sectionToScroll.scrollIntoView({
+          block: "start",
+          inline: "nearest",
+          behavior: "smooth",
+        });
+        setSelectedItem(element);
+      }, 10);
+    },
+    [],
+  );
 
-  const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLAnchorElement>,
-    index: number,
-  ): void => {
-    if (Event.isEnterKey(event)) {
-      scrollToSection(index);
-    }
-  };
+  const contextValue = useMemo(
+    () => ({
+      isInAnchorNavigation: true,
+      selectedItem,
+      registerItem,
+      activateItem,
+    }),
+    [selectedItem, registerItem, activateItem],
+  );
 
   return (
     <StyledAnchorNavigation
-      ref={contentRef}
       data-component="anchor-navigation"
       data-element={dataElement}
       data-role={dataRole}
@@ -242,17 +219,9 @@ const AnchorNavigation = ({
           role="list"
           data-element="anchor-sticky-navigation"
         >
-          {navigationChildren.map((child, index) =>
-            React.cloneElement(child, {
-              key: child.key ?? index,
-              href: child.props.href || "#", // need to pass an href to ensure the link is tabbable by default
-              isSelected: index === selectedIndex,
-              onClick: (event: React.MouseEvent<HTMLAnchorElement>) =>
-                handleClick(event, index),
-              onKeyDown: (event: React.KeyboardEvent<HTMLAnchorElement>) =>
-                handleKeyDown(event, index),
-            }),
-          )}
+          <AnchorNavigationProvider value={contextValue}>
+            {stickyNavigation}
+          </AnchorNavigationProvider>
         </StyledNavigation>
       </StyledNavigationWrapper>
       <StyledContent>{children}</StyledContent>
