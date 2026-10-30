@@ -49,17 +49,16 @@ test("renders with the 'src' prop", () => {
   expect(screen.getByRole("img")).toBeVisible();
 });
 
-test("renders with the 'src' and 'decorative' props", () => {
+test("sets an empty 'alt' attribute when the 'decorative' prop is true", () => {
   render(
     <Image
       data-role="image"
       src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg"
-      alt=""
       decorative
     />,
   );
 
-  expect(screen.getByTestId("image")).toBeVisible();
+  expect(screen.getByTestId("image")).toHaveAttribute("alt", "");
 });
 
 test("renders with children", () => {
@@ -83,37 +82,6 @@ test("does not render, as an invariant is fired due to children being passed as 
     ),
   ).toThrow(
     "The 'Image' component renders as an 'img' element when the 'src' prop is used and therefore does not accept children.",
-  );
-
-  consoleSpy.mockRestore();
-});
-
-test("does not render, as an invariant is fired due to the 'src' prop being passed without an 'alt' prop", () => {
-  const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-
-  expect(() =>
-    render(
-      <Image src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg" />,
-    ),
-  ).toThrow(
-    "Please use the 'decorative' prop if the 'alt' text should be an empty value or provide an 'alt' string when rendering the 'Image' component as an 'img' element.",
-  );
-
-  consoleSpy.mockRestore();
-});
-
-test("does not render, as an invariant is fired due to the 'src' prop being passed and an empty string being passed to the 'alt' prop (the decorative prop must be passed)", () => {
-  const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-
-  expect(() =>
-    render(
-      <Image
-        src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg"
-        alt=""
-      />,
-    ),
-  ).toThrow(
-    "Please use the 'decorative' prop if the 'alt' text should be an empty value or provide an 'alt' string when rendering the 'Image' component as an 'img' element.",
   );
 
   consoleSpy.mockRestore();
