@@ -45,7 +45,7 @@ description: Carbon NumeralDate component props and usage examples.
 | onBlur | ((ev: NumeralDateEvent) => void) \| undefined | No |  |  |  | Blur event handler |  |
 | readOnly | boolean \| undefined | No |  |  |  | If true, the component will be read-only |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input | "medium" |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Size of an input | "medium" |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the NumeralDate inputs. | true |
 | yearRef | React.ForwardedRef<HTMLInputElement> \| undefined | No |  |  |  | A React ref to pass to the input corresponding to the year |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -53,16 +53,16 @@ description: Carbon NumeralDate component props and usage examples.
 | adaptiveLabelBreakpoint | number \| undefined | No |  | Yes | `adaptiveLabelBreakpoint` has been deprecated. It is recommended to use `useMediaQuery` hook to implement adaptive behaviour. Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set |  |  |
 | enableInternalWarning | boolean \| undefined | No |  | Yes | The `enableInternalWarning` prop is deprecated and will be removed in a future release. | When true, enables the internal warnings to be displayed |  |
 | fieldHelp | React.ReactNode | No |  | Yes | The `fieldHelp` prop is deprecated and will be removed in a future release. Please use the `legendHint` prop instead. | [Legacy] Help content to be displayed under an input |  |
-| fieldLabelsAlign | "left" \| "right" \| undefined | No |  | Yes | Custom field help alignment is no longer supported on this component. | Field labels alignment |  |
+| fieldLabelsAlign | "left" \| "right" \| undefined | No | left \| right | Yes | Custom field help alignment is no longer supported on this component. | Field labels alignment |  |
 | helpAriaLabel | string \| undefined | No |  | Yes | Custom help component ARIA labelling is no longer supported on this component, | [Legacy] Aria label for rendered help component |  |
 | info | string \| boolean \| undefined | No |  | Yes | Information validation is no longer supported on this component. | [Legacy] Indicate additional information. |  |
 | label | string \| undefined | No |  | Yes | The `label` prop is deprecated and will be removed in a future release. Please use the `legend` prop instead. | [Legacy] The content for the component's label |  |
-| labelAlign | "left" \| "right" \| undefined | No |  | Yes | Custom label alignment is no longer supported on this component. | [Legacy] Text alignment of label |  |
+| labelAlign | "left" \| "right" \| undefined | No | left \| right | Yes | Custom label alignment is no longer supported on this component. | [Legacy] Text alignment of label |  |
 | labelHelp | React.ReactNode | No |  | Yes | The `labelHelp` prop is deprecated and will be removed in a future release. | [Legacy] Text applied to label help tooltip, will be rendered as hint text when `validationRedesignOptIn` is true. |  |
 | labelInline | boolean \| undefined | No |  | Yes | Inline labels are no longer supported on this component. | [Legacy] When true, label is placed in line with an input |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom label spacing is no longer supported on this component | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
+| labelSpacing | 1 \| 2 \| undefined | No | 1 \| 2 | Yes | Custom label spacing is no longer supported on this component | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
 | labelWidth | number \| undefined | No |  | Yes | Custom label widths are no longer supported on this component. | [Legacy] Label width |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips are no longer supported on this component. | [Legacy] Overrides the default tooltip position |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top | Yes | Tooltips are no longer supported on this component. | [Legacy] Overrides the default tooltip position |  |
 | validationOnLabel | boolean \| undefined | No |  | Yes | Custom validation icon placement is no longer supported on this component. | [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs |  |
 | warning | string \| boolean \| undefined | No |  | Yes | Warning validation is deprecated and will be removed in a future release. | Indicate warning information. | "" |
 

@@ -16,7 +16,7 @@ description: Carbon DraggableContainer component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | The content of the component `<DraggableItem />` is required to make `Draggable` works |  |
-| flexDirection | "row" \| "row-reverse" \| undefined | No |  | Defines the direction in which the draggable items contents are placed. Can be either "row" or "row-reverse". | "row" |
+| flexDirection | "row" \| "row-reverse" \| undefined | No | row \| row-reverse | Defines the direction in which the draggable items contents are placed. Can be either "row" or "row-reverse". | "row" |
 | getOrder | ((draggableItemIds?: (string \| number \| undefined)[], movedItemId?: string \| number \| undefined) => void) \| undefined | No |  | Callback fired when an item is successfully dropped. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
