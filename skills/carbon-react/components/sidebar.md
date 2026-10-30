@@ -29,7 +29,7 @@ description: Carbon Sidebar component props and usage examples.
 | gradientKeyLine | boolean \| undefined | No |  |  |  | Adds the Carbon AI gradient keyline to the header. | false |
 | header | React.ReactNode | No |  |  |  | Node that will be used as sidebar header. |  |
 | headerPadding | PaddingProps | No |  |  |  | Padding to be set on the Sidebar header | {} |
-| headerVariant | "typical" \| "inverse" \| "dark" \| "light" \| undefined | No |  |  |  | Header background variant for the sidebar. `light` and `dark` are deprecated aliases - use `typical` and `inverse` instead. | "typical" |
+| headerVariant | "typical" \| "inverse" \| "dark" \| "light" \| undefined | No | typical \| inverse \| dark \| light |  |  | Header background variant for the sidebar. `light` and `dark` are deprecated aliases - use `typical` and `inverse` instead. | "typical" |
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
 | p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
 | padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
@@ -58,8 +58,8 @@ description: Carbon Sidebar component props and usage examples.
 | aria-describedby | string \| undefined | No |  |  |  | Prop to specify the aria-describedby property of the component |  |
 | aria-label | string \| undefined | No |  |  |  | Provides an explicit accessible name for the component, overriding the automatic association with the header. |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Identifies the element that provides an explicit accessible name for the component, overriding the automatic association with the header. |  |
-| position | "left" \| "right" \| undefined | No |  | Yes | This prop will be removed in a future release. Sidebar will always be positioned on the right. Update the layout to support a right-positioned Sidebar if it is set to left, otherwise remove the prop. |  | "right" |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Yes | Use `width` to customise the Sidebar width. |  |  |
+| position | "left" \| "right" \| undefined | No | left \| right | Yes | This prop will be removed in a future release. Sidebar will always be positioned on the right. Update the layout to support a right-positioned Sidebar if it is set to left, otherwise remove the prop. |  | "right" |
+| size | "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No | small \| medium \| large \| extra-small \| medium-small \| medium-large \| extra-large | Yes | Use `width` to customise the Sidebar width. |  |  |
 
 ## Examples
 ### Default

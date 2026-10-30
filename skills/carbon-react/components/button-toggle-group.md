@@ -39,7 +39,7 @@ description: Carbon ButtonToggleGroup component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the ButtonToggleGroup | "medium" |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Size of the ButtonToggleGroup | "medium" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-label | string \| undefined | No |  |  |  | Sets an aria-label for the group, must be provided if there is no visible label. |  |
@@ -48,7 +48,7 @@ description: Carbon ButtonToggleGroup component props and usage examples.
 | helpAriaLabel | string \| undefined | No |  | Yes | Help tooltips are no longer supported. | [Legacy] Aria label for rendered help component. |  |
 | labelHelp | React.ReactNode | No |  | Yes | Help tooltips are no longer supported, please use the `inputHint` prop instead. | [Legacy] Text for the label's help tooltip. |  |
 | labelInline | boolean \| undefined | No |  | Yes | Inline labels are no longer supported. | [Legacy] Sets the label to be inline. |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom label spacing is no longer supported for this component. | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8), |  |
+| labelSpacing | 1 \| 2 \| undefined | No | 1 \| 2 | Yes | Custom label spacing is no longer supported for this component. | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8), |  |
 | labelWidth | number \| undefined | No |  | Yes | `labelWidth` is no longer supported. | [Legacy] The percentage width of the label. |  |
 
 ## Examples

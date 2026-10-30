@@ -20,7 +20,7 @@ description: Carbon Heading component props and usage examples.
 | backLink | string \| ((ev: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement> \| React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  | Defines the a href for the back link. |  |
 | children | React.ReactNode | No |  | Child elements |  |
 | divider | boolean \| undefined | No |  | Adds a divider below the heading and the content. | true |
-| headingType | HeadingType \| undefined | No |  | Defines the HTML heading element of the title. | "h1" |
+| headingType | HeadingType \| undefined | No | h1 \| h2 \| h3 \| h4 \| h5 | Defines the HTML heading element of the title. | "h1" |
 | help | string \| undefined | No |  | Defines the help text for the heading. |  |
 | helpAriaLabel | string \| undefined | No |  | Aria label for rendered help component |  |
 | helpLink | string \| undefined | No |  | Defines the help link for the heading. |  |

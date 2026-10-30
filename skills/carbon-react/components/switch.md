@@ -23,7 +23,7 @@ description: Carbon Switch component props and usage examples.
 | inputHint | React.ReactNode | No |  |  |  | Hint text displayed below the switch |  |
 | label | React.ReactNode | No |  |  |  | Accessible text label rendered above the switch |  |
 | labelInline | boolean \| undefined | No |  |  |  | When true, the label is displayed inline (beside the switch) rather than above it |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  |  |  | Spacing between the label and switch when labelInline is true (multiplier of base spacing unit) |  |
+| labelSpacing | 1 \| 2 \| undefined | No | 1 \| 2 |  |  | Spacing between the label and switch when labelInline is true (multiplier of base spacing unit) |  |
 | labelWidth | number \| undefined | No |  |  |  | Label width as a percentage when labelInline is true |  |
 | loading | boolean \| undefined | No |  |  |  | Triggers the loading state — hides On/Off text and shows a spinner |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -46,7 +46,7 @@ description: Carbon Switch component props and usage examples.
 | processingLabel | string \| undefined | No |  |  |  | Text shown beside the spinner during loading. Defaults to "Processing..." |  |
 | processingLabelBelowSwitch | boolean \| undefined | No |  |  |  | When true, the processing label is rendered below the switch rather than to its right |  |
 | required | boolean \| undefined | No |  |  |  | Whether the input is required |  |
-| size | "small" \| "large" \| undefined | No |  |  |  | Size of the switch track |  |
+| size | "small" \| "large" \| undefined | No | small \| large |  |  | Size of the switch track |  |
 | value | string \| undefined | No |  |  |  | The value attribute of the hidden input, passed on form submit |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -58,7 +58,7 @@ description: Carbon Switch component props and usage examples.
 | isDarkBackground | boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 | labelHelp | React.ReactNode | No |  | Yes | Use `inputHint` instead. |  |  |
 | reverse | boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top | Yes | This prop is no longer supported. |  |  |
 | validationMessagePositionTop | boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 | validationOnLabel | boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 | warning | string \| boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |

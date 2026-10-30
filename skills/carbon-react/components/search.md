@@ -68,7 +68,7 @@ A search input for querying or filtering content.
 | required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
 | searchButtonAriaLabel | string \| undefined | No |  |  |  | Prop to specify the accessible name of the Search button |  |
 | searchButtonDataProps | TagProps \| undefined | No |  |  |  | Data tag prop bag for searchButton |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Size of an input |  |
 | triggerOnClear | boolean \| undefined | No |  |  |  | Sets whether the `onClick` action should be triggered when the Search cross icon is clicked. |  |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set | true |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -79,8 +79,8 @@ A search input for querying or filtering content.
 | searchButton | string \| boolean \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Pass a boolean to render a search Button with default text. Pass a string to override the text in the search Button |  |  |
 | searchWidth | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Use `inputWidth` instead. Prop for specifying the width of the Search container. This value is mapped to `inputWidth`. Leaving the `searchWidth` prop with no value will default the width to '100%' |  |  |
 | tabIndex | number \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Input tabindex |  |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | `tooltipPosition` has been deprecated, the functionality will no longer work. |  |  |
-| variant | "default" \| "dark" \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. `variant="dark"` is mapped to `inverse={true}` to preserve legacy behavior. |  |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top | Yes | `tooltipPosition` has been deprecated, the functionality will no longer work. |  |  |
+| variant | "default" \| "dark" \| undefined | No | default \| dark | Yes | This prop no longer has any effect. This prop will eventually be removed. `variant="dark"` is mapped to `inverse={true}` to preserve legacy behavior. |  |  |
 | warning | string \| boolean \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. |  |  |
 
 ## Examples

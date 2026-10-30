@@ -59,6 +59,56 @@ export function extractDefaultsFromDeclaration(declaration) {
 }
 
 /**
+ * Return literal values for simple union types when all members are literals.
+ * `undefined` and `null` members, such as those added to optional props, are ignored.
+ * @param {import("ts-morph").Type} type
+ * @returns {Array<string | number | boolean> | null}
+ */
+export function getLiteralUnionValues(type) {
+  if (!type.isUnion()) {
+    return null;
+  }
+  const unionTypes = type.getUnionTypes();
+  /** @type {Array<string | number | boolean>} */
+  const literals = [];
+
+  for (const unionType of unionTypes) {
+    if (unionType.isUndefined() || unionType.isNull()) {
+      continue;
+    }
+    if (unionType.isStringLiteral()) {
+      const literalValue = unionType.getLiteralValue();
+      if (literalValue === undefined) {
+        return null;
+      }
+      literals.push(String(literalValue));
+      continue;
+    }
+    if (unionType.isNumberLiteral()) {
+      const literalValue = unionType.getLiteralValue();
+      if (literalValue === undefined) {
+        return null;
+      }
+      literals.push(
+        typeof literalValue === "number" ? literalValue : String(literalValue),
+      );
+      continue;
+    }
+    if (unionType.isBooleanLiteral()) {
+      const literalValue = unionType.getLiteralValue();
+      if (literalValue === undefined) {
+        return null;
+      }
+      literals.push(Boolean(literalValue));
+      continue;
+    }
+    return null;
+  }
+
+  return literals.length ? literals : null;
+}
+
+/**
  * Extract default values from the first object parameter binding.
  * @param {import("ts-morph").ParameterDeclaration[]} parameters
  * @param {Map<string, string>} defaults

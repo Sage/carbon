@@ -22,7 +22,7 @@ description: Carbon BatchSelection component props and usage examples.
 | totalItems | number \| undefined | No |  |  |  | Total number of items |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| colorTheme | "white" \| "dark" \| "light" \| "transparent" \| undefined | No |  | Yes | Changing the color theme of this component is no longer supported. |  |  |
+| colorTheme | "white" \| "dark" \| "light" \| "transparent" \| undefined | No | white \| dark \| light \| transparent | Yes | Changing the color theme of this component is no longer supported. |  |  |
 | disabled | boolean \| undefined | No |  | Yes | Disabling this component is no longer supported. |  |  |
 | hidden | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Please use conditional rendering instead. | If true, the component is hidden. |  |
 
