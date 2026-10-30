@@ -42,7 +42,7 @@ description: Carbon DateInput component props and usage examples.
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
-| disablePortal | boolean \| undefined | No |  |  |  | Boolean to toggle where DatePicker is rendered in relation to the Date Input |  |
+| disablePortal | boolean \| undefined | No |  |  |  | Boolean to toggle where DatePicker is rendered in relation to the Date Input | true |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
 | error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
@@ -265,7 +265,7 @@ description: Carbon DateInput component props and usage examples.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input | "medium" |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -280,8 +280,8 @@ description: Carbon DateInput component props and usage examples.
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
-| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set |  |
-| variant | "typical" \| "legacy" \| undefined | No |  |  |  | Date input presentation. Typical is the default; legacy retains its icon trigger. |  |
+| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set | true |
+| variant | "typical" \| "legacy" \| undefined | No |  |  |  | Date input presentation. Typical is the default; legacy retains its icon trigger. | "typical" |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |

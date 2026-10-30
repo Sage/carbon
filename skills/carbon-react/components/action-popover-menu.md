@@ -20,7 +20,7 @@ description: Carbon ActionPopoverMenu component props and usage examples.
 | key | Key \| null \| undefined | No |  |  |  |
 | menuID | string \| undefined | No |  | A unique ID for the menu |  |
 | parentID | string \| undefined | No |  | Unique ID for the menu's parent |  |
-| placement | "bottom" \| "top" \| undefined | No |  | Set whether the menu should open above or below the button |  |
+| placement | "bottom" \| "top" \| undefined | No |  | Set whether the menu should open above or below the button | "bottom" |
 | ref | LegacyRef<T> \| undefined | No |  | Allows getting a ref to the component instance. Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref). |  |
 | setOpen | ((args: boolean) => void) \| undefined | No |  | Callback to set the isOpen flag |  |
 

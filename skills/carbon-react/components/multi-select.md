@@ -49,7 +49,7 @@ description: Carbon MultiSelect component props and usage examples.
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
 | error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
-| flipEnabled | boolean \| undefined | No |  |  |  | Use the opposite list placement if the set placement does not fit |  |
+| flipEnabled | boolean \| undefined | No |  |  |  | Use the opposite list placement if the set placement does not fit | true |
 | form | string \| undefined | No |  |  |  |  |  |
 | formAction | string \| undefined | No |  |  |  |  |  |
 | formattedValue | string \| undefined | No |  |  |  | An optional alternative for props.value, this is useful if the real value is an ID but you want to show a human-readable version. |  |
@@ -84,7 +84,7 @@ description: Carbon MultiSelect component props and usage examples.
 | leftChildren | React.ReactNode | No |  |  |  | Additional child elements to display before the input |  |
 | list | string \| undefined | No |  |  |  |  |  |
 | listMaxHeight | number \| undefined | No |  |  |  | Maximum list height - defaults to 180 |  |
-| listPlacement | ListPlacement \| undefined | No |  |  |  | Placement of the select list in relation to the input element |  |
+| listPlacement | ListPlacement \| undefined | No |  |  |  | Placement of the select list in relation to the input element | "bottom" |
 | listWidth | number \| undefined | No |  |  |  | Override the default width of the list element. Number passed is converted into pixel value |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -269,7 +269,7 @@ description: Carbon MultiSelect component props and usage examples.
 | onWaitingCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onWheel | WheelEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onWheelCapture | WheelEventHandler<T> \| undefined | No |  |  |  |  |  |
-| openOnFocus | boolean \| undefined | No |  |  |  | If true the Component opens on focus |  |
+| openOnFocus | boolean \| undefined | No |  |  |  | If true the Component opens on focus | false |
 | part | string \| undefined | No |  |  |  |  |  |
 | pattern | string \| undefined | No |  |  |  |  |  |
 | placeholder | string \| undefined | No |  |  |  | Placeholder string to be displayed in input |  |
@@ -284,7 +284,7 @@ description: Carbon MultiSelect component props and usage examples.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input | "medium" |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -306,7 +306,7 @@ description: Carbon MultiSelect component props and usage examples.
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
-| wrapPillText | boolean \| undefined | No |  |  |  | Wraps the pill text when it would overflow the input width |  |
+| wrapPillText | boolean \| undefined | No |  |  |  | Wraps the pill text when it would overflow the input width | true |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |

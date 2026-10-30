@@ -33,15 +33,15 @@ description: Carbon Message component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onDismiss | ((e: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered on dismiss, will render the close button. |  |
-| open | boolean \| undefined | No |  |  |  | Flag to determine if the message is rendered. |  |
-| size | "medium" \| "large" \| undefined | No |  |  |  | Set the component's size. |  |
+| open | boolean \| undefined | No |  |  |  | Flag to determine if the message is rendered. | true |
+| size | "medium" \| "large" \| undefined | No |  |  |  | Set the component's size. | "medium" |
 | title | React.ReactNode | No |  |  |  | Set message title. |  |
-| variant | MessageVariant \| undefined | No |  |  |  | Set the component's variant. |  |
+| variant | MessageVariant \| undefined | No |  |  |  | Set the component's variant. | "info" |
 | width | string \| undefined | No |  |  |  | Set the component's width, accepts any valid css string. Please note the component has a max-width of 720px. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| showCloseIcon | boolean \| undefined | No |  | Yes | Please use the `onDismiss` prop to determine whether the close button is rendered instead. | Flag to determine if the close button is rendered. |  |
-| transparent | boolean \| undefined | No |  | Yes | The transparent prop is deprecated and will be removed in a future release, please use the subtle variants instead. | Set transparent styling. |  |
+| showCloseIcon | boolean \| undefined | No |  | Yes | Please use the `onDismiss` prop to determine whether the close button is rendered instead. | Flag to determine if the close button is rendered. | true |
+| transparent | boolean \| undefined | No |  | Yes | The transparent prop is deprecated and will be removed in a future release, please use the subtle variants instead. | Set transparent styling. | false |
 
 ## Examples
 ### Default

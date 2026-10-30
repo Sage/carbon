@@ -27,23 +27,23 @@ Navigates the user to another location.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | ariaLabel | string \| undefined | No |  |  |  | Aria label for accessibility purposes |  |
-| bold | boolean \| undefined | No |  |  |  | Sets the link style to bold |  |
+| bold | boolean \| undefined | No |  |  |  | Sets the link style to bold | false |
 | children | React.ReactNode | No |  |  |  | Child content to render in the link. |  |
 | download | any | No |  |  |  |  |  |
 | hasFocus | boolean \| undefined | No |  |  |  |  |  |
 | href | string \| undefined | No |  |  |  | An href for an anchor tag. |  |
 | icon | IconType \| undefined | No |  |  |  | An icon to display next to the link. |  |
-| iconAlign | "left" \| "right" \| undefined | No |  |  |  | Which side of the link to the render the link. |  |
+| iconAlign | "left" \| "right" \| undefined | No |  |  |  | Which side of the link to the render the link. | "left" |
 | inverse | boolean \| undefined | No |  |  |  | Whether to apply inverse styling. |  |
 | isSkipLink | boolean \| undefined | No |  |  |  | Allows to create skip link |  |
-| linkSize | "medium" \| "large" \| undefined | No |  |  |  | Sets the correct link size |  |
+| linkSize | "medium" \| "large" \| undefined | No |  |  |  | Sets the correct link size | "medium" |
 | onClick | ((ev: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Function called when the mouse is clicked. |  |
 | onKeyDown | ((ev: React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Function called when a key is pressed. |  |
 | onMouseDown | ((ev: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Function called when a mouse down event triggers. |  |
 | rel | string \| undefined | No |  |  |  | allows to set rel property in <a> tag |  |
 | target | string \| undefined | No |  |  |  | Target property in which link should open ie: _blank, _self, _parent, _top |  |
-| underline | "always" \| "hover" \| "never" \| undefined | No |  |  |  | Specifies when the link underline should be displayed. |  |
-| variant | Variants \| undefined | No |  |  |  | Allows link styling to be updated for light or dark backgrounds |  |
+| underline | "always" \| "hover" \| "never" \| undefined | No |  |  |  | Specifies when the link underline should be displayed. | "always" |
+| variant | Variants \| undefined | No |  |  |  | Allows link styling to be updated for light or dark backgrounds | "typical" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |
@@ -97,7 +97,7 @@ Navigates the user to another location.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| disabled | boolean \| undefined | No |  | Yes | The disabled state of the link. This prop is deprecated and will soon be removed. |  |  |
+| disabled | boolean \| undefined | No |  | Yes | The disabled state of the link. This prop is deprecated and will soon be removed. |  | false |
 | isDarkBackground | boolean \| undefined | No |  | Yes | The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. |  |  |
 | tooltipMessage | string \| undefined | No |  | Yes | The tooltipMessage prop in Link is deprecated and will soon be removed. | [Legacy] A message to display as a tooltip to the link. |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | The tooltipPosition prop in Link is deprecated and will soon be removed. | [Legacy] Positions the tooltip with the link. |  |

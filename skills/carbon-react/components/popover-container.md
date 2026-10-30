@@ -17,12 +17,12 @@ description: Carbon PopoverContainer component props and usage examples.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | ariaDescribedBy | string \| undefined | No |  |  |  | The id of the element that describe the dialog. |  |
 | children | React.ReactNode | No |  |  |  | The content of the popover-container |  |
-| closeButtonAriaLabel | string \| undefined | No |  |  |  | Close button aria label |  |
+| closeButtonAriaLabel | string \| undefined | No |  |  |  | Close button aria label | "close" |
 | closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  |  |  | Data tag prop bag for close Button |  |
 | containerAriaLabel | string \| undefined | No |  |  |  | Container aria label |  |
-| disableAnimation | boolean \| undefined | No |  |  |  | Disables the animation for the component |  |
-| hasFullWidth | boolean \| undefined | No |  |  |  | Flag to enable fullWidth Button styles |  |
-| offset | number \| undefined | No |  |  |  | The popover offset from the reference element |  |
+| disableAnimation | boolean \| undefined | No |  |  |  | Disables the animation for the component | false |
+| hasFullWidth | boolean \| undefined | No |  |  |  | Flag to enable fullWidth Button styles | false |
+| offset | number \| undefined | No |  |  |  | The popover offset from the reference element | 6 |
 | onClose | ((ev: React.KeyboardEvent<HTMLElement> \| React.MouseEvent<HTMLElement> \| React.FocusEvent<HTMLElement> \| Event) => void) \| undefined | No |  |  |  | Callback fires when close icon clicked |  |
 | onOpen | ((ev: React.KeyboardEvent<HTMLElement> \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Callback fires when open component is clicked |  |
 | open | boolean \| undefined | No |  |  |  | if `true` the popover-container is open |  |
@@ -36,16 +36,16 @@ description: Carbon PopoverContainer component props and usage examples.
 | paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
 | pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| position | Position \| undefined | No |  |  |  | Sets rendering position of dialog. Please note the 'center' position is deprecated. |  |
+| position | Position \| undefined | No |  |  |  | Sets rendering position of dialog. Please note the 'center' position is deprecated. | "right" |
 | pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| renderCloseComponent | ((args: RenderCloseProps) => JSX.Element) \| undefined | No |  |  |  | A function that will render the close component. Please note that tabIndex is deprecated and no longer required for the close button. `({data-element, tabIndex, onClick, ref, aria-label}) => ()` |  |
-| renderOpenComponent | ((args: RenderOpenProps) => JSX.Element) \| undefined | No |  |  |  | A function that will render the open component. Please note that tabIndex is deprecated and no longer required for the open button. `({isOpen, data-element, onClick, ref, aria-label}) => ()` |  |
-| roundness | "moderate" \| "curved" \| undefined | No |  |  |  | Sets the roundness of the popover container corners |  |
-| shouldCoverButton | boolean \| undefined | No |  |  |  | if `true` the popover-container will cover open button |  |
-| size | Size \| undefined | No |  |  |  | Sets the size of the popover container. |  |
+| renderCloseComponent | ((args: RenderCloseProps) => JSX.Element) \| undefined | No |  |  |  | A function that will render the close component. Please note that tabIndex is deprecated and no longer required for the close button. `({data-element, tabIndex, onClick, ref, aria-label}) => ()` | renderClose |
+| renderOpenComponent | ((args: RenderOpenProps) => JSX.Element) \| undefined | No |  |  |  | A function that will render the open component. Please note that tabIndex is deprecated and no longer required for the open button. `({isOpen, data-element, onClick, ref, aria-label}) => ()` | renderOpen |
+| roundness | "moderate" \| "curved" \| undefined | No |  |  |  | Sets the roundness of the popover container corners | "moderate" |
+| shouldCoverButton | boolean \| undefined | No |  |  |  | if `true` the popover-container will cover open button | false |
+| size | Size \| undefined | No |  |  |  | Sets the size of the popover container. | "medium" |
 | title | string \| undefined | No |  |  |  | Sets the popover container dialog header name |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

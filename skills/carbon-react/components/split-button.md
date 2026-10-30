@@ -33,7 +33,7 @@ description: Carbon SplitButton component props and usage examples.
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
 | defaultValue | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
-| disabled | boolean \| undefined | No |  |  |  | Gives the button a disabled state. |  |
+| disabled | boolean \| undefined | No |  |  |  | Gives the button a disabled state. | false |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
@@ -44,7 +44,7 @@ description: Carbon SplitButton component props and usage examples.
 | formNoValidate | boolean \| undefined | No |  |  |  |  |  |
 | formTarget | string \| undefined | No |  |  |  |  |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
-| iconPosition | "before" \| "after" \| undefined | No |  |  |  | Defines an Icon position within the button: "before" \| "after" |  |
+| iconPosition | "before" \| "after" \| undefined | No |  |  |  | Defines an Icon position within the button: "before" \| "after" | "before" |
 | iconType | IconType \| undefined | No |  |  |  | Defines an Icon type within the button |  |
 | id | string \| undefined | No |  |  |  |  |  |
 | inlist | any | No |  |  |  |  |  |
@@ -239,7 +239,7 @@ description: Carbon SplitButton component props and usage examples.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the buttons. |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the buttons. | "medium" |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
@@ -312,7 +312,7 @@ description: Carbon SplitButton component props and usage examples.
 | isWhite | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Renders the white variant of the secondary split button |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| position | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Sets rendering position of menu. |  |  |
+| position | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Sets rendering position of menu. |  | "right" |
 | subtext | string \| undefined | No |  | Yes | This prop is no longer supported on this component. Second text child, renders under main text, only when size is "large" |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |

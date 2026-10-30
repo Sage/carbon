@@ -16,11 +16,11 @@ description: Carbon ButtonNext component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  |  |  | The content that the button displays. |  |
-| disabled | boolean \| undefined | No |  |  |  | Flag to indicate that the button is disabled. |  |
+| disabled | boolean \| undefined | No |  |  |  | Flag to indicate that the button is disabled. | false |
 | form | string \| undefined | No |  |  |  | Associates the button with a form element; value should be the id of the form. |  |
-| fullWidth | boolean \| undefined | No |  |  |  | Flag to indicate that the button can be full-width. |  |
+| fullWidth | boolean \| undefined | No |  |  |  | Flag to indicate that the button can be full-width. | false |
 | href | string \| undefined | No |  |  |  | Used to transform button into anchor |  |
-| iconPosition | ButtonIconPosition \| undefined | No |  |  |  | Defines an Icon position related to the children: "before" \| "after" |  |
+| iconPosition | ButtonIconPosition \| undefined | No |  |  |  | Defines an Icon position related to the children: "before" \| "after" | "before" |
 | iconType | IconType \| undefined | No |  |  |  | Defines an Icon type within the button |  |
 | id | string \| undefined | No |  |  |  | The ID of the button. |  |
 | inverse | boolean \| undefined | No |  |  |  | Set the button to use a dark-mode appearance. |  |
@@ -39,7 +39,7 @@ description: Carbon ButtonNext component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  |  |  | The name of the button. |  |
-| noWrap | boolean \| undefined | No |  |  |  | Flag to indicate whether the button text can wrap over multiple lines. |  |
+| noWrap | boolean \| undefined | No |  |  |  | Flag to indicate whether the button text can wrap over multiple lines. | true |
 | onBlur | ((ev: React.FocusEvent<HTMLButtonElement \| HTMLAnchorElement>) => void) \| undefined | No |  |  |  | Handler to fire when the button is blurred. |  |
 | onChange | ((ev: React.FormEvent<HTMLButtonElement \| HTMLAnchorElement> \| React.ChangeEvent<HTMLButtonElement \| HTMLAnchorElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on change |  |
 | onClick | ((ev: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Handler to fire when the button is clicked. |  |
@@ -60,11 +60,11 @@ description: Carbon ButtonNext component props and usage examples.
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | rel | string \| undefined | No |  |  |  | HTML rel attribute |  |
-| size | Size \| undefined | No |  |  |  | The size of the button. |  |
+| size | Size \| undefined | No |  |  |  | The size of the button. | "medium" |
 | target | string \| undefined | No |  |  |  | HTML target attribute |  |
-| type | "button" \| "reset" \| "submit" \| undefined | No |  |  |  | The HTML type that this button should use. |  |
-| variant | Variant \| undefined | No |  |  |  | The variant of the button. |  |
-| variantType | VariantType \| undefined | No |  |  |  | The variant type of the button. |  |
+| type | "button" \| "reset" \| "submit" \| undefined | No |  |  |  | The HTML type that this button should use. | "button" |
+| variant | Variant \| undefined | No |  |  |  | The variant of the button. | "default" |
+| variantType | VariantType \| undefined | No |  |  |  | The variant type of the button. | "primary" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-describedby | string \| undefined | No |  |  |  | Identifies the element(s) offering additional information about the button that the user might require. |  |

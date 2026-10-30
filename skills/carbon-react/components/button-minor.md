@@ -18,9 +18,9 @@ description: Carbon ButtonMinor component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  |  |  | The text the button displays |  |
-| disabled | boolean \| undefined | No |  |  |  | Apply disabled state to the button |  |
-| fullWidth | boolean \| undefined | No |  |  |  | Apply fullWidth style to the button |  |
-| iconPosition | ButtonIconPosition \| undefined | No |  |  |  | Defines an Icon position related to the children: "before" \| "after" |  |
+| disabled | boolean \| undefined | No |  |  |  | Apply disabled state to the button | false |
+| fullWidth | boolean \| undefined | No |  |  |  | Apply fullWidth style to the button | false |
+| iconPosition | ButtonIconPosition \| undefined | No |  |  |  | Defines an Icon position related to the children: "before" \| "after" | "before" |
 | iconType | IconType \| undefined | No |  |  |  | Defines an Icon type within the button |  |
 | id | string \| undefined | No |  |  |  | id attribute |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -58,15 +58,15 @@ description: Carbon ButtonMinor component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| size | SizeOptions \| undefined | No |  |  |  | Assigns a size to the button: "small" \| "medium" \| "large" |  |
+| size | SizeOptions \| undefined | No |  |  |  | Assigns a size to the button: "small" \| "medium" \| "large" | "medium" |
 | type | string \| undefined | No |  |  |  | HTML button type property |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-describedby | string \| undefined | No |  |  |  | Identifies the element(s) offering additional information about the button the user might require. |  |
 | aria-label | string \| undefined | No |  |  |  | Prop to specify the aria-label attribute of the component Defaults to the iconType, when the component has only an icon |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Identifies the element(s) labelling the button. |  |
-| buttonType | ButtonTypes \| undefined | No |  | Yes | Color variants for new business themes: "primary" \| "secondary" \| "tertiary" \| "darkBackground" |  |  |
-| destructive | boolean \| undefined | No |  | Yes | Apply destructive style to the button |  |  |
+| buttonType | ButtonTypes \| undefined | No |  | Yes | Color variants for new business themes: "primary" \| "secondary" \| "tertiary" \| "darkBackground" |  | "secondary" |
+| destructive | boolean \| undefined | No |  | Yes | Apply destructive style to the button |  | false |
 | href | string \| undefined | No |  | Yes | Used to transform button into anchor |  |  |
 | iconTooltipMessage | string \| undefined | No |  | Yes | [Legacy] Provides a tooltip message when the icon is hovered. |  |  |
 | iconTooltipPosition | TooltipPositions \| undefined | No |  | Yes | [Legacy] Provides positioning when the tooltip is displayed. |  |  |

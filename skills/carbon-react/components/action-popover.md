@@ -16,7 +16,7 @@ description: Carbon ActionPopover component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | Children for popover component |  |
-| horizontalAlignment | Alignment \| undefined | No |  | Horizontal alignment of menu items content |  |
+| horizontalAlignment | Alignment \| undefined | No |  | Horizontal alignment of menu items content | "left" |
 | id | string \| undefined | No |  | Unique ID |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
@@ -32,12 +32,12 @@ description: Carbon ActionPopover component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| onClose | (() => void) \| undefined | No |  | Callback to be called on menu close |  |
-| onOpen | (() => void) \| undefined | No |  | Callback to be called on menu open |  |
-| placement | "bottom" \| "top" \| undefined | No |  | Set whether the menu should open above or below the button |  |
+| onClose | (() => void) \| undefined | No |  | Callback to be called on menu close | onCloseDefault |
+| onOpen | (() => void) \| undefined | No |  | Callback to be called on menu open | onOpenDefault |
+| placement | "bottom" \| "top" \| undefined | No |  | Set whether the menu should open above or below the button | "bottom" |
 | renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  | Render a custom menu button to override default ellipsis icon |  |
 | rightAlignMenu | boolean \| undefined | No |  | Boolean to control whether menu should align to right |  |
-| submenuPosition | Alignment \| undefined | No |  | Sets submenu position |  |
+| submenuPosition | Alignment \| undefined | No |  | Sets submenu position | "left" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-describedby | string \| undefined | No |  | Prop to specify an aria-describedby for the component |  |
