@@ -17,11 +17,11 @@ description: Carbon NumeralDate component props and usage examples.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | onChange | (ev: NumeralDateEvent) => void | Yes |  |  |  | Change event handler |  |
 | value | NumeralDateValue | Yes |  |  |  | Value |  |
-| dateFormat | readonly ["dd", "mm", "yyyy"] \| readonly ["mm", "dd", "yyyy"] \| readonly ["yyyy", "mm", "dd"] \| readonly ["dd", "mm"] \| readonly ["mm", "dd"] \| readonly ["mm", "yyyy"] \| undefined | No |  |  |  | Array of strings to define custom input layout. |  |
+| dateFormat | readonly ["dd", "mm", "yyyy"] \| readonly ["mm", "dd", "yyyy"] \| readonly ["yyyy", "mm", "dd"] \| readonly ["dd", "mm"] \| readonly ["mm", "dd"] \| readonly ["mm", "yyyy"] \| undefined | No |  |  |  | Array of strings to define custom input layout. | ["dd", "mm", "yyyy"] |
 | dayRef | React.ForwardedRef<HTMLInputElement> \| undefined | No |  |  |  | A React ref to pass to the input corresponding to the day |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
 | enableInternalError | boolean \| undefined | No |  |  |  | When true, enables the internal errors to be displayed |  |
-| error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
+| error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. | "" |
 | id | string \| undefined | No |  |  |  | `id` for events |  |
 | inputIds | DateInputIds \| undefined | No |  |  |  | Allow consumers to set IDs for each of the field inputs |  |
 | legend | string \| undefined | No |  |  |  | The content for the component's legend |  |
@@ -45,8 +45,8 @@ description: Carbon NumeralDate component props and usage examples.
 | onBlur | ((ev: NumeralDateEvent) => void) \| undefined | No |  |  |  | Blur event handler |  |
 | readOnly | boolean \| undefined | No |  |  |  | If true, the component will be read-only |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
-| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the NumeralDate inputs. |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input | "medium" |
+| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the NumeralDate inputs. | true |
 | yearRef | React.ForwardedRef<HTMLInputElement> \| undefined | No |  |  |  | A React ref to pass to the input corresponding to the year |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -64,7 +64,7 @@ description: Carbon NumeralDate component props and usage examples.
 | labelWidth | number \| undefined | No |  | Yes | Custom label widths are no longer supported on this component. | [Legacy] Label width |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips are no longer supported on this component. | [Legacy] Overrides the default tooltip position |  |
 | validationOnLabel | boolean \| undefined | No |  | Yes | Custom validation icon placement is no longer supported on this component. | [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs |  |
-| warning | string \| boolean \| undefined | No |  | Yes | Warning validation is deprecated and will be removed in a future release. | Indicate warning information. |  |
+| warning | string \| boolean \| undefined | No |  | Yes | Warning validation is deprecated and will be removed in a future release. | Indicate warning information. | "" |
 
 ## Examples
 ### Default

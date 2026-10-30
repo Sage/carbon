@@ -18,11 +18,11 @@ description: Carbon FlatTableRow component props and usage examples.
 | children | React.ReactNode | Yes |  | Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. |  |
 | bgColor | string \| undefined | No |  | Overrides default cell color, provide design token, any color from palette or any valid css color value. |  |
 | expandable | boolean \| undefined | No |  | Allows the row to be expanded, must be used with the `subRows` prop. |  |
-| expandableArea | "wholeRow" \| "firstColumn" \| undefined | No |  | Area to click to open sub rows when expandable. Default is `wholeRow` |  |
-| expanded | boolean \| undefined | No |  | Sets an expandable row to be expanded on start |  |
+| expandableArea | "wholeRow" \| "firstColumn" \| undefined | No |  | Area to click to open sub rows when expandable. Default is `wholeRow` | "wholeRow" |
+| expanded | boolean \| undefined | No |  | Sets an expandable row to be expanded on start | false |
 | highlighted | boolean \| undefined | No |  | Allows developers to manually control highlighted state for the row. |  |
 | horizontalBorderColor | string \| undefined | No |  | Sets the color of the bottom border in the row |  |
-| horizontalBorderSize | TableBorderSize \| undefined | No |  | Sets the weight of the bottom border in the row |  |
+| horizontalBorderSize | TableBorderSize \| undefined | No |  | Sets the weight of the bottom border in the row | "small" |
 | id | string \| number \| undefined | No |  |  |  |
 | onClick | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | Function to handle click event. If provided the Component could be focused with tab key. |  |
 | selected | boolean \| undefined | No |  | Allows developers to manually control selected state for the row. |  |

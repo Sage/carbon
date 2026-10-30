@@ -25,7 +25,7 @@ documentation for consumer-specific guidance.
 | accordionExpanded | boolean \| undefined | No |  | Flag to control the open state of TileSelect Accordion |  |
 | actionButtonAdornment | React.ReactNode | No |  | An additional help info icon rendered next to the action button |  |
 | additionalInformation | React.ReactNode | No |  | Component to render additional information row between title and description |  |
-| checked | boolean \| undefined | No |  | determines if this tile is selected or unselected |  |
+| checked | boolean \| undefined | No |  | determines if this tile is selected or unselected | false |
 | customActionButton | ((onClick: () => void) => JSX.Element) \| undefined | No |  | Render prop that allows overriding the default action button. |  |
 | description | React.ReactNode | No |  | description of the TileSelect |  |
 | disabled | boolean \| undefined | No |  | disables the TileSelect input |  |
@@ -53,7 +53,7 @@ documentation for consumer-specific guidance.
 | subtitle | React.ReactNode | No |  | subtitle of the TileSelect |  |
 | title | React.ReactNode | No |  | title of the TileSelect |  |
 | titleAdornment | React.ReactNode | No |  | adornment to be rendered next to the title |  |
-| type | "checkbox" \| "radio" \| undefined | No |  | Type of the TileSelect input |  |
+| type | "checkbox" \| "radio" \| undefined | No |  | Type of the TileSelect input | "checkbox" |
 | value | string \| undefined | No |  | the value that is represented by this TileSelect |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

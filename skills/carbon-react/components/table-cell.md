@@ -16,7 +16,7 @@ description: Carbon TableCell component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | The content of the table cell. |  |
-| align | "left" \| "right" \| "center" \| undefined | No |  | The alignment of the table cell content. |  |
+| align | "left" \| "right" \| "center" \| undefined | No |  | The alignment of the table cell content. | "left" |
 | as | "td" \| "th" \| undefined | No |  | The HTML element to render the table cell as. |  |
 | borderThickness | BorderThickness \| undefined | No |  | Override the vertical border thickness of the table cell. |  |
 | colSpan | number \| undefined | No |  |  |  |
