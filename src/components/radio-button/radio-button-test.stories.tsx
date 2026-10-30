@@ -303,3 +303,177 @@ export const InTabs: Story = () => {
   );
 };
 InTabs.storyName = "In Tabs";
+
+// Documentation regression stories moved from the public docs.
+
+interface TemplateProps
+  extends Omit<
+    RadioButtonGroupProps,
+    "children" | "value" | "onChange" | "name"
+  > {
+  id?: string;
+}
+
+const ControlledRadioButtonGroup = ({
+  id = "default",
+  ...args
+}: TemplateProps) => {
+  const [value, setValue] = useState("");
+  return (
+    <RadioButtonGroup
+      name={`${id}-group`}
+      value={value}
+      onChange={(ev) => setValue(ev.target.value)}
+      {...args}
+    >
+      <RadioButton id={`${id}-1`} value="radio1" label="Radio Option 1" />
+      <RadioButton id={`${id}-2`} value="radio2" label="Radio Option 2" />
+      <RadioButton id={`${id}-3`} value="radio3" label="Radio Option 3" />
+    </RadioButtonGroup>
+  );
+};
+
+export const WithLegend: Story = {
+  render: ControlledRadioButtonGroup,
+  args: {
+    id: "with-legend",
+    legend: "RadioButtonGroup Legend",
+  },
+};
+
+export const WithLegendHint: Story = {
+  ...WithLegend,
+  args: {
+    ...WithLegend.args,
+    id: "with-legend-hint",
+    legendHint: "Legend Hint",
+  },
+};
+
+export const WithInputHint: Story = ({ ...args }) => {
+  const [value, setValue] = useState("");
+  return (
+    <RadioButtonGroup
+      name="input-hint-group"
+      legend="Radio Button Group Legend"
+      value={value}
+      onChange={(ev) => setValue(ev.target.value)}
+      {...args}
+    >
+      <RadioButton
+        id="input-hint-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+        inputHint="Input Hint"
+      />
+      <RadioButton
+        id="input-hint-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+        inputHint="Input Hint"
+      />
+      <RadioButton
+        id="input-hint-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+        inputHint="Input Hint"
+      />
+    </RadioButtonGroup>
+  );
+};
+WithInputHint.storyName = "With Input Hint";
+
+export const InlineRadioButtons: Story = {
+  ...WithLegend,
+  args: {
+    ...WithLegend.args,
+    id: "inline",
+    legendHint: "Legend Hint",
+    inline: true,
+  },
+};
+
+export const Sizes: Story = () => {
+  const [valueSmall, setValueSmall] = useState("");
+  const [valueMedium, setValueMedium] = useState("");
+  const [valueLarge, setValueLarge] = useState("");
+
+  return (
+    <Box display="flex" flexDirection="row" justifyContent="space-around">
+      <RadioButtonGroup
+        name="size-group-small"
+        legend="Small Radio Buttons"
+        value={valueSmall}
+        onChange={(ev) => setValueSmall(ev.target.value)}
+        size="small"
+      >
+        <RadioButton id="small-radio-1" value="small1" label="Radio Option 1" />
+        <RadioButton id="small-radio-2" value="small2" label="Radio Option 2" />
+        <RadioButton id="small-radio-3" value="small3" label="Radio Option 3" />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        name="size-group-medium"
+        legend="Medium Radio Buttons"
+        value={valueMedium}
+        onChange={(ev) => setValueMedium(ev.target.value)}
+        size="medium"
+      >
+        <RadioButton
+          id="medium-radio-1"
+          value="medium1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="medium-radio-2"
+          value="medium2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="medium-radio-3"
+          value="medium3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        name="size-group-large"
+        legend="Large Radio Buttons"
+        value={valueLarge}
+        onChange={(ev) => setValueLarge(ev.target.value)}
+        size="large"
+      >
+        <RadioButton id="large-radio-1" value="large1" label="Radio Option 1" />
+        <RadioButton id="large-radio-2" value="large2" label="Radio Option 2" />
+        <RadioButton id="large-radio-3" value="large3" label="Radio Option 3" />
+      </RadioButtonGroup>
+    </Box>
+  );
+};
+Sizes.storyName = "Sizes";
+
+export const Required: Story = {
+  ...WithLegend,
+  args: {
+    ...WithLegend.args,
+    id: "required",
+    required: true,
+  },
+};
+
+export const Disabled: Story = {
+  ...WithLegend,
+  args: {
+    ...WithLegend.args,
+    id: "disabled",
+    disabled: true,
+  },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  },
+};
+
+WithLegend.parameters = { chromatic: { disableSnapshot: true } };
+WithLegendHint.parameters = { chromatic: { disableSnapshot: true } };
+WithInputHint.parameters = { chromatic: { disableSnapshot: true } };
+InlineRadioButtons.parameters = { chromatic: { disableSnapshot: true } };
+Sizes.parameters = { chromatic: { disableSnapshot: true } };
+Required.parameters = { chromatic: { disableSnapshot: true } };

@@ -40,58 +40,6 @@ description: Carbon Loader component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-(args: LoaderProps) => (
-    <Box>
-      <Loader {...args} />
-    </Box>
-  )
-```
-
-
-### Standalone
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="standalone" />
-    </Box>
-  )
-```
-
-
-### Ring
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="ring" />
-    </Box>
-  )
-```
-
-
-### Star
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="star" />
-    </Box>
-  )
-```
-
-
 ### Standalone Sizes
 
 **Render**
