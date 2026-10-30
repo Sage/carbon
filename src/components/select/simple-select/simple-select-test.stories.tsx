@@ -620,7 +620,7 @@ export const AllSizesWithAllItemProps = () => (
 );
 AllSizesWithAllItemProps.storyName = "AllSizesWithAllItemProps";
 AllSizesWithAllItemProps.parameters = {
-  chromatic: { disableSnapshot: true },
+  chromatic: { disableSnapshot: false },
 };
 AllSizesWithAllItemProps.play = async ({
   canvasElement,
