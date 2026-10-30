@@ -132,6 +132,7 @@
 - [Sidebar](components/sidebar.md)
 - [SimpleColor](components/simple-color.md)
 - [SimpleColorPicker](components/simple-color-picker.md)
+- [Skeleton](components/skeleton.md)
 - [Sort](components/sort.md)
 - [SplitButton](components/split-button.md)
 - [StepFlow](components/step-flow.md)
