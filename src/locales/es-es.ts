@@ -256,6 +256,9 @@ const esES: Partial<Locale> = {
       close: () => "Cerrar",
     },
   },
+  skeleton: {
+    loading: () => "Cargando",
+  },
   sort: {
     accessibleName: (sortContent, sortType) =>
       `Ordenar todos los contenidos ${sortContent && `de tipo ${sortContent}`}${
