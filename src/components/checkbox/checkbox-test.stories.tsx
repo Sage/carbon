@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import { Checkbox, CheckboxGroup, CheckboxProps } from ".";
+import { Checkbox, CheckboxProps } from ".";
 import Box from "../box";
 import Textbox from "../textbox";
 import Icon from "../icon";
@@ -322,54 +322,6 @@ export const Sizes: Story = () => {
 };
 Sizes.storyName = "Sizes";
 
-export const IndeterminateState: Story = () => {
-  const [items, setItems] = useState([
-    { id: "checkbox-1", label: "Checkbox 1", checked: true },
-    { id: "checkbox-2", label: "Checkbox 2", checked: false },
-    { id: "checkbox-3", label: "Checkbox 3", checked: false },
-  ]);
-
-  const checkedCount = items.filter((item) => item.checked).length;
-  const allChecked = checkedCount === items.length;
-  const someChecked = checkedCount > 0 && checkedCount < items.length;
-  const controlledIds = items.map((item) => item.id).join(" ");
-
-  const handleSelectAll = () => {
-    const newChecked = !allChecked;
-    setItems(items.map((item) => ({ ...item, checked: newChecked })));
-  };
-
-  const handleChange = (id: string, checked: boolean) => {
-    setItems(
-      items.map((item) => (item.id === id ? { ...item, checked } : item)),
-    );
-  };
-
-  return (
-    <>
-      <Checkbox
-        label="Select All"
-        indeterminate={someChecked}
-        checked={allChecked}
-        onChange={handleSelectAll}
-        aria-controls={controlledIds}
-      />
-      <CheckboxGroup m={2}>
-        {items.map((item) => (
-          <Checkbox
-            key={item.id}
-            id={item.id}
-            label={item.label}
-            checked={item.checked}
-            onChange={(ev) => handleChange(item.id, ev.target.checked)}
-          />
-        ))}
-      </CheckboxGroup>
-    </>
-  );
-};
-IndeterminateState.storyName = "Indeterminate State";
-
 export const Required: Story = {
   ...WithLabel,
   args: {
@@ -390,6 +342,5 @@ export const Disabled: Story = {
 WithLabel.parameters = { chromatic: { disableSnapshot: true } };
 WithInputHint.parameters = { chromatic: { disableSnapshot: true } };
 Sizes.parameters = { chromatic: { disableSnapshot: true } };
-IndeterminateState.parameters = { chromatic: { disableSnapshot: true } };
 Required.parameters = { chromatic: { disableSnapshot: true } };
 Disabled.parameters = { chromatic: { disableSnapshot: true } };

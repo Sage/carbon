@@ -42,7 +42,7 @@ export const Playground: Story = {
   args: {
     progress: 50,
     description: "Completed",
-    currentProgressLabel: "50%",
+    currentProgressLabel: "",
     maxProgressLabel: "100%",
     customValuePreposition: "of",
     labelsPosition: "bottom",

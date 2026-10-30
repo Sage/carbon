@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { useArgs } from "storybook/preview-api";
 
 import Box from "../../box";
 
@@ -48,10 +49,39 @@ const meta: Meta<typeof Loader> = {
 export default meta;
 type Story = StoryObj<typeof Loader>;
 
+const variantsByLoaderType: Record<
+  NonNullable<LoaderProps["loaderType"]>,
+  LoaderProps["variant"][]
+> = {
+  standalone: ["typical", "ai"],
+  ring: ["stacked", "inline", "ai-stacked", "ai-inline"],
+  star: [],
+} as const;
+
+const LoaderPlayground = (args: LoaderProps) => {
+  const [, updateArgs] = useArgs<LoaderProps>();
+  const variants = variantsByLoaderType[args.loaderType ?? "standalone"];
+
+  useEffect(() => {
+    if (variants.includes(args.variant)) {
+      return;
+    }
+
+    updateArgs({ variant: variants[0] });
+  }, [args.variant, updateArgs, variants]);
+
+  return (
+    <Loader
+      {...args}
+      variant={variants.includes(args.variant) ? args.variant : variants[0]}
+    />
+  );
+};
+
 export const Playground: Story = {
   render: (args: LoaderProps) => (
     <Box>
-      <Loader {...args} />
+      <LoaderPlayground {...args} />
     </Box>
   ),
   args: {
@@ -81,6 +111,22 @@ export const Playground: Story = {
       </Box>
     ),
   ],
+};
+
+export const StandaloneSizes: Story = {
+  render: () => (
+    <>
+      <Box>
+        <Loader loaderType="standalone" size="small" />
+      </Box>
+      <Box>
+        <Loader loaderType="standalone" size="medium" />
+      </Box>
+      <Box>
+        <Loader loaderType="standalone" size="large" />
+      </Box>
+    </>
+  ),
 };
 StandaloneSizes.storyName = "Standalone Sizes";
 

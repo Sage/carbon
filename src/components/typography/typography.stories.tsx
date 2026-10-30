@@ -67,7 +67,13 @@ type Story = StoryObj<typeof Typography>;
 
 export const Playground: Story = {
   render: (args) => {
-    const content = <Typography {...args}>{args.children}</Typography>;
+    const children =
+      args.variant === "ul" || args.variant === "ol" ? (
+        <li>{args.children}</li>
+      ) : (
+        args.children
+      );
+    const content = <Typography {...args}>{children}</Typography>;
 
     if (args.inverse) {
       return (

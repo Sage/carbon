@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { useArgs } from "storybook/preview-api";
 
 import Message from ".";
 import Button from "../button/__next__";
@@ -34,12 +35,28 @@ const meta: Meta<MessageStoryArgs> = {
 export default meta;
 type Story = StoryObj<MessageStoryArgs>;
 
-export const Playground: Story = {
-  render: ({ dismissible, ...args }) => (
-    <Message {...args} onDismiss={dismissible ? () => {} : undefined}>
-      {args.children}
+const PlaygroundMessage = (args: MessageStoryArgs) => {
+  const [, updateArgs] = useArgs<MessageStoryArgs>();
+  const { dismissible, ...messageArgs } = args;
+
+  return (
+    <Message
+      {...messageArgs}
+      onDismiss={
+        dismissible
+          ? () => {
+              updateArgs({ open: false });
+            }
+          : undefined
+      }
+    >
+      {messageArgs.children}
     </Message>
-  ),
+  );
+};
+
+export const Playground: Story = {
+  render: (args) => <PlaygroundMessage {...args} />,
   args: {
     children: "Some custom message",
     variant: "info",
