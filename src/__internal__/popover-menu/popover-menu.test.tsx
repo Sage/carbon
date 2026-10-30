@@ -3,6 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import PopoverMenu, {
   FocusableHandle,
   PopoverMenuProps,
+  menuPopoverMiddleware,
 } from "./popover-menu.component";
 import {
   MenuItem,
@@ -43,6 +44,15 @@ const buttonChildren = (
     <Button>Item 3</Button>
   </>
 );
+
+test("includes flip middleware by default and removes it when disabled", () => {
+  expect(menuPopoverMiddleware().map(({ name }) => name)).toContain("flip");
+  expect(
+    menuPopoverMiddleware(undefined, false, false, false, false).map(
+      ({ name }) => name,
+    ),
+  ).not.toContain("flip");
+});
 
 const renderPopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
   open = false,
@@ -195,6 +205,28 @@ describe("PopoverMenu - typeahead (Search)", () => {
 
     expect(screen.getAllByRole("listbox")[0]).toBeInTheDocument();
     expect(screen.getAllByRole("option")).toHaveLength(4);
+    expect(screen.getAllByRole("listbox")[0]).not.toHaveAttribute("tabindex");
+    expect(screen.getByTestId("menu-wrapper")).not.toHaveAttribute(
+      "data-element",
+    );
+  });
+
+  it("applies an opted-in data element to the menu wrapper", () => {
+    renderPopoverMenu({
+      open: true,
+      menuWrapperDataElement: "custom-menu-wrapper",
+    });
+
+    expect(screen.getByTestId("menu-wrapper")).toHaveAttribute(
+      "data-element",
+      "custom-menu-wrapper",
+    );
+  });
+
+  it("applies an opted-in tab index to the list", () => {
+    renderPopoverMenu({ open: true, listTabIndex: -1 });
+
+    expect(screen.getAllByRole("listbox")[0]).toHaveAttribute("tabindex", "-1");
   });
 
   it("wrapper has expected data- attributes", () => {
@@ -347,6 +379,125 @@ describe("PopoverMenu - typeahead (Search)", () => {
     const last = options[options.length - 1];
 
     expect(last).toHaveAttribute("data-has-focus", "true");
+  });
+
+  it("focuses the last item on ArrowUp when focusSelectedOnOpen is set but no option is selected", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({ open: true, focusSelectedOnOpen: true });
+
+    focusTrigger();
+    await user.keyboard("{ArrowUp}");
+    const options = screen.getAllByRole("option");
+
+    expect(options[options.length - 1]).toHaveAttribute(
+      "data-has-focus",
+      "true",
+    );
+  });
+
+  it("activates the selected option only when opted in and follows selection changes", () => {
+    const menu = (selectedItem: number, highlightSelectedOption = false) => (
+      <PopoverMenu
+        open
+        onClose={() => {}}
+        popoverControl={popoverControlInput}
+        focusSelectedOnOpen
+        highlightSelectedOption={highlightSelectedOption}
+      >
+        <MenuItem selected={selectedItem === 1}>Item 1</MenuItem>
+        <MenuItem selected={selectedItem === 2}>Item 2</MenuItem>
+      </PopoverMenu>
+    );
+    const { rerender } = render(menu(1));
+    const [firstOption, secondOption] = screen.getAllByRole("option");
+
+    expect(firstOption).not.toHaveAttribute("data-has-focus", "true");
+
+    rerender(menu(1, true));
+    expect(firstOption).toHaveAttribute("data-has-focus", "true");
+    expect(screen.getByRole("combobox")).toHaveAttribute(
+      "aria-activedescendant",
+      firstOption.id,
+    );
+
+    rerender(menu(2, true));
+    expect(firstOption).not.toHaveAttribute("data-has-focus", "true");
+    expect(secondOption).toHaveAttribute("data-has-focus", "true");
+    expect(screen.getByRole("combobox")).toHaveAttribute(
+      "aria-activedescendant",
+      secondOption.id,
+    );
+  });
+
+  it("activates a selected option nested inside a semantic group", () => {
+    render(
+      <PopoverMenu
+        open
+        onClose={() => {}}
+        popoverControl={popoverControlInput}
+        highlightSelectedOption
+      >
+        <MenuItemHeading text="Colours" semanticGroup>
+          <MenuItem selected>Amber</MenuItem>
+        </MenuItemHeading>
+      </PopoverMenu>,
+    );
+
+    const selectedOption = screen.getByRole("option", { name: "Amber" });
+
+    expect(selectedOption).toHaveAttribute("data-has-focus", "true");
+    expect(screen.getByRole("combobox")).toHaveAttribute(
+      "aria-activedescendant",
+      selectedOption.id,
+    );
+  });
+
+  it("rederives the selected option id when a non-virtualised menu reopens", () => {
+    const menu = (open: boolean) => (
+      <PopoverMenu
+        open={open}
+        onClose={() => {}}
+        popoverControl={popoverControlInput}
+        highlightSelectedOption
+      >
+        <MenuItem selected>Item 1</MenuItem>
+      </PopoverMenu>
+    );
+    const { rerender } = render(menu(true));
+    const input = screen.getByRole("combobox");
+    const initialOptionId = screen.getByRole("option").id;
+
+    expect(input).toHaveAttribute("aria-activedescendant", initialOptionId);
+
+    rerender(menu(false));
+    expect(input).not.toHaveAttribute("aria-activedescendant");
+
+    rerender(menu(true));
+    const reopenedOptionId = screen.getByRole("option").id;
+
+    expect(reopenedOptionId).not.toBe(initialOptionId);
+    expect(input).toHaveAttribute("aria-activedescendant", reopenedOptionId);
+  });
+
+  it("does not highlight a selected disabled option", () => {
+    renderPopoverMenu({
+      open: true,
+      focusSelectedOnOpen: true,
+      highlightSelectedOption: true,
+      children: (
+        <MenuItem selected disabled>
+          Item 1
+        </MenuItem>
+      ),
+    });
+
+    expect(screen.getByRole("option")).not.toHaveAttribute(
+      "data-has-focus",
+      "true",
+    );
+    expect(screen.getByRole("combobox")).not.toHaveAttribute(
+      "aria-activedescendant",
+    );
   });
 
   it("shows list when user clicks the control and focuses selected item on ArrowDown", async () => {
@@ -549,6 +700,33 @@ describe("PopoverMenu - typeahead (Search)", () => {
     ).toHaveAttribute("aria-activedescendant", "item-1");
   });
 
+  it("PageUp moves the highlight up by a fixed number of items when enabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: (
+        <>
+          {Array.from({ length: 14 }, (_, index) => (
+            <MenuItem key={index} id={`item-${index + 1}`}>
+              Item {index + 1}
+            </MenuItem>
+          ))}
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{End}");
+    await user.keyboard("{PageUp}");
+    const options = screen.getAllByRole("option");
+
+    expect(options[3]).toHaveAttribute("data-has-focus", "true");
+    expect(
+      screen.getByRole("combobox", { name: "combobox-label" }),
+    ).toHaveAttribute("aria-activedescendant", "item-4");
+  });
+
   it("Home moves the highlight to the first item that is not disabled", async () => {
     const user = userEvent.setup();
     renderPopoverMenu({
@@ -592,6 +770,33 @@ describe("PopoverMenu - typeahead (Search)", () => {
     expect(
       screen.getByRole("combobox", { name: "combobox-label" }),
     ).toHaveAttribute("aria-activedescendant", "item-3");
+  });
+
+  it("PageDown moves the highlight down by a fixed number of items when enabled", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: (
+        <>
+          {Array.from({ length: 14 }, (_, index) => (
+            <MenuItem key={index} id={`item-${index + 1}`}>
+              Item {index + 1}
+            </MenuItem>
+          ))}
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{PageDown}");
+    const options = screen.getAllByRole("option");
+
+    expect(options[10]).toHaveAttribute("data-has-focus", "true");
+    expect(
+      screen.getByRole("combobox", { name: "combobox-label" }),
+    ).toHaveAttribute("aria-activedescendant", "item-11");
   });
 
   it("End moves the highlight to the last item that is not disabled", async () => {
@@ -650,6 +855,168 @@ describe("PopoverMenu - typeahead (Search)", () => {
     await user.keyboard("{Tab}");
 
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not confirm the highlighted item on Space by default", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard(" ");
+
+    expect(onItemClick).not.toHaveBeenCalled();
+  });
+
+  it("confirms the highlighted item on Space when selectOnSpaceAndTab is set", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      selectOnSpaceAndTab: true,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard(" ");
+
+    expect(onItemClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("confirms the highlighted item and closes on Tab when selectOnSpaceAndTab is set", async () => {
+    const user = userEvent.setup();
+    const onItemClick = jest.fn();
+    const onClose = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      selectOnSpaceAndTab: true,
+      onClose,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    focusTrigger();
+    await user.keyboard("{ArrowDown}");
+    await user.keyboard("{Tab}");
+
+    expect(onItemClick).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalled();
+  });
+});
+
+describe("PopoverMenu - Select configuration", () => {
+  it("uses the selected option as the PageDown base when nothing is highlighted", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 15 }, (_, index) => (
+        <MenuItem
+          key={`pgs-${index}`}
+          id={`pgs-${index}`}
+          selected={index === 3}
+        >
+          Item {index}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageDown}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "pgs-13");
+  });
+
+  it("uses the first option as the PageDown base when nothing is highlighted or selected", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 15 }, (_, index) => (
+        <MenuItem key={`pgn-${index}`} id={`pgn-${index}`}>
+          Item {index}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageDown}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "pgn-10");
+  });
+
+  it("uses the last option as the PageUp base when nothing is highlighted or selected", async () => {
+    const user = userEvent.setup();
+    renderPopoverMenu({
+      open: true,
+      enablePageNavigation: true,
+      children: Array.from({ length: 15 }, (_, index) => (
+        <MenuItem key={`pgu-${index}`} id={`pgu-${index}`}>
+          Item {index}
+        </MenuItem>
+      )),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{PageUp}");
+
+    expect(input).toHaveAttribute("aria-activedescendant", "pgu-4");
+  });
+
+  it("closes on Tab without confirming when no option is highlighted and selectOnSpaceAndTab is set", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    const onItemClick = jest.fn();
+    renderPopoverMenu({
+      open: true,
+      selectOnSpaceAndTab: true,
+      onClose,
+      children: (
+        <>
+          <MenuItem onClick={onItemClick}>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+        </>
+      ),
+    });
+
+    const input = screen.getByRole("combobox", { name: "combobox-label" });
+    input.focus();
+    await user.keyboard("{Tab}");
+
+    expect(onItemClick).not.toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it("renders the empty listbox when the menu has no children", () => {
+    render(
+      <PopoverMenu open onClose={() => {}} popoverControl={popoverControlInput}>
+        {null}
+      </PopoverMenu>,
+    );
+
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
   });
 });
 

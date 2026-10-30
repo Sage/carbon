@@ -38,6 +38,7 @@ description: Carbon Option component props and usage examples.
 | defaultValue | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
+| divider | boolean \| undefined | No |  |  |  | When true, renders a divider after the option within the new `SelectList`. |  |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
@@ -60,6 +61,7 @@ description: Carbon Option component props and usage examples.
 | itemScope | boolean \| undefined | No |  |  |  |  |  |
 | itemType | string \| undefined | No |  |  |  |  |  |
 | lang | string \| undefined | No |  |  |  |  |  |
+| leading | React.ReactNode | No |  |  |  | Content rendered before the option's label within the new `SelectList`, e.g. an icon or portrait. |  |
 | list | string \| undefined | No |  |  |  |  |  |
 | max | string \| number \| undefined | No |  |  |  |  |  |
 | maxLength | number \| undefined | No |  |  |  |  |  |
@@ -225,7 +227,7 @@ description: Carbon Option component props and usage examples.
 | part | string \| undefined | No |  |  |  |  |  |
 | pattern | string \| undefined | No |  |  |  |  |  |
 | placeholder | string \| undefined | No |  |  |  |  |  |
-| prefix | string \| undefined | No |  |  |  |  |  |
+| prefix | string \| undefined | No |  |  |  | Prefix text shown before the option's label within the new `SelectList`. |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |
 | readOnly | boolean \| undefined | No |  |  |  |  |  |
@@ -242,6 +244,7 @@ description: Carbon Option component props and usage examples.
 | src | string \| undefined | No |  |  |  |  |  |
 | step | string \| number \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
+| subtext | React.ReactNode | No |  |  |  | Subtext shown below the option's label within the new `SelectList`. |  |
 | suppressContentEditableWarning | boolean \| undefined | No |  |  |  |  |  |
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
@@ -309,6 +312,7 @@ description: Carbon Option component props and usage examples.
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | borderColor | string \| undefined | No |  | Yes | Use `variant` prop instead. | MultiSelect only - legacy Pill color override retained for backwards compatibility. |  |
+| inert | any | No |  | Yes | `inert` has been deprecated. |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |

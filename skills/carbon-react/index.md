@@ -4,6 +4,7 @@
 
 - [Accordion](components/accordion.md)
 - [AccordionGroup](components/accordion-group.md) (deprecated)
+- [ActionOption](components/action-option.md)
 - [ActionPopover](components/action-popover.md)
 - [ActionPopoverDivider](components/action-popover-divider.md)
 - [ActionPopoverItem](components/action-popover-item.md)
@@ -46,6 +47,7 @@
 - [DraggableContainer](components/draggable-container.md)
 - [DraggableItem](components/draggable-item.md)
 - [Drawer](components/drawer.md)
+- [Dropdown](components/dropdown.md)
 - [Dt](components/dt.md)
 - [DuellingPicklist](components/duelling-picklist.md) (deprecated)
 - [Fieldset](components/fieldset.md)
