@@ -36,6 +36,7 @@ description: Carbon ActionPopover component props and usage examples.
 | onOpen | (() => void) \| undefined | No |  |  |  | Callback to be called on menu open |  |
 | renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  |  |  | Render a custom menu button to override default ellipsis icon |  |
 | rightAlignMenu | boolean \| undefined | No |  |  |  | Boolean to control whether menu should align to right |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the action popover menu items. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-describedby | string \| undefined | No |  |  |  | Prop to specify an aria-describedby for the component |  |
@@ -46,6 +47,88 @@ description: Carbon ActionPopover component props and usage examples.
 | submenuPosition | Alignment \| undefined | No |  | Yes | This prop is no longer supported and has no effect. |  |  |
 
 ## Examples
+### Playground
+
+**Args**
+
+```tsx
+{
+    size: "medium",
+    rightAlignMenu: false,
+    showIcons: true,
+    disabledItems: true,
+    showSubmenu: true,
+    disabledSubmenu: false,
+    additionalOptions: true,
+    download: true,
+  }
+```
+
+**Render**
+
+```tsx
+({
+    showIcons,
+    disabledItems,
+    showSubmenu,
+    disabledSubmenu,
+    additionalOptions,
+    download,
+    ...args
+  }) => (
+    <Box height={400}>
+      <ActionPopover {...args}>
+        <ActionPopoverItem icon={showIcons ? "email" : undefined}>
+          Email invoice
+        </ActionPopoverItem>
+        {showSubmenu && (
+          <ActionPopoverItem
+            icon={showIcons ? "print" : undefined}
+            disabled={disabledSubmenu}
+            submenu={
+              <>
+                <ActionPopoverItem icon={showIcons ? "pdf" : undefined}>
+                  PDF
+                </ActionPopoverItem>
+                <ActionPopoverItem
+                  icon={showIcons ? "csv" : undefined}
+                  disabled={disabledItems}
+                >
+                  CSV
+                </ActionPopoverItem>
+              </>
+            }
+          >
+            Print invoice
+          </ActionPopoverItem>
+        )}
+        {download && (
+          <ActionPopoverItem
+            icon={showIcons ? "download" : undefined}
+            href="data:text/csv;charset=utf-8,Invoice%2CAmount%0A123%2C100"
+            download
+          >
+            Download invoice
+          </ActionPopoverItem>
+        )}
+        <ActionPopoverItem
+          icon={showIcons ? "delete" : undefined}
+          disabled={disabledItems}
+        >
+          Delete invoice
+        </ActionPopoverItem>
+        {additionalOptions && <ActionPopoverDivider />}
+        {additionalOptions && (
+          <ActionPopoverItem icon={showIcons ? "settings" : undefined}>
+            Manage invoices
+          </ActionPopoverItem>
+        )}
+      </ActionPopover>
+    </Box>
+  )
+```
+
+
 ### Default
 
 **Render**
@@ -122,65 +205,48 @@ description: Carbon ActionPopover component props and usage examples.
 ```
 
 
-### Icons
+### Small
+
+**Args**
+
+```tsx
+{ size: "small" }
+```
 
 **Render**
 
 ```tsx
-() => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
+renderSizeExample
 ```
 
 
-### Disabled Items
+### Medium
+
+**Args**
+
+```tsx
+{ size: "medium" }
+```
 
 **Render**
 
 ```tsx
-() => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled onClick={() => {}} icon="add">
-          Add
-        </ActionPopoverItem>
-        <ActionPopoverItem disabled onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}} icon="tick">
-          Tick
-        </ActionPopoverItem>
-        <ActionPopoverItem disabled onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}} icon="none">
-          None
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
+renderSizeExample
+```
+
+
+### Large
+
+**Args**
+
+```tsx
+{ size: "large" }
+```
+
+**Render**
+
+```tsx
+renderSizeExample
 ```
 
 
@@ -200,25 +266,6 @@ description: Carbon ActionPopover component props and usage examples.
         <ActionPopoverItem onClick={() => {}} icon="delete">
           Delete
         </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### No Icons
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem onClick={() => {}}>Email Invoice</ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
       </ActionPopover>
     </Box>
   );
@@ -262,77 +309,6 @@ description: Carbon ActionPopover component props and usage examples.
 ```
 
 
-### Submenu
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem
-          icon="print"
-          onClick={() => {}}
-          submenu={
-            <>
-              <ActionPopoverItem disabled onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled onClick={() => {}} icon="add">
-          Add
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Disabled Submenu
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem
-          disabled
-          icon="print"
-          onClick={() => {}}
-          submenu={
-            <>
-              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
 ### Keyboard Navigation
 
 **Render**
@@ -354,103 +330,6 @@ description: Carbon ActionPopover component props and usage examples.
         <ActionPopoverDivider />
         <ActionPopoverItem onClick={() => {}} icon="delete">
           Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Keyboard Navigation Left Aligned Submenu
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem
-          icon="csv"
-          onClick={() => {}}
-          submenu={
-            <>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </>
-          }
-        >
-          Download
-        </ActionPopoverItem>
-        <ActionPopoverItem
-          icon="pdf"
-          onClick={() => {}}
-          submenu={
-            <>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Additional Options
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box mt={40} height={275} maxWidth={800}>
-      <ActionPopover rightAlignMenu>
-        <ActionPopoverItem onClick={() => {}}>Enroll Device</ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}}>Assign Owner</ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}}>Manage Devices</ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Download Button
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box mt={40} height={275} maxWidth={800}>
-      <ActionPopover rightAlignMenu>
-        <ActionPopoverItem download icon="download" href="example-img.jpg">
-          Download
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="settings" onClick={() => {}}>
-          Assign Owner
-        </ActionPopoverItem>
-        <ActionPopoverItem disabled icon="download" href="example-img.jpg">
-          Download
         </ActionPopoverItem>
       </ActionPopover>
     </Box>
@@ -521,7 +400,7 @@ description: Carbon ActionPopover component props and usage examples.
 () => {
   return (
     <Box pt={120} height={250}>
-      <Table size="large">
+      <Table size="small">
         <TableHead>
           <TableRow id="header-row-in-table">
             <TableHeader>Name</TableHeader>
@@ -536,7 +415,20 @@ description: Carbon ActionPopover component props and usage examples.
             <TableCell>London</TableCell>
             <TableCell>Single</TableCell>
             <TableCell>
-              <ActionPopover>
+              <ActionPopover
+                renderButton={({
+                  "data-element": dataElement,
+                  ariaAttributes,
+                }: RenderButtonProps) => (
+                  <Button
+                    data-element={dataElement}
+                    size="xs"
+                    {...ariaAttributes}
+                  >
+                    Actions
+                  </Button>
+                )}
+              >
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}
@@ -565,7 +457,20 @@ description: Carbon ActionPopover component props and usage examples.
             <TableCell>York</TableCell>
             <TableCell>Married</TableCell>
             <TableCell>
-              <ActionPopover>
+              <ActionPopover
+                renderButton={({
+                  "data-element": dataElement,
+                  ariaAttributes,
+                }: RenderButtonProps) => (
+                  <Button
+                    data-element={dataElement}
+                    size="xs"
+                    {...ariaAttributes}
+                  >
+                    Actions
+                  </Button>
+                )}
+              >
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}
@@ -592,77 +497,6 @@ description: Carbon ActionPopover component props and usage examples.
         </TableBody>
       </Table>
     </Box>
-  );
-}
-```
-
-
-### Opening a Modal
-
-**Render**
-
-```tsx
-() => {
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  return (
-    <>
-      <Box>
-        <ActionPopover
-          renderButton={({ "data-element": dataElement, ariaAttributes }) => (
-            <Button data-element={dataElement} {...ariaAttributes}>
-              Open Actions
-            </Button>
-          )}
-        >
-          <ActionPopoverItem
-            onClick={() => {
-              setIsConfirmOpen(!isConfirmOpen);
-            }}
-          >
-            Open Confirm Dialog
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="settings" onClick={() => {}}>
-            Do Nothing
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        confirmButtonDestructive
-        cancelButtonDestructive
-        disableConfirm
-        open={isConfirmOpen}
-        onConfirm={() => setIsConfirmOpen(!isConfirmOpen)}
-        onCancel={() => setIsConfirmOpen(!isConfirmOpen)}
-      >
-        Content
-      </Confirm>
-    </>
-  );
-}
-```
-
-
-### Action Popover Nested in Dialog
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>{" "}
-    </Dialog>
   );
 }
 ```

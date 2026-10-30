@@ -14,7 +14,7 @@ import {
   ActionPopoverHandle,
 } from ".";
 
-import Button from "../button";
+import Button from "../button/__next__";
 import { Table, TableBody, TableRow, TableCell } from "../table";
 import Icon from "../icon";
 import iconUnicodes from "../icon/icon-unicodes";
@@ -140,6 +140,58 @@ test("allows menus to size to their content rather than the trigger width", () =
     },
   );
 });
+
+test.each([
+  [undefined, "m", "s"],
+  ["small", "s", "xs"],
+  ["medium", "m", "s"],
+  ["large", "l", "m"],
+] as const)(
+  "applies size=%s to the menu and its submenu, defaulting to medium",
+  async (size, fontSize, paddingSize) => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <ActionPopover size={size}>
+        <ActionPopoverItem icon="email">Email invoice</ActionPopoverItem>
+        <ActionPopoverItem
+          submenu={
+            <>
+              <ActionPopoverItem>Print invoice</ActionPopoverItem>
+              <ActionPopoverItem href="#">Download invoice</ActionPopoverItem>
+              <ActionPopoverItem disabled>Print receipt</ActionPopoverItem>
+            </>
+          }
+        >
+          Print options
+        </ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Actions" }));
+    expect(screen.getByTestId("menu-wrapper")).toHaveStyleRule(
+      "padding",
+      `var(--global-space-comp-${paddingSize}) var(--global-space-none)`,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Print options" }));
+
+    const menus = screen.getAllByTestId("menu-wrapper");
+    expect(menus).toHaveLength(2);
+    menus.forEach((menu) => {
+      expect(menu).toHaveStyleRule(
+        "padding",
+        `var(--global-space-comp-${paddingSize}) var(--global-space-none)`,
+      );
+    });
+    screen.getAllByRole("listitem").forEach((item) => {
+      expect(item).toHaveStyleRule(
+        "font",
+        `var(--global-font-static-comp-medium-${fontSize})`,
+        { modifier: "*:not(.menu-item-subtext):not(.menu-item-label-prefix)" },
+      );
+    });
+  },
+);
 
 test("has proper data attributes applied to elements", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -733,6 +785,62 @@ test("pressing ArrowUp key when focused on the menu button selects the last focu
   expect(screen.getByRole("button", { name: "example item 2" })).toHaveFocus();
 });
 
+test("keeps a hidden menu open until another menu opens without restoring focus to the hidden control", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onClose = jest.fn();
+  const hideSpy = jest.spyOn(floatingUi, "hide");
+  render(
+    <>
+      <ActionPopover buttonLabel="First actions" onClose={onClose}>
+        <ActionPopoverItem>First menu item</ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover buttonLabel="Second actions">
+        <ActionPopoverItem>Second menu item</ActionPopoverItem>
+      </ActionPopover>
+    </>,
+  );
+
+  const firstControl = screen.getByRole("button", { name: "First actions" });
+  await user.click(firstControl);
+  jest.runOnlyPendingTimers();
+  const firstMenu = screen.getByTestId("menu-wrapper");
+  const firstItem = screen.getByRole("button", { name: "First menu item" });
+
+  // Apply the visibility change made by Floating UI's hide middleware.
+  firstMenu.style.visibility = "hidden";
+  expect(firstItem).not.toBeVisible();
+  expect(firstControl).toHaveAttribute("aria-expanded", "true");
+  expect(onClose).not.toHaveBeenCalled();
+
+  firstMenu.style.visibility = "";
+  expect(firstItem).toBeVisible();
+  expect(firstControl).toHaveAttribute("aria-expanded", "true");
+  expect(onClose).not.toHaveBeenCalled();
+
+  firstMenu.style.visibility = "hidden";
+  const focusSpy = jest.spyOn(firstControl, "focus");
+  try {
+    expect(hideSpy).toHaveBeenCalledWith({ strategy: "referenceHidden" });
+    const secondControl = screen.getByRole("button", {
+      name: "Second actions",
+    });
+    await user.click(secondControl);
+    jest.runOnlyPendingTimers();
+
+    expect(firstControl).toHaveAttribute("aria-expanded", "false");
+    expect(firstMenu).not.toBeInTheDocument();
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(focusSpy).not.toHaveBeenCalled();
+    expect(secondControl).toHaveAttribute("aria-expanded", "true");
+    expect(
+      screen.getByRole("button", { name: "Second menu item" }),
+    ).toHaveFocus();
+  } finally {
+    focusSpy.mockRestore();
+    hideSpy.mockRestore();
+  }
+});
+
 test.each([
   ["Tab", "{Tab}"],
   ["Shift + Tab", "{Shift}>{Tab}"],
@@ -763,6 +871,41 @@ test.each([
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
     expect(onClose).toHaveBeenCalledTimes(1);
+  },
+);
+
+test.each([false, true])(
+  "closing with Tab only restores focus programmatically without Shift (shift=%s)",
+  async (shiftKey) => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
+
+    render(
+      <ActionPopover onClose={onClose}>
+        <ActionPopoverItem>example item</ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    const control = screen.getByRole("button", { name: "Actions" });
+    await user.click(control);
+    jest.runOnlyPendingTimers();
+
+    const item = screen.getByRole("button", { name: "example item" });
+    expect(item).toHaveFocus();
+
+    const focusSpy = jest.spyOn(control, "focus");
+    try {
+      // Isolate the close handler from the browser's default Tab focus movement.
+      fireEvent.keyDown(item, { key: "Tab", shiftKey });
+
+      expect(screen.queryByRole("list")).not.toBeInTheDocument();
+      expect(onClose).toHaveBeenCalledTimes(1);
+
+      expect(focusSpy.mock.calls).toEqual(shiftKey ? [] : [[]]);
+      expect(shiftKey ? document.body : control).toHaveFocus();
+    } finally {
+      focusSpy.mockRestore();
+    }
   },
 );
 

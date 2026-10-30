@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import {
   ActionPopover,
@@ -16,9 +16,7 @@ import {
   TableHeader,
   TableCell,
 } from "../table";
-import Confirm from "../confirm";
 import { Accordion } from "../accordion";
-import Dialog from "../dialog";
 import Button from "../button/__next__";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -27,17 +25,150 @@ const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
 
-const meta: Meta<typeof ActionPopover> = {
+type PlaygroundArgs = React.ComponentProps<typeof ActionPopover> & {
+  showIcons: boolean;
+  disabledItems: boolean;
+  showSubmenu: boolean;
+  disabledSubmenu: boolean;
+  additionalOptions: boolean;
+  download: boolean;
+};
+
+const meta: Meta<PlaygroundArgs> = {
   title: "Action Popover",
   component: ActionPopover,
   argTypes: {
     ...styledSystemProps,
+    size: {
+      control: "select",
+      options: ["small", "medium", "large"],
+    },
+    rightAlignMenu: { control: "boolean" },
+    buttonLabel: { control: "text" },
+    showIcons: {
+      control: "boolean",
+      description: "Show icons on the example's menu items.",
+      table: { category: "Menu items" },
+    },
+    disabledItems: {
+      control: "boolean",
+      description: "Disable the delete action and the CSV submenu item.",
+      table: { category: "Menu items" },
+    },
+    showSubmenu: {
+      control: "boolean",
+      description: "Include a print action with a submenu.",
+      table: { category: "Menu items" },
+    },
+    disabledSubmenu: {
+      control: "boolean",
+      description: "Disable the parent item to prevent its submenu opening.",
+      if: { arg: "showSubmenu", truthy: true },
+      table: { category: "Menu items" },
+    },
+    additionalOptions: {
+      control: "boolean",
+      description: "Include a less frequent action separated by a divider.",
+      table: { category: "Menu items" },
+    },
+    download: {
+      control: "boolean",
+      description: "Include a download link using the href and download props.",
+      table: { category: "Menu items" },
+    },
   },
   parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export default meta;
 type Story = StoryObj<typeof ActionPopover>;
+
+export const Playground: StoryObj<PlaygroundArgs> = {
+  args: {
+    size: "medium",
+    rightAlignMenu: false,
+    showIcons: true,
+    disabledItems: true,
+    showSubmenu: true,
+    disabledSubmenu: false,
+    additionalOptions: true,
+    download: true,
+  },
+  parameters: {
+    controls: {
+      include: [
+        "size",
+        "rightAlignMenu",
+        "buttonLabel",
+        "showIcons",
+        "disabledItems",
+        "showSubmenu",
+        "disabledSubmenu",
+        "additionalOptions",
+        "download",
+      ],
+    },
+  },
+  render: ({
+    showIcons,
+    disabledItems,
+    showSubmenu,
+    disabledSubmenu,
+    additionalOptions,
+    download,
+    ...args
+  }) => (
+    <Box height={400}>
+      <ActionPopover {...args}>
+        <ActionPopoverItem icon={showIcons ? "email" : undefined}>
+          Email invoice
+        </ActionPopoverItem>
+        {showSubmenu && (
+          <ActionPopoverItem
+            icon={showIcons ? "print" : undefined}
+            disabled={disabledSubmenu}
+            submenu={
+              <>
+                <ActionPopoverItem icon={showIcons ? "pdf" : undefined}>
+                  PDF
+                </ActionPopoverItem>
+                <ActionPopoverItem
+                  icon={showIcons ? "csv" : undefined}
+                  disabled={disabledItems}
+                >
+                  CSV
+                </ActionPopoverItem>
+              </>
+            }
+          >
+            Print invoice
+          </ActionPopoverItem>
+        )}
+        {download && (
+          <ActionPopoverItem
+            icon={showIcons ? "download" : undefined}
+            href="data:text/csv;charset=utf-8,Invoice%2CAmount%0A123%2C100"
+            download
+          >
+            Download invoice
+          </ActionPopoverItem>
+        )}
+        <ActionPopoverItem
+          icon={showIcons ? "delete" : undefined}
+          disabled={disabledItems}
+        >
+          Delete invoice
+        </ActionPopoverItem>
+        {additionalOptions && <ActionPopoverDivider />}
+        {additionalOptions && (
+          <ActionPopoverItem icon={showIcons ? "settings" : undefined}>
+            Manage invoices
+          </ActionPopoverItem>
+        )}
+      </ActionPopover>
+    </Box>
+  ),
+};
 
 export const Default: Story = () => {
   const submenu = (
@@ -109,55 +240,44 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
-export const Icons: Story = () => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-Icons.storyName = "Icons";
+const renderSizeExample: NonNullable<Story["render"]> = (args) => (
+  <Box height={350}>
+    <ActionPopover {...args}>
+      <ActionPopoverItem icon="email">Email invoice</ActionPopoverItem>
+      <ActionPopoverItem
+        icon="print"
+        submenu={
+          <>
+            <ActionPopoverItem icon="print">Print invoice</ActionPopoverItem>
+            <ActionPopoverItem icon="pdf">Download PDF</ActionPopoverItem>
+            <ActionPopoverItem disabled>Print receipt</ActionPopoverItem>
+          </>
+        }
+      >
+        Print options
+      </ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem icon="delete" disabled>
+        Delete invoice
+      </ActionPopoverItem>
+    </ActionPopover>
+  </Box>
+);
 
-export const DisabledItems: Story = () => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled onClick={() => {}} icon="add">
-          Add
-        </ActionPopoverItem>
-        <ActionPopoverItem disabled onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}} icon="tick">
-          Tick
-        </ActionPopoverItem>
-        <ActionPopoverItem disabled onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}} icon="none">
-          None
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
+export const Small: Story = {
+  args: { size: "small" },
+  render: renderSizeExample,
 };
-DisabledItems.storyName = "Disabled Items";
+
+export const Medium: Story = {
+  args: { size: "medium" },
+  render: renderSizeExample,
+};
+
+export const Large: Story = {
+  args: { size: "large" },
+  render: renderSizeExample,
+};
 
 export const MenuRightAligned: Story = () => {
   return (
@@ -175,19 +295,6 @@ export const MenuRightAligned: Story = () => {
   );
 };
 MenuRightAligned.storyName = "Menu Right Aligned";
-
-export const NoIcons: Story = () => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem onClick={() => {}}>Email Invoice</ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-NoIcons.storyName = "No Icons";
 
 export const CustomMenuButton: Story = () => {
   return (
@@ -219,65 +326,6 @@ export const CustomMenuButton: Story = () => {
 };
 CustomMenuButton.storyName = "Custom Menu Button";
 
-export const Submenu: Story = () => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem
-          icon="print"
-          onClick={() => {}}
-          submenu={
-            <>
-              <ActionPopoverItem disabled onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled onClick={() => {}} icon="add">
-          Add
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-Submenu.storyName = "Submenu";
-
-export const DisabledSubmenu: Story = () => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem
-          disabled
-          icon="print"
-          onClick={() => {}}
-          submenu={
-            <>
-              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-DisabledSubmenu.storyName = "Disabled Submenu";
-
 export const KeyboardNavigation: Story = () => {
   return (
     <Box height={250}>
@@ -300,86 +348,6 @@ export const KeyboardNavigation: Story = () => {
   );
 };
 KeyboardNavigation.storyName = "Keyboard Navigation";
-
-export const KeyboardNavigationLeftAlignedSubmenu: Story = () => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem
-          icon="csv"
-          onClick={() => {}}
-          submenu={
-            <>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </>
-          }
-        >
-          Download
-        </ActionPopoverItem>
-        <ActionPopoverItem
-          icon="pdf"
-          onClick={() => {}}
-          submenu={
-            <>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-KeyboardNavigationLeftAlignedSubmenu.storyName =
-  "Keyboard Navigation Left Aligned Submenu";
-
-export const AdditionalOptions: Story = () => {
-  return (
-    <Box mt={40} height={275} maxWidth={800}>
-      <ActionPopover rightAlignMenu>
-        <ActionPopoverItem onClick={() => {}}>Enroll Device</ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}}>Assign Owner</ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}}>Manage Devices</ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-AdditionalOptions.storyName = "Additional Options";
-
-export const DownloadButton: Story = () => {
-  return (
-    <Box mt={40} height={275} maxWidth={800}>
-      <ActionPopover rightAlignMenu>
-        <ActionPopoverItem download icon="download" href="example-img.jpg">
-          Download
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="settings" onClick={() => {}}>
-          Assign Owner
-        </ActionPopoverItem>
-        <ActionPopoverItem disabled icon="download" href="example-img.jpg">
-          Download
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-};
-DownloadButton.storyName = "Download Button";
 
 export const InOverflowHiddenContainer: Story = () => {
   return (
@@ -432,7 +400,7 @@ InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
 export const InTable: Story = () => {
   return (
     <Box pt={120} height={250}>
-      <Table size="large">
+      <Table size="small">
         <TableHead>
           <TableRow id="header-row-in-table">
             <TableHeader>Name</TableHeader>
@@ -447,7 +415,20 @@ export const InTable: Story = () => {
             <TableCell>London</TableCell>
             <TableCell>Single</TableCell>
             <TableCell>
-              <ActionPopover>
+              <ActionPopover
+                renderButton={({
+                  "data-element": dataElement,
+                  ariaAttributes,
+                }: RenderButtonProps) => (
+                  <Button
+                    data-element={dataElement}
+                    size="xs"
+                    {...ariaAttributes}
+                  >
+                    Actions
+                  </Button>
+                )}
+              >
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}
@@ -476,7 +457,20 @@ export const InTable: Story = () => {
             <TableCell>York</TableCell>
             <TableCell>Married</TableCell>
             <TableCell>
-              <ActionPopover>
+              <ActionPopover
+                renderButton={({
+                  "data-element": dataElement,
+                  ariaAttributes,
+                }: RenderButtonProps) => (
+                  <Button
+                    data-element={dataElement}
+                    size="xs"
+                    {...ariaAttributes}
+                  >
+                    Actions
+                  </Button>
+                )}
+              >
                 <ActionPopoverItem
                   icon="print"
                   onClick={() => {}}
@@ -506,65 +500,6 @@ export const InTable: Story = () => {
   );
 };
 InTable.storyName = "In Table";
-
-export const OpeningAModal: Story = () => {
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  return (
-    <>
-      <Box>
-        <ActionPopover
-          renderButton={({ "data-element": dataElement, ariaAttributes }) => (
-            <Button data-element={dataElement} {...ariaAttributes}>
-              Open Actions
-            </Button>
-          )}
-        >
-          <ActionPopoverItem
-            onClick={() => {
-              setIsConfirmOpen(!isConfirmOpen);
-            }}
-          >
-            Open Confirm Dialog
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="settings" onClick={() => {}}>
-            Do Nothing
-          </ActionPopoverItem>
-        </ActionPopover>
-      </Box>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        confirmButtonDestructive
-        cancelButtonDestructive
-        disableConfirm
-        open={isConfirmOpen}
-        onConfirm={() => setIsConfirmOpen(!isConfirmOpen)}
-        onCancel={() => setIsConfirmOpen(!isConfirmOpen)}
-      >
-        Content
-      </Confirm>
-    </>
-  );
-};
-OpeningAModal.storyName = "Opening a Modal";
-
-export const ActionPopoverNestedInDialog: Story = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>{" "}
-    </Dialog>
-  );
-};
-ActionPopoverNestedInDialog.storyName = "Action Popover Nested in Dialog";
 
 export const FocusButtonProgrammatically = () => {
   const ref = useRef<ActionPopoverHandle>(null);

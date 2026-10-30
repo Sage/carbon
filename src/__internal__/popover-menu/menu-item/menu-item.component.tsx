@@ -78,7 +78,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
     $disabled
       ? `
         * {
-          color: var(--input-dropdown-label-disabled);
+          color: var(--${$isButtonMenu ? "popover-label-disabled" : "input-dropdown-label-disabled"});
         }
 
         & > button, & > a {

@@ -1224,7 +1224,7 @@ test.describe("Scrollable tests", () => {
     await expect(multiActionButton).toBeInViewport();
   });
 
-  test("should allow wrapper scrolling while ActionPopover stays open in sticky footer table", async ({
+  test("should hide and restore the open ActionPopover as its control scrolls out of view and back in a sticky footer table", async ({
     mount,
     page,
   }) => {
@@ -1233,8 +1233,13 @@ test.describe("Scrollable tests", () => {
     const actionPopover = page.getByRole("button", { name: "Actions" });
 
     await actionPopover.click();
-    const buttonList = page.getByRole("list");
+    const buttonList = page.getByRole("list", { includeHidden: true });
     await buttonList.waitFor();
+    const actionItem = page.getByRole("button", {
+      name: "Action item",
+      includeHidden: true,
+    });
+    await expect(actionItem).toBeFocused();
 
     const wrapper = flatTableWrapper(page);
     const initialScrollTop = await wrapper.evaluate(
@@ -1246,9 +1251,19 @@ test.describe("Scrollable tests", () => {
     await expect
       .poll(() => wrapper.evaluate((element) => element.scrollTop))
       .toBeGreaterThan(initialScrollTop);
-    await expect(buttonList).toBeVisible();
-
+    await expect(buttonList).toBeAttached();
+    await expect(buttonList).toBeHidden();
     await expect(actionPopover).toHaveAttribute("aria-expanded", "true");
+
+    await wrapper.evaluate((element, scrollTop) => {
+      element.scrollTop = scrollTop;
+    }, initialScrollTop);
+
+    await expect(buttonList).toBeVisible();
+    await expect(actionItem).toBeFocused();
+    await expect
+      .poll(() => wrapper.evaluate((element) => element.scrollTop))
+      .toBe(initialScrollTop);
   });
 });
 

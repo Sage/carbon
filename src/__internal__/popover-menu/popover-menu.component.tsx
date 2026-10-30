@@ -9,7 +9,7 @@ import React, {
 import styled, { css } from "styled-components";
 import type { CSSObject } from "styled-components";
 import Popover, { PopoverProps } from "../popover";
-import { flip, offset, size } from "@floating-ui/dom";
+import { flip, offset, size, hide } from "@floating-ui/dom";
 import { wrapChildrenInItem, buttonMenuItemQuerySelector } from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import {
@@ -73,7 +73,7 @@ const MenuWrapper = styled.div<ListProps>`
   background-color: var(--popover-bg-default);
   width: max-content;
   position: relative;
-  z-index: var(--carbon-zindex-small-overlay);
+  z-index: calc(var(--carbon-zindex-overlay) + 2);
 
   padding: ${({ $size }) => css`
     ${paddingSize[$size]} var(--global-space-none)
@@ -141,6 +141,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   width?: string;
   /** Whether the menu width should match the control reference width */
   matchReferenceWidth?: boolean;
+  /** Hide the menu when its control is fully clipped. Defaults to false. */
+  hideWhenReferenceHidden?: boolean;
   /** Strategy used to position the popover */
   popoverStrategy?: PopoverProps["popoverStrategy"];
   /** Override default control reference for popover */
@@ -171,6 +173,7 @@ const menuPopoverMiddleware = (
   isButtonMenu?: boolean,
   isSubmenu?: boolean,
   matchReferenceWidth?: boolean,
+  hideWhenReferenceHidden?: boolean,
 ) => [
   offset(isSubmenu ? SUBMENU_OFFSET : OFFSET),
   flip({
@@ -182,6 +185,7 @@ const menuPopoverMiddleware = (
       elements.floating.style.width = width || `${rects.reference.width}px`;
     },
   }),
+  ...(hideWhenReferenceHidden ? [hide({ strategy: "referenceHidden" })] : []),
 ];
 
 const focusControl = (handle: FocusableHandle | HTMLElement | null) => {
@@ -328,6 +332,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     onClose,
     width,
     matchReferenceWidth = false,
+    hideWhenReferenceHidden = false,
     popoverStrategy = "absolute",
     listboxAriaLabelledBy,
     listboxAriaLabel,
@@ -370,6 +375,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     isButtonMenu,
     isSubmenu,
     matchReferenceWidth,
+    hideWhenReferenceHidden,
   );
   const direction = useRef<"up" | "down" | null>(null);
 
@@ -525,6 +531,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           size={props.size}
           isButtonMenu
           isSubmenu
+          hideWhenReferenceHidden={hideWhenReferenceHidden}
           width={props.submenuWidth}
           listRef={props.ref}
           popoverControl={(_ref, controlProps) => props.control(controlProps)}
@@ -536,7 +543,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         </PopoverMenu>
       );
     },
-    [onClose, handleClickAway, typeahead],
+    [onClose, handleClickAway, typeahead, hideWhenReferenceHidden],
   );
   /* eslint-enable @typescript-eslint/no-use-before-define */
 

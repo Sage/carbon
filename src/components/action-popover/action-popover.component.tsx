@@ -15,6 +15,7 @@ import {
   MenuItemDivider,
   PopoverMenu,
   PopoverControlProps,
+  PopoverMenuProps,
 } from "../../__internal__/popover-menu";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Events from "../../__internal__/utils/helpers/events";
@@ -48,6 +49,7 @@ export interface RenderButtonProps {
     "aria-controls"?: string;
     "aria-expanded"?: string;
   };
+  size?: PopoverMenuProps["size"];
 }
 
 export interface ActionPopoverProps extends MarginProps, TagProps {
@@ -79,6 +81,10 @@ export interface ActionPopoverProps extends MarginProps, TagProps {
    * Content for the action popover button.
    */
   buttonLabel?: React.ReactNode;
+  /**
+   * Size of the action popover menu items.
+   */
+  size?: PopoverMenuProps["size"];
 }
 
 export type ActionPopoverHandle = {
@@ -123,6 +129,7 @@ export const ActionPopover = forwardRef<
       "aria-labelledby": ariaLabelledBy,
       "aria-describedby": ariaDescribedBy,
       buttonLabel,
+      size,
       ...rest
     },
     ref,
@@ -349,6 +356,7 @@ export const ActionPopover = forwardRef<
           data-element="action-popover-button"
           variant="default"
           variantType={isInTable ? "tertiary" : "subtle"}
+          size={size}
         >
           {resolvedButtonLabel}
         </Button>
@@ -385,18 +393,32 @@ export const ActionPopover = forwardRef<
           <PopoverMenu<HTMLElement>
             open={isOpen}
             onOpen={() => setOpen(true)}
-            onClose={() => {
+            onClose={(e) => {
+              const hasBackTabbed =
+                e instanceof KeyboardEvent && e.key === "Tab" && e.shiftKey;
+              const menuWrapper = document
+                .getElementById(menuID)
+                ?.closest<HTMLElement>("[data-role='menu-wrapper']");
+              const isMenuHidden =
+                menuWrapper &&
+                getComputedStyle(menuWrapper).visibility === "hidden";
               setOpen(false);
-              focusButton();
+
+              // Avoid moving focus twice on Shift+Tab or scrolling a hidden control into view.
+              if (!hasBackTabbed && !isMenuHidden) {
+                focusButton();
+              }
             }}
             placement={mappedPlacement}
             id={menuID}
             listboxAriaLabelledBy={parentID}
             isButtonMenu
+            hideWhenReferenceHidden
             popoverControl={renderControl}
             controlWrapperStyle={{ width: "100%" }}
             typeahead={handleAlphaKeyNavigation}
             popoverStrategy="fixed"
+            size={size}
           >
             {popoverChildren}
           </PopoverMenu>

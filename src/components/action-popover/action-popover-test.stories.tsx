@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { action } from "storybook/actions";
 
 import {
@@ -20,6 +20,7 @@ import {
 import Box from "../box";
 import { FlexTileCell, FlexTileContainer, Tile } from "../tile";
 import Typography from "../typography";
+import Dialog from "../dialog";
 
 export default {
   title: "Action Popover/Test",
@@ -32,6 +33,7 @@ export default {
     "ActionPopoverClick",
     "ActionPopoverSubmenuClick",
     "TestParentOverflow",
+    "ActionPopoverNestedInDialog",
   ],
   parameters: {
     info: { disable: true },
@@ -40,6 +42,24 @@ export default {
     },
   },
 };
+
+export const ActionPopoverNestedInDialog = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <ActionPopover>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>{" "}
+    </Dialog>
+  );
+};
+ActionPopoverNestedInDialog.storyName = "Action Popover Nested in Dialog";
 
 export const HrefItemsBasic = () => (
   <ActionPopover>

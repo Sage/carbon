@@ -27,7 +27,6 @@ import {
   DownloadButton,
   Icons,
   InOverflowHiddenContainer,
-  KeyboardNavigationLeftAlignedSubmenu,
   KeyboardNavigationRightAlignedSubmenu,
   KeyboardNavigation,
   MenuOpeningAbove,
@@ -394,18 +393,6 @@ test.describe("Accessibility tests for ActionPopover", () => {
     await mount(<KeyboardNavigation />);
     const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for with keyboard navigation in left aligned submenu", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<KeyboardNavigationLeftAlignedSubmenu />);
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
-    const submenuTrigger = actionPopoverInnerItem(page, 0);
-    await submenuTrigger.click();
     await checkAccessibility(page);
   });
 

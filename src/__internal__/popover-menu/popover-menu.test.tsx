@@ -17,6 +17,7 @@ import userEvent from "@testing-library/user-event";
 import Button from "../../components/button/__next__";
 import Icon from "../../components/icon";
 import { PopoverControlProps } from "./contexts";
+import * as floatingUi from "@floating-ui/dom";
 
 interface AdditionalControlProps extends PopoverControlProps {
   onClick?: () => void;
@@ -195,6 +196,70 @@ const createRect = (width: number, height = 40) =>
     height,
     toJSON: () => ({}),
   }) as DOMRect;
+
+describe("PopoverMenu - optional hiding", () => {
+  it.each([undefined, false, true])(
+    "only includes hide middleware when enabled (hideWhenReferenceHidden=%s)",
+    async (hideWhenReferenceHidden) => {
+      const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+      try {
+        renderPopoverMenu({ open: true, hideWhenReferenceHidden });
+        const hideMiddleware = [expect.objectContaining({ name: "hide" })];
+        const matchMiddleware = hideWhenReferenceHidden
+          ? expect.arrayContaining
+          : expect.not.arrayContaining;
+        const middleware = matchMiddleware(hideMiddleware);
+
+        await waitFor(() => {
+          expect(computePositionSpy).toHaveBeenCalledWith(
+            expect.anything(),
+            expect.anything(),
+            expect.objectContaining({ middleware }),
+          );
+        });
+      } finally {
+        computePositionSpy.mockRestore();
+      }
+    },
+  );
+
+  it.each([false, true])(
+    "inherits the parent's hide option in submenus (hideWhenReferenceHidden=%s)",
+    async (hideWhenReferenceHidden) => {
+      const user = userEvent.setup();
+      const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+      try {
+        render(
+          <PopoverMenuWithState<HTMLButtonElement>
+            isButtonMenu
+            hideWhenReferenceHidden={hideWhenReferenceHidden}
+            popoverControl={popoverControlButton}
+          />,
+        );
+        await user.click(screen.getByRole("button", { name: "Button label" }));
+        await user.click(screen.getByRole("button", { name: "Item 2" }));
+
+        const wrappers = screen.getAllByTestId("menu-wrapper");
+        expect(wrappers).toHaveLength(2);
+        const hideMiddleware = [expect.objectContaining({ name: "hide" })];
+        const matchMiddleware = hideWhenReferenceHidden
+          ? expect.arrayContaining
+          : expect.not.arrayContaining;
+        const middleware = matchMiddleware(hideMiddleware);
+
+        wrappers.forEach((wrapper) => {
+          expect(computePositionSpy).toHaveBeenCalledWith(
+            expect.anything(),
+            wrapper,
+            expect.objectContaining({ middleware }),
+          );
+        });
+      } finally {
+        computePositionSpy.mockRestore();
+      }
+    },
+  );
+});
 
 describe("PopoverMenu - typeahead (Search)", () => {
   it("does not render the list when closed", () => {
