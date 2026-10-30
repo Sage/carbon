@@ -1,0 +1,140 @@
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as SkeletonStories from "./skeleton.stories";
+
+<Meta of={SkeletonStories} />
+
+# Skeleton
+
+A loading placeholder component that indicates content is being loaded. It renders animated shapes that approximate the layout of the content they replace.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Playground](#playground)
+- [Defining the layout](#defining-the-layout)
+- [Usage guidance](#usage-guidance)
+- [Accessibility](#accessibility)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```js
+import Skeleton from "carbon-react/lib/components/skeleton";
+```
+
+`Preview` remains available for existing consumers during migration. Use `Skeleton` for new loading placeholders because its data-driven API differs from the legacy component.
+
+## Playground
+
+Use the `lines` control to describe the content being loaded. The control accepts the same nested data structure passed to the component, while `disableAnimation` allows the motion-free state to be checked.
+
+<Canvas of={SkeletonStories.Playground} />
+
+<Controls
+  of={SkeletonStories.Playground}
+  include={["lines", "disableAnimation"]}
+/>
+
+## Defining the layout
+
+The `lines` array describes rows from top to bottom:
+
+- Omit `lines` to render one full-width paragraph-height line.
+- Add a line object directly to create a row containing one line.
+- Add an array of line objects to place multiple lines side by side in one row.
+- Set `width`, `height`, `preset`, and `shape` on each line to approximate the content it replaces.
+- Compose separate Skeleton components with your own layout when placeholders belong to independent columns or sections.
+
+```jsx
+<Skeleton
+  lines={[
+    [
+      { height: "48px", shape: "circle" },
+      {
+        height: "24px",
+        width: "40%",
+        shape: "rectangle-curved",
+      },
+    ],
+    { preset: "paragraph", width: "100%" },
+    { preset: "paragraph", width: "85%" },
+    { preset: "paragraph", width: "65%" },
+  ]}
+/>
+```
+
+Each line supports the following fields:
+
+| Field    | Purpose                                                                                          |
+| -------- | ------------------------------------------------------------------------------------------------ |
+| `width`  | Any CSS width, such as `80%` or `200px`. Defaults to `100%`.                                     |
+| `height` | Any CSS height. Defaults to `21px` and takes precedence over `preset`.                           |
+| `preset` | A named height: `h1`, `h2`, `h3`, `h4`, `paragraph`, or `button`.                                |
+| `shape`  | `rectangle-moderate` (8px), `rectangle-curved` (full radius), or `circle` (height on both axes). |
+
+Preset heights are provided for common content:
+
+| Preset      | Height |
+| ----------- | ------ |
+| `h1`        | 38px   |
+| `h2`        | 30px   |
+| `h3`        | 26px   |
+| `h4`        | 23px   |
+| `paragraph` | 21px   |
+| `button`    | 40px   |
+
+## Usage guidance
+
+- Use Skeleton only when the shape and position of the incoming content are predictable.
+- Use the minimum number of placeholders needed and replace them as real content becomes available.
+- Match each line's dimensions and shape to the content that will replace it. Circles always use their height for both axes and cannot be stretched.
+- Use percentage widths when the placeholder needs to adapt to its container or screen size.
+- Do not nest Skeleton components or use them for loading table data. Use the appropriate loader for an unpredictable layout or a table-wide loading state.
+
+The gradient uses the Fusion skeleton color tokens, so it adapts to light and dark color modes. Every animated line completes its left-to-right sweep in four seconds, regardless of width.
+
+## Accessibility
+
+Skeleton renders with `role="status"`, which has an implicit polite live-region behaviour, and uses the localized loading message as its accessible name. Set `aria-label` when a more specific loading description is useful. The visual placeholder spans are hidden from assistive technology.
+
+Skeleton is commonly conditionally rendered, so its appearance alone is not guaranteed to be announced by every screen reader. For reliable announcements, render a persistent live region when the page loads and update its content as loading starts and finishes. Set `aria-busy="true"` on the content region being updated, then remove it or set it to `false` when loading completes. If Skeleton replaces content within a button, make sure the button's updated accessible name communicates its loading state.
+
+## Examples
+
+### Disable Animation
+
+The animation respects `prefers-reduced-motion` automatically and renders the static Fusion gradient instead. Use `disableAnimation` when loading state motion should also be disabled for another reason.
+
+<Canvas of={SkeletonStories.DisableAnimation} />
+
+### Composed Layout
+
+Use separate Skeleton components for independent content regions. This example composes six instances with CSS Grid to create a two-column loading state without adding layout-specific props to Skeleton.
+
+<Canvas of={SkeletonStories.ComposedLayout} />
+
+## Props
+
+### Skeleton
+
+<ArgTypes of={SkeletonStories} />
+
+## Translation keys
+
+The following key is available to override the translation for this component by passing a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "skeleton.loading",
+      description: "The default accessible name for Skeleton.",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
