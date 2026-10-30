@@ -19,8 +19,8 @@ description: Carbon ScrollableBlock component props and usage examples.
 | height | string \| number \| undefined | No |  | A custom height to be applied to the component. |  |
 | maxHeight | string \| number \| undefined | No |  | A custom max height to be applied to the component. |  |
 | parent | React.ReactElement<any, string \| React.JSXElementConstructor<any>> \| undefined | No |  | the element, if any, displayed at the top of the block to be its semantic "parent", but not part of the scrollable section |  |
-| parentVariant | VariantType \| undefined | No |  | the colour variant for the parent element, if different from the variant of the block |  |
-| variant | VariantType \| undefined | No |  | Set the variant of the ScrollableBlock | "default" |
+| parentVariant | VariantType \| undefined | No | default \| alternate | the colour variant for the parent element, if different from the variant of the block |  |
+| variant | VariantType \| undefined | No | default \| alternate | Set the variant of the ScrollableBlock | "default" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

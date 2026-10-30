@@ -16,7 +16,7 @@ description: Carbon Accordion component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | title | React.ReactNode | Yes |  |  |  | Title of the Accordion |  |
-| borders | "default" \| "none" \| "full" \| undefined | No |  |  |  | Sets Accordion borders. **Deprecation Warning:** The "full" borders are deprecated and will be removed in a future release. |  |
+| borders | "default" \| "none" \| "full" \| undefined | No | default \| none \| full |  |  | Sets Accordion borders. **Deprecation Warning:** The "full" borders are deprecated and will be removed in a future release. | "default" |
 | children | React.ReactNode | No |  |  |  | Content of the Accordion component |  |
 | defaultExpanded | boolean \| undefined | No |  |  |  | Set the default state of expansion of the Accordion if component is to be used as uncontrolled |  |
 | expanded | boolean \| undefined | No |  |  |  | Sets the expansion state of the Accordion if component is to be used as controlled |  |
@@ -52,16 +52,16 @@ description: Carbon Accordion component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Sets Accordion size |  |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Sets Accordion size | "medium" |
 | subTitle | string \| undefined | No |  |  |  | Sets accordion sub title |  |
-| variant | "subtle" \| "standard" \| "simple" \| undefined | No |  |  |  | Sets Accordion variant. **Deprecation Warning:** The "subtle" variant is deprecated, please use "simple" instead. |  |
+| variant | "subtle" \| "standard" \| "simple" \| undefined | No | subtle \| standard \| simple |  |  | Sets Accordion variant. **Deprecation Warning:** The "subtle" variant is deprecated, please use "simple" instead. | "standard" |
 | width | string \| undefined | No |  |  |  | Sets Accordion width |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | disableContentPadding | boolean \| undefined | No |  | Yes | Padding is no longer applied to the Accordion content by default. Any desired spacing can be applied directly to the provided content. | Disable padding for the content. |  |
 | error | string \| undefined | No |  | Yes | Validation messages on accordions are no longer supported. | An error message to be displayed in the tooltip. |  |
-| iconAlign | "left" \| "right" \| undefined | No |  | Yes | Icon alignment on accordions is deprecated and will be removed in a future release. Icons will now render on the left by default. | Sets icon alignment. |  |
-| iconType | "chevron_down" \| "chevron_down_thick" \| "dropdown" \| undefined | No |  | Yes | Custom icon types on accordions are deprecated and will be removed in a future release. | Sets icon type |  |
+| iconAlign | "left" \| "right" \| undefined | No | left \| right | Yes | Icon alignment on accordions is deprecated and will be removed in a future release. Icons will now render on the left by default. | Sets icon alignment. |  |
+| iconType | "chevron_down" \| "chevron_down_thick" \| "dropdown" \| undefined | No | chevron_down \| chevron_down_thick \| dropdown | Yes | Custom icon types on accordions are deprecated and will be removed in a future release. | Sets icon type |  |
 | info | string \| undefined | No |  | Yes | Validation messages on accordions are no longer supported. | An info message to be displayed in the tooltip. |  |
 | warning | string \| undefined | No |  | Yes | Validation messages on accordions are no longer supported. | A warning message to be displayed in the tooltip. |  |
 

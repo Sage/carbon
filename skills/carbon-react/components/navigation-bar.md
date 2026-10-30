@@ -32,7 +32,7 @@ description: Carbon NavigationBar component props and usage examples.
 | justifySelf | ResponsiveValue<CSS.Property.JustifySelf, ThemeType> \| undefined | No |  |  |  | The CSS justify-self property set the way a box is justified inside its alignment container along the appropriate axis. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self) |  |
 | offset | string \| undefined | No |  |  |  | Defines the offset of navigation bar | "0px" |
 | order | ResponsiveValue<CSS.Property.Order, ThemeType> \| undefined | No |  |  |  | The order CSS property sets the order to lay out an item in a flex or grid container. Items in a container are sorted by ascending order value and then by their source code order. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/order) |  |
-| orientation | Orientation \| undefined | No |  |  |  | Defines whether the navigation bar should be positioned top or bottom |  |
+| orientation | Orientation \| undefined | No | bottom \| top |  |  | Defines whether the navigation bar should be positioned top or bottom |  |
 | p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
 | padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
 | paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
@@ -43,15 +43,15 @@ description: Carbon NavigationBar component props and usage examples.
 | paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
 | pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| position | Position \| undefined | No |  |  |  | Defines whether the navigation bar should be positioned fixed or sticky |  |
+| position | Position \| undefined | No | fixed \| sticky |  |  | Defines whether the navigation bar should be positioned fixed or sticky |  |
 | pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| variant | "white" \| "black" \| undefined | No |  |  |  | Defines the colour variant of the navigation bar |  |
+| variant | "white" \| "black" \| undefined | No | white \| black |  |  | Defines the colour variant of the navigation bar |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| navigationType | NavigationType \| undefined | No |  | Yes | `navigationType` has been deprecated, `variant` should be used instead. Color scheme of navigation component. |  |  |
+| navigationType | NavigationType \| undefined | No | white \| black \| dark \| light | Yes | `navigationType` has been deprecated, `variant` should be used instead. Color scheme of navigation component. |  |  |
 
 ## Examples
 ### Default

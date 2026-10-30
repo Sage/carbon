@@ -15,12 +15,12 @@ description: Carbon LinkPreview component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| as | "a" \| "div" \| undefined | No |  | Used to set the root element to either an anchor link or div container |  |
+| as | "a" \| "div" \| undefined | No | a \| div | Used to set the root element to either an anchor link or div container |  |
 | description | string \| undefined | No |  | The description to be displayed |  |
 | image | ImageShape \| undefined | No |  | The config for the image to be displayed |  |
 | isLoading | boolean \| undefined | No |  | Flag to trigger the loading animation |  |
 | onClose | ((url?: string) => void) \| undefined | No |  | The callback for the close button. The button is rendered when this is set alongside `as="div"`. |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  | Set the component's size. | "medium" |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large | Set the component's size. | "medium" |
 | title | string \| undefined | No |  | The title to be displayed |  |
 | url | string \| undefined | No |  | The url string to be displayed and to serve as the link's src |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

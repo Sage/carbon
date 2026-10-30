@@ -36,7 +36,7 @@ description: Carbon FileInput component props and usage examples.
 | maxWidth | string \| undefined | No |  | A valid CSS string for the max-width CSS property. Defaults to the same as the minWidth. |  |
 | mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
 | minHeight | string \| undefined | No |  | A valid CSS string for the min-height CSS property. |  |
-| minWidth | string \| undefined | No |  | A valid CSS string for the min-width CSS property. |  |
+| minWidth | string \| undefined | No |  | A valid CSS string for the min-width CSS property. | "280px" |
 | ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
 | mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
@@ -44,8 +44,8 @@ description: Carbon FileInput component props and usage examples.
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  | Name of the input |  |
 | required | boolean \| undefined | No |  | Flag to configure component as mandatory. |  |
-| uploadStatus | FileUploadStatusProps \| FileUploadStatusProps[] \| undefined | No |  | used to control how to display the progress of uploaded file(s) within the component |  |
-| validationMessagePositionTop | boolean \| undefined | No |  | Render the ValidationMessage above the FileInput |  |
+| uploadStatus | FileUploadStatusProps \| FileUploadStatusProps[] \| undefined | No |  | used to control how to display the progress of uploaded file(s) within the component | [] |
+| validationMessagePositionTop | boolean \| undefined | No |  | Render the ValidationMessage above the FileInput | true |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

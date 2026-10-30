@@ -34,10 +34,10 @@ description: Carbon Profile component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  |  |  | Define the name to display. |  |
-| size | "S" \| "M" \| "L" \| "XL" \| "XS" \| "ML" \| "XXL" \| undefined | No |  |  |  | Allow to setup size for the component |  |
+| size | "S" \| "M" \| "L" \| "XL" \| "XS" \| "ML" \| "XXL" \| undefined | No | S \| M \| L \| XL \| XS \| ML \| XXL |  |  | Allow to setup size for the component |  |
 | src | string \| undefined | No |  |  |  | Custom source URL |  |
 | text | string \| undefined | No |  |  |  | Define read-only text to display. |  |
-| variant | PortraitProps["variant"] | No |  |  |  | Color variant to be passed to the avatar. |  |
+| variant | PortraitProps["variant"] | No | black \| green \| red \| orange \| blue \| purple \| teal \| lime \| pink \| slate \| gray |  |  | Color variant to be passed to the avatar. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | backgroundColor | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Use `variant` instead. | The hex code of the background colour to be passed to the avatar |  |

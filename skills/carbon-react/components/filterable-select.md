@@ -21,7 +21,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | about | string \| undefined | No |  |  |  |  |  |
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| align | "left" \| "right" \| undefined | No |  |  |  |  |  |
+| align | "left" \| "right" \| undefined | No | left \| right |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
 | ariaLabel | string \| undefined | No |  |  |  | Prop to specify the aria-label attribute of the component input |  |
 | ariaLabelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the component input |  |
@@ -44,13 +44,13 @@ description: Carbon FilterableSelect component props and usage examples.
 | deferTimeout | number \| undefined | No |  |  |  | Integer to determine a timeout for the deferred callback |  |
 | dir | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
-| disableDefaultFiltering | boolean \| undefined | No |  |  |  | Boolean to disable automatic filtering and highlighting of options. This allows custom filtering and option styling to be performed outside of the component when the filter text changes. |  |
+| disableDefaultFiltering | boolean \| undefined | No |  |  |  | Boolean to disable automatic filtering and highlighting of options. This allows custom filtering and option styling to be performed outside of the component when the filter text changes. | false |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enableVirtualScroll | boolean \| undefined | No |  |  |  | Set this prop to enable a virtualised list of options. If it is not used then all options will be in the DOM at all times, which may cause performance problems on very large lists |  |
-| enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
+| enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No | go \| send \| search \| enter \| done \| next \| previous |  |  |  |  |
 | error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
-| flipEnabled | boolean \| undefined | No |  |  |  | Use the opposite list placement if the set placement does not fit |  |
+| flipEnabled | boolean \| undefined | No |  |  |  | Use the opposite list placement if the set placement does not fit | true |
 | form | string \| undefined | No |  |  |  |  |  |
 | formAction | string \| undefined | No |  |  |  |  |  |
 | formattedValue | string \| undefined | No |  |  |  | An optional alternative for props.value, this is useful if the real value is an ID but you want to show a human-readable version. |  |
@@ -68,7 +68,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputIcon | string \| number \| boolean \| React.ReactElement<any, string \| React.JSXElementConstructor<any>> \| Iterable<React.ReactNode> \| React.ReactPortal \| null \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No | email \| none \| search \| text \| tel \| url \| numeric \| decimal |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | isLoading | boolean \| undefined | No |  |  |  | If true the loader animation is displayed in the option list |  |
@@ -86,7 +86,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | list | string \| undefined | No |  |  |  |  |  |
 | listActionButton | boolean \| React.ReactElement<ButtonProps, string \| React.JSXElementConstructor<any>> \| undefined | No |  |  |  | True for default text button or a Button Component to be rendered |  |
 | listMaxHeight | number \| undefined | No |  |  |  | Maximum list height - defaults to 180 |  |
-| listPlacement | ListPlacement \| undefined | No |  |  |  | Placement of the select list in relation to the input element |  |
+| listPlacement | ListPlacement \| undefined | No | bottom \| top \| top-start \| bottom-start \| top-end \| bottom-end |  |  | Placement of the select list in relation to the input element | "bottom" |
 | listWidth | number \| undefined | No |  |  |  | Override the default width of the list element. Number passed is converted into pixel value |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -287,7 +287,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Size of an input |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -298,11 +298,11 @@ description: Carbon FilterableSelect component props and usage examples.
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | tableHeader | React.ReactNode | No |  |  |  | SelectList table header, should consist of multiple th elements. Works only in multiColumn mode |  |
 | title | string \| undefined | No |  |  |  |  |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  |  |  | [Legacy] Overrides the default tooltip position |  |
-| translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top |  |  | [Legacy] Overrides the default tooltip position |  |
+| translate | "yes" \| "no" \| undefined | No | yes \| no |  |  |  |  |
 | type | HTMLInputTypeAttribute \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
-| unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
+| unselectable | "off" \| "on" \| undefined | No | off \| on |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set |  |
 | virtualScrollOverscan | number \| undefined | No |  |  |  | The number of options to render into the DOM at once, either side of the currently-visible ones. Higher values make for smoother scrolling but may impact performance. Only used if the `enableVirtualScroll` prop is set. |  |
@@ -313,7 +313,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |
 | aria-atomic | Booleanish \| undefined | No |  |  |  | Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. |  |
-| aria-autocomplete | "none" \| "inline" \| "list" \| "both" \| undefined | No |  |  |  | Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be presented if they are made. |  |
+| aria-autocomplete | "none" \| "inline" \| "list" \| "both" \| undefined | No | none \| inline \| list \| both |  |  | Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be presented if they are made. |  |
 | aria-braillelabel | string \| undefined | No |  |  |  | Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. Defines a string value that labels the current element, which is intended to be converted into Braille. |  |
 | aria-brailleroledescription | string \| undefined | No |  |  |  | Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille. |  |
 | aria-busy | Booleanish \| undefined | No |  |  |  |  |  |
@@ -338,17 +338,17 @@ description: Carbon FilterableSelect component props and usage examples.
 | aria-label | string \| undefined | No |  |  |  | Prop to specify the aria-label attribute of the component input |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the component input |  |
 | aria-level | number \| undefined | No |  |  |  | Defines the hierarchical level of an element within a structure. |  |
-| aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. |  |
+| aria-live | "off" \| "assertive" \| "polite" \| undefined | No | off \| assertive \| polite |  |  | Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. |  |
 | aria-modal | Booleanish \| undefined | No |  |  |  | Indicates whether an element is modal when displayed. |  |
 | aria-multiline | Booleanish \| undefined | No |  |  |  | Indicates whether a text box accepts multiple lines of input or only a single line. |  |
 | aria-multiselectable | Booleanish \| undefined | No |  |  |  | Indicates that the user may select more than one item from the current selectable descendants. |  |
-| aria-orientation | "horizontal" \| "vertical" \| undefined | No |  |  |  | Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. |  |
+| aria-orientation | "horizontal" \| "vertical" \| undefined | No | horizontal \| vertical |  |  | Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. |  |
 | aria-owns | string \| undefined | No |  |  |  | Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent the relationship. |  |
 | aria-placeholder | string \| undefined | No |  |  |  | Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value. A hint could be a sample value or a brief description of the expected format. |  |
 | aria-posinset | number \| undefined | No |  |  |  | Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM. |  |
 | aria-pressed | boolean \| "true" \| "false" \| "mixed" \| undefined | No |  |  |  | Indicates the current "pressed" state of toggle buttons. |  |
 | aria-readonly | Booleanish \| undefined | No |  |  |  | Indicates that the element is not editable, but is otherwise operable. |  |
-| aria-relevant | "text" \| "additions" \| "additions removals" \| "additions text" \| "all" \| "removals" \| "removals additions" \| "removals text" \| "text additions" \| "text removals" \| undefined | No |  |  |  | Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified. |  |
+| aria-relevant | "text" \| "additions" \| "additions removals" \| "additions text" \| "all" \| "removals" \| "removals additions" \| "removals text" \| "text additions" \| "text removals" \| undefined | No | text \| additions \| additions removals \| additions text \| all \| removals \| removals additions \| removals text \| text additions \| text removals |  |  | Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified. |  |
 | aria-required | Booleanish \| undefined | No |  |  |  | Indicates that user input is required on the element before a form may be submitted. |  |
 | aria-roledescription | string \| undefined | No |  |  |  | Defines a human-readable, author-localized description for the role of an element. |  |
 | aria-rowcount | number \| undefined | No |  |  |  | Defines the total number of rows in a table, grid, or treegrid. |  |
@@ -357,7 +357,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | aria-rowspan | number \| undefined | No |  |  |  | Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid. |  |
 | aria-selected | Booleanish \| undefined | No |  |  |  | Indicates the current "selected" state of various widgets. |  |
 | aria-setsize | number \| undefined | No |  |  |  | Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM. |  |
-| aria-sort | "none" \| "ascending" \| "descending" \| "other" \| undefined | No |  |  |  | Indicates if items in a table or grid are sorted in ascending or descending order. |  |
+| aria-sort | "none" \| "ascending" \| "descending" \| "other" \| undefined | No | none \| ascending \| descending \| other |  |  | Indicates if items in a table or grid are sorted in ascending or descending order. |  |
 | aria-valuemax | number \| undefined | No |  |  |  | Defines the maximum allowed value for a range widget. |  |
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
@@ -365,14 +365,14 @@ description: Carbon FilterableSelect component props and usage examples.
 | adaptiveLabelBreakpoint | number \| undefined | No |  | Yes | `adaptiveLabelBreakpoint` has been deprecated. It is recommended to use `useMediaQuery` hook to implement adaptive behaviour. Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set |  |  |
 | fieldHelp | React.ReactNode | No |  | Yes | `fieldHelp` has been deprecated, `inputHint` should be used instead. [Legacy] Help content to be displayed under an input. |  |  |
 | helpAriaLabel | string \| undefined | No |  | Yes | `helpAriaLabel` has been deprecated, the functionality will no longer work. |  |  |
-| labelAlign | "left" \| "right" \| undefined | No |  | Yes | `labelAlign` has been deprecated, the functionality will no longer work. |  |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | `labelSpacing` has been deprecated, the functionality will no longer work. |  |  |
+| labelAlign | "left" \| "right" \| undefined | No | left \| right | Yes | `labelAlign` has been deprecated, the functionality will no longer work. |  |  |
+| labelSpacing | 1 \| 2 \| undefined | No | 1 \| 2 | Yes | `labelSpacing` has been deprecated, the functionality will no longer work. |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | reverse | boolean \| undefined | No |  | Yes | `reverse` has been deprecated, the functionality will no longer work. |  |  |
 | tooltipId | string \| undefined | No |  | Yes | `tooltipId` has been deprecated, the functionality will no longer work. |  |  |
 | validationOnLabel | boolean \| undefined | No |  | Yes | `validationOnLabel` has been deprecated, the functionality will no longer work. |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No | copy \| link \| none \| execute \| move \| popup | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples

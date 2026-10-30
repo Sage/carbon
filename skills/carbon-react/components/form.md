@@ -15,11 +15,11 @@ description: Carbon Form component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| buttonAlignment | "left" \| "right" \| undefined | No |  | Alignment of buttons | "right" |
+| buttonAlignment | "left" \| "right" \| undefined | No | left \| right | Alignment of buttons | "right" |
 | children | React.ReactNode | No |  | Child elements |  |
 | disableStickyOnSmallScreen | boolean \| undefined | No |  | When true, disables the sticky behaviour of the footer on small screen devices (below 600px). | false |
 | errorCount | number \| undefined | No |  | The total number of errors present in the form |  |
-| fieldSpacing | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| undefined | No |  | Spacing between form fields, given number will be multiplied by base spacing unit (8) | 3 |
+| fieldSpacing | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| undefined | No | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 | Spacing between form fields, given number will be multiplied by base spacing unit (8) | 3 |
 | footerChildren | React.ReactNode | No |  | Custom content to render in the form's footer |  |
 | footerPadding | PaddingProps | No |  | Padding to be set on the form footer | {} |
 | fullWidthButtons | boolean \| undefined | No |  | Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose | false |
@@ -59,7 +59,7 @@ description: Carbon Form component props and usage examples.
 | rightSideButtons | React.ReactNode | No |  | Additional buttons rendered on the right side of the save button |  |
 | saveButton | React.ReactNode | No |  | Save button to be rendered |  |
 | stickyFooter | boolean \| undefined | No |  | Enables the sticky footer. |  |
-| stickyFooterVariant | "light" \| "grey" \| undefined | No |  | Background variant for the sticky footer. | "light" |
+| stickyFooterVariant | "light" \| "grey" \| undefined | No | light \| grey | Background variant for the sticky footer. | "light" |
 | warningCount | number \| undefined | No |  | The total number of warnings present in the form |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

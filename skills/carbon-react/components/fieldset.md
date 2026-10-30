@@ -18,7 +18,7 @@ description: Carbon Fieldset component props and usage examples.
 | children | React.ReactNode | No |  | Inputs rendered within the fieldset. |  |
 | error | string \| undefined | No |  | Error message to be displayed when validation fails. |  |
 | id | string \| undefined | No |  | Set an id value on the fieldset. |  |
-| labelWeight | "bold" \| "regular" \| undefined | No |  | Set the label weight of the children input's label. | "regular" |
+| labelWeight | "bold" \| "regular" \| undefined | No | bold \| regular | Set the label weight of the children input's label. | "regular" |
 | legend | string \| undefined | No |  | The content for the fieldset legend. |  |
 | legendHint | string \| undefined | No |  | Content for an additional hint text below the legend. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
@@ -35,9 +35,9 @@ description: Carbon Fieldset component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| orientation | "horizontal" \| "vertical" \| undefined | No |  | Set the orientation of the fieldset's children. | "vertical" |
+| orientation | "horizontal" \| "vertical" \| undefined | No | horizontal \| vertical | Set the orientation of the fieldset's children. | "vertical" |
 | required | boolean \| undefined | No |  | If true, an asterisk will be added to the legend and all inputs within the fieldset will be required. |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  | Set the size of the component. | "medium" |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large | Set the size of the component. | "medium" |
 | validationMessagePositionTop | boolean \| undefined | No |  | Specifies whether the validation message should be displayed above the input. | true |
 | warning | string \| undefined | No |  | Warning message to be displayed when validation warning occurs. |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

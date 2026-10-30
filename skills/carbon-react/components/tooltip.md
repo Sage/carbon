@@ -24,8 +24,8 @@ description: Carbon Tooltip component props and usage examples.
 | fontColor | string \| undefined | No |  | Override font color of the Tooltip, provide any color from palette or any valid css color value. |  |
 | id | string \| undefined | No |  | The id attribute to use for the tooltip |  |
 | isVisible | boolean \| undefined | No |  | Whether to to show the Tooltip |  |
-| position | TooltipPositions \| undefined | No |  | Sets position of the tooltip |  |
-| size | "medium" \| "large" \| undefined | No |  | Defines the size of the tooltip content |  |
+| position | TooltipPositions \| undefined | No | left \| right \| bottom \| top | Sets position of the tooltip | "top" |
+| size | "medium" \| "large" \| undefined | No | medium \| large | Defines the size of the tooltip content | "medium" |
 | type | string \| undefined | No |  | Defines the message type |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

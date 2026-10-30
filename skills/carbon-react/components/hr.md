@@ -18,7 +18,7 @@ description: Carbon Hr component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | adaptiveMxBreakpoint | number \| undefined | No |  | Breakpoint for adaptive left and right margins (below the breakpoint they go to 0). Enables the adaptive behaviour when set |  |
-| height | "small" \| "medium" \| "large" \| undefined | No |  | Set the height of the component. Accepts one of "small", "medium", or "large" | "small" |
+| height | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large | Set the height of the component. Accepts one of "small", "medium", or "large" | "small" |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
@@ -33,10 +33,10 @@ description: Carbon Hr component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| type | "typical" \| "inverse" \| undefined | No |  | Set the color variant of the horizontal rule. Use "typical" for standard styling or "inverse" for use in darker backgrounds | "typical" |
+| type | "typical" \| "inverse" \| undefined | No | typical \| inverse | Set the color variant of the horizontal rule. Use "typical" for standard styling or "inverse" for use in darker backgrounds | "typical" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| aria-hidden | "true" \| "false" \| undefined | No |  | Set whether the component should be recognised by assistive technologies |  |
+| aria-hidden | "true" \| "false" \| undefined | No | true \| false | Set whether the component should be recognised by assistive technologies |  |
 
 ## Examples
 ### Default
