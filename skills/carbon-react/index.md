@@ -91,7 +91,7 @@
 - [MenuFullscreen](components/menu-fullscreen.md)
 - [MenuItem](components/menu-item.md)
 - [MenuSegmentTitle](components/menu-segment-title.md)
-- [Message](components/message.md)
+- [Message](components/message.md) — A static inline message that stays on screen and conveys its type through a variant icon, colour and screen-reader text.
 - [Modal](components/modal.md) (deprecated)
 - [MultiActionButton](components/multi-action-button.md)
 - [MultiSelect](components/multi-select.md)
