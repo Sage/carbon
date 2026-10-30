@@ -1,0 +1,112 @@
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
+
+import * as SkeletonStories from "./skeleton.stories";
+
+<Meta of={SkeletonStories} />
+
+# Skeleton
+
+A loading placeholder component that indicates content is being loaded. It renders animated shapes that approximate the layout of the content they replace.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Playground](#playground)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Skeleton from "carbon-react/lib/components/skeleton";
+```
+
+## Playground
+
+Use this interactive example to explore Skeleton props with Storybook controls.
+
+<Canvas of={SkeletonStories.Playground} />
+
+<Controls
+  of={SkeletonStories.Playground}
+  include={["lines", "shape", "disableAnimation"]}
+/>
+
+## Examples
+
+### With Lines
+
+Define lines as an array of objects. Each object can specify `height`, `width`, and/or `preset`. The number of lines rendered is determined by the array length.
+
+```jsx
+<Skeleton
+  lines={[
+    { preset: "paragraph", width: "100%" },
+    { preset: "paragraph", width: "95%" },
+    { preset: "paragraph", width: "80%" },
+  ]}
+/>
+```
+
+<Canvas of={SkeletonStories.WithLines} />
+
+### Dynamic Widths
+
+Set custom widths per line to create a more natural text-like appearance.
+
+<Canvas of={SkeletonStories.DynamicWidths} />
+
+### Preset Heights
+
+Use the `preset` property on each line to quickly set the height to match common component sizes:
+
+| Preset    | Height |
+| --------- | ------ |
+| h1        | 38px   |
+| h2        | 30px   |
+| h3        | 26px   |
+| h4        | 23px   |
+| paragraph | 21px   |
+| button    | 40px   |
+
+<Canvas of={SkeletonStories.PresetHeights} />
+
+### Shapes
+
+Three shape options are available (applied to all lines):
+
+- **rectangle-moderate** — 8px border radius (default)
+- **rectangle-curved** — full border radius (pill shape)
+- **circle** — circular shape (width matches height)
+
+<Canvas of={SkeletonStories.Shapes} />
+
+### Custom Dimensions
+
+Use `height` and `width` on individual line objects to set specific dimensions.
+
+<Canvas of={SkeletonStories.CustomDimensions} />
+
+### Disable Animation
+
+The shimmer animation respects `prefers-reduced-motion` automatically, but you can also disable it explicitly with `disableAnimation`.
+
+<Canvas of={SkeletonStories.DisableAnimation} />
+
+### Typical Usage
+
+Combine multiple Skeleton instances with different presets and widths to approximate a page layout.
+
+<Canvas of={SkeletonStories.TypicalUsage} />
+
+### Prototype Comparison
+
+This example recreates the card layout from the original prototype. Each column is a separate Skeleton instance composed with CSS Grid, allowing the animation and multi-column layout to be compared without adding column-specific API to Skeleton.
+
+<Canvas of={SkeletonStories.PrototypeComparison} />
+
+## Props
+
+### Skeleton
+
+<ArgTypes of={SkeletonStories} />
