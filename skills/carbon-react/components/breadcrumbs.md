@@ -47,7 +47,7 @@ description: Carbon Breadcrumbs component props and usage examples.
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| isDarkBackground | boolean \| undefined | No |  | Yes | The 'isDarkBackground' prop in Breadcrumbs is deprecated and will soon be removed. Please use the 'inverse' prop instead. | Sets the colour styling when component is rendered on a dark background |  |
+| isDarkBackground | boolean \| undefined | No |  | Yes | The 'isDarkBackground' prop in Breadcrumbs is deprecated and will soon be removed. Please use the 'inverse' prop instead. | Sets the colour styling when component is rendered on a dark background | false |
 
 ## Examples
 ### Default

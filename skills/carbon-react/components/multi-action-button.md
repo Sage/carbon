@@ -238,7 +238,7 @@ description: Carbon MultiActionButton component props and usage examples.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the buttons. |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the buttons. | "medium" |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
@@ -306,12 +306,12 @@ description: Carbon MultiActionButton component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| align | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated. It will be removed in a future release. Set align of the rendered content |  |  |
-| buttonType | "primary" \| "secondary" \| "tertiary" \| undefined | No |  | Yes | This prop is deprecated. It will be removed in a future release. MultiActionButton only supports the primary variant. |  |  |
+| align | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated. It will be removed in a future release. Set align of the rendered content |  | "left" |
+| buttonType | "primary" \| "secondary" \| "tertiary" \| undefined | No |  | Yes | This prop is deprecated. It will be removed in a future release. MultiActionButton only supports the primary variant. |  | "primary" |
 | isWhite | boolean \| undefined | No |  | Yes | This prop is deprecated. It will be removed in a future release. Renders the white variant of the secondary split button |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| position | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Sets rendering position of menu. |  |  |
+| position | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Sets rendering position of menu. |  | "right" |
 | subtext | string \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. Second text child, renders under main text, only when size is "large" |  |  |
 | width | WidthProps["width"] | No |  | Yes | This prop is deprecated. It will be removed in a future release. The component width |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |

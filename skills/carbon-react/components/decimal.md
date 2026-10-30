@@ -20,8 +20,8 @@ description: Carbon Decimal component props and usage examples.
 | about | string \| undefined | No |  |  |  |  |  |
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| align | "left" \| "right" \| undefined | No |  |  |  | Text alignment of the label |  |
-| allowEmptyValue | boolean \| undefined | No |  |  |  | Allow an empty value instead of defaulting to 0.00 |  |
+| align | "left" \| "right" \| undefined | No |  |  |  | Text alignment of the label | "right" |
+| allowEmptyValue | boolean \| undefined | No |  |  |  | Allow an empty value instead of defaulting to 0.00 | false |
 | alt | string \| undefined | No |  |  |  |  |  |
 | as | React.ElementType<any, keyof React.JSX.IntrinsicElements> \| undefined | No |  |  |  | Override the variant component |  |
 | autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
@@ -64,7 +64,7 @@ description: Carbon Decimal component props and usage examples.
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputIcon | string \| number \| boolean \| React.ReactElement<any, string \| React.JSXElementConstructor<any>> \| Iterable<React.ReactNode> \| React.ReactPortal \| null \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents | "decimal" |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
@@ -263,7 +263,7 @@ description: Carbon Decimal component props and usage examples.
 | popoverContainerContent | React.ReactNode | No |  |  |  | Content to render inside a PopoverContainer, displayed via a button at the right of the input |  |
 | popoverPosition | ("left" \| "right" \| "center") \| undefined | No |  |  |  | Sets the position of the PopoverContainer dialog relative to its trigger button |  |
 | popoverTriggerAriaLabel | string \| undefined | No |  |  |  | Sets the aria-label on the popover trigger button |  |
-| precision | 0 \| 9 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 10 \| 11 \| 12 \| 13 \| 14 \| 15 \| undefined | No |  |  |  | The decimal precision of the value in the input |  |
+| precision | 0 \| 9 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 10 \| 11 \| 12 \| 13 \| 14 \| 15 \| undefined | No |  |  |  | The decimal precision of the value in the input | 2 |
 | prefix | string \| undefined | No |  |  |  | Emphasized part of the displayed text |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |

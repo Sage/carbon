@@ -16,7 +16,7 @@ description: Carbon Accordion component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | title | React.ReactNode | Yes |  |  |  | Title of the Accordion |  |
-| borders | "default" \| "none" \| "full" \| undefined | No |  |  |  | Sets Accordion borders. **Deprecation Warning:** The "full" borders are deprecated and will be removed in a future release. |  |
+| borders | "default" \| "none" \| "full" \| undefined | No |  |  |  | Sets Accordion borders. **Deprecation Warning:** The "full" borders are deprecated and will be removed in a future release. | "default" |
 | children | React.ReactNode | No |  |  |  | Content of the Accordion component |  |
 | defaultExpanded | boolean \| undefined | No |  |  |  | Set the default state of expansion of the Accordion if component is to be used as uncontrolled |  |
 | expanded | boolean \| undefined | No |  |  |  | Sets the expansion state of the Accordion if component is to be used as controlled |  |
@@ -52,9 +52,9 @@ description: Carbon Accordion component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Sets Accordion size |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Sets Accordion size | "medium" |
 | subTitle | string \| undefined | No |  |  |  | Sets accordion sub title |  |
-| variant | "subtle" \| "standard" \| "simple" \| undefined | No |  |  |  | Sets Accordion variant. **Deprecation Warning:** The "subtle" variant is deprecated, please use "simple" instead. |  |
+| variant | "subtle" \| "standard" \| "simple" \| undefined | No |  |  |  | Sets Accordion variant. **Deprecation Warning:** The "subtle" variant is deprecated, please use "simple" instead. | "standard" |
 | width | string \| undefined | No |  |  |  | Sets Accordion width |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

@@ -38,11 +38,11 @@ description: Carbon Textarea component props and usage examples.
 | defaultValue | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
 | dirName | string \| undefined | No |  |  |  |  |  |
-| disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
+| disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled | false |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
 | error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. Pass string to display icon, tooltip and red border. Pass true boolean to only display red border. |  |
-| expandable | boolean \| undefined | No |  |  |  | Allows the Textareas Height to change based on user input |  |
+| expandable | boolean \| undefined | No |  |  |  | Allows the Textareas Height to change based on user input | false |
 | exportparts | string \| undefined | No |  |  |  |  |  |
 | form | string \| undefined | No |  |  |  |  |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
@@ -241,17 +241,17 @@ description: Carbon Textarea component props and usage examples.
 | prefix | string \| undefined | No |  |  |  |  |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |
-| readOnly | boolean \| undefined | No |  |  |  | Adds readOnly property |  |
+| readOnly | boolean \| undefined | No |  |  |  | Adds readOnly property | false |
 | rel | string \| undefined | No |  |  |  |  |  |
 | required | boolean \| undefined | No |  |  |  |  |  |
-| resize | "none" \| "horizontal" \| "vertical" \| "both" \| undefined | No |  |  |  | Specify the resize behavior of the textarea |  |
+| resize | "none" \| "horizontal" \| "vertical" \| "both" \| undefined | No |  |  |  | Specify the resize behavior of the textarea | "none" |
 | resource | string \| undefined | No |  |  |  |  |  |
 | results | number \| undefined | No |  |  |  |  |  |
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | rows | number \| undefined | No |  |  |  | The number of visible text lines for the control. When set, this determines the height of the textarea, and the minHeight property is ignored. |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the textarea. |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the textarea. | "medium" |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
@@ -262,7 +262,7 @@ description: Carbon Textarea component props and usage examples.
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
-| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textarea when validationRedesignOptIn flag is set |  |
+| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textarea when validationRedesignOptIn flag is set | true |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. Pass string to display icon, tooltip and orange border. Pass true boolean to only display orange border. |  |
 | wrap | string \| undefined | No |  |  |  |  |  |
@@ -325,7 +325,7 @@ description: Carbon Textarea component props and usage examples.
 | borderRadius | BorderRadiusType \| BorderRadiusType[] \| undefined | No |  | Yes | Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. This property is deprecated and will be removed in future versions. |  |  |
 | fieldHelp | React.ReactNode | No |  | Yes | [Legacy] Help content to be displayed under an input. This property is deprecated and will be removed in future versions. |  |  |
 | helpAriaLabel | string \| undefined | No |  | Yes | [Legacy] Aria label for rendered help component. This property is deprecated and will be removed in future versions. |  |  |
-| hideBorders | boolean \| undefined | No |  | Yes | Hides the borders for the component. Please note that validation and focus styling will still be applied. This property is deprecated and will be removed in future versions. |  |  |
+| hideBorders | boolean \| undefined | No |  | Yes | Hides the borders for the component. Please note that validation and focus styling will still be applied. This property is deprecated and will be removed in future versions. |  | false |
 | info | string \| boolean \| undefined | No |  | Yes | [Legacy] Indicate additional information. Pass string to display icon, tooltip and blue border. Pass true boolean to only display blue border. This property is deprecated and will be removed in future versions. |  |  |
 | inputBorderRadius | BorderRadiusType \| BorderRadiusType[] \| undefined | No |  | Yes | [Legacy] Specify a custom border radius for the input. This prop is retained for backwards compatibility but no longer has any effect (use `borderRadius` instead). This property is deprecated and will be removed in future versions. |  |  |
 | inputWidth | number \| undefined | No |  | Yes | [Legacy] Width of an input in percentage. Works only when labelInline is true. This property is deprecated and will be removed in future versions. |  |  |
@@ -333,12 +333,12 @@ description: Carbon Textarea component props and usage examples.
 | labelAlign | "left" \| "right" \| undefined | No |  | Yes | Label alignment. This property is deprecated and will be removed in future versions. |  |  |
 | labelHelp | React.ReactNode | No |  | Yes | [Legacy] Text applied to label help tooltip. When opted into new design validations it will render as a hint above the input, unless an `inputHint` prop is also passed. This property is deprecated and will be removed in future versions. |  |  |
 | labelSpacing | 1 \| 2 \| undefined | No |  | Yes | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). This property is deprecated and will be removed in future versions. |  |  |
-| labelWidth | number \| undefined | No |  | Yes | [Legacy] Width of a label in percentage. Works only when labelInline is true. This property is deprecated and will be removed in future versions. |  |  |
+| labelWidth | number \| undefined | No |  | Yes | [Legacy] Width of a label in percentage. Works only when labelInline is true. This property is deprecated and will be removed in future versions. |  | 30 |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | [Legacy] Overrides the default tooltip position. This property is deprecated and will be removed in future versions. |  |  |
 | validationIconId | string \| undefined | No |  | Yes | [Legacy] Id of the validation icon. This prop no longer has any effect as the legacy validation icon has been removed. This property is deprecated and will be removed in future versions. |  |  |
-| validationOnLabel | boolean \| undefined | No |  | Yes | [Legacy] When true, validation icon will be placed on label instead of being placed on the input. This property is deprecated and will be removed in future versions. |  |  |
+| validationOnLabel | boolean \| undefined | No |  | Yes | [Legacy] When true, validation icon will be placed on label instead of being placed on the input. This property is deprecated and will be removed in future versions. |  | false |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 

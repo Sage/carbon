@@ -33,9 +33,9 @@ description: Carbon StepFlow component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onDismiss | ((e: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback function invoked when the close icon button is clicked |  |
-| showCloseIcon | boolean \| undefined | No |  |  |  | Determines if the close icon button is shown |  |
-| showProgressIndicator | boolean \| undefined | No |  |  |  | Determines if the progress indicator is shown. |  |
-| titleVariant | "h1" \| "h2" \| undefined | No |  |  |  | Set the variant of the internal 'Typography' component which contains the title. However, despite the chosen variant the styling will always be overridden. |  |
+| showCloseIcon | boolean \| undefined | No |  |  |  | Determines if the close icon button is shown | false |
+| showProgressIndicator | boolean \| undefined | No |  |  |  | Determines if the progress indicator is shown. | false |
+| titleVariant | "h1" \| "h2" \| undefined | No |  |  |  | Set the variant of the internal 'Typography' component which contains the title. However, despite the chosen variant the styling will always be overridden. | "h1" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-describedby | string \| undefined | No |  |  |  | Prop to specify the aria-describedby of the component |  |

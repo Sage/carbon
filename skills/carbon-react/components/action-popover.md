@@ -32,8 +32,8 @@ description: Carbon ActionPopover component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| onClose | (() => void) \| undefined | No |  |  |  | Callback to be called on menu close |  |
-| onOpen | (() => void) \| undefined | No |  |  |  | Callback to be called on menu open |  |
+| onClose | (() => void) \| undefined | No |  |  |  | Callback to be called on menu close | onCloseDefault |
+| onOpen | (() => void) \| undefined | No |  |  |  | Callback to be called on menu open | onOpenDefault |
 | renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  |  |  | Render a custom menu button to override default ellipsis icon |  |
 | rightAlignMenu | boolean \| undefined | No |  |  |  | Boolean to control whether menu should align to right |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the action popover menu items. |  |
@@ -43,7 +43,7 @@ description: Carbon ActionPopover component props and usage examples.
 | aria-label | string \| undefined | No |  |  |  | Prop to specify an aria-label for the component |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Prop to specify an aria-labelledby for the component |  |
 | horizontalAlignment | Alignment \| undefined | No |  | Yes | This prop is no longer supported and has no effect. |  |  |
-| placement | "bottom" \| "top" \| undefined | No |  | Yes | This prop will be removed in a future release. |  |  |
+| placement | "bottom" \| "top" \| undefined | No |  | Yes | This prop will be removed in a future release. |  | "bottom" |
 | submenuPosition | Alignment \| undefined | No |  | Yes | This prop is no longer supported and has no effect. |  |  |
 
 ## Examples

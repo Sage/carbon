@@ -44,13 +44,13 @@ description: Carbon FilterableSelect component props and usage examples.
 | deferTimeout | number \| undefined | No |  |  |  | Integer to determine a timeout for the deferred callback |  |
 | dir | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
-| disableDefaultFiltering | boolean \| undefined | No |  |  |  | Boolean to disable automatic filtering and highlighting of options. This allows custom filtering and option styling to be performed outside of the component when the filter text changes. |  |
+| disableDefaultFiltering | boolean \| undefined | No |  |  |  | Boolean to disable automatic filtering and highlighting of options. This allows custom filtering and option styling to be performed outside of the component when the filter text changes. | false |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enableVirtualScroll | boolean \| undefined | No |  |  |  | Set this prop to enable a virtualised list of options. If it is not used then all options will be in the DOM at all times, which may cause performance problems on very large lists |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
 | error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
-| flipEnabled | boolean \| undefined | No |  |  |  | Use the opposite list placement if the set placement does not fit |  |
+| flipEnabled | boolean \| undefined | No |  |  |  | Use the opposite list placement if the set placement does not fit | true |
 | form | string \| undefined | No |  |  |  |  |  |
 | formAction | string \| undefined | No |  |  |  |  |  |
 | formattedValue | string \| undefined | No |  |  |  | An optional alternative for props.value, this is useful if the real value is an ID but you want to show a human-readable version. |  |
@@ -86,7 +86,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | list | string \| undefined | No |  |  |  |  |  |
 | listActionButton | boolean \| React.ReactElement<ButtonProps, string \| React.JSXElementConstructor<any>> \| undefined | No |  |  |  | True for default text button or a Button Component to be rendered |  |
 | listMaxHeight | number \| undefined | No |  |  |  | Maximum list height - defaults to 180 |  |
-| listPlacement | ListPlacement \| undefined | No |  |  |  | Placement of the select list in relation to the input element |  |
+| listPlacement | ListPlacement \| undefined | No |  |  |  | Placement of the select list in relation to the input element | "bottom" |
 | listWidth | number \| undefined | No |  |  |  | Override the default width of the list element. Number passed is converted into pixel value |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |

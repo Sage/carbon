@@ -16,7 +16,7 @@ description: Carbon TextEditor component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | labelText | string | Yes |  |  |  | The label to display above the editor |  |
-| characterLimit | number \| undefined | No |  |  |  | The maximum number of characters allowed in the editor |  |
+| characterLimit | number \| undefined | No |  |  |  | The maximum number of characters allowed in the editor | 3000 |
 | customPlugins | React.ReactNode | No |  |  |  | Allows the injection of one or more Lexical-compatible React components into the editor to extend its functionality. This prop is optional and supports a single plugin, multiple plugins (via fragments or arrays), or `null`. |  |
 | error | string \| undefined | No |  |  |  | The message to be shown when the editor is in an error state |  |
 | footer | React.ReactNode | No |  |  |  | Custom footer content to be displayed below the editor |  |
@@ -38,20 +38,20 @@ description: Carbon TextEditor component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| namespace | string \| undefined | No |  |  |  | The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen |  |
+| namespace | string \| undefined | No |  |  |  | The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen | COMPONENT_PREFIX |
 | onBlur | ((ev: React.FocusEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Callback that is triggered when the editor loses focus. |  |
 | onChange | ((value: string, formattedValues: EditorFormattedValues) => void) \| undefined | No |  |  |  | Callback that is triggered when the editor's text content is modified or styled. |  |
 | onFocus | ((ev: React.FocusEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Callback that is triggered when the editor gains focus. |  |
 | onFormSubmission | ((value: EditorFormattedValuesWithInlineStyles) => void) \| undefined | No |  |  |  | Callback that is triggered when a parent form of the editor is submitted. The callback returns the current content of the editor in multiple formats, including HTML with inline styles. |  |
 | onLinkAdded | ((link: string, state: string) => void) \| undefined | No |  |  |  | Callback that is triggered when a link is added in the editor's content. |  |
 | placeholder | string \| undefined | No |  |  |  | The placeholder to display when the editor is empty |  |
-| previews | React.JSX.Element[] | No |  |  |  | An array of link preview nodes to render in the editor |  |
-| readOnly | boolean \| undefined | No |  |  |  | Whether the editor is read-only |  |
-| required | boolean \| undefined | No |  |  |  | Whether the content of the editor is required to have a value |  |
+| previews | React.JSX.Element[] | No |  |  |  | An array of link preview nodes to render in the editor | [] |
+| readOnly | boolean \| undefined | No |  |  |  | Whether the editor is read-only | false |
+| required | boolean \| undefined | No |  |  |  | Whether the content of the editor is required to have a value | false |
 | rows | number \| undefined | No |  |  |  | Number greater than 2 multiplied to override the default min-height of the editor |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the toolbar |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the toolbar | "medium" |
 | toolbarControls | ToolbarControl[] \| undefined | No |  |  |  |  |  |
-| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the TextEditor |  |
+| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the TextEditor | false |
 | warning | string \| undefined | No |  |  |  | The message to be shown when the editor is in an warning state |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

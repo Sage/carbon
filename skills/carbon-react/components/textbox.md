@@ -269,7 +269,7 @@ description: Carbon Textbox component props and usage examples.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input | SIZE_DEFAULT |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -284,7 +284,7 @@ description: Carbon Textbox component props and usage examples.
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
-| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set |  |
+| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set | true |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |

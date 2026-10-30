@@ -270,7 +270,7 @@ An input for selecting one or more independent options.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | CheckboxSizes \| undefined | No |  |  |  | Size of the CheckboxGroup. |  |
+| size | CheckboxSizes \| undefined | No |  |  |  | Size of the CheckboxGroup. | "medium" |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -356,7 +356,7 @@ An input for selecting one or more independent options.
 | reverse | boolean \| undefined | No |  | Yes | Reversed layout is no longer supported on this component. | If true the label switches position with the input |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips are no longer supported on this component. | [Legacy] Overrides the default tooltip position. |  |
 | validationIconId | string \| undefined | No |  | Yes | Validation icons with tooltips are no longer supported on this component. | Id of the validation icon |  |
-| validationMessagePositionTop | boolean \| undefined | No |  | Yes | The `validationMessagePositionTop` prop is deprecated and will be removed in a future release. | Render the ValidationMessage above the Checkbox |  |
+| validationMessagePositionTop | boolean \| undefined | No |  | Yes | The `validationMessagePositionTop` prop is deprecated and will be removed in a future release. | Render the ValidationMessage above the Checkbox | true |
 | warning | string \| boolean \| undefined | No |  | Yes | The `warning` state is deprecated and will be removed in a future release. | Warning message to be displayed when validation warning occurs. |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
