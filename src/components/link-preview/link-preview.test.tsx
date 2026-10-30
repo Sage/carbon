@@ -84,13 +84,13 @@ test("renders a placeholder instead of an image when no `image` is provided", ()
 test("renders four loading placeholders when `isLoading` is true", () => {
   render(<LinkPreview url="foo" isLoading />);
 
-  expect(screen.getAllByTestId("preview-placeholder")).toHaveLength(4);
+  expect(screen.getAllByTestId("skeleton-placeholder")).toHaveLength(4);
 });
 
 test('renders three loading placeholders when `isLoading` is true and `size` is "small"', () => {
   render(<LinkPreview url="foo" isLoading size="small" />);
 
-  expect(screen.getAllByTestId("preview-placeholder")).toHaveLength(3);
+  expect(screen.getAllByTestId("skeleton-placeholder")).toHaveLength(3);
 });
 
 test.each(["small", "medium", "large"] as const)(

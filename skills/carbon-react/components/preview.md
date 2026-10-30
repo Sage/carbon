@@ -11,6 +11,8 @@ description: Carbon Preview component props and usage examples.
 ## Source
 - Export: `./components/preview`
 - Props interface: `PreviewProps`
+- Deprecated: Yes
+- Deprecation reason: Use `Skeleton` instead.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |
@@ -40,98 +42,4 @@ description: Carbon Preview component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading />;
-}
-```
-
-
-### With Lines
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading lines={6} />;
-}
-```
-
-
-### With Children
-
-**Render**
-
-```tsx
-() => {
-  const [isLoading, setIsLoading] = useState(true);
-  const handleOnClick = () => {
-    setIsLoading(!isLoading);
-  };
-  return (
-    <>
-      <Preview loading={isLoading} lines={3}>
-        This the where the children are rendered
-      </Preview>
-      <Button mt={2} onClick={handleOnClick}>
-        {isLoading ? "Click to preview children" : "Click to see loading state"}
-      </Button>
-    </>
-  );
-}
-```
-
-
-### With Width
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading width="256px" />;
-}
-```
-
-
-### With Height
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading height="256px" />;
-}
-```
-
-
-### Shapes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Preview mb={2} loading shape="rectangle" />
-      <Preview mb={2} loading shape="rectangle-round" />
-      <Preview loading shape="circle" />
-    </>
-  );
-}
-```
-
-
-### Disable Animation
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading disableAnimation />;
-}
-```
-
+No Storybook examples found.

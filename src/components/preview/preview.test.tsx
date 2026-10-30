@@ -24,30 +24,18 @@ test("renders placeholder by default", () => {
   expect(screen.getByTestId("preview-placeholder")).toBeVisible();
 });
 
-test("renders placeholder when `loading` is true", () => {
-  render(<Preview loading />);
-
-  expect(screen.getByTestId("preview-placeholder")).toBeVisible();
-});
-
 test("renders placeholder when `loading` is true and children are provided", () => {
   render(<Preview loading>Some content</Preview>);
 
   expect(screen.getByTestId("preview-placeholder")).toBeVisible();
-  expect(screen.queryByTestId("Some content")).not.toBeInTheDocument();
+  expect(screen.queryByText("Some content")).not.toBeInTheDocument();
 });
 
-test("does not render a placeholder when `loading` is false", () => {
-  render(<Preview loading={false} />);
+test("renders children without a placeholder when `loading` is false", () => {
+  render(<Preview loading={false}>Loaded content</Preview>);
 
   expect(screen.queryByTestId("preview-placeholder")).not.toBeInTheDocument();
-});
-
-test("does not render a placeholder when children are provided", () => {
-  render(<Preview>Some content</Preview>);
-
-  expect(screen.queryByTestId("preview-placeholder")).not.toBeInTheDocument();
-  expect(screen.getByText("Some content")).toBeVisible();
+  expect(screen.getByText("Loaded content")).toBeVisible();
 });
 
 test("renders the correct number of placeholders when `lines` prop is set", () => {
@@ -60,73 +48,100 @@ test("renders with provided data- attributes", () => {
   render(<Preview data-role="foo" data-element="bar" />);
 
   expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
-});
-
-// coverage
-test("renders with the correct height, width and border-radius when `shape` is set to 'text'", () => {
-  render(<Preview shape="text" />);
-
-  const placeholder = screen.getByTestId("preview-placeholder");
-
-  expect(placeholder).toHaveStyleRule("height", "var(--sizing175)");
-  expect(placeholder).toHaveStyle({ width: "100%" });
-  expect(placeholder).toHaveStyleRule(
-    "border-radius",
-    "var(--borderRadius100)",
+  expect(screen.getByTestId("foo")).toHaveAttribute(
+    "data-component",
+    "preview",
   );
 });
 
-// coverage
-test("renders with the correct height, width and border-radius when `shape` is set to 'rectangle'", () => {
-  render(<Preview shape="rectangle" />);
+test("preserves the legacy text layout and shortens the last line", () => {
+  render(<Preview lines={3} />);
 
-  const placeholder = screen.getByTestId("preview-placeholder");
+  const placeholders = screen.getAllByTestId("preview-placeholder");
 
+  expect(placeholders[0]).toHaveStyleRule("height", "var(--sizing175)");
+  expect(placeholders[0]).toHaveStyleRule("width", "100%");
+  expect(placeholders[0]).toHaveStyleRule(
+    "border-radius",
+    "var(--global-radius-container-m)",
+  );
+  expect(placeholders[1]).toHaveStyleRule("width", "100%");
+  expect(placeholders[2]).toHaveStyleRule("width", "calc(100% * 0.8)");
+});
+
+test("does not shorten the last line for non-text shapes", () => {
+  render(<Preview shape="rectangle" lines={2} />);
+
+  expect(screen.getAllByTestId("preview-placeholder")[1]).toHaveStyleRule(
+    "width",
+    "var(--sizing1500)",
+  );
+});
+
+test("preserves legacy rectangle dimensions and radii", () => {
+  const { rerender } = render(<Preview shape="rectangle" />);
+
+  let placeholder = screen.getByTestId("preview-placeholder");
   expect(placeholder).toHaveStyleRule("height", "var(--sizing400)");
   expect(placeholder).toHaveStyleRule("width", "var(--sizing1500)");
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius100)",
+    "var(--global-radius-container-m)",
   );
-});
 
-// coverage
-test("renders with the correct height, width and border-radius when `shape` is set to 'rectangle-round'", () => {
-  render(<Preview shape="rectangle-round" />);
-
-  const placeholder = screen.getByTestId("preview-placeholder");
-
+  rerender(<Preview shape="rectangle-round" />);
+  placeholder = screen.getByTestId("preview-placeholder");
   expect(placeholder).toHaveStyleRule("height", "var(--sizing400)");
   expect(placeholder).toHaveStyleRule("width", "var(--sizing1500)");
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius400)",
+    "var(--global-radius-container-2-xl)",
   );
 });
 
-// coverage
-test("renders with the correct height, width and border-radius when `shape` is set to 'circle'", () => {
-  render(<Preview shape="circle" />);
+test("preserves legacy circle dimensions", () => {
+  render(<Preview shape="circle" width="100px" />);
 
   const placeholder = screen.getByTestId("preview-placeholder");
-
   expect(placeholder).toHaveStyleRule("height", "var(--sizing700)");
   expect(placeholder).toHaveStyleRule("width", "var(--sizing700)");
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadiusCircle)",
+    "var(--global-radius-container-circle)",
   );
 });
 
-// coverage
-test("renders with no animation when `disableAnimation` is true", () => {
+test("supports custom dimensions", () => {
+  render(<Preview shape="rectangle" height="200px" width="300px" />);
+
+  const placeholder = screen.getByTestId("preview-placeholder");
+  expect(placeholder).toHaveStyleRule("height", "200px");
+  expect(placeholder).toHaveStyleRule("width", "300px");
+});
+
+test("keeps the legacy pulse animation and diagonal gradient", () => {
+  render(<Preview />);
+
+  const placeholder = screen.getByTestId("preview-placeholder");
+
+  expect(placeholder).toHaveStyleRule("background-size", "auto");
+  expect(placeholder).toHaveStyleRule(
+    "background-image",
+    "linear-gradient( 135deg, var(--mode-color-generic-bg-soft), var(--mode-color-generic-bg-delicate) )",
+  );
+  expect(placeholder).toHaveStyleRule(
+    "animation",
+    expect.stringContaining("2s ease infinite"),
+  );
+});
+
+test("keeps the static gradient when `disableAnimation` is true", () => {
   render(<Preview disableAnimation />);
 
   const placeholder = screen.getByTestId("preview-placeholder");
 
-  expect(placeholder).toHaveStyle({
-    animation: "none",
-  });
+  expect(placeholder).toHaveStyleRule("animation", "none");
+  expect(placeholder).not.toHaveStyleRule("background-image", "none");
 });
 
 test("renders with no animation when user prefers reduced motion", () => {
@@ -134,11 +149,10 @@ test("renders with no animation when user prefers reduced motion", () => {
 
   render(<Preview />);
 
-  const placeholder = screen.getByTestId("preview-placeholder");
-
-  expect(placeholder).toHaveStyle({
-    animation: "none",
-  });
+  expect(screen.getByTestId("preview-placeholder")).toHaveStyleRule(
+    "animation",
+    "none",
+  );
 });
 
 testStyledSystemMargin(

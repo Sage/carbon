@@ -1,0 +1,77 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+
+import * as SkeletonStories from "./skeleton.stories";
+
+<Meta of={SkeletonStories} />
+
+# Skeleton
+
+Skeletons indicate that content is loading.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Skeleton from "carbon-react/lib/components/skeleton";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={SkeletonStories.Default} />
+
+### With Lines
+
+You can use the `lines` prop to specify the number of placeholder shapes to render.
+
+<Canvas of={SkeletonStories.WithLines} />
+
+### With Children
+
+You can pass children to the component which will render when the `loading` prop is `false` or undefined.
+
+<Canvas of={SkeletonStories.WithChildren} />
+
+### With Custom Width
+
+You can use the `width` prop to specify the width of the Skeleton. It fills the available width by default.
+
+<Canvas of={SkeletonStories.WithWidth} />
+
+### With Custom Height
+
+You can use the `height` prop to specify a custom CSS height or one of the presets: `h1` (38px), `h2` (30px), `h3` (26px), `h4` (23px), `paragraph` (21px), or `button` (40px).
+
+<Canvas of={SkeletonStories.WithHeight} />
+
+### Shapes
+
+Choose `circle`, `rectangle-curved`, or `rectangle-moderate` with the `shape` prop. The default is `rectangle-moderate`.
+
+Use `lines` to render multiple Skeletons. Circles remain circular: their width always follows their height, so `width` is ignored for circles.
+
+<Canvas of={SkeletonStories.Shapes} />
+
+### Height Presets
+
+Each placeholder below uses the height named beside it, from `h1` through `button`.
+
+<Canvas of={SkeletonStories.HeightPresets} />
+
+### Disable Animation
+
+The animated gradient moves from left to right. Set `disableAnimation` to render a solid static placeholder; animation is also disabled when the user prefers reduced motion.
+
+<Canvas of={SkeletonStories.DisableAnimation} />
+
+## Props
+
+### Skeleton
+
+<ArgTypes of={SkeletonStories} />

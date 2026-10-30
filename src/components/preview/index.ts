@@ -1,2 +1,2 @@
-export { default } from "./preview.component";
+export { default, Preview } from "./preview.component";
 export type { PreviewProps } from "./preview.component";

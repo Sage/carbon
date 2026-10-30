@@ -10,7 +10,7 @@ import {
   StyledThumbnailWrapper,
   StyledThumbnailImage,
 } from "./link-preview.style";
-import Preview from "../preview";
+import Skeleton from "../skeleton";
 import Button from "../button/__next__";
 import Icon from "../icon";
 import Divider from "../divider";
@@ -87,16 +87,15 @@ export const LinkPreview = ({
   const internalIsLoading = isLoading || !url;
   const showPlaceholderImage = internalIsLoading || !imageProps().src;
 
-  // TODO: check when Preview is aligned with Fusion
   const preview = (
     <>
-      <Preview
+      <Skeleton
         loading
         my="var(--global-space-comp-s)"
         height={size === "small" ? "16px" : "20px"}
         width="100%"
       />
-      <Preview
+      <Skeleton
         loading
         my="var(--global-space-comp-s)"
         height="10px"
