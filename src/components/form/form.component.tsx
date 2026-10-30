@@ -21,9 +21,15 @@ export interface FormProps extends SpaceProps, TagProps {
   id?: string;
   /** Child elements */
   children?: React.ReactNode;
-  /** The total number of errors present in the form */
+  /**
+   * The total number of errors present in the form. Do not combine it with a composed error Message summary,
+   * or the errors are summarised twice.
+   * @deprecated Compose error Message components as the first Form children instead.
+   */
   errorCount?: number;
-  /** Spacing between form fields, given number will be multiplied by base spacing unit (8) */
+  /**
+   * @deprecated Apply spacing through the composed content blocks instead.
+   */
   fieldSpacing?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
   /** Additional buttons rendered on the left side of the save button */
   leftSideButtons?: React.ReactNode;
@@ -35,17 +41,26 @@ export interface FormProps extends SpaceProps, TagProps {
   rightSideButtons?: React.ReactNode;
   /** Save button to be rendered */
   saveButton?: React.ReactNode;
+  // Revisit when the deprecated sticky footer is removed: footerChildren then does nothing that children can't
   /** Custom content to render in the form's footer */
   footerChildren?: React.ReactNode;
-  /** Enables the sticky footer. */
+  /**
+   * @deprecated Compose actions in the Form content instead.
+   */
   stickyFooter?: boolean;
   /**
-   * When true, disables the sticky behaviour of the footer on small screen devices (below 600px).
+   * @deprecated Sticky Form footer behavior is deprecated; compose actions in the Form content instead.
    */
   disableStickyOnSmallScreen?: boolean;
-  /** Background variant for the sticky footer. */
+  /**
+   * @deprecated Sticky Form footer behavior is deprecated; compose actions in the Form content instead.
+   */
   stickyFooterVariant?: "light" | "grey";
-  /** The total number of warnings present in the form */
+  /**
+   * The total number of warnings present in the form. Do not combine it with a composed warning Message summary,
+   * or the warnings are summarised twice.
+   * @deprecated Compose warning Message components as the first Form children instead.
+   */
   warningCount?: number;
   /** Height of the form (any valid CSS value) */
   height?: string;

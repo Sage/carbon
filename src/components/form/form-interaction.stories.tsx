@@ -1,10 +1,11 @@
 import React from "react";
-import { StoryObj, StoryFn } from "@storybook/react-vite";
+import { StoryObj, StoryFn, composeStory } from "@storybook/react-vite";
 import { userEvent, within, expect } from "storybook/test";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import Form from ".";
-import Button from "../button";
+import meta, { ValidationSummary } from "./form.stories";
+import Button from "../button/__next__";
 import Textbox from "../textbox";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Textarea from "../textarea";
@@ -24,38 +25,43 @@ export default {
   },
 };
 
-export const FocusManagement: Story = {
+export const TabOrderThroughFieldsAndFooterButtons: Story = {
   render: (args) => (
     <Form
       {...args}
-      leftSideButtons={<Button>Cancel</Button>}
+      leftSideButtons={
+        <Button variant="default" variantType="subtle">
+          Cancel
+        </Button>
+      }
       saveButton={
-        <Button buttonType="primary" type="submit">
+        <Button variant="default" variantType="primary" type="submit">
           Save
         </Button>
       }
-      fieldSpacing={4}
     >
       <Textbox
         label="Textbox 1"
         name="textbox-1"
         value=""
         onChange={() => {}}
-        mb={1}
+        mb={4}
       />
       <Textbox
         label="Textbox 2"
         name="textbox-2"
+        required
         value=""
         error="This field is required"
         onChange={() => {}}
-        mb={1}
+        mb={4}
       />
       <RadioButtonGroup
         name="legend"
         legend="Legend"
         value=""
         onChange={() => {}}
+        mb={4}
       >
         <RadioButton
           id="group-1-input-1"
@@ -68,12 +74,13 @@ export const FocusManagement: Story = {
           label="Option 2"
         />
       </RadioButtonGroup>
-      <DateInput label="Date picker" value="" onChange={() => {}} />
+      <DateInput label="Date picker" value="" onChange={() => {}} mb={4} />
       <Textarea
         label="Textbox 3"
         name="textbox-3"
         value=""
         onChange={() => {}}
+        mb={4}
       />
       <Checkbox
         name="checkbox-1"
@@ -81,6 +88,7 @@ export const FocusManagement: Story = {
         required
         checked={false}
         onChange={() => {}}
+        mb={4}
       />
       <Checkbox
         name="checkbox-2"
@@ -88,14 +96,17 @@ export const FocusManagement: Story = {
         required
         checked={false}
         onChange={() => {}}
+        mb={4}
       />
-      <Button buttonType="tertiary">Tertiary</Button>
+      <Button variant="default" variantType="tertiary" mb={4}>
+        Tertiary
+      </Button>
       <Textbox
         label="Textbox 4"
         name="textbox-4"
         value=""
         onChange={() => {}}
-        mb={1}
+        mb={4}
       />
       <Switch
         name="switch"
@@ -103,12 +114,14 @@ export const FocusManagement: Story = {
         checked={false}
         value=""
         onChange={() => {}}
+        mb={4}
       />
       <Textbox
         label="Textbox 5"
         name="textbox-5"
         value=""
         onChange={() => {}}
+        mb={4}
       />
     </Form>
   ),
@@ -198,7 +211,32 @@ export const FocusManagement: Story = {
   ],
 };
 
-FocusManagement.storyName = "Focus Management";
-FocusManagement.parameters = {
+TabOrderThroughFieldsAndFooterButtons.storyName =
+  "Tab order through fields and footer buttons";
+TabOrderThroughFieldsAndFooterButtons.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
+
+// Drops the docs hint asking the reader to submit, as the play function submits for them
+const RenderFromValidationSummary = composeStory(
+  { ...ValidationSummary, decorators: [] },
+  meta,
+);
+
+// Submits the empty form so Chromatic captures the error state; behaviour is covered in form.pw.tsx
+export const ValidationSummaryAfterFailedSubmit: Story = {
+  render: () => <RenderFromValidationSummary />,
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) return;
+
+    const canvas = within(canvasElement);
+
+    await userEvent.click(
+      canvas.getByRole("button", { name: /save changes/i }),
+    );
+    await canvas.findByRole("link", { name: /enter an email address/i });
+  },
+};
+
+ValidationSummaryAfterFailedSubmit.storyName =
+  "Validation summary after a failed submit";

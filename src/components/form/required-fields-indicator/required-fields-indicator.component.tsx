@@ -29,7 +29,11 @@ export const RequiredFieldsIndicator = ({
   as = "div",
   ...rest
 }: RequiredIndicatorProps) => (
-  <StyledIndicatorContainer {...rest} as={as}>
+  <StyledIndicatorContainer
+    data-component="required-fields-indicator"
+    {...rest}
+    as={as}
+  >
     {children}
   </StyledIndicatorContainer>
 );
