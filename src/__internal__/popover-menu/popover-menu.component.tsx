@@ -195,14 +195,23 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
 const OFFSET = 8;
 const SUBMENU_OFFSET = 0;
 
-export const menuPopoverMiddleware = (
-  width?: string,
-  isButtonMenu?: boolean,
-  isSubmenu?: boolean,
-  matchReferenceWidth?: boolean,
-  hideWhenReferenceHidden?: boolean,
+interface MenuPopoverMiddlewareOptions {
+  width?: string;
+  isButtonMenu?: boolean;
+  isSubmenu?: boolean;
+  matchReferenceWidth?: boolean;
+  hideWhenReferenceHidden?: boolean;
+  flipEnabled?: boolean;
+}
+
+export const menuPopoverMiddleware = ({
+  width,
+  isButtonMenu,
+  isSubmenu,
+  matchReferenceWidth,
+  hideWhenReferenceHidden,
   flipEnabled = true,
-) => [
+}: MenuPopoverMiddlewareOptions = {}) => [
   offset(isSubmenu ? SUBMENU_OFFSET : OFFSET),
   ...(flipEnabled
     ? [
@@ -463,14 +472,22 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
 
   const computedMiddleware = useMemo(
     () =>
-      menuPopoverMiddleware(
+      menuPopoverMiddleware({
         width,
         isButtonMenu,
         isSubmenu,
         matchReferenceWidth,
+        hideWhenReferenceHidden,
         flipEnabled,
-      ),
-    [width, isButtonMenu, isSubmenu, matchReferenceWidth, flipEnabled],
+      }),
+    [
+      width,
+      isButtonMenu,
+      isSubmenu,
+      matchReferenceWidth,
+      hideWhenReferenceHidden,
+      flipEnabled,
+    ],
   );
   const direction = useRef<"up" | "down" | null>(null);
 
