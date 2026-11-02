@@ -219,7 +219,7 @@ export const ChromaticSnapshotDropdownOpen = () => {
   const [value, setValue] = useState("1");
 
   return (
-    <Box height={800} p={4}>
+    <Box height={800} width={800} p={4}>
       <Select
         autoFocus
         openOnFocus
@@ -231,7 +231,10 @@ export const ChromaticSnapshotDropdownOpen = () => {
         onChange={(event) => setValue(event.target.value)}
       >
         <OptionGroupHeader label="Basic options" icon="settings" />
-        <Option text="Text only" value="1" />
+        <Option
+          text="A really really really really really really really really really really long option text which causes some very very very good truncation within the input and causes an really significant multi-line overflow in the dropdown. You can clearly see this multi-line overflow by looking very closely at the open dropdown."
+          value="1"
+        />
         <Option
           text="Leading icon"
           value="2"
