@@ -233,9 +233,6 @@ const simpleSelectStyles = ($size?: string, $isSimpleSelect?: boolean) =>
     css`
       padding: var(--global-space-comp-xs) var(--global-space-comp-s);
       max-height: var(--global-size-s);
-      [role="presentation"] {
-        gap: var(--global-space-comp-xs);
-      }
       [data-element="textbox-prefix"] {
         font: var(--global-font-static-comp-medium-s);
       }
@@ -247,9 +244,6 @@ const simpleSelectStyles = ($size?: string, $isSimpleSelect?: boolean) =>
     css`
       padding: var(--global-space-comp-s) var(--global-space-comp-m);
       max-height: var(--global-size-m);
-      [role="presentation"] {
-        gap: var(--global-space-comp-s);
-      }
       [data-element="textbox-prefix"] {
         font: var(--global-font-static-comp-medium-m);
       }
@@ -261,9 +255,6 @@ const simpleSelectStyles = ($size?: string, $isSimpleSelect?: boolean) =>
     css`
       padding: var(--global-space-comp-m) var(--global-space-comp-l);
       max-height: var(--global-size-l);
-      [role="presentation"] {
-        gap: var(--global-space-comp-m);
-      }
       [data-element="textbox-prefix"] {
         font: var(--global-font-static-comp-medium-l);
       }
@@ -274,6 +265,10 @@ const simpleSelectStyles = ($size?: string, $isSimpleSelect?: boolean) =>
 
     [role="presentation"] {
       position: relative;
+    }
+
+    [data-role="input-text-container"] {
+      gap: 0;
     }
 
     .input-text-container:is(.read-only, .disabled) {
@@ -322,6 +317,7 @@ const simpleSelectStyles = ($size?: string, $isSimpleSelect?: boolean) =>
     }
 
     [data-element="input-icon-toggle"] {
+      width: var(--global-size-2-xs);
       justify-content: right;
     }
   `;
