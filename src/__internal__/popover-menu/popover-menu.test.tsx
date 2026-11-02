@@ -50,9 +50,7 @@ const buttonChildren = (
 test("includes flip middleware by default and removes it when disabled", () => {
   expect(menuPopoverMiddleware().map(({ name }) => name)).toContain("flip");
   expect(
-    menuPopoverMiddleware(undefined, false, false, false, false).map(
-      ({ name }) => name,
-    ),
+    menuPopoverMiddleware({ flipEnabled: false }).map(({ name }) => name),
   ).not.toContain("flip");
 });
 
