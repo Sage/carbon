@@ -75,7 +75,7 @@ export const VerticalMenuItem = <T,>({
   customIcon,
   component,
   active,
-  height = "56px",
+  height = "40px",
   href,
   onClick,
   ariaCurrent,
@@ -126,18 +126,17 @@ export const VerticalMenuItem = <T,>({
     ...rest,
   };
 
-  const paddingX = `calc(var(--spacing500) + (${level} * var(--spacing400)))`;
-
   return (
     <StyledListItem {...filterStyledSystemMarginProps(rest)}>
       <StyledVerticalMenuItem
         height={height}
-        px={paddingX}
-        py={2}
         active={shouldDisplayActiveState}
+        isFullScreen={isFullScreen}
+        level={level}
         {...itemProps}
         {...filterStyledSystemPaddingProps(rest)}
         {...tagComponent("vertical-menu-item", rest)}
+        hasChildren={!!children}
       >
         {(iconType || customIcon) &&
           (customIcon ? (
@@ -159,7 +158,7 @@ export const VerticalMenuItem = <T,>({
 
       {(isOpen || isFullScreen) && (
         <MenuItemContext.Provider value={{ level: level + 1 }}>
-          <StyledList>{children}</StyledList>
+          <StyledList level={level + 1}>{children}</StyledList>
         </MenuItemContext.Provider>
       )}
     </StyledListItem>

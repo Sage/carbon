@@ -111,14 +111,14 @@ test.describe("functional tests", () => {
         return el.getBoundingClientRect().x;
       });
 
-    expect(clientOffsetTertiaryIconMenuItem).toBeGreaterThanOrEqual(437);
-    expect(clientOffsetTertiaryIconMenuItem).toBeLessThanOrEqual(441);
+    expect(clientOffsetTertiaryIconMenuItem).toBeGreaterThanOrEqual(422);
+    expect(clientOffsetTertiaryIconMenuItem).toBeLessThanOrEqual(426);
 
-    expect(clientOffsetTertiaryIconlessMenuItem).toBeGreaterThanOrEqual(437);
-    expect(clientOffsetTertiaryIconlessMenuItem).toBeLessThanOrEqual(441);
+    expect(clientOffsetTertiaryIconlessMenuItem).toBeGreaterThanOrEqual(422);
+    expect(clientOffsetTertiaryIconlessMenuItem).toBeLessThanOrEqual(426);
 
-    expect(clientOffsetTertiaryCustomIconMenuItem).toBeGreaterThanOrEqual(437);
-    expect(clientOffsetTertiaryCustomIconMenuItem).toBeLessThanOrEqual(441);
+    expect(clientOffsetTertiaryCustomIconMenuItem).toBeGreaterThanOrEqual(422);
+    expect(clientOffsetTertiaryCustomIconMenuItem).toBeLessThanOrEqual(426);
   });
 });
 

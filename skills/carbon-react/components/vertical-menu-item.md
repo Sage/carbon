@@ -23,7 +23,7 @@ description: Carbon VerticalMenuItem component props and usage examples.
 | component | T \| undefined | No |  | Optional component to render instead of the default div, useful for rendering router link components |  |
 | customIcon | React.ReactNode | No |  | Custom icon to be displayed. Takes precedence over `iconType` if both are specified. |  |
 | defaultOpen | boolean \| undefined | No |  | Default open state of the component | false |
-| height | string \| undefined | No |  | Height of the menu item | "56px" |
+| height | string \| undefined | No |  | Height of the menu item | "40px" |
 | href | string \| undefined | No |  | Href, when passed the menu item will be rendered as an anchor tag |  |
 | iconType | IconType \| undefined | No |  | The Carbon icon to be displayed. Defers to `customIcon` if both are defined. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |

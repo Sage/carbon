@@ -18,6 +18,7 @@ interface StyledResponsiveMenuItemProps {
   depth: number;
   hasIcon?: boolean;
   responsive?: boolean;
+  hasChildren?: boolean;
 }
 
 interface StyledIconProps {
@@ -32,32 +33,36 @@ const getRotationData = (depth: number, expanded: boolean) => {
 
 const commonAttributes = css`
   align-items: center;
-  background-color: transparent;
+  background-color: var(--nav-primary-bg-default);
   border: none;
-  border-radius: var(--borderRadius100);
+  border-radius: var(--global-radius-action-m);
   box-sizing: border-box;
-  color: var(--colorsUtilityYang100);
+  color: var(--nav-primary-label-default);
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  font-size: 14px;
-  font-weight: 500;
+  font: var(--global-font-static-comp-medium-m);
   justify-content: space-between;
-  min-height: var(--sizing500);
-  padding: var(--spacing100) var(--spacing200);
+  min-height: var(--global-size-m);
+  padding: 0 var(--global-space-comp-l);
   width: 100%;
 
   ${padding}
 
   &:hover {
-    background-color: var(--colorsActionMajor500);
-    color: var(--colorsUtilityYang100);
+    background-color: var(--nav-primary-bg-hover);
+    color: var(--nav-primary-label-hover);
     text-decoration: none;
   }
 
   [data-component="icon"] {
-    color: var(--colorsUtilityYang100);
-    margin-right: var(--spacing100);
+    color: var(--nav-primary-label-hover);
+  }
+
+  [data-component="icon"]:not(
+      [data-role="responsive-vertical-menu-expander-icon"]
+    ) {
+    margin-right: var(--global-space-comp-s);
   }
 
   &:focus {
@@ -82,12 +87,11 @@ export const StyledMenuItemContent = styled.span<StyledMenuItemContentProps>`
   align-items: center;
   display: flex;
   flex-direction: row;
-  gap: var(--spacing100);
 
   svg {
-    margin-right: var(--spacing100);
-    max-width: var(--sizing300);
-    min-width: var(--sizing300);
+    margin-right: var(--global-space-comp-s);
+    max-width: var(--global-size-xs);
+    min-width: var(--global-size-xs);
   }
 `;
 
@@ -98,15 +102,13 @@ export const StyledNestedMenuWrapper = styled.div<{
 }>`
   box-sizing: border-box;
   display: flex;
-  justify-content: ${({ hasIcon, responsive }) =>
-    hasIcon && responsive ? "flex-end" : "flex-start"};
+
   width: 100%;
 
   ${({ depth, responsive }) =>
-    depth === 1 &&
     responsive &&
     css`
-      padding: 0 0 0 16px;
+      padding: 0 0 0 ${depth === 0 ? "var(--global-space-comp-l)" : "0px"};
     `}
 `;
 
@@ -118,19 +120,19 @@ export const StyledNestedMenu = styled.ul<{
   padding: 0;
 
   ${({ depth, hasIcon, responsive }) => css`
-    width: ${depth < 2 && !hasIcon ? "100%" : "88%"};
-    margin-left: var(--spacing400);
+    width: 100%;
+    margin-left: var(--global-space-comp-l);
+
+    padding-right: ${responsive && depth >= 1
+      ? "var(--global-space-comp-xl)"
+      : "0"};
 
     ${responsive &&
     css`
-      margin-left: ${hasIcon || depth === 1 ? "var(--spacing200)" : "0"};
+      margin-left: ${hasIcon || depth === 1
+        ? "var(--global-space-comp-l)"
+        : "0"};
     `}
-
-    li > a {
-      font-weight: ${depth === 1
-        ? "var(--fontWeights400)"
-        : "var(--fontWeights500)"};
-    }
   `}
 `;
 
@@ -147,14 +149,16 @@ export const StyledResponsiveMenuItem = styled.button<StyledResponsiveMenuItemPr
     active &&
     !responsive &&
     css`
-      background-color: var(--colorsGray850);
+      background-color: var(--nav-primary-bg-child);
     `}
 
-  ${({ depth, responsive }) =>
+  ${({ depth, responsive, hasChildren }) =>
     depth === 0 &&
     responsive &&
     css`
-      color: var(--colorsUtilityYang080);
+      color: ${hasChildren
+        ? "var(--nav-primary-label-default-alt)"
+        : "var(--nav-primary-label-default)"};
       cursor: default;
     `}
 
@@ -163,11 +167,11 @@ export const StyledResponsiveMenuItem = styled.button<StyledResponsiveMenuItemPr
     depth >= 2 &&
     css`
       & {
-        color: var(--colorsUtilityYang080);
-        font-weight: var(--fontWeights400);
+        color: var(--nav-primary-label-default);
+        font: var(--global-font-static-comp-regular-m);
 
         [data-component="icon"] {
-          color: var(--colorsUtilityYang080);
+          color: var(--nav-primary-label-default);
         }
       }
     `}
@@ -178,20 +182,20 @@ export const StyledResponsiveMenuActionLink = styled.a<{
   responsive?: boolean;
 }>`
   ${commonAttributes}
-  min-height: 40px;
+  min-height: var(--global-size-m);
   text-decoration: none;
 
   ${({ depth, responsive }) =>
     depth >= 2 &&
     css`
       && {
-        color: var(--colorsUtilityYang080);
-        font-weight: var(--fontWeights400);
+        color: var(--nav-primary-label-default);
+        font: var(--global-font-static-comp-regular-m);
 
         ${responsive &&
         depth >= 3 &&
         css`
-          margin-left: var(--spacing300);
+          margin-left: var(--global-space-comp-xl);
         `}
       }
     `}
@@ -202,20 +206,20 @@ export const StyledResponsiveMenuActionButton = styled.button<{
   responsive?: boolean;
 }>`
   ${commonAttributes}
-  min-height: 40px;
+  min-height: var(--global-size-m);
   text-decoration: none;
 
   ${({ depth, responsive }) =>
     depth >= 2 &&
     css`
       && {
-        color: var(--colorsUtilityYang080);
-        font-weight: var(--fontWeights400);
+        color: var(--nav-primary-label-default);
+        font: var(--global-font-static-comp-regular-m);
 
         ${responsive &&
         depth >= 3 &&
         css`
-          margin-left: var(--spacing300);
+          margin-left: var(--global-space-comp-xl);
         `}
       }
     `}
