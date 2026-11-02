@@ -1,3 +1,27 @@
+## [162.21.0](https://github.com/Sage/carbon/compare/v162.20.3...v162.21.0) (2026-11-02)
+
+### Features
+
+* **action-popover:** align component with fusion ([5734a18](https://github.com/Sage/carbon/commit/5734a187b9d94ce40aac14e131b14f1488b89309))
+
+## [162.20.3](https://github.com/Sage/carbon/compare/v162.20.2...v162.20.3) (2026-10-30)
+
+### Bug Fixes
+
+* **skills:** resolve frontmatter rendering issue ([a71a834](https://github.com/Sage/carbon/commit/a71a834a3f1da85e11cd4c7d55f45d9bc820343e))
+
+## [162.20.2](https://github.com/Sage/carbon/compare/v162.20.1...v162.20.2) (2026-10-30)
+
+### Bug Fixes
+
+* **image:** add empty alt text to decorative images ([9668d17](https://github.com/Sage/carbon/commit/9668d170a778034ba4b91f9bc8639c73fe45568d))
+
+## [162.20.1](https://github.com/Sage/carbon/compare/v162.20.0...v162.20.1) (2026-10-29)
+
+### Bug Fixes
+
+* **dialog:** remove redundant sticky footer styling on small screens ([a680443](https://github.com/Sage/carbon/commit/a680443733fa753e4ece67407f9f673a91605d91))
+
 ## [162.20.0](https://github.com/Sage/carbon/compare/v162.19.0...v162.20.0) (2026-10-29)
 
 ### Features

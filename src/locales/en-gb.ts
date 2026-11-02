@@ -13,6 +13,7 @@ const enGB: Locale = {
   },
   actionPopover: {
     ariaLabel: () => "actions",
+    buttonLabel: () => "Actions",
   },
   advancedColorPicker: {
     ariaLabel: () => "Change colour",

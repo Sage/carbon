@@ -1,6 +1,6 @@
 ---
 name: carbon-react
-description: Use for Carbon React selection and implementation: imports, props, defaults, deprecations, examples, and guidance.
+description: Use for Carbon React selection and implementation, including imports, props, defaults, deprecations, examples, and guidance.
 ---
 
 # Carbon Component Catalog
