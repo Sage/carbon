@@ -1,3 +1,9 @@
+## [162.21.0](https://github.com/Sage/carbon/compare/v162.20.3...v162.21.0) (2026-11-02)
+
+### Features
+
+* **action-popover:** align component with fusion ([5734a18](https://github.com/Sage/carbon/commit/5734a187b9d94ce40aac14e131b14f1488b89309))
+
 ## [162.20.3](https://github.com/Sage/carbon/compare/v162.20.2...v162.20.3) (2026-10-30)
 
 ### Bug Fixes
