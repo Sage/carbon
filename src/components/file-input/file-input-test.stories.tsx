@@ -42,31 +42,33 @@ const ForcedDropZoneState = ({
         {name}
       </Label>
     </StyledFileInputLabelSet>
-    {error && <FileInputValidation error={error} />}
-    <StyledFileInputDropZone
-      data-role="file-input-presentation"
-      $minWidth="288px"
-      $maxWidth="288px"
-      $isVertical
-      $error={error}
-      $isDraggedOver={isDraggedOver}
-      $isDraggingFile={isDraggingFile}
-    >
-      <StyledDashedBorder
-        aria-hidden="true"
+    <Box position="relative">
+      {error && <FileInputValidation error={error} />}
+      <StyledFileInputDropZone
+        data-role="file-input-presentation"
+        $minWidth="288px"
+        $maxWidth="288px"
+        $isVertical
         $error={error}
         $isDraggedOver={isDraggedOver}
         $isDraggingFile={isDraggingFile}
       >
-        <rect />
-      </StyledDashedBorder>
-      <Button variant="default" variantType="secondary" size="medium">
-        Select file
-      </Button>
-      <Typography m={0}>
-        Drag and drop your file, or use Select file to choose it
-      </Typography>
-    </StyledFileInputDropZone>
+        <StyledDashedBorder
+          aria-hidden="true"
+          $error={error}
+          $isDraggedOver={isDraggedOver}
+          $isDraggingFile={isDraggingFile}
+        >
+          <rect />
+        </StyledDashedBorder>
+        <Button variant="default" variantType="secondary" size="medium">
+          Select file
+        </Button>
+        <Typography m={0}>
+          Drag and drop your file, or use Select file to choose it
+        </Typography>
+      </StyledFileInputDropZone>
+    </Box>
   </Box>
 );
 
