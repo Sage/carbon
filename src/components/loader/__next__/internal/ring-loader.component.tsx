@@ -46,21 +46,13 @@ const RingLoader = ({
 
   return (
     <StyledRingLoaderWrapper
-      loaderVariant={ringVariant}
+      $loaderVariant={ringVariant}
       data-role="ring-loader-container"
     >
       <StyledRingCircleSvg
-        inverse={inverse}
+        $size={ringSize}
         role="presentation"
-        size={ringSize}
-        variant={ringVariant}
-        hasMotion={hasMotion}
-        isTracked={isTracked}
-        animationTime={resolvedAnimationTime}
         viewBox="0 0 64 64"
-        isSuccess={isSuccess}
-        isError={isError}
-        isGradientVariant={usesAiGradient}
       >
         {usesAiGradient && (
           <defs>
@@ -79,40 +71,34 @@ const RingLoader = ({
             </linearGradient>
           </defs>
         )}
-        <StyledRingTrack
-          data-role="outer-arc"
-          inverse={inverse}
-          size={ringSize}
-        />
+        <StyledRingTrack data-role="outer-arc" $inverse={inverse} />
         <StyledRingRotator
           data-role="ring-rotator"
-          size={ringSize}
-          hasMotion={hasMotion}
-          isTracked={isTracked}
-          animationTime={resolvedAnimationTime}
+          $hasMotion={hasMotion}
+          $isTracked={isTracked}
+          $animationTime={resolvedAnimationTime}
         >
           <StyledRingArc
             data-role="inner-arc"
             pathLength="1"
-            size={ringSize}
-            inverse={inverse}
-            hasMotion={hasMotion}
-            isTracked={isTracked}
-            animationTime={resolvedAnimationTime}
-            isSuccess={isSuccess}
-            isError={isError}
-            isGradientVariant={usesAiGradient}
-            gradientId={usesAiGradient ? gradientId : undefined}
+            $inverse={inverse}
+            $hasMotion={hasMotion}
+            $isTracked={isTracked}
+            $animationTime={resolvedAnimationTime}
+            $isSuccess={isSuccess}
+            $isError={isError}
+            $isGradientVariant={usesAiGradient}
+            $gradientId={usesAiGradient ? gradientId : undefined}
           />
         </StyledRingRotator>
       </StyledRingCircleSvg>
       {showLabel && (
         <StyledLoaderLabel
-          inverse={inverse}
+          $inverse={inverse}
           data-role="loader-label"
           variant="span"
-          loaderVariant={ringVariant}
-          loaderType="ring"
+          $loaderVariant={ringVariant}
+          $loaderType="ring"
           $size={ringSize}
           $isInsideButton={isInsideButton}
         >

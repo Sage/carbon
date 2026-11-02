@@ -131,7 +131,7 @@ export const Loader = ({
       {allowMotion ? (
         loaderContent
       ) : (
-        <StyledLabel inverse={resolvedInverse}>
+        <StyledLabel $inverse={resolvedInverse}>
           {loaderLabel || l.loader.loading()}
         </StyledLabel>
       )}

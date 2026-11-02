@@ -171,14 +171,32 @@ test("renders correctly when `loaderType` is `standalone`", () => {
   expect(screen.getByTestId("outer-bar")).toBeVisible();
 });
 
-test("switches loader types without changing Loader's hook order", () => {
-  const { rerender } = render(<Loader loaderType="standalone" />);
+test("does not forward loader styling props to the DOM", () => {
+  render(
+    <Loader
+      loaderType="ring"
+      variant="ai-inline"
+      size="small"
+      inverse
+      animationTime={2}
+      isTracked
+    />,
+  );
 
-  rerender(<Loader loaderType="ring" />);
-  expect(screen.getByTestId("inner-arc")).toBeVisible();
-
-  rerender(<Loader loaderType="star" />);
-  expect(screen.getByTestId("sparkle-svg")).toBeVisible();
+  [
+    screen.getByTestId("ring-loader-container"),
+    screen.getByRole("presentation"),
+    screen.getByTestId("outer-arc"),
+    screen.getByTestId("ring-rotator"),
+    screen.getByTestId("inner-arc"),
+  ].forEach((element) => {
+    expect(element).not.toHaveAttribute("inverse");
+    expect(element).not.toHaveAttribute("size");
+    expect(element).not.toHaveAttribute("hasmotion");
+    expect(element).not.toHaveAttribute("istracked");
+    expect(element).not.toHaveAttribute("animationtime");
+    expect(element).not.toHaveAttribute("loadervariant");
+  });
 });
 
 test("renders correctly when `loaderType` is `standalone` and `inverse` prop is set", () => {
@@ -502,7 +520,7 @@ test("when the user disallows animations or their preference cannot be determine
   expect(screen.getByText("Loading...")).toBeVisible();
 });
 
-test("renders the six sparkle paths with gradient stops", () => {
+test("renders the documented sparkle SVG structure", () => {
   render(<Loader loaderType="star" />);
 
   expect(screen.getAllByTestId("sparkle-star")).toHaveLength(6);
@@ -511,9 +529,26 @@ test("renders the six sparkle paths with gradient stops", () => {
     "0 0 35 35",
   );
 
+  const stars = screen.getAllByTestId("sparkle-star");
+  expect(stars[0]).toHaveAttribute("fill", "var(--mode-color-ai-alt-stop-1)");
+  expect(stars[3]).toHaveAttribute("fill", expect.stringContaining("-4)"));
+  const starGroups = screen.getAllByTestId("sparkle-star-group");
+  expect(starGroups[4]).toHaveAttribute(
+    "transform",
+    "translate(3.375 30.679) rotate(-90) translate(10 10)",
+  );
+  expect(starGroups[5]).toHaveAttribute(
+    "transform",
+    "translate(20 13.5) rotate(-90) translate(6 6)",
+  );
+});
+
+test("renders the documented sparkle gradient stops", () => {
+  render(<Loader loaderType="star" />);
+
   const stops = screen.getAllByTestId("sparkle-gradient-stop");
-  expect(stops).toHaveLength(15);
   const gradients = screen.getAllByTestId("star-gradient");
+  expect(stops).toHaveLength(15);
   expect(gradients).toHaveLength(5);
   expect(stops[0]).toHaveAttribute(
     "stop-color",
@@ -543,18 +578,12 @@ test("renders the six sparkle paths with gradient stops", () => {
   expect(gradients[2]).toHaveAttribute("x1", "-30.25");
   expect(gradients[3]).toHaveAttribute("y2", "13.625");
   expect(gradients[4]).toHaveAttribute("x1", "-19.5");
+});
+
+test("uses the documented sparkle animation timeline", () => {
+  render(<Loader loaderType="star" />);
+
   const stars = screen.getAllByTestId("sparkle-star");
-  expect(stars[0]).toHaveAttribute("fill", "var(--mode-color-ai-alt-stop-1)");
-  expect(stars[3]).toHaveAttribute("fill", expect.stringContaining("-4)"));
-  const starGroups = screen.getAllByTestId("sparkle-star-group");
-  expect(starGroups[4]).toHaveAttribute(
-    "transform",
-    "translate(3.375 30.679) rotate(-90) translate(10 10)",
-  );
-  expect(starGroups[5]).toHaveAttribute(
-    "transform",
-    "translate(20 13.5) rotate(-90) translate(6 6)",
-  );
   expect(stars[0]).toHaveStyleRule(
     "animation",
     expect.stringContaining("3.159s linear infinite"),

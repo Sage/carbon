@@ -25,27 +25,27 @@ const StandaloneLoader = ({
     <>
       <OuterBar
         data-role="outer-bar"
-        size={standaloneSize}
-        variant={standaloneVariant}
-        inverse={!!inverse}
+        $size={standaloneSize}
+        $variant={standaloneVariant}
+        $inverse={!!inverse}
       >
         <InnerBar
           data-role="inner-bar"
-          size={standaloneSize}
-          variant={standaloneVariant}
-          inverse={!!inverse}
-          animationTime={getAnimationTime(animationTime, 0.983)}
-          hasMotion={hasMotion}
+          $size={standaloneSize}
+          $variant={standaloneVariant}
+          $inverse={!!inverse}
+          $animationTime={getAnimationTime(animationTime, 0.983)}
+          $hasMotion={hasMotion}
         />
       </OuterBar>
 
       {showLabel && (
         <StyledLoaderLabel
-          inverse={inverse}
+          $inverse={inverse}
           data-role="loader-label"
           variant="span"
-          loaderVariant={variant}
-          loaderType="standalone"
+          $loaderVariant={variant}
+          $loaderType="standalone"
           $size={size}
         >
           {loaderLabel || locale?.loader.loading()}

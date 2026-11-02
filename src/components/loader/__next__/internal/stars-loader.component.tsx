@@ -34,7 +34,7 @@ const StarsLoader = ({
         <StyledLoaderLabel
           data-role="loader-label"
           variant="span"
-          loaderType="star"
+          $loaderType="star"
         >
           {loaderLabel || locale?.loader.loading()}
         </StyledLoaderLabel>
