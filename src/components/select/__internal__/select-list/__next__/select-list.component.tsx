@@ -38,6 +38,10 @@ const StyledSelectPopoverMenu = styled(SelectPopoverMenu)`
     column-gap: 0;
   }
 
+  [role="listbox"] > li {
+    flex-shrink: 0;
+  }
+
   [data-element="menu-item-label-prefix"] {
     padding-right: ${({ size }) =>
       `var(--global-space-comp-${size === "small" ? "2-xs" : "xs"})`};
