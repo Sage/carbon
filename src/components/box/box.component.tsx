@@ -47,7 +47,10 @@ export interface BoxProps
   id?: string;
   /** Content to be rendered inside the Box component */
   children?: React.ReactNode;
-  /** Set the Role attribute of the Box component */
+  /**
+   * Set the Role attribute of the Box component
+   * @deprecated `Box` is intended for layout only and this prop will be removed after a grace period. Its behavior will be maintained until removal. Use a semantic HTML element or a Carbon component that provides the required semantics instead.
+   */
   role?: string;
   /** String to set Box content break strategy. Note "anywhere" is not supported in Safari */
   overflowWrap?: OverflowWrap;
@@ -102,9 +105,15 @@ export interface BoxProps
    * @deprecated This prop is marked for deprecation. Its behavior will be maintained until removal.
    */
   opacity?: string | number;
-  /** Set the container to be hidden from screen readers */
+  /**
+   * Set the container to be hidden from screen readers
+   * @deprecated `Box` is intended for layout only and this prop will be removed after a grace period. Its behavior will be maintained until removal. Apply `aria-hidden` to a native HTML element instead.
+   */
   "aria-hidden"?: "true" | "false";
-  /** Make the container an aria-live region */
+  /**
+   * Make the container an aria-live region
+   * @deprecated `Box` is intended for layout only and this prop will be removed after a grace period. Its behavior will be maintained until removal. Apply `aria-live` to a native HTML element instead.
+   */
   "aria-live"?: "off" | "assertive" | "polite";
   /** @private @internal @ignore */
   "data-component"?: string;
@@ -115,7 +124,10 @@ export interface BoxProps
    * @ignore
    */
   tabIndex?: number;
-  /** Indicates whether AT will announce all, or only parts of, the changed region */
+  /**
+   * Indicates whether AT will announce all, or only parts of, the changed region
+   * @deprecated `Box` is intended for layout only and this prop will be removed after a grace period. Its behavior will be maintained until removal. Apply `aria-atomic` to a native HTML element instead.
+   */
   "aria-atomic"?: "true" | "false";
 }
 

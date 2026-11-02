@@ -86,7 +86,6 @@ description: Carbon FlexTileCell component props and usage examples.
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | right | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The right CSS property participates in specifying the horizontal position of a positioned element. It has no effect on non-positioned elements. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/right) |  |
-| role | string \| undefined | No |  |  |  | Set the Role attribute of the Box component |  |
 | rowGap | Gap \| undefined | No |  |  |  | Row gap an integer multiplier of the base spacing constant (8px) or any valid CSS string." |  |
 | size | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  |  |  |
 | top | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The top CSS property participates in specifying the vertical position of a positioned element. It has no effect on non-positioned elements. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/top) |  |
@@ -94,16 +93,17 @@ description: Carbon FlexTileCell component props and usage examples.
 | width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| aria-atomic | "true" \| "false" \| undefined | No |  |  |  | Indicates whether AT will announce all, or only parts of, the changed region |  |
-| aria-hidden | "true" \| "false" \| undefined | No |  |  |  | Set the container to be hidden from screen readers |  |
-| aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Make the container an aria-live region |  |
 | backgroundColor | string \| undefined | No |  | Yes | This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal. | Set the backgroundColor attribute of the Box component |  |
 | bg | string \| undefined | No |  | Yes | This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal. | Set the bg attribute of the Box component |  |
 | borderRadius | BorderRadiusType \| undefined | No |  | Yes | This prop is marked for deprecation. Its behavior will be maintained until removal. | Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. |  |
 | boxShadow | BoxShadowsType \| undefined | No |  | Yes | This prop is marked for deprecation. Its behavior will be maintained until removal. | Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. |  |
 | color | string \| undefined | No |  | Yes | This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal. | Set the color attribute of the Box component |  |
 | opacity | string \| number \| undefined | No |  | Yes | This prop is marked for deprecation. Its behavior will be maintained until removal. | Set the opacity attribute of the Box component |  |
+| role | string \| undefined | No |  | Yes | `Box` is intended for layout only and this prop will be removed after a grace period. Its behavior will be maintained until removal. Use a semantic HTML element or a Carbon component that provides the required semantics instead. | Set the Role attribute of the Box component |  |
 | scrollVariant | ScrollVariant \| undefined | No |  | Yes | This prop is marked for deprecation. Its behavior will be maintained until removal. | Scroll styling attribute |  |
+| aria-atomic | "true" \| "false" \| undefined | No |  | Yes | `Box` is intended for layout only and this prop will be removed after a grace period. Its behavior will be maintained until removal. Apply `aria-atomic` to a native HTML element instead. | Indicates whether AT will announce all, or only parts of, the changed region |  |
+| aria-hidden | "true" \| "false" \| undefined | No |  | Yes | `Box` is intended for layout only and this prop will be removed after a grace period. Its behavior will be maintained until removal. Apply `aria-hidden` to a native HTML element instead. | Set the container to be hidden from screen readers |  |
+| aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  | Yes | `Box` is intended for layout only and this prop will be removed after a grace period. Its behavior will be maintained until removal. Apply `aria-live` to a native HTML element instead. | Make the container an aria-live region |  |
 
 ## Examples
 ### Default

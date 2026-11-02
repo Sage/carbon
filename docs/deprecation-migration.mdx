@@ -35,6 +35,7 @@ The following section provides migration guidance for deprecated components that
 The following sections provide migration guidance for deprecated components that can be either be fully replicated or almost fully replicated using a composition of other Carbon components:
 
 - [Alert](#alert)
+- [Box accessibility props](#box-accessibility-props)
 - [Confirm](#confirm)
 - [Content](#content)
 - [Detail](#detail)
@@ -57,6 +58,42 @@ import Dialog from "carbon-react/lib/components/dialog";
 ```
 
 <Canvas of={DeprecationMigrationStories.Alert} />
+
+## Box accessibility props
+
+The `role`, `aria-hidden`, `aria-live` and `aria-atomic` props on `Box` are deprecated. `Box` is intended for layout only; using it to provide semantics or accessibility behaviour can lead to component misuse. These props will continue to work during a grace period before they are removed.
+
+Before you migrate, check whether a Carbon component already provides the required semantics and behaviour, such as `Message` for status content or `Typography` for text. Where none exists, keep `Box` for layout and move the accessibility attributes to a native HTML element.
+
+```jsx
+// Before
+<Box role="status" aria-live="polite" aria-atomic="true" mt={2}>
+  {statusMessage}
+</Box>
+
+// After
+<Box mt={2}>
+  <div role="status" aria-live="polite" aria-atomic="true">
+    {statusMessage}
+  </div>
+</Box>
+```
+
+```jsx
+// Before
+<Box aria-hidden="true" display="flex">
+  <Icon type="tick" />
+</Box>
+
+// After
+<Box display="flex">
+  <span aria-hidden="true">
+    <Icon type="tick" />
+  </span>
+</Box>
+```
+
+Prefer a semantic element over a generic element with a `role`. For example, use `<ul>` instead of `role="list"` and `<section>` with an accessible name instead of `role="region"`.
 
 ## Confirm
 
