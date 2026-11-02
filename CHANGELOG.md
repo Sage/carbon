@@ -1,3 +1,9 @@
+## [162.21.1](https://github.com/Sage/carbon/compare/v162.21.0...v162.21.1) (2026-11-02)
+
+### Bug Fixes
+
+* **divider:** export via index ([d408b0e](https://github.com/Sage/carbon/commit/d408b0e086b973759f871f53f9ed7531d516e012))
+
 ## [162.21.0](https://github.com/Sage/carbon/compare/v162.20.3...v162.21.0) (2026-11-02)
 
 ### Features
