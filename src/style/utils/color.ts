@@ -1,4 +1,3 @@
-import { color as styledColor } from "styled-system";
 import tokens from "@sage/design-tokens/js/base/common";
 import type { ThemeObject } from "../themes/theme.types";
 
@@ -48,31 +47,44 @@ export const toColor = (theme: ThemeObject, color: string) => {
   return color;
 };
 
-interface ColorObject {
-  color?: string;
-  bg?: string;
-}
-
 export default ({
   color,
   bg,
   backgroundColor,
   ...rest
-}: Record<string, unknown>) => {
-  const obj: ColorObject = {};
-  obj.color = color
-    ? toColor(rest.theme as ThemeObject, color as string)
-    : undefined;
-  obj.bg =
-    bg || backgroundColor
-      ? toColor(
-          rest.theme as ThemeObject,
-          (bg as string) || (backgroundColor as string),
-        )
-      : undefined;
+}: Record<string, unknown>): {
+  color?: string;
+  backgroundColor?: string;
+  opacity?: string | number;
+} => {
+  const theme = rest.theme as ThemeObject;
+  const resolveColor = (value: string) => {
+    const direct = theme.colors[value as keyof ThemeObject["colors"]];
+    const nested = value.split(".").reduce<unknown>((result, key) => {
+      if (result && typeof result === "object")
+        return (result as Record<string, unknown>)[key];
+      return undefined;
+    }, theme.colors);
+    return (
+      (typeof direct === "string" ? direct : undefined) ??
+      (typeof nested === "string" ? nested : undefined) ??
+      toColor(theme, value)
+    );
+  };
+  const styles: {
+    color?: string;
+    backgroundColor?: string;
+    opacity?: string | number;
+  } = {};
 
-  return styledColor({
-    ...rest,
-    ...obj,
-  });
+  if (color) styles.color = resolveColor(color as string);
+  if (bg || backgroundColor) {
+    styles.backgroundColor = resolveColor(
+      (bg as string) || (backgroundColor as string),
+    );
+  }
+  if (rest.opacity !== undefined)
+    styles.opacity = rest.opacity as string | number;
+
+  return styles;
 };

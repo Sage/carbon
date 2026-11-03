@@ -174,12 +174,12 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
         color: $customColor,
         theme,
       });
-      finalColor = renderedColor;
+      finalColor = renderedColor ?? finalColor;
     }
 
     if (bg) {
       const { backgroundColor } = styledColor({ bg, theme });
-      bgColor = backgroundColor;
+      bgColor = backgroundColor ?? bgColor;
     }
 
     return css`

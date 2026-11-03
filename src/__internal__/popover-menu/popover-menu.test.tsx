@@ -1165,11 +1165,18 @@ describe("PopoverMenu - button menu", () => {
       );
 
       await user.click(screen.getByRole("button", { name: "Button label" }));
+
+      await waitFor(() =>
+        expect(screen.getByRole("button", { name: "Item 1" })).toHaveFocus(),
+      );
+
       const parentItem = screen.getByRole("button", { name: "Item 2" });
       await user.click(parentItem);
 
+      await waitFor(() =>
+        expect(screen.getByRole("button", { name: "Subitem 1" })).toHaveFocus(),
+      );
       const submenuItem = screen.getByRole("button", { name: "Subitem 1" });
-      expect(submenuItem).toHaveFocus();
 
       // Simulate pressing the Tab key to move focus away from the submenu item
       // fireEvent used to avoid trying to move focus in unit test as it breaks outside browser
