@@ -11,6 +11,8 @@ description: Carbon Preview component props and usage examples.
 ## Source
 - Export: `./components/preview`
 - Props interface: `PreviewProps`
+- Deprecated: Yes
+- Deprecation reason: `Preview` has been deprecated. Please use `Skeleton` instead.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |

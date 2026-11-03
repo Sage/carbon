@@ -119,7 +119,7 @@
 - [PopoverContainer](components/popover-container.md)
 - [Portal](components/portal.md)
 - [Portrait](components/portrait.md)
-- [Preview](components/preview.md)
+- [Preview](components/preview.md) (deprecated)
 - [Profile](components/profile.md)
 - [ProgressTracker](components/progress-tracker.md)
 - [RadioButton](components/radio-button.md)
