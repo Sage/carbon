@@ -251,6 +251,8 @@ interface Locale {
     actionButtonText: () => string;
     placeholder: () => string;
     noResultsForTerm: (term: string) => string;
+    loadingOptions?: () => string;
+    newOptions?: (count: number) => string;
   };
   sidebar: {
     ariaLabels: {

@@ -176,6 +176,8 @@ export const Playground: Story = {
 };
 Playground.storyName = "Playground";
 
+const DEMO_LOADING_DELAY = 6000;
+
 export const LazyLoading: Story = () => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState("amber");
@@ -200,7 +202,7 @@ export const LazyLoading: Story = () => {
         <Option text="Green" value="green" key="Green" />,
       ]);
       setIsLoading(false);
-    }, 2000);
+    }, DEMO_LOADING_DELAY);
   }
 
   function reset() {
@@ -254,7 +256,7 @@ export const WithInfiniteScroll: Story = () => {
       setOptionCount((count) => count + INFINITE_SCROLL_BATCH_SIZE);
       setIsLoading(false);
       loadTimer.current = null;
-    }, 1000);
+    }, DEMO_LOADING_DELAY);
   }
 
   function reset() {

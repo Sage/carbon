@@ -2,6 +2,7 @@ import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as OptionStories from "../option/option.stories";
 import * as SimpleSelectStories from "./simple-select.stories";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
 
 <Meta of={SimpleSelectStories} />
 
@@ -25,6 +26,7 @@ Select one of available options from the drop-down menu.
 - [Keyboard interaction](#keyboard-interaction)
 - [Testing](#testing)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -68,6 +70,8 @@ values passed to the `icon` and `label` props.
 The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
 The callback is invoked whenever the open list is scrolled to its bottom. Guard against starting duplicate requests while a request
 is already in progress. The example also demonstrates using the forwarded input ref to restore focus after loading completes.
+While the list is open, screen readers are informed when loading starts and when additional options are added. Select does not infer
+whether a request succeeded or failed when loading ends.
 
 <Canvas of={SimpleSelectStories.WithInfiniteScroll} />
 
@@ -168,5 +172,28 @@ but have no effect, except `transparent`, which remains a compatibility alias fo
     "subtext",
     "text",
     "value",
+  ]}
+/>
+
+## Translation keys
+
+The following keys can be overridden through the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "select.loadingOptions",
+      description:
+        "Screen reader announcement when Select starts loading options.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "select.newOptions",
+      description:
+        "Screen reader announcement when options are added to an open list. Receives the number added so singular and plural forms can be translated.",
+      type: "func(count: number)",
+      returnType: "string",
+    },
   ]}
 />
