@@ -1,0 +1,24 @@
+{
+  "component": "RadioButtonGroup",
+  "summary": "A fieldset that groups RadioButton options under a shared legend and controls which single option is selected.",
+  "alternatives": [
+    {
+      "component": "CheckboxGroup",
+      "when": "Users can select more than one option from the group."
+    },
+    {
+      "component": "Select",
+      "when": "Users choose one option from a very long list."
+    },
+    {
+      "component": "ButtonToggleGroup",
+      "when": "Users choose one option from a highly visible range."
+    }
+  ],
+  "pitfalls": [
+    "RadioButtonGroup is controlled: update value from onChange. It applies name to every RadioButton child and checks the one whose value matches.",
+    "Provide a legend; it names the fieldset and is where the required indicator appears.",
+    "Pass validation messages as error on the group; warning is deprecated and not supported for grouped inputs.",
+    "Setting inline disables progressiveDisclosure on every RadioButton in the group."
+  ]
+}

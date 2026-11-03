@@ -5,6 +5,21 @@ description: Carbon RadioButtonGroup component props and usage examples.
 
 # RadioButtonGroup
 
+A fieldset that groups RadioButton options under a shared legend and controls which single option is selected.
+
+## Choose instead
+
+- **CheckboxGroup:** Users can select more than one option from the group.
+- **Select:** Users choose one option from a very long list.
+- **ButtonToggleGroup:** Users choose one option from a highly visible range.
+
+## Pitfalls
+
+- RadioButtonGroup is controlled: update value from onChange. It applies name to every RadioButton child and checks the one whose value matches.
+- Provide a legend; it names the fieldset and is where the required indicator appears.
+- Pass validation messages as error on the group; warning is deprecated and not supported for grouped inputs.
+- Setting inline disables progressiveDisclosure on every RadioButton in the group.
+
 ## Import
 `import { RadioButtonGroup } from "carbon-react/lib/components/radio-button";`
 
@@ -58,4 +73,4 @@ description: Carbon RadioButtonGroup component props and usage examples.
 | warning | string \| undefined | No |  | Yes | The `warning` state is deprecated and will be removed in a future release. | Warning message to be displayed when validation warning occurs. |  |
 
 ## Examples
-No Storybook examples found.
+No examples have been curated for agent use.
