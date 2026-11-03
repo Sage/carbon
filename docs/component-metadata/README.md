@@ -30,7 +30,8 @@ maintainers to author product guidance that cannot be inferred reliably.
    `pill.json` as the structural example, but assess the component independently.
 3. Inspect Carbon's Storybook MDX and stories as the primary developer guidance.
    Consult Fusion for supplementary design context when it is available and
-   relevant, but do not make curation depend on access to it.
+   relevant, but do not make curation depend on access to it. If it is
+   unavailable, continue with Carbon sources alone.
 4. Write a concise `summary` that distinguishes the component. Add optional
    sections only when they change an agent's decision; do not repeat the summary
    in `useWhen` or add text merely to fill a section.
@@ -38,8 +39,9 @@ maintainers to author product guidance that cannot be inferred reliably.
    design-system guidance. Do not contradict public component behaviour or
    present a design recommendation as an enforced technical constraint. Preserve
    whether the source describes a recommendation or requirement.
-6. Select only stories that demonstrate useful consumer behaviour. Playground
-   stories are interactive documentation and should not be curated by default.
+6. Select the smallest set of stories that adds useful consumer coverage,
+   normally no more than three. Playground stories are interactive
+   documentation and should not be curated by default.
    A selected story must resolve to public consumer imports after generation,
    avoid deprecated APIs and components, and produce a focused example that makes
    sense outside Storybook. Inspect the generated example for unresolved
@@ -52,6 +54,9 @@ maintainers to author product guidance that cannot be inferred reliably.
    pattern, fix it rather than changing the component to suit the generator. Add
    a focused regression test and put that fix in a separate commit before the
    component curation. Regenerate and review every output affected by the fix.
+   A selected example that is still incorrect or incomplete must be omitted;
+   limitations affecting only unselected stories can be reported as follow-up
+   work.
 9. Run `npm run build:skills`, then review the component entry and every generated
    example as an agent-facing consumer would.
 
