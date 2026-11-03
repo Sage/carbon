@@ -1,3 +1,9 @@
+## [162.21.2](https://github.com/Sage/carbon/compare/v162.21.1...v162.21.2) (2026-11-03)
+
+### Bug Fixes
+
+* **flex-tile-container:** prevent horizontal focus halo clipping ([67c354b](https://github.com/Sage/carbon/commit/67c354bb89e6bb342a8937578bd1aca1362beada))
+
 ## [162.21.1](https://github.com/Sage/carbon/compare/v162.21.0...v162.21.1) (2026-11-02)
 
 ### Bug Fixes
