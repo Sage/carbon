@@ -75,7 +75,7 @@ No props metadata found.
         <Option text="Green" value="green" key="Green" />,
       ]);
       setIsLoading(false);
-    }, 2000);
+    }, DEMO_LOADING_DELAY);
   }
 
   function reset() {
@@ -133,7 +133,7 @@ No props metadata found.
       setOptionCount((count) => count + INFINITE_SCROLL_BATCH_SIZE);
       setIsLoading(false);
       loadTimer.current = null;
-    }, 1000);
+    }, DEMO_LOADING_DELAY);
   }
 
   function reset() {

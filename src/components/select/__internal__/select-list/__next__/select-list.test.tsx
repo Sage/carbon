@@ -26,6 +26,24 @@ const renderSelectList = ({
     </NextSelectList>,
   );
 
+const dynamicList = (
+  children: React.ReactNode,
+  isLoading = false,
+  open = true,
+) => (
+  <NextSelectList
+    open={open}
+    isLoading={isLoading}
+    onSelect={() => {}}
+    onClose={() => {}}
+    popoverControl={(ref, controlProps) => (
+      <input aria-label="Select options" ref={ref} {...controlProps} />
+    )}
+  >
+    {children}
+  </NextSelectList>
+);
+
 test("positions the list against the viewport rather than an overflowing parent", async () => {
   renderSelectList({
     children: <Option text="Amber" value="amber" />,
@@ -536,4 +554,134 @@ test("renders a loader alongside available options", () => {
 
   expect(screen.getByRole("option", { name: "Amber" })).toBeVisible();
   expect(screen.getByTestId("select-list-loader")).toBeVisible();
+  expect(screen.getAllByRole("status")).toHaveLength(2);
+});
+
+test("announces loading and the singular or plural number of new options", async () => {
+  const oneOption = <Option key="amber" text="Amber" value="amber" />;
+  const secondOption = <Option key="blue" text="Blue" value="blue" />;
+  const thirdOption = <Option key="coral" text="Coral" value="coral" />;
+  const { rerender } = render(dynamicList(null, true));
+
+  await waitFor(() =>
+    expect(
+      screen
+        .getAllByRole("status")
+        .some((status) => status.textContent?.includes("Loading options...")),
+    ).toBe(true),
+  );
+  expect(screen.queryByRole("option")).not.toBeInTheDocument();
+
+  rerender(dynamicList(oneOption));
+  await waitFor(() =>
+    expect(
+      screen
+        .getAllByRole("status")
+        .some((status) =>
+          status.textContent?.includes("1 new option available."),
+        ),
+    ).toBe(true),
+  );
+
+  rerender(dynamicList(oneOption, true));
+  await waitFor(() =>
+    expect(
+      screen
+        .getAllByRole("status")
+        .some((status) => status.textContent?.includes("Loading options...")),
+    ).toBe(true),
+  );
+
+  rerender(dynamicList([oneOption, secondOption, thirdOption]));
+  await waitFor(() =>
+    expect(
+      screen
+        .getAllByRole("status")
+        .some((status) =>
+          status.textContent?.includes("2 new options available."),
+        ),
+    ).toBe(true),
+  );
+});
+
+test("clears loading without claiming a result when no options are added", async () => {
+  const option = <Option text="Amber" value="amber" />;
+  const { rerender } = render(dynamicList(option));
+  screen
+    .getAllByRole("status")
+    .forEach((status) => expect(status).toBeEmptyDOMElement());
+
+  rerender(dynamicList(option, true));
+  await waitFor(() =>
+    expect(
+      screen
+        .getAllByRole("status")
+        .some((status) => status.textContent?.includes("Loading options...")),
+    ).toBe(true),
+  );
+
+  rerender(dynamicList(option));
+  await waitFor(() =>
+    screen
+      .getAllByRole("status")
+      .forEach((status) => expect(status).toBeEmptyDOMElement()),
+  );
+});
+
+test("keeps the new-options announcement when loading ends and clears it on close", async () => {
+  const first = <Option key="amber" text="Amber" value="amber" />;
+  const second = <Option key="blue" text="Blue" value="blue" />;
+  const { rerender } = render(dynamicList(first, true));
+  await waitFor(() =>
+    expect(
+      screen
+        .getAllByRole("status")
+        .some((status) => status.textContent?.includes("Loading options...")),
+    ).toBe(true),
+  );
+
+  rerender(dynamicList([first, second], true));
+  await waitFor(() =>
+    expect(
+      screen
+        .getAllByRole("status")
+        .some((status) =>
+          status.textContent?.includes("1 new option available."),
+        ),
+    ).toBe(true),
+  );
+
+  rerender(dynamicList([first, second]));
+  expect(
+    screen
+      .getAllByRole("status")
+      .some((status) =>
+        status.textContent?.includes("1 new option available."),
+      ),
+  ).toBe(true);
+
+  rerender(dynamicList([first, second], false, false));
+  await waitFor(() =>
+    screen
+      .getAllByRole("status")
+      .forEach((status) => expect(status).toBeEmptyDOMElement()),
+  );
+
+  rerender(dynamicList([first, second]));
+  screen
+    .getAllByRole("status")
+    .forEach((status) => expect(status).toBeEmptyDOMElement());
+});
+
+test("does not announce options added outside a loading cycle", () => {
+  const first = <Option key="amber" text="Amber" value="amber" />;
+  const second = <Option key="blue" text="Blue" value="blue" />;
+  const { rerender } = render(dynamicList(first));
+
+  rerender(dynamicList([first, second]));
+
+  expect(screen.getAllByRole("option")).toHaveLength(2);
+  screen
+    .getAllByRole("status")
+    .forEach((status) => expect(status).toBeEmptyDOMElement());
 });

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styled, { type CSSObject } from "styled-components";
 
 import {
@@ -19,6 +19,8 @@ import OptionGroupHeader, {
 } from "../../../option-group-header";
 import Icon from "../../../../icon";
 import Loader from "../../../../loader/__next__";
+import ResultsAnnouncement from "../../../../../__internal__/results-announcement/results-announcement.component";
+import useLocale from "../../../../../hooks/__internal__/useLocale";
 import isExpectedOption from "../../utils/is-expected-option";
 import guid from "../../../../../__internal__/utils/helpers/guid";
 import useSelectListVirtualization, {
@@ -234,6 +236,7 @@ const SelectList = ({
   selectOnSpaceAndTab,
   isLoading,
 }: NextSelectListProps) => {
+  const locale = useLocale();
   const listRef = useRef<HTMLUListElement>(null);
   const resolvedMaxHeight =
     maxHeight ?? `calc(5.5 * var(--global-size-${size.charAt(0)}))`;
@@ -257,6 +260,45 @@ const SelectList = ({
     () => buildOptionGroups(children, selectedValue),
     [children, selectedValue],
   );
+  const optionCount = groups.reduce(
+    (count, group) => count + group.rows.length,
+    0,
+  );
+  const previousOptionCount = useRef(optionCount);
+  const previousIsLoading = useRef(false);
+  // TO-DO: Once remaining strings are provided by localisation team remove potential undefined state and optional chaining below.
+  const [announcement, setAnnouncement] = useState<string | undefined>("");
+
+  const loadingAnnouncement = locale.select.loadingOptions?.();
+  const { newOptions } = locale.select;
+
+  useEffect(() => {
+    if (!open) {
+      previousOptionCount.current = optionCount;
+      previousIsLoading.current = false;
+      setAnnouncement("");
+      return;
+    }
+
+    const added = optionCount - previousOptionCount.current;
+    if (added > 0 && (isLoading || previousIsLoading.current)) {
+      // Announce options added while loading or when loading finishes.
+      setAnnouncement(newOptions?.(added));
+    } else if (isLoading && !previousIsLoading.current) {
+      // Announce that loading has started.
+      setAnnouncement(loadingAnnouncement);
+    } else if (!isLoading && previousIsLoading.current) {
+      // Clear the loading message if no options were added.
+      setAnnouncement((current) =>
+        current === loadingAnnouncement ? "" : current,
+      );
+    }
+
+    // Save these values to compare with the next update.
+    previousOptionCount.current = optionCount;
+    previousIsLoading.current = !!isLoading;
+  }, [open, optionCount, isLoading, loadingAnnouncement, newOptions]);
+
   const rows = useMemo<OptionRow[]>(
     () => [
       ...groups.flatMap((group) => group.rows),
@@ -296,7 +338,7 @@ const SelectList = ({
     const { option, key } = row;
     if (!option) {
       return (
-        <MenuItem key={key} disabled {...positionProps}>
+        <MenuItem key={key} disabled aria-hidden="true" {...positionProps}>
           <Loader
             loaderType="ring"
             size={size}
@@ -485,7 +527,16 @@ const SelectList = ({
       listboxAriaLabel={listboxAriaLabel}
       listRef={listRef}
       onClose={onClose}
-      popoverControl={popoverControl}
+      popoverControl={(ref, controlProps) => (
+        <>
+          {popoverControl(ref, controlProps)}
+          <ResultsAnnouncement
+            announcement={announcement}
+            announcementKey={optionCount}
+            delay={0}
+          />
+        </>
+      )}
       wrapItems={false}
       onListKeyDown={
         enableVirtualScroll ? virtualization.handleVirtualKeyDown : undefined
