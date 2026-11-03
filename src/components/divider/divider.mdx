@@ -46,7 +46,7 @@ Use the `variant` prop to switch between `typical` (default) and `prominent` div
 
 ### Inverse
 
-Use the `inverse` prop when rendering `Divider` on darker backgrounds to preserve visual contrast.
+Set the `inverse` prop to apply the inverse visual treatment.
 
 <Canvas of={DividerStories.Inverse} />
 
@@ -67,7 +67,7 @@ add the css attribute `display: inline;` to the component.
 ### With custom spacing and height
 
 The `p` prop allows for the spacing on all sides to be customised. The `pt` and `pb` props set the vertical spacing and
-the `pr` and `pr` props set the horizontal spacing. These props can be number mulitipliers of the base
+the `pl` and `pr` props set the horizontal spacing. These props can be number multipliers of the base
 theme spacing which is `8px`, or any valid CSS string. The default for the `p` prop is `3` and therefore `24px`.
 
 <Canvas of={DividerStories.WithCustomSpacingHeight} />
@@ -82,20 +82,6 @@ The `mb` and `mt` props set the vertical spacing. These props are multipliers an
 
 <Canvas of={DividerStories.InADialog} />
 
-### In a Tile
-
-<Canvas of={DividerStories.InATile} />
-
-### In a grid container
-
-This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
-
-<Canvas of={DividerStories.InGridContainer} />
-
-### In a table
-
-<Canvas of={DividerStories.InATable} />
-
 ### In a Menu
 
 <Canvas of={DividerStories.InAMenu} />
@@ -103,10 +89,6 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 ### Inside a form
 
 <Canvas of={DividerStories.InsideForm} />
-
-### Inside a form with inline labels
-
-<Canvas of={DividerStories.InsideFormInlineLabels} />
 
 ### Enabling the adaptive behaviour
 

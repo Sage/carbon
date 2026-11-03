@@ -4,11 +4,15 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
+import { format } from "prettier";
 import { Project } from "ts-morph";
 import ts from "typescript";
 
 import { sourceFileHasRuntimeExport } from "./component-exports.mjs";
-import { validateComponentMetadata } from "./component-metadata.mjs";
+import {
+  toKebabCase,
+  validateComponentMetadata,
+} from "./component-metadata.mjs";
 import {
   findDeprecatedImport,
   hasNamespaceImportFrom,
@@ -19,6 +23,32 @@ const repoRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../..",
 );
+
+test("skill frontmatter contains valid YAML", async () => {
+  const skillFiles = fg.sync(
+    ["skills/**/SKILL.md", ".github/skills/**/SKILL.md"],
+    { cwd: repoRoot },
+  );
+
+  for (const skillFile of skillFiles) {
+    const source = fs.readFileSync(path.join(repoRoot, skillFile), "utf8");
+    const frontmatter = source.match(
+      /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/,
+    )?.[1];
+
+    assert.ok(frontmatter, `${skillFile} must begin with YAML frontmatter`);
+    await assert.doesNotReject(
+      format(frontmatter, { parser: "yaml" }),
+      `${skillFile} must contain valid YAML frontmatter`,
+    );
+    assert.match(frontmatter, /^name:\s+\S+/m, `${skillFile} must have a name`);
+    assert.match(
+      frontmatter,
+      /^description:\s+\S+/m,
+      `${skillFile} must have a description`,
+    );
+  }
+});
 
 test("accepts concise authored component guidance", () => {
   const metadata = validateComponentMetadata({
@@ -100,6 +130,16 @@ test("rejects empty optional sections", () => {
         pitfalls: [],
       }),
     /field "pitfalls" must be a non-empty array when provided/,
+  );
+});
+
+test("separates single-letter words when kebab-casing names", () => {
+  assert.equal(toKebabCase("InAFlexContainer"), "in-a-flex-container");
+  assert.equal(toKebabCase("InAMenu"), "in-a-menu");
+  assert.equal(toKebabCase("ButtonNext"), "button-next");
+  assert.equal(
+    toKebabCase("InverseOnDarkBackground"),
+    "inverse-on-dark-background",
   );
 });
 

@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
 import { JSDoc, Project, SyntaxKind } from "ts-morph";
 import { sourceFileHasRuntimeExport } from "./component-exports.mjs";
-import { loadComponentMetadata } from "./component-metadata.mjs";
+import { loadComponentMetadata, toKebabCase } from "./component-metadata.mjs";
 import {
   findDeprecatedImport,
   hasNamespaceImportFrom,
@@ -1562,7 +1562,7 @@ function renderSkillRootContent() {
         `- \`${fileName}\`: ${docsByUse.get(path.basename(fileName)) ?? "related guidance"}.`,
     )
     .join("\n");
-  return `---\nname: carbon-react\ndescription: Use for Carbon React selection and implementation: imports, props, defaults, deprecations, examples, and guidance.\n---\n\n# Carbon Component Catalog\n\nUse \`index.md\` to select a component, then open its file and only the relevant linked examples.\n\nComponent files combine authored selection guidance with source-derived API details. Curated components link to selected examples and omit playgrounds; others retain generated Storybook examples.\n\nLoad references only when needed:\n\n${docsList}\n\nBefore finishing, confirm that imports and props match the component file and that deprecated APIs are either avoided or handled using the migration guidance.\n`;
+  return `---\nname: carbon-react\ndescription: Use for Carbon React selection and implementation, including imports, props, defaults, deprecations, examples, and guidance.\n---\n\n# Carbon Component Catalog\n\nUse \`index.md\` to select a component, then open its file and only the relevant linked examples.\n\nComponent files combine authored selection guidance with source-derived API details. Curated components link to selected examples and omit playgrounds; others retain generated Storybook examples.\n\nLoad references only when needed:\n\n${docsList}\n\nBefore finishing, confirm that imports and props match the component file and that deprecated APIs are either avoided or handled using the migration guidance.\n`;
 }
 
 /**
@@ -2224,19 +2224,6 @@ function storyUsesDeprecatedProp(code, prop) {
  */
 function escapePipes(value) {
   return value?.replace(/\|/g, "\\|") ?? "";
-}
-
-/**
- * Convert a string to kebab-case.
- * @param {string} value
- * @returns {string}
- */
-function toKebabCase(value) {
-  return value
-    .replace(/([a-z])([A-Z])/g, "$1-$2")
-    .replace(/\s+/g, "-")
-    .replace(/_/g, "-")
-    .toLowerCase();
 }
 
 /**

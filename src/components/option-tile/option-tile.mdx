@@ -1,0 +1,94 @@
+import { ArgTypes, Meta, Canvas } from "@storybook/addon-docs/blocks";
+
+import * as OptionTileStories from "./option-tile.stories";
+import { OptionTileGroup } from ".";
+
+<Meta of={OptionTileStories} />
+
+# Option Tile
+
+<a
+  target="_blank"
+  href="https://designsystem.sage.com/fusion/latest/pages/components/option-tile-group/"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
+- [Props](#props)
+
+## Quick Start
+
+Use `OptionTile` to present a selectable option as a tile. Tiles can be rendered on their own or grouped in an `OptionTileGroup`.
+
+```javascript
+import {
+  OptionTile,
+  OptionTileGroup,
+} from "carbon-react/lib/components/option-tile";
+```
+
+## Examples
+
+### Single
+
+Set `variant` to `"single"` to render a tile as a button. Pass a `title` and, optionally, a `number` to display before the title.
+Use the `onClick` callback to handle selection.
+
+<Canvas of={OptionTileStories.Single} />
+
+### Custom
+
+Set `variant` to `"custom"` to render a tile that lets the user enter their own value.
+When the tile is clicked, or the `Enter` key is pressed while it is focused, it is replaced by a text input which receives focus.
+Pressing `Escape` or moving focus away from the input returns the tile to its inactive state.
+
+The `customValue` and `onCustomValueChange` props control the value of the input. Use `onCustomActiveChange` to respond when the input is shown or hidden.
+
+The custom variant can only be used on its own or within an `OptionTileGroup` with `selectionType="single"`.
+
+<Canvas of={OptionTileStories.Custom} />
+
+### Multiple
+
+Set `variant` to `"multiple"` to render a tile which behaves as a checkbox. Pass a `label`, and control its state with the `checked` and `onChange` props.
+
+<Canvas of={OptionTileStories.Multiple} />
+
+### Single Select Group
+
+Wrap tiles in an `OptionTileGroup` with `selectionType="single"` to render a group of single-select tiles. A `"custom"` tile can be included as the last option.
+
+When focus is within the group, pressing a number key from `1` to `9` calls the `onClick` callback of the `"single"` tile with the matching `number`.
+`"single"` tiles do not have a selected state, so any visual indication of the selection must be handled by the consumer.
+These shortcuts are ignored while the custom input is focused.
+
+<Canvas of={OptionTileStories.SingleSelectGroup} />
+
+### Multi Select Group
+
+Wrap `"multiple"` tiles in an `OptionTileGroup` with `selectionType="multiple"` to allow more than one option to be selected.
+
+<Canvas of={OptionTileStories.MultiSelectGroup} />
+
+## Accessibility
+
+- `OptionTileGroup` requires an `aria-label`. When a `legend` is provided, the group is rendered as a fieldset with the legend as its accessible name. Otherwise, it is rendered with `role="group"` and the `aria-label`.
+- `"multiple"` tiles are rendered with `role="checkbox"` and can be toggled with the `Space` or `Enter` keys.
+- The custom input is labelled by `inputAriaLabel`. If this is not provided, the group's `aria-label` is used, followed by the tile's `title`.
+
+## Props
+
+### OptionTile
+
+<ArgTypes of={OptionTileStories} />
+
+### OptionTileGroup
+
+<ArgTypes of={OptionTileGroup} />
