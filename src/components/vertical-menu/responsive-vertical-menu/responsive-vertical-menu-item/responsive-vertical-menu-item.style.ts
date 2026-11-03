@@ -56,6 +56,10 @@ const commonAttributes = css`
   }
 
   [data-component="icon"] {
+    color: var(--nav-primary-label-default);
+  }
+
+  &:hover [data-component="icon"] {
     color: var(--nav-primary-label-hover);
   }
 
@@ -192,6 +196,10 @@ export const StyledResponsiveMenuActionLink = styled.a<{
         color: var(--nav-primary-label-default);
         font: var(--global-font-static-comp-regular-m);
 
+        &:hover {
+          color: var(--nav-primary-label-hover);
+        }
+
         ${responsive &&
         depth >= 3 &&
         css`
@@ -215,6 +223,10 @@ export const StyledResponsiveMenuActionButton = styled.button<{
       && {
         color: var(--nav-primary-label-default);
         font: var(--global-font-static-comp-regular-m);
+
+        &:hover {
+          color: var(--nav-primary-label-hover);
+        }
 
         ${responsive &&
         depth >= 3 &&

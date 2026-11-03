@@ -32,6 +32,7 @@ import useMediaQuery from "../../../hooks/useMediaQuery";
 import useLocale from "../../../hooks/__internal__/useLocale";
 
 import FocusTrap from "../../../__internal__/focus-trap";
+import flattenChildren from "../../../__internal__/utils/helpers/flatten-children";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
@@ -319,7 +320,7 @@ const BaseMenu = forwardRef<
                   top="40px"
                   width={width}
                 >
-                  {React.Children.toArray(children).map(
+                  {flattenChildren(children).map(
                     (child, index, items) => {
                       const nextChild = items[index + 1];
                       if (

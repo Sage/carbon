@@ -1296,6 +1296,31 @@ test("adds dividers between list items in responsive mode", async () => {
   expect(screen.getByText("Menu Item 2")).toBeVisible();
 });
 
+test("adds dividers between items wrapped in fragments in responsive mode", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenu>
+      <>
+        <ResponsiveVerticalMenuItem label="Menu Item 1" />
+        <>
+          <ResponsiveVerticalMenuItem label="Menu Item 2" />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem label="Menu Item 3" />
+        </>
+      </>
+      <ResponsiveVerticalMenuItem label="Menu Item 4" />
+    </ResponsiveVerticalMenu>,
+  );
+
+  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
+
+  expect(
+    screen.getAllByTestId("responsive-vertical-menu-divider"),
+  ).toHaveLength(3);
+});
+
 test("should allow an onClick handler to be passed to items", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onClick = jest.fn();

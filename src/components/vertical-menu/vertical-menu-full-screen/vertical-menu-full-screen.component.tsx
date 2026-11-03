@@ -18,6 +18,7 @@ import {
 import { VerticalMenuProvider } from "../__internal__/vertical-menu.context";
 import { getDocument } from "../../../__internal__/dom/globals";
 import Events from "../../../__internal__/utils/helpers/events/events";
+import flattenChildren from "../../../__internal__/utils/helpers/flatten-children";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
@@ -75,20 +76,6 @@ export const VerticalMenuFullScreen = ({
     focusCallToActionElement: safeDocument?.activeElement as HTMLElement,
   });
 
-  const flattenChildren = (items: React.ReactNode): React.ReactNode[] =>
-    React.Children.toArray(
-      React.Children.map(items, (child) => {
-        if (
-          React.isValidElement<{ children?: React.ReactNode }>(child) &&
-          child.type === React.Fragment
-        ) {
-          return flattenChildren(child.props.children);
-        }
-
-        return child;
-      }),
-    );
-
   const menuItems = flattenChildren(children);
 
   return (
@@ -114,7 +101,6 @@ export const VerticalMenuFullScreen = ({
               <Icon
                 size="small"
                 type="close"
-                color="var(--colorsComponentsLeftnavWinterStandardContent)"
               />
             </StyledCloseButton>
           </StyledVerticalMenuCloseBar>

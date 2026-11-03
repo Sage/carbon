@@ -13,6 +13,10 @@ type StyledListProps = {
 };
 
 export const StyledListWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
   padding: var(--global-space-comp-s);
 `;
 
