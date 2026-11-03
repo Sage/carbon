@@ -320,28 +320,25 @@ const BaseMenu = forwardRef<
                   top="40px"
                   width={width}
                 >
-                  {flattenChildren(children).map(
-                    (child, index, items) => {
-                      const nextChild = items[index + 1];
-                      if (
-                        responsiveMode &&
-                        index < items.length - 1 &&
-                        React.isValidElement(child) &&
-                        child.type !== ResponsiveVerticalMenuDivider &&
-                        React.isValidElement(nextChild) &&
-                        nextChild.type !== ResponsiveVerticalMenuDivider
-                      ) {
-                        return (
-                          <React.Fragment key={child.key}>
-                            {child}
-                            <ResponsiveVerticalMenuDivider />
-                          </React.Fragment>
-                        );
-                      }
-
+                  {flattenChildren(children).map((child, index, items) => {
+                    if (!React.isValidElement(child)) {
                       return child;
-                    },
-                  )}
+                    }
+
+                    const nextChild = items[index + 1];
+                    const hasDivider =
+                      responsiveMode &&
+                      child.type !== ResponsiveVerticalMenuDivider &&
+                      React.isValidElement(nextChild) &&
+                      nextChild.type !== ResponsiveVerticalMenuDivider;
+
+                    return (
+                      <React.Fragment key={child.key}>
+                        {child}
+                        {hasDivider && <ResponsiveVerticalMenuDivider />}
+                      </React.Fragment>
+                    );
+                  })}
                 </StyledResponsiveMenu>
               </ModalContainer>
             </FocusTrap>

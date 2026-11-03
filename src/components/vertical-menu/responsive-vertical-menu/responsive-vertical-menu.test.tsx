@@ -1321,6 +1321,46 @@ test("adds dividers between items wrapped in fragments in responsive mode", asyn
   ).toHaveLength(3);
 });
 
+test("does not remount an item when a sibling is appended in responsive mode", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  const renderMenu = (extraItem: boolean) => (
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem label="Menu Item 1" id="menu-item-1" />
+      {extraItem && <ResponsiveVerticalMenuItem label="Menu Item 2" />}
+    </ResponsiveVerticalMenu>
+  );
+
+  const { rerender } = render(renderMenu(false));
+
+  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
+  const itemBefore = screen.getByText("Menu Item 1");
+
+  rerender(renderMenu(true));
+
+  expect(screen.getByText("Menu Item 1")).toBe(itemBefore);
+});
+
+test("renders non-element children without dividers in responsive mode", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem label="Menu Item 1" />
+      plain text
+    </ResponsiveVerticalMenu>,
+  );
+
+  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
+
+  expect(screen.getByText("plain text")).toBeVisible();
+  expect(
+    screen.queryByTestId("responsive-vertical-menu-divider"),
+  ).not.toBeInTheDocument();
+});
+
 test("should allow an onClick handler to be passed to items", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onClick = jest.fn();

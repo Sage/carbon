@@ -98,10 +98,7 @@ export const VerticalMenuFullScreen = ({
               data-element="close"
               variantType="tertiary"
             >
-              <Icon
-                size="small"
-                type="close"
-              />
+              <Icon size="small" type="close" />
             </StyledCloseButton>
           </StyledVerticalMenuCloseBar>
           <VerticalMenuProvider value={{ isFullScreen: true }}>
@@ -111,7 +108,7 @@ export const VerticalMenuFullScreen = ({
                   <React.Fragment>
                     {child}
                     {index < menuItems.length - 1 && (
-                      <li>
+                      <li aria-hidden="true">
                         <StyledHr />
                       </li>
                     )}

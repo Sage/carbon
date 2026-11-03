@@ -145,19 +145,6 @@ export const Default: Story = () => (
 );
 Default.storyName = "Default";
 
-export const Test: Story = () => (
-  <Box height="2000px" position="relative">
-    <Box height="100px" position="absolute" bottom="0px">
-      I should not be scrolled into view
-    </Box>
-    <VerticalMenuFullScreen isOpen onClose={() => {}}>
-      <VerticalMenuItem title="Menu Item One" href="#" />
-      <VerticalMenuItem title="Menu Item Two" href="#" />
-    </VerticalMenuFullScreen>
-  </Box>
-);
-Test.storyName = "Test";
-
 export const ItemWithOnClickHandler: Story = () => {
   const handleClick = (e: VerticalMenuItemClickEvent) => {
     e.preventDefault();

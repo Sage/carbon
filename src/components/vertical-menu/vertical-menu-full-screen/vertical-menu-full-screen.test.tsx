@@ -100,7 +100,8 @@ describe("VerticalMenuFullScreen", () => {
     expect(screen.getAllByRole("link").map((item) => item.textContent)).toEqual(
       ["Item1", "Item2", "Item3"],
     );
-    expect(screen.getAllByRole("separator")).toHaveLength(2);
+    expect(screen.getAllByRole("listitem")).toHaveLength(3);
+    expect(screen.getAllByRole("separator", { hidden: true })).toHaveLength(2);
   });
 
   it("should invoke onClose callback when close Icon is clicked", async () => {
