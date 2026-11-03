@@ -27,7 +27,7 @@ import {
   type PopoverControlProps,
 } from "../../__internal__/popover-menu";
 import combineRefs from "../../__internal__/utils/helpers/combine-refs";
-import ResultsAnnouncement from "./__internal__/results-announcement.component";
+import ResultsAnnouncement from "../../__internal__/results-announcement/results-announcement.component";
 import guid from "../../__internal__/utils/helpers/guid";
 
 const AssistiveHint = styled.span`
@@ -560,7 +560,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
             </AssistiveHint>
             <ResultsAnnouncement
               announcement={resultsAnnouncement}
-              searchValue={value}
+              announcementKey={value}
             />
           </>
         )}
