@@ -147,6 +147,11 @@ const AnchorNavigation = ({
     [setSelectedAnchorBasedOnScroll],
   );
 
+  // Select the section in view on mount, as the page may already be scrolled.
+  useEffect(() => {
+    setSelectedAnchorBasedOnScroll();
+  }, [setSelectedAnchorBasedOnScroll]);
+
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler, true);
     return () => window.removeEventListener("scroll", scrollHandler, true);

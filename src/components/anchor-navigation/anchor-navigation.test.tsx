@@ -159,6 +159,30 @@ test("marks the selected link as the current location", () => {
   );
 });
 
+test("marks the item of the section already in view as the current location on mount", () => {
+  // Section 2 is at the top of the view; section 1 is above it and section 3 is below.
+  const sectionTops: Record<string, number> = {
+    "section-1": -500,
+    "section-2": 0,
+    "section-3": 500,
+  };
+  const getBoundingClientRectSpy = jest
+    .spyOn(Element.prototype, "getBoundingClientRect")
+    .mockImplementation(function mockRect(this: Element) {
+      const top = sectionTops[this.getAttribute("data-role") ?? ""] ?? 0;
+      return { top } as DOMRect;
+    });
+
+  render(<MockComponent />);
+
+  expect(screen.getByRole("link", { name: "Second" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+
+  getBoundingClientRectSpy.mockRestore();
+});
+
 test("when navigation item is clicked, the item is selected and the section heading is focused", async () => {
   render(<MockComponent />);
 

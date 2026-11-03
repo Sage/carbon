@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import Typography from "../../typography";
 import { getWindow } from "../../../__internal__/dom/globals";
 import combineRefs from "../../../__internal__/utils/helpers/combine-refs";
@@ -35,6 +35,10 @@ const AnchorNavigationItem = React.forwardRef<
   const { isInAnchorNavigation, selectedItem, registerItem, activateItem } =
     useAnchorNavigationContext();
   const anchorRef = useRef<HTMLAnchorElement | null>(null);
+  const combinedRef = useMemo(
+    () => combineRefs(anchorRef, ref),
+    [anchorRef, ref],
+  );
   // Read the latest target on scroll, so a new ref object does not re-register the item.
   const targetRef = useRef(target);
   targetRef.current = target;
@@ -69,7 +73,7 @@ const AnchorNavigationItem = React.forwardRef<
         onKeyDown={onKeyDown}
         onClick={handleClick}
         tabIndex={tabIndex}
-        ref={combineRefs(anchorRef, ref)}
+        ref={combinedRef}
         // need to pass an href to ensure the link is tabbable by default
         href={isInAnchorNavigation ? href || "#" : href}
         aria-current={selected ? "location" : undefined}
