@@ -1292,6 +1292,12 @@ test("adds dividers between list items in responsive mode", async () => {
   expect(
     screen.getAllByTestId("responsive-vertical-menu-divider"),
   ).toHaveLength(1);
+  const listItems = screen.getAllByRole("listitem", { hidden: true });
+  expect(listItems).toHaveLength(3);
+  expect(listItems[1]).toHaveAttribute("aria-hidden", "true");
+  expect(
+    within(listItems[1]).getByTestId("responsive-vertical-menu-divider"),
+  ).toBeInTheDocument();
   expect(screen.getByText("Menu Item 1")).toBeVisible();
   expect(screen.getByText("Menu Item 2")).toBeVisible();
 });

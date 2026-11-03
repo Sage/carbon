@@ -22,6 +22,7 @@ import {
   StyledCloseButton,
   StyledGlobalVerticalMenuWrapper,
   StyledResponsiveMenu,
+  StyledResponsiveMenuDividerItem,
   StyledCloseButtonWrapper,
 } from "./responsive-vertical-menu.style";
 
@@ -335,7 +336,11 @@ const BaseMenu = forwardRef<
                     return (
                       <React.Fragment key={child.key}>
                         {child}
-                        {hasDivider && <ResponsiveVerticalMenuDivider />}
+                        {hasDivider && (
+                          <StyledResponsiveMenuDividerItem aria-hidden="true">
+                            <ResponsiveVerticalMenuDivider />
+                          </StyledResponsiveMenuDividerItem>
+                        )}
                       </React.Fragment>
                     );
                   })}
