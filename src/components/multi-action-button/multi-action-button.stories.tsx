@@ -97,23 +97,6 @@ export const Sizes: Story = () => {
 };
 Sizes.storyName = "Sizes";
 
-export const Scrollable: Story = () => {
-  return (["small", "medium", "large"] as const).map(
-    (size: MultiActionButtonProps["size"]) => (
-      <Box key={size} mb={3}>
-        <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-          {Array.from({ length: 18 }, (_, i) => (
-            <Button key={i} size={size}>
-              Button {i + 1}
-            </Button>
-          ))}
-        </MultiActionButton>
-      </Box>
-    ),
-  );
-};
-Scrollable.storyName = "Scrollable";
-
 export const CustomWidth: Story = (args: MultiActionButtonProps) => {
   return (
     <MultiActionButton {...args} width="30%" menuWidth="180px">
