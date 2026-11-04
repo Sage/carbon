@@ -28,6 +28,7 @@ interface InnerWrapperProps {
   $hasPagination: boolean;
   $maxHeight?: string;
   $showOuterBorder?: boolean;
+  $hasHiddenOuterBorders?: boolean;
   $isVerticallyScrollable: boolean;
 }
 
@@ -92,8 +93,18 @@ const StyledInnerWrapper = styled.div<
       border: var(--global-borderwidth-xs) solid var(--table-row-border-default);
     `}
 
-  ${({ $showOuterBorder, $variant }) =>
+${({ $hasHiddenOuterBorders, $variant }) =>
+    $hasHiddenOuterBorders &&
+    $variant === "prominent" &&
+    css`
+      border-inline-start: none;
+      border-inline-end: none;
+      border-block-end: none;
+    `}
+
+  ${({ $showOuterBorder, $variant, $hasHiddenOuterBorders }) =>
     $showOuterBorder &&
+    !$hasHiddenOuterBorders &&
     $variant !== "prominent" &&
     css`
       &:not(:has(> div > table > :is(thead, tfoot))) {

@@ -71,6 +71,12 @@ export interface TableProps
   /**
    * The thickness of the horizontal borders within the table.
    */
+
+  /**
+   * Hides the outer borders of the table.
+   */
+  hasHiddenOuterBorders?: boolean;
+
   horizontalBorderThickness?: BorderThickness;
   /**
    * The thickness of the vertical borders within the table.
@@ -93,6 +99,7 @@ const Table = ({
   size = "medium",
   isZebraStriped = false,
   outerBorders = "small",
+  hasHiddenOuterBorders = false,
   horizontalBorderThickness = "small",
   verticalBorderThickness = "small",
   ...props
@@ -230,6 +237,7 @@ const Table = ({
           $isVerticallyScrollable={isVerticallyScrollable}
           $hasPagination={hasPagination}
           $showOuterBorder={showOuterBorder}
+          $hasHiddenOuterBorders={hasHiddenOuterBorders}
           data-component="table-inner-wrapper"
           data-role="table-inner-wrapper"
         >
