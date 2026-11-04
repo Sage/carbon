@@ -154,10 +154,11 @@ const scaledValue =
 export const mergeStyleObjects = (target: StyleObject, source: StyleObject) => {
   Object.entries(source).forEach(([key, value]) => {
     if (isUnsafeStyleObjectKey(key)) return;
-    if (typeof value === "object" && !Array.isArray(value)) {
-      const existing = target[key];
+    const hasOwnTargetKey = Object.prototype.hasOwnProperty.call(target, key);
+    if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+      const existing = hasOwnTargetKey ? target[key] : undefined;
       target[key] = mergeStyleObjects(
-        typeof existing === "object" ? existing : {},
+        typeof existing === "object" && existing !== null ? existing : {},
         value,
       );
     } else target[key] = value;
