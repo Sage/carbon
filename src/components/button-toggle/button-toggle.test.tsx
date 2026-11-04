@@ -2,6 +2,44 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ButtonToggleGroup, ButtonToggle } from ".";
+import useMediaQuery from "../../hooks/useMediaQuery";
+
+jest.mock("../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  mockUseMediaQuery.mockReturnValue(false);
+});
+
+test("should apply a colour transition by default", () => {
+  render(<ButtonToggle>Button</ButtonToggle>);
+
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "transition",
+    "color 200ms ease !important",
+  );
+});
+
+test("should disable the colour transition when the user prefers reduced motion", () => {
+  mockUseMediaQuery.mockReturnValue(true);
+  render(<ButtonToggle>Button</ButtonToggle>);
+
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "transition",
+    "none !important",
+  );
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "transition",
+    "none !important",
+    { modifier: "*" },
+  );
+});
 
 test("should call `onClick` when the button is clicked", async () => {
   const onClick = jest.fn();
@@ -36,6 +74,36 @@ test("should render disabled button with expected styles", () => {
 
   expect(screen.getByRole("button")).toBeDisabled();
   expect(screen.getByRole("button")).toHaveStyle({ cursor: "not-allowed" });
+});
+
+test("should retain hover styling when a pressed button is not in a group", () => {
+  render(<ButtonToggle pressed>Button</ButtonToggle>);
+
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "background",
+    "var(--button-typical-toggle-bg-hover)",
+    { modifier: ":hover" },
+  );
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "color",
+    "var(--button-typical-toggle-label-hover)",
+    { modifier: ":hover" },
+  );
+});
+
+test("should show focus styling when a pressed button is clicked outside a group", () => {
+  render(<ButtonToggle pressed>Button</ButtonToggle>);
+
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "box-shadow",
+    "var(--focus-shadow-default)",
+    { modifier: ":focus-visible" },
+  );
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "box-shadow",
+    "var(--focus-shadow-default)",
+    { modifier: ":focus" },
+  );
 });
 
 test("should throw an error when neither children or a `buttonIcon` is provided", () => {

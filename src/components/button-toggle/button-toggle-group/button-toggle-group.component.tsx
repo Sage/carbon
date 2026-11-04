@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
 
 import { MarginProps } from "styled-system";
 import tagComponent, {
@@ -8,12 +8,17 @@ import {
   StyledButtonToggleGroup,
   StyledLabelWrapper,
   StyledButtonToggleWrapper,
+  StyledActiveIndicator,
 } from "./button-toggle-group.style";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Events from "../../../__internal__/utils/helpers/events";
 import ButtonToggleGroupContext from "./__internal__/button-toggle-group.context";
 import Label from "../../../__internal__/label";
 import HintText from "../../../__internal__/hint-text";
+import useMediaQuery from "../../../hooks/useMediaQuery";
+import { getWindow } from "../../../__internal__/dom/globals";
+
+const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** Unique id for the root element of the component. */
@@ -103,6 +108,9 @@ const ButtonToggleGroup = ({
   ...props
 }: ButtonToggleGroupProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useMediaQuery(
+    "(prefers-reduced-motion: reduce)",
+  );
 
   const actualHint = inputHint || labelHelp;
   const labelId = label ? `${id}-label` : undefined;
@@ -115,6 +123,89 @@ const ButtonToggleGroup = ({
 
   // needs to be state not ref, so that a rerender is triggered
   const [firstButton, setFirstButton] = useState<HTMLButtonElement>();
+
+  const [indicator, setIndicator] = useState<{
+    rect: { left: number; top: number; width: number; height: number };
+    isDisabled: boolean;
+  } | null>(null);
+
+  // the indicator is only visible while it slides, otherwise the pressed button paints its own background
+  const [isIndicatorSliding, setIsIndicatorSliding] = useState(false);
+  const [showMouseFocus, setShowMouseFocus] = useState(false);
+  const previousValue = useRef(value);
+  const selectionInteraction = useRef<{
+    value: string | undefined;
+    isMouseClick: boolean;
+  }>();
+  const showMouseFocusAfterSlide = useRef(false);
+
+  const clearMouseFocus = () => setShowMouseFocus(false);
+
+  const registerSelectionInteraction = (
+    nextValue: string | undefined,
+    isMouseClick: boolean,
+  ) => {
+    selectionInteraction.current = { value: nextValue, isMouseClick };
+    if (isMouseClick) clearMouseFocus();
+  };
+
+  useIsomorphicLayoutEffect(() => {
+    if (value && previousValue.current && value !== previousValue.current) {
+      const isSliding = !prefersReducedMotion;
+      setIsIndicatorSliding(isSliding);
+      clearMouseFocus();
+      showMouseFocusAfterSlide.current =
+        isSliding &&
+        selectionInteraction.current?.value === value &&
+        selectionInteraction.current.isMouseClick;
+    }
+    selectionInteraction.current = undefined;
+    previousValue.current = value;
+  }, [value, prefersReducedMotion]);
+
+  const updateIndicator = () => {
+    const activeButton = wrapperRef.current?.querySelector<HTMLButtonElement>(
+      '[data-button-toggle-internal][aria-pressed="true"]',
+    );
+
+    if (!activeButton) {
+      setIndicator(null);
+      return;
+    }
+
+    const next = {
+      rect: {
+        left: activeButton.offsetLeft,
+        top: activeButton.offsetTop,
+        width: activeButton.offsetWidth,
+        height: activeButton.offsetHeight,
+      },
+      isDisabled: activeButton.disabled,
+    };
+
+    setIndicator((prev) =>
+      prev &&
+      prev.rect.left === next.rect.left &&
+      prev.rect.top === next.rect.top &&
+      prev.rect.width === next.rect.width &&
+      prev.rect.height === next.rect.height &&
+      prev.isDisabled === next.isDisabled
+        ? prev
+        : next,
+    );
+  };
+
+  // runs after every render so the indicator follows changes to the pressed button, children and layout
+  useIsomorphicLayoutEffect(updateIndicator);
+
+  useIsomorphicLayoutEffect(() => {
+    const wrapper = wrapperRef.current;
+    const observer = new ResizeObserver(updateIndicator);
+    /* istanbul ignore else */
+    if (wrapper) observer.observe(wrapper);
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLButtonElement>) => {
     const innerButtons = getInnerButtons();
@@ -195,6 +286,22 @@ const ButtonToggleGroup = ({
         $isDisabled={disabled}
         $fullWidth={fullWidth}
       >
+        {indicator && (
+          <StyledActiveIndicator
+            aria-hidden
+            data-role="button-toggle-active-indicator"
+            $size={size}
+            $isDisabled={disabled || indicator.isDisabled}
+            $isSliding={isIndicatorSliding}
+            $disableTransitions={!!prefersReducedMotion}
+            $rect={indicator.rect}
+            onTransitionEnd={() => {
+              setIsIndicatorSliding(false);
+              setShowMouseFocus(showMouseFocusAfterSlide.current);
+              showMouseFocusAfterSlide.current = false;
+            }}
+          />
+        )}
         <ButtonToggleGroupContext.Provider
           value={{
             handleKeyDown,
@@ -207,6 +314,10 @@ const ButtonToggleGroup = ({
             hintTextId: inputHint ? hintTextId : undefined,
             size,
             fullWidth,
+            isIndicatorSliding,
+            showMouseFocus,
+            registerSelectionInteraction,
+            clearMouseFocus,
           }}
         >
           {children}

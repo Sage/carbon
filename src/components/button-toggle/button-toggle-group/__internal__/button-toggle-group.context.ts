@@ -12,6 +12,17 @@ type ButtonToggleGroupContext = {
   hintTextId?: string;
   size?: "small" | "medium" | "large";
   fullWidth?: boolean;
+  /** Whether the active indicator is currently moving between toggles */
+  isIndicatorSliding?: boolean;
+  /** Whether the focused toggle was selected with a mouse after its animation completed. */
+  showMouseFocus?: boolean;
+  /** Records a mouse selection before the controlled value updates. */
+  registerSelectionInteraction?: (
+    value: string | undefined,
+    isMouseClick: boolean,
+  ) => void;
+  /** Removes focus styling from a previous mouse selection. */
+  clearMouseFocus?: () => void;
 };
 
 export default React.createContext<ButtonToggleGroupContext>({});
