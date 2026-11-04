@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 
 import { MarginProps } from "styled-system";
 import tagComponent, {
@@ -8,6 +8,7 @@ import {
   StyledButtonToggleGroup,
   StyledLabelWrapper,
   StyledButtonToggleWrapper,
+  StyledActiveIndicator,
 } from "./button-toggle-group.style";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Events from "../../../__internal__/utils/helpers/events";
@@ -116,6 +117,53 @@ const ButtonToggleGroup = ({
   // needs to be state not ref, so that a rerender is triggered
   const [firstButton, setFirstButton] = useState<HTMLButtonElement>();
 
+  const [indicatorRect, setIndicatorRect] = useState<{
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+  } | null>(null);
+
+  const updateIndicator = () => {
+    const activeButton = wrapperRef.current?.querySelector<HTMLButtonElement>(
+      '[data-button-toggle-internal][aria-pressed="true"]',
+    );
+
+    if (!activeButton) {
+      setIndicatorRect(null);
+      return;
+    }
+
+    const next = {
+      left: activeButton.offsetLeft,
+      top: activeButton.offsetTop,
+      width: activeButton.offsetWidth,
+      height: activeButton.offsetHeight,
+    };
+
+    setIndicatorRect((prev) =>
+      prev &&
+      prev.left === next.left &&
+      prev.top === next.top &&
+      prev.width === next.width &&
+      prev.height === next.height
+        ? prev
+        : next,
+    );
+  };
+
+  // runs after every render so the indicator follows changes to the pressed button, children and layout
+  useLayoutEffect(updateIndicator);
+
+  useLayoutEffect(() => {
+    const wrapper = wrapperRef.current;
+    const observer = new ResizeObserver(updateIndicator);
+    /* istanbul ignore else */
+    if (wrapper) observer.observe(wrapper);
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLButtonElement>) => {
     const innerButtons = getInnerButtons();
     // istanbul ignore if
@@ -195,6 +243,15 @@ const ButtonToggleGroup = ({
         $isDisabled={disabled}
         $fullWidth={fullWidth}
       >
+        {indicatorRect && (
+          <StyledActiveIndicator
+            aria-hidden
+            data-role="button-toggle-active-indicator"
+            $size={size}
+            $isDisabled={disabled}
+            $rect={indicatorRect}
+          />
+        )}
         <ButtonToggleGroupContext.Provider
           value={{
             handleKeyDown,

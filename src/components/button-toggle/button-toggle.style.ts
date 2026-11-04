@@ -36,12 +36,15 @@ interface StyledButtonToggleProps {
   $active?: boolean;
   $iconOnly?: boolean;
   $fullWidth?: boolean;
+  $inGroup?: boolean;
 }
 
 const StyledButtonToggle = styled.button.attrs(
   applyBaseTheme,
 )<StyledButtonToggleProps>`
-  ${({ $active, $size, disabled, $iconOnly, $fullWidth }) => css`
+  ${({ $active, $size, disabled, $iconOnly, $fullWidth, $inGroup }) => css`
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -77,7 +80,7 @@ const StyledButtonToggle = styled.button.attrs(
 
     ${$active &&
     css`
-      background: var(--button-typical-toggle-bg-active);
+      ${!$inGroup && "background: var(--button-typical-toggle-bg-active);"}
       color: var(--button-typical-toggle-label-active);
     `}
 
@@ -88,21 +91,25 @@ const StyledButtonToggle = styled.button.attrs(
 
       ${$active &&
       css`
-        background: var(--button-typical-toggle-bg-active-disabled);
+        ${!$inGroup &&
+        "background: var(--button-typical-toggle-bg-active-disabled);"}
         color: var(--button-typical-toggle-label-active-disabled);
       `}
     `}
 
     ${!disabled &&
     css`
-      &:focus {
+      &:focus-visible {
         ${addFocusStyling()}
       }
 
-      &:hover {
-        background: var(--button-typical-toggle-bg-hover);
-        color: var(--button-typical-toggle-label-hover);
-      }
+      ${!$active &&
+      css`
+        &:hover {
+          background: var(--button-typical-toggle-bg-hover);
+          color: var(--button-typical-toggle-label-hover);
+        }
+      `}
     `}
   `}
 `;

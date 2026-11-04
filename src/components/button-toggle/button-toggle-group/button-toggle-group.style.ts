@@ -58,6 +58,7 @@ interface StyledButtonToggleWrapper {
 
 export const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapper>`
   ${({ $size, $isDisabled, $fullWidth }) => css`
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     padding: var(--global-space-comp-xs);
@@ -77,5 +78,40 @@ export const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapper>`
     css`
       border-color: var(--button-typical-toggle-border-disabled);
     `}
+  `}
+`;
+
+// matches the border radius of the ButtonToggle rendered for each group size
+const indicatorRadiusMap = {
+  small: "12px",
+  medium: "var(--global-radius-action-l)",
+  large: "var(--global-radius-action-xl)",
+};
+
+interface StyledActiveIndicatorProps {
+  $size: "small" | "medium" | "large";
+  $isDisabled?: boolean;
+  $rect: { left: number; top: number; width: number; height: number };
+}
+
+// position is applied inline to avoid generating a new class for every measured value
+export const StyledActiveIndicator = styled.span.attrs<StyledActiveIndicatorProps>(
+  ({ $rect }) => ({ style: $rect }),
+)<StyledActiveIndicatorProps>`
+  ${({ $size, $isDisabled }) => css`
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: ${indicatorRadiusMap[$size]};
+    background: ${$isDisabled
+      ? "var(--button-typical-toggle-bg-active-disabled)"
+      : "var(--button-typical-toggle-bg-active)"};
+    transition:
+      left 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      width 600ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none !important;
+    }
   `}
 `;
