@@ -1,0 +1,20 @@
+{
+  "component": "Link",
+  "summary": "Navigates the user to another location.",
+  "alternatives": [
+    {
+      "component": "ButtonNext",
+      "when": "The element performs an on-page action rather than navigation."
+    }
+  ],
+  "pitfalls": [
+    "Provide href for navigation even when onClick handles client-side routing, so Link renders an anchor rather than a button styled as a link.",
+    "If underline is set to never, ensure the surrounding context still makes the link identifiable."
+  ],
+  "examples": [
+    {
+      "story": "AsSkipLink",
+      "description": "Allow keyboard users to bypass repeated navigation and move to the main content."
+    }
+  ]
+}

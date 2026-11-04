@@ -280,6 +280,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
         aria-labelledby={ariaLabelledBy}
         disabled={isDisabled}
         $fullWidth={fullWidth}
+        data-has-full-width={fullWidth || undefined}
         form={form}
         $inverse={inverse || buttonType === "darkBackground" || isWhite}
         id={id}

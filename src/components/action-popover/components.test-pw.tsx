@@ -12,13 +12,13 @@ import {
   ActionPopoverMenuButton,
 } from ".";
 import {
-  FlatTable,
-  FlatTableHead,
-  FlatTableBody,
-  FlatTableRow,
-  FlatTableHeader,
-  FlatTableCell,
-} from "../flat-table";
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeader,
+  TableCell,
+} from "../table";
 
 import exampleDownload from "../../../playwright/download-test/example.txt";
 
@@ -48,19 +48,19 @@ export const ActionPopoverCustom = ({ ...props }) => {
         height: "275px",
       }}
     >
-      <FlatTable isZebra>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>&nbsp;</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
+      <Table isZebraStriped>
+        <TableHead>
+          <TableRow id="row-1">
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>&nbsp;</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow id="row-2">
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   disabled
@@ -87,12 +87,12 @@ export const ActionPopoverCustom = ({ ...props }) => {
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Jane</FlatTableCell>
-            <FlatTableCell>Smith</FlatTableCell>
-            <FlatTableCell>
+            </TableCell>
+          </TableRow>
+          <TableRow id="row-3">
+            <TableCell>Jane</TableCell>
+            <TableCell>Smith</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   download
@@ -103,12 +103,12 @@ export const ActionPopoverCustom = ({ ...props }) => {
                   Download
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Bob</FlatTableCell>
-            <FlatTableCell>Jones</FlatTableCell>
-            <FlatTableCell>
+            </TableCell>
+          </TableRow>
+          <TableRow id="row-4">
+            <TableCell>Bob</TableCell>
+            <TableCell>Jones</TableCell>
+            <TableCell>
               <ActionPopover>
                 <ActionPopoverItem
                   icon="csv"
@@ -118,10 +118,10 @@ export const ActionPopoverCustom = ({ ...props }) => {
                   Download CSV
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 };
@@ -133,19 +133,19 @@ export const ActionPopoverWithProps = ({ ...props }) => {
         height: "250px",
       }}
     >
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>Third Column</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
+      <Table>
+        <TableHead>
+          <TableRow id="row-1">
+            <TableHeader>First Name</TableHeader>
+            <TableHeader>Last Name</TableHeader>
+            <TableHeader>Third Column</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow id="row-2">
+            <TableCell>John</TableCell>
+            <TableCell>Doe</TableCell>
+            <TableCell>
               <ActionPopover {...props}>
                 <ActionPopoverItem
                   data-element="menu-item1"
@@ -164,40 +164,13 @@ export const ActionPopoverWithProps = ({ ...props }) => {
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 };
-
-export const ActionPopoverWithIconsAndNoSubmenus = ({ ...props }) => (
-  <ActionPopover {...props}>
-    <ActionPopoverItem icon="graph" onClick={() => {}}>
-      Business
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="email" onClick={() => {}}>
-      Email Invoice
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="print" onClick={() => {}}>
-      Print Invoice
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="pdf" onClick={() => {}}>
-      Download PDF
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="csv" onClick={() => {}}>
-      Download CSV
-    </ActionPopoverItem>
-    <ActionPopoverDivider />
-    <ActionPopoverItem icon="delete" onClick={() => {}}>
-      Delete
-    </ActionPopoverItem>
-    <ActionPopoverItem icon="home" onClick={() => {}}>
-      Return Home
-    </ActionPopoverItem>
-  </ActionPopover>
-);
 
 export const ActionPopoverWithDifferentSubmenus = ({ ...props }) => {
   const businessSubmenu = (
@@ -225,50 +198,6 @@ export const ActionPopoverWithDifferentSubmenus = ({ ...props }) => {
       </ActionPopoverItem>
       <ActionPopoverItem icon="email" onClick={() => {}} submenu={emailSubmenu}>
         Email
-      </ActionPopoverItem>
-    </ActionPopover>
-  );
-};
-
-export const ActionPopoverWithSubmenusAndIcons = ({ ...props }) => {
-  const submenu = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem icon="bin" onClick={() => {}}>
-        Sub Menu 1
-      </ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 3</ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 4</ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
-  return (
-    <ActionPopover {...props}>
-      <ActionPopoverItem
-        data-element="menu-item1"
-        icon="graph"
-        onClick={() => {}}
-        submenu={submenu}
-      >
-        Business
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="email" onClick={() => {}} submenu={submenu}>
-        Email Invoice
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
-        Print Invoice
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="pdf" onClick={() => {}} submenu={submenu}>
-        Download PDF
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="csv" onClick={() => {}} submenu={submenu}>
-        Download CSV
-      </ActionPopoverItem>
-      <ActionPopoverDivider />
-      <ActionPopoverItem icon="delete" onClick={() => {}} submenu={submenu}>
-        Delete
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="home" onClick={() => {}} submenu={submenu}>
-        Return Home
       </ActionPopoverItem>
     </ActionPopover>
   );
@@ -517,99 +446,6 @@ export const Icons = () => {
   );
 };
 
-export const InFlatTable = () => {
-  const [highlightedRow, setHighlightedRow] = useState("");
-  const handleHighlightRow = (id: string) => {
-    setHighlightedRow(id);
-  };
-  return (
-    <Box pt={120} height={250}>
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("one")}
-            highlighted={highlightedRow === "one"}
-          >
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("one")}
-              >
-                <ActionPopoverItem
-                  icon="print"
-                  onClick={() => {}}
-                  submenu={
-                    <ActionPopoverMenu>
-                      <ActionPopoverItem onClick={() => {}}>
-                        CSV
-                      </ActionPopoverItem>
-                      <ActionPopoverItem onClick={() => {}}>
-                        PDF
-                      </ActionPopoverItem>
-                    </ActionPopoverMenu>
-                  }
-                >
-                  Print
-                </ActionPopoverItem>
-                <ActionPopoverDivider />
-                <ActionPopoverItem onClick={() => {}} icon="delete">
-                  Delete
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("two")}
-            highlighted={highlightedRow === "two"}
-          >
-            <FlatTableCell>Jane Doe</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("two")}
-              >
-                <ActionPopoverItem
-                  icon="print"
-                  onClick={() => {}}
-                  submenu={
-                    <ActionPopoverMenu>
-                      <ActionPopoverItem onClick={() => {}}>
-                        CSV
-                      </ActionPopoverItem>
-                      <ActionPopoverItem onClick={() => {}}>
-                        PDF
-                      </ActionPopoverItem>
-                    </ActionPopoverMenu>
-                  }
-                >
-                  Print
-                </ActionPopoverItem>
-                <ActionPopoverDivider />
-                <ActionPopoverItem onClick={() => {}} icon="delete">
-                  Delete
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </Box>
-  );
-};
-
 export const InOverflowHiddenContainer = () => {
   return (
     <Box mt={40} height={275} maxWidth={800}>
@@ -653,51 +489,6 @@ export const InOverflowHiddenContainer = () => {
           </ActionPopover>
         </Box>
       </Accordion>
-    </Box>
-  );
-};
-
-export const KeyboardNavigationLeftAlignedSubmenu = () => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem
-          icon="csv"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Download
-        </ActionPopoverItem>
-        <ActionPopoverItem
-          icon="pdf"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem icon="csv" onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                PDF
-              </ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
     </Box>
   );
 };
@@ -771,7 +562,7 @@ export const KeyboardNavigation = () => {
 
 export const MenuOpeningAbove = () => {
   return (
-    <Box pt={120} height={250}>
+    <Box pt="120px" height={250}>
       <ActionPopover placement="top">
         <ActionPopoverItem
           icon="print"
@@ -920,12 +711,26 @@ export const SubmenuPositionedRight = () => {
   );
 };
 
-export const ActionPopoverNestedInDialog = () => {
+export const ActionPopoverNestedInDialog = ({
+  withSubmenu = false,
+}: {
+  withSubmenu?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
       <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
+        <ActionPopoverItem
+          icon="email"
+          onClick={() => {}}
+          submenu={
+            withSubmenu ? (
+              <>
+                <ActionPopoverItem>Submenu item</ActionPopoverItem>
+              </>
+            ) : undefined
+          }
+        >
           Email Invoice
         </ActionPopoverItem>
         <ActionPopoverDivider />

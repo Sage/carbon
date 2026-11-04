@@ -351,7 +351,7 @@ export const Inverse: Story = () => {
     <div style={blackBackground}>
       <Search
         label="Inverse"
-        inputHint="Use this prop on darker backgrounds"
+        inputHint="Inverse styling is applied."
         onChange={(e) => setValue(e.target.value)}
         value={value}
         inverse

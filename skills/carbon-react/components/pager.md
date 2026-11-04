@@ -5,6 +5,13 @@ description: Carbon Pager component props and usage examples.
 
 # Pager
 
+Navigates between pages of records and can expose page-size and total-record controls.
+
+## Pitfalls
+
+- Update currentPage from onPagination so the consuming view and Pager remain in sync.
+- Some layout and alignment combinations are normalised when the corresponding page-size or total-record controls are not shown.
+
 ## Import
 `import Pager from "carbon-react/lib/components/pager";`
 
@@ -16,7 +23,7 @@ description: Carbon Pager component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | onPagination | (currentPage: number, pageSize: number, origin: string) => void | Yes |  |  |  | Function called when pager changes (Current page, Page size, Origin component). |  |
-| alignment | PagerAlignment \| undefined | No |  |  |  | Alignment of the content. |  |
+| alignment | PagerAlignment \| undefined | No |  |  |  | Alignment of the content when rendered in a single row layout. Will only be applied if `showTotalRecords` and/or `showPageSizeSelection` are true. |  |
 | currentPage | string \| number \| undefined | No |  |  |  | Current visible page. |  |
 | interactivePageNumber | boolean \| undefined | No |  |  |  | Flag to set if the current page number renders as an input. |  |
 | layout | PagerLayout \| undefined | No |  |  |  | Maximum number of lines used to render the component. |  |
@@ -43,175 +50,6 @@ description: Carbon Pager component props and usage examples.
 | smallScreenBreakpoint | string \| undefined | No |  | Yes | This component is now responsive by default and support for this prop has been removed. | Breakpoint for small screen styling to be applied. |  |
 
 ## Examples
-### Default
+Load only the example needed for the current task; playground stories are intentionally omitted.
 
-**Args**
-
-```tsx
-{
-  totalRecords: "1000",
-  currentPage: "2",
-}
-```
-
-**Render**
-
-```tsx
-({ ...args }) => {
-  const [currentPage, setCurrentPage] = useState(args.currentPage);
-  const handlePagination = (
-    currentPage: number,
-    pageSize: number,
-    origin: string,
-  ) => {
-    setCurrentPage(currentPage);
-    action("onPagination")({
-      currentPage: currentPage,
-      pageSize: pageSize,
-      origin: origin,
-    });
-  };
-
-  return (
-    <Pager
-      onPagination={handlePagination}
-      {...args}
-      currentPage={currentPage}
-    />
-  );
-}
-```
-
-
-### WithPageSizeSelection
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    pageSize: 10,
-    showPageSizeSelection: true,
-  }
-```
-
-
-### WithTotalRecords
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    pageSize: 10,
-    showPageSizeSelection: true,
-    showTotalRecords: true,
-  }
-```
-
-
-### NonInteractivePage
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    interactivePageNumber: false,
-  }
-```
-
-
-### HideFirstAndLastButtons
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    showFirstAndLastButtons: false,
-  }
-```
-
-
-### AlternateVariant
-
-**Args**
-
-```tsx
-{
-    ...WithTotalRecords.args,
-    variant: "alternate",
-  }
-```
-
-
-### SmallSize
-
-**Args**
-
-```tsx
-{
-    ...WithTotalRecords.args,
-    size: "small",
-  }
-```
-
-
-### MediumSize
-
-**Args**
-
-```tsx
-{
-    ...WithTotalRecords.args,
-    size: "medium",
-  }
-```
-
-
-### RowLayouts
-
-**Args**
-
-```tsx
-{
-    totalRecords: 1000,
-    currentPage: 2,
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <Box display="flex" gap={3} flexDirection="column">
-      <Pager {...args} showPageSizeSelection showTotalRecords layout="single" />
-      <Pager
-        {...args}
-        showPageSizeSelection
-        showTotalRecords
-        layout="two-row"
-      />
-      <Pager
-        {...args}
-        showPageSizeSelection
-        showTotalRecords
-        layout="three-row"
-      />
-    </Box>
-  )
-```
-
-
-### Alignment
-
-**Args**
-
-```tsx
-{
-    ...WithTotalRecords.args,
-    alignment: "centred",
-  }
-```
-
+- [Default](../examples/pager/default.md) — Keep the current page controlled by updating it from onPagination.

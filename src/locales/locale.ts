@@ -8,6 +8,7 @@ interface Locale {
   };
   actionPopover: {
     ariaLabel: () => string;
+    buttonLabel?: () => string;
   };
   advancedColorPicker: {
     ariaLabel: () => string;
@@ -285,6 +286,11 @@ interface Locale {
     on: () => string;
     off: () => string;
     processingLabel: () => string;
+  };
+  table: {
+    sort: {
+      ariaRoleDescription: () => string;
+    };
   };
   tileSelect: {
     deselect: () => string;

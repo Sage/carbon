@@ -48,12 +48,12 @@ const redBackground: React.CSSProperties = {
 };
 
 export default {
-  title: "Flat Table/Test",
+  title: "Deprecated/Flat Table/Test",
   parameters: {
     info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },
     chromatic: {
-      disableSnapshot: false,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -356,7 +356,6 @@ FlatTableStory.args = {
   verticalBorder: undefined,
   verticalBorderColor: "",
 };
-FlatTableStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ExpandableWithLinkAndActionPopover = () => {
   const SubRows = [
@@ -425,9 +424,6 @@ export const ExpandableWithLinkAndActionPopover = () => {
     </FlatTable>
   );
 };
-ExpandableWithLinkAndActionPopover.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const SubRowsAsAComponent = () => {
   const SubRowsComponent = () => (
@@ -485,7 +481,6 @@ export const SubRowsAsAComponent = () => {
     </FlatTable>
   );
 };
-SubRowsAsAComponent.parameters = { chromatic: { disableSnapshot: true } };
 
 export const FlatTableInsideDrawer = () => {
   return (
@@ -811,9 +806,6 @@ export const FlatRowHeaderWithNoPaddingAndButtons = () => {
 };
 FlatRowHeaderWithNoPaddingAndButtons.storyName =
   "Row Header With No Padding and Buttons";
-FlatRowHeaderWithNoPaddingAndButtons.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 const themes: Array<FlatTableProps["colorTheme"]> = [
   "dark",
@@ -2342,7 +2334,4 @@ export const IconColorInsideButtonDebug = () => {
   );
 };
 
-IconColorInsideButtonDebug.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 FlatTableZebraAndDraggable.storyName = "Zebra and Draggable";

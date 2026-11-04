@@ -395,6 +395,20 @@ description: Carbon Form component props and usage examples.
 ```
 
 
+### Custom Required Fields Indicator
+
+**Render**
+
+```tsx
+() => (
+  <Typography as="span" weight="medium">
+    El Asterisco <RequiredFieldsIndicator ml="4px" as="span" /> indica la
+    información obligatoria
+  </Typography>
+)
+```
+
+
 ### WithBothOptionalOrRequired
 
 **Render**

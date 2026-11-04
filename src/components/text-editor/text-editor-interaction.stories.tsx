@@ -35,12 +35,12 @@ const mentionsData: Mention[] = [
   {
     id: "4",
     name: "Anwar al-Awlaki",
-    src: "https://loremfaces.net/24/id/2.jpg",
+    src: "/anwarAvatar.jpg",
   },
   {
     id: "5",
     name: "Angela Alabaster",
-    src: "https://loremfaces.net/24/id/1.jpg",
+    src: "/angelaAvatar.jpg",
   },
   {
     id: "6",

@@ -108,6 +108,9 @@ export type { DdProps, DlProps, DtProps } from "./components/definition-list";
 export { default as Detail } from "./components/detail";
 export type { DetailProps } from "./components/detail";
 
+export { default as Divider } from "./components/divider";
+export type { DividerProps } from "./components/divider";
+
 export { default as Dialog } from "./components/dialog";
 export type {
   DialogProps,
@@ -177,6 +180,23 @@ export type {
   FlatTableRowHeaderProps,
   SortProps,
 } from "./components/flat-table";
+
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableFoot,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./components/table";
+export type {
+  TableBodyProps,
+  TableCellProps,
+  TableHeaderProps,
+  TableProps,
+  TableRowProps,
+} from "./components/table";
 
 export { default as Form, RequiredFieldsIndicator } from "./components/form";
 export type { FormProps } from "./components/form";

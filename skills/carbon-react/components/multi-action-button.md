@@ -251,6 +251,7 @@ description: Carbon MultiActionButton component props and usage examples.
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | value | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
+| variantType | "primary" \| "secondary" \| undefined | No |  |  |  | The variant type of the main and toggle buttons. Takes precedence over the deprecated `buttonType` prop. |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

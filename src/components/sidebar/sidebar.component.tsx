@@ -125,8 +125,13 @@ export interface SidebarProps
    * @internal
    * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
-  /** @private @ignore Whether the `Sidebar` is hidden from view when rendered in an `AdaptiveSidebar`. */
+  /**
+   * @private @ignore @internal
+   * Whether the `Sidebar` is hidden from view when rendered in an `AdaptiveSidebar`.
+   */
   hidden?: boolean;
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -135,6 +140,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       "aria-describedby": ariaDescribedBy,
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledBy,
+      "data-component": dataComponent = "sidebar",
       "data-element": dataElement = "sidebar",
       "data-role": dataRole,
       open,
@@ -229,7 +235,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         aria-labelledby={
           ariaLabelledBy || (!ariaLabel && hasHeader ? headerId : undefined)
         }
-        data-component="sidebar"
+        data-component={dataComponent}
         data-element={dataElement}
         data-role={dataRole}
         ref={setRefs}

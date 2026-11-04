@@ -2,15 +2,12 @@ import React, { useEffect, useRef } from "react";
 
 import { PaddingProps, MarginProps } from "styled-system";
 
-import { getColors, kebabToCamelCase } from "./__internal__/utils";
-
-import Box from "../box";
 import {
   filterStyledSystemMarginProps,
   filterStyledSystemPaddingProps,
 } from "../../style/utils";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import { TagProps } from "../../__internal__/utils/helpers/tags";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { SidebarProps } from "../sidebar";
 
 import { StyledAdaptiveSidebar, StyledSidebar } from "./adaptive-sidebar.style";
@@ -18,16 +15,26 @@ import { StyledAdaptiveSidebar, StyledSidebar } from "./adaptive-sidebar.style";
 export interface AdaptiveSidebarProps
   extends MarginProps,
     PaddingProps,
-    Omit<TagProps, "data-component">,
+    TagProps,
     Pick<SidebarProps, "restoreFocusOnClose"> {
   /** The breakpoint (in pixels) at which the sidebar will convert to a dialog-based sidebar */
   adaptiveBreakpoint?: number;
   /** The time in milliseconds for the sidebar to animate */
   animationTimeout?: number;
-  /** The background color of the sidebar */
+  /**
+   * The background color of the sidebar
+   * @deprecated Please use the `variant` prop instead.
+   */
   backgroundColor?: "white" | "black" | "app";
-  /** The color to use for the left-hand border of the sidebar. Should be a design token e.g. `--colorsUtilityYang100` */
+  /** Set the variant of the component. */
+  variant?: "standard" | "alt" | "inverse";
+  /**
+   * The color to use for the left-hand border of the sidebar.
+   * @deprecated Changing the border colour is no longer supported.
+   */
   borderColor?: string | "none";
+  /** Flag to set a left border on the sidebar. */
+  hasBorder?: boolean;
   /** The content of the sidebar */
   children?: React.ReactNode;
   /** The height of the sidebar, relative to the wrapping component */
@@ -48,8 +55,10 @@ export interface AdaptiveSidebarProps
 
 export const AdaptiveSidebar = ({
   adaptiveBreakpoint = 768,
-  backgroundColor = "white",
-  borderColor = "none",
+  backgroundColor,
+  borderColor,
+  variant = "standard",
+  hasBorder,
   children,
   height = "100%",
   hidden = false,
@@ -65,13 +74,17 @@ export const AdaptiveSidebar = ({
   const renderModal = renderAsModal || !largeScreen;
   const adaptiveSidebarRef = useRef<HTMLDivElement>(null);
 
-  const colours = Object.entries(getColors(backgroundColor)).reduce(
-    (acc, [key, value]) => {
-      acc[kebabToCamelCase(key as string)] = value;
-      return acc;
-    },
-    {} as Record<string, string>,
-  );
+  const computedVariant = () => {
+    if (backgroundColor === "white") {
+      return "standard";
+    } else if (backgroundColor === "black") {
+      return "inverse";
+    } else if (backgroundColor === "app") {
+      return "alt";
+    } else {
+      return variant;
+    }
+  };
 
   useEffect(() => {
     /* istanbul ignore next */
@@ -101,9 +114,7 @@ export const AdaptiveSidebar = ({
   if (renderModal) {
     return (
       <StyledSidebar
-        backgroundColor={backgroundColor}
         className="adaptive-sidebar-modal-view"
-        data-role={"adaptive-sidebar-modal-view"}
         enableBackgroundUI={open && hidden}
         fullScreenOnSmallScreen={false}
         hidden={hidden}
@@ -113,33 +124,29 @@ export const AdaptiveSidebar = ({
         ref={adaptiveSidebarRef}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
+        $variant={computedVariant()}
+        {...tagComponent("adaptive-sidebar", { ...props })}
       >
-        <div
-          data-role="adaptive-sidebar-content-wrapper"
-          style={{ height: "100%", ...colours }}
-        >
-          {children}
-        </div>
+        {children}
       </StyledSidebar>
     );
   }
 
   return open ? (
     <StyledAdaptiveSidebar
-      $backgroundColor={backgroundColor}
-      $borderColor={borderColor === "none" ? undefined : borderColor}
-      data-element="adaptive-sidebar"
-      data-role="adaptive-sidebar"
       $height={height}
-      hidden={hidden}
+      $width={width}
+      $hidden={hidden}
+      $variant={computedVariant()}
+      $hasBorder={hasBorder}
       ref={adaptiveSidebarRef}
       role="region"
       tabIndex={-1}
-      $width={width}
       {...filterStyledSystemMarginProps(props)}
       {...filterStyledSystemPaddingProps(props)}
+      {...tagComponent("adaptive-sidebar", { ...props })}
     >
-      <Box data-role="adaptive-sidebar-content-wrapper">{children}</Box>
+      {children}
     </StyledAdaptiveSidebar>
   ) : null;
 };

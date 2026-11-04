@@ -13,6 +13,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     outputs:
       version: ${{ steps.versionNumber.outputs.version }}
     steps:
@@ -24,8 +27,8 @@ jobs:
         with:
           node-version: ">=24.11.0 24"
           check-latest: true
-      - name: Update npm to 11.19.1
-        run: npm install -g npm@11.19.1
+      - name: Update npm to 11.21.1
+        run: npm install -g npm@11.21.1
       - run: npm ci
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v3.0.1
@@ -40,7 +43,6 @@ jobs:
         env:
           # A personal access token is required to publish from protected branches
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GIT_COMMITTER_NAME: Sage Carbon
           GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }}
       - id: versionNumber
@@ -59,8 +61,8 @@ jobs:
         with:
           node-version: ">=24.11.0 24"
           check-latest: true
-      - name: Update npm to 11.19.1
-        run: npm install -g npm@11.19.1
+      - name: Update npm to 11.21.1
+        run: npm install -g npm@11.21.1
       - run: npm ci
       - name: Generate metadata file
         run: npm run generate-metadata

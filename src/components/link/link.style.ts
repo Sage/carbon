@@ -31,7 +31,7 @@ export interface StyledLinkProps {
   $hasFocus?: boolean;
   /** Sets the correct link size */
   $linkSize?: "medium" | "large";
-  /** Sets the colour styling when component is rendered on a dark background */
+  /** Whether to apply inverse styling. */
   $inverse?: boolean;
   /** @deprecated The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. */
   $isDarkBackground?: boolean;

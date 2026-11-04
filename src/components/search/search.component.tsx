@@ -160,7 +160,7 @@ export interface SearchProps
   variant?: "default" | "dark";
   /** @deprecated This prop no longer has any effect. This prop will eventually be removed. Input tabindex */
   tabIndex?: number;
-  /** When set to `true`, inverts the Search input and button styling for use on darker backgrounds. */
+  /** Whether to apply inverse styling. */
   inverse?: boolean;
   /** @deprecated This prop no longer has any effect. This prop will eventually be removed. */
   warning?: CommonTextboxProps["warning"];
