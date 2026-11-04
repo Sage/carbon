@@ -599,13 +599,30 @@ test("applies 'three-row' `layout` when `showPageSizeSelection` and `showTotalRe
 });
 
 // coverage
-test("applies 'fill' `alignment` when `layout` is 'single' and `showPageSizeSelection` and `showTotalRecords` are true", () => {
+test("applies 'fill' `alignment` when `layout` is 'single' and `showPageSizeSelection` are true", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      alignment="fill"
+      showPageSizeSelection
+      totalRecords={100}
+      currentPage={2}
+      pageSize={10}
+    />,
+  );
+
+  expect(screen.getByTestId("page-info")).toHaveStyle({
+    justifyContent: "flex-end",
+  });
+});
+
+// coverage
+test("applies 'fill' `alignment` when `layout` is 'single' and `showTotalRecords` are true", () => {
   render(
     <Pager
       onPagination={() => {}}
       alignment="fill"
       showTotalRecords
-      showPageSizeSelection
       totalRecords={100}
       currentPage={2}
       pageSize={10}
@@ -633,6 +650,21 @@ test("overrides 'large' `size` to 'medium'", () => {
     "padding",
     "var(--global-space-comp-l)",
   );
+});
+
+test("renders divider when both `showPageSizeSelection` and `showTotalRecords` are true", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      showPageSizeSelection
+      showTotalRecords
+      totalRecords={100}
+      currentPage={2}
+      pageSize={10}
+    />,
+  );
+
+  expect(screen.getByTestId("divider")).toBeVisible();
 });
 
 test("does not inherit the field spacing applied by a parent Form", () => {

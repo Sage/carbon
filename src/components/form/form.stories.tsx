@@ -348,6 +348,15 @@ export const RequiredFieldsIndicatorStory: Story = () => (
 );
 RequiredFieldsIndicatorStory.storyName = "Required Fields Indicator";
 
+export const CustomRequiredFieldsIndicatorStory: Story = () => (
+  <Typography as="span" weight="medium">
+    El Asterisco <RequiredFieldsIndicator ml="4px" as="span" /> indica la
+    información obligatoria
+  </Typography>
+);
+CustomRequiredFieldsIndicatorStory.storyName =
+  "Custom Required Fields Indicator";
+
 export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
   <Box m={1}>
     <RequiredFieldsIndicator mb={2}>

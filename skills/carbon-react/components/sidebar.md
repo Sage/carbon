@@ -29,7 +29,7 @@ description: Carbon Sidebar component props and usage examples.
 | gradientKeyLine | boolean \| undefined | No |  |  |  | Adds the Carbon AI gradient keyline to the header. |  |
 | header | React.ReactNode | No |  |  |  | Node that will be used as sidebar header. |  |
 | headerPadding | PaddingProps | No |  |  |  | Padding to be set on the Sidebar header |  |
-| headerVariant | "typical" \| "dark" \| "light" \| "inverse" \| undefined | No |  |  |  | Header background variant for the sidebar. `light` and `dark` are deprecated aliases - use `typical` and `inverse` instead. |  |
+| headerVariant | "typical" \| "inverse" \| "dark" \| "light" \| undefined | No |  |  |  | Header background variant for the sidebar. `light` and `dark` are deprecated aliases - use `typical` and `inverse` instead. |  |
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
 | p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
 | padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |

@@ -200,6 +200,20 @@ export const AllVariants: Story = {
       <ControlledPager
         totalRecords={100}
         currentPage={2}
+        showTotalRecords
+        alignment="centred"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        alignment="centred"
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
         showPageSizeSelection
         showTotalRecords
         alignment="centred"

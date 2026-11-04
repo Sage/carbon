@@ -4,14 +4,51 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
+import { format } from "prettier";
+import { Project } from "ts-morph";
 import ts from "typescript";
 
-import { validateComponentMetadata } from "./component-metadata.mjs";
+import { sourceFileHasRuntimeExport } from "./component-exports.mjs";
+import {
+  toKebabCase,
+  validateComponentMetadata,
+} from "./component-metadata.mjs";
+import {
+  findDeprecatedImport,
+  hasNamespaceImportFrom,
+  hasStorybookImport,
+} from "./example-imports.mjs";
 
 const repoRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../..",
 );
+
+test("skill frontmatter contains valid YAML", async () => {
+  const skillFiles = fg.sync(
+    ["skills/**/SKILL.md", ".github/skills/**/SKILL.md"],
+    { cwd: repoRoot },
+  );
+
+  for (const skillFile of skillFiles) {
+    const source = fs.readFileSync(path.join(repoRoot, skillFile), "utf8");
+    const frontmatter = source.match(
+      /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/,
+    )?.[1];
+
+    assert.ok(frontmatter, `${skillFile} must begin with YAML frontmatter`);
+    await assert.doesNotReject(
+      format(frontmatter, { parser: "yaml" }),
+      `${skillFile} must contain valid YAML frontmatter`,
+    );
+    assert.match(frontmatter, /^name:\s+\S+/m, `${skillFile} must have a name`);
+    assert.match(
+      frontmatter,
+      /^description:\s+\S+/m,
+      `${skillFile} must have a description`,
+    );
+  }
+});
 
 test("accepts concise authored component guidance", () => {
   const metadata = validateComponentMetadata({
@@ -96,6 +133,16 @@ test("rejects empty optional sections", () => {
   );
 });
 
+test("separates single-letter words when kebab-casing names", () => {
+  assert.equal(toKebabCase("InAFlexContainer"), "in-a-flex-container");
+  assert.equal(toKebabCase("InAMenu"), "in-a-menu");
+  assert.equal(toKebabCase("ButtonNext"), "button-next");
+  assert.equal(
+    toKebabCase("InverseOnDarkBackground"),
+    "inverse-on-dark-background",
+  );
+});
+
 test("keeps authored metadata and generated skills out of the npm package", () => {
   const packageJson = JSON.parse(
     fs.readFileSync(path.join(repoRoot, "package.json"), "utf8"),
@@ -108,6 +155,143 @@ test("keeps authored metadata and generated skills out of the npm package", () =
       .split(path.sep)[0],
     "docs",
   );
+});
+
+test("checks deprecations against the imported binding rather than its module", () => {
+  const deprecatedComponents = [
+    {
+      name: "List",
+      importName: "List",
+      importPath: "carbon-react/lib/components/typography",
+      supportsDefaultImport: false,
+      supportsNamedImport: true,
+    },
+    {
+      name: "Button",
+      importName: "Button",
+      importPath: "carbon-react/lib/components/button",
+      supportsDefaultImport: true,
+      supportsNamedImport: false,
+    },
+  ];
+
+  assert.equal(
+    findDeprecatedImport(
+      'import Typography from "carbon-react/lib/components/typography";',
+      deprecatedComponents,
+    ),
+    null,
+  );
+  assert.equal(
+    findDeprecatedImport(
+      'import { List as LegacyList } from "carbon-react/lib/components/typography";',
+      deprecatedComponents,
+    )?.name,
+    "List",
+  );
+  assert.equal(
+    findDeprecatedImport(
+      'import { default as LegacyButton } from "carbon-react/lib/components/button";',
+      deprecatedComponents,
+    )?.name,
+    "Button",
+  );
+});
+
+test("identifies Storybook-only example imports", () => {
+  assert.equal(
+    hasStorybookImport('import { action } from "storybook/actions";'),
+    true,
+  );
+  assert.equal(
+    hasStorybookImport('import { Meta } from "@storybook/react-vite";'),
+    true,
+  );
+  assert.equal(hasStorybookImport('import "storybook/preview-api";'), true);
+  assert.equal(hasStorybookImport('import { useState } from "react";'), false);
+});
+
+test("identifies namespace imports from Carbon component modules", () => {
+  const componentPrefix = "carbon-react/lib/components/";
+
+  assert.equal(
+    hasNamespaceImportFrom(
+      'import * as TypographyComponents from "carbon-react/lib/components/typography";',
+      componentPrefix,
+    ),
+    true,
+  );
+  assert.equal(
+    hasNamespaceImportFrom(
+      'import Typography from "carbon-react/lib/components/typography";',
+      componentPrefix,
+    ),
+    false,
+  );
+  assert.equal(
+    hasNamespaceImportFrom('import * as React from "react";', componentPrefix),
+    false,
+  );
+});
+
+test("distinguishes runtime exports from type-only exports", () => {
+  const project = new Project({ useInMemoryFileSystem: true });
+  const sourceFile = project.createSourceFile(
+    "component.ts",
+    `
+      interface TypeOnlyComponent {}
+      const RuntimeComponent = () => null;
+      export { type TypeOnlyComponent, RuntimeComponent };
+    `,
+  );
+
+  assert.equal(
+    sourceFileHasRuntimeExport(sourceFile, "TypeOnlyComponent"),
+    false,
+  );
+  assert.equal(
+    sourceFileHasRuntimeExport(sourceFile, "RuntimeComponent"),
+    true,
+  );
+});
+
+test("generated component imports match their public export binding", () => {
+  const expectedImports = new Map([
+    [
+      "typography.md",
+      'import Typography from "carbon-react/lib/components/typography";',
+    ],
+    [
+      "list.md",
+      'import { List } from "carbon-react/lib/components/typography";',
+    ],
+    ["pages.md", 'import Pages from "carbon-react/lib/components/pages";'],
+    ["page.md", 'import { Page } from "carbon-react/lib/components/pages";'],
+    ["card.md", 'import Card from "carbon-react/lib/components/card";'],
+    [
+      "card-column.md",
+      'import { CardColumn } from "carbon-react/lib/components/card";',
+    ],
+    [
+      "radio-button.md",
+      'import RadioButton from "carbon-react/lib/components/radio-button";',
+    ],
+    [
+      "radio-button-group.md",
+      'import { RadioButtonGroup } from "carbon-react/lib/components/radio-button";',
+    ],
+  ]);
+
+  for (const [fileName, importStatement] of expectedImports) {
+    const markdown = fs.readFileSync(
+      path.join(repoRoot, "skills", "carbon-react", "components", fileName),
+      "utf8",
+    );
+    assert.ok(
+      markdown.includes(`\`${importStatement}\``),
+      `${fileName} should document ${importStatement}`,
+    );
+  }
 });
 
 test("generated curated examples contain valid TSX", () => {

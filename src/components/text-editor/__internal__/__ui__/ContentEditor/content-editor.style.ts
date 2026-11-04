@@ -7,14 +7,17 @@ const FIXED_LINE_HEIGHT = 21;
 
 const sizeMap = {
   small: {
+    font: "var(--global-font-static-comp-regular-s)",
     padding: "var(--global-space-comp-s)",
     previewGap: "var(--global-space-comp-xs)",
   },
   medium: {
+    font: "var(--global-font-static-comp-regular-m)",
     padding: "var(--global-space-comp-m)",
     previewGap: "var(--global-space-comp-s)",
   },
   large: {
+    font: "var(--global-font-static-comp-regular-l)",
     padding: "var(--global-space-comp-l)",
     previewGap: "var(--global-space-comp-m)",
   },
@@ -31,6 +34,7 @@ const StyledContentEditable = styled.div<StyledContentEditableProps>`
   ${({ error, namespace, rows, readOnly, size, hasFooter }) => css`
     ${readOnly &&
     css`
+      font: ${sizeMap[size].font};
       padding: ${sizeMap[size].padding};
 
       p:first-of-type {

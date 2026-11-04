@@ -1,0 +1,29 @@
+{
+  "component": "Checkbox",
+  "summary": "An input for selecting one or more independent options.",
+  "alternatives": [
+    {
+      "component": "RadioButtonGroup",
+      "when": "The user must select exactly one option from a list."
+    },
+    {
+      "component": "Select",
+      "when": "The user must select one option from a long list where space is limited."
+    },
+    {
+      "component": "ButtonToggleGroup",
+      "when": "The user must choose an option from a small, highly visible set."
+    }
+  ],
+  "pitfalls": [
+    "Keep checked state controlled and update it from onChange.",
+    "For a parent checkbox in an indeterminate selection pattern, set aria-controls to the space-separated IDs of its child checkboxes.",
+    "Keep progressive disclosure content limited; progressiveDisclosure is not supported when CheckboxGroup uses inline layout."
+  ],
+  "examples": [
+    {
+      "story": "IndeterminateState",
+      "description": "Implement a select-all checkbox whose checked and indeterminate states reflect its child checkboxes."
+    }
+  ]
+}

@@ -77,6 +77,12 @@ within a `Form` to provide users with a clear indication of which fields are man
 
 <Canvas of={FormStories.RequiredFieldsIndicatorStory} />
 
+The `RequiredFieldsIndicator` component can be rendered without children to display a custom message or style, while still maintaining the asterisk. 
+This allows for flexibility in how required fields are communicated to users in different locales.
+
+<Canvas of={FormStories.CustomRequiredFieldsIndicatorStory} />
+
+
 ### Example with optional and required fields
 
 You can set the `required` or `isOptional` on any `Form` input to make them mandatory or optional. You can also

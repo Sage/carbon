@@ -9,7 +9,7 @@ import * as SplitButtonStories from "./split-button.stories";
 
 # Split Button
 
-SplitButton supports the primary variant only. The legacy secondary styling and white variant are no longer supported.
+SplitButton renders using the `variantType` prop, which accepts `"primary"` (the default) or `"secondary"`. The `buttonType` prop is deprecated in favour of `variantType` and will be removed in a future release.
 
 <a
   target="_blank"
@@ -50,6 +50,10 @@ Using a `ref`, you can access its `focusMainButton()` and `focusToggleButton()` 
 ### Disabled
 
 <Canvas of={SplitButtonStories.Disabled} />
+
+### Variant types
+
+<Canvas of={SplitButtonStories.VariantTypes} />
 
 ### Child button types
 

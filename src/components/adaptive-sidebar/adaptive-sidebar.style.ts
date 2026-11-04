@@ -1,35 +1,47 @@
 import styled, { css } from "styled-components";
-
-import { margin, MarginProps, padding, PaddingProps } from "styled-system";
-
-import Sidebar, { SidebarProps } from "../sidebar";
+import { margin, padding } from "styled-system";
+import Sidebar from "../sidebar";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-import { AdaptiveSidebarProps } from "./adaptive-sidebar.component";
+const variantColor = {
+  standard: {
+    backgroundColor: "var(--container-standard-bg-default)",
+    borderColor: "var(--container-standard-border-default)",
+  },
+  alt: {
+    backgroundColor: "var(--container-standard-bg-alt)",
+    borderColor: "var(--container-standard-border-default)",
+  },
+  inverse: {
+    backgroundColor: "var(--container-standard-inverse-bg-default)",
+    borderColor: "var(--container-standard-inverse-border-default)",
+  },
+};
 
-import { getColors } from "./__internal__/utils";
+interface StyledAdaptiveSidebarProps {
+  $height?: string;
+  $width?: string;
+  $hidden?: boolean;
+  $variant: "standard" | "alt" | "inverse";
+  $hasBorder?: boolean;
+}
 
-type StyledAdaptiveSidebarProps = MarginProps &
-  PaddingProps & {
-    $backgroundColor: AdaptiveSidebarProps["backgroundColor"];
-    $borderColor?: AdaptiveSidebarProps["borderColor"];
-    $height: AdaptiveSidebarProps["height"];
-    $width: AdaptiveSidebarProps["width"];
-  };
-
-const StyledAdaptiveSidebar = styled.div.attrs(
+export const StyledAdaptiveSidebar = styled.div.attrs(
   applyBaseTheme,
 )<StyledAdaptiveSidebarProps>`
-  ${({ $backgroundColor, $borderColor, $height, hidden, $width }) => css`
-    ${getColors($backgroundColor)}
-    ${$borderColor &&
+  ${({ $height, $hidden, $width, $variant, $hasBorder }) => css`
+    background-color: ${variantColor[$variant].backgroundColor};
+
+    ${$hasBorder &&
     css`
-      border-left: 1px solid var(${$borderColor});
+      border-left: 1px solid ${variantColor[$variant].borderColor};
     `}
-    ${hidden &&
+
+    ${$hidden &&
     css`
       display: none;
     `}
+
     max-height: ${$height};
     max-width: ${$width};
     min-width: ${$width};
@@ -41,23 +53,17 @@ const StyledAdaptiveSidebar = styled.div.attrs(
   `};
 `;
 
-interface StyledSidebarProps extends SidebarProps {
-  backgroundColor: "app" | "black" | "white";
-  hidden?: boolean;
+interface StyledSidebarProps {
+  $variant: "standard" | "alt" | "inverse";
 }
 
-const StyledSidebar = styled(Sidebar)<StyledSidebarProps>`
-  ${({ hidden }) => css`
+export const StyledSidebar = styled(Sidebar)<StyledSidebarProps>`
+  ${({ hidden, $variant }) => css`
+    background-color: ${variantColor[$variant].backgroundColor};
+
     ${hidden &&
     css`
       display: none;
     `}
   `}
-  ${({ backgroundColor }) => css`
-    div[data-element="sidebar-content"] {
-      ${getColors(backgroundColor)}
-    }
-  `}
 `;
-
-export { StyledAdaptiveSidebar, StyledSidebar };

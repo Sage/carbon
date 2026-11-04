@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import Pager from ".";
 import Box from "../box";
 
@@ -39,18 +38,11 @@ export default meta;
 type Story = StoryObj<typeof Pager>;
 
 export const Default: Story = ({ ...args }) => {
-  const [currentPage, setCurrentPage] = useState(args.currentPage);
-  const handlePagination = (
-    currentPage: number,
-    pageSize: number,
-    origin: string,
-  ) => {
+  const [currentPage, setCurrentPage] = useState<number | string>(
+    args.currentPage ?? 1,
+  );
+  const handlePagination = (currentPage: number) => {
     setCurrentPage(currentPage);
-    action("onPagination")({
-      currentPage: currentPage,
-      pageSize: pageSize,
-      origin: origin,
-    });
   };
 
   return (

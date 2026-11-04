@@ -177,3 +177,36 @@ Validation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
+
+export const Sizes = () => {
+  const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
+
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    setState([
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ]);
+  };
+
+  return (
+    <>
+      {(["small", "medium", "large"] as const).map((size) => (
+        <DateRange
+          key={size}
+          startLabel={`Start (${size})`}
+          endLabel={`End (${size})`}
+          onChange={handleChange}
+          value={state}
+          mb={2}
+          startDateProps={{ size }}
+          endDateProps={{ size }}
+        />
+      ))}
+    </>
+  );
+};
+Sizes.storyName = "Sizes";
+Sizes.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

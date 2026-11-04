@@ -220,12 +220,22 @@ describe("Switch", () => {
       );
     });
 
-    it("renders a required asterisk on the label ::after pseudo-element when required", () => {
-      renderSwitch({ label: "Toggle me", required: true });
-      expect(screen.getByText("Toggle me")).toHaveStyleRule("content", '"*"', {
-        modifier: "::after",
-      });
-    });
+    it.each([
+      ["small", "var(--global-font-static-comp-medium-m)"],
+      ["large", "var(--global-font-static-comp-medium-l)"],
+    ])(
+      "renders a required asterisk with the expected font when size is %s",
+      (size, font) => {
+        renderSwitch({ label: "Toggle me", required: true, size });
+        const label = screen.getByText("Toggle me");
+        expect(label).toHaveStyleRule("content", '"*"', {
+          modifier: "::after",
+        });
+        expect(label).toHaveStyleRule("font", font, {
+          modifier: "::after",
+        });
+      },
+    );
   });
 
   describe("loading state", () => {
@@ -457,15 +467,6 @@ describe("Switch", () => {
       expect(screen.getByText("Toggle me")).toHaveStyleRule(
         "font",
         "var(--global-font-static-comp-medium-l)",
-      );
-    });
-
-    it("applies large font to the required asterisk when size is 'large' and required is set", () => {
-      renderSwitch({ label: "Toggle me", size: "large", required: true });
-      expect(screen.getByText("Toggle me")).toHaveStyleRule(
-        "font",
-        "var(--global-font-static-comp-medium-l)",
-        { modifier: "::after" },
       );
     });
   });

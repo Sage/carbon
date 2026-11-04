@@ -13,6 +13,7 @@ const enGB: Locale = {
   },
   actionPopover: {
     ariaLabel: () => "actions",
+    buttonLabel: () => "Actions",
   },
   advancedColorPicker: {
     ariaLabel: () => "Change colour",
@@ -306,6 +307,11 @@ const enGB: Locale = {
     on: () => "On",
     off: () => "Off",
     processingLabel: () => "Processing...",
+  },
+  table: {
+    sort: {
+      ariaRoleDescription: () => "Sortable column header",
+    },
   },
   tileSelect: {
     deselect: () => "Deselect",

@@ -31,12 +31,12 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 type Story = StoryObj<typeof FlatTable>;
 
 export default {
-  title: "Flat Table/Interactions",
+  title: "Deprecated/Flat Table/Interactions",
   component: FlatTable,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     chromatic: {
-      disableSnapshot: false,
+      disableSnapshot: true,
     },
   },
 };
@@ -210,10 +210,6 @@ const FlatTableFocusStatesComponent = () => {
 export const FlatTableFocusStates: Story = {
   name: "Focus States",
   render: () => <FlatTableFocusStatesComponent />,
-  parameters: {
-    chromatic: { disableSnapshot: false },
-    themeProvider: { chromatic: { theme: "sage" } },
-  },
 
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;

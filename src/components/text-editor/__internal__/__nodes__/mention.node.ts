@@ -16,7 +16,7 @@ const mentionStyle = `
   color: var(--pill-generic-label-alt-default);
   cursor: pointer;
   display: inline-block;
-  font: var(--global-font-static-comp-regular-m);
+  font: inherit;
   min-height: 20px;
   padding: 0px var(--global-space-comp-s);
   margin: 0px var(--global-space-comp-xs);
