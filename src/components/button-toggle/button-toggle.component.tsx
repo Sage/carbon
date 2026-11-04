@@ -138,6 +138,7 @@ export const ButtonToggle = ({
       $active={!!isPressed}
       $iconOnly={iconOnly}
       $fullWidth={fullWidth}
+      $inGroup={isInGroup}
       value={value}
       onFocus={onFocus}
       onBlur={onBlur}

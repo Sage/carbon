@@ -51,7 +51,9 @@ const ControlledButtonToggleGroup = ({
       onChange={handleOnChange}
     >
       <ButtonToggle value={`${id}-1`}>Button 1</ButtonToggle>
-      <ButtonToggle value={`${id}-2`}>Button 2</ButtonToggle>
+      <ButtonToggle value={`${id}-2`}>
+        Button 2 but with a lot of text
+      </ButtonToggle>
       <ButtonToggle value={`${id}-3`}>Button 3</ButtonToggle>
     </ButtonToggleGroup>
   );

@@ -335,6 +335,50 @@ test("should render with provided data- tags", () => {
   );
 });
 
+describe("active indicator", () => {
+  const renderGroup = (props: { value: string; disabled?: boolean }) =>
+    render(
+      <ButtonToggleGroup
+        id="button-toggle-group-id"
+        onChange={() => {}}
+        {...props}
+      >
+        <ButtonToggle value="foo">Foo</ButtonToggle>
+        <ButtonToggle value="bar">Bar</ButtonToggle>
+      </ButtonToggleGroup>,
+    );
+
+  test("renders an animated indicator behind the pressed button", () => {
+    renderGroup({ value: "foo" });
+
+    expect(
+      screen.getByTestId("button-toggle-active-indicator"),
+    ).toHaveStyleRule(
+      "transition",
+      "left 600ms cubic-bezier(0.22,1,0.36,1), width 600ms cubic-bezier(0.22,1,0.36,1) !important",
+    );
+  });
+
+  test("uses the disabled active background when the group is disabled", () => {
+    renderGroup({ value: "foo", disabled: true });
+
+    expect(
+      screen.getByTestId("button-toggle-active-indicator"),
+    ).toHaveStyleRule(
+      "background",
+      "var(--button-typical-toggle-bg-active-disabled)",
+    );
+  });
+
+  test("does not render an indicator when no button is pressed", () => {
+    renderGroup({ value: "" });
+
+    expect(
+      screen.queryByTestId("button-toggle-active-indicator"),
+    ).not.toBeInTheDocument();
+  });
+});
+
 testStyledSystemMargin(
   (props) => (
     <ButtonToggleGroup
