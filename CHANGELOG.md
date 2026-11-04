@@ -1,3 +1,9 @@
+## [162.21.3](https://github.com/Sage/carbon/compare/v162.21.2...v162.21.3) (2026-11-04)
+
+### Bug Fixes
+
+* **radio-button, checkbox:** add aria-controls support ([92315b3](https://github.com/Sage/carbon/commit/92315b3d93b39f2bab629f85aed4fc66807031e7))
+
 ## [162.21.2](https://github.com/Sage/carbon/compare/v162.21.1...v162.21.2) (2026-11-03)
 
 ### Bug Fixes
