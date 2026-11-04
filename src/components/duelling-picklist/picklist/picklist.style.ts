@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import StyledBox from "../../box/box.style";
 
-// TODO: remove polymorphism when we revisit as part of ticket FE-6177
-const StyledPicklist = styled(StyledBox).attrs({ as: "ul" })`
+const StyledPicklist = styled.ul`
   position: relative;
   list-style: none;
   margin: 0;
@@ -11,6 +9,19 @@ const StyledPicklist = styled(StyledBox).attrs({ as: "ul" })`
   box-sizing: border-box;
   overflow-y: auto;
   height: 400px;
+  scrollbar-color: rgb(102, 132, 148) rgb(242, 245, 246);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgb(242, 245, 246);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(102, 132, 148);
+  }
 
   & + & {
     margin-left: 32px;

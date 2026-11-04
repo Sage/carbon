@@ -3,6 +3,7 @@ import Divider, { DividerProps } from "./divider.component";
 import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
+import { Menu, MenuItem } from "../menu";
 
 export const DividerComponent = (props: Partial<DividerProps>) => {
   return <Divider {...props} />;
@@ -89,4 +90,15 @@ export const EnablingAdaptiveBehaviour = () => (
     mr="40%"
     adaptiveMxBreakpoint={960}
   />
+);
+
+export const DividerInMenu = () => (
+  <Menu variant="black">
+    <MenuItem href="#">Menu Item One</MenuItem>
+    <Divider height={24} p={1} />
+    <MenuItem submenu="Menu Item Three">
+      <MenuItem href="#">Item Submenu One</MenuItem>
+      <MenuItem href="#">Item Submenu Two</MenuItem>
+    </MenuItem>
+  </Menu>
 );

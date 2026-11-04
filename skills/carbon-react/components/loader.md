@@ -156,9 +156,9 @@ description: Carbon Loader component props and usage examples.
 
 ```tsx
 () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="standalone" variant="typical" inverse />
-    </Box>
+    </div>
   )
 ```
 
@@ -182,9 +182,9 @@ description: Carbon Loader component props and usage examples.
 
 ```tsx
 () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="standalone" variant="ai" inverse />
-    </Box>
+    </div>
   )
 ```
 
@@ -208,9 +208,9 @@ description: Carbon Loader component props and usage examples.
 
 ```tsx
 () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="ring" variant="stacked" inverse />
-    </Box>
+    </div>
   )
 ```
 
@@ -234,9 +234,9 @@ description: Carbon Loader component props and usage examples.
 
 ```tsx
 () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="ring" variant="inline" inverse />
-    </Box>
+    </div>
   )
 ```
 
@@ -273,9 +273,9 @@ description: Carbon Loader component props and usage examples.
 
 ```tsx
 () => (
-    <Box backgroundColor="#1c1c1c" p="8px">
+    <div style={darkGreyBackground}>
       <Loader loaderType="ring" variant="ai-inline" inverse />
-    </Box>
+    </div>
   )
 ```
 

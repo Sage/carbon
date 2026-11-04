@@ -3,10 +3,14 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, expect } from "storybook/test";
 
 import { Tabs, Tab, TabList, TabPanel } from ".";
-import Box from "../../box";
 import Typography from "../../typography";
 
 import { allowInteractions } from "../../../../.storybook/interaction-toggle/reduced-motion";
+
+const lightGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-xs)",
+  backgroundColor: "rgb(244, 245, 246)",
+};
 
 const meta: Meta<typeof Tabs> = {
   title: "Tabs/Interactions",
@@ -16,9 +20,9 @@ const meta: Meta<typeof Tabs> = {
   },
   decorators: [
     (StoryToRender) => (
-      <Box backgroundColor="var(--container-standard-bg-alt)" p={3}>
+      <div style={lightGreyBackground}>
         <StoryToRender />
-      </Box>
+      </div>
     ),
   ],
 };

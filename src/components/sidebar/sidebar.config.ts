@@ -1,3 +1,5 @@
+export const smallScreenBreakpoint = "768px";
+
 export const SIDEBAR_SIZES_CSS = {
   "extra-small": "214px",
   small: "314px",

@@ -31,6 +31,20 @@ import CarbonProvider from "../carbon-provider";
 import Typography from "../typography";
 import Link from "../link";
 
+const greyBackground: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  boxSizing: "border-box",
+  height: "400px",
+  padding: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgb(128, 128, 128)",
+};
+
+const whiteBackground: React.CSSProperties = {
+  height: "100%",
+  backgroundColor: "rgb(255, 255, 255)",
+};
+
 export default {
   title: "Form/Test",
   component: Form,
@@ -696,21 +710,14 @@ FullWidthWithLeftAndRight.parameters = {
 };
 
 export const WithSetHeight = (args: FormProps) => (
-  <Box
-    display="flex"
-    flexDirection="column"
-    boxSizing="border-box"
-    backgroundColor="grey"
-    height="400px"
-    p={2}
-  >
+  <div style={greyBackground}>
     <Form height="80%" {...args}>
-      <Box backgroundColor="white" height="100%">
+      <div style={whiteBackground}>
         <Textbox label="Textbox" value="" onChange={() => {}} />
         <Textbox label="Textbox" value="" onChange={() => {}} />
-      </Box>
+      </div>
     </Form>
-  </Box>
+  </div>
 );
 WithSetHeight.storyName = "With Set Height";
 

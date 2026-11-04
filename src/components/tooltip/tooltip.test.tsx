@@ -80,24 +80,34 @@ describe("Tooltip", () => {
         it("applies the default styles", () => {
           renderTooltip({ isVisible: true });
 
-          expect(screen.getByRole("tooltip")).toHaveStyle({
+          const tooltip = screen.getByRole("tooltip");
+          expect(tooltip).toHaveStyle({
             bottom: "auto",
             right: "auto",
             position: "absolute",
-            maxWidth: "300px",
-            zIndex: "6000",
-            textAlign: "left",
-            color: "var(--colorsSemanticNeutralYang100)",
             display: "inline-block",
             padding: "8px 12px",
-            wordBreak: "break-word",
-            whiteSpace: "pre-wrap",
-            fontSize: "14px",
-            lineHeight: "1.5rem",
-            fontWeight: "400",
-            backgroundColor: "var(--colorsSemanticNeutral500)",
-            borderRadius: "var(--borderRadius050)",
           });
+          expect(tooltip).toHaveStyleRule("max-width", "300px");
+          expect(tooltip).toHaveStyleRule("z-index", "6000");
+          expect(tooltip).toHaveStyleRule("text-align", "left");
+          expect(tooltip).toHaveStyleRule(
+            "color",
+            "var(--colorsSemanticNeutralYang100)",
+          );
+          expect(tooltip).toHaveStyleRule("word-break", "break-word");
+          expect(tooltip).toHaveStyleRule("white-space", "pre-wrap");
+          expect(tooltip).toHaveStyleRule("font-size", "14px");
+          expect(tooltip).toHaveStyleRule("line-height", "1.5rem");
+          expect(tooltip).toHaveStyleRule("font-weight", "400");
+          expect(tooltip).toHaveStyleRule(
+            "background-color",
+            "var(--colorsSemanticNeutral500)",
+          );
+          expect(tooltip).toHaveStyleRule(
+            "border-radius",
+            "var(--borderRadius050)",
+          );
         });
 
         it("applies the correct styles when size is 'large'", () => {
@@ -212,9 +222,10 @@ describe("Tooltip", () => {
       it("applies the correct styles when type === 'error'", () => {
         renderTooltip({ isVisible: true, type: "error" });
 
-        expect(screen.getByTestId("tooltip-pointer")).toHaveStyle({
-          background: "var(--colorsSemanticNegative500)",
-        });
+        expect(screen.getByTestId("tooltip-pointer")).toHaveStyleRule(
+          "background",
+          "var(--colorsSemanticNegative500)",
+        );
       });
 
       it.each([

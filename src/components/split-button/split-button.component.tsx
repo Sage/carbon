@@ -24,8 +24,8 @@ import {
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import SplitButtonContext from "./__internal__/split-button.context";
 import useLocale from "../../hooks/__internal__/useLocale";
-import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import { TableBodyContext } from "../table/__internal__/contexts";
 
 export interface SplitButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -36,9 +36,13 @@ export interface SplitButtonProps
    */
   align?: "left" | "right";
   /**
-   * @deprecated This prop is deprecated and has no effect. It will be removed in a future release.
-   * SplitButton only supports the primary variant. */
+   * @deprecated This prop is deprecated and will be removed in a future release. Please use `variantType` instead.
+   * SplitButton variant type. */
   buttonType?: "primary" | "secondary";
+  /**
+   * The variant type of the main and toggle buttons. Takes precedence over the deprecated `buttonType` prop.
+   */
+  variantType?: "primary" | "secondary";
   /** The additional button to display. */
   children: React.ReactNode;
   /** Prop to specify an aria-label for the component */
@@ -81,7 +85,8 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     {
       align: _align,
       position = "right",
-      buttonType = "primary",
+      buttonType,
+      variantType,
       children,
       disabled = false,
       iconPosition = "before",
@@ -107,9 +112,11 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     const buttonNode = useRef<HTMLDivElement>(null);
     const toggleWrapperRef = useRef<HTMLDivElement>(null);
 
-    const { isInFlatTable } = useContext(FlatTableContext);
+    const { isInTable } = useContext(TableBodyContext);
 
-    const shouldRenderIsWhiteVariant = buttonType === "secondary" && isWhite;
+    const actualVariant = variantType ?? buttonType ?? "primary";
+
+    const shouldRenderIsWhiteVariant = actualVariant === "secondary" && isWhite;
 
     useImperativeHandle<SplitButtonHandle, SplitButtonHandle>(
       ref,
@@ -133,7 +140,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     }, []);
 
     useEffect(() => {
-      if (!isInFlatTable) return;
+      if (!isInTable) return;
 
       const handleClickOnPopupBackdrop = (ev: MouseEvent) => {
         if (
@@ -150,7 +157,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       return () => {
         document.removeEventListener("click", handleClickOnPopupBackdrop);
       };
-    }, [hideButtons, isInFlatTable, showAdditionalButtons]);
+    }, [hideButtons, isInTable, showAdditionalButtons]);
 
     const handleMainClick = (
       ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
@@ -195,10 +202,11 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
         data-component="split-button"
         data-element={dataElement}
         data-role={dataRole}
+        $variantType={actualVariant}
         ref={buttonNode}
         {...filterStyledSystemMarginProps(rest)}
       >
-        {isInFlatTable && showAdditionalButtons && (
+        {isInTable && showAdditionalButtons && (
           <StyledBackdrop
             data-role="popup-backdrop"
             data-testid="popup-backdrop"
@@ -210,7 +218,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
           size={size}
           iconType={iconType}
           disabled={disabled}
-          variantType={buttonType}
+          variantType={actualVariant}
           iconPosition={iconPosition}
           onClick={handleMainClick}
           isWhite={shouldRenderIsWhiteVariant}
@@ -248,7 +256,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
                     $displayed={showAdditionalButtons}
                     $size={size}
                     $variant="default"
-                    $variantType={buttonType}
+                    $variantType={actualVariant}
                     onClick={handleToggleClick}
                     isWhite={shouldRenderIsWhiteVariant}
                   >

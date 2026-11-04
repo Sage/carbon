@@ -311,6 +311,10 @@ const misc = {
   clock_add: "\\f116",
   system_iOS: "\\f117",
   system_Android: "\\f118",
+  color_picker: "\\f119",
+  palette: "\\f120",
+  graphql: "\\f121",
+  person_add: "\\f122",
 };
 
 const legacyNames = {

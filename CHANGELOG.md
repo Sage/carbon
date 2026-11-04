@@ -1,3 +1,177 @@
+## [162.21.3](https://github.com/Sage/carbon/compare/v162.21.2...v162.21.3) (2026-11-04)
+
+### Bug Fixes
+
+* **radio-button, checkbox:** add aria-controls support ([92315b3](https://github.com/Sage/carbon/commit/92315b3d93b39f2bab629f85aed4fc66807031e7))
+
+## [162.21.2](https://github.com/Sage/carbon/compare/v162.21.1...v162.21.2) (2026-11-03)
+
+### Bug Fixes
+
+* **flex-tile-container:** prevent horizontal focus halo clipping ([67c354b](https://github.com/Sage/carbon/commit/67c354bb89e6bb342a8937578bd1aca1362beada))
+
+## [162.21.1](https://github.com/Sage/carbon/compare/v162.21.0...v162.21.1) (2026-11-02)
+
+### Bug Fixes
+
+* **divider:** export via index ([d408b0e](https://github.com/Sage/carbon/commit/d408b0e086b973759f871f53f9ed7531d516e012))
+
+## [162.21.0](https://github.com/Sage/carbon/compare/v162.20.3...v162.21.0) (2026-11-02)
+
+### Features
+
+* **action-popover:** align component with fusion ([5734a18](https://github.com/Sage/carbon/commit/5734a187b9d94ce40aac14e131b14f1488b89309))
+
+## [162.20.3](https://github.com/Sage/carbon/compare/v162.20.2...v162.20.3) (2026-10-30)
+
+### Bug Fixes
+
+* **skills:** resolve frontmatter rendering issue ([a71a834](https://github.com/Sage/carbon/commit/a71a834a3f1da85e11cd4c7d55f45d9bc820343e))
+
+## [162.20.2](https://github.com/Sage/carbon/compare/v162.20.1...v162.20.2) (2026-10-30)
+
+### Bug Fixes
+
+* **image:** add empty alt text to decorative images ([9668d17](https://github.com/Sage/carbon/commit/9668d170a778034ba4b91f9bc8639c73fe45568d))
+
+## [162.20.1](https://github.com/Sage/carbon/compare/v162.20.0...v162.20.1) (2026-10-29)
+
+### Bug Fixes
+
+* **dialog:** remove redundant sticky footer styling on small screens ([a680443](https://github.com/Sage/carbon/commit/a680443733fa753e4ece67407f9f673a91605d91))
+
+## [162.20.0](https://github.com/Sage/carbon/compare/v162.19.0...v162.20.0) (2026-10-29)
+
+### Features
+
+* **date-range:** update component with fusion design system ([6db1ef0](https://github.com/Sage/carbon/commit/6db1ef049c49d061868ac7ff3200acb870d1671b))
+
+## [162.19.0](https://github.com/Sage/carbon/compare/v162.18.0...v162.19.0) (2026-10-28)
+
+### Features
+
+* **adaptive-sidebar:** align with Fusion DS ([5d62e33](https://github.com/Sage/carbon/commit/5d62e33063b54bc811fb862b17991d54f5492c0b))
+
+## [162.18.0](https://github.com/Sage/carbon/compare/v162.17.0...v162.18.0) (2026-10-27)
+
+### Features
+
+* **pager:** ensure alignment prop works as expected ([568b5ca](https://github.com/Sage/carbon/commit/568b5caa48e005ed3317d8d0cd6a91d531fdb78e))
+
+## [162.17.0](https://github.com/Sage/carbon/compare/v162.16.2...v162.17.0) (2026-10-23)
+
+### Features
+
+* **required-fields-indicator:** add `as` prop ([6565f58](https://github.com/Sage/carbon/commit/6565f5819c1ec299eceb8602d71f01c574e14f42))
+
+## [162.16.2](https://github.com/Sage/carbon/compare/v162.16.1...v162.16.2) (2026-10-22)
+
+### Bug Fixes
+
+* **badge:** ensure fullWidth Button children render correctly ([392c6b9](https://github.com/Sage/carbon/commit/392c6b92d3f2ad28c5cbff5a111a372964a669e5)), closes [#8202](https://github.com/Sage/carbon/issues/8202)
+
+## [162.16.1](https://github.com/Sage/carbon/compare/v162.16.0...v162.16.1) (2026-10-22)
+
+### Bug Fixes
+
+* **navigation-bar:** restore white variant bottom border ([76072ec](https://github.com/Sage/carbon/commit/76072ec540881dac9ef4f32bd23c5a61322fd5a3))
+
+## [162.16.0](https://github.com/Sage/carbon/compare/v162.15.0...v162.16.0) (2026-10-22)
+
+### Features
+
+* **table:** add new component aligned with fusion designs ([a3d9fda](https://github.com/Sage/carbon/commit/a3d9fda6b241661ecab3a9fb301e6938e0059723))
+
+## [162.15.0](https://github.com/Sage/carbon/compare/v162.14.2...v162.15.0) (2026-10-22)
+
+### Features
+
+* **split-button:** secondary variant added to the component ([6098239](https://github.com/Sage/carbon/commit/6098239bb68854c7c41a8f6d80e39bf82120736a))
+
+## [162.14.2](https://github.com/Sage/carbon/compare/v162.14.1...v162.14.2) (2026-10-22)
+
+### Bug Fixes
+
+* **text-editor:** scale paragraph content font with the size prop ([e39ef22](https://github.com/Sage/carbon/commit/e39ef225de909b9b6c8ce972c4fe93fc62e853ba))
+
+## [162.14.1](https://github.com/Sage/carbon/compare/v162.14.0...v162.14.1) (2026-10-21)
+
+### Bug Fixes
+
+* position required indicators after multiline labels ([9a1065b](https://github.com/Sage/carbon/commit/9a1065b1f96ad8e21b674cb61eb2c243a3a96ffd)), closes [#8121](https://github.com/Sage/carbon/issues/8121)
+
+## [162.14.0](https://github.com/Sage/carbon/compare/v162.13.0...v162.14.0) (2026-10-20)
+
+### Features
+
+* **date:** align with fusion ds ([88ba851](https://github.com/Sage/carbon/commit/88ba8516c9793ee70045c50a3ddb7a7931c26d2b))
+
+## [162.13.0](https://github.com/Sage/carbon/compare/v162.12.0...v162.13.0) (2026-10-19)
+
+### Features
+
+* **multi-action-button:** align component with the Fusion DS ([f1e75e0](https://github.com/Sage/carbon/commit/f1e75e0915e6da58c7c4f9b0ec105c39f5e4024f))
+
+## [162.12.0](https://github.com/Sage/carbon/compare/v162.11.0...v162.12.0) (2026-10-16)
+
+### Features
+
+* **definition-list:** align component with the fusion DS ([d505e00](https://github.com/Sage/carbon/commit/d505e008d83bf5ae58d4465e5f37edabb6633e50))
+
+## [162.11.0](https://github.com/Sage/carbon/compare/v162.10.0...v162.11.0) (2026-10-16)
+
+### Features
+
+* **menu:** align with Fusion DS ([3e81ab1](https://github.com/Sage/carbon/commit/3e81ab11077ff74a74d74e25ee58da769cae6ccb))
+
+## [162.10.0](https://github.com/Sage/carbon/compare/v162.9.1...v162.10.0) (2026-10-15)
+
+### Features
+
+* **link-preview:** align with Fusion DS ([1876717](https://github.com/Sage/carbon/commit/1876717442b400c494d5008301fa89ec36a3df3b))
+
+## [162.9.1](https://github.com/Sage/carbon/compare/v162.9.0...v162.9.1) (2026-10-14)
+
+### Bug Fixes
+
+* **step-sequence:** fix min height ([ed01864](https://github.com/Sage/carbon/commit/ed01864894672aa48937c5f4adad9497fd3c7ee6)), closes [#8198](https://github.com/Sage/carbon/issues/8198)
+
+## [162.9.0](https://github.com/Sage/carbon/compare/v162.8.0...v162.9.0) (2026-10-13)
+
+### Features
+
+* **box:** add deprecation annotations and warnings for future unsupported props and types ([0928236](https://github.com/Sage/carbon/commit/09282364db95e454888795cfe104f1b0aadb2846))
+
+## [162.8.0](https://github.com/Sage/carbon/compare/v162.7.0...v162.8.0) (2026-10-08)
+
+### Features
+
+* **tile:** align component with Fusion DS ([6bf8000](https://github.com/Sage/carbon/commit/6bf8000216c4ad7f06d9e495e9fed4a6e812236e))
+
+## [162.7.0](https://github.com/Sage/carbon/compare/v162.6.1...v162.7.0) (2026-10-07)
+
+### Features
+
+* **pager:** add layout, alignment, and totals display ([83b1911](https://github.com/Sage/carbon/commit/83b1911aba0ae5700c264482d57eb166de58ac0c))
+
+## [162.6.1](https://github.com/Sage/carbon/compare/v162.6.0...v162.6.1) (2026-10-07)
+
+### Bug Fixes
+
+* **dialog-header:** ensure icon is not misaligned when title text wraps ([7c28c83](https://github.com/Sage/carbon/commit/7c28c83abb315029dd6c16a8eb0e1c1a5e9cd2ee)), closes [#8200](https://github.com/Sage/carbon/issues/8200)
+
+## [162.6.0](https://github.com/Sage/carbon/compare/v162.5.0...v162.6.0) (2026-10-07)
+
+### Features
+
+* **icon:** added 4 new icons ([d4685fa](https://github.com/Sage/carbon/commit/d4685fae3dde7d766782c842376b9a9cc51ae58b))
+
+## [162.5.0](https://github.com/Sage/carbon/compare/v162.4.0...v162.5.0) (2026-10-05)
+
+### Features
+
+* **sidebar:** align with fusion ds ([b65a526](https://github.com/Sage/carbon/commit/b65a5261c08c39da03bb69aab882041906a996a2))
+
 ## [162.4.0](https://github.com/Sage/carbon/compare/v162.3.1...v162.4.0) (2026-09-24)
 
 ### Features

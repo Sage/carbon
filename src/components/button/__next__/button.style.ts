@@ -11,17 +11,6 @@ import {
   VariantType,
 } from "./button.config";
 
-// styling overrides to ensure buttons within menu items
-// fit the menu item style requirements
-const menuItemOverrides = css`
-  [data-component="menu-item"] & {
-    background-color: transparent;
-    padding: 6px var(--global-space-none);
-    border-radius: var(--global-radius-none);
-    border: none;
-  }
-`;
-
 const getCSSForGradientStyle = ({
   allowMotion = true,
   disabled,
@@ -112,7 +101,11 @@ const getCSSForGradientStyle = ({
     ${!disabled &&
     css`
       &:active,
-      &.active {
+      &.active,
+      [data-component="popover-menu-control"]
+        &[aria-haspopup="true"][aria-expanded="true"],
+      [data-component="popover-menu-control"]
+        &[aria-haspopup="menu"][aria-expanded="true"] {
         background: ${background?.active};
         color: ${label?.active};
         border-color: ${border?.active};
@@ -158,7 +151,11 @@ const getCSSForInverseStyle = ({
         `
       : css`
           &:active,
-          &.active {
+          &.active,
+          [data-component="popover-menu-control"]
+            &[aria-haspopup="true"][aria-expanded="true"],
+          [data-component="popover-menu-control"]
+            &[aria-haspopup="menu"][aria-expanded="true"] {
             background-color: ${background.active};
             color: ${label.active};
             border-color: ${border.active};
@@ -213,7 +210,11 @@ const getCSSForStyle = ({
         `
       : css`
           &:active,
-          &.active {
+          &.active,
+          [data-component="popover-menu-control"]
+            &[aria-haspopup="true"][aria-expanded="true"],
+          [data-component="popover-menu-control"]
+            &[aria-haspopup="menu"][aria-expanded="true"] {
             background-color: ${background?.active};
             color: ${label?.active};
             border-color: ${border?.active};
@@ -248,6 +249,7 @@ export const StyledButton = styled.button<
     $size: Size;
     $variant: Variant;
     $variantType: VariantType;
+    $align?: "left" | "right";
   }
 >`
   align-items: center;
@@ -367,7 +369,13 @@ export const StyledButton = styled.button<
     }
   }
 
-  ${menuItemOverrides}
+  [class*="popover-menu-item"] &[data-align="left"] {
+    justify-content: flex-start;
+  }
+
+  [class*="popover-menu-item"] &[data-align="right"] {
+    justify-content: flex-end;
+  }
 
   ${space}
 `;

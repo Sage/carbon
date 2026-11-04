@@ -26,7 +26,7 @@ test.describe("Accessibility tests for LinkPreview component", () => {
     mount,
     page,
   }) => {
-    await mount(<LinkPreviewComponentTest onClose={() => {}} />);
+    await mount(<LinkPreviewComponentTest as="div" onClose={() => {}} />);
 
     await checkAccessibility(page);
   });

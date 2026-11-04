@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { render, screen, within, act } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Menu, MenuItem } from "..";
 import MenuFullscreen from ".";
 
 import Logger from "../../../__internal__/utils/logger";
-import { sageTheme } from "../../../style/themes";
-
 import CarbonProvider from "../../carbon-provider";
 
 test("logs error if not used within Menu", () => {
@@ -28,7 +26,7 @@ test("logs error if not used within Menu", () => {
 
 test("should not render the menu when `isOpen` is falsy", () => {
   render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+    <CarbonProvider>
       <Menu>
         <MenuFullscreen onClose={() => {}}>
           <MenuItem href="#">Item one</MenuItem>
@@ -42,7 +40,7 @@ test("should not render the menu when `isOpen` is falsy", () => {
 
 test("should have the expected `data-` tags when menu is open", () => {
   render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+    <CarbonProvider>
       <Menu>
         <MenuFullscreen
           data-element="bar"
@@ -62,7 +60,7 @@ test("should have the expected `data-` tags when menu is open", () => {
 
 test("should have the expected ARIA properties when menu is open", () => {
   render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+    <CarbonProvider>
       <Menu>
         <MenuFullscreen isOpen onClose={() => {}} aria-label="My menu" />
       </Menu>
@@ -73,183 +71,11 @@ test("should have the expected ARIA properties when menu is open", () => {
   expect(menu).toHaveAttribute("aria-modal", "true");
 });
 
-test("should render the children with the expected divider elements added", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <Menu>
-        <MenuFullscreen isOpen onClose={() => {}}>
-          <MenuItem maxWidth="200px" href="#">
-            Menu Item One
-          </MenuItem>
-          <MenuItem
-            maxWidth="200px"
-            onClick={() => {}}
-            submenu="Menu Item Two"
-            href="#"
-          >
-            <MenuItem maxWidth="200px" href="#">
-              Submenu Item One
-            </MenuItem>
-            <MenuItem maxWidth="200px" href="#">
-              Submenu Item Two
-            </MenuItem>
-          </MenuItem>
-          <MenuItem maxWidth="200px" href="#">
-            Menu Item Three
-          </MenuItem>
-          <MenuItem maxWidth="200px" href="#">
-            Menu Item Four
-          </MenuItem>
-          <MenuItem maxWidth="200px" submenu="Menu Item Five" href="#">
-            <MenuItem maxWidth="200px" href="#">
-              Submenu Item One
-            </MenuItem>
-            <MenuItem maxWidth="200px" href="#">
-              Submenu Item Two
-            </MenuItem>
-          </MenuItem>
-          <MenuItem maxWidth="200px" href="#">
-            Menu Item Six
-          </MenuItem>
-        </MenuFullscreen>
-      </Menu>
-    </CarbonProvider>,
-  );
-
-  expect(screen.getAllByRole("link")).toHaveLength(10);
-  expect(screen.getAllByTestId("divider")).toHaveLength(5);
-});
-
-test("should set any `maxWidth` values passed to items to undefined", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <Menu>
-        <MenuFullscreen isOpen onClose={() => {}}>
-          <MenuItem maxWidth="200px" href="#">
-            Menu Item One
-          </MenuItem>
-          <MenuItem
-            maxWidth="200px"
-            onClick={() => {}}
-            submenu="Menu Item Two"
-            href="#"
-          >
-            <MenuItem maxWidth="200px" href="#">
-              Submenu Item One
-            </MenuItem>
-            <MenuItem maxWidth="200px" href="#">
-              Submenu Item Two
-            </MenuItem>
-          </MenuItem>
-          <MenuItem maxWidth="200px" href="#">
-            Menu Item Three
-          </MenuItem>
-          <MenuItem maxWidth="200px" href="#">
-            Menu Item Four
-          </MenuItem>
-          <MenuItem maxWidth="200px" submenu="Menu Item Five" href="#">
-            <MenuItem maxWidth="200px" href="#">
-              Submenu Item One
-            </MenuItem>
-            <MenuItem maxWidth="200px" href="#">
-              Submenu Item Two
-            </MenuItem>
-          </MenuItem>
-          <MenuItem maxWidth="200px" href="#">
-            Menu Item Six
-          </MenuItem>
-        </MenuFullscreen>
-      </Menu>
-    </CarbonProvider>,
-  );
-  const items = screen.getAllByRole("listitem");
-
-  items.forEach((item) => {
-    expect(item).toHaveStyle({ maxWidth: "" });
-  });
-});
-
-test("should apply the expected color to the close icon when `menuType` is 'light'", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <Menu menuType="light">
-        <MenuFullscreen isOpen onClose={() => {}}>
-          <MenuItem href="#">Item one</MenuItem>
-        </MenuFullscreen>
-      </Menu>
-    </CarbonProvider>,
-  );
-  const closeButton = screen.getByRole("button", { name: "Close" });
-  const closeButtonIcon = within(closeButton).getByTestId("icon");
-
-  expect(closeButtonIcon).toHaveStyleRule(
-    "color",
-    "var(--page-content-icon-default)",
-  );
-});
-
-test("should apply the expected color to the close icon when `menuType` is 'dark'", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <Menu menuType="dark">
-        <MenuFullscreen isOpen onClose={() => {}}>
-          <MenuItem href="#">Item one</MenuItem>
-        </MenuFullscreen>
-      </Menu>
-    </CarbonProvider>,
-  );
-  const closeButton = screen.getByRole("button", { name: "Close" });
-  const closeButtonIcon = within(closeButton).getByTestId("icon");
-
-  expect(closeButtonIcon).toHaveStyleRule(
-    "color",
-    "var(--page-content-inverse-icon-default)",
-  );
-});
-
-test("should apply the expected color to the close icon when `menuType` is 'white'", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <Menu menuType="white">
-        <MenuFullscreen isOpen onClose={() => {}}>
-          <MenuItem href="#">Item one</MenuItem>
-        </MenuFullscreen>
-      </Menu>
-    </CarbonProvider>,
-  );
-  const closeButton = screen.getByRole("button", { name: "Close" });
-  const closeButtonIcon = within(closeButton).getByTestId("icon");
-
-  expect(closeButtonIcon).toHaveStyleRule(
-    "color",
-    "var(--page-content-icon-default)",
-  );
-});
-
-test("should apply the expected color to the close icon when `menuType` is 'black'", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <Menu menuType="black">
-        <MenuFullscreen isOpen onClose={() => {}}>
-          <MenuItem href="#">Item one</MenuItem>
-        </MenuFullscreen>
-      </Menu>
-    </CarbonProvider>,
-  );
-  const closeButton = screen.getByRole("button", { name: "Close" });
-  const closeButtonIcon = within(closeButton).getByTestId("icon");
-
-  expect(closeButtonIcon).toHaveStyleRule(
-    "color",
-    "var(--page-content-inverse-icon-default)",
-  );
-});
-
 test("should call the passed `onClose` callback when the close button is clicked", async () => {
   const onClose = jest.fn();
   const user = userEvent.setup();
   render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+    <CarbonProvider>
       <Menu>
         <MenuFullscreen isOpen onClose={onClose}>
           <MenuItem href="#">Item 1</MenuItem>
@@ -266,7 +92,7 @@ test("should call the passed `onClose` callback when the 'Escape' key is pressed
   const onClose = jest.fn();
   const user = userEvent.setup();
   render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+    <CarbonProvider>
       <Menu>
         <MenuFullscreen isOpen onClose={onClose}>
           <MenuItem href="#">Item 1</MenuItem>
@@ -283,7 +109,7 @@ test("should call the passed `onClick` callback when the menu item is clicked", 
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+    <CarbonProvider>
       <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem onClick={onClick} href="#">
@@ -302,7 +128,7 @@ test("should call the passed `onClick` callback when the submenu item is clicked
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+    <CarbonProvider>
       <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem submenu="Submenu" onClick={onClick} href="#">
@@ -319,7 +145,7 @@ test("should call the passed `onClick` callback when the submenu item is clicked
 
 test("should focus the root container, when menu is opened", () => {
   render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+    <CarbonProvider>
       <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem submenu="Submenu">
@@ -333,14 +159,29 @@ test("should focus the root container, when menu is opened", () => {
   expect(screen.getByRole("dialog")).toHaveFocus();
 });
 
-test("should not render a divider when menu contains a falsy values", () => {
+test("renders a divider between each child but not after the last one", () => {
   render(
-    <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+    <CarbonProvider>
       <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
-          <MenuItem maxWidth="200px" href="#">
-            Submenu Item One
-          </MenuItem>
+          <MenuItem href="#">Item one</MenuItem>
+          <MenuItem href="#">Item two</MenuItem>
+          <MenuItem href="#">Item three</MenuItem>
+        </MenuFullscreen>
+      </Menu>
+    </CarbonProvider>,
+  );
+
+  expect(screen.getAllByRole("link")).toHaveLength(3);
+  expect(screen.getAllByTestId("divider")).toHaveLength(2);
+});
+
+test("should not render a divider when menu contains a falsy values", () => {
+  render(
+    <CarbonProvider>
+      <Menu>
+        <MenuFullscreen isOpen onClose={() => {}}>
+          <MenuItem href="#">Submenu Item One</MenuItem>
           {false && <MenuItem href="#">Product Item One</MenuItem>}
         </MenuFullscreen>
       </Menu>
@@ -371,7 +212,7 @@ test("should maintain the state of any child items if items are added or removed
     }, []);
 
     return (
-      <CarbonProvider validationRedesignOptIn theme={sageTheme}>
+      <CarbonProvider>
         <Menu>
           <MenuFullscreen onClose={() => {}} isOpen>
             {extraItem ? (
@@ -399,9 +240,10 @@ test("should maintain the state of any child items if items are added or removed
   act(() => {
     jest.advanceTimersByTime(5000);
   });
-  const itemLink = screen.getByRole("link", { name: /submenu 2/ });
 
-  expect(itemLink).toHaveTextContent("count 2");
+  expect(screen.getByRole("link", { name: /submenu 2/ })).toHaveTextContent(
+    "count 2",
+  );
 
   jest.useRealTimers();
 });

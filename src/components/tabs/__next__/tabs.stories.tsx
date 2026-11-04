@@ -11,6 +11,11 @@ import Form from "../../form";
 import Textbox from "../../textbox";
 import { TabsHandle } from "./tabs.types";
 
+const lightGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-xs)",
+  backgroundColor: "rgb(244, 245, 246)",
+};
+
 const meta: Meta<typeof Tabs> = {
   title: "Tabs",
   component: Tabs,
@@ -19,9 +24,9 @@ const meta: Meta<typeof Tabs> = {
   },
   decorators: [
     (StoryToRender) => (
-      <Box backgroundColor="var(--container-standard-bg-alt)" p={3}>
+      <div style={lightGreyBackground}>
         <StoryToRender />
-      </Box>
+      </div>
     ),
   ],
 };

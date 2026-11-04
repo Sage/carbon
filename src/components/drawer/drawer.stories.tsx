@@ -6,6 +6,12 @@ import Button from "../button";
 import Typography from "../typography";
 import Box from "../box";
 
+const lightGreyBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-2-xs)",
+  height: "300px",
+  backgroundColor: "rgb(242, 245, 246)",
+};
+
 const meta: Meta<typeof Drawer> = {
   title: "Drawer",
   component: Drawer,
@@ -17,9 +23,9 @@ const meta: Meta<typeof Drawer> = {
   },
   decorators: [
     (Story) => (
-      <Box backgroundColor="--colorsUtilityMajor025" p={2} height="300px">
+      <div style={lightGreyBackground}>
         <Story />
-      </Box>
+      </div>
     ),
   ],
 };

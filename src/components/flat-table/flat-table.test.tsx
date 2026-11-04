@@ -1,6 +1,12 @@
 import React from "react";
 
-import { act, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import FlatTable from "./flat-table.component";
@@ -1378,20 +1384,14 @@ test("when a DateInput is opened in an expandable row and FlatTable has sticky f
       </FlatTableBody>
     </FlatTable>,
   );
-  const preventDefaultSpy = jest.spyOn(
-    KeyboardEvent.prototype,
-    "preventDefault",
-  );
-
   const flatTableRow = screen.getByTestId("flat-table-row-0");
+  const table = screen.getByRole("table");
 
   await user.click(flatTableRow);
-  await user.keyboard("{PageDown}");
-  await user.keyboard("{PageUp}");
-  await user.keyboard("{Home}");
-  await user.keyboard("{End}");
-
-  expect(preventDefaultSpy).not.toHaveBeenCalled();
+  expect(fireEvent.keyDown(table, { key: "PageDown" })).toBe(true);
+  expect(fireEvent.keyDown(table, { key: "PageUp" })).toBe(true);
+  expect(fireEvent.keyDown(table, { key: "Home" })).toBe(true);
+  expect(fireEvent.keyDown(table, { key: "End" })).toBe(true);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -1400,11 +1400,8 @@ test("when a DateInput is opened in an expandable row and FlatTable has sticky f
     expect(screen.getByRole("grid")).toBeVisible();
   });
 
-  await user.keyboard("{PageDown}");
-  await user.keyboard("{PageUp}");
-  await user.keyboard("{Home}");
-  await user.keyboard("{End}");
-
-  expect(preventDefaultSpy).toHaveBeenCalled();
-  preventDefaultSpy.mockRestore();
+  expect(fireEvent.keyDown(table, { key: "PageDown" })).toBe(false);
+  expect(fireEvent.keyDown(table, { key: "PageUp" })).toBe(false);
+  expect(fireEvent.keyDown(table, { key: "Home" })).toBe(false);
+  expect(fireEvent.keyDown(table, { key: "End" })).toBe(false);
 });

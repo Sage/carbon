@@ -304,9 +304,11 @@ describe("when custom props are passed", () => {
 
   it("when 'hasMotion' is `false` no animation should be present on the inner arc", () => {
     render(<LoaderSpinner hasMotion={false} />);
-    const innerArcSvgElement = screen.getByTestId("inner-arc");
-
-    expect(innerArcSvgElement).toHaveStyle("animation-iteration-count: none");
+    expect(screen.getByRole("presentation")).toHaveStyleRule(
+      "animation-iteration-count",
+      "none",
+      { modifier: 'circle[data-role="inner-arc"]' },
+    );
   });
 
   it.each(["gradient-grey", "gradient-white"] as const)(

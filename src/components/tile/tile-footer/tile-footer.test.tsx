@@ -1,25 +1,33 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TileFooter, { TileFooterProps } from ".";
+import Tile from "../tile.component";
 import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
 testStyledSystemPadding(
-  (props) => <TileFooter data-role="footer" {...props} />,
+  (props) => (
+    <Tile>
+      <TileFooter data-role="footer" {...props} />
+    </Tile>
+  ),
   () => screen.getByTestId("footer"),
 );
 
 test.each<[TileFooterProps["variant"], string, string]>([
-  ["default", "var(--colorsUtilityMajor100)", "var(--colorsUtilityMajor100)"],
-  ["black", "var(--colorsUtilityYin100)", "var(--colorsUtilityMajor100)"],
-  ["transparent", "transparent", "var(--colorsUtilityMajor100)"],
-  ["grey", "var(--colorsUtilityMajor025)", "var(--colorsUtilityMajor200)"],
+  ["black", "var(--container-action-bg-footer-active)", "transparent"],
+  ["selected", "var(--container-action-bg-footer-active)", "transparent"],
+  ["active", "var(--container-action-bg-footer-activated)", "transparent"],
+  [undefined, "transparent", "var(--container-standard-border-default)"],
 ])(
   "should render correct background and border-top when variant prop is %s",
   (tileVariant, background, borderTopColor) => {
     render(
-      <TileFooter variant={tileVariant} data-role="tile-footer">
-        content
-      </TileFooter>,
+      <Tile>
+        <TileFooter variant={tileVariant} data-role="tile-footer">
+          content
+        </TileFooter>
+        ,
+      </Tile>,
     );
 
     const tileFooterElement = screen.getByTestId("tile-footer");
@@ -34,9 +42,12 @@ test.each<[TileFooterProps["variant"], string, string]>([
 
 test("has proper data attributes applied to elements", () => {
   render(
-    <TileFooter data-element="foo" data-role="tile-footer">
-      content
-    </TileFooter>,
+    <Tile>
+      <TileFooter data-element="foo" data-role="tile-footer">
+        content
+      </TileFooter>
+      ,
+    </Tile>,
   );
 
   const tileFooterElement = screen.getByTestId("tile-footer");

@@ -68,7 +68,12 @@ const ReadOnlyEditor = ({
   }, [namespace, initialValue]);
 
   return (
-    <StyledContentEditable namespace={namespace} readOnly size={size}>
+    <StyledContentEditable
+      data-role={`${namespace}-content-editable`}
+      namespace={namespace}
+      readOnly
+      size={size}
+    >
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextPlugin
           contentEditable={

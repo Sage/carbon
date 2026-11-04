@@ -1,44 +1,67 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
-
+import carbonLogo from "../../../logo/carbon-logo.png";
 import LinkPreview from ".";
+import Box from "../box";
 
 const meta: Meta<typeof LinkPreview> = {
   title: "Link Preview",
   component: LinkPreview,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
-
 export default meta;
 type Story = StoryObj<typeof LinkPreview>;
 
-export const DefaultStory: Story = () => {
-  return (
-    <LinkPreview
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets?"
-    />
-  );
+export const Default: Story = {
+  render: (args) => <LinkPreview {...args} />,
+  args: {
+    title: "Title",
+    url: "https://carbon.sage.com",
+    description: "Description",
+    image: { url: carbonLogo, alt: "Carbon logo" },
+  },
 };
-DefaultStory.storyName = "Default";
-DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const LinkPreviewLoadingState: Story = () => {
-  return <LinkPreview isLoading />;
+export const LoadingState: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    isLoading: true,
+  },
 };
-LinkPreviewLoadingState.storyName = "Link Preview Loading State";
 
-export const LinkPreviewCloseIcon: Story = () => {
-  return (
+export const WithCloseButton: Story = {
+  render: (args) => (
     <LinkPreview
-      title="This is an example of a title"
-      url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets?"
-      as="div"
-      onClose={(url) => action("close icon clicked")(url)}
+      onClose={(url) => action("close button clicked")(url)}
+      {...args}
     />
-  );
+  ),
+  args: {
+    ...Default.args,
+    as: "div",
+  },
 };
-LinkPreviewCloseIcon.storyName = "Link Preview Close Icon";
-LinkPreviewCloseIcon.parameters = { chromatic: { disableSnapshot: true } };
+
+export const Sizes: Story = {
+  render: (args) => (
+    <>
+      <LinkPreview size="small" {...args} />
+      <LinkPreview size="medium" {...args} />
+      <LinkPreview size="large" {...args} />
+    </>
+  ),
+  args: {
+    ...Default.args,
+  },
+  decorators: [
+    (Story) => (
+      <Box display="flex" justifyContent="space-between" gap={2}>
+        <Story />
+      </Box>
+    ),
+  ],
+};

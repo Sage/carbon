@@ -47,7 +47,7 @@ export const VerticalMenuFullScreen = ({
 }: VerticalMenuFullScreenProps) => {
   const l = useLocale();
 
-  const menuWrapperRef = useRef<HTMLDivElement | null>(null);
+  const menuWrapperRef = useRef<HTMLElement | null>(null);
 
   const reduceMotion = !useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
@@ -80,8 +80,6 @@ export const VerticalMenuFullScreen = ({
           ref={menuWrapperRef}
           isOpen={isOpen}
           prefersReducedMotion={reduceMotion}
-          scrollVariant="light"
-          as="nav"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           {...tagComponent("vertical-menu-full-screen", rest)}

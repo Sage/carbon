@@ -1,17 +1,12 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import {
-  StyledLinkPreview,
-  StyledPreviewWrapper,
-  StyledTitle,
-  StyledUrl,
-} from "../link-preview/link-preview.style";
 import { VARIANT_TYPES } from "../typography/typography.component";
 
 const StyledNoteContent = styled.div<{
   $hasTitlelessControl?: boolean;
   $hasPreviews?: boolean;
+  $isPreviews?: boolean;
   $isBody?: boolean;
 }>`
   position: relative;
@@ -46,24 +41,36 @@ const StyledNoteContent = styled.div<{
         );
       }
     `}
+  
+  ${({ $isPreviews }) => css`
+    ${!$isPreviews &&
+    css`
+      a {
+        color: var(--link-typical-label-default);
 
-  a:not([data-component="link-preview"]) {
-    color: var(--link-typical-label-default);
+        &:hover {
+          cursor: pointer;
+          color: var(--link-typical-label-hover);
+        }
 
-    &:hover {
-      cursor: pointer;
-      color: var(--link-typical-label-hover);
-    }
+        &:focus {
+          outline: none;
+          text-decoration: none;
+          color: var(--focus-label);
+          background-color: var(--focus-bg);
+          border-radius: var(--global-radius-action-xs);
+          box-shadow: 0 var(--global-size-5-xs) 0 0 var(--focus-borderalt);
+        }
+      }
+    `}
 
-    &:focus {
-      outline: none;
-      text-decoration: none;
-      color: var(--focus-label);
-      background-color: var(--focus-bg);
-      border-radius: var(--global-radius-action-xs);
-      box-shadow: 0 var(--global-size-5-xs) 0 0 var(--focus-borderalt);
-    }
-  }
+    ${$isPreviews &&
+    css`
+      display: flex;
+      flex-direction: column;
+      gap: var(--global-space-comp-s);
+    `}
+  `};
 `;
 
 const StyledNoteMain = styled.div`
@@ -180,25 +187,6 @@ const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
       width: auto;
     }
   `}
-
-  ${StyledLinkPreview} {
-    margin: var(--global-space-none);
-    min-width: 0;
-    overflow: hidden;
-
-    ${StyledPreviewWrapper} {
-      min-width: 0;
-    }
-
-    ${StyledTitle},
-    ${StyledUrl} {
-      overflow: hidden;
-    }
-
-    :not(:first-of-type) {
-      margin-top: var(--global-space-comp-s);
-    }
-  }
 
   > [data-role="note-metadata"] {
     border-radius: var(--global-radius-action-xs) var(--global-radius-action-xs)

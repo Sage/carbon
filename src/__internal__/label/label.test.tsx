@@ -30,34 +30,14 @@ test("should render with `id` prop", () => {
   expect(label).toHaveAttribute("id", "label-id");
 });
 
-test("should apply large font size when `isLarge` prop is true", () => {
-  render(<Label size="large">Large</Label>);
+test.each([
+  ["small", "var(--global-font-static-comp-medium-s)"],
+  ["medium", "var(--global-font-static-comp-medium-m)"],
+  ["large", "var(--global-font-static-comp-medium-l)"],
+] as const)("should apply %s font to label", (size, font) => {
+  render(<Label size={size}>Label</Label>);
 
-  const label = screen.getByText("Large");
-  expect(label).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-l)",
-  );
-});
-
-test("should apply medium font size when `isLarge` prop is false", () => {
-  render(<Label size="medium">Medium</Label>);
-
-  const label = screen.getByText("Medium");
-  expect(label).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-m)",
-  );
-});
-
-test("should apply medium font size by default", () => {
-  render(<Label size="medium">Default</Label>);
-
-  const label = screen.getByText("Default");
-  expect(label).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-m)",
-  );
+  expect(screen.getByText("Label")).toHaveStyleRule("font", font);
 });
 
 test("should render required indicator when `isRequired` prop is true", () => {
@@ -86,36 +66,6 @@ test("should render required indicator when `isRequired` and `disabled` props ar
   expect(label).toHaveStyleRule(
     "color",
     "var(--input-labelset-label-disabled)",
-    { modifier: "::after" },
-  );
-});
-
-test("should apply large font to required indicator when `isLarge` prop is true", () => {
-  render(
-    <Label size="large" isRequired>
-      Large Required
-    </Label>,
-  );
-
-  const label = screen.getByText("Large Required");
-  expect(label).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-l)",
-    { modifier: "::after" },
-  );
-});
-
-test("should apply medium font to required indicator by default", () => {
-  render(
-    <Label size="medium" isRequired>
-      Required
-    </Label>,
-  );
-
-  const label = screen.getByText("Required");
-  expect(label).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-m)",
     { modifier: "::after" },
   );
 });

@@ -85,7 +85,7 @@ description: Carbon Breadcrumbs component props and usage examples.
 ```tsx
 ({ ...args }) => {
     return (
-      <Box p={2} bg="#000">
+      <div style={blackBackground}>
         <Breadcrumbs aria-label="Breadcrumbs with inverse styling" {...args}>
           <Crumb href="#">Breadcrumb 1</Crumb>
           <Crumb href="#">Breadcrumb 2</Crumb>
@@ -94,7 +94,7 @@ description: Carbon Breadcrumbs component props and usage examples.
             Current Page
           </Crumb>
         </Breadcrumbs>
-      </Box>
+      </div>
     );
   }
 ```

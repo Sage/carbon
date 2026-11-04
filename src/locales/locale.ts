@@ -8,6 +8,7 @@ interface Locale {
   };
   actionPopover: {
     ariaLabel: () => string;
+    buttonLabel?: () => string;
   };
   advancedColorPicker: {
     ariaLabel: () => string;
@@ -37,6 +38,18 @@ interface Locale {
     ariaLabels: {
       previousMonthButton: () => string;
       nextMonthButton: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      openCalendarButton?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      chooseMonth?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      chooseYear?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      closeButton?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      openCalendarDescription?: () => string;
+      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
+      chooseDate?: () => string;
     };
     dateFormatOverride?: string;
   };
@@ -83,6 +96,9 @@ interface Locale {
   };
   link: {
     skipLinkLabel: () => string;
+  };
+  linkPreview: {
+    closeButtonAriaLabel?: () => string;
   };
   loader: {
     loading: () => string;
@@ -137,17 +153,24 @@ interface Locale {
     /** @deprecated This translation key is no longer in use. */
     previous?: () => string;
     /** @deprecated This translation key is no longer in use. */
-    ofY?: (count: string | number) => string;
-
-    ariaLabel?: () => string;
-    // TODO - make the following keys required once deprecated keys are removed.
-    pageX: (currentPage?: number | string) => string;
     ofTotalPages?: (totalPages: string | number) => string;
+
+    pageX: (currentPage?: number | string) => string;
+    // TODO - make the following keys required once deprecated keys are removed.
+    ariaLabel?: () => string;
+    ofY?: (totalPages: string | number) => string;
     itemsPerPage?: () => string;
-    firstAriaLabel?: () => string;
-    lastAriaLabel?: () => string;
-    nextAriaLabel?: () => string;
-    previousAriaLabel?: () => string;
+    totalItems?: () => string;
+    firstAriaLabel?: (totalPages?: string | number) => string;
+    lastAriaLabel?: (totalPages?: string | number) => string;
+    nextAriaLabel?: (
+      nextPage?: number | string,
+      totalPages?: string | number,
+    ) => string;
+    previousAriaLabel?: (
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) => string;
   };
   password: {
     buttonLabelHide?: () => string;
@@ -263,6 +286,11 @@ interface Locale {
     on: () => string;
     off: () => string;
     processingLabel: () => string;
+  };
+  table: {
+    sort: {
+      ariaRoleDescription: () => string;
+    };
   };
   tileSelect: {
     deselect: () => string;

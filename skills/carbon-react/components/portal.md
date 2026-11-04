@@ -37,6 +37,6 @@ description: Carbon Portal component props and usage examples.
 ```tsx
 ## Usage
 
-This example demonstrates how to render a Portal with a Box component as a child that uses a design-token for the background color.
+This example demonstrates how to render a Portal with a Box component as a child while applying the background color to a native wrapper.
 ```
 

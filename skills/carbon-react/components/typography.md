@@ -189,13 +189,7 @@ description: Carbon Typography component props and usage examples.
 
 ```tsx
 () => (
-  <Box
-    backgroundColor="black"
-    display="flex"
-    flexDirection="column"
-    gap={2}
-    p={2}
-  >
+  <div style={blackBackground}>
     <Typography variant="p" inverse>
       Paragraph (Default)
     </Typography>
@@ -250,7 +244,7 @@ description: Carbon Typography component props and usage examples.
       <li>Ordered List</li>
       <li>Ordered List</li>
     </Typography>
-  </Box>
+  </div>
 )
 ```
 

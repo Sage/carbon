@@ -13,6 +13,7 @@ const enGB: Locale = {
   },
   actionPopover: {
     ariaLabel: () => "actions",
+    buttonLabel: () => "Actions",
   },
   advancedColorPicker: {
     ariaLabel: () => "Change colour",
@@ -50,6 +51,13 @@ const enGB: Locale = {
     ariaLabels: {
       previousMonthButton: () => "Previous month",
       nextMonthButton: () => "Next month",
+      openCalendarButton: () => "Open calendar",
+      chooseMonth: () => "Choose the month",
+      chooseYear: () => "Choose the year",
+      closeButton: () => "Close",
+      openCalendarDescription: () =>
+        "Use the arrow keys to move between dates and press Enter or Space to select a date.",
+      chooseDate: () => "Choose a date",
     },
     dateFormatOverride: undefined,
   },
@@ -111,6 +119,9 @@ const enGB: Locale = {
   link: {
     skipLinkLabel: () => "Skip to main content",
   },
+  linkPreview: {
+    closeButtonAriaLabel: () => "Close",
+  },
   loader: {
     loading: () => "Loading...",
   },
@@ -154,13 +165,22 @@ const enGB: Locale = {
     },
   },
   pager: {
-    firstAriaLabel: () => "Go to first page",
-    lastAriaLabel: () => "Go to last page",
-    nextAriaLabel: () => "Go to next page",
-    previousAriaLabel: () => "Go to previous page",
-    pageX: (currentPage?: number | string) => `Page ${currentPage}`,
-    ofTotalPages: (totalPages: number | string) => `of ${totalPages} pages`,
+    firstAriaLabel: (totalPages?: string | number) =>
+      `Go to first page ${totalPages ? `(page 1 of ${totalPages})` : ""} `,
+    lastAriaLabel: (totalPages?: string | number) =>
+      `Go to last page ${totalPages ? `(page ${totalPages} of ${totalPages})` : ""} `,
+    nextAriaLabel: (nextPage?: number | string, totalPages?: string | number) =>
+      `Go to next page ${nextPage && totalPages ? `(page ${nextPage} of ${totalPages})` : ""} `,
+    previousAriaLabel: (
+      previousPage?: number | string,
+      totalPages?: string | number,
+    ) =>
+      `Go to previous page ${previousPage && totalPages ? `(page ${previousPage} of ${totalPages})` : ""} `,
+    pageX: (currentPage?: number | string) =>
+      `Page${currentPage ? ` ${currentPage}` : ""}`,
+    ofY: (totalPages: number | string) => `of ${totalPages}`,
     itemsPerPage: () => "Items per page",
+    totalItems: () => "total items",
     ariaLabel: () => "Pagination",
   },
   password: {
@@ -287,6 +307,11 @@ const enGB: Locale = {
     on: () => "On",
     off: () => "Off",
     processingLabel: () => "Processing...",
+  },
+  table: {
+    sort: {
+      ariaRoleDescription: () => "Sortable column header",
+    },
   },
   tileSelect: {
     deselect: () => "Deselect",

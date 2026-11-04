@@ -3,6 +3,7 @@ import { test } from "../../../playwright/helpers/base-test";
 import {
   DividerComponent,
   DarkBackgroundOnInverseDivider,
+  DividerInMenu,
 } from "./components.test-pw";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
@@ -21,6 +22,15 @@ test.describe("Accessibility tests for Divider component", () => {
     page,
   }) => {
     await mount(<DarkBackgroundOnInverseDivider />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility checks when passed as a child of Menu", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DividerInMenu />);
 
     await checkAccessibility(page);
   });

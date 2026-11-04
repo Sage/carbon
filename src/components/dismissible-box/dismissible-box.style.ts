@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import Box from "../box";
+import Box, { BorderRadiusType } from "../box/box.component";
 import StyledIcon from "../icon/icon.style";
 
 export interface StyledDismissibleBoxProps {
@@ -9,7 +9,26 @@ export interface StyledDismissibleBoxProps {
   variant?: "light" | "dark";
 }
 
-const StyledDismissibleBox = styled(Box)<StyledDismissibleBoxProps>`
+const borderRadiusTokens: Record<string, string> = {
+  borderRadius000: "var(--global-radius-none)",
+  borderRadius010: "var(--global-radius-container-3-xs)",
+  borderRadius025: "var(--global-radius-container-2-xs)",
+  borderRadius050: "var(--global-radius-container-xs)",
+  borderRadius100: "var(--global-radius-container-m)",
+  borderRadius200: "var(--global-radius-container-l)",
+  borderRadius400: "var(--global-radius-container-2-xl)",
+  borderRadiusCircle: "var(--global-radius-container-circle)",
+};
+
+const getBorderRadius = (borderRadius: BorderRadiusType) =>
+  borderRadius
+    .split(" ")
+    .map((token) => borderRadiusTokens[token])
+    .join(" ");
+
+const StyledDismissibleBox = styled(Box)<
+  StyledDismissibleBoxProps & { $borderRadius: BorderRadiusType }
+>`
   ${({ hasBorderLeftHighlight = true, variant = "light" }) => css`
     background-color: ${variant === "light"
       ? "#FFFFFF"
@@ -30,6 +49,8 @@ const StyledDismissibleBox = styled(Box)<StyledDismissibleBoxProps>`
       color: var(--colorsActionMinor600);
     }
   `}
+
+  border-radius: ${({ $borderRadius }) => getBorderRadius($borderRadius)};
 `;
 
 export { StyledDismissibleBox };

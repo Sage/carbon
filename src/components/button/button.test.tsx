@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Button from "./button.component";
 import Icon from "../icon";
+import SplitButtonContext from "../split-button/__internal__/split-button.context";
 
 test("renders with text children", () => {
   render(<Button>foo</Button>);
@@ -415,6 +416,29 @@ test("does not call onClick when a 'href' is passed and any other key is pressed
   await user.keyboard("{ArrowRight}");
 
   expect(clickMock).not.toHaveBeenCalled();
+});
+
+test("calls 'onChildButtonClick' with the 'onClick' prop instead of calling 'onClick' directly, when rendered inside a 'SplitButtonContext' with 'inSplitButton' set to true", async () => {
+  const user = userEvent.setup();
+  const clickMock = jest.fn();
+  const onChildButtonClick = jest.fn(
+    (childOnClick) => (ev: React.MouseEvent<HTMLButtonElement>) =>
+      childOnClick?.(ev),
+  );
+
+  render(
+    <SplitButtonContext.Provider
+      value={{ inSplitButton: true, onChildButtonClick }}
+    >
+      <Button onClick={clickMock}>foo</Button>
+    </SplitButtonContext.Provider>,
+  );
+
+  const button = screen.getByRole("button", { name: "foo" });
+  await user.click(button);
+
+  expect(onChildButtonClick).toHaveBeenCalledWith(clickMock);
+  expect(clickMock).toHaveBeenCalledTimes(1);
 });
 
 test("accepts ref as a ref object", () => {

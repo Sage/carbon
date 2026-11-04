@@ -16,6 +16,13 @@ import Image from "../image";
 import Icon from "../icon";
 import Typography from "../typography";
 
+const greenBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 125, 90)",
+  display: "inline-block",
+  height: "100px",
+  width: "100%",
+};
+
 export const TileSelectComponent = ({
   multiSelect,
   ...props
@@ -140,18 +147,8 @@ export const AccordionTileSelectComponent = (
       prefixAdornment={<Image height="40px" width="40px" />}
       accordionContent={
         <Box display="flex" flexWrap="wrap">
-          <Box
-            width="100%"
-            height="100px"
-            bg="primary"
-            display="inline-block"
-          />
-          <Box
-            width="100%"
-            height="100px"
-            bg="primary"
-            display="inline-block"
-          />
+          <div style={greenBackground} />
+          <div style={greenBackground} />
         </Box>
       }
       accordionControl={(controlId, contentId) => (
@@ -308,20 +305,10 @@ export const WithAccordionFooter = () => {
       accordionContent={
         <Box display="flex" flexWrap="wrap">
           <Box flexGrow={1} pr={1}>
-            <Box
-              width="100%"
-              height="100px"
-              bg="primary"
-              display="inline-block"
-            />
+            <div style={greenBackground} />
           </Box>
           <Box flexGrow={1} pl={1}>
-            <Box
-              width="100%"
-              height="100px"
-              bg="primary"
-              display="inline-block"
-            />
+            <div style={greenBackground} />
           </Box>
         </Box>
       }

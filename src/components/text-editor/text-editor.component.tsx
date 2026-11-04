@@ -336,6 +336,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                     <StyledTextEditor
                       data-role={`${namespace}-editor`}
                       error={hasError}
+                      size={actualSize}
                     >
                       <RichTextPlugin
                         contentEditable={

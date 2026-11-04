@@ -6,6 +6,22 @@ import Box from "../box/box.component";
 import { LoaderSpinner } from ".";
 import { LOADER_SPINNER_SIZES as sizes } from "./loader-spinner.config";
 
+const blackBackground: React.CSSProperties = {
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
+const lightGreyBackground: React.CSSProperties = {
+  backgroundColor: "rgb(211, 211, 211)",
+};
+
+const blackLoaderBackground: React.CSSProperties = {
+  display: "flex",
+  height: "80px",
+  width: "220px",
+  padding: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
@@ -67,24 +83,24 @@ export const Variants: Story = () => (
   <Box display="flex">
     <LoaderSpinner mx="3" showSpinnerLabel={false} variant="action" />
     <LoaderSpinner mx="3" showSpinnerLabel={false} variant="neutral" />
-    <Box backgroundColor="black">
+    <div style={blackBackground}>
       <LoaderSpinner mx="3" showSpinnerLabel={false} variant="inverse" />
-    </Box>
-    <Box backgroundColor="lightgrey">
+    </div>
+    <div style={lightGreyBackground}>
       <LoaderSpinner mx="3" showSpinnerLabel={false} variant="gradient-grey" />
-    </Box>
-    <Box backgroundColor="lightgrey">
+    </div>
+    <div style={lightGreyBackground}>
       <LoaderSpinner mx="3" showSpinnerLabel={false} variant="gradient-white" />
-    </Box>
+    </div>
   </Box>
 );
 Variants.storyName = "Variants";
 
 export const LabelColor: Story = () => (
-  <Box display="flex" backgroundColor="black" height="80px" width="220px" p={2}>
+  <div style={blackLoaderBackground}>
     <LoaderSpinner mx="3" variant="inverse" />
     <LoaderSpinner mx="3" variant="gradient-white" />
-  </Box>
+  </div>
 );
 LabelColor.storyName = "Label Color";
 

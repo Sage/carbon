@@ -3,7 +3,7 @@ import Dialog from "../dialog";
 import MultiActionButton, {
   MultiActionButtonProps,
 } from "./multi-action-button.component";
-import Button, { ButtonProps } from "../button";
+import Button, { ButtonProps } from "../button/__next__";
 import Box from "../box";
 import { Accordion } from "../accordion";
 

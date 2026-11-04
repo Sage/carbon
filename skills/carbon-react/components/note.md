@@ -34,7 +34,7 @@ description: Carbon Note component props and usage examples.
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  | Adds a name to the Note footer |  |
 | onLinkAdded | ((url: string) => void) \| undefined | No |  | Callback to report a url when a link is added |  |
-| previews | React.ReactNode | No |  | The previews to display of any links added to the Editor |  |
+| previews | React.ReactNode | No |  | LinkPreviews to display of any links added to the Editor |  |
 | status | { text: string; timeStamp: string; } \| undefined | No |  | Adds a status and timestamp below the created details |  |
 | title | React.ReactNode | No |  | Adds a Title to the Note |  |
 | width | number \| undefined | No |  | Set a percentage-based width for the whole Note component, relative to its parent. | 100 |
@@ -360,15 +360,15 @@ description: Carbon Note component props and usage examples.
   const previews = [
     <LinkPreview
       key="link1"
-      title="This is an example of a title"
+      title="This is a LinkPreview"
       url="https://www.bbc.co.uk"
-      description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
+      description="This is the description of the LinkPreview. Click to go to the linked page."
     />,
     <LinkPreview
       key="link2"
-      title="This is an example of a title"
+      title="This is a LinkPreview"
       url="https://www.sage.com"
-      description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
+      description="This is the description of the LinkPreview. Click to go to the linked page."
     />,
   ];
   return (

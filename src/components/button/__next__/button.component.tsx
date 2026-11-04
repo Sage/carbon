@@ -16,6 +16,7 @@ import {
   MenuItemContext,
 } from "../../../__internal__/popover-menu/contexts";
 import SplitButtonContext from "../../split-button/__internal__/split-button.context";
+import MultiActionButtonContext from "../../multi-action-button/__internal__/multi-action-button.context";
 
 type ButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
@@ -183,6 +184,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
       useContext(MenuItemContext) ?? /* istanbul ignore next */ {};
     const { inSplitButton, onChildButtonClick } =
       useContext(SplitButtonContext);
+    const { align } = useContext(MultiActionButtonContext);
     const computedSize = isButtonMenu ? menuItemSize : size;
     const isDisabled = disabled || isMenuItemDisabled;
 
@@ -278,6 +280,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
         aria-labelledby={ariaLabelledBy}
         disabled={isDisabled}
         $fullWidth={fullWidth}
+        data-has-full-width={fullWidth || undefined}
         form={form}
         $inverse={inverse || buttonType === "darkBackground" || isWhite}
         id={id}
@@ -292,6 +295,8 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
         {...propsForLink}
         {...tagComponent("button", rest)}
         {...rest}
+        $align={align}
+        data-align={align}
       >
         <StyledContentContainer data-role="button-child-container">
           <ButtonContext.Provider

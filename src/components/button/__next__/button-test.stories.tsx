@@ -9,6 +9,31 @@ import Icon from "../../icon";
 import { Loader } from "../../loader/__next__/loader.component";
 import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 
+const whiteBackground: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "var(--global-space-layout-3-xs)",
+  padding: "var(--global-space-layout-3-xs)",
+  backgroundColor: "rgb(255, 255, 255)",
+};
+
+const darkGreyRowBackground: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "row",
+  gap: "var(--global-space-layout-3-xs)",
+  alignItems: "flex-start",
+  padding: "var(--global-space-layout-3-xs)",
+  backgroundColor: "rgb(51, 51, 51)",
+};
+
+const darkGreyColumnBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-2-xs)",
+  display: "flex",
+  flexDirection: "column",
+  gap: "var(--global-space-layout-2-xs)",
+  backgroundColor: "rgb(51, 51, 51)",
+};
+
 const meta: Meta<typeof Button> = {
   title: "Button/Test",
   component: Button,
@@ -140,13 +165,7 @@ export const AllSizesVariantsTypes: Story = () => {
         <Box display="flex" flexDirection="column">
           <h2>Text</h2>
           <br />
-          <Box
-            display="flex"
-            flexDirection="column"
-            gap={1}
-            p={1}
-            backgroundColor="var(--mode-color-generic-bg-nought)"
-          >
+          <div style={whiteBackground}>
             <h3>Typical/Default</h3>
             <Box
               display="flex"
@@ -296,14 +315,7 @@ export const AllSizesVariantsTypes: Story = () => {
             </Box>
 
             <h3>Inverse</h3>
-            <Box
-              display="flex"
-              flexDirection="row"
-              gap={1}
-              alignItems="flex-start"
-              backgroundColor="#333333"
-              p={1}
-            >
+            <div style={darkGreyRowBackground}>
               <Button
                 variant="default"
                 variantType="primary"
@@ -328,15 +340,8 @@ export const AllSizesVariantsTypes: Story = () => {
               >
                 Primary Large
               </Button>
-            </Box>
-            <Box
-              display="flex"
-              flexDirection="row"
-              gap={1}
-              alignItems="flex-start"
-              backgroundColor="#333333"
-              p={1}
-            >
+            </div>
+            <div style={darkGreyRowBackground}>
               <Button
                 variant="default"
                 variantType="secondary"
@@ -361,15 +366,8 @@ export const AllSizesVariantsTypes: Story = () => {
               >
                 Secondary Large
               </Button>
-            </Box>
-            <Box
-              display="flex"
-              flexDirection="row"
-              gap={1}
-              alignItems="flex-start"
-              backgroundColor="#333333"
-              p={1}
-            >
+            </div>
+            <div style={darkGreyRowBackground}>
               <Button
                 variant="default"
                 variantType="tertiary"
@@ -394,15 +392,8 @@ export const AllSizesVariantsTypes: Story = () => {
               >
                 Tertiary Large
               </Button>
-            </Box>
-            <Box
-              display="flex"
-              flexDirection="row"
-              gap={1}
-              alignItems="flex-start"
-              backgroundColor="#333333"
-              p={1}
-            >
+            </div>
+            <div style={darkGreyRowBackground}>
               <Button
                 variant="default"
                 variantType="subtle"
@@ -427,20 +418,14 @@ export const AllSizesVariantsTypes: Story = () => {
               >
                 Subtle Large
               </Button>
-            </Box>
-          </Box>
+            </div>
+          </div>
         </Box>
 
         <Box display="flex" flexDirection="column">
           <h2>Text & Icon</h2>
           <br />
-          <Box
-            display="flex"
-            flexDirection="column"
-            gap={1}
-            p={1}
-            backgroundColor="var(--mode-color-generic-bg-nought)"
-          >
+          <div style={whiteBackground}>
             <h3>Typical/Default</h3>
             <Box
               display="flex"
@@ -660,19 +645,13 @@ export const AllSizesVariantsTypes: Story = () => {
                 </>
               </Button>
             </Box>
-          </Box>
+          </div>
         </Box>
 
         <Box display="flex" flexDirection="column">
           <h2>Icon-Only</h2>
           <br />
-          <Box
-            display="flex"
-            flexDirection="column"
-            gap={1}
-            p={1}
-            backgroundColor="var(--mode-color-generic-bg-nought)"
-          >
+          <div style={whiteBackground}>
             <h3>Typical/Default</h3>
             <Box
               display="flex"
@@ -895,7 +874,7 @@ export const AllSizesVariantsTypes: Story = () => {
                 <Icon type="alert" />
               </Button>
             </Box>
-          </Box>
+          </div>
         </Box>
       </Box>
     </main>
@@ -908,13 +887,7 @@ AllSizesVariantsTypes.parameters = {
 
 export const InverseVariants: Story = () => {
   return (
-    <Box
-      backgroundColor="#333"
-      p={2}
-      display={"flex"}
-      flexDirection={"column"}
-      gap={2}
-    >
+    <div style={darkGreyColumnBackground}>
       <Button variant="default" variantType="primary" inverse>
         Button
       </Button>
@@ -927,7 +900,7 @@ export const InverseVariants: Story = () => {
       <Button variant="default" variantType="subtle" inverse>
         Button
       </Button>
-    </Box>
+    </div>
   );
 };
 InverseVariants.storyName = "Inverse Variants";

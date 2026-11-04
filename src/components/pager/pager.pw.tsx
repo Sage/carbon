@@ -10,9 +10,11 @@ test("should focus the 'previous' button when 'last' button is pressed and then 
 }) => {
   await mount(<PagerComponent />);
 
-  const lastButton = page.getByRole("button", { name: "Go to last page" });
+  const lastButton = page.getByRole("button", {
+    name: "Go to last page (page 10 of 10)",
+  });
   const previousButton = page.getByRole("button", {
-    name: "Go to previous page",
+    name: "Go to previous page (page 9 of 10)",
   });
 
   await lastButton.click();
@@ -26,9 +28,11 @@ test("should focus the 'previous' button when 'next' is pressed on the penultima
 }) => {
   await mount(<PagerComponent currentPage={9} />);
 
-  const nextButton = page.getByRole("button", { name: "Go to next page" });
+  const nextButton = page.getByRole("button", {
+    name: "Go to next page (page 10 of 10)",
+  });
   const previousButton = page.getByRole("button", {
-    name: "Go to previous page",
+    name: "Go to previous page (page 9 of 10)",
   });
 
   await nextButton.click();
@@ -42,9 +46,11 @@ test("should focus the 'next' button when 'previous' is pressed on the second pa
 }) => {
   await mount(<PagerComponent currentPage={2} />);
 
-  const nextButton = page.getByRole("button", { name: "Go to next page" });
+  const nextButton = page.getByRole("button", {
+    name: "Go to next page (page 2 of 10)",
+  });
   const previousButton = page.getByRole("button", {
-    name: "Go to previous page",
+    name: "Go to previous page (page 1 of 10)",
   });
 
   await previousButton.click();
@@ -58,8 +64,12 @@ test("should focus the 'next' button when 'first' is pressed and then hidden", a
 }) => {
   await mount(<PagerComponent currentPage={2} />);
 
-  const nextButton = page.getByRole("button", { name: "Go to next page" });
-  const firstButton = page.getByRole("button", { name: "Go to first page" });
+  const nextButton = page.getByRole("button", {
+    name: "Go to next page (page 2 of 10)",
+  });
+  const firstButton = page.getByRole("button", {
+    name: "Go to first page (page 1 of 10)",
+  });
 
   await firstButton.click();
 

@@ -7,6 +7,14 @@ import Box from "../box";
 import Icon from "../icon";
 import Search from ".";
 
+const blackBackground: React.CSSProperties = {
+  width: "700px",
+  display: "flex",
+  flexDirection: "column",
+  padding: "var(--global-space-layout-xs)",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
@@ -340,21 +348,15 @@ CustomWidths.storyName = "Custom Widths";
 export const Inverse: Story = () => {
   const [value, setValue] = useState("Here is some text");
   return (
-    <Box
-      width="700px"
-      display="flex"
-      flexDirection="column"
-      p={3}
-      backgroundColor="#000000"
-    >
+    <div style={blackBackground}>
       <Search
         label="Inverse"
-        inputHint="Use this prop on darker backgrounds"
+        inputHint="Inverse styling is applied."
         onChange={(e) => setValue(e.target.value)}
         value={value}
         inverse
       />
-    </Box>
+    </div>
   );
 };
 Inverse.storyName = "Inverse";

@@ -17,6 +17,7 @@ import {
 } from "../../style/utils";
 import StyledBox from "./box.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
 export type OverflowWrap = "break-word" | "anywhere";
 export type ScrollVariant = "light" | "dark";
@@ -39,6 +40,7 @@ export interface BoxProps
     Omit<PositionProps, "zIndex">,
     SpaceProps,
     TagProps {
+  /** Set the element rendered by the Box component. Only `div` and `span` will be supported in the future. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   /** Set the ID attribute of the Box component */
@@ -49,7 +51,10 @@ export interface BoxProps
   role?: string;
   /** String to set Box content break strategy. Note "anywhere" is not supported in Safari */
   overflowWrap?: OverflowWrap;
-  /** Scroll styling attribute */
+  /**
+   * Scroll styling attribute
+   * @deprecated This prop is marked for deprecation. Its behavior will be maintained until removal.
+   */
   scrollVariant?: ScrollVariant;
   /** Set the box-sizing attribute of the Box component */
   boxSizing?: BoxSizing;
@@ -59,9 +64,15 @@ export interface BoxProps
   columnGap?: Gap;
   /** Row gap an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
   rowGap?: Gap;
-  /** Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. */
+  /**
+   * Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component.
+   * @deprecated This prop is marked for deprecation. Its behavior will be maintained until removal.
+   */
   boxShadow?: BoxShadowsType;
-  /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. */
+  /**
+   * Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component.
+   * @deprecated This prop is marked for deprecation. Its behavior will be maintained until removal.
+   */
   borderRadius?: BorderRadiusType;
   /**
    * @private
@@ -69,15 +80,27 @@ export interface BoxProps
    * @internal
    * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
-  /** Set the color attribute of the Box component */
+  /**
+   * Set the color attribute of the Box component
+   * @deprecated This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal.
+   */
   color?: string;
-  /** Set the bg attribute of the Box component */
+  /**
+   * Set the bg attribute of the Box component
+   * @deprecated This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal.
+   */
   bg?: string;
-  /** Set the backgroundColor attribute of the Box component */
+  /**
+   * Set the backgroundColor attribute of the Box component
+   * @deprecated This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal.
+   */
   backgroundColor?: string;
   /** Whether the component is hidden from view. In this state, the component will not be visible to users but will remain in the HTML document */
   hidden?: boolean;
-  /** Set the opacity attribute of the Box component */
+  /**
+   * Set the opacity attribute of the Box component
+   * @deprecated This prop is marked for deprecation. Its behavior will be maintained until removal.
+   */
   opacity?: string | number;
   /** Set the container to be hidden from screen readers */
   "aria-hidden"?: "true" | "false";
@@ -85,11 +108,18 @@ export interface BoxProps
   "aria-live"?: "off" | "assertive" | "polite";
   /** @private @internal @ignore */
   "data-component"?: string;
-  /** @private @internal @ignore */
+  /**
+   * Set the tabIndex attribute of the Box component to control keyboard focus and tab order.
+   * @deprecated This prop is marked for deprecation and will have a longer grace period before removal. Its behavior will be maintained until removal.
+   * @private
+   * @ignore
+   */
   tabIndex?: number;
   /** Indicates whether AT will announce all, or only parts of, the changed region */
   "aria-atomic"?: "true" | "false";
 }
+
+let deprecateUnsupportedAs = false;
 
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
   (
@@ -123,6 +153,15 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
     }: BoxProps,
     ref,
   ) => {
+    const isUnsupportedAs = as && as !== "div" && as !== "span";
+
+    if (!deprecateUnsupportedAs && isUnsupportedAs) {
+      deprecateUnsupportedAs = true;
+      Logger.deprecate(
+        `The value '${as}' for the 'as' prop is deprecated and will soon be removed. Please use 'div' or 'span' instead.`,
+      );
+    }
+
     let actualWidth = "";
     if (typeof width === "number") {
       actualWidth = width <= 1 ? `${(width * 100).toFixed(0)}%` : `${width}px`;

@@ -5,7 +5,6 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
-import StyledBox from "../box/box.style";
 
 export const StyledList = styled.ul`
   display: flex;
@@ -114,10 +113,29 @@ export const StyledChevronIcon = styled(Icon)`
   color: var(--colorsComponentsLeftnavWinterStandardContent);
 `;
 
-export const StyledVerticalMenu = styled(StyledBox)`
+export const StyledVerticalMenu = styled.nav.attrs(applyBaseTheme)<{
+  $height: string;
+  $width: string;
+}>`
+  background-color: rgb(38, 38, 38);
+  box-sizing: border-box;
   display: flex;
+  height: ${({ $height }) => $height};
+  overflow: auto;
+  padding-block: var(--global-space-layout-3-xs);
+  scrollbar-color: rgb(179, 179, 179) rgb(77, 77, 77);
+  width: ${({ $width }) => $width};
+
   &::-webkit-scrollbar {
     width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgb(77, 77, 77);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(179, 179, 179);
   }
 `;
 
@@ -126,7 +144,9 @@ interface FullScreenProps {
   prefersReducedMotion?: boolean;
 }
 
-export const StyledVerticalMenuFullScreen = styled(StyledBox)<FullScreenProps>`
+export const StyledVerticalMenuFullScreen = styled.nav.attrs(
+  applyBaseTheme,
+)<FullScreenProps>`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -135,11 +155,24 @@ export const StyledVerticalMenuFullScreen = styled(StyledBox)<FullScreenProps>`
   height: 100vh;
   width: 100%;
   outline: none;
-  padding: 8px 0px;
+  padding: var(--global-space-layout-3-xs) 0;
   overflow: auto;
-  background-color: var(--colorsComponentsLeftnavWinterStandardBackground);
+  background-color: rgb(38, 38, 38);
   box-sizing: border-box;
+  scrollbar-color: rgb(102, 132, 148) rgb(242, 245, 246);
   z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgb(242, 245, 246);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(102, 132, 148);
+  }
 
   ${({ prefersReducedMotion }) =>
     !prefersReducedMotion &&

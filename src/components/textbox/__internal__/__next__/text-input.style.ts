@@ -63,10 +63,6 @@ const StyledTextInput = styled.div.attrs(applyBaseTheme)<StyledTextInputProps>`
   .time & {
     gap: var(--global-space-comp-xs);
   }
-
-  .legacy-search & {
-    flex: 1 1 0%;
-  }
 `;
 
 const LabelWrapper = styled.div<LabelWrapperProps>`
@@ -90,6 +86,7 @@ const LabelWrapper = styled.div<LabelWrapperProps>`
       justify-content: flex-start;
       align-items: flex-end;
       align-self: stretch;
+      text-align: right;
       width: var(--label-spacing, auto);
     `}
 

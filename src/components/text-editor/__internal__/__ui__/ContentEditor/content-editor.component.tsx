@@ -4,7 +4,9 @@
  */
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import React, { forwardRef } from "react";
-import StyledContentEditable from "./content-editor.style";
+import StyledContentEditable, {
+  StyledPreviewContainer,
+} from "./content-editor.style";
 
 import { ContentEditorProps } from "../../__utils__/interfaces.types";
 import { useCursorAtEnd } from "../../__plugins__";
@@ -91,7 +93,11 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
           aria-autocomplete={undefined}
           aria-readonly={undefined}
         />
-        {previews}
+        {!!React.Children.count(previews) && (
+          <StyledPreviewContainer $size={size}>
+            {previews}
+          </StyledPreviewContainer>
+        )}
       </StyledContentEditable>
     );
   },

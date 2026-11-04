@@ -1,11 +1,75 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { checkAccessibility } from "../../../playwright/support/helper";
+import { PopoverMenuButtonMedium } from "./popover-menu-test.stories";
 import {
   PopoverMenuComponent,
   PopoverMenuWithPreselection,
   PopoverButtonMenuComponent,
 } from "./components.test-pw";
+
+test("keeps the medium button-menu story's submenu width and icon spacing", async ({
+  mount,
+  page,
+}) => {
+  await mount(<PopoverMenuButtonMedium />);
+  await page.getByRole("button", { name: "Medium Button" }).click();
+  const regularItemGap = await page
+    .getByRole("button", { name: /Action 1/ })
+    .locator('[data-role="button-child-container"]')
+    .evaluate((content) => parseFloat(getComputedStyle(content).columnGap));
+
+  const submenuParent = page.getByRole("button", { name: /Action 2/ });
+  const spacing = await submenuParent
+    .locator('[data-element="submenu-parent-wrapper"]')
+    .evaluate((wrapper) => {
+      const icon = wrapper.querySelector('[data-component="icon"]');
+      const text = Array.from(wrapper.childNodes).find(
+        (node) => node.nodeType === Node.TEXT_NODE && node.textContent?.trim(),
+      );
+      if (!icon || !text?.textContent) {
+        throw new Error("Expected an icon and label in the submenu trigger");
+      }
+      const { textContent } = text;
+      const range = document.createRange();
+      const start = textContent.indexOf(textContent.trim());
+      range.setStart(text, start);
+      range.setEnd(text, start + textContent.trim().length);
+      const caret = wrapper.querySelector('[data-element="submenu-icon"]');
+      const button = wrapper.closest("button");
+      if (!caret || !button) {
+        throw new Error("Expected a caret inside the submenu button");
+      }
+      return {
+        gap:
+          range.getBoundingClientRect().left -
+          icon.getBoundingClientRect().right,
+        caretInset:
+          button.getBoundingClientRect().right -
+          caret.getBoundingClientRect().right,
+        expectedInset: parseFloat(getComputedStyle(button).paddingRight),
+      };
+    });
+  expect(Math.abs(spacing.gap - regularItemGap)).toBeLessThan(1);
+  expect(Math.abs(spacing.caretInset - spacing.expectedInset)).toBeLessThan(1);
+
+  await submenuParent.click();
+
+  await expect(page.getByTestId("menu-wrapper")).toHaveCount(2);
+  await expect(page.getByTestId("menu-wrapper").nth(0)).toHaveCSS(
+    "width",
+    "200px",
+  );
+  await expect(page.getByTestId("menu-wrapper").nth(1)).toHaveCSS(
+    "width",
+    "200px",
+  );
+  await expect(
+    page
+      .getByRole("button", { name: /Subaction 1/ })
+      .locator('[data-role="button-child-container"]'),
+  ).toHaveCSS("justify-content", "center");
+});
 
 test.describe("Accessibility tests", () => {
   test("passes accessibility tests when open", async ({ mount, page }) => {

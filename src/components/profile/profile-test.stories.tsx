@@ -2,6 +2,20 @@ import React from "react";
 import Profile, { ProfileProps } from "./profile.component";
 import Box from "../box";
 
+const lightGreyBackground: React.CSSProperties = {
+  width: "300px",
+  backgroundColor: "rgb(215, 215, 215)",
+};
+
+const blackBackground: React.CSSProperties = {
+  borderRadius: "var(--global-radius-container-l)",
+  padding: "var(--global-space-layout-2-xs)",
+  width: "190px",
+  height: "50px",
+  display: "flex",
+  backgroundColor: "rgb(0, 0, 0)",
+};
+
 type ProfileVariant = NonNullable<ProfileProps["variant"]>;
 
 const PROFILE_VARIANTS: ProfileVariant[] = [
@@ -45,7 +59,7 @@ DefaultStory.story = {
 
 export const WithLongText = ({ ...args }) => {
   return (
-    <Box width="300px" backgroundColor="#d7d7d7">
+    <div style={lightGreyBackground}>
       <Profile
         email="thisisamuchlongeremailaddresswhichexistsinordertotryandforcewrapping@email.com"
         initials="JD"
@@ -53,21 +67,14 @@ export const WithLongText = ({ ...args }) => {
         text="+33 657 22 34 71"
         {...args}
       />
-    </Box>
+    </div>
   );
 };
 
 export const ChromaticSnapshotsStory = () => (
   <Box display="flex" flexDirection="column" gap={3}>
     {/* Dark background - deprecated prop, kept for regression testing only */}
-    <Box
-      p={2}
-      backgroundColor="black"
-      width="190px"
-      height="50px"
-      borderRadius="borderRadius200"
-      display="flex"
-    >
+    <div style={blackBackground}>
       <Profile
         darkBackground
         email="email@email.com"
@@ -75,7 +82,7 @@ export const ChromaticSnapshotsStory = () => (
         name="John Doe"
         text="+33 657 22 34 71"
       />
-    </Box>
+    </div>
 
     {/* With src image */}
     <Profile

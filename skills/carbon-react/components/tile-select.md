@@ -572,20 +572,10 @@ documentation for consumer-specific guidance.
       accordionContent={
         <Box display="flex" flexWrap="wrap">
           <Box flexGrow={1} pr={1}>
-            <Box
-              width="100%"
-              height="100px"
-              bg="primary"
-              display="inline-block"
-            />
+            <div style={greenBackground} />
           </Box>
           <Box flexGrow={1} pl={1}>
-            <Box
-              width="100%"
-              height="100px"
-              bg="primary"
-              display="inline-block"
-            />
+            <div style={greenBackground} />
           </Box>
         </Box>
       }

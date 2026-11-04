@@ -1,18 +1,15 @@
 import styled, { css } from "styled-components";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-const backgroundOpacity = "0.6";
-
 type TransitionProps = {
   transitionName: string;
   transitionTime: number;
 };
 
 const StyledModalBackground = styled.div<TransitionProps>`
-  background-color: rgba(0, 20, 29, 1);
+  background-color: var(--container-standard-dimmer);
   bottom: 0;
   left: 0;
-  opacity: ${backgroundOpacity};
   position: fixed;
   right: 0;
   top: 0;
@@ -24,12 +21,8 @@ const StyledModalBackground = styled.div<TransitionProps>`
 
     &.${transitionName}-enter.${transitionName}-enter-active,
       &.${transitionName}-appear.${transitionName}-appear-active {
-      opacity: ${backgroundOpacity};
+      opacity: 1;
       transition: opacity ${transitionTime}ms ease-out;
-    }
-
-    &.${transitionName}-exit {
-      opacity: ${backgroundOpacity};
     }
 
     &.${transitionName}-exit.${transitionName}-exit-active {
@@ -55,10 +48,6 @@ const StyledModal = styled.div.attrs(applyBaseTheme)<
       .${transitionName}-appear.${transitionName}-appear-active {
       opacity: 1;
       transition: all ${transitionTime}ms 100ms ease-out;
-    }
-
-    .${transitionName}-exit {
-      opacity: 1;
     }
 
     .${transitionName}-exit.${transitionName}-exit-active {

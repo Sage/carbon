@@ -1,37 +1,50 @@
 import styled, { css } from "styled-components";
+import { margin, padding } from "styled-system";
+import Sidebar from "../sidebar";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-import { margin, MarginProps, padding, PaddingProps } from "styled-system";
+const variantColor = {
+  standard: {
+    backgroundColor: "var(--container-standard-bg-default)",
+    borderColor: "var(--container-standard-border-default)",
+  },
+  alt: {
+    backgroundColor: "var(--container-standard-bg-alt)",
+    borderColor: "var(--container-standard-border-default)",
+  },
+  inverse: {
+    backgroundColor: "var(--container-standard-inverse-bg-default)",
+    borderColor: "var(--container-standard-inverse-border-default)",
+  },
+};
 
-import Box from "../box";
-import Sidebar, { SidebarProps } from "../sidebar";
+interface StyledAdaptiveSidebarProps {
+  $height?: string;
+  $width?: string;
+  $hidden?: boolean;
+  $variant: "standard" | "alt" | "inverse";
+  $hasBorder?: boolean;
+}
 
-import { AdaptiveSidebarProps } from "./adaptive-sidebar.component";
+export const StyledAdaptiveSidebar = styled.div.attrs(
+  applyBaseTheme,
+)<StyledAdaptiveSidebarProps>`
+  ${({ $height, $hidden, $width, $variant, $hasBorder }) => css`
+    background-color: ${variantColor[$variant].backgroundColor};
 
-import { getColors } from "./__internal__/utils";
-
-type StyledAdaptiveSidebarProps = Pick<
-  AdaptiveSidebarProps,
-  "backgroundColor" | "borderColor" | "height" | "width"
-> &
-  MarginProps &
-  PaddingProps & {
-    tabIndex: number;
-  };
-
-const StyledAdaptiveSidebar = styled(Box)<StyledAdaptiveSidebarProps>`
-  ${({ backgroundColor, borderColor, height, hidden, width }) => css`
-    ${getColors(backgroundColor)}
-    ${borderColor &&
+    ${$hasBorder &&
     css`
-      border-left: 1px solid var(${borderColor});
+      border-left: 1px solid ${variantColor[$variant].borderColor};
     `}
-    ${hidden &&
+
+    ${$hidden &&
     css`
       display: none;
     `}
-    max-height: ${height};
-    max-width: ${width};
-    min-width: ${width};
+
+    max-height: ${$height};
+    max-width: ${$width};
+    min-width: ${$width};
     overflow-y: auto;
     outline: none;
 
@@ -40,23 +53,17 @@ const StyledAdaptiveSidebar = styled(Box)<StyledAdaptiveSidebarProps>`
   `};
 `;
 
-interface StyledSidebarProps extends SidebarProps {
-  backgroundColor: "app" | "black" | "white";
-  hidden?: boolean;
+interface StyledSidebarProps {
+  $variant: "standard" | "alt" | "inverse";
 }
 
-const StyledSidebar = styled(Sidebar)<StyledSidebarProps>`
-  ${({ hidden }) => css`
+export const StyledSidebar = styled(Sidebar)<StyledSidebarProps>`
+  ${({ hidden, $variant }) => css`
+    background-color: ${variantColor[$variant].backgroundColor};
+
     ${hidden &&
     css`
       display: none;
     `}
   `}
-  ${({ backgroundColor }) => css`
-    div[data-element="sidebar-content"] {
-      ${getColors(backgroundColor)}
-    }
-  `}
 `;
-
-export { StyledAdaptiveSidebar, StyledSidebar };

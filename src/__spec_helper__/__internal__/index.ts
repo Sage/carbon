@@ -11,6 +11,22 @@ import "@atlaskit/pragmatic-drag-and-drop-unit-testing/dom-rect-polyfill";
 import "@testing-library/jest-dom";
 import "jest-styled-components";
 
+// JSDOM has no layout: clipping calculations otherwise hide every popover.
+// Keep keyboard/focus tests visible; useFloating tests supply explicit hide data.
+jest.mock("@floating-ui/dom", () => {
+  const actual =
+    jest.requireActual<typeof import("@floating-ui/dom")>("@floating-ui/dom");
+
+  return {
+    __esModule: true,
+    ...actual,
+    hide: (options?: Parameters<typeof actual.hide>[0]) => ({
+      ...actual.hide(options),
+      fn: () => ({ data: { referenceHidden: false } }),
+    }),
+  };
+});
+
 const isNotCI = process.env.CI !== "true";
 
 // we don't need to increase the timeout when run on CI

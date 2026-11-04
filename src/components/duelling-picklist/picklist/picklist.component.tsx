@@ -109,7 +109,6 @@ export const Picklist = ({
     <StyledPicklist
       data-element="picklist"
       data-role="picklist"
-      scrollVariant="light"
       onKeyDown={handleKeyDown}
     >
       {isEmpty && <StyledEmptyContainer>{placeholder}</StyledEmptyContainer>}

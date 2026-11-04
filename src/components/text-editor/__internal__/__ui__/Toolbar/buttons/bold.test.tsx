@@ -108,7 +108,7 @@ describe("Bold button", () => {
     await userEvent.click(boldButton);
 
     await waitFor(() => {
-      expect(screen.getByText("Sample text")).toHaveStyle("font-weight: bold");
+      expect(screen.getByText("Sample text")).toHaveStyle("font-weight: 700");
     });
   });
 

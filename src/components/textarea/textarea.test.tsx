@@ -645,9 +645,9 @@ test.each<[1 | 2, string]>([
 test("when labelInline prop is set and resize prop is set, the input width should adjust accordingly", () => {
   render(<MockComponent label="foo" labelInline resize="both" size="small" />);
 
-  expect(screen.getByRole("textbox")).toHaveStyle({
-    width: "70vw",
-  });
+  expect(window.getComputedStyle(screen.getByRole("textbox")).width).toBe(
+    `${window.innerWidth * 0.7}px`,
+  );
 });
 
 test("when inputWidth prop is set, it determines the input width", () => {
@@ -929,7 +929,9 @@ test("should render component with the `width` equal to `100%` when `resize` is 
 test("should render component with the `width` equal to `70vw` when `resize` and `labelInline` are set", () => {
   render(<MockComponent labelInline resize="both" />);
 
-  expect(screen.getByRole("textbox")).toHaveStyle({ width: "70vw" });
+  expect(window.getComputedStyle(screen.getByRole("textbox")).width).toBe(
+    `${window.innerWidth * 0.7}px`,
+  );
 });
 
 test("hint text should be aligned with the label when `labelAlign` is set", () => {

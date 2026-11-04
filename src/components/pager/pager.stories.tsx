@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import Pager from ".";
 import Box from "../box";
 
@@ -16,7 +15,6 @@ const meta: Meta<typeof Pager> = {
     },
   },
   parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
     chromatic: { disableSnapshot: true },
     controls: {
       exclude: [
@@ -28,7 +26,6 @@ const meta: Meta<typeof Pager> = {
         "hideDisabledElements",
         "showPageSizeLabelBefore",
         "showPageSizeLabelAfter",
-        "showTotalRecords",
         "showPreviousAndNextButtons",
         "showPageCount",
         "smallScreenBreakpoint",
@@ -41,18 +38,11 @@ export default meta;
 type Story = StoryObj<typeof Pager>;
 
 export const Default: Story = ({ ...args }) => {
-  const [currentPage, setCurrentPage] = useState(args.currentPage);
-  const handlePagination = (
-    currentPage: number,
-    pageSize: number,
-    origin: string,
-  ) => {
+  const [currentPage, setCurrentPage] = useState<number | string>(
+    args.currentPage ?? 1,
+  );
+  const handlePagination = (currentPage: number) => {
     setCurrentPage(currentPage);
-    action("onPagination")({
-      currentPage: currentPage,
-      pageSize: pageSize,
-      origin: origin,
-    });
   };
 
   return (
@@ -85,6 +75,23 @@ export const WithPageSizeSelection: Story = {
   ],
 };
 
+export const WithTotalRecords: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    pageSize: 10,
+    showPageSizeSelection: true,
+    showTotalRecords: true,
+  },
+  decorators: [
+    (Story) => (
+      <Box mb="150px">
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
 export const NonInteractivePage: Story = {
   ...Default,
   args: {
@@ -102,17 +109,17 @@ export const HideFirstAndLastButtons: Story = {
 };
 
 export const AlternateVariant: Story = {
-  ...Default,
+  ...WithTotalRecords,
   args: {
-    ...Default.args,
+    ...WithTotalRecords.args,
     variant: "alternate",
   },
 };
 
 export const SmallSize: Story = {
-  ...WithPageSizeSelection,
+  ...WithTotalRecords,
   args: {
-    ...WithPageSizeSelection.args,
+    ...WithTotalRecords.args,
     size: "small",
   },
   decorators: [
@@ -125,9 +132,9 @@ export const SmallSize: Story = {
 };
 
 export const MediumSize: Story = {
-  ...WithPageSizeSelection,
+  ...WithTotalRecords,
   args: {
-    ...WithPageSizeSelection.args,
+    ...WithTotalRecords.args,
     size: "medium",
   },
   decorators: [
@@ -139,11 +146,42 @@ export const MediumSize: Story = {
   ],
 };
 
-export const LargeSize: Story = {
-  ...WithPageSizeSelection,
+export const RowLayouts: Story = {
+  render: (args) => (
+    <Box display="flex" gap={3} flexDirection="column">
+      <Pager {...args} showPageSizeSelection showTotalRecords layout="single" />
+      <Pager
+        {...args}
+        showPageSizeSelection
+        showTotalRecords
+        layout="two-row"
+      />
+      <Pager
+        {...args}
+        showPageSizeSelection
+        showTotalRecords
+        layout="three-row"
+      />
+    </Box>
+  ),
   args: {
-    ...WithPageSizeSelection.args,
-    size: "large",
+    totalRecords: 1000,
+    currentPage: 2,
+  },
+  decorators: [
+    (Story) => (
+      <Box mb="100px" display="flex" gap={3} flexDirection="column">
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const Alignment: Story = {
+  ...WithTotalRecords,
+  args: {
+    ...WithTotalRecords.args,
+    alignment: "centred",
   },
   decorators: [
     (Story) => (

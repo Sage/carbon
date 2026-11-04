@@ -11,7 +11,7 @@ const [DlProvider, useDlContext] = createStrictContext<DlContextType>({
     "Carbon DefinitionList: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   defaultValue: {
     asSingleColumn: false,
-    dtTextAlign: "right",
+    dtTextAlign: "left",
     ddTextAlign: "left",
   },
 });

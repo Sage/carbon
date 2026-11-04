@@ -16,7 +16,7 @@ import * as PillStories from "./pill.stories";
   Product Design System component
 </a>
 
-Compact visual indicators that help things in common stand out.
+A compact visual indicator that highlights information or status.
 
 ## Contents
 
@@ -67,13 +67,13 @@ language-specific and support for every `lang` attribute is not universal.
 
 #### With Remove Button
 
-When a callback in the `onDelete` prop is provided, a remove button will be rendered and clicking on it will trigger that callback. Use the `ariaLabelOfRemoveButton` prop to customise the remove button's `aria-label` if needed.
+When a callback in the `onDelete` prop is provided, a remove button will be rendered and clicking on it will trigger that callback. Use the `ariaLabelOfRemoveButton` prop to give the remove button a clear, unique accessible label that describes its relationship to the pill.
 
 <Canvas of={PillStories.WithRemoveButton} />
 
-#### Inverse on Dark Background
+#### Inverse
 
-Use the `inverse` prop on dark surfaces so the pill remains readable and aligns with design guidance.
+Use the `inverse` prop to apply inverse styling to the pill.
 
 <Canvas of={PillStories.InverseOnDarkBackground} />
 
