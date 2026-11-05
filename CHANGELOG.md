@@ -1,3 +1,15 @@
+## [162.22.0](https://github.com/Sage/carbon/compare/v162.21.3...v162.22.0) (2026-11-05)
+
+### Features
+
+* **anchor-navigation:** add compound navigation API ([0af6f1b](https://github.com/Sage/carbon/commit/0af6f1b191502185fdac51cfab01428ba3076a48))
+
+### Bug Fixes
+
+* **anchor-navigation-item:** deprecate isSelected prop, return back public Textbox ([c76d6e8](https://github.com/Sage/carbon/commit/c76d6e88541c4c602e6a4029ee4ce96a63fde70f))
+* **anchor-navigation:** register items via context instead of cloning ([f3e3383](https://github.com/Sage/carbon/commit/f3e33833f9f445867ee44add8a9c0da20324f96c))
+* **anchor-navigation:** select the section in view on mount ([4dd5d29](https://github.com/Sage/carbon/commit/4dd5d29cbc6b8fe5e200d76b0f8bdacd6798ab0c))
+
 ## [162.21.3](https://github.com/Sage/carbon/compare/v162.21.2...v162.21.3) (2026-11-04)
 
 ### Bug Fixes
