@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as MessageStories from "./message.stories";
@@ -22,20 +22,27 @@ Presents a static message which stays on screen.
 import Message from "carbon-react/lib/components/message";
 ```
 
+## Playground
+
+Use this interactive example to explore Message props with Storybook controls.
+
+<Canvas of={MessageStories.Playground} />
+
+<Controls
+  of={MessageStories.Playground}
+  include={[
+    "children",
+    "variant",
+    "title",
+    "open",
+    "dismissible",
+    "closeButtonAriaLabel",
+    "width",
+    "size",
+  ]}
+/>
+
 ## Examples
-
-### Default
-
-To use `Message`, you can pass any valid content as children. 
-
-<Canvas of={MessageStories.Default} />
-
-### With Close Button
-
-You can make the `Message` dismissible by providing an `onDismiss` handler, which will render a close button on the top right corner of the component.
-To change the `aria-label` of the close button, you can use the `closeButtonAriaLabel` prop or make use of the `message.closeButtonAriaLabel` translation key.
-
-<Canvas of={MessageStories.WithCloseButton} />
 
 ### Programmatic Focus and Aria-Live Regions
 
@@ -49,29 +56,6 @@ Place messages within the aria-live region to ensure they are announced automati
 This approach works well for success, warning, info, and other non-critical message variants that should be announced but do not require immediate focus.
 
 <Canvas of={MessageStories.ProgrammaticFocus} />
-
-### With Title
-
-A custom title can be set via the `title` prop, this prop accepts a string or any valid React node.
-
-<Canvas of={MessageStories.WithTitle} />
-
-### Variants
-
-The `Message` component supports several variants to convey different types of messages. You can set the variant using the `variant` prop.
-The type of message will be announced by screen readers along with the content, the announcement for each variant can be customized using the provided translation keys.
-
-<Canvas of={MessageStories.Variant} />
-
-#### Subtle Variants
-
-<Canvas of={MessageStories.SubtleVariant} />
-
-### Large size
-
-You can use the `size` prop to change the size of the `Message` to "large".
-
-<Canvas of={MessageStories.SizeLarge} />
 
 ## Props
 
@@ -135,5 +119,5 @@ The following keys are available to override the translations for this component
       returnType: "string",
     },
 
-  ]}
+]}
 />

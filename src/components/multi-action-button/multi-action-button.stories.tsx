@@ -9,9 +9,6 @@ import MultiActionButton, {
 } from ".";
 import Button from "../button/__next__";
 import Box from "../box";
-import { Badge } from "../..";
-
-import MultiActionButtonDivider from "./multi-action-button-divider/multi-action-button-divider.component";
 
 const styledSystemProps = generateStyledSystemProps({
   width: true,
@@ -36,21 +33,28 @@ const meta: Meta<typeof MultiActionButton> = {
 export default meta;
 type Story = StoryObj<typeof MultiActionButton>;
 
-export const DefaultStory: Story = {
+export const Playground: Story = {
   render: (args: MultiActionButtonProps) => {
     return (
       <MultiActionButton {...args}>
-        <Button>Button 1</Button>
+        <Button href="#">Button 1</Button>
         <Button>Button 2</Button>
         <Button>Button 3</Button>
-        <Button>Button 4</Button>
       </MultiActionButton>
     );
   },
-  args: { text: "Multi Action Button" },
-  name: "Default",
-  parameters: { chromatic: { disableSnapshot: true } },
+  args: {
+    text: "Multi Action Button",
+    disabled: false,
+    buttonType: "primary",
+    size: "medium",
+    subtext: "Additional information",
+    width: "fit-content",
+    align: "left",
+    position: "left",
+  },
 };
+Playground.storyName = "Playground";
 
 export const ProgrammaticFocus: Story = () => {
   const multiActionButtonHandle = useRef<MultiActionButtonHandle>(null);
@@ -75,162 +79,6 @@ export const ProgrammaticFocus: Story = () => {
 };
 ProgrammaticFocus.storyName = "Focusing Main Button Programmatically";
 ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
-
-export const Disabled: Story = {
-  ...DefaultStory,
-  args: { ...DefaultStory.args, text: "Multi Action Button", disabled: true },
-  name: "Disabled",
-};
-
-export const Sizes: Story = () => {
-  return (["small", "medium", "large"] as const).map(
-    (size: MultiActionButtonProps["size"]) => (
-      <Box key={size} mb={3}>
-        <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-          <Button size={size}>Button 1</Button>
-          <Button size={size}>Button 2</Button>
-          <Button size={size}>Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    ),
-  );
-};
-Sizes.storyName = "Sizes";
-
-export const Scrollable: Story = () => {
-  return (["small", "medium", "large"] as const).map(
-    (size: MultiActionButtonProps["size"]) => (
-      <Box key={size} mb={3}>
-        <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-          {Array.from({ length: 18 }, (_, i) => (
-            <Button key={i} size={size}>
-              Button {i + 1}
-            </Button>
-          ))}
-        </MultiActionButton>
-      </Box>
-    ),
-  );
-};
-Scrollable.storyName = "Scrollable";
-
-export const CustomWidth: Story = (args: MultiActionButtonProps) => {
-  return (
-    <MultiActionButton {...args} width="30%" menuWidth="180px">
-      <Button href="#">Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </MultiActionButton>
-  );
-};
-CustomWidth.storyName = "Custom Width";
-CustomWidth.args = {
-  text: "Multi Action Button",
-};
-
-export const MenuWidth: Story = (args: MultiActionButtonProps) => {
-  return (
-    <MultiActionButton {...args} menuWidth="350px">
-      <Button href="#">Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </MultiActionButton>
-  );
-};
-MenuWidth.storyName = "Menu Width";
-MenuWidth.args = {
-  text: "Multi Action Button",
-};
-
-export const FullWidth: Story = (args: MultiActionButtonProps) => {
-  return (
-    <MultiActionButton {...args}>
-      <Button href="#">Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </MultiActionButton>
-  );
-};
-FullWidth.storyName = "Full Width";
-FullWidth.args = {
-  text: "Multi Action Button",
-  fullWidth: true,
-};
-
-export const BadgeState: Story = () => {
-  return (
-    <Box mb={3}>
-      <Badge
-        id="badge-custom-color"
-        counter={9}
-        onClick={() => {}}
-        aria-label={`Remove 9 filters.`}
-        variant="subtle"
-      >
-        <MultiActionButton buttonType="primary" text="Multi Action Button">
-          <Button href="#">Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </MultiActionButton>
-      </Badge>
-    </Box>
-  );
-};
-BadgeState.storyName = "With Badge";
-
-export const ChildButtonTypes: Story = () => {
-  return (
-    <MultiActionButton text="Multi Action Button">
-      <Button>Default button</Button>
-      <Button buttonType="primary">Primary</Button>
-      <Button buttonType="primary" destructive>
-        Primary - destructive
-      </Button>
-      <Button buttonType="secondary">Secondary</Button>
-      <Button buttonType="secondary" destructive>
-        Secondary - destructive
-      </Button>
-      <Button buttonType="tertiary">Tertiary</Button>
-      <Button buttonType="tertiary" destructive>
-        Tertiary - destructive
-      </Button>
-      <Button disabled>Disabled</Button>
-    </MultiActionButton>
-  );
-};
-ChildButtonTypes.storyName = "Child Button Types";
-ChildButtonTypes.parameters = { chromatic: { disableSnapshot: true } };
-
-export const Alignment: Story = () => {
-  return (
-    <Box>
-      <Box mb={3}>
-        <MultiActionButton
-          align="right"
-          text={`Multi Action Button - right`}
-          menuWidth="180px"
-        >
-          <Button href="#">Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </MultiActionButton>
-      </Box>
-      <Box mb={3}>
-        <MultiActionButton
-          align="left"
-          text={`Multi Action Button - left`}
-          menuWidth="180px"
-        >
-          <Button href="#">Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    </Box>
-  );
-};
-Alignment.storyName = "Alignment";
-Alignment.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithChildrenButtonsWithIcons: Story = () => {
   return (
@@ -263,28 +111,5 @@ export const WithChildrenButtonsWithIcons: Story = () => {
 };
 WithChildrenButtonsWithIcons.storyName = "With Children Buttons With Icons";
 WithChildrenButtonsWithIcons.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithDivider: Story = () => {
-  return (
-    <>
-      <MultiActionButton text="Multi Action Button" menuWidth="150px">
-        <Button iconPosition="before" iconType="add">
-          Child Button 1
-        </Button>
-        <Button iconPosition="before" iconType="upload">
-          Child Button 2
-        </Button>
-        <MultiActionButtonDivider />
-        <Button iconPosition="before" iconType="clock">
-          Child Button 3
-        </Button>
-      </MultiActionButton>
-    </>
-  );
-};
-WithDivider.storyName = "With Divider";
-WithDivider.parameters = {
   chromatic: { disableSnapshot: true },
 };

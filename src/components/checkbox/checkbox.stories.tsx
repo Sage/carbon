@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Checkbox, CheckboxProps, CheckboxGroup } from ".";
+import { Checkbox, CheckboxGroup, CheckboxProps } from ".";
 import Box from "../box";
 import Textbox from "../textbox";
 import Icon from "../icon";
@@ -15,6 +15,19 @@ const meta = {
   component: Checkbox,
   argTypes: {
     ...styledSystemProps,
+    label: {
+      control: "text",
+    },
+    disabled: {
+      control: "boolean",
+    },
+    required: {
+      control: "boolean",
+    },
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
   },
   parameters: {
     chromatic: { disableSnapshot: true },
@@ -26,6 +39,30 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof Checkbox>;
+
+export const Playground: Story = {
+  render: (args) => {
+    const [isChecked, setIsChecked] = useState(false);
+    return (
+      <Checkbox
+        {...args}
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
+    );
+  },
+  args: {
+    label: "Checkbox",
+    inputHint: "Hint text",
+    disabled: false,
+    required: false,
+    size: "medium",
+    indeterminate: false,
+    error: "",
+    progressiveDisclosure: "Additional content shown when checked",
+  },
+};
+Playground.storyName = "Playground";
 
 const ControlledCheckbox = ({
   ...args
@@ -41,57 +78,6 @@ const ControlledCheckbox = ({
   );
 };
 
-export const WithLabel: Story = {
-  render: ControlledCheckbox,
-  args: {
-    label: "Checkbox",
-  },
-};
-
-export const WithInputHint: Story = {
-  ...WithLabel,
-  args: {
-    ...WithLabel.args,
-    inputHint: "Input Hint",
-  },
-};
-
-export const Sizes: Story = () => {
-  const [checkedSmall, setCheckedSmall] = useState(false);
-  const [checkedMedium, setCheckedMedium] = useState(false);
-  const [checkedLarge, setCheckedLarge] = useState(false);
-
-  return (
-    <Box display="flex" flexDirection="row" justifyContent="space-around">
-      <Checkbox
-        label="Small Checkbox"
-        size="small"
-        checked={checkedSmall}
-        onChange={() => {
-          setCheckedSmall(!checkedSmall);
-        }}
-      />
-      <Checkbox
-        label="Medium Checkbox"
-        size="medium"
-        checked={checkedMedium}
-        onChange={() => {
-          setCheckedMedium(!checkedMedium);
-        }}
-      />
-      <Checkbox
-        label="Large Checkbox"
-        size="large"
-        checked={checkedLarge}
-        onChange={() => {
-          setCheckedLarge(!checkedLarge);
-        }}
-      />
-    </Box>
-  );
-};
-Sizes.storyName = "Sizes";
-
 const DisclosedContent = () => {
   const [textboxValue, setTextboxValue] = useState("");
 
@@ -106,12 +92,25 @@ const DisclosedContent = () => {
   );
 };
 
+const CustomLabel = () => (
+  <>
+    <Icon type="placeholder" aria-hidden />
+    Checkbox
+  </>
+);
+
 export const ProgressiveDisclosure: Story = {
-  ...WithLabel,
+  render: ControlledCheckbox,
   args: {
-    ...WithLabel.args,
-    checked: true,
+    label: "Checkbox",
     progressiveDisclosure: <DisclosedContent />,
+  },
+};
+
+export const WithCustomLabel: Story = {
+  render: ControlledCheckbox,
+  args: {
+    label: <CustomLabel />,
   },
 };
 
@@ -162,34 +161,3 @@ export const IndeterminateState: Story = () => {
   );
 };
 IndeterminateState.storyName = "Indeterminate State";
-
-const CustomLabel = () => (
-  <>
-    <Icon type="placeholder" aria-hidden />
-    Checkbox
-  </>
-);
-
-export const WithCustomLabel: Story = {
-  render: ControlledCheckbox,
-  args: {
-    label: <CustomLabel />,
-  },
-};
-
-export const Required: Story = {
-  ...WithLabel,
-  args: {
-    ...WithLabel.args,
-    required: true,
-  },
-};
-
-export const Disabled: Story = {
-  ...WithInputHint,
-  args: {
-    ...WithInputHint.args,
-    required: true,
-    disabled: true,
-  },
-};

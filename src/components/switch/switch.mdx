@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as SwitchStories from "./switch.stories.tsx";
@@ -21,7 +21,6 @@ A Switch lets a user toggle a single setting on or off. It gives an immediate re
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Examples](#examples)
 - [Accessibility](#accessibility)
 - [Props](#props)
 
@@ -31,60 +30,28 @@ A Switch lets a user toggle a single setting on or off. It gives an immediate re
 import Switch from "carbon-react/lib/components/switch";
 ```
 
-## Examples
+## Playground
 
-### Default
+Use this interactive example to explore Switch props with Storybook controls.
 
-The switch renders unchecked by default. The current state is shown by **On** and **Off** labels displayed outside the track. The component is controlled — you must manage `checked` state yourself and provide an `onChange` handler.
+<Canvas of={SwitchStories.Playground} />
 
-<Canvas of={SwitchStories.Default} />
-
-### Checked
-
-<Canvas of={SwitchStories.Checked} />
-
-### Disabled
-
-Set `disabled` to prevent user interaction. Both checked and unchecked disabled states are shown below.
-
-<Canvas of={SwitchStories.Disabled} />
-<Canvas of={SwitchStories.DisabledChecked} />
-
-### Size
-
-Two sizes are available: `small` (default) and `large`.
-
-<Canvas of={SwitchStories.LargeSize} />
-
-### Label inline
-
-Set `labelInline` to place the text label beside the switch instead of above it. Use `labelSpacing` (1 or 2) to control the gap, and `labelWidth` to set the label width as a percentage when inline.
-
-<Canvas of={SwitchStories.LabelInline} />
-
-#### Label inline with hint text
-
-When `labelInline` is set alongside `inputHint`, the hint text is displayed directly below the label, keeping it visually grouped with the label while the switch sits beside them.
-
-<Canvas of={SwitchStories.LabelInlineWithHint} />
-
-### Loading
-
-Set `loading` to show a loading spinner in place of the On/Off labels. The switch input is automatically disabled while loading. A `"Processing..."` label is shown to the right of the spinner by default.
-
-<Canvas of={SwitchStories.Loading} />
-
-#### Custom processing label
-
-Use the `processingLabel` prop to override the default `"Processing..."` text with your own copy.
-
-<Canvas of={SwitchStories.LoadingCustomLabel} />
-
-#### Processing label below switch
-
-On small screens you may want the processing label to appear below the switch rather than beside it. Set `processingLabelBelowSwitch` to move it there.
-
-<Canvas of={SwitchStories.LoadingLabelBelow} />
+<Controls
+  of={SwitchStories.Playground}
+  include={[
+    "label",
+    "inputHint",
+    "disabled",
+    "loading",
+    "processingLabel",
+    "processingLabelBelowSwitch",
+    "required",
+    "size",
+    "labelInline",
+    "labelSpacing",
+    "labelWidth",
+  ]}
+/>
 
 ## Accessibility
 
@@ -130,8 +97,7 @@ The following keys are available to override the translations for this component
     },
     {
       name: "switch.processingLabel",
-      description:
-        "The text to display to indicate action is processing",
+      description: "The text to display to indicate action is processing",
       type: "func",
       returnType: "string",
     },
