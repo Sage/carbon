@@ -19,7 +19,7 @@ description: Carbon StepSequenceItem component props and usage examples.
 | description | string \| undefined | No |  |  |  | Description for the step item, rendered below the title. |  |
 | hiddenCompleteLabel | string \| undefined | No |  |  |  | Hidden accessible label to be rendered if item is complete. |  |
 | hiddenCurrentLabel | string \| undefined | No |  |  |  | Hidden accessible label to be rendered if item is current. |  |
-| status | "complete" \| "current" \| "incomplete" \| undefined | No |  |  |  | Status for the step item. | "incomplete" |
+| status | "complete" \| "current" \| "incomplete" \| undefined | No | complete \| current \| incomplete |  |  | Status for the step item. | "incomplete" |
 | title | string \| undefined | No |  |  |  | Title for the step item |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

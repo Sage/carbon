@@ -12,6 +12,10 @@ import {
   hasNamespaceImportFrom,
   hasStorybookImport,
 } from "./example-imports.mjs";
+import {
+  extractDefaultsFromDeclaration,
+  getLiteralUnionValues,
+} from "./prop-extraction.mjs";
 
 /**
  * @typedef {Object} ComponentCandidate
@@ -904,52 +908,6 @@ function hasExcludedVisibilityTag(jsDocs) {
 }
 
 /**
- * Return literal values for simple union types when all members are literals.
- * @param {import("ts-morph").Type} type
- * @returns {Array<string | number | boolean> | null}
- */
-function getLiteralUnionValues(type) {
-  if (!type.isUnion()) {
-    return null;
-  }
-  const unionTypes = type.getUnionTypes();
-  /** @type {Array<string | number | boolean>} */
-  const literals = [];
-
-  for (const unionType of unionTypes) {
-    if (unionType.isStringLiteral()) {
-      const literalValue = unionType.getLiteralValue();
-      if (literalValue === undefined) {
-        return null;
-      }
-      literals.push(String(literalValue));
-      continue;
-    }
-    if (unionType.isNumberLiteral()) {
-      const literalValue = unionType.getLiteralValue();
-      if (literalValue === undefined) {
-        return null;
-      }
-      literals.push(
-        typeof literalValue === "number" ? literalValue : String(literalValue),
-      );
-      continue;
-    }
-    if (unionType.isBooleanLiteral()) {
-      const literalValue = unionType.getLiteralValue();
-      if (literalValue === undefined) {
-        return null;
-      }
-      literals.push(Boolean(literalValue));
-      continue;
-    }
-    return null;
-  }
-
-  return literals;
-}
-
-/**
  * Collect default prop values from destructured parameters and defaultProps.
  * @param {import("ts-morph").Project} projectInstance
  * @param {string[]} filePaths
@@ -1035,66 +993,6 @@ function collectDefaultProps(projectInstance, filePaths, componentName) {
   }
 
   return defaults;
-}
-
-/**
- * Extract defaults from a component declaration (function or variable initializer).
- * @param {import("ts-morph").Node} declaration
- * @returns {Map<string, string>}
- */
-function extractDefaultsFromDeclaration(declaration) {
-  const defaults = new Map();
-
-  if (declaration.isKind(SyntaxKind.FunctionDeclaration)) {
-    extractFromParameters(declaration.getParameters(), defaults);
-  }
-
-  if (declaration.isKind(SyntaxKind.VariableDeclaration)) {
-    const initializer = declaration.getInitializer();
-    if (
-      initializer &&
-      (initializer.isKind(SyntaxKind.ArrowFunction) ||
-        initializer.isKind(SyntaxKind.FunctionExpression))
-    ) {
-      extractFromParameters(initializer.getParameters(), defaults);
-    }
-  }
-
-  if (
-    declaration.isKind(SyntaxKind.FunctionExpression) ||
-    declaration.isKind(SyntaxKind.ArrowFunction)
-  ) {
-    extractFromParameters(declaration.getParameters(), defaults);
-  }
-
-  return defaults;
-}
-
-/**
- * Extract default values from the first object parameter binding.
- * @param {import("ts-morph").ParameterDeclaration[]} parameters
- * @param {Map<string, string>} defaults
- */
-function extractFromParameters(parameters, defaults) {
-  if (!parameters || parameters.length === 0) {
-    return;
-  }
-
-  const firstParam = parameters[0];
-  const nameNode = firstParam.getNameNode();
-  if (!nameNode || !nameNode.isKind(SyntaxKind.ObjectBindingPattern)) {
-    return;
-  }
-
-  for (const element of nameNode.getElements()) {
-    const initializer = element.getInitializer();
-    if (!initializer) {
-      continue;
-    }
-    const propName =
-      element.getPropertyNameNode()?.getText() ?? element.getName();
-    defaults.set(propName, initializer.getText());
-  }
 }
 
 /**

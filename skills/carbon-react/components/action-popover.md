@@ -32,19 +32,19 @@ description: Carbon ActionPopover component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| onClose | (() => void) \| undefined | No |  |  |  | Callback to be called on menu close |  |
-| onOpen | (() => void) \| undefined | No |  |  |  | Callback to be called on menu open |  |
+| onClose | (() => void) \| undefined | No |  |  |  | Callback to be called on menu close | onCloseDefault |
+| onOpen | (() => void) \| undefined | No |  |  |  | Callback to be called on menu open | onOpenDefault |
 | renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  |  |  | Render a custom menu button to override default ellipsis icon |  |
 | rightAlignMenu | boolean \| undefined | No |  |  |  | Boolean to control whether menu should align to right |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the action popover menu items. |  |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Size of the action popover menu items. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-describedby | string \| undefined | No |  |  |  | Prop to specify an aria-describedby for the component |  |
 | aria-label | string \| undefined | No |  |  |  | Prop to specify an aria-label for the component |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Prop to specify an aria-labelledby for the component |  |
-| horizontalAlignment | Alignment \| undefined | No |  | Yes | This prop is no longer supported and has no effect. |  |  |
-| placement | "bottom" \| "top" \| undefined | No |  | Yes | This prop will be removed in a future release. |  |  |
-| submenuPosition | Alignment \| undefined | No |  | Yes | This prop is no longer supported and has no effect. |  |  |
+| horizontalAlignment | Alignment \| undefined | No | left \| right | Yes | This prop is no longer supported and has no effect. |  |  |
+| placement | "bottom" \| "top" \| undefined | No | bottom \| top | Yes | This prop will be removed in a future release. |  | "bottom" |
+| submenuPosition | Alignment \| undefined | No | left \| right | Yes | This prop is no longer supported and has no effect. |  |  |
 
 ## Examples
 ### Playground

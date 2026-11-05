@@ -18,9 +18,9 @@ description: Carbon ButtonBar component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | Button or IconButton Elements, to be rendered inside the component |  |
-| buttonType | "primary" \| "secondary" \| undefined | No |  | Color variants for new business themes: "primary" \| "secondary" \| "tertiary" \| "darkBackground" |  |
+| buttonType | "primary" \| "secondary" \| undefined | No | primary \| secondary | Color variants for new business themes: "primary" \| "secondary" \| "tertiary" \| "darkBackground" |  |
 | fullWidth | boolean \| undefined | No |  | Apply fullWidth style to the button bar | false |
-| iconPosition | "before" \| "after" \| undefined | No |  | Defines an Icon position for buttons: "before" \| "after" | "before" |
+| iconPosition | "before" \| "after" \| undefined | No | before \| after | Defines an Icon position for buttons: "before" \| "after" | "before" |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
@@ -49,7 +49,7 @@ description: Carbon ButtonBar component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  | Assigns a size to the buttons: "small" \| "medium" \| "large" | "medium" |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large | Assigns a size to the buttons: "small" \| "medium" \| "large" | "medium" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
