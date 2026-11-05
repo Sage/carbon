@@ -4,6 +4,7 @@ import { LoaderProps } from "../loader.component";
 import { InnerBar, OuterBar, StyledLoaderLabel } from "../loader.style";
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
+import { getAnimationTime } from "./loader.utils";
 
 const StandaloneLoader = ({
   size,
@@ -16,16 +17,6 @@ const StandaloneLoader = ({
 }: LoaderProps) => {
   const locale = useLocale();
 
-  const calculateDefaultAnimationTime = (
-    animationTime: LoaderProps["animationTime"],
-  ) => {
-    if (animationTime) {
-      return animationTime;
-    }
-
-    return 2;
-  };
-
   const standaloneVariant =
     variant === "typical" || variant === "ai" ? variant : "typical";
   const standaloneSize = size === "small" || size === "large" ? size : "medium";
@@ -34,27 +25,27 @@ const StandaloneLoader = ({
     <>
       <OuterBar
         data-role="outer-bar"
-        size={standaloneSize}
-        variant={standaloneVariant}
-        inverse={!!inverse}
+        $size={standaloneSize}
+        $variant={standaloneVariant}
+        $inverse={!!inverse}
       >
         <InnerBar
           data-role="inner-bar"
-          size={standaloneSize}
-          variant={standaloneVariant}
-          inverse={!!inverse}
-          animationTime={calculateDefaultAnimationTime(animationTime)}
-          hasMotion={hasMotion}
+          $size={standaloneSize}
+          $variant={standaloneVariant}
+          $inverse={!!inverse}
+          $animationTime={getAnimationTime(animationTime, 0.983)}
+          $hasMotion={hasMotion}
         />
       </OuterBar>
 
       {showLabel && (
         <StyledLoaderLabel
-          inverse={inverse}
+          $inverse={inverse}
           data-role="loader-label"
           variant="span"
-          loaderVariant={variant}
-          loaderType="standalone"
+          $loaderVariant={variant}
+          $loaderType="standalone"
           $size={size}
         >
           {loaderLabel || locale?.loader.loading()}
