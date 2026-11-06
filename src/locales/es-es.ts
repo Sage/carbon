@@ -182,6 +182,11 @@ const esES: Partial<Locale> = {
   pod: {
     undo: () => "Deshacer",
   },
+  popoverContainer: {
+    openButton: {
+      text: () => "Acciones",
+    },
+  },
   tabs: {
     error: (tabTitle) => `Hay errores en la pestaña ${tabTitle}`,
     info: (tabTitle) => `Hay información relevante en la pestaña ${tabTitle}`,
