@@ -138,7 +138,7 @@ export const DatePicker = ({
   return (
     <Popover
       placement="bottom-start"
-      reference={inputContainerRef}
+      reference={inputContainerRef.current}
       middleware={pickerPopoverMiddleware}
       disablePortal={disablePortal}
       disableBackgroundUI={isInTable}

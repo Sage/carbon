@@ -198,6 +198,27 @@ const createRect = (width: number, height = 40) =>
   }) as DOMRect;
 
 describe("PopoverMenu - optional hiding", () => {
+  it("positions the menu against the control wrapper when rendered open on mount", async () => {
+    const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+    try {
+      renderPopoverMenu({ open: true });
+
+      await waitFor(() => expect(computePositionSpy).toHaveBeenCalled());
+
+      const [reference, floating] = computePositionSpy.mock.calls[0];
+      expect(reference).toHaveAttribute(
+        "data-component",
+        "popover-menu-control",
+      );
+      expect(reference).toContainElement(
+        screen.getByLabelText("combobox-label"),
+      );
+      expect(floating).toBe(screen.getByTestId("menu-wrapper"));
+    } finally {
+      computePositionSpy.mockRestore();
+    }
+  });
+
   it.each([undefined, false, true])(
     "only includes hide middleware when enabled (hideWhenReferenceHidden=%s)",
     async (hideWhenReferenceHidden) => {

@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   forwardRef,
   useState,
@@ -231,10 +232,18 @@ const Menu = ({
   maxHeight,
   popoverStrategy,
 }: MenuProps) => {
+  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
+    () => controlWrapperRef.current,
+  );
+
+  useLayoutEffect(() => {
+    setReferenceElement(controlWrapperRef.current);
+  }, [controlWrapperRef]);
+
   return (
     <Popover
       placement={placement}
-      reference={controlWrapperRef}
+      reference={referenceElement}
       isOpen={open}
       data-component="popover-menu"
       middleware={middleware}

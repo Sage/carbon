@@ -273,13 +273,6 @@ const SelectList = React.forwardRef(
       }
     }, [multiColumn]);
 
-    const anchorRef = useMemo(
-      () => ({
-        current: anchorElement || null,
-      }),
-      [anchorElement],
-    );
-
     const handleSelect = useCallback<NonNullable<OptionProps["onSelect"]>>(
       (optionData) => {
         onSelect({
@@ -695,7 +688,7 @@ const SelectList = React.forwardRef(
         <Popover
           placement={listPlacement}
           disablePortal
-          reference={anchorRef}
+          reference={anchorElement || null}
           middleware={popoverMiddleware}
           isOpen={isOpen}
           hide={!isOpen}

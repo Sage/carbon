@@ -573,7 +573,7 @@ export const PopoverContainer = forwardRef<
           }
         >
           <Popover
-            reference={{ current: popoverReference }}
+            reference={popoverReference}
             placement={getPlacement()}
             popoverStrategy={
               disableAnimation || reduceMotion ? "fixed" : "absolute"
