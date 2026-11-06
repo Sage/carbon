@@ -5,78 +5,31 @@ import React, {
   RefObject,
   useEffect,
   useLayoutEffect,
-  useMemo,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-import {
-  autoUpdate,
-  flip,
-  Middleware,
-  Placement,
-  useFloating,
-} from "@floating-ui/react-dom";
+import { flip, Middleware, Placement } from "@floating-ui/react-dom";
 
 import { StyledBackdrop, StyledPopoverContent } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import ModalContext, { ModalContextProps } from "../modal/modal.context";
 import useIsBrowser from "../../hooks/__internal__/useIsBrowser";
+import useFloating from "../../hooks/__internal__/useFloating";
 import TokensWrapperContext from "../../components/tokens-wrapper/__internal__/context";
 import combineRefs from "../utils/helpers/combine-refs";
 
-type OriginalFloatingStyles = Pick<
-  CSSStyleDeclaration,
-  "height" | "left" | "position" | "top" | "transform" | "visibility" | "width"
->;
-
 export interface PopoverProps {
-  /**
-   * Element to be positioned, has to be a single node and has to accept `ref` and `style` props.
-   */
   children: React.ReactElement;
-  /**
-   * Placement of children in relation to the reference element.
-   */
   placement?: Placement;
-  /**
-   * Disables interaction with background UI.
-   */
   disableBackgroundUI?: boolean;
-  /**
-   * Optional middleware array, for more information go to:
-   * [https://floating-ui.com/docs/middleware](https://floating-ui.com/docs/middleware)
-   */
   middleware?: Middleware[];
-  /**
-   * When true, children are not rendered in portal.
-   */
   disablePortal?: boolean;
-  /**
-   * Reference element, children will be positioned in relation to this element - should be a ref shaped object.
-   */
   reference: RefObject<HTMLElement>;
-  /**
-   * Whether the Popover is open, determines if autoUpdate runs in useFloating.
-   */
   isOpen?: boolean;
-  /**
-   * Applies display: none to the content wrapper.
-   */
   hide?: boolean;
-  /**
-   * Whether to update the position of the floating element on every animation frame if required. This is optimized for performance but can still be costly. Use with caution!
-   * [https://floating-ui.com/docs/autoUpdate#animationframe](https://floating-ui.com/docs/autoUpdate#animationframe)
-   */
   animationFrame?: boolean;
-  /**
-   * Optional strategy to use for positioning the floating element. Defaults to "absolute".
-   */
   popoverStrategy?: "absolute" | "fixed";
-  /**
-   * Allows child ref to be set via a prop instead of dynamically finding it via children iteration.
-   */
   childRefOverride?: MutableRefObject<HTMLDivElement | null>;
-  /** Optional custom portal container. Defaults to document.body (or the closest dialog in a modal). */
   portalTarget?: HTMLElement | null;
   /** Prefer the browser's top layer to preserve DOM order without ancestor clipping. Falls back to a portal when unsupported. */
   useTopLayer?: boolean;
@@ -87,8 +40,6 @@ const defaultMiddleware = [
     fallbackStrategy: "initialPlacement",
   }),
 ];
-
-const disableAutomaticUpdate = () => () => {};
 
 const PopoverRoot = ({
   children,
@@ -103,193 +54,28 @@ const PopoverRoot = ({
   childRefOverride,
   useTopLayer = false,
 }: Omit<PopoverProps, "disablePortal">) => {
+  const contentRef = useRef<HTMLDivElement>(null);
   const childRef = (
     React.Children.only(children) as React.FunctionComponentElement<unknown>
   ).ref;
-  const strategy = useTopLayer ? "fixed" : popoverStrategy;
-  const originalFloatingStyles = useRef<OriginalFloatingStyles | null>(null);
-  const focusedBeforeHide = useRef<HTMLElement | null>(null);
-  const {
-    elements,
-    isPositioned,
-    middlewareData,
-    placement: currentPlacement,
-    refs,
-    update,
-    x,
-    y,
-  } = useFloating({
-    open: isOpen,
-    placement,
-    middleware,
-    strategy,
-    whileElementsMounted: disableAutomaticUpdate,
-  });
-  const childStyle = (children.props as { style?: React.CSSProperties }).style;
-  const referenceHidden = middlewareData.hide?.referenceHidden;
+  const innerRef = useRef<HTMLElement | null>(null);
+  const floatingRef = childRefOverride ?? innerRef;
 
-  const floatingStyles = useMemo<React.CSSProperties>(
-    () => ({
-      position: strategy,
-      left: Number.isFinite(x) ? (x as number) : 0,
-      top: Number.isFinite(y) ? (y as number) : 0,
-      ...(referenceHidden === undefined
-        ? {}
-        : { visibility: referenceHidden ? "hidden" : childStyle?.visibility }),
-    }),
-    [childStyle?.visibility, referenceHidden, strategy, x, y],
-  );
-
-  useLayoutEffect(() => {
-    refs.setReference(reference.current);
-
-    if (childRefOverride) {
-      refs.setFloating(childRefOverride.current);
-    }
-  }, [childRefOverride, reference, refs]);
-
-  useEffect(() => {
-    if (!isOpen || !elements.reference || !elements.floating) return;
-
-    return autoUpdate(elements.reference, elements.floating, update, {
-      animationFrame,
-    });
-  }, [animationFrame, elements.floating, elements.reference, isOpen, update]);
-
-  useLayoutEffect(() => {
-    const floatingElement = childRefOverride?.current;
-
-    if (!isOpen || !floatingElement) return;
-
-    const { height, left, position, top, transform, visibility, width } =
-      floatingElement.style;
-    originalFloatingStyles.current = {
-      height,
-      left,
-      position,
-      top,
-      transform,
-      visibility,
-      width,
-    };
-
-    return () => {
-      Object.assign(floatingElement.style, originalFloatingStyles.current);
-      floatingElement.removeAttribute("data-floating-placement");
-      originalFloatingStyles.current = null;
-    };
-  }, [childRefOverride, elements.floating, isOpen]);
-
-  useLayoutEffect(() => {
-    const floatingElement = childRefOverride?.current;
-
-    if (!isOpen || !floatingElement) return;
-
-    const originalVisibility = (
-      originalFloatingStyles.current as OriginalFloatingStyles
-    ).visibility;
-
-    Object.assign(floatingElement.style, {
-      ...floatingStyles,
-      left: `${floatingStyles.left}px`,
-      top: `${floatingStyles.top}px`,
-      ...(referenceHidden === undefined
-        ? {}
-        : {
-            visibility: referenceHidden ? "hidden" : originalVisibility,
-          }),
-    });
-
-    if (isPositioned) {
-      floatingElement.setAttribute("data-floating-placement", currentPlacement);
-    }
-  }, [
-    childRefOverride,
-    currentPlacement,
-    floatingStyles,
+  const setFloating = useFloating({
+    animationFrame,
+    floating: floatingRef,
     isOpen,
-    isPositioned,
-    referenceHidden,
-  ]);
+    middleware,
+    placement,
+    reference,
+    strategy: useTopLayer ? "fixed" : popoverStrategy,
+  });
 
-  useEffect(() => {
-    const floatingElement = elements.floating;
-    const ownerDocument = floatingElement?.ownerDocument;
-
-    if (!isOpen || !floatingElement || !ownerDocument) {
-      focusedBeforeHide.current = null;
-
-      return;
-    }
-
-    const handleFocusIn = (event: FocusEvent) => {
-      if (
-        event.target !== ownerDocument.body &&
-        !floatingElement.contains(event.target as Node)
-      ) {
-        focusedBeforeHide.current = null;
-      }
-    };
-
-    ownerDocument.addEventListener("focusin", handleFocusIn);
-
-    return () => ownerDocument.removeEventListener("focusin", handleFocusIn);
-  }, [elements.floating, isOpen]);
-
-  useEffect(() => {
-    const floatingElement = elements.floating;
-    const ownerDocument = floatingElement?.ownerDocument;
-
-    if (
-      !isOpen ||
-      !floatingElement ||
-      !ownerDocument ||
-      referenceHidden === undefined
-    ) {
-      return;
-    }
-
-    const { activeElement } = ownerDocument;
-
-    if (
-      referenceHidden &&
-      activeElement instanceof HTMLElement &&
-      floatingElement.contains(activeElement)
-    ) {
-      focusedBeforeHide.current = activeElement;
-
-      return;
-    }
-
-    if (!referenceHidden && focusedBeforeHide.current) {
-      const item = focusedBeforeHide.current;
-      focusedBeforeHide.current = null;
-
-      if (
-        floatingElement.contains(item) &&
-        item.isConnected &&
-        !item.matches(":disabled, [aria-disabled='true']") &&
-        (activeElement === ownerDocument.body || activeElement === item)
-      ) {
-        item.focus({ preventScroll: true });
-      }
-    }
-  }, [elements.floating, isOpen, referenceHidden]);
-
-  const setFloating = useMemo(
-    () => combineRefs(childRef, refs.setFloating),
-    [childRef, refs.setFloating],
-  );
   const content = childRefOverride
     ? children
     : React.cloneElement(children, {
-        ref: setFloating,
-        style: isOpen ? { ...childStyle, ...floatingStyles } : childStyle,
-        "data-floating-placement":
-          isOpen && isPositioned ? currentPlacement : undefined,
+        ref: combineRefs(childRef, innerRef, setFloating),
       });
-
-  const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const element = contentRef.current;
@@ -357,17 +143,11 @@ const Popover = ({
 
   if (canUseTopLayer) {
     const content = <PopoverRoot {...props} useTopLayer />;
-    // Submenus belong inside their parent list item, including inside dialogs.
     return portalTarget ? createPortal(content, portalTarget) : content;
   }
 
-  if (disablePortal) {
-    return <PopoverRoot {...props} />;
-  }
-
-  if (!isBrowser) {
-    return null;
-  }
+  if (disablePortal) return <PopoverRoot {...props} />;
+  if (!isBrowser) return null;
 
   const target =
     isInModal && closestDialog
