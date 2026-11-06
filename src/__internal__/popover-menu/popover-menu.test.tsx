@@ -1169,6 +1169,7 @@ describe("PopoverMenu - button menu", () => {
       await user.click(parentItem);
 
       const submenuItem = screen.getByRole("button", { name: "Subitem 1" });
+      submenuItem.focus();
       expect(submenuItem).toHaveFocus();
 
       // Simulate pressing the Tab key to move focus away from the submenu item

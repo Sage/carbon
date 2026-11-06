@@ -1,12 +1,38 @@
 import React from "react";
 import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import * as floatingUi from "@floating-ui/react-dom";
+
+jest.mock("@floating-ui/react-dom", () => {
+  const actual = jest.requireActual("@floating-ui/react-dom");
+
+  return {
+    ...actual,
+    autoUpdate: jest.fn((_, __, update) => {
+      update();
+      return () => {};
+    }),
+    useFloating: jest.fn(actual.useFloating),
+  };
+});
 import Popover, { PopoverProps } from "./popover.component";
 import Dialog from "../../components/dialog";
 
-const PopoverWithButton = (
-  props: Omit<PopoverProps, "children" | "reference">,
-) => {
+const waitForPosition = () => waitFor(() => {});
+const originalUseFloating = jest.requireActual(
+  "@floating-ui/react-dom",
+).useFloating;
+
+afterEach(() => {
+  jest.mocked(floatingUi.useFloating).mockImplementation(originalUseFloating);
+});
+
+const PopoverWithButton = ({
+  children = <div>I float!</div>,
+  ...props
+}: Omit<PopoverProps, "children" | "reference"> & {
+  children?: React.ReactElement;
+}) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   return (
@@ -15,7 +41,7 @@ const PopoverWithButton = (
         Reference
       </button>
       <Popover reference={buttonRef} {...props}>
-        <div>I float!</div>
+        {children}
       </Popover>
     </>
   );
@@ -51,23 +77,25 @@ test("popup content is hidden when hide prop is true", () => {
   expect(screen.getByText("I float!")).not.toBeVisible();
 });
 
-test("renders popup in the document body to avoid any ancestors affecting its layout and styling", () => {
+test("renders popup in the document body to avoid any ancestors affecting its layout and styling", async () => {
   render(
     <main>
       <PopoverWithButton />
     </main>,
   );
+  await waitForPosition();
 
   expect(document.body).toHaveTextContent(/I float!/);
   expect(screen.getByRole("main")).not.toHaveTextContent(/I float!/);
 });
 
-test("renders popup within the component's ancestor as normal when disablePortal prop is true", () => {
+test("renders popup within the component's ancestor as normal when disablePortal prop is true", async () => {
   render(
     <main>
       <PopoverWithButton disablePortal />
     </main>,
   );
+  await waitForPosition();
 
   expect(screen.getByRole("main")).toHaveTextContent(/I float!/);
 });
@@ -104,6 +132,11 @@ test("when mounted, renders popup in the reference's nearest dialog ancestor if 
 });
 
 test("applies popup styling to the element specified via the childRefOverride prop", async () => {
+  jest.mocked(floatingUi.useFloating).mockImplementation((options) => {
+    const result = originalUseFloating(options);
+
+    return { ...result, x: 12, y: 24 };
+  });
   const UsingChildRefOverride = () => {
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     const floatingRef = React.useRef<HTMLDivElement>(null);
@@ -132,15 +165,244 @@ test("applies popup styling to the element specified via the childRefOverride pr
   expect(screen.getByText("I float!")).toHaveAttribute(
     "data-floating-placement",
   );
+  expect(screen.getByText("I float!")).toHaveStyle({
+    left: "12px",
+    top: "24px",
+  });
 });
 
-test("renders popup within a transparent backdrop to prevent scrolling outside the popup when disableBackgroundUI is true", () => {
+test("hides and restores a childRefOverride when its reference is clipped", async () => {
+  let referenceHidden = false;
+  jest.mocked(floatingUi.useFloating).mockImplementation((options) => {
+    const result = originalUseFloating(options);
+
+    return {
+      ...result,
+      middlewareData: { hide: { referenceHidden } },
+      x: 12,
+      y: 24,
+    };
+  });
+  const UsingChildRefOverride = () => {
+    const buttonRef = React.useRef<HTMLButtonElement>(null);
+    const floatingRef = React.useRef<HTMLDivElement>(null);
+
+    return (
+      <>
+        <button ref={buttonRef} type="button">
+          Reference
+        </button>
+        <Popover reference={buttonRef} childRefOverride={floatingRef}>
+          <article>
+            <div ref={floatingRef}>I float!</div>
+          </article>
+        </Popover>
+      </>
+    );
+  };
+  const { rerender } = render(<UsingChildRefOverride />);
+  const floatingElement = screen.getByText("I float!");
+
+  referenceHidden = true;
+  rerender(<UsingChildRefOverride />);
+  await waitFor(() => expect(floatingElement).not.toBeVisible());
+
+  referenceHidden = false;
+  rerender(<UsingChildRefOverride />);
+  await waitFor(() => expect(floatingElement).toBeVisible());
+  expect(floatingElement).toHaveStyle({ left: "12px", top: "24px" });
+});
+
+test("preserves child styles and clears the placement attribute when closed", async () => {
+  const { rerender } = render(
+    <PopoverWithButton isOpen placement="top">
+      <div style={{ left: "50px", position: "static", top: "100px" }}>
+        I float!
+      </div>
+    </PopoverWithButton>,
+  );
+  await waitForPosition();
+
+  const floatingElement = screen.getByText("I float!");
+  expect(floatingElement).toHaveStyle({ position: "absolute" });
+  expect(floatingElement).toHaveAttribute("data-floating-placement", "top");
+
+  rerender(
+    <PopoverWithButton isOpen={false} placement="top">
+      <div style={{ left: "50px", position: "static", top: "100px" }}>
+        I float!
+      </div>
+    </PopoverWithButton>,
+  );
+
+  expect(floatingElement).toHaveStyle({
+    left: "50px",
+    position: "static",
+    top: "100px",
+  });
+  expect(floatingElement).not.toHaveAttribute("data-floating-placement");
+});
+
+test.each([
+  { expected: { left: "10px", top: "0px" }, x: 10, y: NaN },
+  { expected: { left: "0px", top: "20px" }, x: NaN, y: 20 },
+])(
+  "falls back to zero coordinates when Floating UI returns NaN",
+  async ({ expected, x, y }) => {
+    jest.mocked(floatingUi.useFloating).mockImplementation((options) => {
+      const result = originalUseFloating(options);
+
+      return {
+        ...result,
+        x,
+        y,
+      };
+    });
+
+    render(<PopoverWithButton />);
+    await waitForPosition();
+
+    expect(screen.getByText("I float!")).toHaveStyle(expected);
+  },
+);
+
+test("hides a clipped popover and restores focus when its trigger becomes visible", async () => {
+  let referenceHidden = false;
+  jest.mocked(floatingUi.useFloating).mockImplementation((options) => {
+    const result = originalUseFloating(options);
+
+    return {
+      ...result,
+      middlewareData: { hide: { referenceHidden } },
+    };
+  });
+
+  const content = (
+    <div>
+      <button>Popover item</button>
+    </div>
+  );
+  const { rerender } = render(<PopoverWithButton>{content}</PopoverWithButton>);
+  const item = screen.getByRole("button", { name: "Popover item" });
+  item.focus();
+
+  referenceHidden = true;
+  rerender(<PopoverWithButton>{content}</PopoverWithButton>);
+  await waitFor(() => expect(item).not.toBeVisible());
+
+  referenceHidden = false;
+  rerender(<PopoverWithButton>{content}</PopoverWithButton>);
+
+  await waitFor(() => expect(item).toBeVisible());
+  expect(item).toHaveFocus();
+});
+
+test("does not restore focus when another element is active after a popover becomes visible", async () => {
+  const user = userEvent.setup();
+  let referenceHidden = false;
+  jest.mocked(floatingUi.useFloating).mockImplementation((options) => {
+    const result = originalUseFloating(options);
+
+    return {
+      ...result,
+      middlewareData: { hide: { referenceHidden } },
+    };
+  });
+
+  const content = (
+    <div>
+      <button>Popover item</button>
+    </div>
+  );
+  const popoverWithOtherElement = () => (
+    <>
+      <PopoverWithButton>{content}</PopoverWithButton>
+      <button type="button">Other element</button>
+    </>
+  );
+  const { rerender } = render(popoverWithOtherElement());
+  const item = screen.getByRole("button", { name: "Popover item" });
+  item.focus();
+
+  referenceHidden = true;
+  rerender(popoverWithOtherElement());
+  await waitFor(() => expect(item).not.toBeVisible());
+
+  const focusSpy = jest.spyOn(item, "focus");
+  await user.click(screen.getByRole("button", { name: "Other element" }));
+
+  referenceHidden = false;
+  rerender(popoverWithOtherElement());
+  await waitFor(() => expect(item).toBeVisible());
+
+  expect(focusSpy).not.toHaveBeenCalled();
+  focusSpy.mockRestore();
+});
+
+test("does not restore focus to a disabled popover item", async () => {
+  let referenceHidden = false;
+  jest.mocked(floatingUi.useFloating).mockImplementation((options) => {
+    const result = originalUseFloating(options);
+
+    return {
+      ...result,
+      middlewareData: { hide: { referenceHidden } },
+    };
+  });
+
+  const content = (
+    <div>
+      <button>Popover item</button>
+    </div>
+  );
+  const { rerender } = render(<PopoverWithButton>{content}</PopoverWithButton>);
+  const item = screen.getByRole("button", { name: "Popover item" });
+  item.focus();
+
+  referenceHidden = true;
+  rerender(<PopoverWithButton>{content}</PopoverWithButton>);
+  await waitFor(() => expect(item).not.toBeVisible());
+
+  item.blur();
+  item.setAttribute("disabled", "");
+  const focusSpy = jest.spyOn(item, "focus");
+
+  referenceHidden = false;
+  rerender(<PopoverWithButton>{content}</PopoverWithButton>);
+  await waitFor(() => expect(item).toBeVisible());
+
+  expect(focusSpy).not.toHaveBeenCalled();
+  focusSpy.mockRestore();
+});
+
+test("only auto-updates while open and cleans up when closed", async () => {
+  const cleanup = jest.fn();
+  const autoUpdateMock = jest.mocked(floatingUi.autoUpdate);
+  autoUpdateMock.mockClear();
+  autoUpdateMock.mockImplementationOnce(() => cleanup);
+
+  const { rerender } = render(<PopoverWithButton isOpen={false} />);
+
+  expect(autoUpdateMock).not.toHaveBeenCalled();
+
+  rerender(<PopoverWithButton isOpen />);
+  await waitForPosition();
+
+  expect(autoUpdateMock).toHaveBeenCalledTimes(1);
+
+  rerender(<PopoverWithButton isOpen={false} />);
+
+  expect(cleanup).toHaveBeenCalledTimes(1);
+});
+
+test("renders popup within a transparent backdrop to prevent scrolling outside the popup when disableBackgroundUI is true", async () => {
   render(
     <main>
       <PopoverWithButton disableBackgroundUI />
       <p>Lorem ipsum dolor sit amet...</p>
     </main>,
   );
+  await waitForPosition();
 
   const backdrop = screen.getByTestId("popup-backdrop");
 
@@ -161,13 +423,14 @@ test("renders popup within a transparent backdrop to prevent scrolling outside t
   expect(backdropIndex).toContain("6000");
 });
 
-test("does not render a backdrop when disableBackgroundUI is false", () => {
+test("does not render a backdrop when disableBackgroundUI is false", async () => {
   render(
     <main>
       <PopoverWithButton />
       <p>Lorem ipsum dolor sit amet...</p>
     </main>,
   );
+  await waitForPosition();
 
   expect(screen.queryByTestId("popup-backdrop")).not.toBeInTheDocument();
 });

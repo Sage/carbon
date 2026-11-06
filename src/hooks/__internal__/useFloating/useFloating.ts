@@ -1,163 +1,211 @@
-import { useRef, useLayoutEffect, RefObject } from "react";
-
 import {
-  computePosition,
+  RefObject,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
+import {
   autoUpdate,
-  Strategy,
   Middleware,
   Placement,
-} from "@floating-ui/dom";
+  Strategy,
+  useFloating as useFloatingUi,
+} from "@floating-ui/react-dom";
+
+type OriginalFloatingStyles = Pick<
+  CSSStyleDeclaration,
+  "height" | "left" | "position" | "top" | "transform" | "visibility" | "width"
+>;
 
 export interface UseFloatingProps {
+  reference: RefObject<HTMLElement>;
+  floating: RefObject<HTMLElement>;
   isOpen?: boolean;
-  reference: RefObject<HTMLElement | null>;
-  floating: React.RefObject<HTMLElement | null>;
-  strategy?: Strategy;
-  middleware?: Middleware[];
   placement?: Placement;
+  middleware?: Middleware[];
   animationFrame?: boolean;
+  strategy?: Strategy;
 }
 
-type OriginalValues = {
-  top: string | null;
-  left: string | null;
-  position: string;
-  width: string;
-  height: string;
-  visibility: string;
-};
+const disableAutomaticUpdate = () => () => {};
 
 const useFloating = ({
-  isOpen,
   reference,
   floating,
-  strategy = "absolute",
+  isOpen = true,
   placement,
   middleware,
   animationFrame,
+  strategy = "absolute",
 }: UseFloatingProps) => {
-  const originalValues = useRef<OriginalValues | null>(null);
+  const originalFloatingStyles = useRef<OriginalFloatingStyles | null>(null);
   const focusedBeforeHide = useRef<HTMLElement | null>(null);
+  const {
+    elements,
+    isPositioned,
+    middlewareData,
+    placement: currentPlacement,
+    refs,
+    update,
+    x,
+    y,
+  } = useFloatingUi({
+    open: isOpen,
+    placement,
+    middleware,
+    strategy,
+    whileElementsMounted: disableAutomaticUpdate,
+  });
+  const referenceHidden = middlewareData.hide?.referenceHidden;
+  const setFloating = useCallback(
+    (element: HTMLElement | null) => refs.setFloating(element),
+    [refs],
+  );
+
+  const floatingStyles = useMemo<React.CSSProperties>(
+    () => ({
+      position: strategy,
+      left: Number.isFinite(x) ? (x as number) : 0,
+      top: Number.isFinite(y) ? (y as number) : 0,
+    }),
+    [strategy, x, y],
+  );
 
   useLayoutEffect(() => {
-    let cleanup: null | (() => void);
-    let disposed = false;
+    refs.setReference(reference.current);
+    refs.setFloating(floating.current);
+  }, [floating, reference, refs]);
 
-    const referenceElement = reference.current;
+  useEffect(() => {
+    if (!isOpen || !elements.reference || !elements.floating) return;
+
+    return autoUpdate(elements.reference, elements.floating, update, {
+      animationFrame,
+    });
+  }, [animationFrame, elements.floating, elements.reference, isOpen, update]);
+
+  useLayoutEffect(() => {
     const floatingElement = floating.current;
+
+    if (!isOpen || !floatingElement) return;
+
+    const { height, left, position, top, transform, visibility, width } =
+      floatingElement.style;
+    originalFloatingStyles.current = {
+      height,
+      left,
+      position,
+      top,
+      transform,
+      visibility,
+      width,
+    };
+
+    return () => {
+      Object.assign(floatingElement.style, originalFloatingStyles.current);
+      floatingElement.removeAttribute("data-floating-placement");
+      originalFloatingStyles.current = null;
+    };
+  }, [elements.floating, floating, isOpen]);
+
+  useLayoutEffect(() => {
+    const floatingElement = floating.current;
+
+    if (!isOpen || !floatingElement || !originalFloatingStyles.current) return;
+
+    const originalVisibility = originalFloatingStyles.current.visibility;
+
+    Object.assign(floatingElement.style, {
+      ...floatingStyles,
+      left: `${floatingStyles.left}px`,
+      top: `${floatingStyles.top}px`,
+      ...(referenceHidden === undefined
+        ? {}
+        : {
+            visibility: referenceHidden ? "hidden" : originalVisibility,
+          }),
+    });
+
+    if (isPositioned) {
+      floatingElement.setAttribute("data-floating-placement", currentPlacement);
+    }
+  }, [
+    currentPlacement,
+    elements.floating,
+    floating,
+    floatingStyles,
+    isOpen,
+    isPositioned,
+    referenceHidden,
+  ]);
+
+  useEffect(() => {
+    const floatingElement = elements.floating;
     const ownerDocument = floatingElement?.ownerDocument;
+
+    if (!isOpen || !floatingElement || !ownerDocument) {
+      focusedBeforeHide.current = null;
+
+      return;
+    }
+
     const handleFocusIn = (event: FocusEvent) => {
       if (
-        event.target !== ownerDocument?.body &&
-        !floatingElement?.contains(event.target as Node)
+        event.target !== ownerDocument.body &&
+        !floatingElement.contains(event.target as Node)
       ) {
         focusedBeforeHide.current = null;
       }
     };
 
-    if (!isOpen) focusedBeforeHide.current = null;
+    ownerDocument.addEventListener("focusin", handleFocusIn);
 
-    if (referenceElement && floatingElement && isOpen) {
-      ownerDocument?.addEventListener("focusin", handleFocusIn);
-      const { left, top, position, width, height, visibility } =
-        floatingElement.style;
-      originalValues.current = {
-        left,
-        top,
-        position,
-        width,
-        height,
-        visibility,
-      };
+    return () => ownerDocument.removeEventListener("focusin", handleFocusIn);
+  }, [elements.floating, isOpen]);
 
-      Object.assign(floatingElement.style, {
-        position: strategy,
-        top: 0,
-        left: 0,
-      });
+  useEffect(() => {
+    const floatingElement = elements.floating;
+    const ownerDocument = floatingElement?.ownerDocument;
 
-      const update = () => {
-        computePosition(referenceElement, floatingElement, {
-          strategy,
-          middleware,
-          placement,
-        }).then(({ x, y, placement: currentPlacement, middlewareData }) => {
-          if (disposed) {
-            return;
-          }
-
-          Object.assign(floatingElement.style, {
-            left: `${x}px`,
-            top: `${y}px`,
-            position: strategy,
-          });
-
-          if (middlewareData.hide?.referenceHidden !== undefined) {
-            const activeElement = ownerDocument?.activeElement;
-
-            if (
-              middlewareData.hide.referenceHidden &&
-              activeElement instanceof HTMLElement &&
-              floatingElement.contains(activeElement)
-            ) {
-              focusedBeforeHide.current = activeElement;
-            }
-
-            floatingElement.style.visibility = middlewareData.hide
-              .referenceHidden
-              ? "hidden"
-              : visibility;
-
-            if (
-              !middlewareData.hide.referenceHidden &&
-              focusedBeforeHide.current
-            ) {
-              const item = focusedBeforeHide.current;
-              focusedBeforeHide.current = null;
-
-              if (
-                floatingElement.contains(item) &&
-                item.isConnected &&
-                !item.matches(":disabled, [aria-disabled='true']") &&
-                (activeElement === ownerDocument?.body ||
-                  activeElement === item)
-              ) {
-                item.focus({ preventScroll: true });
-              }
-            }
-          }
-
-          floatingElement.setAttribute(
-            "data-floating-placement",
-            currentPlacement,
-          );
-        });
-      };
-
-      cleanup = autoUpdate(referenceElement, floatingElement, update, {
-        animationFrame,
-      });
+    if (
+      !isOpen ||
+      !floatingElement ||
+      !ownerDocument ||
+      referenceHidden === undefined
+    ) {
+      return;
     }
 
-    return () => {
-      disposed = true;
-      ownerDocument?.removeEventListener("focusin", handleFocusIn);
-      if (cleanup && floatingElement) {
-        cleanup();
-        cleanup = null;
-        Object.assign(floatingElement.style, originalValues.current);
-        floatingElement.removeAttribute("data-floating-placement");
+    const { activeElement } = ownerDocument;
+
+    if (
+      referenceHidden &&
+      activeElement instanceof HTMLElement &&
+      floatingElement.contains(activeElement)
+    ) {
+      focusedBeforeHide.current = activeElement;
+
+      return;
+    }
+
+    if (!referenceHidden && focusedBeforeHide.current) {
+      const item = focusedBeforeHide.current;
+      focusedBeforeHide.current = null;
+
+      if (
+        floatingElement.contains(item) &&
+        item.isConnected &&
+        !item.matches(":disabled, [aria-disabled='true']") &&
+        (activeElement === ownerDocument.body || activeElement === item)
+      ) {
+        item.focus({ preventScroll: true });
       }
-    };
-  }, [
-    isOpen,
-    reference,
-    floating,
-    strategy,
-    middleware,
-    placement,
-    animationFrame,
-  ]);
+    }
+  }, [elements.floating, isOpen, referenceHidden]);
+
+  return setFloating;
 };
 
 export default useFloating;
