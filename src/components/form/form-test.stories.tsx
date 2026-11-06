@@ -1,49 +1,45 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
+import isChromatic from "../../../.storybook/isChromatic";
+import allModes from "../../../.storybook/modes";
 
 import Form, { FormProps } from ".";
-import Button from "../button";
-import { Tab, Tabs } from "../tabs";
+import Button from "../button/__next__";
 import Box from "../box";
 import Textbox from "../textbox";
-import Textarea, { TextareaProps } from "../textarea";
+import Textarea from "../textarea";
 import Fieldset from "../fieldset";
 import DateInput from "../date";
+import Dialog from "../dialog";
 import DateRange from "../date-range";
 import { Select, MultiSelect, Option, FilterableSelect } from "../select";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Checkbox, CheckboxGroup } from "../checkbox";
 import Switch from "../switch";
 import Decimal from "../decimal";
-import Number from "../number";
-import GroupedCharacter from "../grouped-character";
 import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
 import NumeralDate from "../numeral-date";
 import Divider from "../divider";
-import InlineInputs from "../inline-inputs";
-import Pager from "../pager";
 import Password from "../password";
-import Search, { SearchProps } from "../search";
+import Search from "../search";
 import { Time } from "../time";
 import TextEditor from "../text-editor";
 import CarbonProvider from "../carbon-provider";
 import Typography from "../typography";
 import Link from "../link";
 
-const greyBackground: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  boxSizing: "border-box",
-  height: "400px",
-  padding: "var(--global-space-layout-2-xs)",
-  backgroundColor: "rgb(128, 128, 128)",
-};
+const defaultOpenState = isChromatic();
 
-const whiteBackground: React.CSSProperties = {
-  height: "100%",
-  backgroundColor: "rgb(255, 255, 255)",
-};
+const renderTextboxes = (count: number, keyPrefix: string) =>
+  Array.from({ length: count }).map((_, index) => (
+    <Textbox
+      key={`${keyPrefix}-${index + 1}`}
+      label="Textbox"
+      value=""
+      onChange={() => {}}
+    />
+  ));
 
 export default {
   title: "Form/Test",
@@ -61,212 +57,191 @@ export default {
       action("onSubmit")(ev);
     },
   },
-  argTypes: {
-    fieldSpacing: {
-      options: ["0", "1", "2", "3", "4", "5", "6", "7"],
-      control: {
-        type: "select",
-      },
-    },
-  },
 };
 
 type StoryType = StoryObj<typeof Form>;
 
-export const AllInputs: StoryType = (args: FormProps) => (
+const formOutlineStyle: React.CSSProperties = {
+  border:
+    "var(--global-borderwidth-xs) solid var(--container-standard-border-default)",
+  padding: "var(--global-space-layout-2-xs)",
+};
+
+const formBoundaryStyle: React.CSSProperties = {
+  ...formOutlineStyle,
+  maxWidth: "600px",
+};
+
+export const DeprecatedFieldSpacingDefaultOnEveryInput: StoryType = (
+  args: FormProps,
+) => (
   <CarbonProvider validationRedesignOptIn>
-    <Textbox
-      onChange={() => {}}
-      value=""
-      label="Outside of Form"
-      characterLimit={100}
-    />
-    <Textbox
-      onChange={() => {}}
-      value=""
-      label="Outside of Form"
-      characterLimit={100}
-    />
-    <Divider type="horizontal" />
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-    >
-      <Box>
-        <Textbox
-          onChange={() => {}}
-          value=""
-          label="Textbox"
-          characterLimit={100}
-        />
-        <Number label="Number" onChange={() => {}} value="" />
-        <Decimal label="Decimal" onChange={() => {}} value="" />
-        <GroupedCharacter
-          label="GroupedCharacter"
-          groups={[2, 3, 2]}
-          separator="-"
-          onChange={() => {}}
-          value=""
-        />
-        <Password
-          label="Password"
-          characterLimit={100}
-          onChange={() => {}}
-          value=""
-        />
-        <Fieldset legend="Fieldset">
-          <Textbox onChange={() => {}} value="" label="Textbox in Fieldset" />
-          <Checkbox
-            label="Checkbox in Fieldset"
+    <div style={formBoundaryStyle}>
+      <Form
+        {...args}
+        leftSideButtons={
+          <Button variant="default" variantType="subtle">
+            Cancel
+          </Button>
+        }
+        saveButton={
+          <Button variant="default" variantType="primary" type="submit">
+            Save
+          </Button>
+        }
+      >
+        <Box>
+          {/* Keeps the character count with its Textbox, so the gap goes below the count */}
+          <div style={{ marginBottom: "var(--global-space-layout-xs)" }}>
+            <Textbox
+              onChange={() => {}}
+              value=""
+              label="Textbox"
+              characterLimit={100}
+              mb={0}
+            />
+          </div>
+          <Decimal label="Decimal" onChange={() => {}} value="" />
+          <Password label="Password" onChange={() => {}} value="" />
+          <Fieldset legend="Fieldset">
+            <Textbox onChange={() => {}} value="" label="Textbox in Fieldset" />
+            <Checkbox
+              label="Checkbox in Fieldset"
+              onChange={() => {}}
+              checked={false}
+            />
+            <Select
+              name="fieldset-select"
+              id="fieldset-select"
+              label="Select in Fieldset"
+              onChange={() => {}}
+              value=""
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+            </Select>
+          </Fieldset>
+          <Divider type="horizontal" />
+          <Time
+            value={{
+              hours: "",
+              minutes: "",
+            }}
             onChange={() => {}}
-            checked={false}
+            legend="Time"
           />
+          <NumeralDate
+            legend="Numeral Date"
+            onChange={() => {}}
+            value={{ dd: "", mm: "", yyyy: "" }}
+          />
+          <RadioButtonGroup
+            name="legend"
+            legend="RadioButtonGroup"
+            onChange={() => {}}
+            value="group-1-input-1"
+          >
+            <RadioButton
+              id="group-1-input-1"
+              value="group-1-input-1"
+              label="Radio Option 1"
+            />
+            <RadioButton
+              id="group-1-input-2"
+              value="group-1-input-2"
+              label="Radio Option 2"
+            />
+          </RadioButtonGroup>
+          <Checkbox label="Checkbox" checked={false} onChange={() => {}} />
+          <CheckboxGroup legend="Checkbox Group">
+            <Checkbox label="Checkbox-1" checked={false} onChange={() => {}} />
+            <Checkbox label="Checkbox-2" checked={false} onChange={() => {}} />
+          </CheckboxGroup>
+          <DateInput name="date" label="Date" value="" onChange={() => {}} />
+          <DateRange
+            name="date-range"
+            startLabel="Start Date"
+            endLabel="End Date"
+            value={["", ""]}
+            onChange={() => {}}
+          />
+          <Search value="" onChange={() => {}} />
           <Select
             name="simple-select"
             id="simple-select"
-            label="Select in Fieldset"
-            onChange={() => {}}
+            label="Simple Select"
             value=""
+            onChange={() => {}}
           >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />
             <Option text="Blue" value="3" />
           </Select>
-        </Fieldset>
-        <Divider type="horizontal" />
-        <Time
-          value={{
-            hours: "",
-            minutes: "",
-          }}
-          onChange={() => {}}
-          label="Time"
-        />
-        <NumeralDate
-          label="Numeral Date"
-          onChange={() => {}}
-          value={{ dd: "", mm: "", yyyy: "" }}
-        />
-        <RadioButtonGroup
-          name="legend"
-          legend="RadioButtonGroup"
-          onChange={() => {}}
-          value="group-1-input-1"
-        >
-          <RadioButton
-            id="group-1-input-1"
-            value="group-1-input-1"
-            label="Radio Option 1"
+          <FilterableSelect
+            name="filterable-select"
+            id="filterable-select"
+            label="Filterable Select"
+            value=""
+            onChange={() => {}}
+          >
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+          </FilterableSelect>
+          <MultiSelect
+            name="multi-select"
+            id="multi-select"
+            label="Multi Select"
+            value={[]}
+            onChange={() => {}}
+          >
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+          </MultiSelect>
+          <Textarea
+            label="Textarea"
+            name="textarea"
+            characterLimit={100}
+            value=""
+            onChange={() => {}}
           />
-          <RadioButton
-            id="group-1-input-2"
-            value="group-1-input-2"
-            label="Radio Option 2"
+          <TextEditor labelText="Text Editor" characterLimit={100} />
+          <SimpleColorPicker
+            name="simple-color-picker"
+            legend="Simple Color Picker"
+            value=""
+            onChange={() => {}}
+          >
+            {[
+              { color: "transparent", label: "transparent" },
+              { color: "#0073C1", label: "blue" },
+              { color: "#582C83", label: "purple" },
+            ].map(({ color, label }) => (
+              <SimpleColor
+                value={color}
+                key={color}
+                aria-label={label}
+                id={color}
+              />
+            ))}
+          </SimpleColorPicker>
+          <Switch
+            name="switch"
+            label="Switch"
+            onChange={() => {}}
+            checked={false}
           />
-        </RadioButtonGroup>
-        <Checkbox label="Checkbox" checked={false} onChange={() => {}} />
-        <CheckboxGroup legend="Checkbox Group">
-          <Checkbox label="Checkbox-1" checked={false} onChange={() => {}} />
-          <Checkbox label="Checkbox-2" checked={false} onChange={() => {}} />
-        </CheckboxGroup>
-        <DateInput name="date" label="Date" value="" onChange={() => {}} />
-        <DateRange
-          name="date"
-          startLabel="Start Date"
-          endLabel="End Date"
-          value={["", ""]}
-          onChange={() => {}}
-        />
-        <InlineInputs label="Inline inputs">
-          <Textbox value="" onChange={() => {}} />
-          <Textbox value="" onChange={() => {}} />
-          <Textbox value="" onChange={() => {}} />
-        </InlineInputs>
-        <Search value="" onChange={() => {}} />
-        <Select
-          name="simple-select"
-          id="simple-select"
-          label="Simple Select"
-          value=""
-          onChange={() => {}}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-        </Select>
-        <FilterableSelect
-          name="filterable-select"
-          id="filterable-select"
-          label="Filterable Select"
-          value=""
-          onChange={() => {}}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-        </FilterableSelect>
-        <MultiSelect
-          name="multi-select"
-          id="multi-select"
-          label="Multi Select"
-          value={[]}
-          onChange={() => {}}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-        </MultiSelect>
-        <Textarea
-          label="Textarea"
-          name="textarea"
-          characterLimit={100}
-          value=""
-          onChange={() => {}}
-        />
-        <TextEditor labelText="Text Editor" characterLimit={100} />
-        <SimpleColorPicker
-          name="simple-color-picker"
-          legend="Simple Color Picker"
-          value=""
-          onChange={() => {}}
-        >
-          {[
-            { color: "transparent", label: "transparent" },
-            { color: "#0073C1", label: "blue" },
-            { color: "#582C83", label: "purple" },
-          ].map(({ color, label }) => (
-            <SimpleColor
-              value={color}
-              key={color}
-              aria-label={label}
-              id={color}
-            />
-          ))}
-        </SimpleColorPicker>
-        <Switch
-          name="switch"
-          label="Switch"
-          onChange={() => {}}
-          checked={false}
-        />
-      </Box>
-    </Form>
+        </Box>
+      </Form>
+    </div>
   </CarbonProvider>
 );
 
-AllInputs.storyName = "All inputs";
-AllInputs.args = {
-  stickyFooter: false,
-  errorCount: 0,
-  warningCount: 0,
-  buttonAlignment: "right",
-};
-AllInputs.parameters = {
+DeprecatedFieldSpacingDefaultOnEveryInput.storyName =
+  "Deprecated fieldSpacing default on every input type";
+DeprecatedFieldSpacingDefaultOnEveryInput.parameters = {
   themeProvider: {
     chromatic: { theme: "sage" },
   },
@@ -275,607 +250,211 @@ AllInputs.parameters = {
   },
 };
 
-export const FormAlignmentCustomMarginInputs = (args: FormProps) => {
+export const FullWidthButtonsWrap = (args: FormProps) => {
   return (
-    <>
-      <Form {...args} fieldSpacing={4} px="25%">
-        <Fieldset legend="Fieldset" mb={1}>
-          <Textbox
-            label="Textbox in Fieldset"
-            labelInline
-            value=""
-            maxWidth="82%"
-            onChange={() => {}}
-          />
-          <Checkbox
-            label="Checkbox in Fieldset"
-            labelWidth={30}
-            labelSpacing={2}
-            reverse
-            checked
-            onChange={() => {}}
-          />
-        </Fieldset>
-        <Box width="40%">
-          <Decimal
-            label="Decimal"
-            placeholder="placeholder"
-            name="decimal"
-            labelInline
-            mb={1}
-            value="0"
-            onChange={() => {}}
-          />
-          <Textbox
-            label="Textbox"
-            placeholder="placeholder"
-            name="textbox"
-            labelInline
-            mb={1}
-            value=""
-            onChange={() => {}}
-          />
-          <Number
-            label="Number"
-            placeholder="placeholder"
-            name="number"
-            labelInline
-            mb={1}
-            value=""
-            onChange={() => {}}
-          />
-        </Box>
-        <GroupedCharacter
-          placeholder="placeholder"
-          label="GroupedCharacter"
-          name="grouped-character"
-          labelInline
-          groups={[2, 2, 3]}
-          separator="-"
-          mb={1}
-          value=""
-          onChange={() => {}}
-          inputWidth={74}
-        />
-        <Textarea
-          key="input-three"
-          label="Textarea"
-          placeholder="placeholder"
-          name="textbox"
-          labelInline
-          labelWidth={10}
-          inputWidth={30}
-          mb={1}
-          value=""
-          onChange={() => {}}
-        />
-        <DateInput
-          name="date"
-          label="Date"
-          labelInline
-          value=""
-          onChange={() => {}}
-          mb={1}
-        />
-        <DateRange
-          name="date"
-          startLabel="Start Date"
-          endLabel="End Date"
-          startDateProps={{ labelInline: true }}
-          endDateProps={{ labelInline: true }}
-          value={["", ""]}
-          onChange={() => {}}
-          mb={1}
-        />
-        <Select
-          mb={1}
-          name="simple-select"
-          id="simple-select"
-          labelInline
-          label="Simple Select"
-          value=""
-          onChange={() => {}}
-          inputWidth={74}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-          <Option text="Brown" value="4" />
-          <Option text="Green" value="5" />
-          <Option text="Orange" value="6" />
-          <Option text="Pink" value="7" />
-          <Option text="Purple" value="8" />
-          <Option text="Red" value="9" />
-          <Option text="White" value="10" />
-          <Option text="Yellow" value="11" />
-        </Select>
-        <FilterableSelect
-          mb={1}
-          name="filterable-select"
-          id="filterable-select"
-          labelInline
-          label="Filterable Select"
-          value=""
-          onChange={() => {}}
-          inputWidth={74}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-          <Option text="Brown" value="4" />
-          <Option text="Green" value="5" />
-          <Option text="Orange" value="6" />
-          <Option text="Pink" value="7" />
-          <Option text="Purple" value="8" />
-          <Option text="Red" value="9" />
-          <Option text="White" value="10" />
-          <Option text="Yellow" value="11" />
-        </FilterableSelect>
-        <MultiSelect
-          mb={1}
-          name="multi-select"
-          id="multi-select"
-          labelInline
-          label="Multi Select"
-          value={[]}
-          onChange={() => {}}
-          inputWidth={74}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-          <Option text="Brown" value="4" />
-          <Option text="Green" value="5" />
-          <Option text="Orange" value="6" />
-          <Option text="Pink" value="7" />
-          <Option text="Purple" value="8" />
-          <Option text="Red" value="9" />
-          <Option text="White" value="10" />
-          <Option text="Yellow" value="11" />
-        </MultiSelect>
-        <NumeralDate
-          label="Numeral date"
-          labelInline
-          mb={1}
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-        />
-        <InlineInputs label="Inline inputs" mb={1}>
-          <Textbox value="" onChange={() => {}} />
-          <Textbox value="" onChange={() => {}} />
-          <Textbox value="" onChange={() => {}} />
-        </InlineInputs>
-        <Divider type="horizontal" mx={1} my={0} />
+    <div style={formOutlineStyle}>
+      <Form
+        {...args}
+        fullWidthButtons
+        leftSideButtons={
+          <Button variant="default" variantType="subtle" fullWidth>
+            Cancel
+          </Button>
+        }
+        saveButton={
+          <Button
+            variant="default"
+            variantType="primary"
+            type="submit"
+            fullWidth
+          >
+            Save
+          </Button>
+        }
+        rightSideButtons={
+          <Button variant="default" variantType="secondary" fullWidth>
+            Other
+          </Button>
+        }
+        errorCount={1}
+        warningCount={2}
+      >
+        <Textbox onChange={() => {}} value="" label="Textbox" />
+        <Textbox onChange={() => {}} value="" label="Textbox" />
       </Form>
-      <Form {...args} fieldSpacing={4} px="25%">
-        <RadioButtonGroup
-          name="legend"
-          legend="Radio group"
-          legendWidth={10}
-          legendSpacing={2}
-          mb={1}
-          value=""
-          onChange={() => {}}
-        >
-          <RadioButton
-            id="group-1-input-1"
-            value="group-1-input-1"
-            label="Radio Option 1"
-            labelWidth={10}
-          />
-          <RadioButton
-            id="group-1-input-2"
-            value="group-1-input-2"
-            label="Radio Option 2"
-            labelWidth={10}
-          />
-        </RadioButtonGroup>
-        <Checkbox
-          name="checkbox1"
-          label="Checkbox 1"
-          mb={1}
-          checked={false}
-          onChange={() => {}}
-        />
-        <CheckboxGroup legend="Checkbox Group" mb={1}>
-          {["One", "Two", "Three"].map((label) => (
-            <Checkbox
-              id={`checkbox-group-${label}`}
-              key={`checkbox-group-${label}`}
-              name={`checkbox-group-${label}`}
-              label={label}
-              checked={false}
-              onChange={() => {}}
-            />
-          ))}
-        </CheckboxGroup>
-        <Switch
-          name="switch"
-          label="Switch"
-          labelInline
-          labelWidth={10}
-          labelSpacing={2}
-          mb={1}
-          checked={false}
-          onChange={() => {}}
-        />
-        <SimpleColorPicker
-          name="picker-disabled-example"
-          legend="Simple Color Picker"
-          mb={1}
-          value=""
-          onChange={() => {}}
-        >
-          {[
-            { color: "transparent", label: "transparent" },
-            { color: "#0073C1", label: "blue" },
-            { color: "#582C83", label: "purple" },
-          ].map(({ color, label }) => (
-            <SimpleColor
-              value={color}
-              key={color}
-              aria-label={label}
-              id={color}
-              disabled
-            />
-          ))}
-        </SimpleColorPicker>
-        <Divider type="horizontal" mx={1} my={0} />
-      </Form>
-    </>
+    </div>
   );
 };
 
-FormAlignmentCustomMarginInputs.storyName =
-  "form alignment custom margin inputs";
-FormAlignmentCustomMarginInputs.parameters = {
+FullWidthButtonsWrap.storyName =
+  "Footer: fullWidthButtons on large and small screens";
+FullWidthButtonsWrap.parameters = {
   chromatic: {
-    disableSnapshot: false, // we want chromatic to capture this to catch any future regressions
+    disableSnapshot: false,
+    modes: { lg: allModes.lg, xsm: allModes.xsm },
   },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const DefaultWithPager = (args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    stickyFooter
-  >
-    <Tabs mb={2}>
-      <Tab
-        pl="3px"
-        customLayout={
-          <Box mx="16px" my="10px">
-            Tab1
+export const FooterProps = (args: FormProps) => (
+  <Box display="flex" flexDirection="column" gap={2}>
+    <div style={formOutlineStyle}>
+      <Form
+        {...args}
+        leftSideButtons={
+          <>
+            <Button variant="default" variantType="subtle">
+              Cancel
+            </Button>
+            <Button variant="default" variantType="secondary">
+              Reset
+            </Button>
+          </>
+        }
+        saveButton={
+          <Button variant="default" variantType="primary" type="submit">
+            Save
+          </Button>
+        }
+        buttonAlignment="left"
+      >
+        <Textbox onChange={() => {}} value="" label='buttonAlignment="left"' />
+      </Form>
+    </div>
+    <div style={formOutlineStyle}>
+      <Form
+        {...args}
+        footerChildren={
+          <Box>
+            <Typography>
+              This is the footer text that will be added to provide information
+              about the form content.
+            </Typography>
+            <Link icon="placeholder" href="#">
+              This is a link
+            </Link>
           </Box>
         }
-        tabId="tab1"
-      />
-    </Tabs>
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Pager
-      totalRecords={25}
-      currentPage={1}
-      pageSize={5}
-      showPageSizeSelection={false}
-      showFirstAndLastButtons={false}
-      onPagination={() => {}}
-    />
-  </Form>
+      >
+        <Textbox onChange={() => {}} value="" label="footerChildren" />
+      </Form>
+    </div>
+    <div style={formOutlineStyle}>
+      <Form
+        {...args}
+        leftSideButtons={
+          <Button variant="default" variantType="subtle">
+            Cancel
+          </Button>
+        }
+        saveButton={
+          <Button variant="default" variantType="primary" type="submit">
+            Save
+          </Button>
+        }
+        footerPadding={{ px: 8, py: 3 }}
+      >
+        <Textbox
+          onChange={() => {}}
+          value=""
+          label="footerPadding={{ px: 8, py: 3 }}"
+        />
+      </Form>
+    </div>
+  </Box>
 );
 
-DefaultWithPager.storyName = "default with pager";
-
-export const MockFormForAriaLiveDemo = ({ onSubmit, ...args }: FormProps) => {
-  const [textareaValue, setTextareaValue] = useState("");
-  const [textboxValue, setTextboxValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-
-  const resetValues = () => {
-    setTextareaValue("");
-    setTextboxValue("");
-    setPasswordValue("");
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event?.preventDefault(); // prevents the page from changing
-    resetValues();
-  };
-
-  return (
-    <Form
-      {...args}
-      fieldSpacing={0}
-      onSubmit={(ev) => {
-        handleSubmit(ev);
-        onSubmit?.(ev);
-      }}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      stickyFooter
-    >
-      <Textarea
-        mt={2}
-        label="Textarea"
-        value={textareaValue}
-        characterLimit={100}
-        onChange={(newValue: {
-          target: { value: React.SetStateAction<string> };
-        }) => {
-          setTextareaValue(newValue.target.value);
-        }}
-      />
-      <Textbox
-        mt={5}
-        label="Textbox"
-        value={textboxValue}
-        characterLimit={69}
-        onChange={(newValue: {
-          target: { value: React.SetStateAction<string> };
-        }) => {
-          setTextboxValue(newValue.target.value);
-        }}
-      />
-      <TextEditor labelText="Text Editor Label" characterLimit={100} />
-      <Password
-        mt={5}
-        mb={2}
-        label="Password"
-        characterLimit={20}
-        value={passwordValue}
-        onChange={(newValue: {
-          target: { value: React.SetStateAction<string> };
-        }) => {
-          setPasswordValue(newValue.target.value);
-        }}
-      />
-    </Form>
-  );
-};
-
-MockFormForAriaLiveDemo.storyName = "Mock form for aria live demo";
-
-export const MarginTest = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [textareaValue, setTextareaValue] = useState("");
-  const handleSearchChange: SearchProps["onChange"] = (e) => {
-    setSearchValue(e.target.value);
-  };
-  const handleTextareaChange: TextareaProps["onChange"] = (e) => {
-    setTextareaValue(e.target.value);
-  };
-  return (
-    <Form fieldSpacing={0}>
-      <Search value={searchValue} onChange={handleSearchChange} />
-      <Textarea
-        label="textarea"
-        value={textareaValue}
-        onChange={handleTextareaChange}
-      />
-      <Divider type="horizontal" />
-    </Form>
-  );
-};
-
-MarginTest.storyName = "margin test";
-MarginTest.parameters = {
+FooterProps.storyName =
+  "Footer: buttonAlignment, footerChildren and footerPadding";
+FooterProps.parameters = {
   chromatic: {
-    disableSnapshot: false, // we want chromatic to capture this to catch any future regressions
+    disableSnapshot: false,
   },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const FullWidthWithLeftAndRight = (args: FormProps) => {
-  return (
-    <Form
-      {...args}
-      fullWidthButtons
-      leftSideButtons={<Button fullWidth>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit" fullWidth>
-          Save
-        </Button>
-      }
-      rightSideButtons={<Button fullWidth>Other</Button>}
-      errorCount={1}
-      warningCount={2}
-    >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-    </Form>
-  );
-};
-
-FullWidthWithLeftAndRight.storyName = "left and right fullWidth buttons";
-FullWidthWithLeftAndRight.parameters = {
-  chromatic: {
-    disableSnapshot: false,
-  },
-  themeProvider: { chromatic: { theme: "sage" }, viewports: [1200, 900, 320] },
-};
-
-export const WithSetHeight = (args: FormProps) => (
-  <div style={greyBackground}>
-    <Form height="80%" {...args}>
-      <div style={whiteBackground}>
-        <Textbox label="Textbox" value="" onChange={() => {}} />
-        <Textbox label="Textbox" value="" onChange={() => {}} />
-      </div>
-    </Form>
-  </div>
-);
-WithSetHeight.storyName = "With Set Height";
-
-export const DynamicValidations = (args: FormProps) => {
-  const [textboxOneValue, setTextboxOneValue] = useState("");
-  const [textboxOneError, setTextboxOneError] = useState<string | boolean>(
-    false,
-  );
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event?.preventDefault();
-    let hasError = false;
-
-    if (textboxOneValue.trim() === "") {
-      setTextboxOneError("This field is required");
-      hasError = true;
-    } else if (textboxOneValue.length < 3) {
-      setTextboxOneError("Minimum 3 characters required");
-      hasError = true;
-    } else if (textboxOneValue.length > 10) {
-      setTextboxOneError("Maximum 10 characters allowed");
-      hasError = true;
-    } else {
-      setTextboxOneError(false);
-    }
-
-    if (!hasError) {
-      alert("Form submitted successfully!");
-      setTextboxOneValue("");
-    }
-  };
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Form height="80%" {...args} m={2} onSubmit={handleSubmit}>
-        <Box height="100%">
+export const DeprecatedStickyFooterVariants = (args: FormProps) => (
+  <Box display="flex" flexDirection="column" gap={2}>
+    {(["light", "grey"] as const).map((variant) => (
+      <div style={formOutlineStyle} key={variant}>
+        <Form
+          {...args}
+          leftSideButtons={
+            <Button variant="default" variantType="subtle">
+              Cancel
+            </Button>
+          }
+          saveButton={
+            <Button variant="default" variantType="primary" type="submit">
+              Save
+            </Button>
+          }
+          stickyFooter
+          stickyFooterVariant={variant}
+        >
           <Textbox
-            required
-            label="Textbox"
-            value={textboxOneValue}
-            onChange={(e) => setTextboxOneValue(e.target.value)}
-            error={textboxOneError}
-            mb={1}
+            onChange={() => {}}
+            value=""
+            label={`stickyFooterVariant="${variant}"`}
           />
-
-          <Button type="submit">Submit</Button>
-        </Box>
-      </Form>
-    </CarbonProvider>
-  );
-};
-DynamicValidations.storyName = "Dynamic validations";
-
-export const WithFooters = (args: FormProps) => {
-  const footerNode = (
-    <Box>
-      <Typography>
-        This is the footer text that will be added to provide information about
-        the form content.
-      </Typography>
-      <Link icon="placeholder" href="#">
-        This is a link
-      </Link>
-    </Box>
-  );
-
-  return (
-    <>
-      <Form {...args} footerChildren={footerNode}>
-        <Textbox onChange={() => {}} value="" label="Textbox" />
-      </Form>
-      <Form
-        {...args}
-        leftSideButtons={<Button>Cancel</Button>}
-        saveButton={
-          <Button buttonType="primary" type="submit">
-            Save
-          </Button>
-        }
-        stickyFooter
-      >
-        <Textbox onChange={() => {}} value="" label="Textbox" />
-      </Form>
-      <Form
-        {...args}
-        leftSideButtons={<Button>Cancel</Button>}
-        saveButton={
-          <Button buttonType="primary" type="submit">
-            Save
-          </Button>
-        }
-        stickyFooter
-        stickyFooterVariant="grey"
-      >
-        <Textbox onChange={() => {}} value="" label="Textbox" />
-      </Form>
-    </>
-  );
-};
-
-WithFooters.storyName = "With Footers";
-WithFooters.parameters = {
-  chromatic: {
-    disableSnapshot: false,
-  },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const WithValidationSummary = (args: FormProps) => (
-  <>
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      errorCount={1}
-    >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-    </Form>
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      warningCount={1}
-    >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-    </Form>
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      errorCount={2}
-      warningCount={2}
-    >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-    </Form>
-  </>
+        </Form>
+      </div>
+    ))}
+  </Box>
 );
-WithValidationSummary.storyName = "With Validation Summary";
-WithValidationSummary.parameters = {
+
+DeprecatedStickyFooterVariants.storyName =
+  "Deprecated sticky footer: light and grey variants";
+DeprecatedStickyFooterVariants.parameters = {
   chromatic: {
     disableSnapshot: false,
   },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const FieldSpacing = (args: FormProps) => {
+export const DeprecatedErrorAndWarningCountSummary = (args: FormProps) => (
+  <Box display="flex" flexDirection="column" gap={2}>
+    {[
+      { label: "errorCount={1}", errorCount: 1 },
+      { label: "warningCount={1}", warningCount: 1 },
+      {
+        label: "errorCount={2} warningCount={2}",
+        errorCount: 2,
+        warningCount: 2,
+      },
+    ].map(({ label, errorCount, warningCount }) => (
+      <div style={formOutlineStyle} key={label}>
+        <Form
+          {...args}
+          leftSideButtons={
+            <Button variant="default" variantType="subtle">
+              Cancel
+            </Button>
+          }
+          saveButton={
+            <Button variant="default" variantType="primary" type="submit">
+              Save
+            </Button>
+          }
+          errorCount={errorCount}
+          warningCount={warningCount}
+        >
+          <Textbox onChange={() => {}} value="" label={label} />
+        </Form>
+      </div>
+    ))}
+  </Box>
+);
+DeprecatedErrorAndWarningCountSummary.storyName =
+  "Deprecated error and warning count summary";
+DeprecatedErrorAndWarningCountSummary.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const DeprecatedFieldSpacingWithOverride = (args: FormProps) => {
   const [state, setState] = useState("");
 
   const setValue = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -883,32 +462,202 @@ export const FieldSpacing = (args: FormProps) => {
   };
 
   return (
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      fieldSpacing={4}
-    >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" mb={10} />
-      <Textbox onChange={() => {}} value="" label="Overridden Field Spacing" />
-      <Textarea
-        label="Textarea with Character Limit"
-        characterLimit={50}
-        value={state}
-        onChange={setValue}
-      />
-    </Form>
+    <div style={formOutlineStyle}>
+      <Form
+        {...args}
+        leftSideButtons={
+          <Button variant="default" variantType="subtle">
+            Cancel
+          </Button>
+        }
+        saveButton={
+          <Button variant="default" variantType="primary" type="submit">
+            Save
+          </Button>
+        }
+        fieldSpacing={4}
+      >
+        <Textbox onChange={() => {}} value="" label="Textbox" />
+        <Textbox
+          onChange={() => {}}
+          value=""
+          label="Textbox with overridden spacing (mb={10})"
+          mb={10}
+        />
+        <Textbox onChange={() => {}} value="" label="Textbox" />
+        <Textarea
+          label="Textarea with character count (spacing goes below the count)"
+          characterLimit={50}
+          value={state}
+          onChange={setValue}
+        />
+      </Form>
+    </div>
   );
 };
-FieldSpacing.storyName = "Field Spacing";
-FieldSpacing.parameters = {
+DeprecatedFieldSpacingWithOverride.storyName =
+  "Deprecated fieldSpacing with a per-field override";
+DeprecatedFieldSpacingWithOverride.parameters = {
   chromatic: {
     disableSnapshot: false,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+// Gives Chromatic enough height to capture the open Dialog
+const DialogSnapshotWrapper = ({ children }: { children: React.ReactNode }) =>
+  defaultOpenState ? (
+    <Box width="100%" height={900}>
+      {children}
+    </Box>
+  ) : (
+    <>{children}</>
+  );
+
+export const DeprecatedStickyFooterInDialog = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <DialogSnapshotWrapper>
+      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Form in Dialog"
+        subtitle="Subtitle"
+      >
+        <Form
+          leftSideButtons={
+            <Button
+              variant="default"
+              variantType="subtle"
+              onClick={() => setIsOpen(false)}
+            >
+              Cancel
+            </Button>
+          }
+          saveButton={
+            <Button variant="default" variantType="primary">
+              Submit
+            </Button>
+          }
+          stickyFooter
+        >
+          {renderTextboxes(10, "top")}
+          {renderTextboxes(10, "bottom")}
+        </Form>
+      </Dialog>
+    </DialogSnapshotWrapper>
+  );
+};
+DeprecatedStickyFooterInDialog.storyName = "Deprecated sticky footer in Dialog";
+DeprecatedStickyFooterInDialog.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+    modes: { lg: allModes.lg, xsm: allModes.xsm },
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+// Fixed-height scroll box, so the sticky footer stays pinned to its bottom
+const scrollBoxStyle: React.CSSProperties = {
+  ...formOutlineStyle,
+  // Padding is set on the fields instead, so the sticky footer spans the full width
+  padding: "var(--global-space-none)",
+  height: "300px",
+  overflowY: "auto",
+};
+
+export const DeprecatedStickyFooterDisabledOnSmallScreen = (
+  args: FormProps,
+) => (
+  <Box display="flex" flexDirection="column" gap={2}>
+    {[
+      { label: "stickyFooter", disableStickyOnSmallScreen: false },
+      {
+        label: "stickyFooter + disableStickyOnSmallScreen",
+        disableStickyOnSmallScreen: true,
+      },
+    ].map(({ label, disableStickyOnSmallScreen }) => (
+      <div style={scrollBoxStyle} key={label}>
+        <Form
+          {...args}
+          leftSideButtons={
+            <Button variant="default" variantType="subtle">
+              Cancel
+            </Button>
+          }
+          saveButton={
+            <Button variant="default" variantType="primary" type="submit">
+              Save
+            </Button>
+          }
+          stickyFooter
+          disableStickyOnSmallScreen={disableStickyOnSmallScreen}
+        >
+          <Box p="var(--global-space-layout-2-xs)">
+            <Textbox onChange={() => {}} value="" label={label} />
+            {renderTextboxes(5, label)}
+          </Box>
+        </Form>
+      </div>
+    ))}
+  </Box>
+);
+DeprecatedStickyFooterDisabledOnSmallScreen.storyName =
+  "Deprecated sticky footer: disableStickyOnSmallScreen (320px)";
+DeprecatedStickyFooterDisabledOnSmallScreen.globals = {
+  viewport: { value: "xsm" },
+};
+DeprecatedStickyFooterDisabledOnSmallScreen.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+    modes: { xsm: allModes.xsm },
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const DeprecatedStickyFooterInFullScreenDialog = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <DialogSnapshotWrapper>
+      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
+      <Dialog
+        size="fullscreen"
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Form in Dialog"
+        subtitle="Subtitle"
+      >
+        <Form
+          leftSideButtons={
+            <Button
+              variant="default"
+              variantType="subtle"
+              onClick={() => setIsOpen(false)}
+            >
+              Cancel
+            </Button>
+          }
+          saveButton={
+            <Button variant="default" variantType="primary">
+              Submit
+            </Button>
+          }
+          stickyFooter
+        >
+          {renderTextboxes(15, "top")}
+          {renderTextboxes(15, "bottom")}
+        </Form>
+      </Dialog>
+    </DialogSnapshotWrapper>
+  );
+};
+DeprecatedStickyFooterInFullScreenDialog.storyName =
+  "Deprecated sticky footer in full-screen Dialog";
+DeprecatedStickyFooterInFullScreenDialog.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+    modes: { lg: allModes.lg, xsm: allModes.xsm },
   },
   themeProvider: { chromatic: { theme: "sage" } },
 };

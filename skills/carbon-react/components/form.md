@@ -13,372 +13,405 @@ description: Carbon Form component props and usage examples.
 - Props interface: `FormProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| buttonAlignment | "left" \| "right" \| undefined | No |  | Alignment of buttons | "right" |
-| children | React.ReactNode | No |  | Child elements |  |
-| disableStickyOnSmallScreen | boolean \| undefined | No |  | When true, disables the sticky behaviour of the footer on small screen devices (below 600px). | false |
-| errorCount | number \| undefined | No |  | The total number of errors present in the form |  |
-| fieldSpacing | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| undefined | No |  | Spacing between form fields, given number will be multiplied by base spacing unit (8) | 3 |
-| footerChildren | React.ReactNode | No |  | Custom content to render in the form's footer |  |
-| footerPadding | PaddingProps | No |  | Padding to be set on the form footer | {} |
-| fullWidthButtons | boolean \| undefined | No |  | Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose | false |
-| height | string \| undefined | No |  | Height of the form (any valid CSS value) |  |
-| id | string \| undefined | No |  | The id attribute of the underlying form element |  |
-| leftSideButtons | React.ReactNode | No |  | Additional buttons rendered on the left side of the save button |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| noValidate | boolean \| undefined | No |  | Disable HTML5 validation | true |
-| onSubmit | React.FormEventHandler<HTMLFormElement> \| undefined | No |  | Callback passed to the form element |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| rightSideButtons | React.ReactNode | No |  | Additional buttons rendered on the right side of the save button |  |
-| saveButton | React.ReactNode | No |  | Save button to be rendered |  |
-| stickyFooter | boolean \| undefined | No |  | Enables the sticky footer. |  |
-| stickyFooterVariant | "light" \| "grey" \| undefined | No |  | Background variant for the sticky footer. | "light" |
-| warningCount | number \| undefined | No |  | The total number of warnings present in the form |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| buttonAlignment | "left" \| "right" \| undefined | No |  |  |  | Alignment of buttons | "right" |
+| children | React.ReactNode | No |  |  |  | Child elements |  |
+| footerChildren | React.ReactNode | No |  |  |  | Custom content to render in the form's footer |  |
+| footerPadding | PaddingProps | No |  |  |  | Padding to be set on the form footer | {} |
+| fullWidthButtons | boolean \| undefined | No |  |  |  | Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose | false |
+| height | string \| undefined | No |  |  |  | Height of the form (any valid CSS value) |  |
+| id | string \| undefined | No |  |  |  | The id attribute of the underlying form element |  |
+| leftSideButtons | React.ReactNode | No |  |  |  | Additional buttons rendered on the left side of the save button |  |
+| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| noValidate | boolean \| undefined | No |  |  |  | Disable HTML5 validation | true |
+| onSubmit | React.FormEventHandler<HTMLFormElement> \| undefined | No |  |  |  | Callback passed to the form element |  |
+| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
+| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
+| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
+| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
+| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
+| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
+| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
+| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
+| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
+| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
+| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
+| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
+| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| rightSideButtons | React.ReactNode | No |  |  |  | Additional buttons rendered on the right side of the save button |  |
+| saveButton | React.ReactNode | No |  |  |  | Save button to be rendered |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| disableStickyOnSmallScreen | boolean \| undefined | No |  | Yes | Sticky Form footer behavior is deprecated; compose actions in the Form content instead. |  | false |
+| errorCount | number \| undefined | No |  | Yes | Compose error Message components as the first Form children instead. | The total number of errors present in the form. Do not combine it with a composed error Message summary, or the errors are summarised twice. |  |
+| fieldSpacing | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| undefined | No |  | Yes | Apply spacing through the composed content blocks instead. |  | 3 |
+| stickyFooter | boolean \| undefined | No |  | Yes | Compose actions in the Form content instead. |  |  |
+| stickyFooterVariant | "light" \| "grey" \| undefined | No |  | Yes | Sticky Form footer behavior is deprecated; compose actions in the Form content instead. |  | "light" |
+| warningCount | number \| undefined | No |  | Yes | Compose warning Message components as the first Form children instead. | The total number of warnings present in the form. Do not combine it with a composed warning Message summary, or the warnings are summarised twice. |  |
 
 ## Examples
-### With footer node
+### Composition
 
 **Render**
 
 ```tsx
-(args: FormProps) => {
-  const footerNode = (
-    <Box>
-      <Typography>
-        This is the footer text that will be added to provide information about
-        the form content.
-      </Typography>
-      <Link icon="placeholder" href="#">
-        This is a link
-      </Link>
-    </Box>
-  );
+function Render(args) {
+    const [email, setEmail] = useState("");
+    const [telephone, setTelephone] = useState("");
+    const [contactMethod, setContactMethod] = useState("");
+    const [newsletter, setNewsletter] = useState(false);
 
-  return (
-    <Form {...args} footerChildren={footerNode}>
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-    </Form>
-  );
-}
+    return (
+      <Form {...args}>
+        <Typography variant="h1" mb={blockSpacing}>
+          Personal details
+        </Typography>
+        <Typography weight="medium" mb={blockSpacing}>
+          Fields marked <RequiredFieldsIndicator as="span" />
+          are required
+        </Typography>
+        <Message
+          variant="warning"
+          title="Check the information"
+          mb={blockSpacing}
+        >
+          Confirm that the contact details are up to date.
+        </Message>
+        <Typography variant="h2" mb={blockSpacing}>
+          Contact details
+        </Typography>
+        <Textbox
+          label="Email address"
+          required
+          value={email}
+          onChange={(ev) => setEmail(ev.target.value)}
+          mb={fieldGap}
+        />
+        <Textbox
+          label="Telephone number"
+          required
+          value={telephone}
+          onChange={(ev) => setTelephone(ev.target.value)}
+          mb={blockSpacing}
+        />
+        <Divider
+          type="horizontal"
+          aria-hidden
+          mt="var(--global-space-none)"
+          mb={blockSpacing}
+        />
+        <Typography variant="h2" mb={blockSpacing}>
+          Preferences
+        </Typography>
+        <Select
+          id="preferred-contact-method"
+          label="Preferred contact method"
+          value={contactMethod}
+          onChange={(ev) => setContactMethod(ev.target.value)}
+          mb={fieldGap}
+        >
+          <Option text="Email" value="email" />
+          <Option text="Telephone" value="telephone" />
+        </Select>
+        <Checkbox
+          label="Send me product updates"
+          checked={newsletter}
+          onChange={(ev) => setNewsletter(ev.target.checked)}
+          mb={blockSpacing}
+        />
+        <Box display="flex" gap={buttonGap}>
+          <Button variant="default" variantType="subtle">
+            Cancel
+          </Button>
+          <Button variant="default" variantType="tertiary">
+            Save draft
+          </Button>
+          <Button variant="default" variantType="secondary">
+            Preview
+          </Button>
+          <Button variant="default" variantType="primary" type="submit">
+            Save changes
+          </Button>
+        </Box>
+      </Form>
+    );
+  }
 ```
 
 
-### Default with sticky footer
+### With Fieldsets
 
 **Render**
 
 ```tsx
-(args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    stickyFooter
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-)
-```
-
-
-### Sticky footer with grey variant
-
-**Render**
-
-```tsx
-(args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    stickyFooter
-    stickyFooterVariant="grey"
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-)
-```
-
-
-### With Full Width Buttons
-
-**Render**
-
-```tsx
-(args: FormProps) => (
-  <CarbonProvider validationRedesignOptIn>
-    <Form
-      {...args}
-      fullWidthButtons
-      stickyFooter
-      leftSideButtons={<Button fullWidth>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit" fullWidth>
+(args) => (
+    <Form {...args}>
+      <RequiredFieldsIndicator mb={blockSpacing}>
+        Indicates required information
+      </RequiredFieldsIndicator>
+      <Fieldset legend="Name" required mb={blockSpacing}>
+        <Textbox label="First name" value="" onChange={() => {}} />
+        <Textbox label="Last name" value="" onChange={() => {}} />
+      </Fieldset>
+      <Fieldset
+        legend="Address"
+        legendHint="Use the address where you receive post"
+        mb={blockSpacing}
+      >
+        <Textbox label="Address line 1" value="" onChange={() => {}} />
+        <Textbox label="Town or city" value="" onChange={() => {}} />
+        <Textbox label="Postcode" value="" onChange={() => {}} />
+      </Fieldset>
+      <Box display="flex" gap={buttonGap}>
+        <Button variant="default" variantType="primary" type="submit">
           Save
         </Button>
-      }
-      errorCount={3}
-      warningCount={2}
-    >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
+      </Box>
     </Form>
-  </CarbonProvider>
-)
+  )
 ```
 
 
-### Field Spacing
+### In Dialog
 
 **Render**
 
 ```tsx
-(args: FormProps) => {
-  const [state, setState] = useState("");
+function Render(args) {
+    const [isOpen, setIsOpen] = useState(defaultOpenState);
 
-  const setValue = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setState(ev.target.value);
-  };
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+        <Dialog
+          open={isOpen}
+          onCancel={() => setIsOpen(false)}
+          title="Contact details"
+          footer={
+            <Box
+              display="flex"
+              gap={buttonGap}
+              justifyContent="flex-end"
+              width="100%"
+            >
+              <Button
+                variant="default"
+                variantType="subtle"
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="default"
+                variantType="primary"
+                type="submit"
+                form="form-in-dialog"
+              >
+                Save
+              </Button>
+            </Box>
+          }
+        >
+          <Form {...args} id="form-in-dialog">
+            <RequiredFieldsIndicator mb={blockSpacing}>
+              Indicates required information
+            </RequiredFieldsIndicator>
+            <Fieldset legend="Personal details" required mb={blockSpacing}>
+              <Textbox label="First name" value="" onChange={() => {}} />
+              <Textbox label="Last name" value="" onChange={() => {}} />
+            </Fieldset>
+            <Fieldset legend="Contact details" required mb={blockSpacing}>
+              <Textbox label="Email address" value="" onChange={() => {}} />
+              <Textbox label="Telephone number" value="" onChange={() => {}} />
+            </Fieldset>
+            {/* resets the spacing the deprecated `fieldSpacing` prop still applies by default */}
+            <Fieldset
+              legend="Address"
+              legendHint="Use the address where you receive post"
+              mb="var(--global-space-none)"
+            >
+              <Textbox label="Address line 1" value="" onChange={() => {}} />
+              <Textbox label="Town or city" value="" onChange={() => {}} />
+              <Textbox label="Postcode" value="" onChange={() => {}} />
+            </Fieldset>
+          </Form>
+        </Dialog>
+      </>
+    );
+  }
+```
 
-  return (
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
+
+### In Sidebar
+
+**Render**
+
+```tsx
+function Render(args) {
+    const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open Sidebar</Button>
+        <Sidebar
+          open={isOpen}
+          onCancel={() => setIsOpen(false)}
+          header="Contact details"
+          footer={
+            <Box
+              display="flex"
+              gap={buttonGap}
+              justifyContent="flex-end"
+              width="100%"
+            >
+              <Button
+                variant="default"
+                variantType="subtle"
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="default"
+                variantType="primary"
+                type="submit"
+                form="form-in-sidebar"
+              >
+                Save
+              </Button>
+            </Box>
+          }
+        >
+          <Form {...args} id="form-in-sidebar">
+            <RequiredFieldsIndicator mb={blockSpacing}>
+              Indicates required information
+            </RequiredFieldsIndicator>
+            {/* resets the spacing the deprecated `fieldSpacing` prop still applies by default */}
+            <Fieldset
+              legend="Contact details"
+              required
+              mb="var(--global-space-none)"
+            >
+              <Textbox label="Email address" value="" onChange={() => {}} />
+              <Textbox label="Telephone number" value="" onChange={() => {}} />
+            </Fieldset>
+          </Form>
+        </Sidebar>
+      </>
+    );
+  }
+```
+
+
+### Validation Summary
+
+**Render**
+
+```tsx
+function Render(args) {
+    const [email, setEmail] = useState("");
+    const [telephone, setTelephone] = useState("");
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [submitCount, setSubmitCount] = useState(0);
+    const firstSummaryLinkRef = useRef<HTMLAnchorElement | HTMLButtonElement>(
+      null,
+    );
+
+    const errorEntries = Object.entries(errors);
+
+    useEffect(() => {
+      if (submitCount && errorEntries.length) {
+        firstSummaryLinkRef.current?.focus();
       }
-      fieldSpacing={5}
-    >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textarea
-        label="Textarea with Character Limit"
-        characterLimit={50}
-        value={state}
-        onChange={setValue}
-      />
-    </Form>
-  );
-}
-```
+      // focus only after each submit attempt, not while the user edits fields
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [submitCount]);
 
+    const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+      ev.preventDefault();
+      const nextErrors: Record<string, string> = {};
+      if (!email) nextErrors["validation-email"] = "Enter an email address";
+      if (!telephone)
+        nextErrors["validation-telephone"] = "Enter a telephone number";
 
-### Override field spacing
+      setErrors(nextErrors);
+      setSubmitCount((count) => count + 1);
 
-**Render**
+      if (!Object.keys(nextErrors).length) {
+        args.onSubmit?.(ev);
+      }
+    };
 
-```tsx
-(args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" mb={7} />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-)
-```
-
-
-### With Errors Summary
-
-**Render**
-
-```tsx
-(args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    errorCount={1}
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-)
-```
-
-
-### With Warnings Summary
-
-**Render**
-
-```tsx
-(args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    warningCount={1}
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-)
-```
-
-
-### With Both Errors and Warnings Summary
-
-**Render**
-
-```tsx
-(args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    errorCount={2}
-    warningCount={2}
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-)
-```
-
-
-### With Additional Buttons
-
-**Render**
-
-```tsx
-(args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={
-      <>
-        <Button>Other</Button>
-        <Button>Cancel</Button>
-      </>
-    }
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    rightSideButtons={
-      <>
-        <Button>Reset</Button>
-        <Button>Other</Button>
-      </>
-    }
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-)
-```
-
-
-### With Buttons Aligned to the Left
-
-**Render**
-
-```tsx
-(args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={
-      <>
-        <Button>Other</Button>
-        <Button>Cancel</Button>
-      </>
-    }
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    rightSideButtons={
-      <>
-        <Button>Reset</Button>
-        <Button>Other</Button>
-      </>
-    }
-    buttonAlignment="left"
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-)
+    return (
+      <Form {...args} onSubmit={handleSubmit}>
+        <Typography variant="h1" mb={blockSpacing}>
+          Contact details
+        </Typography>
+        {errorEntries.length > 0 && (
+          <Message variant="error" title="There is a problem" mb={blockSpacing}>
+            <Typography variant="ul" m={0}>
+              {errorEntries.map(([fieldId, message], index) => (
+                <Typography as="li" key={fieldId}>
+                  <Link
+                    ref={index === 0 ? firstSummaryLinkRef : undefined}
+                    href={`#${fieldId}`}
+                    onClick={(ev) => {
+                      ev.preventDefault();
+                      document.getElementById(fieldId)?.focus();
+                    }}
+                  >
+                    {message}
+                  </Link>
+                </Typography>
+              ))}
+            </Typography>
+          </Message>
+        )}
+        <RequiredFieldsIndicator mb={blockSpacing}>
+          Indicates required information
+        </RequiredFieldsIndicator>
+        <Fieldset legend="Contact details" required mb={blockSpacing}>
+          <Textbox
+            id="validation-email"
+            label="Email address"
+            value={email}
+            onChange={(ev) => setEmail(ev.target.value)}
+            error={errors["validation-email"]}
+          />
+          <Textbox
+            id="validation-telephone"
+            label="Telephone number"
+            value={telephone}
+            onChange={(ev) => setTelephone(ev.target.value)}
+            error={errors["validation-telephone"]}
+          />
+        </Fieldset>
+        <Box display="flex" gap={buttonGap}>
+          <Button variant="default" variantType="subtle">
+            Cancel
+          </Button>
+          <Button variant="default" variantType="primary" type="submit">
+            Save changes
+          </Button>
+        </Box>
+      </Form>
+    );
+  }
 ```
 
 
@@ -388,7 +421,7 @@ description: Carbon Form component props and usage examples.
 
 ```tsx
 () => (
-  <RequiredFieldsIndicator m={2}>
+  <RequiredFieldsIndicator>
     Indicates required information
   </RequiredFieldsIndicator>
 )
@@ -401,33 +434,84 @@ description: Carbon Form component props and usage examples.
 
 ```tsx
 () => (
-  <Typography as="span" weight="medium">
-    El Asterisco <RequiredFieldsIndicator ml="4px" as="span" /> indica la
-    información obligatoria
-  </Typography>
+  <Box display="flex" flexDirection="column" gap={5}>
+    <Box>
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        At the start
+      </Typography>
+      <RequiredFieldsIndicator>
+        Indicates required information
+      </RequiredFieldsIndicator>
+    </Box>
+    <Box>
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        In the middle of a sentence
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Fields marked <RequiredFieldsIndicator as="span" />
+        are required
+      </Typography>
+    </Box>
+    <Box>
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        In another language
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Los campos marcados con <RequiredFieldsIndicator as="span" />
+        son obligatorios
+      </Typography>
+    </Box>
+    <Box>
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        At the end of a sentence
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Required fields are marked with <RequiredFieldsIndicator as="span" />
+      </Typography>
+    </Box>
+    <Box maxWidth="280px">
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        At the start, wrapping onto several lines
+      </Typography>
+      <RequiredFieldsIndicator>
+        Indicates information we need before we can process your application and
+        contact you about it
+      </RequiredFieldsIndicator>
+    </Box>
+    <Box maxWidth="280px">
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        In the middle, wrapping onto several lines
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Fields marked <RequiredFieldsIndicator as="span" />
+        must be completed before we can process your application
+      </Typography>
+    </Box>
+    <Box maxWidth="280px">
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        At the end, wrapping onto several lines
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Information we need before we can process your application is marked
+        with <RequiredFieldsIndicator as="span" />
+      </Typography>
+    </Box>
+  </Box>
 )
 ```
 
 
-### WithBothOptionalOrRequired
+### With Optional and Required Fields
 
 **Render**
 
 ```tsx
 (args: FormProps) => (
-  <Box m={1}>
-    <RequiredFieldsIndicator mb={2}>
-      <Typography variant="b">Indicates required information</Typography>
+  <Form {...args}>
+    <RequiredFieldsIndicator mb={blockSpacing}>
+      Indicates required information
     </RequiredFieldsIndicator>
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-    >
+    <Fieldset legend="Your details" mb={blockSpacing}>
       <Textbox onChange={() => {}} value="" label="Textbox" required />
       <Select
         name="simple-required"
@@ -506,439 +590,16 @@ description: Carbon Form component props and usage examples.
         checked={false}
         onChange={() => {}}
       />
-    </Form>
-  </Box>
-)
-```
-
-
-### In Dialog
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Subtitle"
-      >
-        <Form
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={<Button buttonType="primary">Submit</Button>}
-        >
-          <Textbox onChange={() => {}} value="" label="Textbox" />
-        </Form>
-      </Dialog>
-    </>
-  );
-}
-```
-
-
-### In Dialog with Sticky Footer
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [date, setDate] = useState("04/04/2019");
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Subtitle"
-      >
-        <Form
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={<Button buttonType="primary">Submit</Button>}
-          stickyFooter
-        >
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-          <DateInput
-            label="Date"
-            name="dateinput"
-            value={date}
-            onChange={(ev: DateChangeEvent) =>
-              setDate(ev.target.value.formattedValue)
-            }
-            disablePortal
-          />
-          <Select
-            name="simple-disabled-portal"
-            id="simple-disabled-portal"
-            label="Simple Select - disabled portal"
-            value="1"
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </Select>
-          <MultiSelect
-            name="multi-disabled-portal"
-            id="multi-disabled-portal"
-            label="Multi Select - disabled portal"
-            value={["1"]}
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </MultiSelect>
-          <Select
-            name="simple"
-            id="simple"
-            label="Simple Select"
-            value="1"
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </Select>
-          <MultiSelect
-            name="multi"
-            id="multi"
-            label="Multi Select"
-            value={["1"]}
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </MultiSelect>
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-        </Form>
-      </Dialog>
-    </>
-  );
-}
-```
-
-
-### In Dialog with Sticky Footer Disabled on Small Screen
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Sticky footer disabled on small screens"
-        disableStickyOnSmallScreen
-      >
-        <Form
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={<Button buttonType="primary">Submit</Button>}
-          stickyFooter
-          disableStickyOnSmallScreen
-        >
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-        </Form>
-      </Dialog>
-    </>
-  );
-}
-```
-
-
-### In Dialog Full Screen
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        fullscreen
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Subtitle"
-      >
-        <Box p="0px 40px">
-          <Form
-            leftSideButtons={
-              <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-            }
-            saveButton={<Button buttonType="primary">Submit</Button>}
-          >
-            <Textbox onChange={() => {}} value="" label="Textbox" />
-          </Form>
-        </Box>
-      </Dialog>
-    </>
-  );
-}
-```
-
-
-### In Dialog Full Screen with Sticky Footer
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [date, setDate] = useState("04/04/2019");
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        fullscreen
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Subtitle"
-      >
-        <Form
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={<Button buttonType="primary">Submit</Button>}
-          stickyFooter
-        >
-          {Array.from({ length: 15 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-          <DateInput
-            label="Date"
-            name="dateinput"
-            value={date}
-            onChange={(ev: DateChangeEvent) =>
-              setDate(ev.target.value.formattedValue)
-            }
-          />
-          <Select
-            name="simple"
-            id="simple"
-            label="label"
-            value="1"
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </Select>
-          {Array.from({ length: 15 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-        </Form>
-      </Dialog>
-    </>
-  );
-}
-```
-
-
-### With Labels Inline
-
-**Render**
-
-```tsx
-() => (
-  <Form
-    saveButton={
-      <Button buttonType="primary" type="submit">
+    </Fieldset>
+    <Box display="flex" gap={buttonGap}>
+      <Button variant="default" variantType="subtle">
+        Cancel
+      </Button>
+      <Button variant="default" variantType="primary" type="submit">
         Save
       </Button>
-    }
-  >
-    <Textbox
-      onChange={() => {}}
-      value=""
-      label="Textbox"
-      labelInline
-      labelWidth={30}
-    />
-    <InlineInputs
-      label="Inline Inputs"
-      gutter="none"
-      labelWidth={30}
-      labelId="inline-inputs"
-    >
-      <Textbox
-        aria-labelledby="inline-inputs"
-        value=""
-        onChange={() => {}}
-        mb={0}
-      />
-      <Textbox
-        aria-labelledby="inline-inputs"
-        value=""
-        onChange={() => {}}
-        mb={0}
-      />
-      <Select aria-labelledby="inline-inputs" value="" onChange={() => {}}>
-        <Option value="1" text="option 1" key="1" />
-        <Option value="2" text="option 2" key="2" />
-        <Option value="3" text="option 3" key="3" />
-      </Select>
-    </InlineInputs>
-    <InlineInputs
-      label="Inline Inputs with a gutter"
-      gutter="large"
-      labelWidth={30}
-      labelId="inline-inputs-second"
-    >
-      <Textbox
-        aria-labelledby="inline-inputs-second"
-        value=""
-        onChange={() => {}}
-      />
-      <Textbox
-        aria-labelledby="inline-inputs-second"
-        value=""
-        onChange={() => {}}
-      />
-      <Select
-        aria-labelledby="inline-inputs-second"
-        value=""
-        onChange={() => {}}
-      >
-        <Option value="1" text="option 1" key="1" />
-        <Option value="2" text="option 2" key="2" />
-        <Option value="3" text="option 3" key="3" />
-      </Select>
-    </InlineInputs>
-    <Textbox
-      aria-labelledby="inline-inputs-second"
-      value=""
-      onChange={() => {}}
-    />
+    </Box>
   </Form>
 )
-```
-
-
-### With Custom Footer Padding
-
-**Render**
-
-```tsx
-(args: FormProps) => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="With custom footer padding"
-      >
-        <Form
-          {...args}
-          leftSideButtons={<Button>Cancel</Button>}
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-          stickyFooter
-          footerPadding={{ px: 8 }}
-        >
-          <Textbox onChange={() => {}} value="" label="Textbox" />
-        </Form>
-      </Dialog>
-    </>
-  );
-}
 ```
 

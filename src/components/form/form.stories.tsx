@@ -1,27 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
-import isChromatic from "../../../.storybook/isChromatic";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import isChromatic from "../../../.storybook/isChromatic";
 
 import Form, { FormProps, RequiredFieldsIndicator } from ".";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
-import Textbox from "../textbox";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import Textarea from "../textarea";
 import Dialog from "../dialog";
-import DateInput, { DateChangeEvent } from "../date";
-import { Select, MultiSelect, Option } from "../select";
-import { RadioButton, RadioButtonGroup } from "../radio-button";
-import { Checkbox } from "../checkbox";
-import InlineInputs from "../inline-inputs";
-import Typography from "../typography";
+import Divider from "../divider";
+import Fieldset from "../fieldset";
 import Link from "../link";
+import Message from "../message";
+import { Checkbox } from "../checkbox";
+import { RadioButton, RadioButtonGroup } from "../radio-button";
+import { MultiSelect, Option, Select } from "../select";
+import Sidebar from "../sidebar";
+import Textbox from "../textbox";
+import Typography from "../typography";
 
 const styledSystemProps = generateStyledSystemProps({
   spacing: true,
 });
+
+const blockSpacing = "var(--global-space-layout-xs)";
+const fieldGap = "var(--global-space-comp-l)";
+const buttonGap = "var(--global-space-comp-m)";
 
 const defaultOpenState = isChromatic();
 
@@ -42,335 +46,434 @@ const meta: Meta<typeof Form> = {
     themeProvider: { chromatic: { theme: "sage" } },
     controls: { disable: true },
   },
-  decorators: [
-    (Story) => (
-      <>
-        {defaultOpenState ? (
-          <Box width="100%" height={900}>
-            <Story />
-          </Box>
-        ) : (
-          <Story />
-        )}
-      </>
-    ),
-  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof Form>;
 
-export const WithFooterNode: Story = (args: FormProps) => {
-  const footerNode = (
-    <Box>
-      <Typography>
-        This is the footer text that will be added to provide information about
-        the form content.
+export const Composition: Story = {
+  render: function Render(args) {
+    const [email, setEmail] = useState("");
+    const [telephone, setTelephone] = useState("");
+    const [contactMethod, setContactMethod] = useState("");
+    const [newsletter, setNewsletter] = useState(false);
+
+    return (
+      <Form {...args}>
+        <Typography variant="h1" mb={blockSpacing}>
+          Personal details
+        </Typography>
+        <Typography weight="medium" mb={blockSpacing}>
+          Fields marked <RequiredFieldsIndicator as="span" />
+          are required
+        </Typography>
+        <Message
+          variant="warning"
+          title="Check the information"
+          mb={blockSpacing}
+        >
+          Confirm that the contact details are up to date.
+        </Message>
+        <Typography variant="h2" mb={blockSpacing}>
+          Contact details
+        </Typography>
+        <Textbox
+          label="Email address"
+          required
+          value={email}
+          onChange={(ev) => setEmail(ev.target.value)}
+          mb={fieldGap}
+        />
+        <Textbox
+          label="Telephone number"
+          required
+          value={telephone}
+          onChange={(ev) => setTelephone(ev.target.value)}
+          mb={blockSpacing}
+        />
+        <Divider
+          type="horizontal"
+          aria-hidden
+          mt="var(--global-space-none)"
+          mb={blockSpacing}
+        />
+        <Typography variant="h2" mb={blockSpacing}>
+          Preferences
+        </Typography>
+        <Select
+          id="preferred-contact-method"
+          label="Preferred contact method"
+          value={contactMethod}
+          onChange={(ev) => setContactMethod(ev.target.value)}
+          mb={fieldGap}
+        >
+          <Option text="Email" value="email" />
+          <Option text="Telephone" value="telephone" />
+        </Select>
+        <Checkbox
+          label="Send me product updates"
+          checked={newsletter}
+          onChange={(ev) => setNewsletter(ev.target.checked)}
+          mb={blockSpacing}
+        />
+        <Box display="flex" gap={buttonGap}>
+          <Button variant="default" variantType="subtle">
+            Cancel
+          </Button>
+          <Button variant="default" variantType="tertiary">
+            Save draft
+          </Button>
+          <Button variant="default" variantType="secondary">
+            Preview
+          </Button>
+          <Button variant="default" variantType="primary" type="submit">
+            Save changes
+          </Button>
+        </Box>
+      </Form>
+    );
+  },
+};
+Composition.storyName = "Composition";
+
+export const WithFieldsets: Story = {
+  render: (args) => (
+    <Form {...args}>
+      <RequiredFieldsIndicator mb={blockSpacing}>
+        Indicates required information
+      </RequiredFieldsIndicator>
+      <Fieldset legend="Name" required mb={blockSpacing}>
+        <Textbox label="First name" value="" onChange={() => {}} />
+        <Textbox label="Last name" value="" onChange={() => {}} />
+      </Fieldset>
+      <Fieldset
+        legend="Address"
+        legendHint="Use the address where you receive post"
+        mb={blockSpacing}
+      >
+        <Textbox label="Address line 1" value="" onChange={() => {}} />
+        <Textbox label="Town or city" value="" onChange={() => {}} />
+        <Textbox label="Postcode" value="" onChange={() => {}} />
+      </Fieldset>
+      <Box display="flex" gap={buttonGap}>
+        <Button variant="default" variantType="primary" type="submit">
+          Save
+        </Button>
+      </Box>
+    </Form>
+  ),
+};
+WithFieldsets.storyName = "With Fieldsets";
+
+export const InDialog: Story = {
+  render: function Render(args) {
+    const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+        <Dialog
+          open={isOpen}
+          onCancel={() => setIsOpen(false)}
+          title="Contact details"
+          footer={
+            <Box
+              display="flex"
+              gap={buttonGap}
+              justifyContent="flex-end"
+              width="100%"
+            >
+              <Button
+                variant="default"
+                variantType="subtle"
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="default"
+                variantType="primary"
+                type="submit"
+                form="form-in-dialog"
+              >
+                Save
+              </Button>
+            </Box>
+          }
+        >
+          <Form {...args} id="form-in-dialog">
+            <RequiredFieldsIndicator mb={blockSpacing}>
+              Indicates required information
+            </RequiredFieldsIndicator>
+            <Fieldset legend="Personal details" required mb={blockSpacing}>
+              <Textbox label="First name" value="" onChange={() => {}} />
+              <Textbox label="Last name" value="" onChange={() => {}} />
+            </Fieldset>
+            <Fieldset legend="Contact details" required mb={blockSpacing}>
+              <Textbox label="Email address" value="" onChange={() => {}} />
+              <Textbox label="Telephone number" value="" onChange={() => {}} />
+            </Fieldset>
+            {/* resets the spacing the deprecated `fieldSpacing` prop still applies by default */}
+            <Fieldset
+              legend="Address"
+              legendHint="Use the address where you receive post"
+              mb="var(--global-space-none)"
+            >
+              <Textbox label="Address line 1" value="" onChange={() => {}} />
+              <Textbox label="Town or city" value="" onChange={() => {}} />
+              <Textbox label="Postcode" value="" onChange={() => {}} />
+            </Fieldset>
+          </Form>
+        </Dialog>
+      </>
+    );
+  },
+};
+InDialog.storyName = "In Dialog";
+
+export const InSidebar: Story = {
+  render: function Render(args) {
+    const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open Sidebar</Button>
+        <Sidebar
+          open={isOpen}
+          onCancel={() => setIsOpen(false)}
+          header="Contact details"
+          footer={
+            <Box
+              display="flex"
+              gap={buttonGap}
+              justifyContent="flex-end"
+              width="100%"
+            >
+              <Button
+                variant="default"
+                variantType="subtle"
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="default"
+                variantType="primary"
+                type="submit"
+                form="form-in-sidebar"
+              >
+                Save
+              </Button>
+            </Box>
+          }
+        >
+          <Form {...args} id="form-in-sidebar">
+            <RequiredFieldsIndicator mb={blockSpacing}>
+              Indicates required information
+            </RequiredFieldsIndicator>
+            {/* resets the spacing the deprecated `fieldSpacing` prop still applies by default */}
+            <Fieldset
+              legend="Contact details"
+              required
+              mb="var(--global-space-none)"
+            >
+              <Textbox label="Email address" value="" onChange={() => {}} />
+              <Textbox label="Telephone number" value="" onChange={() => {}} />
+            </Fieldset>
+          </Form>
+        </Sidebar>
+      </>
+    );
+  },
+};
+InSidebar.storyName = "In Sidebar";
+
+export const ValidationSummary: Story = {
+  render: function Render(args) {
+    const [email, setEmail] = useState("");
+    const [telephone, setTelephone] = useState("");
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [submitCount, setSubmitCount] = useState(0);
+    const firstSummaryLinkRef = useRef<HTMLAnchorElement | HTMLButtonElement>(
+      null,
+    );
+
+    const errorEntries = Object.entries(errors);
+
+    useEffect(() => {
+      if (submitCount && errorEntries.length) {
+        firstSummaryLinkRef.current?.focus();
+      }
+      // focus only after each submit attempt, not while the user edits fields
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [submitCount]);
+
+    const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+      ev.preventDefault();
+      const nextErrors: Record<string, string> = {};
+      if (!email) nextErrors["validation-email"] = "Enter an email address";
+      if (!telephone)
+        nextErrors["validation-telephone"] = "Enter a telephone number";
+
+      setErrors(nextErrors);
+      setSubmitCount((count) => count + 1);
+
+      if (!Object.keys(nextErrors).length) {
+        args.onSubmit?.(ev);
+      }
+    };
+
+    return (
+      <Form {...args} onSubmit={handleSubmit}>
+        <Typography variant="h1" mb={blockSpacing}>
+          Contact details
+        </Typography>
+        {errorEntries.length > 0 && (
+          <Message variant="error" title="There is a problem" mb={blockSpacing}>
+            <Typography variant="ul" m={0}>
+              {errorEntries.map(([fieldId, message], index) => (
+                <Typography as="li" key={fieldId}>
+                  <Link
+                    ref={index === 0 ? firstSummaryLinkRef : undefined}
+                    href={`#${fieldId}`}
+                    onClick={(ev) => {
+                      ev.preventDefault();
+                      document.getElementById(fieldId)?.focus();
+                    }}
+                  >
+                    {message}
+                  </Link>
+                </Typography>
+              ))}
+            </Typography>
+          </Message>
+        )}
+        <RequiredFieldsIndicator mb={blockSpacing}>
+          Indicates required information
+        </RequiredFieldsIndicator>
+        <Fieldset legend="Contact details" required mb={blockSpacing}>
+          <Textbox
+            id="validation-email"
+            label="Email address"
+            value={email}
+            onChange={(ev) => setEmail(ev.target.value)}
+            error={errors["validation-email"]}
+          />
+          <Textbox
+            id="validation-telephone"
+            label="Telephone number"
+            value={telephone}
+            onChange={(ev) => setTelephone(ev.target.value)}
+            error={errors["validation-telephone"]}
+          />
+        </Fieldset>
+        <Box display="flex" gap={buttonGap}>
+          <Button variant="default" variantType="subtle">
+            Cancel
+          </Button>
+          <Button variant="default" variantType="primary" type="submit">
+            Save changes
+          </Button>
+        </Box>
+      </Form>
+    );
+  },
+};
+ValidationSummary.storyName = "Validation Summary";
+// Shown above the example, outside the story source, so the copyable code stays clean
+ValidationSummary.decorators = [
+  (StoryToRender) => (
+    <>
+      <Typography mb={blockSpacing}>
+        To see the summary, select <strong>Save changes</strong> without filling
+        in the fields.
       </Typography>
-      <Link icon="placeholder" href="#">
-        This is a link
-      </Link>
-    </Box>
-  );
-
-  return (
-    <Form {...args} footerChildren={footerNode}>
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-    </Form>
-  );
-};
-WithFooterNode.storyName = "With footer node";
-WithFooterNode.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const DefaultWithStickyFooter: Story = (args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    stickyFooter
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-);
-DefaultWithStickyFooter.storyName = "Default with sticky footer";
-DefaultWithStickyFooter.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const StickyFooterVariant: Story = (args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    stickyFooter
-    stickyFooterVariant="grey"
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-);
-StickyFooterVariant.storyName = "Sticky footer with grey variant";
-StickyFooterVariant.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithFullWidthButtons: Story = (args: FormProps) => (
-  <CarbonProvider validationRedesignOptIn>
-    <Form
-      {...args}
-      fullWidthButtons
-      stickyFooter
-      leftSideButtons={<Button fullWidth>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit" fullWidth>
-          Save
-        </Button>
-      }
-      errorCount={3}
-      warningCount={2}
-    >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-    </Form>
-  </CarbonProvider>
-);
-WithFullWidthButtons.storyName = "With Full Width Buttons";
-WithFullWidthButtons.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-export const FieldSpacing: Story = (args: FormProps) => {
-  const [state, setState] = useState("");
-
-  const setValue = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setState(ev.target.value);
-  };
-
-  return (
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      fieldSpacing={5}
-    >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textarea
-        label="Textarea with Character Limit"
-        characterLimit={50}
-        value={state}
-        onChange={setValue}
-      />
-    </Form>
-  );
-};
-FieldSpacing.storyName = "Field Spacing";
-FieldSpacing.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const OverrideFieldSpacing: Story = (args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" mb={7} />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-);
-OverrideFieldSpacing.storyName = "Override field spacing";
-OverrideFieldSpacing.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithErrorsSummary: Story = (args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    errorCount={1}
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-);
-WithErrorsSummary.storyName = "With Errors Summary";
-WithErrorsSummary.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithWarningsSummary: Story = (args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    warningCount={1}
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-);
-WithWarningsSummary.storyName = "With Warnings Summary";
-WithWarningsSummary.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithBothErrorsAndWarningsSummary: Story = (args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={<Button>Cancel</Button>}
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    errorCount={2}
-    warningCount={2}
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-);
-WithBothErrorsAndWarningsSummary.storyName =
-  "With Both Errors and Warnings Summary";
-WithBothErrorsAndWarningsSummary.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithAdditionalButtons: Story = (args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={
-      <>
-        <Button>Other</Button>
-        <Button>Cancel</Button>
-      </>
-    }
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    rightSideButtons={
-      <>
-        <Button>Reset</Button>
-        <Button>Other</Button>
-      </>
-    }
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-);
-WithAdditionalButtons.storyName = "With Additional Buttons";
-WithAdditionalButtons.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithButtonsAlignedToTheLeft: Story = (args: FormProps) => (
-  <Form
-    {...args}
-    leftSideButtons={
-      <>
-        <Button>Other</Button>
-        <Button>Cancel</Button>
-      </>
-    }
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    rightSideButtons={
-      <>
-        <Button>Reset</Button>
-        <Button>Other</Button>
-      </>
-    }
-    buttonAlignment="left"
-  >
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-  </Form>
-);
-WithButtonsAlignedToTheLeft.storyName = "With Buttons Aligned to the Left";
+      <StoryToRender />
+    </>
+  ),
+];
 
 export const RequiredFieldsIndicatorStory: Story = () => (
-  <RequiredFieldsIndicator m={2}>
+  <RequiredFieldsIndicator>
     Indicates required information
   </RequiredFieldsIndicator>
 );
 RequiredFieldsIndicatorStory.storyName = "Required Fields Indicator";
 
 export const CustomRequiredFieldsIndicatorStory: Story = () => (
-  <Typography as="span" weight="medium">
-    El Asterisco <RequiredFieldsIndicator ml="4px" as="span" /> indica la
-    información obligatoria
-  </Typography>
+  <Box display="flex" flexDirection="column" gap={5}>
+    <Box>
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        At the start
+      </Typography>
+      <RequiredFieldsIndicator>
+        Indicates required information
+      </RequiredFieldsIndicator>
+    </Box>
+    <Box>
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        In the middle of a sentence
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Fields marked <RequiredFieldsIndicator as="span" />
+        are required
+      </Typography>
+    </Box>
+    <Box>
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        In another language
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Los campos marcados con <RequiredFieldsIndicator as="span" />
+        son obligatorios
+      </Typography>
+    </Box>
+    <Box>
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        At the end of a sentence
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Required fields are marked with <RequiredFieldsIndicator as="span" />
+      </Typography>
+    </Box>
+    <Box maxWidth="280px">
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        At the start, wrapping onto several lines
+      </Typography>
+      <RequiredFieldsIndicator>
+        Indicates information we need before we can process your application and
+        contact you about it
+      </RequiredFieldsIndicator>
+    </Box>
+    <Box maxWidth="280px">
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        In the middle, wrapping onto several lines
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Fields marked <RequiredFieldsIndicator as="span" />
+        must be completed before we can process your application
+      </Typography>
+    </Box>
+    <Box maxWidth="280px">
+      <Typography variant="small" as="div" tint="alt" mb={1}>
+        At the end, wrapping onto several lines
+      </Typography>
+      <Typography weight="medium" mb={0}>
+        Information we need before we can process your application is marked
+        with <RequiredFieldsIndicator as="span" />
+      </Typography>
+    </Box>
+  </Box>
 );
 CustomRequiredFieldsIndicatorStory.storyName =
   "Custom Required Fields Indicator";
 
 export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
-  <Box m={1}>
-    <RequiredFieldsIndicator mb={2}>
-      <Typography variant="b">Indicates required information</Typography>
+  <Form {...args}>
+    <RequiredFieldsIndicator mb={blockSpacing}>
+      Indicates required information
     </RequiredFieldsIndicator>
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-    >
+    <Fieldset legend="Your details" mb={blockSpacing}>
       <Textbox onChange={() => {}} value="" label="Textbox" required />
       <Select
         name="simple-required"
@@ -449,413 +552,15 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
         checked={false}
         onChange={() => {}}
       />
-    </Form>
-  </Box>
-);
-WithBothOptionalOrRequired.storyName = "WithBothOptionalOrRequired";
-WithBothOptionalOrRequired.parameters = {
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const InDialog = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Subtitle"
-      >
-        <Form
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={<Button buttonType="primary">Submit</Button>}
-        >
-          <Textbox onChange={() => {}} value="" label="Textbox" />
-        </Form>
-      </Dialog>
-    </>
-  );
-};
-InDialog.storyName = "In Dialog";
-
-export const InDialogWithStickyFooter = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [date, setDate] = useState("04/04/2019");
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Subtitle"
-      >
-        <Form
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={<Button buttonType="primary">Submit</Button>}
-          stickyFooter
-        >
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-          <DateInput
-            label="Date"
-            name="dateinput"
-            value={date}
-            onChange={(ev: DateChangeEvent) =>
-              setDate(ev.target.value.formattedValue)
-            }
-            disablePortal
-          />
-          <Select
-            name="simple-disabled-portal"
-            id="simple-disabled-portal"
-            label="Simple Select - disabled portal"
-            value="1"
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </Select>
-          <MultiSelect
-            name="multi-disabled-portal"
-            id="multi-disabled-portal"
-            label="Multi Select - disabled portal"
-            value={["1"]}
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </MultiSelect>
-          <Select
-            name="simple"
-            id="simple"
-            label="Simple Select"
-            value="1"
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </Select>
-          <MultiSelect
-            name="multi"
-            id="multi"
-            label="Multi Select"
-            value={["1"]}
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </MultiSelect>
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-        </Form>
-      </Dialog>
-    </>
-  );
-};
-InDialogWithStickyFooter.storyName = "In Dialog with Sticky Footer";
-InDialogWithStickyFooter.parameters = {
-  chromatic: { viewports: [1200, 320] },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const InDialogWithDisabledStickyFooterOnSmallScreen = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Sticky footer disabled on small screens"
-        disableStickyOnSmallScreen
-      >
-        <Form
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={<Button buttonType="primary">Submit</Button>}
-          stickyFooter
-          disableStickyOnSmallScreen
-        >
-          {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-        </Form>
-      </Dialog>
-    </>
-  );
-};
-InDialogWithDisabledStickyFooterOnSmallScreen.storyName =
-  "In Dialog with Sticky Footer Disabled on Small Screen";
-InDialogWithDisabledStickyFooterOnSmallScreen.parameters = {
-  chromatic: { viewports: [1200, 320] },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const InDialogFullScreen = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        fullscreen
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Subtitle"
-      >
-        <Box p="0px 40px">
-          <Form
-            leftSideButtons={
-              <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-            }
-            saveButton={<Button buttonType="primary">Submit</Button>}
-          >
-            <Textbox onChange={() => {}} value="" label="Textbox" />
-          </Form>
-        </Box>
-      </Dialog>
-    </>
-  );
-};
-InDialogFullScreen.storyName = "In Dialog Full Screen";
-
-export const InDialogFullScreenWithStickyFooter = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [date, setDate] = useState("04/04/2019");
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        fullscreen
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="Subtitle"
-      >
-        <Form
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={<Button buttonType="primary">Submit</Button>}
-          stickyFooter
-        >
-          {Array.from({ length: 15 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-          <DateInput
-            label="Date"
-            name="dateinput"
-            value={date}
-            onChange={(ev: DateChangeEvent) =>
-              setDate(ev.target.value.formattedValue)
-            }
-          />
-          <Select
-            name="simple"
-            id="simple"
-            label="label"
-            value="1"
-            onChange={() => {}}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </Select>
-          {Array.from({ length: 15 }).map((_, index) => (
-            <Textbox
-              key={`textbox-${index + 1}`}
-              label="Textbox"
-              value=""
-              onChange={() => {}}
-            />
-          ))}
-        </Form>
-      </Dialog>
-    </>
-  );
-};
-InDialogFullScreenWithStickyFooter.storyName =
-  "In Dialog Full Screen with Sticky Footer";
-InDialogFullScreenWithStickyFooter.parameters = {
-  chromatic: { viewports: [1200, 320] },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const WithLabelsInline: Story = () => (
-  <Form
-    saveButton={
-      <Button buttonType="primary" type="submit">
+    </Fieldset>
+    <Box display="flex" gap={buttonGap}>
+      <Button variant="default" variantType="subtle">
+        Cancel
+      </Button>
+      <Button variant="default" variantType="primary" type="submit">
         Save
       </Button>
-    }
-  >
-    <Textbox
-      onChange={() => {}}
-      value=""
-      label="Textbox"
-      labelInline
-      labelWidth={30}
-    />
-    <InlineInputs
-      label="Inline Inputs"
-      gutter="none"
-      labelWidth={30}
-      labelId="inline-inputs"
-    >
-      <Textbox
-        aria-labelledby="inline-inputs"
-        value=""
-        onChange={() => {}}
-        mb={0}
-      />
-      <Textbox
-        aria-labelledby="inline-inputs"
-        value=""
-        onChange={() => {}}
-        mb={0}
-      />
-      <Select aria-labelledby="inline-inputs" value="" onChange={() => {}}>
-        <Option value="1" text="option 1" key="1" />
-        <Option value="2" text="option 2" key="2" />
-        <Option value="3" text="option 3" key="3" />
-      </Select>
-    </InlineInputs>
-    <InlineInputs
-      label="Inline Inputs with a gutter"
-      gutter="large"
-      labelWidth={30}
-      labelId="inline-inputs-second"
-    >
-      <Textbox
-        aria-labelledby="inline-inputs-second"
-        value=""
-        onChange={() => {}}
-      />
-      <Textbox
-        aria-labelledby="inline-inputs-second"
-        value=""
-        onChange={() => {}}
-      />
-      <Select
-        aria-labelledby="inline-inputs-second"
-        value=""
-        onChange={() => {}}
-      >
-        <Option value="1" text="option 1" key="1" />
-        <Option value="2" text="option 2" key="2" />
-        <Option value="3" text="option 3" key="3" />
-      </Select>
-    </InlineInputs>
-    <Textbox
-      aria-labelledby="inline-inputs-second"
-      value=""
-      onChange={() => {}}
-    />
+    </Box>
   </Form>
 );
-WithLabelsInline.storyName = "With Labels Inline";
-
-export const WithCustomFooterPadding: Story = (args: FormProps) => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Form in Dialog"
-        subtitle="With custom footer padding"
-      >
-        <Form
-          {...args}
-          leftSideButtons={<Button>Cancel</Button>}
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-          stickyFooter
-          footerPadding={{ px: 8 }}
-        >
-          <Textbox onChange={() => {}} value="" label="Textbox" />
-        </Form>
-      </Dialog>
-    </>
-  );
-};
-WithCustomFooterPadding.storyName = "With Custom Footer Padding";
+WithBothOptionalOrRequired.storyName = "With Optional and Required Fields";

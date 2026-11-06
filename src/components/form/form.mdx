@@ -19,7 +19,9 @@ Represents a document section containing interactive controls for submitting inf
 ## Quick Start
 
 To use Form, import the `Form` and pass the content, usually various inputs, as children.
-You can provide a save button using the `saveButton` prop.
+Compose content as children. Place an error `Message` summary at the top of the form, directly after the form heading
+if present, and before the required-fields indicator and fields. Place warning `Message` components before the fields
+they relate to.
 
 ```javascript
 import Form, {
@@ -29,46 +31,63 @@ import Form, {
 
 ## Examples
 
-### With footer node
+### Form composition
 
-<Canvas of={FormStories.WithFooterNode} />
+Start the form with its heading and the `RequiredFieldsIndicator`. Give each section a heading and separate the
+sections with a horizontal `Divider`. Place the buttons last, ordered from lowest to highest emphasis.
 
-### With sticky footer
+<Canvas of={FormStories.Composition} />
 
-When `stickyFooter` prop is set as true, footer becomes stickied to the bottom of the screen when necessary - this also works in `Dialog`
+For the error pattern, with the summary linked to the invalid fields, see [Validations](#validations).
 
-<Canvas of={FormStories.DefaultWithStickyFooter} />
+### Spacing between content blocks
 
-### With sticky footer variant
+Form does not set the gap between its content blocks. Set it on each block with a margin prop:
 
-<Canvas of={FormStories.StickyFooterVariant} />
+- between blocks, such as headings, messages, sections and `Divider`s: `--global-space-layout-xs`, for example
+  `mb="var(--global-space-layout-xs)"`
+- between fields in a section: `--global-space-comp-l`
+- between buttons: `--global-space-comp-m`
 
-### Full Width Buttons
+Use a `Fieldset` only to group inputs that belong together, such as the parts of a name or an address. It sets the
+gap between its legend and its inputs, and between the inputs.
 
-<Canvas of={FormStories.WithFullWidthButtons} />
+While the deprecated `fieldSpacing` prop keeps its default, Form still adds a bottom margin to each field and
+`Fieldset`. A margin prop on the block overrides it.
 
-### Field Spacing
+<Canvas of={FormStories.WithFieldsets} />
 
-You can use the `fieldSpacing` prop to set the spacing between fields within `Form`, which will add a margin-bottom to supported input components.
-The value is multiplied by the base theme `8px` spacing value, by default this is set to `3`.
+### In Dialog
 
-<Canvas of={FormStories.FieldSpacing} />
+Place the actions in the `Dialog` footer and link the submit button to the form with its `form` attribute.
 
-### Override spacing on a field
+<Canvas of={FormStories.InDialog} />
 
-You can override the spacing of a field by using the `mb` prop on the specific input.
+### In Sidebar
 
-<Canvas of={FormStories.OverrideFieldSpacing} />
+Place the actions in the `Sidebar` footer and link the submit button to the form with its `form` attribute, as in a
+`Dialog`.
+
+<Canvas of={FormStories.InSidebar} />
 
 ### Validations
 
-When either `errorCount` or `warningCount` or both are provided, summary with the number of errors and/or warnings is rendered wrapping the save button.
+Form does not collect validation errors or warnings. Compose them with the following pattern:
 
-<Canvas of={FormStories.WithErrorsSummary} />
+1. Set the `error` prop on each invalid field, so its message is shown next to the field and associated with it.
+2. Render an error `Message` at the top of the form, directly after the form heading if present and before the
+   required-fields indicator and fields. List each problem as a `Link` that moves focus to the field it describes. Each
+   link must match its inline error message exactly and must not end with a full stop.
+3. After a submit attempt that fails validation, move focus to the first summary `Link` by passing it a `ref`. This
+   announces the summary to screen reader users. Do not also place it in a live region, or it is announced twice.
+4. Render warning `Message` components without moving focus, because warnings do not block submission.
 
-<Canvas of={FormStories.WithWarningsSummary} />
+Remove the summary once the errors are fixed.
 
-<Canvas of={FormStories.WithBothErrorsAndWarningsSummary} />
+Do not combine a composed summary with the deprecated `errorCount` or `warningCount` props. Form still renders their
+counts in the footer, so the errors and warnings would be summarised twice.
+
+<Canvas of={FormStories.ValidationSummary} />
 
 ### Required Fields Indicator
 
@@ -77,67 +96,27 @@ within a `Form` to provide users with a clear indication of which fields are man
 
 <Canvas of={FormStories.RequiredFieldsIndicatorStory} />
 
-The `RequiredFieldsIndicator` component can be rendered without children to display a custom message or style, while still maintaining the asterisk. 
+The `RequiredFieldsIndicator` component can be rendered without children to display a custom message or style, while still maintaining the asterisk.
 This allows for flexibility in how required fields are communicated to users in different locales.
+
+The asterisk can sit at the start of the text, in the middle of a sentence or at the end, and the text can wrap
+onto several lines. To place it inside a sentence, render `RequiredFieldsIndicator` without children and with
+`as="span"`. The asterisk adds its own space after it, so leave out the space between the indicator and the next word.
+
+Do not name the symbol next to the indicator, for example "An asterisk \* indicates required information". Screen
+readers announce the asterisk itself, so the symbol is read twice. Write "Fields marked \* are required" instead.
 
 <Canvas of={FormStories.CustomRequiredFieldsIndicatorStory} />
 
-
 ### Example with optional and required fields
 
-You can set the `required` or `isOptional` on any `Form` input to make them mandatory or optional. You can also
-include an indicator within the `Form` by importing the `RequiredFieldsIndicator` component.
+Set the `required` prop on any `Form` input to make it mandatory; inputs without it are optional. Use the
+`RequiredFieldsIndicator` component to explain the required-field marker to users.
 
 <Canvas
   name="with optional or required label"
   of={FormStories.WithBothOptionalOrRequired}
 />
-
-### Buttons variations
-
-Additional buttons can be passed using `leftSideButtons` and `rightSideButtons` props.
-
-<Canvas of={FormStories.WithAdditionalButtons} />
-
-When `buttonAlignment` prop is set as `left`, buttons are aligned to the left side.
-
-<Canvas of={FormStories.WithButtonsAlignedToTheLeft} />
-
-### In Dialog
-
-It is possible to render `Form` as a content of `Dialog` component.
-
-<Canvas of={FormStories.InDialog} />
-
-#### With sticky footer
-
-<Canvas of={FormStories.InDialogWithStickyFooter} />
-
-#### With sticky footer disabled on small screens
-
-When `disableStickyOnSmallScreen` is set alongside `stickyFooter`, the footer loses its sticky positioning on small screen
-devices (below 600px). This improves accessibility on mobile devices by preventing the footer from obscuring content when
-the viewport is too narrow. This is particularly useful when `Form` is used inside a `Dialog`.
-
-<Canvas of={FormStories.InDialogWithDisabledStickyFooterOnSmallScreen} />
-
-### In full-screen `Dialog`
-
-It is possible to render `Form` as a content of full-screen `Dialog` component.
-
-<Canvas of={FormStories.InDialogFullScreen} />
-
-#### With sticky footer
-
-<Canvas of={FormStories.InDialogFullScreenWithStickyFooter} />
-
-### With labels inline
-
-<Canvas of={FormStories.WithLabelsInline} />
-
-### With custom footer padding
-
-<Canvas of={FormStories.WithCustomFooterPadding} />
 
 ## Props
 
@@ -150,12 +129,15 @@ It is possible to render `Form` as a content of full-screen `Dialog` component.
 The following keys are available to override the translations for this component by passing in a custom locale object to the
 [i18nProvider](../?path=/docs/documentation-i18n--docs).
 
+They apply only to the summary rendered by the deprecated `errorCount` and `warningCount` props. A composed `Message`
+summary has no translation keys; provide its text through your application's own translations.
+
 <TranslationKeysTable
   translationData={[
     {
-      name: "error.messages.formSummary",
+      name: "errors.messages.formSummary",
       description:
-        "The text to displayed when there are errors or warnings present in the form",
+        "The text displayed when there are errors or warnings present in the form",
       type: "func",
       returnType:
         "an array of strings when validation failures and null when no failures",
