@@ -4,30 +4,18 @@ import React, {
   useRef,
   RefObject,
   useEffect,
-  useLayoutEffect,
-  useMemo,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-import {
-  autoUpdate,
-  flip,
-  Middleware,
-  Placement,
-  useFloating,
-} from "@floating-ui/react-dom";
+import { flip, Middleware, Placement } from "@floating-ui/react-dom";
 
 import { StyledBackdrop, StyledPopoverContent } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import ModalContext, { ModalContextProps } from "../modal/modal.context";
 import useIsBrowser from "../../hooks/__internal__/useIsBrowser";
+import useFloating from "../../hooks/__internal__/useFloating";
 import TokensWrapperContext from "../../components/tokens-wrapper/__internal__/context";
 import combineRefs from "../utils/helpers/combine-refs";
-
-type OriginalFloatingStyles = Pick<
-  CSSStyleDeclaration,
-  "height" | "left" | "position" | "top" | "transform" | "visibility" | "width"
->;
 
 export interface PopoverProps {
   /**
@@ -86,8 +74,6 @@ const defaultMiddleware = [
   }),
 ];
 
-const disableAutomaticUpdate = () => () => {};
-
 const PopoverRoot = ({
   children,
   placement,
@@ -103,186 +89,23 @@ const PopoverRoot = ({
   const childRef = (
     React.Children.only(children) as React.FunctionComponentElement<unknown>
   ).ref;
-  const originalFloatingStyles = useRef<OriginalFloatingStyles | null>(null);
-  const focusedBeforeHide = useRef<HTMLElement | null>(null);
-  const {
-    elements,
-    isPositioned,
-    middlewareData,
-    placement: currentPlacement,
-    refs,
-    update,
-    x,
-    y,
-  } = useFloating({
-    open: isOpen,
-    placement,
-    middleware,
-    strategy: popoverStrategy,
-    whileElementsMounted: disableAutomaticUpdate,
-  });
-  const childStyle = (children.props as { style?: React.CSSProperties }).style;
-  const referenceHidden = middlewareData.hide?.referenceHidden;
+  const innerRef = useRef<HTMLElement | null>(null);
+  const floatingRef = childRefOverride ?? innerRef;
 
-  const floatingStyles = useMemo<React.CSSProperties>(
-    () => ({
-      position: popoverStrategy,
-      left: Number.isFinite(x) ? (x as number) : 0,
-      top: Number.isFinite(y) ? (y as number) : 0,
-      ...(referenceHidden === undefined
-        ? {}
-        : { visibility: referenceHidden ? "hidden" : childStyle?.visibility }),
-    }),
-    [childStyle?.visibility, popoverStrategy, referenceHidden, x, y],
-  );
-
-  useLayoutEffect(() => {
-    refs.setReference(reference.current);
-
-    if (childRefOverride) {
-      refs.setFloating(childRefOverride.current);
-    }
-  }, [childRefOverride, reference, refs]);
-
-  useEffect(() => {
-    if (!isOpen || !elements.reference || !elements.floating) return;
-
-    return autoUpdate(elements.reference, elements.floating, update, {
-      animationFrame,
-    });
-  }, [animationFrame, elements.floating, elements.reference, isOpen, update]);
-
-  useLayoutEffect(() => {
-    const floatingElement = childRefOverride?.current;
-
-    if (!isOpen || !floatingElement) return;
-
-    const { height, left, position, top, transform, visibility, width } =
-      floatingElement.style;
-    originalFloatingStyles.current = {
-      height,
-      left,
-      position,
-      top,
-      transform,
-      visibility,
-      width,
-    };
-
-    return () => {
-      Object.assign(floatingElement.style, originalFloatingStyles.current);
-      floatingElement.removeAttribute("data-floating-placement");
-      originalFloatingStyles.current = null;
-    };
-  }, [childRefOverride, elements.floating, isOpen]);
-
-  useLayoutEffect(() => {
-    const floatingElement = childRefOverride?.current;
-
-    if (!isOpen || !floatingElement) return;
-
-    const originalVisibility = (
-      originalFloatingStyles.current as OriginalFloatingStyles
-    ).visibility;
-
-    Object.assign(floatingElement.style, {
-      ...floatingStyles,
-      left: `${floatingStyles.left}px`,
-      top: `${floatingStyles.top}px`,
-      ...(referenceHidden === undefined
-        ? {}
-        : {
-            visibility: referenceHidden ? "hidden" : originalVisibility,
-          }),
-    });
-
-    if (isPositioned) {
-      floatingElement.setAttribute("data-floating-placement", currentPlacement);
-    }
-  }, [
-    childRefOverride,
-    currentPlacement,
-    floatingStyles,
+  const setFloating = useFloating({
+    animationFrame,
+    floating: floatingRef,
     isOpen,
-    isPositioned,
-    referenceHidden,
-  ]);
+    middleware,
+    placement,
+    reference,
+    strategy: popoverStrategy,
+  });
 
-  useEffect(() => {
-    const floatingElement = elements.floating;
-    const ownerDocument = floatingElement?.ownerDocument;
-
-    if (!isOpen || !floatingElement || !ownerDocument) {
-      focusedBeforeHide.current = null;
-
-      return;
-    }
-
-    const handleFocusIn = (event: FocusEvent) => {
-      if (
-        event.target !== ownerDocument.body &&
-        !floatingElement.contains(event.target as Node)
-      ) {
-        focusedBeforeHide.current = null;
-      }
-    };
-
-    ownerDocument.addEventListener("focusin", handleFocusIn);
-
-    return () => ownerDocument.removeEventListener("focusin", handleFocusIn);
-  }, [elements.floating, isOpen]);
-
-  useEffect(() => {
-    const floatingElement = elements.floating;
-    const ownerDocument = floatingElement?.ownerDocument;
-
-    if (
-      !isOpen ||
-      !floatingElement ||
-      !ownerDocument ||
-      referenceHidden === undefined
-    ) {
-      return;
-    }
-
-    const { activeElement } = ownerDocument;
-
-    if (
-      referenceHidden &&
-      activeElement instanceof HTMLElement &&
-      floatingElement.contains(activeElement)
-    ) {
-      focusedBeforeHide.current = activeElement;
-
-      return;
-    }
-
-    if (!referenceHidden && focusedBeforeHide.current) {
-      const item = focusedBeforeHide.current;
-      focusedBeforeHide.current = null;
-
-      if (
-        floatingElement.contains(item) &&
-        item.isConnected &&
-        !item.matches(":disabled, [aria-disabled='true']") &&
-        (activeElement === ownerDocument.body || activeElement === item)
-      ) {
-        item.focus({ preventScroll: true });
-      }
-    }
-  }, [elements.floating, isOpen, referenceHidden]);
-
-  const setFloating = useMemo(
-    () => combineRefs(childRef, refs.setFloating),
-    [childRef, refs.setFloating],
-  );
   const content = childRefOverride
     ? children
     : React.cloneElement(children, {
-        ref: setFloating,
-        style: isOpen ? { ...childStyle, ...floatingStyles } : childStyle,
-        "data-floating-placement":
-          isOpen && isPositioned ? currentPlacement : undefined,
+        ref: combineRefs(childRef, innerRef, setFloating),
       });
 
   return (
