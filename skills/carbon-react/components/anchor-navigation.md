@@ -16,7 +16,7 @@ description: Carbon AnchorNavigation component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | Child elements |  |
-| stickyNavigation | React.ReactNode | No |  | The AnchorNavigationItems components to be rendered in the sticky navigation. It is important to maintain proper structure. List of AnchorNavigationItems has to be wrapped in React.Fragment |  |
+| stickyNavigation | React.ReactNode | No |  | The AnchorNavigationItems components to be rendered in the sticky navigation. Items can be rendered conditionally or from within other components. |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-label | string \| undefined | No |  | Defines a string value that labels the current element. |  |
@@ -115,7 +115,7 @@ description: Carbon AnchorNavigation component props and usage examples.
     <>
       <Button onClick={() => setIsOpen(true)}>Open AnchorNavigation</Button>
       <Dialog
-        fullscreen
+        size="fullscreen"
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         title="Title"
@@ -168,14 +168,12 @@ description: Carbon AnchorNavigation component props and usage examples.
 ```tsx
 - Create `refs` which will be used internally in `AnchorNavigation` to measure positions of the elements.
 
-- Pass proper structure of `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop.
+- Pass `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop. Items can be rendered conditionally or from within your own components.
 
 - Pass children where elements which are meant to serve as sections have `refs` assigned.
 
 - Keep in mind that to assign a `ref` to a component it either has to be a `Class` component or it has to be wrapped in `React.forwardRef()` in case of a function component.
 
-- **It is necessary to maintain the same order of navigation items and children when assigning the `refs`**
-
-- **It is necessary to maintain `stickyNavigation` prop structure as shown below**
+- Each navigation item's `target` should reference the section it navigates to.
 ```
 

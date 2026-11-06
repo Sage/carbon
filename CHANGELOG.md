@@ -1,3 +1,63 @@
+## [162.22.0](https://github.com/Sage/carbon/compare/v162.21.3...v162.22.0) (2026-11-05)
+
+### Features
+
+* **anchor-navigation:** add compound navigation API ([0af6f1b](https://github.com/Sage/carbon/commit/0af6f1b191502185fdac51cfab01428ba3076a48))
+
+### Bug Fixes
+
+* **anchor-navigation-item:** deprecate isSelected prop, return back public Textbox ([c76d6e8](https://github.com/Sage/carbon/commit/c76d6e88541c4c602e6a4029ee4ce96a63fde70f))
+* **anchor-navigation:** register items via context instead of cloning ([f3e3383](https://github.com/Sage/carbon/commit/f3e33833f9f445867ee44add8a9c0da20324f96c))
+* **anchor-navigation:** select the section in view on mount ([4dd5d29](https://github.com/Sage/carbon/commit/4dd5d29cbc6b8fe5e200d76b0f8bdacd6798ab0c))
+
+## [162.21.3](https://github.com/Sage/carbon/compare/v162.21.2...v162.21.3) (2026-11-04)
+
+### Bug Fixes
+
+* **radio-button, checkbox:** add aria-controls support ([92315b3](https://github.com/Sage/carbon/commit/92315b3d93b39f2bab629f85aed4fc66807031e7))
+
+## [162.21.2](https://github.com/Sage/carbon/compare/v162.21.1...v162.21.2) (2026-11-03)
+
+### Bug Fixes
+
+* **flex-tile-container:** prevent horizontal focus halo clipping ([67c354b](https://github.com/Sage/carbon/commit/67c354bb89e6bb342a8937578bd1aca1362beada))
+
+## [162.21.1](https://github.com/Sage/carbon/compare/v162.21.0...v162.21.1) (2026-11-02)
+
+### Bug Fixes
+
+* **divider:** export via index ([d408b0e](https://github.com/Sage/carbon/commit/d408b0e086b973759f871f53f9ed7531d516e012))
+
+## [162.21.0](https://github.com/Sage/carbon/compare/v162.20.3...v162.21.0) (2026-11-02)
+
+### Features
+
+* **action-popover:** align component with fusion ([5734a18](https://github.com/Sage/carbon/commit/5734a187b9d94ce40aac14e131b14f1488b89309))
+
+## [162.20.3](https://github.com/Sage/carbon/compare/v162.20.2...v162.20.3) (2026-10-30)
+
+### Bug Fixes
+
+* **skills:** resolve frontmatter rendering issue ([a71a834](https://github.com/Sage/carbon/commit/a71a834a3f1da85e11cd4c7d55f45d9bc820343e))
+
+## [162.20.2](https://github.com/Sage/carbon/compare/v162.20.1...v162.20.2) (2026-10-30)
+
+### Bug Fixes
+
+* **image:** add empty alt text to decorative images ([9668d17](https://github.com/Sage/carbon/commit/9668d170a778034ba4b91f9bc8639c73fe45568d))
+
+## [162.20.1](https://github.com/Sage/carbon/compare/v162.20.0...v162.20.1) (2026-10-29)
+
+### Bug Fixes
+
+* **dialog:** remove redundant sticky footer styling on small screens ([a680443](https://github.com/Sage/carbon/commit/a680443733fa753e4ece67407f9f673a91605d91))
+
+## [162.20.0](https://github.com/Sage/carbon/compare/v162.19.0...v162.20.0) (2026-10-29)
+
+### Features
+
+* **date-range:** update component with fusion design system ([6db1ef0](https://github.com/Sage/carbon/commit/6db1ef049c49d061868ac7ff3200acb870d1671b))
+
 ## [162.19.0](https://github.com/Sage/carbon/compare/v162.18.0...v162.19.0) (2026-10-28)
 
 ### Features

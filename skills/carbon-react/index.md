@@ -7,8 +7,8 @@
 - [ActionPopover](components/action-popover.md)
 - [ActionPopoverDivider](components/action-popover-divider.md)
 - [ActionPopoverItem](components/action-popover-item.md)
-- [ActionPopoverMenu](components/action-popover-menu.md)
-- [ActionPopoverMenuButton](components/action-popover-menu-button.md)
+- [ActionPopoverMenu](components/action-popover-menu.md) (deprecated)
+- [ActionPopoverMenuButton](components/action-popover-menu-button.md) (deprecated)
 - [AdaptiveSidebar](components/adaptive-sidebar.md)
 - [AdvancedColorPicker](components/advanced-color-picker.md)
 - [Alert](components/alert.md) (deprecated)
@@ -42,6 +42,7 @@
 - [Detail](components/detail.md) (deprecated)
 - [Dialog](components/dialog.md)
 - [DismissibleBox](components/dismissible-box.md) (deprecated)
+- [Divider](components/divider.md) — A vertical or horizontal line that visually separates adjacent content.
 - [Dl](components/dl.md)
 - [DraggableContainer](components/draggable-container.md)
 - [DraggableItem](components/draggable-item.md)
