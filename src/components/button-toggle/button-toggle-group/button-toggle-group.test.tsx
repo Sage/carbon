@@ -1,8 +1,22 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ButtonToggle, ButtonToggleGroup } from "..";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import useMediaQuery from "../../../hooks/useMediaQuery";
+
+jest.mock("../../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  mockUseMediaQuery.mockReturnValue(false);
+});
 
 test("should render with provided children", () => {
   render(
@@ -355,12 +369,119 @@ describe("active indicator", () => {
       screen.getByTestId("button-toggle-active-indicator"),
     ).toHaveStyleRule(
       "transition",
-      "left 600ms cubic-bezier(0.22,1,0.36,1), width 600ms cubic-bezier(0.22,1,0.36,1) !important",
+      "left 600ms cubic-bezier(0.22,1,0.36,1),width 600ms cubic-bezier(0.22,1,0.36,1) !important",
     );
+  });
+
+  test("disables the indicator transition when the user prefers reduced motion", () => {
+    mockUseMediaQuery.mockReturnValue(true);
+    renderGroup({ value: "foo" });
+
+    expect(
+      screen.getByTestId("button-toggle-active-indicator"),
+    ).toHaveStyleRule("transition", "none !important");
+  });
+
+  test("hides the indicator and lets the pressed button paint its own background when not sliding", () => {
+    renderGroup({ value: "foo" });
+
+    expect(
+      screen.getByTestId("button-toggle-active-indicator"),
+    ).toHaveStyleRule("opacity", "0");
+    expect(screen.getByRole("button", { name: "Foo" })).toHaveStyleRule(
+      "background",
+      "var(--button-typical-toggle-bg-active)",
+    );
+  });
+
+  test("shows the indicator while it slides to a newly pressed button, then hands back to the button", () => {
+    const { rerender } = renderGroup({ value: "foo" });
+    const group = (value: string) => (
+      <ButtonToggleGroup
+        id="button-toggle-group-id"
+        onChange={() => {}}
+        value={value}
+      >
+        <ButtonToggle value="foo">Foo</ButtonToggle>
+        <ButtonToggle value="bar">Bar</ButtonToggle>
+      </ButtonToggleGroup>
+    );
+
+    rerender(group("bar"));
+
+    const indicator = screen.getByTestId("button-toggle-active-indicator");
+    expect(indicator).toHaveStyleRule("opacity", "1");
+    expect(screen.getByRole("button", { name: "Bar" })).not.toHaveStyleRule(
+      "background",
+      "var(--button-typical-toggle-bg-active)",
+    );
+
+    expect(screen.getByRole("button", { name: "Bar" })).not.toHaveStyleRule(
+      "background",
+      "var(--button-typical-toggle-bg-hover)",
+      { modifier: ":hover" },
+    );
+
+    fireEvent.transitionEnd(indicator);
+
+    expect(indicator).toHaveStyleRule("opacity", "0");
+    expect(screen.getByRole("button", { name: "Bar" })).toHaveStyleRule(
+      "background",
+      "var(--button-typical-toggle-bg-active)",
+    );
+    expect(screen.getByRole("button", { name: "Bar" })).toHaveStyleRule(
+      "background",
+      "var(--button-typical-toggle-bg-hover)",
+      { modifier: ":hover" },
+    );
+  });
+
+  test("does not show the indicator when the user prefers reduced motion", () => {
+    mockUseMediaQuery.mockReturnValue(true);
+    const { rerender } = renderGroup({ value: "foo" });
+
+    rerender(
+      <ButtonToggleGroup
+        id="button-toggle-group-id"
+        onChange={() => {}}
+        value="bar"
+      >
+        <ButtonToggle value="foo">Foo</ButtonToggle>
+        <ButtonToggle value="bar">Bar</ButtonToggle>
+      </ButtonToggleGroup>,
+    );
+
+    expect(
+      screen.getByTestId("button-toggle-active-indicator"),
+    ).toHaveStyleRule("opacity", "0");
   });
 
   test("uses the disabled active background when the group is disabled", () => {
     renderGroup({ value: "foo", disabled: true });
+
+    expect(
+      screen.getByTestId("button-toggle-active-indicator"),
+    ).toHaveStyleRule(
+      "background",
+      "var(--button-typical-toggle-bg-active-disabled)",
+    );
+  });
+
+  test("uses the disabled active background when the selected button is disabled", () => {
+    const { rerender } = renderGroup({ value: "foo" });
+
+    rerender(
+      <ButtonToggleGroup
+        id="button-toggle-group-id"
+        onChange={() => {}}
+        value="bar"
+      >
+        <ButtonToggle value="foo">Foo</ButtonToggle>
+        <ButtonToggle value="bar" disabled>
+          Bar
+        </ButtonToggle>
+      </ButtonToggleGroup>,
+    );
 
     expect(
       screen.getByTestId("button-toggle-active-indicator"),

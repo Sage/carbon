@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
 
 import { MarginProps } from "styled-system";
 import tagComponent, {
@@ -15,6 +15,10 @@ import Events from "../../../__internal__/utils/helpers/events";
 import ButtonToggleGroupContext from "./__internal__/button-toggle-group.context";
 import Label from "../../../__internal__/label";
 import HintText from "../../../__internal__/hint-text";
+import useMediaQuery from "../../../hooks/useMediaQuery";
+import { getWindow } from "../../../__internal__/dom/globals";
+
+const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** Unique id for the root element of the component. */
@@ -104,6 +108,9 @@ const ButtonToggleGroup = ({
   ...props
 }: ButtonToggleGroupProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useMediaQuery(
+    "(prefers-reduced-motion: reduce)",
+  );
 
   const actualHint = inputHint || labelHelp;
   const labelId = label ? `${id}-label` : undefined;
@@ -117,12 +124,21 @@ const ButtonToggleGroup = ({
   // needs to be state not ref, so that a rerender is triggered
   const [firstButton, setFirstButton] = useState<HTMLButtonElement>();
 
-  const [indicatorRect, setIndicatorRect] = useState<{
-    left: number;
-    top: number;
-    width: number;
-    height: number;
+  const [indicator, setIndicator] = useState<{
+    rect: { left: number; top: number; width: number; height: number };
+    isDisabled: boolean;
   } | null>(null);
+
+  // the indicator is only visible while it slides, otherwise the pressed button paints its own background
+  const [isIndicatorSliding, setIsIndicatorSliding] = useState(false);
+  const previousValue = useRef(value);
+
+  useIsomorphicLayoutEffect(() => {
+    if (value && previousValue.current && value !== previousValue.current) {
+      setIsIndicatorSliding(!prefersReducedMotion);
+    }
+    previousValue.current = value;
+  }, [value, prefersReducedMotion]);
 
   const updateIndicator = () => {
     const activeButton = wrapperRef.current?.querySelector<HTMLButtonElement>(
@@ -130,32 +146,36 @@ const ButtonToggleGroup = ({
     );
 
     if (!activeButton) {
-      setIndicatorRect(null);
+      setIndicator(null);
       return;
     }
 
     const next = {
-      left: activeButton.offsetLeft,
-      top: activeButton.offsetTop,
-      width: activeButton.offsetWidth,
-      height: activeButton.offsetHeight,
+      rect: {
+        left: activeButton.offsetLeft,
+        top: activeButton.offsetTop,
+        width: activeButton.offsetWidth,
+        height: activeButton.offsetHeight,
+      },
+      isDisabled: activeButton.disabled,
     };
 
-    setIndicatorRect((prev) =>
+    setIndicator((prev) =>
       prev &&
-      prev.left === next.left &&
-      prev.top === next.top &&
-      prev.width === next.width &&
-      prev.height === next.height
+      prev.rect.left === next.rect.left &&
+      prev.rect.top === next.rect.top &&
+      prev.rect.width === next.rect.width &&
+      prev.rect.height === next.rect.height &&
+      prev.isDisabled === next.isDisabled
         ? prev
         : next,
     );
   };
 
   // runs after every render so the indicator follows changes to the pressed button, children and layout
-  useLayoutEffect(updateIndicator);
+  useIsomorphicLayoutEffect(updateIndicator);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const wrapper = wrapperRef.current;
     const observer = new ResizeObserver(updateIndicator);
     /* istanbul ignore else */
@@ -243,13 +263,16 @@ const ButtonToggleGroup = ({
         $isDisabled={disabled}
         $fullWidth={fullWidth}
       >
-        {indicatorRect && (
+        {indicator && (
           <StyledActiveIndicator
             aria-hidden
             data-role="button-toggle-active-indicator"
             $size={size}
-            $isDisabled={disabled}
-            $rect={indicatorRect}
+            $isDisabled={disabled || indicator.isDisabled}
+            $isSliding={isIndicatorSliding}
+            $disableTransitions={!!prefersReducedMotion}
+            $rect={indicator.rect}
+            onTransitionEnd={() => setIsIndicatorSliding(false)}
           />
         )}
         <ButtonToggleGroupContext.Provider
@@ -264,6 +287,7 @@ const ButtonToggleGroup = ({
             hintTextId: inputHint ? hintTextId : undefined,
             size,
             fullWidth,
+            isIndicatorSliding,
           }}
         >
           {children}

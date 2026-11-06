@@ -2,6 +2,44 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ButtonToggleGroup, ButtonToggle } from ".";
+import useMediaQuery from "../../hooks/useMediaQuery";
+
+jest.mock("../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  mockUseMediaQuery.mockReturnValue(false);
+});
+
+test("should apply a colour transition by default", () => {
+  render(<ButtonToggle>Button</ButtonToggle>);
+
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "transition",
+    "color 200ms ease !important",
+  );
+});
+
+test("should disable the colour transition when the user prefers reduced motion", () => {
+  mockUseMediaQuery.mockReturnValue(true);
+  render(<ButtonToggle>Button</ButtonToggle>);
+
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "transition",
+    "none !important",
+  );
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "transition",
+    "none !important",
+    { modifier: "*" },
+  );
+});
 
 test("should call `onClick` when the button is clicked", async () => {
   const onClick = jest.fn();

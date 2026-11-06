@@ -12,6 +12,8 @@ type ButtonToggleGroupContext = {
   hintTextId?: string;
   size?: "small" | "medium" | "large";
   fullWidth?: boolean;
+  /** Whether the active indicator is currently moving between toggles */
+  isIndicatorSliding?: boolean;
 };
 
 export default React.createContext<ButtonToggleGroupContext>({});

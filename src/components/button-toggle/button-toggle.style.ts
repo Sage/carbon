@@ -36,13 +36,22 @@ interface StyledButtonToggleProps {
   $active?: boolean;
   $iconOnly?: boolean;
   $fullWidth?: boolean;
-  $inGroup?: boolean;
+  $indicatorSliding?: boolean;
+  $disableTransitions?: boolean;
 }
 
 const StyledButtonToggle = styled.button.attrs(
   applyBaseTheme,
 )<StyledButtonToggleProps>`
-  ${({ $active, $size, disabled, $iconOnly, $fullWidth, $inGroup }) => css`
+  ${({
+    $active,
+    $size,
+    disabled,
+    $iconOnly,
+    $fullWidth,
+    $indicatorSliding,
+    $disableTransitions,
+  }) => css`
     position: relative;
     z-index: 1;
     display: inline-flex;
@@ -77,10 +86,18 @@ const StyledButtonToggle = styled.button.attrs(
     color: var(--button-typical-toggle-label-default);
     font: ${sizeMap[$size].font};
     text-align: center;
+    transition: ${$disableTransitions ? "none" : "color 200ms ease"} !important;
+
+    * {
+      transition: ${$disableTransitions
+        ? "none"
+        : "color 200ms ease"} !important;
+    }
 
     ${$active &&
     css`
-      ${!$inGroup && "background: var(--button-typical-toggle-bg-active);"}
+      ${!$indicatorSliding &&
+      "background: var(--button-typical-toggle-bg-active);"}
       color: var(--button-typical-toggle-label-active);
     `}
 
@@ -91,7 +108,7 @@ const StyledButtonToggle = styled.button.attrs(
 
       ${$active &&
       css`
-        ${!$inGroup &&
+        ${!$indicatorSliding &&
         "background: var(--button-typical-toggle-bg-active-disabled);"}
         color: var(--button-typical-toggle-label-active-disabled);
       `}
@@ -99,11 +116,11 @@ const StyledButtonToggle = styled.button.attrs(
 
     ${!disabled &&
     css`
-      &:focus-visible {
+      &:focus {
         ${addFocusStyling()}
       }
 
-      ${!$active &&
+      ${!($active && $indicatorSliding) &&
       css`
         &:hover {
           background: var(--button-typical-toggle-bg-hover);
