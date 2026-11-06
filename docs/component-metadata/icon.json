@@ -1,0 +1,25 @@
+{
+  "component": "Icon",
+  "summary": "Displays a visual symbol from Carbon's bundled icon set.",
+  "alternatives": [
+    {
+      "component": "ButtonNext",
+      "when": "The icon needs to perform an action rather than convey or support information."
+    }
+  ],
+  "pitfalls": [
+    "Hide decorative icons from assistive technologies with aria-hidden.",
+    "For an icon that conveys meaning on its own, set role to img and provide ariaLabel.",
+    "Prefer a semantic color preset over an arbitrary CSS color."
+  ],
+  "examples": [
+    {
+      "story": "Default",
+      "description": "Render a decorative icon that is hidden from assistive technologies."
+    },
+    {
+      "story": "WithAccessibleLabel",
+      "description": "Give a meaningful standalone icon an image role and accessible name."
+    }
+  ]
+}
