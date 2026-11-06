@@ -274,14 +274,19 @@ export class StyledSpanNode extends TextNode {
     };
   }
 
-  static importJSON(serializedNode: SerializedSpanNode): StyledSpanNode {
+  static importJSON(
+    serializedNode:
+      | SerializedSpanNode
+      | Parameters<typeof TextNode.importJSON>[0],
+  ): StyledSpanNode {
+    const span = serializedNode as unknown as SerializedSpanNode;
     const node = new StyledSpanNode(
-      serializedNode.text,
-      serializedNode.fontWeight,
-      serializedNode.fontSize,
-      serializedNode.lineHeight,
+      span.text,
+      span.fontWeight,
+      span.fontSize,
+      span.lineHeight,
     );
-    return node.updateFromJSON(serializedNode);
+    return node.updateFromJSON(span);
   }
 
   createDOM(_config: EditorConfig): HTMLElement {

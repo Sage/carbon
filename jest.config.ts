@@ -6,7 +6,12 @@ import coverageThresholds from "./coverage-thresholds.json";
 const rootDir = resolve(__dirname, ".");
 const isCI = process.env.CI === "true";
 
-const esmOnlyPackages = ["react-error-boundary"];
+const esmOnlyPackages = [
+  "react-error-boundary",
+  "lexical",
+  "@lexical",
+  "@preact/signals-core",
+];
 
 const baseProjectConfig: Config = {
   rootDir,
