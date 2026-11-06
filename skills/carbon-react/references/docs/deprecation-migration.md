@@ -63,7 +63,9 @@ import Dialog from "carbon-react/lib/components/dialog";
 
 The `role`, `aria-hidden`, `aria-live` and `aria-atomic` props on `Box` are deprecated. `Box` is intended for layout only; using it to provide semantics or accessibility behaviour can lead to component misuse. These props will continue to work during a grace period before they are removed.
 
-Before you migrate, check whether a Carbon component already provides the required semantics and behaviour, such as `Message` for status content or `Typography` for text. `Message` does not provide a live region itself, so if you replace a live-region `Box` with `Message`, place it inside a live region that is rendered on page load and remains in the DOM, so updates are still announced automatically. Where no suitable component exists, keep `Box` for layout and move the accessibility attributes to a native HTML element.
+Components whose props extend `BoxProps`, such as `FlexTileCell` and `DismissibleBox`, inherit these deprecations. Migrate them in the same way as `Box`.
+
+Before you migrate, check whether a Carbon component already provides the required semantics and behaviour, such as `Message` for status content, `Typography` for text, or the `aria-hidden` prop on `Icon` for decorative icons. `Message` does not provide a live region itself, so if you replace a live-region `Box` with `Message`, place it inside a live region that is rendered on page load and remains in the DOM, so updates are still announced automatically. Where no suitable component exists, keep `Box` for layout and move the accessibility attributes to a native HTML element.
 
 ```jsx
 // Before
@@ -87,9 +89,7 @@ Before you migrate, check whether a Carbon component already provides the requir
 
 // After
 <Box display="flex">
-  <span aria-hidden="true">
-    <Icon type="tick" />
-  </span>
+  <Icon type="tick" aria-hidden />
 </Box>
 ```
 
