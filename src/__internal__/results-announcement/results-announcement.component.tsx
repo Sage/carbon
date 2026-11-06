@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import visuallyHiddenStyles from "../../../style/utils/visually-hidden";
-import useDebounce from "../../../hooks/__internal__/useDebounce";
+import visuallyHiddenStyles from "../../style/utils/visually-hidden";
+import useDebounce from "../../hooks/__internal__/useDebounce";
 
 const ResultsAnnouncementContainer = styled.div`
   ${visuallyHiddenStyles}
@@ -9,13 +9,13 @@ const ResultsAnnouncementContainer = styled.div`
 
 export type ResultsAnnouncementProps = {
   announcement?: string;
-  searchValue?: string;
+  announcementKey?: string | number;
   delay?: number;
 };
 
 const ResultsAnnouncement = ({
   announcement,
-  searchValue,
+  announcementKey,
   delay = 1500,
 }: ResultsAnnouncementProps) => {
   const [content, setContent] = useState("");
@@ -43,7 +43,7 @@ const ResultsAnnouncement = ({
     }
 
     updateAnnouncement(announcement);
-  }, [announcement, searchValue, updateAnnouncement]);
+  }, [announcement, announcementKey, updateAnnouncement]);
 
   return (
     <ResultsAnnouncementContainer>
