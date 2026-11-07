@@ -1,5 +1,5 @@
 import React from "react";
-import { SpaceProps } from "styled-system";
+import { SpaceProps } from "../../style/utils/spacing";
 
 import useLocale from "../../hooks/__internal__/useLocale";
 import {

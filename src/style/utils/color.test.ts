@@ -15,6 +15,13 @@ const assert = (
 
 it("changes the opacity", () => {
   assert({ opacity: "10%" }, { opacity: "10%" });
+
+  expect(
+    color({
+      theme: baseTheme,
+      opacity: 0,
+    }),
+  ).toEqual({ opacity: 0 });
 });
 
 describe.each([
@@ -40,6 +47,39 @@ describe.each([
       },
       {
         [css]: "#008200",
+      },
+    );
+  });
+
+  it("uses nested theme.colors", () => {
+    assert(
+      {
+        [prop]: "destructive.hover",
+      },
+      {
+        [css]: "#9F2D3F",
+      },
+    );
+  });
+
+  it("falls back when a nested theme-color path is incomplete", () => {
+    assert(
+      {
+        [prop]: "destructive.missing",
+      },
+      {
+        [css]: "destructive.missing",
+      },
+    );
+  });
+
+  it("falls back when nested lookup reaches a missing intermediate value", () => {
+    assert(
+      {
+        [prop]: "destructive.missing.value",
+      },
+      {
+        [css]: "destructive.missing.value",
       },
     );
   });

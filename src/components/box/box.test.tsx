@@ -68,6 +68,32 @@ testStyledSystemPosition(
   () => screen.getByTestId("box"),
 );
 
+test("renders global-space aliases while retaining legacy numeric spacing", () => {
+  render(<Box p="m" m={8} data-role="box" />);
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyleRule("padding", "var(--global-space-layout-m)");
+  expect(box).toHaveStyleRule("margin", "var(--spacing800)");
+});
+
+test("preserves unitless declarations through the styled-components adapter", () => {
+  render(<Box flexGrow={1} position="fixed" data-role="box" />);
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyleRule("flex-grow", "1");
+  expect(box).toHaveStyleRule("z-index", "3");
+});
+
+test("converts nested responsive declarations through the styled-components adapter", () => {
+  render(<Box minWidth={[1, 2]} data-role="box" />);
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyleRule("min-width", "1px");
+  expect(box).toHaveStyleRule("min-width", "2px", {
+    media: "screen and (min-width: 40em)",
+  });
+});
+
 test("renders Box with 'break-word' overflowWrap style when overflowWrap prop is set to 'break-word'", () => {
   render(<Box overflowWrap="break-word" data-role="box" />);
 

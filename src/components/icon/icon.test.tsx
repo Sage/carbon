@@ -9,8 +9,13 @@ import iconConfig from "./icon-config";
 import browserTypeCheck from "../../__internal__/utils/helpers/browser-type-check";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
+import styledColor from "../../style/utils/color";
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
+jest.mock("../../style/utils/color", () => {
+  const actual = jest.requireActual("../../style/utils/color");
+  return { __esModule: true, ...actual, default: jest.fn(actual.default) };
+});
 
 test("renders with an icon type, via the `type` prop", () => {
   render(<Icon type="home" />);
@@ -40,6 +45,17 @@ test("supports arbitrary CSS color values for backward compatibility", () => {
   render(<Icon type="home" color="#123456" />);
 
   expect(screen.getByTestId("icon")).toHaveStyleRule("color", "#123456");
+});
+
+test("retains icon color and background fallbacks when color resolution is absent", () => {
+  const colorMock = styledColor as jest.MockedFunction<typeof styledColor>;
+  colorMock.mockReturnValueOnce({}).mockReturnValueOnce({});
+
+  render(<Icon type="home" color="#123456" bg="red" />);
+
+  const icon = screen.getByTestId("icon");
+  expect(icon).toHaveStyleRule("color", "var(--page-content-icon-default)");
+  expect(icon).toHaveStyleRule("background-color", "transparent");
 });
 
 test.each(["negative", "#123456"])(
