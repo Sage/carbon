@@ -63,6 +63,7 @@ export const StyledPageInfo = styled.div<StyledPageInfoProps>`
     flex: 1 0 0;
     white-space: nowrap;
     color: var(--input-labelset-label-default);
+    min-width: fit-content;
   `}
 `;
 

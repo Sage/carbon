@@ -8,30 +8,42 @@ beforeAll(() => {
   setupSelectMocks();
 });
 
-test("`next` and `last` buttons are not visible when on the last page", async () => {
+test("`next` and `last` buttons are disabled when on the last page", () => {
   render(<Pager onPagination={() => {}} totalRecords={100} currentPage={10} />);
 
   expect(
-    screen.queryByRole("button", {
-      name: "Go to next page (page 11 of 10)",
+    screen.getByRole("button", {
+      name: "Go to next page",
     }),
-  ).not.toBeInTheDocument();
+  ).toBeDisabled();
   expect(
-    screen.queryByRole("button", { name: "Go to last page (page 10 of 10)" }),
-  ).not.toBeInTheDocument();
+    screen.getByRole("button", { name: "Go to last page (page 10 of 10)" }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole("button", {
+      name: "Go to previous page (page 9 of 10)",
+    }),
+  ).toBeEnabled();
+  expect(
+    screen.getByRole("button", { name: "Go to first page (page 1 of 10)" }),
+  ).toBeEnabled();
 });
 
-test("`previous` and `first` buttons are not visible when on the first page", async () => {
+test("`previous` and `first` buttons are disabled when on the first page", () => {
   render(<Pager onPagination={() => {}} totalRecords={100} currentPage={1} />);
 
   expect(
-    screen.queryByRole("button", {
-      name: "Go to previous page (page 0 of 10)",
-    }),
-  ).not.toBeInTheDocument();
+    screen.getByRole("button", { name: "Go to previous page" }),
+  ).toBeDisabled();
   expect(
-    screen.queryByRole("button", { name: "Go to first page (page 1 of 10)" }),
-  ).not.toBeInTheDocument();
+    screen.getByRole("button", { name: "Go to first page (page 1 of 10)" }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole("button", { name: "Go to next page (page 2 of 10)" }),
+  ).toBeEnabled();
+  expect(
+    screen.getByRole("button", { name: "Go to last page (page 10 of 10)" }),
+  ).toBeEnabled();
 });
 
 test("does not render navigation buttons or current page input when there is only 1 page", () => {
