@@ -10,6 +10,7 @@ import React, {
 } from "react";
 
 import { DepthProvider } from "./__internal__/depth.context";
+import { ResponsiveVerticalMenuDivider } from "./responsive-vertical-menu-divider";
 import {
   useResponsiveVerticalMenu,
   ResponsiveVerticalMenuProvider,
@@ -21,6 +22,8 @@ import {
   StyledCloseButton,
   StyledGlobalVerticalMenuWrapper,
   StyledResponsiveMenu,
+  StyledResponsiveMenuDividerItem,
+  StyledCloseButtonWrapper,
 } from "./responsive-vertical-menu.style";
 
 import Modal from "../../../__internal__/modal";
@@ -30,6 +33,7 @@ import useMediaQuery from "../../../hooks/useMediaQuery";
 import useLocale from "../../../hooks/__internal__/useLocale";
 
 import FocusTrap from "../../../__internal__/focus-trap";
+import flattenChildren from "../../../__internal__/utils/helpers/flatten-children";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
@@ -271,7 +275,7 @@ const BaseMenu = forwardRef<
         )}
         <StyledButton
           active={active}
-          buttonType="tertiary"
+          variantType="tertiary"
           iconType="squares_nine"
           id="responsive-vertical-menu-launcher"
           onClick={handleButtonClick}
@@ -292,29 +296,20 @@ const BaseMenu = forwardRef<
                 id="responsive-vertical-menu-dialog"
                 {...modalAriaProps()}
               >
-                <div
-                  style={{
-                    backgroundColor: "rgb(38, 38, 38)",
-                    boxSizing: "border-box",
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    padding: "var(--global-space-layout-3-xs)",
-                    width: "100%",
-                  }}
-                >
+                <StyledCloseButtonWrapper>
                   <StyledCloseButton
                     aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuCloseButton()}
                     data-component="responsive-vertical-menu-close"
                     data-role="responsive-vertical-menu-close"
                     iconType="close"
                     size="small"
-                    buttonType="tertiary"
+                    variantType="tertiary"
                     onClick={() => {
                       setActive(false);
                       setActiveMenuItem(null);
                     }}
                   />
-                </div>
+                </StyledCloseButtonWrapper>
                 <StyledResponsiveMenu
                   height={height}
                   id="responsive-vertical-menu-primary"
@@ -323,10 +318,32 @@ const BaseMenu = forwardRef<
                   ref={menuRef}
                   responsive
                   tabIndex={-1}
-                  top="48px"
+                  top="40px"
                   width={width}
                 >
-                  {children}
+                  {flattenChildren(children).map((child, index, items) => {
+                    if (!React.isValidElement(child)) {
+                      return child;
+                    }
+
+                    const nextChild = items[index + 1];
+                    const hasDivider =
+                      responsiveMode &&
+                      child.type !== ResponsiveVerticalMenuDivider &&
+                      React.isValidElement(nextChild) &&
+                      nextChild.type !== ResponsiveVerticalMenuDivider;
+
+                    return (
+                      <React.Fragment key={child.key}>
+                        {child}
+                        {hasDivider && (
+                          <StyledResponsiveMenuDividerItem aria-hidden="true">
+                            <ResponsiveVerticalMenuDivider />
+                          </StyledResponsiveMenuDividerItem>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
                 </StyledResponsiveMenu>
               </ModalContainer>
             </FocusTrap>

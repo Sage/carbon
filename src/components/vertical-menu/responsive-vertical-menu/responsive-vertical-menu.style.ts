@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import Button from "../../button";
+import Button from "../../button/__next__";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 interface StyledResponsiveMenuProps {
@@ -34,25 +34,26 @@ export const ModalContainer = styled.div<{ width: string }>`
 `;
 
 export const StyledButton = styled(Button)<StyledButtonProps>`
+  border: none;
   border-radius: 0;
   background-color: var(
     ${({ active }) =>
-      active ? "--colorsActionMinorGray700" : "--colorsUtilityYin100"}
+      active ? "--nav-primary-bg-child" : "--nav-primary-bg-default"}
   );
 
   && [data-component="icon"]:not([data-color]) {
-    color: var(--colorsUtilityYang100);
+    color: var(--nav-primary-label-default);
   }
 
   &&:hover,
   &&:active {
-    background-color: var(--colorsActionMinorGray700);
+    background-color: var(--nav-primary-bg-child);
     border-color: transparent;
   }
 
   &&:hover [data-component="icon"]:not([data-color]),
   &&:active [data-component="icon"]:not([data-color]) {
-    color: var(--colorsUtilityYang100);
+    color: var(--nav-primary-label-default);
   }
 
   &:focus {
@@ -65,23 +66,39 @@ export const StyledButton = styled(Button)<StyledButtonProps>`
   }
 `;
 
+export const StyledCloseButtonWrapper = styled.div`
+  background-color: var(--nav-primary-bg-child);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 var(--global-space-layout-3-xs);
+  width: 100%;
+  height: 40px;
+`;
+
 export const StyledCloseButton = styled(Button)`
+  border: none;
   border-radius: 0;
 
   && [data-component="icon"]:not([data-color]) {
-    color: var(--colorsUtilityYang100);
+    color: var(--nav-primary-label-default);
   }
 
   &&:hover,
   &&:active {
-    background-color: var(--colorsActionMinorGray700);
+    background-color: var(--nav-primary-bg-child);
     border-color: transparent;
   }
 
   &&:hover [data-component="icon"]:not([data-color]),
   &&:active [data-component="icon"]:not([data-color]) {
-    color: var(--colorsUtilityYang100);
+    color: var(--nav-primary-label-default);
   }
+
+  min-height: 32px;
+  height: 32px;
+  width: 32px;
+  margin-top: 4px;
 `;
 
 export const StyledGlobalVerticalMenuWrapper = styled.div`
@@ -93,33 +110,36 @@ export const StyledGlobalVerticalMenuWrapper = styled.div`
   width: fit-content;
 `;
 
+export const StyledResponsiveMenuDividerItem = styled.li`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
 export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
   margin: 0;
   padding: 0;
   align-items: stretch;
-  background-color: var(--colorsUtilityYin100);
+  background-color: var(--nav-primary-bg-default);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: ${({ height }) => height || "100%"};
   justify-content: flex-start;
   overflow-y: auto;
-  padding-bottom: var(--spacing100);
-  ${({ responsive }) =>
-    !responsive &&
-    css`
-      padding-left: var(--spacing200);
-      padding-right: var(--spacing200);
-    `};
-  padding-top: var(--spacing100);
+  ${({ responsive }) => css`
+    padding: ${responsive
+      ? "var(--global-space-comp-s)"
+      : "var(--global-space-comp-l)"};
+  `};
   position: fixed;
   width: ${({ width }) => width || "100%"};
   max-width: 375px;
   z-index: 1000;
   border-right: ${({ childOpen, menu }) =>
     menu === "secondary" || (!childOpen && menu === "primary")
-      ? "2px solid var(--colorsGray850)"
-      : "1px solid var(--colorsGray850)"};
+      ? "2px solid var(--nav-primary-bg-default)"
+      : "1px solid var(--nav-primary-bg-default)"};
 
   ${({ top }) => css`
     top: ${top};
@@ -129,7 +149,7 @@ export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
   ${({ childOpen }) =>
     childOpen &&
     css`
-      padding-right: calc(var(--spacing200) + 1px);
+      padding-right: calc(var(--global-space-comp-l) + 1px);
     `}
 
   ${({ height, left, menu }) =>
@@ -138,4 +158,11 @@ export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
       left: ${left};
       height: ${height};
     `}
+
+  ${({ responsive, menu }) =>
+    !responsive &&
+    menu === "secondary" &&
+    css`
+      border-left: 1px solid var(--nav-primary-divider);
+    `};
 `;

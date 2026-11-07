@@ -6,16 +6,19 @@ import tagComponent, {
 import useLocale from "../../../hooks/__internal__/useLocale";
 import Portal from "../../portal";
 import FocusTrap from "../../../__internal__/focus-trap/focus-trap.component";
-import IconButton from "../../icon-button";
 import Icon from "../../icon";
-import Box from "../../box";
 import {
   StyledList,
+  StyledListWrapper,
+  StyledHr,
   StyledVerticalMenuFullScreen,
+  StyledVerticalMenuCloseBar,
+  StyledCloseButton,
 } from "../vertical-menu.style";
 import { VerticalMenuProvider } from "../__internal__/vertical-menu.context";
 import { getDocument } from "../../../__internal__/dom/globals";
 import Events from "../../../__internal__/utils/helpers/events/events";
+import flattenChildren from "../../../__internal__/utils/helpers/flatten-children";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
@@ -73,6 +76,8 @@ export const VerticalMenuFullScreen = ({
     focusCallToActionElement: safeDocument?.activeElement as HTMLElement,
   });
 
+  const menuItems = flattenChildren(children);
+
   return (
     <Portal>
       <FocusTrap isOpen={isOpen} wrapperRef={menuWrapperRef}>
@@ -84,28 +89,33 @@ export const VerticalMenuFullScreen = ({
           aria-labelledby={ariaLabelledBy}
           {...tagComponent("vertical-menu-full-screen", rest)}
         >
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            height="60px"
-            alignItems="flex-start"
-            px="20px"
-            pt="20px"
-            boxSizing="border-box"
-          >
-            <IconButton
+          <StyledVerticalMenuCloseBar>
+            <StyledCloseButton
               aria-label={l.verticalMenuFullScreen.ariaLabels.close()}
-              onClick={onClose}
+              onClick={(event) =>
+                onClose(event as React.MouseEvent<HTMLButtonElement>)
+              }
               data-element="close"
+              variantType="tertiary"
             >
-              <Icon
-                type="close"
-                color="var(--colorsComponentsLeftnavWinterStandardContent)"
-              />
-            </IconButton>
-          </Box>
+              <Icon size="small" type="close" />
+            </StyledCloseButton>
+          </StyledVerticalMenuCloseBar>
           <VerticalMenuProvider value={{ isFullScreen: true }}>
-            <StyledList>{children}</StyledList>
+            <StyledListWrapper>
+              <StyledList>
+                {React.Children.map(menuItems, (child, index) => (
+                  <React.Fragment>
+                    {child}
+                    {index < menuItems.length - 1 && (
+                      <li aria-hidden="true">
+                        <StyledHr />
+                      </li>
+                    )}
+                  </React.Fragment>
+                ))}
+              </StyledList>
+            </StyledListWrapper>
           </VerticalMenuProvider>
         </StyledVerticalMenuFullScreen>
       </FocusTrap>

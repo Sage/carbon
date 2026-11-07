@@ -163,6 +163,9 @@ test.describe("VerticalMenuFullScreen test background scroll when tabbing", () =
   }) => {
     await mount(<VerticalMenuFullScreenBackgroundScrollTest />);
 
+    await verticalMenuFullScreen(page).focus();
+    await expect(verticalMenuFullScreen(page)).toBeFocused();
+
     await page.keyboard.press("Tab");
     await page.keyboard.press("Tab");
     await page.keyboard.press("Tab");
@@ -179,6 +182,9 @@ test.describe("VerticalMenuFullScreen test background scroll when tabbing", () =
     page,
   }) => {
     await mount(<VerticalMenuFullScreenBackgroundScrollTest />);
+
+    await verticalMenuFullScreen(page).focus();
+    await expect(verticalMenuFullScreen(page)).toBeFocused();
 
     await page.keyboard.press("Shift+Tab");
     await page.keyboard.press("Shift+Tab");

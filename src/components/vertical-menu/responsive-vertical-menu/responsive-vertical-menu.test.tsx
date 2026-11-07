@@ -15,6 +15,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import I18nProvider from "../../../components/i18n-provider";
 import Logger from "../../../__internal__/utils/logger";
 import Button from "../../button";
+import { StyledResponsiveMenuItem } from "./responsive-vertical-menu-item/responsive-vertical-menu-item.style";
 
 jest.mock("../../../hooks/__internal__/useIsAboveBreakpoint");
 jest.mock("../../../hooks/useMediaQuery");
@@ -92,6 +93,19 @@ afterEach(() => {
   jest.useRealTimers();
 
   jest.clearAllMocks();
+});
+
+test("uses the default label color for a responsive top-level item without children", () => {
+  render(
+    <StyledResponsiveMenuItem depth={0} responsive hasChildren={false}>
+      Menu Item
+    </StyledResponsiveMenuItem>,
+  );
+
+  const menuItem = screen.getByRole("button", { name: "Menu Item" });
+
+  expect(menuItem).toHaveStyleRule("color", "var(--nav-primary-label-default)");
+  expect(menuItem).toHaveStyleRule("cursor", "default");
 });
 
 test("renders correctly", async () => {
@@ -940,12 +954,18 @@ test("has the correct styling when interacting", async () => {
   );
   expect(expansionIcon).toHaveStyleRule("rotate", "0deg");
   expect(expansionIcon).toHaveStyleRule("transition", "rotate 0.2s ease-in");
-  expect(menuItem).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 
   await user.click(menuItem);
 
   expect(expansionIcon).toHaveStyleRule("transition", "rotate 0.2s ease-out");
-  expect(menuItem).toHaveStyleRule("background-color", "var(--colorsGray850)");
+  expect(menuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-child)",
+  );
 
   const menuItem2 = screen.getByTestId("menu-item-2");
   const expansionIcon2 = within(menuItem2).getByTestId(
@@ -953,12 +973,18 @@ test("has the correct styling when interacting", async () => {
   );
   expect(expansionIcon2).toHaveStyleRule("rotate", "0deg");
   expect(expansionIcon2).toHaveStyleRule("transition", "rotate 0.2s ease-in");
-  expect(menuItem2).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem2).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 
   await user.click(menuItem2);
 
   expect(expansionIcon2).toHaveStyleRule("transition", "rotate 0.2s ease-out");
-  expect(menuItem2).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem2).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 
   const menuItem4 = screen.getByTestId("menu-item-4");
   expect(menuItem4).toHaveStyleRule("width", "100%");
@@ -1002,23 +1028,35 @@ test("has the correct styling when interacting and responsive", async () => {
   await user.click(launcherButton);
 
   const menuItem = screen.getByTestId("menu-item-1");
-  expect(menuItem).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 
   await user.click(menuItem);
 
-  expect(menuItem).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 
   const menuItem2 = screen.getByTestId("menu-item-2");
   const expansionIcon = within(menuItem2).getByTestId(
     "responsive-vertical-menu-expander-icon",
   );
   expect(expansionIcon).toHaveStyleRule("transition", "rotate 0.2s ease-in");
-  expect(menuItem2).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem2).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 
   await user.click(menuItem2);
 
   expect(expansionIcon).toHaveStyleRule("transition", "rotate 0.2s ease-out");
-  expect(menuItem2).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem2).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 
   const nestedMenu = screen.getByTestId("menu-item-2-nested-menu");
   expect(nestedMenu).toHaveStyleRule("width", "100%");
@@ -1062,12 +1100,18 @@ test("respects reduced motion and has the correct styling when interacting", asy
   );
   expect(expansionIcon).toHaveStyleRule("rotate", "0deg");
   expect(expansionIcon).toHaveStyleRule("transition", "rotate 0 ease-in");
-  expect(menuItem).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 
   await user.click(menuItem);
 
   expect(expansionIcon).toHaveStyleRule("transition", "rotate 0 ease-out");
-  expect(menuItem).toHaveStyleRule("background-color", "var(--colorsGray850)");
+  expect(menuItem).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-child)",
+  );
 
   const menuItem2 = screen.getByTestId("menu-item-2");
   const expansionIcon2 = within(menuItem2).getByTestId(
@@ -1075,12 +1119,18 @@ test("respects reduced motion and has the correct styling when interacting", asy
   );
   expect(expansionIcon2).toHaveStyleRule("rotate", "0deg");
   expect(expansionIcon2).toHaveStyleRule("transition", "rotate 0 ease-in");
-  expect(menuItem2).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem2).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 
   await user.click(menuItem2);
 
   expect(expansionIcon2).toHaveStyleRule("transition", "rotate 0 ease-out");
-  expect(menuItem2).toHaveStyleRule("background-color", "transparent");
+  expect(menuItem2).toHaveStyleRule(
+    "background-color",
+    "var(--nav-primary-bg-default)",
+  );
 });
 
 test(`anchor links are correctly rendered`, async () => {
@@ -1221,9 +1271,100 @@ test("renders dividers correctly when responsive", async () => {
   const menuItem = screen.getByTestId("menu-item-2");
   await user.click(menuItem);
 
-  const divider = screen.getByTestId("responsive-vertical-menu-divider");
-  expect(divider).toBeInTheDocument();
-  expect(divider).toHaveStyle("max-width: 88%");
+  const dividers = screen.getAllByTestId("responsive-vertical-menu-divider");
+  expect(dividers).toHaveLength(2);
+  expect(dividers[1]).toHaveStyle("max-width: 88%");
+});
+
+test("adds dividers between list items in responsive mode", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem label="Menu Item 1" />
+      <ResponsiveVerticalMenuItem label="Menu Item 2" />
+    </ResponsiveVerticalMenu>,
+  );
+
+  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
+
+  expect(
+    screen.getAllByTestId("responsive-vertical-menu-divider"),
+  ).toHaveLength(1);
+  const listItems = screen.getAllByRole("listitem", { hidden: true });
+  expect(listItems).toHaveLength(3);
+  expect(listItems[1]).toHaveAttribute("aria-hidden", "true");
+  expect(
+    within(listItems[1]).getByTestId("responsive-vertical-menu-divider"),
+  ).toBeInTheDocument();
+  expect(screen.getByText("Menu Item 1")).toBeVisible();
+  expect(screen.getByText("Menu Item 2")).toBeVisible();
+});
+
+test("adds dividers between items wrapped in fragments in responsive mode", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenu>
+      <>
+        <ResponsiveVerticalMenuItem label="Menu Item 1" />
+        <>
+          <ResponsiveVerticalMenuItem label="Menu Item 2" />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem label="Menu Item 3" />
+        </>
+      </>
+      <ResponsiveVerticalMenuItem label="Menu Item 4" />
+    </ResponsiveVerticalMenu>,
+  );
+
+  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
+
+  expect(
+    screen.getAllByTestId("responsive-vertical-menu-divider"),
+  ).toHaveLength(3);
+});
+
+test("does not remount an item when a sibling is appended in responsive mode", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  const renderMenu = (extraItem: boolean) => (
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem label="Menu Item 1" id="menu-item-1" />
+      {extraItem && <ResponsiveVerticalMenuItem label="Menu Item 2" />}
+    </ResponsiveVerticalMenu>
+  );
+
+  const { rerender } = render(renderMenu(false));
+
+  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
+  const itemBefore = screen.getByText("Menu Item 1");
+
+  rerender(renderMenu(true));
+
+  expect(screen.getByText("Menu Item 1")).toBe(itemBefore);
+});
+
+test("renders non-element children without dividers in responsive mode", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem label="Menu Item 1" />
+      plain text
+    </ResponsiveVerticalMenu>,
+  );
+
+  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
+
+  expect(screen.getByText("plain text")).toBeVisible();
+  expect(
+    screen.queryByTestId("responsive-vertical-menu-divider"),
+  ).not.toBeInTheDocument();
 });
 
 test("should allow an onClick handler to be passed to items", async () => {
@@ -1310,93 +1451,6 @@ test("items with children do not pass `target` and `rel` props to the underlying
   expect(menuItem).not.toHaveAttribute("href", "https://example.com");
   expect(menuItem).not.toHaveAttribute("target", "_blank");
   expect(menuItem).not.toHaveAttribute("rel", "noopener noreferrer");
-});
-
-test("nested menu items are correctly justified when icons are not present", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  mockUseIsAboveBreakpoint.mockReturnValue(false);
-
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-1"
-        id="menu-item-1"
-        label="Menu Item 1"
-        href="https://example.com"
-      >
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-2"
-          id="menu-item-2"
-          label="Menu Item 2"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-3"
-            id="menu-item-3"
-            label="Menu Item 3"
-          />
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenuItem>
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-  await user.click(launcherButton);
-
-  const menuItem = screen.getByTestId("menu-item-1");
-  await user.click(menuItem);
-
-  const menuItem2 = screen.getByTestId("menu-item-2");
-  await user.click(menuItem2);
-
-  const nestedMenu = screen.getByTestId("menu-item-2-nested-menu-wrapper");
-  expect(nestedMenu).toHaveStyleRule("justify-content", "flex-start");
-});
-
-test("nested menu items are correctly justified when icons are present", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  mockUseIsAboveBreakpoint.mockReturnValue(false);
-
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-1"
-        icon="home"
-        id="menu-item-1"
-        label="Menu Item 1"
-        href="https://example.com"
-      >
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-2"
-          icon="business"
-          id="menu-item-2"
-          label="Menu Item 2"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-3"
-            icon="analysis"
-            id="menu-item-3"
-            label="Menu Item 3"
-          />
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenuItem>
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-  await user.click(launcherButton);
-
-  const menuItem = screen.getByTestId("menu-item-1");
-  await user.click(menuItem);
-
-  const menuItem2 = screen.getByTestId("menu-item-2");
-  await user.click(menuItem2);
-
-  const nestedMenu = screen.getByTestId("menu-item-2-nested-menu-wrapper");
-  expect(nestedMenu).toHaveStyleRule("justify-content", "flex-end");
 });
 
 test("correct aria-label values are set", async () => {
@@ -1669,15 +1723,23 @@ test("applies the correct styling at depth level 4", async () => {
   await user.click(menuItem2);
 
   const menuItem3 = screen.getByTestId("menu-item-3");
-  expect(menuItem3).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
-    modifier: "&",
-  });
+  expect(menuItem3).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-m)",
+    {
+      modifier: "&",
+    },
+  );
 
   const menuItem4 = screen.getByTestId("menu-item-4");
 
-  expect(menuItem4).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
-    modifier: "&&",
-  });
+  expect(menuItem4).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-m)",
+    {
+      modifier: "&&",
+    },
+  );
 });
 
 test("applies the correct styling at depth level 4 when responsive", async () => {
@@ -1725,15 +1787,23 @@ test("applies the correct styling at depth level 4 when responsive", async () =>
   await user.click(menuItem2);
 
   const menuItem3 = screen.getByTestId("menu-item-3");
-  expect(menuItem3).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
-    modifier: "&",
-  });
+  expect(menuItem3).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-m)",
+    {
+      modifier: "&",
+    },
+  );
 
   const menuItem4 = screen.getByTestId("menu-item-4");
 
-  expect(menuItem4).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
-    modifier: "&&",
-  });
+  expect(menuItem4).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-m)",
+    {
+      modifier: "&&",
+    },
+  );
 });
 
 test("applies the correct styling at depth level 4 when responsive and rendered as a button", async () => {
@@ -1782,15 +1852,23 @@ test("applies the correct styling at depth level 4 when responsive and rendered 
   await user.click(menuItem2);
 
   const menuItem3 = screen.getByTestId("menu-item-3");
-  expect(menuItem3).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
-    modifier: "&",
-  });
+  expect(menuItem3).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-m)",
+    {
+      modifier: "&",
+    },
+  );
 
   const menuItem4 = screen.getByTestId("menu-item-4");
 
-  expect(menuItem4).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
-    modifier: "&&",
-  });
+  expect(menuItem4).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-m)",
+    {
+      modifier: "&&",
+    },
+  );
 });
 
 describe("Focus Trap", () => {

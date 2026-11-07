@@ -84,10 +84,37 @@ describe("VerticalMenuFullScreen", () => {
     expect(screen.getByRole("navigation")).toBeVisible();
   });
 
+  it("should render fragment-wrapped children with separators between items", () => {
+    render(
+      <VerticalMenuFullScreen isOpen onClose={() => {}}>
+        <React.Fragment>
+          <VerticalMenuItem title="Item1" href="/item-1" />
+          <React.Fragment>
+            <VerticalMenuItem title="Item2" href="/item-2" />
+            <VerticalMenuItem title="Item3" href="/item-3" />
+          </React.Fragment>
+        </React.Fragment>
+      </VerticalMenuFullScreen>,
+    );
+
+    expect(screen.getAllByRole("link").map((item) => item.textContent)).toEqual(
+      ["Item1", "Item2", "Item3"],
+    );
+    expect(screen.getAllByRole("listitem")).toHaveLength(3);
+    expect(screen.getAllByRole("separator", { hidden: true })).toHaveLength(2);
+  });
+
   it("should invoke onClose callback when close Icon is clicked", async () => {
     const user = userEvent.setup();
 
-    const onClose = jest.fn();
+    const onClose = jest.fn<
+      void,
+      [
+        | React.KeyboardEvent<HTMLButtonElement>
+        | React.MouseEvent<HTMLButtonElement>
+        | KeyboardEvent,
+      ]
+    >();
     render(
       <VerticalMenuFullScreen isOpen onClose={onClose}>
         <VerticalMenuItem title="Item1" />
