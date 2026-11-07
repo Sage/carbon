@@ -55,6 +55,9 @@ const meta: Meta<PlaygroundArgs> = {
       options: ["prominent", "subtle-grey", "subtle-white"],
       control: { type: "radio" },
     },
+    hasHiddenOuterBorders: {
+      control: { type: "boolean" },
+    },
     size: {
       options: ["extra-small", "small", "medium", "large", "extra-large"],
       control: { type: "radio" },

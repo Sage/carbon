@@ -1086,6 +1086,22 @@ describe("table props", () => {
     );
   });
 
+  it("hides the left, right and bottom outer borders when requested", () => {
+    renderTable({
+      rows: createRow("one", "Row one"),
+      tableProps: {
+        hasHiddenOuterBorders: true,
+        variant: "prominent",
+      },
+    });
+
+    const tableWrapper = screen.getByTestId("table-inner-wrapper");
+
+    expect(tableWrapper).toHaveStyleRule("border-inline-start", "none");
+    expect(tableWrapper).toHaveStyleRule("border-inline-end", "none");
+    expect(tableWrapper).toHaveStyleRule("border-block-end", "none");
+  });
+
   it("sets horizontal and vertical border thicknesses", () => {
     renderTable({
       rows: createRow("one", "Row one"),
@@ -1465,8 +1481,8 @@ describe("table header", () => {
 
   it.each([
     ["prominent", "default", "var(--table-header-harsh-bg-default)"],
-    ["subtle-white", "default", "var(--page-bg-default)"],
-    ["subtle-grey", "default", "var(--page-bg-alt)"],
+    ["subtle-white", "default", "var(--page-bg-alt)"],
+    ["subtle-grey", "default", "var(--page-bg-default)"],
     ["prominent", "alternate", "var(--table-header-harsh-bg-alt)"],
     ["subtle-white", "alternate", "var(--table-header-subtle-bg-alt)"],
     ["subtle-grey", "alternate", "var(--table-header-subtle-bg-alt)"],

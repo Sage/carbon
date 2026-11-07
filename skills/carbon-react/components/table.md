@@ -16,7 +16,8 @@ description: Carbon Table component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | The content of the table. |  |
-| horizontalBorderThickness | BorderThickness \| undefined | No |  | The thickness of the horizontal borders within the table. | "small" |
+| hasHiddenOuterBorders | boolean \| undefined | No |  | The thickness of the horizontal borders within the table. Hides the outer borders of the table. | false |
+| horizontalBorderThickness | BorderThickness \| undefined | No |  |  | "small" |
 | isDraggable | boolean \| undefined | No |  | Indicates whether the table is draggable. | false |
 | isZebraStriped | boolean \| undefined | No |  | Indicates whether the table should have zebra striping. | false |
 | maxHeight | string \| undefined | No |  | The maximum height of the table's scroll container. This constrains the table scroll container and enables vertical scrolling. |  |
