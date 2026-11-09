@@ -11,6 +11,7 @@ import DataGridHeader from "./__internal__/data-grid-header";
 import DataGridRow from "./__internal__/data-grid-row";
 import {
   StyledDataGridViewport,
+  StyledDataGridWrapper,
   StyledGrid,
   StyledSpacer,
 } from "./__internal__/data-grid.style";
@@ -52,8 +53,12 @@ const DataGridInner = <T extends object>(
     enableTabNavigation = false,
     disableVirtualization = false,
     rowOverscan = 5,
+    maxHeight,
+    maxWidth,
     height,
     width,
+    "aria-labelledby": ariaLabelledBy,
+    "aria-describedby": ariaDescribedBy,
   }: DataGridProps<T>,
   ref: React.ForwardedRef<DataGridHandle>,
 ) => {
@@ -101,7 +106,7 @@ const DataGridInner = <T extends object>(
     rowCount: rows.length,
     getRowKey: getVirtualRowKey,
     scrollElementRef: viewportRef,
-    height,
+    height: maxHeight ?? height,
     disabled: disableVirtualization,
     overscan: rowOverscan,
   });
@@ -180,61 +185,72 @@ const DataGridInner = <T extends object>(
   );
 
   return (
-    <StyledDataGridViewport
-      ref={viewportRef}
-      height={height}
-      width={width}
-      role="grid"
-      aria-label={ariaLabel}
-      aria-rowcount={rows.length + 1}
-      aria-colcount={columns.length}
+    <StyledDataGridWrapper
       data-component="data-grid-wrapper"
+      data-role="data-grid-wrapper"
     >
-      <StyledGrid contentWidth={columnModel.contentWidth}>
-        <DataGridHeader
-          columns={columns}
-          stickyOffsets={columnModel.stickyOffsets}
-          gridTemplateColumns={columnModel.gridTemplateColumns}
-        />
-        <div role="rowgroup" data-component="data-grid-body">
-          {virtualization.topPadding > 0 && (
-            <StyledSpacer
-              role="presentation"
-              height={virtualization.topPadding}
-            />
-          )}
-          {virtualization.renderedRowIndexes.map((rowIndex) => (
-            <DataGridRow
-              key={rowId(rows[rowIndex])}
-              rowIndex={rowIndex}
-              columns={columns}
-              activeColumn={active.row === rowIndex ? active.column : -1}
-              editingColumn={editing?.row === rowIndex ? editing.column : -1}
-              draftValue={editing?.row === rowIndex ? draftValue : undefined}
-              stickyOffsets={columnModel.stickyOffsets}
-              gridTemplateColumns={columnModel.gridTemplateColumns}
-              editorRef={editorRef}
-              getParams={getCellParams}
-              isReadOnly={isCellReadOnly}
-              registerCell={registerCell}
-              onActivate={activateCell}
-              onFocusPosition={focusCell}
-              onBeginEdit={beginEdit}
-              onDraftChange={setDraftValue}
-              onCommitEdit={commitEdit}
-              onCellKeyDown={keyboard.handleCellKeyDown}
-              onEditorKeyDown={keyboard.handleEditorKeyDown}
-            />
-          ))}
-          {virtualization.bottomPadding > 0 && (
-            <StyledSpacer
-              role="presentation"
-              height={virtualization.bottomPadding}
-            />
-          )}
-        </div>
-      </StyledGrid>
-    </StyledDataGridViewport>
+      <StyledDataGridViewport
+        ref={viewportRef}
+        $height={height}
+        $width={width}
+        $maxHeight={maxHeight}
+        $maxWidth={maxWidth}
+        role="grid"
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        aria-describedby={ariaDescribedBy}
+        aria-rowcount={rows.length + 1}
+        aria-colcount={columns.length}
+        data-component="data-grid"
+        data-role="data-grid"
+        data-element="data-grid-scroll-container"
+      >
+        <StyledGrid $contentWidth={columnModel.contentWidth}>
+          <DataGridHeader
+            columns={columns}
+            stickyOffsets={columnModel.stickyOffsets}
+            gridTemplateColumns={columnModel.gridTemplateColumns}
+          />
+          <div role="rowgroup" data-component="data-grid-body">
+            {virtualization.topPadding > 0 && (
+              <StyledSpacer
+                role="presentation"
+                $height={virtualization.topPadding}
+              />
+            )}
+            {virtualization.renderedRowIndexes.map((rowIndex) => (
+              <DataGridRow
+                key={rowId(rows[rowIndex])}
+                rowIndex={rowIndex}
+                columns={columns}
+                activeColumn={active.row === rowIndex ? active.column : -1}
+                editingColumn={editing?.row === rowIndex ? editing.column : -1}
+                draftValue={editing?.row === rowIndex ? draftValue : undefined}
+                stickyOffsets={columnModel.stickyOffsets}
+                gridTemplateColumns={columnModel.gridTemplateColumns}
+                editorRef={editorRef}
+                getParams={getCellParams}
+                isReadOnly={isCellReadOnly}
+                registerCell={registerCell}
+                onActivate={activateCell}
+                onFocusPosition={focusCell}
+                onBeginEdit={beginEdit}
+                onDraftChange={setDraftValue}
+                onCommitEdit={commitEdit}
+                onCellKeyDown={keyboard.handleCellKeyDown}
+                onEditorKeyDown={keyboard.handleEditorKeyDown}
+              />
+            ))}
+            {virtualization.bottomPadding > 0 && (
+              <StyledSpacer
+                role="presentation"
+                $height={virtualization.bottomPadding}
+              />
+            )}
+          </div>
+        </StyledGrid>
+      </StyledDataGridViewport>
+    </StyledDataGridWrapper>
   );
 };
 
