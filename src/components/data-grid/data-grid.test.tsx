@@ -40,6 +40,57 @@ test("renders object rows with accessible grid semantics", () => {
   expect(screen.getAllByRole("columnheader")).toHaveLength(3);
   expect(screen.getAllByRole("gridcell")).toHaveLength(6);
   expect(screen.getByText("One")).toBeVisible();
+  expect(screen.getAllByRole("row")[1]).toHaveAttribute(
+    "aria-selected",
+    "false",
+  );
+  expect(screen.getAllByRole("row")[2]).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+});
+
+test("can be named and described by external content", () => {
+  render(
+    <>
+      <h2 id="grid-heading">Invoice lines</h2>
+      <p id="grid-help">Use arrow keys to move between cells.</p>
+      <DataGrid
+        aria-labelledby="grid-heading"
+        aria-describedby="grid-help"
+        rows={rows}
+        columns={columns}
+      />
+    </>,
+  );
+
+  expect(screen.getByRole("grid", { name: "Invoice lines" })).toHaveAttribute(
+    "aria-describedby",
+    "grid-help",
+  );
+});
+
+test("exposes error and read-only cell state accessibly", () => {
+  const stateColumns: DataGridColumn<Row>[] = [
+    {
+      field: "name",
+      headerName: "Name",
+      error: "Enter a name",
+      readOnly: true,
+    },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={stateColumns}
+    />,
+  );
+
+  const cell = screen.getByRole("gridcell");
+  expect(cell).toHaveAttribute("aria-invalid", "true");
+  expect(cell).toHaveAttribute("aria-readonly", "true");
+  expect(cell).toHaveAccessibleDescription("Enter a name");
 });
 
 test("uses arrow keys to navigate cells", async () => {
@@ -139,6 +190,89 @@ test("enters edit mode, commits a value, and returns focus to the cell", async (
     expect.objectContaining({ rowId: 1, field: "name", value: "Changed" }),
   );
   expect(cell).toHaveFocus();
+});
+
+test("enter focuses the dropdown editor", async () => {
+  const user = userEvent.setup();
+  render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
+  const dropdownCell = screen.getAllByRole("gridcell")[1];
+
+  await user.click(dropdownCell);
+  await user.keyboard("{Enter}");
+
+  expect(screen.getByRole("combobox", { name: "Type, row 1" })).toHaveFocus();
+});
+
+test("tab commits once and moves to the next cell when enabled", async () => {
+  const user = userEvent.setup();
+  const onCellChange = jest.fn();
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      enableTabNavigation
+      onCellChange={onCellChange}
+    />,
+  );
+  const cells = screen.getAllByRole("gridcell");
+
+  await user.click(cells[0]);
+  await user.keyboard("{Enter}");
+  await user.type(screen.getByRole("textbox"), " updated");
+  await user.keyboard("{Tab}");
+
+  expect(onCellChange).toHaveBeenCalledTimes(1);
+  expect(onCellChange).toHaveBeenCalledWith(
+    expect.objectContaining({ field: "name", value: "One updated" }),
+  );
+  expect(cells[1]).toHaveFocus();
+});
+
+test("read-only cells do not enter edit mode", async () => {
+  const user = userEvent.setup();
+  const readOnlyColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name", readOnly: true },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={readOnlyColumns}
+    />,
+  );
+
+  await user.click(screen.getByRole("gridcell"));
+  await user.keyboard("{Enter}");
+
+  expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+  expect(screen.getByRole("gridcell")).toHaveFocus();
+});
+
+test("enter focuses and opens action cell content", async () => {
+  const user = userEvent.setup();
+  const onOpen = jest.fn();
+  const actionColumns: DataGridColumn<Row>[] = [
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "action",
+      renderCell: () => <button onClick={onOpen}>Open actions</button>,
+    },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={actionColumns}
+    />,
+  );
+
+  await user.click(screen.getByRole("gridcell"));
+  await user.keyboard("{Enter}");
+
+  expect(screen.getByRole("button", { name: "Open actions" })).toHaveFocus();
+  expect(onOpen).toHaveBeenCalledTimes(1);
 });
 
 test("typing while navigating replaces the cell value", async () => {

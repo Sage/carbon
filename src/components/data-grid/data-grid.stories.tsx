@@ -3,13 +3,15 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ActionPopover } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
+import Button from "../button";
+import Icon from "../icon";
 import { DataGrid, DataGridColumn } from ".";
 
 interface InvoiceLine {
   id: number;
   description: string;
   category: string;
-  taxable: boolean;
+  selected: boolean;
   actions: null;
 }
 
@@ -18,35 +20,35 @@ const initialRows: InvoiceLine[] = [
     id: 1,
     description: "Consulting",
     category: "Services",
-    taxable: true,
+    selected: true,
     actions: null,
   },
   {
     id: 2,
     description: "Software licence",
     category: "Software",
-    taxable: true,
+    selected: true,
     actions: null,
   },
   {
     id: 3,
     description: "Travel",
     category: "Expenses",
-    taxable: false,
+    selected: false,
     actions: null,
   },
   {
     id: 4,
     description: "",
     category: "Services",
-    taxable: false,
+    selected: false,
     actions: null,
   },
   {
     id: 5,
     description: "Readonly item",
     category: "Software",
-    taxable: true,
+    selected: true,
     actions: null,
   },
 ];
@@ -74,16 +76,23 @@ const columns: DataGridColumn<InvoiceLine>[] = [
       { label: "Expenses", value: "Expenses" },
     ],
   },
-  { field: "taxable", headerName: "Taxable", type: "checkbox", width: 100 },
+  {
+    field: "selected",
+    headerName: "Selected",
+    type: "checkbox",
+    width: 100,
+  },
   {
     field: "actions",
     headerName: "",
+    headerAriaLabel: "Actions",
     type: "action",
     width: 52,
     sticky: "right",
     renderCell: ({ row }) => (
       <ActionPopover
         aria-label={`Actions for ${row.description || "empty line"}`}
+        buttonLabel={<Icon type="ellipsis_vertical" />}
       >
         <ActionPopoverItem onClick={() => undefined}>
           Duplicate
@@ -108,20 +117,45 @@ export const EditableInvoiceLines: Story = {
     const [rows, setRows] = useState(initialRows);
 
     return (
-      <DataGrid
-        aria-label="Invoice lines"
-        rows={rows}
-        columns={columns}
-        width="586px"
-        enableTabNavigation
-        onCellChange={({ rowId, field, value }) => {
-          setRows((current) =>
-            current.map((row) =>
-              row.id === rowId ? { ...row, [field]: value } : row,
-            ),
-          );
-        }}
-      />
+      <div style={{ maxWidth: 586 }}>
+        <DataGrid
+          aria-label="Invoice lines"
+          rows={rows}
+          columns={columns}
+          maxWidth="100%"
+          enableTabNavigation
+          onCellChange={({ rowId, field, value }) => {
+            setRows((current) =>
+              current.map((row) =>
+                row.id === rowId ? { ...row, [field]: value } : row,
+              ),
+            );
+          }}
+        />
+        <Button
+          buttonType="secondary"
+          iconType="add"
+          iconPosition="before"
+          mt={2}
+          onClick={() => {
+            setRows((current) => {
+              const nextId = Math.max(0, ...current.map(({ id }) => id)) + 1;
+              return [
+                ...current,
+                {
+                  id: nextId,
+                  description: "",
+                  category: "Services",
+                  selected: false,
+                  actions: null,
+                },
+              ];
+            });
+          }}
+        >
+          Add line
+        </Button>
+      </div>
     );
   },
 };
@@ -140,7 +174,7 @@ interface LargeInvoiceLine {
   unitPrice: string;
   discount: string;
   taxRate: string;
-  billable: boolean;
+  selected: boolean;
   total: string;
   actions: null;
 }
@@ -181,7 +215,7 @@ const createLargeRows = (count: number): LargeInvoiceLine[] =>
       unitPrice: unitPrice.toFixed(2),
       discount: String(discount),
       taxRate: index % 5 === 0 ? "0" : "20",
-      billable: index % 4 !== 0,
+      selected: index % 4 === 0,
       total: total.toLocaleString("en-GB", {
         style: "currency",
         currency: "GBP",
@@ -203,7 +237,6 @@ const largeColumns: DataGridColumn<LargeInvoiceLine>[] = [
     field: "description",
     headerName: "Description",
     width: 240,
-    sticky: "left",
     error: ({ value }) => !value && "Enter a description",
     readOnly: ({ row }) => row.id % 20 === 0,
   },
@@ -221,23 +254,35 @@ const largeColumns: DataGridColumn<LargeInvoiceLine>[] = [
     field: "quantity",
     headerName: "Quantity",
     width: 110,
+    align: "right",
     error: ({ value }) => !value && "Enter a quantity",
   },
-  { field: "unitPrice", headerName: "Unit price", width: 130 },
-  { field: "discount", headerName: "Discount %", width: 120 },
+  {
+    field: "unitPrice",
+    headerName: "Unit price",
+    width: 130,
+    align: "right",
+  },
+  {
+    field: "discount",
+    headerName: "Discount %",
+    width: 120,
+    align: "right",
+  },
   {
     field: "taxRate",
     headerName: "Tax rate",
     type: "dropdown",
     width: 130,
+    align: "right",
     options: ["0", "5", "20"].map((value) => ({
       label: `${value}%`,
       value,
     })),
   },
   {
-    field: "billable",
-    headerName: "Billable",
+    field: "selected",
+    headerName: "Selected",
     type: "checkbox",
     width: 100,
   },
@@ -245,18 +290,22 @@ const largeColumns: DataGridColumn<LargeInvoiceLine>[] = [
     field: "total",
     headerName: "Line total",
     width: 130,
-    sticky: "right",
+    align: "right",
     weight: "medium",
     readOnly: true,
   },
   {
     field: "actions",
     headerName: "",
+    headerAriaLabel: "Actions",
     type: "action",
     width: 52,
     sticky: "right",
     renderCell: ({ row }) => (
-      <ActionPopover aria-label={`Actions for line ${row.line}`}>
+      <ActionPopover
+        aria-label={`Actions for line ${row.line}`}
+        buttonLabel={<Icon type="ellipsis_vertical" />}
+      >
         <ActionPopoverItem onClick={() => undefined}>
           Insert above
         </ActionPopoverItem>
@@ -278,8 +327,8 @@ export const LargeScrollableGrid: Story = {
         aria-label="Large invoice lines"
         rows={rows}
         columns={largeColumns}
-        height="520px"
-        width="100%"
+        maxHeight="520px"
+        maxWidth="100%"
         enableTabNavigation
         rowOverscan={6}
         onCellChange={({ rowId, field, value }) => {

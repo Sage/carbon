@@ -18,21 +18,25 @@ const DataGridHeaderInner = <T extends object>({
     <StyledHeaderRow
       role="row"
       aria-rowindex={1}
-      gridTemplateColumns={gridTemplateColumns}
+      $gridTemplateColumns={gridTemplateColumns}
     >
       {columns.map((column, columnIndex) => (
         <StyledHeader
           key={String(column.field)}
           role="columnheader"
           aria-colindex={columnIndex + 1}
-          cellType={column.type ?? "text"}
-          width={column.width}
-          minWidth={column.minWidth}
-          flex={column.flex}
-          sticky={column.sticky}
-          stickyOffset={stickyOffsets.get(columnIndex)}
+          aria-label={column.headerAriaLabel}
+          $cellType={column.type ?? "text"}
+          $align={
+            column.align ??
+            (column.type === "checkbox" || column.type === "action"
+              ? "center"
+              : "left")
+          }
+          $sticky={column.sticky}
+          $stickyOffset={stickyOffsets.get(columnIndex)}
         >
-          {column.headerName}
+          <span data-element="data-grid-header-label">{column.headerName}</span>
         </StyledHeader>
       ))}
     </StyledHeaderRow>

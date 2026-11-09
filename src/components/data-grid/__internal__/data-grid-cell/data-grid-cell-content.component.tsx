@@ -1,31 +1,35 @@
 import React from "react";
 
+import { Checkbox } from "../../../checkbox";
+import Icon from "../../../icon";
 import { DataGridCellParams } from "../../data-grid.types";
-import { StyledCellContent, StyledCheckbox } from "../data-grid.style";
+import { StyledCellContent } from "../data-grid.style";
 
 interface DataGridCellContentProps<T extends object> {
   params: DataGridCellParams<T>;
   rowIndex: number;
+  align: "left" | "center" | "right";
 }
 
 /** The resting content for each built-in cell variation. */
 const DataGridCellContent = <T extends object>({
   params,
   rowIndex,
+  align,
 }: DataGridCellContentProps<T>) => {
   const { column, value } = params;
   const type = column.type ?? "text";
 
   return (
-    <StyledCellContent cellType={type}>
+    <StyledCellContent $cellType={type} $align={align}>
       {column.renderCell?.(params) ??
         (type === "checkbox" ? (
-          <StyledCheckbox
-            type="checkbox"
+          <Checkbox
             checked={Boolean(value)}
-            readOnly
+            onChange={() => undefined}
             aria-label={`${column.headerName}, row ${rowIndex + 1}`}
             tabIndex={-1}
+            size="medium"
           />
         ) : column.type === "dropdown" ? (
           <>
@@ -33,7 +37,7 @@ const DataGridCellContent = <T extends object>({
               {column.options.find((option) => option.value === value)?.label ??
                 String(value ?? "")}
             </span>
-            <span aria-hidden="true">▾</span>
+            <Icon type="dropdown" aria-hidden />
           </>
         ) : (
           String(value ?? "")

@@ -29,6 +29,7 @@ const useDataGridEditing = <T extends object>({
   const [draftValue, setDraftValue] = useState<unknown>("");
   const editorRef = useRef<HTMLInputElement | HTMLSelectElement>(null);
   const restoreFocus = useRef<DataGridCellPosition | null>(null);
+  const finishingEdit = useRef(false);
 
   const beginEdit = useCallback(
     (position: DataGridCellPosition, initialValue?: unknown) => {
@@ -39,6 +40,7 @@ const useDataGridEditing = <T extends object>({
         return;
       }
 
+      finishingEdit.current = false;
       activateCell(position);
       ensureCellVisible(position);
       setDraftValue(initialValue ?? params.value ?? "");
@@ -55,7 +57,8 @@ const useDataGridEditing = <T extends object>({
 
   const commitEdit = useCallback(
     (shouldRestoreFocus = false) => {
-      if (!editing) return;
+      if (!editing || finishingEdit.current) return;
+      finishingEdit.current = true;
       onCellChange?.({ ...getCellParams(editing), value: draftValue });
       restoreFocus.current = shouldRestoreFocus ? editing : null;
       setEditing(null);
@@ -65,6 +68,7 @@ const useDataGridEditing = <T extends object>({
 
   const cancelEdit = useCallback(
     (shouldRestoreFocus = false) => {
+      finishingEdit.current = true;
       restoreFocus.current = shouldRestoreFocus ? editing : null;
       setEditing(null);
     },
@@ -73,10 +77,17 @@ const useDataGridEditing = <T extends object>({
 
   useEffect(() => {
     if (!editing) return;
-    editorRef.current?.focus();
-    if (editorRef.current instanceof HTMLInputElement) {
-      const end = editorRef.current.value.length;
-      editorRef.current.setSelectionRange(end, end);
+    const editor = editorRef.current;
+    editor?.focus();
+    if (editor instanceof HTMLInputElement) {
+      const end = editor.value.length;
+      editor.setSelectionRange(end, end);
+    } else if (editor instanceof HTMLSelectElement && editor.showPicker) {
+      try {
+        editor.showPicker();
+      } catch {
+        // Some browsers only allow showPicker during a direct user gesture.
+      }
     }
   }, [editing, renderToken]);
 

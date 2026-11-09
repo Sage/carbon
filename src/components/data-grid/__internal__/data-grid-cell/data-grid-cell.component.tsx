@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 import DataGridCellContent from "./data-grid-cell-content.component";
 import DataGridCellEditor from "./data-grid-cell-editor.component";
@@ -6,7 +6,11 @@ import {
   DataGridCellParams,
   DataGridCellPosition,
 } from "../../data-grid.types";
-import { StyledCell } from "../data-grid.style";
+import {
+  StyledCell,
+  StyledValidationBar,
+  StyledVisuallyHidden,
+} from "../data-grid.style";
 
 interface DataGridCellProps<T extends object> {
   params: DataGridCellParams<T>;
@@ -20,7 +24,6 @@ interface DataGridCellProps<T extends object> {
   draftValue?: unknown;
   stickyOffset?: number;
   editorRef: React.RefObject<HTMLInputElement | HTMLSelectElement>;
-  registerCell: (node: HTMLDivElement | null) => void;
   onActivate: (position: DataGridCellPosition) => void;
   onFocusPosition: (position: DataGridCellPosition) => void;
   onBeginEdit: (position: DataGridCellPosition) => void;
@@ -36,50 +39,56 @@ interface DataGridCellProps<T extends object> {
   ) => void;
 }
 
-const DataGridCell = <T extends object>({
-  params,
-  position,
-  rowIndex,
-  columnIndex,
-  active,
-  editing,
-  readOnly,
-  errorValue,
-  draftValue,
-  stickyOffset,
-  editorRef,
-  registerCell,
-  onActivate,
-  onFocusPosition,
-  onBeginEdit,
-  onDraftChange,
-  onCommitEdit,
-  onCellKeyDown,
-  onEditorKeyDown,
-}: DataGridCellProps<T>) => {
+const DataGridCellInner = <T extends object>(
+  {
+    params,
+    position,
+    rowIndex,
+    columnIndex,
+    active,
+    editing,
+    readOnly,
+    errorValue,
+    draftValue,
+    stickyOffset,
+    editorRef,
+    onActivate,
+    onFocusPosition,
+    onBeginEdit,
+    onDraftChange,
+    onCommitEdit,
+    onCellKeyDown,
+    onEditorKeyDown,
+  }: DataGridCellProps<T>,
+  ref: React.ForwardedRef<HTMLDivElement>,
+) => {
   const { column, rowId } = params;
   const type = column.type ?? "text";
   const errorText = typeof errorValue === "string" ? errorValue : undefined;
+  const errorId = errorText
+    ? `data-grid-cell-error-${String(rowId)}-${String(column.field)}`
+    : undefined;
+  const align =
+    column.align ??
+    (type === "checkbox" || type === "action" ? "center" : "left");
 
   return (
     <StyledCell
-      ref={registerCell}
+      ref={ref}
       role="gridcell"
       aria-colindex={columnIndex + 1}
       aria-readonly={readOnly || undefined}
       aria-invalid={!!errorValue || undefined}
-      aria-label={errorText ? `${column.headerName}: ${errorText}` : undefined}
+      aria-describedby={errorId}
       tabIndex={active && !editing ? 0 : -1}
-      cellType={type}
-      width={column.width}
-      minWidth={column.minWidth}
-      flex={column.flex}
-      sticky={column.sticky}
-      stickyOffset={stickyOffset}
-      hasError={!!errorValue}
-      readOnly={readOnly}
-      editing={editing}
-      weight={column.weight ?? "regular"}
+      $cellType={type}
+      $align={align}
+      $sticky={column.sticky}
+      $stickyOffset={stickyOffset}
+      $hasError={!!errorValue}
+      $readOnly={readOnly}
+      $editing={editing}
+      $weight={column.weight ?? "regular"}
       onFocus={() => onActivate(position)}
       onClick={(event) => {
         if (!editing && type === "checkbox") {
@@ -110,6 +119,10 @@ const DataGridCell = <T extends object>({
       data-component="data-grid-cell"
       data-element={`data-grid-cell-${String(rowId)}-${String(column.field)}`}
     >
+      {!!errorValue && <StyledValidationBar aria-hidden="true" />}
+      {errorText && (
+        <StyledVisuallyHidden id={errorId}>{errorText}</StyledVisuallyHidden>
+      )}
       {editing && (type === "text" || type === "dropdown") ? (
         <DataGridCellEditor
           column={column}
@@ -121,10 +134,23 @@ const DataGridCell = <T extends object>({
           onKeyDown={(event) => onEditorKeyDown(event, position)}
         />
       ) : (
-        <DataGridCellContent params={params} rowIndex={rowIndex} />
+        <DataGridCellContent
+          params={params}
+          rowIndex={rowIndex}
+          align={align}
+        />
       )}
     </StyledCell>
   );
 };
+
+const ForwardedDataGridCell = forwardRef(DataGridCellInner);
+ForwardedDataGridCell.displayName = "DataGridCell";
+
+const DataGridCell = ForwardedDataGridCell as <T extends object>(
+  props: DataGridCellProps<T> & {
+    ref?: React.ForwardedRef<HTMLDivElement>;
+  },
+) => React.ReactElement;
 
 export default DataGridCell;
