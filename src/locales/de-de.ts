@@ -173,6 +173,11 @@ const deDE: Partial<Locale> = {
   pod: {
     undo: () => "Rückgängig",
   },
+  popoverContainer: {
+    openButton: {
+      text: () => "Aktionen",
+    },
+  },
   tabs: {
     error: (tabTitle) => `Die Registerkarte ${tabTitle} enthält Fehler`,
     info: (tabTitle) => `Die Registerkarte ${tabTitle} enthält Informationen`,

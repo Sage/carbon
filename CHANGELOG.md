@@ -1,3 +1,9 @@
+## [162.23.0](https://github.com/Sage/carbon/compare/v162.22.0...v162.23.0) (2026-11-06)
+
+### Features
+
+* **locales:** add popoverContainer.openButton.text translations ([1732ca4](https://github.com/Sage/carbon/commit/1732ca44c790a638a133f67b5dc2081b0d20cc79))
+
 ## [162.22.0](https://github.com/Sage/carbon/compare/v162.21.3...v162.22.0) (2026-11-05)
 
 ### Features
