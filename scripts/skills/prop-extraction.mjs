@@ -59,6 +59,27 @@ export function extractDefaultsFromDeclaration(declaration) {
 }
 
 /**
+ * Extract defaults from the declarations behind a public export, following
+ * re-exports such as `export { default as Switch } from "./components/switch"`.
+ * @param {import("ts-morph").SourceFile} entryFile
+ * @param {string} exportName
+ * @returns {Map<string, string>}
+ */
+export function extractDefaultsFromExport(entryFile, exportName) {
+  const defaults = new Map();
+  const declarations =
+    entryFile.getExportedDeclarations().get(exportName) ?? [];
+
+  for (const declaration of declarations) {
+    for (const [key, value] of extractDefaultsFromDeclaration(declaration)) {
+      defaults.set(key, value);
+    }
+  }
+
+  return defaults;
+}
+
+/**
  * Return literal values for simple union types when all members are literals.
  * `undefined` and `null` members, such as those added to optional props, are ignored.
  * @param {import("ts-morph").Type} type

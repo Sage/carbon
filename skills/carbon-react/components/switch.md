@@ -22,7 +22,7 @@ description: Carbon Switch component props and usage examples.
 | id | string \| undefined | No |  |  |  | The id attribute of the hidden input |  |
 | inputHint | React.ReactNode | No |  |  |  | Hint text displayed below the switch |  |
 | label | React.ReactNode | No |  |  |  | Accessible text label rendered above the switch |  |
-| labelInline | boolean \| undefined | No |  |  |  | When true, the label is displayed inline (beside the switch) rather than above it |  |
+| labelInline | boolean \| undefined | No |  |  |  | When true, the label is displayed inline (beside the switch) rather than above it | false |
 | labelSpacing | 1 \| 2 \| undefined | No | 1 \| 2 |  |  | Spacing between the label and switch when labelInline is true (multiplier of base spacing unit) |  |
 | labelWidth | number \| undefined | No |  |  |  | Label width as a percentage when labelInline is true |  |
 | loading | boolean \| undefined | No |  |  |  | Triggers the loading state — hides On/Off text and shows a spinner |  |
@@ -44,9 +44,9 @@ description: Carbon Switch component props and usage examples.
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnBlur event handler |  |
 | onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnFocus event handler |  |
 | processingLabel | string \| undefined | No |  |  |  | Text shown beside the spinner during loading. Defaults to "Processing..." |  |
-| processingLabelBelowSwitch | boolean \| undefined | No |  |  |  | When true, the processing label is rendered below the switch rather than to its right |  |
+| processingLabelBelowSwitch | boolean \| undefined | No |  |  |  | When true, the processing label is rendered below the switch rather than to its right | false |
 | required | boolean \| undefined | No |  |  |  | Whether the input is required |  |
-| size | "small" \| "large" \| undefined | No | small \| large |  |  | Size of the switch track |  |
+| size | "small" \| "large" \| undefined | No | small \| large |  |  | Size of the switch track | "small" |
 | value | string \| undefined | No |  |  |  | The value attribute of the hidden input, passed on form submit |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

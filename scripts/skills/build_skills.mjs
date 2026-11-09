@@ -14,6 +14,7 @@ import {
 } from "./example-imports.mjs";
 import {
   extractDefaultsFromDeclaration,
+  extractDefaultsFromExport,
   getLiteralUnionValues,
 } from "./prop-extraction.mjs";
 
@@ -22,6 +23,7 @@ import {
  * @property {string} name
  * @property {string} [displayName]
  * @property {string} moduleSpecifier
+ * @property {string} entryFilePath File whose `name` export is the component.
  */
 
 /**
@@ -161,6 +163,7 @@ for (const filePath of nextComponentFiles) {
       name: exportName, // Original name for props lookup
       displayName: `${exportName}Next`, // Display name for output files
       moduleSpecifier,
+      entryFilePath: filePath,
     });
   }
 }
@@ -194,6 +197,7 @@ for (const exportDecl of indexFile.getExportDeclarations()) {
     componentCandidates.push({
       name: exportName,
       moduleSpecifier,
+      entryFilePath: indexFilePath,
     });
   }
 }
@@ -244,6 +248,13 @@ for (const candidate of uniqueComponentCandidates) {
   // Use ts-morph to follow type re-exports (e.g., AlertProps -> DialogProps)
   // so deprecated components still yield accurate props.
   const defaultsMap = collectDefaultProps(project, moduleFiles, candidate.name);
+  // The exported declaration is authoritative, e.g. when its local name differs.
+  for (const [key, value] of extractDefaultsFromExport(
+    project.getSourceFileOrThrow(candidate.entryFilePath),
+    candidate.name,
+  )) {
+    defaultsMap.set(key, value);
+  }
   const hasDefaultExport = moduleHasDefaultExport(project, modulePath);
   const hasNamedExport = moduleHasNamedExport(
     project,
@@ -1797,7 +1808,7 @@ function renderComponentMarkdown(
     for (const prop of sortedProps) {
       const literals = prop.literals?.join(" | ") ?? "";
       const description = prop.description?.replace(/\s+/g, " ") ?? "";
-      const defaultValue = (prop.defaultValue ?? "").replace(/\r/g, "");
+      const defaultValue = (prop.defaultValue ?? "").replace(/\s+/g, " ");
       if (hasDeprecatedProps) {
         const deprecated = prop.deprecated
           ? "Yes"

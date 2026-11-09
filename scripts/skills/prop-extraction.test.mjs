@@ -4,6 +4,7 @@ import { Project } from "ts-morph";
 
 import {
   extractDefaultsFromDeclaration,
+  extractDefaultsFromExport,
   getLiteralUnionValues,
 } from "./prop-extraction.mjs";
 
@@ -38,6 +39,33 @@ test("extracts destructured defaults from forwardRef and memo components", () =>
   assert.deepEqual(defaultsFor("Direct"), { size: '"medium"' });
   assert.deepEqual(defaultsFor("Namespaced"), { open: "true" });
   assert.deepEqual(defaultsFor("Memoised"), { variant: '"info"' });
+});
+
+test("extracts defaults through re-exports when local and public names differ", () => {
+  const project = new Project({ useInMemoryFileSystem: true });
+  project.createSourceFile(
+    "switch/switch.component.tsx",
+    `
+      import React from "react";
+      const SwitchComponent = React.forwardRef(({ size = "small" }, ref) => null);
+      export { SwitchComponent as Switch };
+      export default SwitchComponent;
+    `,
+  );
+  project.createSourceFile(
+    "switch/index.ts",
+    'export { default } from "./switch.component";',
+  );
+  const entryFile = project.createSourceFile(
+    "index.ts",
+    'export { default as Switch } from "./switch";',
+  );
+
+  assert.deepEqual(
+    Object.fromEntries(extractDefaultsFromExport(entryFile, "Switch")),
+    { size: '"small"' },
+  );
+  assert.equal(extractDefaultsFromExport(entryFile, "Missing").size, 0);
 });
 
 test("ignores calls that are not component wrappers", () => {
