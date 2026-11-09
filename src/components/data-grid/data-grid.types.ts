@@ -22,6 +22,8 @@ interface DataGridColumnBase<T extends object> {
   field: Extract<keyof T, string> | (string & {});
   /** Visible column heading. */
   headerName: string;
+  /** Accessible name when the visible heading is intentionally empty. */
+  headerAriaLabel?: string;
   /** Fixed width in pixels. Action columns default to 52px. */
   width?: number;
   /** Minimum width when the column is flexible. */
@@ -30,6 +32,8 @@ interface DataGridColumnBase<T extends object> {
   flex?: number;
   /** Pins the column to an edge of the scrolling grid. */
   sticky?: "left" | "right";
+  /** Horizontal alignment for header and cell content. */
+  align?: "left" | "center" | "right";
   /** Font weight used while the cell is not being edited. */
   weight?: DataGridCellWeight;
   /** Makes every cell in the column read-only, or derives it per row. */
@@ -61,12 +65,16 @@ export interface DataGridCheckboxColumn<T extends object>
   extends DataGridColumnBase<T> {
   type: "checkbox";
   options?: never;
+  /** Checkbox cells do not support an error treatment. */
+  error?: never;
 }
 
 export interface DataGridActionColumn<T extends object>
   extends DataGridColumnBase<T> {
   type: "action";
   options?: never;
+  /** Action cells do not support an error treatment. */
+  error?: never;
   /** Action content is required because action cells have no built-in UI. */
   renderCell: (params: DataGridCellParams<T>) => React.ReactNode;
 }
@@ -82,7 +90,11 @@ export interface DataGridProps<T extends object> {
   rows: T[];
   columns: DataGridColumn<T>[];
   /** Accessible name for the grid. */
-  "aria-label": string;
+  "aria-label"?: string;
+  /** ID of an element that provides the grid's accessible name. */
+  "aria-labelledby"?: string;
+  /** ID of an element that provides additional grid guidance. */
+  "aria-describedby"?: string;
   /** Reads a stable row id. Defaults to the row's `id` property. */
   getRowId?: (row: T) => DataGridRowId;
   /** Called after a cell edit is committed. */
@@ -93,7 +105,13 @@ export interface DataGridProps<T extends object> {
   disableVirtualization?: boolean;
   /** Number of additional rows mounted above and below the viewport. */
   rowOverscan?: number;
+  /** Maximum viewport height. Enables row virtualization when constrained. */
+  maxHeight?: number | string;
+  /** Maximum viewport width. Enables horizontal scrolling when constrained. */
+  maxWidth?: number | string;
+  /** @deprecated Use `maxHeight` instead. */
   height?: number | string;
+  /** @deprecated Use `maxWidth` instead. */
   width?: number | string;
 }
 

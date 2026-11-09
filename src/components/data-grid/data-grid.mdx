@@ -1,0 +1,102 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+
+import * as DataGridStories from "./data-grid.stories";
+
+<Meta of={DataGridStories} />
+
+# Data Grid
+
+Data Grid is an editable, spreadsheet-like pattern for capturing line-item
+data. Use [Table](?path=/docs/table--docs) when users only need to compare or
+read data.
+
+This component has one fixed `medium` size and a subtle header. Its public API
+is data-driven: consumers provide an array of row objects and an array of
+column definitions. The row, header, cell, layout, keyboard, editing, and
+virtualization building blocks are private implementation details.
+
+## Quick start
+
+```tsx
+import {
+  DataGrid,
+  DataGridColumn,
+} from "carbon-react/lib/components/data-grid";
+
+const columns: DataGridColumn<InvoiceLine>[] = [
+  {
+    field: "description",
+    headerName: "Description",
+    sticky: "left",
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    type: "dropdown",
+    options: [
+      { label: "Services", value: "services" },
+      { label: "Software", value: "software" },
+    ],
+  },
+  {
+    field: "selected",
+    headerName: "Selected",
+    type: "checkbox",
+  },
+];
+
+<DataGrid
+  aria-label="Invoice lines"
+  rows={rows}
+  columns={columns}
+  onCellChange={({ rowId, field, value }) => updateRow(rowId, field, value)}
+/>;
+```
+
+<Canvas of={DataGridStories.EditableInvoiceLines} />
+
+## Semantics and keyboard behavior
+
+Data Grid uses `div` elements with the ARIA grid roles instead of native table
+elements. This is intentional: it has a single roving tab stop and separate
+navigation and edit modes. It still exposes row, column-header, and grid-cell
+semantics to assistive technology.
+
+- Arrow keys move between cells.
+- Enter edits text and dropdown cells, or opens an action cell.
+- Typing while on a text cell starts editing and replaces its value.
+- Space toggles a checkbox cell and its row selection state.
+- Escape cancels an edit.
+- Set `enableTabNavigation` to move through cells with Tab and Shift+Tab.
+
+Provide either `aria-label` or `aria-labelledby`. Use `aria-describedby` for
+additional keyboard instructions where they are needed.
+
+## Validation and error summaries
+
+Set `error` on text or dropdown columns. A string supplies an accessible error
+description as well as the visual error state. Checkbox and action cells do not
+support errors.
+
+The forwarded grid ref supports error-summary links. `focusCell` moves
+navigation focus to a cell; `editCell` makes an editable cell active and focuses
+its editor in one step.
+
+```tsx
+const gridRef = React.createRef<DataGridHandle>();
+
+gridRef.current?.editCell(invoiceLineId, "description");
+```
+
+## Large data sets
+
+Set `maxHeight` to create an internal vertical scroll area. Data Grid then
+virtualizes rows when there are more than 20. Columns remain mounted so sticky
+columns, editing, accessible column relationships, and horizontal keyboard
+navigation stay predictable.
+
+<Canvas of={DataGridStories.LargeScrollableGrid} />
+
+## Props
+
+<ArgTypes of={DataGridStories} />

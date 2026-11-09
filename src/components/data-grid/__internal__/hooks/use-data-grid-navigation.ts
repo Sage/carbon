@@ -92,10 +92,11 @@ const useDataGridNavigation = <T extends object>({
 
   const focusAction = useCallback(
     (position: DataGridCellPosition) => {
-      cellRefs.current
+      const action = cellRefs.current
         .get(keyFor(position))
-        ?.querySelector<HTMLElement>("button,[href],[tabindex]")
-        ?.focus();
+        ?.querySelector<HTMLElement>("button,[href],[tabindex]");
+      action?.focus();
+      action?.click();
     },
     [keyFor],
   );
