@@ -20,10 +20,17 @@ const keyEvent = (
   ...overrides,
 });
 
-test("maps directional keys to cell movement", () => {
-  expect(
-    getDataGridCellKeyAction(keyEvent("ArrowRight"), "text", false),
-  ).toEqual({ type: "move", rowDelta: 0, columnDelta: 1 });
+test.each([
+  ["ArrowLeft", 0, -1],
+  ["ArrowRight", 0, 1],
+  ["ArrowUp", -1, 0],
+  ["ArrowDown", 1, 0],
+])("maps %s to cell movement", (key, rowDelta, columnDelta) => {
+  expect(getDataGridCellKeyAction(keyEvent(key), "text", false)).toEqual({
+    type: "move",
+    rowDelta,
+    columnDelta,
+  });
 });
 
 test("maps printable text to edit mode as appended text", () => {
@@ -34,6 +41,21 @@ test("maps printable text to edit mode as appended text", () => {
   expect(
     getDataGridCellKeyAction(keyEvent("A", { ctrlKey: true }), "text", false),
   ).toBeNull();
+  expect(
+    getDataGridCellKeyAction(keyEvent("A", { metaKey: true }), "text", false),
+  ).toBeNull();
+  expect(
+    getDataGridCellKeyAction(keyEvent("A", { altKey: true }), "text", false),
+  ).toBeNull();
+});
+
+test("maps Enter to the interaction appropriate for the cell type", () => {
+  expect(getDataGridCellKeyAction(keyEvent("Enter"), "text", false)).toEqual({
+    type: "begin-edit",
+  });
+  expect(getDataGridCellKeyAction(keyEvent("Enter"), "action", false)).toEqual({
+    type: "focus-action",
+  });
 });
 
 test("maps Space to the interaction appropriate for the cell type", () => {
@@ -63,4 +85,12 @@ test("maps editor completion and cancellation keys", () => {
   expect(getDataGridEditorKeyAction(keyEvent("Enter"), false)).toEqual({
     type: "commit",
   });
+  expect(getDataGridEditorKeyAction(keyEvent("Tab"), false)).toBeNull();
+  expect(getDataGridEditorKeyAction(keyEvent("Tab"), true)).toEqual({
+    type: "commit-and-move",
+    delta: 1,
+  });
+  expect(
+    getDataGridEditorKeyAction(keyEvent("Tab", { shiftKey: true }), true),
+  ).toEqual({ type: "commit-and-move", delta: -1 });
 });
