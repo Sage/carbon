@@ -5,6 +5,20 @@ description: Carbon Switch component props and usage examples.
 
 # Switch
 
+A control that turns a single setting on or off, with the change taking effect as soon as the user toggles it.
+
+## Choose instead
+
+- **Checkbox:** The choice only takes effect when a form is submitted, or users select one or more options from a list.
+
+## Pitfalls
+
+- Switch is controlled: checked and onChange are required, so update checked from e.target.checked.
+- Give each Switch a label; it does not forward aria-label or aria-labelledby, so a label rendered elsewhere must be a label element whose htmlFor matches the Switch id.
+- The input is disabled while loading is true.
+- error, warning and info are deprecated and ignored; Switch does not display validation states.
+- The On/Off state text and default processing label come from the switch.on, switch.off and switch.processingLabel locale keys; translate them through I18nProvider.
+
 ## Import
 `import Switch from "carbon-react/lib/components/switch";`
 
@@ -64,230 +78,6 @@ description: Carbon Switch component props and usage examples.
 | warning | string \| boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 
 ## Examples
-### Default
+Load only the example needed for the current task; playground stories are intentionally omitted.
 
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Toggle notifications"
-      inputHint="Hint text"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Checked
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(true);
-  return (
-    <Switch
-      label="Toggle notifications"
-      inputHint="Hint text"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Disabled
-
-**Render**
-
-```tsx
-() => (
-  <Switch
-    label="Toggle notifications"
-    inputHint="Hint text"
-    checked={false}
-    disabled
-    onChange={() => {}}
-  />
-)
-```
-
-
-### Disabled (checked)
-
-**Render**
-
-```tsx
-() => (
-  <Switch
-    label="Toggle notifications"
-    checked
-    disabled
-    inputHint="Hint text"
-    onChange={() => {}}
-  />
-)
-```
-
-
-### Required
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Toggle notifications"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-      required
-    />
-  );
-}
-```
-
-
-### Large size
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Toggle notifications"
-      inputHint="Hint text"
-      size="large"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Label inline
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Toggle notifications"
-      labelInline
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Label inline with hint
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Label"
-      inputHint="Hint text"
-      labelInline
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Loading
-
-**Render**
-
-```tsx
-() => (
-  <>
-    <Switch
-      label="Toggle notifications"
-      checked={false}
-      loading
-      onChange={() => {}}
-    />
-
-    <Switch
-      label="Toggle notifications"
-      checked
-      loading
-      onChange={() => {}}
-      ml="8px"
-    />
-
-    <Switch
-      size="large"
-      label="Toggle notifications"
-      checked={false}
-      loading
-      onChange={() => {}}
-      ml="8px"
-    />
-
-    <Switch
-      size="large"
-      label="Toggle notifications"
-      checked
-      loading
-      onChange={() => {}}
-      ml="8px"
-    />
-  </>
-)
-```
-
-
-### Loading with custom processingLabel
-
-**Render**
-
-```tsx
-() => (
-  <Switch
-    label="Toggle notifications"
-    checked={false}
-    loading
-    processingLabel="Saving changes..."
-    onChange={() => {}}
-  />
-)
-```
-
-
-### Loading with processingLabel below switch
-
-**Render**
-
-```tsx
-() => (
-  <Switch
-    label="Toggle notifications"
-    checked={false}
-    loading
-    processingLabelBelowSwitch
-    onChange={() => {}}
-  />
-)
-```
-
+- [Default](../examples/switch/default.md) — Control checked state from onChange, with a label and hint text.

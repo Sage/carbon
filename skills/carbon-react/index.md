@@ -138,7 +138,7 @@
 - [StepFlowTitle](components/step-flow-title.md)
 - [StepSequence](components/step-sequence.md)
 - [StepSequenceItem](components/step-sequence-item.md)
-- [Switch](components/switch.md)
+- [Switch](components/switch.md) — A control that turns a single setting on or off, with the change taking effect as soon as the user toggles it.
 - [Tab](components/tab.md)
 - [Table](components/table.md)
 - [TableBody](components/table-body.md)
