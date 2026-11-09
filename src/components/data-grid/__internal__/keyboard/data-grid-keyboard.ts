@@ -11,7 +11,7 @@ interface DataGridKey {
 export type DataGridCellKeyAction =
   | { type: "move"; rowDelta: number; columnDelta: number }
   | { type: "move-linear"; delta: number }
-  | { type: "begin-edit"; initialValue?: string }
+  | { type: "begin-edit"; appendedText?: string }
   | { type: "focus-action" }
   | { type: "toggle-checkbox" };
 
@@ -46,14 +46,15 @@ export const getDataGridCellKeyAction = (
       ? { type: "focus-action" }
       : { type: "begin-edit" };
   }
-  if (event.key === " " && cellType === "checkbox") {
-    return { type: "toggle-checkbox" };
+  if (event.key === " ") {
+    if (cellType === "checkbox") return { type: "toggle-checkbox" };
+    if (cellType === "dropdown") return { type: "begin-edit" };
   }
   if (enableTabNavigation && event.key === "Tab") {
     return { type: "move-linear", delta: event.shiftKey ? -1 : 1 };
   }
   if (cellType === "text" && isPrintableKey(event)) {
-    return { type: "begin-edit", initialValue: event.key };
+    return { type: "begin-edit", appendedText: event.key };
   }
   return null;
 };

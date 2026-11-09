@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ActionPopover } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import Button from "../button";
+import Box from "../box";
 import Icon from "../icon";
-import { DataGrid, DataGridColumn } from ".";
+import Link from "../link";
+import Message from "../message";
+import { DataGrid, DataGridColumn, DataGridHandle, DataGridProps } from ".";
 
 interface InvoiceLine {
   id: number;
@@ -15,19 +18,26 @@ interface InvoiceLine {
   actions: null;
 }
 
+type PlaygroundStickyColumns = "none" | "left" | "right" | "both";
+
+type PlaygroundArgs = Partial<DataGridProps<InvoiceLine>> & {
+  /** Story-only control used to demonstrate column-level sticky configuration. */
+  playgroundStickyColumns: PlaygroundStickyColumns;
+};
+
 const initialRows: InvoiceLine[] = [
   {
     id: 1,
     description: "Consulting",
     category: "Services",
-    selected: true,
+    selected: false,
     actions: null,
   },
   {
     id: 2,
     description: "Software licence",
     category: "Software",
-    selected: true,
+    selected: false,
     actions: null,
   },
   {
@@ -48,10 +58,24 @@ const initialRows: InvoiceLine[] = [
     id: 5,
     description: "Readonly item",
     category: "Software",
-    selected: true,
+    selected: false,
     actions: null,
   },
 ];
+
+const createPlaygroundRows = (): InvoiceLine[] =>
+  Array.from({ length: 30 }, (_, index) => {
+    const source = initialRows[index % initialRows.length];
+
+    return {
+      ...source,
+      id: index + 1,
+      description:
+        index === 3
+          ? ""
+          : `${source.description || "Invoice line"} ${index + 1}`,
+    };
+  });
 
 const columns: DataGridColumn<InvoiceLine>[] = [
   {
@@ -59,7 +83,6 @@ const columns: DataGridColumn<InvoiceLine>[] = [
     headerName: "Description",
     flex: 1,
     minWidth: 220,
-    sticky: "left",
     error: ({ value }) => !value && "Enter a description",
     readOnly: ({ row }) => row.id === 5,
   },
@@ -88,7 +111,6 @@ const columns: DataGridColumn<InvoiceLine>[] = [
     headerAriaLabel: "Actions",
     type: "action",
     width: 52,
-    sticky: "right",
     renderCell: ({ row }) => (
       <ActionPopover
         aria-label={`Actions for ${row.description || "empty line"}`}
@@ -103,14 +125,83 @@ const columns: DataGridColumn<InvoiceLine>[] = [
   },
 ];
 
+const getPlaygroundColumns = (
+  stickyColumns: PlaygroundStickyColumns,
+): DataGridColumn<InvoiceLine>[] =>
+  columns.map((column, index) => ({
+    ...column,
+    sticky:
+      index === 0 && (stickyColumns === "left" || stickyColumns === "both")
+        ? "left"
+        : index === columns.length - 1 &&
+            (stickyColumns === "right" || stickyColumns === "both")
+          ? "right"
+          : undefined,
+  })) as DataGridColumn<InvoiceLine>[];
+
 const meta = {
-  title: "Data Grid/Prototype",
+  title: "Data Grid",
   component: DataGrid,
-  parameters: { chromatic: { disableSnapshot: true } },
+  args: {
+    enableTabNavigation: true,
+    stickyHeader: false,
+    maxHeight: "320px",
+    maxWidth: "100%",
+    disableVirtualization: false,
+    rowOverscan: 5,
+  },
+  argTypes: {
+    maxHeight: { control: "text" },
+    maxWidth: { control: "text" },
+    enableTabNavigation: { control: "boolean" },
+    stickyHeader: { control: "boolean" },
+    disableVirtualization: { control: "boolean" },
+    rowOverscan: {
+      control: { type: "number", min: 0, step: 1 },
+    },
+  },
+  parameters: {
+    info: { disable: true },
+    chromatic: { disableSnapshot: true },
+  },
 } satisfies Meta<typeof DataGrid>;
 
 export default meta;
 type Story = StoryObj<typeof DataGrid>;
+
+export const Playground: StoryObj<PlaygroundArgs> = {
+  args: {
+    playgroundStickyColumns: "none",
+  },
+  argTypes: {
+    playgroundStickyColumns: {
+      name: "sticky columns",
+      options: ["none", "left", "right", "both"],
+      control: { type: "radio" },
+      table: { category: "Playground" },
+    },
+  },
+  render: (args) => {
+    const [rows, setRows] = useState(createPlaygroundRows);
+    const { playgroundStickyColumns, ...dataGridProps } = args;
+
+    return (
+      <DataGrid
+        {...dataGridProps}
+        aria-label="Invoice lines playground"
+        rows={rows}
+        columns={getPlaygroundColumns(playgroundStickyColumns)}
+        onCellChange={({ rowId, field, value }) => {
+          setRows((current) =>
+            current.map((row) =>
+              row.id === rowId ? { ...row, [field]: value } : row,
+            ),
+          );
+        }}
+      />
+    );
+  },
+};
 
 export const EditableInvoiceLines: Story = {
   render: () => {
@@ -161,6 +252,71 @@ export const EditableInvoiceLines: Story = {
 };
 
 EditableInvoiceLines.storyName = "Editable invoice lines";
+
+export const ValidationAndErrorSummary: Story = {
+  render: () => {
+    const gridRef = useRef<DataGridHandle>(null);
+    const [rows, setRows] = useState(() =>
+      initialRows.map((row) => ({
+        ...row,
+        description: row.id === 3 ? "" : row.description,
+      })),
+    );
+    const invalidRows = rows.filter((row) => !row.description);
+
+    return (
+      <Box maxWidth="760px">
+        {invalidRows.length > 0 && (
+          <Box mb={3} minWidth="min(400px, 100%)" width="fit-content">
+            <Message
+              id="invoice-errors"
+              title="There is a problem"
+              variant="error"
+              width="100%"
+            >
+              <Box
+                alignItems="flex-start"
+                display="flex"
+                flexDirection="column"
+                gap={1}
+              >
+                {invalidRows.map((row) => (
+                  <Link
+                    key={row.id}
+                    onClick={() =>
+                      gridRef.current?.editCell(row.id, "description")
+                    }
+                  >
+                    Enter a description on row {row.id}
+                  </Link>
+                ))}
+              </Box>
+            </Message>
+          </Box>
+        )}
+        <DataGrid
+          ref={gridRef}
+          aria-label="Invoice lines with validation"
+          aria-describedby={
+            invalidRows.length > 0 ? "invoice-errors" : undefined
+          }
+          rows={rows}
+          columns={columns}
+          maxWidth="100%"
+          onCellChange={({ rowId, field, value }) => {
+            setRows((current) =>
+              current.map((row) =>
+                row.id === rowId ? { ...row, [field]: value } : row,
+              ),
+            );
+          }}
+        />
+      </Box>
+    );
+  },
+};
+
+ValidationAndErrorSummary.storyName = "Validation and error summary";
 
 interface LargeInvoiceLine {
   id: number;
@@ -215,7 +371,7 @@ const createLargeRows = (count: number): LargeInvoiceLine[] =>
       unitPrice: unitPrice.toFixed(2),
       discount: String(discount),
       taxRate: index % 5 === 0 ? "0" : "20",
-      selected: index % 4 === 0,
+      selected: false,
       total: total.toLocaleString("en-GB", {
         style: "currency",
         currency: "GBP",
@@ -318,6 +474,43 @@ const largeColumns: DataGridColumn<LargeInvoiceLine>[] = [
   },
 ];
 
+export const StickyColumns: Story = {
+  render: () => {
+    const [rows, setRows] = useState(() => createLargeRows(12));
+
+    return (
+      <div style={{ maxWidth: 900 }}>
+        <DataGrid
+          aria-label="Invoice lines with sticky columns"
+          rows={rows}
+          columns={largeColumns}
+          maxHeight="360px"
+          maxWidth="100%"
+          stickyHeader
+          enableTabNavigation
+          onCellChange={({ rowId, field, value }) => {
+            setRows((current) =>
+              current.map((row) =>
+                row.id === rowId ? { ...row, [field]: value } : row,
+              ),
+            );
+          }}
+        />
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The line number and action columns stay pinned while the editable columns scroll beneath them. The header remains visible during vertical scrolling.",
+      },
+    },
+  },
+};
+
+StickyColumns.storyName = "Sticky columns";
+
 export const LargeScrollableGrid: Story = {
   render: () => {
     const [rows, setRows] = useState(() => createLargeRows(1000));
@@ -329,6 +522,7 @@ export const LargeScrollableGrid: Story = {
         columns={largeColumns}
         maxHeight="520px"
         maxWidth="100%"
+        stickyHeader
         enableTabNavigation
         rowOverscan={6}
         onCellChange={({ rowId, field, value }) => {

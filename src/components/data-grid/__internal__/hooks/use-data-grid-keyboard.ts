@@ -15,7 +15,7 @@ interface UseDataGridKeyboardOptions<T extends object> {
   focusCell: (position: DataGridCellPosition) => void;
   moveLinear: (position: DataGridCellPosition, delta: number) => void;
   focusAction: (position: DataGridCellPosition) => void;
-  beginEdit: (position: DataGridCellPosition, initialValue?: unknown) => void;
+  beginEdit: (position: DataGridCellPosition, appendedText?: string) => void;
   commitEdit: (restoreFocus?: boolean) => void;
   cancelEdit: (restoreFocus?: boolean) => void;
 }
@@ -54,7 +54,7 @@ const useDataGridKeyboard = <T extends object>({
           moveLinear(position, action.delta);
           break;
         case "begin-edit":
-          beginEdit(position, action.initialValue);
+          beginEdit(position, action.appendedText);
           break;
         case "toggle-checkbox":
           beginEdit(position);

@@ -14,6 +14,7 @@ interface UseDataGridNavigationOptions<T extends object> {
   scrollElementRef: RefObject<HTMLDivElement>;
   keyFor: (position: DataGridCellPosition) => string;
   renderToken: unknown;
+  stickyHeader: boolean;
 }
 
 const useDataGridNavigation = <T extends object>({
@@ -23,6 +24,7 @@ const useDataGridNavigation = <T extends object>({
   scrollElementRef,
   keyFor,
   renderToken,
+  stickyHeader,
 }: UseDataGridNavigationOptions<T>) => {
   const [active, setActive] = useState<DataGridCellPosition>({
     row: 0,
@@ -49,9 +51,9 @@ const useDataGridNavigation = <T extends object>({
         columnModel.leftStickyWidth,
         columnModel.rightStickyWidth,
       );
-      scrollRowIntoView(scrollElementRef.current, position.row);
+      scrollRowIntoView(scrollElementRef.current, position.row, stickyHeader);
     },
-    [columnModel, columns, scrollElementRef],
+    [columnModel, columns, scrollElementRef, stickyHeader],
   );
 
   const focusCell = useCallback(
