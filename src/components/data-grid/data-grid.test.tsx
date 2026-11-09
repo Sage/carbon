@@ -2,7 +2,12 @@ import React, { createRef } from "react";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { DataGrid, DataGridColumn, DataGridHandle } from ".";
+import {
+  DataGrid,
+  DataGridCellParams,
+  DataGridColumn,
+  DataGridHandle,
+} from ".";
 
 interface Row {
   id: number;
@@ -50,6 +55,30 @@ test("renders object rows with accessible grid semantics", () => {
   );
 });
 
+test("gives an intentionally empty action header discernible text", () => {
+  const actionColumns: DataGridColumn<Row>[] = [
+    {
+      field: "actions",
+      headerName: "",
+      headerAriaLabel: "Row actions",
+      type: "action",
+      renderCell: () => <button>Open actions</button>,
+    },
+  ];
+
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={actionColumns}
+    />,
+  );
+
+  expect(
+    screen.getByRole("columnheader", { name: "Row actions" }),
+  ).toBeVisible();
+});
+
 test("can be named and described by external content", () => {
   render(
     <>
@@ -91,6 +120,66 @@ test("exposes error and read-only cell state accessibly", () => {
   expect(cell).toHaveAttribute("aria-invalid", "true");
   expect(cell).toHaveAttribute("aria-readonly", "true");
   expect(cell).toHaveAccessibleDescription("Enter a name");
+});
+
+test("derives error and read-only states from the complete cell context", () => {
+  const error = jest.fn(
+    ({ rowId, field, value }: DataGridCellParams<Row>) =>
+      rowId === 2 && field === "name" && value === "Two" && "Fix row two",
+  );
+  const readOnly = jest.fn(
+    ({ row }: DataGridCellParams<Row>) => row.type === "A",
+  );
+  const stateColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name", error, readOnly },
+  ];
+
+  render(<DataGrid aria-label="Items" rows={rows} columns={stateColumns} />);
+
+  const cells = screen.getAllByRole("gridcell");
+  expect(cells[0]).toHaveAttribute("aria-readonly", "true");
+  expect(cells[0]).not.toHaveAttribute("aria-invalid");
+  expect(cells[1]).toHaveAttribute("aria-invalid", "true");
+  expect(cells[1]).toHaveAccessibleDescription("Fix row two");
+  expect(error).toHaveBeenCalledWith(
+    expect.objectContaining({ row: rows[1], rowId: 2, field: "name" }),
+  );
+});
+
+test("uses a custom row id for cell changes and the imperative handle", async () => {
+  const user = userEvent.setup();
+  const ref = createRef<DataGridHandle>();
+  const onCellChange = jest.fn();
+  const customRows = [
+    { key: "line-a", name: "One" },
+    { key: "line-b", name: "Two" },
+  ];
+  const customColumns: DataGridColumn<(typeof customRows)[number]>[] = [
+    { field: "name", headerName: "Name" },
+  ];
+
+  render(
+    <DataGrid
+      ref={ref}
+      aria-label="Items"
+      rows={customRows}
+      columns={customColumns}
+      getRowId={({ key }) => key}
+      onCellChange={onCellChange}
+    />,
+  );
+
+  act(() => ref.current?.editCell("line-b", "name"));
+  const editor = screen.getByRole("textbox", { name: "Name, row 2" });
+  await user.type(editor, " updated{Enter}");
+
+  expect(onCellChange).toHaveBeenCalledWith(
+    expect.objectContaining({
+      rowId: "line-b",
+      field: "name",
+      value: "Two updated",
+    }),
+  );
 });
 
 test("keeps scrolling cells transparent and raises focused action cells", () => {
@@ -147,6 +236,30 @@ test("keeps scrolling cells transparent and raises focused action cells", () => 
   expect(actionCell).toHaveStyleRule("z-index", "3", {
     modifier: ":focus-within",
   });
+});
+
+test("applies regular and medium content weights to resting cells", () => {
+  const weightedColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name", weight: "regular" },
+    { field: "type", headerName: "Type", weight: "medium" },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={weightedColumns}
+    />,
+  );
+
+  const [regularCell, mediumCell] = screen.getAllByRole("gridcell");
+  expect(regularCell).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-m)",
+  );
+  expect(mediumCell).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-medium-m)",
+  );
 });
 
 test("uses arrow keys to navigate cells", async () => {
@@ -332,6 +445,50 @@ test("tab commits once and moves to the next cell when enabled", async () => {
   expect(cells[1]).toHaveFocus();
 });
 
+test("Tab and Shift+Tab navigate linearly across row boundaries", async () => {
+  const user = userEvent.setup();
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      enableTabNavigation
+    />,
+  );
+  const cells = screen.getAllByRole("gridcell");
+
+  await user.click(cells[2]);
+  await user.keyboard("{Tab}");
+  expect(cells[3]).toHaveFocus();
+
+  await user.keyboard("{Shift>}{Tab}{/Shift}");
+  expect(cells[2]).toHaveFocus();
+});
+
+test("commits a dropdown selection and restores focus", async () => {
+  const user = userEvent.setup();
+  const onCellChange = jest.fn();
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      onCellChange={onCellChange}
+    />,
+  );
+  const dropdownCell = screen.getAllByRole("gridcell")[1];
+
+  await user.click(dropdownCell);
+  await user.keyboard("{Enter}");
+  await user.selectOptions(screen.getByRole("combobox"), "B");
+  await user.keyboard("{Enter}");
+
+  expect(onCellChange).toHaveBeenCalledWith(
+    expect.objectContaining({ rowId: 1, field: "type", value: "B" }),
+  );
+  expect(dropdownCell).toHaveFocus();
+});
+
 test("read-only cells do not enter edit mode", async () => {
   const user = userEvent.setup();
   const readOnlyColumns: DataGridColumn<Row>[] = [
@@ -350,6 +507,33 @@ test("read-only cells do not enter edit mode", async () => {
 
   expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
   expect(screen.getByRole("gridcell")).toHaveFocus();
+});
+
+test("read-only checkbox cells do not toggle", async () => {
+  const user = userEvent.setup();
+  const onCellChange = jest.fn();
+  const readOnlyColumns: DataGridColumn<Row>[] = [
+    {
+      field: "selected",
+      headerName: "Selected",
+      type: "checkbox",
+      readOnly: true,
+    },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={readOnlyColumns}
+      onCellChange={onCellChange}
+    />,
+  );
+
+  await user.click(screen.getByRole("gridcell"));
+  await user.keyboard(" ");
+
+  expect(onCellChange).not.toHaveBeenCalled();
+  expect(screen.getByRole("checkbox")).not.toBeChecked();
 });
 
 test("enter focuses and opens action cell content", async () => {
@@ -461,12 +645,22 @@ test("the imperative handle focuses and edits a cell", () => {
 
 test("escape cancels editing", async () => {
   const user = userEvent.setup();
-  render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
+  const onCellChange = jest.fn();
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      onCellChange={onCellChange}
+    />,
+  );
   const cell = screen.getAllByRole("gridcell")[0];
   await user.click(cell);
   fireEvent.keyDown(cell, { key: "Enter" });
+  await user.type(screen.getByRole("textbox"), " changed");
   fireEvent.keyDown(screen.getByRole("textbox"), { key: "Escape" });
 
   expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
   expect(cell).toHaveFocus();
+  expect(onCellChange).not.toHaveBeenCalled();
 });

@@ -5,6 +5,7 @@ import {
   StyledHeader,
   StyledHeaderGroup,
   StyledHeaderRow,
+  StyledVisuallyHidden,
 } from "../data-grid.style";
 
 interface DataGridHeaderProps<T extends object> {
@@ -35,7 +36,6 @@ const DataGridHeaderInner = <T extends object>({
           key={String(column.field)}
           role="columnheader"
           aria-colindex={columnIndex + 1}
-          aria-label={column.headerAriaLabel}
           $cellType={column.type ?? "text"}
           $align={
             column.align ??
@@ -47,6 +47,11 @@ const DataGridHeaderInner = <T extends object>({
           $stickyOffset={stickyOffsets.get(columnIndex)}
         >
           <span data-element="data-grid-header-label">{column.headerName}</span>
+          {!column.headerName && column.headerAriaLabel && (
+            <StyledVisuallyHidden>
+              {column.headerAriaLabel}
+            </StyledVisuallyHidden>
+          )}
         </StyledHeader>
       ))}
     </StyledHeaderRow>

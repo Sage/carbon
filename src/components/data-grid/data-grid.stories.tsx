@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ActionPopover } from "../action-popover";
@@ -24,6 +24,33 @@ type PlaygroundArgs = Partial<DataGridProps<InvoiceLine>> & {
   /** Story-only control used to demonstrate column-level sticky configuration. */
   playgroundStickyColumns: PlaygroundStickyColumns;
 };
+
+interface RowActions<T> {
+  onDelete: (row: T) => void;
+  onDuplicate: (row: T) => void;
+}
+
+const getNextRowId = <T extends { id: number }>(rows: T[]) =>
+  Math.max(0, ...rows.map(({ id }) => id)) + 1;
+
+const duplicateRow = <T extends { id: number }>(rows: T[], rowId: number) => {
+  const rowIndex = rows.findIndex(({ id }) => id === rowId);
+  if (rowIndex < 0) return rows;
+
+  const duplicatedRow = {
+    ...rows[rowIndex],
+    id: getNextRowId(rows),
+  };
+
+  return [
+    ...rows.slice(0, rowIndex + 1),
+    duplicatedRow,
+    ...rows.slice(rowIndex + 1),
+  ];
+};
+
+const deleteRow = <T extends { id: number }>(rows: T[], rowId: number) =>
+  rows.filter(({ id }) => id !== rowId);
 
 const initialRows: InvoiceLine[] = [
   {
@@ -77,7 +104,10 @@ const createPlaygroundRows = (): InvoiceLine[] =>
     };
   });
 
-const columns: DataGridColumn<InvoiceLine>[] = [
+const createInvoiceColumns = ({
+  onDelete,
+  onDuplicate,
+}: RowActions<InvoiceLine>): DataGridColumn<InvoiceLine>[] => [
   {
     field: "description",
     headerName: "Description",
@@ -116,16 +146,19 @@ const columns: DataGridColumn<InvoiceLine>[] = [
         aria-label={`Actions for ${row.description || "empty line"}`}
         buttonLabel={<Icon type="ellipsis_vertical" />}
       >
-        <ActionPopoverItem onClick={() => undefined}>
+        <ActionPopoverItem onClick={() => onDuplicate(row)}>
           Duplicate
         </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => undefined}>Delete</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => onDelete(row)}>
+          Delete
+        </ActionPopoverItem>
       </ActionPopover>
     ),
   },
 ];
 
 const getPlaygroundColumns = (
+  columns: DataGridColumn<InvoiceLine>[],
   stickyColumns: PlaygroundStickyColumns,
 ): DataGridColumn<InvoiceLine>[] =>
   columns.map((column, index) => ({
@@ -138,6 +171,24 @@ const getPlaygroundColumns = (
           ? "right"
           : undefined,
   })) as DataGridColumn<InvoiceLine>[];
+
+const useInvoiceColumns = (
+  setRows: React.Dispatch<React.SetStateAction<InvoiceLine[]>>,
+  stickyColumns: PlaygroundStickyColumns = "none",
+) =>
+  useMemo(
+    () =>
+      getPlaygroundColumns(
+        createInvoiceColumns({
+          onDelete: ({ id }) =>
+            setRows((currentRows) => deleteRow(currentRows, id)),
+          onDuplicate: ({ id }) =>
+            setRows((currentRows) => duplicateRow(currentRows, id)),
+        }),
+        stickyColumns,
+      ),
+    [setRows, stickyColumns],
+  );
 
 const meta = {
   title: "Data Grid",
@@ -184,13 +235,14 @@ export const Playground: StoryObj<PlaygroundArgs> = {
   render: (args) => {
     const [rows, setRows] = useState(createPlaygroundRows);
     const { playgroundStickyColumns, ...dataGridProps } = args;
+    const storyColumns = useInvoiceColumns(setRows, playgroundStickyColumns);
 
     return (
       <DataGrid
         {...dataGridProps}
         aria-label="Invoice lines playground"
         rows={rows}
-        columns={getPlaygroundColumns(playgroundStickyColumns)}
+        columns={storyColumns}
         onCellChange={({ rowId, field, value }) => {
           setRows((current) =>
             current.map((row) =>
@@ -204,15 +256,17 @@ export const Playground: StoryObj<PlaygroundArgs> = {
 };
 
 export const EditableInvoiceLines: Story = {
+  parameters: { chromatic: { disableSnapshot: false } },
   render: () => {
     const [rows, setRows] = useState(initialRows);
+    const storyColumns = useInvoiceColumns(setRows);
 
     return (
-      <div style={{ maxWidth: 586 }}>
+      <Box maxWidth="100%" minWidth={0} width="600px">
         <DataGrid
           aria-label="Invoice lines"
           rows={rows}
-          columns={columns}
+          columns={storyColumns}
           maxWidth="100%"
           enableTabNavigation
           onCellChange={({ rowId, field, value }) => {
@@ -230,11 +284,10 @@ export const EditableInvoiceLines: Story = {
           mt={2}
           onClick={() => {
             setRows((current) => {
-              const nextId = Math.max(0, ...current.map(({ id }) => id)) + 1;
               return [
                 ...current,
                 {
-                  id: nextId,
+                  id: getNextRowId(current),
                   description: "",
                   category: "Services",
                   selected: false,
@@ -246,7 +299,7 @@ export const EditableInvoiceLines: Story = {
         >
           Add line
         </Button>
-      </div>
+      </Box>
     );
   },
 };
@@ -254,6 +307,7 @@ export const EditableInvoiceLines: Story = {
 EditableInvoiceLines.storyName = "Editable invoice lines";
 
 export const ValidationAndErrorSummary: Story = {
+  parameters: { chromatic: { disableSnapshot: false } },
   render: () => {
     const gridRef = useRef<DataGridHandle>(null);
     const [rows, setRows] = useState(() =>
@@ -262,6 +316,7 @@ export const ValidationAndErrorSummary: Story = {
         description: row.id === 3 ? "" : row.description,
       })),
     );
+    const storyColumns = useInvoiceColumns(setRows);
     const invalidRows = rows.filter((row) => !row.description);
 
     return (
@@ -301,7 +356,7 @@ export const ValidationAndErrorSummary: Story = {
             invalidRows.length > 0 ? "invoice-errors" : undefined
           }
           rows={rows}
-          columns={columns}
+          columns={storyColumns}
           maxWidth="100%"
           onCellChange={({ rowId, field, value }) => {
             setRows((current) =>
@@ -333,6 +388,10 @@ interface LargeInvoiceLine {
   selected: boolean;
   total: string;
   actions: null;
+}
+
+interface LargeRowActions extends RowActions<LargeInvoiceLine> {
+  onInsertAbove: (row: LargeInvoiceLine) => void;
 }
 
 const categories = ["Services", "Software", "Expenses"];
@@ -380,7 +439,39 @@ const createLargeRows = (count: number): LargeInvoiceLine[] =>
     };
   });
 
-const largeColumns: DataGridColumn<LargeInvoiceLine>[] = [
+const renumberLargeRows = (rows: LargeInvoiceLine[]) =>
+  rows.map((row, index) => ({ ...row, line: String(index + 1) }));
+
+const insertLargeRowAbove = (
+  rows: LargeInvoiceLine[],
+  rowId: number,
+): LargeInvoiceLine[] => {
+  const rowIndex = rows.findIndex(({ id }) => id === rowId);
+  if (rowIndex < 0) return rows;
+
+  const sourceRow = rows[rowIndex];
+  const insertedRow: LargeInvoiceLine = {
+    ...sourceRow,
+    id: getNextRowId(rows),
+    line: "",
+    description: "",
+    quantity: "",
+    selected: false,
+    total: "£0.00",
+  };
+
+  return renumberLargeRows([
+    ...rows.slice(0, rowIndex),
+    insertedRow,
+    ...rows.slice(rowIndex),
+  ]);
+};
+
+const createLargeColumns = ({
+  onDelete,
+  onDuplicate,
+  onInsertAbove,
+}: LargeRowActions): DataGridColumn<LargeInvoiceLine>[] => [
   {
     field: "line",
     headerName: "Line",
@@ -462,28 +553,51 @@ const largeColumns: DataGridColumn<LargeInvoiceLine>[] = [
         aria-label={`Actions for line ${row.line}`}
         buttonLabel={<Icon type="ellipsis_vertical" />}
       >
-        <ActionPopoverItem onClick={() => undefined}>
+        <ActionPopoverItem onClick={() => onInsertAbove(row)}>
           Insert above
         </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => undefined}>
+        <ActionPopoverItem onClick={() => onDuplicate(row)}>
           Duplicate
         </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => undefined}>Delete</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => onDelete(row)}>
+          Delete
+        </ActionPopoverItem>
       </ActionPopover>
     ),
   },
 ];
 
+const useLargeColumns = (
+  setRows: React.Dispatch<React.SetStateAction<LargeInvoiceLine[]>>,
+) =>
+  useMemo(
+    () =>
+      createLargeColumns({
+        onDelete: ({ id }) =>
+          setRows((currentRows) =>
+            renumberLargeRows(deleteRow(currentRows, id)),
+          ),
+        onDuplicate: ({ id }) =>
+          setRows((currentRows) =>
+            renumberLargeRows(duplicateRow(currentRows, id)),
+          ),
+        onInsertAbove: ({ id }) =>
+          setRows((currentRows) => insertLargeRowAbove(currentRows, id)),
+      }),
+    [setRows],
+  );
+
 export const StickyColumns: Story = {
   render: () => {
     const [rows, setRows] = useState(() => createLargeRows(12));
+    const storyColumns = useLargeColumns(setRows);
 
     return (
-      <div style={{ maxWidth: 900 }}>
+      <Box maxWidth="100%" minWidth={0} width="900px">
         <DataGrid
           aria-label="Invoice lines with sticky columns"
           rows={rows}
-          columns={largeColumns}
+          columns={storyColumns}
           maxHeight="360px"
           maxWidth="100%"
           stickyHeader
@@ -496,10 +610,11 @@ export const StickyColumns: Story = {
             );
           }}
         />
-      </div>
+      </Box>
     );
   },
   parameters: {
+    chromatic: { disableSnapshot: false },
     docs: {
       description: {
         story:
@@ -514,12 +629,13 @@ StickyColumns.storyName = "Sticky columns";
 export const LargeScrollableGrid: Story = {
   render: () => {
     const [rows, setRows] = useState(() => createLargeRows(1000));
+    const storyColumns = useLargeColumns(setRows);
 
     return (
       <DataGrid
         aria-label="Large invoice lines"
         rows={rows}
-        columns={largeColumns}
+        columns={storyColumns}
         maxHeight="520px"
         maxWidth="100%"
         stickyHeader
