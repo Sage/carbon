@@ -236,9 +236,12 @@ const Menu = ({
     () => controlWrapperRef.current,
   );
 
+  // Runs after every commit: the ref object identity is stable, but its
+  // target can be replaced. Setting an identical element bails out of a render.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
     setReferenceElement(controlWrapperRef.current);
-  }, [controlWrapperRef]);
+  });
 
   return (
     <Popover

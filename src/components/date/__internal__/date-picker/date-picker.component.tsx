@@ -1,5 +1,5 @@
 import { flip, offset } from "@floating-ui/dom";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import Popover from "../../../../__internal__/popover";
 import guid from "../../../../__internal__/utils/helpers/guid";
@@ -64,6 +64,16 @@ export const DatePicker = ({
   } = useDatePickerLocale();
 
   const pickerRef = useRef<HTMLDivElement>(null);
+  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
+    null,
+  );
+
+  // Runs after every commit, once refs are attached, so an initially open
+  // picker and a replaced anchor are both resolved. Identical values bail out.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    setReferenceElement(inputContainerRef.current);
+  });
   const [{ monthSelectId, yearSelectId, pickerDescriptionId }] = useState(
     () => ({
       monthSelectId: `date-picker-month-${guid()}`,
@@ -138,7 +148,7 @@ export const DatePicker = ({
   return (
     <Popover
       placement="bottom-start"
-      reference={inputContainerRef.current}
+      reference={referenceElement}
       middleware={pickerPopoverMiddleware}
       disablePortal={disablePortal}
       disableBackgroundUI={isInTable}
