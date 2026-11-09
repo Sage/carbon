@@ -30,6 +30,42 @@ description: Carbon DataGrid component props and usage examples.
 | aria-labelledby | string \| undefined | No |  | ID of an element that provides the grid's accessible name. |  |
 
 ## Examples
+### CellStatesAndNavigationFocus
+
+**Render**
+
+```tsx
+() => <VisualGrid />
+```
+
+
+### HoverState
+
+**Render**
+
+```tsx
+() => <VisualGrid />
+```
+
+
+### ActiveEditingFocus
+
+**Render**
+
+```tsx
+() => <VisualGrid />
+```
+
+
+### StickyColumnsScrolledWithOpenActions
+
+**Render**
+
+```tsx
+() => <VisualGrid maxWidth="400px" stickyColumns />
+```
+
+
 ### Playground
 
 **Args**
@@ -46,13 +82,14 @@ description: Carbon DataGrid component props and usage examples.
 (args) => {
     const [rows, setRows] = useState(createPlaygroundRows);
     const { playgroundStickyColumns, ...dataGridProps } = args;
+    const storyColumns = useInvoiceColumns(setRows, playgroundStickyColumns);
 
     return (
       <DataGrid
         {...dataGridProps}
         aria-label="Invoice lines playground"
         rows={rows}
-        columns={getPlaygroundColumns(playgroundStickyColumns)}
+        columns={storyColumns}
         onCellChange={({ rowId, field, value }) => {
           setRows((current) =>
             current.map((row) =>
@@ -73,13 +110,14 @@ description: Carbon DataGrid component props and usage examples.
 ```tsx
 () => {
     const [rows, setRows] = useState(initialRows);
+    const storyColumns = useInvoiceColumns(setRows);
 
     return (
-      <div style={{ maxWidth: 586 }}>
+      <Box maxWidth="100%" minWidth={0} width="600px">
         <DataGrid
           aria-label="Invoice lines"
           rows={rows}
-          columns={columns}
+          columns={storyColumns}
           maxWidth="100%"
           enableTabNavigation
           onCellChange={({ rowId, field, value }) => {
@@ -97,11 +135,10 @@ description: Carbon DataGrid component props and usage examples.
           mt={2}
           onClick={() => {
             setRows((current) => {
-              const nextId = Math.max(0, ...current.map(({ id }) => id)) + 1;
               return [
                 ...current,
                 {
-                  id: nextId,
+                  id: getNextRowId(current),
                   description: "",
                   category: "Services",
                   selected: false,
@@ -113,7 +150,7 @@ description: Carbon DataGrid component props and usage examples.
         >
           Add line
         </Button>
-      </div>
+      </Box>
     );
   }
 ```
@@ -132,6 +169,7 @@ description: Carbon DataGrid component props and usage examples.
         description: row.id === 3 ? "" : row.description,
       })),
     );
+    const storyColumns = useInvoiceColumns(setRows);
     const invalidRows = rows.filter((row) => !row.description);
 
     return (
@@ -171,7 +209,7 @@ description: Carbon DataGrid component props and usage examples.
             invalidRows.length > 0 ? "invoice-errors" : undefined
           }
           rows={rows}
-          columns={columns}
+          columns={storyColumns}
           maxWidth="100%"
           onCellChange={({ rowId, field, value }) => {
             setRows((current) =>
@@ -194,13 +232,14 @@ description: Carbon DataGrid component props and usage examples.
 ```tsx
 () => {
     const [rows, setRows] = useState(() => createLargeRows(12));
+    const storyColumns = useLargeColumns(setRows);
 
     return (
-      <div style={{ maxWidth: 900 }}>
+      <Box maxWidth="100%" minWidth={0} width="900px">
         <DataGrid
           aria-label="Invoice lines with sticky columns"
           rows={rows}
-          columns={largeColumns}
+          columns={storyColumns}
           maxHeight="360px"
           maxWidth="100%"
           stickyHeader
@@ -213,7 +252,7 @@ description: Carbon DataGrid component props and usage examples.
             );
           }}
         />
-      </div>
+      </Box>
     );
   }
 ```
@@ -226,12 +265,13 @@ description: Carbon DataGrid component props and usage examples.
 ```tsx
 () => {
     const [rows, setRows] = useState(() => createLargeRows(1000));
+    const storyColumns = useLargeColumns(setRows);
 
     return (
       <DataGrid
         aria-label="Large invoice lines"
         rows={rows}
-        columns={largeColumns}
+        columns={storyColumns}
         maxHeight="520px"
         maxWidth="100%"
         stickyHeader
