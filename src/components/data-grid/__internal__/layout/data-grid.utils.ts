@@ -35,6 +35,7 @@ export const scrollColumnIntoView = <T extends object>(
 export const scrollRowIntoView = (
   container: HTMLDivElement | null,
   rowIndex: number,
+  stickyHeader = false,
   headerHeight = DATA_GRID_HEADER_HEIGHT,
   rowHeight = DATA_GRID_ROW_HEIGHT,
 ) => {
@@ -42,11 +43,12 @@ export const scrollRowIntoView = (
 
   const rowStart = headerHeight + rowIndex * rowHeight;
   const rowEnd = rowStart + rowHeight;
-  const visibleStart = container.scrollTop + headerHeight;
+  const stickyHeaderHeight = stickyHeader ? headerHeight : 0;
+  const visibleStart = container.scrollTop + stickyHeaderHeight;
   const visibleEnd = container.scrollTop + container.clientHeight;
 
   if (rowStart < visibleStart) {
-    container.scrollTop = Math.max(0, rowStart - headerHeight);
+    container.scrollTop = Math.max(0, rowStart - stickyHeaderHeight);
   } else if (rowEnd > visibleEnd) {
     container.scrollTop = Math.max(0, rowEnd - container.clientHeight);
   }

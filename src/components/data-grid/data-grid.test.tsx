@@ -93,6 +93,62 @@ test("exposes error and read-only cell state accessibly", () => {
   expect(cell).toHaveAccessibleDescription("Enter a name");
 });
 
+test("keeps scrolling cells transparent and raises focused action cells", () => {
+  const stackingColumns: DataGridColumn<Row>[] = [
+    {
+      field: "name",
+      headerName: "Name",
+      sticky: "left",
+      readOnly: true,
+    },
+    { field: "type", headerName: "Type" },
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "action",
+      sticky: "right",
+      renderCell: () => <button>Actions</button>,
+    },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={stackingColumns}
+    />,
+  );
+
+  const [stickyCell, scrollingCell, actionCell] =
+    screen.getAllByRole("gridcell");
+  const [headerGroup] = screen.getAllByRole("rowgroup");
+  const [stickyHeader, scrollingHeader] = screen.getAllByRole("columnheader");
+  expect(headerGroup).toHaveStyleRule("position", "relative");
+  expect(headerGroup).toHaveStyleRule("inset-block-start", "auto");
+  expect(headerGroup).toHaveStyleRule("z-index", "auto");
+  expect(stickyHeader).toHaveStyleRule("position", "sticky");
+  expect(scrollingHeader).toHaveStyleRule("position", "relative");
+  expect(stickyCell).toHaveStyleRule(
+    "background-color",
+    "var(--data-grid-sticky-cell-bg,var(--table-row-bg-default))",
+  );
+  expect(stickyCell).toHaveStyleRule(
+    "background-image",
+    "linear-gradient(var(--input-typical-bg-read-only),var(--input-typical-bg-read-only))",
+  );
+  expect(scrollingCell).toHaveStyleRule("background-color", "transparent");
+  expect(scrollingCell).toHaveStyleRule(
+    "box-shadow",
+    "inset 0 0 0 var(--global-borderwidth-s) var(--focus-borderalt)",
+    { modifier: ":focus-visible" },
+  );
+  expect(scrollingCell).toHaveStyleRule("z-index", "1", {
+    modifier: ":focus-visible",
+  });
+  expect(actionCell).toHaveStyleRule("z-index", "3", {
+    modifier: ":focus-within",
+  });
+});
+
 test("uses arrow keys to navigate cells", async () => {
   const user = userEvent.setup();
   render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
@@ -151,6 +207,40 @@ test("scrolls vertically to keep the navigated cell below the sticky header", as
     { id: 3, name: "Three", type: "A", selected: false },
     { id: 4, name: "Four", type: "B", selected: false },
   ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={fourRows}
+      columns={columns}
+      stickyHeader
+    />,
+  );
+  const wrapper = screen.getByRole("grid");
+  const [headerGroup] = screen.getAllByRole("rowgroup");
+  expect(headerGroup).toHaveStyleRule("position", "sticky");
+  expect(headerGroup).toHaveStyleRule("inset-block-start", "0");
+  expect(headerGroup).toHaveStyleRule("z-index", "4");
+  Object.defineProperty(wrapper, "clientHeight", {
+    configurable: true,
+    value: 120,
+  });
+  wrapper.scrollTop = 80;
+
+  const thirdRowFirstCell = screen.getAllByRole("gridcell")[6];
+  await user.click(thirdRowFirstCell);
+  await user.keyboard("{ArrowUp}");
+
+  expect(screen.getAllByRole("gridcell")[3]).toHaveFocus();
+  expect(wrapper.scrollTop).toBe(40);
+});
+
+test("does not reserve header space while vertically navigating by default", async () => {
+  const user = userEvent.setup();
+  const fourRows = [
+    ...rows,
+    { id: 3, name: "Three", type: "A", selected: false },
+    { id: 4, name: "Four", type: "B", selected: false },
+  ];
   render(<DataGrid aria-label="Items" rows={fourRows} columns={columns} />);
   const wrapper = screen.getByRole("grid");
   Object.defineProperty(wrapper, "clientHeight", {
@@ -164,7 +254,7 @@ test("scrolls vertically to keep the navigated cell below the sticky header", as
   await user.keyboard("{ArrowUp}");
 
   expect(screen.getAllByRole("gridcell")[3]).toHaveFocus();
-  expect(wrapper.scrollTop).toBe(40);
+  expect(wrapper.scrollTop).toBe(80);
 });
 
 test("enters edit mode, commits a value, and returns focus to the cell", async () => {
@@ -201,6 +291,19 @@ test("enter focuses the dropdown editor", async () => {
   await user.keyboard("{Enter}");
 
   expect(screen.getByRole("combobox", { name: "Type, row 1" })).toHaveFocus();
+});
+
+test("space focuses the dropdown editor without scrolling the grid", async () => {
+  const user = userEvent.setup();
+  render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
+  const grid = screen.getByRole("grid");
+  grid.scrollTop = 40;
+
+  await user.click(screen.getAllByRole("gridcell")[1]);
+  await user.keyboard(" ");
+
+  expect(screen.getByRole("combobox", { name: "Type, row 1" })).toHaveFocus();
+  expect(grid.scrollTop).toBe(40);
 });
 
 test("tab commits once and moves to the next cell when enabled", async () => {
@@ -275,13 +378,13 @@ test("enter focuses and opens action cell content", async () => {
   expect(onOpen).toHaveBeenCalledTimes(1);
 });
 
-test("typing while navigating replaces the cell value", async () => {
+test("typing while navigating preserves the cell value and appends text", async () => {
   const user = userEvent.setup();
   render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
   await user.click(screen.getAllByRole("gridcell")[0]);
 
   await user.keyboard("X");
-  expect(screen.getByRole("textbox")).toHaveValue("X");
+  expect(screen.getByRole("textbox")).toHaveValue("OneX");
 });
 
 test("space toggles a checkbox cell", async () => {
