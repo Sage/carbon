@@ -1,213 +1,286 @@
 import styled, { css } from "styled-components";
+
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
 import { DataGridCellType, DataGridCellWeight } from "../data-grid.types";
 
-interface Dimensions {
-  cellType: DataGridCellType;
-  width?: number;
-  minWidth?: number;
-  flex?: number;
-  sticky?: "left" | "right";
-  stickyOffset?: number;
+type DataGridAlignment = "left" | "center" | "right";
+
+interface StickyCellProps {
+  $sticky?: "left" | "right";
+  $stickyOffset?: number;
 }
 
-const dimensions = ({
-  cellType,
-  width,
-  minWidth,
-  flex,
-  sticky,
-  stickyOffset,
-}: Dimensions) => css`
-  ${width || cellType === "action" ? `width: ${width ?? 52}px;` : ""}
-  min-width: ${width ?? minWidth ?? (cellType === "action" ? 52 : 120)}px;
-  ${flex && !width ? `width: ${flex * 160}px;` : ""}
-  ${sticky
-    ? `${sticky}: ${stickyOffset ?? 0}px; position: sticky; z-index: 2;`
-    : ""}
+interface CellLayoutProps extends StickyCellProps {
+  $align: DataGridAlignment;
+  $cellType: DataGridCellType;
+}
+
+const stickyCell = ({ $sticky, $stickyOffset }: StickyCellProps) => css`
+  ${$sticky &&
+  css`
+    position: sticky;
+    ${$sticky === "left"
+      ? css`
+          inset-inline-start: ${$stickyOffset ?? 0}px;
+        `
+      : css`
+          inset-inline-end: ${$stickyOffset ?? 0}px;
+        `}
+    z-index: 2;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset-block: 0;
+      ${$sticky === "left"
+        ? css`
+            inset-inline-end: 0;
+            box-shadow: var(--global-depth-sticky-l);
+          `
+        : css`
+            inset-inline-start: 0;
+            box-shadow: var(--global-depth-sticky-r);
+          `}
+      width: 4px;
+      pointer-events: none;
+    }
+  `}
 `;
 
-export const StyledDataGridViewport = styled.div.attrs(applyBaseTheme)<{
-  height?: number | string;
-  width?: number | string;
-}>`
-  box-sizing: border-box;
-  height: ${({ height }) =>
-    typeof height === "number" ? `${height}px` : (height ?? "auto")};
-  overflow: auto;
-  width: ${({ width }) =>
-    typeof width === "number" ? `${width}px` : (width ?? "100%")};
-`;
+interface ViewportProps {
+  $height?: number | string;
+  $width?: number | string;
+  $maxHeight?: number | string;
+  $maxWidth?: number | string;
+}
 
-export const StyledGrid = styled.div<{ contentWidth?: number }>`
-  font-family: var(--fontFamiliesDefault);
-  font-size: var(--fontSizes100);
-  min-width: ${({ contentWidth }) =>
-    contentWidth ? `${contentWidth}px` : "100%"};
+const toCssSize = (value?: number | string) =>
+  typeof value === "number" ? `${value}px` : value;
+
+export const StyledDataGridWrapper = styled.div.attrs(applyBaseTheme)`
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
 `;
 
-export const StyledHeaderRow = styled.div<{ gridTemplateColumns: string }>`
-  display: grid;
-  grid-template-columns: ${({ gridTemplateColumns }) => gridTemplateColumns};
-`;
-
-export const StyledRow = styled.div<{ gridTemplateColumns: string }>`
-  display: grid;
-  grid-template-columns: ${({ gridTemplateColumns }) => gridTemplateColumns};
-`;
-
-export const StyledHeader = styled.div<Dimensions>`
-  ${dimensions}
-  background: var(--colorsUtilityMajor025);
-  border: 0;
+export const StyledDataGridViewport = styled.div<ViewportProps>`
   box-sizing: border-box;
-  color: var(--colorsUtilityYin090);
-  font-weight: var(--fontWeights500);
-  height: var(--sizing500);
-  line-height: var(--lineHeights500);
-  padding: 0 var(--spacing200);
-  position: sticky;
-  text-align: ${({ cellType }) =>
-    cellType === "checkbox" ? "center" : "left"};
-  top: 0;
-  z-index: ${({ sticky }) => (sticky ? 4 : 3)};
+  width: ${({ $width }) => toCssSize($width) ?? "100%"};
+  max-width: ${({ $maxWidth }) => toCssSize($maxWidth) ?? "100%"};
+  height: ${({ $height }) => toCssSize($height) ?? "auto"};
+  max-height: ${({ $maxHeight }) => toCssSize($maxHeight) ?? "none"};
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+`;
 
-  &::after {
-    background: linear-gradient(90deg, rgb(0 0 0 / 10%), transparent);
-    content: ${({ sticky }) => (sticky === "left" ? '""' : "none")};
-    height: 100%;
-    pointer-events: none;
-    position: absolute;
-    right: -4px;
-    top: 0;
-    width: 4px;
+export const StyledGrid = styled.div<{ $contentWidth: number }>`
+  min-width: ${({ $contentWidth }) => `${$contentWidth}px`};
+  width: 100%;
+  color: var(--table-row-label-default);
+  font: var(--global-font-static-comp-regular-m);
+`;
+
+export const StyledHeaderRow = styled.div<{
+  $gridTemplateColumns: string;
+}>`
+  display: grid;
+  grid-template-columns: ${({ $gridTemplateColumns }) => $gridTemplateColumns};
+`;
+
+export const StyledRow = styled.div<{
+  $gridTemplateColumns: string;
+  $isSelected: boolean;
+}>`
+  display: grid;
+  grid-template-columns: ${({ $gridTemplateColumns }) => $gridTemplateColumns};
+
+  ${({ $isSelected }) =>
+    $isSelected &&
+    css`
+      > [data-component="data-grid-cell"] {
+        background-color: var(--table-row-bg-selected);
+        color: var(--table-row-label-selected);
+      }
+    `}
+`;
+
+export const StyledHeader = styled.div<CellLayoutProps>`
+  ${stickyCell}
+  display: flex;
+  align-items: center;
+  justify-content: ${({ $align }) =>
+    $align === "right"
+      ? "flex-end"
+      : $align === "center"
+        ? "center"
+        : "flex-start"};
+  box-sizing: border-box;
+  height: var(--global-size-m);
+  padding: var(--global-space-none) var(--global-space-comp-l);
+  position: sticky;
+  inset-block-start: 0;
+  z-index: ${({ $sticky }) => ($sticky ? 4 : 3)};
+  background-color: var(--page-bg-default);
+  border-block-end: var(--global-borderwidth-xs) solid
+    var(--table-header-subtle-border-default);
+  color: var(--table-header-subtle-label-default);
+  font: var(--global-font-static-comp-medium-m);
+  white-space: nowrap;
+
+  [data-element="data-grid-header-label"] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
 export const StyledCell = styled.div<
-  Dimensions & {
-    hasError: boolean;
-    readOnly: boolean;
-    editing: boolean;
-    weight: DataGridCellWeight;
+  CellLayoutProps & {
+    $hasError: boolean;
+    $readOnly: boolean;
+    $editing: boolean;
+    $weight: DataGridCellWeight;
   }
 >`
-  ${dimensions}
-  background: ${({ readOnly }) =>
-    readOnly
-      ? "var(--colorsUtilityReadOnly500)"
-      : "var(--colorsUtilityYang100)"};
-  border: 0;
-  border-right: var(--borderWidth100) solid var(--colorsUtilityMajor300);
-  border-top: var(--borderWidth100) solid var(--colorsUtilityMajor300);
+  ${stickyCell}
   box-sizing: border-box;
-  cursor: ${({ editing, cellType }) =>
-    editing || cellType === "text" ? "text" : "cell"};
-  font-weight: ${({ weight, editing }) =>
-    editing
-      ? "var(--fontWeights400)"
-      : `var(--fontWeights${weight === "medium" ? "500" : "400"})`};
-  height: var(--sizing500);
-  outline: none;
+  min-width: 0;
+  height: var(--global-size-m);
   padding: 0;
-  position: ${({ sticky }) => (sticky ? "sticky" : "relative")};
+  position: ${({ $sticky }) => ($sticky ? "sticky" : "relative")};
+  background-color: ${({ $readOnly }) =>
+    $readOnly
+      ? "var(--input-typical-bg-read-only)"
+      : "var(--table-row-bg-default)"};
+  border-block-end: var(--global-borderwidth-xs) solid
+    var(--table-row-border-default);
+  border-inline-end: var(--global-borderwidth-xs) solid
+    var(--table-row-border-default);
+  color: var(--table-row-label-default);
+  cursor: ${({ $editing }) => ($editing ? "text" : "cell")};
+  font: ${({ $weight, $editing }) =>
+    $editing || $weight === "regular"
+      ? "var(--global-font-static-comp-regular-m)"
+      : "var(--global-font-static-comp-medium-m)"};
+  outline: none;
 
   &:first-child {
-    border-left: var(--borderWidth100) solid var(--colorsUtilityMajor300);
+    border-inline-start: var(--global-borderwidth-xs) solid
+      var(--table-row-border-default);
   }
 
-  ${({ sticky }) =>
-    sticky === "left" &&
-    css`
-      &::after {
-        background: linear-gradient(90deg, rgb(0 0 0 / 10%), transparent);
-        content: "";
-        height: 100%;
-        pointer-events: none;
-        position: absolute;
-        right: -4px;
-        top: 0;
-        width: 4px;
-      }
-    `}
   &:hover {
-    background: ${({ readOnly }) =>
-      readOnly
-        ? "var(--colorsUtilityReadOnly500)"
-        : "var(--colorsUtilityMajor025)"};
+    background-color: ${({ $readOnly }) =>
+      $readOnly
+        ? "var(--input-typical-bg-read-only)"
+        : "var(--table-row-bg-alt)"};
   }
 
-  ${({ hasError }) =>
-    hasError &&
+  ${({ $hasError }) =>
+    $hasError &&
     css`
-      box-shadow: inset 0 0 0 var(--borderWidth200)
-        var(--colorsSemanticNegative500);
+      box-shadow: inset 0 0 0 var(--global-borderwidth-s)
+        var(--input-validation-border-error);
       z-index: 1;
     `}
 
   &:focus-visible {
-    box-shadow: inset 0 0 0 var(--borderWidth200) var(--colorsUtilityYin100);
+    box-shadow: inset 0 0 0 var(--global-borderwidth-s) var(--focus-border);
     z-index: 3;
   }
 
-  ${({ editing }) =>
-    editing &&
+  ${({ $editing }) =>
+    $editing &&
     css`
-      box-shadow:
-        inset 0 0 0 var(--borderWidth200) var(--colorsSemanticFocus500),
-        inset 0 0 0 var(--borderWidth400) var(--colorsUtilityYin100);
+      ${addFocusStyling(true)}
       z-index: 3;
     `}
 `;
 
-export const StyledCellContent = styled.div<{ cellType: DataGridCellType }>`
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  gap: var(--spacing100);
-  height: var(--sizing500);
-  justify-content: ${({ cellType }) =>
-    cellType === "checkbox" ? "center" : "space-between"};
+export const StyledValidationBar = styled.span`
+  position: absolute;
+  inset-block: var(--global-space-comp-xs);
+  inset-inline-start: var(--global-space-comp-xs);
+  width: var(--global-borderwidth-m);
+  background-color: var(--input-validation-bar-error);
+  pointer-events: none;
+`;
+
+export const StyledVisuallyHidden = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  padding: ${({ cellType }) =>
-    cellType === "checkbox"
-      ? "0 var(--spacing100)"
-      : cellType === "action"
-        ? "0 var(--spacing050)"
-        : "0 var(--spacing200)"};
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`;
+
+export const StyledCellContent = styled.div<CellLayoutProps>`
+  display: flex;
+  align-items: center;
+  justify-content: ${({ $align }) =>
+    $align === "right"
+      ? "flex-end"
+      : $align === "center"
+        ? "center"
+        : "space-between"};
+  box-sizing: border-box;
+  gap: var(--global-space-comp-s);
+  height: var(--global-size-m);
+  min-width: 0;
+  overflow: hidden;
+  padding: ${({ $cellType }) =>
+    $cellType === "checkbox"
+      ? "var(--global-space-none) var(--global-space-comp-s)"
+      : $cellType === "action"
+        ? "var(--global-space-none) var(--global-space-comp-xs)"
+        : "var(--global-space-none) var(--global-space-comp-l)"};
+  text-align: ${({ $align }) => $align};
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  > span:first-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  [data-component="checkbox"] {
+    margin: 0;
+    pointer-events: none;
+  }
 `;
 
 const editor = css`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: var(--global-space-none) var(--global-space-comp-l);
+  appearance: none;
   background: transparent;
   border: 0;
-  box-sizing: border-box;
   color: inherit;
   font: inherit;
-  height: 100%;
   outline: none;
-  padding: 0 var(--spacing200);
-  width: 100%;
 `;
 
 export const StyledEditor = styled.input`
   ${editor}
 `;
+
 export const StyledSelect = styled.select`
   ${editor}
 `;
 
-export const StyledSpacer = styled.div<{ height: number }>`
+export const StyledSpacer = styled.div<{ $height: number }>`
   box-sizing: border-box;
-  height: ${({ height }) => `${height}px`};
-`;
-
-export const StyledCheckbox = styled.input`
-  accent-color: var(--colorsActionMajor500);
-  height: var(--sizing300);
-  margin: 0;
-  pointer-events: none;
-  width: var(--sizing300);
+  height: ${({ $height }) => `${$height}px`};
 `;

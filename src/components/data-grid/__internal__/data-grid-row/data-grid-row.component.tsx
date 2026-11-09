@@ -58,48 +58,63 @@ const DataGridRowInner = <T extends object>({
   onCommitEdit,
   onCellKeyDown,
   onEditorKeyDown,
-}: DataGridRowProps<T>) => (
-  <StyledRow
-    role="row"
-    aria-rowindex={rowIndex + 2}
-    data-component="data-grid-row"
-    gridTemplateColumns={gridTemplateColumns}
-  >
-    {columns.map((column, columnIndex) => {
-      const position = { row: rowIndex, column: columnIndex };
-      const params = getParams(position);
-      const errorValue =
-        typeof column.error === "function"
-          ? column.error(params)
-          : column.error;
+}: DataGridRowProps<T>) => {
+  const selectionColumnIndex = columns.findIndex(
+    ({ type }) => type === "checkbox",
+  );
+  const isSelected =
+    selectionColumnIndex >= 0 &&
+    Boolean(getParams({ row: rowIndex, column: selectionColumnIndex }).value);
 
-      return (
-        <DataGridCell
-          key={String(column.field)}
-          params={params}
-          position={position}
-          rowIndex={rowIndex}
-          columnIndex={columnIndex}
-          active={activeColumn === columnIndex}
-          editing={editingColumn === columnIndex}
-          readOnly={isReadOnly(params)}
-          errorValue={errorValue}
-          draftValue={draftValue}
-          stickyOffset={stickyOffsets.get(columnIndex)}
-          editorRef={editorRef}
-          registerCell={(node) => registerCell(rowIndex, columnIndex, node)}
-          onActivate={onActivate}
-          onFocusPosition={onFocusPosition}
-          onBeginEdit={onBeginEdit}
-          onDraftChange={onDraftChange}
-          onCommitEdit={onCommitEdit}
-          onCellKeyDown={onCellKeyDown}
-          onEditorKeyDown={onEditorKeyDown}
-        />
-      );
-    })}
-  </StyledRow>
-);
+  return (
+    <StyledRow
+      role="row"
+      aria-rowindex={rowIndex + 2}
+      aria-selected={selectionColumnIndex >= 0 ? isSelected : undefined}
+      data-component="data-grid-row"
+      data-is-selected={isSelected}
+      $gridTemplateColumns={gridTemplateColumns}
+      $isSelected={isSelected}
+    >
+      {columns.map((column, columnIndex) => {
+        const position = { row: rowIndex, column: columnIndex };
+        const params = getParams(position);
+        const supportsError =
+          column.type !== "checkbox" && column.type !== "action";
+        const errorValue = supportsError
+          ? typeof column.error === "function"
+            ? column.error(params)
+            : column.error
+          : undefined;
+
+        return (
+          <DataGridCell
+            key={String(column.field)}
+            params={params}
+            position={position}
+            rowIndex={rowIndex}
+            columnIndex={columnIndex}
+            active={activeColumn === columnIndex}
+            editing={editingColumn === columnIndex}
+            readOnly={isReadOnly(params)}
+            errorValue={errorValue}
+            draftValue={draftValue}
+            stickyOffset={stickyOffsets.get(columnIndex)}
+            editorRef={editorRef}
+            ref={(node) => registerCell(rowIndex, columnIndex, node)}
+            onActivate={onActivate}
+            onFocusPosition={onFocusPosition}
+            onBeginEdit={onBeginEdit}
+            onDraftChange={onDraftChange}
+            onCommitEdit={onCommitEdit}
+            onCellKeyDown={onCellKeyDown}
+            onEditorKeyDown={onEditorKeyDown}
+          />
+        );
+      })}
+    </StyledRow>
+  );
+};
 
 const MemoizedDataGridRow = memo(DataGridRowInner);
 MemoizedDataGridRow.displayName = "DataGridRow";
