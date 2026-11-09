@@ -33,8 +33,12 @@ import Form, {
 
 ### Form composition
 
-Start the form with its heading and the `RequiredFieldsIndicator`. Give each section a heading and separate the
-sections with a horizontal `Divider`. Place the buttons last, ordered from lowest to highest emphasis.
+Start the form with its heading and the `RequiredFieldsIndicator`. Group related fields in a `Fieldset`, using its
+`legend` for the section title and `legendHint` for an optional description. Separate sections with a horizontal
+`Divider`. Place the buttons last, ordered from lowest to highest emphasis.
+
+Actions composed as Form children control their own alignment. The `buttonAlignment` prop only applies to controls
+rendered through Form's `saveButton`, `leftSideButtons` and `rightSideButtons` props.
 
 <Canvas of={FormStories.Composition} />
 

@@ -15,7 +15,10 @@ import ModalContext from "../../__internal__/modal/modal.context";
 import SidebarContext from "../sidebar/__internal__/sidebar.context";
 
 export interface FormProps extends SpaceProps, TagProps {
-  /** Alignment of buttons */
+  /**
+   * Alignment of controls rendered by Form's footer (`saveButton`, `leftSideButtons` and `rightSideButtons`).
+   * Does not affect actions composed as Form children.
+   */
   buttonAlignment?: FormButtonAlignment;
   /** The id attribute of the underlying form element */
   id?: string;

@@ -24,7 +24,6 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const blockSpacing = "var(--global-space-layout-xs)";
-const fieldGap = "var(--global-space-comp-l)";
 const buttonGap = "var(--global-space-comp-m)";
 
 const defaultOpenState = isChromatic();
@@ -74,49 +73,56 @@ export const Composition: Story = {
         >
           Confirm that the contact details are up to date.
         </Message>
-        <Typography variant="h2" mb={blockSpacing}>
-          Contact details
-        </Typography>
-        <Textbox
-          label="Email address"
-          required
-          value={email}
-          onChange={(ev) => setEmail(ev.target.value)}
-          mb={fieldGap}
-        />
-        <Textbox
-          label="Telephone number"
-          required
-          value={telephone}
-          onChange={(ev) => setTelephone(ev.target.value)}
+        <Fieldset
+          legend="Contact details"
+          legendHint="The information that will be displayed on your invoices and contact lists."
           mb={blockSpacing}
-        />
+        >
+          <Textbox
+            label="Email address"
+            required
+            value={email}
+            onChange={(ev) => setEmail(ev.target.value)}
+          />
+          <Textbox
+            label="Telephone number"
+            required
+            value={telephone}
+            onChange={(ev) => setTelephone(ev.target.value)}
+          />
+        </Fieldset>
         <Divider
           type="horizontal"
           aria-hidden
           mt="var(--global-space-none)"
           mb={blockSpacing}
         />
-        <Typography variant="h2" mb={blockSpacing}>
-          Preferences
-        </Typography>
-        <Select
-          id="preferred-contact-method"
-          label="Preferred contact method"
-          value={contactMethod}
-          onChange={(ev) => setContactMethod(ev.target.value)}
-          mb={fieldGap}
-        >
-          <Option text="Email" value="email" />
-          <Option text="Telephone" value="telephone" />
-        </Select>
-        <Checkbox
-          label="Send me product updates"
-          checked={newsletter}
-          onChange={(ev) => setNewsletter(ev.target.checked)}
+        <Fieldset
+          legend="Preferences"
+          legendHint="Choose how you would like us to contact you."
           mb={blockSpacing}
-        />
-        <Box display="flex" gap={buttonGap}>
+        >
+          <Select
+            id="preferred-contact-method"
+            label="Preferred contact method"
+            value={contactMethod}
+            onChange={(ev) => setContactMethod(ev.target.value)}
+          >
+            <Option text="Email" value="email" />
+            <Option text="Telephone" value="telephone" />
+          </Select>
+          <Checkbox
+            label="Send me product updates"
+            checked={newsletter}
+            onChange={(ev) => setNewsletter(ev.target.checked)}
+          />
+        </Fieldset>
+        <Box
+          display="flex"
+          gap={buttonGap}
+          justifyContent="flex-end"
+          width="100%"
+        >
           <Button variant="default" variantType="subtle">
             Cancel
           </Button>
@@ -155,7 +161,12 @@ export const WithFieldsets: Story = {
         <Textbox label="Town or city" value="" onChange={() => {}} />
         <Textbox label="Postcode" value="" onChange={() => {}} />
       </Fieldset>
-      <Box display="flex" gap={buttonGap}>
+      <Box
+        display="flex"
+        gap={buttonGap}
+        justifyContent="flex-end"
+        width="100%"
+      >
         <Button variant="default" variantType="primary" type="submit">
           Save
         </Button>
@@ -367,7 +378,12 @@ export const ValidationSummary: Story = {
             error={errors["validation-telephone"]}
           />
         </Fieldset>
-        <Box display="flex" gap={buttonGap}>
+        <Box
+          display="flex"
+          gap={buttonGap}
+          justifyContent="flex-end"
+          width="100%"
+        >
           <Button variant="default" variantType="subtle">
             Cancel
           </Button>
@@ -553,7 +569,7 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
         onChange={() => {}}
       />
     </Fieldset>
-    <Box display="flex" gap={buttonGap}>
+    <Box display="flex" gap={buttonGap} justifyContent="flex-end" width="100%">
       <Button variant="default" variantType="subtle">
         Cancel
       </Button>

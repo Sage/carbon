@@ -15,7 +15,7 @@ description: Carbon Form component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| buttonAlignment | "left" \| "right" \| undefined | No |  |  |  | Alignment of buttons | "right" |
+| buttonAlignment | "left" \| "right" \| undefined | No |  |  |  | Alignment of controls rendered by Form's footer (`saveButton`, `leftSideButtons` and `rightSideButtons`). Does not affect actions composed as Form children. | "right" |
 | children | React.ReactNode | No |  |  |  | Child elements |  |
 | footerChildren | React.ReactNode | No |  |  |  | Custom content to render in the form's footer |  |
 | footerPadding | PaddingProps | No |  |  |  | Padding to be set on the form footer | {} |
@@ -92,49 +92,56 @@ function Render(args) {
         >
           Confirm that the contact details are up to date.
         </Message>
-        <Typography variant="h2" mb={blockSpacing}>
-          Contact details
-        </Typography>
-        <Textbox
-          label="Email address"
-          required
-          value={email}
-          onChange={(ev) => setEmail(ev.target.value)}
-          mb={fieldGap}
-        />
-        <Textbox
-          label="Telephone number"
-          required
-          value={telephone}
-          onChange={(ev) => setTelephone(ev.target.value)}
+        <Fieldset
+          legend="Contact details"
+          legendHint="The information that will be displayed on your invoices and contact lists."
           mb={blockSpacing}
-        />
+        >
+          <Textbox
+            label="Email address"
+            required
+            value={email}
+            onChange={(ev) => setEmail(ev.target.value)}
+          />
+          <Textbox
+            label="Telephone number"
+            required
+            value={telephone}
+            onChange={(ev) => setTelephone(ev.target.value)}
+          />
+        </Fieldset>
         <Divider
           type="horizontal"
           aria-hidden
           mt="var(--global-space-none)"
           mb={blockSpacing}
         />
-        <Typography variant="h2" mb={blockSpacing}>
-          Preferences
-        </Typography>
-        <Select
-          id="preferred-contact-method"
-          label="Preferred contact method"
-          value={contactMethod}
-          onChange={(ev) => setContactMethod(ev.target.value)}
-          mb={fieldGap}
-        >
-          <Option text="Email" value="email" />
-          <Option text="Telephone" value="telephone" />
-        </Select>
-        <Checkbox
-          label="Send me product updates"
-          checked={newsletter}
-          onChange={(ev) => setNewsletter(ev.target.checked)}
+        <Fieldset
+          legend="Preferences"
+          legendHint="Choose how you would like us to contact you."
           mb={blockSpacing}
-        />
-        <Box display="flex" gap={buttonGap}>
+        >
+          <Select
+            id="preferred-contact-method"
+            label="Preferred contact method"
+            value={contactMethod}
+            onChange={(ev) => setContactMethod(ev.target.value)}
+          >
+            <Option text="Email" value="email" />
+            <Option text="Telephone" value="telephone" />
+          </Select>
+          <Checkbox
+            label="Send me product updates"
+            checked={newsletter}
+            onChange={(ev) => setNewsletter(ev.target.checked)}
+          />
+        </Fieldset>
+        <Box
+          display="flex"
+          gap={buttonGap}
+          justifyContent="flex-end"
+          width="100%"
+        >
           <Button variant="default" variantType="subtle">
             Cancel
           </Button>
@@ -177,7 +184,12 @@ function Render(args) {
         <Textbox label="Town or city" value="" onChange={() => {}} />
         <Textbox label="Postcode" value="" onChange={() => {}} />
       </Fieldset>
-      <Box display="flex" gap={buttonGap}>
+      <Box
+        display="flex"
+        gap={buttonGap}
+        justifyContent="flex-end"
+        width="100%"
+      >
         <Button variant="default" variantType="primary" type="submit">
           Save
         </Button>
@@ -401,7 +413,12 @@ function Render(args) {
             error={errors["validation-telephone"]}
           />
         </Fieldset>
-        <Box display="flex" gap={buttonGap}>
+        <Box
+          display="flex"
+          gap={buttonGap}
+          justifyContent="flex-end"
+          width="100%"
+        >
           <Button variant="default" variantType="subtle">
             Cancel
           </Button>
@@ -591,7 +608,7 @@ function Render(args) {
         onChange={() => {}}
       />
     </Fieldset>
-    <Box display="flex" gap={buttonGap}>
+    <Box display="flex" gap={buttonGap} justifyContent="flex-end" width="100%">
       <Button variant="default" variantType="subtle">
         Cancel
       </Button>
