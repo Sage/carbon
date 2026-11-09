@@ -34,6 +34,25 @@ test("creates one consistent layout model for width and sticky positioning", () 
   });
 });
 
+test("does not infer sticky columns from their position or cell type", () => {
+  const columns: DataGridColumn<Row>[] = [
+    { field: "first", headerName: "First", width: 80 },
+    { field: "middle", headerName: "Middle", width: 120 },
+    {
+      field: "last",
+      headerName: "Actions",
+      type: "action",
+      renderCell: () => null,
+    },
+  ];
+
+  const model = createDataGridColumnModel(columns);
+
+  expect(model.stickyOffsets).toEqual(new Map());
+  expect(model.leftStickyWidth).toBe(0);
+  expect(model.rightStickyWidth).toBe(0);
+});
+
 test("accumulates offsets for adjacent sticky columns", () => {
   const columns: DataGridColumn<Row>[] = [
     { field: "first", headerName: "First", width: 40, sticky: "left" },

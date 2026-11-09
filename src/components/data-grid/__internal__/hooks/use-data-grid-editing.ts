@@ -32,7 +32,7 @@ const useDataGridEditing = <T extends object>({
   const finishingEdit = useRef(false);
 
   const beginEdit = useCallback(
-    (position: DataGridCellPosition, initialValue?: unknown) => {
+    (position: DataGridCellPosition, appendedText?: string) => {
       const params = getCellParams(position);
       if (isCellReadOnly(params) || params.column.type === "action") return;
       if (params.column.type === "checkbox") {
@@ -43,7 +43,11 @@ const useDataGridEditing = <T extends object>({
       finishingEdit.current = false;
       activateCell(position);
       ensureCellVisible(position);
-      setDraftValue(initialValue ?? params.value ?? "");
+      setDraftValue(
+        appendedText === undefined
+          ? (params.value ?? "")
+          : `${params.value ?? ""}${appendedText}`,
+      );
       setEditing(position);
     },
     [

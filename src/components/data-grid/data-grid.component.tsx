@@ -51,12 +51,11 @@ const DataGridInner = <T extends object>(
     getRowId,
     onCellChange,
     enableTabNavigation = false,
+    stickyHeader = false,
     disableVirtualization = false,
     rowOverscan = 5,
     maxHeight,
     maxWidth,
-    height,
-    width,
     "aria-labelledby": ariaLabelledBy,
     "aria-describedby": ariaDescribedBy,
   }: DataGridProps<T>,
@@ -106,7 +105,7 @@ const DataGridInner = <T extends object>(
     rowCount: rows.length,
     getRowKey: getVirtualRowKey,
     scrollElementRef: viewportRef,
-    height: maxHeight ?? height,
+    height: maxHeight,
     disabled: disableVirtualization,
     overscan: rowOverscan,
   });
@@ -125,6 +124,7 @@ const DataGridInner = <T extends object>(
     scrollElementRef: viewportRef,
     keyFor,
     renderToken: virtualization.renderToken,
+    stickyHeader,
   });
   const {
     editing,
@@ -191,8 +191,6 @@ const DataGridInner = <T extends object>(
     >
       <StyledDataGridViewport
         ref={viewportRef}
-        $height={height}
-        $width={width}
         $maxHeight={maxHeight}
         $maxWidth={maxWidth}
         role="grid"
@@ -210,6 +208,7 @@ const DataGridInner = <T extends object>(
             columns={columns}
             stickyOffsets={columnModel.stickyOffsets}
             gridTemplateColumns={columnModel.gridTemplateColumns}
+            sticky={stickyHeader}
           />
           <div role="rowgroup" data-component="data-grid-body">
             {virtualization.topPadding > 0 && (

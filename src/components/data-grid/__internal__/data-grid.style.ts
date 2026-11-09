@@ -49,8 +49,6 @@ const stickyCell = ({ $sticky, $stickyOffset }: StickyCellProps) => css`
 `;
 
 interface ViewportProps {
-  $height?: number | string;
-  $width?: number | string;
   $maxHeight?: number | string;
   $maxWidth?: number | string;
 }
@@ -68,9 +66,8 @@ export const StyledDataGridWrapper = styled.div.attrs(applyBaseTheme)`
 
 export const StyledDataGridViewport = styled.div<ViewportProps>`
   box-sizing: border-box;
-  width: ${({ $width }) => toCssSize($width) ?? "100%"};
+  width: 100%;
   max-width: ${({ $maxWidth }) => toCssSize($maxWidth) ?? "100%"};
-  height: ${({ $height }) => toCssSize($height) ?? "auto"};
   max-height: ${({ $maxHeight }) => toCssSize($maxHeight) ?? "none"};
   min-width: 0;
   overflow: auto;
@@ -92,6 +89,12 @@ export const StyledHeaderRow = styled.div<{
   grid-template-columns: ${({ $gridTemplateColumns }) => $gridTemplateColumns};
 `;
 
+export const StyledHeaderGroup = styled.div<{ $sticky: boolean }>`
+  position: ${({ $sticky }) => ($sticky ? "sticky" : "relative")};
+  inset-block-start: ${({ $sticky }) => ($sticky ? 0 : "auto")};
+  z-index: ${({ $sticky }) => ($sticky ? 4 : "auto")};
+`;
+
 export const StyledRow = styled.div<{
   $gridTemplateColumns: string;
   $isSelected: boolean;
@@ -102,7 +105,7 @@ export const StyledRow = styled.div<{
   ${({ $isSelected }) =>
     $isSelected &&
     css`
-      > [data-component="data-grid-cell"] {
+      && > [data-component="data-grid-cell"] {
         background-color: var(--table-row-bg-selected);
         color: var(--table-row-label-selected);
       }
@@ -122,9 +125,8 @@ export const StyledHeader = styled.div<CellLayoutProps>`
   box-sizing: border-box;
   height: var(--global-size-m);
   padding: var(--global-space-none) var(--global-space-comp-l);
-  position: sticky;
-  inset-block-start: 0;
-  z-index: ${({ $sticky }) => ($sticky ? 4 : 3)};
+  position: ${({ $sticky }) => ($sticky ? "sticky" : "relative")};
+  z-index: ${({ $sticky }) => ($sticky ? 1 : "auto")};
   background-color: var(--page-bg-default);
   border-block-end: var(--global-borderwidth-xs) solid
     var(--table-header-subtle-border-default);
@@ -153,10 +155,16 @@ export const StyledCell = styled.div<
   height: var(--global-size-m);
   padding: 0;
   position: ${({ $sticky }) => ($sticky ? "sticky" : "relative")};
-  background-color: ${({ $readOnly }) =>
-    $readOnly
-      ? "var(--input-typical-bg-read-only)"
-      : "var(--table-row-bg-default)"};
+  background-color: ${({ $readOnly, $sticky }) =>
+    $sticky
+      ? "var(--data-grid-sticky-cell-bg, var(--table-row-bg-default))"
+      : $readOnly
+        ? "var(--input-typical-bg-read-only)"
+        : "transparent"};
+  background-image: ${({ $readOnly, $sticky }) =>
+    $readOnly && $sticky
+      ? "linear-gradient(var(--input-typical-bg-read-only), var(--input-typical-bg-read-only))"
+      : "none"};
   border-block-end: var(--global-borderwidth-xs) solid
     var(--table-row-border-default);
   border-inline-end: var(--global-borderwidth-xs) solid
@@ -175,9 +183,11 @@ export const StyledCell = styled.div<
   }
 
   &:hover {
-    background-color: ${({ $readOnly }) =>
+    background-color: ${({ $readOnly, $sticky }) =>
       $readOnly
-        ? "var(--input-typical-bg-read-only)"
+        ? $sticky
+          ? "var(--data-grid-sticky-cell-bg, var(--table-row-bg-default))"
+          : "var(--input-typical-bg-read-only)"
         : "var(--table-row-bg-alt)"};
   }
 
@@ -186,19 +196,26 @@ export const StyledCell = styled.div<
     css`
       box-shadow: inset 0 0 0 var(--global-borderwidth-s)
         var(--input-validation-border-error);
-      z-index: 1;
     `}
 
   &:focus-visible {
-    box-shadow: inset 0 0 0 var(--global-borderwidth-s) var(--focus-border);
-    z-index: 3;
+    box-shadow: inset 0 0 0 var(--global-borderwidth-s) var(--focus-borderalt);
+    z-index: ${({ $sticky }) => ($sticky ? 3 : 1)};
   }
 
-  ${({ $editing }) =>
+  ${({ $editing, $sticky }) =>
     $editing &&
     css`
       ${addFocusStyling(true)}
-      z-index: 3;
+      z-index: ${$sticky ? 3 : 1};
+    `}
+
+  ${({ $cellType }) =>
+    $cellType === "action" &&
+    css`
+      &:focus-within {
+        z-index: 3;
+      }
     `}
 `;
 
@@ -236,7 +253,8 @@ export const StyledCellContent = styled.div<CellLayoutProps>`
   gap: var(--global-space-comp-s);
   height: var(--global-size-m);
   min-width: 0;
-  overflow: hidden;
+  overflow: ${({ $cellType }) =>
+    $cellType === "action" ? "visible" : "hidden"};
   padding: ${({ $cellType }) =>
     $cellType === "checkbox"
       ? "var(--global-space-none) var(--global-space-comp-s)"
