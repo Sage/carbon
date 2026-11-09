@@ -101,6 +101,8 @@ export interface DataGridProps<T extends object> {
   onCellChange?: (params: DataGridCellChangeParams<T>) => void;
   /** Enables Tab and Shift+Tab cell navigation. */
   enableTabNavigation?: boolean;
+  /** Keeps the header visible while the grid scrolls vertically. */
+  stickyHeader?: boolean;
   /** Disables automatic row virtualization in a height-constrained grid. */
   disableVirtualization?: boolean;
   /** Number of additional rows mounted above and below the viewport. */
@@ -109,10 +111,6 @@ export interface DataGridProps<T extends object> {
   maxHeight?: number | string;
   /** Maximum viewport width. Enables horizontal scrolling when constrained. */
   maxWidth?: number | string;
-  /** @deprecated Use `maxHeight` instead. */
-  height?: number | string;
-  /** @deprecated Use `maxWidth` instead. */
-  width?: number | string;
 }
 
 export interface DataGridCellChangeParams<T extends object>

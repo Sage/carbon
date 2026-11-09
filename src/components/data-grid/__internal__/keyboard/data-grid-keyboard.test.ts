@@ -26,14 +26,27 @@ test("maps directional keys to cell movement", () => {
   ).toEqual({ type: "move", rowDelta: 0, columnDelta: 1 });
 });
 
-test("maps printable text to edit mode with an initial value", () => {
+test("maps printable text to edit mode as appended text", () => {
   expect(getDataGridCellKeyAction(keyEvent("A"), "text", false)).toEqual({
     type: "begin-edit",
-    initialValue: "A",
+    appendedText: "A",
   });
   expect(
     getDataGridCellKeyAction(keyEvent("A", { ctrlKey: true }), "text", false),
   ).toBeNull();
+});
+
+test("maps Space to the interaction appropriate for the cell type", () => {
+  expect(getDataGridCellKeyAction(keyEvent(" "), "checkbox", false)).toEqual({
+    type: "toggle-checkbox",
+  });
+  expect(getDataGridCellKeyAction(keyEvent(" "), "dropdown", false)).toEqual({
+    type: "begin-edit",
+  });
+  expect(getDataGridCellKeyAction(keyEvent(" "), "text", false)).toEqual({
+    type: "begin-edit",
+    appendedText: " ",
+  });
 });
 
 test("only maps Tab when tab navigation is enabled", () => {

@@ -1,20 +1,30 @@
 import React, { memo } from "react";
 
 import { DataGridColumn } from "../../data-grid.types";
-import { StyledHeader, StyledHeaderRow } from "../data-grid.style";
+import {
+  StyledHeader,
+  StyledHeaderGroup,
+  StyledHeaderRow,
+} from "../data-grid.style";
 
 interface DataGridHeaderProps<T extends object> {
   columns: DataGridColumn<T>[];
   stickyOffsets: Map<number, number>;
   gridTemplateColumns: string;
+  sticky: boolean;
 }
 
 const DataGridHeaderInner = <T extends object>({
   columns,
   stickyOffsets,
   gridTemplateColumns,
+  sticky,
 }: DataGridHeaderProps<T>) => (
-  <div role="rowgroup" data-component="data-grid-header">
+  <StyledHeaderGroup
+    role="rowgroup"
+    data-component="data-grid-header"
+    $sticky={sticky}
+  >
     <StyledHeaderRow
       role="row"
       aria-rowindex={1}
@@ -40,7 +50,7 @@ const DataGridHeaderInner = <T extends object>({
         </StyledHeader>
       ))}
     </StyledHeaderRow>
-  </div>
+  </StyledHeaderGroup>
 );
 
 const MemoizedDataGridHeader = memo(DataGridHeaderInner);
