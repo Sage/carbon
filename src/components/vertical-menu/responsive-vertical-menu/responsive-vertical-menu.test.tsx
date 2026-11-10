@@ -1272,11 +1272,11 @@ test("renders dividers correctly when responsive", async () => {
   await user.click(menuItem);
 
   const dividers = screen.getAllByTestId("responsive-vertical-menu-divider");
-  expect(dividers).toHaveLength(2);
-  expect(dividers[1]).toHaveStyle("max-width: 88%");
+  expect(dividers).toHaveLength(1);
+  expect(dividers[0]).toHaveStyle("max-width: 88%");
 });
 
-test("adds dividers between list items in responsive mode", async () => {
+test("adds dividers between adjacent list items in responsive mode via styling", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
@@ -1289,20 +1289,40 @@ test("adds dividers between list items in responsive mode", async () => {
 
   await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
 
+  const [menu] = screen.getAllByRole("list");
+  expect(menu).toHaveStyleRule(
+    "border-top",
+    "1px solid var(--nav-primary-divider)",
+    {
+      modifier: "> li + li::before",
+    },
+  );
   expect(
-    screen.getAllByTestId("responsive-vertical-menu-divider"),
-  ).toHaveLength(1);
-  const listItems = screen.getAllByRole("listitem", { hidden: true });
-  expect(listItems).toHaveLength(3);
-  expect(listItems[1]).toHaveAttribute("aria-hidden", "true");
-  expect(
-    within(listItems[1]).getByTestId("responsive-vertical-menu-divider"),
-  ).toBeInTheDocument();
-  expect(screen.getByText("Menu Item 1")).toBeVisible();
-  expect(screen.getByText("Menu Item 2")).toBeVisible();
+    screen.queryByTestId("responsive-vertical-menu-divider"),
+  ).not.toBeInTheDocument();
+  expect(screen.getAllByRole("listitem")).toHaveLength(2);
 });
 
-test("adds dividers between items wrapped in fragments in responsive mode", async () => {
+test("does not add divider styling when not in responsive mode", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem label="Menu Item 1" />
+      <ResponsiveVerticalMenuItem label="Menu Item 2" />
+    </ResponsiveVerticalMenu>,
+  );
+
+  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
+
+  expect(
+    screen.getByTestId("responsive-vertical-menu-primary"),
+  ).not.toHaveStyleRule("border-top", expect.anything(), {
+    modifier: "> li + li::before",
+  });
+});
+
+test("renders items wrapped in fragments and explicit dividers in responsive mode", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
@@ -1324,47 +1344,8 @@ test("adds dividers between items wrapped in fragments in responsive mode", asyn
 
   expect(
     screen.getAllByTestId("responsive-vertical-menu-divider"),
-  ).toHaveLength(3);
-});
-
-test("does not remount an item when a sibling is appended in responsive mode", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  mockUseIsAboveBreakpoint.mockReturnValue(false);
-
-  const renderMenu = (extraItem: boolean) => (
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem label="Menu Item 1" id="menu-item-1" />
-      {extraItem && <ResponsiveVerticalMenuItem label="Menu Item 2" />}
-    </ResponsiveVerticalMenu>
-  );
-
-  const { rerender } = render(renderMenu(false));
-
-  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
-  const itemBefore = screen.getByText("Menu Item 1");
-
-  rerender(renderMenu(true));
-
-  expect(screen.getByText("Menu Item 1")).toBe(itemBefore);
-});
-
-test("renders non-element children without dividers in responsive mode", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  mockUseIsAboveBreakpoint.mockReturnValue(false);
-
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem label="Menu Item 1" />
-      plain text
-    </ResponsiveVerticalMenu>,
-  );
-
-  await user.click(screen.getByTestId("responsive-vertical-menu-launcher"));
-
-  expect(screen.getByText("plain text")).toBeVisible();
-  expect(
-    screen.queryByTestId("responsive-vertical-menu-divider"),
-  ).not.toBeInTheDocument();
+  ).toHaveLength(1);
+  expect(screen.getAllByRole("listitem")).toHaveLength(4);
 });
 
 test("should allow an onClick handler to be passed to items", async () => {

@@ -110,12 +110,6 @@ export const StyledGlobalVerticalMenuWrapper = styled.div`
   width: fit-content;
 `;
 
-export const StyledResponsiveMenuDividerItem = styled.li`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
 export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
   margin: 0;
   padding: 0;
@@ -157,6 +151,17 @@ export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
     css`
       left: ${left};
       height: ${height};
+    `}
+
+  ${({ responsive }) =>
+    responsive &&
+    css`
+      > li + li::before {
+        content: "";
+        display: block;
+        border-top: 1px solid var(--nav-primary-divider);
+        margin: var(--global-space-comp-s) 0;
+      }
     `}
 
   ${({ responsive, menu }) =>

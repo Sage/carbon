@@ -8,6 +8,7 @@ import {
   WithLongList,
   WithButtonAndLinkActionItems,
   WithSiblingControl,
+  WithAdjacentItemsAndDivider,
 } from "./components.test-pw";
 
 import { checkAccessibility } from "../../../../playwright/support/helper";
@@ -119,6 +120,31 @@ test.describe("functional tests", () => {
 
     expect(clientOffsetTertiaryCustomIconMenuItem).toBeGreaterThanOrEqual(422);
     expect(clientOffsetTertiaryCustomIconMenuItem).toBeLessThanOrEqual(426);
+  });
+});
+
+test.describe("dividers", () => {
+  test("renders a divider only between adjacent items in responsive mode", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithAdjacentItemsAndDivider />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+
+    const items = page.locator("#responsive-vertical-menu-primary > li");
+    await expect(items).toHaveCount(3);
+
+    const beforeBorderTop = (index: number) =>
+      items
+        .nth(index)
+        .evaluate(
+          (el) => window.getComputedStyle(el, "::before").borderTopWidth,
+        );
+
+    expect(await beforeBorderTop(0)).toBe("0px");
+    expect(await beforeBorderTop(1)).toBe("1px");
+    expect(await beforeBorderTop(2)).toBe("0px");
   });
 });
 

@@ -10,7 +10,6 @@ import React, {
 } from "react";
 
 import { DepthProvider } from "./__internal__/depth.context";
-import { ResponsiveVerticalMenuDivider } from "./responsive-vertical-menu-divider";
 import {
   useResponsiveVerticalMenu,
   ResponsiveVerticalMenuProvider,
@@ -22,7 +21,6 @@ import {
   StyledCloseButton,
   StyledGlobalVerticalMenuWrapper,
   StyledResponsiveMenu,
-  StyledResponsiveMenuDividerItem,
   StyledCloseButtonWrapper,
 } from "./responsive-vertical-menu.style";
 
@@ -33,7 +31,6 @@ import useMediaQuery from "../../../hooks/useMediaQuery";
 import useLocale from "../../../hooks/__internal__/useLocale";
 
 import FocusTrap from "../../../__internal__/focus-trap";
-import flattenChildren from "../../../__internal__/utils/helpers/flatten-children";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
@@ -321,29 +318,7 @@ const BaseMenu = forwardRef<
                   top="40px"
                   width={width}
                 >
-                  {flattenChildren(children).map((child, index, items) => {
-                    if (!React.isValidElement(child)) {
-                      return child;
-                    }
-
-                    const nextChild = items[index + 1];
-                    const hasDivider =
-                      responsiveMode &&
-                      child.type !== ResponsiveVerticalMenuDivider &&
-                      React.isValidElement(nextChild) &&
-                      nextChild.type !== ResponsiveVerticalMenuDivider;
-
-                    return (
-                      <React.Fragment key={child.key}>
-                        {child}
-                        {hasDivider && (
-                          <StyledResponsiveMenuDividerItem aria-hidden="true">
-                            <ResponsiveVerticalMenuDivider />
-                          </StyledResponsiveMenuDividerItem>
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
+                  {children}
                 </StyledResponsiveMenu>
               </ModalContainer>
             </FocusTrap>
