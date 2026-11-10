@@ -227,9 +227,9 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-colorcode-yellow-soft: #ffca35;
   --mode-color-colorcode-yellow-faint: #ffedb8;
   --mode-color-generic-bg-nought: #FFFFFF;
-  --mode-color-generic-bg-faint: #f4f5f6;
-  --mode-color-generic-bg-delicate: #e8eaec;
-  --mode-color-generic-bg-soft: #dde0e3;
+  --mode-color-generic-bg-faint: #75838f0d;
+  --mode-color-generic-bg-delicate: #75838f1a;
+  --mode-color-generic-bg-soft: #75838f26;
   --mode-color-generic-bg-inverse-nought: #000000;
   --mode-color-generic-bg-inverse-faint: #ffffff0d;
   --mode-color-generic-bg-inverse-delicate: #ffffff1a;
@@ -248,6 +248,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-generic-txt-inverse-soft: #ffffff8c;
   --mode-color-generic-txt-inverse-delicate: #ffffff6b;
   --mode-color-generic-fg-nought: #FFFFFF;
+  --mode-color-generic-fg-faint: #e8eaec;
   --mode-color-generic-fg-soft: #a3adb5;
   --mode-color-generic-fg-moderate: #8c98a2;
   --mode-color-generic-fg-firm: #75838f;
@@ -610,7 +611,7 @@ exports[`builds the static tokens as expected 1`] = `
   --button-typical-toggle-bg-active-disabled: var(--mode-color-action-inactive-default);
   --button-typical-toggle-label-active-disabled: var(--mode-color-action-inactive-txt-alt);
   --button-typical-toggle-bg-active: var(--mode-color-action-grayscale-active);
-  --button-typical-toggle-bg-default: var(--mode-color-action-grayscale-with-default);
+  --button-typical-toggle-bg-default: var(--mode-color-none);
   --button-typical-toggle-bg-hover: var(--mode-color-generic-bg-delicate);
   --button-typical-toggle-border-default: var(--mode-color-action-grayscale-default);
   --button-typical-toggle-border-disabled: var(--mode-color-action-inactive-default);
@@ -653,6 +654,7 @@ exports[`builds the static tokens as expected 1`] = `
   --container-action-txt-hover: var(--mode-color-action-grayscale-default);
   --container-action-detailedicon-bg: var(--mode-color-status-custom-green-default);
   --container-action-target-bg-default: var(--mode-color-status-info-default);
+  --container-modal-border-default: var(--mode-color-generic-fg-soft);
   --container-scrollbar-bg-default: var(--mode-color-generic-bg-faint);
   --container-scrollbar-fg-default: var(--mode-color-generic-fg-firm);
   --container-scrollbar-inverse-bg-default: var(--mode-color-generic-bg-inverse-soft);
@@ -887,7 +889,7 @@ exports[`builds the static tokens as expected 1`] = `
   --input-dropdown-label-active: var(--mode-color-action-grayscale-with-active);
   --input-dropdown-label-alt: var(--mode-color-action-data-entry-txt);
   --input-dropdown-label-disabled: var(--mode-color-action-inactive-txt);
-  --input-dropdown-label-default: var(--mode-color-action-data-entry-txt-alt);
+  --input-dropdown-label-default: var(--mode-color-action-data-entry-txt);
   --input-dropdown-label-hover: var(--mode-color-action-grayscale-with-hover);
   --input-dropdown-label-subtxt: var(--mode-color-action-data-entry-txt-alt);
   --input-labelset-label-required: var(--mode-color-action-danger-default);
@@ -1056,8 +1058,8 @@ exports[`builds the static tokens as expected 1`] = `
   --nav-tertiary-label-default: var(--mode-color-action-nav-with-default);
   --nav-tertiary-label-default-alt: var(--mode-color-generic-txt-moderate);
   --nav-tertiary-label-hover: var(--mode-color-action-nav-with-hover);
-  --page-bg-alt: var(--mode-color-generic-surface-trace);
-  --page-bg-default: var(--mode-color-generic-surface-nought);
+  --page-bg-alt: var(--mode-color-generic-surface-nought);
+  --page-bg-default: var(--mode-color-generic-surface-trace);
   --page-icon-default: var(--mode-color-generic-txt-severe);
   --page-txt-default: var(--mode-color-generic-txt-severe);
   --page-content-icon-alt: var(--mode-color-generic-txt-moderate);
@@ -1282,6 +1284,7 @@ exports[`builds the static tokens as expected 1`] = `
   --tab-bg-hover: var(--mode-color-generic-bg-delicate);
   --tab-border-active-alt: var(--mode-color-generic-fg-moderate);
   --tab-border-active: var(--mode-color-action-grayscale-active);
+  --tab-border-active-outline: var(--mode-color-none);
   --tab-border-default: var(--mode-color-generic-fg-moderate);
   --tab-border-hover: var(--mode-color-generic-fg-firm);
   --tab-icon-default: var(--mode-color-action-grayscale-default-alt);
@@ -1411,15 +1414,16 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-generic-txt-inverse-soft: #0000008c;
   --mode-color-generic-txt-inverse-delicate: #0000006b;
   --mode-color-generic-fg-nought: #000000;
-  --mode-color-generic-fg-soft: #505050;
-  --mode-color-generic-fg-moderate: #616161;
-  --mode-color-generic-fg-firm: #6f6f6f;
+  --mode-color-generic-fg-faint: #ffffff1a;
+  --mode-color-generic-fg-soft: #fff3;
+  --mode-color-generic-fg-moderate: #ffffff4d;
+  --mode-color-generic-fg-firm: #fff6;
   --mode-color-generic-fg-inverse-nought: #FFFFFF;
   --mode-color-generic-fg-inverse-soft: #a3adb5;
   --mode-color-generic-fg-inverse-moderate: #8c98a2;
   --mode-color-generic-fg-inverse-firm: #75838f;
-  --mode-color-generic-surface-nought: #000000;
-  --mode-color-generic-surface-trace: #1b1b1b;
+  --mode-color-generic-surface-nought: #111;
+  --mode-color-generic-surface-trace: #000000;
   --mode-color-generic-surface-faint: #3b3b3b;
   --mode-color-generic-surface-harsh: #d1d6da;
   --mode-color-generic-surface-severe: #e8eaec;
@@ -1453,7 +1457,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-action-data-entry-with-active: #FFFFFF;
   --mode-color-action-data-entry-with-active-alt: #000000;
   --mode-color-action-data-entry-with-hover: #FFFFFF;
-  --mode-color-action-data-entry-hover-alt: #253b4e;
+  --mode-color-action-data-entry-hover-alt: #fffffff2;
   --mode-color-action-data-entry-with-default: #a3adb5;
   --mode-color-action-data-entry-default-alt: #304658;
   --mode-color-action-data-entry-txt: #fffffff2;
@@ -1612,7 +1616,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-status-priority-inverse-default-alt: #f9f6ff;
   --mode-color-status-priority-inverse-hover: #803ec5;
   --mode-color-status-priority-inverse-hover-alt: #F3EBFE;
-  --mode-color-status-inactive-default: #6f6f6f;
+  --mode-color-status-inactive-default: #fff6;
   --mode-color-status-inactive-with-default: #ffffff8c;
   --mode-color-status-inactive-inverse-default: #75838f;
   --mode-color-status-inactive-inverse-with-default: #0000008c;
