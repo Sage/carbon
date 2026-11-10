@@ -48,6 +48,10 @@ test.describe("Focus management and interaction tests for Sidebar component", ()
     page,
   }) => {
     await mount(<SidebarWithFocusableContainer />);
+    await expect(getDataRoleByValue(page, "modal").first()).toHaveAttribute(
+      "data-state",
+      "open",
+    );
 
     const messageElement = getDataRoleByValue(page, "message");
 
@@ -71,6 +75,10 @@ test.describe("Focus management and interaction tests for Sidebar component", ()
     page,
   }) => {
     await mount(<SidebarWithFocusableContainer />);
+    await expect(getDataRoleByValue(page, "modal").first()).toHaveAttribute(
+      "data-state",
+      "open",
+    );
 
     const sidebarPreviewElement = sidebarPreview(page);
     await sidebarPreviewElement.press("Tab");
@@ -95,6 +103,10 @@ test.describe("Focus management and interaction tests for Sidebar component", ()
     page,
   }) => {
     await mount(<SidebarWithFocusableContainer />);
+    await expect(getDataRoleByValue(page, "modal").first()).toHaveAttribute(
+      "data-state",
+      "open",
+    );
 
     const messageElement = getDataRoleByValue(page, "message");
 
@@ -160,26 +172,40 @@ test.describe("Focus management and interaction tests for Sidebar component", ()
     const firstButton = page
       .getByRole("button")
       .filter({ hasText: "Open First Sidebar" });
-    const firstSidebar = sidebarPreview(page).first();
+    const firstSidebar = getDataRoleByValue(page, "first-sidebar");
     await expect(firstButton).not.toBeFocused();
     await expect(firstSidebar).toBeHidden();
 
     await firstButton.click();
     await expect(firstSidebar).toBeVisible();
+    await expect(getDataRoleByValue(page, "modal").first()).toHaveAttribute(
+      "data-state",
+      "open",
+    );
     const secondButton = page
       .getByRole("button")
       .filter({ hasText: "Open Nested Sidebar" });
     await expect(secondButton).not.toBeFocused();
     await secondButton.click();
-    const secondSidebar = sidebarPreview(page).last();
+    const secondSidebar = getDataRoleByValue(page, "nested-sidebar");
     await expect(secondSidebar).toBeVisible();
+    await expect(getDataRoleByValue(page, "modal").last()).toHaveAttribute(
+      "data-state",
+      "open",
+    );
 
-    const secondCloseButton = page.getByLabel("Close").last();
+    const secondCloseButton = secondSidebar.getByRole("button", {
+      name: "Close",
+    });
     await secondCloseButton.click();
+    await expect(secondSidebar).toBeHidden();
     await expect(secondButton).toBeFocused();
 
-    const firstCloseButton = page.getByLabel("Close").first();
+    const firstCloseButton = firstSidebar.getByRole("button", {
+      name: "Close",
+    });
     await firstCloseButton.click();
+    await expect(firstSidebar).toBeHidden();
     await expect(firstButton).toBeFocused();
   });
 
