@@ -299,7 +299,7 @@ const BaseMenu = forwardRef<
                     data-component="responsive-vertical-menu-close"
                     data-role="responsive-vertical-menu-close"
                     iconType="close"
-                    size="small"
+                    size="xs"
                     variantType="tertiary"
                     onClick={() => {
                       setActive(false);

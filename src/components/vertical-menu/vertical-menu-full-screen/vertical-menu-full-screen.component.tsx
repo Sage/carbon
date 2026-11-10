@@ -92,6 +92,7 @@ export const VerticalMenuFullScreen = ({
                 onClose(event as React.MouseEvent<HTMLButtonElement>)
               }
               data-element="close"
+              size="xs"
               variantType="tertiary"
             >
               <Icon size="small" type="close" />

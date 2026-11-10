@@ -151,6 +151,7 @@ export const StyledChevronIcon = styled(Icon)`
 `;
 
 export const StyledVerticalMenuCloseBar = styled.div`
+  align-items: center;
   display: flex;
   justify-content: flex-end;
   height: 40px;
@@ -187,11 +188,6 @@ export const StyledCloseButton = styled(Button)`
   &&:active [data-component="icon"]:not([data-color]) {
     color: var(--nav-primary-label-default);
   }
-
-  min-height: 32px;
-  height: 32px;
-  width: 32px;
-  margin-top: 4px;
 `;
 
 export const StyledVerticalMenu = styled.nav.attrs(applyBaseTheme)<{

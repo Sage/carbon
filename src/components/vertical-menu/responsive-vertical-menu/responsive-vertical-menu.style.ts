@@ -68,6 +68,7 @@ export const StyledButton = styled(Button)<StyledButtonProps>`
 
 export const StyledCloseButtonWrapper = styled.div`
   background-color: var(--nav-primary-bg-child);
+  align-items: center;
   box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
@@ -94,11 +95,6 @@ export const StyledCloseButton = styled(Button)`
   &&:active [data-component="icon"]:not([data-color]) {
     color: var(--nav-primary-label-default);
   }
-
-  min-height: 32px;
-  height: 32px;
-  width: 32px;
-  margin-top: 4px;
 `;
 
 export const StyledGlobalVerticalMenuWrapper = styled.div`
