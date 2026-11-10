@@ -588,7 +588,9 @@ test("announces loading and the singular or plural number of new options", async
     expect(
       screen
         .getAllByRole("status")
-        .some((status) => status.textContent?.includes("Loading options...")),
+        .some((status) =>
+          status.textContent?.includes("Loading more options..."),
+        ),
     ).toBe(true),
   );
 
@@ -604,6 +606,26 @@ test("announces loading and the singular or plural number of new options", async
   );
 });
 
+test("shows the loader immediately and announces it after the list opens", async () => {
+  const { rerender } = render(dynamicList(null, true, false));
+
+  rerender(dynamicList(null, true));
+  expect(screen.getByTestId("select-list-loader")).toBeVisible();
+  screen
+    .getAllByRole("status")
+    .forEach((status) => expect(status).toBeEmptyDOMElement());
+
+  await waitFor(
+    () =>
+      expect(
+        screen
+          .getAllByRole("status")
+          .some((status) => status.textContent?.includes("Loading options...")),
+      ).toBe(true),
+    { timeout: 2000 },
+  );
+});
+
 test("clears loading without claiming a result when no options are added", async () => {
   const option = <Option text="Amber" value="amber" />;
   const { rerender } = render(dynamicList(option));
@@ -616,7 +638,9 @@ test("clears loading without claiming a result when no options are added", async
     expect(
       screen
         .getAllByRole("status")
-        .some((status) => status.textContent?.includes("Loading options...")),
+        .some((status) =>
+          status.textContent?.includes("Loading more options..."),
+        ),
     ).toBe(true),
   );
 
@@ -636,7 +660,9 @@ test("keeps the new-options announcement when loading ends and clears it on clos
     expect(
       screen
         .getAllByRole("status")
-        .some((status) => status.textContent?.includes("Loading options...")),
+        .some((status) =>
+          status.textContent?.includes("Loading more options..."),
+        ),
     ).toBe(true),
   );
 

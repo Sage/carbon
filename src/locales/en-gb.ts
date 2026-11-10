@@ -277,6 +277,7 @@ const enGB: Locale = {
     placeholder: () => "Please Select...",
     noResultsForTerm: (term) => `No results for "${term}"`,
     loadingOptions: () => "Loading options...",
+    loadingMoreOptions: () => "Loading more options...",
     newOptions: (count) =>
       count === 1
         ? "1 new option available."

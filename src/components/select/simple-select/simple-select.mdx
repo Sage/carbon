@@ -184,7 +184,14 @@ The following keys can be overridden through the [i18nProvider](../?path=/docs/d
     {
       name: "select.loadingOptions",
       description:
-        "Screen reader announcement when Select starts loading options.",
+        "Screen reader announcement when Select starts loading an empty list.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "select.loadingMoreOptions",
+      description:
+        "Screen reader announcement when Select starts loading more options into a list that already has options.",
       type: "func",
       returnType: "string",
     },
