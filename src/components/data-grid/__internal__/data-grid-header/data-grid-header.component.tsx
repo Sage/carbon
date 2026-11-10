@@ -1,6 +1,11 @@
 import React, { memo } from "react";
 
-import { DataGridColumn } from "../../data-grid.types";
+import {
+  DataGridColumn,
+  DataGridPlugin,
+  DataGridPluginApi,
+  DataGridSnapshot,
+} from "../../data-grid.types";
 import {
   StyledHeader,
   StyledHeaderGroup,
@@ -10,6 +15,10 @@ import {
 
 interface DataGridHeaderProps<T extends object> {
   columns: DataGridColumn<T>[];
+  plugins: readonly DataGridPlugin<T>[];
+  api: DataGridPluginApi<T>;
+  snapshot: DataGridSnapshot<T>;
+  headers: Map<string, HTMLElement>;
   stickyOffsets: Map<number, number>;
   gridTemplateColumns: string;
   sticky: boolean;
@@ -17,6 +26,10 @@ interface DataGridHeaderProps<T extends object> {
 
 const DataGridHeaderInner = <T extends object>({
   columns,
+  plugins,
+  api,
+  snapshot,
+  headers,
   stickyOffsets,
   gridTemplateColumns,
   sticky,
@@ -34,6 +47,10 @@ const DataGridHeaderInner = <T extends object>({
       {columns.map((column, columnIndex) => (
         <StyledHeader
           key={String(column.field)}
+          ref={(node: HTMLDivElement | null) => {
+            if (node) headers.set(String(column.field), node);
+            else headers.delete(String(column.field));
+          }}
           role="columnheader"
           aria-colindex={columnIndex + 1}
           $cellType={column.type ?? "text"}
@@ -52,6 +69,28 @@ const DataGridHeaderInner = <T extends object>({
               {column.headerAriaLabel}
             </StyledVisuallyHidden>
           )}
+          {plugins.map(({ id, slots }) => {
+            const Actions = slots?.headerActions;
+            return Actions ? (
+              <Actions
+                key={id}
+                api={api}
+                snapshot={snapshot}
+                column={snapshot.columns[columnIndex]}
+              />
+            ) : null;
+          })}
+          {plugins.map(({ id, slots }) => {
+            const Handle = slots?.headerResizeHandle;
+            return Handle ? (
+              <Handle
+                key={id}
+                api={api}
+                snapshot={snapshot}
+                column={snapshot.columns[columnIndex]}
+              />
+            ) : null;
+          })}
         </StyledHeader>
       ))}
     </StyledHeaderRow>

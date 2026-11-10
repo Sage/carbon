@@ -3,12 +3,20 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ActionPopover } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import Icon from "../icon";
 import Link from "../link";
 import Message from "../message";
-import { DataGrid, DataGridColumn, DataGridHandle, DataGridProps } from ".";
+import {
+  DataGrid,
+  DataGridColumn,
+  DataGridHandle,
+  DataGridProps,
+  DataGridColumnLayout,
+} from ".";
+
+import { createColumnReorderPlugin, createColumnResizePlugin } from "./plugins";
 
 interface InvoiceLine {
   id: number;
@@ -663,3 +671,86 @@ export const LargeScrollableGrid: Story = {
 };
 
 LargeScrollableGrid.storyName = "Large scrollable grid";
+
+// Example plugins have a separate entry point, matching an external package boundary.
+const columnTools = [
+  createColumnReorderPlugin<LargeInvoiceLine>({
+    canMove: ({ definition }) =>
+      definition.type !== "action" && !definition.sticky,
+  }),
+  createColumnResizePlugin<LargeInvoiceLine>({
+    canResize: ({ definition }) => definition.type !== "action",
+  }),
+];
+
+export const ColumnPlugins: Story = {
+  render: () => {
+    const [rows, setRows] = useState(() => createLargeRows(1000));
+    const storyColumns = useLargeColumns(setRows);
+    const [columnLayout, setColumnLayout] = useState<DataGridColumnLayout>({
+      order: [],
+      widths: {},
+    });
+    return (
+      <>
+        <p>
+          Pinned columns stay fixed. Drag a header handle to reorder the
+          scrolling columns, or focus the handle and use Left/Right. Drag a
+          column edge to resize, or focus the edge and use Left/Right.
+          Double-click an edge to reset its width; Escape cancels a resize.
+        </p>
+        <Button
+          type="button"
+          onClick={() => setColumnLayout({ order: [], widths: {} })}
+        >
+          Reset column layout
+        </Button>
+        <DataGrid
+          aria-label="Invoice lines with column plugins"
+          rows={rows}
+          columns={storyColumns}
+          plugins={columnTools}
+          columnLayout={columnLayout}
+          onColumnLayoutChange={setColumnLayout}
+          maxHeight="520px"
+          maxWidth="100%"
+          stickyHeader
+          enableTabNavigation
+          onCellChange={({ rowId, field, value }) =>
+            setRows((current) =>
+              current.map((row) =>
+                row.id === rowId ? { ...row, [field]: value } : row,
+              ),
+            )
+          }
+        />
+      </>
+    );
+  },
+  parameters: {
+    layout: "fullscreen",
+    docs: {
+      description: {
+        story: `Experimental plugin spike. Import the example factories from
+\`carbon-react/lib/components/data-grid/plugins\`; the core entry point does not import them.
+
+A plugin declares \`id\`, \`apiVersion: 1\`, an optional \`Controller\` component and named slots.
+\`headerActions\` is additive; \`headerResizeHandle\` has one owner; \`overlay\` renders outside
+of the grid's ARIA row structure. Components receive a reactive \`snapshot\` and stable \`api\`.
+Use \`api.subscribe(listener)\` for applied-state side effects and return its unsubscribe function
+from an effect. Subscriptions exclude transient pointer drafts. Subscribe before reading the current
+snapshot when synchronizing an external integration.
+
+\`columnLayout\` plus \`onColumnLayoutChange\` enables controlled state. Commands request changes;
+the parent supplies the accepted layout. Omit \`columnLayout\` for internal state, optionally seeded
+with \`defaultColumnLayout\`. Column fields must be unique and stable. Definitions stay immutable;
+width overrides and order live in the layout. Reordering stays within pinned regions. Resetting a
+width restores its definition, including flex. Create plugin descriptors outside render or memoize
+them to preserve mounted plugin state.
+
+This spike supports resize on release and keyboard alternatives. Drag auto-scroll, RTL gestures,
+column groups and live resizing are follow-up work.`,
+      },
+    },
+  },
+};

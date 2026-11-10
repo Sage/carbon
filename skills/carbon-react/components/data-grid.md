@@ -17,12 +17,16 @@ description: Carbon DataGrid component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | columns | DataGridColumn<T>[] | Yes |  |  |  |
 | rows | T[] | Yes |  |  |  |
+| columnLayout | DataGridColumnLayout \| undefined | No |  | Controlled column layout. Commands request changes via the callback. |  |
+| defaultColumnLayout | DataGridColumnLayout \| undefined | No |  | Initial layout for an uncontrolled grid. |  |
 | disableVirtualization | boolean \| undefined | No |  | Disables automatic row virtualization in a height-constrained grid. |  |
 | enableTabNavigation | boolean \| undefined | No |  | Enables Tab and Shift+Tab cell navigation. |  |
 | getRowId | ((row: T) => DataGridRowId) \| undefined | No |  | Reads a stable row id. Defaults to the row's `id` property. |  |
 | maxHeight | string \| number \| undefined | No |  | Maximum viewport height. Enables row virtualization when constrained. |  |
 | maxWidth | string \| number \| undefined | No |  | Maximum viewport width. Enables horizontal scrolling when constrained. |  |
 | onCellChange | ((params: DataGridCellChangeParams<T>) => void) \| undefined | No |  | Called after a cell edit is committed. |  |
+| onColumnLayoutChange | ((layout: DataGridColumnLayout) => void) \| undefined | No |  |  |  |
+| plugins | readonly DataGridPlugin<T>[] \| undefined | No |  | Optional extensions. Column fields must be unique and stable. |  |
 | rowOverscan | number \| undefined | No |  | Number of additional rows mounted above and below the viewport. |  |
 | stickyHeader | boolean \| undefined | No |  | Keeps the header visible while the grid scrolls vertically. |  |
 | aria-describedby | string \| undefined | No |  | ID of an element that provides additional grid guidance. |  |
@@ -290,6 +294,57 @@ description: Carbon DataGrid component props and usage examples.
 ```
 
 
+### ColumnPlugins
+
+**Render**
+
+```tsx
+() => {
+    const [rows, setRows] = useState(() => createLargeRows(1000));
+    const storyColumns = useLargeColumns(setRows);
+    const [columnLayout, setColumnLayout] = useState<DataGridColumnLayout>({
+      order: [],
+      widths: {},
+    });
+    return (
+      <>
+        <p>
+          Pinned columns stay fixed. Drag a header handle to reorder the
+          scrolling columns, or focus the handle and use Left/Right. Drag a
+          column edge to resize, or focus the edge and use Left/Right.
+          Double-click an edge to reset its width; Escape cancels a resize.
+        </p>
+        <Button
+          type="button"
+          onClick={() => setColumnLayout({ order: [], widths: {} })}
+        >
+          Reset column layout
+        </Button>
+        <DataGrid
+          aria-label="Invoice lines with column plugins"
+          rows={rows}
+          columns={storyColumns}
+          plugins={columnTools}
+          columnLayout={columnLayout}
+          onColumnLayoutChange={setColumnLayout}
+          maxHeight="520px"
+          maxWidth="100%"
+          stickyHeader
+          enableTabNavigation
+          onCellChange={({ rowId, field, value }) =>
+            setRows((current) =>
+              current.map((row) =>
+                row.id === rowId ? { ...row, [field]: value } : row,
+              ),
+            )
+          }
+        />
+      </>
+    );
+  }
+```
+
+
 ### MDX Example 1
 
 **Args**
@@ -448,5 +503,31 @@ const handleCellChange = ({
 const gridRef = React.createRef<DataGridHandle>();
 
 gridRef.current?.editCell(invoiceLineId, "description");
+```
+
+
+### MDX Example 6
+
+**Args**
+
+```tsx
+const plugins = [
+  createColumnReorderPlugin<InvoiceLine>({
+    canMove: ({ definition }) =>
+      !definition.sticky && definition.type !== "action",
+  }),
+  createColumnResizePlugin<InvoiceLine>({
+    canResize: ({ definition }) => definition.type !== "action",
+  }),
+];
+
+<DataGrid
+  aria-label="Invoice lines"
+  rows={rows}
+  columns={columns}
+  plugins={plugins}
+  maxHeight={520}
+  stickyHeader
+/>;
 ```
 

@@ -308,6 +308,54 @@ relationships, and horizontal keyboard navigation remain predictable.
 
 <Canvas of={DataGridStories.LargeScrollableGrid} />
 
+### Experimental column plugins
+
+The optional plugin API supports custom header controls, overlays, and a per-grid
+controller. Components receive a reactive snapshot and a stable API for reading
+applied state, subscribing to updates, and requesting validated layout changes.
+Plugin implementations use public types and DOM helpers rather than private
+DataGrid imports.
+
+Import the example factories separately from
+`carbon-react/lib/components/data-grid/plugins`. Create the descriptors outside
+render or memoize them to preserve each plugin's mounted state:
+
+```tsx
+const plugins = [
+  createColumnReorderPlugin<InvoiceLine>({
+    canMove: ({ definition }) =>
+      !definition.sticky && definition.type !== "action",
+  }),
+  createColumnResizePlugin<InvoiceLine>({
+    canResize: ({ definition }) => definition.type !== "action",
+  }),
+];
+
+<DataGrid
+  aria-label="Invoice lines"
+  rows={rows}
+  columns={columns}
+  plugins={plugins}
+  maxHeight={520}
+  stickyHeader
+/>;
+```
+
+The example keeps pinned columns fixed and hides handles when a column has no
+eligible destination. Dragging starts from the header handle and previews the
+header plus visible cells, including after scrolling a virtualized grid. Focus a
+move handle and use Left/Right to reorder. Resize using the column edge or its
+Left/Right keys; Escape cancels a draft and double-click resets the width,
+restoring flex sizing where defined.
+
+Use `columnLayout` and `onColumnLayoutChange` for controlled layout state, or
+`defaultColumnLayout` to seed internal state. In controlled mode commands request
+changes; the parent supplies accepted values. Column fields must be unique and
+stable. The API is experimental; live resizing, drag auto-scroll, RTL gestures,
+and column groups remain outside this spike.
+
+<Canvas of={DataGridStories.ColumnPlugins} />
+
 ## Keyboard behavior
 
 Data Grid has separate navigation and edit modes:
@@ -334,9 +382,10 @@ edit modes while still exposing grid, row, column-header, and grid-cell
 semantics to assistive technology.
 
 Provide either `aria-label` or `aria-labelledby`. Use `aria-describedby` for
-additional keyboard guidance or an error summary. A drag handle is not yet in
-scope; when added, it must be skipped by keyboard navigation and hidden from
-screen readers as described by the design specification.
+additional keyboard guidance or an error summary. The core does not add drag
+handles. The experimental column plugins expose separate, labelled header
+controls with keyboard alternatives and announce applied layout changes. These
+controls do not participate in the body cells' arrow-key navigation.
 
 ## Props
 

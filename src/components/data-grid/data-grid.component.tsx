@@ -7,6 +7,7 @@ import React, {
 } from "react";
 
 import { createDataGridColumnModel } from "./__internal__/layout/data-grid-column-model";
+import useColumnPlugins from "./__internal__/plugins/use-column-plugins";
 import DataGridHeader from "./__internal__/data-grid-header";
 import DataGridRow from "./__internal__/data-grid-row";
 import {
@@ -14,6 +15,7 @@ import {
   StyledDataGridWrapper,
   StyledGrid,
   StyledSpacer,
+  StyledVisuallyHidden,
 } from "./__internal__/data-grid.style";
 import useDataGridEditing from "./__internal__/hooks/use-data-grid-editing";
 import useDataGridKeyboard from "./__internal__/hooks/use-data-grid-keyboard";
@@ -28,6 +30,13 @@ import {
 } from "./data-grid.types";
 
 export type {
+  DataGridColumnLayout,
+  DataGridResolvedColumn,
+  DataGridSnapshot,
+  DataGridPlugin,
+  DataGridPluginApi,
+  DataGridPluginProps,
+  DataGridHeaderSlotProps,
   DataGridActionColumn,
   DataGridCellChangeParams,
   DataGridCellParams,
@@ -43,10 +52,16 @@ export type {
   DataGridTextColumn,
 } from "./data-grid.types";
 
+const EMPTY_PLUGINS: readonly never[] = [];
+
 const DataGridInner = <T extends object>(
   {
     rows,
-    columns,
+    columns: definitions,
+    plugins = EMPTY_PLUGINS,
+    columnLayout,
+    defaultColumnLayout,
+    onColumnLayoutChange,
     "aria-label": ariaLabel,
     getRowId,
     onCellChange,
@@ -62,6 +77,15 @@ const DataGridInner = <T extends object>(
   ref: React.ForwardedRef<DataGridHandle>,
 ) => {
   const viewportRef = useRef<HTMLDivElement>(null);
+  const { columns, snapshot, api, headers, cells, announcement } =
+    useColumnPlugins({
+      definitions,
+      plugins,
+      columnLayout,
+      defaultColumnLayout,
+      onColumnLayoutChange,
+      viewportRef,
+    });
   const rowId = useCallback(
     (row: T) =>
       getRowId?.(row) ??
@@ -126,6 +150,25 @@ const DataGridInner = <T extends object>(
     renderToken: virtualization.renderToken,
     stickyHeader,
   });
+  const registerGridCell = useCallback(
+    (rowIndex: number, columnIndex: number, node: HTMLDivElement | null) => {
+      registerCell(rowIndex, columnIndex, node);
+      if (!plugins.length) return;
+      const field = String(columns[columnIndex].field);
+      const id = rowId(rows[rowIndex]);
+      if (node) {
+        const columnCells =
+          cells.current.get(field) ?? new Map<DataGridRowId, HTMLElement>();
+        columnCells.set(id, node);
+        cells.current.set(field, columnCells);
+      } else {
+        const columnCells = cells.current.get(field);
+        columnCells?.delete(id);
+        if (!columnCells?.size) cells.current.delete(field);
+      }
+    },
+    [registerCell, columns, rowId, rows, cells, plugins.length],
+  );
   const {
     editing,
     draftValue,
@@ -135,6 +178,7 @@ const DataGridInner = <T extends object>(
     commitEdit,
     cancelEdit,
   } = useDataGridEditing({
+    columns,
     getCellParams,
     isCellReadOnly,
     onCellChange,
@@ -189,6 +233,11 @@ const DataGridInner = <T extends object>(
       data-component="data-grid-wrapper"
       data-role="data-grid-wrapper"
     >
+      {plugins.map(({ id, Controller }) =>
+        Controller ? (
+          <Controller key={id} api={api} snapshot={snapshot} />
+        ) : null,
+      )}
       <StyledDataGridViewport
         ref={viewportRef}
         $maxHeight={maxHeight}
@@ -205,6 +254,10 @@ const DataGridInner = <T extends object>(
       >
         <StyledGrid $contentWidth={columnModel.contentWidth}>
           <DataGridHeader
+            plugins={plugins}
+            api={api}
+            snapshot={snapshot}
+            headers={headers.current}
             columns={columns}
             stickyOffsets={columnModel.stickyOffsets}
             gridTemplateColumns={columnModel.gridTemplateColumns}
@@ -230,7 +283,7 @@ const DataGridInner = <T extends object>(
                 editorRef={editorRef}
                 getParams={getCellParams}
                 isReadOnly={isCellReadOnly}
-                registerCell={registerCell}
+                registerCell={registerGridCell}
                 onActivate={activateCell}
                 onFocusPosition={focusCell}
                 onBeginEdit={beginEdit}
@@ -249,6 +302,17 @@ const DataGridInner = <T extends object>(
           </div>
         </StyledGrid>
       </StyledDataGridViewport>
+      {plugins.map(({ id, slots }) => {
+        const Overlay = slots?.overlay;
+        return Overlay ? (
+          <Overlay key={id} api={api} snapshot={snapshot} />
+        ) : null;
+      })}
+      {plugins.length > 0 && (
+        <StyledVisuallyHidden aria-live="polite" aria-atomic="true">
+          {announcement}
+        </StyledVisuallyHidden>
+      )}
     </StyledDataGridWrapper>
   );
 };

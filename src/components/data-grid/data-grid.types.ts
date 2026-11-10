@@ -26,8 +26,10 @@ interface DataGridColumnBase<T extends object> {
   headerAriaLabel?: string;
   /** Fixed width in pixels. Action columns default to 52px. */
   width?: number;
-  /** Minimum width when the column is flexible. */
+  /** Minimum width for flexible columns and layout width overrides. */
   minWidth?: number;
+  /** Maximum width accepted by column layout commands. */
+  maxWidth?: number;
   /** Relative width for flexible columns. */
   flex?: number;
   /** Pins the column to an edge of the scrolling grid. */
@@ -89,6 +91,13 @@ export type DataGridColumn<T extends object> =
 export interface DataGridProps<T extends object> {
   rows: T[];
   columns: DataGridColumn<T>[];
+  /** Optional extensions. Column fields must be unique and stable. */
+  plugins?: readonly DataGridPlugin<T>[];
+  /** Controlled column layout. Commands request changes via the callback. */
+  columnLayout?: DataGridColumnLayout;
+  /** Initial layout for an uncontrolled grid. */
+  defaultColumnLayout?: DataGridColumnLayout;
+  onColumnLayoutChange?: (layout: DataGridColumnLayout) => void;
   /** Accessible name for the grid. */
   "aria-label"?: string;
   /** ID of an element that provides the grid's accessible name. */
@@ -126,4 +135,74 @@ export interface DataGridHandle {
 export interface DataGridCellPosition {
   row: number;
   column: number;
+}
+
+/** Experimental plugin contract. Column identity is the column's field. */
+export interface DataGridColumnLayout {
+  readonly order: readonly string[];
+  readonly widths: Readonly<Record<string, number>>;
+}
+
+export interface DataGridResolvedColumn<T extends object> {
+  readonly id: string;
+  readonly definition: Readonly<DataGridColumn<T>>;
+  readonly index: number;
+  /** Resolved track width in pixels, including flex distribution. */
+  readonly widthPx: number;
+  readonly minWidthPx: number;
+  readonly maxWidthPx?: number;
+  readonly region: "left" | "center" | "right";
+}
+
+export interface DataGridSnapshot<T extends object> {
+  readonly columns: readonly DataGridResolvedColumn<T>[];
+  readonly columnLayout: DataGridColumnLayout;
+}
+
+export interface DataGridPluginApi<T extends object> {
+  getSnapshot: () => DataGridSnapshot<T>;
+  /** Observes applied snapshots; returns an unsubscribe function. */
+  subscribe: (listener: () => void) => () => void;
+  columns: {
+    setWidth: (columnId: string, widthPx: number) => void;
+    resetWidth: (columnId: string) => void;
+    /** Movement is restricted to the column's current pinned region. */
+    move: (
+      columnId: string,
+      target: {
+        columnId: string;
+        placement: "before" | "after";
+      },
+    ) => void;
+  };
+  elements: {
+    getHeader: (columnId: string) => HTMLElement | null;
+    /** Mounted body cells only; virtualized rows outside the render window are absent. */
+    getColumnCells: (columnId: string) => readonly HTMLElement[];
+    getViewport: () => HTMLElement | null;
+  };
+  announce: (message: string) => void;
+}
+
+export interface DataGridPluginProps<T extends object> {
+  api: DataGridPluginApi<T>;
+  snapshot: DataGridSnapshot<T>;
+}
+
+export interface DataGridHeaderSlotProps<T extends object>
+  extends DataGridPluginProps<T> {
+  column: DataGridResolvedColumn<T>;
+}
+
+export interface DataGridPlugin<T extends object> {
+  id: string;
+  apiVersion: 1;
+  Controller?: React.ComponentType<DataGridPluginProps<T>>;
+  slots?: {
+    /** Additive controls rendered next to the header label. */
+    headerActions?: React.ComponentType<DataGridHeaderSlotProps<T>>;
+    /** Exclusive slot anchored to the right edge of the header. */
+    headerResizeHandle?: React.ComponentType<DataGridHeaderSlotProps<T>>;
+    overlay?: React.ComponentType<DataGridPluginProps<T>>;
+  };
 }

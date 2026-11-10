@@ -1,5 +1,12 @@
 export { default as DataGrid } from "./data-grid.component";
 export type {
+  DataGridColumnLayout,
+  DataGridResolvedColumn,
+  DataGridSnapshot,
+  DataGridPlugin,
+  DataGridPluginApi,
+  DataGridPluginProps,
+  DataGridHeaderSlotProps,
   DataGridActionColumn,
   DataGridCellChangeParams,
   DataGridCellParams,

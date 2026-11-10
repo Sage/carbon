@@ -26,12 +26,28 @@ const useDataGridNavigation = <T extends object>({
   renderToken,
   stickyHeader,
 }: UseDataGridNavigationOptions<T>) => {
-  const [active, setActive] = useState<DataGridCellPosition>({
+  const [activeIdentity, setActiveIdentity] = useState({
     row: 0,
-    column: 0,
+    field: columns[0]?.field,
   });
+  const active = {
+    row: activeIdentity.row,
+    column: Math.max(
+      0,
+      columns.findIndex((column) => column.field === activeIdentity.field),
+    ),
+  };
+  const setActive = useCallback(
+    (position: DataGridCellPosition) => {
+      setActiveIdentity({
+        row: position.row,
+        field: columns[position.column]?.field,
+      });
+    },
+    [columns],
+  );
   const cellRefs = useRef(new Map<string, HTMLDivElement>());
-  const pendingFocus = useRef<DataGridCellPosition | null>(null);
+  const pendingFocus = useRef<{ row: number; field: string } | null>(null);
 
   const registerCell = useCallback(
     (rowIndex: number, columnIndex: number, node: HTMLDivElement | null) => {
@@ -71,10 +87,13 @@ const useDataGridNavigation = <T extends object>({
         cell.focus();
         pendingFocus.current = null;
       } else {
-        pendingFocus.current = next;
+        pendingFocus.current = {
+          row: next.row,
+          field: String(columns[next.column].field),
+        };
       }
     },
-    [columns.length, ensureCellVisible, keyFor, rowCount],
+    [columns, ensureCellVisible, keyFor, rowCount, setActive],
   );
 
   const moveLinear = useCallback(
@@ -104,14 +123,19 @@ const useDataGridNavigation = <T extends object>({
   );
 
   useEffect(() => {
-    const position = pendingFocus.current;
-    if (!position) return;
-    const cell = cellRefs.current.get(keyFor(position));
+    const pending = pendingFocus.current;
+    if (!pending) return;
+    const column = columns.findIndex((item) => item.field === pending.field);
+    if (column < 0 || pending.row >= rowCount) {
+      pendingFocus.current = null;
+      return;
+    }
+    const cell = cellRefs.current.get(keyFor({ row: pending.row, column }));
     if (cell) {
       cell.focus();
       pendingFocus.current = null;
     }
-  }, [keyFor, renderToken]);
+  }, [columns, rowCount, keyFor, renderToken]);
 
   return {
     active,

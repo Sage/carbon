@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import {
+  DataGridColumn,
   DataGridCellChangeParams,
   DataGridCellParams,
   DataGridCellPosition,
 } from "../../data-grid.types";
 
 interface UseDataGridEditingOptions<T extends object> {
+  columns: DataGridColumn<T>[];
   getCellParams: (position: DataGridCellPosition) => DataGridCellParams<T>;
   isCellReadOnly: (params: DataGridCellParams<T>) => boolean;
   onCellChange?: (params: DataGridCellChangeParams<T>) => void;
@@ -17,6 +19,7 @@ interface UseDataGridEditingOptions<T extends object> {
 }
 
 const useDataGridEditing = <T extends object>({
+  columns,
   getCellParams,
   isCellReadOnly,
   onCellChange,
@@ -25,7 +28,33 @@ const useDataGridEditing = <T extends object>({
   focusCell,
   renderToken,
 }: UseDataGridEditingOptions<T>) => {
-  const [editing, setEditing] = useState<DataGridCellPosition | null>(null);
+  const [editingIdentity, setEditingIdentity] = useState<{
+    row: number;
+    field: string;
+  } | null>(null);
+  const editingIndex = editingIdentity
+    ? columns.findIndex((column) => column.field === editingIdentity.field)
+    : -1;
+  const editing = useMemo(
+    () =>
+      editingIdentity && editingIndex >= 0
+        ? { row: editingIdentity.row, column: editingIndex }
+        : null,
+    [editingIdentity, editingIndex],
+  );
+  const setEditing = useCallback(
+    (position: DataGridCellPosition | null) => {
+      setEditingIdentity(
+        position
+          ? { row: position.row, field: String(columns[position.column].field) }
+          : null,
+      );
+    },
+    [columns],
+  );
+  useEffect(() => {
+    if (editingIdentity && editingIndex < 0) setEditingIdentity(null);
+  }, [editingIdentity, editingIndex]);
   const [draftValue, setDraftValue] = useState<unknown>("");
   const editorRef = useRef<HTMLInputElement | HTMLSelectElement>(null);
   const restoreFocus = useRef<DataGridCellPosition | null>(null);
@@ -56,6 +85,7 @@ const useDataGridEditing = <T extends object>({
       getCellParams,
       isCellReadOnly,
       onCellChange,
+      setEditing,
     ],
   );
 
@@ -67,7 +97,7 @@ const useDataGridEditing = <T extends object>({
       restoreFocus.current = shouldRestoreFocus ? editing : null;
       setEditing(null);
     },
-    [draftValue, editing, getCellParams, onCellChange],
+    [draftValue, editing, getCellParams, onCellChange, setEditing],
   );
 
   const cancelEdit = useCallback(
@@ -76,7 +106,7 @@ const useDataGridEditing = <T extends object>({
       restoreFocus.current = shouldRestoreFocus ? editing : null;
       setEditing(null);
     },
-    [editing],
+    [editing, setEditing],
   );
 
   useEffect(() => {
