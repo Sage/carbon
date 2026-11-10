@@ -320,46 +320,6 @@ description: Carbon DataGrid component props and usage examples.
 **Args**
 
 ```tsx
-import {
-  DataGrid,
-  DataGridColumn,
-} from "carbon-react/lib/components/data-grid";
-
-const columns: DataGridColumn<InvoiceLine>[] = [
-  {
-    field: "description",
-    headerName: "Description",
-  },
-  {
-    field: "category",
-    headerName: "Category",
-    type: "dropdown",
-    options: [
-      { label: "Services", value: "services" },
-      { label: "Software", value: "software" },
-    ],
-  },
-  {
-    field: "selected",
-    headerName: "Selected",
-    type: "checkbox",
-  },
-];
-
-<DataGrid
-  aria-label="Invoice lines"
-  rows={rows}
-  columns={columns}
-  onRowsChange={(nextRows) => setRows(nextRows)}
-/>;
-```
-
-
-### MDX Example 2
-
-**Args**
-
-```tsx
 interface InvoiceLine {
   id: number;
   description: string;
@@ -380,7 +340,7 @@ const initialRows: InvoiceLine[] = [
 ```
 
 
-### MDX Example 3
+### MDX Example 2
 
 **Args**
 
@@ -440,7 +400,7 @@ const columns: DataGridColumn<InvoiceLine>[] = [
 ```
 
 
-### MDX Example 4
+### MDX Example 3
 
 **Args**
 
@@ -464,7 +424,7 @@ const handleRowsChange = (
 ```
 
 
-### MDX Example 5
+### MDX Example 4
 
 **Args**
 
@@ -482,7 +442,57 @@ gridRef.current?.moveRow(lineId, 3);
 ```
 
 
-### MDX Example 6
+### MDX Example 1
+
+**Args**
+
+```tsx
+import React from "react";
+import {
+  DataGrid,
+  DataGridColumn,
+} from "carbon-react/lib/components/data-grid";
+
+interface InvoiceLine {
+  id: number;
+  description: string;
+  category: "Services" | "Software";
+}
+
+const columns: DataGridColumn<InvoiceLine>[] = [
+  {
+    field: "description",
+    headerName: "Description",
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    type: "dropdown",
+    options: [
+      { label: "Services", value: "Services" },
+      { label: "Software", value: "Software" },
+    ],
+  },
+];
+
+export default function InvoiceLines() {
+  const [rows, setRows] = React.useState<InvoiceLine[]>([
+    { id: 1, description: "Consulting", category: "Services" },
+  ]);
+
+  return (
+    <DataGrid
+      aria-label="Invoice lines"
+      rows={rows}
+      columns={columns}
+      onRowsChange={(nextRows) => setRows(nextRows)}
+    />
+  );
+}
+```
+
+
+### MDX Example 2
 
 **Args**
 
