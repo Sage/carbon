@@ -37,6 +37,26 @@ test("edits a text cell and moves to the next cell with Tab", async ({
   await expect(typeCell).toBeFocused();
 });
 
+test("shows navigational focus after clicking without entering edit mode", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const nameCell = cell(page, 1, "name");
+  await nameCell.click();
+
+  await expect(nameCell).toBeFocused();
+  await expect(page.getByRole("textbox", { name: "Name, row 1" })).toHaveCount(
+    0,
+  );
+  await expect
+    .poll(() =>
+      nameCell.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .not.toBe("none");
+});
+
 test("opens and commits a dropdown with Space without scrolling vertically", async ({
   mount,
   page,
