@@ -122,12 +122,22 @@ test("applies action colours without changing option semantics", () => {
   expect(item).toHaveStyleRule(
     "background-color",
     "var(--button-typical-secondary-bg-hover)",
-    { modifier: ":not(:active):hover" },
+    { modifier: ":hover" },
+  );
+  expect(item).not.toHaveStyleRule(
+    "background-color",
+    "var(--input-dropdown-bg-hover)",
+    { modifier: ":not(:has(button)):not(:has(a)):hover" },
+  );
+  expect(item).toHaveStyleRule(
+    "background-color",
+    "var(--button-typical-secondary-bg-hover)",
+    { modifier: ":active" },
   );
   expect(item).toHaveStyleRule(
     "color",
     "var(--button-typical-secondary-label-hover)",
-    { modifier: ":not(:active):hover" },
+    { modifier: ":active" },
   );
 });
 

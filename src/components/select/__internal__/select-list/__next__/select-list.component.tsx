@@ -408,6 +408,7 @@ const SelectList = ({
         key={row.key}
         id={optionId}
         {...optionHtmlProps}
+        data-select-action={isAction || undefined}
         {...virtualProps}
         {...positionProps}
         action={isAction}
