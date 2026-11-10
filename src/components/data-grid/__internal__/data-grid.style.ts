@@ -198,7 +198,7 @@ export const StyledCell = styled.div<
         var(--input-validation-border-error);
     `}
 
-  &:focus-visible {
+  &:focus {
     box-shadow: inset 0 0 0 var(--global-borderwidth-s) var(--focus-borderalt);
     z-index: ${({ $sticky }) => ($sticky ? 3 : 1)};
   }
