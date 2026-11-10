@@ -1,3 +1,9 @@
+## [162.23.1](https://github.com/Sage/carbon/compare/v162.23.0...v162.23.1) (2026-11-10)
+
+### Bug Fixes
+
+* **multi-action-button:** remove unique key warning from toggle button ([ceb2b9b](https://github.com/Sage/carbon/commit/ceb2b9bb2486f3b5c5aed78697bdd252ba263a3e))
+
 ## [162.23.0](https://github.com/Sage/carbon/compare/v162.22.0...v162.23.0) (2026-11-06)
 
 ### Features
