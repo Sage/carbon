@@ -206,8 +206,10 @@ export const StyledCell = styled.div<
   ${({ $editing, $sticky }) =>
     $editing &&
     css`
-      ${addFocusStyling(true)}
-      z-index: ${$sticky ? 3 : 1};
+      &:focus-within {
+        ${addFocusStyling(true)}
+        z-index: ${$sticky ? 3 : 1};
+      }
     `}
 
   ${({ $cellType }) =>

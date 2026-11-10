@@ -2,6 +2,8 @@ import React, { createRef } from "react";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { ActionPopover } from "../action-popover";
+import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import {
   DataGrid,
   DataGridCellParams,
@@ -500,6 +502,83 @@ test("commits a dropdown selection and restores focus", async () => {
     expect.objectContaining({ rowId: 1, field: "type", value: "B" }),
   );
   expect(dropdownCell).toHaveFocus();
+});
+
+test("commits a dropdown before moving to the next cell", async () => {
+  const user = userEvent.setup();
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      enableTabNavigation
+    />,
+  );
+  const cells = screen.getAllByRole("gridcell");
+
+  await user.click(cells[1]);
+  await user.keyboard("{Enter}");
+  await user.selectOptions(screen.getByRole("combobox"), "B");
+  await user.keyboard("{Enter}{Tab}");
+
+  expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+  expect(cells[2]).toHaveFocus();
+});
+
+test("keeps grid navigation inside an open action popover", async () => {
+  const user = userEvent.setup();
+  const actionColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name" },
+    {
+      field: "actions",
+      headerName: "",
+      headerAriaLabel: "Actions",
+      type: "action",
+      renderCell: () => (
+        <ActionPopover aria-label="Row actions">
+          <ActionPopoverItem>Duplicate</ActionPopoverItem>
+          <ActionPopoverItem>Delete</ActionPopoverItem>
+        </ActionPopover>
+      ),
+    },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={actionColumns}
+      enableTabNavigation
+    />,
+  );
+  const [nameCell, actionCell, nextRowNameCell] =
+    screen.getAllByRole("gridcell");
+
+  await user.click(actionCell);
+  await user.keyboard("{Enter}");
+  const duplicate = await screen.findByRole("button", { name: "Duplicate" });
+  duplicate.focus();
+  await user.keyboard("{ArrowLeft}");
+
+  expect(duplicate).toHaveFocus();
+  expect(screen.getByRole("list")).toBeVisible();
+
+  await user.keyboard("{Escape}");
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  expect(
+    screen.getAllByRole("button", { name: "Row actions" })[0],
+  ).toHaveFocus();
+
+  await user.keyboard("{ArrowLeft}");
+  expect(nameCell).toHaveFocus();
+
+  await user.keyboard("{ArrowRight}{Enter}");
+  expect(
+    await screen.findByRole("button", { name: "Duplicate" }),
+  ).toHaveFocus();
+  await user.keyboard("{Tab}");
+
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  expect(nextRowNameCell).toHaveFocus();
 });
 
 test("read-only cells do not enter edit mode", async () => {
