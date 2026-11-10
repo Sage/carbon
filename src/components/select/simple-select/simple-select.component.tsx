@@ -524,6 +524,8 @@ export const SimpleSelect = React.forwardRef<
     return (
       <StyledSelect
         className="simple-select"
+        $labelInline={props.labelInline}
+        $size={size}
         disabled={disabled}
         readOnly={readOnly}
         data-component="simple-select"

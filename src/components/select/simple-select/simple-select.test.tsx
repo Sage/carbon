@@ -13,6 +13,7 @@ import Button from "../../button";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 import SimpleSelect, { CustomSelectChangeEvent, SimpleSelectProps } from ".";
+import StyledSelect from "../select.style";
 import ActionOption from "../action-option";
 import Option from "../option";
 import { CHARACTERS } from "../../../../playwright/support/constants";
@@ -140,6 +141,47 @@ test("applies each input size when multiple sizes are rendered together", () => 
     expect(input).toHaveStyleRule("max-height", sizes[index].height);
     expect(input).toHaveStyleRule("padding", sizes[index].padding);
   });
+});
+
+test("uses the inline label gap for small and large selects", () => {
+  render(
+    <>
+      <StyledSelect
+        data-role="select-small"
+        $labelInline
+        $size="small"
+        isOpen={false}
+      />
+      <StyledSelect
+        data-role="select-medium"
+        $labelInline
+        $size="medium"
+        isOpen={false}
+      />
+      <StyledSelect
+        data-role="select-large"
+        $labelInline
+        $size="large"
+        isOpen={false}
+      />
+    </>,
+  );
+
+  expect(screen.getByTestId("select-small")).toHaveStyleRule(
+    "gap",
+    "var(--global-space-comp-l)",
+    { modifier: '& [data-role="select-textbox"]' },
+  );
+  expect(screen.getByTestId("select-large")).toHaveStyleRule(
+    "gap",
+    "var(--global-space-comp-xl)",
+    { modifier: '& [data-role="select-textbox"]' },
+  );
+  expect(screen.getByTestId("select-medium")).not.toHaveStyleRule(
+    "gap",
+    expect.anything(),
+    { modifier: '& [data-role="select-textbox"]' },
+  );
 });
 
 test("supports the non-deprecated TextInput props", async () => {

@@ -51,7 +51,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
   }
 
   &:not(:has(button)):not(:has(a)) {
-    ${({ $disabled }) =>
+    ${({ $disabled, $action }) =>
       $disabled
         ? `
           * {
@@ -63,11 +63,17 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
           color: var(--input-dropdown-label-alt);
           cursor: pointer;
 
-          :hover {
-            * {
-              color: var(--input-dropdown-label-hover);
-            }
-            background-color: var(--input-dropdown-bg-hover);
+          ${
+            $action
+              ? ""
+              : `
+                :hover {
+                  * {
+                    color: var(--input-dropdown-label-hover);
+                  }
+                  background-color: var(--input-dropdown-bg-hover);
+                }
+              `
           }
       `}
 
@@ -81,7 +87,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
     }
   }
 
-  ${({ $disabled, $isButtonMenu }) =>
+  ${({ $disabled, $isButtonMenu, $action }) =>
     $disabled
       ? `
         * {
@@ -116,11 +122,17 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
             : `
               color: var(--input-dropdown-label-alt);
 
-              &:not(:active):hover {
-                * {
-                  color: var(--input-dropdown-label-hover);
-                }
-                background-color: var(--popover-bg-hover);
+              ${
+                $action
+                  ? ""
+                  : `
+                    &:not(:active):hover {
+                      * {
+                        color: var(--input-dropdown-label-hover);
+                      }
+                      background-color: var(--popover-bg-hover);
+                    }
+                  `
               }
             `
         }
@@ -214,7 +226,8 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         color: var(--button-typical-secondary-label-default);
       }
 
-      &:not(:active):hover {
+      &:hover,
+      &:active {
         background-color: var(--button-typical-secondary-bg-hover);
         color: var(--button-typical-secondary-label-hover);
 

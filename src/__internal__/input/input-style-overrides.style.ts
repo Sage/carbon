@@ -162,13 +162,19 @@ const simpleSelectSubtleStyles = css`
   [data-component="simple-select"] &[data-is-subtle="true"] {
     background: transparent;
     border-color: transparent;
+    min-width: var(--global-size-4-xl);
 
     --simple-select-text-color: var(--input-dropdown-label-default);
     --simple-select-caret-color: var(--input-dropdown-label-default);
 
     .input-text-container.disabled {
+      --simple-select-prefix-color: var(--input-dropdown-label-disabled);
       --simple-select-text-color: var(--input-dropdown-label-disabled);
       --simple-select-caret-color: var(--input-dropdown-label-disabled);
+
+      input {
+        color: var(--input-dropdown-label-disabled);
+      }
     }
 
     [data-role="select-text"][class*="variant-subtle"] {
@@ -238,6 +244,15 @@ const simpleSelectStyles = ($size?: string, $isSimpleSelect?: boolean) =>
       }
       [data-role="select-text"] .select-text-children-wrapper {
         font: var(--global-font-static-comp-regular-s);
+      }
+      [data-element="input-icon-toggle"] [data-element="dropdown"] {
+        width: var(--global-size-3-xs);
+        height: var(--global-size-3-xs);
+
+        &::before {
+          font-size: var(--global-size-3-xs);
+          line-height: var(--global-size-3-xs);
+        }
       }
     `}
     ${$size === "medium" &&
