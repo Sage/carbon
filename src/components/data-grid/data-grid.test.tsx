@@ -228,10 +228,10 @@ test("keeps scrolling cells transparent and raises focused action cells", () => 
   expect(scrollingCell).toHaveStyleRule(
     "box-shadow",
     "inset 0 0 0 var(--global-borderwidth-s) var(--focus-borderalt)",
-    { modifier: ":focus-visible" },
+    { modifier: ":focus" },
   );
   expect(scrollingCell).toHaveStyleRule("z-index", "1", {
-    modifier: ":focus-visible",
+    modifier: ":focus",
   });
   expect(actionCell).toHaveStyleRule("z-index", "3", {
     modifier: ":focus-within",
@@ -260,6 +260,19 @@ test("applies regular and medium content weights to resting cells", () => {
     "font",
     "var(--global-font-static-comp-medium-m)",
   );
+});
+
+test("focuses a cell on click without entering edit mode", async () => {
+  const user = userEvent.setup();
+  render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
+  const cells = screen.getAllByRole("gridcell");
+
+  await user.click(cells[1]);
+
+  expect(cells[1]).toHaveFocus();
+  expect(cells[1]).toHaveAttribute("tabindex", "0");
+  expect(cells[0]).toHaveAttribute("tabindex", "-1");
+  expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
 });
 
 test("uses arrow keys to navigate cells", async () => {
