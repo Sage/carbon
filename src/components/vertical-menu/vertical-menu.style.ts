@@ -31,10 +31,13 @@ export const StyledList = styled.ul<StyledListProps>`
     !level || level === 0 ? "0px" : "var(--global-space-comp-l)"};
 `;
 
-export const StyledHr = styled.hr`
-  border: none;
-  border-bottom: 1px solid var(--nav-secondary-divider);
-  margin: var(--global-space-comp-s) var(--global-space-comp-l);
+export const StyledFullScreenList = styled(StyledList)`
+  > li + li::before {
+    content: "";
+    display: block;
+    border-top: 1px solid var(--nav-secondary-divider);
+    margin: var(--global-space-comp-s) var(--global-space-comp-l);
+  }
 `;
 
 export const StyledListItem = styled.li.attrs(applyBaseTheme)`

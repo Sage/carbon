@@ -8,9 +8,8 @@ import Portal from "../../portal";
 import FocusTrap from "../../../__internal__/focus-trap/focus-trap.component";
 import Icon from "../../icon";
 import {
-  StyledList,
+  StyledFullScreenList,
   StyledListWrapper,
-  StyledHr,
   StyledVerticalMenuFullScreen,
   StyledVerticalMenuCloseBar,
   StyledCloseButton,
@@ -18,7 +17,6 @@ import {
 import { VerticalMenuProvider } from "../__internal__/vertical-menu.context";
 import { getDocument } from "../../../__internal__/dom/globals";
 import Events from "../../../__internal__/utils/helpers/events/events";
-import flattenChildren from "../../../__internal__/utils/helpers/flatten-children";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
@@ -76,8 +74,6 @@ export const VerticalMenuFullScreen = ({
     focusCallToActionElement: safeDocument?.activeElement as HTMLElement,
   });
 
-  const menuItems = flattenChildren(children);
-
   return (
     <Portal>
       <FocusTrap isOpen={isOpen} wrapperRef={menuWrapperRef}>
@@ -103,18 +99,7 @@ export const VerticalMenuFullScreen = ({
           </StyledVerticalMenuCloseBar>
           <VerticalMenuProvider value={{ isFullScreen: true }}>
             <StyledListWrapper>
-              <StyledList>
-                {React.Children.map(menuItems, (child, index) => (
-                  <React.Fragment>
-                    {child}
-                    {index < menuItems.length - 1 && (
-                      <li aria-hidden="true">
-                        <StyledHr />
-                      </li>
-                    )}
-                  </React.Fragment>
-                ))}
-              </StyledList>
+              <StyledFullScreenList>{children}</StyledFullScreenList>
             </StyledListWrapper>
           </VerticalMenuProvider>
         </StyledVerticalMenuFullScreen>

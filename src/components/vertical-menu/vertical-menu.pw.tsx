@@ -1,4 +1,5 @@
 import React from "react";
+import type { Locator } from "@playwright/test";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   VerticalMenuDefaultComponent,
@@ -43,6 +44,31 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
       "height",
       40,
     );
+  });
+
+  test("should render dividers only between top-level items of the VerticalMenuFullScreen", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<VerticalMenuFullScreenCustom isOpen />);
+    await waitForAnimationEnd(verticalMenuFullScreen(page));
+
+    await page.getByRole("button", { name: "Item 1" }).click();
+
+    const topLevelList = verticalMenuFullScreen(page).locator("ul").first();
+    const beforeBorderTop = (items: Locator, index: number) =>
+      items
+        .nth(index)
+        .evaluate(
+          (el) => window.getComputedStyle(el, "::before").borderTopWidth,
+        );
+
+    const topLevelItems = topLevelList.locator(":scope > li");
+    expect(await beforeBorderTop(topLevelItems, 0)).toBe("0px");
+    expect(await beforeBorderTop(topLevelItems, 1)).toBe("1px");
+
+    const nestedItems = topLevelList.locator("li ul > li");
+    expect(await beforeBorderTop(nestedItems, 1)).toBe("0px");
   });
 
   test("when a Vertical Menu Fullscreen is opened and then closed, the call to action element should be focused", async ({

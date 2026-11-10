@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import Portal from "../../portal";
 import FocusTrap from "../../../__internal__/focus-trap/focus-trap.component";
-import { VerticalMenuFullScreen, VerticalMenuItem } from "..";
+import { VerticalMenu, VerticalMenuFullScreen, VerticalMenuItem } from "..";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
 jest.mock("../../../hooks/useMediaQuery");
@@ -84,7 +84,7 @@ describe("VerticalMenuFullScreen", () => {
     expect(screen.getByRole("navigation")).toBeVisible();
   });
 
-  it("should render fragment-wrapped children with separators between items", () => {
+  it("should render fragment-wrapped children as list items with dividers styled between them", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={() => {}}>
         <React.Fragment>
@@ -101,7 +101,26 @@ describe("VerticalMenuFullScreen", () => {
       ["Item1", "Item2", "Item3"],
     );
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
-    expect(screen.getAllByRole("separator", { hidden: true })).toHaveLength(2);
+    expect(screen.getAllByRole("list")[0]).toHaveStyleRule(
+      "border-top",
+      "1px solid var(--nav-secondary-divider)",
+      { modifier: "> li + li::before" },
+    );
+  });
+
+  it("should not apply divider styling to the standard VerticalMenu", () => {
+    render(
+      <VerticalMenu>
+        <VerticalMenuItem title="Item1" href="/item-1" />
+        <VerticalMenuItem title="Item2" href="/item-2" />
+      </VerticalMenu>,
+    );
+
+    expect(screen.getAllByRole("list")[0]).not.toHaveStyleRule(
+      "border-top",
+      expect.anything(),
+      { modifier: "> li + li::before" },
+    );
   });
 
   it("should invoke onClose callback when close Icon is clicked", async () => {
