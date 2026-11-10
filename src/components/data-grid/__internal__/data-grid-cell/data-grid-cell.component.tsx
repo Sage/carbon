@@ -72,6 +72,40 @@ const DataGridCellInner = <T extends object>(
     column.align ??
     (type === "checkbox" || type === "action" ? "center" : "left");
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget) {
+      const target = event.target as HTMLElement;
+      const actionTrigger = event.currentTarget.querySelector<HTMLElement>(
+        '[data-element="action-popover-button"]',
+      );
+      const actionTriggerHasFocus = !!actionTrigger?.contains(target);
+      const actionPopoverIsOpen =
+        actionTrigger?.getAttribute("aria-expanded") === "true";
+      const isGridNavigationKey =
+        event.key === "ArrowLeft" ||
+        event.key === "ArrowRight" ||
+        event.key === "ArrowUp" ||
+        event.key === "ArrowDown" ||
+        event.key === "Tab";
+
+      // Nested controls own their keyboard interaction. Once a closed action
+      // trigger has focus, arrow keys and optional Tab navigation may return
+      // control to the grid without reopening or detaching its popover. Tab
+      // from an open menu is also handed to the grid after the popover's own
+      // handler closes it, preserving the grid's row-major navigation order.
+      if (
+        type !== "action" ||
+        !actionTrigger ||
+        !isGridNavigationKey ||
+        (event.key !== "Tab" && (actionPopoverIsOpen || !actionTriggerHasFocus))
+      ) {
+        return;
+      }
+    }
+
+    onCellKeyDown(event, position);
+  };
+
   return (
     <StyledCell
       ref={ref}
@@ -115,7 +149,7 @@ const DataGridCellInner = <T extends object>(
       onDoubleClick={() => {
         if (type !== "checkbox") onBeginEdit(position);
       }}
-      onKeyDown={(event) => onCellKeyDown(event, position)}
+      onKeyDown={handleKeyDown}
       data-component="data-grid-cell"
       data-element={`data-grid-cell-${String(rowId)}-${String(column.field)}`}
     >

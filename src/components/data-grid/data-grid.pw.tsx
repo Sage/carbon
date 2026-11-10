@@ -81,6 +81,17 @@ test("opens and commits a dropdown with Space without scrolling vertically", asy
   await expect
     .poll(() => grid.evaluate((element) => element.scrollTop))
     .toBe(40);
+
+  await page.keyboard.press("Tab");
+  await expect(cell(page, 2, "quantity")).toBeFocused();
+  await expect(page.getByRole("combobox", { name: "Type, row 2" })).toHaveCount(
+    0,
+  );
+  await expect
+    .poll(() =>
+      typeCell.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .toBe("none");
 });
 
 test("toggles a checkbox with one click and with Space", async ({
@@ -155,6 +166,50 @@ test("duplicates and deletes rows through the action popover", async ({
   await page.getByRole("button", { name: "Actions for row 7" }).click();
   await page.getByRole("button", { name: "Delete" }).click();
   await expect(page.getByText("Line 1", { exact: true })).toHaveCount(1);
+});
+
+test("does not navigate away from an open action popover", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const actionCell = cell(page, 1, "actions");
+  const selectedCell = cell(page, 1, "selected");
+  await actionCell.click({ position: { x: 4, y: 4 } });
+  await page.keyboard.press("Enter");
+
+  const duplicate = page.getByRole("button", { name: "Duplicate" });
+  await expect(duplicate).toBeFocused();
+  await page.keyboard.press("ArrowLeft");
+  await expect(duplicate).toBeFocused();
+  await expect(page.getByRole("list")).toBeVisible();
+
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("list")).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "Actions for row 1" }),
+  ).toBeFocused();
+
+  await page.keyboard.press("ArrowLeft");
+  await expect(selectedCell).toBeFocused();
+});
+
+test("tabs from an open action popover to the first cell of the next row", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const actionCell = cell(page, 1, "actions");
+  await actionCell.click({ position: { x: 4, y: 4 } });
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+
+  await page.keyboard.press("Tab");
+
+  await expect(page.getByRole("list")).toHaveCount(0);
+  await expect(cell(page, 2, "name")).toBeFocused();
 });
 
 test("virtualizes a constrained large grid and keeps its header sticky", async ({
