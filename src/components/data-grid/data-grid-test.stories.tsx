@@ -119,13 +119,7 @@ const VisualGrid = ({
         columns={columns}
         maxWidth="100%"
         stickyHeader
-        onCellChange={({ rowId, field, value }) => {
-          setRows((currentRows) =>
-            currentRows.map((row) =>
-              row.id === rowId ? { ...row, [field]: value } : row,
-            ),
-          );
-        }}
+        onRowsChange={(nextRows) => setRows(nextRows)}
       />
     </Box>
   );

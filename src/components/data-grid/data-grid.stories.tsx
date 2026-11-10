@@ -8,7 +8,13 @@ import Box from "../box";
 import Icon from "../icon";
 import Link from "../link";
 import Message from "../message";
-import { DataGrid, DataGridColumn, DataGridHandle, DataGridProps } from ".";
+import {
+  DataGrid,
+  DataGridColumn,
+  DataGridHandle,
+  DataGridProps,
+  DataGridRowChange,
+} from ".";
 
 interface InvoiceLine {
   id: number;
@@ -24,11 +30,6 @@ type PlaygroundArgs = Partial<DataGridProps<InvoiceLine>> & {
   /** Story-only control used to demonstrate column-level sticky configuration. */
   playgroundStickyColumns: PlaygroundStickyColumns;
 };
-
-interface RowActions<T> {
-  onDelete: (row: T) => void;
-  onDuplicate: (row: T) => void;
-}
 
 const getNextRowId = <T extends { id: number }>(rows: T[]) =>
   Math.max(0, ...rows.map(({ id }) => id)) + 1;
@@ -104,10 +105,9 @@ const createPlaygroundRows = (): InvoiceLine[] =>
     };
   });
 
-const createInvoiceColumns = ({
-  onDelete,
-  onDuplicate,
-}: RowActions<InvoiceLine>): DataGridColumn<InvoiceLine>[] => [
+const createInvoiceColumns = (
+  createDuplicateId: () => number,
+): DataGridColumn<InvoiceLine>[] => [
   {
     field: "description",
     headerName: "Description",
@@ -141,15 +141,19 @@ const createInvoiceColumns = ({
     headerAriaLabel: "Actions",
     type: "action",
     width: 52,
-    renderCell: ({ row }) => (
+    renderCell: ({ api, row, rowId }) => (
       <ActionPopover
         aria-label={`Actions for ${row.description || "empty line"}`}
         buttonLabel={<Icon type="ellipsis_vertical" />}
       >
-        <ActionPopoverItem onClick={() => onDuplicate(row)}>
+        <ActionPopoverItem
+          onClick={() =>
+            api.duplicateRow(rowId, { ...row, id: createDuplicateId() })
+          }
+        >
           Duplicate
         </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => onDelete(row)}>
+        <ActionPopoverItem onClick={() => api.deleteRow(rowId)}>
           Delete
         </ActionPopoverItem>
       </ActionPopover>
@@ -173,21 +177,16 @@ const getPlaygroundColumns = (
   })) as DataGridColumn<InvoiceLine>[];
 
 const useInvoiceColumns = (
-  setRows: React.Dispatch<React.SetStateAction<InvoiceLine[]>>,
+  rows: InvoiceLine[],
   stickyColumns: PlaygroundStickyColumns = "none",
 ) =>
   useMemo(
     () =>
       getPlaygroundColumns(
-        createInvoiceColumns({
-          onDelete: ({ id }) =>
-            setRows((currentRows) => deleteRow(currentRows, id)),
-          onDuplicate: ({ id }) =>
-            setRows((currentRows) => duplicateRow(currentRows, id)),
-        }),
+        createInvoiceColumns(() => getNextRowId(rows)),
         stickyColumns,
       ),
-    [setRows, stickyColumns],
+    [rows, stickyColumns],
   );
 
 const meta = {
@@ -235,7 +234,7 @@ export const Playground: StoryObj<PlaygroundArgs> = {
   render: (args) => {
     const [rows, setRows] = useState(createPlaygroundRows);
     const { playgroundStickyColumns, ...dataGridProps } = args;
-    const storyColumns = useInvoiceColumns(setRows, playgroundStickyColumns);
+    const storyColumns = useInvoiceColumns(rows, playgroundStickyColumns);
 
     return (
       <DataGrid
@@ -243,13 +242,7 @@ export const Playground: StoryObj<PlaygroundArgs> = {
         aria-label="Invoice lines playground"
         rows={rows}
         columns={storyColumns}
-        onCellChange={({ rowId, field, value }) => {
-          setRows((current) =>
-            current.map((row) =>
-              row.id === rowId ? { ...row, [field]: value } : row,
-            ),
-          );
-        }}
+        onRowsChange={(nextRows) => setRows(nextRows)}
       />
     );
   },
@@ -258,44 +251,35 @@ export const Playground: StoryObj<PlaygroundArgs> = {
 export const EditableInvoiceLines: Story = {
   parameters: { chromatic: { disableSnapshot: false } },
   render: () => {
+    const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
     const [rows, setRows] = useState(initialRows);
-    const storyColumns = useInvoiceColumns(setRows);
+    const storyColumns = useInvoiceColumns(rows);
 
     return (
       <Box maxWidth="100%" minWidth={0} width="600px">
         <DataGrid
+          ref={gridRef}
           aria-label="Invoice lines"
           rows={rows}
           columns={storyColumns}
           maxWidth="100%"
           enableTabNavigation
-          onCellChange={({ rowId, field, value }) => {
-            setRows((current) =>
-              current.map((row) =>
-                row.id === rowId ? { ...row, [field]: value } : row,
-              ),
-            );
-          }}
+          onRowsChange={(nextRows) => setRows(nextRows)}
         />
         <Button
           buttonType="secondary"
           iconType="add"
           iconPosition="before"
           mt={2}
-          onClick={() => {
-            setRows((current) => {
-              return [
-                ...current,
-                {
-                  id: getNextRowId(current),
-                  description: "",
-                  category: "Services",
-                  selected: false,
-                  actions: null,
-                },
-              ];
-            });
-          }}
+          onClick={() =>
+            gridRef.current?.addRow({
+              id: getNextRowId(rows),
+              description: "",
+              category: "Services",
+              selected: false,
+              actions: null,
+            })
+          }
         >
           Add line
         </Button>
@@ -306,17 +290,72 @@ export const EditableInvoiceLines: Story = {
 
 EditableInvoiceLines.storyName = "Editable invoice lines";
 
+export const ControlledRows: Story = {
+  render: () => {
+    const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
+    const [rows, setRows] = useState(() => initialRows.slice(0, 3));
+    const [lastChange, setLastChange] =
+      useState<DataGridRowChange<InvoiceLine> | null>(null);
+    const storyColumns = useInvoiceColumns(rows);
+
+    return (
+      <Box maxWidth="100%" minWidth={0} width="760px">
+        <DataGrid
+          ref={gridRef}
+          aria-label="Controlled invoice lines"
+          rows={rows}
+          columns={storyColumns}
+          maxWidth="100%"
+          enableTabNavigation
+          onRowsChange={(nextRows, change) => {
+            setRows(nextRows);
+            setLastChange(change);
+          }}
+        />
+        <Button
+          buttonType="secondary"
+          iconType="add"
+          iconPosition="before"
+          mt={2}
+          onClick={() =>
+            gridRef.current?.addRow({
+              id: getNextRowId(rows),
+              description: "",
+              category: "Services",
+              selected: false,
+              actions: null,
+            })
+          }
+        >
+          Add line
+        </Button>
+        <Box
+          as="pre"
+          backgroundColor="--colorsUtilityMajor025"
+          mt={2}
+          overflow="auto"
+          p={2}
+        >
+          {JSON.stringify({ rows, lastChange }, null, 2)}
+        </Box>
+      </Box>
+    );
+  },
+};
+
+ControlledRows.storyName = "Controlled rows and change output";
+
 export const ValidationAndErrorSummary: Story = {
   parameters: { chromatic: { disableSnapshot: false } },
   render: () => {
-    const gridRef = useRef<DataGridHandle>(null);
+    const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
     const [rows, setRows] = useState(() =>
       initialRows.map((row) => ({
         ...row,
         description: row.id === 3 ? "" : row.description,
       })),
     );
-    const storyColumns = useInvoiceColumns(setRows);
+    const storyColumns = useInvoiceColumns(rows);
     const invalidRows = rows.filter((row) => !row.description);
 
     return (
@@ -358,13 +397,7 @@ export const ValidationAndErrorSummary: Story = {
           rows={rows}
           columns={storyColumns}
           maxWidth="100%"
-          onCellChange={({ rowId, field, value }) => {
-            setRows((current) =>
-              current.map((row) =>
-                row.id === rowId ? { ...row, [field]: value } : row,
-              ),
-            );
-          }}
+          onRowsChange={(nextRows) => setRows(nextRows)}
         />
       </Box>
     );
@@ -388,6 +421,11 @@ interface LargeInvoiceLine {
   selected: boolean;
   total: string;
   actions: null;
+}
+
+interface RowActions<T> {
+  onDelete: (row: T) => void;
+  onDuplicate: (row: T) => void;
 }
 
 interface LargeRowActions extends RowActions<LargeInvoiceLine> {
@@ -602,13 +640,7 @@ export const StickyColumns: Story = {
           maxWidth="100%"
           stickyHeader
           enableTabNavigation
-          onCellChange={({ rowId, field, value }) => {
-            setRows((current) =>
-              current.map((row) =>
-                row.id === rowId ? { ...row, [field]: value } : row,
-              ),
-            );
-          }}
+          onRowsChange={(nextRows) => setRows(nextRows)}
         />
       </Box>
     );
@@ -641,13 +673,7 @@ export const LargeScrollableGrid: Story = {
         stickyHeader
         enableTabNavigation
         rowOverscan={6}
-        onCellChange={({ rowId, field, value }) => {
-          setRows((current) =>
-            current.map((row) =>
-              row.id === rowId ? { ...row, [field]: value } : row,
-            ),
-          );
-        }}
+        onRowsChange={(nextRows) => setRows(nextRows)}
       />
     );
   },
