@@ -27,6 +27,8 @@ import useSelectListVirtualization, {
   type SelectVirtualRow,
 } from "./use-select-list-virtualization";
 
+const OPEN_LOADING_ANNOUNCEMENT_DELAY = 1000;
+
 const SelectPopoverMenu = (props: PopoverMenuProps<HTMLInputElement>) => (
   <PopoverMenu<HTMLInputElement> {...props} />
 );
@@ -266,38 +268,63 @@ const SelectList = ({
   );
   const previousOptionCount = useRef(optionCount);
   const previousIsLoading = useRef(false);
+  const previousOpen = useRef(open);
   // TO-DO: Once remaining strings are provided by localisation team remove potential undefined state and optional chaining below.
   const [announcement, setAnnouncement] = useState<string | undefined>("");
 
   const loadingAnnouncement = locale.select.loadingOptions?.();
+  const loadingMoreAnnouncement = locale.select.loadingMoreOptions?.();
   const { newOptions } = locale.select;
 
   useEffect(() => {
     if (!open) {
+      previousOpen.current = false;
       previousOptionCount.current = optionCount;
       previousIsLoading.current = false;
       setAnnouncement("");
       return;
     }
 
+    const justOpened = !previousOpen.current;
+    previousOpen.current = true;
+    let announcementTimer: ReturnType<typeof setTimeout> | undefined;
     const added = optionCount - previousOptionCount.current;
     if (added > 0 && (isLoading || previousIsLoading.current)) {
       // Announce options added while loading or when loading finishes.
       setAnnouncement(newOptions?.(added));
     } else if (isLoading && !previousIsLoading.current) {
       // Announce that loading has started.
-      setAnnouncement(loadingAnnouncement);
+      const message =
+        optionCount > 0 ? loadingMoreAnnouncement : loadingAnnouncement;
+      if (justOpened) {
+        announcementTimer = setTimeout(
+          () => setAnnouncement(message),
+          OPEN_LOADING_ANNOUNCEMENT_DELAY,
+        );
+      } else {
+        setAnnouncement(message);
+      }
     } else if (!isLoading && previousIsLoading.current) {
       // Clear the loading message if no options were added.
       setAnnouncement((current) =>
-        current === loadingAnnouncement ? "" : current,
+        current === loadingAnnouncement || current === loadingMoreAnnouncement
+          ? ""
+          : current,
       );
     }
 
     // Save these values to compare with the next update.
     previousOptionCount.current = optionCount;
     previousIsLoading.current = !!isLoading;
-  }, [open, optionCount, isLoading, loadingAnnouncement, newOptions]);
+    return () => clearTimeout(announcementTimer);
+  }, [
+    open,
+    optionCount,
+    isLoading,
+    loadingAnnouncement,
+    loadingMoreAnnouncement,
+    newOptions,
+  ]);
 
   const rows = useMemo<OptionRow[]>(
     () => [

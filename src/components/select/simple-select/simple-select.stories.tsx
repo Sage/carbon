@@ -180,11 +180,17 @@ const DEMO_LOADING_DELAY = 6000;
 
 export const LazyLoading: Story = () => {
   const preventLoading = useRef(false);
-  const [value, setValue] = useState("amber");
+  const loadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const initialOptions = [<Option text="Amber" value="amber" key="Amber" />];
-  const [optionList, setOptionList] =
-    useState<React.ReactElement[]>(initialOptions);
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+
+  useEffect(
+    () => () => {
+      if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    },
+    [],
+  );
 
   function loadList() {
     if (preventLoading.current) {
@@ -193,7 +199,7 @@ export const LazyLoading: Story = () => {
 
     preventLoading.current = true;
     setIsLoading(true);
-    setTimeout(() => {
+    loadTimer.current = setTimeout(() => {
       setOptionList([
         <Option text="Amber" value="amber" key="Amber" />,
         <Option text="Black" value="black" key="Black" />,
@@ -202,12 +208,15 @@ export const LazyLoading: Story = () => {
         <Option text="Green" value="green" key="Green" />,
       ]);
       setIsLoading(false);
+      loadTimer.current = null;
     }, DEMO_LOADING_DELAY);
   }
 
   function reset() {
-    setOptionList(initialOptions);
-    setValue("amber");
+    if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    loadTimer.current = null;
+    setOptionList([]);
+    setValue("");
     setIsLoading(true);
     preventLoading.current = false;
   }
