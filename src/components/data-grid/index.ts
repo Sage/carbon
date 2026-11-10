@@ -1,7 +1,7 @@
 export { default as DataGrid } from "./data-grid.component";
 export type {
   DataGridActionColumn,
-  DataGridCellChangeParams,
+  DataGridApi,
   DataGridCellParams,
   DataGridCellType,
   DataGridCellWeight,
@@ -11,6 +11,8 @@ export type {
   DataGridHandle,
   DataGridOption,
   DataGridProps,
+  DataGridRowChange,
   DataGridRowId,
+  DataGridRowInsertion,
   DataGridTextColumn,
 } from "./data-grid.component";

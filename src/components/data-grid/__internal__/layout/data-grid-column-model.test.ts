@@ -6,6 +6,7 @@ interface Row {
   first: string;
   middle: string;
   last: string;
+  total: string;
 }
 
 test("creates one consistent layout model for width and sticky positioning", () => {

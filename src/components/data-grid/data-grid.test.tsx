@@ -150,12 +150,12 @@ test("derives error and read-only states from the complete cell context", () => 
 
 test("uses a custom row id for cell changes and the imperative handle", async () => {
   const user = userEvent.setup();
-  const ref = createRef<DataGridHandle>();
-  const onCellChange = jest.fn();
+  const onRowsChange = jest.fn();
   const customRows = [
     { key: "line-a", name: "One" },
     { key: "line-b", name: "Two" },
   ];
+  const ref = createRef<DataGridHandle<(typeof customRows)[number]>>();
   const customColumns: DataGridColumn<(typeof customRows)[number]>[] = [
     { field: "name", headerName: "Name" },
   ];
@@ -167,7 +167,7 @@ test("uses a custom row id for cell changes and the imperative handle", async ()
       rows={customRows}
       columns={customColumns}
       getRowId={({ key }) => key}
-      onCellChange={onCellChange}
+      onRowsChange={onRowsChange}
     />,
   );
 
@@ -175,13 +175,128 @@ test("uses a custom row id for cell changes and the imperative handle", async ()
   const editor = screen.getByRole("textbox", { name: "Name, row 2" });
   await user.type(editor, " updated{Enter}");
 
-  expect(onCellChange).toHaveBeenCalledWith(
+  expect(onRowsChange).toHaveBeenCalledWith(
+    expect.any(Array),
     expect.objectContaining({
+      type: "cell-edit",
       rowId: "line-b",
       field: "name",
       value: "Two updated",
     }),
   );
+});
+
+test("emits the complete immutable row collection when a cell changes", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      onRowsChange={onRowsChange}
+    />,
+  );
+
+  await user.click(screen.getAllByRole("gridcell")[0]);
+  await user.keyboard("{Enter}");
+  await user.type(screen.getByRole("textbox"), " updated{Enter}");
+
+  const [nextRows, change] = onRowsChange.mock.calls[0];
+  expect(nextRows).toEqual([{ ...rows[0], name: "One updated" }, rows[1]]);
+  expect(nextRows).not.toBe(rows);
+  expect(nextRows[1]).toBe(rows[1]);
+  expect(change).toEqual({
+    type: "cell-edit",
+    rowId: 1,
+    field: "name",
+    previousValue: "One",
+    value: "One updated",
+    previousRow: rows[0],
+    row: { ...rows[0], name: "One updated" },
+  });
+});
+
+test("keeps navigation attached to the stable row id after rows reorder", async () => {
+  const user = userEvent.setup();
+  const { rerender } = render(
+    <DataGrid aria-label="Items" rows={rows} columns={columns} />,
+  );
+
+  await user.click(screen.getAllByRole("gridcell")[0]);
+  rerender(
+    <DataGrid aria-label="Items" rows={[rows[1], rows[0]]} columns={columns} />,
+  );
+
+  const reorderedCells = screen.getAllByRole("gridcell");
+  expect(reorderedCells[3]).toHaveAttribute("tabindex", "0");
+  expect(reorderedCells[0]).toHaveAttribute("tabindex", "-1");
+});
+
+test("keeps an editor attached to the stable row id after rows reorder", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  const { rerender } = render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      onRowsChange={onRowsChange}
+    />,
+  );
+
+  await user.click(screen.getAllByRole("gridcell")[0]);
+  await user.keyboard("{Enter}");
+  rerender(
+    <DataGrid
+      aria-label="Items"
+      rows={[rows[1], rows[0]]}
+      columns={columns}
+      onRowsChange={onRowsChange}
+    />,
+  );
+
+  const editor = screen.getByRole("textbox", { name: "Name, row 2" });
+  expect(editor).toHaveValue("One");
+  await user.type(editor, " updated{Enter}");
+  expect(onRowsChange).toHaveBeenCalledWith(
+    [rows[1], { ...rows[0], name: "One updated" }],
+    expect.objectContaining({ rowId: 1, value: "One updated" }),
+  );
+});
+
+test("exposes row transactions to custom action cells", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  const actionColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name" },
+    {
+      field: "actions",
+      headerName: "",
+      headerAriaLabel: "Actions",
+      type: "action",
+      renderCell: ({ api, rowId }) => (
+        <button onClick={() => api.deleteRow(rowId)}>Delete row</button>
+      ),
+    },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={actionColumns}
+      onRowsChange={onRowsChange}
+    />,
+  );
+
+  await user.click(screen.getAllByRole("button", { name: "Delete row" })[0]);
+
+  expect(onRowsChange).toHaveBeenCalledWith([rows[1]], {
+    type: "row-delete",
+    rowId: 1,
+    row: rows[0],
+    index: 0,
+  });
 });
 
 test("keeps scrolling cells transparent and raises focused action cells", () => {
@@ -387,13 +502,13 @@ test("does not reserve header space while vertically navigating by default", asy
 
 test("enters edit mode, commits a value, and returns focus to the cell", async () => {
   const user = userEvent.setup();
-  const onCellChange = jest.fn();
+  const onRowsChange = jest.fn();
   render(
     <DataGrid
       aria-label="Items"
       rows={rows}
       columns={columns}
-      onCellChange={onCellChange}
+      onRowsChange={onRowsChange}
     />,
   );
   const cell = screen.getAllByRole("gridcell")[0];
@@ -404,8 +519,14 @@ test("enters edit mode, commits a value, and returns focus to the cell", async (
   await user.clear(input);
   await user.type(input, "Changed{Enter}");
 
-  expect(onCellChange).toHaveBeenCalledWith(
-    expect.objectContaining({ rowId: 1, field: "name", value: "Changed" }),
+  expect(onRowsChange).toHaveBeenCalledWith(
+    expect.any(Array),
+    expect.objectContaining({
+      type: "cell-edit",
+      rowId: 1,
+      field: "name",
+      value: "Changed",
+    }),
   );
   expect(cell).toHaveFocus();
 });
@@ -436,14 +557,14 @@ test("space focuses the dropdown editor without scrolling the grid", async () =>
 
 test("tab commits once and moves to the next cell when enabled", async () => {
   const user = userEvent.setup();
-  const onCellChange = jest.fn();
+  const onRowsChange = jest.fn();
   render(
     <DataGrid
       aria-label="Items"
       rows={rows}
       columns={columns}
       enableTabNavigation
-      onCellChange={onCellChange}
+      onRowsChange={onRowsChange}
     />,
   );
   const cells = screen.getAllByRole("gridcell");
@@ -453,9 +574,14 @@ test("tab commits once and moves to the next cell when enabled", async () => {
   await user.type(screen.getByRole("textbox"), " updated");
   await user.keyboard("{Tab}");
 
-  expect(onCellChange).toHaveBeenCalledTimes(1);
-  expect(onCellChange).toHaveBeenCalledWith(
-    expect.objectContaining({ field: "name", value: "One updated" }),
+  expect(onRowsChange).toHaveBeenCalledTimes(1);
+  expect(onRowsChange).toHaveBeenCalledWith(
+    expect.any(Array),
+    expect.objectContaining({
+      type: "cell-edit",
+      field: "name",
+      value: "One updated",
+    }),
   );
   expect(cells[1]).toHaveFocus();
 });
@@ -482,13 +608,13 @@ test("Tab and Shift+Tab navigate linearly across row boundaries", async () => {
 
 test("commits a dropdown selection and restores focus", async () => {
   const user = userEvent.setup();
-  const onCellChange = jest.fn();
+  const onRowsChange = jest.fn();
   render(
     <DataGrid
       aria-label="Items"
       rows={rows}
       columns={columns}
-      onCellChange={onCellChange}
+      onRowsChange={onRowsChange}
     />,
   );
   const dropdownCell = screen.getAllByRole("gridcell")[1];
@@ -498,8 +624,14 @@ test("commits a dropdown selection and restores focus", async () => {
   await user.selectOptions(screen.getByRole("combobox"), "B");
   await user.keyboard("{Enter}");
 
-  expect(onCellChange).toHaveBeenCalledWith(
-    expect.objectContaining({ rowId: 1, field: "type", value: "B" }),
+  expect(onRowsChange).toHaveBeenCalledWith(
+    expect.any(Array),
+    expect.objectContaining({
+      type: "dropdown-select",
+      rowId: 1,
+      field: "type",
+      value: "B",
+    }),
   );
   expect(dropdownCell).toHaveFocus();
 });
@@ -603,7 +735,7 @@ test("read-only cells do not enter edit mode", async () => {
 
 test("read-only checkbox cells do not toggle", async () => {
   const user = userEvent.setup();
-  const onCellChange = jest.fn();
+  const onRowsChange = jest.fn();
   const readOnlyColumns: DataGridColumn<Row>[] = [
     {
       field: "selected",
@@ -617,14 +749,14 @@ test("read-only checkbox cells do not toggle", async () => {
       aria-label="Items"
       rows={rows.slice(0, 1)}
       columns={readOnlyColumns}
-      onCellChange={onCellChange}
+      onRowsChange={onRowsChange}
     />,
   );
 
   await user.click(screen.getByRole("gridcell"));
   await user.keyboard(" ");
 
-  expect(onCellChange).not.toHaveBeenCalled();
+  expect(onRowsChange).not.toHaveBeenCalled();
   expect(screen.getByRole("checkbox")).not.toBeChecked();
 });
 
@@ -665,33 +797,38 @@ test("typing while navigating preserves the cell value and appends text", async 
 
 test("space toggles a checkbox cell", async () => {
   const user = userEvent.setup();
-  const onCellChange = jest.fn();
+  const onRowsChange = jest.fn();
   render(
     <DataGrid
       aria-label="Items"
       rows={rows}
       columns={columns}
-      onCellChange={onCellChange}
+      onRowsChange={onRowsChange}
     />,
   );
   await user.click(screen.getAllByRole("gridcell")[1]);
   await user.keyboard("{ArrowRight}");
 
   await user.keyboard(" ");
-  expect(onCellChange).toHaveBeenCalledWith(
-    expect.objectContaining({ field: "selected", value: true }),
+  expect(onRowsChange).toHaveBeenCalledWith(
+    expect.any(Array),
+    expect.objectContaining({
+      type: "checkbox-toggle",
+      field: "selected",
+      value: true,
+    }),
   );
 });
 
 test("a single click toggles a checkbox cell", async () => {
   const user = userEvent.setup();
-  const onCellChange = jest.fn();
+  const onRowsChange = jest.fn();
   render(
     <DataGrid
       aria-label="Items"
       rows={rows}
       columns={columns}
-      onCellChange={onCellChange}
+      onRowsChange={onRowsChange}
     />,
   );
   const checkboxCell = screen.getAllByRole("gridcell")[2];
@@ -699,31 +836,36 @@ test("a single click toggles a checkbox cell", async () => {
   await user.click(checkboxCell);
 
   expect(checkboxCell).toHaveFocus();
-  expect(onCellChange).toHaveBeenCalledTimes(1);
-  expect(onCellChange).toHaveBeenCalledWith(
-    expect.objectContaining({ field: "selected", value: true }),
+  expect(onRowsChange).toHaveBeenCalledTimes(1);
+  expect(onRowsChange).toHaveBeenCalledWith(
+    expect.any(Array),
+    expect.objectContaining({
+      type: "checkbox-toggle",
+      field: "selected",
+      value: true,
+    }),
   );
 });
 
 test("a double click only toggles a checkbox cell once", async () => {
   const user = userEvent.setup();
-  const onCellChange = jest.fn();
+  const onRowsChange = jest.fn();
   render(
     <DataGrid
       aria-label="Items"
       rows={rows}
       columns={columns}
-      onCellChange={onCellChange}
+      onRowsChange={onRowsChange}
     />,
   );
 
   await user.dblClick(screen.getAllByRole("gridcell")[2]);
 
-  expect(onCellChange).toHaveBeenCalledTimes(1);
+  expect(onRowsChange).toHaveBeenCalledTimes(1);
 });
 
 test("the imperative handle focuses and edits a cell", () => {
-  const ref = createRef<DataGridHandle>();
+  const ref = createRef<DataGridHandle<Row>>();
   render(
     <DataGrid ref={ref} aria-label="Items" rows={rows} columns={columns} />,
   );
@@ -737,13 +879,13 @@ test("the imperative handle focuses and edits a cell", () => {
 
 test("escape cancels editing", async () => {
   const user = userEvent.setup();
-  const onCellChange = jest.fn();
+  const onRowsChange = jest.fn();
   render(
     <DataGrid
       aria-label="Items"
       rows={rows}
       columns={columns}
-      onCellChange={onCellChange}
+      onRowsChange={onRowsChange}
     />,
   );
   const cell = screen.getAllByRole("gridcell")[0];
@@ -754,5 +896,5 @@ test("escape cancels editing", async () => {
 
   expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
   expect(cell).toHaveFocus();
-  expect(onCellChange).not.toHaveBeenCalled();
+  expect(onRowsChange).not.toHaveBeenCalled();
 });

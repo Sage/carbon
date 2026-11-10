@@ -89,7 +89,7 @@ export type { ContentProps } from "./components/content";
 export { DataGrid } from "./components/data-grid";
 export type {
   DataGridActionColumn,
-  DataGridCellChangeParams,
+  DataGridApi,
   DataGridCellParams,
   DataGridCellType,
   DataGridCellWeight,
@@ -99,7 +99,9 @@ export type {
   DataGridHandle,
   DataGridOption,
   DataGridProps,
+  DataGridRowChange,
   DataGridRowId,
+  DataGridRowInsertion,
   DataGridTextColumn,
 } from "./components/data-grid";
 

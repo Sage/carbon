@@ -22,7 +22,7 @@ description: Carbon DataGrid component props and usage examples.
 | getRowId | ((row: T) => DataGridRowId) \| undefined | No |  | Reads a stable row id. Defaults to the row's `id` property. |  |
 | maxHeight | string \| number \| undefined | No |  | Maximum viewport height. Enables row virtualization when constrained. |  |
 | maxWidth | string \| number \| undefined | No |  | Maximum viewport width. Enables horizontal scrolling when constrained. |  |
-| onCellChange | ((params: DataGridCellChangeParams<T>) => void) \| undefined | No |  | Called after a cell edit is committed. |  |
+| onRowsChange | ((rows: T[], change: DataGridRowChange<T>) => void) \| undefined | No |  | Called with a new immutable row collection and the change that produced it. |  |
 | rowOverscan | number \| undefined | No |  | Number of additional rows mounted above and below the viewport. |  |
 | stickyHeader | boolean \| undefined | No |  | Keeps the header visible while the grid scrolls vertically. |  |
 | aria-describedby | string \| undefined | No |  | ID of an element that provides additional grid guidance. |  |
@@ -82,7 +82,7 @@ description: Carbon DataGrid component props and usage examples.
 (args) => {
     const [rows, setRows] = useState(createPlaygroundRows);
     const { playgroundStickyColumns, ...dataGridProps } = args;
-    const storyColumns = useInvoiceColumns(setRows, playgroundStickyColumns);
+    const storyColumns = useInvoiceColumns(rows, playgroundStickyColumns);
 
     return (
       <DataGrid
@@ -90,13 +90,7 @@ description: Carbon DataGrid component props and usage examples.
         aria-label="Invoice lines playground"
         rows={rows}
         columns={storyColumns}
-        onCellChange={({ rowId, field, value }) => {
-          setRows((current) =>
-            current.map((row) =>
-              row.id === rowId ? { ...row, [field]: value } : row,
-            ),
-          );
-        }}
+        onRowsChange={(nextRows) => setRows(nextRows)}
       />
     );
   }
@@ -109,23 +103,68 @@ description: Carbon DataGrid component props and usage examples.
 
 ```tsx
 () => {
+    const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
     const [rows, setRows] = useState(initialRows);
-    const storyColumns = useInvoiceColumns(setRows);
+    const storyColumns = useInvoiceColumns(rows);
 
     return (
       <Box maxWidth="100%" minWidth={0} width="600px">
         <DataGrid
+          ref={gridRef}
           aria-label="Invoice lines"
           rows={rows}
           columns={storyColumns}
           maxWidth="100%"
           enableTabNavigation
-          onCellChange={({ rowId, field, value }) => {
-            setRows((current) =>
-              current.map((row) =>
-                row.id === rowId ? { ...row, [field]: value } : row,
-              ),
-            );
+          onRowsChange={(nextRows) => setRows(nextRows)}
+        />
+        <Button
+          buttonType="secondary"
+          iconType="add"
+          iconPosition="before"
+          mt={2}
+          onClick={() =>
+            gridRef.current?.addRow({
+              id: getNextRowId(rows),
+              description: "",
+              category: "Services",
+              selected: false,
+              actions: null,
+            })
+          }
+        >
+          Add line
+        </Button>
+      </Box>
+    );
+  }
+```
+
+
+### Controlled rows and change output
+
+**Render**
+
+```tsx
+() => {
+    const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
+    const [rows, setRows] = useState(() => initialRows.slice(0, 3));
+    const [lastChange, setLastChange] =
+      useState<DataGridRowChange<InvoiceLine> | null>(null);
+    const storyColumns = useInvoiceColumns(rows);
+
+    return (
+      <Box maxWidth="100%" minWidth={0} width="760px">
+        <DataGrid
+          ref={gridRef}
+          aria-label="Controlled invoice lines"
+          rows={rows}
+          columns={storyColumns}
+          maxWidth="100%"
+          enableTabNavigation
+          onRowsChange={(nextRows, change) => {
+            setRows(nextRows);
+            setLastChange(change);
           }}
         />
         <Button
@@ -133,23 +172,27 @@ description: Carbon DataGrid component props and usage examples.
           iconType="add"
           iconPosition="before"
           mt={2}
-          onClick={() => {
-            setRows((current) => {
-              return [
-                ...current,
-                {
-                  id: getNextRowId(current),
-                  description: "",
-                  category: "Services",
-                  selected: false,
-                  actions: null,
-                },
-              ];
-            });
-          }}
+          onClick={() =>
+            gridRef.current?.addRow({
+              id: getNextRowId(rows),
+              description: "",
+              category: "Services",
+              selected: false,
+              actions: null,
+            })
+          }
         >
           Add line
         </Button>
+        <Box
+          as="pre"
+          backgroundColor="--colorsUtilityMajor025"
+          mt={2}
+          overflow="auto"
+          p={2}
+        >
+          {JSON.stringify({ rows, lastChange }, null, 2)}
+        </Box>
       </Box>
     );
   }
@@ -162,14 +205,14 @@ description: Carbon DataGrid component props and usage examples.
 
 ```tsx
 () => {
-    const gridRef = useRef<DataGridHandle>(null);
+    const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
     const [rows, setRows] = useState(() =>
       initialRows.map((row) => ({
         ...row,
         description: row.id === 3 ? "" : row.description,
       })),
     );
-    const storyColumns = useInvoiceColumns(setRows);
+    const storyColumns = useInvoiceColumns(rows);
     const invalidRows = rows.filter((row) => !row.description);
 
     return (
@@ -211,13 +254,7 @@ description: Carbon DataGrid component props and usage examples.
           rows={rows}
           columns={storyColumns}
           maxWidth="100%"
-          onCellChange={({ rowId, field, value }) => {
-            setRows((current) =>
-              current.map((row) =>
-                row.id === rowId ? { ...row, [field]: value } : row,
-              ),
-            );
-          }}
+          onRowsChange={(nextRows) => setRows(nextRows)}
         />
       </Box>
     );
@@ -244,13 +281,7 @@ description: Carbon DataGrid component props and usage examples.
           maxWidth="100%"
           stickyHeader
           enableTabNavigation
-          onCellChange={({ rowId, field, value }) => {
-            setRows((current) =>
-              current.map((row) =>
-                row.id === rowId ? { ...row, [field]: value } : row,
-              ),
-            );
-          }}
+          onRowsChange={(nextRows) => setRows(nextRows)}
         />
       </Box>
     );
@@ -277,13 +308,7 @@ description: Carbon DataGrid component props and usage examples.
         stickyHeader
         enableTabNavigation
         rowOverscan={6}
-        onCellChange={({ rowId, field, value }) => {
-          setRows((current) =>
-            current.map((row) =>
-              row.id === rowId ? { ...row, [field]: value } : row,
-            ),
-          );
-        }}
+        onRowsChange={(nextRows) => setRows(nextRows)}
       />
     );
   }
@@ -325,13 +350,7 @@ const columns: DataGridColumn<InvoiceLine>[] = [
   aria-label="Invoice lines"
   rows={rows}
   columns={columns}
-  onCellChange={({ rowId, field, value }) => {
-    setRows((currentRows) =>
-      currentRows.map((row) =>
-        row.id === rowId ? { ...row, [field]: value } : row,
-      ),
-    );
-  }}
+  onRowsChange={(nextRows) => setRows(nextRows)}
 />;
 ```
 
@@ -399,12 +418,21 @@ const columns: DataGridColumn<InvoiceLine>[] = [
     headerAriaLabel: "Actions",
     type: "action",
     width: 52,
-    renderCell: ({ row }) => (
+    renderCell: ({ api, row, rowId }) => (
       <ActionPopover
         aria-label={`Actions for ${row.description}`}
         buttonLabel="More actions"
       >
-        {/* ActionPopoverItems */}
+        <ActionPopoverItem
+          onClick={() =>
+            api.duplicateRow(rowId, { ...row, id: createInvoiceLineId() })
+          }
+        >
+          Duplicate
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => api.deleteRow(rowId)}>
+          Delete
+        </ActionPopoverItem>
       </ActionPopover>
     ),
   },
@@ -419,23 +447,19 @@ const columns: DataGridColumn<InvoiceLine>[] = [
 ```tsx
 const [rows, setRows] = React.useState(initialRows);
 
-const handleCellChange = ({
-  rowId,
-  field,
-  value,
-}: DataGridCellChangeParams<InvoiceLine>) => {
-  setRows((currentRows) =>
-    currentRows.map((row) =>
-      row.id === rowId ? { ...row, [field]: value } : row,
-    ),
-  );
+const handleRowsChange = (
+  nextRows: InvoiceLine[],
+  change: DataGridRowChange<InvoiceLine>,
+) => {
+  setRows(nextRows);
+  auditInvoiceChange(change);
 };
 
 <DataGrid
   aria-label="Invoice lines"
   rows={rows}
   columns={columns}
-  onCellChange={handleCellChange}
+  onRowsChange={handleRowsChange}
 />;
 ```
 
@@ -445,7 +469,25 @@ const handleCellChange = ({
 **Args**
 
 ```tsx
-const gridRef = React.createRef<DataGridHandle>();
+const gridRef = React.useRef<DataGridHandle<InvoiceLine>>(null);
+
+<Button onClick={() => gridRef.current?.addRow(createEmptyInvoiceLine())}>
+  Add line
+</Button>;
+
+gridRef.current?.insertRow(newLine, { beforeRowId: existingLineId });
+gridRef.current?.duplicateRow(sourceLineId, duplicatedLine);
+gridRef.current?.deleteRow(lineId);
+gridRef.current?.moveRow(lineId, 3);
+```
+
+
+### MDX Example 6
+
+**Args**
+
+```tsx
+const gridRef = React.createRef<DataGridHandle<InvoiceLine>>();
 
 gridRef.current?.editCell(invoiceLineId, "description");
 ```

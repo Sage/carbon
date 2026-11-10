@@ -18,8 +18,10 @@ import {
 import useDataGridEditing from "./__internal__/hooks/use-data-grid-editing";
 import useDataGridKeyboard from "./__internal__/hooks/use-data-grid-keyboard";
 import useDataGridNavigation from "./__internal__/hooks/use-data-grid-navigation";
+import useDataGridRows from "./__internal__/hooks/use-data-grid-rows";
 import useDataGridVirtualization from "./__internal__/hooks/use-data-grid-virtualization";
 import {
+  DataGridCellIdentity,
   DataGridCellParams,
   DataGridCellPosition,
   DataGridHandle,
@@ -29,7 +31,7 @@ import {
 
 export type {
   DataGridActionColumn,
-  DataGridCellChangeParams,
+  DataGridApi,
   DataGridCellParams,
   DataGridCellType,
   DataGridCellWeight,
@@ -39,7 +41,9 @@ export type {
   DataGridHandle,
   DataGridOption,
   DataGridProps,
+  DataGridRowChange,
   DataGridRowId,
+  DataGridRowInsertion,
   DataGridTextColumn,
 } from "./data-grid.types";
 
@@ -49,7 +53,7 @@ const DataGridInner = <T extends object>(
     columns,
     "aria-label": ariaLabel,
     getRowId,
-    onCellChange,
+    onRowsChange,
     enableTabNavigation = false,
     stickyHeader = false,
     disableVirtualization = false,
@@ -59,7 +63,7 @@ const DataGridInner = <T extends object>(
     "aria-labelledby": ariaLabelledBy,
     "aria-describedby": ariaDescribedBy,
   }: DataGridProps<T>,
-  ref: React.ForwardedRef<DataGridHandle>,
+  ref: React.ForwardedRef<DataGridHandle<T>>,
 ) => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const rowId = useCallback(
@@ -70,15 +74,44 @@ const DataGridInner = <T extends object>(
   );
   const keyFor = useCallback(
     (position: DataGridCellPosition) =>
-      `${String(rowId(rows[position.row]))}:${String(columns[position.column].field)}`,
+      JSON.stringify([
+        typeof rowId(rows[position.row]),
+        rowId(rows[position.row]),
+        String(columns[position.column].field),
+      ]),
     [columns, rowId, rows],
   );
+  const identityFor = useCallback(
+    (position: DataGridCellPosition): DataGridCellIdentity => ({
+      rowId: rowId(rows[position.row]),
+      field: String(columns[position.column].field),
+    }),
+    [columns, rowId, rows],
+  );
+  const positionForIdentity = useCallback(
+    (identity: DataGridCellIdentity): DataGridCellPosition | null => {
+      const position = {
+        row: rows.findIndex((row) => rowId(row) === identity.rowId),
+        column: columns.findIndex(
+          (column) => String(column.field) === identity.field,
+        ),
+      };
+      return position.row >= 0 && position.column >= 0 ? position : null;
+    },
+    [columns, rowId, rows],
+  );
+  const { api, commitCellChange } = useDataGridRows({
+    rows,
+    getRowId: rowId,
+    onRowsChange,
+  });
   const getCellParams = useCallback(
     (position: DataGridCellPosition): DataGridCellParams<T> => {
       const row = rows[position.row];
       const column = columns[position.column];
       const field = String(column.field);
       return {
+        api,
         column,
         field,
         row,
@@ -86,7 +119,7 @@ const DataGridInner = <T extends object>(
         value: (row as Record<string, unknown>)[field],
       };
     },
-    [columns, rowId, rows],
+    [api, columns, rowId, rows],
   );
   const isCellReadOnly = useCallback((params: DataGridCellParams<T>) => {
     const { readOnly } = params.column;
@@ -122,6 +155,8 @@ const DataGridInner = <T extends object>(
     columns,
     columnModel,
     scrollElementRef: viewportRef,
+    identityFor,
+    positionForIdentity,
     keyFor,
     renderToken: virtualization.renderToken,
     stickyHeader,
@@ -137,7 +172,9 @@ const DataGridInner = <T extends object>(
   } = useDataGridEditing({
     getCellParams,
     isCellReadOnly,
-    onCellChange,
+    onCellCommit: commitCellChange,
+    identityFor,
+    positionForIdentity,
     activateCell,
     ensureCellVisible,
     focusCell: focusCellElement,
@@ -164,6 +201,7 @@ const DataGridInner = <T extends object>(
   useImperativeHandle(
     ref,
     () => ({
+      ...api,
       focusCell(targetRowId, field) {
         const position = {
           row: rows.findIndex((row) => rowId(row) === targetRowId),
@@ -181,7 +219,7 @@ const DataGridInner = <T extends object>(
         }
       },
     }),
-    [beginEdit, columns, focusCell, rowId, rows],
+    [api, beginEdit, columns, focusCell, rowId, rows],
   );
 
   return (
@@ -257,7 +295,7 @@ const ForwardedDataGrid = forwardRef(DataGridInner);
 ForwardedDataGrid.displayName = "DataGrid";
 
 export const DataGrid = ForwardedDataGrid as <T extends object>(
-  props: DataGridProps<T> & { ref?: React.ForwardedRef<DataGridHandle> },
+  props: DataGridProps<T> & { ref?: React.ForwardedRef<DataGridHandle<T>> },
 ) => React.ReactElement;
 
 export default DataGrid;
