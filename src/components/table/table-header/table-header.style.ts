@@ -35,14 +35,14 @@ const StyledTableHeaderCell = styled.th<StyledTableHeaderCellProps>`
     css`
       background-color: ${$alternate
         ? "var(--table-header-subtle-bg-alt)"
-        : "var(--page-bg-default)"};
+        : "var(--page-bg-alt)"};
       color: var(--table-header-subtle-label-default);
     `}
     ${$variant === "subtle-grey" &&
     css`
       background-color: ${$alternate
         ? "var(--table-header-subtle-bg-alt)"
-        : "var(--page-bg-alt)"};
+        : "var(--page-bg-default)"};
       color: var(--table-header-subtle-label-default);
     `}
   `}
