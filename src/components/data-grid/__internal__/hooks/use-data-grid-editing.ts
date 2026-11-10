@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
-  DataGridCellChangeParams,
+  DataGridCellCommitParams,
+  DataGridCellIdentity,
   DataGridCellParams,
   DataGridCellPosition,
 } from "../../data-grid.types";
@@ -9,7 +10,11 @@ import {
 interface UseDataGridEditingOptions<T extends object> {
   getCellParams: (position: DataGridCellPosition) => DataGridCellParams<T>;
   isCellReadOnly: (params: DataGridCellParams<T>) => boolean;
-  onCellChange?: (params: DataGridCellChangeParams<T>) => void;
+  onCellCommit: (params: DataGridCellCommitParams<T>) => void;
+  identityFor: (position: DataGridCellPosition) => DataGridCellIdentity;
+  positionForIdentity: (
+    identity: DataGridCellIdentity,
+  ) => DataGridCellPosition | null;
   activateCell: (position: DataGridCellPosition) => void;
   ensureCellVisible: (position: DataGridCellPosition) => void;
   focusCell: (position: DataGridCellPosition) => void;
@@ -19,16 +24,20 @@ interface UseDataGridEditingOptions<T extends object> {
 const useDataGridEditing = <T extends object>({
   getCellParams,
   isCellReadOnly,
-  onCellChange,
+  onCellCommit,
+  identityFor,
+  positionForIdentity,
   activateCell,
   ensureCellVisible,
   focusCell,
   renderToken,
 }: UseDataGridEditingOptions<T>) => {
-  const [editing, setEditing] = useState<DataGridCellPosition | null>(null);
+  const [editingIdentity, setEditingIdentity] =
+    useState<DataGridCellIdentity | null>(null);
+  const editing = editingIdentity ? positionForIdentity(editingIdentity) : null;
   const [draftValue, setDraftValue] = useState<unknown>("");
   const editorRef = useRef<HTMLInputElement | HTMLSelectElement>(null);
-  const restoreFocus = useRef<DataGridCellPosition | null>(null);
+  const restoreFocus = useRef<DataGridCellIdentity | null>(null);
   const finishingEdit = useRef(false);
 
   const beginEdit = useCallback(
@@ -36,7 +45,7 @@ const useDataGridEditing = <T extends object>({
       const params = getCellParams(position);
       if (isCellReadOnly(params) || params.column.type === "action") return;
       if (params.column.type === "checkbox") {
-        onCellChange?.({ ...params, value: !Boolean(params.value) });
+        onCellCommit({ ...params, value: !Boolean(params.value) });
         return;
       }
 
@@ -48,14 +57,15 @@ const useDataGridEditing = <T extends object>({
           ? (params.value ?? "")
           : `${params.value ?? ""}${appendedText}`,
       );
-      setEditing(position);
+      setEditingIdentity(identityFor(position));
     },
     [
       activateCell,
       ensureCellVisible,
       getCellParams,
+      identityFor,
       isCellReadOnly,
-      onCellChange,
+      onCellCommit,
     ],
   );
 
@@ -63,24 +73,24 @@ const useDataGridEditing = <T extends object>({
     (shouldRestoreFocus = false) => {
       if (!editing || finishingEdit.current) return;
       finishingEdit.current = true;
-      onCellChange?.({ ...getCellParams(editing), value: draftValue });
-      restoreFocus.current = shouldRestoreFocus ? editing : null;
-      setEditing(null);
+      onCellCommit({ ...getCellParams(editing), value: draftValue });
+      restoreFocus.current = shouldRestoreFocus ? editingIdentity : null;
+      setEditingIdentity(null);
     },
-    [draftValue, editing, getCellParams, onCellChange],
+    [draftValue, editing, editingIdentity, getCellParams, onCellCommit],
   );
 
   const cancelEdit = useCallback(
     (shouldRestoreFocus = false) => {
       finishingEdit.current = true;
-      restoreFocus.current = shouldRestoreFocus ? editing : null;
-      setEditing(null);
+      restoreFocus.current = shouldRestoreFocus ? editingIdentity : null;
+      setEditingIdentity(null);
     },
-    [editing],
+    [editingIdentity],
   );
 
   useEffect(() => {
-    if (!editing) return;
+    if (!editingIdentity) return;
     const editor = editorRef.current;
     editor?.focus();
     if (editor instanceof HTMLInputElement) {
@@ -93,13 +103,14 @@ const useDataGridEditing = <T extends object>({
         // Some browsers only allow showPicker during a direct user gesture.
       }
     }
-  }, [editing, renderToken]);
+  }, [editingIdentity, renderToken]);
 
   useEffect(() => {
-    if (editing || !restoreFocus.current) return;
-    focusCell(restoreFocus.current);
+    if (editingIdentity || !restoreFocus.current) return;
+    const position = positionForIdentity(restoreFocus.current);
+    if (position) focusCell(position);
     restoreFocus.current = null;
-  }, [editing, focusCell]);
+  }, [editingIdentity, focusCell, positionForIdentity]);
 
   return {
     editing,

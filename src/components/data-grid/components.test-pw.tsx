@@ -47,7 +47,7 @@ const DataGridComponent = ({
   rowOverscan,
   stickyHeader = true,
 }: DataGridComponentProps) => {
-  const gridRef = useRef<DataGridHandle>(null);
+  const gridRef = useRef<DataGridHandle<TestRow>>(null);
   const [rows, setRows] = useState(() => createRows(rowCount));
   const columns = useMemo<DataGridColumn<TestRow>[]>(
     () => [
@@ -83,45 +83,29 @@ const DataGridComponent = ({
         type: "action",
         width: 52,
         sticky: "right",
-        renderCell: ({ row }) => (
+        renderCell: ({ api, row, rowId }) => (
           <ActionPopover
             aria-label={`Actions for row ${row.id}`}
             buttonLabel={<Icon type="ellipsis_vertical" />}
           >
             <ActionPopoverItem
               onClick={() =>
-                setRows((currentRows) => {
-                  const rowIndex = currentRows.findIndex(
-                    ({ id }) => id === row.id,
-                  );
-                  const duplicate = {
-                    ...row,
-                    id: Math.max(...currentRows.map(({ id }) => id)) + 1,
-                  };
-                  return [
-                    ...currentRows.slice(0, rowIndex + 1),
-                    duplicate,
-                    ...currentRows.slice(rowIndex + 1),
-                  ];
+                api.duplicateRow(rowId, {
+                  ...row,
+                  id: Math.max(0, ...rows.map(({ id }) => id)) + 1,
                 })
               }
             >
               Duplicate
             </ActionPopoverItem>
-            <ActionPopoverItem
-              onClick={() =>
-                setRows((currentRows) =>
-                  currentRows.filter(({ id }) => id !== row.id),
-                )
-              }
-            >
+            <ActionPopoverItem onClick={() => api.deleteRow(rowId)}>
               Delete
             </ActionPopoverItem>
           </ActionPopover>
         ),
       },
     ],
-    [],
+    [rows],
   );
 
   return (
@@ -140,13 +124,7 @@ const DataGridComponent = ({
         maxWidth={maxWidth}
         rowOverscan={rowOverscan}
         stickyHeader={stickyHeader}
-        onCellChange={({ rowId, field, value }) => {
-          setRows((currentRows) =>
-            currentRows.map((row) =>
-              row.id === rowId ? { ...row, [field]: value } : row,
-            ),
-          );
-        }}
+        onRowsChange={(nextRows) => setRows(nextRows)}
       />
     </div>
   );

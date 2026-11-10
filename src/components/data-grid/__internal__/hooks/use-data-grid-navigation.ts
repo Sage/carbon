@@ -1,6 +1,10 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 
-import { DataGridCellPosition, DataGridColumn } from "../../data-grid.types";
+import {
+  DataGridCellIdentity,
+  DataGridCellPosition,
+  DataGridColumn,
+} from "../../data-grid.types";
 import { DataGridColumnModel } from "../layout/data-grid-column-model";
 import {
   scrollColumnIntoView,
@@ -12,6 +16,10 @@ interface UseDataGridNavigationOptions<T extends object> {
   columns: DataGridColumn<T>[];
   columnModel: DataGridColumnModel;
   scrollElementRef: RefObject<HTMLDivElement>;
+  identityFor: (position: DataGridCellPosition) => DataGridCellIdentity;
+  positionForIdentity: (
+    identity: DataGridCellIdentity,
+  ) => DataGridCellPosition | null;
   keyFor: (position: DataGridCellPosition) => string;
   renderToken: unknown;
   stickyHeader: boolean;
@@ -22,16 +30,26 @@ const useDataGridNavigation = <T extends object>({
   columns,
   columnModel,
   scrollElementRef,
+  identityFor,
+  positionForIdentity,
   keyFor,
   renderToken,
   stickyHeader,
 }: UseDataGridNavigationOptions<T>) => {
-  const [active, setActive] = useState<DataGridCellPosition>({
-    row: 0,
-    column: 0,
-  });
+  const [activeIdentity, setActiveIdentity] =
+    useState<DataGridCellIdentity | null>(null);
   const cellRefs = useRef(new Map<string, HTMLDivElement>());
-  const pendingFocus = useRef<DataGridCellPosition | null>(null);
+  const pendingFocus = useRef<DataGridCellIdentity | null>(null);
+  const active = activeIdentity
+    ? (positionForIdentity(activeIdentity) ?? { row: 0, column: 0 })
+    : { row: 0, column: 0 };
+
+  const activateCell = useCallback(
+    (position: DataGridCellPosition) => {
+      setActiveIdentity(identityFor(position));
+    },
+    [identityFor],
+  );
 
   const registerCell = useCallback(
     (rowIndex: number, columnIndex: number, node: HTMLDivElement | null) => {
@@ -64,17 +82,18 @@ const useDataGridNavigation = <T extends object>({
         column: Math.max(0, Math.min(columns.length - 1, position.column)),
       };
 
-      setActive(next);
+      const identity = identityFor(next);
+      setActiveIdentity(identity);
       ensureCellVisible(next);
       const cell = cellRefs.current.get(keyFor(next));
       if (cell) {
         cell.focus();
         pendingFocus.current = null;
       } else {
-        pendingFocus.current = next;
+        pendingFocus.current = identity;
       }
     },
-    [columns.length, ensureCellVisible, keyFor, rowCount],
+    [columns.length, ensureCellVisible, identityFor, keyFor, rowCount],
   );
 
   const moveLinear = useCallback(
@@ -104,18 +123,23 @@ const useDataGridNavigation = <T extends object>({
   );
 
   useEffect(() => {
-    const position = pendingFocus.current;
-    if (!position) return;
+    const identity = pendingFocus.current;
+    if (!identity) return;
+    const position = positionForIdentity(identity);
+    if (!position) {
+      pendingFocus.current = null;
+      return;
+    }
     const cell = cellRefs.current.get(keyFor(position));
     if (cell) {
       cell.focus();
       pendingFocus.current = null;
     }
-  }, [keyFor, renderToken]);
+  }, [keyFor, positionForIdentity, renderToken]);
 
   return {
     active,
-    activateCell: setActive,
+    activateCell,
     registerCell,
     ensureCellVisible,
     focusCell,
