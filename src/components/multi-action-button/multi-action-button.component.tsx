@@ -194,6 +194,7 @@ export const MultiActionButton = forwardRef<
               size={size}
               placement={position === "left" ? "bottom-start" : "bottom-end"}
               isButtonMenu
+              disablePortal={!isInTable}
               id={submenuId.current}
               controlReference={buttonNode}
               matchReferenceWidth={fullWidth}

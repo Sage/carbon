@@ -502,7 +502,7 @@ test.describe("when nested inside a Dialog component", () => {
     ).toHaveCSS("justify-content", "start");
     await expect(
       submenuItem.locator('[data-role="button-child-container"]'),
-    ).toHaveCSS("justify-content", "center");
+    ).toHaveCSS("justify-content", "start");
 
     await page.keyboard.press("Escape");
 

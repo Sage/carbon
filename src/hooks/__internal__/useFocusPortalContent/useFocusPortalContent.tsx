@@ -2,22 +2,49 @@ import { RefObject, useEffect } from "react";
 import Events from "../../../__internal__/utils/helpers/events";
 import { defaultFocusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
 
+const isTabStop = (element: HTMLElement) => {
+  if (
+    element.tabIndex < 0 ||
+    element.matches(":disabled") ||
+    element.closest("[hidden], [inert]")
+  ) {
+    return false;
+  }
+
+  const { visibility } = getComputedStyle(element);
+  if (visibility === "hidden" || visibility === "collapse") return false;
+
+  // A child's computed display does not reflect a display:none ancestor.
+  let ancestor: HTMLElement | null = element;
+  while (ancestor) {
+    if (getComputedStyle(ancestor).display === "none") return false;
+    ancestor = ancestor.parentElement;
+  }
+
+  return true;
+};
+
 export const nextElementToFocus = (
   target: HTMLElement,
   container: HTMLElement,
+  additionalContainers: HTMLElement[] = [],
 ) => {
-  const focusableElements: Element[] = Array.from(
-    document.querySelectorAll(defaultFocusableSelectors) ||
-      /* istanbul ignore next */ [],
+  const focusableElements = Array.from(
+    target.ownerDocument.querySelectorAll<HTMLElement>(
+      defaultFocusableSelectors,
+    ) || /* istanbul ignore next */ [],
   ).filter(
     (el) =>
-      Number((el as HTMLElement).tabIndex) !== -1 &&
-      !el.hasAttribute("data-focus-guard"),
+      (el === target || isTabStop(el)) && !el.hasAttribute("data-focus-guard"),
   );
   const index = focusableElements.indexOf(target);
   const nextElementOutsideContainer = focusableElements
     .slice(index + 1)
-    .find((el) => !container.contains(el));
+    .find(
+      (el) =>
+        !container.contains(el) &&
+        !additionalContainers.some((menu) => menu.contains(el)),
+    );
 
   return nextElementOutsideContainer;
 };

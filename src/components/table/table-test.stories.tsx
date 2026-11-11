@@ -13,7 +13,14 @@ import { TableProps } from "./table.component";
 import { TableRowProps } from "./table-row/table-row.component";
 import { TableCellProps } from "./table-cell/table-cell.component";
 import { TableHeaderProps } from "./table-header/table-header.component";
-import { ActionPopover, ActionPopoverItem, Checkbox } from "../..";
+import {
+  ActionPopover,
+  ActionPopoverItem,
+  Checkbox,
+  MultiActionButton,
+  Pager,
+  SplitButton,
+} from "../..";
 
 export default {
   title: "Table/Test",
@@ -46,6 +53,9 @@ export default {
     "ZebraStriped",
     "SortableColumnHeaders",
     "MultiRowColumnHeaders",
+    "StickyColumnWithSplitButton",
+    "StickyColumnWithMultiActionButton",
+    "StickyColumnWithActionPopover",
   ],
   parameters: {
     info: { disable: true },
@@ -1242,4 +1252,104 @@ export const MultiRowColumnHeaders = () => {
       </Table>
     </>
   );
+};
+
+const StickyColumnWithMenu = ({
+  renderAction,
+}: {
+  renderAction: (id: number) => React.ReactNode;
+}) => (
+  <Table
+    maxWidth="500px"
+    maxHeight="240px"
+    stickyColumn="last"
+    stickyRow="both"
+    pagination={
+      <Pager
+        totalRecords={100}
+        showPageSizeSelection
+        showTotalRecords={false}
+        onPagination={() => {}}
+      />
+    }
+  >
+    <TableHead>
+      <TableRow id="menu-head">
+        <TableHeader width="500px">Product</TableHeader>
+        <TableHeader width="200px">Actions</TableHeader>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {Array.from({ length: 10 }, (_, index) => index + 1).map((id) => (
+        <TableRow key={id} id={`menu-product-${id}`}>
+          <TableCell>Product {id}</TableCell>
+          <TableCell>{renderAction(id)}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+    <TableFoot>
+      <TableRow id="menu-foot">
+        <TableCell>Summary</TableCell>
+        <TableCell>10 products</TableCell>
+      </TableRow>
+    </TableFoot>
+  </Table>
+);
+
+const stickyMenuActions = ["Foo", "Bar"];
+
+export const StickyColumnWithSplitButton = () => (
+  <StickyColumnWithMenu
+    renderAction={(id) => (
+      <SplitButton
+        size="small"
+        text="Save"
+        aria-label={`Actions for product ${id}`}
+      >
+        {stickyMenuActions.map((action) => (
+          <Button key={action}>{action}</Button>
+        ))}
+      </SplitButton>
+    )}
+  />
+);
+
+StickyColumnWithSplitButton.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const StickyColumnWithMultiActionButton = () => (
+  <StickyColumnWithMenu
+    renderAction={(id) => (
+      <MultiActionButton
+        size="small"
+        text="Actions"
+        aria-label={`Actions for product ${id}`}
+      >
+        {stickyMenuActions.map((action) => (
+          <Button key={action}>{action}</Button>
+        ))}
+      </MultiActionButton>
+    )}
+  />
+);
+
+StickyColumnWithMultiActionButton.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const StickyColumnWithActionPopover = () => (
+  <StickyColumnWithMenu
+    renderAction={(id) => (
+      <ActionPopover size="small" aria-label={`Actions for product ${id}`}>
+        {stickyMenuActions.map((action) => (
+          <ActionPopoverItem key={action}>{action}</ActionPopoverItem>
+        ))}
+      </ActionPopover>
+    )}
+  />
+);
+
+StickyColumnWithActionPopover.parameters = {
+  chromatic: { disableSnapshot: true },
 };

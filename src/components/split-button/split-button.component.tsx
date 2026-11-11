@@ -239,6 +239,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
                   : "bottom-end"
               }
               isButtonMenu
+              disablePortal={!isInTable}
               controlReference={buttonNode}
               matchReferenceWidth
               popoverStrategy="fixed"

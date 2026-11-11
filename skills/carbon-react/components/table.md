@@ -378,7 +378,7 @@ description: Carbon Table component props and usage examples.
               </TableCell>
               {isDraggable && (
                 <TableCell id={`playground-body-actions-${id}`}>
-                  <ActionPopover>
+                  <ActionPopover size="small">
                     <ActionPopoverItem onClick={() => handleRowMove(id, "up")}>
                       Move up
                     </ActionPopoverItem>
