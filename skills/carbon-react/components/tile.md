@@ -47,6 +47,7 @@ description: Carbon Tile component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| rightChildren | React.ReactNode | No |  |  |  | Content displayed opposite the drag handle when inside a DraggableItem. Use this slot for controls that let users reorder items without dragging. |  |
 | roundness | Roundness \| LegacyRoundness \| undefined | No | small \| large \| default \| moderate \| curved |  |  | Sets the level of roundness of the corners. Values can be `"curved"` or `"moderate"`. **Deprecated**: legacy values `"default"`, `"large"`, and `"small"` are deprecated and should not be used. | "curved" |
 | statusKeyline | string \| undefined | No |  |  |  | Sets the status keyline to indicate the status of the content within the tile |  |
 | variant | TileVariants \| DeprecatedTileVariants \| undefined | No | standard \| alt \| transparent \| grey \| negative \| positive \| tile \| unavailable \| active |  |  | Sets the theme of the tile | "standard" |
@@ -796,5 +797,100 @@ description: Carbon Tile component props and usage examples.
     </>
   );
 }
+```
+
+
+### Draggable
+
+**Render**
+
+```tsx
+() => {
+  const TileReorderControls = ({ label }: { label: string }) => {
+    const { index, itemCount, moveTo } = useDraggableItemContext();
+
+    return (
+      <ActionPopover
+        aria-label={`Reorder ${label}`}
+        buttonLabel={<Icon type="ellipsis_vertical" />}
+        size="small"
+        m={0}
+        rightAlignMenu
+      >
+        <ActionPopoverItem
+          disabled={index === 0}
+          onClick={() => moveTo(index - 1)}
+        >
+          Move earlier
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          disabled={index === itemCount - 1}
+          onClick={() => moveTo(index + 1)}
+        >
+          Move later
+        </ActionPopoverItem>
+        <ActionPopoverItem disabled={index === 0} onClick={() => moveTo(0)}>
+          Move First
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          disabled={index === itemCount - 1}
+          onClick={() => moveTo(itemCount - 1)}
+        >
+          Move Last
+        </ActionPopoverItem>
+      </ActionPopover>
+    );
+  };
+
+  return (
+    <DraggableContainer>
+      <Box display="flex" flexDirection="column" gap={2} width="600px">
+        <DraggableItem id="first-tile">
+          <Tile rightChildren={<TileReorderControls label="first tile" />}>
+            First tile
+          </Tile>
+        </DraggableItem>
+        <DraggableItem id="second-tile">
+          <Tile rightChildren={<TileReorderControls label="second tile" />}>
+            Second tile
+          </Tile>
+        </DraggableItem>
+      </Box>
+    </DraggableContainer>
+  );
+}
+```
+
+
+### MDX Example 1
+
+**Args**
+
+```tsx
+import {
+  Tile,
+  TileContent,
+  TileFooter,
+  FlexTileContainer,
+  FlexTileCell,
+} from "carbon-react/lib/components/tile";
+```
+
+
+### MDX Example 2
+
+**Args**
+
+```tsx
+<Tile
+  rightChildren={
+    <ActionPopover aria-label="Reorder tile" m={0} rightAlignMenu>
+      <ActionPopoverItem onClick={moveEarlier}>Move earlier</ActionPopoverItem>
+      <ActionPopoverItem onClick={moveLater}>Move later</ActionPopoverItem>
+    </ActionPopover>
+  }
+>
+  Tile content
+</Tile>
 ```
 

@@ -13,6 +13,12 @@ import FlexTileDivider from "./flex-tile-divider";
 import { FlexTileCell, FlexTileContainer, Tile, TileFooter } from ".";
 
 import Icon from "../icon";
+import {
+  DraggableContainer,
+  DraggableItem,
+  useDraggableItemContext,
+} from "../draggable";
+import { ActionPopover, ActionPopoverItem } from "../action-popover";
 
 const lightGreyBackground: React.CSSProperties = {
   backgroundColor: "rgb(222, 222, 222)",
@@ -648,3 +654,59 @@ export const StatusKeylines: Story = () => {
 };
 StatusKeylines.storyName = "Status Keylines";
 StatusKeylines.parameters = { chromatic: { disableSnapshot: false } };
+
+export const DraggableStory: Story = () => {
+  const TileReorderControls = ({ label }: { label: string }) => {
+    const { index, itemCount, moveTo } = useDraggableItemContext();
+
+    return (
+      <ActionPopover
+        aria-label={`Reorder ${label}`}
+        buttonLabel={<Icon type="ellipsis_vertical" />}
+        size="small"
+        m={0}
+        rightAlignMenu
+      >
+        <ActionPopoverItem
+          disabled={index === 0}
+          onClick={() => moveTo(index - 1)}
+        >
+          Move earlier
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          disabled={index === itemCount - 1}
+          onClick={() => moveTo(index + 1)}
+        >
+          Move later
+        </ActionPopoverItem>
+        <ActionPopoverItem disabled={index === 0} onClick={() => moveTo(0)}>
+          Move First
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          disabled={index === itemCount - 1}
+          onClick={() => moveTo(itemCount - 1)}
+        >
+          Move Last
+        </ActionPopoverItem>
+      </ActionPopover>
+    );
+  };
+
+  return (
+    <DraggableContainer>
+      <Box display="flex" flexDirection="column" gap={2} width="600px">
+        <DraggableItem id="first-tile">
+          <Tile rightChildren={<TileReorderControls label="first tile" />}>
+            First tile
+          </Tile>
+        </DraggableItem>
+        <DraggableItem id="second-tile">
+          <Tile rightChildren={<TileReorderControls label="second tile" />}>
+            Second tile
+          </Tile>
+        </DraggableItem>
+      </Box>
+    </DraggableContainer>
+  );
+};
+DraggableStory.storyName = "Draggable";

@@ -95,7 +95,9 @@ Setting the `draggable` prop will negate both `onClick` and `href` prop values a
 
 ### Draggable
 
-Setting the `draggable` prop renders a drag handle icon and changes the cursor to `move`. It also negates any `onClick` or `href` props, so the card is no longer interactive.
+Setting the `draggable` prop renders a drag handle icon with a grab cursor. It also negates any `onClick` or `href` props, so the card itself is no longer interactive.
+
+Inside a `DraggableItem`, Card enables this presentation automatically through context. Its built-in handle becomes the drag source, and `DraggableItem` omits its fallback handle. Inputs and buttons within the card remain interactive.
 
 <Canvas of={CardStories.Draggable} />
 

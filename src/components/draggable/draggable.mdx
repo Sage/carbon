@@ -14,6 +14,7 @@ with possibility to change their order with drag and drop mechanics
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Accessibility](#accessibility)
 - [Testing drag behaviour](#testing-drag-behaviour)
 - [Props](#props)
 
@@ -30,10 +31,40 @@ import {
 
 - Always use `DraggableItem` inside of the `DraggableContainer`
 - `DraggableItem` doesn't work without `DraggableContainer`
-- `DraggableItem` requires an `id` to be passed to the component
-- The whole `<DraggableItem />` is draggable
-- The first: `<DraggableContainer />` is a required container to let content inside of `<DraggableItem />` be draggable.
-- `<DraggableItem />` Is a component that access every child to be put in.
+- `DraggableItem` requires an `id` that is unique within its `DraggableContainer`.
+- Drag an item using its drag handle. Its content remains interactive.
+- The ghost placeholder matches the registered surface's size and corners in Card, Tile, and integrated custom components.
+- Items stay in their original position while dragging. Align the dragged item over a target to insert before it. A direct drop onto the immediately following item moves after that neighbour, allowing adjacent items to exchange positions. Move at least 15% of the dragged item beyond the target's trailing edge to insert after it. This follows the layout direction and accounts for where you grabbed the item. You can also drop into the gap between items, including gaps in wrapped grids. The keyline sits halfway between neighbouring items, with its ends shortened to account for rounded corners. At outer edges with no neighbouring item, it sits 8px outside the selected edge. RTL layouts follow the items' logical order.
+- Dropping outside the container leaves the order unchanged.
+- The container includes 16px of bottom padding for drops after the final item. If you override its padding, leave space for this drop area.
+- Dropping at the item's current position leaves the order unchanged and does not call `getOrder`. The `moveTo` API still takes the item's final zero-based position.
+
+### Moving items between containers
+
+Wrap containers in `DraggableContainerGroup` to allow transfers between them:
+
+```tsx
+import {
+  DraggableContainer,
+  DraggableContainerGroup,
+  DraggableItem,
+} from "carbon-react/lib/components/draggable";
+
+<DraggableContainerGroup>
+  <DraggableContainer getOrder={handleFirstOrder}>
+    <DraggableItem id="first">First item</DraggableItem>
+  </DraggableContainer>
+  <DraggableContainer getOrder={handleSecondOrder}>
+    <DraggableItem id="second">Second item</DraggableItem>
+  </DraggableContainer>
+</DraggableContainerGroup>;
+```
+
+Item IDs must be unique across a group. Containers outside the group, or in another group, stay isolated. A transfer calls `getOrder` on both the source and destination with their updated IDs and the moved item's ID. Items can also be dropped into empty linked containers.
+
+Use `width`, `height`, `minWidth`, `maxWidth`, `minHeight`, `maxHeight` and padding props such as `p` to size the drop area. Put decorative backgrounds on a surrounding element. Keep the sizing and padding on `DraggableContainer` so the entire visible area accepts drops, including when empty.
+
+For interactive content, use the callbacks to update parent-owned item lists and keep input values in parent state. Moving content into another container remounts it. The `moveTo` API continues to reorder within the item's current container.
 
 ## Examples
 
@@ -45,13 +76,241 @@ import {
 
 <Canvas of={DraggableStories.FlexDirectionStory} />
 
-### Other components as children
+### With Cards and Tiles
 
-<Canvas of={DraggableStories.ComponentsAsChildrenStory} />
+Pass the parent component as a child of `DraggableContainer`, then wrap each draggable child in `DraggableItem`:
 
-### With getOrder callback
+```tsx
+<DraggableContainer getOrder={handleOrderChange}>
+  <Box display="flex" flexDirection="column" gap={2}>
+    <DraggableItem id="card">
+      <Card width="100%" m={0}>
+        Card content
+      </Card>
+    </DraggableItem>
+    <DraggableItem id="tile">
+      <Tile>Tile content</Tile>
+    </DraggableItem>
+  </Box>
+</DraggableContainer>
+```
 
-<Canvas of={DraggableStories.GetOrderCallbackStory} />
+The parent keeps its own props and layout. Its children must be `DraggableItem` components. You can also continue passing items directly to `DraggableContainer`.
+
+`DraggableItem` enables Card and Tile's draggable presentation through context and uses their built-in handles. You do not need to set Card's `draggable` prop, and Tile does not have a `draggable` prop. Components without an integrated handle receive a fallback handle. Child components do not need to forward refs.
+
+#### Cards
+
+<Canvas of={DraggableStories.WithCardsStory} />
+
+#### Tiles
+
+<Canvas of={DraggableStories.WithTilesStory} />
+
+### Integrating a custom component
+
+Use `useDraggableItemContext` and `DragHandle` from the public draggable entry point. Card and Tile use this same integration:
+
+```tsx
+import {
+  DragHandle,
+  useDraggableItemContext,
+} from "carbon-react/lib/components/draggable";
+
+function CustomPanel({ children }) {
+  const { isDraggable, surfaceRef } = useDraggableItemContext();
+
+  return (
+    <article ref={surfaceRef} style={{ borderRadius: "16px" }}>
+      {isDraggable && <DragHandle />}
+      {children}
+    </article>
+  );
+}
+```
+
+Attach `surfaceRef` to the outer HTML element whose bounds and corners should be used while dragging, and render one `DragHandle` inside it. The handle registers itself and replaces the fallback handle. The component does not need to forward a ref or accept a `draggable` prop. The hook returns `isDraggable: false` outside a `DraggableItem`, so the same component works independently.
+
+`DragHandle` accepts span attributes and a forwarded ref. It provides pointer dragging; provide separate accessible controls for manually reordering items, as shown in the Card and Tile stories using `rightChildren`.
+
+#### Custom components with an internal handle
+
+Register the component's outer element with `surfaceRef` to make the ghost, native preview, and indicator match its bounds and corners. This works with square, rounded, and asymmetric corners. The component can also place its own reorder controls alongside the handle:
+
+```tsx
+import {
+  DraggableContainer,
+  DraggableItem,
+  DragHandle,
+  useDraggableItemContext,
+} from "carbon-react/lib/components/draggable";
+import Box from "carbon-react/lib/components/box";
+import {
+  ActionPopover,
+  ActionPopoverItem,
+} from "carbon-react/lib/components/action-popover";
+
+function Panel({ title, children }) {
+  const { isDraggable, surfaceRef, index, itemCount, moveTo } =
+    useDraggableItemContext();
+
+  return (
+    <section
+      ref={surfaceRef}
+      aria-label={title}
+      style={{
+        borderRadius: "16px",
+        padding: "24px",
+        border: "1px solid #000000",
+      }}
+    >
+      {isDraggable && (
+        <Box display="flex" alignItems="center" gap={1}>
+          <DragHandle />
+          <ActionPopover aria-label={`Reorder ${title}`} m={0} rightAlignMenu>
+            <ActionPopoverItem
+              disabled={index === 0}
+              onClick={() => moveTo(index - 1)}
+            >
+              Move earlier
+            </ActionPopoverItem>
+            <ActionPopoverItem
+              disabled={index === itemCount - 1}
+              onClick={() => moveTo(index + 1)}
+            >
+              Move later
+            </ActionPopoverItem>
+            <ActionPopoverItem disabled={index === 0} onClick={() => moveTo(0)}>
+              Move first
+            </ActionPopoverItem>
+            <ActionPopoverItem
+              disabled={index === itemCount - 1}
+              onClick={() => moveTo(itemCount - 1)}
+            >
+              Move last
+            </ActionPopoverItem>
+          </ActionPopover>
+        </Box>
+      )}
+      <h3>{title}</h3>
+      {children}
+    </section>
+  );
+}
+
+<DraggableContainer getOrder={handleOrderChange}>
+  <Box display="grid" gap={2}>
+    <DraggableItem id="summary">
+      <Panel title="Summary">Summary content</Panel>
+    </DraggableItem>
+    <DraggableItem id="details">
+      <Panel title="Details">Details content</Panel>
+    </DraggableItem>
+  </Box>
+</DraggableContainer>;
+```
+
+Attach `surfaceRef` to an HTML element inside your component; it does not need to forward a ref. Use `getOrder` to provide your own reorder announcements, as described below.
+
+## Accessibility
+
+Always provide keyboard and click/tap controls alongside pointer dragging. `DragHandle` is pointer-only and its icon is hidden from assistive technology. It does not implement keyboard dragging.
+
+Controls rendered inside a `DraggableItem` can use the public hook to move their item:
+
+```tsx
+import {
+  ActionPopover,
+  ActionPopoverItem,
+} from "carbon-react/lib/components/action-popover";
+import { useDraggableItemContext } from "carbon-react/lib/components/draggable";
+
+function ReorderControls({ label }) {
+  const { index, itemCount, moveTo } = useDraggableItemContext();
+  return (
+    <ActionPopover aria-label={`Reorder ${label}`} m={0} rightAlignMenu>
+      <ActionPopoverItem
+        disabled={index === 0}
+        onClick={() => moveTo(index - 1)}
+      >
+        Move earlier
+      </ActionPopoverItem>
+      <ActionPopoverItem
+        disabled={index === itemCount - 1}
+        onClick={() => moveTo(index + 1)}
+      >
+        Move later
+      </ActionPopoverItem>
+      <ActionPopoverItem disabled={index === 0} onClick={() => moveTo(0)}>
+        Move first
+      </ActionPopoverItem>
+      <ActionPopoverItem
+        disabled={index === itemCount - 1}
+        onClick={() => moveTo(itemCount - 1)}
+      >
+        Move last
+      </ActionPopoverItem>
+    </ActionPopover>
+  );
+}
+
+<DraggableContainer getOrder={handleOrderChange}>
+  <DraggableItem id="report">
+    <Card rightChildren={<ReorderControls label="Quarterly report" />}>
+      Quarterly report
+    </Card>
+  </DraggableItem>
+</DraggableContainer>;
+```
+
+`index` and `moveTo` use zero-based positions. Invalid positions and moves to the current position are ignored. Outside a `DraggableItem`, the hook returns an item count of zero and `moveTo` does nothing.
+
+Both dragging and `moveTo` update the same order and call `getOrder`. Draggable does not create a live region or generate announcements. Consumers should use this callback to update their own status region, coordinating messages with the rest of their page and providing their own readable item names and translations.
+
+For example, keep a visually hidden status region mounted from the initial render and update its text after a successful reorder:
+
+```tsx
+function ReorderableReports() {
+  const [announcement, setAnnouncement] = React.useState("");
+  const labels = { quarterly: "Quarterly report", annual: "Annual report" };
+
+  const handleOrder = (ids, movedId) => {
+    const position = ids.indexOf(movedId) + 1;
+    setAnnouncement(
+      `${labels[movedId]} moved to position ${position} of ${ids.length}.`,
+    );
+  };
+
+  return (
+    <>
+      <DraggableContainer getOrder={handleOrder}>
+        {Object.entries(labels).map(([id, label]) => (
+          <DraggableItem key={id} id={id}>
+            <Card rightChildren={<ReorderControls label={label} />}>
+              {label}
+            </Card>
+          </DraggableItem>
+        ))}
+      </DraggableContainer>
+      <Typography
+        as="div"
+        screenReaderOnly
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {announcement}
+      </Typography>
+    </>
+  );
+}
+```
+
+The stories include a consumer-owned announcement wrapper, using two alternating status regions so consecutive identical messages can also be announced. You can instead integrate `getOrder` with an existing announcement service on your page.
+
+Manual moves restore focus to the control that initiated the move, provided it remains mounted and focusable. ActionPopover returns focus to its trigger before calling an action, and DraggableContainer restores that trigger's focus after moving the item. Give each menu trigger an item-specific accessible name, as in the stories. If a custom control becomes disabled or unmounts after moving, provide a suitable focus destination yourself. If you reorder by changing children directly instead of calling `moveTo`, provide your own announcement and focus management.
+
+The Card, Tile, and fallback-handle stories demonstrate ActionPopover controls. Test the full interaction with a keyboard and screen reader as well as automated accessibility checks.
 
 ## Testing drag behaviour
 
@@ -61,95 +320,25 @@ We recommend testing drag and drop interactions in browser environments using Pl
 
 ### JSDOM tests (if required)
 
-If you need to test within JSDOM, you can test drag and drop behaviour by using a `DragEvent` polyfill and mocking the bounding boxes of any drop targets.
-
-[Pragmatic Drag and Drop](https://atlassian.design/components/pragmatic-drag-and-drop/core-package/testing/about) provides a `DragEvent` polyfill specifically designed for unit tests in JSDOM. To set it up, first install the package:
-
-```bash
-npm install --save-dev @atlaskit/pragmatic-drag-and-drop/unit-testing
-```
-
-Then, import the polyfill into your test runner's setup file:
-
-```javascript
-// jest.config.js
-module.exports = {
-    setupFiles: ['./tests/setup-drag-events.js'],
-};
-
-// tests/setup-drag-events.js
-import '@atlaskit/pragmatic-drag-and-drop/unit-testing/drag-event-polyfill';
-```
-
-In your tests, mock the bounding boxes of any rendered `DraggableItem` components designated as drop targets. This will ensure all hitbox calculations work correctly:
+For JSDOM tests, install `@atlaskit/pragmatic-drag-and-drop-unit-testing` and import its `drag-event-polyfill` in your test setup. Mock `document.elementsFromPoint` to return the drag handle, then start the drag on that handle:
 
 ```tsx
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { DraggableContainer, DraggableItem } from "carbon-react/lib/components/draggable";
+const handle = screen.getAllByTestId("draggable-item-drag-handle")[0];
+const target = screen.getByTestId("target-item");
 
-const mockedDOMRect = ({
-  width,
-  height,
-  x,
-  y,
-}: {
-  width: number;
-  height: number;
-  x: number;
-  y: number;
-}): DOMRect => {
-  return {
-    width,
-    height,
-    top: y,
-    left: x,
-    bottom: y + height,
-    right: x + width,
-    x,
-    y,
-    toJSON: () => {},
-  };
-};
-
-test("positions dragged item below target when dropped near its bottom edge", () => {
-  render(
-    <DraggableContainer data-role="container">
-      <DraggableItem id="apple" data-role="apple">
-        Apple
-      </DraggableItem>
-      <DraggableItem id="banana">Banana</DraggableItem>
-      <DraggableItem id="cherry" data-role="cherry">
-        Cherry
-      </DraggableItem>
-    </DraggableContainer>,
-  );
-
-  const apple = screen.getByTestId("apple");
-  const cherry = screen.getByTestId("cherry");
-
-  const CHERRY_RECT = mockedDOMRect({
-    x: 0,
-    y: 80,
-    width: 100,
-    height: 40,
-  });
-
-  jest.spyOn(cherry, "getBoundingClientRect").mockReturnValue(CHERRY_RECT);
-
-  fireEvent.dragStart(apple);
-  fireEvent.dragEnter(cherry);
-  fireEvent.dragOver(cherry, {
-    clientX: CHERRY_RECT.x,
-    clientY: CHERRY_RECT.y + CHERRY_RECT.height,
-  });
-  fireEvent.drop(cherry);
-  fireEvent.dragEnd(apple);
-
-  const container = screen.getByTestId("container");
-  expect(container).toHaveTextContent(/BananaCherryApple/);
+Object.defineProperty(document, "elementsFromPoint", {
+  configurable: true,
+  value: jest.fn(() => [handle]),
 });
+
+fireEvent.dragStart(handle);
+fireEvent.dragEnter(target);
+fireEvent.dragOver(target);
+fireEvent.drop(target);
+fireEvent.dragEnd(handle);
 ```
+
+This example assumes `getByTestId` is configured to use `data-role`, and the destination item has `data-role="target-item"`. Reordering uses the item order; use browser tests to verify indicator direction and surface geometry.
 
 ## Props
 

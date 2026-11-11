@@ -61,7 +61,7 @@ export interface TypographyProps
   extends SpaceProps,
     TagProps,
     Pick<HTMLAttributes<HTMLElement>, "role">,
-    Pick<AriaAttributes, "aria-hidden" | "aria-live">,
+    Pick<AriaAttributes, "aria-hidden" | "aria-live" | "aria-atomic">,
     AllowedCSSTextOverrides {
   /** Adds element and creates a visual style associated with said element. */
   variant?: VariantTypes;
@@ -109,6 +109,7 @@ export const Typography = ({
   role,
   "aria-hidden": ariaHidden,
   "aria-live": ariaLive,
+  "aria-atomic": ariaAtomic,
   className,
   ...rest
 }: TypographyProps) => {
@@ -147,6 +148,7 @@ export const Typography = ({
       role={role}
       aria-hidden={ariaHidden}
       aria-live={ariaLive}
+      aria-atomic={ariaAtomic}
       className={className}
       {...tagComponent("typography", rest)}
       {...filterStyledSystemMarginProps(rest)}
