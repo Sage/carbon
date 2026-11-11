@@ -1,3 +1,9 @@
+## [162.24.0](https://github.com/Sage/carbon/compare/v162.23.1...v162.24.0) (2026-11-11)
+
+### Features
+
+* **box:** deprecate role, aria-hidden, aria-live and aria-atomic props ([1344f4a](https://github.com/Sage/carbon/commit/1344f4ad2628780f7cbf2c8e48af4c9d01f655b6))
+
 ## [162.23.1](https://github.com/Sage/carbon/compare/v162.23.0...v162.23.1) (2026-11-10)
 
 ### Bug Fixes
