@@ -1,3 +1,9 @@
+## [162.24.1](https://github.com/Sage/carbon/compare/v162.24.0...v162.24.1) (2026-11-11)
+
+### Bug Fixes
+
+* **dialog:** display Cancel as a subtle button and preserve footer padding on small screens ([ae678a7](https://github.com/Sage/carbon/commit/ae678a7f569a5d154c259f2714eb5fb3141a94ac))
+
 ## [162.24.0](https://github.com/Sage/carbon/compare/v162.23.1...v162.24.0) (2026-11-11)
 
 ### Features
