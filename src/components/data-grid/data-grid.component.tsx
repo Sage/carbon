@@ -168,6 +168,7 @@ const DataGridInner = <T extends object>(
     setDraftValue,
     beginEdit,
     commitEdit,
+    commitEditOnBlur,
     cancelEdit,
   } = useDataGridEditing({
     getCellParams,
@@ -274,6 +275,7 @@ const DataGridInner = <T extends object>(
                 onBeginEdit={beginEdit}
                 onDraftChange={setDraftValue}
                 onCommitEdit={commitEdit}
+                onBlurEdit={commitEditOnBlur}
                 onCellKeyDown={keyboard.handleCellKeyDown}
                 onEditorKeyDown={keyboard.handleEditorKeyDown}
               />

@@ -1,5 +1,11 @@
 import React, { createRef } from "react";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { ActionPopover } from "../action-popover";
@@ -764,7 +770,6 @@ test("commits a dropdown selection and restores focus", async () => {
   await user.click(dropdownCell);
   await user.keyboard("{Enter}");
   await user.selectOptions(screen.getByRole("combobox"), "B");
-  await user.keyboard("{Enter}");
 
   expect(onRowsChange).toHaveBeenCalledWith(
     expect.any(Array),
@@ -776,6 +781,20 @@ test("commits a dropdown selection and restores focus", async () => {
     }),
   );
   expect(dropdownCell).toHaveFocus();
+});
+
+test("restores cell focus when a native dropdown blurs to the document", async () => {
+  const user = userEvent.setup();
+  render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
+  const dropdownCell = screen.getAllByRole("gridcell")[1];
+
+  await user.click(dropdownCell);
+  await user.keyboard("{Enter}");
+
+  const dropdown = screen.getByRole("combobox", { name: "Type, row 1" });
+  await act(async () => dropdown.blur());
+
+  await waitFor(() => expect(dropdownCell).toHaveFocus());
 });
 
 test("commits a dropdown before moving to the next cell", async () => {
@@ -793,7 +812,7 @@ test("commits a dropdown before moving to the next cell", async () => {
   await user.click(cells[1]);
   await user.keyboard("{Enter}");
   await user.selectOptions(screen.getByRole("combobox"), "B");
-  await user.keyboard("{Enter}{Tab}");
+  await user.keyboard("{Tab}");
 
   expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
   expect(cells[2]).toHaveFocus();
