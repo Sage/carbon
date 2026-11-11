@@ -122,6 +122,16 @@ test("exposes error and read-only cell state accessibly", () => {
   expect(cell).toHaveAttribute("aria-invalid", "true");
   expect(cell).toHaveAttribute("aria-readonly", "true");
   expect(cell).toHaveAccessibleDescription("Enter a name");
+  expect(cell).toHaveStyleRule(
+    "background-color",
+    "var(--input-typical-bg-read-only)",
+  );
+  expect(cell).toHaveStyleRule("color", "var(--input-typical-txt-read-only)");
+  expect(cell).toHaveStyleRule(
+    "border-block-end",
+    "var(--global-borderwidth-xs) solid var(--input-typical-border-default)",
+  );
+  expect(cell).toHaveStyleRule("cursor", "default");
 });
 
 test("derives error and read-only states from the complete cell context", () => {
@@ -377,6 +387,30 @@ test("applies regular and medium content weights to resting cells", () => {
     "font",
     "var(--global-font-static-comp-medium-m)",
   );
+});
+
+test("uses regular weight while editing a medium-weight cell", async () => {
+  const user = userEvent.setup();
+  const weightedColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name", weight: "medium" },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={weightedColumns}
+    />,
+  );
+
+  const cell = screen.getByRole("gridcell");
+  await user.click(cell);
+  await user.keyboard("{Enter}");
+
+  expect(cell).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-m)",
+  );
+  expect(cell).toHaveStyleRule("cursor", "text");
 });
 
 test("focuses a cell on click without entering edit mode", async () => {
@@ -758,6 +792,68 @@ test("read-only checkbox cells do not toggle", async () => {
 
   expect(onRowsChange).not.toHaveBeenCalled();
   expect(screen.getByRole("checkbox")).not.toBeChecked();
+  expect(screen.getByRole("checkbox")).toBeDisabled();
+});
+
+test("read-only dropdown cells render as non-editable text", async () => {
+  const user = userEvent.setup();
+  const readOnlyColumns: DataGridColumn<Row>[] = [
+    {
+      field: "type",
+      headerName: "Type",
+      type: "dropdown",
+      options: [
+        { label: "A", value: "A" },
+        { label: "B", value: "B" },
+      ],
+      readOnly: true,
+    },
+  ];
+
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={readOnlyColumns}
+    />,
+  );
+
+  const cell = screen.getByRole("gridcell");
+  expect(cell).toHaveTextContent("A");
+
+  await user.click(cell);
+  await user.keyboard("{Enter}");
+
+  expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+});
+
+test("read-only action cells retain their contextual actions", async () => {
+  const user = userEvent.setup();
+  const onOpen = jest.fn();
+  const readOnlyColumns: DataGridColumn<Row>[] = [
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "action",
+      readOnly: true,
+      renderCell: () => <button onClick={onOpen}>Open actions</button>,
+    },
+  ];
+
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={readOnlyColumns}
+    />,
+  );
+
+  const cell = screen.getByRole("gridcell");
+  expect(cell).toHaveAttribute("aria-readonly", "true");
+
+  await user.click(screen.getByRole("button", { name: "Open actions" }));
+
+  expect(onOpen).toHaveBeenCalledTimes(1);
 });
 
 test("enter focuses and opens action cell content", async () => {

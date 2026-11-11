@@ -9,6 +9,7 @@ interface DataGridCellContentProps<T extends object> {
   params: DataGridCellParams<T>;
   rowIndex: number;
   align: "left" | "center" | "right";
+  readOnly: boolean;
 }
 
 /** The resting content for each built-in cell variation. */
@@ -16,6 +17,7 @@ const DataGridCellContent = <T extends object>({
   params,
   rowIndex,
   align,
+  readOnly,
 }: DataGridCellContentProps<T>) => {
   const { column, value } = params;
   const type = column.type ?? "text";
@@ -30,6 +32,7 @@ const DataGridCellContent = <T extends object>({
             aria-label={`${column.headerName}, row ${rowIndex + 1}`}
             tabIndex={-1}
             size="medium"
+            disabled={readOnly}
           />
         ) : column.type === "dropdown" ? (
           <>
@@ -37,7 +40,7 @@ const DataGridCellContent = <T extends object>({
               {column.options.find((option) => option.value === value)?.label ??
                 String(value ?? "")}
             </span>
-            <Icon type="dropdown" aria-hidden />
+            {!readOnly && <Icon type="dropdown" aria-hidden />}
           </>
         ) : (
           String(value ?? "")

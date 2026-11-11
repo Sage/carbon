@@ -30,6 +30,33 @@ description: Carbon DataGrid component props and usage examples.
 | aria-labelledby | string \| undefined | No |  | ID of an element that provides the grid's accessible name. |  |
 
 ## Examples
+### EditTextAndNavigate
+
+**Render**
+
+```tsx
+() => <InteractionGrid />
+```
+
+
+### ToggleCheckbox
+
+**Render**
+
+```tsx
+() => <InteractionGrid />
+```
+
+
+### OpenAndCloseActionPopover
+
+**Render**
+
+```tsx
+() => <InteractionGrid />
+```
+
+
 ### CellStatesAndNavigationFocus
 
 **Render**

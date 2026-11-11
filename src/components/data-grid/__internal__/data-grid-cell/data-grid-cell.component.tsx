@@ -172,6 +172,7 @@ const DataGridCellInner = <T extends object>(
           params={params}
           rowIndex={rowIndex}
           align={align}
+          readOnly={readOnly}
         />
       )}
     </StyledCell>
