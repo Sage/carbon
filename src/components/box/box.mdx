@@ -12,6 +12,7 @@ Basic component that gives access to a number of styling options. Should be used
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Deprecated accessibility props](#deprecated-accessibility-props)
 - [Props](#props)
 
 ## Quick Start
@@ -59,6 +60,11 @@ how these props can be used.
 Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content within the `Box` wrapper.
 
 <Canvas of={BoxStories.OverflowWrap} />
+
+## Deprecated accessibility props
+
+`Box` is a layout component. The `role`, `aria-hidden`, `aria-live` and `aria-atomic` props are deprecated because they encourage using `Box` to provide semantics or accessibility behaviour rather than layout.
+These props continue to work during a grace period before they are removed. See the [Deprecation Migration guide](../?path=/docs/documentation-deprecation-migration--docs#box-accessibility-props) for migration details.
 
 ## Props
 

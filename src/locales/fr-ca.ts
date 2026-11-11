@@ -184,6 +184,11 @@ const frCA: Partial<Locale> = {
   pod: {
     undo: () => "Annuler",
   },
+  popoverContainer: {
+    openButton: {
+      text: () => "Actions",
+    },
+  },
   tabs: {
     error: (tabTitle) => `L'onglet ${tabTitle} contient des erreurs`,
     info: (tabTitle) => `L'onglet ${tabTitle} contient des informations`,

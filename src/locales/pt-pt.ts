@@ -189,6 +189,11 @@ const ptPT: Partial<Locale> = {
   pod: {
     undo: () => "Anular",
   },
+  popoverContainer: {
+    openButton: {
+      text: () => "Ações",
+    },
+  },
   tabs: {
     error: (tabTitle) => `O separador ${tabTitle} contém erros`,
     info: (tabTitle) => `O separador ${tabTitle} contém informações`,

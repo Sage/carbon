@@ -1,3 +1,21 @@
+## [162.24.0](https://github.com/Sage/carbon/compare/v162.23.1...v162.24.0) (2026-11-11)
+
+### Features
+
+* **box:** deprecate role, aria-hidden, aria-live and aria-atomic props ([1344f4a](https://github.com/Sage/carbon/commit/1344f4ad2628780f7cbf2c8e48af4c9d01f655b6))
+
+## [162.23.1](https://github.com/Sage/carbon/compare/v162.23.0...v162.23.1) (2026-11-10)
+
+### Bug Fixes
+
+* **multi-action-button:** remove unique key warning from toggle button ([ceb2b9b](https://github.com/Sage/carbon/commit/ceb2b9bb2486f3b5c5aed78697bdd252ba263a3e))
+
+## [162.23.0](https://github.com/Sage/carbon/compare/v162.22.0...v162.23.0) (2026-11-06)
+
+### Features
+
+* **locales:** add popoverContainer.openButton.text translations ([1732ca4](https://github.com/Sage/carbon/commit/1732ca44c790a638a133f67b5dc2081b0d20cc79))
+
 ## [162.22.0](https://github.com/Sage/carbon/compare/v162.21.3...v162.22.0) (2026-11-05)
 
 ### Features
