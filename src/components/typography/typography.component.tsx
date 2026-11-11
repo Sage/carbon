@@ -172,6 +172,8 @@ export interface TypographyProps
   isDisabled?: boolean;
   /** Make the element an aria-live region */
   "aria-live"?: "off" | "assertive" | "polite";
+  /** Whether assistive technologies announce the entire live region when it changes. */
+  "aria-atomic"?: React.AriaAttributes["aria-atomic"];
   /** Set the role of the element when it is a live region */
   role?: "status" | "alert";
   /** @private @ignore Set whether the component should be recognised by assistive technologies */
