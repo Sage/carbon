@@ -74,10 +74,10 @@ test("opens and commits a dropdown with Space without scrolling vertically", asy
   const select = page.getByRole("combobox", { name: "Type, row 2" });
   await expect(select).toBeFocused();
   await select.selectOption("Service");
-  await select.press("Enter");
 
   await expect(typeCell).toContainText("Service");
   await expect(typeCell).toBeFocused();
+  await expect(select).toHaveCount(0);
   await expect
     .poll(() => grid.evaluate((element) => element.scrollTop))
     .toBe(40);
@@ -92,6 +92,23 @@ test("opens and commits a dropdown with Space without scrolling vertically", asy
       typeCell.evaluate((element) => getComputedStyle(element).boxShadow),
     )
     .toBe("none");
+});
+
+test("restores grid focus when a native dropdown closes by blurring", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const typeCell = cell(page, 2, "type");
+  await typeCell.click();
+  await page.keyboard.press("Space");
+
+  const select = page.getByRole("combobox", { name: "Type, row 2" });
+  await select.blur();
+
+  await expect(typeCell).toContainText("Product");
+  await expect(typeCell).toBeFocused();
 });
 
 test("toggles a checkbox with one click and with Space", async ({

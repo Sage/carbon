@@ -28,7 +28,8 @@ interface DataGridCellProps<T extends object> {
   onFocusPosition: (position: DataGridCellPosition) => void;
   onBeginEdit: (position: DataGridCellPosition) => void;
   onDraftChange: (value: unknown) => void;
-  onCommitEdit: () => void;
+  onCommitEdit: (shouldRestoreFocus?: boolean, value?: unknown) => void;
+  onBlurEdit: (shouldRestoreFocus?: boolean) => void;
   onCellKeyDown: (
     event: React.KeyboardEvent,
     position: DataGridCellPosition,
@@ -57,6 +58,7 @@ const DataGridCellInner = <T extends object>(
     onBeginEdit,
     onDraftChange,
     onCommitEdit,
+    onBlurEdit,
     onCellKeyDown,
     onEditorKeyDown,
   }: DataGridCellProps<T>,
@@ -164,7 +166,18 @@ const DataGridCellInner = <T extends object>(
           value={draftValue}
           editorRef={editorRef}
           onChange={onDraftChange}
-          onBlur={onCommitEdit}
+          onSelectionCommit={(value) => onCommitEdit(true, value)}
+          onBlur={(event) => {
+            const { ownerDocument } = event.currentTarget;
+            const nextFocus =
+              event.relatedTarget ?? ownerDocument.activeElement;
+            const focusReturnedToDocument =
+              !nextFocus ||
+              nextFocus === ownerDocument.body ||
+              nextFocus === ownerDocument.documentElement;
+
+            onBlurEdit(type === "dropdown" && focusReturnedToDocument);
+          }}
           onKeyDown={(event) => onEditorKeyDown(event, position)}
         />
       ) : (
