@@ -267,6 +267,7 @@ const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
         css`
           border-top: none;
           box-shadow: none;
+          padding-top: 0;
         `}
       }
     `}
