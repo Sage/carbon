@@ -432,6 +432,211 @@ function Render(args) {
 ```
 
 
+### Playground
+
+**Render**
+
+```tsx
+function Render(args) {
+    const [email, setEmail] = useState("");
+    const [telephone, setTelephone] = useState("");
+    const [additionalInformation, setAdditionalInformation] = useState("");
+    const [date, setDate] = useState("");
+    const [contactMethod, setContactMethod] = useState("");
+    const [contactPreference, setContactPreference] = useState("");
+    const [productUpdates, setProductUpdates] = useState(false);
+    const [emailNotifications, setEmailNotifications] = useState(false);
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [submitCount, setSubmitCount] = useState(0);
+    const firstSummaryLinkRef = useRef<HTMLAnchorElement | HTMLButtonElement>(
+      null,
+    );
+
+    const errorEntries = Object.entries(errors);
+
+    useEffect(() => {
+      if (submitCount && errorEntries.length) {
+        firstSummaryLinkRef.current?.focus();
+      }
+      // focus only after each submit attempt, not while the user edits fields
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [submitCount]);
+
+    const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
+      ev.preventDefault();
+      const nextErrors: Record<string, string> = {};
+
+      if (!email) nextErrors["playground-email"] = "Enter an email address";
+      if (!telephone)
+        nextErrors["playground-telephone"] = "Enter a telephone number";
+      if (!additionalInformation)
+        nextErrors["playground-additional-information"] =
+          "Enter additional information";
+      if (!date) nextErrors["playground-date"] = "Enter a date";
+      if (!contactMethod)
+        nextErrors["playground-contact-method"] =
+          "Select a preferred contact method";
+      if (!contactPreference)
+        nextErrors["playground-contact-preference-email"] =
+          "Select how we should contact you";
+      if (!productUpdates)
+        nextErrors["playground-product-updates"] =
+          "Confirm whether you want product updates";
+
+      setErrors(nextErrors);
+      setSubmitCount((count) => count + 1);
+
+      if (!Object.keys(nextErrors).length) {
+        args.onSubmit?.(ev);
+      }
+    };
+
+    const reset = () => {
+      setEmail("");
+      setTelephone("");
+      setAdditionalInformation("");
+      setDate("");
+      setContactMethod("");
+      setContactPreference("");
+      setProductUpdates(false);
+      setEmailNotifications(false);
+      setErrors({});
+      setSubmitCount(0);
+    };
+
+    return (
+      <Form {...args} onSubmit={handleSubmit}>
+        <Typography variant="h1" mb={blockSpacing}>
+          Interactive form playground
+        </Typography>
+        <Typography mb={blockSpacing}>
+          Submit the form empty to test validation, error-summary links, and
+          focus management. Complete the fields to test the successful submit
+          path.
+        </Typography>
+        {errorEntries.length > 0 && (
+          <Message variant="error" title="There is a problem" mb={blockSpacing}>
+            <Typography variant="ul" m={0}>
+              {errorEntries.map(([fieldId, message], index) => (
+                <Typography as="li" key={fieldId}>
+                  <Link
+                    ref={index === 0 ? firstSummaryLinkRef : undefined}
+                    href={`#${fieldId}`}
+                    onClick={(ev) => {
+                      ev.preventDefault();
+                      document.getElementById(fieldId)?.focus();
+                    }}
+                  >
+                    {message}
+                  </Link>
+                </Typography>
+              ))}
+            </Typography>
+          </Message>
+        )}
+        <RequiredFieldsIndicator mb={blockSpacing}>
+          Indicates required information
+        </RequiredFieldsIndicator>
+        <Fieldset legend="Contact details" required mb={blockSpacing}>
+          <Textbox
+            id="playground-email"
+            label="Email address"
+            value={email}
+            onChange={(ev) => setEmail(ev.target.value)}
+            error={errors["playground-email"]}
+          />
+          <Textbox
+            id="playground-telephone"
+            label="Telephone number"
+            value={telephone}
+            onChange={(ev) => setTelephone(ev.target.value)}
+            error={errors["playground-telephone"]}
+          />
+          <Textarea
+            id="playground-additional-information"
+            label="Additional information"
+            value={additionalInformation}
+            onChange={(ev) => setAdditionalInformation(ev.target.value)}
+            error={errors["playground-additional-information"]}
+          />
+        </Fieldset>
+        <Fieldset legend="Contact preferences" required mb={blockSpacing}>
+          <DateInput
+            id="playground-date"
+            label="Preferred contact date"
+            required
+            value={date}
+            onChange={(ev) => setDate(ev.target.value.formattedValue)}
+            error={errors["playground-date"]}
+          />
+          <Select
+            id="playground-contact-method"
+            label="Preferred contact method"
+            value={contactMethod}
+            onChange={(ev) => setContactMethod(ev.target.value)}
+            error={errors["playground-contact-method"]}
+          >
+            <Option text="Select a contact method" value="" />
+            <Option text="Email" value="email" />
+            <Option text="Telephone" value="telephone" />
+          </Select>
+        </Fieldset>
+        <RadioButtonGroup
+          id="playground-contact-preference"
+          name="playground-contact-preference"
+          legend="How should we contact you?"
+          required
+          value={contactPreference}
+          onChange={(ev) => setContactPreference(ev.target.value)}
+          error={errors["playground-contact-preference-email"]}
+          mb={blockSpacing}
+        >
+          <RadioButton
+            id="playground-contact-preference-email"
+            value="email"
+            label="Email"
+          />
+          <RadioButton
+            id="playground-contact-preference-telephone"
+            value="telephone"
+            label="Telephone"
+          />
+        </RadioButtonGroup>
+        <Fieldset legend="Preferences" mb={blockSpacing}>
+          <Checkbox
+            id="playground-product-updates"
+            label="Send me product updates"
+            required
+            checked={productUpdates}
+            onChange={(ev) => setProductUpdates(ev.target.checked)}
+            error={errors["playground-product-updates"]}
+          />
+          <Switch
+            id="playground-email-notifications"
+            label="Email notifications"
+            checked={emailNotifications}
+            onChange={(ev) => setEmailNotifications(ev.target.checked)}
+          />
+        </Fieldset>
+        <Box
+          display="flex"
+          gap={buttonGap}
+          justifyContent="flex-end"
+          width="100%"
+        >
+          <Button variant="default" variantType="secondary" onClick={reset}>
+            Reset
+          </Button>
+          <Button variant="default" variantType="primary" type="submit">
+            Save changes
+          </Button>
+        </Box>
+      </Form>
+    );
+  }
+```
+
+
 ### Required Fields Indicator
 
 **Render**
