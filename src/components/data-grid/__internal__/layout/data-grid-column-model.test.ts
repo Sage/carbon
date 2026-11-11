@@ -54,6 +54,20 @@ test("does not infer sticky columns from their position or cell type", () => {
   expect(model.rightStickyWidth).toBe(0);
 });
 
+test("uses flex and minimum width fallbacks consistently", () => {
+  const columns: DataGridColumn<Row>[] = [
+    { field: "first", headerName: "First", flex: 2 },
+    { field: "middle", headerName: "Middle", minWidth: 180 },
+  ];
+
+  expect(createDataGridColumnModel(columns)).toEqual(
+    expect.objectContaining({
+      contentWidth: 500,
+      gridTemplateColumns: "minmax(120px, 2fr) 180px",
+    }),
+  );
+});
+
 test("accumulates offsets for adjacent sticky columns", () => {
   const columns: DataGridColumn<Row>[] = [
     { field: "first", headerName: "First", width: 40, sticky: "left" },
