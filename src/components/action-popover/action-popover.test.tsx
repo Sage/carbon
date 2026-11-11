@@ -142,13 +142,13 @@ test("allows menus to size to their content rather than the trigger width", () =
 });
 
 test.each([
-  [undefined, "m", "s"],
-  ["small", "s", "xs"],
-  ["medium", "m", "s"],
-  ["large", "l", "m"],
+  [undefined, "m", "s", "s"],
+  ["small", "s", "xs", "xs"],
+  ["medium", "m", "s", "s"],
+  ["large", "l", "m", "s"],
 ] as const)(
   "applies size=%s to the menu and its submenu, defaulting to medium",
-  async (size, fontSize, paddingSize) => {
+  async (size, fontSize, verticalPadding, horizontalPadding) => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <ActionPopover size={size}>
@@ -170,7 +170,7 @@ test.each([
     await user.click(screen.getByRole("button", { name: "Actions" }));
     expect(screen.getByTestId("menu-wrapper")).toHaveStyleRule(
       "padding",
-      `var(--global-space-comp-${paddingSize}) var(--global-space-none)`,
+      `var(--global-space-comp-${verticalPadding}) var(--global-space-comp-${horizontalPadding})`,
     );
 
     await user.click(screen.getByRole("button", { name: "Print options" }));
@@ -180,7 +180,7 @@ test.each([
     menus.forEach((menu) => {
       expect(menu).toHaveStyleRule(
         "padding",
-        `var(--global-space-comp-${paddingSize}) var(--global-space-none)`,
+        `var(--global-space-comp-${verticalPadding}) var(--global-space-comp-${horizontalPadding})`,
       );
     });
     screen.getAllByRole("listitem").forEach((item) => {
