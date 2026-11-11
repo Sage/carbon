@@ -166,11 +166,20 @@ export const StyledCell = styled.div<
       ? "linear-gradient(var(--input-typical-bg-read-only), var(--input-typical-bg-read-only))"
       : "none"};
   border-block-end: var(--global-borderwidth-xs) solid
-    var(--table-row-border-default);
+    ${({ $readOnly }) =>
+      $readOnly
+        ? "var(--input-typical-border-default)"
+        : "var(--table-row-border-default)"};
   border-inline-end: var(--global-borderwidth-xs) solid
-    var(--table-row-border-default);
-  color: var(--table-row-label-default);
-  cursor: ${({ $editing }) => ($editing ? "text" : "cell")};
+    ${({ $readOnly }) =>
+      $readOnly
+        ? "var(--input-typical-border-default)"
+        : "var(--table-row-border-default)"};
+  color: ${({ $readOnly }) =>
+    $readOnly
+      ? "var(--input-typical-txt-read-only)"
+      : "var(--table-row-label-default)"};
+  cursor: ${({ $editing }) => ($editing ? "text" : "default")};
   font: ${({ $weight, $editing }) =>
     $editing || $weight === "regular"
       ? "var(--global-font-static-comp-regular-m)"
@@ -179,7 +188,10 @@ export const StyledCell = styled.div<
 
   &:first-child {
     border-inline-start: var(--global-borderwidth-xs) solid
-      var(--table-row-border-default);
+      ${({ $readOnly }) =>
+        $readOnly
+          ? "var(--input-typical-border-default)"
+          : "var(--table-row-border-default)"};
   }
 
   &:hover {
