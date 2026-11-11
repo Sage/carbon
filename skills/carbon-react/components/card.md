@@ -16,7 +16,6 @@ description: Carbon Card component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  |  |  | Child nodes |  |
-| draggable | boolean \| undefined | No |  |  |  | Flag to indicate if card is draggable |  |
 | footer | React.ReactNode | No |  |  |  | The footer to render underneath the Card content |  |
 | header | React.ReactNode | No |  |  |  | The header to render above the Card content |  |
 | height | string \| undefined | No |  |  |  | Height of the component (any valid CSS value) |  |
@@ -47,6 +46,7 @@ description: Carbon Card component props and usage examples.
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-label | string \| undefined | No |  |  |  | Prop to specify an aria-label for the component |  |
 | boxShadow | BoxShadowsType \| undefined | No |  | Yes | Design token for custom Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Card component. |  |  |
+| draggable | boolean \| undefined | No |  | Yes | The `draggable` props is deprecated, place Card inside a DraggableItem instead. Flag to indicate if card is draggable |  |  |
 | hoverBoxShadow | BoxShadowsType \| undefined | No |  | Yes | Design token for custom Box Shadow on hover. One of `onClick` or `href` props must be true. Note: please check that the box shadow design token you are using is compatible with the Card component. |  |  |
 
 ## Examples

@@ -13,6 +13,7 @@ import FlexTileDivider from "./flex-tile-divider";
 import { FlexTileCell, FlexTileContainer, Tile, TileFooter } from ".";
 
 import Icon from "../icon";
+import { DraggableContainer, DraggableItem } from "../draggable";
 
 const lightGreyBackground: React.CSSProperties = {
   backgroundColor: "rgb(222, 222, 222)",
@@ -648,3 +649,17 @@ export const StatusKeylines: Story = () => {
 };
 StatusKeylines.storyName = "Status Keylines";
 StatusKeylines.parameters = { chromatic: { disableSnapshot: false } };
+
+export const DraggableStory: Story = () => (
+  <DraggableContainer>
+    <Box display="flex" flexDirection="column" gap={2} width="600px">
+      <DraggableItem id="first-tile">
+        <Tile>First tile</Tile>
+      </DraggableItem>
+      <DraggableItem id="second-tile">
+        <Tile>Second tile</Tile>
+      </DraggableItem>
+    </Box>
+  </DraggableContainer>
+);
+DraggableStory.storyName = "Draggable";

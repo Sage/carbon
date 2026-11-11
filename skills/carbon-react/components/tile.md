@@ -47,6 +47,7 @@ description: Carbon Tile component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| rightChildren | React.ReactNode | No |  |  |  | Content displayed opposite the drag handle when inside a DraggableItem. Use this slot for controls that let users reorder items without dragging. |  |
 | roundness | Roundness \| LegacyRoundness \| undefined | No |  |  |  | Sets the level of roundness of the corners. Values can be `"curved"` or `"moderate"`. **Deprecated**: legacy values `"default"`, `"large"`, and `"small"` are deprecated and should not be used. | "curved" |
 | statusKeyline | string \| undefined | No |  |  |  | Sets the status keyline to indicate the status of the content within the tile |  |
 | variant | TileVariants \| DeprecatedTileVariants \| undefined | No |  |  |  | Sets the theme of the tile | "standard" |
@@ -796,5 +797,50 @@ description: Carbon Tile component props and usage examples.
     </>
   );
 }
+```
+
+
+### Draggable
+
+**Render**
+
+```tsx
+() => (
+  <DraggableContainer>
+    <Box display="flex" flexDirection="column" gap={2} width="600px">
+      <DraggableItem id="first-tile">
+        <Tile>First tile</Tile>
+      </DraggableItem>
+      <DraggableItem id="second-tile">
+        <Tile>Second tile</Tile>
+      </DraggableItem>
+    </Box>
+  </DraggableContainer>
+)
+```
+
+
+### MDX Example 1
+
+**Args**
+
+```tsx
+## Designer notes
+
+- Keep Tile's main content static. Use `rightChildren` for reorder controls in draggable mode. For other interactive content, use the [Card component](../?path=/docs/card--docs).
+
+## Examples
+
+### Default
+
+By default, the Tile component will have a horizontal layout.
+
+<Canvas of={TileStories.DefaultStory} />
+
+### Draggable
+
+Wrap Tile in a `DraggableItem` inside a `DraggableContainer`. Tile reads the draggable-item context and renders its own handle at the top left, above its horizontal content. The handle registers as the drag source, so `DraggableItem` does not add a fallback handle. Tile has no `draggable` prop.
+
+Use `rightChildren` to place an ActionPopover or other reorder controls opposite the drag handle. This slot is visible when Tile is inside a `DraggableItem`, including when native dragging is unavailable. Keep the item order in your application state, update it from these controls, and use `DraggableContainer`'s `getOrder` callback to synchronize it after a drag.
 ```
 

@@ -1,6 +1,9 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { DraggableContainer, DraggableItem } from "../draggable";
 import { Tile, TileContent } from ".";
+import DraggableItemContext from "../draggable/__internal__/draggable-item.context";
 import { TileProps } from "./tile.component";
 import {
   testStyledSystemSpacing,
@@ -336,4 +339,73 @@ test('renders standard background when variant prop is "transparent"', () => {
   expect(tileElement).toHaveStyle(
     "background-color: var(--container-standard-bg-default)",
   );
+});
+
+test("does not render a drag handle or content wrapper outside a DraggableItem", () => {
+  render(<Tile>Static tile</Tile>);
+  expect(screen.queryByTestId("drag-handle")).not.toBeInTheDocument();
+  expect(
+    screen.queryByTestId("tile-draggable-content"),
+  ).not.toBeInTheDocument();
+});
+
+test("does not enable a handle when the draggable context flag is false", () => {
+  const registerDragHandle = jest.fn();
+  render(
+    <DraggableItemContext.Provider
+      value={{
+        isDraggable: false,
+        registerDragHandle,
+        registerSurface: jest.fn(),
+        index: 0,
+        itemCount: 1,
+        moveTo: jest.fn(),
+      }}
+    >
+      <Tile>Static tile</Tile>
+    </DraggableItemContext.Provider>,
+  );
+  expect(screen.queryByTestId("drag-handle")).not.toBeInTheDocument();
+  expect(registerDragHandle).not.toHaveBeenCalled();
+});
+
+test("renders working rightChildren controls alongside the registered drag handle", async () => {
+  const onClick = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <DraggableContainer>
+      <DraggableItem id="tile">
+        <Tile
+          rightChildren={
+            <button type="button" onClick={onClick}>
+              Move earlier
+            </button>
+          }
+        >
+          Content
+        </Tile>
+      </DraggableItem>
+    </DraggableContainer>,
+  );
+  const row = screen.getByTestId("tile-drag-row");
+  expect(within(row).getByTestId("drag-handle")).toHaveAttribute(
+    "draggable",
+    "true",
+  );
+  const control = within(row).getByRole("button", { name: "Move earlier" });
+  expect(control).not.toHaveAttribute("draggable");
+  expect(row).toHaveStyleRule("justify-content", "space-between");
+  await user.click(control);
+  expect(onClick).toHaveBeenCalledTimes(1);
+});
+
+test("does not render rightChildren outside a DraggableItem", () => {
+  render(
+    <Tile rightChildren={<button type="button">Move earlier</button>}>
+      Static tile
+    </Tile>,
+  );
+  expect(
+    screen.queryByRole("button", { name: "Move earlier" }),
+  ).not.toBeInTheDocument();
 });

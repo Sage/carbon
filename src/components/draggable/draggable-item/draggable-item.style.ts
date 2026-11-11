@@ -2,8 +2,9 @@
 
 import styled, { css } from "styled-components";
 import { padding, margin, PaddingProps } from "styled-system";
-import { type Edge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
 
+import { DragGhost } from "../__internal__/drag-surface";
+import { DropIndicator } from "../__internal__/drop-indicator";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 
 const StyledDraggableContainer = styled.div.attrs(applyBaseTheme)`
@@ -11,51 +12,64 @@ const StyledDraggableContainer = styled.div.attrs(applyBaseTheme)`
 `;
 
 interface StyledDraggableItemProps {
-  isDragging?: boolean;
-  isDraggingAndLeftSelf?: boolean;
-  shadowStyling?: {
-    closestEdge: Edge;
-    height: number;
-  };
+  $dragGhost?: DragGhost | null;
+  $dropIndicator?: DropIndicator | null;
 }
 
 const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
-  opacity: ${({ isDragging }) => (isDragging ? "0" : "1")};
+  position: relative;
 
-  ${({ isDraggingAndLeftSelf }) =>
-    isDraggingAndLeftSelf &&
-    css`
-      // Don't render the item once it's been dragged away from its initial position.
-      // Its space will be taken by a shadow of one of the adjacent items instead.
-      display: none;
-    `}
-
-  // Shadow used to indicate space a dragged item will occupy when dropped.
-  ${({ shadowStyling }) =>
-    shadowStyling &&
-    shadowStyling.closestEdge === "top" &&
+  ${({ $dropIndicator }) =>
+    $dropIndicator &&
     css`
       &::before {
         content: "";
-        display: block;
-        height: ${shadowStyling.height}px;
+        position: absolute;
+        z-index: 10;
+        top: ${$dropIndicator.top}px;
+        left: ${$dropIndicator.left}px;
+        width: ${$dropIndicator.width}px;
+        height: ${$dropIndicator.height}px;
+        background-color: var(--container-action-target-bg-default);
+        pointer-events: none;
       }
     `}
 
-  ${({ shadowStyling }) =>
-    shadowStyling &&
-    shadowStyling.closestEdge === "bottom" &&
+  ${({ $dragGhost }) =>
+    $dragGhost &&
     css`
+      z-index: 2;
+
+      * {
+        visibility: hidden;
+      }
+
+      &::before {
+        display: none;
+      }
+
       &::after {
         content: "";
-        display: block;
-        height: ${shadowStyling.height}px;
+        position: absolute;
+        top: ${$dragGhost.top}px;
+        left: ${$dragGhost.left}px;
+        width: ${$dragGhost.width}px;
+        height: ${$dragGhost.height}px;
+        border-top-left-radius: ${$dragGhost.borderTopLeftRadius};
+        border-top-right-radius: ${$dragGhost.borderTopRightRadius};
+        border-bottom-right-radius: ${$dragGhost.borderBottomRightRadius};
+        border-bottom-left-radius: ${$dragGhost.borderBottomLeftRadius};
+        box-shadow: var(--global-depth-lvl3);
+        background-color: var(--container-standard-bg-alt);
+        opacity: var(--container-draggable-ghost);
+        pointer-events: none;
       }
     `}
 `;
 
 interface StyledItemContentProps extends PaddingProps {
-  flexDirection?: "row" | "row-reverse";
+  $hasCustomDragHandle?: boolean;
+  $flexDirection?: "row" | "row-reverse";
 }
 
 const StyledItemContent = styled.div.attrs(
@@ -65,9 +79,37 @@ const StyledItemContent = styled.div.attrs(
   align-items: center;
   border-bottom: 1px solid var(--colorsUtilityMajor050);
   ${padding}
-  cursor: grab;
   justify-content: space-between;
-  flex-direction: ${({ flexDirection }) => flexDirection};
+  flex-direction: ${({ $flexDirection }) => $flexDirection};
+
+  ${({ $hasCustomDragHandle }) =>
+    $hasCustomDragHandle &&
+    css`
+      display: flex;
+      border-bottom: none;
+    `}
 `;
 
-export { StyledDraggableContainer, StyledDraggableItem, StyledItemContent };
+const StyledDragHandle = styled.span`
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  min-width: 40px;
+  min-height: 40px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    cursor: grabbing;
+  }
+`;
+
+export {
+  StyledDraggableContainer,
+  StyledDraggableItem,
+  StyledItemContent,
+  StyledDragHandle,
+};

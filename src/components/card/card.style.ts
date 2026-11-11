@@ -133,7 +133,16 @@ const StyledCardContent = styled.div
   ${({ $spacing }) => `
     padding: ${paddingSizes[$spacing]};
     margin: ${marginSizes[$spacing]};
-    ${$spacing === "extra-small" ? "display: flex; flex-direction: column; align-items: stretch; align-self: stretch;" : ""}
+    ${
+      $spacing === "extra-small"
+        ? `
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      align-self: stretch;
+    `
+        : ""
+    }
   `}
 
   ${({ $roundness, $hasHeader, $hasFooter }) => css`
@@ -173,16 +182,8 @@ export const StyledDragRow = styled.div<{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-top: ${({ $spacing }) => paddingSizes[$spacing]};
-`;
-
-export const StyledDragHandle = styled.div`
-  cursor: grab;
-
-  &:active {
-    cursor: grabbing;
-  }
 `;
 
 export { StyledCard, StyledCardContent };
