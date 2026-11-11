@@ -11,6 +11,25 @@ import {
   DataGridHandle,
 } from ".";
 
+jest.mock("@tanstack/react-virtual", () => ({
+  useVirtualizer: jest.fn(
+    ({
+      enabled,
+      getItemKey,
+    }: {
+      enabled: boolean;
+      getItemKey: (index: number) => unknown;
+    }) => {
+      if (enabled) getItemKey(0);
+      return {
+        getVirtualItems: () =>
+          enabled ? [{ index: 0, start: 80, end: 120 }] : [],
+        getTotalSize: () => 200,
+      };
+    },
+  ),
+}));
+
 interface Row {
   id: number;
   name: string;
@@ -243,6 +262,20 @@ test("keeps navigation attached to the stable row id after rows reorder", async 
   expect(reorderedCells[0]).toHaveAttribute("tabindex", "-1");
 });
 
+test("returns navigation to the first cell when the active row is removed", async () => {
+  const user = userEvent.setup();
+  const { rerender } = render(
+    <DataGrid aria-label="Items" rows={rows} columns={columns} />,
+  );
+
+  await user.click(screen.getAllByRole("gridcell")[3]);
+  rerender(
+    <DataGrid aria-label="Items" rows={rows.slice(0, 1)} columns={columns} />,
+  );
+
+  expect(screen.getAllByRole("gridcell")[0]).toHaveAttribute("tabindex", "0");
+});
+
 test("keeps an editor attached to the stable row id after rows reorder", async () => {
   const user = userEvent.setup();
   const onRowsChange = jest.fn();
@@ -387,6 +420,81 @@ test("applies regular and medium content weights to resting cells", () => {
     "font",
     "var(--global-font-static-comp-medium-m)",
   );
+});
+
+test("supports right-aligned headers and content", () => {
+  const alignedColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name", align: "right" },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={alignedColumns}
+      maxWidth={500}
+      maxHeight="20rem"
+    />,
+  );
+
+  expect(screen.getByRole("columnheader")).toHaveStyleRule(
+    "justify-content",
+    "flex-end",
+  );
+  expect(screen.getByText("One")).toHaveStyleRule(
+    "justify-content",
+    "flex-end",
+  );
+  expect(screen.getByRole("grid")).toHaveStyleRule("max-width", "500px");
+  expect(screen.getByRole("grid")).toHaveStyleRule("max-height", "20rem");
+});
+
+test("raises a sticky cell while it is being edited", async () => {
+  const user = userEvent.setup();
+  const stickyColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name", sticky: "left" },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={stickyColumns}
+    />,
+  );
+
+  const cell = screen.getByRole("gridcell");
+  await user.dblClick(cell);
+
+  expect(cell).toHaveStyleRule("z-index", "3", {
+    modifier: ":focus-within",
+  });
+});
+
+test("virtualizes constrained grids and renders both spacer rows", () => {
+  const manyRows = Array.from({ length: 21 }, (_, index) => ({
+    id: index,
+    name: `Row ${index}`,
+    type: "A",
+    selected: false,
+  }));
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={manyRows}
+      columns={columns}
+      maxHeight={120}
+    />,
+  );
+
+  expect(screen.getAllByRole("presentation")).toHaveLength(2);
+  expect(screen.getAllByRole("presentation")[0]).toHaveStyleRule(
+    "height",
+    "40px",
+  );
+  expect(screen.getAllByRole("presentation")[1]).toHaveStyleRule(
+    "height",
+    "80px",
+  );
+  expect(screen.getAllByRole("gridcell")).toHaveLength(columns.length);
 });
 
 test("uses regular weight while editing a medium-weight cell", async () => {
@@ -827,6 +935,41 @@ test("read-only dropdown cells render as non-editable text", async () => {
   expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
 });
 
+test("renders and edits empty text and dropdown values", async () => {
+  const user = userEvent.setup();
+  const emptyRows = [{ id: 1, name: undefined, type: undefined }];
+  const emptyColumns: DataGridColumn<(typeof emptyRows)[number]>[] = [
+    { field: "name", headerName: "Name" },
+    {
+      field: "type",
+      headerName: "Type",
+      type: "dropdown",
+      options: [
+        { label: "Choose", value: "" },
+        { label: "A", value: "A" },
+      ],
+    },
+  ];
+  render(
+    <DataGrid
+      aria-label="Empty items"
+      rows={emptyRows}
+      columns={emptyColumns}
+    />,
+  );
+  const cells = screen.getAllByRole("gridcell");
+
+  expect(cells[0]).toHaveTextContent("");
+  expect(cells[1]).toHaveTextContent("");
+
+  await user.dblClick(cells[0]);
+  expect(screen.getByRole("textbox")).toHaveValue("");
+  await user.keyboard("{Escape}");
+
+  await user.dblClick(cells[1]);
+  expect(screen.getByRole("combobox")).toHaveValue("");
+});
+
 test("read-only action cells retain their contextual actions", async () => {
   const user = userEvent.setup();
   const onOpen = jest.fn();
@@ -943,6 +1086,24 @@ test("a single click toggles a checkbox cell", async () => {
   );
 });
 
+test("keeps the nested checkbox visual non-interactive", () => {
+  const onRowsChange = jest.fn();
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      onRowsChange={onRowsChange}
+    />,
+  );
+
+  fireEvent.change(screen.getAllByRole("checkbox")[0], {
+    target: { checked: true },
+  });
+
+  expect(onRowsChange).not.toHaveBeenCalled();
+});
+
 test("a double click only toggles a checkbox cell once", async () => {
   const user = userEvent.setup();
   const onRowsChange = jest.fn();
@@ -971,6 +1132,21 @@ test("the imperative handle focuses and edits a cell", () => {
 
   act(() => ref.current?.editCell(2, "name"));
   expect(screen.getByRole("textbox", { name: "Name, row 2" })).toHaveFocus();
+});
+
+test("the imperative handle ignores unknown rows and fields", () => {
+  const ref = createRef<DataGridHandle<Row>>();
+  render(
+    <DataGrid ref={ref} aria-label="Items" rows={rows} columns={columns} />,
+  );
+
+  expect(() => {
+    act(() => {
+      ref.current?.focusCell("missing", "name");
+      ref.current?.editCell(1, "missing");
+    });
+  }).not.toThrow();
+  expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
 });
 
 test("escape cancels editing", async () => {

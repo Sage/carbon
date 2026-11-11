@@ -22,10 +22,10 @@ const stickyCell = ({ $sticky, $stickyOffset }: StickyCellProps) => css`
     position: sticky;
     ${$sticky === "left"
       ? css`
-          inset-inline-start: ${$stickyOffset ?? 0}px;
+          inset-inline-start: ${$stickyOffset}px;
         `
       : css`
-          inset-inline-end: ${$stickyOffset ?? 0}px;
+          inset-inline-end: ${$stickyOffset}px;
         `}
     z-index: 2;
 

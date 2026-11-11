@@ -78,4 +78,22 @@ test("returns the virtual rows and spacer sizes for a constrained large grid", (
   expect(mockedUseVirtualizer.mock.calls.at(-1)?.[0]).toEqual(
     expect.objectContaining({ count: 25, enabled: true, overscan: 3 }),
   );
+
+  const options = mockedUseVirtualizer.mock.calls.at(-1)?.[0];
+  expect(options?.getScrollElement()).toBe(scrollElementRef.current);
+  expect(options?.estimateSize(0)).toBe(40);
+  expect(options?.getItemKey?.(2)).toBe("row-2");
+});
+
+test("uses header boundaries when no virtual rows have been measured", () => {
+  mockedUseVirtualizer.mockReturnValue({
+    getVirtualItems: () => [],
+    getTotalSize: () => 40,
+  } as unknown as ReturnType<typeof useVirtualizer>);
+
+  const { result } = renderVirtualization();
+
+  expect(result.current.renderedRowIndexes).toEqual([]);
+  expect(result.current.topPadding).toBe(0);
+  expect(result.current.bottomPadding).toBe(0);
 });
