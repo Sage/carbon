@@ -62,8 +62,6 @@ const useDataGridKeyboard = <T extends object>({
         case "focus-action":
           focusAction(position);
           break;
-        default:
-          break;
       }
     },
     [
@@ -96,8 +94,6 @@ const useDataGridKeyboard = <T extends object>({
         case "commit-and-move":
           commitEdit();
           moveLinear(position, action.delta);
-          break;
-        default:
           break;
       }
     },

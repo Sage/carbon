@@ -74,6 +74,13 @@ test.each([
 
 test("does not emit a transaction for an unchanged cell", () => {
   expect(updateDataGridCell(rows, cellChange("Alpha"), getRowId)).toBeNull();
+  expect(
+    updateDataGridCell(
+      rows,
+      { ...cellChange("Updated"), rowId: "missing" },
+      getRowId,
+    ),
+  ).toBeNull();
 });
 
 test("adds and inserts consumer-created rows", () => {
@@ -91,7 +98,16 @@ test("adds and inserts consumer-created rows", () => {
     change: { type: "row-insert", row: inserted, index: 1 },
   });
   expect(
+    insertDataGridRow(rows, inserted, { afterRowId: "b" }, getRowId),
+  ).toEqual({
+    rows: [rows[0], rows[1], inserted, rows[2]],
+    change: { type: "row-insert", row: inserted, index: 2 },
+  });
+  expect(
     insertDataGridRow(rows, inserted, { afterRowId: "missing" }, getRowId),
+  ).toBeNull();
+  expect(
+    insertDataGridRow(rows, inserted, { beforeRowId: "missing" }, getRowId),
   ).toBeNull();
 });
 
@@ -123,6 +139,20 @@ test("duplicates a supplied row beside its source", () => {
       },
     },
   );
+  expect(
+    duplicateDataGridRow(rows, "b", duplicate, "before", getRowId),
+  ).toEqual({
+    rows: [rows[0], duplicate, rows[1], rows[2]],
+    change: {
+      type: "row-duplicate",
+      sourceRowId: "b",
+      row: duplicate,
+      index: 1,
+    },
+  });
+  expect(
+    duplicateDataGridRow(rows, "missing", duplicate, "after", getRowId),
+  ).toBeNull();
 });
 
 test("deletes by stable id and includes the previous row", () => {
@@ -145,4 +175,6 @@ test("moves a row to its final clamped index", () => {
     },
   });
   expect(moveDataGridRow(rows, "b", 1, getRowId)).toBeNull();
+  expect(moveDataGridRow(rows, "missing", 1, getRowId)).toBeNull();
+  expect(moveDataGridRow(rows.slice(0, 1), "a", 1, getRowId)).toBeNull();
 });

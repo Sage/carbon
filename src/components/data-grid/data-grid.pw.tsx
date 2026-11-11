@@ -74,7 +74,7 @@ test("opens and commits a dropdown with Space without scrolling vertically", asy
   const select = page.getByRole("combobox", { name: "Type, row 2" });
   await expect(select).toBeFocused();
   await select.selectOption("Service");
-  await page.keyboard.press("Enter");
+  await select.press("Enter");
 
   await expect(typeCell).toContainText("Service");
   await expect(typeCell).toBeFocused();
