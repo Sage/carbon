@@ -254,3 +254,93 @@ export const IndeterminateSizesWithFocus: Story = {
     },
   },
 };
+
+// Documentation regression stories moved from the public docs.
+
+const DocumentationControlledCheckbox = ({
+  ...args
+}: Omit<CheckboxProps, "checked" | "onChange">) => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  return (
+    <Checkbox
+      checked={isChecked}
+      onChange={(e) => setIsChecked(e.target.checked)}
+      {...args}
+    />
+  );
+};
+
+export const WithLabel: Story = {
+  render: DocumentationControlledCheckbox,
+  args: {
+    label: "Checkbox",
+  },
+};
+
+export const WithInputHint: Story = {
+  ...WithLabel,
+  args: {
+    ...WithLabel.args,
+    inputHint: "Input Hint",
+  },
+};
+
+export const Sizes: Story = () => {
+  const [checkedSmall, setCheckedSmall] = useState(false);
+  const [checkedMedium, setCheckedMedium] = useState(false);
+  const [checkedLarge, setCheckedLarge] = useState(false);
+
+  return (
+    <Box display="flex" flexDirection="row" justifyContent="space-around">
+      <Checkbox
+        label="Small Checkbox"
+        size="small"
+        checked={checkedSmall}
+        onChange={() => {
+          setCheckedSmall(!checkedSmall);
+        }}
+      />
+      <Checkbox
+        label="Medium Checkbox"
+        size="medium"
+        checked={checkedMedium}
+        onChange={() => {
+          setCheckedMedium(!checkedMedium);
+        }}
+      />
+      <Checkbox
+        label="Large Checkbox"
+        size="large"
+        checked={checkedLarge}
+        onChange={() => {
+          setCheckedLarge(!checkedLarge);
+        }}
+      />
+    </Box>
+  );
+};
+Sizes.storyName = "Sizes";
+
+export const Required: Story = {
+  ...WithLabel,
+  args: {
+    ...WithLabel.args,
+    required: true,
+  },
+};
+
+export const Disabled: Story = {
+  ...WithInputHint,
+  args: {
+    ...WithInputHint.args,
+    required: true,
+    disabled: true,
+  },
+};
+
+WithLabel.parameters = { chromatic: { disableSnapshot: true } };
+WithInputHint.parameters = { chromatic: { disableSnapshot: true } };
+Sizes.parameters = { chromatic: { disableSnapshot: true } };
+Required.parameters = { chromatic: { disableSnapshot: true } };
+Disabled.parameters = { chromatic: { disableSnapshot: true } };

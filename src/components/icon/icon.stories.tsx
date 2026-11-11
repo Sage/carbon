@@ -31,6 +31,31 @@ const meta: Meta<typeof Icon> = {
 export default meta;
 type Story = StoryObj<typeof Icon>;
 
+export const Playground: Story = {
+  render: (args) => <Icon {...args} />,
+  args: {
+    type: "add",
+    size: "medium",
+    color: "neutral",
+    inverse: false,
+  },
+  decorators: [
+    (Story, { args }) => (
+      <Box
+        p={2}
+        backgroundColor={
+          args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)"
+        }
+      >
+        <Story />
+      </Box>
+    ),
+  ],
+};
+Playground.storyName = "Playground";
+
 export const Default: Story = () => {
   return <Icon type="add" />;
 };

@@ -76,46 +76,6 @@ description: Carbon Button component props and usage examples.
 | target | string \| undefined | No |  | Yes | HTML target attribute |  |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-(args: ButtonProps) => {
-  return <Button {...args}>Button</Button>;
-}
-```
-
-
-### Button Content
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display={"flex"} gap={2}>
-      <Button aria-label="Return to the home page">
-        <Icon type="home" />
-      </Button>
-      <Button>
-        <>
-          <Icon type="home" />
-          Return to the home page
-        </>
-      </Button>
-      <Button>
-        <>
-          Return to the home page
-          <Icon type="home" />
-        </>
-      </Button>
-    </Box>
-  );
-}
-```
-
-
 ### Click Handler
 
 **Render**
