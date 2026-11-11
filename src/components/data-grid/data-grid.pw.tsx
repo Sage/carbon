@@ -110,6 +110,35 @@ test("toggles a checkbox with one click and with Space", async ({
   await expect(checkbox).not.toBeChecked();
 });
 
+test("applies read-only behavior to each cell variation", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const nameCell = cell(page, 3, "name");
+  const typeCell = cell(page, 3, "type");
+  const checkboxCell = cell(page, 3, "selected");
+  const actionCell = cell(page, 3, "actions");
+
+  await expect(nameCell).toHaveAttribute("aria-readonly", "true");
+  await expect(typeCell).toHaveAttribute("aria-readonly", "true");
+  await expect(checkboxCell).toHaveAttribute("aria-readonly", "true");
+  await expect(actionCell).toHaveAttribute("aria-readonly", "true");
+  await expect(checkboxCell.getByRole("checkbox")).toBeDisabled();
+  await expect(typeCell.locator('[data-element="dropdown"]')).toHaveCount(0);
+
+  await typeCell.click();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("combobox", { name: "Type, row 3" })).toHaveCount(
+    0,
+  );
+
+  await actionCell.click({ position: { x: 4, y: 4 } });
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+});
+
 test("scrolls horizontally during keyboard navigation while keeping edge columns visible", async ({
   mount,
   page,

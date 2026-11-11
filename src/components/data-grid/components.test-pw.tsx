@@ -64,6 +64,7 @@ const DataGridComponent = ({
         headerName: "Type",
         type: "dropdown",
         width: 160,
+        readOnly: ({ row }) => row.id === 3,
         options: [
           { label: "Service", value: "Service" },
           { label: "Product", value: "Product" },
@@ -75,6 +76,7 @@ const DataGridComponent = ({
         headerName: "Selected",
         type: "checkbox",
         width: 100,
+        readOnly: ({ row }) => row.id === 3,
       },
       {
         field: "actions",
@@ -83,6 +85,7 @@ const DataGridComponent = ({
         type: "action",
         width: 52,
         sticky: "right",
+        readOnly: ({ row }) => row.id === 3,
         renderCell: ({ api, row, rowId }) => (
           <ActionPopover
             aria-label={`Actions for row ${row.id}`}

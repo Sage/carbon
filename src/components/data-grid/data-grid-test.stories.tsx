@@ -27,7 +27,7 @@ const initialRows: VisualRow[] = [
   {
     id: 2,
     description: "",
-    category: "Software",
+    category: "",
     selected: false,
     actions: null,
   },
@@ -71,6 +71,8 @@ const VisualGrid = ({
         type: "dropdown",
         width: 180,
         weight: "medium",
+        error: ({ row }) => row.id === 2 && "Select a category",
+        readOnly: ({ row }) => row.id === 3,
         options: [
           { label: "Services", value: "Services" },
           { label: "Software", value: "Software" },
@@ -82,6 +84,7 @@ const VisualGrid = ({
         headerName: "Selected",
         type: "checkbox",
         width: 100,
+        readOnly: ({ row }) => row.id === 3,
       },
       {
         field: "actions",
@@ -90,6 +93,7 @@ const VisualGrid = ({
         type: "action",
         width: 52,
         sticky: stickyColumns ? "right" : undefined,
+        readOnly: ({ row }) => row.id === 3,
         renderCell: ({ row }) => (
           <ActionPopover
             aria-label={`Actions for row ${row.id}`}
