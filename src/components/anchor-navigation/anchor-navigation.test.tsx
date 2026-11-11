@@ -3,7 +3,6 @@ import { render, screen, act, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Textbox from "../textbox";
-import Logger from "../../__internal__/utils/logger";
 import {
   AnchorNavigation,
   AnchorNavigationItem,
@@ -929,36 +928,22 @@ test("ignores the item's isSelected prop inside AnchorNavigation", async () => {
   );
 });
 
-test("logs an error and keeps its own props when an item is rendered outside AnchorNavigation", async () => {
-  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
-  const onClick = jest.fn();
+test("throws an error when an item is rendered outside AnchorNavigation", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-  const { unmount } = render(
-    <ul>
-      <AnchorNavigationItem href="#section" isSelected onClick={onClick}>
-        Item
-      </AnchorNavigationItem>
-    </ul>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon AnchorNavigation: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  expect(() =>
+    render(
+      <ul>
+        <AnchorNavigationItem href="#section">Item</AnchorNavigationItem>
+      </ul>,
     ),
+  ).toThrow(
+    "Carbon AnchorNavigation: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  const link = screen.getByRole("link", { name: "Item" });
-  expect(link).toHaveAttribute("aria-current", "location");
-  expect(link).toHaveAttribute("href", "#section");
-
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  await user.click(link);
-
-  expect(onClick).toHaveBeenCalledTimes(1);
-  expect(onClick.mock.calls[0][0].defaultPrevented).toBe(false);
-
-  unmount();
-  loggerSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("renders not selected navigation item with proper background when hovered", async () => {
