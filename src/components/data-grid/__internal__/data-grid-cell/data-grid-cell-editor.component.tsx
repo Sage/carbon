@@ -9,7 +9,10 @@ interface DataGridCellEditorProps<T extends object> {
   value: unknown;
   editorRef: React.RefObject<HTMLInputElement | HTMLSelectElement>;
   onChange: (value: unknown) => void;
-  onBlur: () => void;
+  onSelectionCommit: (value: unknown) => void;
+  onBlur: (
+    event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void;
   onKeyDown: (event: React.KeyboardEvent) => void;
 }
 
@@ -20,6 +23,7 @@ const DataGridCellEditor = <T extends object>({
   value,
   editorRef,
   onChange,
+  onSelectionCommit,
   onBlur,
   onKeyDown,
 }: DataGridCellEditorProps<T>) => {
@@ -31,7 +35,7 @@ const DataGridCellEditor = <T extends object>({
         ref={editorRef as React.RefObject<HTMLSelectElement>}
         value={String(value ?? "")}
         aria-label={label}
-        onChange={(event) => onChange(event.target.value)}
+        onChange={(event) => onSelectionCommit(event.target.value)}
         onBlur={onBlur}
         onKeyDown={onKeyDown}
       >

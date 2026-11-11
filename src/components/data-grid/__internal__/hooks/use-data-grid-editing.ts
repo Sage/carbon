@@ -70,14 +70,33 @@ const useDataGridEditing = <T extends object>({
   );
 
   const commitEdit = useCallback(
-    (shouldRestoreFocus = false) => {
-      if (!editing || finishingEdit.current) return;
+    (shouldRestoreFocus = false, value = draftValue) => {
+      if (finishingEdit.current) {
+        // A native editor may blur immediately before its keydown handler
+        // commits. Keep the first data commit, but allow the keyboard commit
+        // to upgrade it with the requested focus restoration.
+        if (shouldRestoreFocus) {
+          restoreFocus.current = editingIdentity;
+        }
+        return;
+      }
+      if (!editing) return;
       finishingEdit.current = true;
-      onCellCommit({ ...getCellParams(editing), value: draftValue });
+      onCellCommit({ ...getCellParams(editing), value });
       restoreFocus.current = shouldRestoreFocus ? editingIdentity : null;
       setEditingIdentity(null);
     },
     [draftValue, editing, editingIdentity, getCellParams, onCellCommit],
+  );
+
+  const commitEditOnBlur = useCallback(
+    (shouldRestoreFocus = false) => {
+      // A blur caused by an edit that has already finished must not override
+      // its focus destination, for example when Tab moves to the next cell.
+      if (finishingEdit.current) return;
+      commitEdit(shouldRestoreFocus);
+    },
+    [commitEdit],
   );
 
   const cancelEdit = useCallback(
@@ -119,6 +138,7 @@ const useDataGridEditing = <T extends object>({
     setDraftValue,
     beginEdit,
     commitEdit,
+    commitEditOnBlur,
     cancelEdit,
   };
 };

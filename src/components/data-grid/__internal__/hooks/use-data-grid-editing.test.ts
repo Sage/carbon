@@ -113,6 +113,55 @@ test("begins, commits, and cancels text editing while restoring focus", () => {
   input.remove();
 });
 
+test("restores focus when blur and keyboard commits race", () => {
+  const { result, onCellCommit, focusCell } = setup();
+
+  act(() => result.current.beginEdit(position));
+  act(() => result.current.setDraftValue("Updated"));
+  act(() => {
+    result.current.commitEditOnBlur();
+    result.current.commitEdit(true);
+  });
+
+  expect(onCellCommit).toHaveBeenCalledTimes(1);
+  expect(onCellCommit).toHaveBeenCalledWith(
+    expect.objectContaining({ value: "Updated" }),
+  );
+  expect(focusCell).toHaveBeenCalledWith(position);
+});
+
+test("commits an explicit dropdown value and restores focus", () => {
+  const { result, onCellCommit, focusCell } = setup();
+
+  act(() => result.current.beginEdit(position));
+  act(() => result.current.commitEdit(true, "Selected"));
+
+  expect(onCellCommit).toHaveBeenCalledWith(
+    expect.objectContaining({ value: "Selected" }),
+  );
+  expect(focusCell).toHaveBeenCalledWith(position);
+});
+
+test("does not let blur override the focus destination after a commit", () => {
+  const { result, focusCell } = setup();
+
+  act(() => result.current.beginEdit(position));
+  act(() => {
+    result.current.commitEdit();
+    result.current.commitEditOnBlur(true);
+  });
+
+  expect(focusCell).not.toHaveBeenCalled();
+});
+
+test("ignores a commit when no cell is being edited", () => {
+  const { result, onCellCommit } = setup();
+
+  act(() => result.current.commitEdit());
+
+  expect(onCellCommit).not.toHaveBeenCalled();
+});
+
 test("opens dropdown editors when the browser supports showPicker", () => {
   const column: DataGridColumn<Row> = {
     field: "type",

@@ -14,6 +14,7 @@ const commonProps = {
   rowIndex: 0,
   editorRef: createRef<HTMLInputElement | HTMLSelectElement>(),
   onChange: jest.fn(),
+  onSelectionCommit: jest.fn(),
   onBlur: jest.fn(),
   onKeyDown: jest.fn(),
 };
