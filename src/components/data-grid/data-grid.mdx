@@ -125,6 +125,11 @@ Use `readOnly` and `error` as fixed values or functions when the state depends
 on row data. Checkbox and action columns do not support the error state. Action
 cells use `renderCell` to display controls such as an action popover.
 
+Read-only dropdown cells display their selected label as text, and read-only
+checkboxes cannot be changed. Action controls remain available because they do
+not edit the cell value. Disable individual actions in `renderCell` when the
+product's business rules require it.
+
 ### Sticky columns and optional header
 
 Columns are not sticky by default. Set `sticky="left"` or `sticky="right"` on
