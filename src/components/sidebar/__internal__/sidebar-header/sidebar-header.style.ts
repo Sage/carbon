@@ -83,7 +83,7 @@ const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
 `;
 
 const StyledSidebarHeaderDivider = styled.hr.attrs(applyBaseTheme)`
-  background: var(--container-standard-border-default);
+  background: var(--container-modal-border-default);
   border: var(--global-borderwidth-none);
   bottom: 0;
   height: var(--global-borderwidth-xs);
@@ -99,7 +99,7 @@ const StyledSidebarSubHeader = styled.div.attrs(applyBaseTheme)`
   color: var(--container-standard-txt-default);
   background-color: var(--container-standard-bg-alt);
   border-bottom: var(--global-borderwidth-xs) solid
-    var(--container-standard-border-default);
+    var(--container-modal-border-default);
   padding: var(--global-space-comp-s) var(--global-space-comp-2-xl);
   ${padding}
   transition: all 0.2s ease;
