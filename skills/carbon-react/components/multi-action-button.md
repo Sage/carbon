@@ -401,29 +401,6 @@ description: Carbon MultiActionButton component props and usage examples.
 ```
 
 
-### Scrollable
-
-**Render**
-
-```tsx
-() => {
-  return (["small", "medium", "large"] as const).map(
-    (size: MultiActionButtonProps["size"]) => (
-      <Box key={size} mb={3}>
-        <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-          {Array.from({ length: 18 }, (_, i) => (
-            <Button key={i} size={size}>
-              Button {i + 1}
-            </Button>
-          ))}
-        </MultiActionButton>
-      </Box>
-    ),
-  );
-}
-```
-
-
 ### Custom Width
 
 **Args**
