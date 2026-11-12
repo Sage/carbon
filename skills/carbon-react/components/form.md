@@ -75,6 +75,7 @@ function Render(args) {
     const [telephone, setTelephone] = useState("");
     const [contactMethod, setContactMethod] = useState("");
     const [newsletter, setNewsletter] = useState(false);
+    const [isWarningOpen, setIsWarningOpen] = useState(true);
 
     return (
       <Form {...args}>
@@ -85,13 +86,16 @@ function Render(args) {
           Fields marked <RequiredFieldsIndicator as="span" />
           are required
         </Typography>
-        <Message
-          variant="warning"
-          title="Check the information"
-          mb={blockSpacing}
-        >
-          Confirm that the contact details are up to date.
-        </Message>
+        {isWarningOpen && (
+          <Message
+            variant="warning"
+            title="Check the information"
+            mb={blockSpacing}
+            onDismiss={() => setIsWarningOpen(false)}
+          >
+            Confirm that the contact details are up to date.
+          </Message>
+        )}
         <Fieldset
           legend="Contact details"
           legendHint="The information that will be displayed on your invoices and contact lists."
@@ -375,13 +379,19 @@ function Render(args) {
           Contact details
         </Typography>
         {errorEntries.length > 0 && (
-          <Message variant="error" title="There is a problem" mb={blockSpacing}>
-            <Typography variant="ul" m={0}>
+          <Message
+            variant="error"
+            title="There is a problem"
+            size="medium"
+            mb={blockSpacing}
+          >
+            <ErrorSummaryList role="list">
               {errorEntries.map(([fieldId, message], index) => (
-                <Typography as="li" key={fieldId}>
+                <li key={fieldId}>
                   <Link
                     ref={index === 0 ? firstSummaryLinkRef : undefined}
                     href={`#${fieldId}`}
+                    linkSize="medium"
                     onClick={(ev) => {
                       ev.preventDefault();
                       document.getElementById(fieldId)?.focus();
@@ -389,9 +399,9 @@ function Render(args) {
                   >
                     {message}
                   </Link>
-                </Typography>
+                </li>
               ))}
-            </Typography>
+            </ErrorSummaryList>
           </Message>
         )}
         <RequiredFieldsIndicator mb={blockSpacing}>
@@ -441,6 +451,7 @@ function Render(args) {
     const [email, setEmail] = useState("");
     const [telephone, setTelephone] = useState("");
     const [additionalInformation, setAdditionalInformation] = useState("");
+    const [companyName, setCompanyName] = useState("");
     const [date, setDate] = useState("");
     const [contactMethod, setContactMethod] = useState("");
     const [contactPreference, setContactPreference] = useState("");
@@ -495,6 +506,7 @@ function Render(args) {
       setEmail("");
       setTelephone("");
       setAdditionalInformation("");
+      setCompanyName("");
       setDate("");
       setContactMethod("");
       setContactPreference("");
@@ -515,13 +527,19 @@ function Render(args) {
           path.
         </Typography>
         {errorEntries.length > 0 && (
-          <Message variant="error" title="There is a problem" mb={blockSpacing}>
-            <Typography variant="ul" m={0}>
+          <Message
+            variant="error"
+            title="There is a problem"
+            size="medium"
+            mb={blockSpacing}
+          >
+            <ErrorSummaryList role="list">
               {errorEntries.map(([fieldId, message], index) => (
-                <Typography as="li" key={fieldId}>
+                <li key={fieldId}>
                   <Link
                     ref={index === 0 ? firstSummaryLinkRef : undefined}
                     href={`#${fieldId}`}
+                    linkSize="medium"
                     onClick={(ev) => {
                       ev.preventDefault();
                       document.getElementById(fieldId)?.focus();
@@ -529,9 +547,9 @@ function Render(args) {
                   >
                     {message}
                   </Link>
-                </Typography>
+                </li>
               ))}
-            </Typography>
+            </ErrorSummaryList>
           </Message>
         )}
         <RequiredFieldsIndicator mb={blockSpacing}>
@@ -558,6 +576,14 @@ function Render(args) {
             value={additionalInformation}
             onChange={(ev) => setAdditionalInformation(ev.target.value)}
             error={errors["playground-additional-information"]}
+          />
+        </Fieldset>
+        <Fieldset legend="Additional details" mb={blockSpacing}>
+          <Textbox
+            id="playground-company-name"
+            label="Company name"
+            value={companyName}
+            onChange={(ev) => setCompanyName(ev.target.value)}
           />
         </Fieldset>
         <Fieldset legend="Contact preferences" required mb={blockSpacing}>

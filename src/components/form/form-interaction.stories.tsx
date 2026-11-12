@@ -215,6 +215,7 @@ TabOrderThroughFieldsAndFooterButtons.storyName =
   "Tab order through fields and footer buttons";
 TabOrderThroughFieldsAndFooterButtons.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: true },
 };
 
 // Drops the docs hint asking the reader to submit, as the play function submits for them

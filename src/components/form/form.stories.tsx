@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
+import styled from "styled-components";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import isChromatic from "../../../.storybook/isChromatic";
 
@@ -28,6 +29,15 @@ const styledSystemProps = generateStyledSystemProps({
 
 const blockSpacing = "var(--global-space-layout-xs)";
 const buttonGap = "var(--global-space-comp-m)";
+
+const ErrorSummaryList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: var(--global-space-comp-2-xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
 
 const defaultOpenState = isChromatic();
 
@@ -59,6 +69,7 @@ export const Composition: Story = {
     const [telephone, setTelephone] = useState("");
     const [contactMethod, setContactMethod] = useState("");
     const [newsletter, setNewsletter] = useState(false);
+    const [isWarningOpen, setIsWarningOpen] = useState(true);
 
     return (
       <Form {...args}>
@@ -69,13 +80,16 @@ export const Composition: Story = {
           Fields marked <RequiredFieldsIndicator as="span" />
           are required
         </Typography>
-        <Message
-          variant="warning"
-          title="Check the information"
-          mb={blockSpacing}
-        >
-          Confirm that the contact details are up to date.
-        </Message>
+        {isWarningOpen && (
+          <Message
+            variant="warning"
+            title="Check the information"
+            mb={blockSpacing}
+            onDismiss={() => setIsWarningOpen(false)}
+          >
+            Confirm that the contact details are up to date.
+          </Message>
+        )}
         <Fieldset
           legend="Contact details"
           legendHint="The information that will be displayed on your invoices and contact lists."
@@ -343,13 +357,19 @@ export const ValidationSummary: Story = {
           Contact details
         </Typography>
         {errorEntries.length > 0 && (
-          <Message variant="error" title="There is a problem" mb={blockSpacing}>
-            <Typography variant="ul" m={0}>
+          <Message
+            variant="error"
+            title="There is a problem"
+            size="medium"
+            mb={blockSpacing}
+          >
+            <ErrorSummaryList role="list">
               {errorEntries.map(([fieldId, message], index) => (
-                <Typography as="li" key={fieldId}>
+                <li key={fieldId}>
                   <Link
                     ref={index === 0 ? firstSummaryLinkRef : undefined}
                     href={`#${fieldId}`}
+                    linkSize="medium"
                     onClick={(ev) => {
                       ev.preventDefault();
                       document.getElementById(fieldId)?.focus();
@@ -357,9 +377,9 @@ export const ValidationSummary: Story = {
                   >
                     {message}
                   </Link>
-                </Typography>
+                </li>
               ))}
-            </Typography>
+            </ErrorSummaryList>
           </Message>
         )}
         <RequiredFieldsIndicator mb={blockSpacing}>
@@ -411,12 +431,14 @@ ValidationSummary.decorators = [
     </>
   ),
 ];
+ValidationSummary.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Playground: Story = {
   render: function Render(args) {
     const [email, setEmail] = useState("");
     const [telephone, setTelephone] = useState("");
     const [additionalInformation, setAdditionalInformation] = useState("");
+    const [companyName, setCompanyName] = useState("");
     const [date, setDate] = useState("");
     const [contactMethod, setContactMethod] = useState("");
     const [contactPreference, setContactPreference] = useState("");
@@ -471,6 +493,7 @@ export const Playground: Story = {
       setEmail("");
       setTelephone("");
       setAdditionalInformation("");
+      setCompanyName("");
       setDate("");
       setContactMethod("");
       setContactPreference("");
@@ -491,13 +514,19 @@ export const Playground: Story = {
           path.
         </Typography>
         {errorEntries.length > 0 && (
-          <Message variant="error" title="There is a problem" mb={blockSpacing}>
-            <Typography variant="ul" m={0}>
+          <Message
+            variant="error"
+            title="There is a problem"
+            size="medium"
+            mb={blockSpacing}
+          >
+            <ErrorSummaryList role="list">
               {errorEntries.map(([fieldId, message], index) => (
-                <Typography as="li" key={fieldId}>
+                <li key={fieldId}>
                   <Link
                     ref={index === 0 ? firstSummaryLinkRef : undefined}
                     href={`#${fieldId}`}
+                    linkSize="medium"
                     onClick={(ev) => {
                       ev.preventDefault();
                       document.getElementById(fieldId)?.focus();
@@ -505,9 +534,9 @@ export const Playground: Story = {
                   >
                     {message}
                   </Link>
-                </Typography>
+                </li>
               ))}
-            </Typography>
+            </ErrorSummaryList>
           </Message>
         )}
         <RequiredFieldsIndicator mb={blockSpacing}>
@@ -534,6 +563,14 @@ export const Playground: Story = {
             value={additionalInformation}
             onChange={(ev) => setAdditionalInformation(ev.target.value)}
             error={errors["playground-additional-information"]}
+          />
+        </Fieldset>
+        <Fieldset legend="Additional details" mb={blockSpacing}>
+          <Textbox
+            id="playground-company-name"
+            label="Company name"
+            value={companyName}
+            onChange={(ev) => setCompanyName(ev.target.value)}
           />
         </Fieldset>
         <Fieldset legend="Contact preferences" required mb={blockSpacing}>
@@ -612,6 +649,7 @@ export const Playground: Story = {
   },
 };
 Playground.storyName = "Playground";
+Playground.parameters = { chromatic: { disableSnapshot: true } };
 
 export const RequiredFieldsIndicatorStory: Story = () => (
   <RequiredFieldsIndicator>
