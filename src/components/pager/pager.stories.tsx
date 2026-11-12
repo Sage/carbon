@@ -59,21 +59,32 @@ Default.args = {
   currentPage: "2",
 };
 
-export const WithPageSizeSelection: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    pageSize: 10,
-    showPageSizeSelection: true,
-  },
-  decorators: [
-    (Story) => (
-      <Box mb="150px">
-        <Story />
-      </Box>
-    ),
-  ],
+export const WithPageSizeSelection: Story = ({ ...args }) => {
+  const [currentPage, setCurrentPage] = useState<number | string>(
+    args.currentPage ?? 1,
+  );
+
+  return (
+    <Pager
+      {...args}
+      onPagination={(page) => setCurrentPage(page)}
+      currentPage={currentPage}
+    />
+  );
 };
+WithPageSizeSelection.args = {
+  totalRecords: "1000",
+  currentPage: "2",
+  pageSize: 10,
+  showPageSizeSelection: true,
+};
+WithPageSizeSelection.decorators = [
+  (Story) => (
+    <Box mb="150px">
+      <Story />
+    </Box>
+  ),
+];
 
 export const WithTotalRecords: Story = {
   ...Default,

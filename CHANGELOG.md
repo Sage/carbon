@@ -1,3 +1,15 @@
+## [162.24.3](https://github.com/Sage/carbon/compare/v162.24.2...v162.24.3) (2026-11-12)
+
+### Bug Fixes
+
+* **multi-action-button:** remove menu height restriction, remove scrollable behaviour ([3478a0c](https://github.com/Sage/carbon/commit/3478a0cbd1995c8e00fce99f30eda820d2861685))
+
+## [162.24.2](https://github.com/Sage/carbon/compare/v162.24.1...v162.24.2) (2026-11-12)
+
+### Bug Fixes
+
+* **anchor-navigation:** remove duplicate stories ([55d9afd](https://github.com/Sage/carbon/commit/55d9afd2bbd82e09bcb4d1476f2b97e93df8bd4a))
+
 ## [162.24.1](https://github.com/Sage/carbon/compare/v162.24.0...v162.24.1) (2026-11-11)
 
 ### Bug Fixes
