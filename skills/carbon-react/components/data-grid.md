@@ -84,6 +84,15 @@ description: Carbon DataGrid component props and usage examples.
 ```
 
 
+### OpenDropdown
+
+**Render**
+
+```tsx
+() => <VisualGrid />
+```
+
+
 ### StickyColumnsScrolledWithOpenActions
 
 **Render**

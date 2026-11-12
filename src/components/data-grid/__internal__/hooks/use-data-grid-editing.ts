@@ -36,7 +36,7 @@ const useDataGridEditing = <T extends object>({
     useState<DataGridCellIdentity | null>(null);
   const editing = editingIdentity ? positionForIdentity(editingIdentity) : null;
   const [draftValue, setDraftValue] = useState<unknown>("");
-  const editorRef = useRef<HTMLInputElement | HTMLSelectElement>(null);
+  const editorRef = useRef<HTMLInputElement>(null);
   const restoreFocus = useRef<DataGridCellIdentity | null>(null);
   const finishingEdit = useRef(false);
 
@@ -115,12 +115,6 @@ const useDataGridEditing = <T extends object>({
     if (editor instanceof HTMLInputElement) {
       const end = editor.value.length;
       editor.setSelectionRange(end, end);
-    } else if (editor instanceof HTMLSelectElement && editor.showPicker) {
-      try {
-        editor.showPicker();
-      } catch {
-        // Some browsers only allow showPicker during a direct user gesture.
-      }
     }
   }, [editingIdentity, renderToken]);
 

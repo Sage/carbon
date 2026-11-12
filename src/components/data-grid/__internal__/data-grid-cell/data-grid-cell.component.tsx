@@ -23,7 +23,7 @@ interface DataGridCellProps<T extends object> {
   errorValue?: string | boolean;
   draftValue?: unknown;
   stickyOffset?: number;
-  editorRef: React.RefObject<HTMLInputElement | HTMLSelectElement>;
+  editorRef: React.RefObject<HTMLInputElement>;
   onActivate: (position: DataGridCellPosition) => void;
   onFocusPosition: (position: DataGridCellPosition) => void;
   onBeginEdit: (position: DataGridCellPosition) => void;
