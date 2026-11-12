@@ -26,7 +26,7 @@ import Message from "carbon-react/lib/components/message";
 
 ### Default
 
-To use `Message`, you can pass any valid content as children. 
+To use `Message`, you can pass any valid content as children.
 
 <Canvas of={MessageStories.Default} />
 
@@ -55,6 +55,14 @@ This approach works well for success, warning, info, and other non-critical mess
 A custom title can be set via the `title` prop, this prop accepts a string or any valid React node.
 
 <Canvas of={MessageStories.WithTitle} />
+
+### Error Summary
+
+Use an error `Message` with links to the invalid fields. Keep the link size aligned with the message size: M links in a medium message and L links in a large message.
+
+This is a visual composition example. In a form, each link must move focus to its invalid field after a failed submit; use the Form validation pattern for that behavior.
+
+<Canvas of={MessageStories.ErrorSummary} />
 
 ### Variants
 
@@ -135,5 +143,5 @@ The following keys are available to override the translations for this component
       returnType: "string",
     },
 
-  ]}
+]}
 />

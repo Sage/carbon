@@ -1,14 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import styled from "styled-components";
 
 import Message from ".";
 import Button from "../button/__next__";
 import Box from "../box";
+import Link from "../link";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
+
+const ErrorSummaryList = styled.ul<{ $size: "medium" | "large" }>`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ $size }) =>
+    $size === "large"
+      ? "var(--global-space-comp-xs)"
+      : "var(--global-space-comp-2-xs)"};
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
 
 const meta: Meta<typeof Message> = {
   title: "Message",
@@ -91,6 +105,47 @@ export const WithTitle: Story = {
   args: {
     title: "Title",
   },
+};
+
+export const ErrorSummary: Story = {
+  render: () => (
+    <>
+      <Message
+        variant="error"
+        title="There is a problem"
+        size="medium"
+        mb="var(--global-space-layout-xs)"
+      >
+        <ErrorSummaryList role="list" $size="medium">
+          <li>
+            <Link href="#" linkSize="medium">
+              Enter an email address
+            </Link>
+          </li>
+          <li>
+            <Link href="#" linkSize="medium">
+              Enter a valid telephone number
+            </Link>
+          </li>
+        </ErrorSummaryList>
+      </Message>
+      <Message variant="error" title="There is a problem" size="large">
+        <ErrorSummaryList role="list" $size="large">
+          <li>
+            <Link href="#" linkSize="large">
+              Enter an email address
+            </Link>
+          </li>
+          <li>
+            <Link href="#" linkSize="large">
+              Enter a valid telephone number
+            </Link>
+          </li>
+        </ErrorSummaryList>
+      </Message>
+    </>
+  ),
+  parameters: { chromatic: { disableSnapshot: false } },
 };
 
 export const Variant: Story = {
