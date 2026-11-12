@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import FormField from ".";
-import { TabsContext } from "../../components/tabs/__next__/tabs.context";
+import { TabsContext } from "../../components/tabs/__next__/__internal__/contexts/tabs.context";
 import { mockMatchMedia } from "../../__spec_helper__/__internal__/test-utils";
 
 test("throws a console error when `error` and `disabled` are both true", () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import Tabs, { Tab, TabList, TabPanel } from "./tabs.component";
+import { Tabs, Tab, TabList, TabPanel } from ".";
 import Typography from "../../typography";
 import I18nProvider from "../../i18n-provider";
 import { enGB } from "../../../locales";

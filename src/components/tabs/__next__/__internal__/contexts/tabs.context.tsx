@@ -4,9 +4,38 @@ import React, {
   useContext,
   useCallback,
   useEffect,
+  Dispatch,
+  SetStateAction,
 } from "react";
-import { TabsContextProps, ValidationRecord } from "./tabs.types";
-import usePrevious from "../../../hooks/__internal__/usePrevious";
+import usePrevious from "../../../../../hooks/__internal__/usePrevious";
+
+export type TabValidationRecord = Record<string, string | boolean>;
+export type ValidationRecord = Record<string, TabValidationRecord>;
+
+export interface TabsContextProps {
+  activeTab: string;
+  currentTabId?: string;
+  focusIndex: string;
+  isInTab?: boolean;
+  labelledBy?: string;
+  orientation: "horizontal" | "vertical";
+  selectedTabId?: string;
+  setActiveTab: Dispatch<SetStateAction<string>>;
+  setFocusIndex: Dispatch<SetStateAction<string>>;
+  setCurrentTabId: Dispatch<SetStateAction<string>>;
+  setErrors: (childId: string, tabId: string, error: string | boolean) => void;
+  setWarnings: (
+    childId: string,
+    tabId: string,
+    warning: string | boolean,
+  ) => void;
+  errors: ValidationRecord;
+  warnings: ValidationRecord;
+  size: "medium" | "large";
+  // DEPRECATED - to be removed when legacy tabs removed
+  infos: ValidationRecord;
+  setInfos: (childId: string, tabId: string, info: string | boolean) => void;
+}
 
 /* istanbul ignore next */
 const initialContext: TabsContextProps = {

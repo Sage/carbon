@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Tabs, Tab, TabList, TabPanel } from "./tabs.component";
+import { Tabs, Tab, TabList, TabPanel } from ".";
 import Box from "../../box";
 import Button from "../../button";
 import Typography from "../../typography";

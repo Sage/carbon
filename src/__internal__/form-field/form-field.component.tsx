@@ -17,12 +17,14 @@ import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import { TabsContext as NewTabsContext } from "../../components/tabs/__next__/tabs.context";
-import { TabContext as NewTabContext } from "../../components/tabs/__next__/tab.context";
-import type {
-  TabContextProps as NewTabContextProps,
-  TabsContextProps as NewTabsContextProps,
-} from "../../components/tabs/__next__/tabs.types";
+import {
+  TabsContext as NewTabsContext,
+  type TabsContextProps as NewTabsContextProps,
+} from "../../components/tabs/__next__/__internal__/contexts/tabs.context";
+import {
+  TabContext as NewTabContext,
+  type TabContextProps as NewTabContextProps,
+} from "../../components/tabs/__next__/__internal__/contexts/tab.context";
 
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */

@@ -2,9 +2,9 @@ import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
 
 import * as TabsStories from "./tabs.stories.tsx";
-import * as TabStories from "./__internal__/tab.stories.tsx";
-import * as TabListStories from "./__internal__/tab-list.stories.tsx";
-import * as TabPanelStories from "./__internal__/tab-panel.stories.tsx";
+import * as TabStories from "./tab/tab.stories.tsx";
+import * as TabListStories from "./tab-list/tab-list.stories.tsx";
+import * as TabPanelStories from "./tab-panel/tab-panel.stories.tsx";
 
 <Meta of={TabsStories} />
 
@@ -181,6 +181,6 @@ Users should be able to:
 
 `TabList`'s forwarded ref exposes the following imperative methods:
 
-| Method Name              | Description                                       |
-| ------------------------ | ------------------------------------------------- |
+| Method Name            | Description                                       |
+| ---------------------- | ------------------------------------------------- |
 | `focusTab(id: string)` | Programmatically focuses the specified tab by ID. |

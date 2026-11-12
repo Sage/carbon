@@ -2,14 +2,17 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
-import Tabs, { Tab, TabList, TabPanel } from "./tabs.component";
+import { Tabs, Tab, TabList, TabPanel } from ".";
 import Icon from "../../icon";
 import Typography from "../../typography";
 import { assertLoggerComponentMessage } from "../../../__spec_helper__/__internal__/test-utils";
 import Textbox from "../../textbox";
-import { TabsHandle } from "./tabs.types";
+import type { TabsHandle } from ".";
 import Button from "../../button";
-import { StyledTabList, TAB_LIST_FOCUS_PADDING } from "./tabs.style";
+import {
+  StyledTabList,
+  TAB_LIST_FOCUS_PADDING,
+} from "./tab-list/tab-list.style";
 
 const TestComponent = ({ ...args }) => {
   return (
