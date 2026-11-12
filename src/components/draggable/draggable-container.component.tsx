@@ -1,10 +1,15 @@
 /* istanbul ignore file: Test with Playwright for better reliability */
 
-import React, { useEffect, useState, useRef } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useRef,
+} from "react";
 import { MarginProps } from "styled-system";
 
 import invariant from "invariant";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 import DraggableItem, {
   DraggableItemProps,
 } from "./draggable-item/draggable-item.component";
@@ -15,11 +20,12 @@ import {
   type DragDropProviderProps,
 } from "./__internal__/drag-drop-provider";
 import arrayMove from "../../__internal__/utils/helpers/array-move";
-import { extractClosestEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
-import { reorderWithEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge";
 
-export interface DraggableContainerProps extends MarginProps, TagProps {
-  /** Callback fired when an item is successfully dropped. */
+export interface DraggableContainerProps
+  extends MarginProps,
+    TagProps,
+    React.HTMLAttributes<HTMLElement> {
+  /** Callback fired when an item is reordered by dragging or moveTo. */
   getOrder?: (
     draggableItemIds?: (string | number | undefined)[],
     movedItemId?: string | number | undefined,
@@ -27,12 +33,12 @@ export interface DraggableContainerProps extends MarginProps, TagProps {
   /**
    * The content of the component
    *
-   * `<DraggableItem />` is required to make `Draggable` works
+   * Pass DraggableItems directly, or wrap them in a single parent element or component such as Box.
    */
   children?: React.ReactNode;
   /**
    * Defines the direction in which the draggable items contents are placed.
-   * Can be either "row" or "row-reverse".
+   * Useful if relying on fallback draggable icon.
    */
   flexDirection?: "row" | "row-reverse";
 }
@@ -47,6 +53,9 @@ function isDraggableItem(
   );
 }
 
+const useIsomorphicEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 const DraggableContainer = ({
   "data-element": dataElement,
   "data-role": dataRole = "draggable-container",
@@ -55,18 +64,57 @@ const DraggableContainer = ({
   flexDirection = "row",
   ...rest
 }: DraggableContainerProps): JSX.Element => {
+  const childNodes = React.Children.toArray(children);
+  const parent =
+    childNodes.length === 1 &&
+    React.isValidElement<{ children?: React.ReactNode }>(childNodes[0]) &&
+    !isDraggableItem(childNodes[0])
+      ? childNodes[0]
+      : null;
+  const itemChildren = parent ? parent.props.children : children;
   const [draggableItems, setDraggableItems] = useState(
-    React.Children.toArray(children),
+    React.Children.toArray(itemChildren),
   );
-  const isFirstRender = useRef(true);
+  const previousItems = useRef(React.Children.toArray(itemChildren));
+  const focusAfterMove = useRef<HTMLElement | null>(null);
 
-  useEffect(() => {
-    if (!isFirstRender.current) {
-      setDraggableItems(React.Children.toArray(children));
-    } else {
-      isFirstRender.current = false;
+  useIsomorphicEffect(() => {
+    focusAfterMove.current?.focus({ preventScroll: true });
+    focusAfterMove.current = null;
+  }, [draggableItems]);
+
+  useIsomorphicEffect(() => {
+    const nextItems = React.Children.toArray(itemChildren);
+    const getIds = (items: React.ReactNode[]) =>
+      items.map((item) =>
+        isDraggableItem(item) ? String(item.props.id) : null,
+      );
+    const previousIds = getIds(previousItems.current);
+    const nextIds = getIds(nextItems);
+    const orderChanged =
+      nextIds.length !== previousIds.length ||
+      nextIds.some((id, index) => id !== previousIds[index]);
+    previousItems.current = nextItems;
+
+    if (orderChanged || !nextItems.every(isDraggableItem)) {
+      setDraggableItems(nextItems);
+      return;
     }
-  }, [children]);
+
+    // Refresh child props without losing the user's order when, for example,
+    // a controlled input inside a Card updates. Explicit parent order changes
+    // and additions/removals still replace the list.
+    const itemsById = new Map(
+      nextItems.map((item) => [String(item.props.id), item]),
+    );
+    setDraggableItems((current) =>
+      current.map((item) =>
+        isDraggableItem(item)
+          ? (itemsById.get(String(item.props.id)) ?? item)
+          : item,
+      ),
+    );
+  }, [itemChildren]);
 
   const hasValidChildren = draggableItems.every((child) =>
     isDraggableItem(child),
@@ -78,66 +126,79 @@ const DraggableContainer = ({
     `\`${DraggableContainer.displayName}\` only accepts children of type \`${DraggableItem.displayName}\`.`,
   );
 
-  const marginProps = filterStyledSystemMarginProps(rest);
+  const reorder = useCallback(
+    (id: string, endIndex: number) => {
+      const startIndex = draggableItems.findIndex(
+        (child) => isDraggableItem(child) && String(child.props.id) === id,
+      );
 
-  const handleDrop: DragDropProviderProps["onDrop"] = ({ dragged, target }) => {
-    if (target) {
-      const closestEdgeOfTarget = extractClosestEdge(target);
+      if (
+        startIndex === -1 ||
+        !Number.isInteger(endIndex) ||
+        endIndex < 0 ||
+        endIndex >= draggableItems.length ||
+        startIndex === endIndex
+      )
+        return false;
 
-      if (!closestEdgeOfTarget) {
-        return;
-      }
-
-      const reorderedItems = reorderWithEdge({
-        list: draggableItems,
-        startIndex: draggableItems.findIndex(
-          (child) => String(child.props.id) === dragged.id,
-        ),
-        indexOfTarget: draggableItems.findIndex(
-          (child) => String(child.props.id) === target.id,
-        ),
-        closestEdgeOfTarget,
-        axis: "vertical",
+      const reorderedItems = arrayMove({
+        array: draggableItems,
+        startIndex,
+        endIndex,
       });
 
-      // Move dragged item to new position
       setDraggableItems(reorderedItems);
-
-      const reorderedIds = reorderedItems.map((child) => child.props.id);
-      getOrder?.(reorderedIds, dragged.id);
-    } else {
-      // Move dragged item back to original position
-      setDraggableItems(
-        arrayMove({
-          array: draggableItems,
-          startIndex: draggableItems.findIndex(
-            (child) => String(child.props.id) === dragged.id,
-          ),
-          endIndex: dragged.initialIndex,
-        }),
+      getOrder?.(
+        reorderedItems.map((child) => child.props.id),
+        id,
       );
-    }
+      return true;
+    },
+    [draggableItems, getOrder],
+  );
+
+  const handleMove = useCallback(
+    (id: string, index: number) => {
+      // ActionPopover focuses its trigger before invoking a move action. Restore
+      // that same element after React moves its item in the DOM.
+      const focusedElement =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
+      if (reorder(id, index)) focusAfterMove.current = focusedElement;
+    },
+    [reorder],
+  );
+
+  const handleDrop: DragDropProviderProps["onDrop"] = ({ dragged, target }) => {
+    if (!target) return;
+    reorder(
+      dragged.id,
+      draggableItems.findIndex((child) => String(child.props.id) === target.id),
+    );
   };
+
+  const decoratedItems = draggableItems.map((item, index) =>
+    React.cloneElement(item, {
+      key: String(item.props.id),
+      index,
+      flexDirection,
+      itemCount: draggableItems.length,
+      onMove: handleMove,
+    }),
+  );
 
   return (
     <StyledDraggableContainer
+      {...rest}
       data-component="draggable-container"
       data-element={dataElement}
       data-role={dataRole}
-      {...marginProps}
     >
       <DragDropProvider onDrop={handleDrop}>
-        {draggableItems.map((item, index) => {
-          return React.cloneElement(
-            item,
-            {
-              id: item.props.id,
-              index,
-              flexDirection,
-            },
-            [item.props.children],
-          );
-        })}
+        {parent
+          ? React.cloneElement(parent, undefined, decoratedItems)
+          : decoratedItems}
       </DragDropProvider>
     </StyledDraggableContainer>
   );

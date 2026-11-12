@@ -2,7 +2,15 @@ import React from "react";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { SpaceProps, WidthProps } from "styled-system";
 
-import { StyledTile, StyledTileWrapper, StyledTileKeyline } from "./tile.style";
+import {
+  StyledTile,
+  StyledTileWrapper,
+  StyledTileKeyline,
+  StyledTileContent,
+  StyledTileDragRow,
+} from "./tile.style";
+import DragHandle from "../draggable/drag-handle";
+import useDraggableItemContext from "../draggable/use-draggable-item-context";
 import { TileProvider } from "./__internal__/tile.context";
 import filterStyledSystemPaddingProps from "../../style/utils/filter-styled-system-padding-props";
 import filterStyledSystemMarginProps from "../../style/utils/filter-styled-system-margin-props";
@@ -39,6 +47,11 @@ export interface TileProps extends SpaceProps, WidthProps, TagProps {
    * Width will have no effect on a child component if the tile orientation is set to 'vertical'.
    */
   children?: React.ReactNode;
+  /**
+   * Content displayed opposite the drag handle when inside a DraggableItem.
+   * Use this slot for controls that let users reorder items without dragging.
+   */
+  rightChildren?: React.ReactNode;
   /** The orientation of the tile - set to either horizontal or vertical
    * @deprecated The `orientation` prop has been deprecated and will be removed in a future version.
    */
@@ -89,6 +102,7 @@ const Tile = ({
   variant = "standard",
   p,
   children,
+  rightChildren,
   width = "100%",
   roundness = "curved",
   height,
@@ -98,6 +112,7 @@ const Tile = ({
   statusKeyline,
   ...rest
 }: TileProps) => {
+  const { isDraggable, surfaceRef } = useDraggableItemContext();
   if (
     !deprecatedRoundnessValueTrigger &&
     ["default", "large", "small"].includes(roundness)
@@ -133,6 +148,7 @@ const Tile = ({
 
   return (
     <StyledTileWrapper
+      ref={surfaceRef}
       data-role="tile-wrapper"
       roundness={actualRoundness}
       width={width}
@@ -161,10 +177,26 @@ const Tile = ({
           hasOutline={hasOutline}
           inverse={inverse}
           statusKeyline={statusKeylineValue}
+          $isDraggable={isDraggable}
           $hasFooter={hasFooter}
           $footerVariant={footerVariant}
         >
-          {children}
+          {isDraggable ? (
+            <>
+              <StyledTileDragRow data-role="tile-drag-row">
+                <DragHandle />
+                {rightChildren}
+              </StyledTileDragRow>
+              <StyledTileContent
+                roundness={actualRoundness}
+                data-role="tile-draggable-content"
+              >
+                {children}
+              </StyledTileContent>
+            </>
+          ) : (
+            children
+          )}
         </StyledTile>
       </TileProvider>
     </StyledTileWrapper>

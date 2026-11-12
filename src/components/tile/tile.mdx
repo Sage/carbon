@@ -22,7 +22,7 @@ import * as TileStories from "./tile.stories";
   Product Design System component
 </a>
 
-Tiles are containers for static content such as text, and don't contain controls.
+Tiles group static content such as text. When used as draggable items, they can also provide reorder controls alongside the drag handle.
 
 ## Contents
 
@@ -44,7 +44,7 @@ import {
 
 ## Designer notes
 
-- Tiles should be reserved for static content. If you require a container with controls or interactive content, use the [Card component](../?path=/docs/card--docs) instead.
+- Keep Tile's main content static. Use `rightChildren` for reorder controls in draggable mode. For other interactive content, use the [Card component](../?path=/docs/card--docs).
 
 ## Examples
 
@@ -53,6 +53,29 @@ import {
 By default, the Tile component will have a horizontal layout.
 
 <Canvas of={TileStories.DefaultStory} />
+
+### Draggable
+
+Wrap Tile in a `DraggableItem` inside a `DraggableContainer`. Tile reads the draggable-item context and renders its own handle at the top left, above its horizontal content. The handle registers as the drag source, so `DraggableItem` does not add a fallback handle. Tile has no `draggable` prop.
+
+Use `rightChildren` to place an ActionPopover or other reorder controls opposite the drag handle. This slot is visible when Tile is inside a `DraggableItem`, including when native dragging is unavailable. Keep the item order in your application state, update it from these controls, and use `DraggableContainer`'s `getOrder` callback to synchronize it after a drag.
+
+```tsx
+<Tile
+  rightChildren={
+    <ActionPopover aria-label="Reorder tile" m={0} rightAlignMenu>
+      <ActionPopoverItem onClick={moveEarlier}>Move earlier</ActionPopoverItem>
+      <ActionPopoverItem onClick={moveLater}>Move later</ActionPopoverItem>
+    </ActionPopover>
+  }
+>
+  Tile content
+</Tile>
+```
+
+The [Draggable examples](../?path=/docs/draggable--docs) include a Tiles grid with working manual reorder controls.
+
+<Canvas of={TileStories.DraggableStory} />
 
 ### Without Outline
 
@@ -171,14 +194,14 @@ Use `justifyContent` to place your content inside the width allocated to the cel
 
 ### Responsive Tile with overflow visible
 
-Use the `overflow` prop to override the overflow styling, it is set to `"hidden"` by default. It is not 
+Use the `overflow` prop to override the overflow styling, it is set to `"hidden"` by default. It is not
 recommended to override this styling if you are rendering `FlexTileDivider` components.
 
 <Canvas of={TileStories.ResponsiveWithOverflowVisibleStory} />
 
 ### Status Keyline
 
-Use the `statusKeyline` prop in order to add a highlight to the Tile on the left border. 
+Use the `statusKeyline` prop in order to add a highlight to the Tile on the left border.
 
 <Canvas of={TileStories.StatusKeylines} />
 

@@ -11,8 +11,8 @@ export type Draggable = {
   id: string;
   /** The index of the draggable item when dragging was initiated */
   initialIndex: number;
-  /** Bounding rectangle of the draggable item  */
-  rect: DOMRect;
+  /** Explicit visual surface, when registered by the component. */
+  surface?: HTMLElement;
   /** Unique identifier of the context instance the item belongs to */
   contextId: symbol;
 };

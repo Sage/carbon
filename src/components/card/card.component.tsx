@@ -3,13 +3,9 @@ import { MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { CardProvider, CardContextProps } from "./__internal__/card.context";
-import {
-  StyledCard,
-  StyledCardContent,
-  StyledDragRow,
-  StyledDragHandle,
-} from "./card.style";
-import Icon from "../icon";
+import { StyledCard, StyledCardContent, StyledDragRow } from "./card.style";
+import DragHandle from "../draggable/drag-handle";
+import useDraggableItemContext from "../draggable/use-draggable-item-context";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
@@ -33,7 +29,9 @@ export interface CardProps extends MarginProps, TagProps {
   width?: string;
   /** Child nodes */
   children: React.ReactNode;
-  /** Flag to indicate if card is draggable */
+  /** @deprecated The `draggable` props is deprecated, place Card inside a DraggableItem instead.
+   * Flag to indicate if card is draggable
+   * */
   draggable?: boolean;
   /** Height of the component (any valid CSS value) */
   height?: string;
@@ -73,7 +71,7 @@ const Card = ({
   "data-role": dataRole,
   children,
   width = "500px",
-  draggable,
+  draggable: draggableProp,
   height,
   onClick,
   href,
@@ -90,6 +88,8 @@ const Card = ({
   rightChildren,
   ...rest
 }: CardProps) => {
+  const { isDraggable, surfaceRef } = useDraggableItemContext();
+  const draggable = draggableProp || isDraggable;
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
   const interactive = !!(onClick || href);
   let footerWarningFired = false;
@@ -108,6 +108,7 @@ const Card = ({
 
   return (
     <StyledCard
+      ref={surfaceRef}
       $cardWidth={width}
       $interactive={interactive}
       $spacing={spacing}
@@ -126,9 +127,7 @@ const Card = ({
         {header}
         {draggable && (
           <StyledDragRow $spacing={spacing}>
-            <StyledDragHandle data-role="drag-handle">
-              <Icon type="drag" />
-            </StyledDragHandle>
+            <DragHandle />
             {rightChildren}
           </StyledDragRow>
         )}

@@ -2,7 +2,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Card, CardProps, CardFooter } from ".";
-import { StyledCard, StyledDragHandle } from "./card.style";
+import { StyledCard } from "./card.style";
+import { StyledDragHandle } from "../draggable/draggable-item/draggable-item.style";
 
 test("renders with correct data attributes", () => {
   render(
