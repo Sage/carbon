@@ -252,7 +252,7 @@ description: Carbon Option component props and usage examples.
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | value | string \| Record<string, unknown> \| undefined | No |  |  |  | The option's invisible internal value, if this is not passed the option will not be treated as interactive or selectable |  |
-| variant | "grey" \| "green" \| "red" \| "orange" \| "blue" \| "purple" \| "teal" \| "lime" \| "pink" \| "slate" \| undefined | No |  |  |  | MultiSelect only - set Pill color variant |  |
+| variant | "grey" \| "blue" \| "green" \| "lime" \| "orange" \| "pink" \| "purple" \| "red" \| "teal" \| "slate" \| undefined | No |  |  |  | MultiSelect only - set Pill color variant |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
