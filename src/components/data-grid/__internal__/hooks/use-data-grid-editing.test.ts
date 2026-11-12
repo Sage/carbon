@@ -24,8 +24,8 @@ const textColumn: DataGridColumn<Row> = {
 const position = { row: 0, column: 0 };
 
 const setEditorRef = (
-  editorRef: RefObject<HTMLInputElement | HTMLSelectElement>,
-  element: HTMLInputElement | HTMLSelectElement,
+  editorRef: RefObject<HTMLInputElement>,
+  element: HTMLInputElement,
 ) => {
   Object.defineProperty(editorRef, "current", {
     configurable: true,
@@ -160,43 +160,6 @@ test("ignores a commit when no cell is being edited", () => {
   act(() => result.current.commitEdit());
 
   expect(onCellCommit).not.toHaveBeenCalled();
-});
-
-test("opens dropdown editors when the browser supports showPicker", () => {
-  const column: DataGridColumn<Row> = {
-    field: "type",
-    headerName: "Type",
-    type: "dropdown",
-    options: [{ label: "A", value: "A" }],
-  };
-  const { result } = setup(column);
-  const select = document.createElement("select");
-  const showPicker = jest.fn();
-  select.showPicker = showPicker;
-  setEditorRef(result.current.editorRef, select);
-
-  act(() => result.current.beginEdit(position));
-
-  expect(showPicker).toHaveBeenCalled();
-});
-
-test("tolerates browsers that reject programmatic dropdown opening", () => {
-  const column: DataGridColumn<Row> = {
-    field: "type",
-    headerName: "Type",
-    type: "dropdown",
-    options: [{ label: "A", value: "A" }],
-  };
-  const { result } = setup(column);
-  const select = document.createElement("select");
-  select.showPicker = jest.fn(() => {
-    throw new Error("not allowed");
-  });
-  setEditorRef(result.current.editorRef, select);
-
-  expect(() => {
-    act(() => result.current.beginEdit(position));
-  }).not.toThrow();
 });
 
 test("toggles checkboxes without entering edit mode", () => {

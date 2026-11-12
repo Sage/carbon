@@ -73,7 +73,63 @@ test("opens and commits a dropdown with Space without scrolling vertically", asy
 
   const select = page.getByRole("combobox", { name: "Type, row 2" });
   await expect(select).toBeFocused();
-  await select.selectOption("Service");
+  const list = page.locator('[data-element="select-list-wrapper"]');
+  await expect(list).toBeVisible();
+  await expect
+    .poll(async () => {
+      const [cellBox, listBox] = await Promise.all([
+        typeCell.boundingBox(),
+        list.boundingBox(),
+      ]);
+
+      if (!cellBox || !listBox) return false;
+
+      return listBox.y >= cellBox.y + cellBox.height;
+    })
+    .toBe(true);
+  const options = page.getByRole("option");
+  const optionGeometryBeforeNavigation = await options.evaluateAll((elements) =>
+    elements.map((element) => {
+      const { height, y } = element.getBoundingClientRect();
+      return { height, y };
+    }),
+  );
+  const serviceOption = page.getByRole("option", { name: "Service" });
+  const productOption = page.getByRole("option", { name: "Product" });
+  await expect(
+    productOption.locator('[data-role="selected-icon-wrapper"]'),
+  ).toBeVisible();
+  await expect(
+    serviceOption.locator('[data-role="selected-icon-wrapper"]'),
+  ).toBeHidden();
+  await expect
+    .poll(async () =>
+      Promise.all([
+        select.evaluate((element) => getComputedStyle(element).fontSize),
+        serviceOption.evaluate((element) => getComputedStyle(element).fontSize),
+      ]),
+    )
+    .toEqual(["14px", "14px"]);
+  await page.keyboard.press("ArrowUp");
+  await expect(serviceOption).toHaveAttribute("data-has-focus", "true");
+  await expect(serviceOption).toHaveAttribute("aria-selected", "false");
+  await expect(
+    productOption.locator('[data-role="selected-icon-wrapper"]'),
+  ).toBeVisible();
+  await expect(
+    serviceOption.locator('[data-role="selected-icon-wrapper"]'),
+  ).toBeHidden();
+  await expect
+    .poll(() =>
+      options.evaluateAll((elements) =>
+        elements.map((element) => {
+          const { height, y } = element.getBoundingClientRect();
+          return { height, y };
+        }),
+      ),
+    )
+    .toEqual(optionGeometryBeforeNavigation);
+  await page.keyboard.press("Enter");
 
   await expect(typeCell).toContainText("Service");
   await expect(typeCell).toBeFocused();
@@ -94,7 +150,7 @@ test("opens and commits a dropdown with Space without scrolling vertically", asy
     .toBe("none");
 });
 
-test("restores grid focus when a native dropdown closes by blurring", async ({
+test("restores grid focus when a Carbon dropdown closes by blurring", async ({
   mount,
   page,
 }) => {
@@ -109,6 +165,27 @@ test("restores grid focus when a native dropdown closes by blurring", async ({
 
   await expect(typeCell).toContainText("Product");
   await expect(typeCell).toBeFocused();
+});
+
+test("filters and commits a FilterableSelect dropdown", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent filterableDropdown />);
+
+  const typeCell = cell(page, 2, "type");
+  await typeCell.click();
+  await page.keyboard.press("Enter");
+
+  const select = page.getByRole("combobox", { name: "Type, row 2" });
+  await expect(select).toBeFocused();
+  await select.fill("Serv");
+  await expect(page.getByRole("option", { name: "Service" })).toBeVisible();
+  await page.getByRole("option", { name: "Service" }).click();
+
+  await expect(typeCell).toContainText("Service");
+  await expect(typeCell).toBeFocused();
+  await expect(select).toHaveCount(0);
 });
 
 test("toggles a checkbox with one click and with Space", async ({
@@ -359,6 +436,25 @@ test("keeps focus on a cell clicked while an action popover is open", async ({
   await expect(
     page.getByRole("button", { name: "Actions for row 1" }),
   ).not.toBeFocused();
+});
+
+test("closes an open action popover before opening another", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const firstAction = page.getByRole("button", { name: "Actions for row 1" });
+  const secondAction = page.getByRole("button", { name: "Actions for row 2" });
+
+  await firstAction.click();
+  await expect(firstAction).toHaveAttribute("aria-expanded", "true");
+
+  await secondAction.click();
+
+  await expect(firstAction).toHaveAttribute("aria-expanded", "false");
+  await expect(secondAction).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByRole("list")).toHaveCount(1);
 });
 
 test("tabs from an open action popover to the first cell of the next row", async ({

@@ -174,6 +174,20 @@ export const ActiveEditingFocus: Story = {
   },
 };
 
+export const OpenDropdown: Story = {
+  render: () => <VisualGrid />,
+  parameters: {
+    chromatic: { delay: 300, disableSnapshot: false },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    await userEvent.click(canvas.getAllByRole("gridcell")[1]);
+    await userEvent.keyboard("{Enter}");
+    await expect(await body.findByRole("listbox")).toBeVisible();
+  },
+};
+
 export const StickyColumnsScrolledWithOpenActions: Story = {
   render: () => <VisualGrid maxWidth="400px" stickyColumns />,
   parameters: {
