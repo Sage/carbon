@@ -127,6 +127,51 @@ description: Carbon Message component props and usage examples.
 ```
 
 
+### ErrorSummary
+
+**Render**
+
+```tsx
+() => (
+    <>
+      <Message
+        variant="error"
+        title="There is a problem"
+        size="medium"
+        mb="var(--global-space-layout-xs)"
+      >
+        <ErrorSummaryList role="list" $size="medium">
+          <li>
+            <Link href="#" linkSize="medium">
+              Enter an email address
+            </Link>
+          </li>
+          <li>
+            <Link href="#" linkSize="medium">
+              Enter a valid telephone number
+            </Link>
+          </li>
+        </ErrorSummaryList>
+      </Message>
+      <Message variant="error" title="There is a problem" size="large">
+        <ErrorSummaryList role="list" $size="large">
+          <li>
+            <Link href="#" linkSize="large">
+              Enter an email address
+            </Link>
+          </li>
+          <li>
+            <Link href="#" linkSize="large">
+              Enter a valid telephone number
+            </Link>
+          </li>
+        </ErrorSummaryList>
+      </Message>
+    </>
+  )
+```
+
+
 ### Variant
 
 **Args**

@@ -30,7 +30,7 @@ const StyledMultiActionButton = styled.div.attrs(
     overflow-y: auto;
   }
 
-  /* TODO: When rendered inside a form, raise the menu's z-index above a potential form footer. Revisit this override once the Form component is aligned with the Fusion DS (FE-7162). */
+  /* Raise the inline menu above the legacy sticky Form footer (z-index: 1000) until stickyFooter support is removed. */
   form & [data-role="menu-wrapper"] {
     z-index: 1001;
   }
