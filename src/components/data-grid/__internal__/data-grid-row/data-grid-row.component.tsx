@@ -16,7 +16,7 @@ interface DataGridRowProps<T extends object> {
   draftValue?: unknown;
   stickyOffsets: Map<number, number>;
   gridTemplateColumns: string;
-  editorRef: React.RefObject<HTMLInputElement | HTMLSelectElement>;
+  editorRef: React.RefObject<HTMLInputElement>;
   getParams: (position: DataGridCellPosition) => DataGridCellParams<T>;
   isReadOnly: (params: DataGridCellParams<T>) => boolean;
   registerCell: (

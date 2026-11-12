@@ -20,17 +20,36 @@ import {
 jest.mock("@tanstack/react-virtual", () => ({
   useVirtualizer: jest.fn(
     ({
+      count = 0,
       enabled,
       getItemKey,
     }: {
-      enabled: boolean;
-      getItemKey: (index: number) => unknown;
+      count?: number;
+      enabled?: boolean;
+      getItemKey?: (index: number) => unknown;
     }) => {
-      if (enabled) getItemKey(0);
+      const isGridVirtualizer = typeof enabled === "boolean";
+
+      if (enabled) getItemKey?.(0);
+
       return {
-        getVirtualItems: () =>
-          enabled ? [{ index: 0, start: 80, end: 120 }] : [],
-        getTotalSize: () => 200,
+        getVirtualItems: () => {
+          if (isGridVirtualizer) {
+            return enabled ? [{ index: 0, start: 80, end: 120 }] : [];
+          }
+
+          return Array.from({ length: count }, (_, index) => ({
+            end: (index + 1) * 40,
+            index,
+            key: index,
+            lane: 0,
+            size: 40,
+            start: index * 40,
+          }));
+        },
+        getTotalSize: () => (isGridVirtualizer ? 200 : count * 40),
+        measureElement: jest.fn(),
+        scrollToIndex: jest.fn(),
       };
     },
   ),
@@ -976,7 +995,8 @@ test("commits a dropdown selection and restores focus", async () => {
 
   await user.click(dropdownCell);
   await user.keyboard("{Enter}");
-  await user.selectOptions(screen.getByRole("combobox"), "B");
+  await screen.findByRole("option", { name: "B" });
+  await user.keyboard("{ArrowDown}{Enter}");
 
   expect(onRowsChange).toHaveBeenCalledWith(
     expect.any(Array),
@@ -990,7 +1010,85 @@ test("commits a dropdown selection and restores focus", async () => {
   expect(dropdownCell).toHaveFocus();
 });
 
-test("restores cell focus when a native dropdown blurs to the document", async () => {
+test("filters and commits options with a FilterableSelect editor", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  const filterableColumns: DataGridColumn<Row>[] = [
+    {
+      field: "type",
+      filterable: true,
+      headerName: "Type",
+      options: [
+        { label: "Service", value: "service" },
+        { label: "Product", value: "product" },
+      ],
+      type: "dropdown",
+    },
+  ];
+
+  render(
+    <DataGrid
+      aria-label="Items"
+      columns={filterableColumns}
+      onRowsChange={onRowsChange}
+      rows={rows.slice(0, 1)}
+    />,
+  );
+
+  const cell = screen.getByRole("gridcell");
+  await user.dblClick(cell);
+  const editor = screen.getByRole("combobox", { name: "Type, row 1" });
+  await user.clear(editor);
+  await user.type(editor, "Prod");
+  await user.click(await screen.findByRole("option", { name: "Product" }));
+
+  expect(onRowsChange).toHaveBeenCalledWith(
+    expect.any(Array),
+    expect.objectContaining({
+      field: "type",
+      rowId: 1,
+      type: "dropdown-select",
+      value: "product",
+    }),
+  );
+  expect(cell).toHaveFocus();
+});
+
+test("preserves non-string dropdown values when committing a selection", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  const numericRows = [{ id: 1, rate: 0 }];
+  const numericColumns: DataGridColumn<(typeof numericRows)[number]>[] = [
+    {
+      field: "rate",
+      headerName: "Rate",
+      options: [
+        { id: "zero-rate", label: "Zero", value: 0 },
+        { label: "Twenty", value: 20 },
+      ],
+      type: "dropdown",
+    },
+  ];
+
+  render(
+    <DataGrid
+      aria-label="Rates"
+      columns={numericColumns}
+      onRowsChange={onRowsChange}
+      rows={numericRows}
+    />,
+  );
+
+  await user.dblClick(screen.getByRole("gridcell"));
+  await user.click(await screen.findByRole("option", { name: "Twenty" }));
+
+  expect(onRowsChange).toHaveBeenCalledWith(
+    [{ id: 1, rate: 20 }],
+    expect.objectContaining({ value: 20 }),
+  );
+});
+
+test("restores cell focus when a Carbon dropdown blurs to the document", async () => {
   const user = userEvent.setup();
   render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
   const dropdownCell = screen.getAllByRole("gridcell")[1];
@@ -1018,11 +1116,36 @@ test("commits a dropdown before moving to the next cell", async () => {
 
   await user.click(cells[1]);
   await user.keyboard("{Enter}");
-  await user.selectOptions(screen.getByRole("combobox"), "B");
+  await user.click(await screen.findByRole("option", { name: "B" }));
   await user.keyboard("{Tab}");
 
   expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
   expect(cells[2]).toHaveFocus();
+});
+
+test("closes an unchanged dropdown and moves when Tab leaves the open editor", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      enableTabNavigation
+      onRowsChange={onRowsChange}
+    />,
+  );
+  const cells = screen.getAllByRole("gridcell");
+
+  await user.click(cells[1]);
+  await user.keyboard("{Enter}");
+  expect(screen.getByRole("combobox", { name: "Type, row 1" })).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+
+  expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+  expect(cells[2]).toHaveFocus();
+  expect(onRowsChange).not.toHaveBeenCalled();
 });
 
 test("keeps grid navigation inside an open action popover", async () => {
@@ -1200,7 +1323,7 @@ test("renders and edits empty text and dropdown values", async () => {
   await user.keyboard("{Escape}");
 
   await user.dblClick(cells[1]);
-  expect(screen.getByRole("combobox")).toHaveValue("");
+  expect(screen.getByRole("combobox")).toHaveValue("Choose");
 });
 
 test("read-only action cells retain their contextual actions", async () => {

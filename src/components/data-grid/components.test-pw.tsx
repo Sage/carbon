@@ -35,12 +35,14 @@ interface DataGridComponentProps
     | "rowOverscan"
     | "stickyHeader"
   > {
+  filterableDropdown?: boolean;
   rowCount?: number;
 }
 
 const DataGridComponent = ({
   disableVirtualization,
   enableTabNavigation = true,
+  filterableDropdown = false,
   maxHeight = "240px",
   maxWidth = "420px",
   rowCount = 6,
@@ -63,6 +65,7 @@ const DataGridComponent = ({
         field: "type",
         headerName: "Type",
         type: "dropdown",
+        filterable: filterableDropdown,
         width: 160,
         readOnly: ({ row }) => row.id === 3,
         options: [
@@ -109,7 +112,7 @@ const DataGridComponent = ({
         ),
       },
     ],
-    [rows],
+    [filterableDropdown, rows],
   );
 
   return (

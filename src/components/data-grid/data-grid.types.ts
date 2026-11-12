@@ -27,6 +27,8 @@ export interface DataGridApi<T extends object> {
 }
 
 export interface DataGridOption {
+  /** Stable option identity. Recommended when options can be reordered. */
+  id?: string;
   label: string;
   value: string | number;
 }
@@ -85,6 +87,8 @@ export interface DataGridDropdownColumn<T extends object>
   type: "dropdown";
   /** Options displayed by the dropdown editor. */
   options: DataGridOption[];
+  /** Uses Carbon FilterableSelect as the cell editor. Experimental. */
+  filterable?: boolean;
 }
 
 export interface DataGridCheckboxColumn<T extends object>

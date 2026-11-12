@@ -326,8 +326,38 @@ export const StyledEditor = styled.input`
   ${editor}
 `;
 
-export const StyledSelect = styled.select`
-  ${editor}
+export const StyledSelectEditor = styled.div`
+  width: 100%;
+  height: 100%;
+
+  > [data-component="simple-select"],
+  > [data-component="filterable-select"],
+  [data-component="text-input"],
+  [data-role="input-wrapper"],
+  [data-role="input-text-container"] {
+    width: 100%;
+    height: 100%;
+    margin-block-end: 0;
+  }
+
+  > [data-component="simple-select"] > div,
+  > [data-component="filterable-select"] > div {
+    width: 100%;
+    height: 100%;
+  }
+
+  &&&& [data-role="input-container"] {
+    min-height: 0;
+    height: 100%;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+
+    &:focus-within:has(:focus:not(button)) {
+      box-shadow: none;
+      outline: none;
+    }
+  }
 `;
 
 export const StyledSpacer = styled.div<{ $height: number }>`
