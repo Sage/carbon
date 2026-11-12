@@ -296,7 +296,7 @@ description: Carbon DataGrid component props and usage examples.
 ```tsx
 () => {
     const [rows, setRows] = useState(() => createLargeRows(12));
-    const storyColumns = useLargeColumns(setRows);
+    const storyColumns = useLargeColumns(rows, setRows);
 
     return (
       <Box maxWidth="100%" minWidth={0} width="900px">
@@ -323,7 +323,7 @@ description: Carbon DataGrid component props and usage examples.
 ```tsx
 () => {
     const [rows, setRows] = useState(() => createLargeRows(1000));
-    const storyColumns = useLargeColumns(setRows);
+    const storyColumns = useLargeColumns(rows, setRows);
 
     return (
       <DataGrid

@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ActionPopover } from "../action-popover";
+import { ActionPopover, ActionPopoverDivider } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import Button from "../button";
 import Box from "../box";
@@ -431,6 +431,9 @@ interface RowActions<T> {
 
 interface LargeRowActions extends RowActions<LargeInvoiceLine> {
   onInsertAbove: (row: LargeInvoiceLine) => void;
+  onMoveDown: (row: LargeInvoiceLine) => void;
+  onMoveUp: (row: LargeInvoiceLine) => void;
+  rowCount: number;
 }
 
 const categories = ["Services", "Software", "Expenses"];
@@ -506,10 +509,32 @@ const insertLargeRowAbove = (
   ]);
 };
 
+const moveLargeRow = (
+  rows: LargeInvoiceLine[],
+  rowId: number,
+  offset: -1 | 1,
+): LargeInvoiceLine[] => {
+  const rowIndex = rows.findIndex(({ id }) => id === rowId);
+  const destinationIndex = rowIndex + offset;
+
+  if (rowIndex < 0 || destinationIndex < 0 || destinationIndex >= rows.length) {
+    return rows;
+  }
+
+  const reorderedRows = [...rows];
+  const [movedRow] = reorderedRows.splice(rowIndex, 1);
+  reorderedRows.splice(destinationIndex, 0, movedRow);
+
+  return renumberLargeRows(reorderedRows);
+};
+
 const createLargeColumns = ({
   onDelete,
   onDuplicate,
   onInsertAbove,
+  onMoveDown,
+  onMoveUp,
+  rowCount,
 }: LargeRowActions): DataGridColumn<LargeInvoiceLine>[] => [
   {
     field: "line",
@@ -591,15 +616,30 @@ const createLargeColumns = ({
       <ActionPopover
         aria-label={`Actions for line ${row.line}`}
         buttonLabel={<Icon type="ellipsis_vertical" />}
-        size="small"
+        size="medium"
       >
-        <ActionPopoverItem onClick={() => onInsertAbove(row)}>
-          Insert above
+        <ActionPopoverItem icon="add" onClick={() => onInsertAbove(row)}>
+          Insert row above
         </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => onDuplicate(row)}>
-          Duplicate
+        <ActionPopoverItem icon="copy" onClick={() => onDuplicate(row)}>
+          Duplicate row
         </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => onDelete(row)}>
+        <ActionPopoverItem
+          disabled={row.line === "1"}
+          icon="arrow_up"
+          onClick={() => onMoveUp(row)}
+        >
+          Move Up
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          disabled={row.line === String(rowCount)}
+          icon="arrow_down"
+          onClick={() => onMoveDown(row)}
+        >
+          Move Down
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem icon="delete" onClick={() => onDelete(row)}>
           Delete
         </ActionPopoverItem>
       </ActionPopover>
@@ -608,11 +648,15 @@ const createLargeColumns = ({
 ];
 
 const useLargeColumns = (
+  rows: LargeInvoiceLine[],
   setRows: React.Dispatch<React.SetStateAction<LargeInvoiceLine[]>>,
-) =>
-  useMemo(
+) => {
+  const rowCount = rows.length;
+
+  return useMemo(
     () =>
       createLargeColumns({
+        rowCount,
         onDelete: ({ id }) =>
           setRows((currentRows) =>
             renumberLargeRows(deleteRow(currentRows, id)),
@@ -623,14 +667,19 @@ const useLargeColumns = (
           ),
         onInsertAbove: ({ id }) =>
           setRows((currentRows) => insertLargeRowAbove(currentRows, id)),
+        onMoveDown: ({ id }) =>
+          setRows((currentRows) => moveLargeRow(currentRows, id, 1)),
+        onMoveUp: ({ id }) =>
+          setRows((currentRows) => moveLargeRow(currentRows, id, -1)),
       }),
-    [setRows],
+    [rowCount, setRows],
   );
+};
 
 export const StickyColumns: Story = {
   render: () => {
     const [rows, setRows] = useState(() => createLargeRows(12));
-    const storyColumns = useLargeColumns(setRows);
+    const storyColumns = useLargeColumns(rows, setRows);
 
     return (
       <Box maxWidth="100%" minWidth={0} width="900px">
@@ -663,7 +712,7 @@ StickyColumns.storyName = "Sticky columns";
 export const LargeScrollableGrid: Story = {
   render: () => {
     const [rows, setRows] = useState(() => createLargeRows(1000));
-    const storyColumns = useLargeColumns(setRows);
+    const storyColumns = useLargeColumns(rows, setRows);
 
     return (
       <DataGrid
