@@ -122,9 +122,35 @@ test("toggles a checkbox with one click and with Space", async ({
 
   await checkboxCell.click();
   await expect(checkbox).toBeChecked();
+  await expect(checkboxCell).toBeFocused();
+  await expect
+    .poll(() =>
+      checkboxCell.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .not.toBe("none");
 
   await page.keyboard.press("Space");
   await expect(checkbox).not.toBeChecked();
+});
+
+test("reveals a non-sticky header when navigating to the first row", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent stickyHeader={false} />);
+
+  const grid = page.getByRole("grid");
+  await grid.evaluate((element) => {
+    element.scrollTop = 80;
+  });
+
+  await cell(page, 2, "name").click();
+  await page.keyboard.press("ArrowUp");
+
+  await expect(cell(page, 1, "name")).toBeFocused();
+  await expect
+    .poll(() => grid.evaluate((element) => element.scrollTop))
+    .toBe(0);
 });
 
 test("applies read-only behavior to each cell variation", async ({
@@ -233,9 +259,33 @@ test("does not navigate away from an open action popover", async ({
 
   await page.keyboard.press("Escape");
   await expect(page.getByRole("list")).toHaveCount(0);
-  await expect(
-    page.getByRole("button", { name: "Actions for row 1" }),
-  ).toBeFocused();
+  const actionTrigger = page.getByRole("button", {
+    name: "Actions for row 1",
+  });
+  await expect(actionTrigger).toBeFocused();
+  await expect
+    .poll(() =>
+      actionCell.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .not.toBe("none");
+  await expect
+    .poll(() =>
+      actionTrigger.evaluate((element) => getComputedStyle(element).boxShadow),
+    )
+    .toBe("none");
+
+  const [cellBounds, triggerBounds] = await Promise.all([
+    actionCell.boundingBox(),
+    actionTrigger.boundingBox(),
+  ]);
+  expect(triggerBounds?.height).toBeLessThan(cellBounds?.height ?? 0);
+
+  await page.keyboard.press("ArrowDown");
+  await expect(cell(page, 2, "actions")).toBeFocused();
+  await expect(page.getByRole("list")).toHaveCount(0);
+
+  await page.keyboard.press("ArrowUp");
+  await expect(actionCell).toBeFocused();
 
   await page.keyboard.press("ArrowLeft");
   await expect(selectedCell).toBeFocused();

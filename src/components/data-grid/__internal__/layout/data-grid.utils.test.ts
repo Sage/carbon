@@ -25,3 +25,13 @@ test("uses the non-sticky header defaults when revealing a row", () => {
 
   expect(container.scrollTop).toBe(80);
 });
+
+test("reveals a non-sticky header with the first row", () => {
+  const container = document.createElement("div");
+  Object.defineProperty(container, "clientHeight", { value: 80 });
+  container.scrollTop = 80;
+
+  scrollRowIntoView(container, 0);
+
+  expect(container.scrollTop).toBe(0);
+});
