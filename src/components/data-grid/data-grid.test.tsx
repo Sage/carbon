@@ -648,6 +648,28 @@ test("does not reserve header space while vertically navigating by default", asy
   expect(wrapper.scrollTop).toBe(80);
 });
 
+test("reveals the non-sticky header when navigating to the first row", async () => {
+  const user = userEvent.setup();
+  const fourRows = [
+    ...rows,
+    { id: 3, name: "Three", type: "A", selected: false },
+    { id: 4, name: "Four", type: "B", selected: false },
+  ];
+  render(<DataGrid aria-label="Items" rows={fourRows} columns={columns} />);
+  const wrapper = screen.getByRole("grid");
+  Object.defineProperty(wrapper, "clientHeight", {
+    configurable: true,
+    value: 120,
+  });
+  wrapper.scrollTop = 80;
+
+  await user.click(screen.getAllByRole("gridcell")[3]);
+  await user.keyboard("{ArrowUp}");
+
+  expect(screen.getAllByRole("gridcell")[0]).toHaveFocus();
+  expect(wrapper.scrollTop).toBe(0);
+});
+
 test("enters edit mode, commits a value, and returns focus to the cell", async () => {
   const user = userEvent.setup();
   const onRowsChange = jest.fn();
@@ -694,12 +716,18 @@ test("space focuses the dropdown editor without scrolling the grid", async () =>
   const user = userEvent.setup();
   render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
   const grid = screen.getByRole("grid");
+  Object.defineProperty(grid, "clientHeight", {
+    configurable: true,
+    value: 120,
+  });
   grid.scrollTop = 40;
 
-  await user.click(screen.getAllByRole("gridcell")[1]);
+  // Use a later row here so this remains focused on Space opening the editor.
+  // Navigating to the first row intentionally reveals a non-sticky header.
+  await user.click(screen.getAllByRole("gridcell")[4]);
   await user.keyboard(" ");
 
-  expect(screen.getByRole("combobox", { name: "Type, row 1" })).toHaveFocus();
+  expect(screen.getByRole("combobox", { name: "Type, row 2" })).toHaveFocus();
   expect(grid.scrollTop).toBe(40);
 });
 
@@ -828,7 +856,7 @@ test("keeps grid navigation inside an open action popover", async () => {
       headerAriaLabel: "Actions",
       type: "action",
       renderCell: () => (
-        <ActionPopover aria-label="Row actions">
+        <ActionPopover aria-label="Row actions" size="small">
           <ActionPopoverItem>Duplicate</ActionPopoverItem>
           <ActionPopoverItem>Delete</ActionPopoverItem>
         </ActionPopover>
@@ -843,7 +871,7 @@ test("keeps grid navigation inside an open action popover", async () => {
       enableTabNavigation
     />,
   );
-  const [nameCell, actionCell, nextRowNameCell] =
+  const [nameCell, actionCell, nextRowNameCell, nextRowActionCell] =
     screen.getAllByRole("gridcell");
 
   await user.click(actionCell);
@@ -860,6 +888,13 @@ test("keeps grid navigation inside an open action popover", async () => {
   expect(
     screen.getAllByRole("button", { name: "Row actions" })[0],
   ).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  expect(nextRowActionCell).toHaveFocus();
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+
+  await user.keyboard("{ArrowUp}");
+  expect(actionCell).toHaveFocus();
 
   await user.keyboard("{ArrowLeft}");
   expect(nameCell).toHaveFocus();

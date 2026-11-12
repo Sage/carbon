@@ -108,6 +108,30 @@ const DataGridCellInner = <T extends object>(
     onCellKeyDown(event, position);
   };
 
+  const handleKeyDownCapture = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (type !== "action" || event.target === event.currentTarget) return;
+
+    const actionTrigger = event.currentTarget.querySelector<HTMLElement>(
+      '[data-element="action-popover-button"]',
+    );
+    const target = event.target as HTMLElement;
+    const actionPopoverIsOpen =
+      actionTrigger?.getAttribute("aria-expanded") === "true";
+    const isArrowKey =
+      event.key === "ArrowLeft" ||
+      event.key === "ArrowRight" ||
+      event.key === "ArrowUp" ||
+      event.key === "ArrowDown";
+
+    // A closed action trigger receives focus after its menu closes. Capture
+    // arrow keys before the trigger can interpret them as another request to
+    // open the menu, and return them to the grid's navigation model.
+    if (actionTrigger?.contains(target) && !actionPopoverIsOpen && isArrowKey) {
+      event.stopPropagation();
+      onCellKeyDown(event, position);
+    }
+  };
+
   return (
     <StyledCell
       ref={ref}
@@ -151,6 +175,7 @@ const DataGridCellInner = <T extends object>(
       onDoubleClick={() => {
         if (type !== "checkbox") onBeginEdit(position);
       }}
+      onKeyDownCapture={handleKeyDownCapture}
       onKeyDown={handleKeyDown}
       data-component="data-grid-cell"
       data-element={`data-grid-cell-${String(rowId)}-${String(column.field)}`}

@@ -98,6 +98,7 @@ const VisualGrid = ({
           <ActionPopover
             aria-label={`Actions for row ${row.id}`}
             buttonLabel={<Icon type="ellipsis_vertical" />}
+            size="small"
           >
             <ActionPopoverItem
               onClick={() =>

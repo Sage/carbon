@@ -64,6 +64,7 @@ const InteractionGrid = () => {
           <ActionPopover
             aria-label={`Actions for ${row.description}`}
             buttonLabel={<Icon type="ellipsis_vertical" />}
+            size="small"
           >
             <ActionPopoverItem
               onClick={() =>
