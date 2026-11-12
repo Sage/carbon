@@ -340,3 +340,16 @@ test("calls onIconClick callback when the dropdown icon is clicked", () => {
 
   expect(onIconClick).toHaveBeenCalledTimes(1);
 });
+
+test("bubbles a simple select caret click to its parent", () => {
+  const onParentClick = jest.fn();
+  render(
+    <div onClick={onParentClick}>
+      <ControlledSelectTextbox selectType="simple" />
+    </div>,
+  );
+
+  fireEvent.click(screen.getByTestId("input-icon-toggle"));
+
+  expect(onParentClick).toHaveBeenCalledTimes(1);
+});

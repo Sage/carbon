@@ -175,7 +175,6 @@ const SelectTextbox = React.forwardRef(
       event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) {
       event.preventDefault();
-      event.stopPropagation();
 
       if (disabled || readOnly) {
         return;

@@ -10,6 +10,7 @@ import {
 import userEvent from "@testing-library/user-event";
 import Box from "../../box";
 import Button from "../../button";
+import Dialog from "../../dialog";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 import SimpleSelect, { CustomSelectChangeEvent, SimpleSelectProps } from ".";
@@ -913,6 +914,30 @@ describe("dropdown list", () => {
     expect(await screen.findByRole("listbox")).toBeVisible();
   });
 
+  it("closes another select when its dropdown icon opens", async () => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <SimpleSelect label="First" onChange={() => {}} value="">
+          <Option text="Amber" value="amber" />
+        </SimpleSelect>
+        <SimpleSelect label="Second" onChange={() => {}} value="">
+          <Option text="Blue" value="blue" />
+        </SimpleSelect>
+      </>,
+    );
+
+    const [firstCaret, secondCaret] =
+      screen.getAllByTestId("input-icon-toggle");
+    await user.click(firstCaret);
+    expect(screen.getByRole("option", { name: "Amber" })).toBeVisible();
+
+    await user.click(secondCaret);
+
+    expect(screen.getAllByRole("listbox")).toHaveLength(1);
+    expect(screen.getByRole("option", { name: "Blue" })).toBeVisible();
+  });
+
   ["Space", "Enter", "ArrowUp", "ArrowDown", "Home", "End"].forEach((key) => {
     test(`opens when input is focused and ${key} key is pressed`, async () => {
       const user = userEvent.setup();
@@ -1202,6 +1227,22 @@ describe("dropdown list", () => {
     });
   });
 
+  it("closes when clicking outside input, stays open for menu clicks", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} value="">
+        <Option text="amber" value="amber" />
+      </SimpleSelect>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    fireEvent.click(screen.getByTestId("menu-wrapper"));
+    expect(screen.getByRole("listbox")).toBeVisible();
+
+    fireEvent.click(screen.getByTestId("select-textbox"));
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+
   it("closes when focus returns to the input after clicking outside", async () => {
     const user = userEvent.setup();
     render(
@@ -1257,6 +1298,33 @@ describe("dropdown list", () => {
     expect(input).toHaveAttribute("aria-expanded", "false");
     await waitFor(() => {
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
+  });
+
+  it("closes the Select before its parent Dialog on Escape", async () => {
+    const user = userEvent.setup();
+    const DialogWithSelect = () => {
+      const [open, setOpen] = useState(true);
+      return (
+        <Dialog open={open} onCancel={() => setOpen(false)}>
+          <SimpleSelect label="Colour" onChange={() => {}} value="">
+            <Option text="amber" value="amber" />
+          </SimpleSelect>
+        </Dialog>
+      );
+    };
+
+    render(<DialogWithSelect />);
+    await user.click(screen.getByRole("combobox"));
+    expect(screen.getByRole("listbox")).toBeVisible();
+
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    expect(screen.getByRole("dialog")).toBeVisible();
+
+    await user.keyboard("{Escape}");
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
   });
 

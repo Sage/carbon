@@ -60,6 +60,11 @@ test("positions the list against the viewport rather than an overflowing parent"
     "var(--carbon-zindex-popover)",
     { modifier: '& [data-element="select-list-wrapper"]' },
   );
+  expect(screen.getByTestId("select-list-popover-menu")).toHaveStyleRule(
+    "max-height",
+    "none",
+    { modifier: '& [data-element="select-list-wrapper"]' },
+  );
   const listbox = screen.getByRole("listbox");
   expect(listbox).toHaveAttribute("tabindex", "-1");
   expect(listbox).toHaveStyleRule(

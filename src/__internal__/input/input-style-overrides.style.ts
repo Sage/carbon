@@ -204,6 +204,8 @@ const mulitiSelectInputStyles = ($size?: string) => css`
     }
 
     .input-text-container {
+      position: relative;
+
       ${$size === "small" &&
       css`
         padding: var(--global-space-none) var(--global-space-comp-2-xl)

@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styled, { type CSSObject } from "styled-components";
 
 import {
@@ -21,6 +27,7 @@ import Icon from "../../../../icon";
 import Loader from "../../../../loader/__next__";
 import ResultsAnnouncement from "../../../../../__internal__/results-announcement/results-announcement.component";
 import useLocale from "../../../../../hooks/__internal__/useLocale";
+import useModalManager from "../../../../../hooks/__internal__/useModalManager";
 import isExpectedOption from "../../utils/is-expected-option";
 import guid from "../../../../../__internal__/utils/helpers/guid";
 import useSelectListVirtualization, {
@@ -34,12 +41,23 @@ const SelectPopoverMenu = (props: PopoverMenuProps<HTMLInputElement>) => (
 );
 
 const StyledSelectPopoverMenu = styled(SelectPopoverMenu)`
+  [data-component="popover-menu-control"] {
+    /* Keep the live region inside the control when a parent form scrolls. */
+    position: relative;
+  }
+
   [data-element="select-list-wrapper"] {
     z-index: var(--carbon-zindex-popover);
+    /* Nested transformed popovers must not clip the list's own scroll area. */
+    max-height: none;
   }
 
   [data-component="popover-menu-item"] {
     column-gap: 0;
+  }
+
+  [aria-selected="true"] [data-role="selected-icon-wrapper"] {
+    visibility: inherit;
   }
 
   [role="listbox"] > li {
@@ -239,9 +257,46 @@ const SelectList = ({
   isLoading,
 }: NextSelectListProps) => {
   const locale = useLocale();
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLUListElement | null>(null);
+  const modalRef = useRef<HTMLUListElement | null>(null);
+  const setListRef = useCallback((element: HTMLUListElement | null) => {
+    listRef.current = element;
+    // PopoverMenu unmounts the list on close. Retain its identity so the modal
+    // manager can remove it from the stack after React clears the DOM ref.
+    if (element) modalRef.current = element;
+  }, []);
   const resolvedMaxHeight =
     maxHeight ?? `calc(5.5 * var(--global-size-${size.charAt(0)}))`;
+
+  const handleEscapeKey = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose(event);
+    },
+    [onClose],
+  );
+
+  useModalManager({
+    open,
+    closeModal: handleEscapeKey,
+    modalRef,
+    triggerRefocusOnClose: false,
+  });
+
+  const handlePopoverClose = useCallback(
+    (event?: Event, value?: string) => {
+      // The modal manager closes this list on keyup, after the parent Dialog
+      // has had a chance to see that the Select is the topmost modal.
+      if (
+        event?.type === "keydown" &&
+        "key" in event &&
+        event.key === "Escape"
+      ) {
+        return;
+      }
+      onClose(event, value);
+    },
+    [onClose],
+  );
 
   useEffect(() => {
     const list = listRef.current;
@@ -550,11 +605,12 @@ const SelectList = ({
       placement={placement}
       id={listId}
       controlReference={controlReference}
+      clickAwayWithinReference={!!controlReference}
       controlWrapperStyle={controlWrapperStyle}
       listboxAriaLabelledBy={labelId}
       listboxAriaLabel={listboxAriaLabel}
-      listRef={listRef}
-      onClose={onClose}
+      listRef={setListRef}
+      onClose={handlePopoverClose}
       popoverControl={(ref, controlProps) => (
         <>
           {popoverControl(ref, controlProps)}
@@ -582,6 +638,7 @@ const SelectList = ({
           : undefined
       }
       flipEnabled={flipEnabled}
+      hideWhenReferenceHidden
       selectOnSpaceAndTab={selectOnSpaceAndTab}
       enablePageNavigation
       focusSelectedOnOpen
