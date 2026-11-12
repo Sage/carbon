@@ -152,6 +152,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   popoverStrategy?: PopoverProps["popoverStrategy"];
   /** Override default control reference for popover */
   controlReference?: React.RefObject<HTMLDivElement | HTMLLIElement>;
+  /** Treat only the reference and menu as inside for click-away handling. */
+  clickAwayWithinReference?: boolean;
   /** Set the custom max-height of the menu list */
   maxHeight?: string;
   /** Custom styles for the control wrapper element */
@@ -390,6 +392,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     isSubmenu = false,
     id,
     controlReference,
+    clickAwayWithinReference = false,
     listRef,
     controlWrapperStyle,
     maxHeight,
@@ -524,8 +527,13 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
 
   useEffect(() => {
     const el = isSubmenu ? scrollRef.current : wrapperRef.current;
+    const clickEl = clickAwayWithinReference ? popoverReference.current : el;
+    const menuEl = clickAwayWithinReference
+      ? scrollRef.current?.parentElement
+      : null;
 
-    el?.addEventListener("click", handleClickInside, { passive: true });
+    clickEl?.addEventListener("click", handleClickInside, { passive: true });
+    menuEl?.addEventListener("click", handleClickInside, { passive: true });
     el?.addEventListener("keydown", handleMainWrapperKeyDown);
 
     // When mounted as a submenu, also mark clicks on the trigger <li> as "inside"
@@ -534,7 +542,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     triggerEl?.addEventListener("click", handleClickInside, { passive: true });
 
     return () => {
-      el?.removeEventListener("click", handleClickInside);
+      clickEl?.removeEventListener("click", handleClickInside);
+      menuEl?.removeEventListener("click", handleClickInside);
       el?.removeEventListener("keydown", handleMainWrapperKeyDown);
       triggerEl?.removeEventListener("click", handleClickInside);
     };
@@ -543,6 +552,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     handleClickInside,
     handleMainWrapperKeyDown,
     controlReference,
+    clickAwayWithinReference,
   ]);
 
   const handleDropdownMenuKeyDown = useHandleDropdownMenuKeyDown(

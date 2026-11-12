@@ -56,6 +56,7 @@ export interface SimpleSelectProps
     | "labelInline"
     | "labelWidth"
     | "placeholder"
+    | "info"
   > {
   /** Prop to specify the aria-describedby property of the component input */
   "aria-describedby"?: string;
