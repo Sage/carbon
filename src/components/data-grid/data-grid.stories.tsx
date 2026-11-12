@@ -145,6 +145,7 @@ const createInvoiceColumns = (
       <ActionPopover
         aria-label={`Actions for ${row.description || "empty line"}`}
         buttonLabel={<Icon type="ellipsis_vertical" />}
+        size="small"
       >
         <ActionPopoverItem
           onClick={() =>
@@ -590,6 +591,7 @@ const createLargeColumns = ({
       <ActionPopover
         aria-label={`Actions for line ${row.line}`}
         buttonLabel={<Icon type="ellipsis_vertical" />}
+        size="small"
       >
         <ActionPopoverItem onClick={() => onInsertAbove(row)}>
           Insert above

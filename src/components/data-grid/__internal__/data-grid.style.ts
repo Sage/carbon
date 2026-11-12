@@ -224,11 +224,21 @@ export const StyledCell = styled.div<
       }
     `}
 
-  ${({ $cellType }) =>
-    $cellType === "action" &&
+  ${({ $cellType, $sticky }) =>
+    ($cellType === "action" || $cellType === "checkbox") &&
     css`
       &:focus-within {
-        z-index: 3;
+        box-shadow: inset 0 0 0 var(--global-borderwidth-s)
+          var(--focus-borderalt);
+        z-index: ${$sticky ? 3 : 1};
+      }
+
+      [data-element="action-popover-button"]:focus,
+      [data-component="checkbox"]
+        input:focus
+        + [data-role="checkable-input-svg-wrapper"] {
+        box-shadow: none;
+        outline: none;
       }
     `}
 `;

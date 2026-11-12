@@ -44,11 +44,12 @@ export const scrollRowIntoView = (
   const rowStart = headerHeight + rowIndex * rowHeight;
   const rowEnd = rowStart + rowHeight;
   const stickyHeaderHeight = stickyHeader ? headerHeight : 0;
+  const revealStart = !stickyHeader && rowIndex === 0 ? 0 : rowStart;
   const visibleStart = container.scrollTop + stickyHeaderHeight;
   const visibleEnd = container.scrollTop + container.clientHeight;
 
-  if (rowStart < visibleStart) {
-    container.scrollTop = Math.max(0, rowStart - stickyHeaderHeight);
+  if (revealStart < visibleStart) {
+    container.scrollTop = Math.max(0, revealStart - stickyHeaderHeight);
   } else if (rowEnd > visibleEnd) {
     container.scrollTop = Math.max(0, rowEnd - container.clientHeight);
   }
