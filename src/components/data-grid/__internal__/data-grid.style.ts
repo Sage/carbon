@@ -241,6 +241,14 @@ export const StyledCell = styled.div<
         outline: none;
       }
     `}
+
+  ${({ $cellType }) =>
+    $cellType === "action" &&
+    css`
+      &:has([data-element="action-popover-button"][aria-expanded="true"]) {
+        z-index: 5;
+      }
+    `}
 `;
 
 export const StyledValidationBar = styled.span`

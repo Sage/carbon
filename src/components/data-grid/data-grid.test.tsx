@@ -402,6 +402,10 @@ test("keeps scrolling cells transparent and raises focused action cells", () => 
   expect(actionCell).toHaveStyleRule("z-index", "3", {
     modifier: ":focus-within",
   });
+  expect(actionCell).toHaveStyleRule("z-index", "5", {
+    modifier:
+      ':has([data-element="action-popover-button"][aria-expanded="true"])',
+  });
 });
 
 test("applies regular and medium content weights to resting cells", () => {
@@ -550,6 +554,70 @@ test("uses arrow keys to navigate cells", async () => {
   expect(cells[1]).toHaveFocus();
   await user.keyboard("{ArrowDown}");
   expect(cells[4]).toHaveFocus();
+});
+
+test("leaves keyboard handling with nested controls in non-action cells", async () => {
+  const user = userEvent.setup();
+  const interactiveColumns: DataGridColumn<Row>[] = [
+    {
+      field: "name",
+      headerName: "Name",
+      renderCell: () => <button type="button">Nested control</button>,
+    },
+    { field: "type", headerName: "Type" },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={interactiveColumns}
+    />,
+  );
+  const nestedControl = screen.getByRole("button", {
+    name: "Nested control",
+  });
+
+  act(() => nestedControl.focus());
+  await user.keyboard("{ArrowRight}");
+
+  expect(nestedControl).toHaveFocus();
+  expect(screen.getAllByRole("gridcell")[1]).not.toHaveFocus();
+});
+
+test("leaves keyboard handling with secondary controls in action cells", async () => {
+  const user = userEvent.setup();
+  const interactiveColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name" },
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "action",
+      renderCell: () => (
+        <>
+          <ActionPopover aria-label="More actions" size="small">
+            <ActionPopoverItem>Duplicate</ActionPopoverItem>
+          </ActionPopover>
+          <button type="button">Secondary action</button>
+        </>
+      ),
+    },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={interactiveColumns}
+    />,
+  );
+  const secondaryAction = screen.getByRole("button", {
+    name: "Secondary action",
+  });
+
+  act(() => secondaryAction.focus());
+  await user.keyboard("{ArrowLeft}");
+
+  expect(secondaryAction).toHaveFocus();
+  expect(screen.getAllByRole("gridcell")[0]).not.toHaveFocus();
 });
 
 test("scrolls horizontally to reveal the cell reached with arrow keys", async () => {
