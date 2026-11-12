@@ -1,6 +1,9 @@
 import React, { createContext } from "react";
-import { TabContextProps } from "./tabs.types";
-import { StyledTabProvider } from "./tabs.style";
+import { StyledTabProvider } from "../../tabs.style";
+
+export interface TabContextProps {
+  tabId?: string;
+}
 
 export const TabContext = createContext<TabContextProps>({
   tabId: "",

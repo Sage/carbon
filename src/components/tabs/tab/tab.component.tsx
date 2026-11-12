@@ -1,7 +1,7 @@
 import React from "react";
 import { PaddingProps } from "styled-system";
 import { TagProps } from "../../../__internal__/utils/helpers/tags/tags";
-import { Tab as NextTab } from "../__next__/tabs.component";
+import { Tab as NextTab } from "../__next__";
 import type { TabProps as NextTabProps } from "../__next__";
 import Logger from "../../../__internal__/utils/logger";
 

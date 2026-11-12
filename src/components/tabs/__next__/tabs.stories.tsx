@@ -9,7 +9,7 @@ import Pill from "../../pill";
 import Typography from "../../typography";
 import Form from "../../form";
 import Textbox from "../../textbox";
-import { TabsHandle } from "./tabs.types";
+import type { TabsHandle } from ".";
 
 const lightGreyBackground: React.CSSProperties = {
   padding: "var(--global-space-layout-xs)",
