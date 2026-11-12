@@ -253,6 +253,21 @@ test("does not navigate away from an open action popover", async ({
 
   const duplicate = page.getByRole("button", { name: "Duplicate" });
   await expect(duplicate).toBeFocused();
+  const stickyHeader = page.locator('[data-component="data-grid-header"]');
+  await expect
+    .poll(async () => {
+      const [cellZIndex, headerZIndex] = await Promise.all([
+        actionCell.evaluate((element) =>
+          Number(getComputedStyle(element).zIndex),
+        ),
+        stickyHeader.evaluate((element) =>
+          Number(getComputedStyle(element).zIndex),
+        ),
+      ]);
+
+      return cellZIndex > headerZIndex;
+    })
+    .toBe(true);
   await page.keyboard.press("ArrowLeft");
   await expect(duplicate).toBeFocused();
   await expect(page.getByRole("list")).toBeVisible();
