@@ -10,19 +10,28 @@ import FlatTableHead from "../flat-table-head";
 import FlatTableRow from "../flat-table-row";
 import FlatTableHeader from "../flat-table-header";
 import I18nProvider from "../../i18n-provider";
+import StyledSortButton from "./sort.style";
 
-test("logs error when not within FlatTable", () => {
-  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+test("throws an error when not within FlatTable", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-  render(<Sort sortType="ascending">Name</Sort>);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    ),
+  expect(() => render(<Sort sortType="ascending">Name</Sort>)).toThrow(
+    "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
+});
+
+test("uses default styles when rendered without sort button props", () => {
+  render(<StyledSortButton>Sort</StyledSortButton>);
+
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "color",
+    "var(--colorsUtilityYin090)",
+  );
+  expect(screen.getByRole("button")).toHaveStyleRule("font-size", "14px");
 });
 
 test("should not render Icon if `sortType` does not exist", () => {

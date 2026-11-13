@@ -18,26 +18,26 @@ import { FlatTable, FlatTableBody, FlatTableBodyDraggable } from "..";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import { StrictFlatTableProvider } from "../__internal__/strict-flat-table.context";
 
-test("logs error if used outside of FlatTable", () => {
-  const loggerSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+test("throws an error if used outside of FlatTable", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-  render(
-    <table>
-      <tbody>
-        <FlatTableRow>
-          <td>Cell</td>
-        </FlatTableRow>
-      </tbody>
-    </table>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    expect.stringContaining(
-      "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  expect(() =>
+    render(
+      <table>
+        <tbody>
+          <FlatTableRow>
+            <td>Cell</td>
+          </FlatTableRow>
+        </tbody>
+      </table>,
     ),
+  ).toThrow(
+    "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   );
 
-  loggerSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });
 
 test("should render with the expected `data-` attributes on the root element when props are passed", () => {
