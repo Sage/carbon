@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import { execSync } from 'child_process';
+import { execFileSync, execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
@@ -204,6 +204,9 @@ async function commit() {
     // Create temp file for commit message
     tempFile = path.join(os.tmpdir(), `commit-msg-${Date.now()}.txt`);
     fs.writeFileSync(tempFile, message, 'utf8');
+
+    // Check compatibility before Git runs the other commit hooks.
+    execFileSync('npm', ['run', '--silent', 'check:public-api', '--', tempFile, '--quiet'], { stdio: 'inherit' });
 
     // Validates with commitlint before committing
     try {
