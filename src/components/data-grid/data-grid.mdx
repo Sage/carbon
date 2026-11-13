@@ -117,7 +117,8 @@ cell content additional emphasis when it is not being edited.
 
 This example includes an empty cell with an error and a read-only row. Hover a
 cell, use the arrow keys to move focus, and press **Enter** to edit it.
-Checkboxes toggle with one click or **Space**.
+Checkboxes toggle with one click or **Space**. **Space** also opens a focused
+dropdown or action popover.
 
 <Canvas of={DataGridStories.EditableInvoiceLines} />
 
@@ -149,9 +150,11 @@ is displayed on a different surface.
 ### Validation and error summaries
 
 Set `error` on a text or dropdown column to display an error and provide an
-accessible description. Use the forwarded ref to connect an error summary to a
-cell. `focusCell` moves navigation focus to the cell. `editCell` opens the
-editor and moves focus to it.
+accessible description for both the cell and its editor. Error-summary layout
+is owned by the consuming application. Use `aria-describedby` to associate the
+grid with external summary or guidance content, and use the forwarded ref to
+connect each summary link to a cell. `focusCell` moves navigation focus to the
+cell. `editCell` opens the editor and moves focus to it.
 
 <Canvas of={DataGridStories.ValidationAndErrorSummary} />
 
@@ -180,7 +183,8 @@ Data Grid has separate navigation and edit modes:
 
 - Arrow keys move between cells.
 - **Enter** edits text and dropdown cells, or opens an action cell.
-- **Space** opens a focused dropdown or toggles a focused checkbox.
+- **Space** opens a focused dropdown or action popover, or toggles a focused
+  checkbox.
 - Typing on a text cell starts editing and appends the typed character to its
   current value.
 - **Escape** cancels an edit and returns to navigation mode.
