@@ -15,7 +15,7 @@ import {
 } from "lexical";
 import { FocusCommandPayload } from "../../__utils__/interfaces.types";
 
-const FOCUS_COMMAND = createCommand("FOCUS_COMMAND");
+const FOCUS_COMMAND = createCommand<FocusCommandPayload>("FOCUS_COMMAND");
 
 // This hook sets the cursor at the end of the editor when it receives focus
 // via keyboard, or at the relevant position when it receives focus via mouse
