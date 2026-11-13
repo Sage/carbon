@@ -1,0 +1,213 @@
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
+
+import * as DataGridStories from "./data-grid.stories";
+
+<Meta of={DataGridStories} />
+
+# Data Grid
+
+<a
+  target="_blank"
+  href="https://designsystem.sage.com/fusion/latest/pages/components/data-grid/"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+A Data Grid captures and manages editable line-item data in rows and columns.
+Use [Table](?path=/docs/table--docs) when users only need to compare or read
+data.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Playground](#playground)
+- [Examples](#examples)
+- [Keyboard behavior](#keyboard-behavior)
+- [Accessibility](#accessibility)
+- [Props](#props)
+
+## Quick Start
+
+Provide an array of row objects and a column definition for each value displayed
+in the grid. Data Grid is controlled. Store the rows received by `onRowsChange`
+and pass them back to the component.
+
+```tsx
+import React from "react";
+import {
+  DataGrid,
+  DataGridColumn,
+} from "carbon-react/lib/components/data-grid";
+
+interface InvoiceLine {
+  id: number;
+  description: string;
+  category: "Services" | "Software";
+}
+
+const columns: DataGridColumn<InvoiceLine>[] = [
+  {
+    field: "description",
+    headerName: "Description",
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    type: "dropdown",
+    options: [
+      { label: "Services", value: "Services" },
+      { label: "Software", value: "Software" },
+    ],
+  },
+];
+
+export default function InvoiceLines() {
+  const [rows, setRows] = React.useState<InvoiceLine[]>([
+    { id: 1, description: "Consulting", category: "Services" },
+  ]);
+
+  return (
+    <DataGrid
+      aria-label="Invoice lines"
+      rows={rows}
+      columns={columns}
+      onRowsChange={(nextRows) => setRows(nextRows)}
+    />
+  );
+}
+```
+
+Each row requires a stable ID. Data Grid reads the `id` property by default.
+Use `getRowId` when your row uses a different property.
+
+See the [Data and API guide](?path=/docs/data-grid-data-and-api-guide--docs) for
+detailed row and column definitions, change events, validation, and row
+operations.
+
+## Playground
+
+Use this interactive example to explore Data Grid props and behaviours with
+Storybook controls. The **sticky columns** control is provided by this example
+to demonstrate the supported column positions.
+
+<Canvas of={DataGridStories.Playground} />
+
+<Controls
+  of={DataGridStories.Playground}
+  include={[
+    "enableTabNavigation",
+    "stickyHeader",
+    "maxHeight",
+    "maxWidth",
+    "disableVirtualization",
+    "rowOverscan",
+    "playgroundStickyColumns",
+  ]}
+/>
+
+## Examples
+
+### Cell types and states
+
+Data Grid supports text, dropdown, checkbox, and action cells. Text is the
+default cell type, so its `type` can be omitted. Use `weight="medium"` to give
+cell content additional emphasis when it is not being edited.
+
+This example includes an empty cell with an error and a read-only row. Hover a
+cell, use the arrow keys to move focus, and press **Enter** to edit it.
+Checkboxes toggle with one click or **Space**. **Space** also opens a focused
+dropdown or action popover.
+
+<Canvas of={DataGridStories.EditableInvoiceLines} />
+
+Use `readOnly` and `error` as fixed values or functions when the state depends
+on row data. Checkbox and action columns do not support the error state. Action
+cells use `renderCell` to display controls such as an action popover.
+
+Read-only dropdown cells display their selected label as text, and read-only
+checkboxes cannot be changed. Action controls remain available because they do
+not edit the cell value. Disable individual actions in `renderCell` when the
+product's business rules require it. Clicking another cell dismisses an open
+action popover and keeps focus on the selected cell. Keyboard dismissal still
+returns focus to the action trigger.
+
+### Sticky columns and optional header
+
+Columns are not sticky by default. Set `sticky="left"` or `sticky="right"` on
+the relevant column definition. In this example, the line number and action
+columns remain visible while the other columns scroll beneath them.
+
+Set `stickyHeader` to keep the header visible while the grid scrolls vertically.
+Headers scroll with the grid by default.
+
+<Canvas of={DataGridStories.StickyColumns} />
+
+Scrolling cells are transparent. Sticky cells use an opaque background to stop
+scrolling content from showing through. They use `--table-row-bg-default` by
+default. Set `--data-grid-sticky-cell-bg` on a containing element when the grid
+is displayed on a different surface.
+
+### Validation and error summaries
+
+Set `error` on a text or dropdown column to display an error and provide an
+accessible description for both the cell and its editor. Error-summary layout
+is owned by the consuming application. Use `aria-describedby` to associate the
+grid with external summary or guidance content, and use the forwarded ref to
+connect each summary link to a cell. `focusCell` moves navigation focus to the
+cell. `editCell` opens the editor and moves focus to it.
+
+<Canvas of={DataGridStories.ValidationAndErrorSummary} />
+
+```tsx
+const gridRef = React.createRef<DataGridHandle<InvoiceLine>>();
+
+gridRef.current?.editCell(invoiceLineId, "description");
+```
+
+### Large data sets
+
+Set `maxHeight` to create a vertical scroll area. Data Grid automatically
+virtualizes rows when a constrained grid contains more than 20 rows.
+`rowOverscan` controls how many additional rows remain mounted above and below
+the visible rows.
+
+Use `disableVirtualization` only when an integration requires every row to
+remain in the DOM. Columns remain mounted so horizontal keyboard navigation,
+editing, and sticky positioning remain predictable.
+
+<Canvas of={DataGridStories.LargeScrollableGrid} />
+
+## Keyboard behavior
+
+Data Grid has separate navigation and edit modes:
+
+- Arrow keys move between cells.
+- **Enter** edits text and dropdown cells, or opens an action cell.
+- **Space** opens a focused dropdown or action popover, or toggles a focused
+  checkbox.
+- Typing on a text cell starts editing and appends the typed character to its
+  current value.
+- **Escape** cancels an edit and returns to navigation mode.
+- Set `enableTabNavigation` to move through cells with **Tab** and
+  **Shift+Tab**. In edit mode, Tab commits the value before moving.
+
+Navigation focus uses a single high-contrast border. Edit mode uses Carbon's
+dual inset focus treatment. Text editors place the cursor at the end of the
+current value. Dropdowns open when the browser supports programmatic picker
+opening.
+
+## Accessibility
+
+Data Grid uses ARIA grid semantics and a single roving tab stop. Navigation and
+edit modes allow users to move through cells before entering interactive
+content.
+
+Provide either `aria-label` or `aria-labelledby`. Use `aria-describedby` for
+additional keyboard guidance or an error summary. Custom controls supplied to
+action cells must provide their own accessible names and keyboard behaviour.
+
+## Props
+
+<ArgTypes of={DataGridStories} exclude={/^(playgroundStickyColumns)$/} />

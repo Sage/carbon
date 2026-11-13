@@ -1,0 +1,231 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+
+import * as DataGridStories from "./data-grid.stories";
+
+<Meta title="Data Grid/Data and API guide" />
+
+# Data Grid: data and API guide
+
+This guide explains how to structure Data Grid rows and columns, receive change
+events, use the row API, and validate data. See the [Data Grid Docs](?path=/docs/data-grid--docs)
+for the Playground, examples, keyboard behaviour, accessibility, and props.
+
+## Contents
+
+- [Define rows](#define-rows)
+- [Define columns](#define-columns)
+- [Receive updated rows](#receive-updated-rows)
+- [Row operations](#row-operations)
+- [Validation](#validation)
+
+## Define rows
+
+Data Grid does not own or mutate application data. The `rows` array remains the
+application's source of truth.
+
+Type the rows and columns with the same interface. This provides field-name
+autocomplete and checks that editable columns refer to properties on the row.
+
+Each row requires a stable, unique identifier. Data Grid reads the `id`
+property by default. Use `getRowId`, for example
+`getRowId={(row) => row.lineId}`, when the row uses a different property.
+
+```tsx
+interface InvoiceLine {
+  id: number;
+  description: string;
+  category: "Services" | "Software" | "Expenses";
+  selected: boolean;
+  locked: boolean;
+}
+
+const initialRows: InvoiceLine[] = [
+  {
+    id: 1,
+    description: "Consulting services",
+    category: "Services",
+    selected: false,
+    locked: false,
+  },
+];
+```
+
+## Define columns
+
+Every column requires a unique `field` and a visible `headerName`. Use
+`headerAriaLabel` when the visible heading is intentionally empty.
+
+Text, dropdown, and checkbox fields must refer to a property on the row. Action
+columns may use a synthetic field because they do not write a value. Text is
+the default cell type.
+
+| Cell type | Configuration                      | Use                                        |
+| --------- | ---------------------------------- | ------------------------------------------ |
+| Text      | Omit `type`, or use `type: "text"` | Edit text and numeric-looking values       |
+| Dropdown  | `type: "dropdown"` and `options`   | Select a value from a fixed list           |
+| Checkbox  | `type: "checkbox"`                 | Toggle a Boolean value                     |
+| Action    | `type: "action"` and `renderCell`  | Display an action popover or other control |
+
+```tsx
+const columns: DataGridColumn<InvoiceLine>[] = [
+  {
+    field: "description",
+    headerName: "Description",
+    minWidth: 220,
+    flex: 1,
+    error: ({ value }) =>
+      String(value ?? "").trim() ? false : "Enter a description",
+    readOnly: ({ row }) => row.locked,
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    type: "dropdown",
+    width: 180,
+    options: [
+      { label: "Services", value: "Services" },
+      { label: "Software", value: "Software" },
+      { label: "Expenses", value: "Expenses" },
+    ],
+  },
+  {
+    field: "selected",
+    headerName: "Selected",
+    type: "checkbox",
+    width: 100,
+  },
+  {
+    field: "actions",
+    headerName: "",
+    headerAriaLabel: "Actions",
+    type: "action",
+    width: 52,
+    renderCell: ({ api, row, rowId }) => (
+      <ActionPopover
+        aria-label={`Actions for ${row.description}`}
+        buttonLabel="More actions"
+        size="small"
+      >
+        <ActionPopoverItem
+          onClick={() =>
+            api.duplicateRow(rowId, { ...row, id: createInvoiceLineId() })
+          }
+        >
+          Duplicate
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => api.deleteRow(rowId)}>
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    ),
+  },
+];
+```
+
+Shared column properties configure cells without changing row data:
+
+| Purpose          | Properties                                     |
+| ---------------- | ---------------------------------------------- |
+| Sizing           | `width`, or `flex` with an optional `minWidth` |
+| Position         | `sticky: "left"` or `sticky: "right"`          |
+| Content          | `align`, `weight`, `headerAriaLabel`           |
+| State            | `readOnly`, `error`                            |
+| Custom rendering | `renderCell`                                   |
+
+`readOnly`, `error`, and `renderCell` receive the current `row`, `rowId`,
+`field`, `value`, and `column`. They also receive the row-operation `api`. Use
+fixed values when every row behaves in the same way, or functions when the
+behaviour depends on row data.
+
+## Receive updated rows
+
+A committed text edit, dropdown selection, or checkbox toggle creates a new row
+array and passes it to `onRowsChange`. Store the new array and pass it back to
+Data Grid.
+
+```tsx
+const [rows, setRows] = React.useState(initialRows);
+
+const handleRowsChange = (
+  nextRows: InvoiceLine[],
+  change: DataGridRowChange<InvoiceLine>,
+) => {
+  setRows(nextRows);
+  auditInvoiceChange(change);
+};
+
+<DataGrid
+  aria-label="Invoice lines"
+  rows={rows}
+  columns={columns}
+  onRowsChange={handleRowsChange}
+/>;
+```
+
+The optional second argument describes the change that produced the array. Its
+`type` is one of:
+
+- `cell-edit`
+- `dropdown-select`
+- `checkbox-toggle`
+- `row-add`
+- `row-insert`
+- `row-duplicate`
+- `row-delete`
+- `row-move`
+
+Cell changes include the previous and next value and row. Structural changes
+include the affected row and indexes where relevant. Data Grid does not call
+`onRowsChange` when a committed value has not changed.
+
+Edit a cell, add a row, or use a row action in this example to inspect the
+current rows and most recent change:
+
+<Canvas of={DataGridStories.ControlledRows} />
+
+## Row operations
+
+Action cells receive the row API through `renderCell`. Controls outside the
+grid can use the same API through the forwarded ref. The consuming application
+creates each row, including its unique ID and business defaults. Data Grid
+applies the operation and calls `onRowsChange`.
+
+```tsx
+const gridRef = React.useRef<DataGridHandle<InvoiceLine>>(null);
+
+<Button onClick={() => gridRef.current?.addRow(createEmptyInvoiceLine())}>
+  Add line
+</Button>;
+
+gridRef.current?.insertRow(newLine, { beforeRowId: existingLineId });
+gridRef.current?.duplicateRow(sourceLineId, duplicatedLine);
+gridRef.current?.deleteRow(lineId);
+gridRef.current?.moveRow(lineId, 3);
+```
+
+`moveRow` receives the final zero-based index. `insertRow` accepts an absolute
+index, `beforeRowId`, or `afterRowId`. An operation with an unknown row ID does
+not produce a change.
+
+After `addRow`, `insertRow`, or `duplicateRow`, focus moves to the first cell in
+the new row. After `deleteRow`, focus moves to the first cell in the following
+row, or the previous row when the deleted row was last. This focus recovery
+applies when the updated rows are passed back through `onRowsChange`.
+Applications using their own row mutation controls should restore focus after
+removing the focused element.
+
+Adding or inserting a row whose ID already exists throws an error. Unique IDs
+are required for focus, virtualization, and row operations.
+
+## Validation
+
+An `error` string is exposed as the accessible description of the cell and its
+editor. The error-summary layout remains application-owned. Set
+`aria-describedby` on Data Grid to associate it with external summary or
+guidance content, then use `focusCell` or `editCell` from the forwarded ref for
+links that take users to a specific error.
+
+Data Grid preserves the supplied row shape. The consuming application remains
+responsible for business rules, generated IDs, and converting rows to an API
+payload. Use the application's existing schema library, such as Yup, Zod, or
+JSON Schema, to validate rows before saving when required.
