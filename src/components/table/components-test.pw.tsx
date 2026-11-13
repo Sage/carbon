@@ -10,6 +10,302 @@ import {
   TableRow,
 } from ".";
 import { Checkbox, Pager } from "../..";
+import SplitButton from "../split-button";
+import Button from "../button/__next__";
+import {
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverItem,
+} from "../action-popover";
+import MultiActionButton from "../multi-action-button";
+import Dialog from "../dialog";
+
+export const TableMenuFocusComponent = ({
+  menuType,
+  withSubmenu = false,
+  inDialog = false,
+  customTrigger = false,
+  followingControls = "visible",
+}: {
+  menuType: "split-button" | "multi-action-button" | "action-popover";
+  withSubmenu?: boolean;
+  inDialog?: boolean;
+  customTrigger?: boolean;
+  followingControls?: "visible" | "none" | "hidden" | "collapsed-subrow";
+}) => {
+  const [dialogOpen, setDialogOpen] = useState(true);
+  const [closeCount, setCloseCount] = useState(0);
+  const content = (
+    <>
+      <Button>Before table</Button>
+      <Table maxWidth="500px" stickyColumn="last" stickyRow="both">
+        <TableHead>
+          <TableRow id="focus-head">
+            <TableHeader width="500px">Product</TableHeader>
+            <TableHeader width="300px">Actions</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow
+            id="focus-row"
+            subRows={
+              followingControls === "collapsed-subrow" ? (
+                <TableRow id="collapsed-focus-row">
+                  <TableCell>Child product</TableCell>
+                  <TableCell>
+                    <button type="button">Collapsed subrow action</button>
+                  </TableCell>
+                </TableRow>
+              ) : undefined
+            }
+          >
+            <TableCell>Product 1</TableCell>
+            <TableCell>
+              {menuType === "split-button" && (
+                <SplitButton text="Save" aria-label="Menu actions">
+                  <Button>First action</Button>
+                  <Button>Last action</Button>
+                </SplitButton>
+              )}
+              {menuType === "multi-action-button" && (
+                <MultiActionButton text="Actions" aria-label="Menu actions">
+                  <Button>First action</Button>
+                  <Button>Last action</Button>
+                </MultiActionButton>
+              )}
+              {menuType === "action-popover" && (
+                <ActionPopover
+                  aria-label="Menu actions"
+                  onClose={() => setCloseCount((count) => count + 1)}
+                  renderButton={
+                    customTrigger
+                      ? ({
+                          ref,
+                          tabIndex,
+                          "data-element": dataElement,
+                          ariaAttributes,
+                        }) => (
+                          <div
+                            ref={ref as React.Ref<HTMLDivElement>}
+                            data-element={dataElement}
+                          >
+                            <button
+                              type="button"
+                              tabIndex={tabIndex}
+                              aria-haspopup="true"
+                              aria-expanded={
+                                ariaAttributes["aria-expanded"] === "true"
+                              }
+                              aria-controls={ariaAttributes["aria-controls"]}
+                            >
+                              Menu actions
+                            </button>
+                          </div>
+                        )
+                      : undefined
+                  }
+                >
+                  <ActionPopoverItem>First action</ActionPopoverItem>
+                  <ActionPopoverDivider />
+                  <ActionPopoverItem
+                    submenu={
+                      withSubmenu ? (
+                        <>
+                          <ActionPopoverItem>Nested action</ActionPopoverItem>
+                        </>
+                      ) : undefined
+                    }
+                  >
+                    Last action
+                  </ActionPopoverItem>
+                </ActionPopover>
+              )}
+              {followingControls === "hidden" && (
+                <>
+                  <div hidden>
+                    <button type="button">Hidden action</button>
+                  </div>
+                  <div style={{ display: "none" }}>
+                    <button type="button">Display none action</button>
+                  </div>
+                  <div style={{ visibility: "hidden" }}>
+                    <button type="button">Invisible action</button>
+                  </div>
+                  <div style={{ visibility: "collapse" }}>
+                    <button type="button">Collapsed action</button>
+                  </div>
+                  <div {...{ inert: "" }}>
+                    <button type="button">Inert action</button>
+                  </div>
+                  <fieldset disabled>
+                    <button type="button">Disabled fieldset action</button>
+                  </fieldset>
+                </>
+              )}
+              {(followingControls === "visible" ||
+                followingControls === "hidden") && <Button>After menu</Button>}
+            </TableCell>
+          </TableRow>
+          {followingControls === "collapsed-subrow" && (
+            <TableRow id="next-focus-row">
+              <TableCell>Product 2</TableCell>
+              <TableCell>
+                <Button>After menu</Button>
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+        <TableFoot>
+          <TableRow id="focus-foot">
+            <TableCell>Summary</TableCell>
+            <TableCell>1 product</TableCell>
+          </TableRow>
+        </TableFoot>
+      </Table>
+      {followingControls !== "none" && <Button>Outside table</Button>}
+      <div role="status">Closed {closeCount} times</div>
+    </>
+  );
+
+  return inDialog ? (
+    <Dialog
+      open={dialogOpen}
+      title="Table menu dialog"
+      onCancel={() => setDialogOpen(false)}
+    >
+      {content}
+    </Dialog>
+  ) : (
+    content
+  );
+};
+
+export const StickyActionPopoverTableComponent = ({
+  actionComponent = "action-popover",
+  stickyColumn = "last",
+}: {
+  actionComponent?: "action-popover" | "multi-action-button";
+  stickyColumn?: "first" | "last";
+} = {}) => {
+  const [selectedAction, setSelectedAction] = useState("");
+
+  return (
+    <>
+      <Table
+        maxWidth="500px"
+        maxHeight="140px"
+        stickyColumn={stickyColumn}
+        stickyRow="both"
+        pagination={
+          <Pager
+            totalRecords={100}
+            showPageSizeSelection
+            showTotalRecords={false}
+            onPagination={() => {}}
+          />
+        }
+      >
+        <TableHead>
+          <TableRow id="action-head">
+            <TableHeader width={stickyColumn === "first" ? "200px" : "500px"}>
+              {stickyColumn === "first" ? "Actions" : "Product"}
+            </TableHeader>
+            <TableHeader width={stickyColumn === "first" ? "500px" : "200px"}>
+              {stickyColumn === "first" ? "Product" : "Actions"}
+            </TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {Array.from({ length: 10 }, (_, index) => index + 1).map((id) => (
+            <TableRow key={id} id={`action-product-${id}`}>
+              {stickyColumn === "last" && <TableCell>Product {id}</TableCell>}
+              <TableCell>
+                {actionComponent === "multi-action-button" ? (
+                  <MultiActionButton
+                    text={`Product ${id} actions`}
+                    aria-label={`Product ${id} actions`}
+                  >
+                    {Array.from(
+                      { length: 14 },
+                      (_, index) => `Action ${index + 1}`,
+                    ).map((action) => (
+                      <Button
+                        key={action}
+                        onClick={() => setSelectedAction(action)}
+                      >
+                        {action}
+                      </Button>
+                    ))}
+                  </MultiActionButton>
+                ) : (
+                  <ActionPopover aria-label={`Product ${id} actions`}>
+                    {Array.from(
+                      { length: 8 },
+                      (_, index) => `Action ${index + 1}`,
+                    ).map((action) => (
+                      <ActionPopoverItem
+                        key={action}
+                        onClick={() => setSelectedAction(action)}
+                      >
+                        {action}
+                      </ActionPopoverItem>
+                    ))}
+                  </ActionPopover>
+                )}
+              </TableCell>
+              {stickyColumn === "first" && <TableCell>Product {id}</TableCell>}
+            </TableRow>
+          ))}
+        </TableBody>
+        <TableFoot>
+          <TableRow id="action-foot">
+            <TableCell>Summary</TableCell>
+            <TableCell>10 products</TableCell>
+          </TableRow>
+        </TableFoot>
+      </Table>
+      <div role="status">{selectedAction}</div>
+    </>
+  );
+};
+
+export const StickySplitButtonTableComponent = ({
+  stickyColumn = "last",
+  ...props
+}: Pick<TableProps, "stickyColumn" | "stickyRow" | "maxHeight"> = {}) => (
+  <Table maxWidth="500px" stickyColumn={stickyColumn} {...props}>
+    <TableHead>
+      <TableRow id="head">
+        <TableHeader width={stickyColumn === "first" ? "200px" : "500px"}>
+          {stickyColumn === "first" ? "Actions" : "Product"}
+        </TableHeader>
+        <TableHeader width={stickyColumn === "first" ? "500px" : "200px"}>
+          {stickyColumn === "first" ? "Product" : "Actions"}
+        </TableHeader>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {Array.from({ length: 12 }, (_, index) => index + 1).map((id) => (
+        <TableRow key={id} id={`product-${id}`}>
+          {stickyColumn !== "first" && <TableCell>Product {id}</TableCell>}
+          <TableCell>
+            <SplitButton text="Save" aria-label={`Actions for product ${id}`}>
+              <Button>Save and close</Button>
+              <Button>Save and add another</Button>
+            </SplitButton>
+          </TableCell>
+          {stickyColumn === "first" && <TableCell>Product {id}</TableCell>}
+        </TableRow>
+      ))}
+    </TableBody>
+    <TableFoot>
+      <TableRow id="foot">
+        <TableCell>Summary</TableCell>
+        <TableCell>12 products</TableCell>
+      </TableRow>
+    </TableFoot>
+  </Table>
+);
 
 export const TableComponent = (props: Partial<TableProps> = {}) => (
   <Table variant="prominent" {...props}>

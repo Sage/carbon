@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 
-import Button from "../../button/__next__";
+import { StyledActionPopoverItem } from "../action-popover.style";
 import { IconType } from "../../icon";
 import { useActionPopoverContext } from "../__internal__/action-popover.context";
 
@@ -51,7 +51,7 @@ export const ActionPopoverItem = ({
   );
 
   return (
-    <Button
+    <StyledActionPopoverItem
       {...rest}
       disabled={disabled}
       href={href}
@@ -61,7 +61,7 @@ export const ActionPopoverItem = ({
       {...(href && download ? { download: true } : {})}
     >
       {children}
-    </Button>
+    </StyledActionPopoverItem>
   );
 };
 
