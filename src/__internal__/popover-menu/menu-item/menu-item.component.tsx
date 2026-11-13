@@ -38,6 +38,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
   width: 100%;
   position: relative;
   box-sizing: border-box;
+  border-radius: var(--global-radius-action-m);
 
   & > [data-element="submenu-parent"] > [data-role="button-child-container"] {
     flex: 1;

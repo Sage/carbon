@@ -4,6 +4,7 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import PopoverMenu, {
   FocusableHandle,
   PopoverMenuProps,
+  getSubmenuOffset,
 } from "./popover-menu.component";
 import {
   MenuItem,
@@ -796,6 +797,22 @@ describe("PopoverMenu - button menu", () => {
     expect(items).toHaveLength(3);
   });
 
+  it("applies the action radius to the menu items", () => {
+    renderPopoverMenu<HTMLButtonElement>({
+      isButtonMenu: true,
+      popoverControl: popoverControlButton,
+      open: true,
+      children: buttonChildren,
+    });
+
+    screen.getAllByRole("listitem").forEach((item) => {
+      expect(item).toHaveStyleRule(
+        "border-radius",
+        "var(--global-radius-action-m)",
+      );
+    });
+  });
+
   it.each([
     ["Enter", "{Enter}"],
     ["Space", " "],
@@ -1343,6 +1360,71 @@ test("renders the list container with the expected max-height when size is large
   expect(listbox).toHaveStyleRule(
     "max-height",
     "calc(5 * var(--global-size-l))",
+  );
+});
+
+test.each([
+  ["small", "xs", "xs"],
+  ["medium", "s", "s"],
+  ["large", "m", "s"],
+] as const)(
+  "renders the menu wrapper with the expected padding when size is %s",
+  (size, verticalPadding, horizontalPadding) => {
+    renderPopoverMenu({ open: true, size });
+    const menuWrapper = screen.getByTestId("menu-wrapper");
+
+    expect(menuWrapper).toHaveStyleRule("box-sizing", "border-box");
+    expect(menuWrapper).toHaveStyleRule(
+      "padding",
+      `var(--global-space-comp-${verticalPadding}) var(--global-space-comp-${horizontalPadding})`,
+    );
+  },
+);
+
+describe("getSubmenuOffset", () => {
+  const createReference = (wrapperPadding?: string) => {
+    const reference = document.createElement("li");
+
+    if (wrapperPadding === undefined) return reference;
+
+    const wrapper = document.createElement("div");
+    wrapper.setAttribute("data-role", "menu-wrapper");
+    wrapper.style.paddingRight = wrapperPadding;
+    wrapper.appendChild(reference);
+    document.body.appendChild(wrapper);
+
+    return reference;
+  };
+
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
+  it("returns the parent menu's horizontal padding", () => {
+    expect(
+      getSubmenuOffset({ elements: { reference: createReference("8px") } }),
+    ).toBe(8);
+  });
+
+  it("returns 0 when the parent menu has no resolvable padding", () => {
+    expect(
+      getSubmenuOffset({ elements: { reference: createReference("") } }),
+    ).toBe(0);
+  });
+
+  it("returns 0 when the reference is not inside a menu", () => {
+    expect(
+      getSubmenuOffset({ elements: { reference: createReference() } }),
+    ).toBe(0);
+  });
+});
+
+test("applies the action radius to the options", () => {
+  renderPopoverMenu({ open: true });
+
+  expect(screen.getByRole("option", { name: "Item 3" })).toHaveStyleRule(
+    "border-radius",
+    "var(--global-radius-action-m)",
   );
 });
 

@@ -220,6 +220,6 @@ test.describe("Focus outline and border radius tests for MultiActionButton", () 
       name: "Button 1",
       exact: true,
     });
-    await expect(listButton1).toHaveCSS("border-radius", "0px");
+    await expect(listButton1).toHaveCSS("border-radius", "8px");
   });
 });

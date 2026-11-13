@@ -61,13 +61,20 @@ export const List = styled.ul<ListProps>`
     `}
 `;
 
-const paddingSize = {
+const verticalPaddingSize = {
   small: "var(--global-space-comp-xs)",
   medium: "var(--global-space-comp-s)",
   large: "var(--global-space-comp-m)",
 };
 
+const horizontalPaddingSize = {
+  small: "var(--global-space-comp-xs)",
+  medium: "var(--global-space-comp-s)",
+  large: "var(--global-space-comp-s)",
+};
+
 const MenuWrapper = styled.div<ListProps>`
+  box-sizing: border-box;
   box-shadow: var(--global-depth-lvl1);
   border-radius: var(--global-radius-container-m);
   background-color: var(--popover-bg-default);
@@ -76,7 +83,7 @@ const MenuWrapper = styled.div<ListProps>`
   z-index: calc(var(--carbon-zindex-overlay) + 2);
 
   padding: ${({ $size }) => css`
-    ${paddingSize[$size]} var(--global-space-none)
+    ${verticalPaddingSize[$size]} ${horizontalPaddingSize[$size]}
   `};
 
   ${({ $isButtonMenu }) =>
@@ -166,7 +173,20 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
 }
 
 const OFFSET = 8;
-const SUBMENU_OFFSET = 0;
+
+export const getSubmenuOffset = ({
+  elements,
+}: {
+  elements: { reference: unknown };
+}) => {
+  const parentMenu = (elements.reference as Element).closest(
+    '[data-role="menu-wrapper"]',
+  );
+
+  if (!parentMenu) return 0;
+
+  return parseFloat(getComputedStyle(parentMenu).paddingRight) || 0;
+};
 
 const menuPopoverMiddleware = (
   width?: string,
@@ -175,7 +195,7 @@ const menuPopoverMiddleware = (
   matchReferenceWidth?: boolean,
   hideWhenReferenceHidden?: boolean,
 ) => [
-  offset(isSubmenu ? SUBMENU_OFFSET : OFFSET),
+  offset(isSubmenu ? getSubmenuOffset : OFFSET),
   flip({
     fallbackStrategy: "initialPlacement",
   }),
