@@ -65,6 +65,9 @@ test("maps Space to the interaction appropriate for the cell type", () => {
   expect(getDataGridCellKeyAction(keyEvent(" "), "dropdown", false)).toEqual({
     type: "begin-edit",
   });
+  expect(getDataGridCellKeyAction(keyEvent(" "), "action", false)).toEqual({
+    type: "focus-action",
+  });
   expect(getDataGridCellKeyAction(keyEvent(" "), "text", false)).toEqual({
     type: "begin-edit",
     appendedText: " ",

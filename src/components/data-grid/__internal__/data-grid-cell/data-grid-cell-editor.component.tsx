@@ -7,6 +7,8 @@ interface DataGridCellEditorProps<T extends object> {
   column: DataGridColumn<T>;
   rowIndex: number;
   value: unknown;
+  errorId?: string;
+  invalid?: boolean;
   editorRef: React.RefObject<HTMLInputElement | HTMLSelectElement>;
   onChange: (value: unknown) => void;
   onSelectionCommit: (value: unknown) => void;
@@ -21,6 +23,8 @@ const DataGridCellEditor = <T extends object>({
   column,
   rowIndex,
   value,
+  errorId,
+  invalid,
   editorRef,
   onChange,
   onSelectionCommit,
@@ -35,6 +39,8 @@ const DataGridCellEditor = <T extends object>({
         ref={editorRef as React.RefObject<HTMLSelectElement>}
         value={String(value ?? "")}
         aria-label={label}
+        aria-describedby={errorId}
+        aria-invalid={invalid || undefined}
         onChange={(event) => onSelectionCommit(event.target.value)}
         onBlur={onBlur}
         onKeyDown={onKeyDown}
@@ -53,6 +59,8 @@ const DataGridCellEditor = <T extends object>({
       ref={editorRef as React.RefObject<HTMLInputElement>}
       value={String(value ?? "")}
       aria-label={label}
+      aria-describedby={errorId}
+      aria-invalid={invalid || undefined}
       onChange={(event) => onChange(event.target.value)}
       onBlur={onBlur}
       onKeyDown={onKeyDown}

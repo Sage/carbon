@@ -16,8 +16,14 @@ const getRowId = (row: Row) => row.id;
 
 test("exposes every immutable row operation through the grid API", () => {
   const onRowsChange = jest.fn();
+  const onRowsChangeResult = jest.fn();
   const { result } = renderHook(() =>
-    useDataGridRows({ rows, getRowId, onRowsChange }),
+    useDataGridRows({
+      rows,
+      getRowId,
+      onRowsChange,
+      onRowsChangeResult,
+    }),
   );
 
   act(() => {
@@ -40,6 +46,12 @@ test("exposes every immutable row operation through the grid API", () => {
   ]);
   expect(onRowsChange.mock.calls[2][1]).toEqual(
     expect.objectContaining({ sourceRowId: "a", index: 1 }),
+  );
+  expect(onRowsChangeResult).toHaveBeenCalledTimes(5);
+  expect(onRowsChangeResult.mock.calls[2][0]).toEqual(
+    expect.objectContaining({
+      change: expect.objectContaining({ type: "row-duplicate" }),
+    }),
   );
 });
 

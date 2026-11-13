@@ -1,6 +1,7 @@
 import React, {
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -20,6 +21,7 @@ import useDataGridKeyboard from "./__internal__/hooks/use-data-grid-keyboard";
 import useDataGridNavigation from "./__internal__/hooks/use-data-grid-navigation";
 import useDataGridRows from "./__internal__/hooks/use-data-grid-rows";
 import useDataGridVirtualization from "./__internal__/hooks/use-data-grid-virtualization";
+import { DataGridRowsChangeResult } from "./__internal__/rows/data-grid-row-operations";
 import {
   DataGridCellIdentity,
   DataGridCellParams,
@@ -66,6 +68,7 @@ const DataGridInner = <T extends object>(
   ref: React.ForwardedRef<DataGridHandle<T>>,
 ) => {
   const viewportRef = useRef<HTMLDivElement>(null);
+  const pendingRowOperationFocus = useRef<DataGridCellIdentity | null>(null);
   const rowId = useCallback(
     (row: T) =>
       getRowId?.(row) ??
@@ -100,10 +103,36 @@ const DataGridInner = <T extends object>(
     },
     [columns, rowId, rows],
   );
+  const handleRowsChangeResult = useCallback(
+    (result: DataGridRowsChangeResult<T>) => {
+      if (!onRowsChange || !columns.length) return;
+
+      const { change } = result;
+      let targetRow: T | undefined;
+      if (
+        change.type === "row-add" ||
+        change.type === "row-insert" ||
+        change.type === "row-duplicate"
+      ) {
+        targetRow = change.row;
+      } else if (change.type === "row-delete" && result.rows.length) {
+        targetRow = result.rows[Math.min(change.index, result.rows.length - 1)];
+      }
+
+      pendingRowOperationFocus.current = targetRow
+        ? {
+            rowId: rowId(targetRow),
+            field: String(columns[0].field),
+          }
+        : null;
+    },
+    [columns, onRowsChange, rowId],
+  );
   const { api, commitCellChange } = useDataGridRows({
     rows,
     getRowId: rowId,
     onRowsChange,
+    onRowsChangeResult: handleRowsChangeResult,
   });
   const getCellParams = useCallback(
     (position: DataGridCellPosition): DataGridCellParams<T> => {
@@ -198,6 +227,16 @@ const DataGridInner = <T extends object>(
     commitEdit,
     cancelEdit,
   });
+
+  useEffect(() => {
+    const target = pendingRowOperationFocus.current;
+    if (!target) return;
+    const position = positionForIdentity(target);
+    if (!position) return;
+
+    pendingRowOperationFocus.current = null;
+    focusCell(position);
+  }, [focusCell, positionForIdentity, rows]);
 
   useImperativeHandle(
     ref,

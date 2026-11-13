@@ -146,7 +146,7 @@ description: Carbon DataGrid component props and usage examples.
           onRowsChange={(nextRows) => setRows(nextRows)}
         />
         <Button
-          buttonType="secondary"
+          variantType="secondary"
           iconType="add"
           iconPosition="before"
           mt={2}
@@ -195,7 +195,7 @@ description: Carbon DataGrid component props and usage examples.
           }}
         />
         <Button
-          buttonType="secondary"
+          variantType="secondary"
           iconType="add"
           iconPosition="before"
           mt={2}

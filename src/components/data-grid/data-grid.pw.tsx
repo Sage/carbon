@@ -133,6 +133,26 @@ test("toggles a checkbox with one click and with Space", async ({
   await expect(checkbox).not.toBeChecked();
 });
 
+test("opens an action popover with Space without scrolling vertically", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const grid = page.getByRole("grid");
+  const actionCell = cell(page, 2, "actions");
+  await grid.evaluate((element) => {
+    element.scrollTop = 40;
+  });
+  await actionCell.click({ position: { x: 4, y: 4 } });
+  await page.keyboard.press("Space");
+
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+  await expect
+    .poll(() => grid.evaluate((element) => element.scrollTop))
+    .toBe(40);
+});
+
 test("reveals a non-sticky header when navigating to the first row", async ({
   mount,
   page,
@@ -223,6 +243,9 @@ test("the imperative edit action focuses the invalid cell editor", async ({
   await expect(
     page.getByRole("textbox", { name: "Name, row 2" }),
   ).toBeFocused();
+  await expect(
+    page.getByRole("textbox", { name: "Name, row 2" }),
+  ).toHaveAccessibleDescription("Enter a name");
 });
 
 test("duplicates and deletes rows through the action popover", async ({
@@ -234,10 +257,23 @@ test("duplicates and deletes rows through the action popover", async ({
   await page.getByRole("button", { name: "Actions for row 1" }).click();
   await page.getByRole("button", { name: "Duplicate" }).click();
   await expect(page.getByText("Line 1", { exact: true })).toHaveCount(2);
+  await expect(cell(page, 7, "name")).toBeFocused();
 
   await page.getByRole("button", { name: "Actions for row 7" }).click();
   await page.getByRole("button", { name: "Delete" }).click();
   await expect(page.getByText("Line 1", { exact: true })).toHaveCount(1);
+  await expect(cell(page, 2, "name")).toBeFocused();
+});
+
+test("focuses the first cell of a row added from an external control", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await page.getByRole("button", { name: "Add line" }).click();
+
+  await expect(cell(page, 7, "name")).toBeFocused();
 });
 
 test("does not navigate away from an open action popover", async ({
