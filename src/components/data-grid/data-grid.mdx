@@ -129,7 +129,9 @@ cells use `renderCell` to display controls such as an action popover.
 Read-only dropdown cells display their selected label as text, and read-only
 checkboxes cannot be changed. Action controls remain available because they do
 not edit the cell value. Disable individual actions in `renderCell` when the
-product's business rules require it.
+product's business rules require it. Clicking another cell dismisses an open
+action popover and keeps focus on the selected cell. Keyboard dismissal still
+returns focus to the action trigger.
 
 ### Sticky columns and optional header
 

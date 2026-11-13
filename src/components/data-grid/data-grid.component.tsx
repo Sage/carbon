@@ -7,6 +7,7 @@ import React, {
   useRef,
 } from "react";
 
+import ActionPopoverFocusContext from "../action-popover/__internal__/action-popover-focus.context";
 import { createDataGridColumnModel } from "./__internal__/layout/data-grid-column-model";
 import DataGridHeader from "./__internal__/data-grid-header";
 import DataGridRow from "./__internal__/data-grid-row";
@@ -48,6 +49,10 @@ export type {
   DataGridRowInsertion,
   DataGridTextColumn,
 } from "./data-grid.types";
+
+const dataGridActionPopoverFocusContext = {
+  restoreFocusOnClickAway: false,
+};
 
 const DataGridInner = <T extends object>(
   {
@@ -263,72 +268,80 @@ const DataGridInner = <T extends object>(
   );
 
   return (
-    <StyledDataGridWrapper
-      data-component="data-grid-wrapper"
-      data-role="data-grid-wrapper"
+    <ActionPopoverFocusContext.Provider
+      value={dataGridActionPopoverFocusContext}
     >
-      <StyledDataGridViewport
-        ref={viewportRef}
-        $maxHeight={maxHeight}
-        $maxWidth={maxWidth}
-        role="grid"
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        aria-describedby={ariaDescribedBy}
-        aria-rowcount={rows.length + 1}
-        aria-colcount={columns.length}
-        data-component="data-grid"
-        data-role="data-grid"
-        data-element="data-grid-scroll-container"
+      <StyledDataGridWrapper
+        data-component="data-grid-wrapper"
+        data-role="data-grid-wrapper"
       >
-        <StyledGrid $contentWidth={columnModel.contentWidth}>
-          <DataGridHeader
-            columns={columns}
-            stickyOffsets={columnModel.stickyOffsets}
-            gridTemplateColumns={columnModel.gridTemplateColumns}
-            sticky={stickyHeader}
-          />
-          <div role="rowgroup" data-component="data-grid-body">
-            {virtualization.topPadding > 0 && (
-              <StyledSpacer
-                role="presentation"
-                $height={virtualization.topPadding}
-              />
-            )}
-            {virtualization.renderedRowIndexes.map((rowIndex) => (
-              <DataGridRow
-                key={rowId(rows[rowIndex])}
-                rowIndex={rowIndex}
-                columns={columns}
-                activeColumn={active.row === rowIndex ? active.column : -1}
-                editingColumn={editing?.row === rowIndex ? editing.column : -1}
-                draftValue={editing?.row === rowIndex ? draftValue : undefined}
-                stickyOffsets={columnModel.stickyOffsets}
-                gridTemplateColumns={columnModel.gridTemplateColumns}
-                editorRef={editorRef}
-                getParams={getCellParams}
-                isReadOnly={isCellReadOnly}
-                registerCell={registerCell}
-                onActivate={activateCell}
-                onFocusPosition={focusCell}
-                onBeginEdit={beginEdit}
-                onDraftChange={setDraftValue}
-                onCommitEdit={commitEdit}
-                onBlurEdit={commitEditOnBlur}
-                onCellKeyDown={keyboard.handleCellKeyDown}
-                onEditorKeyDown={keyboard.handleEditorKeyDown}
-              />
-            ))}
-            {virtualization.bottomPadding > 0 && (
-              <StyledSpacer
-                role="presentation"
-                $height={virtualization.bottomPadding}
-              />
-            )}
-          </div>
-        </StyledGrid>
-      </StyledDataGridViewport>
-    </StyledDataGridWrapper>
+        <StyledDataGridViewport
+          ref={viewportRef}
+          $maxHeight={maxHeight}
+          $maxWidth={maxWidth}
+          role="grid"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          aria-describedby={ariaDescribedBy}
+          aria-rowcount={rows.length + 1}
+          aria-colcount={columns.length}
+          data-component="data-grid"
+          data-role="data-grid"
+          data-element="data-grid-scroll-container"
+        >
+          <StyledGrid $contentWidth={columnModel.contentWidth}>
+            <DataGridHeader
+              columns={columns}
+              stickyOffsets={columnModel.stickyOffsets}
+              gridTemplateColumns={columnModel.gridTemplateColumns}
+              sticky={stickyHeader}
+            />
+            <div role="rowgroup" data-component="data-grid-body">
+              {virtualization.topPadding > 0 && (
+                <StyledSpacer
+                  role="presentation"
+                  $height={virtualization.topPadding}
+                />
+              )}
+              {virtualization.renderedRowIndexes.map((rowIndex) => (
+                <DataGridRow
+                  key={rowId(rows[rowIndex])}
+                  rowIndex={rowIndex}
+                  columns={columns}
+                  activeColumn={active.row === rowIndex ? active.column : -1}
+                  editingColumn={
+                    editing?.row === rowIndex ? editing.column : -1
+                  }
+                  draftValue={
+                    editing?.row === rowIndex ? draftValue : undefined
+                  }
+                  stickyOffsets={columnModel.stickyOffsets}
+                  gridTemplateColumns={columnModel.gridTemplateColumns}
+                  editorRef={editorRef}
+                  getParams={getCellParams}
+                  isReadOnly={isCellReadOnly}
+                  registerCell={registerCell}
+                  onActivate={activateCell}
+                  onFocusPosition={focusCell}
+                  onBeginEdit={beginEdit}
+                  onDraftChange={setDraftValue}
+                  onCommitEdit={commitEdit}
+                  onBlurEdit={commitEditOnBlur}
+                  onCellKeyDown={keyboard.handleCellKeyDown}
+                  onEditorKeyDown={keyboard.handleEditorKeyDown}
+                />
+              ))}
+              {virtualization.bottomPadding > 0 && (
+                <StyledSpacer
+                  role="presentation"
+                  $height={virtualization.bottomPadding}
+                />
+              )}
+            </div>
+          </StyledGrid>
+        </StyledDataGridViewport>
+      </StyledDataGridWrapper>
+    </ActionPopoverFocusContext.Provider>
   );
 };
 
