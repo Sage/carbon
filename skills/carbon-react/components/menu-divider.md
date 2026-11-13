@@ -15,7 +15,7 @@ description: Carbon MenuDivider component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| size | "large" \| "default" \| undefined | No |  |  |  |
+| size | "large" \| "default" \| undefined | No | large \| default |  | "default" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

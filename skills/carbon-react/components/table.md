@@ -16,19 +16,19 @@ description: Carbon Table component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | The content of the table. |  |
-| horizontalBorderThickness | BorderThickness \| undefined | No |  | The thickness of the horizontal borders within the table. | "small" |
+| horizontalBorderThickness | BorderThickness \| undefined | No | small \| medium \| large \| none | The thickness of the horizontal borders within the table. | "small" |
 | isDraggable | boolean \| undefined | No |  | Indicates whether the table is draggable. | false |
 | isZebraStriped | boolean \| undefined | No |  | Indicates whether the table should have zebra striping. | false |
 | maxHeight | string \| undefined | No |  | The maximum height of the table's scroll container. This constrains the table scroll container and enables vertical scrolling. |  |
 | maxWidth | string \| undefined | No |  | The maximum width of the table. This constrains the table scroll container and enables horizontal scrolling. |  |
-| outerBorders | "small" \| "none" \| undefined | No |  | The outer borders of the table. This only applies to the `subtle-white` and `subtle-grey` variants; the `prominent` variant always has an outer border. | "small" |
+| outerBorders | "small" \| "none" \| undefined | No | small \| none | The outer borders of the table. This only applies to the `subtle-white` and `subtle-grey` variants; the `prominent` variant always has an outer border. | "small" |
 | pagination | React.ReactNode | No |  | The pagination component for the table. |  |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | The size of the table. | "medium" |
-| stickyColumn | "both" \| "first" \| "last" \| undefined | No |  | Indicates which column(s) should remain sticky when scrolling. |  |
-| stickyRow | "footer" \| "header" \| "both" \| undefined | No |  | Indicates which row(s) should remain sticky when scrolling. |  |
+| size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No | small \| medium \| large \| extra-small \| extra-large | The size of the table. | "medium" |
+| stickyColumn | "both" \| "first" \| "last" \| undefined | No | both \| first \| last | Indicates which column(s) should remain sticky when scrolling. |  |
+| stickyRow | "footer" \| "header" \| "both" \| undefined | No | footer \| header \| both | Indicates which row(s) should remain sticky when scrolling. |  |
 | summary | string \| undefined | No |  |  |  |
-| variant | "prominent" \| "subtle-white" \| "subtle-grey" \| undefined | No |  | The variant of the table. | "prominent" |
-| verticalBorderThickness | BorderThickness \| undefined | No |  | The thickness of the vertical borders within the table. | "small" |
+| variant | "prominent" \| "subtle-white" \| "subtle-grey" \| undefined | No | prominent \| subtle-white \| subtle-grey | The variant of the table. | "prominent" |
+| verticalBorderThickness | BorderThickness \| undefined | No | small \| medium \| large \| none | The thickness of the vertical borders within the table. | "small" |
 | aria-describedby | string \| undefined | No |  | Identifies the element (or elements) that describes the object. |  |
 | aria-label | string \| undefined | No |  | Defines a string value that labels the current element. |  |
 | aria-labelledby | string \| undefined | No |  | Identifies the element (or elements) that labels the current element. |  |

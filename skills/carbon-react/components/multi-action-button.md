@@ -35,7 +35,7 @@ description: Carbon MultiActionButton component props and usage examples.
 | dir | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | Gives the button a disabled state. |  |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
-| enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
+| enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No | go \| send \| search \| enter \| done \| next \| previous |  |  |  |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
 | form | string \| undefined | No |  |  |  |  |  |
 | formAction | string \| undefined | No |  |  |  |  |  |
@@ -47,7 +47,7 @@ description: Carbon MultiActionButton component props and usage examples.
 | hidden | boolean \| undefined | No |  |  |  |  |  |
 | id | string \| undefined | No |  |  |  |  |  |
 | inlist | any | No |  |  |  |  |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No | email \| none \| search \| text \| tel \| url \| numeric \| decimal |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
@@ -238,7 +238,7 @@ description: Carbon MultiActionButton component props and usage examples.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the buttons. |  |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | The size of the buttons. | "medium" |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
@@ -246,18 +246,18 @@ description: Carbon MultiActionButton component props and usage examples.
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
-| translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
-| type | "button" \| "reset" \| "submit" \| undefined | No |  |  |  |  |  |
+| translate | "yes" \| "no" \| undefined | No | yes \| no |  |  |  |  |
+| type | "button" \| "reset" \| "submit" \| undefined | No | button \| reset \| submit |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
-| unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
+| unselectable | "off" \| "on" \| undefined | No | off \| on |  |  |  |  |
 | value | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
-| variantType | "primary" \| "secondary" \| undefined | No |  |  |  | The variant type of the main and toggle buttons. Takes precedence over the deprecated `buttonType` prop. |  |
+| variantType | "primary" \| "secondary" \| undefined | No | primary \| secondary |  |  | The variant type of the main and toggle buttons. Takes precedence over the deprecated `buttonType` prop. |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |
 | aria-atomic | Booleanish \| undefined | No |  |  |  | Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. |  |
-| aria-autocomplete | "none" \| "inline" \| "list" \| "both" \| undefined | No |  |  |  | Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be presented if they are made. |  |
+| aria-autocomplete | "none" \| "inline" \| "list" \| "both" \| undefined | No | none \| inline \| list \| both |  |  | Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be presented if they are made. |  |
 | aria-braillelabel | string \| undefined | No |  |  |  | Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. Defines a string value that labels the current element, which is intended to be converted into Braille. |  |
 | aria-brailleroledescription | string \| undefined | No |  |  |  | Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille. |  |
 | aria-busy | Booleanish \| undefined | No |  |  |  |  |  |
@@ -282,17 +282,17 @@ description: Carbon MultiActionButton component props and usage examples.
 | aria-label | string \| undefined | No |  |  |  | Prop to specify an aria-label for the component |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Identifies the element (or elements) that labels the current element. |  |
 | aria-level | number \| undefined | No |  |  |  | Defines the hierarchical level of an element within a structure. |  |
-| aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. |  |
+| aria-live | "off" \| "assertive" \| "polite" \| undefined | No | off \| assertive \| polite |  |  | Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. |  |
 | aria-modal | Booleanish \| undefined | No |  |  |  | Indicates whether an element is modal when displayed. |  |
 | aria-multiline | Booleanish \| undefined | No |  |  |  | Indicates whether a text box accepts multiple lines of input or only a single line. |  |
 | aria-multiselectable | Booleanish \| undefined | No |  |  |  | Indicates that the user may select more than one item from the current selectable descendants. |  |
-| aria-orientation | "horizontal" \| "vertical" \| undefined | No |  |  |  | Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. |  |
+| aria-orientation | "horizontal" \| "vertical" \| undefined | No | horizontal \| vertical |  |  | Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. |  |
 | aria-owns | string \| undefined | No |  |  |  | Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent the relationship. |  |
 | aria-placeholder | string \| undefined | No |  |  |  | Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value. A hint could be a sample value or a brief description of the expected format. |  |
 | aria-posinset | number \| undefined | No |  |  |  | Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM. |  |
 | aria-pressed | boolean \| "true" \| "false" \| "mixed" \| undefined | No |  |  |  | Indicates the current "pressed" state of toggle buttons. |  |
 | aria-readonly | Booleanish \| undefined | No |  |  |  | Indicates that the element is not editable, but is otherwise operable. |  |
-| aria-relevant | "text" \| "additions" \| "additions removals" \| "additions text" \| "all" \| "removals" \| "removals additions" \| "removals text" \| "text additions" \| "text removals" \| undefined | No |  |  |  | Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified. |  |
+| aria-relevant | "text" \| "additions" \| "additions removals" \| "additions text" \| "all" \| "removals" \| "removals additions" \| "removals text" \| "text additions" \| "text removals" \| undefined | No | text \| additions \| additions removals \| additions text \| all \| removals \| removals additions \| removals text \| text additions \| text removals |  |  | Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified. |  |
 | aria-required | Booleanish \| undefined | No |  |  |  | Indicates that user input is required on the element before a form may be submitted. |  |
 | aria-roledescription | string \| undefined | No |  |  |  | Defines a human-readable, author-localized description for the role of an element. |  |
 | aria-rowcount | number \| undefined | No |  |  |  | Defines the total number of rows in a table, grid, or treegrid. |  |
@@ -301,20 +301,20 @@ description: Carbon MultiActionButton component props and usage examples.
 | aria-rowspan | number \| undefined | No |  |  |  | Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid. |  |
 | aria-selected | Booleanish \| undefined | No |  |  |  | Indicates the current "selected" state of various widgets. |  |
 | aria-setsize | number \| undefined | No |  |  |  | Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM. |  |
-| aria-sort | "none" \| "ascending" \| "descending" \| "other" \| undefined | No |  |  |  | Indicates if items in a table or grid are sorted in ascending or descending order. |  |
+| aria-sort | "none" \| "ascending" \| "descending" \| "other" \| undefined | No | none \| ascending \| descending \| other |  |  | Indicates if items in a table or grid are sorted in ascending or descending order. |  |
 | aria-valuemax | number \| undefined | No |  |  |  | Defines the maximum allowed value for a range widget. |  |
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| align | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated. It will be removed in a future release. Set align of the rendered content |  |  |
-| buttonType | "primary" \| "secondary" \| "tertiary" \| undefined | No |  | Yes | This prop is deprecated. It will be removed in a future release. MultiActionButton only supports the primary variant. |  |  |
+| align | "left" \| "right" \| undefined | No | left \| right | Yes | This prop is deprecated. It will be removed in a future release. Set align of the rendered content |  | "left" |
+| buttonType | "primary" \| "secondary" \| "tertiary" \| undefined | No | primary \| secondary \| tertiary | Yes | This prop is deprecated. It will be removed in a future release. MultiActionButton only supports the primary variant. |  | "primary" |
 | isWhite | boolean \| undefined | No |  | Yes | This prop is deprecated. It will be removed in a future release. Renders the white variant of the secondary split button |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| position | "left" \| "right" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Sets rendering position of menu. |  |  |
+| position | "left" \| "right" \| undefined | No | left \| right | Yes | This prop is deprecated and will be removed in a future release. Sets rendering position of menu. |  | "right" |
 | subtext | string \| undefined | No |  | Yes | This prop is deprecated and has no effect. It will be removed in a future release. Second text child, renders under main text, only when size is "large" |  |  |
 | width | WidthProps["width"] | No |  | Yes | This prop is deprecated. It will be removed in a future release. The component width |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No | copy \| link \| none \| execute \| move \| popup | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples

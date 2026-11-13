@@ -17,9 +17,9 @@ description: Carbon Dl component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | prop to render children. |  |
 | asSingleColumn | boolean \| undefined | No |  | Render the DefinitionList as a single column | false |
-| ddTextAlign | ElementAlignment \| undefined | No |  | This string will specify the text align styling of the `<dd></dd>`. | "left" |
+| ddTextAlign | ElementAlignment \| undefined | No | left \| right \| center | This string will specify the text align styling of the `<dd></dd>`. | "left" |
 | divider | boolean \| undefined | No |  | Renders a divider between definition pairs. | false |
-| dtTextAlign | ElementAlignment \| undefined | No |  | This string will specify the text align styling of the `<dt></dt>`. | "left" |
+| dtTextAlign | ElementAlignment \| undefined | No | left \| right \| center | This string will specify the text align styling of the `<dt></dt>`. | "left" |
 | id | string \| undefined | No |  | HTML id attribute of the definition list. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
@@ -49,7 +49,7 @@ description: Carbon Dl component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| spacing | "small" \| "large" \| undefined | No |  | Sets vertical top and bottom padding on each definition pair. | "large" |
+| spacing | "small" \| "large" \| undefined | No | small \| large | Sets vertical top and bottom padding on each definition pair. | "large" |
 | w | number \| undefined | No |  | Width of the term column as a percentage. Has no effect when `asSingleColumn` is set. | 50 |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

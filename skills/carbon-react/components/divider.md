@@ -61,8 +61,8 @@ A vertical or horizontal line that visually separates adjacent content.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| type | "horizontal" \| "vertical" \| undefined | No |  | Sets Divider type | "vertical" |
-| variant | "typical" \| "prominent" \| undefined | No |  | Sets Divider variant | "typical" |
+| type | "horizontal" \| "vertical" \| undefined | No | horizontal \| vertical | Sets Divider type | "vertical" |
+| variant | "typical" \| "prominent" \| undefined | No | typical \| prominent | Sets Divider variant | "typical" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-hidden | boolean \| undefined | No |  | Set the divider to be hidden from screen readers. Please note that this cannot be overridden when inside a Menu. |  |
