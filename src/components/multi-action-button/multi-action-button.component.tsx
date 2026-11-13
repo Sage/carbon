@@ -174,7 +174,7 @@ export const MultiActionButton = forwardRef<
         data-element={dataElement}
         data-role={dataRole}
         displayed={showAdditionalButtons}
-        width={width}
+        width={fullWidth ? "100%" : width}
         {...filterStyledSystemMarginProps(rest)}
       >
         {isInTable && showAdditionalButtons && (
@@ -200,7 +200,7 @@ export const MultiActionButton = forwardRef<
               popoverStrategy="fixed"
               width={menuWidth}
               controlWrapperStyle={{
-                width: width ? "100%" : undefined,
+                width: fullWidth || width ? "100%" : undefined,
               }}
               popoverControl={(ref, props) => {
                 const combinedRef = combineRefs(ref, buttonRef);
