@@ -1,134 +1,101 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
-const animateStar = keyframes`
-  0% {
-    transform: translate3d(0px, 0px, 0px) scale(0.3);
-    opacity: 0;
-  }
-  10% {
-    transform: translate3d(0px, 0px, 0px) scale(0.3);
-    opacity: 0;
-  }
-  20% {
-    transform: translate3d(0px, 0px, 0px) scale(0.6);
-    opacity: 1;
-  }
-  35% {
-    transform: translate3d(0px, 0px, 0px) scale(0.6);
-    opacity: 1;
-  }
-  55% {
-    transform: translate3d(16px, -12px, 0px) scale(1.4);
-    opacity: 1;
-  }
-  60% {
-    transform: translate3d(16px, -12px, 0px) scale(1.4);
-    opacity: 1;
-  }
-  90% {
-    transform: translate3d(0px, -24px, 0px) scale(0.8);
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(0px, -24px, 0px) scale(0.6);
-    opacity: 0;
-  }
+const firstStarScale = keyframes`
+  0% { transform: scale(0); animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  15.29% { transform: scale(1.1); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
+  30.64%, 100% { transform: scale(0); }
 `;
 
-const animateStopTop = keyframes`
-  0% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  10% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  50% { stop-color: var(--mode-color-ai-alt-stop-2); }
-  90% { stop-color: var(--mode-color-ai-alt-stop-3); }
-  100% { stop-color: var(--mode-color-ai-alt-stop-3); }
+const secondStarScale = keyframes`
+  0%, 15.29% { transform: scale(0); }
+  15.29% { animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  30.64% { transform: scale(1.1); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
+  45.36%, 100% { transform: scale(0); }
 `;
 
-const animateStopBottom = keyframes`
-  0% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  10% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  50% { stop-color: var(--mode-color-ai-alt-stop-1); }
-  90% { stop-color: var(--mode-color-ai-alt-stop-2); }
-  100% { stop-color: var(--mode-color-ai-alt-stop-2); }
+const thirdStarScale = keyframes`
+  0%, 30.61% { transform: scale(0); }
+  30.61% { animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  45.36% { transform: scale(1.1); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
+  60.68%, 100% { transform: scale(0); }
 `;
 
-const time = "3s";
+const fourthStarScale = keyframes`
+  0% { transform: scale(0); opacity: 1; animation-timing-function: cubic-bezier(0.17, 1, 0.83, 1); }
+  15.32% { transform: scale(1.1); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
+  30.33%, 100% { transform: scale(0); opacity: 1; }
+`;
+
+const fifthStarScale = keyframes`
+  0% { transform: scale(0); opacity: 1; animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  15.29% { transform: scale(1.1); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
+  30.07%, 100% { transform: scale(0); opacity: 1; }
+`;
+
+const sixthStarScale = keyframes`
+  0% { transform: scale(0); opacity: 1; animation-timing-function: cubic-bezier(0.17, 1, 1, 1); }
+  14.79% { transform: scale(1.1); animation-timing-function: cubic-bezier(0.78, 0, 0.22, 1); }
+  24.03%, 100% { transform: scale(0.117); opacity: 1; animation-timing-function: ease-in-out; }
+`;
+
+interface StarScaleProps {
+  $animationTime: number;
+  $hasMotion?: boolean;
+}
+
+const starScaleStyles = (
+  animation: ReturnType<typeof keyframes>,
+  delay = 0,
+  hideUntilReveal = false,
+) => css<StarScaleProps>`
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+  ${({ $animationTime, $hasMotion }) =>
+    $hasMotion
+      ? css`
+          opacity: ${hideUntilReveal ? 0 : 1};
+          animation: ${animation} ${$animationTime}s linear infinite;
+          animation-delay: ${($animationTime ??
+            /* istanbul ignore next */ 3.159) * delay}s;
+        `
+      : css`
+          animation: none;
+          opacity: 1;
+          transform: scale(1);
+        `}
+`;
+
+export const StyledLoaderStarRoot = styled.div`
+  display: inline-block;
+  height: var(--global-size-s);
+  position: relative;
+  width: var(--global-size-s);
+`;
 
 export const StyledStarSVG = styled.svg`
-  animation: ${animateStar} ${time} ease-in-out forwards infinite;
-  height: var(--global-size-3-xs);
-  opacity: 0;
-  width: var(--global-size-3-xs);
-`;
-
-export const GradientStopTop = styled.stop`
-  animation: ${animateStopTop} ${time} ease-in-out forwards infinite;
-`;
-
-export const GradientStopBottom = styled.stop`
-  animation: ${animateStopBottom} ${time} ease-in-out forwards infinite;
-`;
-
-export const StyledLoaderStarContainer = styled.div`
-  bottom: 0;
-  height: var(--global-size-3-xs);
-  left: 0;
+  height: 100%;
+  inset: 0;
+  overflow: visible;
   position: absolute;
-  width: var(--global-size-3-xs);
+  width: 100%;
+`;
 
-  &.star-1 {
-    .ai-star-path {
-      fill: url(#gradient1);
-    }
-
-    ${StyledStarSVG} {
-      animation-delay: -2s;
-    }
-
-    #gradient1 {
-      ${GradientStopTop} {
-        animation-delay: -2s;
-      }
-      ${GradientStopBottom} {
-        animation-delay: -2s;
-      }
-    }
-  }
-
-  &.star-2 {
-    .ai-star-path {
-      fill: url(#gradient2);
-    }
-
-    ${StyledStarSVG} {
-      animation-delay: -1s;
-    }
-
-    #gradient2 {
-      ${GradientStopTop} {
-        animation-delay: -1s;
-      }
-      ${GradientStopBottom} {
-        animation-delay: -1s;
-      }
-    }
-  }
-
-  &.star-3 {
-    .ai-star-path {
-      fill: url(#gradient3);
-    }
-
-    ${StyledStarSVG} {
-      animation-delay: 0s;
-    }
-
-    #gradient3 {
-      ${GradientStopTop} {
-        animation-delay: 0s;
-      }
-      ${GradientStopBottom} {
-        animation-delay: 0s;
-      }
-    }
-  }
+export const StyledStar1Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(firstStarScale)}
+`;
+export const StyledStar2Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(secondStarScale)}
+`;
+export const StyledStar3Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(thirdStarScale)}
+`;
+export const StyledStar4Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(fourthStarScale, 0.4536, true)}
+`;
+export const StyledStar5Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(fifthStarScale, 0.6068, true)}
+`;
+export const StyledStar6Scale = styled.path<StarScaleProps>`
+  ${starScaleStyles(sixthStarScale, 0.7597, true)}
 `;
