@@ -1,0 +1,23 @@
+{
+  "component": "Switch",
+  "summary": "A control that turns a single setting on or off, with the change taking effect as soon as the user toggles it.",
+  "alternatives": [
+    {
+      "component": "Checkbox",
+      "when": "The choice only takes effect when a form is submitted, or users select one or more options from a list."
+    }
+  ],
+  "pitfalls": [
+    "Switch is controlled: checked and onChange are required, so update checked from e.target.checked.",
+    "Give each Switch a label; it does not forward aria-label or aria-labelledby, so a label rendered elsewhere must be a label element whose htmlFor matches the Switch id.",
+    "The input is disabled while loading is true.",
+    "error, warning and info are deprecated and ignored; Switch does not display validation states.",
+    "The On/Off state text and default processing label come from the switch.on, switch.off and switch.processingLabel locale keys; translate them through I18nProvider."
+  ],
+  "examples": [
+    {
+      "story": "Default",
+      "description": "Control checked state from onChange, with a label and hint text."
+    }
+  ]
+}

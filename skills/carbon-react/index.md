@@ -91,7 +91,7 @@
 - [MenuFullscreen](components/menu-fullscreen.md)
 - [MenuItem](components/menu-item.md)
 - [MenuSegmentTitle](components/menu-segment-title.md)
-- [Message](components/message.md)
+- [Message](components/message.md) — A static inline message that stays on screen and conveys its type through a variant icon, colour and screen-reader text.
 - [Modal](components/modal.md) (deprecated)
 - [MultiActionButton](components/multi-action-button.md)
 - [MultiSelect](components/multi-select.md)
@@ -122,8 +122,8 @@
 - [Preview](components/preview.md)
 - [Profile](components/profile.md)
 - [ProgressTracker](components/progress-tracker.md)
-- [RadioButton](components/radio-button.md)
-- [RadioButtonGroup](components/radio-button-group.md)
+- [RadioButton](components/radio-button.md) — An option within a RadioButtonGroup that lets users select exactly one choice from a visible set.
+- [RadioButtonGroup](components/radio-button-group.md) — A fieldset that groups RadioButton options under a shared legend and controls which single option is selected.
 - [RequiredFieldsIndicator](components/required-fields-indicator.md)
 - [ScrollableBlock](components/scrollable-block.md)
 - [Search](components/search.md) — A search input for querying or filtering content.
@@ -138,7 +138,7 @@
 - [StepFlowTitle](components/step-flow-title.md)
 - [StepSequence](components/step-sequence.md)
 - [StepSequenceItem](components/step-sequence-item.md)
-- [Switch](components/switch.md)
+- [Switch](components/switch.md) — A control that turns a single setting on or off, with the change taking effect as soon as the user toggles it.
 - [Tab](components/tab.md)
 - [Table](components/table.md)
 - [TableBody](components/table-body.md)

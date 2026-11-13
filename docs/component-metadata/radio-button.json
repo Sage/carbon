@@ -1,0 +1,31 @@
+{
+  "component": "RadioButton",
+  "summary": "An option within a RadioButtonGroup that lets users select exactly one choice from a visible set.",
+  "alternatives": [
+    {
+      "component": "Checkbox",
+      "when": "Users can select more than one option, or each option is an independent choice."
+    },
+    {
+      "component": "Select",
+      "when": "Users choose one option from a very long list."
+    },
+    {
+      "component": "ButtonToggleGroup",
+      "when": "Users choose one option from a highly visible range."
+    }
+  ],
+  "pitfalls": [
+    "Render each RadioButton inside a RadioButtonGroup and control selection with the group's value and onChange; a RadioButton is checked only when its value matches the group value, and outside a group it logs a context error and cannot be checked.",
+    "Give RadioButtonGroup a legend that describes the choice, and set size, required and validation error on the group; RadioButton size, error and warning are deprecated.",
+    "progressiveDisclosure is ignored when RadioButtonGroup is inline; Carbon recommends keeping revealed content limited and using a different pattern for larger amounts.",
+    "Collapsed progressiveDisclosure content stays mounted but hidden, so values entered in revealed fields persist after another option is selected; clear or ignore them on submit if needed.",
+    "Carbon supports disabled radio buttons, but the Design System does not generally recommend them."
+  ],
+  "examples": [
+    {
+      "story": "ProgressiveDisclosure",
+      "description": "Reveal a follow-up field beneath the selected option in a controlled RadioButtonGroup."
+    }
+  ]
+}
