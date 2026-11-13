@@ -13,6 +13,19 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 
 import DateInput from "./date.component";
 
+jest.mock("@floating-ui/react-dom", () => {
+  const actual = jest.requireActual("@floating-ui/react-dom");
+
+  return {
+    ...actual,
+    autoUpdate: jest.fn(() => () => {}),
+    useFloating: jest.fn((options) => ({
+      ...actual.useFloating(options),
+      isPositioned: true,
+    })),
+  };
+});
+
 const TypicalDateInput = React.forwardRef<
   HTMLInputElement,
   React.ComponentProps<typeof DateInput>

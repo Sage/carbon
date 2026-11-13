@@ -16,6 +16,19 @@ import Option from "../option";
 import { CHARACTERS } from "../../../../playwright/support/constants";
 import setupSelectMocks from "../setup-select-mocks";
 
+jest.mock("@floating-ui/react-dom", () => {
+  const actual = jest.requireActual("@floating-ui/react-dom");
+
+  return {
+    ...actual,
+    autoUpdate: jest.fn(() => () => {}),
+    useFloating: jest.fn((options) => ({
+      ...actual.useFloating(options),
+      isPositioned: true,
+    })),
+  };
+});
+
 beforeEach(() => {
   setupSelectMocks();
 });

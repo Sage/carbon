@@ -14,8 +14,8 @@ import {
   arrow,
   limitShift,
   autoUpdate,
-  useFloating,
 } from "@floating-ui/react-dom";
+import * as floatingUi from "@floating-ui/react-dom";
 
 import StyledTooltip from "./tooltip.style";
 import StyledPointer from "./tooltip-pointer.style";
@@ -208,12 +208,12 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
     const {
       x,
       y,
-      reference,
-      floating,
+      refs,
       strategy,
       placement: currentPlacement,
       middlewareData,
-    } = useFloating({
+    } = floatingUi.useFloating({
+      open: showTooltip,
       placement: position,
       middleware: defaultMiddleware,
       whileElementsMounted: autoUpdate,
@@ -226,7 +226,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
 
     const handleTargetRef = useCallback(
       (node: HTMLElement) => {
-        reference(target || node);
+        refs.setReference(target || node);
         targetInternalRef.current = node;
         preserveRef(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -234,15 +234,15 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
           node,
         );
       },
-      [reference, children, target],
+      [refs, children, target],
     );
 
     const handleFloatingRef = useCallback(
       (node: HTMLDivElement) => {
-        floating(node);
+        refs.setFloating(node);
         preserveRef(ref, node);
       },
-      [floating, ref],
+      [refs, ref],
     );
 
     const staticSide = {
