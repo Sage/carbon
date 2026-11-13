@@ -635,7 +635,7 @@ test("renders the standard header divider", () => {
 
   expect(divider).toHaveStyleRule(
     "background",
-    "var(--container-standard-border-default)",
+    "var(--container-modal-border-default)",
   );
   expect(divider).toHaveStyleRule("height", "var(--global-borderwidth-xs)");
 });
