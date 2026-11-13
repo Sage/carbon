@@ -167,6 +167,26 @@ test("restores grid focus when a Carbon dropdown closes by blurring", async ({
   await expect(typeCell).toBeFocused();
 });
 
+test("returns focus to the cell when an open dropdown is dismissed with Escape", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const typeCell = cell(page, 2, "type");
+  await typeCell.click();
+  await page.keyboard.press("Enter");
+
+  await expect(page.getByRole("option", { name: "Service" })).toBeVisible();
+  await page.keyboard.press("Escape");
+
+  await expect(page.getByRole("combobox", { name: "Type, row 2" })).toHaveCount(
+    0,
+  );
+  await expect(typeCell).toBeFocused();
+  await expect(typeCell).toContainText("Product");
+});
+
 test("filters and commits a FilterableSelect dropdown", async ({
   mount,
   page,
