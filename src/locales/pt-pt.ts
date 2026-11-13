@@ -95,13 +95,78 @@ const ptPT: Partial<Locale> = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "ou arrastar e largar",
-    selectFile: () => "Selecionar ficheiro",
-    fileUploadStatus: () => "Estado de carregamento",
+    dragAndDrop: (selectButtonText, multiple = false) => {
+      if (!selectButtonText) {
+        return multiple
+          ? "ou arraste e largue os ficheiros"
+          : "ou arraste e largue o ficheiro";
+      }
+
+      return `Arraste e largue ${
+        multiple ? "os ficheiros" : "o ficheiro"
+      }, ou utilize ${selectButtonText} para ${
+        multiple ? "selecioná-los" : "selecioná-lo"
+      }.`;
+    },
+    selectFile: (multiple = false) =>
+      multiple ? "Selecionar ficheiros" : "Selecionar ficheiro",
+    requiredDescription: () => "Este campo é obrigatório.",
+    currentFiles: (count) =>
+      count === 1 ? `Ficheiro atual (${count})` : `Ficheiros atuais (${count})`,
+    currentFilesProgressSummary: ({
+      totalCount,
+      uploadingCount,
+      completedCount,
+    }) => {
+      const summaries: string[] = [];
+
+      if (uploadingCount > 0) {
+        summaries.push(
+          `A carregar ${uploadingCount} ${
+            uploadingCount === 1 ? "ficheiro..." : "ficheiros..."
+          }`,
+        );
+      }
+
+      if (completedCount > 0) {
+        summaries.push(
+          completedCount === 1 && totalCount === 1
+            ? "Foi carregado 1 ficheiro"
+            : `Foram carregados ${completedCount} de ${totalCount} ficheiros`,
+        );
+      }
+
+      const summary = summaries.join(", ");
+
+      return summary && !summary.endsWith(".") ? `${summary}.` : summary;
+    },
+    currentFilesErrorSummary: ({ errorCount }) =>
+      errorCount === 1
+        ? "Não foi possível carregar 1 ficheiro."
+        : `Não foi possível carregar ${errorCount} ficheiros.`,
+    previouslyUploadedFiles: (count) =>
+      count === 1
+        ? `Ficheiro carregado anteriormente (${count})`
+        : `Ficheiros carregados anteriormente (${count})`,
+    uploading: () => "A carregar...",
+    uploaded: () => "Ficheiro carregado",
+    uploadErrorDetails: () => "Detalhes do erro",
+    announcements: {
+      filesAdded: (files) =>
+        files.length === 1
+          ? `Ficheiro selecionado: ${files[0]}.`
+          : `Ficheiros selecionados: ${files.join(", ")}.`,
+      uploadComplete: (files) => `Carregamento concluído: ${files.join(", ")}.`,
+      fileDeleted: (file) => `Ficheiro eliminado: ${file}.`,
+      fileRemoved: (file) => `Ficheiro removido: ${file}.`,
+      uploadCancelled: (file) => `Carregamento cancelado: ${file}.`,
+    },
     actions: {
-      cancel: () => "Cancelar carregamento",
-      clear: () => "Limpar",
-      delete: () => "Eliminar ficheiro",
+      cancel: () => "Cancelar",
+      delete: () => "Eliminar",
+      remove: () => "Remover",
+      retry: () => "Tentar novamente",
+      preview: () => "Pré-visualizar",
     },
   },
   heading: {
