@@ -20,18 +20,22 @@ interface UseDataGridRowsOptions<T extends object> {
   rows: T[];
   getRowId: (row: T) => DataGridRowId;
   onRowsChange?: DataGridProps<T>["onRowsChange"];
+  onRowsChangeResult?: (result: DataGridRowsChangeResult<T>) => void;
 }
 
 const useDataGridRows = <T extends object>({
   rows,
   getRowId,
   onRowsChange,
+  onRowsChangeResult,
 }: UseDataGridRowsOptions<T>) => {
   const emit = useCallback(
     (result: DataGridRowsChangeResult<T> | null) => {
-      if (result) onRowsChange?.(result.rows, result.change);
+      if (!result) return;
+      onRowsChange?.(result.rows, result.change);
+      onRowsChangeResult?.(result);
     },
-    [onRowsChange],
+    [onRowsChange, onRowsChangeResult],
   );
 
   const commitCellChange = useCallback(

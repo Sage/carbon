@@ -49,6 +49,7 @@ export const getDataGridCellKeyAction = (
   if (event.key === " ") {
     if (cellType === "checkbox") return { type: "toggle-checkbox" };
     if (cellType === "dropdown") return { type: "begin-edit" };
+    if (cellType === "action") return { type: "focus-action" };
   }
   if (enableTabNavigation && event.key === "Tab") {
     return { type: "move-linear", delta: event.shiftKey ? -1 : 1 };

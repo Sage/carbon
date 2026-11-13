@@ -159,6 +159,30 @@ test("exposes error and read-only cell state accessibly", () => {
   expect(cell).toHaveStyleRule("cursor", "default");
 });
 
+test("keeps the error description on the focused cell editor", async () => {
+  const user = userEvent.setup();
+  const stateColumns: DataGridColumn<Row>[] = [
+    {
+      field: "name",
+      headerName: "Name",
+      error: "Enter a name",
+    },
+  ];
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={stateColumns}
+    />,
+  );
+
+  await user.dblClick(screen.getByRole("gridcell"));
+
+  const editor = screen.getByRole("textbox", { name: "Name, row 1" });
+  expect(editor).toHaveAttribute("aria-invalid", "true");
+  expect(editor).toHaveAccessibleDescription("Enter a name");
+});
+
 test("derives error and read-only states from the complete cell context", () => {
   const error = jest.fn(
     ({ rowId, field, value }: DataGridCellParams<Row>) =>
@@ -346,6 +370,93 @@ test("exposes row transactions to custom action cells", async () => {
     row: rows[0],
     index: 0,
   });
+});
+
+test("restores focus after duplicate and delete row operations", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  const gridRef = createRef<DataGridHandle<Row>>();
+  const actionColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name" },
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "action",
+      renderCell: ({ api, row, rowId }) => (
+        <>
+          <button onClick={() => api.duplicateRow(rowId, { ...row, id: 3 })}>
+            Duplicate {rowId}
+          </button>
+          <button onClick={() => api.deleteRow(rowId)}>Delete {rowId}</button>
+        </>
+      ),
+    },
+  ];
+  const renderGrid = (currentRows: Row[]) => (
+    <>
+      <button
+        onClick={() =>
+          gridRef.current?.addRow({
+            id: 4,
+            name: "Four",
+            type: "A",
+            selected: false,
+          })
+        }
+      >
+        Add row
+      </button>
+      <button
+        onClick={() =>
+          gridRef.current?.insertRow(
+            {
+              id: 5,
+              name: "Five",
+              type: "A",
+              selected: false,
+            },
+            { afterRowId: 1 },
+          )
+        }
+      >
+        Insert row
+      </button>
+      <DataGrid
+        ref={gridRef}
+        aria-label="Items"
+        rows={currentRows}
+        columns={actionColumns}
+        onRowsChange={onRowsChange}
+      />
+    </>
+  );
+  const view = render(renderGrid(rows));
+
+  await user.click(screen.getByRole("button", { name: "Duplicate 1" }));
+  const duplicatedRows = onRowsChange.mock.calls[0][0] as Row[];
+  view.rerender(renderGrid(duplicatedRows));
+
+  await waitFor(() => expect(screen.getAllByRole("gridcell")[2]).toHaveFocus());
+
+  await user.click(screen.getByRole("button", { name: "Delete 3" }));
+  const rowsAfterDelete = onRowsChange.mock.calls[1][0] as Row[];
+  view.rerender(renderGrid(rowsAfterDelete));
+
+  await waitFor(() => expect(screen.getAllByRole("gridcell")[2]).toHaveFocus());
+
+  await user.click(screen.getByRole("button", { name: "Add row" }));
+  const rowsAfterAdd = onRowsChange.mock.calls[2][0] as Row[];
+  view.rerender(renderGrid(rowsAfterDelete.map((row) => ({ ...row }))));
+  expect(screen.getByRole("button", { name: "Add row" })).toHaveFocus();
+  view.rerender(renderGrid(rowsAfterAdd));
+
+  await waitFor(() => expect(screen.getAllByRole("gridcell")[4]).toHaveFocus());
+
+  await user.click(screen.getByRole("button", { name: "Insert row" }));
+  const rowsAfterInsert = onRowsChange.mock.calls[3][0] as Row[];
+  view.rerender(renderGrid(rowsAfterInsert));
+
+  await waitFor(() => expect(screen.getAllByRole("gridcell")[2]).toHaveFocus());
 });
 
 test("keeps scrolling cells transparent and raises focused action cells", () => {

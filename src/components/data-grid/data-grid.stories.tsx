@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ActionPopover, ActionPopoverDivider } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import Icon from "../icon";
 import Link from "../link";
@@ -268,7 +268,7 @@ export const EditableInvoiceLines: Story = {
           onRowsChange={(nextRows) => setRows(nextRows)}
         />
         <Button
-          buttonType="secondary"
+          variantType="secondary"
           iconType="add"
           iconPosition="before"
           mt={2}
@@ -314,7 +314,7 @@ export const ControlledRows: Story = {
           }}
         />
         <Button
-          buttonType="secondary"
+          variantType="secondary"
           iconType="add"
           iconPosition="before"
           mt={2}

@@ -189,6 +189,8 @@ const DataGridCellInner = <T extends object>(
           column={column}
           rowIndex={rowIndex}
           value={draftValue}
+          errorId={errorId}
+          invalid={!!errorValue}
           editorRef={editorRef}
           onChange={onDraftChange}
           onSelectionCommit={(value) => onCommitEdit(true, value)}

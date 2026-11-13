@@ -207,10 +207,23 @@ gridRef.current?.moveRow(lineId, 3);
 index, `beforeRowId`, or `afterRowId`. An operation with an unknown row ID does
 not produce a change.
 
+After `addRow`, `insertRow`, or `duplicateRow`, focus moves to the first cell in
+the new row. After `deleteRow`, focus moves to the first cell in the following
+row, or the previous row when the deleted row was last. This focus recovery
+applies when the updated rows are passed back through `onRowsChange`.
+Applications using their own row mutation controls should restore focus after
+removing the focused element.
+
 Adding or inserting a row whose ID already exists throws an error. Unique IDs
 are required for focus, virtualization, and row operations.
 
 ## Validation
+
+An `error` string is exposed as the accessible description of the cell and its
+editor. The error-summary layout remains application-owned. Set
+`aria-describedby` on Data Grid to associate it with external summary or
+guidance content, then use `focusCell` or `editCell` from the forwarded ref for
+links that take users to a specific error.
 
 Data Grid preserves the supplied row shape. The consuming application remains
 responsible for business rules, generated IDs, and converting rows to an API

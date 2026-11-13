@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useState } from "react";
 
 import { ActionPopover } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
-import Button from "../button";
+import Button from "../button/__next__";
 import Icon from "../icon";
 import { DataGrid, DataGridColumn, DataGridHandle, DataGridProps } from ".";
 
@@ -116,6 +116,22 @@ const DataGridComponent = ({
     <div>
       <Button onClick={() => gridRef.current?.editCell(2, "name")} mb={2}>
         Edit first error
+      </Button>
+      <Button
+        onClick={() =>
+          gridRef.current?.addRow({
+            id: Math.max(0, ...rows.map(({ id }) => id)) + 1,
+            name: "",
+            type: "Service",
+            quantity: "1",
+            selected: false,
+            actions: null,
+          })
+        }
+        mb={2}
+        ml={2}
+      >
+        Add line
       </Button>
       <DataGrid
         ref={gridRef}
