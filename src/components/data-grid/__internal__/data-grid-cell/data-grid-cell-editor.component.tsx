@@ -83,14 +83,20 @@ const DataGridCellEditor = <T extends object>({
       onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
         // Carbon Select owns selection, filtering and option navigation. The
         // grid only owns leaving or cancelling the active cell editor.
-        if (event.key === "Escape" || event.key === "Tab") onKeyDown(event);
+        if (event.key === "Tab") onKeyDown(event);
       },
       ref: editorRef as React.RefObject<HTMLInputElement>,
       value: selectedValue,
     };
 
     return (
-      <StyledSelectEditor>
+      <StyledSelectEditor
+        onKeyDownCapture={(event) => {
+          // The open list handles Escape before the textbox receives it. Use
+          // capture so one press both dismisses the list and exits edit mode.
+          if (event.key === "Escape") onKeyDown(event);
+        }}
+      >
         {column.filterable ? (
           <FilterableSelect {...commonProps}>{options}</FilterableSelect>
         ) : (
