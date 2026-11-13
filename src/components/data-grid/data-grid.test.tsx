@@ -1148,6 +1148,46 @@ test("closes an unchanged dropdown and moves when Tab leaves the open editor", a
   expect(onRowsChange).not.toHaveBeenCalled();
 });
 
+test.each([false, true])(
+  "cancels dropdown editing with one Escape press (filterable=%s)",
+  async (filterable) => {
+    const user = userEvent.setup();
+    const onRowsChange = jest.fn();
+    const dropdownColumns: DataGridColumn<Row>[] = [
+      {
+        field: "type",
+        filterable,
+        headerName: "Type",
+        options: [
+          { label: "A", value: "A" },
+          { label: "B", value: "B" },
+        ],
+        type: "dropdown",
+      },
+    ];
+
+    render(
+      <DataGrid
+        aria-label="Items"
+        columns={dropdownColumns}
+        onRowsChange={onRowsChange}
+        rows={rows.slice(0, 1)}
+      />,
+    );
+
+    const cell = screen.getByRole("gridcell");
+    await user.click(cell);
+    await user.keyboard("{Enter}");
+    expect(await screen.findByRole("option", { name: "B" })).toBeVisible();
+
+    await user.keyboard("{Escape}");
+
+    expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+    expect(cell).toHaveFocus();
+    expect(onRowsChange).not.toHaveBeenCalled();
+  },
+);
+
 test("keeps grid navigation inside an open action popover", async () => {
   const user = userEvent.setup();
   const actionColumns: DataGridColumn<Row>[] = [
