@@ -1,0 +1,140 @@
+import styled, { css, keyframes } from "styled-components";
+import { margin } from "styled-system";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
+import { Shapes } from "./skeleton.component";
+
+const skeletonSlider = keyframes`
+  0% {
+    background-position:
+      calc(
+        var(--skeleton-background-start-x, 140%) -
+          var(--skeleton-line-offset-x, 0px)
+      )
+      calc(
+        var(--skeleton-background-y, 100%) -
+          var(--skeleton-line-offset-y, 0px)
+      );
+  }
+  50% {
+    background-position:
+      calc(
+        var(--skeleton-background-end-x, -20%) -
+          var(--skeleton-line-offset-x, 0px)
+      )
+      calc(
+        var(--skeleton-background-y, 100%) -
+          var(--skeleton-line-offset-y, 0px)
+      );
+  }
+  100% {
+    background-position:
+      calc(
+        var(--skeleton-background-end-x, -20%) -
+          var(--skeleton-line-offset-x, 0px)
+      )
+      calc(
+        var(--skeleton-background-y, 100%) -
+          var(--skeleton-line-offset-y, 0px)
+      );
+  }
+`;
+
+interface StyledSkeletonLineProps {
+  $disableAnimation?: boolean;
+  $height?: string;
+  $width?: string;
+  $shape: Shapes;
+}
+
+function getBorderRadius(shape: Shapes) {
+  switch (shape) {
+    case "rectangle-curved":
+    case "circle":
+      return "var(--global-radius-container-circle)";
+    case "rectangle-moderate":
+    default:
+      return "var(--global-radius-container-m)";
+  }
+}
+
+const DEFAULT_HEIGHT = "21px";
+
+const StyledSkeletonLine = styled.span<StyledSkeletonLineProps>`
+  ${({ $disableAnimation, $shape, $height, $width }) => {
+    const isFixedWidth = $shape === "circle" || !!$width;
+
+    return css`
+      display: block;
+      border-radius: ${getBorderRadius($shape)};
+      height: ${$height || DEFAULT_HEIGHT};
+      width: ${$width || "100%"};
+      background-color: var(--mode-color-status-skeleton-stop-2);
+      background-image: ${$disableAnimation
+        ? css`
+            var(--progress-loader-bg-skeleton)
+          `
+        : css`
+            linear-gradient(
+              120deg,
+              var(--mode-color-status-skeleton-stop-2) 35%,
+              var(--mode-color-status-skeleton-stop-1) 50%,
+              var(--mode-color-status-skeleton-stop-2) 75%
+            )
+          `};
+      background-size: ${$disableAnimation
+        ? "100% 100%"
+        : css`
+            var(--skeleton-background-width, 300%)
+              var(--skeleton-background-height, 100%)
+          `};
+      background-position: ${$disableAnimation
+        ? "0 0"
+        : css`
+            calc(
+                var(--skeleton-background-start-x, 140%) - var(
+                    --skeleton-line-offset-x,
+                    0px
+                  )
+              )
+              calc(
+                var(--skeleton-background-y, 100%) - var(
+                    --skeleton-line-offset-y,
+                    0px
+                  )
+              )
+          `};
+      animation: ${$disableAnimation
+        ? "none"
+        : css`
+            ${skeletonSlider} 4s ease-in-out infinite
+          `};
+
+      ${!isFixedWidth &&
+      css`
+        flex: 1;
+      `}
+
+      ${$shape === "circle" &&
+      css`
+        width: ${$height || DEFAULT_HEIGHT};
+        flex-shrink: 0;
+      `}
+    `;
+  }}
+`;
+
+const StyledSkeletonRow = styled.div`
+  display: flex;
+  gap: var(--global-space-comp-s);
+  align-items: center;
+
+  & + & {
+    margin-top: 6px;
+  }
+`;
+
+const StyledSkeleton = styled.div.attrs(applyBaseTheme)`
+  ${margin}
+`;
+
+export { StyledSkeleton, StyledSkeletonLine, StyledSkeletonRow };

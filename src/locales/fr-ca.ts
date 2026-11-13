@@ -264,6 +264,9 @@ const frCA: Partial<Locale> = {
       close: () => "Fermer",
     },
   },
+  skeleton: {
+    loading: () => "Chargement",
+  },
   sort: {
     accessibleName: (sortContent, sortType) =>
       `Trier tous les contenus ${sortContent && `de type ${sortContent}`}${

@@ -257,6 +257,9 @@ interface Locale {
       close: () => string;
     };
   };
+  skeleton: {
+    loading: () => string;
+  };
   sort: {
     /**
      * @deprecated The `sort.accessibleName` locale string is deprecated in favour of using `aria-live` regions.
