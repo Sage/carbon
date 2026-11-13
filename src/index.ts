@@ -366,7 +366,9 @@ export {
   FilterableSelect,
   MultiSelect,
   Select,
+  Select as Dropdown,
   Option,
+  ActionOption,
   OptionGroupHeader,
   OptionRow,
   setupSelectMocks,
@@ -378,6 +380,7 @@ export type {
   SimpleSelectProps,
   OptionGroupHeaderProps,
   OptionProps,
+  ActionOptionProps,
   OptionRowProps,
 } from "./components/select";
 

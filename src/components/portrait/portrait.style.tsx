@@ -66,6 +66,7 @@ export const StyledIcon = styled(Icon)<{
 }>`
   && {
     color: ${({ variant }) => getPortraitColors(variant).color};
+    display: flex;
     height: ${({ $portraitSize }) =>
       getPortraitDimensions($portraitSize).height};
     min-width: ${({ $portraitSize }) =>

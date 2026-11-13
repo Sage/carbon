@@ -103,6 +103,61 @@ test("calls onClick when clicked", async () => {
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
+test("applies action colours without changing option semantics", () => {
+  render(
+    <ul>
+      <MenuItem action>Action item</MenuItem>
+    </ul>,
+  );
+
+  const item = screen.getByRole("option", { name: "Action item" });
+  expect(item).toHaveStyleRule(
+    "background-color",
+    "var(--button-typical-secondary-bg-default)",
+  );
+  expect(item).toHaveStyleRule(
+    "color",
+    "var(--button-typical-secondary-label-default)",
+  );
+  expect(item).toHaveStyleRule(
+    "background-color",
+    "var(--button-typical-secondary-bg-hover)",
+    { modifier: ":hover" },
+  );
+  expect(item).not.toHaveStyleRule(
+    "background-color",
+    "var(--input-dropdown-bg-hover)",
+    { modifier: ":not(:has(button)):not(:has(a)):hover" },
+  );
+  expect(item).toHaveStyleRule(
+    "background-color",
+    "var(--button-typical-secondary-bg-hover)",
+    { modifier: ":active" },
+  );
+  expect(item).toHaveStyleRule(
+    "color",
+    "var(--button-typical-secondary-label-hover)",
+    { modifier: ":active" },
+  );
+});
+
+test("does not apply action colours when disabled", () => {
+  render(
+    <ul>
+      <MenuItem action disabled>
+        Action item
+      </MenuItem>
+    </ul>,
+  );
+
+  expect(
+    screen.getByRole("option", { name: "Action item" }),
+  ).not.toHaveStyleRule(
+    "background-color",
+    "var(--button-typical-secondary-bg-default)",
+  );
+});
+
 test.each(["small", "medium", "large"] as const)(
   "renders with size %s from context",
   (size) => {
