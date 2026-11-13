@@ -26,6 +26,7 @@ import {
   ActionPopoverProvider,
   Alignment,
 } from "./__internal__/action-popover.context";
+import ActionPopoverFocusContext from "./__internal__/action-popover-focus.context";
 import checkChildrenForString from "./__internal__/action-popover.utils";
 import { TableBodyContext } from "../table/__internal__/contexts";
 import MenuButton from "./action-popover.style";
@@ -140,6 +141,7 @@ export const ActionPopover = forwardRef<
     const [guid] = useState(createGuid());
     const buttonRef = useRef<HTMLDivElement>(null);
     const { isInTable } = useContext(TableBodyContext);
+    const { restoreFocusOnClickAway } = useContext(ActionPopoverFocusContext);
 
     const handledEscape = useRef(false);
 
@@ -402,10 +404,15 @@ export const ActionPopover = forwardRef<
               const isMenuHidden =
                 menuWrapper &&
                 getComputedStyle(menuWrapper).visibility === "hidden";
+              const isClickAway = e?.type === "click";
               setOpen(false);
 
               // Avoid moving focus twice on Shift+Tab or scrolling a hidden control into view.
-              if (!hasBackTabbed && !isMenuHidden) {
+              if (
+                !hasBackTabbed &&
+                !isMenuHidden &&
+                (restoreFocusOnClickAway || !isClickAway)
+              ) {
                 focusButton();
               }
             }}

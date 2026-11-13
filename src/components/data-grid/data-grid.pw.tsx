@@ -342,6 +342,25 @@ test("does not navigate away from an open action popover", async ({
   await expect(selectedCell).toBeFocused();
 });
 
+test("keeps focus on a cell clicked while an action popover is open", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await page.getByRole("button", { name: "Actions for row 1" }).click();
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+
+  const nextCell = cell(page, 2, "name");
+  await nextCell.click();
+
+  await expect(page.getByRole("list")).toHaveCount(0);
+  await expect(nextCell).toBeFocused();
+  await expect(
+    page.getByRole("button", { name: "Actions for row 1" }),
+  ).not.toBeFocused();
+});
+
 test("tabs from an open action popover to the first cell of the next row", async ({
   mount,
   page,
