@@ -1465,8 +1465,8 @@ describe("table header", () => {
 
   it.each([
     ["prominent", "default", "var(--table-header-harsh-bg-default)"],
-    ["subtle-white", "default", "var(--page-bg-default)"],
-    ["subtle-grey", "default", "var(--page-bg-alt)"],
+    ["subtle-white", "default", "var(--page-bg-alt)"],
+    ["subtle-grey", "default", "var(--page-bg-default)"],
     ["prominent", "alternate", "var(--table-header-harsh-bg-alt)"],
     ["subtle-white", "alternate", "var(--table-header-subtle-bg-alt)"],
     ["subtle-grey", "alternate", "var(--table-header-subtle-bg-alt)"],
