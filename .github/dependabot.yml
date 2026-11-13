@@ -1,0 +1,46 @@
+# Settings for Dependabot, the GitHub bot that opens pull requests to update packages.
+# All options: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+
+version: 2
+updates:
+  # npm packages (package.json and package-lock.json).
+  - package-ecosystem: npm
+    directory: /
+    # Dependabot needs a schedule here, even though version updates are turned off below.
+    schedule:
+      interval: weekly
+    # 0 turns off normal version updates ("a newer version is out").
+    # Security updates ("this version has a known vulnerability") still run,
+    # and they still use the settings below.
+    open-pull-requests-limit: 0
+    # Commit titles look like "chore(deps): ..." or "chore(deps-dev): ...".
+    # "chore" does not create a new Carbon release.
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      # Put all npm security fixes into one pull request instead of one per package.
+      npm-security:
+        applies-to: security-updates
+        patterns: ["*"]
+
+  # Actions used in .github/workflows.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    # Only suggest a version after it has been public for 3 days.
+    # This gives time for a bad or hacked release to be found and removed.
+    # 3 matches "min-release-age=3" in .npmrc. If you change one, change both.
+    cooldown:
+      default-days: 3
+    # Commit titles look like "ci(deps): ...". "ci" does not create a new Carbon release.
+    commit-message:
+      prefix: ci
+      include: scope
+    groups:
+      # Put minor and patch updates into one pull request.
+      # Major updates (for example v4 to v5) can break things, so each one gets its own pull request.
+      github-actions-minor-patch:
+        update-types: [minor, patch]
+        patterns: ["*"]
