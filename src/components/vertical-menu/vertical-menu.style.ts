@@ -2,18 +2,42 @@ import styled, { css } from "styled-components";
 import { margin, padding, PaddingProps } from "styled-system";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
+import StyledButton from "../button/__next__/button.style";
+import Button from "../button/__next__";
 
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
 
-export const StyledList = styled.ul`
+type StyledListProps = {
+  level?: number;
+};
+
+export const StyledListWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  padding: var(--global-space-comp-s);
+`;
+
+export const StyledList = styled.ul<StyledListProps>`
   display: flex;
   flex: 1;
   flex-direction: column;
   min-height: 0;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding-left: ${({ level }) =>
+    !level || level === 0 ? "0px" : "var(--global-space-comp-l)"};
+`;
+
+export const StyledFullScreenList = styled(StyledList)`
+  > li + li::before {
+    content: "";
+    display: block;
+    border-top: 1px solid var(--nav-secondary-divider);
+    margin: var(--global-space-comp-s) var(--global-space-comp-l);
+  }
 `;
 
 export const StyledListItem = styled.li.attrs(applyBaseTheme)`
@@ -23,6 +47,9 @@ export const StyledListItem = styled.li.attrs(applyBaseTheme)`
 interface StyledVerticalMenuProps extends PaddingProps {
   active?: boolean;
   height: string;
+  isFullScreen?: boolean;
+  level?: number;
+  hasChildren?: boolean;
 }
 
 export const StyledVerticalMenuItem = styled.div.attrs(
@@ -33,56 +60,66 @@ export const StyledVerticalMenuItem = styled.div.attrs(
   display: flex;
   border: none;
   align-items: center;
-  font-weight: 500;
-  font-size: 14px;
+  font: ${({ isFullScreen }) =>
+    isFullScreen
+      ? "var(--global-font-static-comp-medium-l)"
+      : "var(--global-font-static-comp-medium-m)"};
   cursor: pointer;
-  color: var(--colorsComponentsLeftnavWinterStandardContent);
+  color: ${({ isFullScreen, level, hasChildren }) =>
+    isFullScreen && level === 0 && hasChildren
+      ? "var(--nav-secondary-label-default-alt)"
+      : "var(--nav-secondary-label-default)"};
   position: relative;
   box-sizing: border-box;
   text-decoration: none;
-  background-color: var(--colorsComponentsLeftnavWinterStandardBackground);
+  background-color: var(--nav-secondary-bg-default);
+  border-radius: var(--global-radius-container-m);
+
+  padding: 0 var(--global-space-comp-l);
 
   ${padding}
 
   &:hover {
-    background-color: var(--colorsComponentsLeftnavWinterStandardHover);
+    background-color: var(--nav-secondary-bg-hover);
   }
 
   &:focus {
     ${addFocusStyling(true)}
   }
 
+  &:active {
+    background-color: var(--nav-secondary-bg-active);
+  }
+
   ${({ active }) =>
     active &&
     css`
       &:before {
-        background: var(--colorsComponentsLeftnavWinterStandardSelected);
-        border-radius: var(--borderRadius100);
+        background: var(--nav-secondary-bg-selected);
         content: "";
-        height: calc(100% - 16px);
-        left: 24px;
+        height: 24px;
+        left: 0px;
         position: absolute;
         top: 8px;
-        width: calc(100% - 48px);
+        width: 2px;
         z-index: 0;
       }
 
+      &:focus,
       &:hover {
         &:before {
-          background: var(--colorsComponentsLeftnavWinterStandardHover);
+          background: transparent;
         }
       }
     `}
 
   ${StyledIcon} {
     width: 20px;
+    color: var(--nav-secondary-label-default);
   }
 `;
 
 export const StyledTitle = styled.span`
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
   margin: 0;
   z-index: 1;
   text-align: left;
@@ -96,47 +133,74 @@ export const StyledAdornment = styled.div`
 `;
 
 export const StyledTitleIcon = styled(Icon)`
-  margin-right: 12px;
+  margin-right: var(--global-space-comp-m);
   width: 20px;
-  color: var(--colorsComponentsLeftnavWinterStandardContent);
+  color: inherit;
 `;
 
 export const StyledCustomIconWrapper = styled.div`
-  margin-right: 12px;
+  margin-right: var(--global-space-comp-m);
   width: 20px;
 `;
 
 export const StyledChevronIcon = styled(Icon)`
   margin-left: auto;
-  padding-left: 12px;
+  padding-left: var(--global-space-comp-m);
   width: 20px;
-  color: var(--colorsComponentsLeftnavWinterStandardContent);
+  color: var(--nav-secondary-label-default);
+`;
+
+export const StyledVerticalMenuCloseBar = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  height: 40px;
+  box-sizing: border-box;
+  background-color: var(--nav-primary-bg-child);
+  padding-right: var(--global-space-comp-l);
+
+  ${StyledButton} {
+    border: none;
+    color: var(--nav-secondary-label-default);
+
+    &:active,
+    &:hover {
+      background-color: transparent;
+    }
+  }
+`;
+
+export const StyledCloseButton = styled(Button)`
+  border: none;
+  border-radius: 0;
+
+  && [data-component="icon"]:not([data-color]) {
+    color: var(--nav-primary-label-default);
+  }
+
+  &&:hover,
+  &&:active {
+    background-color: var(--nav-primary-bg-child);
+    border-color: transparent;
+  }
+
+  &&:hover [data-component="icon"]:not([data-color]),
+  &&:active [data-component="icon"]:not([data-color]) {
+    color: var(--nav-primary-label-default);
+  }
 `;
 
 export const StyledVerticalMenu = styled.nav.attrs(applyBaseTheme)<{
   $height: string;
   $width: string;
 }>`
-  background-color: rgb(38, 38, 38);
+  background-color: var(--nav-secondary-bg-default);
   box-sizing: border-box;
   display: flex;
   height: ${({ $height }) => $height};
   overflow: auto;
-  padding-block: var(--global-space-layout-3-xs);
-  scrollbar-color: rgb(179, 179, 179) rgb(77, 77, 77);
+  padding: var(--global-space-comp-s);
   width: ${({ $width }) => $width};
-
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: rgb(77, 77, 77);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgb(179, 179, 179);
-  }
 `;
 
 interface FullScreenProps {
@@ -155,24 +219,11 @@ export const StyledVerticalMenuFullScreen = styled.nav.attrs(
   height: 100vh;
   width: 100%;
   outline: none;
-  padding: var(--global-space-layout-3-xs) 0;
+  padding: 0;
   overflow: auto;
-  background-color: rgb(38, 38, 38);
+  background-color: var(--nav-secondary-bg-default);
   box-sizing: border-box;
-  scrollbar-color: rgb(102, 132, 148) rgb(242, 245, 246);
   z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
-
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: rgb(242, 245, 246);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgb(102, 132, 148);
-  }
 
   ${({ prefersReducedMotion }) =>
     !prefersReducedMotion &&
@@ -193,8 +244,4 @@ export const StyledVerticalMenuFullScreen = styled.nav.attrs(
       transform: translateX(-100%);
       visibility: hidden;
     `}
-
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
 `;

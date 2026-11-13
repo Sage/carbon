@@ -81,14 +81,14 @@ describe("VerticalMenuItem", () => {
       );
       expect(screen.getByTestId("item-wrapper")).toHaveStyleRule(
         "background",
-        "var(--colorsComponentsLeftnavWinterStandardSelected)",
+        "var(--nav-secondary-bg-selected)",
         {
           modifier: ":before",
         },
       );
     });
 
-    it("should override active state when mouseover detected", async () => {
+    it("should not override active state when mouseover detected", async () => {
       const user = userEvent.setup();
       render(
         <VerticalMenu>
@@ -100,9 +100,17 @@ describe("VerticalMenuItem", () => {
 
       expect(screen.getByTestId("item-wrapper")).toHaveStyleRule(
         "background",
-        "var(--colorsComponentsLeftnavWinterStandardHover)",
+        "transparent",
         {
           modifier: ":hover:before",
+        },
+      );
+
+      expect(screen.getByTestId("item-wrapper")).toHaveStyleRule(
+        "background",
+        "transparent",
+        {
+          modifier: ":focus:before",
         },
       );
     });
@@ -452,33 +460,18 @@ describe("VerticalMenuItem", () => {
         </VerticalMenu>,
       );
 
-      expect(screen.getByTestId("item")).toHaveStyleRule(
-        "padding-left",
-        "calc(var(--spacing500) + (0 * var(--spacing400)))",
-      );
-      expect(screen.getByTestId("item")).toHaveStyleRule(
-        "padding-right",
-        "calc(var(--spacing500) + (0 * var(--spacing400)))",
-      );
+      expect(screen.getByRole("list")).toHaveStyleRule("padding-left", "0px");
 
       await user.click(screen.getByText("Item1"));
-      expect(screen.getByTestId("child-item")).toHaveStyleRule(
+      expect(screen.getAllByRole("list")[1]).toHaveStyleRule(
         "padding-left",
-        "calc(var(--spacing500) + (1 * var(--spacing400)))",
-      );
-      expect(screen.getByTestId("child-item")).toHaveStyleRule(
-        "padding-right",
-        "calc(var(--spacing500) + (1 * var(--spacing400)))",
+        "var(--global-space-comp-l)",
       );
 
       await user.click(screen.getByText("ChildItem1"));
-      expect(screen.getByTestId("grand-child-item")).toHaveStyleRule(
+      expect(screen.getAllByRole("list")[2]).toHaveStyleRule(
         "padding-left",
-        "calc(var(--spacing500) + (2 * var(--spacing400)))",
-      );
-      expect(screen.getByTestId("grand-child-item")).toHaveStyleRule(
-        "padding-right",
-        "calc(var(--spacing500) + (2 * var(--spacing400)))",
+        "var(--global-space-comp-l)",
       );
     });
 
@@ -518,7 +511,7 @@ describe("VerticalMenuItem", () => {
 
       expect(screen.getByTestId("item")).toHaveStyleRule(
         "background",
-        "var(--colorsComponentsLeftnavWinterStandardSelected)",
+        "var(--nav-secondary-bg-selected)",
         {
           modifier: ":before",
         },
@@ -614,23 +607,6 @@ describe("VerticalMenuItem", () => {
     expect(anchor).toHaveAttribute("data-component", "vertical-menu-item");
     expect(anchor).toHaveAttribute("data-element", "foo");
     expect(anchor).toHaveAttribute("data-role", "bar");
-  });
-
-  it("renders with the expected border radius styling when the item is active", () => {
-    render(
-      <VerticalMenu>
-        <VerticalMenuItem data-role="item-wrapper" title="Item1" active />
-      </VerticalMenu>,
-    );
-
-    const itemWrapper = screen.getByTestId("item-wrapper");
-    expect(itemWrapper).toHaveStyleRule(
-      "border-radius",
-      "var(--borderRadius100)",
-      {
-        modifier: ":before",
-      },
-    );
   });
 
   describe("onClick callback", () => {
