@@ -214,7 +214,7 @@ export const MultiActionButton = forwardRef<
               maxHeight={`${computeMaxHeight(size)}px`}
               width={menuWidth}
               controlWrapperStyle={{
-                width: fullWidth ? "100%" : undefined,
+                width: fullWidth || width ? "100%" : undefined,
               }}
               popoverControl={(ref, props) => {
                 const combinedRef = combineRefs(ref, buttonRef);
