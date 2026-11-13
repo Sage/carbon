@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   forwardRef,
   useState,
@@ -231,10 +232,21 @@ const Menu = ({
   maxHeight,
   popoverStrategy,
 }: MenuProps) => {
+  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
+    () => controlWrapperRef.current,
+  );
+
+  // Runs after every commit: the ref object identity is stable, but its
+  // target can be replaced. Setting an identical element bails out of a render.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useLayoutEffect(() => {
+    setReferenceElement(controlWrapperRef.current);
+  });
+
   return (
     <Popover
       placement={placement}
-      reference={controlWrapperRef}
+      reference={referenceElement}
       isOpen={open}
       data-component="popover-menu"
       middleware={middleware}

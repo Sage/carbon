@@ -198,6 +198,27 @@ const createRect = (width: number, height = 40) =>
   }) as DOMRect;
 
 describe("PopoverMenu - optional hiding", () => {
+  it("positions the menu against the control wrapper when rendered open on mount", async () => {
+    const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+    try {
+      renderPopoverMenu({ open: true });
+
+      await waitFor(() => expect(computePositionSpy).toHaveBeenCalled());
+
+      const [reference, floating] = computePositionSpy.mock.calls[0];
+      expect(reference).toHaveAttribute(
+        "data-component",
+        "popover-menu-control",
+      );
+      expect(reference).toContainElement(
+        screen.getByLabelText("combobox-label"),
+      );
+      expect(floating).toBe(screen.getByTestId("menu-wrapper"));
+    } finally {
+      computePositionSpy.mockRestore();
+    }
+  });
+
   it.each([undefined, false, true])(
     "only includes hide middleware when enabled (hideWhenReferenceHidden=%s)",
     async (hideWhenReferenceHidden) => {
@@ -1438,6 +1459,75 @@ test("menu width matches the controlReference element width", async () => {
   });
 
   rectSpy.mockRestore();
+});
+
+test("re-resolves the reference when the controlReference target is replaced while open", async () => {
+  const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+
+  const MenuWithSwappableReference = () => {
+    const [useSecond, setUseSecond] = React.useState(false);
+    const controlReference = React.useRef<HTMLDivElement>(null);
+
+    return (
+      <PopoverMenu<HTMLInputElement>
+        open
+        onOpen={() => {}}
+        onClose={() => {}}
+        controlReference={controlReference}
+        popoverControl={(ref, controlProps) => (
+          <div>
+            {useSecond ? (
+              <div
+                key="second"
+                data-role="anchor-second"
+                ref={controlReference}
+              />
+            ) : (
+              <div
+                key="first"
+                data-role="anchor-first"
+                ref={controlReference}
+              />
+            )}
+            <input
+              aria-label="combobox-label"
+              ref={ref}
+              {...controlProps}
+              onClick={() => setUseSecond(true)}
+            />
+          </div>
+        )}
+      >
+        <MenuItem>Option 1</MenuItem>
+      </PopoverMenu>
+    );
+  };
+
+  try {
+    render(<MenuWithSwappableReference />);
+
+    await waitFor(() => {
+      const { calls } = computePositionSpy.mock;
+      expect(calls[calls.length - 1][0]).toHaveAttribute(
+        "data-role",
+        "anchor-first",
+      );
+    });
+
+    await userEvent.click(
+      screen.getByRole("combobox", { name: "combobox-label" }),
+    );
+
+    await waitFor(() => {
+      const { calls } = computePositionSpy.mock;
+      expect(calls[calls.length - 1][0]).toHaveAttribute(
+        "data-role",
+        "anchor-second",
+      );
+    });
+  } finally {
+    computePositionSpy.mockRestore();
+  }
 });
 
 test("menu width falls back to control wrapper width when controlReference is not provided", async () => {

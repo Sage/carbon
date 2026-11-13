@@ -2,8 +2,8 @@ import React, {
   MutableRefObject,
   useContext,
   useRef,
-  RefObject,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
@@ -39,9 +39,10 @@ export interface PopoverProps {
    */
   disablePortal?: boolean;
   /**
-   * Reference element, children will be positioned in relation to this element - should be a ref shaped object.
+   * Reference element, children will be positioned in relation to this element.
+   * Should be the resolved DOM element (e.g. stored in state via a callback ref) so that changes are reactive.
    */
-  reference: RefObject<HTMLElement>;
+  reference: HTMLElement | null;
   /**
    * Whether the Popover is open, determines if autoUpdate runs in useFloating.
    */
@@ -99,9 +100,11 @@ const PopoverRoot = ({
     content = React.cloneElement(children, { ref: floatingReference });
   }
 
+  const referenceRef = useMemo(() => ({ current: reference }), [reference]);
+
   useFloating({
     isOpen,
-    reference,
+    reference: referenceRef,
     floating: floatingReference,
     placement,
     middleware,
@@ -125,11 +128,11 @@ const Popover = ({ disablePortal, portalTarget, ...props }: PopoverProps) => {
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
   const { wrapperId } = useContext(TokensWrapperContext);
   const closestDialog =
-    props.reference.current?.closest<HTMLElement>("[role='dialog']");
+    props.reference?.closest<HTMLElement>("[role='dialog']");
   const [mode, setMode] = useState<string | undefined>();
 
   useEffect(() => {
-    const wrapper = props.reference.current?.closest("[data-carbon-theme]");
+    const wrapper = props.reference?.closest("[data-carbon-theme]");
     if (!wrapper) return;
 
     setMode(

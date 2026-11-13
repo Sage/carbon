@@ -1,8 +1,9 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { enGB as enGBDateLocale } from "date-fns/locale/en-GB";
 
+import * as floatingUi from "@floating-ui/dom";
 import Logger from "../../../../__internal__/utils/logger";
 import deDE from "../../../../locales/de-de";
 import I18nProvider from "../../../i18n-provider";
@@ -222,4 +223,25 @@ test("supports a custom yearRangeOffset to narrow the year selector options", ()
   );
 
   expect(optionValues).toEqual(["2024", "2025", "2026"]);
+});
+
+test("positions against the input container when mounted already open", async () => {
+  const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+
+  try {
+    render(
+      <DatePickerWithInput
+        onRequestPickerClose={() => {}}
+        open
+        disablePortal
+      />,
+    );
+
+    await waitFor(() => expect(computePositionSpy).toHaveBeenCalled());
+
+    const [reference] = computePositionSpy.mock.calls[0];
+    expect(reference).toContainElement(screen.getByLabelText("Date"));
+  } finally {
+    computePositionSpy.mockRestore();
+  }
 });
