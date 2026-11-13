@@ -53,6 +53,7 @@ export const NestedSidebars = () => {
         Open First Sidebar
       </Button>
       <Sidebar
+        data-role="first-sidebar"
         open={isFirstSidebarOpen}
         onCancel={() => setIsFirstSidebarOpen(false)}
       >
@@ -60,6 +61,7 @@ export const NestedSidebars = () => {
           Open Nested Sidebar
         </Button>
         <Sidebar
+          data-role="nested-sidebar"
           open={isNestedSidebarOpen}
           onCancel={() => setIsNestedSidebarOpen(false)}
         >
