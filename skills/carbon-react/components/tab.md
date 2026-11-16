@@ -36,6 +36,7 @@ description: Carbon Tab component props and usage examples.
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | rightSlot | React.ReactNode | No |  |  |  | The item shown to the right of the label |  |
+| subtext | string \| undefined | No |  |  |  | The subtext shown on the tab |  |
 | titleProps | { "data-role"?: string; } \| undefined | No |  |  |  | Additional props to be passed to the Tab's corresponding title. |  |
 | warning | string \| boolean \| undefined | No |  |  |  | The warning state of the tab |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

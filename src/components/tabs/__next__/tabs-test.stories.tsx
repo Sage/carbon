@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Tabs, Tab, TabList, TabPanel } from ".";
+import type { TabProps, TabsProps } from ".";
 import Box from "../../box";
-import Button from "../../button";
+import Icon from "../../icon";
+import Pill from "../../pill";
 import Typography from "../../typography";
-import Form from "../../form";
-import Textbox from "../../textbox";
 
 const lightGreyBackground: React.CSSProperties = {
   padding: "var(--global-space-layout-xs)",
@@ -31,194 +31,109 @@ const meta: Meta<typeof Tabs> = {
 export default meta;
 type Story = StoryObj<typeof Tabs>;
 
-export const FormExample: Story = ({ ...args }) => {
-  const [textboxValue, setTextboxValue] = useState("");
-  const [textboxError, setTextboxError] = useState<boolean | string>(false);
-  const [textboxWarning, setTextboxWarning] = useState<boolean | string>(false);
-  const [textboxInfo, setTextboxInfo] = useState<boolean | string>(false);
+type ExampleTab = Omit<TabProps, "id" | "controls">;
 
-  return (
-    <Tabs {...args}>
-      <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1--form" controls="tab-panel-1--form" label="Default" />
-        <Tab id="tab-2--form" controls="tab-panel-2--form" label="Error" />
-        <Tab id="tab-3--form" controls="tab-panel-3--form" label="Warning" />
-        <Tab id="tab-4--form" controls="tab-panel-4--form" label="Info" />
-      </TabList>
-
-      <TabPanel id="tab-panel-1--form" tabId={"tab-1--form"}>
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-
-            if (!textboxValue || textboxValue.length === 0) {
-              setTextboxError("Textbox value must be provided");
-              setTextboxWarning(false);
-              setTextboxInfo(false);
-
-              return;
-            }
-
-            if (textboxValue.length < 5) {
-              setTextboxError(false);
-              setTextboxWarning(
-                "Textbox value must be at least 5 characters long",
-              );
-              setTextboxInfo(false);
-              return;
-            }
-
-            if (textboxValue.length > 10) {
-              setTextboxError(false);
-              setTextboxWarning(false);
-              setTextboxInfo("Textbox value encroaching on limit");
-              return;
-            }
-
-            setTextboxError(false);
-            setTextboxWarning(false);
-            setTextboxInfo(false);
-          }}
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Textbox
-            label="Textbox"
-            required
-            onChange={(e) => setTextboxValue(e.target.value)}
-            value={textboxValue}
-            error={textboxError}
-            warning={textboxWarning}
-            info={textboxInfo}
-          />
-        </Form>
+const TabsExample = ({
+  idPrefix,
+  tabs,
+  ...args
+}: TabsProps & { idPrefix: string; tabs: ExampleTab[] }) => (
+  <Tabs {...args}>
+    <TabList ariaLabel={`${idPrefix} tabs`}>
+      {tabs.map((tabProps, index) => (
+        <Tab
+          key={`${idPrefix}-tab-${index + 1}`}
+          id={`${idPrefix}-tab-${index + 1}`}
+          controls={`${idPrefix}-panel-${index + 1}`}
+          {...tabProps}
+        />
+      ))}
+    </TabList>
+    {tabs.map((_, index) => (
+      <TabPanel
+        key={`${idPrefix}-panel-${index + 1}`}
+        id={`${idPrefix}-panel-${index + 1}`}
+        tabId={`${idPrefix}-tab-${index + 1}`}
+      >
+        <Typography m={2}>{`Content ${index + 1}`}</Typography>
       </TabPanel>
+    ))}
+  </Tabs>
+);
 
-      <TabPanel id="tab-panel-2--form" tabId={"tab-2--form"}>
-        <Typography>Content 2</Typography>
-      </TabPanel>
+const variantTabs: ExampleTab[] = [
+  { label: "Subtext", subtext: "Subtext" },
+  { label: "Left slot", leftSlot: <Icon type="home" /> },
+  { label: "Right slot", rightSlot: <Pill>Label</Pill> },
+  {
+    label: "All slots",
+    subtext: "Subtext",
+    leftSlot: <Icon type="home" />,
+    rightSlot: <Pill>Label</Pill>,
+  },
+  { label: "Error", error: true },
+  { label: "Warning", warning: true },
+];
 
-      <TabPanel id="tab-panel-3--form" tabId={"tab-3--form"}>
-        <Typography>Content 3</Typography>
-      </TabPanel>
+const overflowTabs: ExampleTab[] = Array.from({ length: 20 }, (_, index) => ({
+  label: `Tab ${index + 1}`,
+}));
 
-      <TabPanel id="tab-panel-4--form" tabId={"tab-4--form"}>
-        <Typography>Content 4</Typography>
-      </TabPanel>
-    </Tabs>
-  );
-};
-FormExample.storyName = "Full Form Example";
-FormExample.args = {
-  orientation: "horizontal",
-  size: "medium",
-};
-
-export const FocusAndHover: Story = {
+export const AllVariants: Story = {
   render: () => (
-    <Box width="600px" height="60px">
-      <Tabs>
-        <TabList ariaLabel="Primary Tab Group">
-          <Tab
-            id="tab-1"
-            controls="tab-panel-1"
-            label="Default"
-            data-role="target"
+    <Box display="flex" flexDirection="column" gap={4}>
+      {(["medium", "large"] as const).map((size) =>
+        (["horizontal", "vertical"] as const).map((orientation) => (
+          <TabsExample
+            key={`${size}-${orientation}`}
+            idPrefix={`${size}-${orientation}`}
+            size={size}
+            orientation={orientation}
+            tabs={variantTabs}
           />
-          <Tab
-            id="tab-2"
-            controls="tab-panel-2"
-            label="Info"
-            info
-            data-role="target"
-          />
-          <Tab
-            id="tab-3"
-            controls="tab-panel-3"
-            label="Warning"
-            warning
-            data-role="target"
-          />
-          <Tab
-            id="tab-4"
-            controls="tab-panel-4"
-            label="Error"
-            error
-            data-role="target"
-          />
-          <Tab
-            id="tab-5"
-            controls="tab-panel-5"
-            label="Default 2"
-            data-role="target"
-          />
-          <Tab
-            id="tab-6"
-            controls="tab-panel-6"
-            label="Default 3"
-            data-role="target"
-          />
-        </TabList>
-        <TabPanel id="tab-panel-1" tabId={"tab-1"}>
-          Content 1
-        </TabPanel>
-
-        <TabPanel id="tab-panel-2" tabId={"tab-2"}>
-          Content 2
-        </TabPanel>
-
-        <TabPanel id="tab-panel-3" tabId={"tab-3"}>
-          Content 3
-        </TabPanel>
-
-        <TabPanel id="tab-panel-4" tabId={"tab-4"}>
-          Content 4
-        </TabPanel>
-
-        <TabPanel id="tab-panel-5" tabId={"tab-5"}>
-          Content 5
-        </TabPanel>
-
-        <TabPanel id="tab-panel-6" tabId={"tab-6"}>
-          Content 6
-        </TabPanel>
-      </Tabs>
-      <br></br>
-      <Tabs>
-        <TabList ariaLabel="Error Tab Example">
-          <Tab id="tab-7" controls="tab-panel-7" label="Error" error />
-        </TabList>
-        <TabPanel id="tab-panel-7" tabId="tab-7">
-          Error Content
-        </TabPanel>
-      </Tabs>
-      <Tabs>
-        <TabList ariaLabel="Info Tab Example">
-          <Tab id="tab-8" controls="tab-panel-8" label="Info" info />
-        </TabList>
-        <TabPanel id="tab-panel-8" tabId="tab-8">
-          Info Content
-        </TabPanel>
-      </Tabs>
-      <Tabs>
-        <TabList ariaLabel="Warning Tab Example">
-          <Tab id="tab-9" controls="tab-panel-9" label="Warning" warning />
-        </TabList>
-        <TabPanel id="tab-panel-9" tabId="tab-9">
-          Warning Content
-        </TabPanel>
-      </Tabs>
+        )),
+      )}
+      <TabsExample
+        idPrefix="active-error"
+        selectedTabId="active-error-tab-5"
+        tabs={variantTabs}
+      />
+      <TabsExample
+        idPrefix="active-warning"
+        selectedTabId="active-warning-tab-6"
+        tabs={variantTabs}
+      />
+      <Box width="400px">
+        <TabsExample idPrefix="overflow" tabs={overflowTabs} />
+      </Box>
     </Box>
   ),
 };
-FocusAndHover.storyName = "Focus and Hover";
-FocusAndHover.parameters = {
-  chromatic: { disableSnapshot: false },
-  pseudo: {
-    hover: '[role="tab"],[data-role="target"]',
-    focus: "#tab-1, #tab-7, #tab-8, #tab-9",
+
+const validationTabs: ExampleTab[] = [
+  { label: "Default" },
+  { label: "Info", info: true },
+  { label: "Warning", warning: true },
+  { label: "Error", error: true },
+];
+
+export const FocusAndHover: Story = {
+  render: () => (
+    <Box display="flex" flexDirection="column" gap={4}>
+      <TabsExample idPrefix="hover" tabs={validationTabs} />
+      {validationTabs.map((tab, index) => (
+        <TabsExample
+          key={`focus-${index + 1}`}
+          idPrefix={`focus-${index + 1}`}
+          tabs={[tab]}
+        />
+      ))}
+    </Box>
+  ),
+  parameters: {
+    pseudo: {
+      hover: '[role="tab"]',
+      focus: '[role="tab"][id^="focus-"]',
+    },
   },
 };

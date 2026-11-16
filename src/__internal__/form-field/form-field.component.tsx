@@ -142,7 +142,7 @@ const FormField = ({
     inlineLabel = largeScreen;
   }
 
-  const { setErrors, setWarnings, setInfos } =
+  const { setErrors, setWarnings } =
     useContext<NewTabsContextProps>(NewTabsContext);
   const { tabId } = useContext<NewTabContextProps>(NewTabContext);
 
@@ -161,16 +161,14 @@ const FormField = ({
   useEffect(() => {
     if (setErrors) setErrors(id, tabId || "", error || false);
     if (setWarnings) setWarnings(id, tabId || "", warning || false);
-    if (setInfos) setInfos(id, tabId || "", info || false);
 
     return () => {
       if (!isMounted.current) {
         if (setErrors) setErrors(id, tabId || "", false);
         if (setWarnings) setWarnings(id, tabId || "", false);
-        if (setInfos) setInfos(id, tabId || "", false);
       }
     };
-  }, [id, setErrors, setWarnings, error, warning, info, tabId, setInfos]);
+  }, [id, setErrors, setWarnings, error, warning, tabId]);
 
   const fieldHelp = fieldHelpContent ? (
     <FieldHelp

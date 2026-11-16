@@ -21,6 +21,7 @@ description: Carbon TabNext component props and usage examples.
 | error | string \| boolean \| undefined | No |  |  |  | The error state of the tab | false |
 | leftSlot | React.ReactNode | No |  |  |  | The item shown to the left of the label |  |
 | rightSlot | React.ReactNode | No |  |  |  | The item shown to the right of the label |  |
+| subtext | string \| undefined | No |  |  |  | The subtext shown on the tab |  |
 | warning | string \| boolean \| undefined | No |  |  |  | The warning state of the tab | false |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

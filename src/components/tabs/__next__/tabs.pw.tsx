@@ -1,96 +1,57 @@
 import React from "react";
 
 import { test, expect } from "../../../../playwright/helpers/base-test";
-import DefaultTabsComponent from "./components.test-pw";
+import { TabsComponent, TabsWithValidation } from "./components.test-pw";
 import { checkAccessibility } from "../../../../playwright/support/helper";
 
-test("should render with scroll buttons on smaller screens if there are large numbers of tabs", async ({
+test("shows scroll buttons when the viewport is resized so the tabs overflow, and scrolls the tabs when they are clicked", async ({
   mount,
   page,
 }) => {
-  // Set up enough tabs that reducing the window causes the scroll buttons to appear
-  await mount(<DefaultTabsComponent numberOfTabs={20} />);
-
-  // Resize the window to a smaller size to cause the scroll buttons to actually appear
+  await mount(<TabsComponent numberOfTabs={20} />);
+  // resizing after mount checks the scroll buttons respond to size changes
   await page.setViewportSize({ width: 350, height: 250 });
 
-  const scrollButtonRight = page.locator(
-    "[data-role='tab-navigation-button-right']",
-  );
+  const scrollLeftButton = page.getByTitle("Scroll Tabs Left");
+  const scrollRightButton = page.getByTitle("Scroll Tabs Right");
 
-  await expect(scrollButtonRight).toBeVisible();
+  await expect(scrollLeftButton).toBeHidden();
+  await expect(scrollRightButton).toBeVisible();
 
-  await scrollButtonRight.click();
+  await scrollRightButton.click();
+  await expect(scrollLeftButton).toBeVisible();
 
-  const scrollButtonLeft = page.locator(
-    "[data-role='tab-navigation-button-left']",
-  );
+  await scrollLeftButton.click();
+  await expect(scrollLeftButton).toBeHidden();
 
-  await expect(scrollButtonLeft).toBeVisible();
-
-  await scrollButtonLeft.click();
-
-  await expect(scrollButtonLeft).toBeHidden();
-
-  // Clicking six times takes the view to the end of the tab list
-  await scrollButtonRight.click();
-  await scrollButtonRight.click();
-  await scrollButtonRight.click();
-  await scrollButtonRight.click();
-  await scrollButtonRight.click();
-  await scrollButtonRight.click();
-
-  await expect(scrollButtonRight).toBeHidden();
+  await expect(async () => {
+    await scrollRightButton.click();
+    await expect(scrollRightButton).toBeHidden({ timeout: 500 });
+  }).toPass();
+  await expect(page.getByRole("tab", { name: "Tab 20" })).toBeInViewport();
 });
 
-test("should support overriding the rendered scroll button titles via the I18nProvider", async ({
+test("scrolls the focused tab into view when navigating via Home and End keys", async ({
   mount,
   page,
 }) => {
-  // Set up enough tabs that reducing the window causes the scroll buttons to appear
-  await mount(<DefaultTabsComponent numberOfTabs={20} />);
-
-  // Resize the window to a smaller size to cause the scroll buttons to actually appear
   await page.setViewportSize({ width: 350, height: 250 });
+  await mount(<TabsComponent numberOfTabs={20} />);
 
-  const scrollButtonRight = page.locator(
-    "[data-role='tab-navigation-button-right']",
-  );
+  const firstTab = page.getByRole("tab", { name: "Tab 1", exact: true });
+  const lastTab = page.getByRole("tab", { name: "Tab 20" });
 
-  await expect(scrollButtonRight).toBeVisible();
-  await expect(scrollButtonRight).toHaveAttribute("title", "bar");
+  await expect(lastTab).not.toBeInViewport();
 
-  await scrollButtonRight.click();
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("End");
+  await expect(lastTab).toBeFocused();
+  await expect(lastTab).toBeInViewport();
+  await expect(firstTab).not.toBeInViewport();
 
-  const scrollButtonLeft = page.locator(
-    "[data-role='tab-navigation-button-left']",
-  );
-
-  await expect(scrollButtonLeft).toBeVisible();
-  await expect(scrollButtonLeft).toHaveAttribute("title", "foo");
-
-  await scrollButtonLeft.click();
-});
-
-test("should render without scroll buttons on smaller screens if there are large numbers of tabs but orientation is set to vertical", async ({
-  mount,
-  page,
-}) => {
-  await mount(
-    <DefaultTabsComponent numberOfTabs={20} orientation="vertical" />,
-  );
-
-  await page.setViewportSize({ width: 350, height: 250 });
-
-  const scrollButtonLeft = page.locator(
-    "[data-role='tab-navigation-button-left']",
-  );
-  const scrollButtonRight = page.locator(
-    "[data-role='tab-navigation-button-right']",
-  );
-
-  await expect(scrollButtonLeft).toHaveCount(0);
-  await expect(scrollButtonRight).toHaveCount(0);
+  await page.keyboard.press("Home");
+  await expect(firstTab).toBeFocused();
+  await expect(firstTab).toBeInViewport();
 });
 
 test.describe("Accessibility tests for Tabs component", () => {
@@ -98,7 +59,7 @@ test.describe("Accessibility tests for Tabs component", () => {
     mount,
     page,
   }) => {
-    await mount(<DefaultTabsComponent />);
+    await mount(<TabsComponent />);
 
     await checkAccessibility(page);
   });
@@ -107,16 +68,34 @@ test.describe("Accessibility tests for Tabs component", () => {
     mount,
     page,
   }) => {
-    await mount(<DefaultTabsComponent orientation="vertical" />);
+    await mount(<TabsComponent orientation="vertical" />);
 
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility checks with large tab sizes", async ({
+  test("should pass accessibility checks with error and warning validation icons", async ({
     mount,
     page,
   }) => {
-    await mount(<DefaultTabsComponent size="large" />);
+    await mount(<TabsWithValidation />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility checks when scroll buttons are shown", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 350, height: 250 });
+    await mount(<TabsComponent numberOfTabs={20} />);
+
+    const scrollLeftButton = page.getByTitle("Scroll Tabs Left");
+    const scrollRightButton = page.getByTitle("Scroll Tabs Right");
+
+    await scrollRightButton.click();
+
+    await expect(scrollRightButton).toBeVisible();
+    await expect(scrollLeftButton).toBeVisible();
 
     await checkAccessibility(page);
   });

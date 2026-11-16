@@ -50,7 +50,7 @@ export const ScrollToFocus: Story = {
           id={`tab-panel-${index + 1}--overflow`}
           tabId={`tab-${index + 1}--overflow`}
         >
-          <Typography>{`Content ${index + 1}`}</Typography>
+          <Typography m={2}>{`Content ${index + 1}`}</Typography>
         </TabPanel>
       ))}
     </Tabs>

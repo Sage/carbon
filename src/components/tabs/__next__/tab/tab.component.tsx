@@ -8,7 +8,12 @@ import extractTextFromNode from "../../../../__internal__/utils/helpers/extract-
 import Icon from "../../../icon";
 import { useTabs } from "../__internal__/contexts/tabs.context";
 import { TabProvider } from "../__internal__/contexts/tab.context";
-import StyledTab from "./tab.style";
+import {
+  StyledTab,
+  StyledTabContent,
+  StyledTabLabelWrapper,
+  StyledTabSubtext,
+} from "./tab.style";
 
 export interface TabProps extends TagProps {
   /** The tab panel that this tab controls */
@@ -19,6 +24,8 @@ export interface TabProps extends TagProps {
   error?: boolean | string;
   /** The label shown on the tab */
   label: React.ReactNode;
+  /** The subtext shown on the tab */
+  subtext?: string;
   /** The item shown to the left of the label */
   leftSlot?: React.ReactNode;
   /** The item shown to the right of the label */
@@ -50,6 +57,7 @@ export const Tab = ({
   error = false,
   id,
   label,
+  subtext,
   leftSlot,
   rightSlot,
   warning = false,
@@ -64,7 +72,6 @@ export const Tab = ({
   const [internalWarning, setInternalWarning] = useState<boolean | string>(
     warning,
   );
-  const [internalInfo, setInternalInfo] = useState<boolean | string>(info);
 
   const {
     activeTab,
@@ -76,7 +83,6 @@ export const Tab = ({
     size,
     errors,
     warnings,
-    infos,
   } = useTabs();
   const selected = activeTab === id;
 
@@ -106,12 +112,9 @@ export const Tab = ({
     }
   }, [focusIndex, id, setCurrentTabId]);
 
-  /** Can't be unit-tested; controlled by form tests */
-  /* istanbul ignore next */
   useEffect(() => {
     let tabErrorEntries = errors[id];
     let tabWarningEntries = warnings[id];
-    let tabInfoEntries = infos[id];
 
     if (error && !tabErrorEntries) {
       tabErrorEntries = { static: error };
@@ -119,10 +122,6 @@ export const Tab = ({
 
     if (warning && !tabWarningEntries) {
       tabWarningEntries = { static: warning };
-    }
-
-    if (info && !tabInfoEntries) {
-      tabInfoEntries = { static: info };
     }
 
     if (!tabErrorEntries) {
@@ -147,57 +146,42 @@ export const Tab = ({
 
     const tabHasWarnings = warning || !!currentTabWarnings.length;
     setInternalWarning(tabHasWarnings);
-
-    if (!tabInfoEntries) {
-      setInternalInfo(false);
-      return;
-    }
-    const currentTabInfos = Object.keys(tabInfoEntries)
-      .map((k) => tabInfoEntries[k])
-      .filter((v) => v !== false);
-
-    const tabHasInfo = info || !!currentTabInfos.length;
-    setInternalInfo(tabHasInfo);
-  }, [error, id, errors, warnings, warning, infos, info]);
+  }, [error, id, errors, warnings, warning]);
 
   const validationIcon = () => {
     const labelText = extractTextFromNode(label);
 
-    if (internalError || internalWarning || internalInfo) {
-      if (internalError) {
-        return (
-          <Icon
-            data-role="icon-error"
-            type="error"
-            ariaLabel={locale.tabs.error(labelText)}
-            color="negative"
-          />
-        );
-      }
+    if (internalError) {
+      return (
+        <Icon
+          data-role="icon-error"
+          type="error"
+          ariaLabel={locale.tabs.error(labelText)}
+          color="negative"
+        />
+      );
+    }
 
-      /* istanbul ignore else */
-      if (internalWarning) {
-        return (
-          <Icon
-            data-role="icon-warning"
-            type="warning"
-            ariaLabel={locale.tabs.warning(labelText)}
-            color="caution"
-          />
-        );
-      }
+    if (internalWarning) {
+      return (
+        <Icon
+          data-role="icon-warning"
+          type="warning"
+          ariaLabel={locale.tabs.warning(labelText)}
+          color="caution"
+        />
+      );
+    }
 
-      /* istanbul ignore else */
-      if (internalInfo) {
-        return (
-          <Icon
-            data-role="icon-info"
-            type="info"
-            ariaLabel={locale.tabs.info(labelText)}
-            color="info"
-          />
-        );
-      }
+    if (info) {
+      return (
+        <Icon
+          data-role="icon-info"
+          type="info"
+          ariaLabel={locale.tabs.info(labelText)}
+          color="info"
+        />
+      );
     }
 
     return null;
@@ -206,13 +190,13 @@ export const Tab = ({
   return (
     <TabProvider tabId={id} visible>
       <StyledTab
-        activeTab={activeTab === id}
+        $activeTab={activeTab === id}
         className={activeTab === id ? "active-tab" : ""}
         aria-controls={controls}
         aria-selected={selected ? "true" : "false"}
-        error={internalError}
-        warning={internalWarning}
-        info={internalInfo}
+        $error={internalError}
+        $warning={internalWarning}
+        $info={info}
         id={id}
         onClick={() => {
           setActiveTab(id);
@@ -239,19 +223,24 @@ export const Tab = ({
           },
         })}
       >
-        {typeof label === "string" ? (
-          <span className="tab-title-content-wrapper">
-            {leftSlot}
-            {label}
-            {rightSlot}
-            {validationIcon()}
-          </span>
-        ) : (
-          <span className="tab-title-content-wrapper">
-            {label}
-            {validationIcon()}
-          </span>
-        )}
+        <StyledTabContent
+          $headerWidth={headerWidth}
+          $hasCustomLayout={hasCustomLayout}
+        >
+          {typeof label === "string" ? (
+            <>
+              {leftSlot}
+              <StyledTabLabelWrapper>
+                {label}
+                <StyledTabSubtext $size={size}>{subtext}</StyledTabSubtext>
+              </StyledTabLabelWrapper>
+              {rightSlot}
+            </>
+          ) : (
+            <>{label}</>
+          )}
+        </StyledTabContent>
+        {validationIcon()}
       </StyledTab>
     </TabProvider>
   );

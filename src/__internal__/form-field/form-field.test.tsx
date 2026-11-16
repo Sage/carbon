@@ -55,7 +55,6 @@ test("calls `setErrors` passed from `TabContext` when `error` is true", () => {
         isInTab: false,
         labelledBy: "",
         orientation: "horizontal",
-        selectedTabId: "",
         setActiveTab: () => {},
         setFocusIndex: () => {},
         setCurrentTabId: () => {},
@@ -63,8 +62,6 @@ test("calls `setErrors` passed from `TabContext` when `error` is true", () => {
         size: "medium",
         errors: {},
         warnings: {},
-        setInfos: () => {},
-        infos: {},
       }}
     >
       <FormField id="foo" error />
@@ -86,13 +83,10 @@ test("calls `setWarnings` passed from `TabContext` when `warning` is true", () =
         isInTab: false,
         labelledBy: "",
         orientation: "horizontal",
-        selectedTabId: "",
         setActiveTab: () => {},
         setFocusIndex: () => {},
         setCurrentTabId: () => {},
         setErrors: () => {},
-        setInfos: () => {},
-        infos: {},
         size: "medium",
         errors: {},
         warnings: {},
@@ -103,37 +97,6 @@ test("calls `setWarnings` passed from `TabContext` when `warning` is true", () =
   );
 
   expect(setWarnings).toHaveBeenCalledWith("foo", "", true);
-});
-
-test("calls `setInfos` passed from `TabContext` when `info` is true", () => {
-  const setInfos = jest.fn();
-  render(
-    <TabsContext.Provider
-      value={{
-        setErrors: () => {},
-        activeTab: "tab-1",
-        currentTabId: "tab-1",
-        focusIndex: "tab-1",
-        isInTab: false,
-        labelledBy: "",
-        orientation: "horizontal",
-        selectedTabId: "",
-        setActiveTab: () => {},
-        setFocusIndex: () => {},
-        setCurrentTabId: () => {},
-        setWarnings: () => {},
-        size: "medium",
-        errors: {},
-        warnings: {},
-        setInfos,
-        infos: {},
-      }}
-    >
-      <FormField id="foo" info />
-    </TabsContext.Provider>,
-  );
-
-  expect(setInfos).toHaveBeenCalledWith("foo", "", true);
 });
 
 test("should not render with `labelInline` when `adaptiveLabelBreakpoint` set and screen is smaller than the breakpoint", () => {

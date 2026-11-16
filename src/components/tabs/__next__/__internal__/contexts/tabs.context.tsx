@@ -19,7 +19,6 @@ export interface TabsContextProps {
   isInTab?: boolean;
   labelledBy?: string;
   orientation: "horizontal" | "vertical";
-  selectedTabId?: string;
   setActiveTab: Dispatch<SetStateAction<string>>;
   setFocusIndex: Dispatch<SetStateAction<string>>;
   setCurrentTabId: Dispatch<SetStateAction<string>>;
@@ -32,9 +31,6 @@ export interface TabsContextProps {
   errors: ValidationRecord;
   warnings: ValidationRecord;
   size: "medium" | "large";
-  // DEPRECATED - to be removed when legacy tabs removed
-  infos: ValidationRecord;
-  setInfos: (childId: string, tabId: string, info: string | boolean) => void;
 }
 
 /* istanbul ignore next */
@@ -45,7 +41,6 @@ const initialContext: TabsContextProps = {
   isInTab: false,
   labelledBy: "",
   orientation: "horizontal",
-  selectedTabId: "",
   setActiveTab: () => {},
   setFocusIndex: () => {},
   setCurrentTabId: () => {},
@@ -54,9 +49,6 @@ const initialContext: TabsContextProps = {
   size: "medium",
   errors: {},
   warnings: {},
-  // DEPRECATED - to be removed when legacy tabs removed
-  infos: {},
-  setInfos: () => {},
 };
 
 export const TabsContext = createContext<TabsContextProps>(initialContext);
@@ -88,12 +80,7 @@ export const TabsProvider = ({
   const [focusIndex, setFocusIndex] = useState<string>("");
   const [tabErrors, setTabErrors] = useState<ValidationRecord>({});
   const [tabWarnings, setTabWarnings] = useState<ValidationRecord>({});
-  // DEPRECATED - to be removed when legacy tabs removed
-  const [tabInfos, setTabInfos] = useState<ValidationRecord>({});
 
-  // This callback is difficult to test in Jest environments and
-  // is tested in Playwright
-  /* istanbul ignore next */
   const setErrors = useCallback(
     (childId: string, tabId: string, error: string | boolean) => {
       const validationEntry = {
@@ -113,9 +100,6 @@ export const TabsProvider = ({
     [],
   );
 
-  // This callback is difficult to test in Jest environments and
-  // is tested in Playwright
-  /* istanbul ignore next */
   const setWarnings = useCallback(
     (childId: string, tabId: string, warning: string | boolean) => {
       const validationEntry = {
@@ -127,28 +111,6 @@ export const TabsProvider = ({
       setTabWarnings((state) => {
         if (!state[tabId]) state[tabId] = {};
         return state[tabId][childId] !== warning
-          ? { ...state, ...validationEntry }
-          : state;
-      });
-    },
-    [],
-  );
-
-  // DEPRECATED - to be removed when legacy tabs removed
-  // This callback is difficult to test in Jest environments and
-  // is tested in Playwright
-  /* istanbul ignore next */
-  const setInfos = useCallback(
-    (childId: string, tabId: string, info: string | boolean) => {
-      const validationEntry = {
-        [tabId]: {
-          [childId]: info,
-        },
-      };
-
-      setTabInfos((state) => {
-        if (!state[tabId]) state[tabId] = {};
-        return state[tabId][childId] !== info
           ? { ...state, ...validationEntry }
           : state;
       });
@@ -182,9 +144,6 @@ export const TabsProvider = ({
         size,
         errors: tabErrors,
         warnings: tabWarnings,
-        // DEPRECATED - to be removed when legacy tabs removed
-        infos: tabInfos,
-        setInfos,
       }}
     >
       {children}

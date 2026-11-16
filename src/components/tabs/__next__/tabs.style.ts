@@ -10,9 +10,9 @@ export const StyledTabs = styled.div<{
 `;
 
 export const StyledTabProvider = styled.div<{
-  visible: boolean;
+  $visible: boolean;
 }>`
-  ${({ visible }) => css`
-    display: ${visible ? "block" : "none"};
+  ${({ $visible }) => css`
+    display: ${$visible ? "block" : "none"};
   `}
 `;
