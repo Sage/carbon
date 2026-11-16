@@ -78,8 +78,10 @@ export interface DateInputProps
   /** The current date string */
   value: string;
   /**
-   * Pass any props that match the DayPickerProps interface to override default behaviors
-   * See [DayPickerProps](https://daypicker.dev/api/type-aliases/DayPickerProps) for a full list of available props
+   * Advanced DayPicker configuration. Although `locale` is accepted for backwards compatibility,
+   * DateInput ignores it and always uses the locale from I18nProvider. This keeps the calendar,
+   * DateInput formatting, and Carbon translations in sync. `disabled` is combined with `minDate`
+   * and `maxDate`, and `onDayClick` runs after DateInput handles the selection.
    * */
   pickerProps?: PickerProps;
   /**

@@ -10,6 +10,13 @@ export const DatePickerDescription = styled.span`
   ${visuallyHidden}
 `;
 
+export const DatePickerFooter = styled.div`
+  display: flex;
+  align-self: center;
+  width: min(100%, var(--date-picker-grid-width));
+  justify-content: flex-end;
+`;
+
 const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
   --date-picker-day-cell-size: var(--global-size-m);
   --date-picker-grid-width: calc(7 * var(--date-picker-day-cell-size));

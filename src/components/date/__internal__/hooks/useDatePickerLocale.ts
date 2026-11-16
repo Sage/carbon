@@ -30,6 +30,8 @@ const useDatePickerLocale = () => {
     datePickerDialogAriaLabel: locale.date.ariaLabels.chooseDate?.(),
     datePickerDescription: locale.date.ariaLabels.openCalendarDescription?.(),
     closeButtonLabel: locale.date.ariaLabels.closeButton?.(),
+    // Do not fall back to react-day-picker's en-US default.
+    dayPickerLocale: dateFnsLocale,
     localize,
     weekStartsOn: options?.weekStartsOn,
     weekdaysLong,

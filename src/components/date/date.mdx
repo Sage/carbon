@@ -87,9 +87,13 @@ be used to set the input value like in the example below, although the component
 
 ### Disabled dates in calendar
 
-Disable calendar dates by passing a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example) to `pickerProps.disabled`. This example disables Saturdays and Sundays.
+Disable calendar dates by passing a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example) to `pickerProps.disabled`. These rules are combined with `minDate` and `maxDate`, so a date is unavailable when it matches either constraint. This example disables Saturdays and Sundays.
 
 <Canvas of={DateStories.DisabledDatesInCalendar} />
+
+### Advanced calendar configuration
+
+Use `pickerProps` for advanced calendar configuration. `pickerProps.locale` is accepted for backwards compatibility, but it is ignored: DateInput always uses the locale provided by `I18nProvider`. This keeps the calendar, DateInput formatting, and Carbon translations in sync. If you provide `pickerProps.onDayClick`, it runs after DateInput updates its selected date.
 
 ### With custom width
 
@@ -118,6 +122,8 @@ keys fall back to British English. Applications serving users in another languag
 `nextMonthButton`, `chooseMonth`, `chooseYear`, and `closeButton`.
 
 Required locales can be imported from date-fns like so: `import { de, zhCN } from 'date-fns/locale';`
+
+Set the calendar locale through `I18nProvider`; `pickerProps.locale` is not supported. This keeps the calendar aligned with the input's parsing, formatting, and translated labels.
 
 <Canvas of={DateStories.LocaleOverrideExampleImplementation} />
 
