@@ -1,8 +1,11 @@
 import type React from "react";
 import type { RefObject } from "react";
-import type { DayPickerProps } from "react-day-picker";
+import type { DateRange, DayPickerProps } from "react-day-picker";
 
-export type PickerProps = Omit<DayPickerProps, "mode" | "modifiers"> & {
+export type PickerProps = Omit<
+  DayPickerProps,
+  "mode" | "modifiers" | "locale"
+> & {
   modifiers?: DayPickerProps["modifiers"];
 };
 
@@ -42,4 +45,22 @@ export interface DatePickerProps {
    * selector. Defaults to 10.
    */
   yearRangeOffset?: number;
+  /**
+   * Selection mode. In range mode a day click does not close the picker, the footer has Clear
+   * and Apply instead of Close, and the owner handles selection through `onDayClick`.
+   */
+  mode?: "single" | "range";
+  /** Range mode only. The range shown as selected. */
+  selectedRange?: DateRange;
+  /** Range mode only. Callback triggered when Clear is pressed. */
+  onClear?: () => void;
+  /** Range mode only. Callback triggered when Apply is pressed. */
+  onApply?: () => void;
+  /** Range mode only. Text announced by the picker's polite status region. */
+  statusMessage?: string;
+  /**
+   * Id of the element that names the calendar dialog, such as the field label.
+   * Used by DateRange. Without it, the dialog's name comes from the locale.
+   */
+  ariaLabelledBy?: string;
 }

@@ -1,36 +1,13 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useContext,
-} from "react";
+import React from "react";
 import { MarginProps } from "styled-system";
-import {
-  formatToISO,
-  formattedValue,
-  parseISODate,
-  checkISOFormatAndLength,
-} from "../date/__internal__/utils/utils";
-import DateInput, { DateChangeEvent, DateInputProps } from "../date";
-import { filterStyledSystemMarginProps } from "../../style/utils";
-import tagComponent, {
-  TagProps,
-} from "../../__internal__/utils/helpers/tags/tags";
-import StyledDateRange, { StyledDateRangeProps } from "./date-range.style";
-import Events from "../../__internal__/utils/helpers/events";
-import useLocale from "../../hooks/__internal__/useLocale";
-import usePrevious from "../../hooks/__internal__/usePrevious";
-import getFormatData from "../date/__internal__/date-formats";
-import DateRangeContext, {
-  DateRangeContextProps,
-  InputName,
-  SetInputRefMapValue,
-} from "./__internal__/date-range.context";
-import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import FieldsetContext from "../fieldset/__internal__/fieldset.context";
+import { DateInputProps } from "../date";
+import { PickerProps } from "../date/__internal__/date-picker";
+import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
+import { StyledDateRangeProps } from "./date-range.style";
+import StandardDateRange from "./__internal__/standard-date-range.component";
+import CombinedDateRange from "./__internal__/combined-date-range.component";
 
-interface DateInputValue {
+export interface DateInputValue {
   formattedValue: string;
   rawValue: string | null;
 }
@@ -43,391 +20,176 @@ export interface DateRangeChangeEvent {
   };
 }
 
+export interface DateRangeBaseProps extends MarginProps, TagProps {
+  /** An array containing the value of the start date and the end date */
+  value: string[];
+  /**
+   * Specify a callback triggered when the value changes.
+   * Standard: called whenever a date changes.
+   * Combined: called when Apply is pressed and the value differs, including a partial range.
+   */
+  onChange: (ev: DateRangeChangeEvent) => void;
+  /** Specify a callback triggered on blur */
+  onBlur?: (ev: DateRangeChangeEvent) => void;
+  /** An optional string prop to provide an id to the component */
+  id?: string;
+  /**
+   * An optional string prop to provide a name to the component.
+   * Form fields are named `${name}-start` and `${name}-end`.
+   */
+  name?: string;
+  /** Flag to configure component as mandatory. */
+  required?: boolean;
+  /** Size of the field or fields. A parent Fieldset's size takes priority. */
+  size?: "small" | "medium" | "large";
+  /** Date format string to be applied to the dates */
+  dateFormatOverride?: string;
+}
+
+/**
+ * Props for the standard date range. For the combined date range, use `CombinedDateRangeProps`.
+ * In the next major release this will include every range type.
+ */
 export interface DateRangeProps
-  extends StyledDateRangeProps,
-    MarginProps,
-    TagProps {
-  /** Props for the child end Date component */
+  extends DateRangeBaseProps,
+    StyledDateRangeProps {
+  /** Standard only. Renders two date inputs, each with its own calendar. This is the default. */
+  rangeType?: "standard";
+  /** Standard only. Props for the child end Date component */
   endDateProps?: Omit<Partial<DateInputProps>, "required">;
-  /** Optional label for endDate field */
+  /** Standard only. Optional label for endDate field */
   endLabel?: string;
   /**
-   * Indicate that error has occurred on end date.
+   * Standard only. Indicate that error has occurred on end date.
    * Pass string to display icon, tooltip and red border.
    * Pass true boolean to only display red border.
    */
   endError?: boolean | string;
   /**
-   * [Legacy] Indicate additional information for end date.
-   * Pass string to display icon, tooltip and blue border.
-   * Pass true boolean to only display blue border.
+   * @deprecated Not supported. Use `endDateProps.inputHint`, `endWarning`, or `endError` as appropriate.
    */
   endInfo?: boolean | string;
   /**
-   * Indicate that warning has occurred on end date.
+   * Standard only. Indicate that warning has occurred on end date.
    * Pass string to display icon, tooltip and orange border.
    * Pass true boolean to only display orange border.
    */
   endWarning?: boolean | string;
   /**
-   * A React ref to pass to the second of the two Date Input fields
+   * Standard only. A React ref to pass to the second of the two Date Input fields
    */
   endRef?: React.ForwardedRef<HTMLInputElement>;
-  /** An optional string prop to provide an id to the component */
-  id?: string;
-  /** An optional string prop to provide a name to the component */
-  name?: string;
-  /** Specify a callback triggered on change */
-  onChange: (ev: DateRangeChangeEvent) => void;
-  /** Specify a callback triggered on blur */
-  onBlur?: (ev: DateRangeChangeEvent) => void;
-  /** Props for the child start Date component */
+  /** Standard only. Props for the child start Date component */
   startDateProps?: Omit<Partial<DateInputProps>, "required">;
-  /** Optional label for startDate field */
+  /** Standard only. Optional label for startDate field */
   startLabel?: string;
   /**
-   * Indicate that error has occurred on start date.
+   * Standard only. Indicate that error has occurred on start date.
    * Pass string to display icon, tooltip and red border.
    * Pass true boolean to only display red border.
    */
   startError?: boolean | string;
   /**
-   * Indicate that warning has occurred on start date.
+   * Standard only. Indicate that warning has occurred on start date.
    * Pass string to display icon, tooltip and orange border.
    * Pass true boolean to only display orange border.
    */
   startWarning?: boolean | string;
   /**
-   * [Legacy] Indicate additional information for start date.
-   * Pass string to display icon, tooltip and blue border.
-   * Pass true boolean to only display blue border.
+   * @deprecated Not supported. Use `startDateProps.inputHint`, `startWarning`, or `startError` as appropriate.
    */
   startInfo?: boolean | string;
   /**
-   * A React ref to pass to the first of the two Date Input fields
+   * Standard only. A React ref to pass to the first of the two Date Input fields
    */
   startRef?: React.ForwardedRef<HTMLInputElement>;
-  /** An array containing the value of startDate and endDate */
-  value: string[];
-  /** [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs */
+  /** @deprecated Not supported. Use inline `warning` or `error` messages. */
   validationOnLabel?: boolean;
-  /** [Legacy] Overrides the default tooltip position */
+  /** @deprecated Not supported. Use inline `inputHint`, `warning`, or `error` content. */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** Flag to configure component as mandatory. */
-  required?: boolean;
-  /** Date format string to be applied to the date inputs */
-  dateFormatOverride?: string;
   /**
-   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * @deprecated The calendar is now named by its date input's label (`startLabel` or `endLabel`).
    * Remove this prop; it has no effect.
    */
   datePickerStartAriaLabel?: string;
   /**
-   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * @deprecated The calendar is now named by its date input's label (`startLabel` or `endLabel`).
    * Remove this prop; it has no effect.
    */
   datePickerStartAriaLabelledBy?: string;
   /**
-   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * @deprecated The calendar is now named by its date input's label (`startLabel` or `endLabel`).
    * Remove this prop; it has no effect.
    */
   datePickerEndAriaLabel?: string;
   /**
-   * @deprecated The dialog label is now always derived from the locale (`date.ariaLabels.chooseDate`).
+   * @deprecated The calendar is now named by its date input's label (`startLabel` or `endLabel`).
    * Remove this prop; it has no effect.
    */
   datePickerEndAriaLabelledBy?: string;
-  /** Render the ValidationMessage above the Date inputs when validationRedesignOptIn flag is set */
-  validationMessagePositionTop?: boolean;
 }
 
-export const DateRange = ({
-  endDateProps = {},
-  id,
-  labelsInline,
-  name,
-  onBlur,
-  onChange,
-  startDateProps = {},
-  tooltipPosition,
-  validationOnLabel,
-  value,
-  startRef,
-  endRef,
-  required,
-  dateFormatOverride: dateFormatOverrideProp,
-  datePickerStartAriaLabel,
-  datePickerStartAriaLabelledBy,
-  datePickerEndAriaLabel,
-  datePickerEndAriaLabelledBy,
-  validationMessagePositionTop = true,
-  ...rest
-}: DateRangeProps) => {
-  const { validationRedesignOptIn } = useContext(NewValidationContext);
-  const { size: fieldsetSize } = useContext(FieldsetContext);
-  const size = fieldsetSize || startDateProps.size || "medium";
-  const labelsInlineWithNewValidation = validationRedesignOptIn
-    ? false
-    : labelsInline;
+export interface CombinedDateRangeProps extends DateRangeBaseProps {
+  /** Combined only. Renders one button that opens a single calendar for the whole range. */
+  rangeType: "combined";
+  /** Combined only. Label for the field. */
+  label: string;
+  /**
+   * Combined only. Indicate that error has occurred on the field.
+   * Pass string to display the message and red border.
+   * Pass true boolean to only display red border.
+   */
+  error?: boolean | string;
+  /**
+   * Combined only. Indicate that warning has occurred on the field.
+   * Pass string to display the message and orange border.
+   * Pass true boolean to only display orange border.
+   */
+  warning?: boolean | string;
+  /** Combined only. A hint rendered after the label, intended to describe the field. */
+  inputHint?: React.ReactNode;
+  /** Combined only. If true, the field is disabled. */
+  disabled?: boolean;
+  /** Combined only. Minimum selectable date, YYYY-MM-DD. */
+  minDate?: string;
+  /** Combined only. Maximum selectable date, YYYY-MM-DD. */
+  maxDate?: string;
+  /**
+   * Combined only. Pass DayPickerProps (except `locale`) to override default behaviors.
+   * Selection and locale are owned by the component/I18nProvider.
+   * See [DayPickerProps](https://daypicker.dev/api/type-aliases/DayPickerProps) for a full list of available props
+   */
+  pickerProps?: Omit<
+    PickerProps,
+    | "selected"
+    | "onSelect"
+    | "footer"
+    | "required"
+    | "min"
+    | "max"
+    | "excludeDisabled"
+  >;
+  /** Combined only. A React ref to pass to the button that opens the calendar. */
+  triggerRef?: React.ForwardedRef<HTMLButtonElement>;
+}
 
-  const l = useLocale();
-  const { dateFnsLocale, dateFormatOverride } = l.date;
-  const { format } = useMemo(
-    () =>
-      getFormatData(
-        dateFnsLocale(),
-        dateFormatOverrideProp || dateFormatOverride,
-      ),
-    [dateFnsLocale, dateFormatOverrideProp, dateFormatOverride],
-  );
-  const inlineLabelWidth = 40;
-  const [lastChangedDate, setLastChangedDate] = useState("");
+type Forbid<T> = { [K in keyof T]?: never };
+type OwnProps<T> = Omit<T, keyof DateRangeBaseProps | "rangeType">;
+/** The props of the other types that this type doesn't have. */
+type OthersOnly<T, Others> = Forbid<Omit<Others, keyof T>>;
 
-  const computedValue = useCallback(
-    (valueString: string) => {
-      if (checkISOFormatAndLength(valueString)) {
-        return formattedValue(format, parseISODate(valueString));
-      }
+type DateRangeComponentProps =
+  | (DateRangeProps &
+      OthersOnly<DateRangeProps, OwnProps<CombinedDateRangeProps>>)
+  | (CombinedDateRangeProps &
+      OthersOnly<CombinedDateRangeProps, OwnProps<DateRangeProps>>);
 
-      return valueString;
-    },
-    [format],
-  );
-
-  const getStartDate = useCallback(() => {
-    const { value: startValue } = startDateProps;
-
-    return computedValue(startValue || value[0]);
-  }, [startDateProps, value, computedValue]);
-
-  const getEndDate = useCallback(() => {
-    const { value: endValue } = endDateProps;
-
-    return computedValue(endValue || value[1]);
-  }, [endDateProps, value, computedValue]);
-
-  const [inputRefMap, setInputRefMap] = useState<
-    DateRangeContextProps["inputRefMap"]
-  >({
-    start: {
-      isBlurBlocked: { current: false },
-      setOpen: null,
-    },
-    end: {
-      isBlurBlocked: { current: false },
-      setOpen: null,
-    },
-  });
-
-  function isEmptyValue(allowEmpty: boolean, inputValue: string) {
-    return allowEmpty && !inputValue.length;
+export const DateRange = (props: DateRangeComponentProps) => {
+  if (props.rangeType === "combined") {
+    return <CombinedDateRange {...(props as CombinedDateRangeProps)} />;
   }
 
-  const [startDateValue, setStartDateValue] = useState<DateInputValue>({
-    formattedValue: getStartDate(),
-    rawValue: isEmptyValue(!!startDateProps.allowEmptyValue, getStartDate())
-      ? ""
-      : formatToISO(format, getStartDate()),
-  });
-
-  const [endDateValue, setEndDateValue] = useState<DateInputValue>({
-    formattedValue: getEndDate(),
-    rawValue: isEmptyValue(!!endDateProps.allowEmptyValue, getEndDate())
-      ? ""
-      : formatToISO(format, getEndDate()),
-  });
-
-  const previousValue = usePrevious(value);
-
-  useEffect(() => {
-    const updateValues = () => {
-      setStartDateValue({
-        formattedValue: getStartDate(),
-        rawValue: isEmptyValue(!!startDateProps.allowEmptyValue, getStartDate())
-          ? ""
-          : formatToISO(format, getStartDate()),
-      });
-
-      setEndDateValue({
-        formattedValue: getEndDate(),
-        rawValue: isEmptyValue(!!endDateProps.allowEmptyValue, getEndDate())
-          ? ""
-          : formatToISO(format, getEndDate()),
-      });
-    };
-
-    const hasPreviousValues = previousValue?.length;
-    const hasUpdated =
-      hasPreviousValues &&
-      (value[0] !== previousValue[0] || value[1] !== previousValue[1]);
-
-    if (hasUpdated) {
-      updateValues();
-    }
-  }, [
-    value,
-    previousValue,
-    endDateProps.allowEmptyValue,
-    format,
-    getEndDate,
-    getStartDate,
-    startDateProps.allowEmptyValue,
-  ]);
-
-  const buildCustomEvent = useCallback(
-    (changedDate: string, newValue: DateInputValue) => {
-      const startValue = changedDate === "start" ? newValue : startDateValue;
-      const endValue = changedDate === "end" ? newValue : endDateValue;
-
-      setLastChangedDate(changedDate);
-
-      return {
-        target: {
-          ...(name && { name }),
-          ...(id && { id }),
-          value: [startValue, endValue] as [DateInputValue, DateInputValue],
-        },
-      };
-    },
-    [endDateValue, id, name, startDateValue],
-  );
-
-  const handleOnChange = (changedDate: InputName, ev: DateChangeEvent) => {
-    if (changedDate === "start") {
-      setStartDateValue({ ...ev.target.value });
-    } else {
-      setEndDateValue({ ...ev.target.value });
-    }
-
-    const event = buildCustomEvent(changedDate, ev.target.value);
-    onChange(event);
-  };
-
-  const startDateOnChange = (ev: DateChangeEvent) => {
-    handleOnChange("start", ev);
-  };
-
-  const endDateOnChange = (ev: DateChangeEvent) => {
-    handleOnChange("end", ev);
-  };
-
-  const updateInputMap = (newState: SetInputRefMapValue) => {
-    setInputRefMap((prev) => {
-      return {
-        ...prev,
-        ...newState,
-      };
-    });
-  };
-
-  const isBlurBlocked = () =>
-    inputRefMap?.start?.isBlurBlocked.current ||
-    inputRefMap?.end?.isBlurBlocked.current;
-
-  const handleOnBlur = (ev: DateChangeEvent) => {
-    if (isBlurBlocked()) {
-      return;
-    }
-
-    if (onBlur) {
-      const event = buildCustomEvent(lastChangedDate, ev.target.value);
-      onBlur(event);
-    }
-  };
-
-  const closePicker = (activeInput: InputName) => {
-    const refMap = inputRefMap?.[activeInput];
-
-    /* istanbul ignore else */
-    if (refMap) {
-      refMap.setOpen?.(false);
-      refMap.isBlurBlocked.current = false;
-    }
-  };
-
-  const handleOnKeyDown = (
-    ev: React.KeyboardEvent<HTMLInputElement>,
-    activeInput: InputName,
-  ) => {
-    if (Events.isTabKey(ev) && Events.isShiftKey(ev) && inputRefMap?.start) {
-      inputRefMap.start.isBlurBlocked.current = !(activeInput === "start");
-    } else if (Events.isTabKey(ev) && inputRefMap?.end) {
-      inputRefMap.end.isBlurBlocked.current = !(activeInput === "end");
-    }
-  };
-
-  const handleFocus = (inputName: InputName) => {
-    closePicker(inputName);
-    setLastChangedDate(inputName === "start" ? "end" : "start");
-  };
-
-  const dateProps = (propsKey: InputName) => {
-    const props = propsKey === "start" ? startDateProps : endDateProps;
-
-    const { formattedValue: inputValue } =
-      propsKey === "start" ? startDateValue : endDateValue;
-    const onChangeCallback =
-      propsKey === "start" ? startDateOnChange : endDateOnChange;
-
-    return {
-      label: rest[`${propsKey}Label`],
-      labelInline: labelsInlineWithNewValidation,
-      value: inputValue,
-      error: rest[`${propsKey}Error`],
-      warning: rest[`${propsKey}Warning`],
-      info: rest[`${propsKey}Info`],
-      validationOnLabel,
-      onBlur: handleOnBlur,
-      onChange: onChangeCallback,
-      onKeyDown: (ev: React.KeyboardEvent<HTMLInputElement>) =>
-        handleOnKeyDown(ev, propsKey),
-      ...props,
-      required,
-    };
-  };
-
-  return (
-    <StyledDateRange
-      {...tagComponent("date-range", rest)}
-      labelsInline={labelsInlineWithNewValidation}
-      $size={size}
-      {...filterStyledSystemMarginProps(rest)}
-      validationMessagePositionTop={validationMessagePositionTop}
-    >
-      <DateRangeContext.Provider
-        value={{
-          inputRefMap,
-          setInputRefMap: updateInputMap,
-          validationMessagePositionTop,
-        }}
-      >
-        <DateInput
-          my={0} // prevents any form spacing being applied
-          {...dateProps("start")}
-          onFocus={() => handleFocus("end")}
-          data-element="start-date"
-          inputName="start"
-          labelWidth={inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
-          tooltipPosition={tooltipPosition}
-          ref={startRef}
-          datePickerAriaLabel={datePickerStartAriaLabel}
-          datePickerAriaLabelledBy={datePickerStartAriaLabelledBy}
-        />
-        <DateInput
-          my={0} // prevents any form spacing being applied
-          {...dateProps("end")}
-          onFocus={() => handleFocus("start")}
-          data-element="end-date"
-          inputName="end"
-          labelWidth={inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
-          tooltipPosition={tooltipPosition}
-          ref={endRef}
-          datePickerAriaLabel={datePickerEndAriaLabel}
-          datePickerAriaLabelledBy={datePickerEndAriaLabelledBy}
-        />
-      </DateRangeContext.Provider>
-    </StyledDateRange>
-  );
+  return <StandardDateRange {...(props as DateRangeProps)} />;
 };
 
 DateRange.displayName = "DateRange";

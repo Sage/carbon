@@ -250,7 +250,13 @@ TypicalI18N.storyName = "Typical - i18n";
 TypicalI18N.argTypes = i18nArgTypes;
 TypicalI18N.args = i18nArgs;
 
-const AutoFocusExample = ({ variant }: { variant: "legacy" | "typical" }) => {
+const AutoFocusExample = ({
+  variant,
+  readOnly,
+}: {
+  variant: "legacy" | "typical";
+  readOnly?: boolean;
+}) => {
   const [state, setState] = useState(testDateValue);
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -261,6 +267,7 @@ const AutoFocusExample = ({ variant }: { variant: "legacy" | "typical" }) => {
       label="Date"
       value={state}
       onChange={setValue}
+      readOnly={readOnly}
       autoFocus
     />
   );
@@ -278,6 +285,19 @@ LegacyAutoFocus.parameters = autoFocusParameters;
 export const TypicalAutoFocus = () => <AutoFocusExample variant="typical" />;
 TypicalAutoFocus.storyName = "Typical - Auto Focus";
 TypicalAutoFocus.parameters = autoFocusParameters;
+
+// Read-only inputs stay focusable, so the focus ring must show on the read-only background.
+export const LegacyReadOnlyFocus = () => (
+  <AutoFocusExample variant="legacy" readOnly />
+);
+LegacyReadOnlyFocus.storyName = "Legacy - Read-only Focus";
+LegacyReadOnlyFocus.parameters = autoFocusParameters;
+
+export const TypicalReadOnlyFocus = () => (
+  <AutoFocusExample variant="typical" readOnly />
+);
+TypicalReadOnlyFocus.storyName = "Typical - Read-only Focus";
+TypicalReadOnlyFocus.parameters = autoFocusParameters;
 
 const RegressionDateInput = ({
   variant = "typical",

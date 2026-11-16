@@ -78,7 +78,8 @@ export interface DateInputProps
   /** The current date string */
   value: string;
   /**
-   * Pass any props that match the DayPickerProps interface to override default behaviors
+   * Pass DayPickerProps (except `locale`) to override default behaviors. The calendar locale
+   * comes from I18nProvider so it remains aligned with DateInput formatting and translations.
    * See [DayPickerProps](https://daypicker.dev/api/type-aliases/DayPickerProps) for a full list of available props
    * */
   pickerProps?: PickerProps;
@@ -362,7 +363,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const assignInput = useCallback(
       (inputElement: HTMLInputElement) => {
         internalInputRef.current = inputElement;
-        parentRef.current = inputElement?.parentElement;
+        parentRef.current = inputElement?.closest<HTMLElement>(
+          '[data-role="input-container"]',
+        );
 
         if (ref) {
           if (typeof ref === "function") {
@@ -464,6 +467,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           pickerId={pickerId}
           size={actualSize}
           yearRangeOffset={yearRangeOffset}
+          // In a standard date range, the calendar is named by its input's label, such as "Start date".
+          ariaLabelledBy={inputName && label ? `${inputId}-label` : undefined}
         />
       </StyledDateInput>
     );

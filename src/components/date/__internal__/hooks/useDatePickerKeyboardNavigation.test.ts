@@ -5,7 +5,7 @@ import useDatePickerKeyboardNavigation from "./useDatePickerKeyboardNavigation";
 
 const renderKeyboardNavigation = (
   picker: HTMLDivElement,
-  { open = true, onEscape = jest.fn() } = {},
+  { open = true, onEscape = jest.fn(), mode = "single" } = {},
 ) => {
   document.body.appendChild(picker);
   const ref = { current: picker } as React.RefObject<HTMLDivElement>;
@@ -14,6 +14,7 @@ const renderKeyboardNavigation = (
     useDatePickerKeyboardNavigation({
       ref,
       open,
+      mode,
       monthSelectId: "month",
       yearSelectId: "year",
       onEscape,
@@ -588,4 +589,100 @@ test("keeps a selector change pending when a different control blurs", () => {
   act(() => result.current.handleKeyDown(keyboardEvent("Tab")));
 
   expect(within(picker).getByRole("button", { name: "Day" })).toHaveFocus();
+});
+
+test("cycles day, Clear, Apply, month and year in range mode", () => {
+  const picker = document.createElement("div");
+  picker.innerHTML = `
+    <select id="month"><option>January</option></select>
+    <select id="year"><option>2026</option></select>
+    <button class="rdp-day_button">Day</button>
+    <button data-role="date-picker-clear">Clear</button>
+    <button data-role="date-picker-apply">Apply</button>
+  `;
+  const { result } = renderKeyboardNavigation(picker, { mode: "range" });
+  const [month, year] = within(picker).getAllByRole("combobox");
+  const order = [
+    within(picker).getByRole("button", { name: "Day" }),
+    within(picker).getByRole("button", { name: "Clear" }),
+    within(picker).getByRole("button", { name: "Apply" }),
+    month,
+    year,
+  ];
+
+  order[0].focus();
+  order.slice(1).forEach((control) => {
+    act(() => result.current.handleKeyDown(keyboardEvent("Tab")));
+    expect(control).toHaveFocus();
+  });
+  act(() => result.current.handleKeyDown(keyboardEvent("Tab")));
+  expect(order[0]).toHaveFocus();
+});
+
+test("excludes a disabled Apply from the focus order", () => {
+  const picker = document.createElement("div");
+  picker.innerHTML = `
+    <button class="rdp-day_button">Day</button>
+    <button data-role="date-picker-clear">Clear</button>
+    <button data-role="date-picker-apply" disabled>Apply</button>
+    <select id="month"><option>January</option></select>
+  `;
+  const { result } = renderKeyboardNavigation(picker);
+  const clear = within(picker).getByRole("button", { name: "Clear" });
+
+  clear.focus();
+  act(() => result.current.handleKeyDown(keyboardEvent("Tab")));
+
+  expect(within(picker).getByRole("combobox")).toHaveFocus();
+});
+
+test("prefers the first selected day in range mode, even when today has the roving tabindex", () => {
+  const picker = document.createElement("div");
+  picker.innerHTML = `
+    <div class="rdp-day rdp-today"><button class="rdp-day_button" tabindex="0">Today</button></div>
+    <div class="rdp-day rdp-selected rdp-outside"><button class="rdp-day_button" tabindex="-1">Outside</button></div>
+    <div class="rdp-day rdp-selected rdp-range_start"><button class="rdp-day_button" tabindex="-1">Start</button></div>
+    <div class="rdp-day rdp-selected rdp-range_end"><button class="rdp-day_button" tabindex="-1">End</button></div>
+  `;
+  const { result } = renderKeyboardNavigation(picker, { mode: "range" });
+
+  expect(result.current.getPickerDayFocusTarget()).toBe(
+    within(picker).getByRole("button", { name: "Start" }),
+  );
+
+  const end = within(picker).getByRole("button", { name: "End" });
+  end.focus();
+  expect(result.current.getPickerDayFocusTarget()).toBe(end);
+});
+
+test("keeps a selected day without the roving tabindex in the range mode Tab cycle", () => {
+  const picker = document.createElement("div");
+  picker.innerHTML = `
+    <div class="rdp-day rdp-today"><button class="rdp-day_button" tabindex="0">Today</button></div>
+    <div class="rdp-day rdp-selected"><button class="rdp-day_button" tabindex="-1">Start</button></div>
+    <button data-role="date-picker-clear">Clear</button>
+    <select id="year"><option>2026</option></select>
+  `;
+  const { result } = renderKeyboardNavigation(picker, { mode: "range" });
+  const start = within(picker).getByRole("button", { name: "Start" });
+
+  within(picker).getByRole("combobox").focus();
+  act(() => result.current.handleKeyDown(keyboardEvent("Tab")));
+  expect(start).toHaveFocus();
+
+  act(() => result.current.handleKeyDown(keyboardEvent("Tab")));
+  expect(within(picker).getByRole("button", { name: "Clear" })).toHaveFocus();
+});
+
+test("falls back to today in range mode when no day is selected", () => {
+  const picker = document.createElement("div");
+  picker.innerHTML = `
+    <div class="rdp-day"><button class="rdp-day_button" tabindex="-1">First</button></div>
+    <div class="rdp-day rdp-today"><button class="rdp-day_button" tabindex="0">Today</button></div>
+  `;
+  const { result } = renderKeyboardNavigation(picker, { mode: "range" });
+
+  expect(result.current.getPickerDayFocusTarget()).toBe(
+    within(picker).getByRole("button", { name: "Today" }),
+  );
 });

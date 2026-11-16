@@ -54,7 +54,9 @@ const ptPT: Partial<Locale> = {
     ariaLabels: {
       previousMonthButton: () => "Mês anterior",
       nextMonthButton: () => "Mês seguinte",
+      clearButton: () => "Limpar",
     },
+    rangeText: (start, end) => `De ${start} a ${end}`,
     dateFormatOverride: undefined,
   },
   decimal: {
