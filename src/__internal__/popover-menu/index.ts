@@ -1,6 +1,7 @@
 export { default as PopoverMenu } from "./popover-menu.component";
 export {
   MenuItem,
+  MenuActionItem,
   MenuItemLeading,
   MenuItemLabel,
   MenuItemSubtext,

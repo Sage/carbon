@@ -1,5 +1,10 @@
 import React from "react";
-import { MenuItem, MenuItemDivider, MenuItemHeading } from "../menu-item";
+import {
+  MenuItem,
+  MenuActionItem,
+  MenuItemDivider,
+  MenuItemHeading,
+} from "../menu-item";
 
 export const wrapChildrenInItem = (
   children: React.ReactNode,
@@ -15,9 +20,10 @@ export const wrapChildrenInItem = (
       return wrapChildrenInItem(child.props.children);
     }
 
-    // If the child is already a MenuItem, MenuItemDivider, or MenuItemHeading, don't wrap it again
+    // Preserve complete menu items instead of wrapping them again.
     if (
       child.type === MenuItem ||
+      child.type === MenuActionItem ||
       child.type === MenuItemDivider ||
       child.type === MenuItemHeading
     ) {

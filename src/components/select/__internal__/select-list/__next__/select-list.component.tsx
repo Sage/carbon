@@ -10,6 +10,7 @@ import styled, { type CSSObject } from "styled-components";
 import {
   PopoverMenu,
   MenuItem,
+  MenuActionItem,
   MenuItemLeading,
   MenuItemLabel,
   MenuItemSubtext,
@@ -458,15 +459,15 @@ const SelectList = ({
     const { selected } = row;
     const label = optionChildren ?? text;
 
+    const Item = isAction ? MenuActionItem : MenuItem;
     const menuItem = (
-      <MenuItem
+      <Item
         key={row.key}
         id={optionId}
         {...optionHtmlProps}
         data-select-action={isAction || undefined}
         {...virtualProps}
         {...positionProps}
-        action={isAction}
         disabled={disabled}
         selected={selected}
         onClick={() => {
@@ -489,7 +490,7 @@ const SelectList = ({
         </MenuItemLeading>
         <MenuItemLabel prefix={prefix}>{label}</MenuItemLabel>
         {subtext && <MenuItemSubtext>{subtext}</MenuItemSubtext>}
-      </MenuItem>
+      </Item>
     );
 
     if (!divider) {

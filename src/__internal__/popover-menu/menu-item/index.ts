@@ -1,3 +1,4 @@
+export { default as MenuActionItem } from "./menu-action-item.component";
 export { default as MenuItem } from "./menu-item.component";
 export { MenuItemLeading } from "./menu-item-content";
 export { MenuItemLabel } from "./menu-item-content";

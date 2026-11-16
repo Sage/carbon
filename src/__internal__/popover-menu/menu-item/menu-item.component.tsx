@@ -11,18 +11,12 @@ import guid from "../../utils/helpers/guid";
 import Icon from "../../../components/icon";
 import { buttonMenuItemQuerySelector } from "../utils";
 import combineRefs from "../../utils/helpers/combine-refs";
+import MenuOptionItem, {
+  type MenuOptionItemProps,
+} from "./menu-option-item.component";
+import { menuItemLayout } from "./menu-item-layout.style";
 
-export interface MenuItemProps
-  extends Omit<React.LiHTMLAttributes<HTMLLIElement>, "children" | "onClick"> {
-  children: React.ReactNode;
-  /** @internal Callback used to measure virtualized menu items. */
-  measureElement?: React.RefCallback<HTMLLIElement>;
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  /** @internal Applies the Select ActionOption colour treatment. */
-  action?: boolean;
-  selected?: boolean;
-  disabled?: boolean;
-  id?: string;
+export interface MenuItemProps extends MenuOptionItemProps {
   submenu?: React.ReactNode;
   submenuWidth?: string;
   submenuOpen?: boolean;
@@ -34,7 +28,6 @@ interface StyledMenuItemProps {
   $size?: PopoverMenuContextProps["size"];
   $disabled?: boolean;
   $isButtonMenu?: boolean;
-  $action?: boolean;
 }
 
 interface SubmenuControlProps extends PopoverControlProps {
@@ -42,200 +35,44 @@ interface SubmenuControlProps extends PopoverControlProps {
 }
 
 const StyledMenuItem = styled.li<StyledMenuItemProps>`
-  width: 100%;
-  position: relative;
-  box-sizing: border-box;
+  ${menuItemLayout}
 
   & > [data-element="submenu-parent"] > [data-role="button-child-container"] {
     flex: 1;
   }
 
-  &:not(:has(button)):not(:has(a)) {
-    ${({ $disabled, $action }) =>
-      $disabled
-        ? `
+  &:focus {
+    outline: none;
+  }
+
+  ${({ $disabled }) =>
+    $disabled
+      ? css`
           * {
-          color: var(--input-dropdown-label-disabled);
+            color: var(--popover-label-disabled);
+          }
+          & > button,
+          & > a {
+            background-color: transparent;
           }
           cursor: not-allowed;
         `
-        : `
-          color: var(--input-dropdown-label-alt);
+      : css`
           cursor: pointer;
+          color: var(--popover-label-default);
 
-          ${
-            $action
-              ? ""
-              : `
-                :hover {
-                  * {
-                    color: var(--input-dropdown-label-hover);
-                  }
-                  background-color: var(--input-dropdown-bg-hover);
-                }
-              `
+          & > button:active,
+          & > a:active {
+            background-color: var(--popover-bg-active);
+            color: var(--popover-label-active);
           }
-      `}
 
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    column-gap: var(--global-space-comp-xs);
-
-    &:not(:has(.menu-item-leading)) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  ${({ $disabled, $isButtonMenu, $action }) =>
-    $disabled
-      ? `
-        * {
-          color: var(--${$isButtonMenu ? "popover-label-disabled" : "input-dropdown-label-disabled"});
-        }
-
-        & > button, & > a {
-          background-color: transparent;
-        }
-        cursor: not-allowed;
-      `
-      : `
-        cursor: pointer;
-
-        ${
-          $isButtonMenu
-            ? `
-              color: var(--popover-label-default);
-
-              & > button:active,
-              & > a:active {
-                background-color: var(--popover-bg-active);
-                color: var(--popover-label-active);
-              }
-
-              & > button:not(:active):hover,
-              & > a:not(:active):hover {
-                color: var(--popover-label-hover);
-                background-color: var(--popover-bg-hover);
-              }
-            `
-            : `
-              color: var(--input-dropdown-label-alt);
-
-              ${
-                $action
-                  ? ""
-                  : `
-                    &:not(:active):hover {
-                      * {
-                        color: var(--input-dropdown-label-hover);
-                      }
-                      background-color: var(--popover-bg-hover);
-                    }
-                  `
-              }
-            `
-        }
-  `}
-
-  ${({ $isButtonMenu }) => css`
-    ${$isButtonMenu
-      ? `
-        &:focus {
-          outline: none;
-        }
-      `
-      : `
-        &[data-has-focus="true"] {
-          outline: var(--focus-borderalt) solid var(--global-borderwidth-s);
-          outline-offset: calc(var(--global-borderwidth-s) * -1);
-        }
-    `}
-  `}
-
-  ${({ $size, $isButtonMenu }) => css`
-    ${$size === "small" &&
-    `
-      &:not(:has(button)):not(:has(a)) {
-        padding: var(--global-space-comp-xs) 0;
-
-        &:not(:has(.menu-item-subtext)) {
-          min-height: var(--global-size-s);
-        }
-      }
-
-      button, a {
-        width: 100%;
-        padding: var(--global-space-comp-xs) var(--global-space-comp-m) var(--global-space-comp-xs) var(--global-space-comp-m);
-      }
-
-      *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
-        font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-s);
-      }
-    `}
-
-    ${$size === "medium" &&
-    `
-      &:not(:has(button)):not(:has(a)) {
-        padding: var(--global-space-comp-s) 0;
-
-        &:not(:has(.menu-item-subtext)) {
-          min-height: var(--global-size-m);
-        }
-      }
-
-      button, a {
-        width: 100%;
-        padding: var(--global-space-comp-s) var(--global-space-comp-m) var(--global-space-comp-s) var(--global-space-comp-m);
-      }
-
-      *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
-        font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-m);
-      }
-    `}
-  
-    ${$size === "large" &&
-    `
-      &:not(:has(button)):not(:has(a)) {
-        padding: var(--global-space-comp-m) 0;
-
-        &:not(:has(.menu-item-subtext)) {
-          min-height: var(--global-size-l);
-        }
-      }
-      
-      button, a {
-        width: 100%;
-        padding: var(--global-space-comp-m) var(--global-space-comp-m) var(--global-space-comp-m) var(--global-space-comp-m);
-      }
-
-      *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
-        font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-l);
-      }
-    `}
-  `}
-
-  ${({ $action, $disabled }) =>
-    $action &&
-    !$disabled &&
-    css`
-      background-color: var(--button-typical-secondary-bg-default);
-      color: var(--button-typical-secondary-label-default);
-
-      * {
-        color: var(--button-typical-secondary-label-default);
-      }
-
-      &:hover,
-      &:active {
-        background-color: var(--button-typical-secondary-bg-hover);
-        color: var(--button-typical-secondary-label-hover);
-
-        * {
-          color: var(--button-typical-secondary-label-hover);
-        }
-      }
-    `}
+          & > button:not(:active):hover,
+          & > a:not(:active):hover {
+            color: var(--popover-label-hover);
+            background-color: var(--popover-bg-hover);
+          }
+        `}
 `;
 
 const SubmenuParentWrapper = styled.div`
@@ -300,7 +137,6 @@ const focusFirstSubmenuItem = (
 const MenuItem = ({
   children,
   onClick,
-  action,
   selected,
   disabled,
   submenu,
@@ -429,6 +265,22 @@ const MenuItem = ({
     });
   }
 
+  if (!isButtonMenu) {
+    return (
+      <MenuOptionItem
+        id={id}
+        measureElement={measureElement}
+        selected={selected}
+        disabled={disabled}
+        onClick={onClick}
+        aria-describedby={ariaDescribedBy}
+        {...rest}
+      >
+        {children}
+      </MenuOptionItem>
+    );
+  }
+
   return (
     <StyledMenuItem
       ref={combinedRef}
@@ -439,12 +291,8 @@ const MenuItem = ({
       onClick={!isDisabled ? onClick : undefined}
       onMouseDown={!isDisabled ? (ev) => ev.preventDefault() : undefined}
       onKeyDown={handleSubmenuClose}
-      role={isButtonMenu ? undefined : "option"}
-      aria-selected={!isButtonMenu ? selected && !isDisabled : undefined}
-      aria-disabled={!isButtonMenu ? isDisabled : undefined}
       $disabled={isDisabled}
       $isButtonMenu={isButtonMenu}
-      $action={action}
       {...rest}
       aria-describedby={resolvedAriaDescribedBy || undefined}
     >
