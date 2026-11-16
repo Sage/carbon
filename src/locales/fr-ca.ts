@@ -94,13 +94,76 @@ const frCA: Partial<Locale> = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "ou glissez et déposez-le ici.",
-    selectFile: () => "Sélectionnez le fichier",
-    fileUploadStatus: () => "État du téléversement des fichiers",
+    dragAndDrop: (selectButtonText, multiple = false) => {
+      if (!selectButtonText) {
+        return multiple
+          ? "ou glissez et déposez-les ici."
+          : "ou glissez et déposez-le ici.";
+      }
+
+      return `Glissez-déposez ${
+        multiple ? "vos fichiers" : "votre fichier"
+      } ou utilisez ${selectButtonText} pour ${
+        multiple ? "les choisir" : "le choisir"
+      }.`;
+    },
+    selectFile: (multiple = false) =>
+      multiple ? "Sélectionnez les fichiers" : "Sélectionnez le fichier",
+    requiredDescription: () => "Ce champ est obligatoire.",
+    currentFiles: (count) =>
+      count === 1 ? `Fichier actuel (${count})` : `Fichiers actuels (${count})`,
+    currentFilesProgressSummary: ({
+      totalCount,
+      uploadingCount,
+      completedCount,
+    }) => {
+      const summaries: string[] = [];
+
+      if (uploadingCount > 0) {
+        summaries.push(
+          `Téléversement de ${uploadingCount} ${
+            uploadingCount === 1 ? "fichier en cours" : "fichiers en cours"
+          }`,
+        );
+      }
+
+      if (completedCount > 0) {
+        summaries.push(
+          completedCount === 1 && totalCount === 1
+            ? "1 fichier téléversé"
+            : `Fichiers téléversés : ${completedCount} sur ${totalCount}`,
+        );
+      }
+
+      return summaries.length > 0 ? `${summaries.join(", ")}.` : "";
+    },
+    currentFilesErrorSummary: ({ errorCount }) =>
+      errorCount === 1
+        ? "1 fichier n’a pas pu être téléversé."
+        : `${errorCount} fichiers n’ont pas pu être téléversés.`,
+    previouslyUploadedFiles: (count) =>
+      count === 1
+        ? `Fichier téléversé précédemment (${count})`
+        : `Fichiers téléversés précédemment (${count})`,
+    uploading: () => "Téléversement...",
+    uploaded: () => "Fichier téléversé",
+    uploadErrorDetails: () => "Détails de l’erreur",
+    announcements: {
+      filesAdded: (files) =>
+        files.length === 1
+          ? `Fichier sélectionné : ${files[0]}.`
+          : `Fichiers sélectionnés : ${files.join(", ")}.`,
+      uploadComplete: (files) => `Téléversement terminé : ${files.join(", ")}.`,
+      fileDeleted: (file) => `Fichier supprimé : ${file}.`,
+      fileRemoved: (file) => `Fichier retiré : ${file}.`,
+      uploadCancelled: (file) => `Téléversement annulé : ${file}.`,
+    },
     actions: {
-      cancel: () => "Annuler le téléversement",
-      clear: () => "Effacer",
-      delete: () => "Supprimer le fichier",
+      cancel: () => "Annuler",
+      delete: () => "Supprimer",
+      remove: () => "Retirer",
+      retry: () => "Réessayer",
+      preview: () => "Aperçu",
     },
   },
   heading: {
