@@ -40,12 +40,14 @@ export const useHandleDropdownMenuKeyDown = (
 ) =>
   useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
-      const activeScrollWrapper = (document.activeElement as Element)?.closest(
-        '[data-component="scroll-wrapper"]',
-      );
+      const eventScrollWrapper =
+        ev.target instanceof Element
+          ? ev.target.closest('[data-component="scroll-wrapper"]')
+          : null;
 
-      // short-circuit if focus is inside a nested scroll wrapper (e.g. an open submenu)
-      if (activeScrollWrapper && !activeScrollWrapper.contains(ref.current)) {
+      // A nested menu can move focus while this event is still bubbling.
+      // Use the event's origin so its parent does not handle the same key twice.
+      if (eventScrollWrapper && !eventScrollWrapper.contains(ref.current)) {
         return;
       }
 
