@@ -4,7 +4,6 @@ import tagComponent, {
 } from "../../../../__internal__/utils/helpers/tags";
 import { useTabs } from "../__internal__/contexts/tabs.context";
 import { TabProvider } from "../__internal__/contexts/tab.context";
-import StyledTabPanel from "./tab-panel.style";
 
 export interface TabPanelProps extends TagProps {
   /** The content to be shown in the tab panel */
@@ -20,14 +19,14 @@ export const TabPanel = ({ children, id, tabId, ...rest }: TabPanelProps) => {
 
   return (
     <TabProvider tabId={tabId} visible={tabId === activeTab}>
-      <StyledTabPanel
+      <div
         id={id}
         role="tabpanel"
         aria-labelledby={tabId}
         {...tagComponent("tab-panel", rest)}
       >
         {children}
-      </StyledTabPanel>
+      </div>
     </TabProvider>
   );
 };

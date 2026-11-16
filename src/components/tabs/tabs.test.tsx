@@ -1,28 +1,27 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Tabs, Tab } from ".";
 import Logger from "../../__internal__/utils/logger";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 
-beforeEach(() => {
+beforeAll(() => {
   // scrollIntoView is not implemented in jsdom but hasn't been marked as such
   Element.prototype.scrollIntoView = jest.fn();
 });
 
-test("calls Logger.warn twice when the Tabs and Tab components are rendered", () => {
-  const loggerSpy = jest.spyOn(Logger, "warn");
-
-  render(
+test("logs a migration warning for the legacy `Tabs` and `Tab` components on first render only", () => {
+  const loggerSpy = jest.spyOn(Logger, "warn").mockImplementation(() => {});
+  const component = (
     <Tabs>
       <Tab tabId="foo" title="Tab 1">
         Content 1
       </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
+    </Tabs>
   );
+
+  const { rerender } = render(component);
+  rerender(component);
 
   expect(loggerSpy).toHaveBeenCalledWith(
     "Warning: This version of the `Tabs` component is intended to help migration to the `next` version and will be removed in a future release.",
@@ -34,7 +33,7 @@ test("calls Logger.warn twice when the Tabs and Tab components are rendered", ()
   loggerSpy.mockRestore();
 });
 
-test("renders all tabs by default", () => {
+test("renders a tab for each `Tab` child and shows the first tab's panel by default", () => {
   render(
     <Tabs>
       <Tab tabId="foo" title="Tab 1">
@@ -47,15 +46,76 @@ test("renders all tabs by default", () => {
   );
 
   expect(screen.getByRole("tablist", { name: "Tabs" })).toBeVisible();
-  expect(screen.getByRole("tab", { name: "Tab 1" })).toBeVisible();
-  expect(screen.getByRole("tab", { name: "Tab 2" })).toBeVisible();
-  expect(screen.getByText("Content 1")).toBeVisible();
-  expect(screen.getByText("Content 2")).toBeInTheDocument();
+  expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveAttribute(
+    "aria-selected",
+    "false",
+  );
+  expect(screen.getByRole("tabpanel", { name: "Tab 1" })).toHaveTextContent(
+    "Content 1",
+  );
+  expect(screen.getByText("Content 2")).not.toBeVisible();
 });
 
-test("sets the `tabId` prop as the `id` attribute on the rendered element", () => {
+test("sets the `tabId` as the tab's `id` and links the tab to its panel", () => {
   render(
     <Tabs>
+      <Tab tabId="foo" title="Tab 1">
+        Content 1
+      </Tab>
+    </Tabs>,
+  );
+
+  const tab = screen.getByRole("tab", { name: "Tab 1" });
+  expect(tab).toHaveAttribute("id", "foo");
+  expect(tab).toHaveAttribute("aria-controls", "foo-panel");
+  expect(screen.getByRole("tabpanel", { name: "Tab 1" })).toHaveAttribute(
+    "id",
+    "foo-panel",
+  );
+});
+
+test("supports the `id` and `label` props on `Tab`", () => {
+  render(
+    <Tabs>
+      <Tab id="foo" label="Tab 1">
+        Content 1
+      </Tab>
+      <Tab id="bar" label="Tab 2">
+        Content 2
+      </Tab>
+    </Tabs>,
+  );
+
+  const tab = screen.getByRole("tab", { name: "Tab 1" });
+  expect(tab).toHaveAttribute("id", "foo");
+  expect(tab).toHaveAttribute("aria-selected", "true");
+  expect(screen.getByRole("tabpanel", { name: "Tab 1" })).toHaveTextContent(
+    "Content 1",
+  );
+});
+
+test("sets the tab's `aria-controls` from the `controls` prop when provided", () => {
+  render(
+    <Tabs>
+      <Tab tabId="foo" title="Tab 1" controls="custom-panel">
+        Content 1
+      </Tab>
+    </Tabs>,
+  );
+
+  expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveAttribute(
+    "aria-controls",
+    "custom-panel",
+  );
+});
+
+test("selects the tab specified by `selectedTabId`", () => {
+  render(
+    <Tabs selectedTabId="bar">
       <Tab tabId="foo" title="Tab 1">
         Content 1
       </Tab>
@@ -65,14 +125,82 @@ test("sets the `tabId` prop as the `id` attribute on the rendered element", () =
     </Tabs>,
   );
 
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-
-  expect(tab1).toHaveAttribute("id", "foo");
-  expect(tab2).toHaveAttribute("id", "bar");
+  expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  expect(screen.getByRole("tabpanel", { name: "Tab 2" })).toHaveTextContent(
+    "Content 2",
+  );
 });
 
-test("hides tabs when `renderHiddenTabs` prop is false", () => {
+test("updates the selected tab when `selectedTabId` changes", () => {
+  const { rerender } = render(
+    <Tabs selectedTabId="foo">
+      <Tab tabId="foo" title="Tab 1">
+        Content 1
+      </Tab>
+      <Tab tabId="bar" title="Tab 2">
+        Content 2
+      </Tab>
+    </Tabs>,
+  );
+
+  rerender(
+    <Tabs selectedTabId="bar">
+      <Tab tabId="foo" title="Tab 1">
+        Content 1
+      </Tab>
+      <Tab tabId="bar" title="Tab 2">
+        Content 2
+      </Tab>
+    </Tabs>,
+  );
+
+  expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveAttribute(
+    "aria-selected",
+    "false",
+  );
+  expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+});
+
+test("keeps the selected tab when the content of a `Tab` updates", async () => {
+  const user = userEvent.setup();
+  const MockComponent = () => {
+    const [updated, setUpdated] = React.useState(false);
+
+    return (
+      <Tabs selectedTabId="bar">
+        <Tab tabId="foo" title="Tab 1">
+          Content 1
+        </Tab>
+        <Tab tabId="bar" title="Tab 2">
+          {updated ? "Updated content 2" : "Content 2"}
+          <button type="button" onClick={() => setUpdated(true)}>
+            Update
+          </button>
+        </Tab>
+      </Tabs>
+    );
+  };
+  render(<MockComponent />);
+
+  await user.click(screen.getByRole("button", { name: "Update" }));
+
+  expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  expect(screen.getByRole("tabpanel", { name: "Tab 2" })).toHaveTextContent(
+    "Updated content 2",
+  );
+});
+
+test("only renders the selected tab's panel when `renderHiddenTabs` is false", async () => {
+  const user = userEvent.setup();
   render(
     <Tabs renderHiddenTabs={false}>
       <Tab tabId="foo" title="Tab 1">
@@ -86,313 +214,16 @@ test("hides tabs when `renderHiddenTabs` prop is false", () => {
 
   expect(screen.getByText("Content 1")).toBeVisible();
   expect(screen.queryByText("Content 2")).not.toBeInTheDocument();
-});
 
-test("hides tabs when `renderHiddenTabs` prop is false and selectedTabId is set", () => {
-  render(
-    <Tabs renderHiddenTabs={false} selectedTabId="bar">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
+  await user.click(screen.getByRole("tab", { name: "Tab 2" }));
 
   expect(screen.queryByText("Content 1")).not.toBeInTheDocument();
   expect(screen.getByText("Content 2")).toBeVisible();
 });
 
-test("renders the tabs in horizontal orientation when `position` prop is not set", () => {
-  render(
-    <Tabs>
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab = screen.getByRole("tab", { name: "Tab 2" });
-  expect(tab).not.toHaveStyleRule(
-    "border-right",
-    "2px solid var(--tab-border-default)",
-  );
-});
-
-test("renders the tabs in horizontal orientation when `position` prop is set to 'top'", () => {
-  render(
-    <Tabs position="top">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab = screen.getByRole("tab", { name: "Tab 2" });
-  expect(tab).not.toHaveStyleRule(
-    "border-right",
-    "2px solid var(--tab-border-default)",
-  );
-});
-
-test("renders the tabs in vertical orientation when `position` prop is set to 'left'", () => {
-  render(
-    <Tabs position="left">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab = screen.getByRole("tab", { name: "Tab 2" });
-  expect(tab).toHaveStyleRule(
-    "border-right",
-    "2px solid var(--tab-border-default)",
-  );
-});
-
-test("applies width correctly when `headerWidth` prop is not set and `position` prop is set to 'left'", () => {
-  render(
-    <Tabs position="left">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tabList = screen.getAllByRole("tab");
-  tabList.forEach((tab) => {
-    expect(tab).toHaveStyle("width: 200px");
-  });
-});
-
-test("applies width correctly when `headerWidth` prop set and `position` prop is set to 'left'", () => {
-  const headerWidth = "250px";
-  render(
-    <Tabs headerWidth={headerWidth} position="left">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tabList = screen.getAllByRole("tab");
-  tabList.forEach((tab) => {
-    expect(tab).toHaveStyle(`width: ${headerWidth}`);
-  });
-});
-
-test("does not apply `headerWidth` when `position` prop is set to 'top'", () => {
-  const headerWidth = "250px";
-  render(
-    <Tabs headerWidth={headerWidth} position="top">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tabList = screen.getAllByRole("tab");
-  tabList.forEach((tab) => {
-    expect(tab).not.toHaveStyle(`width: ${headerWidth}`);
-  });
-});
-
-test("sets the first Tab as active by default", () => {
-  render(
-    <Tabs>
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-
-  expect(tab1).toHaveAttribute("aria-selected", "true");
-  expect(tab2).toHaveAttribute("aria-selected", "false");
-});
-
-test("sets the active Tab when `selectedTabId` prop is set", () => {
-  render(
-    <Tabs selectedTabId="bar">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-
-  expect(tab1).toHaveAttribute("aria-selected", "false");
-  expect(tab2).toHaveAttribute("aria-selected", "true");
-});
-
-test("renders relevant validation status indicators on Tabs when `validationStatusOverride` prop is set", () => {
-  render(
-    <Tabs>
-      <Tab tabId="foo" title="Tab 1" validationStatusOverride={{ error: true }}>
-        Content 1
-      </Tab>
-      <Tab
-        tabId="bar"
-        title="Tab 2"
-        validationStatusOverride={{ warning: true }}
-      >
-        Content 2
-      </Tab>
-      <Tab tabId="baz" title="Tab 3" validationStatusOverride={{ info: true }}>
-        Content 3
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab", {
-    name: "Tab 1 The Tab 1 tab contains errors",
-  });
-  const tab2 = screen.getByRole("tab", {
-    name: "Tab 2 The Tab 2 tab contains warnings",
-  });
-  const tab3 = screen.getByRole("tab", {
-    name: "Tab 3 The Tab 3 tab contains information",
-  });
-
-  const errorIcon = within(tab1).getByTestId("icon-error");
-  expect(errorIcon).toBeVisible();
-
-  const warningIcon = within(tab2).getByTestId("icon-warning");
-  expect(warningIcon).toBeVisible();
-
-  const infoIcon = within(tab3).getByTestId("icon-info");
-  expect(infoIcon).toBeVisible();
-});
-
-test("renders custom layout when `customLayout` prop is set", () => {
-  render(
-    <Tabs>
-      <Tab
-        tabId="foo"
-        title="Tab 1"
-        customLayout={
-          <div data-role="custom-layout">
-            <span>Custom </span>
-            <strong>Layout</strong>
-          </div>
-        }
-      >
-        Content 1
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab");
-  const customLayout = within(tab1).getByTestId("custom-layout");
-
-  expect(customLayout).toBeVisible();
-  expect(within(customLayout).getByText("Custom")).toBeVisible();
-  expect(within(customLayout).getByText("Layout")).toBeVisible();
-});
-
-test("renders custom layout when `customLayout` prop is set and position is 'left'", () => {
-  render(
-    <Tabs position="left">
-      <Tab
-        tabId="foo"
-        title="Tab 1"
-        customLayout={
-          <div data-role="custom-layout">
-            <span>Custom </span>
-            <strong>Layout</strong>
-          </div>
-        }
-      >
-        Content 1
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab");
-  const customLayout = within(tab1).getByTestId("custom-layout");
-
-  expect(customLayout).toBeVisible();
-  expect(within(customLayout).getByText("Custom")).toBeVisible();
-  expect(within(customLayout).getByText("Layout")).toBeVisible();
-});
-
-test("renders `siblings` when they are passed", () => {
-  render(
-    <Tabs>
-      <Tab
-        tabId="foo"
-        title="Tab 1"
-        siblings={<span data-role="sibling">Sibling</span>}
-      >
-        Content 1
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab");
-  const sibling = within(tab1).getByTestId("sibling");
-
-  expect(sibling).toBeVisible();
-  expect(within(tab1).getByText("Tab 1")).toBeVisible();
-  expect(within(tab1).getByText("Sibling")).toBeVisible();
-});
-
-test("renders `siblings` when they are passed and `titlePosition` is set to 'after'", () => {
-  render(
-    <Tabs>
-      <Tab
-        tabId="foo"
-        title="Tab 1"
-        siblings={<span data-role="sibling">Sibling</span>}
-        titlePosition="after"
-      >
-        Content 1
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab");
-  const sibling = within(tab1).getByTestId("sibling");
-
-  expect(sibling).toBeVisible();
-  expect(within(tab1).getByText("Tab 1")).toBeVisible();
-  expect(within(tab1).getByText("Sibling")).toBeVisible();
-});
-
-test("calls `onTabChange` callback when a tab is clicked", async () => {
-  const onTabChange = jest.fn();
+test("calls `onTabChange` with the tab id when a different tab is selected", async () => {
   const user = userEvent.setup();
-
+  const onTabChange = jest.fn();
   render(
     <Tabs onTabChange={onTabChange}>
       <Tab tabId="foo" title="Tab 1">
@@ -404,18 +235,16 @@ test("calls `onTabChange` callback when a tab is clicked", async () => {
     </Tabs>,
   );
 
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+  await user.click(screen.getByRole("tab", { name: "Tab 2" }));
 
-  await user.click(tab2);
-
+  expect(onTabChange).toHaveBeenCalledTimes(1);
   expect(onTabChange).toHaveBeenCalledWith("bar");
 });
 
-test("focuses the relevant tab but does not call `onTabChange` callback when arrow key navigation is used", async () => {
-  const onTabChange = jest.fn();
+test("arranges the tabs vertically when `position` is 'left'", async () => {
   const user = userEvent.setup();
   render(
-    <Tabs onTabChange={onTabChange} selectedTabId="foo">
+    <Tabs position="left">
       <Tab tabId="foo" title="Tab 1">
         Content 1
       </Tab>
@@ -424,120 +253,130 @@ test("focuses the relevant tab but does not call `onTabChange` callback when arr
       </Tab>
     </Tabs>,
   );
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+
   await user.tab();
-  await user.keyboard("{ArrowRight}");
+  await user.keyboard("{ArrowDown}");
 
-  expect(tab2).toHaveFocus();
-  expect(onTabChange).not.toHaveBeenCalled();
+  expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveFocus();
 });
 
-test("calls `onTabChange` callback when user presses enter key on a focused tab that isn't already active", async () => {
-  const onTabChange = jest.fn();
-  const user = userEvent.setup();
+test("applies `headerWidth` to the tabs when `position` is 'left'", () => {
   render(
-    <Tabs onTabChange={onTabChange} selectedTabId="foo">
+    <Tabs position="left" headerWidth="250px">
       <Tab tabId="foo" title="Tab 1">
         Content 1
       </Tab>
-      <Tab tabId="bar" title="Tab 2">
+    </Tabs>,
+  );
+
+  expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveStyle({
+    width: "250px",
+  });
+});
+
+test("renders large tabs when `size` is 'large'", () => {
+  render(
+    <Tabs size="large">
+      <Tab tabId="foo" title="Tab 1">
+        Content 1
+      </Tab>
+    </Tabs>,
+  );
+
+  expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-medium-l)",
+  );
+});
+
+test("renders full-width tabs without panels when inside a drawer sidebar", () => {
+  render(
+    <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+      <Tabs headerWidth="250px">
+        <Tab tabId="foo" title="Tab 1">
+          Content 1
+        </Tab>
+      </Tabs>
+    </DrawerSidebarContext.Provider>,
+  );
+
+  expect(screen.getByTestId("tab-list-wrapper")).toHaveStyle({
+    width: "100%",
+  });
+  expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveStyle({
+    width: "100%",
+  });
+  expect(screen.queryByRole("tabpanel")).not.toBeInTheDocument();
+  expect(screen.queryByText("Content 1")).not.toBeInTheDocument();
+});
+
+test("includes the status from `validationStatusOverride` in each tab's accessible name", () => {
+  render(
+    <Tabs>
+      <Tab tabId="bar" title="Tab 1" validationStatusOverride={{ error: true }}>
+        Content 1
+      </Tab>
+      <Tab
+        tabId="baz"
+        title="Tab 2"
+        validationStatusOverride={{ warning: true }}
+      >
         Content 2
       </Tab>
     </Tabs>,
   );
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-  await user.tab();
-  await user.keyboard("{ArrowRight}");
-  await user.keyboard("{Enter}");
 
-  expect(tab2).toHaveFocus();
-  expect(onTabChange).toHaveBeenCalledWith("bar");
+  expect(
+    screen.getByRole("tab", { name: "Tab 1 The Tab 1 tab contains errors" }),
+  ).toBeVisible();
+  expect(
+    screen.getByRole("tab", { name: "Tab 2 The Tab 2 tab contains warnings" }),
+  ).toBeVisible();
 });
 
-test("calls `onTabChange` callback when user presses space key on a focused tab that isn't already active", async () => {
-  const onTabChange = jest.fn();
-  const user = userEvent.setup();
+test("renders the `customLayout` content in place of the `title`", () => {
   render(
-    <Tabs onTabChange={onTabChange} selectedTabId="foo">
-      <Tab tabId="foo" title="Tab 1">
+    <Tabs>
+      <Tab tabId="foo" title="Tab 1" customLayout={<span>Custom layout</span>}>
         Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
       </Tab>
     </Tabs>,
   );
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-  await user.tab();
-  await user.keyboard("{ArrowRight}");
-  await user.keyboard(" ");
 
-  expect(tab2).toHaveFocus();
-  expect(onTabChange).toHaveBeenCalledWith("bar");
+  expect(screen.getByRole("tab", { name: "Custom layout" })).toBeVisible();
+  expect(screen.queryByText("Tab 1")).not.toBeInTheDocument();
 });
 
-test("does not call `onTabChange` callback when the active tab is clicked", async () => {
-  const onTabChange = jest.fn();
-  const user = userEvent.setup();
+test("renders `siblings` after the `title` by default", () => {
   render(
-    <Tabs onTabChange={onTabChange} selectedTabId="foo">
-      <Tab tabId="foo" title="Tab 1">
+    <Tabs>
+      <Tab tabId="foo" title="Tab 1" siblings={<span>Sibling</span>}>
         Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
       </Tab>
     </Tabs>,
   );
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-  await user.click(tab1);
 
-  expect(onTabChange).not.toHaveBeenCalled();
+  expect(screen.getByRole("tab")).toHaveTextContent(/^Tab 1\s*Sibling$/);
 });
 
-test("does not call `onTabChange` callback when user presses enter key on a focused tab that is already active", async () => {
-  const onTabChange = jest.fn();
-  const user = userEvent.setup();
+test("renders `siblings` before the `title` when `titlePosition` is 'after'", () => {
   render(
-    <Tabs onTabChange={onTabChange} selectedTabId="foo">
-      <Tab tabId="foo" title="Tab 1">
+    <Tabs>
+      <Tab
+        tabId="foo"
+        title="Tab 1"
+        siblings={<span>Sibling</span>}
+        titlePosition="after"
+      >
         Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
       </Tab>
     </Tabs>,
   );
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-  await user.tab();
-  await user.keyboard("{Enter}");
 
-  expect(tab1).toHaveFocus();
-  expect(onTabChange).not.toHaveBeenCalled();
+  expect(screen.getByRole("tab")).toHaveTextContent(/^Sibling\s*Tab 1$/);
 });
 
-test("does not call `onTabChange` callback when user presses space key on a focused tab that is already active", async () => {
-  const onTabChange = jest.fn();
-  const user = userEvent.setup();
-  render(
-    <Tabs onTabChange={onTabChange} selectedTabId="foo">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-  await user.tab();
-  await user.keyboard(" ");
-
-  expect(tab1).toHaveFocus();
-  expect(onTabChange).not.toHaveBeenCalled();
-});
-
-test("adds custom data-role to tab title when `titleProps` prop is set", () => {
+test("applies the `data-role` from `titleProps` to the tab", () => {
   render(
     <Tabs>
       <Tab
@@ -550,151 +389,29 @@ test("adds custom data-role to tab title when `titleProps` prop is set", () => {
     </Tabs>,
   );
 
-  const tabTitle = screen.getByTestId("custom-title");
-  expect(tabTitle).toBeVisible();
+  expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveAttribute(
+    "data-role",
+    "custom-title",
+  );
 });
 
-test("renders an anchor element when an `href` prop is passed to a Tab", () => {
+test("renders the tab as a link that opens in a new browser tab when `href` is provided", () => {
   render(
     <Tabs>
-      <Tab tabId="foo" title="Tab 1" href="https://www.example.com">
+      <Tab tabId="foo" title="Tab 1" href="https://carbon.sage.com">
         Content 1
       </Tab>
     </Tabs>,
   );
 
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-
-  expect(tab1).toBeVisible();
-  expect(tab1.tagName).toBe("A");
-  expect(tab1).toHaveAttribute("href", "https://www.example.com");
-  expect(tab1).toHaveAttribute("target", "_blank");
+  const tab = screen.getByRole("tab", { name: "Tab 1" });
+  expect(tab).toHaveAttribute("href", "https://carbon.sage.com");
+  expect(tab).toHaveAttribute("target", "_blank");
+  expect(tab).not.toHaveAttribute("type");
 });
 
-test("renders a button element when no `href` prop is passed to a Tab", () => {
-  render(
-    <Tabs>
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-
-  expect(tab1).toBeVisible();
-  expect(tab1.tagName).toBe("BUTTON");
-});
-
-test("renders tabs with correct size when `size` prop is set to 'default'", () => {
-  render(
-    <Tabs size="default">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-
-  expect(tab1).toHaveStyle("font-size: 14px");
-  expect(tab2).toHaveStyle("font-size: 14px");
-});
-
-test("renders tabs with correct size when `size` prop is set to 'large'", () => {
-  render(
-    <Tabs size="large">
-      <Tab tabId="foo" title="Tab 1">
-        Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-
-  expect(tab1).toHaveStyle("font-size: 16px");
-  expect(tab2).toHaveStyle("font-size: 16px");
-});
-
-test("sets the `headerWidth` to '100%' when DrawerSidebarContext is detected", () => {
-  render(
-    <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
-      <Tabs>
-        <Tab tabId="foo" title="Tab 1">
-          Content 1
-        </Tab>
-        <Tab tabId="bar" title="Tab 2">
-          Content 2
-        </Tab>
-      </Tabs>
-    </DrawerSidebarContext.Provider>,
-  );
-
-  expect(screen.getByTestId("tab-list-wrapper")).toHaveStyle("width: 100%");
-});
-
-test("updates the selected tab when the `selectedTabId` prop changes", () => {
-  const { rerender } = render(
-    <Tabs selectedTabId="foo">
-      <Tab id="foo" label="Tab 1">
-        Content 1
-      </Tab>
-      <Tab id="bar" label="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
-  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
-
-  expect(tab1).toHaveAttribute("aria-selected", "true");
-  expect(tab2).toHaveAttribute("aria-selected", "false");
-
-  rerender(
-    <Tabs selectedTabId="bar">
-      <Tab id="foo" label="Tab 1">
-        Content 1
-      </Tab>
-      <Tab id="bar" label="Tab 2">
-        Content 2
-      </Tab>
-    </Tabs>,
-  );
-
-  expect(tab1).toHaveAttribute("aria-selected", "false");
-  expect(tab2).toHaveAttribute("aria-selected", "true");
-});
-
-test("logs warnings when no `id` or `tabId` prop is provided to Tab", () => {
-  const loggerSpy = jest.spyOn(Logger, "warn");
-
-  render(
-    <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
-      <Tabs>
-        <Tab title="Tab 1">Content 1</Tab>
-      </Tabs>
-    </DrawerSidebarContext.Provider>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Warning: Tab component is missing a unique identifier. Please provide an `id` prop to ensure proper functionality.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockRestore();
-});
-
-test("logs warnings when `TabPanel` cannot associate `id` or `tabId` prop is to a Tab", () => {
-  const loggerSpy = jest.spyOn(Logger, "warn");
-
+test("logs warnings and does not render a `Tab` that has no `id` or `tabId`", () => {
+  const loggerSpy = jest.spyOn(Logger, "warn").mockImplementation(() => {});
   render(
     <Tabs>
       <Tab title="Tab 1">Content 1</Tab>
@@ -705,8 +422,12 @@ test("logs warnings when `TabPanel` cannot associate `id` or `tabId` prop is to 
   );
 
   expect(loggerSpy).toHaveBeenCalledWith(
+    "Warning: Tab component is missing a unique identifier. Please provide an `id` prop to ensure proper functionality.",
+  );
+  expect(loggerSpy).toHaveBeenCalledWith(
     "Warning: Each `Tab` component must have an `id` or `tabId` prop to associate it with a TabPanel.",
   );
-  expect(loggerSpy).toHaveBeenCalledTimes(2);
+  expect(screen.getAllByRole("tab")).toHaveLength(1);
+  expect(screen.queryByText("Content 1")).not.toBeInTheDocument();
   loggerSpy.mockRestore();
 });

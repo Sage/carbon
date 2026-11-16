@@ -22,7 +22,7 @@ export const TabProvider = ({ children, tabId, visible }: TabProviderProps) => {
         tabId,
       }}
     >
-      <StyledTabProvider visible={visible} role="presentation">
+      <StyledTabProvider $visible={visible} role="presentation">
         {children}
       </StyledTabProvider>
     </TabContext.Provider>
