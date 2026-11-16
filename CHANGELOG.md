@@ -1,3 +1,9 @@
+## [163.0.1](https://github.com/Sage/carbon/compare/v163.0.0...v163.0.1) (2026-11-16)
+
+### Bug Fixes
+
+* **table:** ensure that popover menus stack correctly in sticky columns ([b777206](https://github.com/Sage/carbon/commit/b7772062c8fcb34be77a8b7b118b710210a4d2d4)), closes [#8279](https://github.com/Sage/carbon/issues/8279)
+
 ## [163.0.0](https://github.com/Sage/carbon/compare/v162.25.0...v163.0.0) (2026-11-16)
 
 ### ⚠ BREAKING CHANGES
