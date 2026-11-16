@@ -1401,7 +1401,7 @@ test("clicking the menu wrapper does not close the menu", async () => {
   expect(onClose).not.toHaveBeenCalled();
 });
 
-test("menu width matches the controlReference element width", async () => {
+test("menu width matches the controlElement width", async () => {
   const rectSpy = jest
     .spyOn(HTMLElement.prototype, "getBoundingClientRect")
     .mockImplementation(function (this: HTMLElement) {
@@ -1418,20 +1418,21 @@ test("menu width matches the controlReference element width", async () => {
 
   const MenuWithReferenceSelector = () => {
     const [open, setOpen] = React.useState(false);
-    const controlReference = React.useRef<HTMLDivElement>(null);
+    const [controlElement, setControlElement] =
+      React.useState<HTMLDivElement | null>(null);
 
     return (
       <PopoverMenu<HTMLInputElement>
         open={open}
         onOpen={() => {}}
         onClose={() => setOpen(false)}
-        controlReference={controlReference}
+        controlElement={controlElement}
         popoverControl={(ref, controlProps) => (
           <div>
             <div
               data-role="input-container"
               data-testid="input-container"
-              ref={controlReference}
+              ref={setControlElement}
             >
               <input
                 aria-label="combobox-label"
@@ -1461,32 +1462,33 @@ test("menu width matches the controlReference element width", async () => {
   rectSpy.mockRestore();
 });
 
-test("re-resolves the reference when the controlReference target is replaced while open", async () => {
+test("re-resolves the reference when the controlElement target is replaced while open", async () => {
   const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
 
   const MenuWithSwappableReference = () => {
     const [useSecond, setUseSecond] = React.useState(false);
-    const controlReference = React.useRef<HTMLDivElement>(null);
+    const [controlElement, setControlElement] =
+      React.useState<HTMLDivElement | null>(null);
 
     return (
       <PopoverMenu<HTMLInputElement>
         open
         onOpen={() => {}}
         onClose={() => {}}
-        controlReference={controlReference}
+        controlElement={controlElement}
         popoverControl={(ref, controlProps) => (
           <div>
             {useSecond ? (
               <div
                 key="second"
                 data-role="anchor-second"
-                ref={controlReference}
+                ref={setControlElement}
               />
             ) : (
               <div
                 key="first"
                 data-role="anchor-first"
-                ref={controlReference}
+                ref={setControlElement}
               />
             )}
             <input
@@ -1530,7 +1532,7 @@ test("re-resolves the reference when the controlReference target is replaced whi
   }
 });
 
-test("menu width falls back to control wrapper width when controlReference is not provided", async () => {
+test("menu width falls back to control wrapper width when controlElement is not provided", async () => {
   const rectSpy = jest
     .spyOn(HTMLElement.prototype, "getBoundingClientRect")
     .mockImplementation(function (this: HTMLElement) {

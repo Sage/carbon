@@ -1,4 +1,10 @@
-import React, { useContext, useRef, useCallback, useEffect } from "react";
+import React, {
+  useContext,
+  useRef,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import styled, { css } from "styled-components";
 import {
   PopoverMenuContext,
@@ -270,6 +276,13 @@ const MenuItem = ({
   ...rest
 }: MenuItemProps) => {
   const ref = useRef<HTMLLIElement | null>(null);
+  const [triggerElement, setTriggerElement] = useState<HTMLLIElement | null>(
+    null,
+  );
+  const attachTrigger = useCallback((element: HTMLLIElement | null) => {
+    ref.current = element;
+    setTriggerElement(element);
+  }, []);
   const {
     size,
     isButtonMenu,
@@ -315,7 +328,7 @@ const MenuItem = ({
     if (!submenuOpen) return;
 
     focusFirstSubmenuItem(submenuRef);
-  }, [submenuOpen]);
+  }, [submenuOpen, triggerElement]);
 
   const handleSubmenuClose = useCallback(
     (ev: React.KeyboardEvent<HTMLLIElement>) => {
@@ -356,11 +369,11 @@ const MenuItem = ({
       size,
       onClose: () => onSubmenuClose?.(),
       ref: submenuRef,
-      triggerRef: ref,
+      triggerElement,
       control: (controlProps: PopoverControlProps) => {
         return (
           <StyledMenuItem
-            ref={ref}
+            ref={attachTrigger}
             id={itemId}
             data-component="popover-menu-item"
             className={`popover-menu-item${isDisabled ? "-disabled" : ""}`}

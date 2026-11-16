@@ -11,16 +11,16 @@ import DatePicker from "./date-picker.component";
 import type { DatePickerProps } from "./date-picker.types";
 
 const DatePickerWithInput = (
-  props: Omit<DatePickerProps, "inputContainerRef">,
+  props: Omit<DatePickerProps, "inputContainer">,
 ) => {
-  const ref = React.useRef<HTMLDivElement>(null);
+  const [container, setContainer] = React.useState<HTMLDivElement | null>(null);
 
   return (
     <>
-      <div ref={ref}>
+      <div ref={setContainer}>
         <input aria-label="Date" />
       </div>
-      <DatePicker {...props} inputContainerRef={ref} />
+      <DatePicker {...props} inputContainer={container} />
     </>
   );
 };
