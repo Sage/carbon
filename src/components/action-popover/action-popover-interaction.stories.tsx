@@ -6,25 +6,23 @@ import {
   ActionPopover,
   ActionPopoverDivider,
   ActionPopoverItem,
-  ActionPopoverMenu,
   ActionPopoverMenuButton,
 } from ".";
 
 import Box from "../box";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import { ActionPopoverWithIconsAndNoSubmenus } from "./components.test-pw";
 
 type Story = StoryObj<typeof ActionPopover>;
 
 const submenu = (
-  <ActionPopoverMenu>
+  <>
     <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
     <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
     <ActionPopoverItem disabled onClick={() => {}}>
       Sub Menu 3
     </ActionPopoverItem>
-  </ActionPopoverMenu>
+  </>
 );
 
 export default {
@@ -113,7 +111,7 @@ export const SubmenuHoverAndFocus: Story = {
     const elementWithSubmenu = await within(document.body).findByText(
       "Print Invoice",
     );
-    await userEvent.hover(elementWithSubmenu, { delay: 200 });
+    await userEvent.click(elementWithSubmenu, { delay: 200 });
     await expect(
       await within(document.body).findByText("Sub Menu 1"),
     ).toBeVisible();
@@ -134,66 +132,6 @@ SubmenuHoverAndFocus.parameters = {
   },
 };
 
-export const IconsAndNoSubmenus: Story = {
-  render: () => <ActionPopoverWithIconsAndNoSubmenus />,
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) {
-      return;
-    }
-    const canvas = within(canvasElement);
-    const actionPopoverButtons = canvas.getAllByRole("button");
-    await userEvent.click(actionPopoverButtons[0]);
-
-    const menuButton = await within(document.body).findByText("Return Home");
-    await expect(menuButton).toBeVisible();
-  },
-  decorators: [
-    (StoryToRender) => (
-      <div style={{ height: "100vh", width: "100vw" }}>
-        <StoryToRender />
-      </div>
-    ),
-  ],
-};
-IconsAndNoSubmenus.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
-export const NoIconsAndNoSubmenu: Story = {
-  render: () => (
-    <Box height={250}>
-      <ActionPopover horizontalAlignment="right">
-        <ActionPopoverItem onClick={() => {}}>Email Invoice</ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) {
-      return;
-    }
-    const canvas = within(canvasElement);
-    const actionPopoverButtons = canvas.getAllByRole("button");
-    await userEvent.click(actionPopoverButtons[0]);
-
-    const elementWithSubmenu = await within(document.body).findByText(
-      "Email Invoice",
-    );
-    await expect(elementWithSubmenu).toBeVisible();
-  },
-  decorators: [
-    (StoryToRender) => (
-      <div style={{ height: "100vh", width: "100vw" }}>
-        <StoryToRender />
-      </div>
-    ),
-  ],
-};
-NoIconsAndNoSubmenu.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
 export const MenuOpeningAbove: Story = {
   render: () => (
     <Box pt={140} height={250}>
@@ -202,10 +140,10 @@ export const MenuOpeningAbove: Story = {
           icon="print"
           onClick={() => {}}
           submenu={
-            <ActionPopoverMenu>
+            <>
               <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
               <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </ActionPopoverMenu>
+            </>
           }
         >
           Print
@@ -227,7 +165,7 @@ export const MenuOpeningAbove: Story = {
 
     const menuButton = await within(document.body).findByText("Print");
     await expect(menuButton).toBeVisible();
-    await userEvent.hover(menuButton, { delay: 200 });
+    await userEvent.click(menuButton, { delay: 200 });
     await expect(await within(document.body).findByText("CSV")).toBeVisible();
   },
   decorators: [

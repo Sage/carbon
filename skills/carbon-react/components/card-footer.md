@@ -47,7 +47,7 @@ description: Carbon CardFooter component props and usage examples.
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| variant | "default" \| "transparent" \| undefined | No |  | Yes | Specify styling variant to render |  | "default" |
+| variant | "default" \| "transparent" \| undefined | No | default \| transparent | Yes | Specify styling variant to render |  | "default" |
 
 ## Examples
 ### Default

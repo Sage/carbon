@@ -86,6 +86,47 @@ test("does not display progressive disclosure content when input is not checked"
   ).not.toBeVisible();
 });
 
+test("sets aria-controls on the input and matching id on progressive disclosure", () => {
+  render(
+    <CommonCheckableInput
+      id="test-id"
+      type="radio"
+      progressiveDisclosure={<div>Progressive disclosure content</div>}
+      onChange={() => {}}
+    />,
+  );
+
+  expect(screen.getByRole("radio")).toHaveAttribute(
+    "aria-controls",
+    "test-id-progressive-disclosure",
+  );
+
+  expect(
+    screen.getByTestId("progressive-disclosure-accordion"),
+  ).toHaveAttribute("id", "test-id-progressive-disclosure");
+});
+
+test("combines provided aria-controls with progressive disclosure id", () => {
+  render(
+    <CommonCheckableInput
+      id="test-id"
+      type="radio"
+      aria-controls="existing-control"
+      progressiveDisclosure={<div>Progressive disclosure content</div>}
+      onChange={() => {}}
+    />,
+  );
+
+  expect(screen.getByRole("radio")).toHaveAttribute(
+    "aria-controls",
+    "existing-control test-id-progressive-disclosure",
+  );
+
+  expect(
+    screen.getByTestId("progressive-disclosure-accordion"),
+  ).toHaveAttribute("id", "test-id-progressive-disclosure");
+});
+
 test("applies accordion animation when reduced motion is not preferred", () => {
   const mockedUseMediaQuery = jest.mocked(useMediaQuery);
   mockedUseMediaQuery.mockReturnValue(true);

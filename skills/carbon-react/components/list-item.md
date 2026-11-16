@@ -55,20 +55,20 @@ You can use the `as` prop on Typography to inherit list styling while using Typo
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| role | "alert" \| "status" \| undefined | No |  |  |  | Set the role of the element when it is a live region |  |
+| role | "alert" \| "status" \| undefined | No | alert \| status |  |  | Set the role of the element when it is a live region |  |
 | screenReaderOnly | boolean \| undefined | No |  |  |  | Set whether it will be visually hidden NOTE: This is for screen readers only and will make a lot of the other props redundant |  |
-| size | "M" \| "L" \| undefined | No |  |  |  | The size to apply to text. Only available for non-heading variants. |  |
+| size | "M" \| "L" \| undefined | No | M \| L |  |  | The size to apply to text. Only available for non-heading variants. |  |
 | textAlign | string \| undefined | No |  |  |  | Override the text-align |  |
 | textDecoration | string \| undefined | No |  |  |  | Override the variant text-decoration |  |
 | textOverflow | string \| undefined | No |  |  |  | Override the text-overflow |  |
 | textTransform | string \| undefined | No |  |  |  | Override the variant text-transform |  |
-| weight | "medium" \| "regular" \| undefined | No |  |  |  | The font weight to apply to text. Only available for non-heading variants. Note: Has no effect on "strong" or "b" variants as they have fixed medium weight. |  |
+| weight | "medium" \| "regular" \| undefined | No | medium \| regular |  |  | The font weight to apply to text. Only available for non-heading variants. Note: Has no effect on "strong" or "b" variants as they have fixed medium weight. |  |
 | whiteSpace | string \| undefined | No |  |  |  | Override the white-space |  |
 | wordBreak | string \| undefined | No |  |  |  | Override the word-break |  |
 | wordWrap | string \| undefined | No |  |  |  | Override the word-wrap |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Make the element an aria-live region |  |
+| aria-live | "off" \| "assertive" \| "polite" \| undefined | No | off \| assertive \| polite |  |  | Make the element an aria-live region |  |
 | backgroundColor | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the backgroundColor style |  |  |
 | bg | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the bg value shorthand for backgroundColor |  |  |
 | fontSize | string \| undefined | No |  | Yes | Use the new `size` prop for paragraphs or choose the appropriate variant for other variants. This prop will eventually be removed. Override the variant font-size |  |  |
@@ -76,7 +76,7 @@ You can use the `as` prop on Typography to inherit list styling while using Typo
 | lineHeight | string \| undefined | No |  | Yes | Choose the appropriate variant for your use case, as each variant has its own line-height. This prop will eventually be removed. Override the variant line-height |  |  |
 | listStyleType | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the list-style-type |  |  |
 | opacity | string \| number \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the opacity value |  |  |
-| tint | "default" \| "alt" \| undefined | No |  | Yes | Use `color` instead. |  |  |
+| tint | "default" \| "alt" \| undefined | No | default \| alt | Yes | Use `color` instead. |  |  |
 | truncate | boolean \| undefined | No |  | Yes | Use `textOverflow` and `whiteSpace` props instead. This prop will eventually be removed. Apply truncation |  |  |
 
 ## Examples

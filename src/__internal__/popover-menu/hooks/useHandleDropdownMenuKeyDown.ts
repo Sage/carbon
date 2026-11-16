@@ -20,6 +20,13 @@ export const setFocus = (
   });
 };
 
+export interface TypeaheadHandler {
+  ev: React.KeyboardEvent<HTMLElement>;
+  items: HTMLElement[];
+  setAriaActivedescendant: React.Dispatch<React.SetStateAction<string>>;
+  focus: typeof setFocus;
+}
+
 export const useHandleDropdownMenuKeyDown = (
   ref: MutableRefObject<HTMLUListElement | null>,
   setAriaActivedescendant: React.Dispatch<React.SetStateAction<string>>,
@@ -29,15 +36,18 @@ export const useHandleDropdownMenuKeyDown = (
     isSubmenu?: boolean;
     controlReference?: React.RefObject<HTMLLIElement>;
   },
+  typeahead?: (args: TypeaheadHandler) => void,
 ) =>
   useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
-      const activeScrollWrapper = (document.activeElement as Element)?.closest(
-        '[data-component="scroll-wrapper"]',
-      );
+      const eventScrollWrapper =
+        ev.target instanceof Element
+          ? ev.target.closest('[data-component="scroll-wrapper"]')
+          : null;
 
-      // short-circuit if focus is inside a nested scroll wrapper (e.g. an open submenu)
-      if (activeScrollWrapper && !activeScrollWrapper.contains(ref.current)) {
+      // A nested menu can move focus while this event is still bubbling.
+      // Use the event's origin so its parent does not handle the same key twice.
+      if (eventScrollWrapper && !eventScrollWrapper.contains(ref.current)) {
         return;
       }
 
@@ -49,17 +59,19 @@ export const useHandleDropdownMenuKeyDown = (
             ? buttonMenuItemQuerySelector(isSubmenu)
             : itemQuerySelector(isSubmenu),
         ) || /* istanbul ignore next */ [],
-      );
-      const firstItem = items[0] as HTMLElement | undefined;
-      const lastItem = items[items.length - 1] as HTMLElement | undefined;
-      const highlightedItem = (
-        isButtonMenu
-          ? items.find((item) => item.contains(document.activeElement as Node))
-          : items.find((item) => item.getAttribute("data-has-focus") === "true")
-      ) as HTMLElement | undefined;
+      ) as HTMLElement[];
+      const firstItem = items[0];
+      const lastItem = items[items.length - 1];
+      const highlightedItem = isButtonMenu
+        ? items.find((item) => item.contains(document.activeElement as Node))
+        : items.find((item) => item.getAttribute("data-has-focus") === "true");
       const selectedItem = items.find(
         (item) => item.getAttribute("aria-selected") === "true",
-      ) as HTMLElement | undefined;
+      );
+
+      if (typeahead) {
+        typeahead({ ev, items, setAriaActivedescendant, focus: setFocus });
+      }
 
       if (ev.key === "ArrowDown") {
         ev.preventDefault();
@@ -165,5 +177,5 @@ export const useHandleDropdownMenuKeyDown = (
         return;
       }
     },
-    [ref, setAriaActivedescendant, onClose, submenuOptions],
+    [ref, setAriaActivedescendant, onClose, submenuOptions, typeahead],
   );

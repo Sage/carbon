@@ -9,7 +9,10 @@ import { Project } from "ts-morph";
 import ts from "typescript";
 
 import { sourceFileHasRuntimeExport } from "./component-exports.mjs";
-import { validateComponentMetadata } from "./component-metadata.mjs";
+import {
+  toKebabCase,
+  validateComponentMetadata,
+} from "./component-metadata.mjs";
 import {
   findDeprecatedImport,
   hasNamespaceImportFrom,
@@ -127,6 +130,16 @@ test("rejects empty optional sections", () => {
         pitfalls: [],
       }),
     /field "pitfalls" must be a non-empty array when provided/,
+  );
+});
+
+test("separates single-letter words when kebab-casing names", () => {
+  assert.equal(toKebabCase("InAFlexContainer"), "in-a-flex-container");
+  assert.equal(toKebabCase("InAMenu"), "in-a-menu");
+  assert.equal(toKebabCase("ButtonNext"), "button-next");
+  assert.equal(
+    toKebabCase("InverseOnDarkBackground"),
+    "inverse-on-dark-background",
   );
 });
 
@@ -277,6 +290,38 @@ test("generated component imports match their public export binding", () => {
     assert.ok(
       markdown.includes(`\`${importStatement}\``),
       `${fileName} should document ${importStatement}`,
+    );
+  }
+});
+
+test("generated props follow aliased public type re-exports", () => {
+  const markdown = fs.readFileSync(
+    path.join(repoRoot, "skills", "carbon-react", "components", "image.md"),
+    "utf8",
+  );
+
+  assert.ok(markdown.includes("- Props interface: `ImageProps`"));
+  assert.ok(markdown.includes("| alt | string \\| undefined |"));
+  assert.ok(markdown.includes("| src | string \\| undefined |"));
+});
+
+test("generated props tables keep each prop on one row", () => {
+  const componentFiles = fg.sync("skills/carbon-react/components/*.md", {
+    cwd: repoRoot,
+    absolute: true,
+  });
+
+  for (const filePath of componentFiles) {
+    const markdown = fs.readFileSync(filePath, "utf8");
+    const props = markdown.split("\n## Props\n")[1]?.split("\n## ")[0] ?? "";
+    if (!props.startsWith("|")) continue;
+    const brokenRow = props
+      .split("\n")
+      .find((line) => line.trim() && !line.startsWith("|"));
+    assert.equal(
+      brokenRow,
+      undefined,
+      `${path.basename(filePath)} has a props table row split across lines`,
     );
   }
 });

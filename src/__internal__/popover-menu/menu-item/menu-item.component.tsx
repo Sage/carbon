@@ -39,6 +39,10 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
   position: relative;
   box-sizing: border-box;
 
+  & > [data-element="submenu-parent"] > [data-role="button-child-container"] {
+    flex: 1;
+  }
+
   &:not(:has(button)):not(:has(a)) {
     ${({ $disabled }) =>
       $disabled
@@ -74,7 +78,7 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
     $disabled
       ? `
         * {
-          color: var(--input-dropdown-label-disabled);
+          color: var(--${$isButtonMenu ? "popover-label-disabled" : "input-dropdown-label-disabled"});
         }
 
         & > button, & > a {
@@ -196,9 +200,9 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
 const SubmenuParentWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
-  gap: var(--global-space-comp-xs);
+  gap: var(--global-space-comp-s);
 `;
 
 const cloneSubmenuParent = (
@@ -215,7 +219,7 @@ const cloneSubmenuParent = (
     children: (
       <SubmenuParentWrapper data-element="submenu-parent-wrapper">
         {(children as React.ReactElement).props.children}
-        <Icon type="caret_right" data-element="submenu-icon" ml={3} />
+        <Icon type="caret_right" data-element="submenu-icon" ml="auto" />
       </SubmenuParentWrapper>
     ),
     ...submenuControlProps,

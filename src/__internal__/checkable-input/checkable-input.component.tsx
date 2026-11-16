@@ -79,6 +79,7 @@ const CheckableInput = React.forwardRef(
       error,
       warning,
       showRequiredAsterisk,
+      "aria-controls": ariaControls,
       "aria-describedby": ariaDescribedBy,
       ...props
     }: CheckableInputProps,
@@ -86,6 +87,14 @@ const CheckableInput = React.forwardRef(
   ) => {
     const { current: id } = useRef(inputId || guid());
     const inputHintId = inputHint ? `${id}-hint` : undefined;
+
+    const progressiveDisclosureId = progressiveDisclosure
+      ? `${id}-progressive-disclosure`
+      : undefined;
+
+    const combinedAriaControls = [ariaControls, progressiveDisclosureId]
+      .filter(Boolean)
+      .join(" ");
 
     const { required: fieldsetRequired } = useContext(FieldsetContext);
 
@@ -112,6 +121,7 @@ const CheckableInput = React.forwardRef(
               disabled={disabled}
               checked={checked}
               ref={ref}
+              aria-controls={combinedAriaControls || undefined}
               aria-describedby={combinedAriaDescribedBy}
               aria-invalid={error}
               required={fieldsetRequired || required}
@@ -143,6 +153,7 @@ const CheckableInput = React.forwardRef(
         </StyledCheckableInput>
         {progressiveDisclosure && (
           <StyledAccordion
+            id={progressiveDisclosureId}
             data-role="progressive-disclosure-accordion"
             ref={accordionContainer}
             $expanded={checked}

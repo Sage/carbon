@@ -1,0 +1,33 @@
+{
+  "component": "Divider",
+  "summary": "A vertical or horizontal line that visually separates adjacent content.",
+  "alternatives": [
+    {
+      "component": "MenuDivider",
+      "when": "Separating groups of MenuItem components within a submenu."
+    },
+    {
+      "component": "ActionPopoverDivider",
+      "when": "Separating groups of ActionPopoverItem components within an ActionPopover."
+    }
+  ],
+  "pitfalls": [
+    "Divider is vertical by default; set type to horizontal for a full-width line between stacked content.",
+    "Divider adds spacing by default: horizontal dividers have mt and mb of 3 (24px), and vertical dividers have p of 3 (24px) on every side.",
+    "Only horizontal dividers have separator semantics, because they render an hr; vertical dividers are purely visual, and inside a Menu they render as list items that are always hidden from assistive technology."
+  ],
+  "examples": [
+    {
+      "story": "InsideForm",
+      "description": "Separate groups of form fields with a horizontal divider and custom vertical margins."
+    },
+    {
+      "story": "InAFlexContainer",
+      "description": "Separate items in a flex row with vertical dividers given an explicit height."
+    },
+    {
+      "story": "InAMenu",
+      "description": "Separate top-level items in a horizontal Menu with a vertical divider."
+    }
+  ]
+}

@@ -1,3 +1,112 @@
+## [163.0.1](https://github.com/Sage/carbon/compare/v163.0.0...v163.0.1) (2026-11-16)
+
+### Bug Fixes
+
+* **table:** ensure that popover menus stack correctly in sticky columns ([b777206](https://github.com/Sage/carbon/commit/b7772062c8fcb34be77a8b7b118b710210a4d2d4)), closes [#8279](https://github.com/Sage/carbon/issues/8279)
+
+## [163.0.0](https://github.com/Sage/carbon/compare/v162.25.0...v163.0.0) (2026-11-16)
+
+### ⚠ BREAKING CHANGES
+
+* FileInput now defaults to a stacked layout.
+Set isVertical={false} to retain the previous inline layout.
+FileUploadStatusProps no longer accepts Link-only props for completed
+and previously uploaded files. Remove those props and use href to
+display the Preview link; its accessible name is generated internally.
+Previously uploaded files now display message; remove it if it
+should not be shown
+* **file-input:** FileInput now defaults to a stacked layout.
+Set isVertical={false} to retain the previous inline layout.
+FileUploadStatusProps no longer accepts Link-only props for completed
+and previously uploaded files. Remove those props and use href to
+display the Preview link; its accessible name is generated internally.
+Previously uploaded files now display message; remove it if it
+should not be shown.
+
+* Merge pull request [#8168](https://github.com/Sage/carbon/issues/8168) from Sage/FE-7161-align-file-input-with-fusion-ds ([2a5724f](https://github.com/Sage/carbon/commit/2a5724f317be53deed225105bafa134681626d1f))
+
+### Features
+
+* **file-input:** align with Fusion design system ([3779637](https://github.com/Sage/carbon/commit/377963758c9660d0a9c5c92b688644c0b73bbd6a))
+
+## [162.25.0](https://github.com/Sage/carbon/compare/v162.24.3...v162.25.0) (2026-11-13)
+
+### Features
+
+* **loader:** update animations to align with fusion DS ([7f667dc](https://github.com/Sage/carbon/commit/7f667dc93a7a8ee89ad098e0c19ecb1f7150f33a))
+
+## [162.24.3](https://github.com/Sage/carbon/compare/v162.24.2...v162.24.3) (2026-11-12)
+
+### Bug Fixes
+
+* **multi-action-button:** remove menu height restriction, remove scrollable behaviour ([3478a0c](https://github.com/Sage/carbon/commit/3478a0cbd1995c8e00fce99f30eda820d2861685))
+
+## [162.24.2](https://github.com/Sage/carbon/compare/v162.24.1...v162.24.2) (2026-11-12)
+
+### Bug Fixes
+
+* **anchor-navigation:** remove duplicate stories ([55d9afd](https://github.com/Sage/carbon/commit/55d9afd2bbd82e09bcb4d1476f2b97e93df8bd4a))
+
+## [162.24.1](https://github.com/Sage/carbon/compare/v162.24.0...v162.24.1) (2026-11-11)
+
+### Bug Fixes
+
+* **dialog:** display Cancel as a subtle button and preserve footer padding on small screens ([ae678a7](https://github.com/Sage/carbon/commit/ae678a7f569a5d154c259f2714eb5fb3141a94ac))
+
+## [162.24.0](https://github.com/Sage/carbon/compare/v162.23.1...v162.24.0) (2026-11-11)
+
+### Features
+
+* **box:** deprecate role, aria-hidden, aria-live and aria-atomic props ([1344f4a](https://github.com/Sage/carbon/commit/1344f4ad2628780f7cbf2c8e48af4c9d01f655b6))
+
+## [162.23.1](https://github.com/Sage/carbon/compare/v162.23.0...v162.23.1) (2026-11-10)
+
+### Bug Fixes
+
+* **multi-action-button:** remove unique key warning from toggle button ([ceb2b9b](https://github.com/Sage/carbon/commit/ceb2b9bb2486f3b5c5aed78697bdd252ba263a3e))
+
+## [162.23.0](https://github.com/Sage/carbon/compare/v162.22.0...v162.23.0) (2026-11-06)
+
+### Features
+
+* **locales:** add popoverContainer.openButton.text translations ([1732ca4](https://github.com/Sage/carbon/commit/1732ca44c790a638a133f67b5dc2081b0d20cc79))
+
+## [162.22.0](https://github.com/Sage/carbon/compare/v162.21.3...v162.22.0) (2026-11-05)
+
+### Features
+
+* **anchor-navigation:** add compound navigation API ([0af6f1b](https://github.com/Sage/carbon/commit/0af6f1b191502185fdac51cfab01428ba3076a48))
+
+### Bug Fixes
+
+* **anchor-navigation-item:** deprecate isSelected prop, return back public Textbox ([c76d6e8](https://github.com/Sage/carbon/commit/c76d6e88541c4c602e6a4029ee4ce96a63fde70f))
+* **anchor-navigation:** register items via context instead of cloning ([f3e3383](https://github.com/Sage/carbon/commit/f3e33833f9f445867ee44add8a9c0da20324f96c))
+* **anchor-navigation:** select the section in view on mount ([4dd5d29](https://github.com/Sage/carbon/commit/4dd5d29cbc6b8fe5e200d76b0f8bdacd6798ab0c))
+
+## [162.21.3](https://github.com/Sage/carbon/compare/v162.21.2...v162.21.3) (2026-11-04)
+
+### Bug Fixes
+
+* **radio-button, checkbox:** add aria-controls support ([92315b3](https://github.com/Sage/carbon/commit/92315b3d93b39f2bab629f85aed4fc66807031e7))
+
+## [162.21.2](https://github.com/Sage/carbon/compare/v162.21.1...v162.21.2) (2026-11-03)
+
+### Bug Fixes
+
+* **flex-tile-container:** prevent horizontal focus halo clipping ([67c354b](https://github.com/Sage/carbon/commit/67c354bb89e6bb342a8937578bd1aca1362beada))
+
+## [162.21.1](https://github.com/Sage/carbon/compare/v162.21.0...v162.21.1) (2026-11-02)
+
+### Bug Fixes
+
+* **divider:** export via index ([d408b0e](https://github.com/Sage/carbon/commit/d408b0e086b973759f871f53f9ed7531d516e012))
+
+## [162.21.0](https://github.com/Sage/carbon/compare/v162.20.3...v162.21.0) (2026-11-02)
+
+### Features
+
+* **action-popover:** align component with fusion ([5734a18](https://github.com/Sage/carbon/commit/5734a187b9d94ce40aac14e131b14f1488b89309))
+
 ## [162.20.3](https://github.com/Sage/carbon/compare/v162.20.2...v162.20.3) (2026-10-30)
 
 ### Bug Fixes

@@ -1,5 +1,12 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { flushSync } from "react-dom";
+import {
+  render,
+  renderHook,
+  screen,
+  waitFor,
+  fireEvent,
+} from "@testing-library/react";
 import PopoverMenu, {
   FocusableHandle,
   PopoverMenuProps,
@@ -16,6 +23,8 @@ import userEvent from "@testing-library/user-event";
 import Button from "../../components/button/__next__";
 import Icon from "../../components/icon";
 import { PopoverControlProps } from "./contexts";
+import * as floatingUi from "@floating-ui/dom";
+import { useHandleDropdownMenuKeyDown } from "./hooks";
 
 interface AdditionalControlProps extends PopoverControlProps {
   onClick?: () => void;
@@ -91,14 +100,39 @@ const renderPopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
   );
 };
 
+test("a portalled menu treats menu clicks as inside and handles Escape", async () => {
+  const user = userEvent.setup();
+  const onClose = jest.fn();
+  const { container } = renderPopoverMenu<HTMLButtonElement>({
+    open: true,
+    disablePortal: false,
+    isButtonMenu: true,
+    popoverControl: popoverControlButton,
+    onClose,
+    children: buttonChildren,
+  });
+
+  const item = screen.getByRole("button", { name: "Item 1" });
+  expect(container).not.toContainElement(item);
+  await user.click(item);
+  expect(onClose).not.toHaveBeenCalled();
+
+  await user.keyboard("{Escape}");
+  expect(onClose).toHaveBeenCalledTimes(1);
+  expect(screen.getByRole("button", { name: "Button label" })).toHaveFocus();
+});
+
 const PopoverMenuWithState = <TRef extends FocusableHandle = HTMLElement>({
   children,
   popoverControl = popoverControlInput as unknown as PopoverMenuProps<TRef>["popoverControl"],
   disabledItems,
   applyDisabledButton,
+  synchronousSubmenuClose = false,
+  onClose = () => {},
   ...props
 }: Partial<PopoverMenuProps<TRef>> & {
   disabledItems?: number[];
+  synchronousSubmenuClose?: boolean;
   applyDisabledButton?:
     | "disabled"
     | "aria-disabled-bool"
@@ -111,7 +145,10 @@ const PopoverMenuWithState = <TRef extends FocusableHandle = HTMLElement>({
     <PopoverMenu<TRef>
       open={open}
       onOpen={() => setOpen(true)}
-      onClose={() => setOpen(false)}
+      onClose={(ev) => {
+        onClose(ev);
+        setOpen(false);
+      }}
       popoverControl={(ref, controlProps) => {
         return popoverControl(ref, {
           ...controlProps,
@@ -141,7 +178,13 @@ const PopoverMenuWithState = <TRef extends FocusableHandle = HTMLElement>({
             }
             submenuOpen={submenuOpen}
             onSubmenuOpen={() => setSubmenuOpen(true)}
-            onSubmenuClose={() => setSubmenuOpen(false)}
+            onSubmenuClose={() => {
+              if (synchronousSubmenuClose) {
+                flushSync(() => setSubmenuOpen(false));
+              } else {
+                setSubmenuOpen(false);
+              }
+            }}
           >
             <Button
               disabled={applyDisabledButton === "disabled"}
@@ -182,6 +225,70 @@ const createRect = (width: number, height = 40) =>
     height,
     toJSON: () => ({}),
   }) as DOMRect;
+
+describe("PopoverMenu - optional hiding", () => {
+  it.each([undefined, false, true])(
+    "only includes hide middleware when enabled (hideWhenReferenceHidden=%s)",
+    async (hideWhenReferenceHidden) => {
+      const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+      try {
+        renderPopoverMenu({ open: true, hideWhenReferenceHidden });
+        const hideMiddleware = [expect.objectContaining({ name: "hide" })];
+        const matchMiddleware = hideWhenReferenceHidden
+          ? expect.arrayContaining
+          : expect.not.arrayContaining;
+        const middleware = matchMiddleware(hideMiddleware);
+
+        await waitFor(() => {
+          expect(computePositionSpy).toHaveBeenCalledWith(
+            expect.anything(),
+            expect.anything(),
+            expect.objectContaining({ middleware }),
+          );
+        });
+      } finally {
+        computePositionSpy.mockRestore();
+      }
+    },
+  );
+
+  it.each([false, true])(
+    "inherits the parent's hide option in submenus (hideWhenReferenceHidden=%s)",
+    async (hideWhenReferenceHidden) => {
+      const user = userEvent.setup();
+      const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+      try {
+        render(
+          <PopoverMenuWithState<HTMLButtonElement>
+            isButtonMenu
+            hideWhenReferenceHidden={hideWhenReferenceHidden}
+            popoverControl={popoverControlButton}
+          />,
+        );
+        await user.click(screen.getByRole("button", { name: "Button label" }));
+        await user.click(screen.getByRole("button", { name: "Item 2" }));
+
+        const wrappers = screen.getAllByTestId("menu-wrapper");
+        expect(wrappers).toHaveLength(2);
+        const hideMiddleware = [expect.objectContaining({ name: "hide" })];
+        const matchMiddleware = hideWhenReferenceHidden
+          ? expect.arrayContaining
+          : expect.not.arrayContaining;
+        const middleware = matchMiddleware(hideMiddleware);
+
+        wrappers.forEach((wrapper) => {
+          expect(computePositionSpy).toHaveBeenCalledWith(
+            expect.anything(),
+            wrapper,
+            expect.objectContaining({ middleware }),
+          );
+        });
+      } finally {
+        computePositionSpy.mockRestore();
+      }
+    },
+  );
+});
 
 describe("PopoverMenu - typeahead (Search)", () => {
   it("does not render the list when closed", () => {
@@ -654,6 +761,41 @@ describe("PopoverMenu - typeahead (Search)", () => {
 });
 
 describe("PopoverMenu - button menu", () => {
+  it.each([false, true])(
+    "preserves Tab order when a custom control does not attach its ref (shift=%s)",
+    async (shift) => {
+      const user = userEvent.setup();
+      const onClose = jest.fn();
+      render(
+        <>
+          <PopoverMenuWithState<HTMLButtonElement>
+            isButtonMenu
+            disablePortal={false}
+            popoverControl={(_ref, props) => (
+              <button {...props}>Custom control</button>
+            )}
+            onClose={onClose}
+          >
+            {buttonChildren}
+          </PopoverMenuWithState>
+          <button>After menu</button>
+        </>,
+      );
+
+      const control = screen.getByRole("button", { name: "Custom control" });
+      await user.click(control);
+      const item = screen.getByRole("button", { name: "Item 1" });
+      await waitFor(() => expect(item).toHaveFocus());
+      await user.tab({ shift });
+
+      expect(item).not.toBeInTheDocument();
+      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(
+        shift ? control : screen.getByRole("button", { name: "After menu" }),
+      ).toHaveFocus();
+    },
+  );
+
   it("passes aria-haspopup='true' to the popoverControl button", () => {
     renderPopoverMenu<HTMLButtonElement>({
       isButtonMenu: true,
@@ -1034,43 +1176,128 @@ describe("PopoverMenu - button menu", () => {
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveFocus();
   });
 
-  it("closes the open menu and submenu when the user clicks outside of the menu", async () => {
+  it.each([false, true])(
+    "keeps a portalled parent menu open after clicking its background and handles the next outside click (synchronous submenu close=%s)",
+    async (synchronousSubmenuClose) => {
+      const user = userEvent.setup();
+      const onClose = jest.fn();
+      render(
+        <PopoverMenuWithState<HTMLButtonElement>
+          isButtonMenu
+          disablePortal={false}
+          popoverControl={popoverControlButton}
+          synchronousSubmenuClose={synchronousSubmenuClose}
+          onClose={onClose}
+        />,
+      );
+
+      await user.click(screen.getByRole("button", { name: "Button label" }));
+      await user.click(screen.getByRole("button", { name: "Item 1" }));
+      await user.keyboard("{ArrowDown}{ArrowRight}");
+      expect(screen.getByRole("button", { name: "Subitem 1" })).toHaveFocus();
+
+      await user.click(screen.getAllByRole("list")[0]);
+      expect(
+        screen.queryByRole("button", { name: "Subitem 1" }),
+      ).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Item 1" })).toBeVisible();
+      expect(onClose).not.toHaveBeenCalled();
+
+      await user.click(document.body);
+      expect(screen.queryByRole("list")).not.toBeInTheDocument();
+      expect(onClose).toHaveBeenCalledTimes(1);
+    },
+  );
+
+  it.each([false, true])(
+    "closes the open menu and submenu once on an outside click with synchronous submenu close=%s",
+    async (synchronousSubmenuClose) => {
+      const user = userEvent.setup();
+      const onClose = jest.fn();
+      render(
+        <PopoverMenuWithState<HTMLButtonElement>
+          isButtonMenu
+          popoverControl={popoverControlButton}
+          synchronousSubmenuClose={synchronousSubmenuClose}
+          onClose={onClose}
+        />,
+      );
+
+      await user.click(screen.getByRole("button", { name: "Button label" }));
+      await user.click(screen.getByRole("button", { name: "Item 2" }));
+
+      expect(screen.getByRole("button", { name: "Subitem 1" })).toBeVisible();
+      expect(screen.getByRole("button", { name: "Subitem 2" })).toBeVisible();
+
+      await user.click(document.body);
+
+      expect(onClose).toHaveBeenCalledTimes(1);
+
+      expect(
+        screen.queryByRole("button", { name: "Subitem 1" }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Subitem 2" }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Item 1" }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Item 2" }),
+      ).not.toBeInTheDocument();
+    },
+  );
+
+  it.each([
+    { disablePortal: true, shift: false },
+    { disablePortal: true, shift: true },
+    { disablePortal: false, shift: false },
+    { disablePortal: false, shift: true },
+  ])(
+    "closes the submenu and main menu once when tabbing from a submenu item with shift=$shift and disablePortal=$disablePortal",
+    async ({ disablePortal, shift }) => {
+      const user = userEvent.setup();
+      const onClose = jest.fn();
+      render(
+        <PopoverMenuWithState<HTMLButtonElement>
+          isButtonMenu
+          disablePortal={disablePortal}
+          popoverControl={popoverControlButton}
+          onClose={onClose}
+        />,
+      );
+
+      await user.click(screen.getByRole("button", { name: "Button label" }));
+      const parentItem = screen.getByRole("button", { name: "Item 2" });
+      await user.click(parentItem);
+
+      const submenuItem = screen.getByRole("button", { name: "Subitem 1" });
+      expect(submenuItem).toHaveFocus();
+
+      // Simulate pressing the Tab key to move focus away from the submenu item
+      // fireEvent used to avoid trying to move focus in unit test as it breaks outside browser
+      fireEvent.keyDown(submenuItem, { key: "Tab", shiftKey: shift });
+
+      expect(submenuItem).not.toBeInTheDocument();
+      expect(parentItem).not.toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Button label" }),
+      ).toHaveAttribute("aria-expanded", "false");
+      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(onClose).toHaveBeenCalledWith(
+        expect.objectContaining({ key: "Tab", shiftKey: shift }),
+      );
+    },
+  );
+
+  it("closes one menu at a time and focuses its trigger when the user presses Escape", async () => {
     const user = userEvent.setup();
+    const onClose = jest.fn();
     render(
       <PopoverMenuWithState<HTMLButtonElement>
         isButtonMenu
         popoverControl={popoverControlButton}
-      />,
-    );
-
-    await user.click(screen.getByRole("button", { name: "Button label" }));
-    await user.click(screen.getByRole("button", { name: "Item 2" }));
-
-    expect(screen.getByRole("button", { name: "Subitem 1" })).toBeVisible();
-    expect(screen.getByRole("button", { name: "Subitem 2" })).toBeVisible();
-
-    await user.click(document.body);
-
-    expect(
-      screen.queryByRole("button", { name: "Subitem 1" }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", { name: "Subitem 2" }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", { name: "Item 1" }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", { name: "Item 2" }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("closes the open submenu but not the main menu when the user presses Escape", async () => {
-    const user = userEvent.setup();
-    render(
-      <PopoverMenuWithState<HTMLButtonElement>
-        isButtonMenu
-        popoverControl={popoverControlButton}
+        onClose={onClose}
       />,
     );
 
@@ -1091,10 +1318,21 @@ describe("PopoverMenu - button menu", () => {
     ).not.toBeInTheDocument();
 
     expect(screen.getByRole("button", { name: "Item 2" })).toHaveFocus();
+    expect(
+      screen.getByRole("button", { name: "Button label" }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(onClose).not.toHaveBeenCalled();
 
-    screen.getAllByRole("button").forEach((item) => {
-      expect(item).toBeVisible();
-    });
+    await user.keyboard("{Escape}");
+
+    expect(
+      screen.queryByRole("button", { name: "Item 2" }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Button label" })).toHaveFocus();
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledWith(
+      expect.objectContaining({ key: "Escape" }),
+    );
   });
 
   it("does not display a submenu when the child of a submenu item has a child with disabled attribute", async () => {
@@ -1179,6 +1417,29 @@ describe("PopoverMenu - button menu", () => {
 
     expect(screen.getByRole("button", { name: "Subitem 1" })).toHaveFocus();
   });
+});
+
+test("the dropdown key handler closes the menu for a non-element event target", () => {
+  render(<ul aria-label="Menu" />);
+  const ref = { current: screen.getByRole<HTMLUListElement>("list") };
+  const onClose = jest.fn();
+  const setAriaActivedescendant = jest.fn();
+  const { result } = renderHook(() =>
+    useHandleDropdownMenuKeyDown(ref, setAriaActivedescendant, onClose, {
+      isButtonMenu: true,
+    }),
+  );
+  const nativeEvent = new KeyboardEvent("keydown", { key: "Tab" });
+
+  result.current({
+    target: document,
+    key: "Tab",
+    nativeEvent,
+  } as unknown as React.KeyboardEvent<HTMLElement>);
+
+  expect(onClose).toHaveBeenCalledTimes(1);
+  expect(onClose).toHaveBeenCalledWith(nativeEvent);
+  expect(setAriaActivedescendant).not.toHaveBeenCalled();
 });
 
 test("renders the list container with the expected max-height when size is small", () => {

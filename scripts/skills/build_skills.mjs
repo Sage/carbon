@@ -6,18 +6,24 @@ import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
 import { JSDoc, Project, SyntaxKind } from "ts-morph";
 import { sourceFileHasRuntimeExport } from "./component-exports.mjs";
-import { loadComponentMetadata } from "./component-metadata.mjs";
+import { loadComponentMetadata, toKebabCase } from "./component-metadata.mjs";
 import {
   findDeprecatedImport,
   hasNamespaceImportFrom,
   hasStorybookImport,
 } from "./example-imports.mjs";
+import {
+  extractDefaultsFromDeclaration,
+  extractDefaultsFromExport,
+  getLiteralUnionValues,
+} from "./prop-extraction.mjs";
 
 /**
  * @typedef {Object} ComponentCandidate
  * @property {string} name
  * @property {string} [displayName]
  * @property {string} moduleSpecifier
+ * @property {string} entryFilePath File whose `name` export is the component.
  */
 
 /**
@@ -157,6 +163,7 @@ for (const filePath of nextComponentFiles) {
       name: exportName, // Original name for props lookup
       displayName: `${exportName}Next`, // Display name for output files
       moduleSpecifier,
+      entryFilePath: filePath,
     });
   }
 }
@@ -190,6 +197,7 @@ for (const exportDecl of indexFile.getExportDeclarations()) {
     componentCandidates.push({
       name: exportName,
       moduleSpecifier,
+      entryFilePath: indexFilePath,
     });
   }
 }
@@ -240,6 +248,13 @@ for (const candidate of uniqueComponentCandidates) {
   // Use ts-morph to follow type re-exports (e.g., AlertProps -> DialogProps)
   // so deprecated components still yield accurate props.
   const defaultsMap = collectDefaultProps(project, moduleFiles, candidate.name);
+  // The exported declaration is authoritative, e.g. when its local name differs.
+  for (const [key, value] of extractDefaultsFromExport(
+    project.getSourceFileOrThrow(candidate.entryFilePath),
+    candidate.name,
+  )) {
+    defaultsMap.set(key, value);
+  }
   const hasDefaultExport = moduleHasDefaultExport(project, modulePath);
   const hasNamedExport = moduleHasNamedExport(
     project,
@@ -643,6 +658,20 @@ function resolvePropsDefinition(
     return null;
   }
 
+  // Follow the public export binding first. This handles aliased re-exports
+  // such as `export type { StyledImageProps as ImageProps }`, where the public
+  // type name does not exist as a declaration in the component module.
+  const exportedDeclarations =
+    entryFile.getExportedDeclarations().get(propsName) ?? [];
+  for (const declaration of exportedDeclarations) {
+    if (
+      declaration.isKind(SyntaxKind.InterfaceDeclaration) ||
+      declaration.isKind(SyntaxKind.TypeAliasDeclaration)
+    ) {
+      return { name: propsName, node: declaration };
+    }
+  }
+
   for (const exportDecl of entryFile.getExportDeclarations()) {
     if (!exportDecl.isTypeOnly()) {
       continue;
@@ -904,52 +933,6 @@ function hasExcludedVisibilityTag(jsDocs) {
 }
 
 /**
- * Return literal values for simple union types when all members are literals.
- * @param {import("ts-morph").Type} type
- * @returns {Array<string | number | boolean> | null}
- */
-function getLiteralUnionValues(type) {
-  if (!type.isUnion()) {
-    return null;
-  }
-  const unionTypes = type.getUnionTypes();
-  /** @type {Array<string | number | boolean>} */
-  const literals = [];
-
-  for (const unionType of unionTypes) {
-    if (unionType.isStringLiteral()) {
-      const literalValue = unionType.getLiteralValue();
-      if (literalValue === undefined) {
-        return null;
-      }
-      literals.push(String(literalValue));
-      continue;
-    }
-    if (unionType.isNumberLiteral()) {
-      const literalValue = unionType.getLiteralValue();
-      if (literalValue === undefined) {
-        return null;
-      }
-      literals.push(
-        typeof literalValue === "number" ? literalValue : String(literalValue),
-      );
-      continue;
-    }
-    if (unionType.isBooleanLiteral()) {
-      const literalValue = unionType.getLiteralValue();
-      if (literalValue === undefined) {
-        return null;
-      }
-      literals.push(Boolean(literalValue));
-      continue;
-    }
-    return null;
-  }
-
-  return literals;
-}
-
-/**
  * Collect default prop values from destructured parameters and defaultProps.
  * @param {import("ts-morph").Project} projectInstance
  * @param {string[]} filePaths
@@ -1035,66 +1018,6 @@ function collectDefaultProps(projectInstance, filePaths, componentName) {
   }
 
   return defaults;
-}
-
-/**
- * Extract defaults from a component declaration (function or variable initializer).
- * @param {import("ts-morph").Node} declaration
- * @returns {Map<string, string>}
- */
-function extractDefaultsFromDeclaration(declaration) {
-  const defaults = new Map();
-
-  if (declaration.isKind(SyntaxKind.FunctionDeclaration)) {
-    extractFromParameters(declaration.getParameters(), defaults);
-  }
-
-  if (declaration.isKind(SyntaxKind.VariableDeclaration)) {
-    const initializer = declaration.getInitializer();
-    if (
-      initializer &&
-      (initializer.isKind(SyntaxKind.ArrowFunction) ||
-        initializer.isKind(SyntaxKind.FunctionExpression))
-    ) {
-      extractFromParameters(initializer.getParameters(), defaults);
-    }
-  }
-
-  if (
-    declaration.isKind(SyntaxKind.FunctionExpression) ||
-    declaration.isKind(SyntaxKind.ArrowFunction)
-  ) {
-    extractFromParameters(declaration.getParameters(), defaults);
-  }
-
-  return defaults;
-}
-
-/**
- * Extract default values from the first object parameter binding.
- * @param {import("ts-morph").ParameterDeclaration[]} parameters
- * @param {Map<string, string>} defaults
- */
-function extractFromParameters(parameters, defaults) {
-  if (!parameters || parameters.length === 0) {
-    return;
-  }
-
-  const firstParam = parameters[0];
-  const nameNode = firstParam.getNameNode();
-  if (!nameNode || !nameNode.isKind(SyntaxKind.ObjectBindingPattern)) {
-    return;
-  }
-
-  for (const element of nameNode.getElements()) {
-    const initializer = element.getInitializer();
-    if (!initializer) {
-      continue;
-    }
-    const propName =
-      element.getPropertyNameNode()?.getText() ?? element.getName();
-    defaults.set(propName, initializer.getText());
-  }
 }
 
 /**
@@ -1885,7 +1808,7 @@ function renderComponentMarkdown(
     for (const prop of sortedProps) {
       const literals = prop.literals?.join(" | ") ?? "";
       const description = prop.description?.replace(/\s+/g, " ") ?? "";
-      const defaultValue = (prop.defaultValue ?? "").replace(/\r/g, "");
+      const defaultValue = (prop.defaultValue ?? "").replace(/\s+/g, " ");
       if (hasDeprecatedProps) {
         const deprecated = prop.deprecated
           ? "Yes"
@@ -2224,19 +2147,6 @@ function storyUsesDeprecatedProp(code, prop) {
  */
 function escapePipes(value) {
   return value?.replace(/\|/g, "\\|") ?? "";
-}
-
-/**
- * Convert a string to kebab-case.
- * @param {string} value
- * @returns {string}
- */
-function toKebabCase(value) {
-  return value
-    .replace(/([a-z])([A-Z])/g, "$1-$2")
-    .replace(/\s+/g, "-")
-    .replace(/_/g, "-")
-    .toLowerCase();
 }
 
 /**

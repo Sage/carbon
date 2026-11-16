@@ -10,7 +10,8 @@ const MockComponent = ({
   placement,
   animationFrame,
   middleware,
-}: Partial<UseFloatingProps>) => {
+  children,
+}: Partial<UseFloatingProps> & { children?: React.ReactNode }) => {
   const reference = useRef<HTMLDivElement>(null);
   const floating = useRef<HTMLDivElement>(null);
   useFloating({
@@ -34,7 +35,7 @@ const MockComponent = ({
         ref={floating}
         data-role="floating-element"
       >
-        Child
+        {children ?? "Child"}
       </div>
     </div>
   );
@@ -198,3 +199,155 @@ test("data-floating-placement attribute is added with correct placement when ope
     "data-floating-placement",
   );
 });
+
+test("hides a clipped reference's popover, shows it again on scroll, and restores visibility on close", async () => {
+  let updatePosition = () => {};
+  const position = {
+    x: 0,
+    y: 0,
+    placement: "bottom" as const,
+    strategy: "absolute" as const,
+    middlewareData: { hide: { referenceHidden: true } },
+  };
+  const computePositionSpy = jest
+    .spyOn(floatingUi, "computePosition")
+    .mockResolvedValue(position);
+  const autoUpdateSpy = jest
+    .spyOn(floatingUi, "autoUpdate")
+    .mockImplementation((_reference, _floating, update) => {
+      updatePosition = update;
+      update();
+      return () => {};
+    });
+
+  try {
+    const { rerender } = render(<MockComponent isOpen />);
+    const floatingElement = screen.getByTestId("floating-element");
+
+    await waitFor(() => {
+      expect(floatingElement).toHaveStyle({ visibility: "hidden" });
+    });
+
+    computePositionSpy.mockResolvedValue({
+      ...position,
+      middlewareData: { hide: { referenceHidden: false } },
+    });
+    updatePosition();
+
+    await waitFor(() => {
+      expect(floatingElement).toHaveStyle({ visibility: "visible" });
+    });
+
+    computePositionSpy.mockResolvedValue(position);
+    updatePosition();
+
+    await waitFor(() => {
+      expect(floatingElement).toHaveStyle({ visibility: "hidden" });
+    });
+
+    rerender(<MockComponent isOpen={false} />);
+    expect(floatingElement).toHaveStyle({ visibility: "visible" });
+  } finally {
+    computePositionSpy.mockRestore();
+    autoUpdateSpy.mockRestore();
+  }
+});
+
+test.each([
+  "restore",
+  "focus retained on item",
+  "focus moved elsewhere",
+  "item disabled",
+  "menu closed",
+])(
+  "restores a menu item's focus after hiding only when appropriate: %s",
+  async (scenario) => {
+    let updatePosition = () => {};
+    const position = {
+      x: 0,
+      y: 0,
+      placement: "bottom" as const,
+      strategy: "absolute" as const,
+      middlewareData: { hide: { referenceHidden: false } },
+    };
+    const computePositionSpy = jest
+      .spyOn(floatingUi, "computePosition")
+      .mockResolvedValue(position);
+    const autoUpdateSpy = jest
+      .spyOn(floatingUi, "autoUpdate")
+      .mockImplementation((_reference, _floating, update) => {
+        updatePosition = update;
+        update();
+        return () => {};
+      });
+    const content = (isOpen = true) => (
+      <>
+        <MockComponent isOpen={isOpen}>
+          <button>First item</button>
+          <button>Second item</button>
+        </MockComponent>
+        <button>Outside menu</button>
+      </>
+    );
+    let focusSpy: jest.SpyInstance | undefined;
+
+    try {
+      const { rerender } = render(content());
+      const floatingElement = screen.getByTestId("floating-element");
+      await waitFor(() => {
+        expect(floatingElement).toHaveAttribute(
+          "data-floating-placement",
+          "bottom",
+        );
+      });
+      const item = screen.getByRole("button", { name: "Second item" });
+      item.focus();
+
+      computePositionSpy.mockResolvedValue({
+        ...position,
+        middlewareData: { hide: { referenceHidden: true } },
+      });
+      updatePosition();
+      await waitFor(() => {
+        expect(floatingElement).toHaveStyle({ visibility: "hidden" });
+      });
+      // Browsers drop focus when an element becomes hidden; JSDOM does not.
+      expect(item).toHaveFocus();
+      if (scenario !== "focus retained on item") {
+        item.blur();
+      }
+
+      if (scenario === "focus moved elsewhere") {
+        const outside = screen.getByRole("button", { name: "Outside menu" });
+        outside.focus();
+        outside.blur();
+      } else if (scenario === "item disabled") {
+        item.setAttribute("disabled", "");
+      } else if (scenario === "menu closed") {
+        rerender(content(false));
+      }
+
+      focusSpy = jest.spyOn(item, "focus");
+      computePositionSpy.mockResolvedValue(position);
+      if (scenario === "menu closed") {
+        rerender(content());
+      } else {
+        updatePosition();
+      }
+      await waitFor(() => {
+        expect(floatingElement).toHaveStyle({ visibility: "visible" });
+      });
+
+      const restoresFocus =
+        scenario === "restore" || scenario === "focus retained on item";
+      expect(focusSpy.mock.calls).toEqual(
+        restoresFocus ? [[{ preventScroll: true }]] : [],
+      );
+      expect(restoresFocus ? item : document.body).toHaveFocus();
+    } finally {
+      focusSpy?.mockRestore();
+      computePositionSpy.mockRestore();
+      autoUpdateSpy.mockRestore();
+    }
+  },
+);

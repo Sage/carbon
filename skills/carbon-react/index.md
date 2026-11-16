@@ -7,8 +7,8 @@
 - [ActionPopover](components/action-popover.md)
 - [ActionPopoverDivider](components/action-popover-divider.md)
 - [ActionPopoverItem](components/action-popover-item.md)
-- [ActionPopoverMenu](components/action-popover-menu.md)
-- [ActionPopoverMenuButton](components/action-popover-menu-button.md)
+- [ActionPopoverMenu](components/action-popover-menu.md) (deprecated)
+- [ActionPopoverMenuButton](components/action-popover-menu-button.md) (deprecated)
 - [AdaptiveSidebar](components/adaptive-sidebar.md)
 - [AdvancedColorPicker](components/advanced-color-picker.md)
 - [Alert](components/alert.md) (deprecated)
@@ -42,10 +42,11 @@
 - [Detail](components/detail.md) (deprecated)
 - [Dialog](components/dialog.md)
 - [DismissibleBox](components/dismissible-box.md) (deprecated)
+- [Divider](components/divider.md) — A vertical or horizontal line that visually separates adjacent content.
 - [Dl](components/dl.md)
 - [DraggableContainer](components/draggable-container.md)
 - [DraggableItem](components/draggable-item.md)
-- [Drawer](components/drawer.md)
+- [Drawer](components/drawer.md) — Displays sidebar content alongside a main content area.
 - [Dt](components/dt.md)
 - [DuellingPicklist](components/duelling-picklist.md) (deprecated)
 - [Fieldset](components/fieldset.md)
@@ -72,9 +73,9 @@
 - [Help](components/help.md)
 - [Hr](components/hr.md) (deprecated)
 - [I18nProvider](components/i18n-provider.md)
-- [Icon](components/icon.md)
+- [Icon](components/icon.md) — Displays a visual symbol from Carbon's bundled icon set.
 - [IconButton](components/icon-button.md) (deprecated)
-- [Image](components/image.md)
+- [Image](components/image.md) — Renders either an img element from src or a container with CSS background styling.
 - [InlineInputs](components/inline-inputs.md) (deprecated)
 - [Link](components/link.md) — Navigates the user to another location.
 - [LinkPreview](components/link-preview.md)

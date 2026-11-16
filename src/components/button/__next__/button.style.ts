@@ -101,7 +101,11 @@ const getCSSForGradientStyle = ({
     ${!disabled &&
     css`
       &:active,
-      &.active {
+      &.active,
+      [data-component="popover-menu-control"]
+        &[aria-haspopup="true"][aria-expanded="true"],
+      [data-component="popover-menu-control"]
+        &[aria-haspopup="menu"][aria-expanded="true"] {
         background: ${background?.active};
         color: ${label?.active};
         border-color: ${border?.active};
@@ -147,7 +151,11 @@ const getCSSForInverseStyle = ({
         `
       : css`
           &:active,
-          &.active {
+          &.active,
+          [data-component="popover-menu-control"]
+            &[aria-haspopup="true"][aria-expanded="true"],
+          [data-component="popover-menu-control"]
+            &[aria-haspopup="menu"][aria-expanded="true"] {
             background-color: ${background.active};
             color: ${label.active};
             border-color: ${border.active};
@@ -202,7 +210,11 @@ const getCSSForStyle = ({
         `
       : css`
           &:active,
-          &.active {
+          &.active,
+          [data-component="popover-menu-control"]
+            &[aria-haspopup="true"][aria-expanded="true"],
+          [data-component="popover-menu-control"]
+            &[aria-haspopup="menu"][aria-expanded="true"] {
             background-color: ${background?.active};
             color: ${label?.active};
             border-color: ${border?.active};

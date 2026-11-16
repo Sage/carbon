@@ -31,19 +31,19 @@ description: Carbon Tabs component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onTabChange | ((tabId: string) => void) \| undefined | No |  |  |  | A callback for when a tab is changed. You can use this to manually control tab changing or to fire other events when a tab is changed. |  |
-| position | "left" \| "top" \| undefined | No |  |  |  | The position of the tab title. |  |
+| position | "left" \| "top" \| undefined | No | left \| top |  |  | The position of the tab title. | "top" |
 | selectedTabId | string \| undefined | No |  |  |  | Allows manual control over the currently selected tab. |  |
-| size | "large" \| "default" \| undefined | No |  |  |  | Sets size of the tab titles. |  |
+| size | "large" \| "default" \| undefined | No | large \| default |  |  | Sets size of the tab titles. | "default" |
 | validationStatusOverride | { [id: string]: { error?: boolean; warning?: boolean; info?: boolean; }; } \| undefined | No |  |  |  | An object to support overriding validation statuses, when the Tabs have custom targets for example. The `id` property should match the `tabId`s for the rendered Tabs. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| align | "left" \| "right" \| undefined | No |  | Yes | Support for right-aligned tab content has been removed. | Sets the alignment of the tab titles. Possible values include. |  |
-| borders | "off" \| "on" \| "no left side" \| "no right side" \| "no sides" \| undefined | No |  | Yes | Support for configurable borders on tab titles has been removed. | Adds a combination of borders to the tab titles. |  |
+| align | "left" \| "right" \| undefined | No | left \| right | Yes | Support for right-aligned tab content has been removed. | Sets the alignment of the tab titles. Possible values include. |  |
+| borders | "off" \| "on" \| "no left side" \| "no right side" \| "no sides" \| undefined | No | off \| on \| no left side \| no right side \| no sides | Yes | Support for configurable borders on tab titles has been removed. | Adds a combination of borders to the tab titles. |  |
 | extendedLine | boolean \| undefined | No |  | Yes | Support for extended lines in tab headers has been removed. | Sets the divider of the tab titles header to extend the full width of the parent. |  |
 | headerWidth | string \| undefined | No |  | Yes | Support will be removed in a future release. | sets width to the tab headers. Can be any valid CSS string. The headerWidth prop works only for `position="left"` |  |
-| renderHiddenTabs | boolean \| undefined | No |  | Yes | Support for this prop will be removed in a future release. All tabs will be rendered by default. | Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered |  |
+| renderHiddenTabs | boolean \| undefined | No |  | Yes | Support for this prop will be removed in a future release. All tabs will be rendered by default. | Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered | true |
 | showValidationsSummary | boolean \| undefined | No |  | Yes | Support for validation summaries has been removed. | When this prop is set any string validation failures in the children of each Tab will be summarised in the Tooltip next to the Tab title |  |
-| variant | "default" \| "alternate" \| undefined | No |  | Yes | Support for alternate styling variants on tab titles has been removed. | Adds an alternate styling variant to the tab titles. |  |
+| variant | "default" \| "alternate" \| undefined | No | default \| alternate | Yes | Support for alternate styling variants on tab titles has been removed. | Adds an alternate styling variant to the tab titles. |  |
 
 ## Examples
 ### Default
