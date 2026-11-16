@@ -21,14 +21,14 @@ import { datePickerPopoverHugBreakpoint } from "./__internal__/date-picker/date-
 dayjs.extend(advancedFormat);
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const TODAY = dayjs().format("dddd, MMMM Do, YYYY");
+const TODAY = dayjs().format("dddd, D MMMM YYYY");
 const DATE_INPUT = dayjs("2022-05-01").format("DD/MM/YYYY");
 const TODAY_DATE_INPUT = dayjs().format("DD/MM/YYYY");
 const NEXT_MONTH = dayjs("2022-05-01").add(1, "months").format("MMMM YYYY");
 const ACTUAL_MONTH = dayjs("2022-05-01").format("MMMM YYYY");
 const MIN_DATE = "04/04/2030";
-const DAY_BEFORE_MIN_DATE = "Wednesday, April 3rd, 2030";
-const DAY_AFTER_MAX_DATE = "Friday, April 5th, 2030";
+const DAY_BEFORE_MIN_DATE = "Wednesday, 3 April 2030";
+const DAY_AFTER_MAX_DATE = "Friday, 5 April 2030";
 
 test.describe("Functionality tests", () => {
   [
@@ -121,7 +121,7 @@ test.describe("Functionality tests", () => {
 
     await expect(
       page.getByRole("button", {
-        name: "Sunday, May 1st, 2022, selected",
+        name: "Sunday, 1 May 2022, selected",
       }),
     ).toBeFocused();
 
@@ -130,7 +130,7 @@ test.describe("Functionality tests", () => {
       .selectOption({ label: "June" });
 
     await page
-      .getByRole("button", { name: "Wednesday, June 15th, 2022" })
+      .getByRole("button", { name: "Wednesday, 15 June 2022" })
       .press("Enter");
 
     await expect(input).toHaveValue("15/06/2022");
@@ -198,7 +198,7 @@ test.describe("Functionality tests", () => {
       await expect(datePicker).toBeVisible();
 
       const selectedDay = page.getByRole("button", {
-        name: "Sunday, May 1st, 2022, selected",
+        name: "Sunday, 1 May 2022, selected",
       });
       await expect(selectedDay).toBeFocused();
       for (const key of [
@@ -335,7 +335,7 @@ test.describe("Functionality tests", () => {
     await dayPicker.waitFor();
 
     const dayButton = page.getByRole("button", {
-      name: "Monday, December 12th, 2022, selected",
+      name: "Monday, 12 December 2022, selected",
     });
     await expect(dayButton).toBeFocused();
 
@@ -366,7 +366,7 @@ test.describe("Functionality tests", () => {
     await dayPicker.waitFor();
 
     const dayButton = page.getByRole("button", {
-      name: "Sunday, May 1st, 2022",
+      name: "Sunday, 1 May 2022",
     });
     await dayButton.press("Tab");
 
@@ -401,24 +401,24 @@ test.describe("Functionality tests", () => {
     await datePicker.waitFor();
 
     const day14Button = page.getByRole("button", {
-      name: "Thursday, April 14th, 2022, selected",
+      name: "Thursday, 14 April 2022, selected",
     });
     await expect(day14Button).toBeFocused();
 
     const day21Button = page.getByRole("button", {
-      name: "Thursday, April 21st, 2022",
+      name: "Thursday, 21 April 2022",
     });
     await day14Button.press("ArrowDown");
     await expect(day21Button).toBeFocused();
 
     const day22Button = page.getByRole("button", {
-      name: "Friday, April 22nd, 2022",
+      name: "Friday, 22 April 2022",
     });
     await day21Button.press("ArrowRight");
     await expect(day22Button).toBeFocused();
 
     const day15Button = page.getByRole("button", {
-      name: "Friday, April 15th, 2022",
+      name: "Friday, 15 April 2022",
     });
     await day22Button.press("ArrowUp");
     await expect(day15Button).toBeFocused();
@@ -441,12 +441,12 @@ test.describe("Functionality tests", () => {
     await datePicker.waitFor();
 
     const day1Button = page.getByRole("button", {
-      name: "Friday, April 1st, 2022",
+      name: "Friday, 1 April 2022",
     });
     await day1Button.press("ArrowLeft");
 
     const day31Button = page.getByRole("button", {
-      name: "Thursday, March 31st, 2022",
+      name: "Thursday, 31 March 2022",
     });
     await day31Button.waitFor();
 
@@ -471,12 +471,12 @@ test.describe("Functionality tests", () => {
     await datePicker.waitFor();
 
     const day4Button = page.getByRole("button", {
-      name: "Monday, April 4th, 2022",
+      name: "Monday, 4 April 2022",
     });
     await day4Button.press("ArrowUp");
 
     const day28Button = page.getByRole("button", {
-      name: "Monday, March 28th, 2022",
+      name: "Monday, 28 March 2022",
     });
     await day28Button.waitFor();
 
@@ -501,12 +501,12 @@ test.describe("Functionality tests", () => {
     await datePicker.waitFor();
 
     const day24Button = page.getByRole("button", {
-      name: "Sunday, April 24th, 2022",
+      name: "Sunday, 24 April 2022",
     });
     await day24Button.press("ArrowDown");
 
     const day1Button = page.getByRole("button", {
-      name: "Sunday, May 1st, 2022",
+      name: "Sunday, 1 May 2022",
     });
     await day1Button.waitFor();
 
@@ -534,7 +534,7 @@ test.describe("Functionality tests", () => {
       await datePicker.waitFor();
 
       const day25Button = page.getByRole("button", {
-        name: "Monday, April 25th, 2022",
+        name: "Monday, 25 April 2022",
       });
       await day25Button.press(key);
 
@@ -557,12 +557,12 @@ test.describe("Functionality tests", () => {
     await datePicker.waitFor();
 
     const day31Button = page.getByRole("button", {
-      name: "Tuesday, May 31st, 2022",
+      name: "Tuesday, 31 May 2022",
     });
     await day31Button.press("ArrowRight");
 
     const day1Button = page.getByRole("button", {
-      name: "Wednesday, June 1st, 2022",
+      name: "Wednesday, 1 June 2022",
     });
     await day1Button.waitFor();
 
@@ -691,7 +691,7 @@ test.describe("When nested inside of a Dialog component", () => {
 
     await expect(
       datePicker.getByRole("button", {
-        name: "Sunday, May 1st, 2022, selected",
+        name: "Sunday, 1 May 2022, selected",
       }),
     ).toBeFocused();
     await page.keyboard.press("Escape");

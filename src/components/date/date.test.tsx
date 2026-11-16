@@ -118,10 +118,12 @@ type OnChangeEventValues = (value: {
 
 const MockComponent = ({
   onChange,
+  pickerProps,
   allowEmptyValue,
   initialValue,
 }: {
   onChange?: OnChangeEventValues;
+  pickerProps?: React.ComponentProps<typeof DateInput>["pickerProps"];
   allowEmptyValue?: boolean;
   initialValue: string;
 }) => {
@@ -135,6 +137,7 @@ const MockComponent = ({
       }}
       value={value}
       allowEmptyValue={allowEmptyValue}
+      pickerProps={pickerProps}
     />
   );
 };
@@ -535,23 +538,52 @@ test("should not close the picker or call `onChange` when the user clicks inside
 test("should not close the picker or call the `onChange` and `onBlur` callbacks when the user clicks on a disabled day", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
+  const onDayClick = jest.fn();
   render(
     <LegacyDateInput
       onChange={onChange}
       value="04/04/2019"
       minDate="2019-04-04"
       maxDate="2019-05-31"
+      pickerProps={{ onDayClick }}
     />,
   );
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
 
   await user.click(
-    screen.getByRole("button", { name: "Wednesday, April 3rd, 2019" }),
+    screen.getByRole("button", { name: "Wednesday, 3 April 2019" }),
   );
 
   expect(screen.queryByRole("grid")).toBeVisible();
   expect(onChange).not.toHaveBeenCalled();
+  expect(onDayClick).not.toHaveBeenCalled();
+  expect(screen.getByRole("textbox")).toHaveValue("04/04/2019");
+});
+
+test("combines pickerProps.disabled with minDate and maxDate in a DateInput", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <LegacyDateInput
+      onChange={() => {}}
+      value="04/04/2019"
+      minDate="2019-04-04"
+      maxDate="2019-05-31"
+      pickerProps={{ disabled: new Date(2019, 3, 5) }}
+    />,
+  );
+
+  await user.click(screen.getByTestId("input-icon-toggle"));
+
+  expect(
+    screen.getByRole("button", { name: "Wednesday, 3 April 2019" }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole("button", { name: "Friday, 5 April 2019" }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole("button", { name: /Thursday, 4 April 2019/ }),
+  ).toBeEnabled();
 });
 
 test("should close the open picker when the user presses the 'Escape' key and focus is within the picker", async () => {
@@ -656,7 +688,7 @@ test("should update a legacy input only after selecting a date, not when navigat
   expect(onChange).not.toHaveBeenCalled();
 
   await user.click(
-    screen.getByRole("button", { name: "Sunday, February 15th, 2026" }),
+    screen.getByRole("button", { name: "Sunday, 15 February 2026" }),
   );
 
   expect(input).toHaveValue("15/02/2026");
@@ -670,15 +702,45 @@ test("should close the picker, update the value and refocus the input element wh
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
 
-  await user.click(
-    screen.getByRole("button", { name: "Thursday, April 11th, 2019" }),
-  );
+  const dayButton = screen.getByRole("button", {
+    name: "Thursday, 11 April 2019",
+  });
+  await user.click(dayButton);
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
   await waitFor(() => {
     expect(input).toHaveFocus();
   });
   expect(input).toHaveValue("11/04/2019");
+});
+
+test("allows pickerProps.onDayClick to replace built-in selection and closing", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onDayClick = jest.fn();
+  const onChange = jest.fn();
+  render(
+    <MockComponent
+      initialValue="04/04/2019"
+      onChange={onChange}
+      pickerProps={{ onDayClick }}
+    />,
+  );
+
+  await user.click(screen.getByTestId("input-icon-toggle"));
+  const dayButton = screen.getByRole("button", {
+    name: "Thursday, 11 April 2019",
+  });
+  await user.click(dayButton);
+
+  expect(screen.getByRole("grid")).toBeVisible();
+  expect(screen.getByRole("textbox")).toHaveValue("04/04/2019");
+  expect(onChange).not.toHaveBeenCalled();
+  expect(onDayClick).toHaveBeenCalledTimes(1);
+  const [day, modifiers, event] = onDayClick.mock.calls[0];
+  expect(day).toEqual(new Date(2019, 3, 11));
+  expect(modifiers).toEqual(expect.any(Object));
+  expect(event.type).toBe("click");
+  expect(event.target).toBe(dayButton);
 });
 
 test("should render the input with the expected required attribute when the `required` prop is true", () => {
@@ -1844,7 +1906,7 @@ test("should correctly focus when disablePortal is false and Tab is used to navi
 
   expect(
     screen.getByRole("button", {
-      name: "Thursday, April 4th, 2019, selected",
+      name: "Thursday, 4 April 2019, selected",
     }),
   ).toHaveFocus();
 });

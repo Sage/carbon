@@ -78,8 +78,10 @@ export interface DateInputProps
   /** The current date string */
   value: string;
   /**
-   * Pass any props that match the DayPickerProps interface to override default behaviors
-   * See [DayPickerProps](https://daypicker.dev/api/type-aliases/DayPickerProps) for a full list of available props
+   * Advanced DayPicker configuration. The calendar defaults to the locale from I18nProvider;
+   * `locale` overrides calendar date labels, month names, weekday headings, and the default week start.
+   * Input formatting and Carbon translations still use I18nProvider. `disabled` is combined with
+   * `minDate` and `maxDate`. `onDayClick` replaces the built-in selection and picker-closing behavior.
    * */
   pickerProps?: PickerProps;
   /**
