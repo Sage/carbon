@@ -33,12 +33,12 @@ description: Carbon Menu component props and usage examples.
 | order | ResponsiveValue<CSS.Property.Order, ThemeType> \| undefined | No |  |  |  | The order CSS property sets the order to lay out an item in a flex or grid container. Items in a container are sorted by ascending order value and then by their source code order. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/order) |  |
 | overflow | ResponsiveValue<CSS.Property.Overflow, ThemeType> \| undefined | No |  |  |  | The overflow CSS property sets what to do when an element's content is too big to fit in its block formatting context. It is a shorthand for overflow-x and overflow-y. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) |  |
 | overflowX | ResponsiveValue<CSS.Property.OverflowX, ThemeType> \| undefined | No |  |  |  | The overflow-x CSS property sets what shows when content overflows a block-level element's left and right edges. This may be nothing, a scroll bar, or the overflow content. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x) |  |
-| variant | MenuVariantType \| undefined | No |  |  |  | Set the color variant of the component | "white" |
+| variant | MenuVariantType \| undefined | No | white \| black |  |  | Set the color variant of the component | "white" |
 | verticalAlign | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The vertical-align CSS property specifies sets vertical alignment of an inline or table-cell box. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align) |  |
 | width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| menuType | MenuType \| undefined | No |  | Yes | Please use the `variant` prop instead. |  |  |
+| menuType | MenuType \| undefined | No | white \| black \| dark \| light | Yes | Please use the `variant` prop instead. |  |  |
 
 ## Examples
 ### Default

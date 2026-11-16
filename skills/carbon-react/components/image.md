@@ -66,7 +66,7 @@ Renders either an img element from src or a container with CSS background stylin
 | paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
 | pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| position | PositionProps \| undefined | No |  | Any valid CSS string for position |  |
+| position | PositionProps \| undefined | No | absolute \| fixed \| relative \| static \| sticky | Any valid CSS string for position |  |
 | pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |

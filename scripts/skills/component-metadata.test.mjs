@@ -305,6 +305,27 @@ test("generated props follow aliased public type re-exports", () => {
   assert.ok(markdown.includes("| src | string \\| undefined |"));
 });
 
+test("generated props tables keep each prop on one row", () => {
+  const componentFiles = fg.sync("skills/carbon-react/components/*.md", {
+    cwd: repoRoot,
+    absolute: true,
+  });
+
+  for (const filePath of componentFiles) {
+    const markdown = fs.readFileSync(filePath, "utf8");
+    const props = markdown.split("\n## Props\n")[1]?.split("\n## ")[0] ?? "";
+    if (!props.startsWith("|")) continue;
+    const brokenRow = props
+      .split("\n")
+      .find((line) => line.trim() && !line.startsWith("|"));
+    assert.equal(
+      brokenRow,
+      undefined,
+      `${path.basename(filePath)} has a props table row split across lines`,
+    );
+  }
+});
+
 test("generated curated examples contain valid TSX", () => {
   const exampleFiles = fg.sync("skills/carbon-react/examples/**/*.md", {
     cwd: repoRoot,

@@ -5,21 +5,14 @@ import {
   StyledRingCircleSvg,
   StyledLoaderLabel,
   StyledRingLoaderWrapper,
-  StyledGradientFill,
+  StyledRingArc,
+  StyledRingRotator,
+  StyledRingTrack,
 } from "../loader.style";
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import ButtonContext from "../../../button/__next__/button.context";
-
-const calculateDefaultAnimationTime = (
-  animationTime: LoaderProps["animationTime"],
-) => {
-  if (animationTime) {
-    return animationTime;
-  }
-
-  return 0.8;
-};
+import { getAnimationTime, useGeneratedId } from "./loader.utils";
 
 const RingLoader = ({
   inverse,
@@ -35,8 +28,12 @@ const RingLoader = ({
 }: LoaderProps) => {
   const locale = useLocale();
   const { isInsideButton } = useContext(ButtonContext);
+  const generatedId = useGeneratedId();
+  const gradientId = `loader-ring-gradient-${generatedId}`;
+  const resolvedAnimationTime = getAnimationTime(animationTime, 0.783);
 
   const isAiRingVariant = variant === "ai-stacked" || variant === "ai-inline";
+  const usesAiGradient = isAiRingVariant && !isSuccess && !isError;
   const ringVariant =
     isInsideButton || variant === "inline" || variant === "ai-inline"
       ? "inline"
@@ -49,52 +46,59 @@ const RingLoader = ({
 
   return (
     <StyledRingLoaderWrapper
-      loaderVariant={ringVariant}
+      $loaderVariant={ringVariant}
       data-role="ring-loader-container"
     >
       <StyledRingCircleSvg
-        inverse={inverse}
+        $size={ringSize}
         role="presentation"
-        size={ringSize}
-        variant={ringVariant}
-        hasMotion={hasMotion}
-        isTracked={isTracked}
-        animationTime={calculateDefaultAnimationTime(animationTime)}
-        viewBox="0 0 24 24"
-        isSuccess={isSuccess}
-        isError={isError}
-        isGradientVariant={isAiRingVariant}
+        viewBox="0 0 64 64"
       >
-        {isAiRingVariant && (
+        {usesAiGradient && (
           <defs>
-            <mask id="ai-ring-mask">
-              <rect width="24" height="24" fill="black" />
-              <circle data-role="gradient-mask-arc" />
-            </mask>
+            <linearGradient
+              data-role="ai-ring-gradient"
+              id={gradientId}
+              x1="18.5"
+              y1="30.5"
+              x2="65"
+              y2="30.5"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stopColor="var(--mode-color-ai-alt-stop-1)" />
+              <stop offset="40%" stopColor="var(--mode-color-ai-alt-stop-2)" />
+              <stop offset="90%" stopColor="var(--mode-color-ai-alt-stop-3)" />
+            </linearGradient>
           </defs>
         )}
-        <circle data-role="outer-arc" />
-        {isAiRingVariant ? (
-          <foreignObject
-            x="0"
-            y="0"
-            width="24"
-            height="24"
-            mask="url(#ai-ring-mask)"
-          >
-            <StyledGradientFill data-role="gradient-fill" />
-          </foreignObject>
-        ) : (
-          <circle data-role="inner-arc" />
-        )}
+        <StyledRingTrack data-role="outer-arc" $inverse={inverse} />
+        <StyledRingRotator
+          data-role="ring-rotator"
+          $hasMotion={hasMotion}
+          $isTracked={isTracked}
+          $animationTime={resolvedAnimationTime}
+        >
+          <StyledRingArc
+            data-role="inner-arc"
+            pathLength="1"
+            $inverse={inverse}
+            $hasMotion={hasMotion}
+            $isTracked={isTracked}
+            $animationTime={resolvedAnimationTime}
+            $isSuccess={isSuccess}
+            $isError={isError}
+            $isGradientVariant={usesAiGradient}
+            $gradientId={usesAiGradient ? gradientId : undefined}
+          />
+        </StyledRingRotator>
       </StyledRingCircleSvg>
       {showLabel && (
         <StyledLoaderLabel
-          inverse={inverse}
+          $inverse={inverse}
           data-role="loader-label"
           variant="span"
-          loaderVariant={ringVariant}
-          loaderType="ring"
+          $loaderVariant={ringVariant}
+          $loaderType="ring"
           $size={ringSize}
           $isInsideButton={isInsideButton}
         >

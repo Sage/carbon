@@ -37,17 +37,17 @@ description: Carbon CheckboxGroup component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure CheckboxGroup as mandatory |  |
-| size | CheckboxSizes \| undefined | No |  |  |  | Size of the CheckboxGroup. | "medium" |
+| size | CheckboxSizes \| undefined | No | small \| medium \| large |  |  | Size of the CheckboxGroup. | "medium" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | info | string \| boolean \| undefined | No |  | Yes | Information validation is no longer supported on this component. | [Legacy] Indicate additional information. |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom spacing for labels is no longer supported on this component. | Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
-| legendAlign | "left" \| "right" \| undefined | No |  | Yes | Right legend alignment is no longer supported. | [Legacy] Alignment of the legend. |  |
+| labelSpacing | 1 \| 2 \| undefined | No | 1 \| 2 | Yes | Custom spacing for labels is no longer supported on this component. | Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
+| legendAlign | "left" \| "right" \| undefined | No | left \| right | Yes | Right legend alignment is no longer supported. | [Legacy] Alignment of the legend. |  |
 | legendHelp | string \| undefined | No |  | Yes | The `legendHelp` prop is deprecated and will be removed in a future release. Please use the `legendHint` prop instead. | The content for the RadioButtonGroup hint text, will only be rendered when `validationRedesignOptIn` is true. |  |
 | legendInline | boolean \| undefined | No |  | Yes | Inline legends are no longer supported on this component. | [Legacy] When true, legend is placed in line with the Checkboxes. |  |
-| legendSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom spacing for legends is no longer supported on this component. | [Legacy] Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) |  |
+| legendSpacing | 1 \| 2 \| undefined | No | 1 \| 2 | Yes | Custom spacing for legends is no longer supported on this component. | [Legacy] Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) |  |
 | legendWidth | number \| undefined | No |  | Yes | Inline legends are no longer supported on this component. | [Legacy] Percentage width of legend (only when legend is inline) |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips are no longer supported on this component. | Overrides the default tooltip position |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top | Yes | Tooltips are no longer supported on this component. | Overrides the default tooltip position |  |
 | validationMessagePositionTop | boolean \| undefined | No |  | Yes | The `validationMessagePositionTop` prop is deprecated and will be removed in a future release. | Render the ValidationMessage above the CheckboxGroup | true |
 | warning | string \| undefined | No |  | Yes | The `warning` state is deprecated and will be removed in a future release. | Warning message to be displayed when validation warning occurs. |  |
 

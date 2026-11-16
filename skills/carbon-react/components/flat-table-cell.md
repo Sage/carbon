@@ -15,7 +15,7 @@ description: Carbon FlatTableCell component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| align | TableCellAlign \| undefined | No |  | Content alignment | "left" |
+| align | TableCellAlign \| undefined | No | left \| right \| center | Content alignment | "left" |
 | children | React.ReactNode | No |  | Cell content |  |
 | colspan | string \| number \| undefined | No |  | Number of columns that a cell should span |  |
 | id | string \| undefined | No |  | Sets an id string on the element |  |
@@ -36,7 +36,7 @@ description: Carbon FlatTableCell component props and usage examples.
 | rowspan | string \| number \| undefined | No |  | Number of rows that a cell should span |  |
 | title | string \| undefined | No |  | Title text to display if cell content truncates |  |
 | truncate | boolean \| undefined | No |  | Truncate cell content and add ellipsis to any text that overflows | false |
-| verticalBorder | TableBorderSize \| undefined | No |  | Sets a custom vertical right border |  |
+| verticalBorder | TableBorderSize \| undefined | No | small \| medium \| large | Sets a custom vertical right border |  |
 | verticalBorderColor | string \| undefined | No |  | Sets the color of the right border |  |
 | width | number \| undefined | No |  | Column width, pass a number to set a fixed width in pixels |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

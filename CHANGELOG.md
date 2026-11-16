@@ -1,3 +1,9 @@
+## [162.25.0](https://github.com/Sage/carbon/compare/v162.24.3...v162.25.0) (2026-11-13)
+
+### Features
+
+* **loader:** update animations to align with fusion DS ([7f667dc](https://github.com/Sage/carbon/commit/7f667dc93a7a8ee89ad098e0c19ecb1f7150f33a))
+
 ## [162.24.3](https://github.com/Sage/carbon/compare/v162.24.2...v162.24.3) (2026-11-12)
 
 ### Bug Fixes
