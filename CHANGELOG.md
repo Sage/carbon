@@ -1,3 +1,28 @@
+## [163.0.0](https://github.com/Sage/carbon/compare/v162.25.0...v163.0.0) (2026-11-16)
+
+### ⚠ BREAKING CHANGES
+
+* FileInput now defaults to a stacked layout.
+Set isVertical={false} to retain the previous inline layout.
+FileUploadStatusProps no longer accepts Link-only props for completed
+and previously uploaded files. Remove those props and use href to
+display the Preview link; its accessible name is generated internally.
+Previously uploaded files now display message; remove it if it
+should not be shown
+* **file-input:** FileInput now defaults to a stacked layout.
+Set isVertical={false} to retain the previous inline layout.
+FileUploadStatusProps no longer accepts Link-only props for completed
+and previously uploaded files. Remove those props and use href to
+display the Preview link; its accessible name is generated internally.
+Previously uploaded files now display message; remove it if it
+should not be shown.
+
+* Merge pull request [#8168](https://github.com/Sage/carbon/issues/8168) from Sage/FE-7161-align-file-input-with-fusion-ds ([2a5724f](https://github.com/Sage/carbon/commit/2a5724f317be53deed225105bafa134681626d1f))
+
+### Features
+
+* **file-input:** align with Fusion design system ([3779637](https://github.com/Sage/carbon/commit/377963758c9660d0a9c5c92b688644c0b73bbd6a))
+
 ## [162.25.0](https://github.com/Sage/carbon/compare/v162.24.3...v162.25.0) (2026-11-13)
 
 ### Features
