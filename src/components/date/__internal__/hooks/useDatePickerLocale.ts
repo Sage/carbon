@@ -1,14 +1,14 @@
 import { useMemo } from "react";
-import type { Day } from "date-fns";
+import type { Day, Locale } from "date-fns";
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
 
 /** Derives localized picker labels and weekday names. */
-const useDatePickerLocale = () => {
+const useDatePickerLocale = (localeOverride?: Partial<Locale>) => {
   const locale = useLocale();
-  const dateFnsLocale = locale.date.dateFnsLocale();
-  const { localize, options } = dateFnsLocale;
-  const localeLanguage = dateFnsLocale.code.split("-")[0].toLowerCase();
+  const calendarLocale = { ...locale.date.dateFnsLocale(), ...localeOverride };
+  const { localize, options } = calendarLocale;
+  const localeLanguage = calendarLocale.code.split("-")[0].toLowerCase();
   const { weekdaysLong, weekdaysShort } = useMemo(() => {
     const useWideWeekday = ["de", "pl"].includes(localeLanguage);
 
@@ -30,6 +30,8 @@ const useDatePickerLocale = () => {
     datePickerDialogAriaLabel: locale.date.ariaLabels.chooseDate?.(),
     datePickerDescription: locale.date.ariaLabels.openCalendarDescription?.(),
     closeButtonLabel: locale.date.ariaLabels.closeButton?.(),
+    // Always pass an explicit locale so DayPicker does not fall back to its en-US default.
+    dayPickerLocale: calendarLocale,
     localize,
     weekStartsOn: options?.weekStartsOn,
     weekdaysLong,

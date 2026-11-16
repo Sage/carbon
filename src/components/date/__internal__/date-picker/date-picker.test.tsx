@@ -2,6 +2,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { enGB as enGBDateLocale } from "date-fns/locale/en-GB";
+import { enUS as enUSDateLocale } from "date-fns/locale/en-US";
+import { de } from "date-fns/locale/de";
 
 import Logger from "../../../../__internal__/utils/logger";
 import deDE from "../../../../locales/de-de";
@@ -57,6 +59,76 @@ test("renders localized weekday headers", () => {
 
   expect(screen.getByText("So", { selector: "span" })).toBeVisible();
   expect(screen.getByText("Sonntag")).toBeInTheDocument();
+});
+
+test("uses the active locale for single-date button names", () => {
+  render(
+    <I18nProvider locale={deDE}>
+      <DatePickerWithInput
+        onRequestPickerClose={() => {}}
+        open
+        selectedDate={new Date(2019, 3, 4)}
+      />
+    </I18nProvider>,
+  );
+
+  expect(
+    screen.getByRole("button", { name: /Donnerstag, 4\. April 2019/ }),
+  ).toBeInTheDocument();
+});
+
+test("uses a picker-provided locale for date labels and week start", () => {
+  render(
+    <I18nProvider locale={deDE}>
+      <DatePickerWithInput
+        onRequestPickerClose={() => {}}
+        open
+        selectedDate={new Date(2019, 3, 4)}
+        dayPickerProps={{
+          locale: enUSDateLocale,
+        }}
+      />
+    </I18nProvider>,
+  );
+
+  expect(
+    screen.getByRole("button", { name: /Thursday, April 4th, 2019/ }),
+  ).toBeInTheDocument();
+  expect(screen.getAllByRole("columnheader")[0]).toHaveTextContent("Sunday");
+  expect(screen.getByRole("option", { name: "January" })).toBeInTheDocument();
+});
+
+test("uses a picker-provided locale for month options and weekday headers", () => {
+  render(
+    <DatePickerWithInput
+      onRequestPickerClose={() => {}}
+      open
+      selectedDate={new Date(2019, 3, 4)}
+      dayPickerProps={{ locale: de }}
+    />,
+  );
+
+  expect(screen.getByRole("option", { name: "Januar" })).toBeInTheDocument();
+  expect(screen.getByText("Mo", { selector: "span" })).toBeVisible();
+  expect(screen.getAllByRole("columnheader")[0]).toHaveTextContent("Montag");
+  expect(
+    screen.getByRole("button", { name: /Donnerstag, 4\. April 2019/ }),
+  ).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument();
+});
+
+test("uses the en-GB provider locale for single-date names by default", () => {
+  render(
+    <DatePickerWithInput
+      onRequestPickerClose={() => {}}
+      open
+      selectedDate={new Date(2019, 6, 4)}
+    />,
+  );
+
+  expect(
+    screen.getByRole("button", { name: /Thursday, 4 July 2019/ }),
+  ).toBeInTheDocument();
 });
 
 test("does not render when closed", () => {
@@ -168,11 +240,11 @@ test("disables dates outside the configured range", () => {
   );
 
   expect(
-    screen.getByRole("button", { name: "Wednesday, April 3rd, 2019" }),
+    screen.getByRole("button", { name: "Wednesday, 3 April 2019" }),
   ).toBeDisabled();
   expect(
     screen.getByRole("button", {
-      name: "Thursday, April 4th, 2019, selected",
+      name: "Thursday, 4 April 2019, selected",
     }),
   ).toBeEnabled();
 });
@@ -199,7 +271,7 @@ test("allows navigating to, and viewing, a month outside minDate/maxDate via the
     "2025",
   );
   expect(
-    screen.getByRole("button", { name: "Monday, June 30th, 2025" }),
+    screen.getByRole("button", { name: "Monday, 30 June 2025" }),
   ).toBeDisabled();
 });
 

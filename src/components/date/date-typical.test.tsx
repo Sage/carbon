@@ -238,7 +238,7 @@ test("should open picker and focus selected day when Enter is pressed on calenda
   expect(screen.getByRole("grid")).toBeVisible();
   await waitFor(() => {
     expect(
-      screen.getByRole("button", { name: /Thursday, April 4th, 2019/ }),
+      screen.getByRole("button", { name: /Thursday, 4 April 2019/ }),
     ).toHaveFocus();
   });
 });
@@ -264,7 +264,7 @@ test("should open picker and focus selected day when Space is pressed on calenda
   expect(screen.getByRole("grid")).toBeVisible();
   await waitFor(() => {
     expect(
-      screen.getByRole("button", { name: /Thursday, April 4th, 2019/ }),
+      screen.getByRole("button", { name: /Thursday, 4 April 2019/ }),
     ).toHaveFocus();
   });
 });
@@ -339,17 +339,17 @@ test("should render date buttons with type button and hidden full date text", as
   });
 
   const selectedDay = screen.getByRole("button", {
-    name: "Tuesday, July 15th, 2025, selected",
+    name: "Tuesday, 15 July 2025, selected",
   });
   expect(selectedDay).toHaveAttribute("type", "button");
-  expect(selectedDay).toHaveTextContent("Tuesday, July 15th, 2025, selected");
+  expect(selectedDay).toHaveTextContent("Tuesday, 15 July 2025, selected");
   expect(within(selectedDay).getByText("15")).toBeInTheDocument();
 
   const dateButtons = within(screen.getByRole("grid")).getAllByRole("button");
   expect(dateButtons.length).toBeGreaterThan(0);
   dateButtons.forEach((button) => {
     expect(button).toHaveAttribute("type", "button");
-    expect(button).toHaveTextContent(/\w+, \w+ \d/);
+    expect(button).toHaveTextContent(/\w+, \d+ \w+ \d{4}/);
   });
 });
 
@@ -440,7 +440,7 @@ test("should keep the year selector enabled and in the focus cycle when minDate/
   });
 
   const selectedDay = screen.getByRole("button", {
-    name: /Tuesday, July 15th, 2025/,
+    name: /Tuesday, 15 July 2025/,
   });
   const closeButton = screen.getByRole("button", { name: "Close" });
   const monthSelector = screen.getByRole("combobox", {
@@ -701,7 +701,7 @@ test("should close and call onPickerClose when a date is selected with Enter", a
   });
 
   expect(
-    screen.getByRole("button", { name: /Tuesday, July 15th, 2025/ }),
+    screen.getByRole("button", { name: /Tuesday, 15 July 2025/ }),
   ).toHaveFocus();
   await user.keyboard("{Enter}");
 
@@ -730,7 +730,7 @@ test("should move focus into the picker when disablePortal is false", async () =
   await user.tab();
 
   expect(
-    screen.getByRole("button", { name: /Tuesday, July 15th, 2025/ }),
+    screen.getByRole("button", { name: /Tuesday, 15 July 2025/ }),
   ).toHaveFocus();
 });
 
@@ -842,7 +842,7 @@ test("should keep focus on month selector until Tab after month change", async (
   expect(monthSelector).toHaveValue("2");
 
   const firstCurrentMonthDay = screen.getByRole("button", {
-    name: "Saturday, March 1st, 2025",
+    name: "Saturday, 1 March 2025",
   });
 
   await user.tab();
@@ -901,7 +901,7 @@ test("should not update input value when selected date month is changed", async 
   });
 
   await user.click(
-    screen.getByRole("button", { name: "Saturday, February 15th, 2025" }),
+    screen.getByRole("button", { name: "Saturday, 15 February 2025" }),
   );
 
   expect(screen.getByRole("textbox")).toHaveValue("15/02/2025");
@@ -940,7 +940,7 @@ test("should keep focus on year selector until Tab after year change", async () 
   expect(yearSelector).toHaveValue("2026");
 
   const firstCurrentMonthDay = screen.getByRole("button", {
-    name: "Thursday, January 1st, 2026",
+    name: "Thursday, 1 January 2026",
   });
 
   await user.tab();
@@ -981,7 +981,7 @@ test("should not update input value when selected date year is changed", async (
   expect(yearSelector).toHaveFocus();
 
   await user.click(
-    screen.getByRole("button", { name: "Thursday, January 15th, 2026" }),
+    screen.getByRole("button", { name: "Thursday, 15 January 2026" }),
   );
 
   expect(screen.getByRole("textbox")).toHaveValue("15/01/2026");
@@ -1032,13 +1032,13 @@ test("should move focus with up and down arrows by week", async () => {
   });
 
   const selectedDay = screen.getByRole("button", {
-    name: /Tuesday, July 15th, 2025/,
+    name: /Tuesday, 15 July 2025/,
   });
   expect(selectedDay).toHaveFocus();
 
   await user.keyboard("{ArrowUp}");
   expect(
-    screen.getByRole("button", { name: /Tuesday, July 8th, 2025/ }),
+    screen.getByRole("button", { name: /Tuesday, 8 July 2025/ }),
   ).toHaveFocus();
 
   await user.keyboard("{ArrowDown}");
@@ -1062,11 +1062,11 @@ test("should wrap left arrow to previous month boundary", async () => {
   });
 
   expect(
-    screen.getByRole("button", { name: /Tuesday, July 1st, 2025/ }),
+    screen.getByRole("button", { name: /Tuesday, 1 July 2025/ }),
   ).toHaveFocus();
   await user.keyboard("{ArrowLeft}");
   expect(
-    screen.getByRole("button", { name: /Monday, June 30th, 2025/ }),
+    screen.getByRole("button", { name: /Monday, 30 June 2025/ }),
   ).toHaveFocus();
 });
 
@@ -1087,11 +1087,11 @@ test("should wrap right arrow to next month boundary", async () => {
   });
 
   expect(
-    screen.getByRole("button", { name: /Thursday, July 31st, 2025/ }),
+    screen.getByRole("button", { name: /Thursday, 31 July 2025/ }),
   ).toHaveFocus();
   await user.keyboard("{ArrowRight}");
   expect(
-    screen.getByRole("button", { name: /Friday, August 1st, 2025/ }),
+    screen.getByRole("button", { name: /Friday, 1 August 2025/ }),
   ).toHaveFocus();
 });
 

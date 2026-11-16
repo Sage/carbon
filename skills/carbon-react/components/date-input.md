@@ -252,7 +252,7 @@ description: Carbon DateInput component props and usage examples.
 | onWheelCapture | WheelEventHandler<T> \| undefined | No |  |  |  |  |  |
 | part | string \| undefined | No |  |  |  |  |  |
 | pattern | string \| undefined | No |  |  |  |  |  |
-| pickerProps | PickerProps \| undefined | No |  |  |  | Pass any props that match the DayPickerProps interface to override default behaviors See [DayPickerProps](https://daypicker.dev/api/type-aliases/DayPickerProps) for a full list of available props |  |
+| pickerProps | PickerProps \| undefined | No |  |  |  | Advanced DayPicker configuration. The calendar defaults to the locale from I18nProvider; `locale` overrides calendar date labels, month names, weekday headings, and the default week start. Input formatting and Carbon translations still use I18nProvider. `disabled` is combined with `minDate` and `maxDate`. `onDayClick` replaces the built-in selection and picker-closing behavior. |  |
 | positionedChildren | React.ReactNode | No |  |  |  | Container for DatePicker or SelectList components |  |
 | prefix | string \| undefined | No |  |  |  | Emphasized part of the displayed text |  |
 | property | string \| undefined | No |  |  |  |  |  |
