@@ -4,7 +4,7 @@ import Popover from ".";
 
 test("doesn't render popup in a server environment", () => {
   const view = renderToString(
-    <Popover reference={{ current: null }}>
+    <Popover reference={null}>
       <>Hello world!</>
     </Popover>,
   );

@@ -2,19 +2,21 @@ import React from "react";
 import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Popover, { PopoverProps } from "./popover.component";
+import * as floatingUi from "@floating-ui/dom";
 import Dialog from "../../components/dialog";
 
 const PopoverWithButton = (
   props: Omit<PopoverProps, "children" | "reference">,
 ) => {
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const [referenceElement, setReferenceElement] =
+    React.useState<HTMLButtonElement | null>(null);
 
   return (
     <>
-      <button ref={buttonRef} type="button">
+      <button ref={setReferenceElement} type="button">
         Reference
       </button>
-      <Popover reference={buttonRef} {...props}>
+      <Popover reference={referenceElement} {...props}>
         <div>I float!</div>
       </Popover>
     </>
@@ -23,7 +25,7 @@ const PopoverWithButton = (
 
 test("popup content is visible by default", () => {
   render(
-    <Popover reference={{ current: null }}>
+    <Popover reference={null}>
       <div>I float!</div>
     </Popover>,
   );
@@ -33,7 +35,7 @@ test("popup content is visible by default", () => {
 
 test("popup content is visible when hide prop is false", () => {
   render(
-    <Popover hide={false} reference={{ current: null }}>
+    <Popover hide={false} reference={null}>
       <div>I float!</div>
     </Popover>,
   );
@@ -43,7 +45,7 @@ test("popup content is visible when hide prop is false", () => {
 
 test("popup content is hidden when hide prop is true", () => {
   render(
-    <Popover hide reference={{ current: null }}>
+    <Popover hide reference={null}>
       <div>I float!</div>
     </Popover>,
   );
@@ -75,19 +77,20 @@ test("renders popup within the component's ancestor as normal when disablePortal
 test("when mounted, renders popup in the reference's nearest dialog ancestor if it has one", async () => {
   const DialogWithPopover = () => {
     const [isOpen, setIsOpen] = React.useState(false);
-    const buttonRef = React.useRef<HTMLButtonElement>(null);
+    const [referenceElement, setReferenceElement] =
+      React.useState<HTMLButtonElement | null>(null);
 
     return (
       <Dialog open>
         <button
-          ref={buttonRef}
+          ref={setReferenceElement}
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
         >
           Toggle popover
         </button>
         {isOpen && (
-          <Popover reference={buttonRef}>
+          <Popover reference={referenceElement}>
             <div>I float!</div>
           </Popover>
         )}
@@ -105,15 +108,16 @@ test("when mounted, renders popup in the reference's nearest dialog ancestor if 
 
 test("applies popup styling to the element specified via the childRefOverride prop", async () => {
   const UsingChildRefOverride = () => {
-    const buttonRef = React.useRef<HTMLButtonElement>(null);
+    const [referenceElement, setReferenceElement] =
+      React.useState<HTMLButtonElement | null>(null);
     const floatingRef = React.useRef<HTMLDivElement>(null);
 
     return (
       <main>
-        <button ref={buttonRef} type="button">
+        <button ref={setReferenceElement} type="button">
           Toggle popup
         </button>
-        <Popover reference={buttonRef} childRefOverride={floatingRef}>
+        <Popover reference={referenceElement} childRefOverride={floatingRef}>
           <article>
             <div ref={floatingRef}>I float!</div>
           </article>
@@ -175,13 +179,14 @@ test("does not render a backdrop when disableBackgroundUI is false", () => {
 const PopoverInThemedWrapper = (
   props: Omit<PopoverProps, "children" | "reference">,
 ) => {
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const [referenceElement, setReferenceElement] =
+    React.useState<HTMLButtonElement | null>(null);
   return (
     <div data-carbon-theme="dark" data-role="themed-wrapper">
-      <button ref={buttonRef} type="button">
+      <button ref={setReferenceElement} type="button">
         Reference
       </button>
-      <Popover reference={buttonRef} {...props}>
+      <Popover reference={referenceElement} {...props}>
         <div>I float!</div>
       </Popover>
     </div>
@@ -217,4 +222,97 @@ test("updates the theme when the ancestor's data-carbon-theme changes, and clear
   await waitFor(() =>
     expect(provider).not.toHaveAttribute("data-carbon-theme"),
   );
+});
+
+test("positions the popup once the reference element becomes available after the initial render", async () => {
+  render(<PopoverWithButton />);
+
+  await waitFor(() =>
+    expect(screen.getByText("I float!")).toHaveAttribute(
+      "data-floating-placement",
+    ),
+  );
+});
+
+test("does not position the popup when reference is null", async () => {
+  render(
+    <Popover reference={null}>
+      <div>I float!</div>
+    </Popover>,
+  );
+
+  await act(async () => {
+    await Promise.resolve();
+  });
+
+  expect(screen.getByText("I float!")).not.toHaveAttribute(
+    "data-floating-placement",
+  );
+});
+
+test("repositions the popup against the new reference element when the reference changes", async () => {
+  const SwitchingReference = () => {
+    const [elementA, setElementA] = React.useState<HTMLButtonElement | null>(
+      null,
+    );
+    const [elementB, setElementB] = React.useState<HTMLButtonElement | null>(
+      null,
+    );
+    const [useB, setUseB] = React.useState(false);
+
+    return (
+      <>
+        <button ref={setElementA} type="button">
+          Button A
+        </button>
+        <button ref={setElementB} type="button">
+          Button B
+        </button>
+        <button type="button" onClick={() => setUseB(true)}>
+          Switch
+        </button>
+        <Popover reference={useB ? elementB : elementA}>
+          <div>I float!</div>
+        </Popover>
+      </>
+    );
+  };
+  const spy = jest.spyOn(floatingUi, "computePosition");
+  const user = userEvent.setup();
+
+  try {
+    render(<SwitchingReference />);
+    await user.click(screen.getByRole("button", { name: "Switch" }));
+
+    await waitFor(() =>
+      expect(spy).toHaveBeenCalledWith(
+        screen.getByRole("button", { name: "Button B" }),
+        screen.getByText("I float!"),
+        expect.anything(),
+      ),
+    );
+  } finally {
+    spy.mockRestore();
+  }
+});
+
+test("renders popup in the reference's nearest dialog ancestor when the reference resolves after the popover mounts", () => {
+  const DialogWithImmediatePopover = () => {
+    const [referenceElement, setReferenceElement] =
+      React.useState<HTMLButtonElement | null>(null);
+
+    return (
+      <Dialog open>
+        <button ref={setReferenceElement} type="button">
+          Reference
+        </button>
+        <Popover reference={referenceElement}>
+          <div>I float!</div>
+        </Popover>
+      </Dialog>
+    );
+  };
+  render(<DialogWithImmediatePopover />);
+
+  expect(screen.getByRole("dialog")).toHaveTextContent(/I float!/);
 });

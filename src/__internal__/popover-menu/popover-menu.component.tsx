@@ -145,8 +145,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   hideWhenReferenceHidden?: boolean;
   /** Strategy used to position the popover */
   popoverStrategy?: PopoverProps["popoverStrategy"];
-  /** Override default control reference for popover */
-  controlReference?: React.RefObject<HTMLDivElement | HTMLLIElement>;
+  /** Override the default anchor with an element captured by a callback ref. */
+  controlElement?: HTMLDivElement | HTMLLIElement | null;
   /** Set the custom max-height of the menu list */
   maxHeight?: string;
   /** Custom styles for the control wrapper element */
@@ -195,7 +195,7 @@ const focusControl = (handle: FocusableHandle | HTMLElement | null) => {
 interface MenuProps {
   open: boolean;
   placement: PopoverMenuProps["placement"];
-  controlWrapperRef: React.RefObject<HTMLDivElement | HTMLLIElement>;
+  referenceElement: HTMLElement | null;
   size: PopoverMenuContextProps["size"];
   listRef: React.Ref<HTMLUListElement>;
   listboxAriaLabelledBy?: string;
@@ -215,7 +215,7 @@ interface MenuProps {
 const Menu = ({
   open,
   placement,
-  controlWrapperRef,
+  referenceElement,
   size,
   listRef,
   listboxAriaLabelledBy,
@@ -234,7 +234,7 @@ const Menu = ({
   return (
     <Popover
       placement={placement}
-      reference={controlWrapperRef}
+      reference={referenceElement}
       isOpen={open}
       data-component="popover-menu"
       middleware={middleware}
@@ -274,7 +274,7 @@ interface ControlProps<TRef extends FocusableHandle = HTMLElement> {
   isSubmenu?: boolean;
   popoverControl: PopoverMenuProps<TRef>["popoverControl"];
   controlRef: React.RefObject<TRef>;
-  controlWrapperRef: React.RefObject<HTMLDivElement>;
+  controlWrapperRef: React.RefCallback<HTMLDivElement>;
   onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void;
   listId: string;
   "aria-activedescendant"?: string;
@@ -339,7 +339,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     isButtonMenu = false,
     isSubmenu = false,
     id,
-    controlReference,
+    controlElement,
     listRef,
     controlWrapperStyle,
     maxHeight,
@@ -349,8 +349,14 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   ref: React.ForwardedRef<HTMLDivElement>,
 ) => {
   const controlWrapperRef = useRef<HTMLDivElement | null>(null);
-  const popoverReference: React.RefObject<HTMLDivElement | HTMLLIElement> =
-    controlReference ?? controlWrapperRef;
+  const [controlWrapperElement, setControlWrapperElement] =
+    useState<HTMLDivElement | null>(null);
+  const attachControlWrapper = useCallback((element: HTMLDivElement | null) => {
+    controlWrapperRef.current = element;
+    setControlWrapperElement(element);
+  }, []);
+  const popoverReference =
+    controlElement === undefined ? controlWrapperElement : controlElement;
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const internalListRef = useRef<HTMLUListElement | null>(null);
   const combinedListRef = combineRefs(listRef, internalListRef);
@@ -382,7 +388,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const handleSubmenuParentFocus = useCallback(() => {
     /* istanbul ignore else */
     if (isSubmenu) {
-      const node = controlReference?.current?.querySelector(
+      const node = controlElement?.querySelector(
         "button, a",
       ) as HTMLElement | null;
 
@@ -391,7 +397,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         focusControl(node);
       }
     }
-  }, [isSubmenu, controlReference]);
+  }, [isSubmenu, controlElement]);
 
   const handleMainWrapperKeyDown = useCallback(
     (ev: KeyboardEvent) => {
@@ -418,7 +424,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
 
     // When mounted as a submenu, also mark clicks on the trigger <li> as "inside"
     // so the click-away listener doesn't fire when the trigger button is clicked
-    const triggerEl = isSubmenu ? controlReference?.current : null;
+    const triggerEl = isSubmenu ? controlElement : null;
     triggerEl?.addEventListener("click", handleClickInside, { passive: true });
 
     return () => {
@@ -426,12 +432,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       el?.removeEventListener("keydown", handleMainWrapperKeyDown);
       triggerEl?.removeEventListener("click", handleClickInside);
     };
-  }, [
-    isSubmenu,
-    handleClickInside,
-    handleMainWrapperKeyDown,
-    controlReference,
-  ]);
+  }, [isSubmenu, handleClickInside, handleMainWrapperKeyDown, controlElement]);
 
   const handleDropdownMenuKeyDown = useHandleDropdownMenuKeyDown(
     internalListRef,
@@ -536,7 +537,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           listRef={props.ref}
           popoverControl={(_ref, controlProps) => props.control(controlProps)}
           placement="right-start"
-          controlReference={props.triggerRef}
+          controlElement={props.triggerElement}
           typeahead={typeahead}
         >
           {props.submenu}
@@ -555,7 +556,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         isSubmenu={isSubmenu}
         popoverControl={popoverControl}
         controlRef={controlRef}
-        controlWrapperRef={controlWrapperRef}
+        controlWrapperRef={attachControlWrapper}
         controlWrapperStyle={controlWrapperStyle}
         onKeyDown={handleControlKeyDown}
         listId={listId.current}
@@ -573,11 +574,11 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           renderSubmenu: isButtonMenu && !isSubmenu ? renderSubmenu : undefined,
         }}
       >
-        {open && (
+        {open && popoverReference && (
           <Menu
             open={open}
             placement={placement}
-            controlWrapperRef={popoverReference}
+            referenceElement={popoverReference}
             size={size}
             listRef={combinedListRef}
             listboxAriaLabelledBy={listboxAriaLabelledBy}
@@ -588,7 +589,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             scrollRef={scrollRef}
             listId={listId.current}
             disablePortal={!isSubmenu}
-            portalTarget={isSubmenu ? controlReference?.current : undefined}
+            portalTarget={isSubmenu ? controlElement : undefined}
             maxHeight={maxHeight}
             popoverStrategy={popoverStrategy}
           >

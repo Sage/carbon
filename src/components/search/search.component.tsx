@@ -216,7 +216,8 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     const locale = useLocale();
     const assistiveHintId = useRef(guid());
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const containerRef = useRef<HTMLDivElement | null>(null);
+    const [containerElement, setContainerElement] =
+      useState<HTMLDivElement | null>(null);
     const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
     const [highlightedItemValue, setHighlightedItemValue] = useState<
       string | undefined
@@ -371,7 +372,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       inputWidthOverride,
     }: {
       ref?: React.Ref<HTMLInputElement>;
-      containerRef?: React.RefObject<HTMLDivElement>;
+      containerRef?: React.Ref<HTMLDivElement>;
       popoverControlProps?: PopoverControlProps;
       inputWidthOverride?: number;
     } = {}) => (
@@ -537,7 +538,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         open={open}
         maxHeight={maxHeight}
         size={size}
-        controlReference={containerRef}
+        controlElement={containerElement}
         listboxAriaLabel={
           ariaLabel ?? (typeof label === "string" ? label : undefined)
         }
@@ -551,7 +552,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           <>
             {renderSearchInput({
               ref: popoverControlRef,
-              containerRef,
+              containerRef: setContainerElement,
               popoverControlProps,
               inputWidthOverride: 100,
             })}

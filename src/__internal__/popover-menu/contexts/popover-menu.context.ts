@@ -16,7 +16,7 @@ export interface SubmenuRenderProps {
   onClose: () => void;
   ref: React.RefObject<HTMLUListElement>;
   control: (props: PopoverControlProps) => React.ReactNode;
-  triggerRef: React.RefObject<HTMLLIElement>;
+  triggerElement: HTMLLIElement | null;
 }
 
 export interface PopoverMenuContextProps {
