@@ -92,13 +92,77 @@ const esES: Partial<Locale> = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "También los puedes arrastrar hasta aquí.",
-    selectFile: () => "Selecciona un archivo",
-    fileUploadStatus: () => "Estado de subida de ficheros",
+    dragAndDrop: (selectButtonText, multiple = false) => {
+      if (!selectButtonText) {
+        return multiple
+          ? "También los puedes arrastrar hasta aquí."
+          : "También lo puedes arrastrar hasta aquí.";
+      }
+
+      return `Arrastra ${
+        multiple ? "los ficheros" : "el fichero"
+      } hasta aquí o utiliza ${selectButtonText} para elegir${
+        multiple ? "los" : "lo"
+      }.`;
+    },
+    selectFile: (multiple = false) =>
+      multiple ? "Seleccionar ficheros" : "Seleccionar fichero",
+    requiredDescription: () => "Este campo es obligatorio.",
+    currentFiles: (count) => `Ficheros: ${count}`,
+    currentFilesProgressSummary: ({
+      totalCount,
+      uploadingCount,
+      completedCount,
+    }) => {
+      const summaries: string[] = [];
+
+      if (uploadingCount > 0) {
+        summaries.push(
+          `Subiendo ${uploadingCount} ${
+            uploadingCount === 1 ? "fichero..." : "ficheros..."
+          }`,
+        );
+      }
+
+      if (completedCount > 0) {
+        summaries.push(
+          completedCount === 1 && totalCount === 1
+            ? "Ficheros subidos: 1"
+            : `Ficheros subidos: ${completedCount} de ${totalCount}.`,
+        );
+      }
+
+      const summary = summaries.join(", ");
+
+      return summary && !summary.endsWith(".") ? `${summary}.` : summary;
+    },
+    currentFilesErrorSummary: ({ errorCount }) =>
+      errorCount === 1
+        ? "Hay 1 fichero que no se ha subido."
+        : `Hay ${errorCount} ficheros que no se han subido.`,
+    previouslyUploadedFiles: (count) =>
+      count === 1
+        ? `Ya se ha subido ${count} fichero.`
+        : `Ya se han subido ${count} ficheros.`,
+    uploading: () => "Subiendo...",
+    uploaded: () => "Fichero subido",
+    uploadErrorDetails: () => "Detalles del error",
+    announcements: {
+      filesAdded: (files) =>
+        files.length === 1
+          ? `Fichero seleccionado: ${files[0]}.`
+          : `Ficheros seleccionados: ${files.join(", ")}.`,
+      uploadComplete: (files) => `Subida completada: ${files.join(", ")}.`,
+      fileDeleted: (file) => `Fichero eliminado: ${file}.`,
+      fileRemoved: (file) => `Fichero quitado: ${file}.`,
+      uploadCancelled: (file) => `Subida cancelada: ${file}.`,
+    },
     actions: {
-      cancel: () => "Cancelar subida",
-      clear: () => "Borrar",
+      cancel: () => "Cancelar",
       delete: () => "Eliminar",
+      remove: () => "Quitar",
+      retry: () => "Reintentar",
+      preview: () => "Previsualizar",
     },
   },
   heading: {
