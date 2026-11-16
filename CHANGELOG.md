@@ -1,3 +1,9 @@
+## [163.0.2](https://github.com/Sage/carbon/compare/v163.0.1...v163.0.2) (2026-11-16)
+
+### Bug Fixes
+
+* **note:** remove curved edges from divider ([291478d](https://github.com/Sage/carbon/commit/291478d16bc4cf914b533f4d8a5a4d647fb37b49))
+
 ## [163.0.1](https://github.com/Sage/carbon/compare/v163.0.0...v163.0.1) (2026-11-16)
 
 ### Bug Fixes
