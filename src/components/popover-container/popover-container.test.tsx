@@ -718,6 +718,11 @@ describe("closing the popup", () => {
     );
 
     await user.click(screen.getByRole("button"));
+    await waitFor(() =>
+      expect(screen.getByRole("dialog")).toHaveAttribute(
+        "data-floating-placement",
+      ),
+    );
 
     // open select list
     await user.click(await screen.findByRole("combobox"));
@@ -869,6 +874,11 @@ test("if only the open trigger is the only focusable element on screen, when the
 
   const openButton = screen.getByRole("button", { name: "Actions" });
   await user.click(openButton);
+  await waitFor(() =>
+    expect(screen.getByRole("dialog")).toHaveAttribute(
+      "data-floating-placement",
+    ),
+  );
   await user.tab(); // tab to close icon
   await user.tab(); // tab back out of content to the opening trigger element
 
@@ -1038,6 +1048,11 @@ test("focuses the trigger when there's no other focusable elements and RadioButt
 
   const openButton = screen.getByRole("button");
   await user.click(openButton);
+  await waitFor(() =>
+    expect(screen.getByRole("dialog")).toHaveAttribute(
+      "data-floating-placement",
+    ),
+  );
   await user.tab(); // tab to close icon
   await user.tab(); // tab to RadioButtonGroup
   await user.tab();

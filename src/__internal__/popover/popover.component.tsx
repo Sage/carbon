@@ -7,14 +7,15 @@ import React, {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-import { flip, Placement, Middleware } from "@floating-ui/dom";
+import { flip, Middleware, Placement } from "@floating-ui/react-dom";
 
-import useFloating from "../../hooks/__internal__/useFloating";
 import { StyledBackdrop, StyledPopoverContent } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import ModalContext, { ModalContextProps } from "../modal/modal.context";
 import useIsBrowser from "../../hooks/__internal__/useIsBrowser";
+import useFloating from "../../hooks/__internal__/useFloating";
 import TokensWrapperContext from "../../components/tokens-wrapper/__internal__/context";
+import combineRefs from "../utils/helpers/combine-refs";
 
 export interface PopoverProps {
   /**
@@ -85,29 +86,27 @@ const PopoverRoot = ({
   popoverStrategy = "absolute",
   childRefOverride,
 }: Omit<PopoverProps, "disablePortal">) => {
-  const childRef =
-    childRefOverride ||
-    (React.Children.only(children) as React.FunctionComponentElement<unknown>)
-      .ref;
+  const childRef = (
+    React.Children.only(children) as React.FunctionComponentElement<unknown>
+  ).ref;
   const innerRef = useRef<HTMLElement | null>(null);
-  const floatingReference = childRef || innerRef;
+  const floatingRef = childRefOverride ?? innerRef;
 
-  let content;
-  if (childRef) {
-    content = children;
-  } else {
-    content = React.cloneElement(children, { ref: floatingReference });
-  }
-
-  useFloating({
-    isOpen,
-    reference,
-    floating: floatingReference,
-    placement,
-    middleware,
+  const setFloating = useFloating({
     animationFrame,
+    floating: floatingRef,
+    isOpen,
+    middleware,
+    placement,
+    reference,
     strategy: popoverStrategy,
   });
+
+  const content = childRefOverride
+    ? children
+    : React.cloneElement(children, {
+        ref: combineRefs(childRef, innerRef, setFloating),
+      });
 
   return (
     <StyledPopoverContent hide={hide}>

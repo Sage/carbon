@@ -116,7 +116,8 @@ const PopoverContainerContentStyle = styled.div.attrs(
   
   box-shadow: var(--global-depth-lvl1);
   min-width: 300px;
-  position: absolute;
+  position: ${({ disableAnimation }) =>
+    disableAnimation ? "fixed" : "absolute"};
   z-index: var(--adaptiveSidebarModalBackdrop, ${({ zIndex }) => zIndex});
 
   ${({ disableAnimation, $popoverOffset }) =>
