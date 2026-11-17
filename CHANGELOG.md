@@ -1,3 +1,9 @@
+## [163.2.0](https://github.com/Sage/carbon/compare/v163.1.0...v163.2.0) (2026-11-17)
+
+### Features
+
+* **simple-select:** align component with fusion DS ([84a599c](https://github.com/Sage/carbon/commit/84a599cfcbed21dd99ad6bc99744d2de0191b1bd))
+
 ## [163.1.0](https://github.com/Sage/carbon/compare/v163.0.2...v163.1.0) (2026-11-17)
 
 ### Features
