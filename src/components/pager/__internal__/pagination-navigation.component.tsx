@@ -3,7 +3,6 @@ import useLocale from "../../../hooks/__internal__/useLocale";
 
 import {
   StyledPaginationNavigation,
-  StyledButtonWrapper,
   StyledCurrentPageContainer,
   StyledInputWrapper,
   StyledCurrentPage,
@@ -172,58 +171,57 @@ const PaginationNavigation = ({
   const renderNavigationButtonsBefore = () => (
     <>
       {showFirstAndLastButtons && (
-        <StyledButtonWrapper $visible={showFirst}>
-          <Button
-            variantType="subtle"
-            aria-label={locale.pager.firstAriaLabel?.(totalPages)}
-            size={size}
-            onClick={handleFirstButtonClick}
-          >
-            <Icon type="chevron_first_pagination" />
-          </Button>
-        </StyledButtonWrapper>
-      )}
-      <StyledButtonWrapper $visible={showPrevious}>
         <Button
           variantType="subtle"
-          aria-label={locale.pager.previousAriaLabel?.(
-            currentPage - 1,
-            totalPages,
-          )}
+          aria-label={locale.pager.firstAriaLabel?.(totalPages)}
           size={size}
-          onClick={handlePreviousButtonClick}
-          ref={previousRef}
+          onClick={handleFirstButtonClick}
+          disabled={!showFirst}
         >
-          <Icon type="chevron_left_thick" />
+          <Icon type="chevron_first_pagination" />
         </Button>
-      </StyledButtonWrapper>
+      )}
+      <Button
+        variantType="subtle"
+        aria-label={locale.pager.previousAriaLabel?.(
+          showPrevious ? currentPage - 1 : 0,
+          totalPages,
+        )}
+        size={size}
+        onClick={handlePreviousButtonClick}
+        ref={previousRef}
+        disabled={!showPrevious}
+      >
+        <Icon type="chevron_left_thick" />
+      </Button>
     </>
   );
 
   const renderNavigationButtonsAfter = () => (
     <>
-      <StyledButtonWrapper $visible={showNext}>
+      <Button
+        variantType="subtle"
+        aria-label={locale.pager.nextAriaLabel?.(
+          showNext ? currentPage + 1 : 0,
+          totalPages,
+        )}
+        size={size}
+        onClick={handleNextButtonClick}
+        ref={nextRef}
+        disabled={!showNext}
+      >
+        <Icon type="chevron_right_thick" />
+      </Button>
+      {showFirstAndLastButtons && (
         <Button
           variantType="subtle"
-          aria-label={locale.pager.nextAriaLabel?.(currentPage + 1, totalPages)}
+          aria-label={locale.pager.lastAriaLabel?.(totalPages)}
           size={size}
-          onClick={handleNextButtonClick}
-          ref={nextRef}
+          onClick={handleLastButtonClick}
+          disabled={!showLast}
         >
-          <Icon type="chevron_right_thick" />
+          <Icon type="chevron_last_pagination" />
         </Button>
-      </StyledButtonWrapper>
-      {showFirstAndLastButtons && (
-        <StyledButtonWrapper $visible={showLast}>
-          <Button
-            variantType="subtle"
-            aria-label={locale.pager.lastAriaLabel?.(totalPages)}
-            size={size}
-            onClick={handleLastButtonClick}
-          >
-            <Icon type="chevron_last_pagination" />
-          </Button>
-        </StyledButtonWrapper>
       )}
     </>
   );

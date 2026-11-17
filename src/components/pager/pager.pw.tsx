@@ -4,7 +4,7 @@ import { PagerProps } from ".";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { PagerComponent } from "./components.test-pw";
 
-test("should focus the 'previous' button when 'last' button is pressed and then hidden", async ({
+test("should focus the 'previous' button when 'last' button is pressed and then disabled", async ({
   mount,
   page,
 }) => {
@@ -22,7 +22,7 @@ test("should focus the 'previous' button when 'last' button is pressed and then 
   await expect(previousButton).toBeFocused();
 });
 
-test("should focus the 'previous' button when 'next' is pressed on the penultimate page and then hidden", async ({
+test("should focus the 'previous' button when 'next' is pressed on the penultimate page and then disabled", async ({
   mount,
   page,
 }) => {
@@ -40,7 +40,7 @@ test("should focus the 'previous' button when 'next' is pressed on the penultima
   await expect(previousButton).toBeFocused();
 });
 
-test("should focus the 'next' button when 'previous' is pressed on the second page and then hidden", async ({
+test("should focus the 'next' button when 'previous' is pressed on the second page and then disabled", async ({
   mount,
   page,
 }) => {
@@ -58,7 +58,7 @@ test("should focus the 'next' button when 'previous' is pressed on the second pa
   await expect(nextButton).toBeFocused();
 });
 
-test("should focus the 'next' button when 'first' is pressed and then hidden", async ({
+test("should focus the 'next' button when 'first' is pressed and then disabled", async ({
   mount,
   page,
 }) => {
