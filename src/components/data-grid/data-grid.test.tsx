@@ -149,7 +149,11 @@ test("exposes error and read-only cell state accessibly", () => {
   expect(cell).toHaveAccessibleDescription("Enter a name");
   expect(cell).toHaveStyleRule(
     "background-color",
-    "var(--input-typical-bg-read-only)",
+    "var(--table-row-bg-default)",
+  );
+  expect(cell).toHaveStyleRule(
+    "background-image",
+    "linear-gradient(var(--input-typical-bg-read-only),var(--input-typical-bg-read-only))",
   );
   expect(cell).toHaveStyleRule("color", "var(--input-typical-txt-read-only)");
   expect(cell).toHaveStyleRule(
@@ -459,7 +463,7 @@ test("restores focus after duplicate and delete row operations", async () => {
   await waitFor(() => expect(screen.getAllByRole("gridcell")[2]).toHaveFocus());
 });
 
-test("keeps scrolling cells transparent and raises focused action cells", () => {
+test("uses opaque cells and only makes non-sticky headers transparent", () => {
   const stackingColumns: DataGridColumn<Row>[] = [
     {
       field: "name",
@@ -492,16 +496,27 @@ test("keeps scrolling cells transparent and raises focused action cells", () => 
   expect(headerGroup).toHaveStyleRule("inset-block-start", "auto");
   expect(headerGroup).toHaveStyleRule("z-index", "auto");
   expect(stickyHeader).toHaveStyleRule("position", "sticky");
+  expect(stickyHeader).toHaveStyleRule(
+    "background-color",
+    "var(--table-row-bg-default)",
+  );
   expect(scrollingHeader).toHaveStyleRule("position", "relative");
+  expect(scrollingHeader).toHaveStyleRule(
+    "background-color",
+    "var(--table-header-subtle-bg-default)",
+  );
   expect(stickyCell).toHaveStyleRule(
     "background-color",
-    "var(--data-grid-sticky-cell-bg,var(--table-row-bg-default))",
+    "var(--table-row-bg-default)",
   );
   expect(stickyCell).toHaveStyleRule(
     "background-image",
     "linear-gradient(var(--input-typical-bg-read-only),var(--input-typical-bg-read-only))",
   );
-  expect(scrollingCell).toHaveStyleRule("background-color", "transparent");
+  expect(scrollingCell).toHaveStyleRule(
+    "background-color",
+    "var(--table-row-bg-default)",
+  );
   expect(scrollingCell).toHaveStyleRule(
     "box-shadow",
     "inset 0 0 0 var(--global-borderwidth-s) var(--focus-borderalt)",
@@ -516,6 +531,24 @@ test("keeps scrolling cells transparent and raises focused action cells", () => 
   expect(actionCell).toHaveStyleRule("z-index", "5", {
     modifier:
       ':has([data-element="action-popover-button"][aria-expanded="true"])',
+  });
+});
+
+test("uses an opaque surface for every vertically sticky header", () => {
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={columns}
+      stickyHeader
+    />,
+  );
+
+  screen.getAllByRole("columnheader").forEach((header) => {
+    expect(header).toHaveStyleRule(
+      "background-color",
+      "var(--table-row-bg-default)",
+    );
   });
 });
 

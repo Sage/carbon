@@ -44,6 +44,7 @@ const DataGridHeaderInner = <T extends object>({
               : "left")
           }
           $sticky={column.sticky}
+          $stickyHeader={sticky}
           $stickyOffset={stickyOffsets.get(columnIndex)}
         >
           <span data-element="data-grid-header-label">{column.headerName}</span>
