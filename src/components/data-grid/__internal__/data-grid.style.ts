@@ -112,7 +112,9 @@ export const StyledRow = styled.div<{
     `}
 `;
 
-export const StyledHeader = styled.div<CellLayoutProps>`
+export const StyledHeader = styled.div<
+  CellLayoutProps & { $stickyHeader: boolean }
+>`
   ${stickyCell}
   display: flex;
   align-items: center;
@@ -127,7 +129,10 @@ export const StyledHeader = styled.div<CellLayoutProps>`
   padding: var(--global-space-none) var(--global-space-comp-l);
   position: ${({ $sticky }) => ($sticky ? "sticky" : "relative")};
   z-index: ${({ $sticky }) => ($sticky ? 1 : "auto")};
-  background-color: var(--page-bg-default);
+  background-color: ${({ $sticky, $stickyHeader }) =>
+    $sticky || $stickyHeader
+      ? "var(--table-row-bg-default)"
+      : "var(--table-header-subtle-bg-default)"};
   border-block-end: var(--global-borderwidth-xs) solid
     var(--table-header-subtle-border-default);
   color: var(--table-header-subtle-label-default);
@@ -155,14 +160,9 @@ export const StyledCell = styled.div<
   height: var(--global-size-m);
   padding: 0;
   position: ${({ $sticky }) => ($sticky ? "sticky" : "relative")};
-  background-color: ${({ $readOnly, $sticky }) =>
-    $sticky
-      ? "var(--data-grid-sticky-cell-bg, var(--table-row-bg-default))"
-      : $readOnly
-        ? "var(--input-typical-bg-read-only)"
-        : "transparent"};
-  background-image: ${({ $readOnly, $sticky }) =>
-    $readOnly && $sticky
+  background-color: var(--table-row-bg-default);
+  background-image: ${({ $readOnly }) =>
+    $readOnly
       ? "linear-gradient(var(--input-typical-bg-read-only), var(--input-typical-bg-read-only))"
       : "none"};
   border-block-end: var(--global-borderwidth-xs) solid
@@ -195,12 +195,8 @@ export const StyledCell = styled.div<
   }
 
   &:hover {
-    background-color: ${({ $readOnly, $sticky }) =>
-      $readOnly
-        ? $sticky
-          ? "var(--data-grid-sticky-cell-bg, var(--table-row-bg-default))"
-          : "var(--input-typical-bg-read-only)"
-        : "var(--table-row-bg-alt)"};
+    background-color: ${({ $readOnly }) =>
+      $readOnly ? "var(--table-row-bg-default)" : "var(--table-row-bg-alt)"};
   }
 
   ${({ $hasError }) =>

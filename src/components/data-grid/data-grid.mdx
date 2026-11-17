@@ -144,10 +144,10 @@ Headers scroll with the grid by default.
 
 <Canvas of={DataGridStories.StickyColumns} />
 
-Scrolling cells are transparent. Sticky cells use an opaque background to stop
-scrolling content from showing through. They use `--table-row-bg-default` by
-default. Set `--data-grid-sticky-cell-bg` on a containing element when the grid
-is displayed on a different surface.
+Body cells use the opaque `--table-row-bg-default` surface. Non-sticky headers
+use `--table-header-subtle-bg-default` so they blend into their containing
+surface. Sticky columns and sticky headers use the opaque row surface to stop
+scrolling content from showing through.
 
 ### Validation and error summaries
 
