@@ -1,3 +1,9 @@
+## [163.1.0](https://github.com/Sage/carbon/compare/v163.0.2...v163.1.0) (2026-11-17)
+
+### Features
+
+* **pager:** disable nav buttons instead of hiding them ([3fe01a6](https://github.com/Sage/carbon/commit/3fe01a61cd92ebf5745a239d1c9fcd3bd0dd169e))
+
 ## [163.0.2](https://github.com/Sage/carbon/compare/v163.0.1...v163.0.2) (2026-11-16)
 
 ### Bug Fixes
