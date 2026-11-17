@@ -188,9 +188,9 @@ for (const actionComponent of [
     });
     const menu = page.getByTestId("menu-wrapper");
     const footer = page.locator("tfoot");
-    const pageSizeSelect = page.getByRole("combobox", {
-      name: "Items per page",
-    });
+    const pageSizeControl = page
+      .getByText("Items per page", { exact: true })
+      .locator("..");
     await toggle.click();
 
     const menuCentreX = await menu.evaluate((element) => {
@@ -201,7 +201,7 @@ for (const actionComponent of [
       const bounds = element.getBoundingClientRect();
       return bounds.y + bounds.height / 2;
     });
-    const selectCentre = await pageSizeSelect.evaluate((element) => {
+    const pageSizeControlCentre = await pageSizeControl.evaluate((element) => {
       const bounds = element.getBoundingClientRect();
       return {
         x: bounds.x + bounds.width / 2,
@@ -224,13 +224,15 @@ for (const actionComponent of [
         menu.evaluate(
           (element, point) =>
             element.contains(document.elementFromPoint(point.x, point.y)),
-          selectCentre,
+          pageSizeControlCentre,
         ),
       )
       .toBe(true);
 
     await page.getByRole("button", { name: "Action 4", exact: true }).click();
-    await expect(page.getByRole("status")).toHaveText("Action 4");
+    await expect(
+      page.getByRole("status").filter({ hasText: "Action 4" }),
+    ).toHaveText("Action 4");
     await expect(menu).toBeHidden();
     await expect(toggle).toBeFocused();
 
@@ -292,7 +294,10 @@ for (const stickyColumn of ["first", "last"] as const) {
     ).toBeFocused();
 
     await page.getByRole("button", { name: "Action 4", exact: true }).click();
-    await expect(page.getByRole("status")).toHaveText("Action 4");
+    // The Select's status regions are unrelated to the chosen table action.
+    await expect(
+      page.getByRole("status").filter({ hasText: "Action 4" }),
+    ).toHaveText("Action 4");
     await expect(menu).toBeHidden();
     await expect(toggle).toBeFocused();
 

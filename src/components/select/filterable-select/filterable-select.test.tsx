@@ -3,6 +3,7 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import {
+  ActionOption,
   FilterableSelect,
   Option,
   FilterableSelectProps,
@@ -1653,6 +1654,91 @@ describe("when the user interacts with a child Option", () => {
       }),
     );
   });
+});
+
+test("does not change its value when a callback-backed ActionOption is clicked", async () => {
+  const user = userEvent.setup();
+  const onActionClick = jest.fn();
+  const onChange = jest.fn();
+
+  render(
+    <FilterableSelect
+      label="filterable-select"
+      onChange={onChange}
+      value="amber"
+    >
+      <Option value="amber" text="Amber" />
+      <ActionOption value="add" text="Add a colour" onClick={onActionClick} />
+    </FilterableSelect>,
+  );
+
+  const input = screen.getByRole("combobox");
+  await waitFor(() => expect(input).toHaveValue("Amber"));
+  await user.click(input);
+  await user.click(await screen.findByRole("option", { name: "Add a colour" }));
+
+  expect(onActionClick).toHaveBeenCalledWith("add");
+  expect(onChange).not.toHaveBeenCalled();
+  expect(input).toHaveValue("Amber");
+});
+
+test("focuses and activates a callback-backed ActionOption without changing its controlled value", async () => {
+  const user = userEvent.setup();
+  const onActionClick = jest.fn();
+  const onChange = jest.fn();
+
+  render(
+    <FilterableSelect label="Colours" onChange={onChange} value="amber">
+      <Option id="amber" value="amber" text="Amber" />
+      <ActionOption
+        id="add"
+        value="add"
+        text="Add a colour"
+        onClick={onActionClick}
+      />
+    </FilterableSelect>,
+  );
+
+  const input = screen.getByRole("combobox", { name: "Colours" });
+  await waitFor(() => expect(input).toHaveValue("Amber"));
+  await user.click(input);
+  await user.keyboard("{ArrowDown}");
+
+  expect(input).toHaveAttribute("aria-activedescendant", "add");
+  expect(onChange).not.toHaveBeenCalled();
+
+  await user.keyboard("{Enter}");
+
+  expect(onActionClick).toHaveBeenCalledWith("add");
+  expect(onChange).not.toHaveBeenCalled();
+  expect(input).toHaveValue("Amber");
+});
+
+test("excludes callback-backed ActionOptions from controlled typing matches", async () => {
+  const user = userEvent.setup();
+  const onActionClick = jest.fn();
+  const onChange = jest.fn();
+
+  render(
+    <FilterableSelect label="Colours" onChange={onChange} value="">
+      <ActionOption value="add" text="Add a colour" onClick={onActionClick} />
+      <Option value="address" text="Address" />
+    </FilterableSelect>,
+  );
+
+  await user.type(screen.getByRole("combobox", { name: "Colours" }), "Add");
+
+  expect(onChange).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      target: expect.objectContaining({ value: "address" }),
+    }),
+  );
+  expect(onChange).not.toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: expect.objectContaining({ value: "add" }),
+    }),
+  );
+  expect(onActionClick).not.toHaveBeenCalled();
 });
 
 test("should close the list when the user presses `Escape` key", async () => {
