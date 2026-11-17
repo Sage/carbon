@@ -189,8 +189,6 @@ const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
   `}
 
   > [data-role="note-metadata"] {
-    border-radius: var(--global-radius-action-xs) var(--global-radius-action-xs)
-      var(--global-radius-none) var(--global-radius-none);
     border-top-color: var(--container-standard-border-default);
     border-top-style: solid;
     border-top-width: var(--global-borderwidth-xs);

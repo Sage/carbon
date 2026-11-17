@@ -22,7 +22,7 @@ description: Carbon LoaderNext component props and usage examples.
 | isSuccess | boolean \| undefined | No |  | Enable the success state for the ring loader when it is tracked | false |
 | isTracked | boolean \| undefined | No |  | If set to `true` the animation type will become tracked, this is used specifically for when wait times are predictable | false |
 | loaderLabel | string \| undefined | No |  | Specify a label for the loader |  |
-| loaderType | LOADER_TYPES \| undefined | No |  | The loader type can be specified in order to change the loader | "standalone" |
+| loaderType | LOADER_TYPES \| undefined | No | standalone \| ring \| star | The loader type can be specified in order to change the loader | "standalone" |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
@@ -38,8 +38,8 @@ description: Carbon LoaderNext component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | showLabel | boolean \| undefined | No |  | Specify if the label should be visible or not | true |
-| size | LOADER_SIZES \| undefined | No |  | The size prop allows a specific size to be set ranging from `extra-small` to `large` |  |
-| variant | LOADER_VARIANTS \| undefined | No |  | Toggle between the different Loader variants |  |
+| size | LOADER_SIZES \| undefined | No | small \| medium \| large \| extra-small | The size prop allows a specific size to be set ranging from `extra-small` to `large` |  |
+| variant | LOADER_VARIANTS \| undefined | No | typical \| ai \| stacked \| inline \| ai-stacked \| ai-inline | Toggle between the different Loader variants |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

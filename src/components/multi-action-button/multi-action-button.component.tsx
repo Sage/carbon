@@ -25,8 +25,6 @@ import guid from "../../__internal__/utils/helpers/guid";
 import { PopoverMenu } from "../../__internal__/popover-menu";
 import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import MultiActionButtonContext from "./__internal__/multi-action-button.context";
-import { globalSizeS, globalSizeM, globalSizeL } from "./__internal__/tokens";
-import { MAX_VISIBLE_ITEMS } from "./multi-action-button.config";
 import { TableBodyContext } from "../table/__internal__/contexts";
 
 export interface MultiActionButtonProps
@@ -69,17 +67,6 @@ export type MultiActionButtonHandle = {
   /** Programmatically focus the main button */
   focusMainButton: () => void;
 } | null;
-
-const computeMaxHeight = (size: "small" | "medium" | "large" | undefined) => {
-  switch (size) {
-    case "small":
-      return parseFloat(globalSizeS) * MAX_VISIBLE_ITEMS;
-    case "large":
-      return parseFloat(globalSizeL) * MAX_VISIBLE_ITEMS;
-    default: // "medium"
-      return parseFloat(globalSizeM) * MAX_VISIBLE_ITEMS;
-  }
-};
 
 export const MultiActionButton = forwardRef<
   MultiActionButtonHandle,
@@ -207,11 +194,11 @@ export const MultiActionButton = forwardRef<
               size={size}
               placement={position === "left" ? "bottom-start" : "bottom-end"}
               isButtonMenu
+              disablePortal={!isInTable}
               id={submenuId.current}
               controlReference={buttonNode}
               matchReferenceWidth={fullWidth}
               popoverStrategy="fixed"
-              maxHeight={`${computeMaxHeight(size)}px`}
               width={menuWidth}
               controlWrapperStyle={{
                 width: width ? "100%" : undefined,
@@ -223,7 +210,6 @@ export const MultiActionButton = forwardRef<
                     {...props}
                     className={showAdditionalButtons ? "active" : ""}
                     data-element="toggle-button"
-                    key="toggle-button"
                     ref={combinedRef}
                     iconPosition="after"
                     disabled={disabled}

@@ -10,9 +10,412 @@ import {
   SortableTableComponent,
   StickyHeaderFooterTableComponent,
   StickySelectableTableComponent,
+  StickySplitButtonTableComponent,
+  StickyActionPopoverTableComponent,
   TableComponent,
   ZebraStripedTableComponent,
+  TableMenuFocusComponent,
 } from "./components-test.pw";
+
+for (const menuType of [
+  "split-button",
+  "multi-action-button",
+  "action-popover",
+] as const) {
+  for (const followingControls of ["hidden", "collapsed-subrow"] as const) {
+    test(`Tab skips ${followingControls} controls after a portalled ${menuType}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TableMenuFocusComponent
+          menuType={menuType}
+          followingControls={followingControls}
+        />,
+      );
+      await page
+        .getByRole("button", { name: "Menu actions", exact: true })
+        .click();
+      await expect(
+        page.getByRole("button", { name: "First action", exact: true }),
+      ).toBeFocused();
+      await page.keyboard.press("Tab");
+      await expect(page.getByRole("list")).toHaveCount(0);
+      await expect(
+        page.getByRole("button", { name: "After menu", exact: true }),
+      ).toBeFocused();
+    });
+  }
+
+  for (const key of ["Tab", "Shift+Tab"] as const) {
+    test(`${key} leaves a portalled ${menuType} in the trigger's tab order`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TableMenuFocusComponent menuType={menuType} />);
+      const trigger = page.getByRole("button", {
+        name: "Menu actions",
+        exact: true,
+      });
+      await trigger.click();
+      await expect(
+        page.getByRole("button", { name: "First action", exact: true }),
+      ).toBeFocused();
+      await page.keyboard.press(key);
+      await expect(page.getByRole("list")).toHaveCount(0);
+      await expect(
+        key === "Shift+Tab"
+          ? trigger
+          : page.getByRole("button", { name: "After menu", exact: true }),
+      ).toBeFocused();
+    });
+  }
+}
+
+for (const customTrigger of [false, true]) {
+  test(`Tab wraps within a dialog when its last control opens a portalled submenu (custom trigger=${customTrigger})`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <TableMenuFocusComponent
+        menuType="action-popover"
+        withSubmenu
+        inDialog
+        customTrigger={customTrigger}
+        followingControls="none"
+      />,
+    );
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeFocused();
+    await page
+      .getByRole("button", { name: "Menu actions", exact: true })
+      .click();
+    await page
+      .getByRole("button", { name: /^Last action/ })
+      .press("ArrowRight");
+    await expect(
+      page.getByRole("button", { name: "Nested action", exact: true }),
+    ).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("list")).toHaveCount(0);
+    await expect(dialog.getByRole("button").first()).toBeFocused();
+    await expect(dialog).toBeVisible();
+    await expect(page.getByRole("status")).toHaveText("Closed 1 times");
+  });
+}
+
+test("clicking a portalled parent menu's divider closes only its submenu", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <TableMenuFocusComponent menuType="action-popover" withSubmenu />,
+  );
+  const trigger = page.getByRole("button", {
+    name: "Menu actions",
+    exact: true,
+  });
+  await trigger.click();
+  await page.getByRole("button", { name: /^Last action/ }).press("ArrowRight");
+  const nested = page.getByRole("button", {
+    name: "Nested action",
+    exact: true,
+  });
+  await expect(nested).toBeFocused();
+  await page.getByRole("separator", { includeHidden: true }).click();
+  await expect(nested).toBeHidden();
+  await expect(page.getByRole("list")).toHaveCount(1);
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByRole("status")).toHaveText("Closed 0 times");
+  await page.getByRole("button", { name: "Before table", exact: true }).click();
+  await expect(page.getByRole("list")).toHaveCount(0);
+  await expect(page.getByRole("status")).toHaveText("Closed 1 times");
+});
+
+for (const key of ["Tab", "Shift+Tab"] as const) {
+  for (const customTrigger of [false, true]) {
+    test(`${key} leaves a portalled submenu in a dialog with custom trigger=${customTrigger}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TableMenuFocusComponent
+          menuType="action-popover"
+          withSubmenu
+          inDialog
+          customTrigger={customTrigger}
+        />,
+      );
+      await expect(page.getByRole("dialog")).toBeFocused();
+      const trigger = page.getByRole("button", {
+        name: "Menu actions",
+        exact: true,
+      });
+      await trigger.click();
+      await page.getByRole("button", { name: /^Last action/ }).click();
+      await expect(
+        page.getByRole("button", { name: "Nested action", exact: true }),
+      ).toBeFocused();
+      await page.keyboard.press(key);
+      await expect(page.getByRole("list")).toHaveCount(0);
+      await expect(
+        key === "Shift+Tab"
+          ? trigger
+          : page.getByRole("button", { name: "After menu", exact: true }),
+      ).toBeFocused();
+      await expect(page.getByRole("dialog")).toBeVisible();
+      await expect(page.getByRole("status")).toHaveText("Closed 1 times");
+    });
+  }
+}
+
+for (const actionComponent of [
+  "action-popover",
+  "multi-action-button",
+] as const) {
+  test(`keeps a sticky cell's ${actionComponent} above the footer and pager page-size select`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <StickyActionPopoverTableComponent actionComponent={actionComponent} />,
+    );
+
+    const toggle = page.getByRole("button", {
+      name: "Product 1 actions",
+      exact: true,
+    });
+    const menu = page.getByTestId("menu-wrapper");
+    const footer = page.locator("tfoot");
+    const pageSizeSelect = page.getByRole("combobox", {
+      name: "Items per page",
+    });
+    await toggle.click();
+
+    const menuCentreX = await menu.evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      return bounds.x + bounds.width / 2;
+    });
+    const footerCentreY = await footer.evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      return bounds.y + bounds.height / 2;
+    });
+    const selectCentre = await pageSizeSelect.evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      return {
+        x: bounds.x + bounds.width / 2,
+        y: bounds.y + bounds.height / 2,
+      };
+    });
+
+    // Hit-test the overlap: visibility alone does not detect covered menus.
+    await expect
+      .poll(() =>
+        menu.evaluate(
+          (element, point) =>
+            element.contains(document.elementFromPoint(point.x, point.y)),
+          { x: menuCentreX, y: footerCentreY },
+        ),
+      )
+      .toBe(true);
+    await expect
+      .poll(() =>
+        menu.evaluate(
+          (element, point) =>
+            element.contains(document.elementFromPoint(point.x, point.y)),
+          selectCentre,
+        ),
+      )
+      .toBe(true);
+
+    await page.getByRole("button", { name: "Action 4", exact: true }).click();
+    await expect(page.getByRole("status")).toHaveText("Action 4");
+    await expect(menu).toBeHidden();
+    await expect(toggle).toBeFocused();
+
+    await toggle.click();
+    await page
+      .getByRole("button", { name: "Action 1", exact: true })
+      .press("Escape");
+    await expect(menu).toBeHidden();
+    await expect(toggle).toBeFocused();
+  });
+}
+
+test("keeps a SplitButton menu above subsequent sticky cells", async ({
+  mount,
+  page,
+}) => {
+  await mount(<StickySplitButtonTableComponent />);
+
+  const toggle = page.getByRole("button", {
+    name: "Actions for product 1",
+    exact: true,
+  });
+  await toggle.click();
+
+  const action = page.getByRole("button", {
+    name: "Save and close",
+    exact: true,
+  });
+  await expect(action).toBeVisible();
+  // A visible element can still be covered by the next row's sticky cell.
+  await action.click();
+  await expect(action).toBeHidden();
+  await expect(toggle).toBeFocused();
+});
+
+for (const stickyColumn of ["first", "last"] as const) {
+  test(`portals a ${stickyColumn} sticky column's MultiActionButton menu and preserves keyboard and click interactions`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <StickyActionPopoverTableComponent
+        actionComponent="multi-action-button"
+        stickyColumn={stickyColumn}
+      />,
+    );
+
+    const toggle = page.getByRole("button", {
+      name: "Product 1 actions",
+      exact: true,
+    });
+    const menu = page.getByTestId("menu-wrapper");
+    const first = page.getByRole("button", { name: "Action 1", exact: true });
+    await toggle.click();
+    await expect(first).toBeFocused();
+    await first.press("ArrowDown");
+    await expect(
+      page.getByRole("button", { name: "Action 2", exact: true }),
+    ).toBeFocused();
+
+    await page.getByRole("button", { name: "Action 4", exact: true }).click();
+    await expect(page.getByRole("status")).toHaveText("Action 4");
+    await expect(menu).toBeHidden();
+    await expect(toggle).toBeFocused();
+
+    await toggle.click();
+    await first.press("Escape");
+    await expect(menu).toBeHidden();
+    await expect(toggle).toBeFocused();
+
+    await toggle.click();
+    await page.mouse.click(800, 300);
+    await expect(menu).toBeHidden();
+  });
+
+  test(`allows a ${stickyColumn} sticky column's menu to extend outside table overflow`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <StickySplitButtonTableComponent
+        stickyColumn={stickyColumn}
+        stickyRow="both"
+        maxHeight="120px"
+      />,
+    );
+
+    const toggle = page.getByRole("button", {
+      name: "Actions for product 1",
+      exact: true,
+    });
+    const action = page.getByRole("button", { name: "Save and add another" });
+    const scrollContainer = page.locator(
+      '[data-element="table-scroll-container"]',
+    );
+
+    await toggle.click();
+    // Keyboard focus starts on the first menu item.
+    await page
+      .getByRole("button", { name: "Save and close", exact: true })
+      .press("ArrowDown");
+    await expect(action).toBeFocused();
+
+    const containerBottom = await scrollContainer.evaluate(
+      (element) => element.getBoundingClientRect().bottom,
+    );
+    const actionCentre = await action.evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      return bounds.y + bounds.height / 2;
+    });
+    expect(actionCentre).toBeGreaterThan(containerBottom);
+    await action.click();
+    await expect(action).toBeHidden();
+    await expect(toggle).toBeFocused();
+
+    await toggle.click();
+    await page
+      .getByRole("button", { name: "Save and close", exact: true })
+      .press("Escape");
+    await expect(action).toBeHidden();
+    await expect(toggle).toBeFocused();
+
+    await toggle.click();
+    await page.mouse.click(800, 300);
+    await expect(action).toBeHidden();
+  });
+
+  for (const stickyRow of ["header", "footer"] as const) {
+    test(`keeps an open menu's ${stickyColumn} sticky cell beneath the sticky ${stickyRow}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <StickySplitButtonTableComponent
+          stickyColumn={stickyColumn}
+          stickyRow="both"
+          maxHeight="260px"
+        />,
+      );
+
+      const toggle = page.getByRole("button", {
+        name: "Actions for product 6",
+      });
+      await toggle.click();
+
+      const pinnedRow = page.locator(
+        stickyRow === "header" ? "thead" : "tfoot",
+      );
+      const scrollContainer = page.locator(
+        '[data-element="table-scroll-container"]',
+      );
+      const toggleCentre = await toggle.evaluate((element) => {
+        const bounds = element.getBoundingClientRect();
+        return bounds.y + bounds.height / 2;
+      });
+      const rowCentre = await pinnedRow.evaluate((element) => {
+        const bounds = element.getBoundingClientRect();
+        return bounds.y + bounds.height / 2;
+      });
+
+      // Scroll the trigger's centre underneath the pinned row's centre.
+      await scrollContainer.evaluate((element, delta) => {
+        element.scrollTop += delta;
+      }, toggleCentre - rowCentre);
+
+      await expect(toggle).toHaveAttribute("aria-expanded", "true");
+      await expect
+        .poll(async () => {
+          const point = await toggle.evaluate((element) => {
+            const bounds = element.getBoundingClientRect();
+            return {
+              x: bounds.x + bounds.width / 2,
+              y: bounds.y + bounds.height / 2,
+            };
+          });
+          return pinnedRow.evaluate(
+            (row, point) =>
+              row.contains(document.elementFromPoint(point.x, point.y)),
+            point,
+          );
+        })
+        .toBe(true);
+    });
+  }
+}
 
 test("scrolls focused body controls clear of sticky headers and footers", async ({
   mount,

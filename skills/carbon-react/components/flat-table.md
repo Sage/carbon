@@ -19,9 +19,9 @@ description: Carbon FlatTable component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | FlatTableHead and FlatTableBody |  |
 | ariaDescribedby | string \| undefined | No |  | The HTML id of the element that contains a description of this table. |  |
-| bottomBorderRadius | "borderRadius100" \| "borderRadius200" \| "borderRadius400" \| "borderRadius000" \| "borderRadius010" \| "borderRadius025" \| "borderRadius050" \| undefined | No |  | Sets the border radius of the first and last cells in the last row. | "borderRadius100" |
+| bottomBorderRadius | "borderRadius100" \| "borderRadius200" \| "borderRadius400" \| "borderRadius000" \| "borderRadius010" \| "borderRadius025" \| "borderRadius050" \| undefined | No | borderRadius100 \| borderRadius200 \| borderRadius400 \| borderRadius000 \| borderRadius010 \| borderRadius025 \| borderRadius050 | Sets the border radius of the first and last cells in the last row. | "borderRadius100" |
 | caption | string \| undefined | No |  | A string to render as the table's caption |  |
-| colorTheme | "dark" \| "light" \| "transparent-base" \| "transparent-white" \| undefined | No |  | `FlatTable` color theme | "dark" |
+| colorTheme | "dark" \| "light" \| "transparent-base" \| "transparent-white" \| undefined | No | dark \| light \| transparent-base \| transparent-white | `FlatTable` color theme | "dark" |
 | footer | React.ReactNode | No |  | Content to be rendered at the foot of the table |  |
 | hasMaxHeight | boolean \| undefined | No |  | Applies max-height of 100% to FlatTable if true | false |
 | hasOuterVerticalBorders | boolean \| undefined | No |  | Toggles the visibility of the table's outer left and right borders. When false, the left border of the first column and the right border of the last column are hidden. | true |
@@ -45,7 +45,7 @@ description: Carbon FlatTable component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | overflowX | string \| undefined | No |  | Set the overflow X of the table wrapper. Any valid CSS string |  |
-| size | "small" \| "medium" \| "large" \| "compact" \| "extraLarge" \| undefined | No |  | Used to define the tables size Renders as: 'compact', 'small', 'medium', 'large' and 'extraLarge' | "medium" |
+| size | "small" \| "medium" \| "large" \| "compact" \| "extraLarge" \| undefined | No | small \| medium \| large \| compact \| extraLarge | Used to define the tables size Renders as: 'compact', 'small', 'medium', 'large' and 'extraLarge' | "medium" |
 | title | string \| undefined | No |  | The title to describe the table when one or more tables are used on a single page |  |
 | width | string \| undefined | No |  | Width of the table. Any valid CSS string |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

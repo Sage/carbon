@@ -15,7 +15,7 @@ description: Carbon FlatTableHeader component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| align | TableCellAlign \| undefined | No |  | Content alignment | "left" |
+| align | TableCellAlign \| undefined | No | left \| right \| center | Content alignment | "left" |
 | alternativeBgColor | boolean \| undefined | No |  | If true sets alternative background color |  |
 | children | React.ReactNode | No |  | Header content |  |
 | colspan | string \| number \| undefined | No |  | Number of columns that a header cell should span |  |
@@ -35,7 +35,7 @@ description: Carbon FlatTableHeader component props and usage examples.
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | rowspan | string \| number \| undefined | No |  | Number of rows that a header cell should span |  |
-| verticalBorder | TableBorderSize \| undefined | No |  | Sets a custom vertical right border |  |
+| verticalBorder | TableBorderSize \| undefined | No | small \| medium \| large | Sets a custom vertical right border |  |
 | verticalBorderColor | string \| undefined | No |  | Sets the color of the right border |  |
 | width | number \| undefined | No |  | Column width, pass a number to set a fixed width in pixels |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

@@ -49,7 +49,7 @@ description: Carbon DateRange component props and usage examples.
 | startLabel | string \| undefined | No |  |  |  | Optional label for startDate field |  |
 | startRef | React.ForwardedRef<HTMLInputElement> \| undefined | No |  |  |  | A React ref to pass to the first of the two Date Input fields |  |
 | startWarning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred on start date. Pass string to display icon, tooltip and orange border. Pass true boolean to only display orange border. |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  |  |  | [Legacy] Overrides the default tooltip position |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top |  |  | [Legacy] Overrides the default tooltip position |  |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Date inputs when validationRedesignOptIn flag is set | true |
 | validationOnLabel | boolean \| undefined | No |  |  |  | [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

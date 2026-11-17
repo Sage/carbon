@@ -22,7 +22,7 @@ description: Carbon PicklistItem component props and usage examples.
 | onChange | (item: Item) => void | Yes |  | Handler invoked when add/remove button is clicked or when space/enter is pressed on the whole item |  |
 | type | "add" \| "remove" | Yes | add \| remove | Define if item is of type add or remove |  |
 | locked | boolean \| undefined | No |  | Disable the item |  |
-| tooltipMessage | string \| undefined | No |  | Tooltip message for the locked icon (only present when locked prop is true) |  |
+| tooltipMessage | string \| undefined | No |  | Tooltip message for the locked icon (only present when locked prop is true) | "This item is locked and can not be moved" |
 
 ## Examples
 ### Default

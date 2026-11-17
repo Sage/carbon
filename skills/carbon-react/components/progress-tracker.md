@@ -18,7 +18,7 @@ description: Carbon ProgressTracker component props and usage examples.
 | currentProgressLabel | string \| undefined | No |  |  |  | Value to display as current progress. |  |
 | customValuePreposition | string \| undefined | No |  |  |  | Value of the preposition defined between Value1 and Value2 on the label. |  |
 | description | string \| undefined | No |  |  |  | Value to add a description to the label |  |
-| labelsPosition | "left" \| "bottom" \| "top" \| undefined | No |  |  |  | The position the value label are rendered in. | "top" |
+| labelsPosition | "left" \| "bottom" \| "top" \| undefined | No | left \| bottom \| top |  |  | The position the value label are rendered in. | "top" |
 | labelWidth | string \| undefined | No |  |  |  | Label width when position is "left" |  |
 | length | string \| undefined | No |  |  |  | Length of the component, any valid css string. | "256px" |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -37,8 +37,8 @@ description: Carbon ProgressTracker component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | progress | number \| undefined | No |  |  |  | Current progress (percentage). | 0 |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the progress bar. | "medium" |
-| variant | TrackerVariants \| undefined | No |  |  |  | Variant of the progress bar | "neutral" |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Size of the progress bar. | "medium" |
+| variant | TrackerVariants \| undefined | No | error \| warning \| success \| neutral \| information |  |  | Variant of the progress bar | "neutral" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | error | boolean \| undefined | No |  | Yes | Please use variant="error" instead. | Flag to control error state. |  |

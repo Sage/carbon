@@ -4,7 +4,7 @@ import { expect, test } from "../../../playwright/helpers/base-test";
 import {
   AnchorNavigationComponent,
   InFullScreenDialog,
-} from "../anchor-navigation/components.test-pw";
+} from "./components.test-pw";
 
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { DIALOG_FULL_SCREEN } from "../../../playwright/components/dialog/locators";
@@ -89,4 +89,31 @@ test("uses the responsive sticky offset", async ({ mount, page }) => {
   await page.setViewportSize({ width: 600, height: 768 });
 
   await expect.poll(getTop).toBeGreaterThan(narrowTop);
+});
+
+test("selects an item and focuses its section heading on click and Enter", async ({
+  mount,
+  page,
+}) => {
+  await mount(<AnchorNavigationComponent />);
+
+  const secondItem = page.getByRole("link", { name: "Second" });
+  await secondItem.click();
+
+  await expect(
+    page.getByRole("heading", { name: "Second section" }),
+  ).toBeFocused();
+  await expect(secondItem).toHaveAttribute("aria-current", "location");
+
+  const thirdItem = page.getByRole("link", { name: "Third" });
+  await thirdItem.focus();
+  await page.keyboard.press("Enter");
+
+  await expect(
+    page.getByRole("heading", { name: "Third section" }),
+  ).toBeFocused();
+  await expect(thirdItem).toHaveAttribute("aria-current", "location");
+  await expect(secondItem).not.toHaveAttribute("aria-current");
+
+  await checkAccessibility(page);
 });
