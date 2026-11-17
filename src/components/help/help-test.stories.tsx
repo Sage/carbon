@@ -6,7 +6,7 @@ import { ICONS } from "../icon/icon-config";
 import { Help } from "./help.component";
 
 export default {
-  title: "Help/Test",
+  title: "Deprecated/Help/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
