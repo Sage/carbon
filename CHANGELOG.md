@@ -1,3 +1,27 @@
+## [163.2.0](https://github.com/Sage/carbon/compare/v163.1.0...v163.2.0) (2026-11-17)
+
+### Features
+
+* **simple-select:** align component with fusion DS ([84a599c](https://github.com/Sage/carbon/commit/84a599cfcbed21dd99ad6bc99744d2de0191b1bd))
+
+## [163.1.0](https://github.com/Sage/carbon/compare/v163.0.2...v163.1.0) (2026-11-17)
+
+### Features
+
+* **pager:** disable nav buttons instead of hiding them ([3fe01a6](https://github.com/Sage/carbon/commit/3fe01a61cd92ebf5745a239d1c9fcd3bd0dd169e))
+
+## [163.0.2](https://github.com/Sage/carbon/compare/v163.0.1...v163.0.2) (2026-11-16)
+
+### Bug Fixes
+
+* **note:** remove curved edges from divider ([291478d](https://github.com/Sage/carbon/commit/291478d16bc4cf914b533f4d8a5a4d647fb37b49))
+
+## [163.0.1](https://github.com/Sage/carbon/compare/v163.0.0...v163.0.1) (2026-11-16)
+
+### Bug Fixes
+
+* **table:** ensure that popover menus stack correctly in sticky columns ([b777206](https://github.com/Sage/carbon/commit/b7772062c8fcb34be77a8b7b118b710210a4d2d4)), closes [#8279](https://github.com/Sage/carbon/issues/8279)
+
 ## [163.0.0](https://github.com/Sage/carbon/compare/v162.25.0...v163.0.0) (2026-11-16)
 
 ### ⚠ BREAKING CHANGES

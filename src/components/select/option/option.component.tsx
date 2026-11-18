@@ -14,7 +14,7 @@ type OptionData = {
 export interface OptionProps
   extends Omit<
       React.InputHTMLAttributes<HTMLLIElement>,
-      "value" | "onSelect" | "onClick"
+      "value" | "onSelect" | "onClick" | "inert"
     >,
     TagProps {
   /**
@@ -39,6 +39,18 @@ export interface OptionProps
   fill?: boolean;
   /** If true, the component will be disabled */
   disabled?: boolean;
+  /** Content rendered before the option's label within the new `SelectList`, e.g. an icon or portrait. */
+  leading?: React.ReactNode;
+  /** Prefix text shown before the option's label within the new `SelectList`. */
+  prefix?: string;
+  /** Subtext shown below the option's label within the new `SelectList`. */
+  subtext?: React.ReactNode;
+  /** When true, renders a divider after the option within the new `SelectList`. */
+  divider?: boolean;
+  /**
+   * @deprecated `inert` has been deprecated.
+   */
+  inert?: React.HTMLAttributes<HTMLLIElement>["inert"];
   /**
    * @private
    * @ignore
@@ -80,6 +92,10 @@ const Option = React.forwardRef(
       variant: _variant,
       borderColor: _borderColor,
       fill: _fill,
+      leading: _leading,
+      prefix: _prefix,
+      subtext: _subtext,
+      divider: _divider,
       ...restForLi
     } = rest;
 

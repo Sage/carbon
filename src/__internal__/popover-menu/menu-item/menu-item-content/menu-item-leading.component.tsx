@@ -30,10 +30,12 @@ const MenuItemLeading = ({
           data-role="selected-icon-wrapper"
           $hasIcon={selectedIcon}
         >
-          <Icon
+{/* Selection is exposed via aria-selected on the option, so the tick is decorative. */}
+        <Icon
             type="tick_thick"
             data-role="selected-icon"
             size={size === "small" ? "extra-small" : "small"}
+            aria-hidden
           />
         </StyledSelectedIconWrapper>
       )}

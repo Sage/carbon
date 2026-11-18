@@ -10,13 +10,13 @@ import {
 import guid from "../../utils/helpers/guid";
 import Icon from "../../../components/icon";
 import { buttonMenuItemQuerySelector } from "../utils";
+import combineRefs from "../../utils/helpers/combine-refs";
+import MenuOptionItem, {
+  type MenuOptionItemProps,
+} from "./menu-option-item.component";
+import { menuItemLayout } from "./menu-item-layout.style";
 
-export interface MenuItemProps {
-  children: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  selected?: boolean;
-  disabled?: boolean;
-  id?: string;
+export interface MenuItemProps extends MenuOptionItemProps {
   submenu?: React.ReactNode;
   submenuWidth?: string;
   submenuOpen?: boolean;
@@ -35,166 +35,44 @@ interface SubmenuControlProps extends PopoverControlProps {
 }
 
 const StyledMenuItem = styled.li<StyledMenuItemProps>`
-  width: 100%;
-  position: relative;
-  box-sizing: border-box;
+  ${menuItemLayout}
 
   & > [data-element="submenu-parent"] > [data-role="button-child-container"] {
     flex: 1;
   }
 
-  &:not(:has(button)):not(:has(a)) {
-    ${({ $disabled }) =>
-      $disabled
-        ? `
+  &:focus {
+    outline: none;
+  }
+
+  ${({ $disabled }) =>
+    $disabled
+      ? css`
           * {
-          color: var(--input-dropdown-label-disabled);
+            color: var(--popover-label-disabled);
+          }
+          & > button,
+          & > a {
+            background-color: transparent;
           }
           cursor: not-allowed;
         `
-        : `
-          color: var(--input-dropdown-label-alt);
+      : css`
           cursor: pointer;
+          color: var(--popover-label-default);
 
-          :hover {
-            * {
-              color: var(--input-dropdown-label-hover);
-            }
-            background-color: var(--input-dropdown-bg-hover);
+          & > button:active,
+          & > a:active {
+            background-color: var(--popover-bg-active);
+            color: var(--popover-label-active);
           }
-      `}
 
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    column-gap: var(--global-space-comp-xs);
-
-    &:not(:has(.menu-item-leading)) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  ${({ $disabled, $isButtonMenu }) =>
-    $disabled
-      ? `
-        * {
-          color: var(--${$isButtonMenu ? "popover-label-disabled" : "input-dropdown-label-disabled"});
-        }
-
-        & > button, & > a {
-          background-color: transparent;
-        }
-        cursor: not-allowed;
-      `
-      : `
-        cursor: pointer;
-
-        ${
-          $isButtonMenu
-            ? `
-              color: var(--popover-label-default);
-
-              & > button:active,
-              & > a:active {
-                background-color: var(--popover-bg-active);
-                color: var(--popover-label-active);
-              }
-
-              & > button:not(:active):hover,
-              & > a:not(:active):hover {
-                color: var(--popover-label-hover);
-                background-color: var(--popover-bg-hover);
-              }
-            `
-            : `
-              color: var(--input-dropdown-label-alt);
-
-              &:not(:active):hover {
-                * {
-                  color: var(--input-dropdown-label-hover);
-                }
-                background-color: var(--popover-bg-hover);
-              }
-            `
-        }
-  `}
-
-  ${({ $isButtonMenu }) => css`
-    ${$isButtonMenu
-      ? `
-        &:focus {
-          outline: none;
-        }
-      `
-      : `
-        &[data-has-focus="true"] {
-          outline: var(--focus-borderalt) solid var(--global-borderwidth-s);
-          outline-offset: calc(var(--global-borderwidth-s) * -1);
-        }
-    `}
-  `}
-
-  ${({ $size, $isButtonMenu }) => css`
-    ${$size === "small" &&
-    `
-      &:not(:has(button)):not(:has(a)) {
-        padding: var(--global-space-comp-xs) 0;
-
-        &:not(:has(.menu-item-subtext)) {
-          min-height: var(--global-size-s);
-        }
-      }
-
-      button, a {
-        width: 100%;
-        padding: var(--global-space-comp-xs) var(--global-space-comp-m) var(--global-space-comp-xs) var(--global-space-comp-m);
-      }
-
-      *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
-        font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-s);
-      }
-    `}
-
-    ${$size === "medium" &&
-    `
-      &:not(:has(button)):not(:has(a)) {
-        padding: var(--global-space-comp-s) 0;
-
-        &:not(:has(.menu-item-subtext)) {
-          min-height: var(--global-size-m);
-        }
-      }
-
-      button, a {
-        width: 100%;
-        padding: var(--global-space-comp-s) var(--global-space-comp-m) var(--global-space-comp-s) var(--global-space-comp-m);
-      }
-
-      *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
-        font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-m);
-      }
-    `}
-  
-    ${$size === "large" &&
-    `
-      &:not(:has(button)):not(:has(a)) {
-        padding: var(--global-space-comp-m) 0;
-
-        &:not(:has(.menu-item-subtext)) {
-          min-height: var(--global-size-l);
-        }
-      }
-      
-      button, a {
-        width: 100%;
-        padding: var(--global-space-comp-m) var(--global-space-comp-m) var(--global-space-comp-m) var(--global-space-comp-m);
-      }
-
-      *:not(.menu-item-subtext):not(.menu-item-label-prefix) {
-        font: var(--global-font-static-comp-${$isButtonMenu ? "medium" : "regular"}-l);
-      }
-    `}
-  `}
+          & > button:not(:active):hover,
+          & > a:not(:active):hover {
+            color: var(--popover-label-hover);
+            background-color: var(--popover-bg-hover);
+          }
+        `}
 `;
 
 const SubmenuParentWrapper = styled.div`
@@ -262,7 +140,7 @@ const focusFirstSubmenuItem = (
   firstSubmenuItem?.focus();
 };
 
-const MenuItem = ({
+const ButtonMenuItem = ({
   children,
   onClick,
   selected,
@@ -273,9 +151,12 @@ const MenuItem = ({
   onSubmenuClose,
   submenuWidth,
   id,
+  measureElement,
+  "aria-describedby": ariaDescribedBy,
   ...rest
 }: MenuItemProps) => {
   const ref = useRef<HTMLLIElement | null>(null);
+  const combinedRef = combineRefs(ref, measureElement);
   const {
     size,
     isButtonMenu,
@@ -295,6 +176,9 @@ const MenuItem = ({
   const submenuRef = useRef<HTMLUListElement | null>(null);
   const context = useContext(MenuHeadingContext);
   const headingId = context?.headingId;
+  const resolvedAriaDescribedBy = [ariaDescribedBy, headingId]
+    .filter(Boolean)
+    .join(" ");
   const itemId = useRef(id ?? `popover-menu-item-${guid()}`).current;
 
   const handleKeydown = useCallback(
@@ -366,7 +250,7 @@ const MenuItem = ({
       control: (controlProps: PopoverControlProps) => {
         return (
           <StyledMenuItem
-            ref={ref}
+            ref={combinedRef}
             id={itemId}
             data-component="popover-menu-item"
             className={`popover-menu-item${isDisabled ? "-disabled" : ""}`}
@@ -389,7 +273,7 @@ const MenuItem = ({
 
   return (
     <StyledMenuItem
-      ref={ref}
+      ref={combinedRef}
       id={itemId}
       data-component={`popover-${isSubmenu ? "submenu" : "menu"}-item`}
       className={`popover-menu-item${isDisabled ? "-disabled" : ""}`}
@@ -397,19 +281,33 @@ const MenuItem = ({
       onClick={!isDisabled ? onClick : undefined}
       onMouseDown={!isDisabled ? (ev) => ev.preventDefault() : undefined}
       onKeyDown={handleSubmenuClose}
-      role={isButtonMenu ? undefined : "option"}
-      aria-selected={!isButtonMenu ? selected && !isDisabled : undefined}
-      aria-disabled={!isButtonMenu ? isDisabled : undefined}
       $disabled={isDisabled}
       $isButtonMenu={isButtonMenu}
       {...rest}
-      aria-describedby={headingId}
+      aria-describedby={resolvedAriaDescribedBy || undefined}
     >
       <MenuItemContext.Provider value={{ isDisabled: !!isDisabled }}>
         {children}
       </MenuItemContext.Provider>
     </StyledMenuItem>
   );
+};
+
+const MenuItem = (props: MenuItemProps) => {
+  const { isButtonMenu } = useContext(PopoverMenuContext);
+
+  if (isButtonMenu) return <ButtonMenuItem {...props} />;
+
+  const {
+    submenu,
+    submenuWidth,
+    submenuOpen,
+    onSubmenuOpen,
+    onSubmenuClose,
+    ...optionProps
+  } = props;
+
+  return <MenuOptionItem {...optionProps} />;
 };
 
 MenuItem.displayName = "PopoverMenuItem";

@@ -124,21 +124,22 @@ test("displays the vertical ellipsis icon as the menu button", () => {
   );
 });
 
-test("allows menus to size to their content rather than the trigger width", () => {
+test("keeps menu item labels full-width and start-aligned", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <ActionPopover data-role="action-popover-wrapper">
       <ActionPopoverItem>example item</ActionPopoverItem>
     </ActionPopover>,
   );
 
-  expect(screen.getByTestId("action-popover-wrapper")).toHaveStyleRule(
-    "width",
-    "100%",
-    {
-      modifier:
-        '& [data-component="popover-menu-item"] [data-role="button-child-container"]',
-    },
-  );
+  await user.click(screen.getByRole("button"));
+  const item = screen.getByRole("button", { name: "example item" });
+  expect(item).toHaveStyleRule("width", "100%", {
+    modifier: '& [data-role="button-child-container"]',
+  });
+  expect(item).toHaveStyleRule("justify-content", "start", {
+    modifier: '& [data-role="button-child-container"]',
+  });
 });
 
 test.each([
@@ -875,7 +876,7 @@ test.each([
 );
 
 test.each([false, true])(
-  "closing with Tab only restores focus programmatically without Shift (shift=%s)",
+  "closing with Tab restores trigger focus once before native navigation (shift=%s)",
   async (shiftKey) => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     const onClose = jest.fn();
@@ -901,8 +902,8 @@ test.each([false, true])(
       expect(screen.queryByRole("list")).not.toBeInTheDocument();
       expect(onClose).toHaveBeenCalledTimes(1);
 
-      expect(focusSpy.mock.calls).toEqual(shiftKey ? [] : [[]]);
-      expect(shiftKey ? document.body : control).toHaveFocus();
+      expect(focusSpy).toHaveBeenCalledTimes(1);
+      expect(control).toHaveFocus();
     } finally {
       focusSpy.mockRestore();
     }
@@ -1709,7 +1710,7 @@ test("a menu item's leading icon is hidden from assistive technologies", async (
   expect(itemIcon).toHaveAttribute("aria-hidden", "true");
 });
 
-test("renders backdrop when opened inside Table", async () => {
+test("renders a table's menu outside the table without a backdrop", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -1728,6 +1729,9 @@ test("renders backdrop when opened inside Table", async () => {
 
   await user.click(screen.getByRole("button"));
 
+  expect(screen.getByRole("table")).not.toContainElement(
+    screen.getByRole("button", { name: "example item" }),
+  );
   expect(screen.queryByTestId("popup-backdrop")).not.toBeInTheDocument();
 });
 
