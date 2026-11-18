@@ -11,6 +11,11 @@ const enCA: Partial<Locale> = {
       nextMonthButton: () => "Next month",
     },
   },
+  popoverContainer: {
+    openButton: {
+      text: () => "Actions",
+    },
+  },
 };
 
 export default enCA;

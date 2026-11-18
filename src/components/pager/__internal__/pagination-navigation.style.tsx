@@ -27,12 +27,6 @@ export const StyledPaginationNavigation = styled.div<StyledPaginationNavigationP
   `}
 `;
 
-export const StyledButtonWrapper = styled.div<{ $visible?: boolean }>`
-  ${({ $visible }) => css`
-    visibility: ${$visible ? "visible" : "hidden"};
-  `}
-`;
-
 export const StyledCurrentPageContainer = styled.div`
   display: flex;
   align-items: center;

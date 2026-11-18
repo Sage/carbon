@@ -23,22 +23,22 @@ Navigates between pages of records and can expose page-size and total-record con
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | onPagination | (currentPage: number, pageSize: number, origin: string) => void | Yes |  |  |  | Function called when pager changes (Current page, Page size, Origin component). |  |
-| alignment | PagerAlignment \| undefined | No |  |  |  | Alignment of the content when rendered in a single row layout. Will only be applied if `showTotalRecords` and/or `showPageSizeSelection` are true. |  |
-| currentPage | string \| number \| undefined | No |  |  |  | Current visible page. |  |
-| interactivePageNumber | boolean \| undefined | No |  |  |  | Flag to set if the current page number renders as an input. |  |
-| layout | PagerLayout \| undefined | No |  |  |  | Maximum number of lines used to render the component. |  |
+| alignment | PagerAlignment \| undefined | No | fill \| centred |  |  | Alignment of the content when rendered in a single row layout. Will only be applied if `showTotalRecords` and/or `showPageSizeSelection` are true. | "fill" |
+| currentPage | string \| number \| undefined | No |  |  |  | Current visible page. | 1 |
+| interactivePageNumber | boolean \| undefined | No |  |  |  | Flag to set if the current page number renders as an input. | true |
+| layout | PagerLayout \| undefined | No | single \| two-row \| three-row |  |  | Maximum number of lines used to render the component. | "single" |
 | onFirst | ((ev: React.MouseEvent<HTMLButtonElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback function for the First button. |  |
 | onLast | ((ev: React.MouseEvent<HTMLButtonElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback function for the Last button. |  |
 | onNext | ((ev: React.MouseEvent<HTMLButtonElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback function for the Next button. |  |
 | onPrevious | ((ev: React.MouseEvent<HTMLButtonElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback function for the Previous button. |  |
-| pageSize | string \| number \| undefined | No |  |  |  | Number of records per page. |  |
-| pageSizeSelectionOptions | PageSizeOption[] \| undefined | No |  |  |  | List of page size options. |  |
-| showFirstAndLastButtons | boolean \| undefined | No |  |  |  | Flag to render "First" and "Last" navigation buttons. |  |
-| showPageSizeSelection | boolean \| undefined | No |  |  |  | Flag to render the page size selection input. |  |
-| showTotalRecords | boolean \| undefined | No |  |  |  | Should the total records label be shown. |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the component. **Deprecation:** The "large" size is no longer supported. |  |
-| totalRecords | string \| number \| undefined | No |  |  |  | Total number of records, used to calculate the total number of pages. |  |
-| variant | "default" \| "alternate" \| undefined | No |  |  |  | The component's variant. |  |
+| pageSize | string \| number \| undefined | No |  |  |  | Number of records per page. | 10 |
+| pageSizeSelectionOptions | PageSizeOption[] \| undefined | No |  |  |  | List of page size options. | [ { id: "10", name: 10 }, { id: "25", name: 25 }, { id: "50", name: 50 }, { id: "100", name: 100 }, ] |
+| showFirstAndLastButtons | boolean \| undefined | No |  |  |  | Flag to render "First" and "Last" navigation buttons. | true |
+| showPageSizeSelection | boolean \| undefined | No |  |  |  | Flag to render the page size selection input. | false |
+| showTotalRecords | boolean \| undefined | No |  |  |  | Should the total records label be shown. | false |
+| size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Size of the component. **Deprecation:** The "large" size is no longer supported. | "medium" |
+| totalRecords | string \| number \| undefined | No |  |  |  | Total number of records, used to calculate the total number of pages. | 0 |
+| variant | "default" \| "alternate" \| undefined | No | default \| alternate |  |  | The component's variant. | "default" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-label | string \| undefined | No |  |  |  | Set an accessible label for the Pagination nav |  |

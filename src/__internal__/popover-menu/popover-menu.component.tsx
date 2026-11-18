@@ -5,6 +5,8 @@ import React, {
   forwardRef,
   useState,
   useContext,
+  useMemo,
+  useLayoutEffect,
 } from "react";
 import styled, { css } from "styled-components";
 import type { CSSObject } from "styled-components";
@@ -27,6 +29,10 @@ import {
 import { TagProps } from "../utils/helpers/tags";
 import combineRefs from "../utils/helpers/combine-refs";
 import { TableBodyContext } from "../../components/table/__internal__/contexts";
+import { nextElementToFocus } from "../../hooks/__internal__/useFocusPortalContent";
+import { getWindow } from "../dom/globals";
+
+const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
 
 const PopoverControlWrapper = styled.div<{
   $controlWrapperStyle?: CSSObject;
@@ -143,10 +149,14 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   matchReferenceWidth?: boolean;
   /** Hide the menu when its control is fully clipped. Defaults to false. */
   hideWhenReferenceHidden?: boolean;
+  /** Render the menu inline instead of in a portal. Submenus always use a portal. */
+  disablePortal?: boolean;
   /** Strategy used to position the popover */
   popoverStrategy?: PopoverProps["popoverStrategy"];
   /** Override default control reference for popover */
   controlReference?: React.RefObject<HTMLDivElement | HTMLLIElement>;
+  /** Treat only the reference and menu as inside for click-away handling. */
+  clickAwayWithinReference?: boolean;
   /** Set the custom max-height of the menu list */
   maxHeight?: string;
   /** Custom styles for the control wrapper element */
@@ -159,26 +169,64 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   isButtonMenu?: boolean;
   /** Flag to notify that the menu is a submenu */
   isSubmenu?: boolean;
+  /** Identifies the root menu and all its submenu portals. */
+  menuTreeId?: string;
   /** Ref to the listbox/menu element */
   listRef?: React.Ref<HTMLUListElement>;
   /** Callback for handling typeahead keyboard navigation */
   typeahead?: (args: TypeaheadHandler) => void;
+  /** Whether the menu may flip to the opposite placement when space is limited. */
+  flipEnabled?: boolean;
+  /** Data element applied to the menu wrapper. */
+  menuWrapperDataElement?: string;
+  /** Tab index applied to the listbox/menu element. */
+  listTabIndex?: number;
+  /** @internal Bypass automatic wrapping when the caller supplies complete list items. */
+  wrapItems?: boolean;
+  /** @internal Override list navigation for a caller-managed collection. */
+  onListKeyDown?: React.KeyboardEventHandler<HTMLElement>;
+  /** @internal Active option ID for a caller-managed collection. */
+  activeDescendant?: string;
+  /** @internal Layout styles for the scrollable list. */
+  listStyle?: React.CSSProperties;
+  /** When set, PageUp and PageDown move the focus by a fixed number of items. */
+  enablePageNavigation?: boolean;
+  /** When set, Space and Tab confirm the currently-focused item (single-select listbox behaviour). */
+  selectOnSpaceAndTab?: boolean;
+  /** When set, scrolls the selected option into view on open in non-virtualised menus. */
+  focusSelectedOnOpen?: boolean;
+  /** When set, highlights the selected option on open and when selection changes. */
+  highlightSelectedOption?: boolean;
 }
 
 const OFFSET = 8;
 const SUBMENU_OFFSET = 0;
 
-const menuPopoverMiddleware = (
-  width?: string,
-  isButtonMenu?: boolean,
-  isSubmenu?: boolean,
-  matchReferenceWidth?: boolean,
-  hideWhenReferenceHidden?: boolean,
-) => [
+interface MenuPopoverMiddlewareOptions {
+  width?: string;
+  isButtonMenu?: boolean;
+  isSubmenu?: boolean;
+  matchReferenceWidth?: boolean;
+  hideWhenReferenceHidden?: boolean;
+  flipEnabled?: boolean;
+}
+
+export const menuPopoverMiddleware = ({
+  width,
+  isButtonMenu,
+  isSubmenu,
+  matchReferenceWidth,
+  hideWhenReferenceHidden,
+  flipEnabled = true,
+}: MenuPopoverMiddlewareOptions = {}) => [
   offset(isSubmenu ? SUBMENU_OFFSET : OFFSET),
-  flip({
-    fallbackStrategy: "initialPlacement",
-  }),
+  ...(flipEnabled
+    ? [
+        flip({
+          fallbackStrategy: "initialPlacement",
+        }),
+      ]
+    : []),
   size({
     apply({ rects, elements }) {
       if (isButtonMenu && !matchReferenceWidth && !width) return;
@@ -204,12 +252,16 @@ interface MenuProps {
   onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void;
   middleware: PopoverProps["middleware"];
   scrollRef: React.RefObject<HTMLDivElement>;
+  menuTreeId: string;
   listId: string;
   disablePortal?: boolean;
   portalTarget?: HTMLElement | null;
   listboxAriaLabel?: string;
   maxHeight?: string;
   popoverStrategy?: PopoverProps["popoverStrategy"];
+  listStyle?: React.CSSProperties;
+  menuWrapperDataElement?: string;
+  listTabIndex?: number;
 }
 
 const Menu = ({
@@ -225,11 +277,15 @@ const Menu = ({
   onKeyDown,
   middleware,
   scrollRef,
+  menuTreeId,
   listId,
   disablePortal,
   portalTarget,
   maxHeight,
   popoverStrategy,
+  listStyle,
+  menuWrapperDataElement,
+  listTabIndex,
 }: MenuProps) => {
   return (
     <Popover
@@ -246,10 +302,15 @@ const Menu = ({
         $size={size}
         onKeyDown={onKeyDown}
         data-role="menu-wrapper"
+        data-element={menuWrapperDataElement}
         onMouseDown={(e) => e.preventDefault()}
         $isButtonMenu={isButtonMenu}
       >
-        <ScrollWrapper ref={scrollRef} data-component="scroll-wrapper">
+        <ScrollWrapper
+          ref={scrollRef}
+          data-component="scroll-wrapper"
+          data-menu-tree-id={menuTreeId}
+        >
           <List
             $size={size}
             ref={listRef}
@@ -259,6 +320,8 @@ const Menu = ({
             $isButtonMenu={isButtonMenu}
             aria-label={listboxAriaLabel}
             $maxHeight={maxHeight}
+            style={listStyle}
+            tabIndex={listTabIndex}
           >
             {children}
           </List>
@@ -333,17 +396,31 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     width,
     matchReferenceWidth = false,
     hideWhenReferenceHidden = false,
+    disablePortal = true,
     popoverStrategy = "absolute",
     listboxAriaLabelledBy,
     listboxAriaLabel,
     isButtonMenu = false,
     isSubmenu = false,
+    menuTreeId: parentMenuTreeId,
     id,
     controlReference,
+    clickAwayWithinReference = false,
     listRef,
     controlWrapperStyle,
     maxHeight,
     typeahead,
+    wrapItems = true,
+    onListKeyDown,
+    activeDescendant,
+    listStyle,
+    enablePageNavigation = false,
+    selectOnSpaceAndTab = false,
+    focusSelectedOnOpen = false,
+    highlightSelectedOption = false,
+    flipEnabled = true,
+    menuWrapperDataElement,
+    listTabIndex,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -355,27 +432,130 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const internalListRef = useRef<HTMLUListElement | null>(null);
   const combinedListRef = combineRefs(listRef, internalListRef);
   const listId = useRef(id ?? `popover-menu-wrapper-${guid()}`);
+  const menuTreeId = parentMenuTreeId ?? listId.current;
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const combinedWrapperRef = combineRefs(wrapperRef, ref);
-  const wrappedChildren = wrapChildrenInItem(children);
+  const wrappedChildren = useMemo(
+    () => (wrapItems ? wrapChildrenInItem(children) : children),
+    [children, wrapItems],
+  );
   const controlRef = useRef<TRef>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
+  const handleMenuClose = useCallback(
+    (ev?: Event) => {
+      const shouldRestoreTabOrder =
+        isButtonMenu &&
+        !isSubmenu &&
+        ev instanceof KeyboardEvent &&
+        ev.key === "Tab" &&
+        ev.target instanceof Node &&
+        !controlWrapperRef.current?.contains(ev.target);
+
+      if (shouldRestoreTabOrder) {
+        // Removing the focused item makes native Tab navigation unreliable,
+        // especially when the menu lives in a portal. Resolve the destination
+        // relative to its trigger while both are still mounted.
+        ev.preventDefault();
+        const control = controlRef.current ?? controlWrapperRef.current;
+        const trigger =
+          control?.querySelector<HTMLElement>(
+            "button, a[href], input, select, textarea",
+          ) ?? control;
+        const next =
+          !ev.shiftKey && trigger && scrollRef.current
+            ? nextElementToFocus(
+                trigger,
+                scrollRef.current,
+                Array.from(
+                  trigger.ownerDocument.querySelectorAll<HTMLElement>(
+                    `[data-menu-tree-id="${menuTreeId}"]`,
+                  ),
+                ),
+              )
+            : undefined;
+        onClose(ev);
+        const destination = (next ?? trigger) as HTMLElement | undefined;
+        if (
+          destination &&
+          destination.ownerDocument.activeElement !== destination
+        ) {
+          destination.focus({ preventScroll: ev.shiftKey });
+        }
+        return;
+      }
+      onClose(ev);
+    },
+    [isButtonMenu, isSubmenu, onClose, menuTreeId],
+  );
   const lastClickAwayEvent = useRef<Event | null>(null);
   const handleClickAway = useCallback(
     (ev: Event) => {
       if (!open || lastClickAwayEvent.current === ev) return;
       lastClickAwayEvent.current = ev;
-      onClose(ev);
+      // Keep the document listener attached while closing a submenu during
+      // click bubbling, so its inside-click marker is consumed by this event.
+      onCloseRef.current(ev);
     },
-    [open, onClose],
+    [open],
   );
   const handleClickInside = useClickAwayListener(handleClickAway);
   const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
-  const computedMiddleware = menuPopoverMiddleware(
-    width,
-    isButtonMenu,
-    isSubmenu,
-    matchReferenceWidth,
-    hideWhenReferenceHidden,
+
+  useIsomorphicLayoutEffect(() => {
+    if (!open) {
+      setAriaActivedescendant("");
+    } else if (focusSelectedOnOpen && !onListKeyDown) {
+      internalListRef.current
+        ?.querySelector('[aria-selected="true"]')
+        ?.scrollIntoView?.({ block: "nearest" });
+    }
+  }, [open, focusSelectedOnOpen, onListKeyDown]);
+
+  const highlightedSelection = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    if (!open || !highlightSelectedOption || onListKeyDown) {
+      highlightedSelection.current = null;
+      return;
+    }
+    const listbox = internalListRef.current;
+    const selectedOption = listbox?.querySelector<HTMLElement>(
+      '[role="option"][aria-selected="true"]:not([aria-disabled="true"])',
+    );
+    // Appending options or a loader must preserve the user's current highlight.
+    if (selectedOption === highlightedSelection.current) return;
+    highlightedSelection.current =
+      selectedOption ?? /* istanbul ignore next */ null;
+    listbox
+      ?.querySelector<HTMLElement>('[data-has-focus="true"]')
+      ?.setAttribute("data-has-focus", "false");
+    selectedOption?.setAttribute("data-has-focus", "true");
+    setAriaActivedescendant(
+      selectedOption?.id ?? /* istanbul ignore next */ "",
+    );
+  }, [open, highlightSelectedOption, onListKeyDown, wrappedChildren]);
+
+  const resolvedActivedescendant = activeDescendant ?? ariaActivedescendant;
+
+  const computedMiddleware = useMemo(
+    () =>
+      menuPopoverMiddleware({
+        width,
+        isButtonMenu,
+        isSubmenu,
+        matchReferenceWidth,
+        hideWhenReferenceHidden,
+        flipEnabled,
+      }),
+    [
+      width,
+      isButtonMenu,
+      isSubmenu,
+      matchReferenceWidth,
+      hideWhenReferenceHidden,
+      flipEnabled,
+    ],
   );
   const direction = useRef<"up" | "down" | null>(null);
 
@@ -412,9 +592,18 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
 
   useEffect(() => {
     const el = isSubmenu ? scrollRef.current : wrapperRef.current;
+    // Portalled root menus do not bubble native events through the control wrapper.
+    const portalledMenuEl =
+      !isSubmenu && !disablePortal ? scrollRef.current : null;
+    const clickEl = clickAwayWithinReference ? popoverReference.current : el;
+    const menuEl = clickAwayWithinReference
+      ? scrollRef.current?.parentElement
+      : portalledMenuEl;
 
-    el?.addEventListener("click", handleClickInside, { passive: true });
+    clickEl?.addEventListener("click", handleClickInside, { passive: true });
+    menuEl?.addEventListener("click", handleClickInside, { passive: true });
     el?.addEventListener("keydown", handleMainWrapperKeyDown);
+    portalledMenuEl?.addEventListener("keydown", handleMainWrapperKeyDown);
 
     // When mounted as a submenu, also mark clicks on the trigger <li> as "inside"
     // so the click-away listener doesn't fire when the trigger button is clicked
@@ -422,8 +611,10 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     triggerEl?.addEventListener("click", handleClickInside, { passive: true });
 
     return () => {
-      el?.removeEventListener("click", handleClickInside);
+      clickEl?.removeEventListener("click", handleClickInside);
+      menuEl?.removeEventListener("click", handleClickInside);
       el?.removeEventListener("keydown", handleMainWrapperKeyDown);
+      portalledMenuEl?.removeEventListener("keydown", handleMainWrapperKeyDown);
       triggerEl?.removeEventListener("click", handleClickInside);
     };
   }, [
@@ -431,20 +622,34 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     handleClickInside,
     handleMainWrapperKeyDown,
     controlReference,
+    popoverReference,
+    disablePortal,
+    open,
+    clickAwayWithinReference,
   ]);
 
   const handleDropdownMenuKeyDown = useHandleDropdownMenuKeyDown(
     internalListRef,
     isButtonMenu ? () => {} : setAriaActivedescendant,
-    onClose,
+    handleMenuClose,
     {
       isButtonMenu,
       isSubmenu,
+      enablePageNavigation,
+      selectOnSpaceAndTab,
     },
     typeahead,
   );
 
   const { isInTable } = useContext(TableBodyContext);
+  const handleListKeyDown = onListKeyDown ?? handleDropdownMenuKeyDown;
+
+  const handleMenuKeyDown = useCallback(
+    (ev: React.KeyboardEvent<HTMLElement>) => {
+      handleListKeyDown(ev);
+    },
+    [handleListKeyDown],
+  );
 
   const handleControlKeyDown: React.KeyboardEventHandler<HTMLElement> =
     useCallback(
@@ -453,7 +658,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           open &&
           controlWrapperRef.current?.contains(document.activeElement)
         ) {
-          handleDropdownMenuKeyDown(ev);
+          handleMenuKeyDown(ev);
 
           return;
         } else if (!open && isButtonMenu && !isInTable && !isSubmenu) {
@@ -517,20 +722,22 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           onClose={(ev) => {
             props.onClose();
 
-            // Closing the submenu can replace the parent's document listener
-            // during dispatch. Forward outside clicks, deduplicated by event.
+            // A portalled submenu has its own click-away listener. Forward
+            // clicks outside both the parent control and menu, once per event.
             if (
               ev?.type === "click" &&
-              !wrapperRef.current?.contains(ev.target as Node)
+              !wrapperRef.current?.contains(ev.target as Node) &&
+              !scrollRef.current?.contains(ev.target as Node)
             ) {
               handleClickAway(ev);
             } else if ((ev as KeyboardEvent)?.key === "Tab") {
-              onClose(ev);
+              handleMenuClose(ev);
             }
           }}
           size={props.size}
           isButtonMenu
           isSubmenu
+          menuTreeId={menuTreeId}
           hideWhenReferenceHidden={hideWhenReferenceHidden}
           width={props.submenuWidth}
           listRef={props.ref}
@@ -543,7 +750,13 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         </PopoverMenu>
       );
     },
-    [onClose, handleClickAway, typeahead, hideWhenReferenceHidden],
+    [
+      handleMenuClose,
+      handleClickAway,
+      typeahead,
+      hideWhenReferenceHidden,
+      menuTreeId,
+    ],
   );
   /* eslint-enable @typescript-eslint/no-use-before-define */
 
@@ -560,7 +773,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         onKeyDown={handleControlKeyDown}
         listId={listId.current}
         aria-activedescendant={
-          open && ariaActivedescendant ? ariaActivedescendant : undefined
+          open && resolvedActivedescendant
+            ? resolvedActivedescendant
+            : undefined
         }
       />
       <PopoverMenuContext.Provider
@@ -583,14 +798,18 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             listboxAriaLabelledBy={listboxAriaLabelledBy}
             listboxAriaLabel={listboxAriaLabel}
             isButtonMenu={isButtonMenu}
-            onKeyDown={handleDropdownMenuKeyDown}
+            onKeyDown={handleMenuKeyDown}
             middleware={computedMiddleware}
             scrollRef={scrollRef}
+            menuTreeId={menuTreeId}
             listId={listId.current}
-            disablePortal={!isSubmenu}
+            disablePortal={disablePortal && !isSubmenu}
             portalTarget={isSubmenu ? controlReference?.current : undefined}
             maxHeight={maxHeight}
             popoverStrategy={popoverStrategy}
+            listStyle={listStyle}
+            menuWrapperDataElement={menuWrapperDataElement}
+            listTabIndex={listTabIndex}
           >
             {wrappedChildren}
           </Menu>

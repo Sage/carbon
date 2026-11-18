@@ -23,6 +23,7 @@ import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import { CustomSelectChangeEvent } from "../simple-select";
+import ActionOption from "../action-option";
 
 const FilterableSelectList = withFilter<SelectListProps>(SelectList);
 
@@ -195,7 +196,11 @@ export const FilterableSelect = React.forwardRef<
       list: React.ReactNode,
     ) {
       return React.Children.toArray(list).find((child) => {
-        const { text } = (child as React.ReactElement).props;
+        const option = child as React.ReactElement;
+
+        if (option.type === ActionOption && option.props.onClick) return false;
+
+        const { text } = option.props;
 
         return text?.toLowerCase().indexOf(textToMatch?.toLowerCase()) !== -1;
       });
@@ -641,6 +646,7 @@ export const FilterableSelect = React.forwardRef<
       labelId,
       anchorElement: textboxRef?.parentElement || undefined,
       onSelect: onSelectOption,
+      onHighlight: setActiveDescendantId,
       onSelectListClose,
       onMouseDown: handleListMouseDown,
       filterText: filterText.trim(),

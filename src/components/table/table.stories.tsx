@@ -611,7 +611,7 @@ export const Playground: Story = {
               </TableCell>
               {isDraggable && (
                 <TableCell id={`playground-body-actions-${id}`}>
-                  <ActionPopover>
+                  <ActionPopover size="small">
                     <ActionPopoverItem onClick={() => handleRowMove(id, "up")}>
                       Move up
                     </ActionPopoverItem>

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pager from ".";
 import { setupSelectMocks } from "../select";
@@ -8,30 +8,42 @@ beforeAll(() => {
   setupSelectMocks();
 });
 
-test("`next` and `last` buttons are not visible when on the last page", async () => {
+test("`next` and `last` buttons are disabled when on the last page", () => {
   render(<Pager onPagination={() => {}} totalRecords={100} currentPage={10} />);
 
   expect(
-    screen.queryByRole("button", {
-      name: "Go to next page (page 11 of 10)",
+    screen.getByRole("button", {
+      name: "Go to next page",
     }),
-  ).not.toBeInTheDocument();
+  ).toBeDisabled();
   expect(
-    screen.queryByRole("button", { name: "Go to last page (page 10 of 10)" }),
-  ).not.toBeInTheDocument();
+    screen.getByRole("button", { name: "Go to last page (page 10 of 10)" }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole("button", {
+      name: "Go to previous page (page 9 of 10)",
+    }),
+  ).toBeEnabled();
+  expect(
+    screen.getByRole("button", { name: "Go to first page (page 1 of 10)" }),
+  ).toBeEnabled();
 });
 
-test("`previous` and `first` buttons are not visible when on the first page", async () => {
+test("`previous` and `first` buttons are disabled when on the first page", () => {
   render(<Pager onPagination={() => {}} totalRecords={100} currentPage={1} />);
 
   expect(
-    screen.queryByRole("button", {
-      name: "Go to previous page (page 0 of 10)",
-    }),
-  ).not.toBeInTheDocument();
+    screen.getByRole("button", { name: "Go to previous page" }),
+  ).toBeDisabled();
   expect(
-    screen.queryByRole("button", { name: "Go to first page (page 1 of 10)" }),
-  ).not.toBeInTheDocument();
+    screen.getByRole("button", { name: "Go to first page (page 1 of 10)" }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole("button", { name: "Go to next page (page 2 of 10)" }),
+  ).toBeEnabled();
+  expect(
+    screen.getByRole("button", { name: "Go to last page (page 10 of 10)" }),
+  ).toBeEnabled();
 });
 
 test("does not render navigation buttons or current page input when there is only 1 page", () => {
@@ -396,7 +408,7 @@ test("calls `onPagination` when Enter is pressed in the page size select", async
   expect(onPagination).toHaveBeenCalledWith(1, 25, "page-select");
 });
 
-test("resets page size select to the previous value when selection is not completed", async () => {
+test("calls `onPagination` when Tab is pressed in the page size select", async () => {
   const user = userEvent.setup();
   const onPagination = jest.fn();
   render(
@@ -409,7 +421,26 @@ test("resets page size select to the previous value when selection is not comple
   await user.keyboard("{ArrowDown}");
   await user.tab();
 
+  expect(onPagination).toHaveBeenCalledWith(1, 25, "page-select");
+  expect(select).toHaveValue("25");
+});
+
+test("does not call `onPagination` when the page size select highlight changes without confirmation", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager onPagination={onPagination} showPageSizeSelection pageSize={10} />,
+  );
+
+  const select = screen.getByRole("combobox", { name: "Items per page" });
+  await user.click(select);
+  await user.keyboard("2");
+
   expect(onPagination).not.toHaveBeenCalled();
+  expect(select).toHaveValue("25");
+
+  fireEvent.blur(select);
+
   expect(select).toHaveValue("10");
 });
 

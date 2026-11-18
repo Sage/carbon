@@ -413,6 +413,7 @@ export const ActionPopover = forwardRef<
             id={menuID}
             listboxAriaLabelledBy={parentID}
             isButtonMenu
+            disablePortal={!isInTable}
             hideWhenReferenceHidden
             popoverControl={renderControl}
             controlWrapperStyle={{ width: "100%" }}

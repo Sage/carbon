@@ -34,7 +34,7 @@ description: Carbon Preview component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| shape | Shapes \| undefined | No |  | Sets the preview's shape. | "text" |
+| shape | Shapes \| undefined | No | circle \| text \| rectangle \| rectangle-round | Sets the preview's shape. | "text" |
 | width | string \| undefined | No |  | Sets the width of the Preview. |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

@@ -4,6 +4,7 @@
 
 - [Accordion](components/accordion.md)
 - [AccordionGroup](components/accordion-group.md) (deprecated)
+- [ActionOption](components/action-option.md)
 - [ActionPopover](components/action-popover.md)
 - [ActionPopoverDivider](components/action-popover-divider.md)
 - [ActionPopoverItem](components/action-popover-item.md)
@@ -46,7 +47,8 @@
 - [Dl](components/dl.md)
 - [DraggableContainer](components/draggable-container.md)
 - [DraggableItem](components/draggable-item.md)
-- [Drawer](components/drawer.md)
+- [Drawer](components/drawer.md) — Displays sidebar content alongside a main content area.
+- [Dropdown](components/dropdown.md)
 - [Dt](components/dt.md)
 - [DuellingPicklist](components/duelling-picklist.md) (deprecated)
 - [Fieldset](components/fieldset.md)
@@ -73,9 +75,9 @@
 - [Help](components/help.md)
 - [Hr](components/hr.md) (deprecated)
 - [I18nProvider](components/i18n-provider.md)
-- [Icon](components/icon.md)
+- [Icon](components/icon.md) — Displays a visual symbol from Carbon's bundled icon set.
 - [IconButton](components/icon-button.md) (deprecated)
-- [Image](components/image.md)
+- [Image](components/image.md) — Renders either an img element from src or a container with CSS background styling.
 - [InlineInputs](components/inline-inputs.md) (deprecated)
 - [Link](components/link.md) — Navigates the user to another location.
 - [LinkPreview](components/link-preview.md)

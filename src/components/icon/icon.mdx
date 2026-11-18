@@ -38,7 +38,15 @@ import Icon from "carbon-react/lib/components/icon";
 
 ### Default
 
+Use `aria-hidden` when an icon is decorative or its meaning is already provided by adjacent text.
+
 <Canvas of={IconStories.Default} />
+
+### With an accessible label
+
+When an icon conveys meaning on its own, use `role="img"` and provide an accessible name with `ariaLabel`.
+
+<Canvas of={IconStories.WithAccessibleLabel} />
 
 ### Sizes
 
@@ -48,7 +56,7 @@ Use the `size` prop to control the Icon's rendered dimensions.
 
 ### Inverse
 
-Use the `inverse` prop when rendering an Icon on a dark background.
+The `inverse` prop applies inverse styling to the Icon.
 
 <Canvas of={IconStories.Inverse} />
 
@@ -62,16 +70,16 @@ Use the `color` prop to apply one of the supported semantic icon colors: `neutra
 
 Icons use a `snake_case` naming convention and are organised into the following categories:
 
-| Category | Examples |
-|---|---|
-| **Navigation** | `arrow_*`, `chevron_*`, `caret_*`, `caret_large_*` |
-| **Actions** | `add`, `bin`, `close`, `copy`, `create`, `delete`, `drag`, `download`, `edit`, `export`, `filter`, `search`, `settings`, `upload` |
-| **Status** | `alert`, `blocked`, `double_tick`, `error`, `error_square`, `info`, `tick`, `warning` |
-| **Communication** | `call`, `chat`, `email`, `fax`, `message` |
-| **Finance** | `bank`, `cash`, `coins`, `credit_card`, `euro`, `receipt` |
-| **Social / App** | `app_facebook`, `app_instagram`, `app_tiktok`, `app_twitter`, `app_youtube` |
-| **Documents & Files** | `attach`, `document_*`, `file_*` |
-| **Charts** | `chart_bar`, `chart_bar_arrow_up`, `chart_line`, `chart_pie` |
+| Category              | Examples                                                                                                                          |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Navigation**        | `arrow_*`, `chevron_*`, `caret_*`, `caret_large_*`                                                                                |
+| **Actions**           | `add`, `bin`, `close`, `copy`, `create`, `delete`, `drag`, `download`, `edit`, `export`, `filter`, `search`, `settings`, `upload` |
+| **Status**            | `alert`, `blocked`, `double_tick`, `error`, `error_square`, `info`, `tick`, `warning`                                             |
+| **Communication**     | `call`, `chat`, `email`, `fax`, `message`                                                                                         |
+| **Finance**           | `bank`, `cash`, `coins`, `credit_card`, `euro`, `receipt`                                                                         |
+| **Social / App**      | `app_facebook`, `app_instagram`, `app_tiktok`, `app_twitter`, `app_youtube`                                                       |
+| **Documents & Files** | `attach`, `document_*`, `file_*`                                                                                                  |
+| **Charts**            | `chart_bar`, `chart_bar_arrow_up`, `chart_line`, `chart_pie`                                                                      |
 
 ## List of icons
 
