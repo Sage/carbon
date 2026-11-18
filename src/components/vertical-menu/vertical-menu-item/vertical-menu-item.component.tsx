@@ -75,7 +75,7 @@ export const VerticalMenuItem = <T,>({
   customIcon,
   component,
   active,
-  height = "40px",
+  height = "var(--global-spacing-m)",
   href,
   onClick,
   ariaCurrent,
@@ -131,7 +131,7 @@ export const VerticalMenuItem = <T,>({
       <StyledVerticalMenuItem
         height={height}
         active={shouldDisplayActiveState}
-        isFullScreen={isFullScreen}
+        $isFullScreen={isFullScreen}
         level={level}
         {...itemProps}
         {...filterStyledSystemPaddingProps(rest)}

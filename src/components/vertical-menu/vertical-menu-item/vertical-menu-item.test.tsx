@@ -460,7 +460,10 @@ describe("VerticalMenuItem", () => {
         </VerticalMenu>,
       );
 
-      expect(screen.getByRole("list")).toHaveStyleRule("padding-left", "0px");
+      expect(screen.getByRole("list")).toHaveStyleRule(
+        "padding-left",
+        "var(--global-space-none)",
+      );
 
       await user.click(screen.getByText("Item1"));
       expect(screen.getAllByRole("list")[1]).toHaveStyleRule(

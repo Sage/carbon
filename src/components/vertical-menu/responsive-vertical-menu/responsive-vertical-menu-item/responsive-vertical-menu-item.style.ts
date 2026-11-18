@@ -44,7 +44,7 @@ const commonAttributes = css`
   font: var(--global-font-static-comp-medium-m);
   justify-content: space-between;
   min-height: var(--global-size-m);
-  padding: 0 var(--global-space-comp-l);
+  padding: var(--global-space-none) var(--global-space-comp-l);
   width: 100%;
 
   ${padding}
@@ -112,7 +112,11 @@ export const StyledNestedMenuWrapper = styled.div<{
   ${({ depth, responsive }) =>
     responsive &&
     css`
-      padding: 0 0 0 ${depth === 0 ? "var(--global-space-comp-l)" : "0px"};
+      padding: var(--global-space-none) var(--global-space-none)
+        var(--global-space-none)
+        ${depth === 0
+          ? "var(--global-space-comp-l)"
+          : "var(--global-space-none)"};
     `}
 `;
 
@@ -129,13 +133,13 @@ export const StyledNestedMenu = styled.ul<{
 
     padding-right: ${responsive && depth >= 1
       ? "var(--global-space-comp-xl)"
-      : "0"};
+      : "var(--global-space-none)"};
 
     ${responsive &&
     css`
       margin-left: ${hasIcon || depth === 1
         ? "var(--global-space-comp-l)"
-        : "0"};
+        : "var(--global-space-none)"};
     `}
   `}
 `;

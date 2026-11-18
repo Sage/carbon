@@ -13,6 +13,6 @@ export const StyledResponsiveVerticalMenuDivider = styled.div<StyledResponsiveVe
 
 export const StyledHr = styled.hr<MarginProps>`
   border: none;
-  border-bottom: 1px solid var(--nav-primary-divider);
-  margin: var(--global-space-comp-s) 0;
+  border-bottom: var(--global-borderwidth-xs) solid var(--nav-primary-divider);
+  margin: var(--global-space-comp-s) var(--global-space-none);
 `;

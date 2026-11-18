@@ -74,12 +74,12 @@ export const StyledCloseButtonWrapper = styled.div`
   justify-content: flex-end;
   padding: 0 var(--global-space-layout-3-xs);
   width: 100%;
-  height: 40px;
+  height: var(--global-size-m);
 `;
 
 export const StyledCloseButton = styled(Button)`
   border: none;
-  border-radius: 0;
+  border-radius: var(--global-radius-none);
 
   && [data-component="icon"]:not([data-color]) {
     color: var(--nav-primary-label-default);
@@ -107,8 +107,8 @@ export const StyledGlobalVerticalMenuWrapper = styled.div`
 `;
 
 export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
-  margin: 0;
-  padding: 0;
+  margin: var(--global-space-none);
+  padding: var(--global-space-none);
   align-items: stretch;
   background-color: var(--nav-primary-bg-default);
   box-sizing: border-box;
@@ -156,7 +156,7 @@ export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
         content: "";
         display: block;
         border-top: 1px solid var(--nav-primary-divider);
-        margin: var(--global-space-comp-s) 0;
+        margin: var(--global-space-comp-s) var(--global-space-none);
       }
     `}
 

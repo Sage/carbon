@@ -16,7 +16,7 @@ export const StyledListWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  min-height: 0;
+  min-height: var(--global-size-none);
   padding: var(--global-space-comp-s);
 `;
 
@@ -24,18 +24,20 @@ export const StyledList = styled.ul<StyledListProps>`
   display: flex;
   flex: 1;
   flex-direction: column;
-  min-height: 0;
+  min-height: var(--global-size-none);
   list-style: none;
-  margin: 0;
+  margin: var(--global-space-none);
   padding-left: ${({ level }) =>
-    !level || level === 0 ? "0px" : "var(--global-space-comp-l)"};
+    !level || level === 0
+      ? "var(--global-space-none)"
+      : "var(--global-space-comp-l)"};
 `;
 
 export const StyledFullScreenList = styled(StyledList)`
   > li + li::before {
     content: "";
     display: block;
-    border-top: 1px solid var(--nav-secondary-divider);
+    border-top: var(--global-borderwidth-xs) solid var(--nav-secondary-divider);
     margin: var(--global-space-comp-s) var(--global-space-comp-l);
   }
 `;
@@ -47,7 +49,7 @@ export const StyledListItem = styled.li.attrs(applyBaseTheme)`
 interface StyledVerticalMenuProps extends PaddingProps {
   active?: boolean;
   height: string;
-  isFullScreen?: boolean;
+  $isFullScreen?: boolean;
   level?: number;
   hasChildren?: boolean;
 }
@@ -60,13 +62,13 @@ export const StyledVerticalMenuItem = styled.div.attrs(
   display: flex;
   border: none;
   align-items: center;
-  font: ${({ isFullScreen }) =>
-    isFullScreen
+  font: ${({ $isFullScreen }) =>
+    $isFullScreen
       ? "var(--global-font-static-comp-medium-l)"
       : "var(--global-font-static-comp-medium-m)"};
   cursor: pointer;
-  color: ${({ isFullScreen, level, hasChildren }) =>
-    isFullScreen && level === 0 && hasChildren
+  color: ${({ $isFullScreen, level, hasChildren }) =>
+    $isFullScreen && level === 0 && hasChildren
       ? "var(--nav-secondary-label-default-alt)"
       : "var(--nav-secondary-label-default)"};
   position: relative;
@@ -75,7 +77,7 @@ export const StyledVerticalMenuItem = styled.div.attrs(
   background-color: var(--nav-secondary-bg-default);
   border-radius: var(--global-radius-container-m);
 
-  padding: 0 var(--global-space-comp-l);
+  padding: var(--global-spacing-none) var(--global-space-comp-l);
 
   ${padding}
 
@@ -97,11 +99,11 @@ export const StyledVerticalMenuItem = styled.div.attrs(
       &:before {
         background: var(--nav-secondary-bg-selected);
         content: "";
-        height: 24px;
+        height: var(--global-size-xs);
         left: 0px;
         position: absolute;
         top: 8px;
-        width: 2px;
+        width: var(--global-size-6-xs);
         z-index: 0;
       }
 
@@ -114,13 +116,13 @@ export const StyledVerticalMenuItem = styled.div.attrs(
     `}
 
   ${StyledIcon} {
-    width: 20px;
+    width: var(--global-size-2-xs);
     color: var(--nav-secondary-label-default);
   }
 `;
 
 export const StyledTitle = styled.span`
-  margin: 0;
+  margin: var(--global-space-none);
   z-index: 1;
   text-align: left;
 `;
@@ -134,19 +136,19 @@ export const StyledAdornment = styled.div`
 
 export const StyledTitleIcon = styled(Icon)`
   margin-right: var(--global-space-comp-m);
-  width: 20px;
+  width: var(--global-size-2-xs);
   color: inherit;
 `;
 
 export const StyledCustomIconWrapper = styled.div`
   margin-right: var(--global-space-comp-m);
-  width: 20px;
+  width: var(--global-size-2-xs);
 `;
 
 export const StyledChevronIcon = styled(Icon)`
   margin-left: auto;
   padding-left: var(--global-space-comp-m);
-  width: 20px;
+  width: var(--global-size-2-xs);
   color: var(--nav-secondary-label-default);
 `;
 
@@ -154,7 +156,7 @@ export const StyledVerticalMenuCloseBar = styled.div`
   align-items: center;
   display: flex;
   justify-content: flex-end;
-  height: 40px;
+  height: var(--global-size-m);
   box-sizing: border-box;
   background-color: var(--nav-primary-bg-child);
   padding-right: var(--global-space-comp-l);
@@ -172,7 +174,7 @@ export const StyledVerticalMenuCloseBar = styled.div`
 
 export const StyledCloseButton = styled(Button)`
   border: none;
-  border-radius: 0;
+  border-radius: var(--global-radius-none);
 
   && [data-component="icon"]:not([data-color]) {
     color: var(--nav-primary-label-default);
@@ -190,7 +192,7 @@ export const StyledCloseButton = styled(Button)`
   }
 `;
 
-export const StyledVerticalMenu = styled.nav.attrs(applyBaseTheme)<{
+export const StyledVerticalMenu = styled.nav<{
   $height: string;
   $width: string;
 }>`
@@ -208,9 +210,7 @@ interface FullScreenProps {
   prefersReducedMotion?: boolean;
 }
 
-export const StyledVerticalMenuFullScreen = styled.nav.attrs(
-  applyBaseTheme,
-)<FullScreenProps>`
+export const StyledVerticalMenuFullScreen = styled.nav<FullScreenProps>`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -219,11 +219,11 @@ export const StyledVerticalMenuFullScreen = styled.nav.attrs(
   height: 100vh;
   width: 100%;
   outline: none;
-  padding: 0;
+  padding: var(--global-space-none);
   overflow: auto;
   background-color: var(--nav-secondary-bg-default);
   box-sizing: border-box;
-  z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
+  z-index: var(--carbon-zindex-full-screen-modal);
 
   ${({ prefersReducedMotion }) =>
     !prefersReducedMotion &&

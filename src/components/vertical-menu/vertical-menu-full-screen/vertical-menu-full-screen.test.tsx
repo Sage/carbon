@@ -103,7 +103,7 @@ describe("VerticalMenuFullScreen", () => {
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
     expect(screen.getAllByRole("list")[0]).toHaveStyleRule(
       "border-top",
-      "1px solid var(--nav-secondary-divider)",
+      "var(--global-borderwidth-xs) solid var(--nav-secondary-divider)",
       { modifier: "> li + li::before" },
     );
   });
