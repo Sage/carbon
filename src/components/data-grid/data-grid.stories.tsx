@@ -1,7 +1,11 @@
 import React, { useMemo, useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ActionPopover, ActionPopoverDivider } from "../action-popover";
+import {
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverProps,
+} from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import Button from "../button/__next__";
 import Box from "../box";
@@ -15,6 +19,20 @@ import {
   DataGridProps,
   DataGridRowChange,
 } from ".";
+
+const renderSmallActionPopoverButton: NonNullable<
+  ActionPopoverProps["renderButton"]
+> = ({ "data-element": dataElement, ariaAttributes }) => (
+  <Button
+    data-element={dataElement}
+    size="small"
+    variant="default"
+    variantType="subtle"
+    {...ariaAttributes}
+  >
+    <Icon type="ellipsis_vertical" />
+  </Button>
+);
 
 interface InvoiceLine {
   id: number;
@@ -35,11 +53,11 @@ interface PlaygroundInvoiceLine {
   actions: null;
 }
 
-type PlaygroundStickyColumns = "none" | "left" | "right" | "both";
+type PlaygroundPinnedColumns = "none" | "left" | "right" | "both";
 
 type PlaygroundArgs = Partial<DataGridProps<PlaygroundInvoiceLine>> & {
-  /** Story-only control used to demonstrate column-level sticky configuration. */
-  playgroundStickyColumns: PlaygroundStickyColumns;
+  /** Story-only control used to demonstrate column pinning. */
+  playgroundPinnedColumns: PlaygroundPinnedColumns;
 };
 
 const getNextRowId = <T extends { id: number }>(rows: T[]) =>
@@ -261,13 +279,13 @@ const createPlaygroundColumns = (
     headerName: "",
     headerAriaLabel: "Actions",
     type: "action",
-    sticky: "right",
+    pinned: "right",
     width: 52,
     renderCell: ({ api, row, rowId }) => (
       <ActionPopover
         aria-label={`Actions for ${row.description}`}
-        buttonLabel={<Icon type="ellipsis_vertical" />}
-        size="small"
+        renderButton={renderSmallActionPopoverButton}
+        size="medium"
       >
         <ActionPopoverItem
           onClick={() =>
@@ -323,8 +341,8 @@ const createInvoiceColumns = (
     renderCell: ({ api, row, rowId }) => (
       <ActionPopover
         aria-label={`Actions for ${row.description || "empty line"}`}
-        buttonLabel={<Icon type="ellipsis_vertical" />}
-        size="small"
+        renderButton={renderSmallActionPopoverButton}
+        size="medium"
       >
         <ActionPopoverItem
           onClick={() =>
@@ -343,45 +361,45 @@ const createInvoiceColumns = (
 
 const getPlaygroundColumns = <T extends object>(
   columns: DataGridColumn<T>[],
-  stickyColumns: PlaygroundStickyColumns,
+  pinnedColumns: PlaygroundPinnedColumns,
 ): DataGridColumn<T>[] =>
   columns.map((column, index) => ({
     ...column,
-    sticky:
-      column.sticky === "right"
+    pinned:
+      column.pinned === "right"
         ? "right"
-        : index === 0 && (stickyColumns === "left" || stickyColumns === "both")
+        : index === 0 && (pinnedColumns === "left" || pinnedColumns === "both")
           ? "left"
           : index === columns.length - 1 &&
-              (stickyColumns === "right" || stickyColumns === "both")
+              (pinnedColumns === "right" || pinnedColumns === "both")
             ? "right"
             : undefined,
   })) as DataGridColumn<T>[];
 
 const usePlaygroundColumns = (
   rows: PlaygroundInvoiceLine[],
-  stickyColumns: PlaygroundStickyColumns,
+  pinnedColumns: PlaygroundPinnedColumns,
 ) =>
   useMemo(
     () =>
       getPlaygroundColumns(
         createPlaygroundColumns(() => getNextRowId(rows)),
-        stickyColumns,
+        pinnedColumns,
       ),
-    [rows, stickyColumns],
+    [rows, pinnedColumns],
   );
 
 const useInvoiceColumns = (
   rows: InvoiceLine[],
-  stickyColumns: PlaygroundStickyColumns = "none",
+  pinnedColumns: PlaygroundPinnedColumns = "none",
 ) =>
   useMemo(
     () =>
       getPlaygroundColumns(
         createInvoiceColumns(() => getNextRowId(rows)),
-        stickyColumns,
+        pinnedColumns,
       ),
-    [rows, stickyColumns],
+    [rows, pinnedColumns],
   );
 
 const meta = {
@@ -416,11 +434,11 @@ type Story = StoryObj<typeof DataGrid>;
 
 export const Playground: StoryObj<PlaygroundArgs> = {
   args: {
-    playgroundStickyColumns: "right",
+    playgroundPinnedColumns: "right",
   },
   argTypes: {
-    playgroundStickyColumns: {
-      name: "sticky columns",
+    playgroundPinnedColumns: {
+      name: "pinned columns",
       options: ["right", "both"],
       control: { type: "radio" },
       table: { category: "Playground" },
@@ -428,8 +446,8 @@ export const Playground: StoryObj<PlaygroundArgs> = {
   },
   render: (args) => {
     const [rows, setRows] = useState(createPlaygroundRows);
-    const { playgroundStickyColumns, ...dataGridProps } = args;
-    const storyColumns = usePlaygroundColumns(rows, playgroundStickyColumns);
+    const { playgroundPinnedColumns, ...dataGridProps } = args;
+    const storyColumns = usePlaygroundColumns(rows, playgroundPinnedColumns);
 
     return (
       <DataGrid
@@ -736,7 +754,7 @@ const createLargeColumns = ({
     field: "line",
     headerName: "Line",
     width: 72,
-    sticky: "left",
+    pinned: "left",
     weight: "medium",
     readOnly: true,
   },
@@ -807,12 +825,12 @@ const createLargeColumns = ({
     headerAriaLabel: "Actions",
     type: "action",
     width: 52,
-    sticky: "right",
+    pinned: "right",
     renderCell: ({ row }) => (
       <ActionPopover
         aria-label={`Actions for line ${row.line}`}
-        buttonLabel={<Icon type="ellipsis_vertical" />}
-        size="small"
+        renderButton={renderSmallActionPopoverButton}
+        size="medium"
       >
         <ActionPopoverItem icon="add" onClick={() => onInsertAbove(row)}>
           Insert row above
@@ -872,7 +890,7 @@ const useLargeColumns = (
   );
 };
 
-export const StickyColumns: Story = {
+export const PinnedColumns: Story = {
   render: () => {
     const [rows, setRows] = useState(() => createLargeRows(12));
     const storyColumns = useLargeColumns(rows, setRows);
@@ -880,7 +898,7 @@ export const StickyColumns: Story = {
     return (
       <Box maxWidth="100%" minWidth={0} width="900px">
         <DataGrid
-          aria-label="Invoice lines with sticky columns"
+          aria-label="Invoice lines with pinned columns"
           rows={rows}
           columns={storyColumns}
           maxHeight="360px"
@@ -903,7 +921,7 @@ export const StickyColumns: Story = {
   },
 };
 
-StickyColumns.storyName = "Sticky columns";
+PinnedColumns.storyName = "Pinned columns";
 
 export const LargeScrollableGrid: Story = {
   render: () => {
@@ -929,7 +947,7 @@ export const LargeScrollableGrid: Story = {
     docs: {
       description: {
         story:
-          "A virtualized 1,000-row, 13-column example for demonstrating vertical and horizontal scrolling, sticky headers and edge columns, keyboard navigation, editing, validation and mixed cell types.",
+          "A virtualized 1,000-row, 13-column example for demonstrating vertical and horizontal scrolling, sticky headers and pinned edge columns, keyboard navigation, editing, validation and mixed cell types.",
       },
     },
   },

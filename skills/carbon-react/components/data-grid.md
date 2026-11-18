@@ -93,12 +93,30 @@ description: Carbon DataGrid component props and usage examples.
 ```
 
 
-### StickyColumnsScrolledWithOpenActions
+### PinnedColumnsScrolledWithOpenActions
 
 **Render**
 
 ```tsx
-() => <VisualGrid maxWidth="400px" stickyColumns />
+() => <VisualGrid maxWidth="400px" pinnedColumns />
+```
+
+
+### MultiplePinnedColumns
+
+**Render**
+
+```tsx
+() => (
+    <Box maxWidth="100%" width="760px">
+      <DataGrid
+        aria-label="Invoice lines with multiple pinned columns"
+        rows={multiplePinnedRows}
+        columns={multiplePinnedColumns}
+        maxWidth="100%"
+      />
+    </Box>
+  )
 ```
 
 
@@ -108,7 +126,7 @@ description: Carbon DataGrid component props and usage examples.
 
 ```tsx
 {
-    playgroundStickyColumns: "right",
+    playgroundPinnedColumns: "right",
   }
 ```
 
@@ -117,8 +135,8 @@ description: Carbon DataGrid component props and usage examples.
 ```tsx
 (args) => {
     const [rows, setRows] = useState(createPlaygroundRows);
-    const { playgroundStickyColumns, ...dataGridProps } = args;
-    const storyColumns = usePlaygroundColumns(rows, playgroundStickyColumns);
+    const { playgroundPinnedColumns, ...dataGridProps } = args;
+    const storyColumns = usePlaygroundColumns(rows, playgroundPinnedColumns);
 
     return (
       <DataGrid
@@ -252,7 +270,7 @@ description: Carbon DataGrid component props and usage examples.
     const invalidRows = rows.filter((row) => !row.description);
 
     return (
-      <Box maxWidth="760px">
+      <Box id="invoice-validation-grid" maxWidth="760px">
         {invalidRows.length > 0 && (
           <Box mb={3} minWidth="min(400px, 100%)" width="fit-content">
             <Message
@@ -269,10 +287,12 @@ description: Carbon DataGrid component props and usage examples.
               >
                 {invalidRows.map((row) => (
                   <Link
+                    href="#invoice-validation-grid"
                     key={row.id}
-                    onClick={() =>
-                      gridRef.current?.editCell(row.id, "description")
-                    }
+                    onClick={(event) => {
+                      event.preventDefault();
+                      gridRef.current?.editCell(row.id, "description");
+                    }}
                   >
                     Enter a description on row {row.id}
                   </Link>
@@ -298,7 +318,7 @@ description: Carbon DataGrid component props and usage examples.
 ```
 
 
-### Sticky columns
+### Pinned columns
 
 **Render**
 
@@ -310,7 +330,7 @@ description: Carbon DataGrid component props and usage examples.
     return (
       <Box maxWidth="100%" minWidth={0} width="900px">
         <DataGrid
-          aria-label="Invoice lines with sticky columns"
+          aria-label="Invoice lines with pinned columns"
           rows={rows}
           columns={storyColumns}
           maxHeight="360px"
@@ -417,8 +437,18 @@ const columns: DataGridColumn<InvoiceLine>[] = [
     renderCell: ({ api, row, rowId }) => (
       <ActionPopover
         aria-label={`Actions for ${row.description}`}
-        buttonLabel="More actions"
-        size="small"
+        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
+          <Button
+            data-element={dataElement}
+            size="small"
+            variant="default"
+            variantType="subtle"
+            {...ariaAttributes}
+          >
+            <Icon type="ellipsis_vertical" />
+          </Button>
+        )}
+        size="medium"
       >
         <ActionPopoverItem
           onClick={() =>

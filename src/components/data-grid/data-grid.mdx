@@ -89,8 +89,8 @@ operations.
 ## Playground
 
 Use this interactive example to explore Data Grid props and behaviours with
-Storybook controls. The action column remains sticky on the right. Use the
-**sticky columns** control to also pin the first column.
+Storybook controls. The action column remains pinned on the right. Use the
+**pinned columns** control to also pin the first column.
 
 The example validates its required fields and calculates the read-only VAT and
 net values in `onRowsChange`. These are application behaviours rather than
@@ -107,7 +107,7 @@ built-in Data Grid calculations.
     "maxWidth",
     "disableVirtualization",
     "rowOverscan",
-    "playgroundStickyColumns",
+    "playgroundPinnedColumns",
   ]}
 />
 
@@ -119,8 +119,8 @@ Data Grid supports text, dropdown, checkbox, and action cells. Text is the
 default cell type, so its `type` can be omitted. Use `weight: "medium"` to give
 cell content additional emphasis when it is not being edited.
 
-This example includes an empty cell with an error and a read-only row. Hover a
-cell and use the arrow keys to move focus. Press **Enter** to edit a text cell,
+This example includes an empty cell with an error and a read-only row. Click a
+cell to focus it, then use the arrow keys to move between cells. Press **Enter** to edit a text cell,
 or open a dropdown with one click. Checkboxes toggle with one click or
 **Space**. **Space** also opens a focused dropdown or action popover.
 
@@ -137,20 +137,22 @@ product's business rules require it. Clicking another cell dismisses an open
 action popover and keeps focus on the selected cell. Keyboard dismissal still
 returns focus to the action trigger.
 
-### Sticky columns and optional header
+### Pinned columns and optional sticky header
 
-Columns are not sticky by default. Set `sticky="left"` or `sticky="right"` on
-the relevant column definition. In this example, the line number and action
-columns remain visible while the other columns scroll beneath them.
+Columns are not pinned by default. Set `pinned: "left"` or `pinned: "right"`
+on the relevant column definition. Pinned columns should form contiguous groups
+at the corresponding edge and use predictable widths. In this example, the
+line number and action columns remain visible while the other columns scroll
+beneath them.
 
 Set `stickyHeader` to keep the header visible while the grid scrolls vertically.
 Headers scroll with the grid by default.
 
-<Canvas of={DataGridStories.StickyColumns} />
+<Canvas of={DataGridStories.PinnedColumns} />
 
 Body cells use the opaque `--table-row-bg-default` surface. Non-sticky headers
 use `--table-header-subtle-bg-default` so they blend into their containing
-surface. Sticky columns and sticky headers use the opaque row surface to stop
+surface. Pinned columns and sticky headers use the opaque row surface to stop
 scrolling content from showing through.
 
 ### Validation and error summaries
@@ -179,15 +181,23 @@ the visible rows.
 
 Use `disableVirtualization` only when an integration requires every row to
 remain in the DOM. Columns remain mounted so horizontal keyboard navigation,
-editing, and sticky positioning remain predictable.
+editing, and pinned positioning remain predictable.
 
 <Canvas of={DataGridStories.LargeScrollableGrid} />
 
 ## Keyboard behavior
 
+Data Grid follows the
+[WAI-ARIA Grid Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/).
+The `grid`, `row`, `columnheader`, and `gridcell` roles expose the tabular
+structure to assistive technologies. ARIA roles do not add keyboard behaviour
+by themselves; Data Grid implements the supported interactions listed below.
+
 Data Grid has separate navigation and edit modes:
 
 - Arrow keys move between cells.
+- **Home** and **End** move to the first or last cell in the current row.
+- **Ctrl+Home** and **Ctrl+End** move to the first or last cell in the grid.
 - **Enter** edits text and dropdown cells, or opens an action cell.
 - **Space** opens a focused dropdown or action popover, or toggles a focused
   checkbox.
@@ -208,10 +218,16 @@ Data Grid uses ARIA grid semantics and a single roving tab stop. Navigation and
 edit modes allow users to move through cells before entering interactive
 content.
 
+When testing with VoiceOver on macOS, interact with the grid and use VoiceOver
+commands such as **Control+Option+Arrow keys** to inspect its semantic structure
+and hear row and column context. Unmodified arrow keys operate Data Grid's focus
+navigation after a cell has focus. Other screen readers provide their own
+equivalent commands for navigating interactive grids.
+
 Provide either `aria-label` or `aria-labelledby`. Use `aria-describedby` for
 additional keyboard guidance or an error summary. Custom controls supplied to
 action cells must provide their own accessible names and keyboard behaviour.
 
 ## Props
 
-<ArgTypes of={DataGridStories} exclude={/^(playgroundStickyColumns)$/} />
+<ArgTypes of={DataGridStories} exclude={/^(playgroundPinnedColumns)$/} />

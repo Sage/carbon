@@ -59,7 +59,7 @@ interface DataGridColumnBase<
   /** Relative width for flexible columns. */
   flex?: number;
   /** Pins the column to an edge of the scrolling grid. */
-  sticky?: "left" | "right";
+  pinned?: "left" | "right";
   /** Horizontal alignment for header and cell content. */
   align?: "left" | "center" | "right";
   /** Font weight used while the cell is not being edited. */

@@ -152,6 +152,7 @@ export const StyledCell = styled.div<
     $readOnly: boolean;
     $editing: boolean;
     $weight: DataGridCellWeight;
+    $hideInlineEndBorder: boolean;
   }
 >`
   ${stickyCell}
@@ -170,11 +171,14 @@ export const StyledCell = styled.div<
       $readOnly
         ? "var(--input-typical-border-default)"
         : "var(--table-row-border-default)"};
-  border-inline-end: var(--global-borderwidth-xs) solid
-    ${({ $readOnly }) =>
-      $readOnly
-        ? "var(--input-typical-border-default)"
-        : "var(--table-row-border-default)"};
+  border-inline-end: ${({ $hideInlineEndBorder, $readOnly }) =>
+    $hideInlineEndBorder
+      ? "none"
+      : `var(--global-borderwidth-xs) solid ${
+          $readOnly
+            ? "var(--input-typical-border-default)"
+            : "var(--table-row-border-default)"
+        }`};
   color: ${({ $readOnly }) =>
     $readOnly
       ? "var(--input-typical-txt-read-only)"

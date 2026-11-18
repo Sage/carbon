@@ -245,6 +245,8 @@ const DataGridInner = <T extends object>(
   );
   const keyboard = useDataGridKeyboard({
     enableTabNavigation,
+    rowCount: rows.length,
+    columnCount: columns.length,
     getCellParams,
     focusCell,
     moveLinear,
@@ -311,9 +313,9 @@ const DataGridInner = <T extends object>(
           <StyledGrid $contentWidth={columnModel.contentWidth}>
             <DataGridHeader
               columns={columns}
-              stickyOffsets={columnModel.stickyOffsets}
+              pinnedOffsets={columnModel.pinnedOffsets}
               gridTemplateColumns={columnModel.gridTemplateColumns}
-              sticky={stickyHeader}
+              stickyHeader={stickyHeader}
             />
             <div role="rowgroup" data-component="data-grid-body">
               {virtualization.topPadding > 0 && (
@@ -334,7 +336,7 @@ const DataGridInner = <T extends object>(
                   draftValue={
                     editing?.row === rowIndex ? draftValue : undefined
                   }
-                  stickyOffsets={columnModel.stickyOffsets}
+                  pinnedOffsets={columnModel.pinnedOffsets}
                   gridTemplateColumns={columnModel.gridTemplateColumns}
                   editorRef={editorRef}
                   getParams={getCellParams}

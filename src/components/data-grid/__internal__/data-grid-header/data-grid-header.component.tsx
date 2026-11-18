@@ -10,21 +10,21 @@ import {
 
 interface DataGridHeaderProps<T extends object> {
   columns: DataGridColumn<T>[];
-  stickyOffsets: Map<number, number>;
+  pinnedOffsets: Map<number, number>;
   gridTemplateColumns: string;
-  sticky: boolean;
+  stickyHeader: boolean;
 }
 
 const DataGridHeaderInner = <T extends object>({
   columns,
-  stickyOffsets,
+  pinnedOffsets,
   gridTemplateColumns,
-  sticky,
+  stickyHeader,
 }: DataGridHeaderProps<T>) => (
   <StyledHeaderGroup
     role="rowgroup"
     data-component="data-grid-header"
-    $sticky={sticky}
+    $sticky={stickyHeader}
   >
     <StyledHeaderRow
       role="row"
@@ -43,9 +43,9 @@ const DataGridHeaderInner = <T extends object>({
               ? "center"
               : "left")
           }
-          $sticky={column.sticky}
-          $stickyHeader={sticky}
-          $stickyOffset={stickyOffsets.get(columnIndex)}
+          $sticky={column.pinned}
+          $stickyHeader={stickyHeader}
+          $stickyOffset={pinnedOffsets.get(columnIndex)}
         >
           <span data-element="data-grid-header-label">{column.headerName}</span>
           {!column.headerName && column.headerAriaLabel && (

@@ -57,6 +57,27 @@ test("shows navigational focus after clicking without entering edit mode", async
     .not.toBe("none");
 });
 
+test("supports row and grid edge navigation with Home and End", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await cell(page, 2, "quantity").click();
+
+  await page.keyboard.press("Home");
+  await expect(cell(page, 2, "name")).toBeFocused();
+
+  await page.keyboard.press("End");
+  await expect(cell(page, 2, "actions")).toBeFocused();
+
+  await page.keyboard.press("Control+Home");
+  await expect(cell(page, 1, "name")).toBeFocused();
+
+  await page.keyboard.press("Control+End");
+  await expect(cell(page, 6, "actions")).toBeFocused();
+});
+
 test("opens a dropdown with one click without changing its typography or padding", async ({
   mount,
   page,
@@ -279,9 +300,20 @@ test("opens an action popover with Space without scrolling vertically", async ({
     element.scrollTop = 40;
   });
   await actionCell.click({ position: { x: 4, y: 4 } });
+  const trigger = page.getByRole("button", { name: "Actions for row 2" });
   await page.keyboard.press("Space");
 
-  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+  const duplicateAction = page.getByRole("button", { name: "Duplicate" });
+  await expect(duplicateAction).toBeFocused();
+  await expect
+    .poll(async () => {
+      const [triggerBox, itemBox] = await Promise.all([
+        trigger.boundingBox(),
+        duplicateAction.boundingBox(),
+      ]);
+      return !!triggerBox && !!itemBox && itemBox.height > triggerBox.height;
+    })
+    .toBe(true);
   await expect
     .poll(() => grid.evaluate((element) => element.scrollTop))
     .toBe(40);
@@ -513,7 +545,7 @@ test("closes an open action popover before opening another", async ({
   await expect(page.getByRole("list")).toHaveCount(1);
 });
 
-test("portals a sticky action popover beyond the grid scroll container", async ({
+test("portals a pinned action popover beyond the grid scroll container", async ({
   mount,
   page,
 }) => {

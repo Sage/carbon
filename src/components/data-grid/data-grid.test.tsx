@@ -487,7 +487,7 @@ test("uses opaque cells and only makes non-sticky headers transparent", () => {
     {
       field: "name",
       headerName: "Name",
-      sticky: "left",
+      pinned: "left",
       readOnly: true,
     },
     { field: "type", headerName: "Type" },
@@ -495,7 +495,7 @@ test("uses opaque cells and only makes non-sticky headers transparent", () => {
       field: "actions",
       headerName: "Actions",
       type: "action",
-      sticky: "right",
+      pinned: "right",
       renderCell: () => <button>Actions</button>,
     },
   ];
@@ -507,7 +507,7 @@ test("uses opaque cells and only makes non-sticky headers transparent", () => {
     />,
   );
 
-  const [stickyCell, scrollingCell, actionCell] =
+  const [pinnedCell, scrollingCell, actionCell] =
     screen.getAllByRole("gridcell");
   const [headerGroup] = screen.getAllByRole("rowgroup");
   const [stickyHeader, scrollingHeader] = screen.getAllByRole("columnheader");
@@ -524,14 +524,16 @@ test("uses opaque cells and only makes non-sticky headers transparent", () => {
     "background-color",
     "var(--table-header-subtle-bg-default)",
   );
-  expect(stickyCell).toHaveStyleRule(
+  expect(pinnedCell).toHaveStyleRule(
     "background-color",
     "var(--table-row-bg-default)",
   );
-  expect(stickyCell).toHaveStyleRule(
+  expect(pinnedCell).toHaveStyleRule(
     "background-image",
     "linear-gradient(var(--input-typical-bg-read-only),var(--input-typical-bg-read-only))",
   );
+  expect(pinnedCell).toHaveStyleRule("border-inline-end", "none");
+  expect(scrollingCell).toHaveStyleRule("border-inline-end", "none");
   expect(scrollingCell).toHaveStyleRule(
     "background-color",
     "var(--table-row-bg-default)",
@@ -621,16 +623,16 @@ test("supports right-aligned headers and content", () => {
   expect(screen.getByRole("grid")).toHaveStyleRule("max-height", "20rem");
 });
 
-test("raises a sticky cell while it is being edited", async () => {
+test("raises a pinned cell while it is being edited", async () => {
   const user = userEvent.setup();
-  const stickyColumns: DataGridColumn<Row>[] = [
-    { field: "name", headerName: "Name", sticky: "left" },
+  const pinnedColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name", pinned: "left" },
   ];
   render(
     <DataGrid
       aria-label="Items"
       rows={rows.slice(0, 1)}
-      columns={stickyColumns}
+      columns={pinnedColumns}
     />,
   );
 
@@ -729,6 +731,23 @@ test("uses arrow keys to navigate cells", async () => {
   expect(cells[4]).toHaveFocus();
 });
 
+test("uses Home and End to navigate to row and grid edges", async () => {
+  const user = userEvent.setup();
+  render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
+  const cells = screen.getAllByRole("gridcell");
+
+  await user.click(cells[3]);
+  await user.keyboard("{ArrowRight}");
+  await user.keyboard("{Home}");
+  expect(cells[3]).toHaveFocus();
+  await user.keyboard("{End}");
+  expect(cells[5]).toHaveFocus();
+  await user.keyboard("{Control>}{Home}{/Control}");
+  expect(cells[0]).toHaveFocus();
+  await user.keyboard("{Control>}{End}{/Control}");
+  expect(cells.at(-1)).toHaveFocus();
+});
+
 test("leaves keyboard handling with nested controls in non-action cells", async () => {
   const user = userEvent.setup();
   const interactiveColumns: DataGridColumn<Row>[] = [
@@ -812,14 +831,14 @@ test("scrolls horizontally to reveal the cell reached with arrow keys", async ()
   expect(wrapper.scrollLeft).toBe(100);
 });
 
-test("accounts for sticky edge columns when revealing a navigated cell", async () => {
+test("accounts for pinned edge columns when revealing a navigated cell", async () => {
   const user = userEvent.setup();
-  const stickyColumns: DataGridColumn<Row>[] = [
-    { ...columns[0], width: 100, sticky: "left" },
+  const pinnedColumns: DataGridColumn<Row>[] = [
+    { ...columns[0], width: 100, pinned: "left" },
     { ...columns[1], width: 200 },
-    { ...columns[2], width: 100, sticky: "right" },
+    { ...columns[2], width: 100, pinned: "right" },
   ];
-  render(<DataGrid aria-label="Items" rows={rows} columns={stickyColumns} />);
+  render(<DataGrid aria-label="Items" rows={rows} columns={pinnedColumns} />);
   const wrapper = screen.getByRole("grid");
   Object.defineProperty(wrapper, "clientWidth", {
     configurable: true,

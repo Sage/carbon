@@ -2,11 +2,26 @@ import React, { useMemo, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
-import { ActionPopover } from "../action-popover";
+import { ActionPopover, ActionPopoverProps } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import Box from "../box";
+import Button from "../button/__next__";
 import Icon from "../icon";
 import { DataGrid, DataGridColumn } from ".";
+
+const renderSmallActionPopoverButton: NonNullable<
+  ActionPopoverProps["renderButton"]
+> = ({ "data-element": dataElement, ariaAttributes }) => (
+  <Button
+    data-element={dataElement}
+    size="small"
+    variant="default"
+    variantType="subtle"
+    {...ariaAttributes}
+  >
+    <Icon type="ellipsis_vertical" />
+  </Button>
+);
 
 interface VisualRow {
   id: number;
@@ -49,10 +64,10 @@ const initialRows: VisualRow[] = [
 
 const VisualGrid = ({
   maxWidth = "600px",
-  stickyColumns = false,
+  pinnedColumns = false,
 }: {
   maxWidth?: string;
-  stickyColumns?: boolean;
+  pinnedColumns?: boolean;
 }) => {
   const [rows, setRows] = useState(initialRows);
   const columns = useMemo<DataGridColumn<VisualRow>[]>(
@@ -61,7 +76,7 @@ const VisualGrid = ({
         field: "description",
         headerName: "Description",
         width: 220,
-        sticky: stickyColumns ? "left" : undefined,
+        pinned: pinnedColumns ? "left" : undefined,
         error: ({ value }) => !value && "Enter a description",
         readOnly: ({ row }) => row.id === 3,
       },
@@ -92,13 +107,13 @@ const VisualGrid = ({
         headerAriaLabel: "Actions",
         type: "action",
         width: 52,
-        sticky: stickyColumns ? "right" : undefined,
+        pinned: pinnedColumns ? "right" : undefined,
         readOnly: ({ row }) => row.id === 3,
         renderCell: ({ row }) => (
           <ActionPopover
             aria-label={`Actions for row ${row.id}`}
-            buttonLabel={<Icon type="ellipsis_vertical" />}
-            size="small"
+            renderButton={renderSmallActionPopoverButton}
+            size="medium"
           >
             <ActionPopoverItem
               onClick={() =>
@@ -113,7 +128,7 @@ const VisualGrid = ({
         ),
       },
     ],
-    [stickyColumns],
+    [pinnedColumns],
   );
 
   return (
@@ -129,6 +144,94 @@ const VisualGrid = ({
     </Box>
   );
 };
+
+interface MultiplePinnedRow {
+  id: number;
+  code: string;
+  description: string;
+  category: string;
+  project: string;
+  quantity: string;
+  total: string;
+  actions: null;
+}
+
+const multiplePinnedRows: MultiplePinnedRow[] = [
+  {
+    id: 1,
+    code: "LAB-001",
+    description: "Labour",
+    category: "Services",
+    project: "Bathroom refurbishment",
+    quantity: "1",
+    total: "3,000.00",
+    actions: null,
+  },
+  {
+    id: 2,
+    code: "BATH-001",
+    description: "Freestanding bath",
+    category: "Materials",
+    project: "Bathroom refurbishment",
+    quantity: "2",
+    total: "1,000.00",
+    actions: null,
+  },
+  {
+    id: 3,
+    code: "TILE-001",
+    description: "Ceramic tiles",
+    category: "Materials",
+    project: "Bathroom refurbishment",
+    quantity: "52",
+    total: "1,040.00",
+    actions: null,
+  },
+];
+
+const multiplePinnedColumns: DataGridColumn<MultiplePinnedRow>[] = [
+  {
+    field: "code",
+    headerName: "Item code",
+    width: 120,
+    pinned: "left",
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 180,
+    pinned: "left",
+  },
+  { field: "category", headerName: "Category", width: 160 },
+  { field: "project", headerName: "Project", width: 220 },
+  { field: "quantity", headerName: "Quantity", width: 110, align: "right" },
+  {
+    field: "total",
+    headerName: "Net (£)",
+    width: 130,
+    align: "right",
+    pinned: "right",
+    weight: "medium",
+  },
+  {
+    field: "actions",
+    headerName: "",
+    headerAriaLabel: "Actions",
+    type: "action",
+    width: 52,
+    pinned: "right",
+    renderCell: ({ row }) => (
+      <ActionPopover
+        aria-label={`Actions for ${row.code}`}
+        renderButton={renderSmallActionPopoverButton}
+        size="medium"
+      >
+        <ActionPopoverItem>Duplicate</ActionPopoverItem>
+        <ActionPopoverItem>Delete</ActionPopoverItem>
+      </ActionPopover>
+    ),
+  },
+];
 
 const meta = {
   title: "Data Grid/Test",
@@ -188,8 +291,8 @@ export const OpenDropdown: Story = {
   },
 };
 
-export const StickyColumnsScrolledWithOpenActions: Story = {
-  render: () => <VisualGrid maxWidth="400px" stickyColumns />,
+export const PinnedColumnsScrolledWithOpenActions: Story = {
+  render: () => <VisualGrid maxWidth="400px" pinnedColumns />,
   parameters: {
     chromatic: { delay: 300, disableSnapshot: false },
   },
@@ -201,5 +304,23 @@ export const StickyColumnsScrolledWithOpenActions: Story = {
       canvas.getByRole("button", { name: "Actions for row 2" }),
     );
     await expect(grid).toHaveProperty("scrollLeft", 120);
+  },
+};
+
+export const MultiplePinnedColumns: Story = {
+  render: () => (
+    <Box maxWidth="100%" width="760px">
+      <DataGrid
+        aria-label="Invoice lines with multiple pinned columns"
+        rows={multiplePinnedRows}
+        columns={multiplePinnedColumns}
+        maxWidth="100%"
+      />
+    </Box>
+  ),
+  play: async ({ canvasElement }) => {
+    const grid = within(canvasElement).getByRole("grid");
+    grid.scrollLeft = 180;
+    await expect(grid).toHaveProperty("scrollLeft", 180);
   },
 };

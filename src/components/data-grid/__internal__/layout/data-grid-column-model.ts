@@ -8,9 +8,9 @@ import {
 export interface DataGridColumnModel {
   contentWidth: number;
   gridTemplateColumns: string;
-  stickyOffsets: Map<number, number>;
-  leftStickyWidth: number;
-  rightStickyWidth: number;
+  pinnedOffsets: Map<number, number>;
+  leftPinnedWidth: number;
+  rightPinnedWidth: number;
 }
 
 export const getDataGridColumnWidth = <T extends object>(
@@ -34,22 +34,22 @@ const getGridTemplateColumn = <T extends object>(column: DataGridColumn<T>) => {
 export const createDataGridColumnModel = <T extends object>(
   columns: DataGridColumn<T>[],
 ): DataGridColumnModel => {
-  let leftStickyWidth = 0;
-  let rightStickyWidth = 0;
-  const stickyOffsets = new Map<number, number>();
+  let leftPinnedWidth = 0;
+  let rightPinnedWidth = 0;
+  const pinnedOffsets = new Map<number, number>();
 
   columns.forEach((column, index) => {
-    if (column.sticky === "left") {
-      stickyOffsets.set(index, leftStickyWidth);
-      leftStickyWidth += getDataGridColumnWidth(column);
+    if (column.pinned === "left") {
+      pinnedOffsets.set(index, leftPinnedWidth);
+      leftPinnedWidth += getDataGridColumnWidth(column);
     }
   });
 
   for (let index = columns.length - 1; index >= 0; index -= 1) {
     const column = columns[index];
-    if (column.sticky === "right") {
-      stickyOffsets.set(index, rightStickyWidth);
-      rightStickyWidth += getDataGridColumnWidth(column);
+    if (column.pinned === "right") {
+      pinnedOffsets.set(index, rightPinnedWidth);
+      rightPinnedWidth += getDataGridColumnWidth(column);
     }
   }
 
@@ -59,8 +59,8 @@ export const createDataGridColumnModel = <T extends object>(
       0,
     ),
     gridTemplateColumns: columns.map(getGridTemplateColumn).join(" "),
-    stickyOffsets,
-    leftStickyWidth,
-    rightStickyWidth,
+    pinnedOffsets,
+    leftPinnedWidth,
+    rightPinnedWidth,
   };
 };

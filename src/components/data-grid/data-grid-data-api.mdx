@@ -103,8 +103,18 @@ const columns: DataGridColumn<InvoiceLine>[] = [
     renderCell: ({ api, row, rowId }) => (
       <ActionPopover
         aria-label={`Actions for ${row.description}`}
-        buttonLabel="More actions"
-        size="small"
+        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
+          <Button
+            data-element={dataElement}
+            size="small"
+            variant="default"
+            variantType="subtle"
+            {...ariaAttributes}
+          >
+            <Icon type="ellipsis_vertical" />
+          </Button>
+        )}
+        size="medium"
       >
         <ActionPopoverItem
           onClick={() =>
@@ -127,7 +137,7 @@ Shared column properties configure cells without changing row data:
 | Purpose          | Properties                                     |
 | ---------------- | ---------------------------------------------- |
 | Sizing           | `width`, or `flex` with an optional `minWidth` |
-| Position         | `sticky: "left"` or `sticky: "right"`          |
+| Position         | `pinned: "left"` or `pinned: "right"`          |
 | Content          | `align`, `weight`, `headerAriaLabel`           |
 | State            | `readOnly`, `error`                            |
 | Custom rendering | `renderCell`                                   |

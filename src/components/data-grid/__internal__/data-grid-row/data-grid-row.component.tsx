@@ -14,7 +14,7 @@ interface DataGridRowProps<T extends object> {
   activeColumn: number;
   editingColumn: number;
   draftValue?: unknown;
-  stickyOffsets: Map<number, number>;
+  pinnedOffsets: Map<number, number>;
   gridTemplateColumns: string;
   editorRef: React.RefObject<HTMLInputElement>;
   getParams: (position: DataGridCellPosition) => DataGridCellParams<T>;
@@ -46,7 +46,7 @@ const DataGridRowInner = <T extends object>({
   activeColumn,
   editingColumn,
   draftValue,
-  stickyOffsets,
+  pinnedOffsets,
   gridTemplateColumns,
   editorRef,
   getParams,
@@ -101,7 +101,13 @@ const DataGridRowInner = <T extends object>({
             readOnly={isReadOnly(params)}
             errorValue={errorValue}
             draftValue={draftValue}
-            stickyOffset={stickyOffsets.get(columnIndex)}
+            pinnedOffset={pinnedOffsets.get(columnIndex)}
+            hideInlineEndBorder={
+              (column.pinned === "left" &&
+                columns[columnIndex + 1]?.pinned !== "left") ||
+              (column.pinned !== "right" &&
+                columns[columnIndex + 1]?.pinned === "right")
+            }
             editorRef={editorRef}
             ref={(node) => registerCell(rowIndex, columnIndex, node)}
             onActivate={onActivate}

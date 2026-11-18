@@ -66,8 +66,8 @@ const useDataGridNavigation = <T extends object>({
         scrollElementRef.current,
         columns,
         position.column,
-        columnModel.leftStickyWidth,
-        columnModel.rightStickyWidth,
+        columnModel.leftPinnedWidth,
+        columnModel.rightPinnedWidth,
       );
       scrollRowIntoView(scrollElementRef.current, position.row, stickyHeader);
     },

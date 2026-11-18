@@ -11,6 +11,8 @@ import {
 
 interface UseDataGridKeyboardOptions<T extends object> {
   enableTabNavigation: boolean;
+  rowCount: number;
+  columnCount: number;
   getCellParams: (position: DataGridCellPosition) => DataGridCellParams<T>;
   focusCell: (position: DataGridCellPosition) => void;
   moveLinear: (position: DataGridCellPosition, delta: number) => void;
@@ -22,6 +24,8 @@ interface UseDataGridKeyboardOptions<T extends object> {
 
 const useDataGridKeyboard = <T extends object>({
   enableTabNavigation,
+  rowCount,
+  columnCount,
   getCellParams,
   focusCell,
   moveLinear,
@@ -53,6 +57,20 @@ const useDataGridKeyboard = <T extends object>({
           cancelEdit();
           moveLinear(position, action.delta);
           break;
+        case "move-to-row-edge":
+          cancelEdit();
+          focusCell({
+            row: position.row,
+            column: action.edge === "start" ? 0 : columnCount - 1,
+          });
+          break;
+        case "move-to-grid-edge":
+          cancelEdit();
+          focusCell({
+            row: action.edge === "start" ? 0 : rowCount - 1,
+            column: action.edge === "start" ? 0 : columnCount - 1,
+          });
+          break;
         case "begin-edit":
           beginEdit(position, action.appendedText);
           break;
@@ -67,11 +85,13 @@ const useDataGridKeyboard = <T extends object>({
     [
       beginEdit,
       cancelEdit,
+      columnCount,
       enableTabNavigation,
       focusAction,
       focusCell,
       getCellParams,
       moveLinear,
+      rowCount,
     ],
   );
 

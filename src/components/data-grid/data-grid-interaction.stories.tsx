@@ -3,10 +3,25 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import { ActionPopover } from "../action-popover";
+import { ActionPopover, ActionPopoverProps } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
+import Button from "../button/__next__";
 import Icon from "../icon";
 import { DataGrid, DataGridColumn } from ".";
+
+const renderSmallActionPopoverButton: NonNullable<
+  ActionPopoverProps["renderButton"]
+> = ({ "data-element": dataElement, ariaAttributes }) => (
+  <Button
+    data-element={dataElement}
+    size="small"
+    variant="default"
+    variantType="subtle"
+    {...ariaAttributes}
+  >
+    <Icon type="ellipsis_vertical" />
+  </Button>
+);
 
 interface InteractionRow {
   id: number;
@@ -63,8 +78,8 @@ const InteractionGrid = () => {
         renderCell: ({ api, row, rowId }) => (
           <ActionPopover
             aria-label={`Actions for ${row.description}`}
-            buttonLabel={<Icon type="ellipsis_vertical" />}
-            size="small"
+            renderButton={renderSmallActionPopoverButton}
+            size="medium"
           >
             <ActionPopoverItem
               onClick={() =>

@@ -33,6 +33,17 @@ test.each([
   });
 });
 
+test.each([
+  ["Home", false, { type: "move-to-row-edge", edge: "start" }],
+  ["End", false, { type: "move-to-row-edge", edge: "end" }],
+  ["Home", true, { type: "move-to-grid-edge", edge: "start" }],
+  ["End", true, { type: "move-to-grid-edge", edge: "end" }],
+])("maps %s with ctrl=%s to edge navigation", (key, ctrlKey, action) => {
+  expect(
+    getDataGridCellKeyAction(keyEvent(key, { ctrlKey }), "text", false),
+  ).toEqual(action);
+});
+
 test("maps printable text to edit mode as appended text", () => {
   expect(getDataGridCellKeyAction(keyEvent("A"), "text", false)).toEqual({
     type: "begin-edit",

@@ -1,10 +1,24 @@
 import React, { useMemo, useRef, useState } from "react";
 
-import { ActionPopover } from "../action-popover";
+import { ActionPopover, ActionPopoverProps } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import Button from "../button/__next__";
 import Icon from "../icon";
 import { DataGrid, DataGridColumn, DataGridHandle, DataGridProps } from ".";
+
+const renderSmallActionPopoverButton: NonNullable<
+  ActionPopoverProps["renderButton"]
+> = ({ "data-element": dataElement, ariaAttributes }) => (
+  <Button
+    data-element={dataElement}
+    size="small"
+    variant="default"
+    variantType="subtle"
+    {...ariaAttributes}
+  >
+    <Icon type="ellipsis_vertical" />
+  </Button>
+);
 
 interface TestRow {
   id: number;
@@ -57,7 +71,7 @@ const DataGridComponent = ({
         field: "name",
         headerName: "Name",
         width: 180,
-        sticky: "left",
+        pinned: "left",
         error: ({ value }) => !value && "Enter a name",
         readOnly: ({ row }) => row.id === 3,
       },
@@ -88,13 +102,13 @@ const DataGridComponent = ({
         headerAriaLabel: "Actions",
         type: "action",
         width: 52,
-        sticky: "right",
+        pinned: "right",
         readOnly: ({ row }) => row.id === 3,
         renderCell: ({ api, row, rowId }) => (
           <ActionPopover
             aria-label={`Actions for row ${row.id}`}
-            buttonLabel={<Icon type="ellipsis_vertical" />}
-            size="small"
+            renderButton={renderSmallActionPopoverButton}
+            size="medium"
           >
             <ActionPopoverItem
               onClick={() =>

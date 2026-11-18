@@ -22,7 +22,8 @@ interface DataGridCellProps<T extends object> {
   readOnly: boolean;
   errorValue?: string | boolean;
   draftValue?: unknown;
-  stickyOffset?: number;
+  pinnedOffset?: number;
+  hideInlineEndBorder: boolean;
   editorRef: React.RefObject<HTMLInputElement>;
   onActivate: (position: DataGridCellPosition) => void;
   onFocusPosition: (position: DataGridCellPosition) => void;
@@ -51,7 +52,8 @@ const DataGridCellInner = <T extends object>(
     readOnly,
     errorValue,
     draftValue,
-    stickyOffset,
+    pinnedOffset,
+    hideInlineEndBorder,
     editorRef,
     onActivate,
     onFocusPosition,
@@ -143,12 +145,13 @@ const DataGridCellInner = <T extends object>(
       tabIndex={active && !editing ? 0 : -1}
       $cellType={type}
       $align={align}
-      $sticky={column.sticky}
-      $stickyOffset={stickyOffset}
+      $sticky={column.pinned}
+      $stickyOffset={pinnedOffset}
       $hasError={!!errorValue}
       $readOnly={readOnly}
       $editing={editing}
       $weight={column.weight ?? "regular"}
+      $hideInlineEndBorder={hideInlineEndBorder}
       onFocus={() => onActivate(position)}
       onClick={(event) => {
         if (!editing && type === "checkbox") {

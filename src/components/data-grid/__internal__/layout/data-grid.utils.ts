@@ -9,25 +9,25 @@ export const scrollColumnIntoView = <T extends object>(
   container: HTMLDivElement | null,
   columns: DataGridColumn<T>[],
   columnIndex: number,
-  leftStickyWidth: number,
-  rightStickyWidth: number,
+  leftPinnedWidth: number,
+  rightPinnedWidth: number,
 ) => {
-  if (!container || columns[columnIndex]?.sticky) return;
+  if (!container || columns[columnIndex]?.pinned) return;
 
   const columnStart = columns
     .slice(0, columnIndex)
     .reduce((total, column) => total + getDataGridColumnWidth(column), 0);
   const columnEnd = columnStart + getDataGridColumnWidth(columns[columnIndex]);
-  const visibleStart = container.scrollLeft + leftStickyWidth;
+  const visibleStart = container.scrollLeft + leftPinnedWidth;
   const visibleEnd =
-    container.scrollLeft + container.clientWidth - rightStickyWidth;
+    container.scrollLeft + container.clientWidth - rightPinnedWidth;
 
   if (columnStart < visibleStart) {
-    container.scrollLeft = Math.max(0, columnStart - leftStickyWidth);
+    container.scrollLeft = Math.max(0, columnStart - leftPinnedWidth);
   } else if (columnEnd > visibleEnd) {
     container.scrollLeft = Math.max(
       0,
-      columnEnd - (container.clientWidth - rightStickyWidth),
+      columnEnd - (container.clientWidth - rightPinnedWidth),
     );
   }
 };

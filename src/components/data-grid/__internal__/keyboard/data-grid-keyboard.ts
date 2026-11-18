@@ -11,6 +11,8 @@ interface DataGridKey {
 export type DataGridCellKeyAction =
   | { type: "move"; rowDelta: number; columnDelta: number }
   | { type: "move-linear"; delta: number }
+  | { type: "move-to-row-edge"; edge: "start" | "end" }
+  | { type: "move-to-grid-edge"; edge: "start" | "end" }
   | { type: "begin-edit"; appendedText?: string }
   | { type: "focus-action" }
   | { type: "toggle-checkbox" };
@@ -40,6 +42,13 @@ export const getDataGridCellKeyAction = (
 ): DataGridCellKeyAction | null => {
   const movement = arrowMovement[event.key];
   if (movement) return movement;
+
+  if (event.key === "Home" || event.key === "End") {
+    const edge = event.key === "Home" ? "start" : "end";
+    return event.ctrlKey
+      ? { type: "move-to-grid-edge", edge }
+      : { type: "move-to-row-edge", edge };
+  }
 
   if (event.key === "Enter") {
     return cellType === "action"
