@@ -180,8 +180,8 @@ export const StyledCell = styled.div<
       ? "var(--input-typical-txt-read-only)"
       : "var(--table-row-label-default)"};
   cursor: ${({ $editing }) => ($editing ? "text" : "default")};
-  font: ${({ $weight, $editing }) =>
-    $editing || $weight === "regular"
+  font: ${({ $weight, $editing, $cellType }) =>
+    ($editing && $cellType === "text") || $weight === "regular"
       ? "var(--global-font-static-comp-regular-m)"
       : "var(--global-font-static-comp-medium-m)"};
   outline: none;
@@ -322,9 +322,15 @@ export const StyledEditor = styled.input`
   ${editor}
 `;
 
-export const StyledSelectEditor = styled.div`
+export const StyledSelectEditor = styled.div<{
+  $weight: DataGridCellWeight;
+}>`
   width: 100%;
   height: 100%;
+  font: ${({ $weight }) =>
+    $weight === "medium"
+      ? "var(--global-font-static-comp-medium-m)"
+      : "var(--global-font-static-comp-regular-m)"};
 
   > [data-component="simple-select"],
   > [data-component="filterable-select"],
@@ -345,6 +351,7 @@ export const StyledSelectEditor = styled.div`
   &&&& [data-role="input-container"] {
     min-height: 0;
     height: 100%;
+    padding: var(--global-space-comp-s) var(--global-space-comp-l);
     background: transparent;
     border: 0;
     border-radius: 0;
@@ -353,6 +360,12 @@ export const StyledSelectEditor = styled.div`
       box-shadow: none;
       outline: none;
     }
+  }
+
+  &&&& [data-role="input-text-container"],
+  &&&& [data-role="input-text-container"] input,
+  &&&& [data-role="select-text"] .select-text-children-wrapper {
+    font: inherit;
   }
 `;
 

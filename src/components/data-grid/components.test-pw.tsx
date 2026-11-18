@@ -66,6 +66,7 @@ const DataGridComponent = ({
         headerName: "Type",
         type: "dropdown",
         filterable: filterableDropdown,
+        weight: "medium",
         width: 160,
         readOnly: ({ row }) => row.id === 3,
         options: [

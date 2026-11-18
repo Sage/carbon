@@ -108,7 +108,7 @@ description: Carbon DataGrid component props and usage examples.
 
 ```tsx
 {
-    playgroundStickyColumns: "none",
+    playgroundStickyColumns: "right",
   }
 ```
 
@@ -118,7 +118,7 @@ description: Carbon DataGrid component props and usage examples.
 (args) => {
     const [rows, setRows] = useState(createPlaygroundRows);
     const { playgroundStickyColumns, ...dataGridProps } = args;
-    const storyColumns = useInvoiceColumns(rows, playgroundStickyColumns);
+    const storyColumns = usePlaygroundColumns(rows, playgroundStickyColumns);
 
     return (
       <DataGrid
@@ -126,7 +126,7 @@ description: Carbon DataGrid component props and usage examples.
         aria-label="Invoice lines playground"
         rows={rows}
         columns={storyColumns}
-        onRowsChange={(nextRows) => setRows(nextRows)}
+        onRowsChange={(nextRows) => setRows(calculatePlaygroundRows(nextRows))}
       />
     );
   }

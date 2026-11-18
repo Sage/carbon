@@ -57,6 +57,45 @@ test("shows navigational focus after clicking without entering edit mode", async
     .not.toBe("none");
 });
 
+test("opens a dropdown with one click without changing its typography or padding", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  const typeCell = cell(page, 2, "type");
+  const restingContent = typeCell.locator(":scope > div");
+  const restingText = restingContent.locator(":scope > span").first();
+  const restingStyles = await Promise.all([
+    restingContent.evaluate(
+      (element) => getComputedStyle(element).paddingInlineStart,
+    ),
+    restingText.evaluate((element) => getComputedStyle(element).font),
+  ]);
+
+  await typeCell.click();
+
+  const select = page.getByRole("combobox", { name: "Type, row 2" });
+  const inputContainer = typeCell.locator('[data-role="input-container"]');
+  const activeText = typeCell.locator(
+    '[data-role="select-text"] .select-text-children-wrapper',
+  );
+  await expect(select).toBeFocused();
+  await expect(
+    page.locator('[data-element="select-list-wrapper"]'),
+  ).toBeVisible();
+  await expect
+    .poll(async () =>
+      Promise.all([
+        inputContainer.evaluate(
+          (element) => getComputedStyle(element).paddingInlineStart,
+        ),
+        activeText.evaluate((element) => getComputedStyle(element).font),
+      ]),
+    )
+    .toEqual(restingStyles);
+});
+
 test("opens and commits a dropdown with Space without scrolling vertically", async ({
   mount,
   page,
@@ -68,7 +107,8 @@ test("opens and commits a dropdown with Space without scrolling vertically", asy
   await grid.evaluate((element) => {
     element.scrollTop = 40;
   });
-  await typeCell.click();
+  await cell(page, 2, "name").click();
+  await page.keyboard.press("ArrowRight");
   await page.keyboard.press("Space");
 
   const select = page.getByRole("combobox", { name: "Type, row 2" });
@@ -158,7 +198,6 @@ test("restores grid focus when a Carbon dropdown closes by blurring", async ({
 
   const typeCell = cell(page, 2, "type");
   await typeCell.click();
-  await page.keyboard.press("Space");
 
   const select = page.getByRole("combobox", { name: "Type, row 2" });
   await select.blur();
@@ -175,7 +214,6 @@ test("returns focus to the cell when an open dropdown is dismissed with Escape",
 
   const typeCell = cell(page, 2, "type");
   await typeCell.click();
-  await page.keyboard.press("Enter");
 
   await expect(page.getByRole("option", { name: "Service" })).toBeVisible();
   await page.keyboard.press("Escape");
@@ -195,7 +233,6 @@ test("filters and commits a FilterableSelect dropdown", async ({
 
   const typeCell = cell(page, 2, "type");
   await typeCell.click();
-  await page.keyboard.press("Enter");
 
   const select = page.getByRole("combobox", { name: "Type, row 2" });
   await expect(select).toBeFocused();
@@ -289,7 +326,6 @@ test("applies read-only behavior to each cell variation", async ({
   await expect(typeCell.locator('[data-element="dropdown"]')).toHaveCount(0);
 
   await typeCell.click();
-  await page.keyboard.press("Enter");
   await expect(page.getByRole("combobox", { name: "Type, row 3" })).toHaveCount(
     0,
   );

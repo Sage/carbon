@@ -694,17 +694,27 @@ test("uses regular weight while editing a medium-weight cell", async () => {
   expect(cell).toHaveStyleRule("cursor", "text");
 });
 
-test("focuses a cell on click without entering edit mode", async () => {
+test("focuses a text cell on click without entering edit mode", async () => {
   const user = userEvent.setup();
   render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
   const cells = screen.getAllByRole("gridcell");
 
-  await user.click(cells[1]);
+  await user.click(cells[3]);
 
-  expect(cells[1]).toHaveFocus();
-  expect(cells[1]).toHaveAttribute("tabindex", "0");
+  expect(cells[3]).toHaveFocus();
+  expect(cells[3]).toHaveAttribute("tabindex", "0");
   expect(cells[0]).toHaveAttribute("tabindex", "-1");
   expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+});
+
+test("opens a dropdown editor with one click", async () => {
+  const user = userEvent.setup();
+  render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
+
+  await user.click(screen.getAllByRole("gridcell")[1]);
+
+  expect(screen.getByRole("combobox", { name: "Type, row 1" })).toHaveFocus();
+  expect(await screen.findByRole("option", { name: "B" })).toBeVisible();
 });
 
 test("uses arrow keys to navigate cells", async () => {
@@ -937,7 +947,7 @@ test("enter focuses the dropdown editor", async () => {
   render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
   const dropdownCell = screen.getAllByRole("gridcell")[1];
 
-  await user.click(dropdownCell);
+  act(() => dropdownCell.focus());
   await user.keyboard("{Enter}");
 
   expect(screen.getByRole("combobox", { name: "Type, row 1" })).toHaveFocus();
@@ -955,7 +965,7 @@ test("space focuses the dropdown editor without scrolling the grid", async () =>
 
   // Use a later row here so this remains focused on Space opening the editor.
   // Navigating to the first row intentionally reveals a non-sticky header.
-  await user.click(screen.getAllByRole("gridcell")[4]);
+  act(() => screen.getAllByRole("gridcell")[4].focus());
   await user.keyboard(" ");
 
   expect(screen.getByRole("combobox", { name: "Type, row 2" })).toHaveFocus();
@@ -1027,7 +1037,6 @@ test("commits a dropdown selection and restores focus", async () => {
   const dropdownCell = screen.getAllByRole("gridcell")[1];
 
   await user.click(dropdownCell);
-  await user.keyboard("{Enter}");
   await screen.findByRole("option", { name: "B" });
   await user.keyboard("{ArrowDown}{Enter}");
 
@@ -1069,7 +1078,7 @@ test("filters and commits options with a FilterableSelect editor", async () => {
   );
 
   const cell = screen.getByRole("gridcell");
-  await user.dblClick(cell);
+  await user.click(cell);
   const editor = screen.getByRole("combobox", { name: "Type, row 1" });
   await user.clear(editor);
   await user.type(editor, "Prod");
@@ -1112,7 +1121,7 @@ test("preserves non-string dropdown values when committing a selection", async (
     />,
   );
 
-  await user.dblClick(screen.getByRole("gridcell"));
+  await user.click(screen.getByRole("gridcell"));
   await user.click(await screen.findByRole("option", { name: "Twenty" }));
 
   expect(onRowsChange).toHaveBeenCalledWith(
@@ -1127,7 +1136,6 @@ test("restores cell focus when a Carbon dropdown blurs to the document", async (
   const dropdownCell = screen.getAllByRole("gridcell")[1];
 
   await user.click(dropdownCell);
-  await user.keyboard("{Enter}");
 
   const dropdown = screen.getByRole("combobox", { name: "Type, row 1" });
   await act(async () => dropdown.blur());
@@ -1148,7 +1156,6 @@ test("commits a dropdown before moving to the next cell", async () => {
   const cells = screen.getAllByRole("gridcell");
 
   await user.click(cells[1]);
-  await user.keyboard("{Enter}");
   await user.click(await screen.findByRole("option", { name: "B" }));
   await user.keyboard("{Tab}");
 
@@ -1171,7 +1178,6 @@ test("closes an unchanged dropdown and moves when Tab leaves the open editor", a
   const cells = screen.getAllByRole("gridcell");
 
   await user.click(cells[1]);
-  await user.keyboard("{Enter}");
   expect(screen.getByRole("combobox", { name: "Type, row 1" })).toHaveFocus();
 
   await user.keyboard("{Tab}");
@@ -1210,7 +1216,6 @@ test.each([false, true])(
 
     const cell = screen.getByRole("gridcell");
     await user.click(cell);
-    await user.keyboard("{Enter}");
     expect(await screen.findByRole("option", { name: "B" })).toBeVisible();
 
     await user.keyboard("{Escape}");
@@ -1395,7 +1400,7 @@ test("renders and edits empty text and dropdown values", async () => {
   expect(screen.getByRole("textbox")).toHaveValue("");
   await user.keyboard("{Escape}");
 
-  await user.dblClick(cells[1]);
+  await user.click(cells[1]);
   expect(screen.getByRole("combobox")).toHaveValue("Choose");
 });
 
@@ -1474,8 +1479,8 @@ test("space toggles a checkbox cell", async () => {
       onRowsChange={onRowsChange}
     />,
   );
-  await user.click(screen.getAllByRole("gridcell")[1]);
-  await user.keyboard("{ArrowRight}");
+  await user.click(screen.getAllByRole("gridcell")[0]);
+  await user.keyboard("{ArrowRight}{ArrowRight}");
 
   await user.keyboard(" ");
   expect(onRowsChange).toHaveBeenCalledWith(

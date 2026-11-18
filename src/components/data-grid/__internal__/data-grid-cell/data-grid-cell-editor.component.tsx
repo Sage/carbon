@@ -6,7 +6,7 @@ import {
   Option,
   Select,
 } from "../../../select";
-import { DataGridColumn } from "../../data-grid.types";
+import { DataGridCellWeight, DataGridColumn } from "../../data-grid.types";
 import { StyledEditor, StyledSelectEditor } from "../data-grid.style";
 
 interface DataGridCellEditorProps<T extends object> {
@@ -15,6 +15,7 @@ interface DataGridCellEditorProps<T extends object> {
   value: unknown;
   errorId?: string;
   invalid?: boolean;
+  weight: DataGridCellWeight;
   editorRef: React.RefObject<HTMLInputElement>;
   onChange: (value: unknown) => void;
   onSelectionCommit: (value: unknown) => void;
@@ -29,6 +30,7 @@ const DataGridCellEditor = <T extends object>({
   value,
   errorId,
   invalid,
+  weight,
   editorRef,
   onChange,
   onSelectionCommit,
@@ -91,6 +93,7 @@ const DataGridCellEditor = <T extends object>({
 
     return (
       <StyledSelectEditor
+        $weight={weight}
         onKeyDownCapture={(event) => {
           // The open list handles Escape before the textbox receives it. Use
           // capture so one press both dismisses the list and exits edit mode.

@@ -12,6 +12,7 @@ interface Row {
 
 const commonProps = {
   rowIndex: 0,
+  weight: "regular" as const,
   editorRef: createRef<HTMLInputElement>(),
   onChange: jest.fn(),
   onSelectionCommit: jest.fn(),

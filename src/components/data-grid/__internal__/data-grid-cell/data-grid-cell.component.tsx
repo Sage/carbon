@@ -161,6 +161,12 @@ const DataGridCellInner = <T extends object>(
           return;
         }
 
+        if (!editing && type === "dropdown") {
+          onFocusPosition(position);
+          if (!readOnly) onBeginEdit(position);
+          return;
+        }
+
         const target = event.target as HTMLElement;
         const interactiveTarget = target.closest(
           "button,a,input,select,textarea,[tabindex]",
@@ -173,7 +179,7 @@ const DataGridCellInner = <T extends object>(
         }
       }}
       onDoubleClick={() => {
-        if (type !== "checkbox") onBeginEdit(position);
+        if (type === "text") onBeginEdit(position);
       }}
       onKeyDownCapture={handleKeyDownCapture}
       onKeyDown={handleKeyDown}
@@ -191,6 +197,7 @@ const DataGridCellInner = <T extends object>(
           value={draftValue}
           errorId={errorId}
           invalid={!!errorValue}
+          weight={column.weight ?? "regular"}
           editorRef={editorRef}
           onChange={onDraftChange}
           onSelectionCommit={(value) => onCommitEdit(true, value)}

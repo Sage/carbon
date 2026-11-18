@@ -24,9 +24,20 @@ interface InvoiceLine {
   actions: null;
 }
 
+interface PlaygroundInvoiceLine {
+  id: number;
+  vatRate: string;
+  vatAmount: string;
+  description: string;
+  quantity: string;
+  rate: string;
+  net: string;
+  actions: null;
+}
+
 type PlaygroundStickyColumns = "none" | "left" | "right" | "both";
 
-type PlaygroundArgs = Partial<DataGridProps<InvoiceLine>> & {
+type PlaygroundArgs = Partial<DataGridProps<PlaygroundInvoiceLine>> & {
   /** Story-only control used to demonstrate column-level sticky configuration. */
   playgroundStickyColumns: PlaygroundStickyColumns;
 };
@@ -91,19 +102,187 @@ const initialRows: InvoiceLine[] = [
   },
 ];
 
-const createPlaygroundRows = (): InvoiceLine[] =>
-  Array.from({ length: 30 }, (_, index) => {
-    const source = initialRows[index % initialRows.length];
+const playgroundRows: Omit<PlaygroundInvoiceLine, "id">[] = [
+  {
+    vatRate: "Standard 20.00%",
+    vatAmount: "600.00",
+    description: "Labour",
+    quantity: "1",
+    rate: "3,000.00",
+    net: "3,000.00",
+    actions: null,
+  },
+  {
+    vatRate: "Standard 20.00%",
+    vatAmount: "200.00",
+    description: "Bath",
+    quantity: "2",
+    rate: "500.00",
+    net: "1,000.00",
+    actions: null,
+  },
+  {
+    vatRate: "Standard 20.00%",
+    vatAmount: "50.00",
+    description: "Shower enclosure",
+    quantity: "1",
+    rate: "250.00",
+    net: "250.00",
+    actions: null,
+  },
+  {
+    vatRate: "Standard 20.00%",
+    vatAmount: "208.00",
+    description: "Tiles",
+    quantity: "52",
+    rate: "20.00",
+    net: "1,040.00",
+    actions: null,
+  },
+  {
+    vatRate: "Standard 20.00%",
+    vatAmount: "150.00",
+    description: "Flooring",
+    quantity: "30",
+    rate: "25.00",
+    net: "750.00",
+    actions: null,
+  },
+];
+
+const createPlaygroundRows = (): PlaygroundInvoiceLine[] =>
+  Array.from({ length: 30 }, (_, index) => ({
+    ...playgroundRows[index % playgroundRows.length],
+    id: index + 1,
+  }));
+
+const vatPercentages: Record<string, number> = {
+  "Standard 20.00%": 0.2,
+  "Lower Rate 5.00%": 0.05,
+  "Zero Rated 0.00%": 0,
+  "Exempt 0.00%": 0,
+  "No VAT": 0,
+};
+
+const parseAmount = (value: string) => Number(value.replaceAll(",", ""));
+
+const formatAmount = (value: number) =>
+  new Intl.NumberFormat("en-GB", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+
+const calculatePlaygroundRows = (
+  rows: PlaygroundInvoiceLine[],
+): PlaygroundInvoiceLine[] =>
+  rows.map((row) => {
+    const quantity = parseAmount(row.quantity);
+    const rate = parseAmount(row.rate);
+    const hasValidAmounts =
+      row.quantity.trim() !== "" &&
+      row.rate.trim() !== "" &&
+      Number.isFinite(quantity) &&
+      Number.isFinite(rate);
+
+    if (!hasValidAmounts) {
+      return { ...row, vatAmount: "", net: "" };
+    }
+
+    const net = quantity * rate;
+    const vatAmount = net * (vatPercentages[row.vatRate] ?? 0);
 
     return {
-      ...source,
-      id: index + 1,
-      description:
-        index === 3
-          ? ""
-          : `${source.description || "Invoice line"} ${index + 1}`,
+      ...row,
+      vatAmount: formatAmount(vatAmount),
+      net: formatAmount(net),
     };
   });
+
+const createPlaygroundColumns = (
+  createDuplicateId: () => number,
+): DataGridColumn<PlaygroundInvoiceLine>[] => [
+  {
+    field: "vatRate",
+    headerName: "VAT rate *",
+    type: "dropdown",
+    minWidth: 220,
+    flex: 1,
+    error: ({ value }) => !value && "Choose a VAT rate",
+    options: [
+      { label: "Standard 20.00%", value: "Standard 20.00%" },
+      { label: "Lower Rate 5.00%", value: "Lower Rate 5.00%" },
+      { label: "Zero Rated 0.00%", value: "Zero Rated 0.00%" },
+      { label: "Exempt 0.00%", value: "Exempt 0.00%" },
+      { label: "No VAT", value: "No VAT" },
+    ],
+  },
+  {
+    field: "vatAmount",
+    headerName: "VAT (£)",
+    align: "right",
+    readOnly: true,
+    minWidth: 150,
+    flex: 1,
+  },
+  {
+    field: "description",
+    headerName: "Description *",
+    minWidth: 240,
+    flex: 2,
+    error: ({ value }) => !String(value ?? "").trim() && "Enter a description",
+  },
+  {
+    field: "quantity",
+    headerName: "Quantity / Hours *",
+    align: "right",
+    minWidth: 190,
+    flex: 1,
+    error: ({ value }) => !String(value ?? "").trim() && "Enter a quantity",
+  },
+  {
+    field: "rate",
+    headerName: "Rate (£) *",
+    align: "right",
+    minWidth: 150,
+    flex: 1,
+    error: ({ value }) => !String(value ?? "").trim() && "Enter a rate",
+  },
+  {
+    field: "net",
+    headerName: "Net (£)",
+    align: "right",
+    readOnly: true,
+    weight: "medium",
+    minWidth: 150,
+    flex: 1,
+  },
+  {
+    field: "actions",
+    headerName: "",
+    headerAriaLabel: "Actions",
+    type: "action",
+    sticky: "right",
+    width: 52,
+    renderCell: ({ api, row, rowId }) => (
+      <ActionPopover
+        aria-label={`Actions for ${row.description}`}
+        buttonLabel={<Icon type="ellipsis_vertical" />}
+        size="small"
+      >
+        <ActionPopoverItem
+          onClick={() =>
+            api.duplicateRow(rowId, { ...row, id: createDuplicateId() })
+          }
+        >
+          Duplicate
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => api.deleteRow(rowId)}>
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    ),
+  },
+];
 
 const createInvoiceColumns = (
   createDuplicateId: () => number,
@@ -162,20 +341,35 @@ const createInvoiceColumns = (
   },
 ];
 
-const getPlaygroundColumns = (
-  columns: DataGridColumn<InvoiceLine>[],
+const getPlaygroundColumns = <T extends object>(
+  columns: DataGridColumn<T>[],
   stickyColumns: PlaygroundStickyColumns,
-): DataGridColumn<InvoiceLine>[] =>
+): DataGridColumn<T>[] =>
   columns.map((column, index) => ({
     ...column,
     sticky:
-      index === 0 && (stickyColumns === "left" || stickyColumns === "both")
-        ? "left"
-        : index === columns.length - 1 &&
-            (stickyColumns === "right" || stickyColumns === "both")
-          ? "right"
-          : undefined,
-  })) as DataGridColumn<InvoiceLine>[];
+      column.sticky === "right"
+        ? "right"
+        : index === 0 && (stickyColumns === "left" || stickyColumns === "both")
+          ? "left"
+          : index === columns.length - 1 &&
+              (stickyColumns === "right" || stickyColumns === "both")
+            ? "right"
+            : undefined,
+  })) as DataGridColumn<T>[];
+
+const usePlaygroundColumns = (
+  rows: PlaygroundInvoiceLine[],
+  stickyColumns: PlaygroundStickyColumns,
+) =>
+  useMemo(
+    () =>
+      getPlaygroundColumns(
+        createPlaygroundColumns(() => getNextRowId(rows)),
+        stickyColumns,
+      ),
+    [rows, stickyColumns],
+  );
 
 const useInvoiceColumns = (
   rows: InvoiceLine[],
@@ -222,12 +416,12 @@ type Story = StoryObj<typeof DataGrid>;
 
 export const Playground: StoryObj<PlaygroundArgs> = {
   args: {
-    playgroundStickyColumns: "none",
+    playgroundStickyColumns: "right",
   },
   argTypes: {
     playgroundStickyColumns: {
       name: "sticky columns",
-      options: ["none", "left", "right", "both"],
+      options: ["right", "both"],
       control: { type: "radio" },
       table: { category: "Playground" },
     },
@@ -235,7 +429,7 @@ export const Playground: StoryObj<PlaygroundArgs> = {
   render: (args) => {
     const [rows, setRows] = useState(createPlaygroundRows);
     const { playgroundStickyColumns, ...dataGridProps } = args;
-    const storyColumns = useInvoiceColumns(rows, playgroundStickyColumns);
+    const storyColumns = usePlaygroundColumns(rows, playgroundStickyColumns);
 
     return (
       <DataGrid
@@ -243,7 +437,7 @@ export const Playground: StoryObj<PlaygroundArgs> = {
         aria-label="Invoice lines playground"
         rows={rows}
         columns={storyColumns}
-        onRowsChange={(nextRows) => setRows(nextRows)}
+        onRowsChange={(nextRows) => setRows(calculatePlaygroundRows(nextRows))}
       />
     );
   },

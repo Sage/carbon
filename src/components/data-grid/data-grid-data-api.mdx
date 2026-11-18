@@ -132,6 +132,11 @@ Shared column properties configure cells without changing row data:
 | State            | `readOnly`, `error`                            |
 | Custom rendering | `renderCell`                                   |
 
+Set `width` for a fixed pixel width. Use `flex` to share the available space
+between flexible columns, with `minWidth` as the lower limit. Columns without
+sizing use the default width, while action columns use their compact default.
+Prefer a fixed `width` when a column must remain a predictable size.
+
 `readOnly`, `error`, and `renderCell` receive the current `row`, `rowId`,
 `field`, `value`, and `column`. They also receive the row-operation `api`. Use
 fixed values when every row behaves in the same way, or functions when the
@@ -177,6 +182,10 @@ The optional second argument describes the change that produced the array. Its
 Cell changes include the previous and next value and row. Structural changes
 include the affected row and indexes where relevant. Data Grid does not call
 `onRowsChange` when a committed value has not changed.
+
+`onRowsChange` is also the appropriate place to apply application rules such
+as calculated totals. Update the affected read-only fields in `nextRows`, then
+store and pass the resulting array back to Data Grid.
 
 Edit a cell, add a row, or use a row action in this example to inspect the
 current rows and most recent change:
