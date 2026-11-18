@@ -513,6 +513,21 @@ test("closes an open action popover before opening another", async ({
   await expect(page.getByRole("list")).toHaveCount(1);
 });
 
+test("portals a sticky action popover beyond the grid scroll container", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await page.getByRole("button", { name: "Actions for row 5" }).click();
+
+  const menu = page.getByRole("list");
+  await expect(menu).toBeVisible();
+  await expect(
+    page.getByTestId("data-grid").locator('[role="list"]'),
+  ).toHaveCount(0);
+});
+
 test("tabs from an open action popover to the first cell of the next row", async ({
   mount,
   page,

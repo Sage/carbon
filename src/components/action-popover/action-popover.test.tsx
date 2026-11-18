@@ -22,6 +22,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import TokensWrapper from "../tokens-wrapper";
 import Dialog from "../dialog";
 import ActionPopoverFocusContext from "./__internal__/action-popover-focus.context";
+import ActionPopoverPortalContext from "./__internal__/action-popover-portal.context";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -1771,6 +1772,23 @@ test("renders action popover menu under the action popover wrapper tree", async 
   const anchor = screen.getByTestId("anchor");
 
   expect(anchor).toContainElement(menu);
+});
+
+test("renders the menu in a portal when requested by a containing component", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopoverPortalContext.Provider value={{ renderInPortal: true }}>
+      <ActionPopover data-role="anchor">
+        <ActionPopoverItem>Item 1</ActionPopoverItem>
+      </ActionPopover>
+    </ActionPopoverPortalContext.Provider>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  const menu = await screen.findByRole("list");
+
+  expect(screen.getByTestId("anchor")).not.toContainElement(menu);
 });
 
 test("renders the PopoverMenu inline within a TokensWrapper", async () => {

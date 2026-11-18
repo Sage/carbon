@@ -1262,6 +1262,9 @@ test("keeps grid navigation inside an open action popover", async () => {
 
   expect(duplicate).toHaveFocus();
   expect(screen.getByRole("list")).toBeVisible();
+  expect(screen.getByRole("grid")).not.toContainElement(
+    screen.getByRole("list"),
+  );
 
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("list")).not.toBeInTheDocument();

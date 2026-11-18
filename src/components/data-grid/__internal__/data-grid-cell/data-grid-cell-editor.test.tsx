@@ -69,6 +69,29 @@ test("does not update the cell value while filtering dropdown options", () => {
   expect(onChange).not.toHaveBeenCalled();
 });
 
+test("preserves medium weight while editing a dropdown", () => {
+  const column: DataGridColumn<Row> = {
+    field: "type",
+    headerName: "Type",
+    type: "dropdown",
+    options: [{ label: "Service", value: "service" }],
+  };
+
+  render(
+    <DataGridCellEditor
+      {...commonProps}
+      column={column}
+      value="service"
+      weight="medium"
+    />,
+  );
+
+  expect(screen.getByTestId("data-grid-select-editor")).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-medium-m)",
+  );
+});
+
 test.each([false, true])(
   "describes an invalid dropdown editor (filterable=%s)",
   (filterable) => {

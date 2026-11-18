@@ -94,6 +94,7 @@ const DataGridCellEditor = <T extends object>({
     return (
       <StyledSelectEditor
         $weight={weight}
+        data-role="data-grid-select-editor"
         onKeyDownCapture={(event) => {
           // The open list handles Escape before the textbox receives it. Use
           // capture so one press both dismisses the list and exits edit mode.

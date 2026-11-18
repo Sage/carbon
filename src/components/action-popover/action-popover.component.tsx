@@ -27,6 +27,7 @@ import {
   Alignment,
 } from "./__internal__/action-popover.context";
 import ActionPopoverFocusContext from "./__internal__/action-popover-focus.context";
+import ActionPopoverPortalContext from "./__internal__/action-popover-portal.context";
 import checkChildrenForString from "./__internal__/action-popover.utils";
 import { TableBodyContext } from "../table/__internal__/contexts";
 import MenuButton from "./action-popover.style";
@@ -141,6 +142,7 @@ export const ActionPopover = forwardRef<
     const [guid] = useState(createGuid());
     const buttonRef = useRef<HTMLDivElement>(null);
     const { isInTable } = useContext(TableBodyContext);
+    const { renderInPortal } = useContext(ActionPopoverPortalContext);
     const { restoreFocusOnClickAway } = useContext(ActionPopoverFocusContext);
 
     const handledEscape = useRef(false);
@@ -420,7 +422,7 @@ export const ActionPopover = forwardRef<
             id={menuID}
             listboxAriaLabelledBy={parentID}
             isButtonMenu
-            disablePortal={!isInTable}
+            disablePortal={!isInTable && !renderInPortal}
             hideWhenReferenceHidden
             popoverControl={renderControl}
             controlWrapperStyle={{ width: "100%" }}

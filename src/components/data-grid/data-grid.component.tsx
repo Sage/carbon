@@ -8,6 +8,7 @@ import React, {
 } from "react";
 
 import ActionPopoverFocusContext from "../action-popover/__internal__/action-popover-focus.context";
+import ActionPopoverPortalContext from "../action-popover/__internal__/action-popover-portal.context";
 import { createDataGridColumnModel } from "./__internal__/layout/data-grid-column-model";
 import DataGridHeader from "./__internal__/data-grid-header";
 import DataGridRow from "./__internal__/data-grid-row";
@@ -53,6 +54,26 @@ export type {
 const dataGridActionPopoverFocusContext = {
   restoreFocusOnClickAway: false,
 };
+
+const dataGridActionPopoverPortalContext = {
+  renderInPortal: true,
+};
+
+const DataGridActionPopoverProviders = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => (
+  <ActionPopoverPortalContext.Provider
+    value={dataGridActionPopoverPortalContext}
+  >
+    <ActionPopoverFocusContext.Provider
+      value={dataGridActionPopoverFocusContext}
+    >
+      {children}
+    </ActionPopoverFocusContext.Provider>
+  </ActionPopoverPortalContext.Provider>
+);
 
 const DataGridInner = <T extends object>(
   {
@@ -268,9 +289,7 @@ const DataGridInner = <T extends object>(
   );
 
   return (
-    <ActionPopoverFocusContext.Provider
-      value={dataGridActionPopoverFocusContext}
-    >
+    <DataGridActionPopoverProviders>
       <StyledDataGridWrapper
         data-component="data-grid-wrapper"
         data-role="data-grid-wrapper"
@@ -341,7 +360,7 @@ const DataGridInner = <T extends object>(
           </StyledGrid>
         </StyledDataGridViewport>
       </StyledDataGridWrapper>
-    </ActionPopoverFocusContext.Provider>
+    </DataGridActionPopoverProviders>
   );
 };
 

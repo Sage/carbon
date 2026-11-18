@@ -554,7 +554,7 @@ export const ValidationAndErrorSummary: Story = {
     const invalidRows = rows.filter((row) => !row.description);
 
     return (
-      <Box maxWidth="760px">
+      <Box id="invoice-validation-grid" maxWidth="760px">
         {invalidRows.length > 0 && (
           <Box mb={3} minWidth="min(400px, 100%)" width="fit-content">
             <Message
@@ -571,10 +571,12 @@ export const ValidationAndErrorSummary: Story = {
               >
                 {invalidRows.map((row) => (
                   <Link
+                    href="#invoice-validation-grid"
                     key={row.id}
-                    onClick={() =>
-                      gridRef.current?.editCell(row.id, "description")
-                    }
+                    onClick={(event) => {
+                      event.preventDefault();
+                      gridRef.current?.editCell(row.id, "description");
+                    }}
                   >
                     Enter a description on row {row.id}
                   </Link>
@@ -810,7 +812,7 @@ const createLargeColumns = ({
       <ActionPopover
         aria-label={`Actions for line ${row.line}`}
         buttonLabel={<Icon type="ellipsis_vertical" />}
-        size="medium"
+        size="small"
       >
         <ActionPopoverItem icon="add" onClick={() => onInsertAbove(row)}>
           Insert row above
