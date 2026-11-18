@@ -236,6 +236,24 @@ test.each([true, false])(
   },
 );
 
+test("preserves the active option when a virtual Multi Select deselects it", () => {
+  const { rerender } = render(list({ selectedValues: ["1"] }));
+  const input = screen.getByRole("combobox");
+
+  expect(input).toHaveAttribute("aria-activedescendant", "item-1");
+  rerender(list({ selectedValues: [] }));
+
+  expect(input).toHaveAttribute("aria-activedescendant", "item-1");
+  expect(screen.getByRole("option", { name: "Item 1" })).toHaveAttribute(
+    "aria-selected",
+    "false",
+  );
+  expect(screen.getByRole("option", { name: "Item 1" })).toHaveAttribute(
+    "data-has-focus",
+    "true",
+  );
+});
+
 test.each(["disabled", "removed"])(
   "clears focus when the active option is %s",
   async (update) => {

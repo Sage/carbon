@@ -33,6 +33,7 @@ test("should render", () => {
 
   expect(screen.getByRole("textbox")).toBeVisible();
   expect(screen.getByRole("textbox")).toHaveAccessibleName("label");
+  expect(screen.getByRole("textbox")).not.toHaveAttribute("aria-describedby");
 });
 
 test("should render with an id attribute via the `id` prop", () => {

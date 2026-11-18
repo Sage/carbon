@@ -97,6 +97,7 @@
 - [Modal](components/modal.md) (deprecated)
 - [MultiActionButton](components/multi-action-button.md)
 - [MultiSelect](components/multi-select.md)
+- [MultiSelectDropdown](components/multi-select-dropdown.md)
 - [NavigationBar](components/navigation-bar.md)
 - [NextLoader](components/next-loader.md)
 - [Note](components/note.md)

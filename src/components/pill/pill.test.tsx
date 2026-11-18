@@ -48,6 +48,18 @@ test("renders remove button with custom aria-label when ariaLabelOfRemoveButton 
   ).toBeVisible();
 });
 
+test("uses wrapped pill text for the remove button label", () => {
+  render(
+    <Pill onDelete={() => {}}>
+      <span>Test Pill</span>
+    </Pill>,
+  );
+
+  expect(
+    screen.getByRole("button", { name: "Remove Test Pill pill" }),
+  ).toBeVisible();
+});
+
 test("renders with provided data tags", () => {
   render(
     <Pill data-element="bar" data-role="foo">

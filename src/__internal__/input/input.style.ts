@@ -13,12 +13,12 @@ interface InputContainerProps {
   $error?: boolean;
   $isDisabled?: boolean;
   $isReadOnly?: boolean;
-  $isSimpleSelect?: boolean;
+  $selectType?: "simple" | "filterable" | "multi";
   $size?: "small" | "medium" | "large";
 }
 
 const InputContainer = styled.div<InputContainerProps>`
-  ${({ $align, $error, $isDisabled, $isReadOnly, $size }) => css`
+  ${({ $align, $error, $isDisabled, $isReadOnly, $size, $selectType }) => css`
     display: flex;
     align-items: center;
     align-self: stretch;
@@ -32,28 +32,21 @@ const InputContainer = styled.div<InputContainerProps>`
     ${$size === "small" &&
     css`
       min-height: var(--global-size-s);
-
-      [data-component="simple-select"] & {
-        min-height: auto;
-      }
     `}
 
     ${$size === "medium" &&
     css`
       min-height: var(--global-size-m);
-
-      [data-component="simple-select"] & {
-        min-height: auto;
-      }
     `}
  
     ${$size === "large" &&
     css`
       min-height: var(--global-size-l);
+    `}
 
-      [data-component="simple-select"] & {
-        min-height: auto;
-      }
+    ${($selectType === "simple" || $selectType === "multi") &&
+    css`
+      min-height: auto;
     `}
  
     &&& {
@@ -180,8 +173,7 @@ const InputContainer = styled.div<InputContainerProps>`
   ${dateStyleOverrides}
   ${searchNewStyleOverrides}
 
-  ${({ $isSimpleSelect, $size }) =>
-    selectStyleOverrides($size, $isSimpleSelect)}
+  ${({ $selectType, $size }) => selectStyleOverrides($size, $selectType)}
  
   ${numeralDateStyles}
  
