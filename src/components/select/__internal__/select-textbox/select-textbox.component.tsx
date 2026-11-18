@@ -278,7 +278,9 @@ const SelectTextbox = React.forwardRef(
     const inputAriaAttributes = {
       "aria-expanded": readOnly ? undefined : isOpen,
       "aria-labelledby": accessibilityLabelId
-        ? `${ariaLabelledby || labelId} ${accessibilityLabelId}`
+        ? [ariaLabelledby || labelId, accessibilityLabelId]
+            .filter(Boolean)
+            .join(" ")
         : ariaLabelledby,
       "aria-activedescendant": activeDescendantId,
       "aria-controls": ariaControls,
@@ -298,7 +300,7 @@ const SelectTextbox = React.forwardRef(
     const contextPrefixId =
       isSimpleSelect && prefix ? internalPrefixId.current : undefined;
 
-    const dropdwonIcon = (
+    const dropdownIcon = (
       <InputIconToggle
         inputIcon="dropdown"
         onClick={handleDropdownIconClick}
@@ -314,10 +316,11 @@ const SelectTextbox = React.forwardRef(
       "aria-label": ariaLabel,
       "data-element": `${selectType ?? ""}-select-input`,
       "data-role": "select-textbox",
-      inputIcon: isSimpleSelect ? dropdwonIcon : "dropdown",
+      inputIcon:
+        isSimpleSelect || selectType === "multi" ? dropdownIcon : "dropdown",
       autoComplete: "off",
       size,
-      placeholder: shouldRenderInput ? placeholder : undefined,
+      placeholder: selectType === "filterable" ? placeholder : undefined,
       ...inputAriaAttributes,
       ...textboxProps,
       className: classNames,
@@ -350,13 +353,13 @@ const SelectTextbox = React.forwardRef(
       <SelectTextboxContext.Provider
         value={{ prefixId: contextPrefixId, selectType }}
       >
-        {isSimpleSelect ? (
+        {isSimpleSelect || selectType === "multi" ? (
           <TextInput
             {...sharedProps}
-            inputMode="none"
+            inputMode={isSimpleSelect ? "none" : undefined}
             {...(variant === "subtle" && { "data-is-subtle": true })}
             label={restProps.label ?? ""}
-            value={restProps.value ?? ""}
+            value={restProps.value ?? formattedValue}
           />
         ) : (
           <LegacyTextbox {...sharedProps} formattedValue={formattedValue} />

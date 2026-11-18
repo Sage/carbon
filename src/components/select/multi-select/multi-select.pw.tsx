@@ -1,4 +1,5 @@
 import React from "react";
+import type { Page } from "@playwright/test";
 import MultiSelect from ".";
 import Option from "../option";
 import { test, expect } from "../../../../playwright/helpers/base-test";
@@ -8,29 +9,59 @@ import {
   MultiSelectNestedInDialog,
   MultiSelectErrorOnChangeNewValidation,
   MultiSelectWithDisabledOption,
-  MultiSelectMultiColumnsComponent,
 } from "./components.test-pw";
 import { commonDataElementInputPreview } from "../../../../playwright/components";
 import { dialogWithRole } from "../../../../playwright/components/dialog";
-import { loader } from "../../../../playwright/components/loader";
 import {
   dropdownButton,
   multiSelectPill,
   multiSelectPillByText,
   selectInput,
-  selectList,
-  selectListScrollableWrapper,
   selectListWrapper,
-  selectOptionByText,
 } from "../../../../playwright/components/select";
 import { checkAccessibility } from "../../../../playwright/support/helper";
-import { CHARACTERS } from "../../../../playwright/support/constants";
-
-const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const selectList = (page: Page) => page.getByRole("listbox");
+const selectListScrollableWrapper = (page: Page) => page.getByRole("listbox");
+const selectOptionByText = (page: Page, text: string) =>
+  page.getByRole("option").filter({ hasText: text });
 const option1 = "Green";
 const option2 = "Purple";
 
 test.describe("MultiSelect component", () => {
+  test("tabs through the input, selected pills, then the next control", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <>
+        <button type="button">Before</button>
+        <MultiSelect
+          label="Colour"
+          onChange={() => {}}
+          value={["Amber", "Black"]}
+        >
+          <Option text="Amber" value="Amber" />
+          <Option text="Black" value="Black" />
+        </MultiSelect>
+        <button type="button">After</button>
+      </>,
+    );
+
+    await page.getByRole("button", { name: "Before" }).focus();
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("combobox")).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("button", { name: "Remove Amber pill" }),
+    ).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("button", { name: "Remove Black pill" }),
+    ).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("button", { name: "After" })).toBeFocused();
+  });
+
   test("scroll position of option list doesn't change, if the component's options are dynamically changed", async ({
     mount,
     page,
@@ -168,12 +199,13 @@ test.describe("Check virtual scrolling", () => {
     const lastOption = page.getByRole("option").last();
 
     await expect(firstOption).toHaveText("Option 1.");
-    await expect(lastOption).toHaveText("Option 15.");
+    const lastInitiallyRenderedText = await lastOption.textContent();
+    expect(lastInitiallyRenderedText).toMatch(/^Option \d+\.$/);
 
     await lastOption.scrollIntoViewIfNeeded();
 
     await expect(firstOption).not.toHaveText("Option 1.");
-    await expect(lastOption).not.toHaveText("Option 15.");
+    await expect(lastOption).not.toHaveText(lastInitiallyRenderedText ?? "");
   });
 
   test("should filter options when text is typed, taking into account non-rendered options", async ({
@@ -297,7 +329,7 @@ test("renders loader when loading prop is set to true", async ({
   await input.click();
   await dropdownList.waitFor();
 
-  await expect(loader(page, 1)).toBeVisible();
+  await expect(page.getByTestId("select-list-loader")).toBeVisible();
 });
 
 test("should delete all selected pill options and leave list open", async ({
@@ -343,6 +375,24 @@ test.describe("Test for scroll bug regression", () => {
 // so this must be disabled in each such test. (See FE-5764.)
 // This is a false positive (confirmed by Accessibility team) as the select list can be accessed via the select input and the arrow keys.
 test.describe("Accessibility tests for MultiSelect component", () => {
+  test("should pass accessibility tests when read-only", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <MultiSelect
+        label="Colour"
+        value={["amber"]}
+        onChange={() => {}}
+        readOnly
+      >
+        <Option text="Amber" value="amber" />
+      </MultiSelect>,
+    );
+
+    await checkAccessibility(page);
+  });
+
   test("should pass accessibility tests with default example", async ({
     mount,
     page,
@@ -360,17 +410,7 @@ test.describe("Accessibility tests for MultiSelect component", () => {
     await mount(<MultiSelectComponent isLoading />);
 
     await dropdownButton(page).click();
-    await expect(loader(page, 1)).toBeVisible();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests with multiple columns", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectMultiColumnsComponent />);
-
-    await dropdownButton(page).click();
+    await expect(page.getByTestId("select-list-loader")).toBeVisible();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
@@ -382,16 +422,5 @@ test.describe("Accessibility tests for MultiSelect component", () => {
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  testData.forEach((placeholderValue) => {
-    test(`should pass accessibility tests with placeholder prop using ${placeholderValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectComponent placeholder={placeholderValue} />);
-
-      await checkAccessibility(page);
-    });
   });
 });

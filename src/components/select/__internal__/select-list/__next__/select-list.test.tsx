@@ -1,5 +1,11 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import NextSelectList, { NextSelectListProps } from ".";
 import ActionOption from "../../../action-option";
@@ -95,6 +101,37 @@ test("calls `onListScrollBottom` only when the list reaches the bottom", () => {
   expect(onListScrollBottom).toHaveBeenCalledTimes(1);
 });
 
+test("keeps the active option highlighted when a Multi Select deselects it", async () => {
+  const user = userEvent.setup();
+  const Menu = () => {
+    const [selectedValues, setSelectedValues] = React.useState(["amber"]);
+    return (
+      <NextSelectList
+        open
+        selectedValues={selectedValues}
+        onSelect={() => setSelectedValues([])}
+        onClose={() => {}}
+        popoverControl={(ref, controlProps) => (
+          <input aria-label="Select options" ref={ref} {...controlProps} />
+        )}
+      >
+        <Option value="amber" text="Amber" />
+        <Option value="black" text="Black" />
+      </NextSelectList>
+    );
+  };
+  render(<Menu />);
+  const amber = screen.getByRole("option", { name: "Amber" });
+  const input = screen.getByRole("combobox", { name: "Select options" });
+
+  expect(amber).toHaveAttribute("data-has-focus", "true");
+  await user.click(amber);
+
+  expect(amber).toHaveAttribute("aria-selected", "false");
+  expect(amber).toHaveAttribute("data-has-focus", "true");
+  expect(input).toHaveAttribute("aria-activedescendant", amber.id);
+});
+
 test("renders a selected option with its leading content, prefix, subtext and divider", () => {
   renderSelectList({
     selectedValue: "amber",
@@ -115,6 +152,102 @@ test("renders a selected option with its leading content, prefix, subtext and di
   expect(screen.getByText("Colour")).toBeVisible();
   expect(screen.getByText("A yellow-orange colour")).toBeVisible();
   expect(screen.getByTestId("divider")).toBeVisible();
+});
+
+test("keeps a multi-select list open and marks each selected option", async () => {
+  const user = userEvent.setup();
+  const onSelect = jest.fn();
+  const onClose = jest.fn();
+  renderSelectList({
+    selectedValues: ["amber", "blue"],
+    onSelect,
+    onClose,
+    children: [
+      <Option key="amber" text="Amber" value="amber" />,
+      <Option key="blue" text="Blue" value="blue" />,
+    ],
+  });
+
+  expect(screen.getByRole("listbox")).toHaveAttribute(
+    "aria-multiselectable",
+    "true",
+  );
+  expect(screen.getByRole("option", { name: "Amber" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  expect(screen.getByRole("option", { name: "Blue" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await user.click(screen.getByRole("option", { name: "Blue" }));
+
+  expect(onSelect).toHaveBeenCalledWith({
+    id: undefined,
+    text: "Blue",
+    value: "blue",
+  });
+  expect(onClose).not.toHaveBeenCalled();
+  expect(screen.getByRole("listbox")).toBeVisible();
+});
+
+test("filters multi-select options and shows the custom empty message", () => {
+  const { rerender } = renderSelectList({
+    selectedValues: [],
+    filterText: "BLU",
+    noResultsMessage: "No matching colours",
+    children: [
+      <Option key="amber" text="Amber" value="amber" />,
+      <Option key="blue" text="Blue" value="blue" />,
+    ],
+  });
+
+  const blueOption = screen.getByRole("option", { name: "Blue" });
+  expect(blueOption).toBeVisible();
+  expect(within(blueOption).getByText("Blu")).toHaveAttribute(
+    "data-role",
+    "matching-text",
+  );
+  expect(
+    screen.queryByRole("option", { name: "Amber" }),
+  ).not.toBeInTheDocument();
+
+  rerender(
+    <NextSelectList
+      open
+      selectedValues={[]}
+      filterText="purple"
+      noResultsMessage="No matching colours"
+      onSelect={() => {}}
+      onClose={() => {}}
+      popoverControl={(ref, controlProps) => (
+        <input aria-label="Select options" ref={ref} {...controlProps} />
+      )}
+    >
+      <Option text="Blue" value="blue" />
+    </NextSelectList>,
+  );
+
+  expect(screen.getByText("No matching colours")).toBeVisible();
+  expect(
+    screen.queryByRole("option", { name: "Blue" }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.getByRole("option", { name: "No matching colours" }),
+  ).toHaveAttribute("data-element", "select-no-results");
+  expect(screen.getByTestId("select-list-popover-menu")).toHaveStyleRule(
+    "padding-inline",
+    "var(--global-space-comp-m)",
+    { modifier: '& [data-element="select-no-results"]' },
+  );
+  expect(screen.getByTestId("select-list-popover-menu")).toHaveStyleRule(
+    "color",
+    "var(--input-dropdown-label-alt)",
+    {
+      modifier:
+        '& [data-element="select-no-results"] [data-element="menu-item-label"]',
+    },
+  );
 });
 
 test.each([
