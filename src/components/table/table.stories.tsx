@@ -80,8 +80,6 @@ const meta: Meta<PlaygroundArgs> = {
       control: { type: "radio" },
     },
     outerBorders: {
-      description:
-        "Controls the outer border for subtle-white and subtle-grey variants. The prominent variant always has an outer border.",
       options: ["none", "small"],
       control: { type: "radio" },
       if: { arg: "variant", neq: "prominent" },
