@@ -5,6 +5,32 @@ description: Carbon DataGrid component props and usage examples.
 
 # DataGrid
 
+An accessible, editable grid for navigating and updating structured tabular data.
+
+## When to use
+
+- Users need to edit structured data across multiple related rows and columns.
+- Users need spreadsheet-style keyboard navigation between editable cells.
+- A large editable data set benefits from row virtualization, pinned columns or a sticky header.
+
+## When not to use
+
+- Users only need to read or compare tabular data without editing it.
+- The data-entry workflow is better represented as a short conventional form.
+
+## Choose instead
+
+- **Table:** Users primarily need to read and compare tabular data rather than edit it.
+
+## Pitfalls
+
+- Treat rows as controlled data and pass the collection received by onRowsChange back to DataGrid.
+- Provide stable row identifiers through each row's id property or getRowId.
+- Give the grid an accessible name with aria-label or aria-labelledby.
+- Keep pinned columns in contiguous groups at the corresponding edge and give them predictable widths.
+- Give custom controls rendered in action cells accessible names and appropriate keyboard behaviour.
+- Keep application-level calculations, error-summary layout and row-operation business rules outside DataGrid.
+
 ## Import
 `import { DataGrid } from "carbon-react/lib/components/data-grid";`
 
@@ -29,543 +55,161 @@ description: Carbon DataGrid component props and usage examples.
 | aria-label | string \| undefined | No |  | Accessible name for the grid. |  |
 | aria-labelledby | string \| undefined | No |  | ID of an element that provides the grid's accessible name. |  |
 
+## Related API types
+
+```ts
+export type DataGridCellWeight = "regular" | "medium";
+
+export type DataGridRowId = string | number;
+
+export type DataGridRowInsertion =
+  | { index: number }
+  | { beforeRowId: DataGridRowId }
+  | { afterRowId: DataGridRowId };
+
+export interface DataGridApi<T extends object> {
+  /** Appends a consumer-created row. */
+  addRow: (row: T) => void;
+  /** Inserts a consumer-created row at an index or relative to a stable row id. */
+  insertRow: (row: T, insertion: DataGridRowInsertion) => void;
+  /** Inserts a consumer-created duplicate before or after its source row. */
+  duplicateRow: (
+    sourceRowId: DataGridRowId,
+    row: T,
+    position?: "before" | "after",
+  ) => void;
+  /** Removes the row with the supplied stable id. */
+  deleteRow: (rowId: DataGridRowId) => void;
+  /** Moves a row to its final zero-based index. */
+  moveRow: (rowId: DataGridRowId, toIndex: number) => void;
+}
+
+export interface DataGridCellParams<T extends object> {
+  api: DataGridApi<T>;
+  column: DataGridColumn<T>;
+  field: string;
+  row: T;
+  rowId: DataGridRowId;
+  value: unknown;
+}
+
+interface DataGridColumnBase<
+  T extends object,
+  TField extends string = Extract<keyof T, string>,
+> {
+  /** Property on each row used as the cell value. */
+  field: TField;
+  /** Visible column heading. */
+  headerName: string;
+  /** Accessible name when the visible heading is intentionally empty. */
+  headerAriaLabel?: string;
+  /** Fixed width in pixels. Action columns default to 52px. */
+  width?: number;
+  /** Minimum width when the column is flexible. */
+  minWidth?: number;
+  /** Relative width for flexible columns. */
+  flex?: number;
+  /** Pins the column to an edge of the scrolling grid. */
+  pinned?: "left" | "right";
+  /** Horizontal alignment for header and cell content. */
+  align?: "left" | "center" | "right";
+  /** Font weight used while the cell is not being edited. */
+  weight?: DataGridCellWeight;
+  /** Makes every cell in the column read-only, or derives it per row. */
+  readOnly?: boolean | ((params: DataGridCellParams<T>) => boolean);
+  /** Error text/state for a cell. */
+  error?:
+    | string
+    | boolean
+    | ((params: DataGridCellParams<T>) => string | boolean);
+  /** Custom content, primarily intended for action popovers. */
+  renderCell?: (params: DataGridCellParams<T>) => React.ReactNode;
+}
+
+export interface DataGridTextColumn<T extends object>
+  extends DataGridColumnBase<T> {
+  /** Text cells are the default variation. */
+  type?: "text";
+  options?: never;
+}
+
+export interface DataGridOption {
+  /** Stable option identity. Recommended when options can be reordered. */
+  id?: string;
+  label: string;
+  value: string | number;
+}
+
+export interface DataGridDropdownColumn<T extends object>
+  extends DataGridColumnBase<T> {
+  type: "dropdown";
+  /** Options displayed by the dropdown editor. */
+  options: DataGridOption[];
+  /** Uses Carbon FilterableSelect as the cell editor. Experimental. */
+  filterable?: boolean;
+}
+
+export interface DataGridCheckboxColumn<T extends object>
+  extends DataGridColumnBase<T> {
+  type: "checkbox";
+  options?: never;
+  /** Checkbox cells do not support an error treatment. */
+  error?: never;
+}
+
+export interface DataGridActionColumn<T extends object>
+  extends DataGridColumnBase<T, string> {
+  type: "action";
+  options?: never;
+  /** Action cells do not support an error treatment. */
+  error?: never;
+  /** Action content is required because action cells have no built-in UI. */
+  renderCell: (params: DataGridCellParams<T>) => React.ReactNode;
+}
+
+/** A column definition narrowed by its cell variation. */
+export type DataGridColumn<T extends object> =
+  | DataGridTextColumn<T>
+  | DataGridDropdownColumn<T>
+  | DataGridCheckboxColumn<T>
+  | DataGridActionColumn<T>;
+
+export type DataGridCellType = "text" | "dropdown" | "checkbox" | "action";
+
+interface DataGridCellRowChange<T extends object> {
+  type: "cell-edit" | "dropdown-select" | "checkbox-toggle";
+  rowId: DataGridRowId;
+  field: string;
+  previousValue: unknown;
+  value: unknown;
+  previousRow: T;
+  row: T;
+}
+
+export type DataGridRowChange<T extends object> =
+  | DataGridCellRowChange<T>
+  | { type: "row-add"; row: T; index: number }
+  | { type: "row-insert"; row: T; index: number }
+  | {
+      type: "row-duplicate";
+      sourceRowId: DataGridRowId;
+      row: T;
+      index: number;
+    }
+  | { type: "row-delete"; rowId: DataGridRowId; row: T; index: number }
+  | {
+      type: "row-move";
+      rowId: DataGridRowId;
+      row: T;
+      fromIndex: number;
+      toIndex: number;
+    };
+
+export interface DataGridHandle<T extends object> extends DataGridApi<T> {
+  focusCell: (rowId: DataGridRowId, field: string) => void;
+  editCell: (rowId: DataGridRowId, field: string) => void;
+}
+```
+
 ## Examples
-### EditTextAndNavigate
-
-**Render**
-
-```tsx
-() => <InteractionGrid />
-```
-
-
-### ToggleCheckbox
-
-**Render**
-
-```tsx
-() => <InteractionGrid />
-```
-
-
-### OpenAndCloseActionPopover
-
-**Render**
-
-```tsx
-() => <InteractionGrid />
-```
-
-
-### CellStatesAndNavigationFocus
-
-**Render**
-
-```tsx
-() => <VisualGrid />
-```
-
-
-### HoverState
-
-**Render**
-
-```tsx
-() => <VisualGrid />
-```
-
-
-### ActiveEditingFocus
-
-**Render**
-
-```tsx
-() => <VisualGrid />
-```
-
-
-### OpenDropdown
-
-**Render**
-
-```tsx
-() => <VisualGrid />
-```
-
-
-### PinnedColumnsScrolledWithOpenActions
-
-**Render**
-
-```tsx
-() => <VisualGrid maxWidth="400px" pinnedColumns />
-```
-
-
-### MultiplePinnedColumns
-
-**Render**
-
-```tsx
-() => (
-    <Box maxWidth="100%" width="760px">
-      <DataGrid
-        aria-label="Invoice lines with multiple pinned columns"
-        rows={multiplePinnedRows}
-        columns={multiplePinnedColumns}
-        maxWidth="100%"
-      />
-    </Box>
-  )
-```
-
-
-### Playground
-
-**Args**
-
-```tsx
-{
-    playgroundPinnedColumns: "right",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => {
-    const [rows, setRows] = useState(createPlaygroundRows);
-    const { playgroundPinnedColumns, ...dataGridProps } = args;
-    const storyColumns = usePlaygroundColumns(rows, playgroundPinnedColumns);
-
-    return (
-      <DataGrid
-        {...dataGridProps}
-        aria-label="Invoice lines playground"
-        rows={rows}
-        columns={storyColumns}
-        onRowsChange={(nextRows) => setRows(calculatePlaygroundRows(nextRows))}
-      />
-    );
-  }
-```
-
-
-### Editable invoice lines
-
-**Render**
-
-```tsx
-() => {
-    const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
-    const [rows, setRows] = useState(initialRows);
-    const storyColumns = useInvoiceColumns(rows);
-
-    return (
-      <Box maxWidth="100%" minWidth={0} width="600px">
-        <DataGrid
-          ref={gridRef}
-          aria-label="Invoice lines"
-          rows={rows}
-          columns={storyColumns}
-          maxWidth="100%"
-          enableTabNavigation
-          onRowsChange={(nextRows) => setRows(nextRows)}
-        />
-        <Button
-          variantType="secondary"
-          iconType="add"
-          iconPosition="before"
-          mt={2}
-          onClick={() =>
-            gridRef.current?.addRow({
-              id: getNextRowId(rows),
-              description: "",
-              category: "Services",
-              selected: false,
-              actions: null,
-            })
-          }
-        >
-          Add line
-        </Button>
-      </Box>
-    );
-  }
-```
-
-
-### Controlled rows and change output
-
-**Render**
-
-```tsx
-() => {
-    const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
-    const [rows, setRows] = useState(() => initialRows.slice(0, 3));
-    const [lastChange, setLastChange] =
-      useState<DataGridRowChange<InvoiceLine> | null>(null);
-    const storyColumns = useInvoiceColumns(rows);
-
-    return (
-      <Box maxWidth="100%" minWidth={0} width="760px">
-        <DataGrid
-          ref={gridRef}
-          aria-label="Controlled invoice lines"
-          rows={rows}
-          columns={storyColumns}
-          maxWidth="100%"
-          enableTabNavigation
-          onRowsChange={(nextRows, change) => {
-            setRows(nextRows);
-            setLastChange(change);
-          }}
-        />
-        <Button
-          variantType="secondary"
-          iconType="add"
-          iconPosition="before"
-          mt={2}
-          onClick={() =>
-            gridRef.current?.addRow({
-              id: getNextRowId(rows),
-              description: "",
-              category: "Services",
-              selected: false,
-              actions: null,
-            })
-          }
-        >
-          Add line
-        </Button>
-        <Box
-          as="pre"
-          backgroundColor="--colorsUtilityMajor025"
-          mt={2}
-          overflow="auto"
-          p={2}
-        >
-          {JSON.stringify({ rows, lastChange }, null, 2)}
-        </Box>
-      </Box>
-    );
-  }
-```
-
-
-### Validation and error summary
-
-**Render**
-
-```tsx
-() => {
-    const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
-    const [rows, setRows] = useState(() =>
-      initialRows.map((row) => ({
-        ...row,
-        description: row.id === 3 ? "" : row.description,
-      })),
-    );
-    const storyColumns = useInvoiceColumns(rows);
-    const invalidRows = rows.filter((row) => !row.description);
-
-    return (
-      <Box id="invoice-validation-grid" maxWidth="760px">
-        {invalidRows.length > 0 && (
-          <Box mb={3} minWidth="min(400px, 100%)" width="fit-content">
-            <Message
-              id="invoice-errors"
-              title="There is a problem"
-              variant="error"
-              width="100%"
-            >
-              <Box
-                alignItems="flex-start"
-                display="flex"
-                flexDirection="column"
-                gap={1}
-              >
-                {invalidRows.map((row) => (
-                  <Link
-                    href="#invoice-validation-grid"
-                    key={row.id}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      gridRef.current?.editCell(row.id, "description");
-                    }}
-                  >
-                    Enter a description on row {row.id}
-                  </Link>
-                ))}
-              </Box>
-            </Message>
-          </Box>
-        )}
-        <DataGrid
-          ref={gridRef}
-          aria-label="Invoice lines with validation"
-          aria-describedby={
-            invalidRows.length > 0 ? "invoice-errors" : undefined
-          }
-          rows={rows}
-          columns={storyColumns}
-          maxWidth="100%"
-          onRowsChange={(nextRows) => setRows(nextRows)}
-        />
-      </Box>
-    );
-  }
-```
-
-
-### Pinned columns
-
-**Render**
-
-```tsx
-() => {
-    const [rows, setRows] = useState(() => createLargeRows(12));
-    const storyColumns = useLargeColumns(rows, setRows);
-
-    return (
-      <Box maxWidth="100%" minWidth={0} width="900px">
-        <DataGrid
-          aria-label="Invoice lines with pinned columns"
-          rows={rows}
-          columns={storyColumns}
-          maxHeight="360px"
-          maxWidth="100%"
-          stickyHeader
-          enableTabNavigation
-          onRowsChange={(nextRows) => setRows(nextRows)}
-        />
-      </Box>
-    );
-  }
-```
-
-
-### Large scrollable grid
-
-**Render**
-
-```tsx
-() => {
-    const [rows, setRows] = useState(() => createLargeRows(1000));
-    const storyColumns = useLargeColumns(rows, setRows);
-
-    return (
-      <DataGrid
-        aria-label="Large invoice lines"
-        rows={rows}
-        columns={storyColumns}
-        maxHeight="520px"
-        maxWidth="100%"
-        stickyHeader
-        enableTabNavigation
-        rowOverscan={6}
-        onRowsChange={(nextRows) => setRows(nextRows)}
-      />
-    );
-  }
-```
-
-
-### MDX Example 1
-
-**Args**
-
-```tsx
-interface InvoiceLine {
-  id: number;
-  description: string;
-  category: "Services" | "Software" | "Expenses";
-  selected: boolean;
-  locked: boolean;
-}
-
-const initialRows: InvoiceLine[] = [
-  {
-    id: 1,
-    description: "Consulting services",
-    category: "Services",
-    selected: false,
-    locked: false,
-  },
-];
-```
-
-
-### MDX Example 2
-
-**Args**
-
-```tsx
-const columns: DataGridColumn<InvoiceLine>[] = [
-  {
-    field: "description",
-    headerName: "Description",
-    minWidth: 220,
-    flex: 1,
-    error: ({ value }) =>
-      String(value ?? "").trim() ? false : "Enter a description",
-    readOnly: ({ row }) => row.locked,
-  },
-  {
-    field: "category",
-    headerName: "Category",
-    type: "dropdown",
-    width: 180,
-    options: [
-      { label: "Services", value: "Services" },
-      { label: "Software", value: "Software" },
-      { label: "Expenses", value: "Expenses" },
-    ],
-  },
-  {
-    field: "selected",
-    headerName: "Selected",
-    type: "checkbox",
-    width: 100,
-  },
-  {
-    field: "actions",
-    headerName: "",
-    headerAriaLabel: "Actions",
-    type: "action",
-    width: 52,
-    renderCell: ({ api, row, rowId }) => (
-      <ActionPopover
-        aria-label={`Actions for ${row.description}`}
-        renderButton={({ "data-element": dataElement, ariaAttributes }) => (
-          <Button
-            data-element={dataElement}
-            size="small"
-            variant="default"
-            variantType="subtle"
-            {...ariaAttributes}
-          >
-            <Icon type="ellipsis_vertical" />
-          </Button>
-        )}
-        size="medium"
-      >
-        <ActionPopoverItem
-          onClick={() =>
-            api.duplicateRow(rowId, { ...row, id: createInvoiceLineId() })
-          }
-        >
-          Duplicate
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => api.deleteRow(rowId)}>
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    ),
-  },
-];
-```
-
-
-### MDX Example 3
-
-**Args**
-
-```tsx
-const [rows, setRows] = React.useState(initialRows);
-
-const handleRowsChange = (
-  nextRows: InvoiceLine[],
-  change: DataGridRowChange<InvoiceLine>,
-) => {
-  setRows(nextRows);
-  auditInvoiceChange(change);
-};
-
-<DataGrid
-  aria-label="Invoice lines"
-  rows={rows}
-  columns={columns}
-  onRowsChange={handleRowsChange}
-/>;
-```
-
-
-### MDX Example 4
-
-**Args**
-
-```tsx
-const gridRef = React.useRef<DataGridHandle<InvoiceLine>>(null);
-
-<Button onClick={() => gridRef.current?.addRow(createEmptyInvoiceLine())}>
-  Add line
-</Button>;
-
-gridRef.current?.insertRow(newLine, { beforeRowId: existingLineId });
-gridRef.current?.duplicateRow(sourceLineId, duplicatedLine);
-gridRef.current?.deleteRow(lineId);
-gridRef.current?.moveRow(lineId, 3);
-```
-
-
-### MDX Example 1
-
-**Args**
-
-```tsx
-import React from "react";
-import {
-  DataGrid,
-  DataGridColumn,
-} from "carbon-react/lib/components/data-grid";
-
-interface InvoiceLine {
-  id: number;
-  description: string;
-  category: "Services" | "Software";
-}
-
-const columns: DataGridColumn<InvoiceLine>[] = [
-  {
-    field: "description",
-    headerName: "Description",
-  },
-  {
-    field: "category",
-    headerName: "Category",
-    type: "dropdown",
-    options: [
-      { label: "Services", value: "Services" },
-      { label: "Software", value: "Software" },
-    ],
-  },
-];
-
-export default function InvoiceLines() {
-  const [rows, setRows] = React.useState<InvoiceLine[]>([
-    { id: 1, description: "Consulting", category: "Services" },
-  ]);
-
-  return (
-    <DataGrid
-      aria-label="Invoice lines"
-      rows={rows}
-      columns={columns}
-      onRowsChange={(nextRows) => setRows(nextRows)}
-    />
-  );
-}
-```
-
-
-### MDX Example 2
-
-**Args**
-
-```tsx
-const gridRef = React.createRef<DataGridHandle<InvoiceLine>>();
-
-gridRef.current?.editCell(invoiceLineId, "description");
-```
-
+No examples have been curated for agent use.

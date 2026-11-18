@@ -13,6 +13,7 @@ import fg from "fast-glob";
  * @property {string[]} [avoidWhen]
  * @property {Array<{component: string, when: string}>} [alternatives]
  * @property {string[]} [pitfalls]
+ * @property {string[]} [relatedTypes]
  * @property {Array<{story: string, description: string}>} [examples]
  */
 
@@ -75,6 +76,7 @@ export function validateComponentMetadata(
     "avoidWhen",
     "alternatives",
     "pitfalls",
+    "relatedTypes",
     "examples",
   ]);
   for (const key of Object.keys(value)) {
@@ -87,6 +89,7 @@ export function validateComponentMetadata(
   requireTextArray(value.useWhen, filePath, "useWhen");
   requireTextArray(value.avoidWhen, filePath, "avoidWhen");
   requireTextArray(value.pitfalls, filePath, "pitfalls");
+  requireUniqueTextArray(value.relatedTypes, filePath, "relatedTypes");
 
   if (value.alternatives !== undefined) {
     if (!Array.isArray(value.alternatives) || value.alternatives.length === 0) {
@@ -188,6 +191,22 @@ function requireTextArray(value, filePath, field, required = false) {
   }
   for (const [index, item] of value.entries()) {
     requireText(item, filePath, `${field}[${index}]`);
+  }
+}
+
+/**
+ * @param {unknown} value
+ * @param {string} filePath
+ * @param {string} field
+ */
+function requireUniqueTextArray(value, filePath, field) {
+  requireTextArray(value, filePath, field);
+  if (value === undefined) return;
+
+  const items = /** @type {string[]} */ (value);
+  const uniqueItems = new Set(items);
+  if (uniqueItems.size !== items.length) {
+    fail(filePath, `field \"${field}\" must not contain duplicate values`);
   }
 }
 
