@@ -14,14 +14,12 @@ export type ValidationRecord = Record<string, TabValidationRecord>;
 
 export interface TabsContextProps {
   activeTab: string;
-  currentTabId?: string;
   focusIndex: string;
   isInTab?: boolean;
   labelledBy?: string;
   orientation: "horizontal" | "vertical";
   setActiveTab: Dispatch<SetStateAction<string>>;
   setFocusIndex: Dispatch<SetStateAction<string>>;
-  setCurrentTabId: Dispatch<SetStateAction<string>>;
   setErrors: (childId: string, tabId: string, error: string | boolean) => void;
   setWarnings: (
     childId: string,
@@ -36,14 +34,12 @@ export interface TabsContextProps {
 /* istanbul ignore next */
 const initialContext: TabsContextProps = {
   activeTab: "",
-  currentTabId: "",
   focusIndex: "",
   isInTab: false,
   labelledBy: "",
   orientation: "horizontal",
   setActiveTab: () => {},
   setFocusIndex: () => {},
-  setCurrentTabId: () => {},
   setErrors: () => {},
   setWarnings: () => {},
   size: "medium",
@@ -76,7 +72,6 @@ export const TabsProvider = ({
   size,
 }: TabsProviderProps) => {
   const [activeTab, setActiveTab] = useState<string>(selectedTabId);
-  const [currentTabId, setCurrentTabId] = useState<string>(selectedTabId);
   const [focusIndex, setFocusIndex] = useState<string>("");
   const [tabErrors, setTabErrors] = useState<ValidationRecord>({});
   const [tabWarnings, setTabWarnings] = useState<ValidationRecord>({});
@@ -123,7 +118,6 @@ export const TabsProvider = ({
   useEffect(() => {
     if (selectedTabId && selectedTabId !== previousSelectedTabId) {
       setActiveTab(selectedTabId);
-      setCurrentTabId(selectedTabId);
     }
   }, [selectedTabId, previousSelectedTabId]);
 
@@ -131,13 +125,11 @@ export const TabsProvider = ({
     <TabsContext.Provider
       value={{
         activeTab,
-        currentTabId,
         focusIndex,
         isInTab,
         labelledBy,
         orientation,
         setActiveTab,
-        setCurrentTabId,
         setFocusIndex,
         setErrors,
         setWarnings,

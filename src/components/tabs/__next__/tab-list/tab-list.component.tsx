@@ -66,10 +66,14 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
 
     useImperativeHandle(ref, () => ({
       focusTab: (id: string) => {
-        const tab = tabListRef.current?.querySelector(`#${id}`) as
-          | HTMLButtonElement
-          | undefined;
-        tab?.focus();
+        const tabList = tabListRef.current as HTMLDivElement;
+        const tab = Array.from(
+          tabList.querySelectorAll<HTMLElement>("[role='tab']"),
+        ).find((element) => element.id === id);
+
+        if (!tab) return;
+
+        tab.focus();
         setFocusIndex(id);
         setActiveTab(id);
       },

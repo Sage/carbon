@@ -290,6 +290,40 @@ test("shows the validation status of fields within inactive tab panels on their 
   ).toBeVisible();
 });
 
+test("updates the tab's validation status when `error` or `warning` props are set after mount", () => {
+  const TestComponent = ({
+    error,
+    warning,
+  }: {
+    error?: boolean;
+    warning?: boolean;
+  }) => (
+    <Tabs>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab
+          id="tab-1"
+          controls="tab-panel-1"
+          label="Tab One"
+          error={error}
+          warning={warning}
+        />
+      </TabList>
+    </Tabs>
+  );
+  const { rerender } = render(<TestComponent />);
+  const tab = screen.getByRole("tab");
+  expect(tab).toHaveAccessibleName("Tab One");
+
+  rerender(<TestComponent warning />);
+  expect(tab).toHaveAccessibleName("Tab One The Tab One tab contains warnings");
+
+  rerender(<TestComponent error warning />);
+  expect(tab).toHaveAccessibleName("Tab One The Tab One tab contains errors");
+
+  rerender(<TestComponent />);
+  expect(tab).toHaveAccessibleName("Tab One");
+});
+
 test("removes the validation status of fields from their tabs when the fields are unmounted", async () => {
   const user = userEvent.setup();
   const MockComponent = () => {
@@ -383,6 +417,40 @@ test("focuses and selects the specified tab when the exposed `focusTab` method i
   const tab3 = screen.getByRole("tab", { name: "Tab Three" });
   expect(tab3).toHaveFocus();
   expect(tab3).toHaveAttribute("aria-selected", "true");
+});
+
+test("does not change the selected or focused tab when `focusTab` is called with an id that matches no tab", async () => {
+  const user = userEvent.setup();
+  const MockComponent = () => {
+    const tabsHandle = React.useRef<TabsHandle>(null);
+
+    return (
+      <>
+        <Tabs>
+          <TabList ariaLabel="Sample Tabs" ref={tabsHandle}>
+            <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+            <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+          </TabList>
+        </Tabs>
+        <button
+          type="button"
+          onClick={() => tabsHandle.current?.focusTab("missing-tab")}
+        >
+          Focus missing tab
+        </button>
+      </>
+    );
+  };
+  render(<MockComponent />);
+
+  const button = screen.getByRole("button", { name: "Focus missing tab" });
+  await user.click(button);
+
+  expect(button).toHaveFocus();
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
 });
 
 test("calls `onTabChange` with the tab id when a different tab is selected", async () => {

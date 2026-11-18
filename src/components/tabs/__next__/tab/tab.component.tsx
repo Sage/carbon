@@ -22,7 +22,10 @@ export interface TabProps extends TagProps {
   id: string;
   /** The error state of the tab */
   error?: boolean | string;
-  /** The label shown on the tab */
+  /**
+   * The label content.
+   * If rendered as a node, `leftSlot`, `rightSlot` and `subtext` will be ignored.
+   */
   label: React.ReactNode;
   /** The subtext shown on the tab */
   subtext?: string;
@@ -78,17 +81,12 @@ export const Tab = ({
     focusIndex,
     orientation,
     setActiveTab,
-    setCurrentTabId,
     setFocusIndex,
     size,
     errors,
     warnings,
   } = useTabs();
   const selected = activeTab === id;
-
-  useEffect(() => {
-    if (selected) setCurrentTabId(id);
-  }, [id, selected, setCurrentTabId]);
 
   if (
     (leftSlot || rightSlot) &&
@@ -110,42 +108,15 @@ export const Tab = ({
         inline: "center",
       });
     }
-  }, [focusIndex, id, setCurrentTabId]);
+  }, [focusIndex, id]);
 
   useEffect(() => {
-    let tabErrorEntries = errors[id];
-    let tabWarningEntries = warnings[id];
+    const hasValidation = (
+      entries: Record<string, boolean | string> | undefined,
+    ) => !!entries && Object.values(entries).some((v) => v !== false);
 
-    if (error && !tabErrorEntries) {
-      tabErrorEntries = { static: error };
-    }
-
-    if (warning && !tabWarningEntries) {
-      tabWarningEntries = { static: warning };
-    }
-
-    if (!tabErrorEntries) {
-      setInternalError(false);
-      return;
-    }
-    const currentTabErrors = Object.keys(tabErrorEntries)
-      .map((k) => tabErrorEntries[k])
-      .filter((v) => v !== false);
-
-    const tabHasErrors = error || !!currentTabErrors.length;
-    setInternalError(tabHasErrors);
-
-    if (!tabWarningEntries) {
-      setInternalWarning(false);
-      return;
-    }
-
-    const currentTabWarnings = Object.keys(tabWarningEntries)
-      .map((k) => tabWarningEntries[k])
-      .filter((v) => v !== false);
-
-    const tabHasWarnings = warning || !!currentTabWarnings.length;
-    setInternalWarning(tabHasWarnings);
+    setInternalError(error || hasValidation(errors[id]));
+    setInternalWarning(warning || hasValidation(warnings[id]));
   }, [error, id, errors, warnings, warning]);
 
   const validationIcon = () => {

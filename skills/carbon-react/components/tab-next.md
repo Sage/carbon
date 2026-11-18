@@ -17,7 +17,7 @@ description: Carbon TabNext component props and usage examples.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | controls | string | Yes |  |  |  | The tab panel that this tab controls |  |
 | id | string | Yes |  |  |  | The ID of the tab |  |
-| label | React.ReactNode | Yes |  |  |  | The label shown on the tab |  |
+| label | React.ReactNode | Yes |  |  |  | The label content. If rendered as a node, `leftSlot`, `rightSlot` and `subtext` will be ignored. |  |
 | error | string \| boolean \| undefined | No |  |  |  | The error state of the tab | false |
 | leftSlot | React.ReactNode | No |  |  |  | The item shown to the left of the label |  |
 | rightSlot | React.ReactNode | No |  |  |  | The item shown to the right of the label |  |
