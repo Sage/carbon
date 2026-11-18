@@ -17,6 +17,7 @@ import {
   extractDefaultsFromExport,
   getLiteralUnionValues,
 } from "./prop-extraction.mjs";
+import { extractRelatedTypeDeclarations } from "./related-types.mjs";
 
 /**
  * @typedef {Object} ComponentCandidate
@@ -43,6 +44,7 @@ import {
  * @property {boolean} deprecated
  * @property {Array<string | number | boolean>} deprecatedValues
  * @property {string | null} deprecationReason
+ * @property {string[]} relatedTypeDeclarations
  */
 
 /**
@@ -207,6 +209,8 @@ const uniqueComponentCandidates =
 
 /** @type {ComponentData[]} */
 const componentData = [];
+/** @type {Map<string, {modulePath: string, moduleFiles: string[]}>} */
+const componentSourceByName = new Map();
 
 for (const candidate of uniqueComponentCandidates) {
   const modulePath = resolveModulePath(
@@ -294,11 +298,28 @@ for (const candidate of uniqueComponentCandidates) {
     supportsNamedImport,
     deprecated: deprecationInfo.deprecated,
     deprecationReason: deprecationInfo.reason,
+    relatedTypeDeclarations: [],
+  });
+  componentSourceByName.set(candidate.displayName ?? candidate.name, {
+    modulePath,
+    moduleFiles,
   });
 }
 
 const storyDataByComponent = await extractStoryData(project, repoRoot);
 const componentMetadata = await loadComponentMetadata(componentMetadataDir);
+for (const component of componentData) {
+  const relatedTypes = componentMetadata.get(component.name)?.relatedTypes;
+  if (!relatedTypes?.length) continue;
+
+  const source = componentSourceByName.get(component.name);
+  if (!source) continue;
+  component.relatedTypeDeclarations = extractRelatedTypeDeclarations(
+    project.getSourceFileOrThrow(source.modulePath),
+    relatedTypes,
+    new Set(source.moduleFiles),
+  );
+}
 validateMetadataReferences(
   componentMetadata,
   componentData,
@@ -1829,6 +1850,17 @@ function renderComponentMarkdown(
     }
   }
   lines.push("");
+
+  if (component.relatedTypeDeclarations.length) {
+    lines.push(
+      "## Related API types",
+      "",
+      "```ts",
+      component.relatedTypeDeclarations.join("\n\n"),
+      "```",
+      "",
+    );
+  }
 
   lines.push("## Examples");
   if (metadata) {

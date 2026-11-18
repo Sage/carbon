@@ -36,7 +36,7 @@
 - [Confirm](components/confirm.md) (deprecated)
 - [Content](components/content.md) (deprecated)
 - [Crumb](components/crumb.md)
-- [DataGrid](components/data-grid.md)
+- [DataGrid](components/data-grid.md) — An accessible, editable grid for navigating and updating structured tabular data.
 - [DateInput](components/date-input.md)
 - [DateRange](components/date-range.md)
 - [Dd](components/dd.md)
