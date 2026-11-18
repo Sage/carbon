@@ -1,0 +1,15 @@
+{
+  "component": "Message",
+  "summary": "A static inline message that stays on screen and conveys its type through a variant icon, colour and screen-reader text.",
+  "pitfalls": [
+    "Message is not a live region. When showing one dynamically, Carbon recommends moving focus to it through a ref only for error messages, and placing other variants inside an aria-live region that is present in the DOM on page load.",
+    "onDismiss only renders the close button and reports the event; hide the message by setting open to false or unmounting it.",
+    "Do not use variant=\"neutral\"; it is deprecated and will be removed, although its type does not mark it as deprecated."
+  ],
+  "examples": [
+    {
+      "story": "ProgrammaticFocus",
+      "description": "Focus a newly shown error message, announce a success message through a persistent aria-live region, and dismiss both by controlling open."
+    }
+  ]
+}

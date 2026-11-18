@@ -53,6 +53,7 @@ const RingLoader = ({
         $size={ringSize}
         role="presentation"
         viewBox="0 0 64 64"
+        data-role="ring-loader-svg"
       >
         {usesAiGradient && (
           <defs>

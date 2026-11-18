@@ -1,3 +1,15 @@
+## [163.2.1](https://github.com/Sage/carbon/compare/v163.2.0...v163.2.1) (2026-11-18)
+
+### Bug Fixes
+
+* **multi-action-button:** make fullWidth fill the container ([949d359](https://github.com/Sage/carbon/commit/949d3595a5fc5c8675113d224b727ae8f9214264)), closes [#8278](https://github.com/Sage/carbon/issues/8278)
+
+## [163.2.0](https://github.com/Sage/carbon/compare/v163.1.0...v163.2.0) (2026-11-17)
+
+### Features
+
+* **simple-select:** align component with fusion DS ([84a599c](https://github.com/Sage/carbon/commit/84a599cfcbed21dd99ad6bc99744d2de0191b1bd))
+
 ## [163.1.0](https://github.com/Sage/carbon/compare/v163.0.2...v163.1.0) (2026-11-17)
 
 ### Features

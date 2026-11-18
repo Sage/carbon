@@ -290,6 +290,9 @@ interface Locale {
     actionButtonText: () => string;
     placeholder: () => string;
     noResultsForTerm: (term: string) => string;
+    loadingOptions?: () => string;
+    loadingMoreOptions?: () => string;
+    newOptions?: (count: number) => string;
   };
   sidebar: {
     ariaLabels: {

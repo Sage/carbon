@@ -308,6 +308,26 @@ test("should render with expected styles when 'width' prop is set", () => {
   });
 });
 
+test.each([undefined, "50%"])(
+  "should render at full width when 'fullWidth' is true and 'width' is %s",
+  (width) => {
+    render(
+      <MultiActionButton
+        text="Main Button"
+        fullWidth
+        width={width}
+        data-role="multi-action-button"
+      >
+        <Button>First</Button>
+      </MultiActionButton>,
+    );
+
+    expect(screen.getByTestId("multi-action-button")).toHaveStyle({
+      width: "100%",
+    });
+  },
+);
+
 test("should render with expected styles when 'menuWidth' prop is set", async () => {
   const user = userEvent.setup();
 
