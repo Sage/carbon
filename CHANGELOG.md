@@ -1,3 +1,9 @@
+## [163.3.0](https://github.com/Sage/carbon/compare/v163.2.1...v163.3.0) (2026-11-18)
+
+### Features
+
+* **table:** update subtle table styles and outer borders ([f46c930](https://github.com/Sage/carbon/commit/f46c930adbbe58da6bbcf990c27dabaa8b960566))
+
 ## [163.2.1](https://github.com/Sage/carbon/compare/v163.2.0...v163.2.1) (2026-11-18)
 
 ### Bug Fixes
