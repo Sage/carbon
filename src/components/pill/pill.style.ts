@@ -140,10 +140,6 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
 
       ${StyledIcon} {
         color: inherit;
-        width: var(--global-size-2-xs);
-        height: var(--global-size-2-xs);
-        padding: var(--global-space-comp-xs);
-        box-sizing: border-box;
       }
 
       ${inFill &&
@@ -235,8 +231,6 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
 
           ${StyledIcon} {
             color: currentColor;
-            height: unset;
-            width: unset;
           }
 
           &:focus {

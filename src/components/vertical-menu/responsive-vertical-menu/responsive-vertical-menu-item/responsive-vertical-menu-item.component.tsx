@@ -112,7 +112,7 @@ const MenuItemContent = ({
       icon={!!icon}
       responsive={responsive}
     >
-      {icon && <Icon type={icon} />}
+      {icon && <Icon type={icon} size="extra-small" />}
       {label}
     </StyledMenuItemContent>
   );
@@ -328,6 +328,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
                   depth={depth}
                   expanded={expanded || isActive}
                   reduceMotion={!!reducedMotion}
+                  size="extra-small"
                   type={
                     depth >= 1 ? "chevron_down_thick" : "chevron_right_thick"
                   }

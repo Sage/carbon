@@ -81,6 +81,7 @@ const PaginationNavigation = ({
   alignment,
 }: PaginationNavigationProps) => {
   const locale = useLocale();
+  const iconSize = size === "small" ? "extra-small" : "small";
 
   const [currentPageInputValue, setCurrentPageInputValue] = useState<
     string | number
@@ -179,7 +180,7 @@ const PaginationNavigation = ({
             size={size}
             onClick={handleFirstButtonClick}
           >
-            <Icon type="chevron_first_pagination" />
+            <Icon type="chevron_first_pagination" size={iconSize} />
           </Button>
         </StyledButtonWrapper>
       )}
@@ -194,7 +195,7 @@ const PaginationNavigation = ({
           onClick={handlePreviousButtonClick}
           ref={previousRef}
         >
-          <Icon type="chevron_left_thick" />
+          <Icon type="chevron_left_thick" size={iconSize} />
         </Button>
       </StyledButtonWrapper>
     </>
@@ -210,7 +211,7 @@ const PaginationNavigation = ({
           onClick={handleNextButtonClick}
           ref={nextRef}
         >
-          <Icon type="chevron_right_thick" />
+          <Icon type="chevron_right_thick" size={iconSize} />
         </Button>
       </StyledButtonWrapper>
       {showFirstAndLastButtons && (
@@ -221,7 +222,7 @@ const PaginationNavigation = ({
             size={size}
             onClick={handleLastButtonClick}
           >
-            <Icon type="chevron_last_pagination" />
+            <Icon type="chevron_last_pagination" size={iconSize} />
           </Button>
         </StyledButtonWrapper>
       )}

@@ -203,7 +203,7 @@ export const SizesWithDropdown: Story = () => {
   const [dismissedM, setDismissedM] = useState(false);
   const [dismissedL, setDismissedL] = useState(false);
 
-  const getListData = (val: string) => {
+  const getListData = (val: string, size?: "small") => {
     const filteredRecent = recentItems.filter((item) =>
       item.label.toLowerCase().includes(val.toLowerCase()),
     );
@@ -216,7 +216,12 @@ export const SizesWithDropdown: Story = () => {
         ? [
             {
               heading: "Recent searches",
-              icon: <Icon type="refresh_clock" />,
+              icon: (
+                <Icon
+                  type="refresh_clock"
+                  size={size === "small" ? "extra-small" : "small"}
+                />
+              ),
               items: filteredRecent,
             },
           ]
@@ -225,7 +230,12 @@ export const SizesWithDropdown: Story = () => {
         ? [
             {
               heading: "Suggested",
-              icon: <Icon type="search" />,
+              icon: (
+                <Icon
+                  type="search"
+                  size={size === "small" ? "extra-small" : "small"}
+                />
+              ),
               items: filteredSuggested,
             },
           ]
@@ -252,11 +262,11 @@ export const SizesWithDropdown: Story = () => {
         onFocus={() => setDismissedS(false)}
         open={
           valueS.length >= minQueryLength &&
-          getListData(valueS).length > 0 &&
+          getListData(valueS, "small").length > 0 &&
           !dismissedS
         }
         minQueryLength={minQueryLength}
-        listData={getListData(valueS)}
+        listData={getListData(valueS, "small")}
         onListItemSelect={(val) => {
           setValueS(val);
           setDismissedS(true);

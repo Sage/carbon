@@ -208,6 +208,7 @@ const SubmenuParentWrapper = styled.div`
 const cloneSubmenuParent = (
   children: React.ReactNode,
   submenuControlProps: SubmenuControlProps,
+  size: PopoverMenuContextProps["size"],
 ) => {
   /* istanbul ignore if */
   if (!React.isValidElement(children) || React.Children.count(children) !== 1) {
@@ -219,7 +220,12 @@ const cloneSubmenuParent = (
     children: (
       <SubmenuParentWrapper data-element="submenu-parent-wrapper">
         {(children as React.ReactElement).props.children}
-        <Icon type="caret_right" data-element="submenu-icon" ml="auto" />
+        <Icon
+          type="caret_right"
+          data-element="submenu-icon"
+          ml="auto"
+          size={size === "small" ? "extra-small" : "small"}
+        />
       </SubmenuParentWrapper>
     ),
     ...submenuControlProps,
@@ -283,8 +289,8 @@ const MenuItem = ({
   const isDisabled = disabled || hasDisabledChild;
   const clonedSubmenuParentItem = useCallback(
     (submenuControlProps: SubmenuControlProps) =>
-      cloneSubmenuParent(children, { ...submenuControlProps }),
-    [children],
+      cloneSubmenuParent(children, { ...submenuControlProps }, size),
+    [children, size],
   );
   const submenuRef = useRef<HTMLUListElement | null>(null);
   const context = useContext(MenuHeadingContext);

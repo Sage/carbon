@@ -205,7 +205,10 @@ const ToolbarDropdown = ({
       >
         {selectedOption}{" "}
         <span aria-hidden="true">
-          <Icon type={isOpen ? "caret_up" : "caret_down"} />
+          <Icon
+            type={isOpen ? "caret_up" : "caret_down"}
+            size={size === "small" ? "extra-small" : "small"}
+          />
         </span>
       </StyledButton>
 

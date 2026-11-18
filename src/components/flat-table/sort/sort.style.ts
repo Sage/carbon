@@ -40,7 +40,7 @@ const StyledSortButton = styled.button<{
     word-break: keep-all;
 
     span[data-role="sort-placeholder"] {
-      min-width: 24px;
+      min-width: var(--global-size-3-xs);
       :hover {
         border-bottom: none;
       }

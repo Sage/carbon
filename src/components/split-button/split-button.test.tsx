@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { render, screen, act, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/dom";
 import SplitButton, { SplitButtonHandle } from "./split-button.component";
@@ -56,6 +56,32 @@ test("renders the main and toggle buttons", () => {
     screen.queryByRole("button", { name: "Single Button" }),
   ).not.toBeInTheDocument();
 });
+
+test.each([
+  ["small", "var(--global-size-3-xs)"],
+  ["medium", "var(--global-size-2-xs)"],
+] as const)(
+  "renders the toggle and main button icons at the correct size when `size` is %s",
+  (size, token) => {
+    render(
+      <SplitButton text="Main" size={size} iconType="add">
+        <Button>Single Button</Button>
+      </SplitButton>,
+    );
+
+    const toggle = screen.getByRole("button", { name: "Show more" });
+    const mainButton = screen.getByRole("button", { name: "Main" });
+
+    expect(within(toggle).getByTestId("icon")).toHaveStyleRule(
+      "font-size",
+      token,
+      { modifier: "&::before" },
+    );
+    expect(
+      within(mainButton).getByTestId("button-icon-before"),
+    ).toHaveStyleRule("font-size", token, { modifier: "&::before" });
+  },
+);
 
 test("renders child buttons when toggle button is clicked", async () => {
   const user = userEvent.setup();

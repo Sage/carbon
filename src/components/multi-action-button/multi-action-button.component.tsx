@@ -222,7 +222,11 @@ export const MultiActionButton = forwardRef<
                     {...filterOutStyledSystemSpacingProps(rest)}
                   >
                     {text}
-                    <Icon type="dropdown" color="inherit" bg="transparent" />
+                    <Icon
+                      type="dropdown"
+                      color="inherit"
+                      size={size === "small" ? "extra-small" : "small"}
+                    />
                   </Button>
                 );
               }}

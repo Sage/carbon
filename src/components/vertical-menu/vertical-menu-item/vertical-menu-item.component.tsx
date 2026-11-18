@@ -143,7 +143,7 @@ export const VerticalMenuItem = <T,>({
           (customIcon ? (
             <StyledCustomIconWrapper>{customIcon}</StyledCustomIconWrapper>
           ) : (
-            iconType && <StyledTitleIcon type={iconType} />
+            iconType && <StyledTitleIcon type={iconType} size="extra-small" />
           ))}
 
         <StyledTitle>{title}</StyledTitle>
@@ -153,6 +153,7 @@ export const VerticalMenuItem = <T,>({
         {children && !isFullScreen && (
           <StyledChevronIcon
             type={isOpen ? "chevron_up_thick" : "chevron_down_thick"}
+            size="extra-small"
           />
         )}
       </StyledVerticalMenuItem>

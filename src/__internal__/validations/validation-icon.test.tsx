@@ -32,6 +32,29 @@ test("renders an icon with the info type when the `info` prop is a string", () =
   expect(icon).toBeVisible();
 });
 
+test.each([
+  [true, "small", "var(--global-size-3-xs)"],
+  [true, "medium", "var(--global-size-2-xs)"],
+  [false, "small", "var(--global-size-2-xs)"],
+] as const)(
+  "renders the icon at the correct size when `isPartOfInput` is %s and `size` is %s",
+  (isPartOfInput, size, token) => {
+    render(
+      <ValidationIcon
+        error="error"
+        isPartOfInput={isPartOfInput}
+        size={size}
+      />,
+    );
+
+    expect(screen.getByTestId("icon-error")).toHaveStyleRule(
+      "font-size",
+      token,
+      { modifier: "&::before" },
+    );
+  },
+);
+
 test("does not render any icon if the `error` prop is a boolean", () => {
   render(<ValidationIcon error />);
 

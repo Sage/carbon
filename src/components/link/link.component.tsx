@@ -208,6 +208,7 @@ export const Link = React.forwardRef<
       return hasProperAlignment ? (
         <Icon
           type={icon}
+          size="extra-small"
           disabled={disabled}
           ariaLabel={ariaLabel}
           tooltipMessage={tooltipMessage}

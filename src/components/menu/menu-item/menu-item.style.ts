@@ -190,6 +190,17 @@ export const StyledMenuItemWrapper = styled.a.attrs(
       }
     `}
 
+    ${$hasSubmenu &&
+    css`
+      [data-element="submenu-dropdown-arrow"] {
+        transform: rotate(${$isOpen ? "-180deg" : "0deg"});
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition: transform 0.2s;
+        }
+      }
+    `}
+
     ${!$inFullscreenView &&
     css`
       ${$hasSubmenu &&

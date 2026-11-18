@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Button from "./button.component";
 import Icon from "../icon";
+import StyledIcon from "../icon/icon.style";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
 
 test("renders with text children", () => {
@@ -181,6 +182,24 @@ test("sets the correct dimensions when button is icon only and 'size' is 'small'
     minHeight: "32px",
   });
 });
+
+test.each([
+  ["small", "var(--global-size-3-xs)"],
+  ["medium", "var(--global-size-2-xs)"],
+] as const)(
+  "renders the icon at the correct size when 'size' is %s",
+  (size, token) => {
+    render(<Button size={size} iconType="bin" />);
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toHaveStyleRule("font-size", token, {
+      modifier: "&::before",
+    });
+    expect(screen.getByRole("button")).toHaveStyleRule("width", token, {
+      modifier: `${StyledIcon}`,
+    });
+  },
+);
 
 /* Styling test for coverage */
 test("sets the correct dimensions when button is icon only and 'size' is 'large'", () => {

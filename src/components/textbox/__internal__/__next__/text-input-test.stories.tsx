@@ -21,9 +21,16 @@ export default {
   },
 };
 
-const renderIcon = ({ inputIcon }: Partial<CommonTextInputArgs>) => {
+const renderIcon = ({ inputIcon, size }: Partial<CommonTextInputArgs>) => {
   if (!inputIcon) return undefined;
-  return <Icon type={inputIcon} data-element="input-icon" mr={1} />;
+  return (
+    <Icon
+      type={inputIcon}
+      size={size === "small" ? "extra-small" : "small"}
+      data-element="input-icon"
+      mr={1}
+    />
+  );
 };
 
 export const Default = (args: CommonTextInputArgs) => {

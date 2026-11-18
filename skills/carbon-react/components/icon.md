@@ -47,7 +47,7 @@ Displays a visual symbol from Carbon's bundled icon set.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | role | string \| undefined | No |  |  |  | The ARIA role to be applied to the Icon |  |
-| size | IconSize \| undefined | No | small \| medium \| large |  |  | Size of the Icon. - `small` — 24px (default) - `medium` — 32px - `large` — 40px | "small" |
+| size | IconSize \| undefined | No | small \| medium \| large \| extra-small |  |  | Size of the Icon. - `extra-small` — 16px - `small` — 20px (default) - `medium` — 24px - `large` — 32px | "small" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-hidden | boolean \| undefined | No |  |  |  | Set whether icon should be recognised by assistive technologies |  |

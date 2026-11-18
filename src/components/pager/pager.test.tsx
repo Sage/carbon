@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pager from ".";
 import { setupSelectMocks } from "../select";
@@ -268,6 +268,32 @@ test("clicking the `Last` button sets the current page to the last page", async 
 
   expect(screen.getByRole("textbox", { name: "Page 10" })).toHaveValue("10");
 });
+
+test.each([
+  ["small", "var(--global-size-3-xs)"],
+  ["medium", "var(--global-size-2-xs)"],
+] as const)(
+  "renders the navigation icons at the correct size when `size` is %s",
+  (size, token) => {
+    render(
+      <Pager
+        currentPage={5}
+        totalRecords={100}
+        size={size}
+        onPagination={() => {}}
+      />,
+    );
+
+    const firstButton = screen.getByRole("button", {
+      name: "Go to first page (page 1 of 10)",
+    });
+    expect(within(firstButton).getByTestId("icon")).toHaveStyleRule(
+      "font-size",
+      token,
+      { modifier: "&::before" },
+    );
+  },
+);
 
 test("does not render `First` and `Last` buttons when `showFirstAndLastButtons` is false", () => {
   render(

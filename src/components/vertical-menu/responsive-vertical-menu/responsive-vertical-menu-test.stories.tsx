@@ -162,7 +162,7 @@ export const Default = (props: Partial<ResponsiveVerticalMenuProps>) => {
             label={
               <Box display="flex" width="100%" alignItems="center" gap={1}>
                 <span>Help Centre</span>
-                <Icon type="link" />
+                <Icon type="link" size="extra-small" />
               </Box>
             }
           />
@@ -290,7 +290,7 @@ export const WithMarginAndPadding = (
             label={
               <Box display="flex" width="100%" alignItems="center" gap={1}>
                 <span>Help Centre</span>
-                <Icon type="link" />
+                <Icon type="link" size="extra-small" />
               </Box>
             }
           />
@@ -382,7 +382,7 @@ export const WithFullIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
           label={
             <Box display="flex" width="100%" alignItems="center" gap={1}>
               <span>Primary Menu Item</span>
-              <Icon type="link" />
+              <Icon type="link" size="extra-small" />
             </Box>
           }
         >
@@ -422,7 +422,7 @@ export const NoIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
           label={
             <Box display="flex" width="100%" alignItems="center" gap={1}>
               <span>Primary Menu Item</span>
-              <Icon type="link" />
+              <Icon type="link" size="extra-small" />
             </Box>
           }
         >
@@ -462,7 +462,7 @@ export const MixedIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
           label={
             <div style={whiteTextRow}>
               <span>Primary Menu Item</span>
-              <Icon type="link" />
+              <Icon type="link" size="extra-small" />
             </div>
           }
         >
@@ -633,7 +633,7 @@ export const CustomLinkAction = (
               label={
                 <Box display="flex" width="100%" alignItems="center" gap={1}>
                   <span>Help Centre</span>
-                  <Icon type="link" />
+                  <Icon type="link" size="extra-small" />
                 </Box>
               }
             />

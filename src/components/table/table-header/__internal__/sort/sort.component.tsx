@@ -47,6 +47,7 @@ export const Sort = ({
       aria-hidden
       data-element="sort-icon"
       type={getSortIconType(sortType)}
+      size="extra-small"
     />
   );
 

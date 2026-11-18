@@ -1,7 +1,7 @@
 import { TooltipPositions } from "../tooltip/tooltip.config";
 
 import { IconType } from "./icon-type";
-import { BackgroundShape, BgSize, FontSize } from "./icon.style";
+import { BackgroundShape, BgSize, IconSize } from "./icon.style";
 
 const dlsConfig = {
   backgroundSize: {
@@ -17,6 +17,7 @@ const dlsConfig = {
     circle: "50%",
   },
   iconSize: {
+    "extra-small": "var(--global-size-3-xs)",
     small: "var(--global-size-2-xs)",
     medium: "var(--global-size-xs)",
     large: "var(--global-size-s)",
@@ -36,7 +37,12 @@ export const ICON_SHAPES: BackgroundShape[] = [
   "square",
 ];
 export const ICON_SIZES: BgSize[] = ["small", "medium", "large", "extra-large"];
-export const ICON_FONT_SIZES: FontSize[] = ["small", "medium", "large"];
+export const ICON_FONT_SIZES: IconSize[] = [
+  "extra-small",
+  "small",
+  "medium",
+  "large",
+];
 export const ICONS: IconType[] = [
   "accessibility_web",
   "add",
