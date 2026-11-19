@@ -179,10 +179,10 @@ const DataGridCellInner = <T extends object>(
           (!interactiveTarget || interactiveTarget === event.currentTarget)
         ) {
           onFocusPosition(position);
+          if (type === "text" && !readOnly) {
+            onBeginEdit(position);
+          }
         }
-      }}
-      onDoubleClick={() => {
-        if (type === "text") onBeginEdit(position);
       }}
       onKeyDownCapture={handleKeyDownCapture}
       onKeyDown={handleKeyDown}

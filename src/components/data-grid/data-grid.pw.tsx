@@ -17,7 +17,7 @@ test("passes accessibility checks with mixed cell states and types", async ({
   await checkAccessibility(page, page.getByRole("grid"));
 });
 
-test("edits a text cell and moves to the next cell with Tab", async ({
+test("edits a text cell with one click and moves to the next cell with Tab", async ({
   mount,
   page,
 }) => {
@@ -26,7 +26,6 @@ test("edits a text cell and moves to the next cell with Tab", async ({
   const nameCell = cell(page, 1, "name");
   const typeCell = cell(page, 1, "type");
   await nameCell.click();
-  await page.keyboard.press("Enter");
 
   const editor = page.getByRole("textbox", { name: "Name, row 1" });
   await expect(editor).toBeFocused();
@@ -37,14 +36,14 @@ test("edits a text cell and moves to the next cell with Tab", async ({
   await expect(typeCell).toBeFocused();
 });
 
-test("shows navigational focus after clicking without entering edit mode", async ({
+test("focusing a text cell preserves navigation mode", async ({
   mount,
   page,
 }) => {
   await mount(<DataGridComponent />);
 
   const nameCell = cell(page, 1, "name");
-  await nameCell.click();
+  await nameCell.focus();
 
   await expect(nameCell).toBeFocused();
   await expect(page.getByRole("textbox", { name: "Name, row 1" })).toHaveCount(
@@ -57,13 +56,61 @@ test("shows navigational focus after clicking without entering edit mode", async
     .not.toBe("none");
 });
 
+test("opens a text editor with a mouse double-click", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await cell(page, 1, "name").dblclick();
+
+  await expect(
+    page.getByRole("textbox", { name: "Name, row 1" }),
+  ).toBeFocused();
+});
+
+test("opens a text editor with zero-detail activation", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await cell(page, 1, "name").dispatchEvent("click", { detail: 0 });
+
+  await expect(
+    page.getByRole("textbox", { name: "Name, row 1" }),
+  ).toBeFocused();
+});
+
+test.describe("touch activation", () => {
+  test.use({ hasTouch: true });
+
+  test("opens a text editor with one tap and commits the edited value", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridComponent />);
+    const nameCell = cell(page, 1, "name");
+
+    await nameCell.tap();
+
+    const editor = page.getByRole("textbox", { name: "Name, row 1" });
+    await expect(editor).toBeFocused();
+    await editor.fill("Touch edited line");
+    await editor.press("Enter");
+
+    await expect(nameCell).toContainText("Touch edited line");
+    await expect(nameCell).toBeFocused();
+  });
+});
+
 test("supports row and grid edge navigation with Home and End", async ({
   mount,
   page,
 }) => {
   await mount(<DataGridComponent />);
 
-  await cell(page, 2, "quantity").click();
+  await cell(page, 2, "quantity").focus();
 
   await page.keyboard.press("Home");
   await expect(cell(page, 2, "name")).toBeFocused();
@@ -128,7 +175,7 @@ test("opens and commits a dropdown with Space without scrolling vertically", asy
   await grid.evaluate((element) => {
     element.scrollTop = 40;
   });
-  await cell(page, 2, "name").click();
+  await cell(page, 2, "name").focus();
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("Space");
 
@@ -330,7 +377,7 @@ test("reveals a non-sticky header when navigating to the first row", async ({
     element.scrollTop = 80;
   });
 
-  await cell(page, 2, "name").click();
+  await cell(page, 2, "name").focus();
   await page.keyboard.press("ArrowUp");
 
   await expect(cell(page, 1, "name")).toBeFocused();
@@ -357,6 +404,11 @@ test("applies read-only behavior to each cell variation", async ({
   await expect(checkboxCell.getByRole("checkbox")).toBeDisabled();
   await expect(typeCell.locator('[data-element="dropdown"]')).toHaveCount(0);
 
+  await nameCell.click();
+  await expect(page.getByRole("textbox", { name: "Name, row 3" })).toHaveCount(
+    0,
+  );
+
   await typeCell.click();
   await expect(page.getByRole("combobox", { name: "Type, row 3" })).toHaveCount(
     0,
@@ -378,7 +430,7 @@ test("scrolls horizontally during keyboard navigation while keeping edge columns
   const quantityCell = cell(page, 1, "quantity");
   const actionCell = cell(page, 1, "actions");
 
-  await nameCell.click();
+  await nameCell.focus();
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("ArrowRight");
 
@@ -507,7 +559,7 @@ test("does not navigate away from an open action popover", async ({
   await expect(selectedCell).toBeFocused();
 });
 
-test("keeps focus on a cell clicked while an action popover is open", async ({
+test("focuses the text editor clicked while an action popover is open", async ({
   mount,
   page,
 }) => {
@@ -520,7 +572,9 @@ test("keeps focus on a cell clicked while an action popover is open", async ({
   await nextCell.click();
 
   await expect(page.getByRole("list")).toHaveCount(0);
-  await expect(nextCell).toBeFocused();
+  await expect(
+    page.getByRole("textbox", { name: "Name, row 2" }),
+  ).toBeFocused();
   await expect(
     page.getByRole("button", { name: "Actions for row 1" }),
   ).not.toBeFocused();
