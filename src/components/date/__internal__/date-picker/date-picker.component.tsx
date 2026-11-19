@@ -63,7 +63,7 @@ export const DatePicker = ({
     weekStartsOn,
     weekdaysLong,
     weekdaysShort,
-  } = useDatePickerLocale();
+  } = useDatePickerLocale(dayPickerProps?.locale);
 
   const pickerRef = useRef<HTMLDivElement>(null);
   const [{ monthSelectId, yearSelectId, pickerDescriptionId }] = useState(

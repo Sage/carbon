@@ -137,10 +137,10 @@ const Calendar = ({
         showOutsideDays
         mode="single"
         disabled={disabledDays.length ? disabledDays : undefined}
-        onDayClick={(date, modifiers, event) => {
-          onDayClick(date, event);
-          dayPickerProps?.onDayClick?.(date, modifiers, event);
-        }}
+        onDayClick={
+          dayPickerProps?.onDayClick ??
+          ((date, _, event) => onDayClick(date, event))
+        }
       />
     </CalendarWeekdayLabelsContext.Provider>
   );

@@ -93,7 +93,7 @@ Disable calendar dates by passing a matcher or an array of [matchers](https://da
 
 ### Advanced calendar configuration
 
-Use `pickerProps` for advanced calendar configuration. `pickerProps.locale` is accepted for backwards compatibility, but it is ignored: DateInput always uses the locale provided by `I18nProvider`. This keeps the calendar, DateInput formatting, and Carbon translations in sync. If you provide `pickerProps.onDayClick`, it runs after DateInput updates its selected date.
+Use `pickerProps` for advanced calendar configuration. The calendar defaults to the locale from `I18nProvider`, which defaults to en-GB. For legacy compatibility, `pickerProps.locale` overrides calendar date labels, month names, weekday headings, and the default week start. Input formatting and Carbon translations still use `I18nProvider`. Providing `pickerProps.onDayClick` replaces the built-in selection and picker-closing behavior.
 
 ### With custom width
 
@@ -123,7 +123,7 @@ keys fall back to British English. Applications serving users in another languag
 
 Required locales can be imported from date-fns like so: `import { de, zhCN } from 'date-fns/locale';`
 
-Set the calendar locale through `I18nProvider`; `pickerProps.locale` is not supported. This keeps the calendar aligned with the input's parsing, formatting, and translated labels.
+Set the locale through `I18nProvider` to keep the calendar aligned with the input's parsing, formatting, and translated labels. The legacy `pickerProps.locale` override affects the calendar only.
 
 <Canvas of={DateStories.LocaleOverrideExampleImplementation} />
 

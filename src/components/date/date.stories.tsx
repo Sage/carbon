@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
-import { zhCN, de, enGB, pl } from "date-fns/locale";
+import { zhCN, de, enGB, pl, enUS } from "date-fns/locale";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -10,6 +10,7 @@ import Box from "../box";
 import Button from "../button";
 import I18nProvider from "../i18n-provider";
 import Typography from "../typography";
+import { format } from "date-fns";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -37,6 +38,27 @@ const meta: Meta<typeof DateInput> = {
 export default meta;
 type Story = StoryObj<typeof DateInput>;
 const storyDateValue = "07/10/2026";
+
+const CustomDaySelection = () => {
+  const [value, setValue] = useState("07/15/2026");
+
+  return (
+    <DateInput
+      label="Date"
+      value={value}
+      onChange={(event) =>
+        setValue(event.target.value.formattedValue)
+      }
+      pickerProps={{
+        locale: enUS,
+        onDayClick: (day, modifiers, event) => {
+          setValue(format(day, "MM/dd/yyyy"));
+          console.log("Selected:", day, modifiers, event.type);
+        },
+      }}
+    />
+  );
+}
 
 const PairedDateInputs = ({
   initialValue = storyDateValue,
@@ -72,6 +94,7 @@ const PairedDateInputs = ({
         value={legacyValue}
         onChange={(event) => setLegacyValue(event.target.value.formattedValue)}
       />
+      <CustomDaySelection />
     </Box>
   );
 };

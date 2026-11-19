@@ -1,12 +1,12 @@
 import { useMemo } from "react";
-import type { Day } from "date-fns";
+import type { Day, Locale } from "date-fns";
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
 
 /** Derives localized picker labels and weekday names. */
-const useDatePickerLocale = () => {
+const useDatePickerLocale = (localeOverride?: Partial<Locale>) => {
   const locale = useLocale();
-  const dateFnsLocale = locale.date.dateFnsLocale();
+  const dateFnsLocale = { ...locale.date.dateFnsLocale(), ...localeOverride };
   const { localize, options } = dateFnsLocale;
   const localeLanguage = dateFnsLocale.code.split("-")[0].toLowerCase();
   const { weekdaysLong, weekdaysShort } = useMemo(() => {

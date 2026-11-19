@@ -64,3 +64,28 @@ test.each([
     expect(result.current.weekdaysShort).toEqual(expectedWeekdays);
   },
 );
+
+test("derives all calendar locale values from an explicit override", () => {
+  mockLocale(enGB);
+
+  const { result } = renderHook(() => useDatePickerLocale(de));
+
+  expect(result.current.dayPickerLocale.code).toBe("de");
+  expect(result.current.localize).toBe(de.localize);
+  expect(result.current.weekdaysLong[1]).toBe("Montag");
+  expect(result.current.weekdaysShort[1]).toBe("Mo");
+  expect(result.current.closeButtonLabel).toBe("Close picker");
+});
+
+test("retains provider defaults for partial calendar locale overrides", () => {
+  mockLocale(enGB);
+
+  const { result } = renderHook(() =>
+    useDatePickerLocale({ options: { weekStartsOn: 0 } }),
+  );
+
+  expect(result.current.weekStartsOn).toBe(0);
+  expect(result.current.localize).toBe(enGB.localize);
+  expect(result.current.dayPickerLocale.code).toBe("en-GB");
+  expect(result.current.weekdaysLong[0]).toBe("Sunday");
+});

@@ -697,10 +697,7 @@ test("should update a legacy input only after selecting a date, not when navigat
 
 test("should close the picker, update the value and refocus the input element when the user clicks a day element", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  const onDayClick = jest.fn();
-  render(
-    <MockComponent initialValue="04/04/2019" pickerProps={{ onDayClick }} />,
-  );
+  render(<MockComponent initialValue="04/04/2019" />);
   const input = screen.getByRole("textbox");
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -715,7 +712,29 @@ test("should close the picker, update the value and refocus the input element wh
     expect(input).toHaveFocus();
   });
   expect(input).toHaveValue("11/04/2019");
+});
 
+test("allows pickerProps.onDayClick to replace built-in selection and closing", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onDayClick = jest.fn();
+  const onChange = jest.fn();
+  render(
+    <MockComponent
+      initialValue="04/04/2019"
+      onChange={onChange}
+      pickerProps={{ onDayClick }}
+    />,
+  );
+
+  await user.click(screen.getByTestId("input-icon-toggle"));
+  const dayButton = screen.getByRole("button", {
+    name: "Thursday, 11 April 2019",
+  });
+  await user.click(dayButton);
+
+  expect(screen.getByRole("grid")).toBeVisible();
+  expect(screen.getByRole("textbox")).toHaveValue("04/04/2019");
+  expect(onChange).not.toHaveBeenCalled();
   expect(onDayClick).toHaveBeenCalledTimes(1);
   const [day, modifiers, event] = onDayClick.mock.calls[0];
   expect(day).toEqual(new Date(2019, 3, 11));

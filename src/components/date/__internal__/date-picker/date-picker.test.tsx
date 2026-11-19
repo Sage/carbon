@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { enGB as enGBDateLocale } from "date-fns/locale/en-GB";
 import { enUS as enUSDateLocale } from "date-fns/locale/en-US";
+import { de } from "date-fns/locale/de";
 
 import Logger from "../../../../__internal__/utils/logger";
 import deDE from "../../../../locales/de-de";
@@ -76,7 +77,7 @@ test("uses the active locale for single-date button names", () => {
   ).toBeInTheDocument();
 });
 
-test("ignores a picker-provided locale in favour of the provider locale", () => {
+test("uses a picker-provided locale for date labels and week start", () => {
   render(
     <I18nProvider locale={deDE}>
       <DatePickerWithInput
@@ -91,8 +92,29 @@ test("ignores a picker-provided locale in favour of the provider locale", () => 
   );
 
   expect(
+    screen.getByRole("button", { name: /Thursday, April 4th, 2019/ }),
+  ).toBeInTheDocument();
+  expect(screen.getAllByRole("columnheader")[0]).toHaveTextContent("Sunday");
+  expect(screen.getByRole("option", { name: "January" })).toBeInTheDocument();
+});
+
+test("uses a picker-provided locale for month options and weekday headers", () => {
+  render(
+    <DatePickerWithInput
+      onRequestPickerClose={() => {}}
+      open
+      selectedDate={new Date(2019, 3, 4)}
+      dayPickerProps={{ locale: de }}
+    />,
+  );
+
+  expect(screen.getByRole("option", { name: "Januar" })).toBeInTheDocument();
+  expect(screen.getByText("Mo", { selector: "span" })).toBeVisible();
+  expect(screen.getAllByRole("columnheader")[0]).toHaveTextContent("Montag");
+  expect(
     screen.getByRole("button", { name: /Donnerstag, 4\. April 2019/ }),
   ).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Close" })).toBeInTheDocument();
 });
 
 test("uses the en-GB provider locale for single-date names by default", () => {
