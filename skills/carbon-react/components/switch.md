@@ -5,6 +5,20 @@ description: Carbon Switch component props and usage examples.
 
 # Switch
 
+A control that turns a single setting on or off, with the change taking effect as soon as the user toggles it.
+
+## Choose instead
+
+- **Checkbox:** The choice only takes effect when a form is submitted, or users select one or more options from a list.
+
+## Pitfalls
+
+- Switch is controlled: checked and onChange are required, so update checked from e.target.checked.
+- Give each Switch a label; it does not forward aria-label or aria-labelledby, so a label rendered elsewhere must be a label element whose htmlFor matches the Switch id.
+- The input is disabled while loading is true.
+- error, warning and info are deprecated and ignored; Switch does not display validation states.
+- The On/Off state text and default processing label come from the switch.on, switch.off and switch.processingLabel locale keys; translate them through I18nProvider.
+
 ## Import
 `import Switch from "carbon-react/lib/components/switch";`
 
@@ -22,8 +36,8 @@ description: Carbon Switch component props and usage examples.
 | id | string \| undefined | No |  |  |  | The id attribute of the hidden input |  |
 | inputHint | React.ReactNode | No |  |  |  | Hint text displayed below the switch |  |
 | label | React.ReactNode | No |  |  |  | Accessible text label rendered above the switch |  |
-| labelInline | boolean \| undefined | No |  |  |  | When true, the label is displayed inline (beside the switch) rather than above it |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  |  |  | Spacing between the label and switch when labelInline is true (multiplier of base spacing unit) |  |
+| labelInline | boolean \| undefined | No |  |  |  | When true, the label is displayed inline (beside the switch) rather than above it | false |
+| labelSpacing | 1 \| 2 \| undefined | No | 1 \| 2 |  |  | Spacing between the label and switch when labelInline is true (multiplier of base spacing unit) |  |
 | labelWidth | number \| undefined | No |  |  |  | Label width as a percentage when labelInline is true |  |
 | loading | boolean \| undefined | No |  |  |  | Triggers the loading state — hides On/Off text and shows a spinner |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -44,9 +58,9 @@ description: Carbon Switch component props and usage examples.
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnBlur event handler |  |
 | onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnFocus event handler |  |
 | processingLabel | string \| undefined | No |  |  |  | Text shown beside the spinner during loading. Defaults to "Processing..." |  |
-| processingLabelBelowSwitch | boolean \| undefined | No |  |  |  | When true, the processing label is rendered below the switch rather than to its right |  |
+| processingLabelBelowSwitch | boolean \| undefined | No |  |  |  | When true, the processing label is rendered below the switch rather than to its right | false |
 | required | boolean \| undefined | No |  |  |  | Whether the input is required |  |
-| size | "small" \| "large" \| undefined | No |  |  |  | Size of the switch track |  |
+| size | "small" \| "large" \| undefined | No | small \| large |  |  | Size of the switch track | "small" |
 | value | string \| undefined | No |  |  |  | The value attribute of the hidden input, passed on form submit |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -58,236 +72,12 @@ description: Carbon Switch component props and usage examples.
 | isDarkBackground | boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 | labelHelp | React.ReactNode | No |  | Yes | Use `inputHint` instead. |  |  |
 | reverse | boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top | Yes | This prop is no longer supported. |  |  |
 | validationMessagePositionTop | boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 | validationOnLabel | boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 | warning | string \| boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 
 ## Examples
-### Default
+Load only the example needed for the current task; playground stories are intentionally omitted.
 
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Toggle notifications"
-      inputHint="Hint text"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Checked
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(true);
-  return (
-    <Switch
-      label="Toggle notifications"
-      inputHint="Hint text"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Disabled
-
-**Render**
-
-```tsx
-() => (
-  <Switch
-    label="Toggle notifications"
-    inputHint="Hint text"
-    checked={false}
-    disabled
-    onChange={() => {}}
-  />
-)
-```
-
-
-### Disabled (checked)
-
-**Render**
-
-```tsx
-() => (
-  <Switch
-    label="Toggle notifications"
-    checked
-    disabled
-    inputHint="Hint text"
-    onChange={() => {}}
-  />
-)
-```
-
-
-### Required
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Toggle notifications"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-      required
-    />
-  );
-}
-```
-
-
-### Large size
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Toggle notifications"
-      inputHint="Hint text"
-      size="large"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Label inline
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Toggle notifications"
-      labelInline
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Label inline with hint
-
-**Render**
-
-```tsx
-() => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Switch
-      label="Label"
-      inputHint="Hint text"
-      labelInline
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
-}
-```
-
-
-### Loading
-
-**Render**
-
-```tsx
-() => (
-  <>
-    <Switch
-      label="Toggle notifications"
-      checked={false}
-      loading
-      onChange={() => {}}
-    />
-
-    <Switch
-      label="Toggle notifications"
-      checked
-      loading
-      onChange={() => {}}
-      ml="8px"
-    />
-
-    <Switch
-      size="large"
-      label="Toggle notifications"
-      checked={false}
-      loading
-      onChange={() => {}}
-      ml="8px"
-    />
-
-    <Switch
-      size="large"
-      label="Toggle notifications"
-      checked
-      loading
-      onChange={() => {}}
-      ml="8px"
-    />
-  </>
-)
-```
-
-
-### Loading with custom processingLabel
-
-**Render**
-
-```tsx
-() => (
-  <Switch
-    label="Toggle notifications"
-    checked={false}
-    loading
-    processingLabel="Saving changes..."
-    onChange={() => {}}
-  />
-)
-```
-
-
-### Loading with processingLabel below switch
-
-**Render**
-
-```tsx
-() => (
-  <Switch
-    label="Toggle notifications"
-    checked={false}
-    loading
-    processingLabelBelowSwitch
-    onChange={() => {}}
-  />
-)
-```
-
+- [Default](../examples/switch/default.md) — Control checked state from onChange, with a label and hint text.

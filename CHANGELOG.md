@@ -1,3 +1,100 @@
+## [163.3.0](https://github.com/Sage/carbon/compare/v163.2.1...v163.3.0) (2026-11-18)
+
+### Features
+
+* **table:** update subtle table styles and outer borders ([f46c930](https://github.com/Sage/carbon/commit/f46c930adbbe58da6bbcf990c27dabaa8b960566))
+
+## [163.2.1](https://github.com/Sage/carbon/compare/v163.2.0...v163.2.1) (2026-11-18)
+
+### Bug Fixes
+
+* **multi-action-button:** make fullWidth fill the container ([949d359](https://github.com/Sage/carbon/commit/949d3595a5fc5c8675113d224b727ae8f9214264)), closes [#8278](https://github.com/Sage/carbon/issues/8278)
+
+## [163.2.0](https://github.com/Sage/carbon/compare/v163.1.0...v163.2.0) (2026-11-17)
+
+### Features
+
+* **simple-select:** align component with fusion DS ([84a599c](https://github.com/Sage/carbon/commit/84a599cfcbed21dd99ad6bc99744d2de0191b1bd))
+
+## [163.1.0](https://github.com/Sage/carbon/compare/v163.0.2...v163.1.0) (2026-11-17)
+
+### Features
+
+* **pager:** disable nav buttons instead of hiding them ([3fe01a6](https://github.com/Sage/carbon/commit/3fe01a61cd92ebf5745a239d1c9fcd3bd0dd169e))
+
+## [163.0.2](https://github.com/Sage/carbon/compare/v163.0.1...v163.0.2) (2026-11-16)
+
+### Bug Fixes
+
+* **note:** remove curved edges from divider ([291478d](https://github.com/Sage/carbon/commit/291478d16bc4cf914b533f4d8a5a4d647fb37b49))
+
+## [163.0.1](https://github.com/Sage/carbon/compare/v163.0.0...v163.0.1) (2026-11-16)
+
+### Bug Fixes
+
+* **table:** ensure that popover menus stack correctly in sticky columns ([b777206](https://github.com/Sage/carbon/commit/b7772062c8fcb34be77a8b7b118b710210a4d2d4)), closes [#8279](https://github.com/Sage/carbon/issues/8279)
+
+## [163.0.0](https://github.com/Sage/carbon/compare/v162.25.0...v163.0.0) (2026-11-16)
+
+### ⚠ BREAKING CHANGES
+
+* FileInput now defaults to a stacked layout.
+Set isVertical={false} to retain the previous inline layout.
+FileUploadStatusProps no longer accepts Link-only props for completed
+and previously uploaded files. Remove those props and use href to
+display the Preview link; its accessible name is generated internally.
+Previously uploaded files now display message; remove it if it
+should not be shown
+* **file-input:** FileInput now defaults to a stacked layout.
+Set isVertical={false} to retain the previous inline layout.
+FileUploadStatusProps no longer accepts Link-only props for completed
+and previously uploaded files. Remove those props and use href to
+display the Preview link; its accessible name is generated internally.
+Previously uploaded files now display message; remove it if it
+should not be shown.
+
+* Merge pull request [#8168](https://github.com/Sage/carbon/issues/8168) from Sage/FE-7161-align-file-input-with-fusion-ds ([2a5724f](https://github.com/Sage/carbon/commit/2a5724f317be53deed225105bafa134681626d1f))
+
+### Features
+
+* **file-input:** align with Fusion design system ([3779637](https://github.com/Sage/carbon/commit/377963758c9660d0a9c5c92b688644c0b73bbd6a))
+
+## [162.25.0](https://github.com/Sage/carbon/compare/v162.24.3...v162.25.0) (2026-11-13)
+
+### Features
+
+* **loader:** update animations to align with fusion DS ([7f667dc](https://github.com/Sage/carbon/commit/7f667dc93a7a8ee89ad098e0c19ecb1f7150f33a))
+
+## [162.24.3](https://github.com/Sage/carbon/compare/v162.24.2...v162.24.3) (2026-11-12)
+
+### Bug Fixes
+
+* **multi-action-button:** remove menu height restriction, remove scrollable behaviour ([3478a0c](https://github.com/Sage/carbon/commit/3478a0cbd1995c8e00fce99f30eda820d2861685))
+
+## [162.24.2](https://github.com/Sage/carbon/compare/v162.24.1...v162.24.2) (2026-11-12)
+
+### Bug Fixes
+
+* **anchor-navigation:** remove duplicate stories ([55d9afd](https://github.com/Sage/carbon/commit/55d9afd2bbd82e09bcb4d1476f2b97e93df8bd4a))
+
+## [162.24.1](https://github.com/Sage/carbon/compare/v162.24.0...v162.24.1) (2026-11-11)
+
+### Bug Fixes
+
+* **dialog:** display Cancel as a subtle button and preserve footer padding on small screens ([ae678a7](https://github.com/Sage/carbon/commit/ae678a7f569a5d154c259f2714eb5fb3141a94ac))
+
+## [162.24.0](https://github.com/Sage/carbon/compare/v162.23.1...v162.24.0) (2026-11-11)
+
+### Features
+
+* **box:** deprecate role, aria-hidden, aria-live and aria-atomic props ([1344f4a](https://github.com/Sage/carbon/commit/1344f4ad2628780f7cbf2c8e48af4c9d01f655b6))
+
+## [162.23.1](https://github.com/Sage/carbon/compare/v162.23.0...v162.23.1) (2026-11-10)
+
+### Bug Fixes
+
+* **multi-action-button:** remove unique key warning from toggle button ([ceb2b9b](https://github.com/Sage/carbon/commit/ceb2b9bb2486f3b5c5aed78697bdd252ba263a3e))
+
 ## [162.23.0](https://github.com/Sage/carbon/compare/v162.22.0...v162.23.0) (2026-11-06)
 
 ### Features

@@ -308,6 +308,26 @@ test("should render with expected styles when 'width' prop is set", () => {
   });
 });
 
+test.each([undefined, "50%"])(
+  "should render at full width when 'fullWidth' is true and 'width' is %s",
+  (width) => {
+    render(
+      <MultiActionButton
+        text="Main Button"
+        fullWidth
+        width={width}
+        data-role="multi-action-button"
+      >
+        <Button>First</Button>
+      </MultiActionButton>,
+    );
+
+    expect(screen.getByTestId("multi-action-button")).toHaveStyle({
+      width: "100%",
+    });
+  },
+);
+
 test("should render with expected styles when 'menuWidth' prop is set", async () => {
   const user = userEvent.setup();
 
@@ -478,7 +498,7 @@ test("should close additional buttons when Space is pressed while buttons are al
   ).not.toBeInTheDocument();
 });
 
-test("renders backdrop when opened inside Table", async () => {
+test("portals a table menu while keeping its backdrop and restoring focus after Escape", async () => {
   const user = userEvent.setup();
 
   render(
@@ -495,9 +515,16 @@ test("renders backdrop when opened inside Table", async () => {
     </Table>,
   );
 
-  await user.click(screen.getByRole("button", { name: "Main Button" }));
+  const toggle = screen.getByRole("button", { name: "Main Button" });
+  await user.click(toggle);
 
   expect(screen.getByTestId("popup-backdrop")).toBeVisible();
+  const item = screen.getByRole("button", { name: "First" });
+  expect(screen.getByRole("table")).not.toContainElement(item);
+  item.focus();
+  await user.keyboard("{Escape}");
+  expect(item).not.toBeInTheDocument();
+  expect(toggle).toHaveFocus();
 });
 
 test("closes additional buttons popup when the backdrop is clicked inside FlatTable", async () => {

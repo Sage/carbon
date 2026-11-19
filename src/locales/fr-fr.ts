@@ -94,13 +94,76 @@ const frFR: Partial<Locale> = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "ou glisser et déposer votre fichier",
-    selectFile: () => "Sélectionnez le fichier",
-    fileUploadStatus: () => "Statut du téléchargement de fichiers",
+    dragAndDrop: (selectButtonText, multiple = false) => {
+      if (!selectButtonText) {
+        return multiple
+          ? "ou glissez et déposez-les ici."
+          : "ou glissez et déposez-le ici.";
+      }
+
+      return `Glissez-déposez ${
+        multiple ? "vos fichiers" : "votre fichier"
+      } ou utilisez ${selectButtonText} pour ${
+        multiple ? "les choisir" : "le choisir"
+      }.`;
+    },
+    selectFile: (multiple = false) =>
+      multiple ? "Sélectionner les fichiers" : "Sélectionner le fichier",
+    requiredDescription: () => "Ce champ est obligatoire.",
+    currentFiles: (count) =>
+      count === 1 ? `Fichier actuel (${count})` : `Fichiers actuels (${count})`,
+    currentFilesProgressSummary: ({
+      totalCount,
+      uploadingCount,
+      completedCount,
+    }) => {
+      const summaries: string[] = [];
+
+      if (uploadingCount > 0) {
+        summaries.push(
+          `Importation de ${uploadingCount} ${
+            uploadingCount === 1 ? "fichier en cours" : "fichiers en cours"
+          }`,
+        );
+      }
+
+      if (completedCount > 0) {
+        summaries.push(
+          completedCount === 1 && totalCount === 1
+            ? "Fichier importé : 1"
+            : `Fichiers importés : ${completedCount} sur ${totalCount}`,
+        );
+      }
+
+      return summaries.length > 0 ? `${summaries.join(", ")}.` : "";
+    },
+    currentFilesErrorSummary: ({ errorCount }) =>
+      errorCount === 1
+        ? "1 fichier n’a pas pu être importé."
+        : `${errorCount} fichiers n’ont pas pu être importés.`,
+    previouslyUploadedFiles: (count) =>
+      count === 1
+        ? `Fichier importé précédemment (${count})`
+        : `Fichiers importés précédemment (${count})`,
+    uploading: () => "Importation...",
+    uploaded: () => "Fichier importé",
+    uploadErrorDetails: () => "Détails de l’erreur",
+    announcements: {
+      filesAdded: (files) =>
+        files.length === 1
+          ? `Fichier sélectionné : ${files[0]}.`
+          : `Fichiers sélectionnés : ${files.join(", ")}.`,
+      uploadComplete: (files) => `Importation terminée : ${files.join(", ")}.`,
+      fileDeleted: (file) => `Fichier supprimé : ${file}.`,
+      fileRemoved: (file) => `Fichier retiré : ${file}.`,
+      uploadCancelled: (file) => `Importation annulée : ${file}.`,
+    },
     actions: {
-      cancel: () => "Annuler le téléchargement",
-      clear: () => "Effacer",
-      delete: () => "Supprimer le fichier",
+      cancel: () => "Annuler",
+      delete: () => "Supprimer",
+      remove: () => "Retirer",
+      retry: () => "Réessayer",
+      preview: () => "Aperçu",
     },
   },
   heading: {

@@ -18,11 +18,11 @@ description: Carbon InlineInputs component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  |  |  | Children elements | null |
-| gutter | GutterOptions \| undefined | No |  |  |  | Gutter prop gets passed down to Row component if false gutter value is "none" | "none" |
+| gutter | GutterOptions \| undefined | No | small \| medium \| large \| none \| extra-small \| medium-small \| medium-large \| extra-large |  |  | Gutter prop gets passed down to Row component if false gutter value is "none" | "none" |
 | htmlFor | string \| undefined | No |  |  |  | The id of the corresponding input control for the label |  |
 | inputWidth | number \| undefined | No |  |  |  | Width of the inline inputs container in percentage |  |
 | label | string \| undefined | No |  |  |  | Defines the label text for the heading. |  |
-| labelAlign | "left" \| "right" \| undefined | No |  |  |  | Inline label alignment |  |
+| labelAlign | "left" \| "right" \| undefined | No | left \| right |  |  | Inline label alignment |  |
 | labelId | string \| undefined | No |  |  |  | Custom label id, could be used in combination with aria-labelledby prop of each input, to make them accessible for screen readers. |  |
 | labelWidth | number \| undefined | No |  |  |  | Width of a label in percentage |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |

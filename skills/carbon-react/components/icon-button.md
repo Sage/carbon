@@ -18,7 +18,7 @@ description: Carbon IconButton component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactElement<IconProps, string \| React.JSXElementConstructor<any>> | Yes |  | Icon meant to be rendered, should be an Icon component |  |
-| disabled | boolean \| undefined | No |  | Set the button to disabled |  |
+| disabled | boolean \| undefined | No |  | Set the button to disabled | false |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |

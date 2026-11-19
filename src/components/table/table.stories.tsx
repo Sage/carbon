@@ -80,8 +80,6 @@ const meta: Meta<PlaygroundArgs> = {
       control: { type: "radio" },
     },
     outerBorders: {
-      description:
-        "Controls the outer border for subtle-white and subtle-grey variants. The prominent variant always has an outer border.",
       options: ["none", "small"],
       control: { type: "radio" },
       if: { arg: "variant", neq: "prominent" },
@@ -611,7 +609,7 @@ export const Playground: Story = {
               </TableCell>
               {isDraggable && (
                 <TableCell id={`playground-body-actions-${id}`}>
-                  <ActionPopover>
+                  <ActionPopover size="small">
                     <ActionPopoverItem onClick={() => handleRowMove(id, "up")}>
                       Move up
                     </ActionPopoverItem>
