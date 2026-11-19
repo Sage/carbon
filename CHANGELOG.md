@@ -1,3 +1,9 @@
+## [163.4.0](https://github.com/Sage/carbon/compare/v163.3.0...v163.4.0) (2026-11-19)
+
+### Features
+
+* **form:** deprecate stickyFooter, align with fusion ds ([74f45d2](https://github.com/Sage/carbon/commit/74f45d2feccf50917acd93c05ee7dec145ab57b9))
+
 ## [163.3.0](https://github.com/Sage/carbon/compare/v163.2.1...v163.3.0) (2026-11-18)
 
 ### Features
