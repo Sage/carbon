@@ -26,6 +26,7 @@ interface DataGridRowProps<T extends object> {
   ) => void;
   onActivate: (position: DataGridCellPosition) => void;
   onFocusPosition: (position: DataGridCellPosition) => void;
+  onFocusAction: (position: DataGridCellPosition) => void;
   onBeginEdit: (position: DataGridCellPosition) => void;
   onDraftChange: (value: unknown) => void;
   onCommitEdit: (shouldRestoreFocus?: boolean, value?: unknown) => void;
@@ -54,6 +55,7 @@ const DataGridRowInner = <T extends object>({
   registerCell,
   onActivate,
   onFocusPosition,
+  onFocusAction,
   onBeginEdit,
   onDraftChange,
   onCommitEdit,
@@ -112,6 +114,7 @@ const DataGridRowInner = <T extends object>({
             ref={(node) => registerCell(rowIndex, columnIndex, node)}
             onActivate={onActivate}
             onFocusPosition={onFocusPosition}
+            onFocusAction={onFocusAction}
             onBeginEdit={onBeginEdit}
             onDraftChange={onDraftChange}
             onCommitEdit={onCommitEdit}

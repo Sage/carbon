@@ -225,6 +225,15 @@ required. Verify editing, focus, and software-keyboard behaviour with VoiceOver
 on iOS and TalkBack on Android; browser touch emulation does not reproduce those
 interactions.
 
+Built-in checkbox cells expose a full-cell checkbox target with its accessible
+name, checked state, and read-only state. The checkbox graphic is decorative;
+the cell handles toggling. A click or tap anywhere in an action cell opens its
+first interactive control, just as Enter or Space does. This includes
+assistive-technology click activation, regardless of click count or preceding
+pointer events.
+Direct activation of a nested action control still uses that control's own
+behaviour. Actions remain available in read-only rows.
+
 When testing with VoiceOver on macOS, interact with the grid and use VoiceOver
 commands such as **Control+Option+Arrow keys** to inspect its semantic structure
 and hear row and column context. Unmodified arrow keys operate Data Grid's focus

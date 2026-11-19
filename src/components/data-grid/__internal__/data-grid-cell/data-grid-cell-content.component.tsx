@@ -21,15 +21,29 @@ const DataGridCellContent = <T extends object>({
 }: DataGridCellContentProps<T>) => {
   const { column, value } = params;
   const type = column.type ?? "text";
+  const content = column.renderCell?.(params) ?? null;
+  const isCheckbox = type === "checkbox" && content === null;
 
   return (
-    <StyledCellContent $cellType={type} $align={align}>
-      {column.renderCell?.(params) ??
+    <StyledCellContent
+      $cellType={type}
+      $align={align}
+      role={isCheckbox ? "checkbox" : undefined}
+      aria-checked={isCheckbox ? Boolean(value) : undefined}
+      aria-readonly={isCheckbox && readOnly ? true : undefined}
+      aria-label={
+        isCheckbox
+          ? `${column.headerAriaLabel ?? column.headerName}, row ${rowIndex + 1}`
+          : undefined
+      }
+    >
+      {content ??
         (type === "checkbox" ? (
           <Checkbox
             checked={Boolean(value)}
             onChange={() => undefined}
-            aria-label={`${column.headerName}, row ${rowIndex + 1}`}
+            aria-hidden="true"
+            {...{ inert: "" }}
             tabIndex={-1}
             size="medium"
             disabled={readOnly}

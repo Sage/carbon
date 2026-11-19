@@ -5,6 +5,7 @@ import {
   render,
   screen,
   waitFor,
+  within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -1379,7 +1380,7 @@ test("keeps grid navigation inside an open action popover", async () => {
   const [nameCell, actionCell, nextRowNameCell, nextRowActionCell] =
     screen.getAllByRole("gridcell");
 
-  await user.click(actionCell);
+  act(() => actionCell.focus());
   await user.keyboard("{Enter}");
   const duplicate = await screen.findByRole("button", { name: "Duplicate" });
   duplicate.focus();
@@ -1462,7 +1463,7 @@ test("read-only checkbox cells do not toggle", async () => {
 
   expect(onRowsChange).not.toHaveBeenCalled();
   expect(screen.getByRole("checkbox")).not.toBeChecked();
-  expect(screen.getByRole("checkbox")).toBeDisabled();
+  expect(screen.getByRole("checkbox")).toHaveAttribute("aria-readonly", "true");
 });
 
 test("read-only dropdown cells render as non-editable text", async () => {
@@ -1561,6 +1562,74 @@ test("read-only action cells retain their contextual actions", async () => {
   expect(onOpen).toHaveBeenCalledTimes(1);
 });
 
+test.each([false, true])(
+  "touch activation opens action cell content once (readOnly=%s)",
+  async (readOnly) => {
+    const user = userEvent.setup();
+    const onOpen = jest.fn();
+    render(
+      <DataGrid
+        aria-label="Items"
+        rows={rows.slice(0, 1)}
+        columns={[
+          {
+            field: "actions",
+            headerName: "Actions",
+            type: "action",
+            readOnly,
+            renderCell: () => <button onClick={onOpen}>Open actions</button>,
+          },
+        ]}
+      />,
+    );
+    const cell = screen.getByRole("gridcell");
+
+    await user.pointer([
+      { keys: "[TouchA>]", target: cell },
+      { keys: "[/TouchA]", target: cell },
+    ]);
+
+    expect(onOpen).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("button", { name: "Open actions" })).toHaveFocus();
+  },
+);
+
+test.each([0, 1])(
+  "cell activation opens an action popover once without pointer events (detail=%s)",
+  async (detail) => {
+    const onOpen = jest.fn();
+    render(
+      <DataGrid
+        aria-label="Items"
+        rows={rows.slice(0, 1)}
+        columns={[
+          {
+            field: "actions",
+            headerName: "Actions",
+            type: "action",
+            renderCell: () => (
+              <ActionPopover aria-label="Row actions" onOpen={onOpen}>
+                <ActionPopoverItem>Duplicate</ActionPopoverItem>
+              </ActionPopover>
+            ),
+          },
+        ]}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("gridcell"), { detail });
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Duplicate" })).toHaveFocus();
+    });
+    expect(screen.getByRole("button", { name: "Row actions" })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    expect(onOpen).toHaveBeenCalledTimes(1);
+  },
+);
+
 test("enter focuses and opens action cell content", async () => {
   const user = userEvent.setup();
   const onOpen = jest.fn();
@@ -1580,7 +1649,7 @@ test("enter focuses and opens action cell content", async () => {
     />,
   );
 
-  await user.click(screen.getByRole("gridcell"));
+  act(() => screen.getByRole("gridcell").focus());
   await user.keyboard("{Enter}");
 
   expect(screen.getByRole("button", { name: "Open actions" })).toHaveFocus();
@@ -1659,11 +1728,31 @@ test("keeps the nested checkbox visual non-interactive", () => {
     />,
   );
 
-  fireEvent.change(screen.getAllByRole("checkbox")[0], {
+  const checkbox = screen.getAllByRole("checkbox")[0];
+  fireEvent.change(within(checkbox).getByRole("checkbox", { hidden: true }), {
     target: { checked: true },
   });
 
   expect(onRowsChange).not.toHaveBeenCalled();
+});
+
+test("does not discard a counted touch click on a checkbox cell", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={columns}
+      onRowsChange={onRowsChange}
+    />,
+  );
+  const cell = screen.getAllByRole("gridcell")[2];
+
+  await user.pointer({ keys: "[TouchA>]", target: cell });
+  fireEvent.click(cell, { detail: 2 });
+
+  expect(onRowsChange).toHaveBeenCalledTimes(1);
 });
 
 test("a double click only toggles a checkbox cell once", async () => {

@@ -17,6 +17,20 @@ test("does nothing without a scroll container", () => {
   }).not.toThrow();
 });
 
+test("preserves horizontal scroll when the column is already fully visible", () => {
+  const container = document.createElement("div");
+  Object.defineProperty(container, "clientWidth", { value: 200 });
+  container.scrollLeft = 50;
+  const visibleColumns: DataGridColumn<Row>[] = [
+    { field: "id", headerName: "ID", width: 100 },
+    ...columns,
+  ];
+
+  scrollColumnIntoView(container, visibleColumns, 1, 0, 0);
+
+  expect(container.scrollLeft).toBe(50);
+});
+
 test("uses the non-sticky header defaults when revealing a row", () => {
   const container = document.createElement("div");
   Object.defineProperty(container, "clientHeight", { value: 40 });

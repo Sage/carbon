@@ -171,7 +171,6 @@ export const OpenAndCloseActionPopover: Story = {
     const actionCell = canvas.getAllByRole("gridcell")[3];
 
     await userEvent.click(actionCell);
-    await userEvent.keyboard("{Enter}");
     await expect(
       await body.findByRole("button", { name: "Duplicate" }),
     ).toHaveFocus();
