@@ -1,5 +1,11 @@
-import React, { forwardRef, useRef } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
 
+import useUniqueId from "../../../../hooks/__internal__/useUniqueId";
 import DataGridCellContent from "./data-grid-cell-content.component";
 import DataGridCellEditor from "./data-grid-cell-editor.component";
 import {
@@ -69,12 +75,45 @@ const DataGridCellInner = <T extends object>(
   ref: React.ForwardedRef<HTMLDivElement>,
 ) => {
   const touchActivation = useRef(false);
+  const [uniqueId] = useUniqueId();
+  const cellRef = useRef<HTMLDivElement | null>(null);
+  useImperativeHandle(ref, () => cellRef.current as HTMLDivElement);
   const { column, rowId } = params;
   const type = column.type ?? "text";
+  useEffect(() => {
+    if (type !== "action") return;
+    const cell = cellRef.current as HTMLDivElement;
+    const originalTabIndexes = new Map<HTMLElement, string | null>();
+    const updateTabOrder = () => {
+      cell
+        .querySelectorAll<HTMLElement>(
+          "button,a[href],input,select,textarea,[tabindex],[contenteditable=true]",
+        )
+        .forEach((control) => {
+          if (!originalTabIndexes.has(control)) {
+            originalTabIndexes.set(control, control.getAttribute("tabindex"));
+          }
+          if (control.tabIndex !== -1) control.tabIndex = -1;
+        });
+    };
+    updateTabOrder();
+    const observer = new MutationObserver(updateTabOrder);
+    observer.observe(cell, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["tabindex", "href", "contenteditable"],
+    });
+    return () => {
+      observer.disconnect();
+      originalTabIndexes.forEach((value, control) => {
+        if (value === null) control.removeAttribute("tabindex");
+        else control.setAttribute("tabindex", value);
+      });
+    };
+  }, [type]);
   const errorText = typeof errorValue === "string" ? errorValue : undefined;
-  const errorId = errorText
-    ? `data-grid-cell-error-${String(rowId)}-${String(column.field)}`
-    : undefined;
+  const errorId = errorText ? `data-grid-cell-error-${uniqueId}` : undefined;
   const align =
     column.align ??
     (type === "checkbox" || type === "action" ? "center" : "left");
@@ -139,7 +178,7 @@ const DataGridCellInner = <T extends object>(
 
   return (
     <StyledCell
-      ref={ref}
+      ref={cellRef}
       role="gridcell"
       aria-colindex={columnIndex + 1}
       aria-readonly={readOnly || undefined}
@@ -209,6 +248,7 @@ const DataGridCellInner = <T extends object>(
       )}
       {editing && (type === "text" || type === "dropdown") ? (
         <DataGridCellEditor
+          tabIndex={active ? 0 : -1}
           column={column}
           rowIndex={rowIndex}
           value={draftValue}

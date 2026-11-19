@@ -13,6 +13,7 @@ import {
 
 interface UseDataGridNavigationOptions<T extends object> {
   rowCount: number;
+  renderedRowIndexes: number[];
   columns: DataGridColumn<T>[];
   columnModel: DataGridColumnModel;
   scrollElementRef: RefObject<HTMLDivElement>;
@@ -27,6 +28,7 @@ interface UseDataGridNavigationOptions<T extends object> {
 
 const useDataGridNavigation = <T extends object>({
   rowCount,
+  renderedRowIndexes,
   columns,
   columnModel,
   scrollElementRef,
@@ -40,6 +42,7 @@ const useDataGridNavigation = <T extends object>({
     useState<DataGridCellIdentity | null>(null);
   const cellRefs = useRef(new Map<string, HTMLDivElement>());
   const pendingFocus = useRef<DataGridCellIdentity | null>(null);
+  const removedFocusedCell = useRef(false);
   const active = activeIdentity
     ? (positionForIdentity(activeIdentity) ?? { row: 0, column: 0 })
     : { row: 0, column: 0 };
@@ -55,7 +58,13 @@ const useDataGridNavigation = <T extends object>({
     (rowIndex: number, columnIndex: number, node: HTMLDivElement | null) => {
       const key = keyFor({ row: rowIndex, column: columnIndex });
       if (node) cellRefs.current.set(key, node);
-      else cellRefs.current.delete(key);
+      else {
+        const previous = cellRefs.current.get(key);
+        if (previous === document.activeElement) {
+          removedFocusedCell.current = true;
+        }
+        cellRefs.current.delete(key);
+      }
     },
     [keyFor],
   );
@@ -136,6 +145,36 @@ const useDataGridNavigation = <T extends object>({
       pendingFocus.current = null;
     }
   }, [keyFor, positionForIdentity, renderToken]);
+
+  useEffect(() => {
+    if (pendingFocus.current || !renderedRowIndexes.length || !columns.length)
+      return;
+    if (!renderedRowIndexes.includes(active.row)) {
+      const next = {
+        row: renderedRowIndexes.reduce((nearest, row) =>
+          Math.abs(row - active.row) < Math.abs(nearest - active.row)
+            ? row
+            : nearest,
+        ),
+        column: active.column,
+      };
+      setActiveIdentity(identityFor(next));
+      if (
+        removedFocusedCell.current &&
+        document.activeElement === document.body
+      ) {
+        cellRefs.current.get(keyFor(next))?.focus({ preventScroll: true });
+      }
+    }
+    removedFocusedCell.current = false;
+  }, [
+    active.column,
+    active.row,
+    columns.length,
+    identityFor,
+    keyFor,
+    renderedRowIndexes,
+  ]);
 
   return {
     active,

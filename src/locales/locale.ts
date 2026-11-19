@@ -45,6 +45,9 @@ interface Locale {
     no: () => string;
     yes: () => string;
   };
+  dataGrid?: {
+    cellLabel: (header: string, rowNumber: number) => string;
+  };
   date: {
     dateFnsLocale: () => DateFnsLocale;
     ariaLabels: {

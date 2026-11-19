@@ -25,7 +25,7 @@ const position = { row: 0, column: 0 };
 
 const setEditorRef = (
   editorRef: RefObject<HTMLInputElement>,
-  element: HTMLInputElement,
+  element: HTMLInputElement | null,
 ) => {
   Object.defineProperty(editorRef, "current", {
     configurable: true,
@@ -112,6 +112,47 @@ test("begins, commits, and cancels text editing while restoring focus", () => {
 
   input.remove();
 });
+
+test.each([
+  { direction: "backward", externalFocus: false },
+  { direction: null, externalFocus: false },
+  { direction: "backward", externalFocus: true },
+] as const)(
+  "retains draft and selection when an editor leaves and re-enters the rendered range (%o)",
+  ({ direction, externalFocus }) => {
+    const { result, rerender, onCellCommit, focusCell } = setup();
+    const outside = document.createElement("button");
+    document.body.append(outside);
+    const input = document.createElement("input");
+    input.value = "Updated";
+    setEditorRef(result.current.editorRef, input);
+    act(() => result.current.beginEdit(position));
+    act(() => result.current.setDraftValue("Updated"));
+    input.setSelectionRange(1, 4, "backward");
+    if (direction === null)
+      Object.defineProperty(input, "selectionDirection", { value: null });
+    setEditorRef(result.current.editorRef, null);
+    rerender({ renderToken: 1 });
+    expect(result.current.editing).toEqual(position);
+    expect(result.current.draftValue).toBe("Updated");
+    expect(onCellCommit).not.toHaveBeenCalled();
+    if (externalFocus) outside.focus();
+    const replacement = document.createElement("input");
+    replacement.value = "Updated";
+    document.body.append(replacement);
+    setEditorRef(result.current.editorRef, replacement);
+    rerender({ renderToken: 2 });
+    expect(replacement.selectionStart).toBe(1);
+    expect(replacement.selectionEnd).toBe(4);
+    expect(replacement.selectionDirection).toBe(direction ?? "none");
+    expect(externalFocus ? outside : replacement).toHaveFocus();
+    act(() => result.current.cancelEdit());
+    expect(onCellCommit).not.toHaveBeenCalled();
+    expect(focusCell).not.toHaveBeenCalled();
+    replacement.remove();
+    outside.remove();
+  },
+);
 
 test("restores focus when blur and keyboard commits race", () => {
   const { result, onCellCommit, focusCell } = setup();

@@ -43,6 +43,13 @@ const useDataGridKeyboard = <T extends object>({
         enableTabNavigation,
       );
       if (!action) return;
+      if (
+        action.type === "move-linear" &&
+        (position.row * columnCount + position.column + action.delta < 0 ||
+          position.row * columnCount + position.column + action.delta >=
+            rowCount * columnCount)
+      )
+        return;
 
       event.preventDefault();
       switch (action.type) {
@@ -102,6 +109,13 @@ const useDataGridKeyboard = <T extends object>({
       event.stopPropagation();
       const action = getDataGridEditorKeyAction(event, enableTabNavigation);
       if (!action) return;
+      if (
+        action.type === "commit-and-move" &&
+        (position.row * columnCount + position.column + action.delta < 0 ||
+          position.row * columnCount + position.column + action.delta >=
+            rowCount * columnCount)
+      )
+        return;
 
       event.preventDefault();
       switch (action.type) {
@@ -117,7 +131,14 @@ const useDataGridKeyboard = <T extends object>({
           break;
       }
     },
-    [cancelEdit, commitEdit, enableTabNavigation, moveLinear],
+    [
+      cancelEdit,
+      columnCount,
+      commitEdit,
+      enableTabNavigation,
+      moveLinear,
+      rowCount,
+    ],
   );
 
   return { handleCellKeyDown, handleEditorKeyDown };

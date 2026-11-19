@@ -3,6 +3,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 
 import { DataGridColumn } from "../../data-grid.types";
 import DataGridCellEditor from "./data-grid-cell-editor.component";
+import I18nContext from "../../../../__internal__/i18n-context";
+import enGB from "../../../../locales/en-gb";
 
 interface Row {
   id: number;
@@ -40,6 +42,21 @@ test.each([
   expect(screen.getByRole(role)).toHaveValue("");
 });
 
+test("falls back to the default cell label when the locale has no dataGrid entry", () => {
+  render(
+    <I18nContext.Provider value={{ ...enGB, dataGrid: undefined }}>
+      <DataGridCellEditor
+        {...commonProps}
+        column={{ field: "name", headerName: "Name" }}
+        value="Alpha"
+      />
+    </I18nContext.Provider>,
+  );
+  expect(screen.getByRole("textbox", { name: "Name, row 1" })).toHaveValue(
+    "Alpha",
+  );
+});
+
 test("does not update the cell value while filtering dropdown options", () => {
   const onChange = jest.fn();
   const column: DataGridColumn<Row> = {
@@ -67,6 +84,31 @@ test("does not update the cell value while filtering dropdown options", () => {
   });
 
   expect(onChange).not.toHaveBeenCalled();
+});
+
+test("keeps dropdown selection keys within an IME composition", () => {
+  const onKeyDown = jest.fn();
+  render(
+    <DataGridCellEditor
+      {...commonProps}
+      column={{
+        field: "type",
+        headerName: "Type",
+        type: "dropdown",
+        filterable: true,
+        options: [{ label: "Service", value: "service" }],
+      }}
+      value="service"
+      onKeyDown={onKeyDown}
+    />,
+  );
+  const editor = screen.getByRole("combobox");
+  fireEvent.compositionStart(editor);
+  fireEvent.keyDown(editor, { key: "Escape" });
+  expect(onKeyDown).not.toHaveBeenCalled();
+  fireEvent.compositionEnd(editor);
+  fireEvent.keyDown(editor, { key: "Escape" });
+  expect(onKeyDown).toHaveBeenCalledTimes(1);
 });
 
 test("preserves medium weight while editing a dropdown", () => {

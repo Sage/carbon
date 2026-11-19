@@ -4,6 +4,7 @@ import { Checkbox } from "../../../checkbox";
 import Icon from "../../../icon";
 import { DataGridCellParams } from "../../data-grid.types";
 import { StyledCellContent } from "../data-grid.style";
+import useDataGridCellLabel from "../hooks/use-data-grid-cell-label";
 
 interface DataGridCellContentProps<T extends object> {
   params: DataGridCellParams<T>;
@@ -23,6 +24,10 @@ const DataGridCellContent = <T extends object>({
   const type = column.type ?? "text";
   const content = column.renderCell?.(params) ?? null;
   const isCheckbox = type === "checkbox" && content === null;
+  const label = useDataGridCellLabel(
+    column.headerAriaLabel ?? column.headerName,
+    rowIndex,
+  );
 
   return (
     <StyledCellContent
@@ -31,11 +36,7 @@ const DataGridCellContent = <T extends object>({
       role={isCheckbox ? "checkbox" : undefined}
       aria-checked={isCheckbox ? Boolean(value) : undefined}
       aria-readonly={isCheckbox && readOnly ? true : undefined}
-      aria-label={
-        isCheckbox
-          ? `${column.headerAriaLabel ?? column.headerName}, row ${rowIndex + 1}`
-          : undefined
-      }
+      aria-label={isCheckbox ? label : undefined}
     >
       {content ??
         (type === "checkbox" ? (

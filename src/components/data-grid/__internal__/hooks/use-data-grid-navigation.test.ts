@@ -35,14 +35,18 @@ const positionForIdentity = ({ rowId, field }: DataGridCellIdentity) =>
 const keyFor = ({ row, column }: { row: number; column: number }) =>
   `${row}-${column}`;
 
-const setup = (rowCount = 2) => {
+const setup = (rowCount = 2, gridColumns = columns) => {
   const scrollElementRef = { current: document.createElement("div") };
   const view = renderHook(
     ({ renderToken }) =>
       useDataGridNavigation({
         rowCount,
-        columns,
-        columnModel: createDataGridColumnModel(columns),
+        renderedRowIndexes: Array.from(
+          { length: rowCount },
+          (_, index) => index,
+        ),
+        columns: gridColumns,
+        columnModel: createDataGridColumnModel(gridColumns),
         scrollElementRef,
         identityFor,
         positionForIdentity,
@@ -123,6 +127,7 @@ test("clears deferred focus when its row identity no longer exists", () => {
     ({ exists, renderToken }) =>
       useDataGridNavigation({
         rowCount: 2,
+        renderedRowIndexes: [0, 1],
         columns,
         columnModel: createDataGridColumnModel(columns),
         scrollElementRef,
@@ -152,3 +157,65 @@ test("does not focus when the grid has no rows", () => {
     act(() => result.current.focusCell({ row: 0, column: 0 }));
   }).not.toThrow();
 });
+
+test("does not focus when the grid has no columns", () => {
+  const { result } = setup(2, []);
+  act(() => result.current.focusCell({ row: 0, column: 0 }));
+  expect(result.current.active).toEqual({ row: 0, column: 0 });
+});
+
+test.each([
+  { focused: false, initialRow: 0, externalFocus: false, registered: true },
+  { focused: true, initialRow: 0, externalFocus: false, registered: true },
+  { focused: true, initialRow: 90, externalFocus: false, registered: true },
+  { focused: true, initialRow: 0, externalFocus: true, registered: true },
+  { focused: true, initialRow: 0, externalFocus: false, registered: false },
+])(
+  "moves the tab stop safely when its row unmounts: %o",
+  ({ focused, initialRow, externalFocus, registered }) => {
+    const first = document.createElement("div");
+    const next = document.createElement("div");
+    const outside = document.createElement("button");
+    first.tabIndex = -1;
+    next.tabIndex = -1;
+    document.body.append(first, next, outside);
+    const { result, rerender } = renderHook(
+      ({ indexes }) =>
+        useDataGridNavigation({
+          rowCount: 100,
+          renderedRowIndexes: indexes,
+          columns,
+          columnModel: createDataGridColumnModel(columns),
+          scrollElementRef: { current: document.createElement("div") },
+          identityFor,
+          positionForIdentity,
+          keyFor,
+          renderToken: indexes,
+          stickyHeader: false,
+        }),
+      { initialProps: { indexes: [initialRow, initialRow + 1] } },
+    );
+    act(() => {
+      result.current.registerCell(initialRow, 0, first);
+      result.current.activateCell({ row: initialRow, column: 0 });
+    });
+    if (focused) first.focus();
+    const targetRow = initialRow === 90 ? 51 : 50;
+    act(() => {
+      result.current.registerCell(initialRow, 0, null);
+      if (registered) result.current.registerCell(targetRow, 0, next);
+    });
+    if (externalFocus) outside.focus();
+    first.remove();
+    rerender({ indexes: [50, 51] });
+    expect(result.current.active).toEqual({ row: targetRow, column: 0 });
+    const expectedFocus = externalFocus
+      ? outside
+      : focused && registered
+        ? next
+        : document.body;
+    expect(expectedFocus).toHaveFocus();
+    next.remove();
+    outside.remove();
+  },
+);

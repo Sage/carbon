@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import {
   CustomSelectChangeEvent,
@@ -8,6 +8,7 @@ import {
 } from "../../../select";
 import { DataGridCellWeight, DataGridColumn } from "../../data-grid.types";
 import { StyledEditor, StyledSelectEditor } from "../data-grid.style";
+import useDataGridCellLabel from "../hooks/use-data-grid-cell-label";
 
 interface DataGridCellEditorProps<T extends object> {
   column: DataGridColumn<T>;
@@ -15,6 +16,7 @@ interface DataGridCellEditorProps<T extends object> {
   value: unknown;
   errorId?: string;
   invalid?: boolean;
+  tabIndex?: number;
   weight: DataGridCellWeight;
   editorRef: React.RefObject<HTMLInputElement>;
   onChange: (value: unknown) => void;
@@ -30,6 +32,7 @@ const DataGridCellEditor = <T extends object>({
   value,
   errorId,
   invalid,
+  tabIndex = 0,
   weight,
   editorRef,
   onChange,
@@ -37,7 +40,24 @@ const DataGridCellEditor = <T extends object>({
   onBlur,
   onKeyDown,
 }: DataGridCellEditorProps<T>) => {
-  const label = `${column.headerName}, row ${rowIndex + 1}`;
+  const label = useDataGridCellLabel(
+    column.headerAriaLabel ?? column.headerName,
+    rowIndex,
+  );
+  const composing = useRef(false);
+  const compositionProps = {
+    onCompositionStart: () => {
+      composing.current = true;
+    },
+    onCompositionEnd: () => {
+      composing.current = false;
+    },
+  };
+  const handleCompositionKeyDown = (event: React.KeyboardEvent) => {
+    if (!composing.current && !event.nativeEvent.isComposing) return false;
+    event.stopPropagation();
+    return true;
+  };
 
   if (column.type === "dropdown") {
     const selectedIndex = column.options.findIndex((option) =>
@@ -76,6 +96,7 @@ const DataGridCellEditor = <T extends object>({
       );
     });
     const commonProps = {
+      tabIndex,
       "aria-label": label,
       "aria-describedby": errorId,
       error: invalid || undefined,
@@ -93,9 +114,11 @@ const DataGridCellEditor = <T extends object>({
 
     return (
       <StyledSelectEditor
+        {...compositionProps}
         $weight={weight}
         data-role="data-grid-select-editor"
         onKeyDownCapture={(event) => {
+          if (handleCompositionKeyDown(event)) return;
           // The open list handles Escape before the textbox receives it. Use
           // capture so one press both dismisses the list and exits edit mode.
           if (event.key === "Escape") onKeyDown(event);
@@ -112,6 +135,8 @@ const DataGridCellEditor = <T extends object>({
 
   return (
     <StyledEditor
+      {...compositionProps}
+      tabIndex={tabIndex}
       ref={editorRef as React.RefObject<HTMLInputElement>}
       value={String(value ?? "")}
       aria-label={label}
@@ -120,6 +145,7 @@ const DataGridCellEditor = <T extends object>({
       onChange={(event) => onChange(event.target.value)}
       onBlur={onBlur}
       onKeyDown={onKeyDown}
+      onKeyDownCapture={handleCompositionKeyDown}
     />
   );
 };
