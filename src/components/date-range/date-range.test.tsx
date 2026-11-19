@@ -3,10 +3,35 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { enGB as enGBLocale } from "date-fns/locale/en-GB";
 
-import DateRange, { DateRangeChangeEvent } from "./date-range.component";
+import DateRange, {
+  DateRangeChangeEvent,
+  DateRangeProps,
+} from "./date-range.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
 import I18nProvider from "../i18n-provider";
+
+const ControlledDateRange = ({
+  value: initialValue,
+  onChange,
+  ...props
+}: DateRangeProps) => {
+  const [value, setValue] = React.useState(initialValue);
+
+  return (
+    <DateRange
+      {...props}
+      value={value}
+      onChange={(ev) => {
+        setValue([
+          ev.target.value[0].formattedValue,
+          ev.target.value[1].formattedValue,
+        ]);
+        onChange(ev);
+      }}
+    />
+  );
+};
 
 testStyledSystemMargin(
   (props) => (
@@ -58,7 +83,7 @@ test("should call the `onChange` callback with the expected values when the 'sta
   const onChange = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
@@ -85,7 +110,7 @@ test("should call the `onChange` callback with the expected values when the 'end
   const onChange = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
@@ -222,7 +247,7 @@ test("should call the `onChange` callback with the expected values when the 'sta
   const onChange = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
@@ -249,7 +274,7 @@ test("should call the `onChange` callback with the expected values when the 'end
   const onChange = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
@@ -447,7 +472,7 @@ test("should call `onBlur` callback with expected values when user types a value
   const onBlur = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       onChange={onChange}
       endLabel="end"
@@ -473,7 +498,7 @@ test("should call `onBlur` callback with expected values when user types a value
   const onBlur = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       onChange={onChange}
       endLabel="end"
@@ -499,7 +524,7 @@ test("should call `onBlur` callback with expected values when user clears the 's
   const onBlur = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       onChange={onChange}
       endLabel="end"
@@ -526,7 +551,7 @@ test("should call `onBlur` callback with expected values when user clears the 'e
   const onBlur = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       onChange={onChange}
       endLabel="end"
@@ -553,7 +578,7 @@ test("should call `onBlur` callback with expected values when user clears the 's
   const onBlur = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       onChange={onChange}
       endLabel="end"
@@ -579,7 +604,7 @@ test("should call `onBlur` callback with expected values when user clears the 'e
   const onBlur = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       onChange={onChange}
       endLabel="end"
@@ -605,7 +630,7 @@ test("should call `onBlur` callback with expected values when user enters invali
   const onBlur = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       onChange={onChange}
       endLabel="end"
@@ -631,7 +656,7 @@ test("should call `onBlur` callback with expected values when user enters invali
   const onBlur = jest.fn();
   const user = userEvent.setup();
   render(
-    <DateRange
+    <ControlledDateRange
       startLabel="start"
       onChange={onChange}
       endLabel="end"
@@ -650,6 +675,34 @@ test("should call `onBlur` callback with expected values when user enters invali
       ],
     },
   });
+});
+
+test("names each calendar by its input's label", async () => {
+  const user = userEvent.setup();
+  render(
+    <DateRange
+      startLabel="Start date"
+      endLabel="End date"
+      value={["10/10/2016", "11/11/2016"]}
+      onChange={() => {}}
+      startDateProps={{ disablePortal: true, "data-role": "start" }}
+      endDateProps={{ disablePortal: true, "data-role": "end" }}
+    />,
+  );
+
+  await user.click(
+    within(screen.getByTestId("start")).getByRole("button", {
+      name: "Open calendar",
+    }),
+  );
+  expect(screen.getByRole("dialog")).toHaveAccessibleName("Start date");
+
+  await user.click(
+    within(screen.getByTestId("end")).getByRole("button", {
+      name: "Open calendar",
+    }),
+  );
+  expect(screen.getByRole("dialog")).toHaveAccessibleName("End date");
 });
 
 test("should close the open 'start' picker when the user moves focus to the `end` input", async () => {
@@ -1202,5 +1255,296 @@ describe("Locale formatting overrides", () => {
     expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
       "2016-0-011",
     );
+  });
+
+  it("should keep a value in the `dateFormatOverride` prop format in both inputs", () => {
+    render(
+      <DateRange
+        startLabel="start"
+        endLabel="end"
+        value={["15-7-2025", "28-7-2025"]}
+        onChange={() => {}}
+        dateFormatOverride="d-M-yyyy"
+      />,
+    );
+
+    expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
+      "15-7-2025",
+    );
+    expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
+      "28-7-2025",
+    );
+  });
+});
+
+describe("Standard handlers passed in startDateProps and endDateProps", () => {
+  it.each(["start", "end"] as const)(
+    "runs DateRange's onChange and then the consumer's onChange for the %s input",
+    async (input) => {
+      const user = userEvent.setup();
+      const calls: string[] = [];
+      const onChange = jest.fn(() => calls.push("range"));
+      const consumerOnChange = jest.fn(() => calls.push("consumer"));
+      render(
+        <DateRange
+          startLabel="start"
+          endLabel="end"
+          value={["10/10/2016", "11/11/2016"]}
+          onChange={onChange}
+          {...{ [`${input}DateProps`]: { onChange: consumerOnChange } }}
+        />,
+      );
+
+      await user.type(screen.getByRole("textbox", { name: input }), "1");
+
+      expect(consumerOnChange).toHaveBeenCalled();
+      expect(onChange).toHaveBeenCalled();
+      expect(calls.slice(0, 2)).toEqual(["range", "consumer"]);
+    },
+  );
+
+  it("keeps the range value in step when the consumer handles onChange", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    render(
+      <ControlledDateRange
+        startLabel="start"
+        endLabel="end"
+        value={["10/10/2016", "11/11/2016"]}
+        onChange={onChange}
+        startDateProps={{ onChange: () => {} }}
+      />,
+    );
+
+    await user.clear(screen.getByRole("textbox", { name: "start" }));
+    await user.type(
+      screen.getByRole("textbox", { name: "start" }),
+      "12/12/2016",
+    );
+    await user.clear(screen.getByRole("textbox", { name: "end" }));
+    await user.type(screen.getByRole("textbox", { name: "end" }), "13/12/2016");
+
+    expect(onChange).toHaveBeenLastCalledWith({
+      target: {
+        value: [
+          { formattedValue: "12/12/2016", rawValue: "2016-12-12" },
+          { formattedValue: "13/12/2016", rawValue: "2016-12-13" },
+        ],
+      },
+    });
+  });
+
+  it("runs DateRange's onBlur and the consumer's onBlur", async () => {
+    const user = userEvent.setup();
+    const onBlur = jest.fn();
+    const consumerOnBlur = jest.fn();
+    render(
+      <>
+        <DateRange
+          startLabel="start"
+          endLabel="end"
+          value={["10/10/2016", "11/11/2016"]}
+          onChange={() => {}}
+          onBlur={onBlur}
+          endDateProps={{ onBlur: consumerOnBlur }}
+        />
+        <button type="button">Outside</button>
+      </>,
+    );
+
+    await user.click(screen.getByRole("textbox", { name: "end" }));
+    await user.click(screen.getByRole("button", { name: "Outside" }));
+
+    expect(consumerOnBlur).toHaveBeenCalledTimes(1);
+    expect(onBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it("runs the consumer's onKeyDown and keeps blur blocked while tabbing between the inputs", async () => {
+    const user = userEvent.setup();
+    const onBlur = jest.fn();
+    const consumerOnKeyDown = jest.fn();
+    render(
+      <DateRange
+        startLabel="start"
+        endLabel="end"
+        value={["10/10/2016", "11/11/2016"]}
+        onChange={() => {}}
+        onBlur={onBlur}
+        startDateProps={{ onKeyDown: consumerOnKeyDown }}
+        endDateProps={{ onKeyDown: consumerOnKeyDown }}
+      />,
+    );
+
+    await user.click(screen.getByRole("textbox", { name: "start" }));
+    await user.tab();
+    await user.tab();
+    await user.tab({ shift: true });
+    await user.tab({ shift: true });
+
+    expect(consumerOnKeyDown).toHaveBeenCalled();
+    expect(onBlur).not.toHaveBeenCalled();
+  });
+
+  it.each(["start", "end"] as const)(
+    "runs the consumer's onFocus for the %s input",
+    async (input) => {
+      const user = userEvent.setup();
+      const consumerOnFocus = jest.fn();
+      render(
+        <DateRange
+          startLabel="start"
+          endLabel="end"
+          value={["10/10/2016", "11/11/2016"]}
+          onChange={() => {}}
+          {...{ [`${input}DateProps`]: { onFocus: consumerOnFocus } }}
+        />,
+      );
+
+      await user.click(screen.getByRole("textbox", { name: input }));
+
+      expect(consumerOnFocus).toHaveBeenCalledTimes(1);
+    },
+  );
+});
+
+describe("Standard value", () => {
+  it.each(["start", "end"] as const)(
+    "shows `value` again in the %s input when the consumer rejects an edit",
+    async (input) => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      render(
+        <DateRange
+          startLabel="start"
+          endLabel="end"
+          value={["10/10/2016", "11/11/2016"]}
+          onChange={onChange}
+        />,
+      );
+
+      await user.type(screen.getByRole("textbox", { name: input }), "15");
+
+      expect(onChange).toHaveBeenCalled();
+      expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
+        "10/10/2016",
+      );
+      expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
+        "11/11/2016",
+      );
+    },
+  );
+
+  it("shows the consumer's corrected value", async () => {
+    const user = userEvent.setup();
+    const MockComponent = () => {
+      const [value, setValue] = React.useState(["10/10/2016", "11/11/2016"]);
+
+      return (
+        <DateRange
+          startLabel="start"
+          endLabel="end"
+          value={value}
+          onChange={(ev) =>
+            setValue([ev.target.value[0].formattedValue, "31/12/2016"])
+          }
+        />
+      );
+    };
+    render(<MockComponent />);
+
+    await user.clear(screen.getByRole("textbox", { name: "end" }));
+    await user.type(screen.getByRole("textbox", { name: "end" }), "1");
+
+    expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
+      "31/12/2016",
+    );
+  });
+
+  it("shows a new `value` passed by the consumer", () => {
+    const { rerender } = render(
+      <DateRange
+        startLabel="start"
+        endLabel="end"
+        value={["10/10/2016", "11/11/2016"]}
+        onChange={() => {}}
+      />,
+    );
+
+    rerender(
+      <DateRange
+        startLabel="start"
+        endLabel="end"
+        value={["2017-01-01", "2017-02-02"]}
+        onChange={() => {}}
+      />,
+    );
+
+    expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
+      "01/01/2017",
+    );
+    expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
+      "02/02/2017",
+    );
+  });
+});
+
+describe("Standard form field names", () => {
+  it("names the inputs from `name`", () => {
+    render(
+      <DateRange
+        name="booking"
+        startLabel="start"
+        endLabel="end"
+        value={["10/10/2016", "11/11/2016"]}
+        onChange={() => {}}
+      />,
+    );
+
+    expect(screen.getByRole("textbox", { name: "start" })).toHaveAttribute(
+      "name",
+      "booking-start",
+    );
+    expect(screen.getByRole("textbox", { name: "end" })).toHaveAttribute(
+      "name",
+      "booking-end",
+    );
+  });
+
+  it("gives `startDateProps.name` and `endDateProps.name` priority", () => {
+    render(
+      <DateRange
+        name="booking"
+        startLabel="start"
+        endLabel="end"
+        value={["10/10/2016", "11/11/2016"]}
+        onChange={() => {}}
+        startDateProps={{ name: "from" }}
+        endDateProps={{ name: "to" }}
+      />,
+    );
+
+    expect(screen.getByRole("textbox", { name: "start" })).toHaveAttribute(
+      "name",
+      "from",
+    );
+    expect(screen.getByRole("textbox", { name: "end" })).toHaveAttribute(
+      "name",
+      "to",
+    );
+  });
+
+  it("keeps generated names without `name`", () => {
+    render(
+      <DateRange
+        startLabel="start"
+        endLabel="end"
+        value={["10/10/2016", "11/11/2016"]}
+        onChange={() => {}}
+      />,
+    );
+
+    expect(
+      screen.getByRole("textbox", { name: "start" }).getAttribute("name"),
+    ).not.toMatch(/-start$/);
   });
 });

@@ -52,7 +52,9 @@ const frFR: Partial<Locale> = {
     ariaLabels: {
       previousMonthButton: () => "Mois précédent",
       nextMonthButton: () => "Mois suivant",
+      clearButton: () => "Effacer",
     },
+    rangeText: (start, end) => `Du ${start} au ${end}`,
   },
   decimal: {
     ariaLabels: {

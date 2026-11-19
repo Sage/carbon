@@ -50,19 +50,19 @@ interface Locale {
     ariaLabels: {
       previousMonthButton: () => string;
       nextMonthButton: () => string;
-      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
       openCalendarButton?: () => string;
-      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
       chooseMonth?: () => string;
-      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
       chooseYear?: () => string;
-      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
       closeButton?: () => string;
-      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
       openCalendarDescription?: () => string;
-      /** Optional in locale overrides; I18nProvider supplies the en-GB fallback. */
       chooseDate?: () => string;
+      clearButton?: () => string;
+      applyButton?: () => string;
+      rangeCalendarDescription?: () => string;
+      startDateSelected?: (date: string) => string;
+      rangeSelected?: (start: string, end: string, days: number) => string;
     };
+    rangeText?: (start: string, end: string) => string;
     dateFormatOverride?: string;
   };
   decimal: {

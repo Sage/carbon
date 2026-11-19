@@ -18,11 +18,27 @@ import * as DateRangeStories from "./date-range.stories";
 
 A date range captures a start date and an end date selected or entered by a user.
 
+It comes in two types, chosen with the `rangeType` prop:
+
+- **Standard** (`rangeType="standard"`, the default) renders two date inputs, each with its own calendar.
+  Use it when the start and end dates are far apart.
+- **Combined** (`rangeType="combined"`) renders one button, styled as a date input, that opens a single
+  calendar in which the user picks the start date and the end date, then presses Apply. Use it when the
+  dates are close together, for example within two calendar months. The component does not limit the range.
+
+To let users choose from ranges your product defines, such as financial years or quarters, compose a
+[Select](../?path=/docs/select--docs) with a date range. See [Preset pattern](#preset-pattern).
+
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Examples](#examples)
-- [Validation states](#validation-states)
+- [Standard](#standard)
+- [Combined](#combined)
+- [Preset pattern](#preset-pattern)
+- [Fieldset and forms](#fieldset-and-forms)
+- [Date format override](#date-format-override)
+- [Props passed to the date inputs](#props-passed-to-the-date-inputs)
+- [Accessibility](#accessibility)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -30,64 +46,178 @@ A date range captures a start date and an end date selected or entered by a user
 
 ```javascript
 import DateRange from "carbon-react/lib/components/date-range";
+import type {
+  DateRangeProps,
+  CombinedDateRangeProps,
+} from "carbon-react/lib/components/date-range";
 ```
 
-## Examples
+`DateRangeProps` describes the standard range. Use `CombinedDateRangeProps` for the combined range.
+In the next major release `DateRangeProps` will cover every range type.
+
+`React.ComponentProps<typeof DateRange>` is a union of the range types, so an `interface` cannot extend it.
+Extend `DateRangeProps` or `CombinedDateRangeProps` instead.
+
+## Standard
 
 ### Default
 
 <Canvas of={DateRangeStories.DefaultStory} />
 
-### Allow Empty Value
+The `value` and `onChange` props are required as this component must be controlled. `onChange` is called whenever a
+date changes, and each input always shows `value`. Store the new dates in `value` when `onChange` is called, as in the
+example above. To reject an edit, keep `value` unchanged and the input shows it again.
 
-You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDateProps` and `endDateProps`.
+For each date, `onChange` provides a `formattedValue` for display and a `rawValue` in ISO format (`YYYY-MM-DD`) for
+valid dates. Use `rawValue` when submitting or storing dates; it is `""` for an empty date and `null` for an invalid one.
 
-<Canvas of={DateRangeStories.AllowEmptyValue} />
+Use the `required` prop to indicate that the fields are mandatory.
 
-### Required
+### Legacy prop compatibility
 
-You can use the `required` prop to indicate if the fields are mandatory.
+Deprecated props remain in the TypeScript API to avoid a breaking type change, but the following legacy presentation props are not supported by the standard type.
 
-<Canvas of={DateRangeStories.Required} />
+| Deprecated prop         | Behavior      | Replacement                                                                                                                           |
+| ----------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `startInfo` / `endInfo` | Not supported | Use `startDateProps.inputHint` / `endDateProps.inputHint`, `startWarning` / `endWarning`, or `startError` / `endError` as appropriate |
+| `tooltipPosition`       | Not supported | Inline `inputHint`, `warning`, or `error` content                                                                                     |
+| `validationOnLabel`     | Not supported | Inline `warning` or `error` messages                                                                                                  |
 
-### With disabled dates
+### Sizes
 
-You can disable dates by using `startDateProps` and `endDateProps`, which allow you to pass properties directly to the start or end date.
-For example, you can set a `minDate` or `maxDate`, or use `pickerProps` with a `disabled` option that accepts a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example).
+The `size` prop sets the size of both inputs and the space between them. A parent `Fieldset`'s size takes priority.
+It applies to both range types: the first three examples are Standard and the last three are Combined.
 
-<Canvas of={DateRangeStories.WithDisabledDates} />
+<Canvas of={DateRangeStories.Sizes} />
 
-### Locale override
+### Prevent an end date before the start date
 
-The example below illustrates how to override the locale passed into the DateRange component. Locale values are merged with `en-GB`,
-so omitted accessibility labels fall back to British English. Applications should provide approved translations through
-`I18nProvider` for every language they support. Required date locales can be imported like so `import { fr } from 'date-fns/locale';`
+Start dates before 1 July 2025 are unavailable. After selecting a start date, earlier dates are unavailable in the
+end-date calendar. The two date inputs are otherwise independent, so set `endDateProps.minDate` to the start date's
+`rawValue` when `onChange` is called, as in the example below.
 
-<Canvas of={DateRangeStories.LocaleOverrideExampleImplementation} />
+<Canvas of={DateRangeStories.PreventEndDateBeforeStartDate} />
 
-### Locale format override
+### Validation
 
-You can also override the format used to display dates in the date picker via the `dateFormatOverride` property. In the example below, the German locale is used
-but the date format has been overridden to `y-m-ddd` as opposed to the default `dd.MM.yyyy`.
+Validation states are applied to each date input separately, with the `startError`, `endError`, `startWarning` and
+`endWarning` props. See our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
-<Canvas of={DateRangeStories.LocaleFormatOverrideExampleImplementation} />
+By default validation messages render above the inputs. Set `validationMessagePositionTop` to `false` to render them
+below the inputs, as in the last example.
 
-### Labels Inline (legacy)
+<Canvas of={DateRangeStories.Validation} />
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+## Combined
 
-<Canvas of={DateRangeStories.LabelsInline} />
+### Combined default
 
-## Validation States
+The button shows the start date followed by "to" once the first date is picked, then the whole range.
+Picking a date does not close the calendar. Clear empties the selection and keeps the calendar open.
 
-This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+The dates picked in the calendar are a draft until Apply. Apply closes the calendar and calls `onChange` with the
+range, but only if it differs from `value`. With only a start date picked, Apply still closes the calendar and calls
+`onChange` with a partial range, where the end date's `rawValue` is `""`. Pressing Esc, clicking outside the calendar
+or clicking the button again closes the calendar and discards the draft, without calling `onChange`.
 
-**Note:** Validation states are applied to individual date inputs to indicate the state of the start and end date separately, this can be achieved by
-passing the `startError`, `endError`, `startWarning` and `endWarning` props.
+This differs from the standard type, where `onChange` is called whenever a date changes.
+
+A click on a complete range starts a new range. Clicking the start date again completes a one-day range, and a second
+date before the start completes the range, with the first date as the end.
+
+<Canvas of={DateRangeStories.Combined} />
+
+### Combined validation
+
+The combined type has one `error` and one `warning` for the whole field. An empty date is valid and is reported as
+`{ formattedValue: "", rawValue: "" }`, so a required field must check for empty dates when `onChange` is called or
+before the form is submitted. The component shows no error for a partial range; the example below sets `error` when
+Apply is pressed with only a start date. A value that is not a valid date, or an end date before the start date, is shown and reported as given,
+with `rawValue: null` for an invalid date; show the problem with `error`.
+
+<Canvas of={DateRangeStories.CombinedValidation} />
+
+## Preset pattern
+
+A preset date range is not a range type. Build it from a [Select](../?path=/docs/select--docs) of the ranges your
+product defines and a date range for Custom range:
+
+- Pass the ranges to `Select` as `Option` elements, optionally under `OptionGroupHeader` headings. To make a prefix
+  such as "FY26:" bold in the list, write it in the option's children; `text` is what the field shows.
+- Add a Custom range `Option` last, with a value of your choice, and render a date range below the `Select` only while
+  it is selected. Use a Combined date range when the dates are close together, or a Standard one when they are far
+  apart. Keep its dates in your state, so they are still there if Custom range is chosen again.
+- Give both fields the same `size`, or put them in a `Fieldset`, whose size takes priority.
+- Validate each field on its own: set `error` on the `Select` when nothing is chosen, and the date range's own error
+  props when its dates are missing.
+- `Select` with a `name` submits the text of the chosen option. To submit its value, leave `name` off the `Select` and
+  add a hidden input holding the value, as in the examples. Name the date range's inputs with its own `name`.
+
+Choosing Custom range closes the list and returns focus to the `Select`. The date range is next in the tab order, so Tab
+moves into it.
+
+The examples below are forms. Select a preset or enter a custom range, then choose Submit to validate the fields and
+view the submitted values.
+
+### Preset with combined custom range
+
+<Canvas of={DateRangeStories.PresetWithCombinedCustomRange} />
+
+### Preset with standard custom range
+
+<Canvas of={DateRangeStories.PresetWithStandardCustomRange} />
+
+## Fieldset and forms
+
+### In a Fieldset
+
+A parent `Fieldset`'s size takes priority over the `size` prop for both range types.
+
+<Canvas of={DateRangeStories.InFieldset} />
+
+### In a Form
+
+When `name` is set, Standard and Combined name their form fields `${name}-start` and `${name}-end`.
+
+- Standard submits the text shown in each input. `startDateProps.name` and `endDateProps.name` take priority.
+- Combined renders two hidden inputs holding the ISO date (`YYYY-MM-DD`), or an empty value for an empty or invalid
+  date. When `disabled` is set, nothing is submitted. Submitting the form while the calendar is open first restores
+  the value it had when it opened, so a range that wasn't applied is never submitted.
+
+<Canvas of={DateRangeStories.InForm} />
+
+## Date format override
+
+The `dateFormatOverride` prop sets the format of the dates for both range types. In the example below the format
+is `d-M-yyyy` instead of the default `dd/MM/yyyy`. To set it for every date component, use the
+`date.dateFormatOverride` translation key instead.
+
+<Canvas of={DateRangeStories.DateFormatOverride} />
+
+## Props passed to the date inputs
+
+The standard type renders two [Date Input](../?path=/docs/date-input--docs) components. Pass any Date Input prop
+to them with `startDateProps` and `endDateProps`, for example `allowEmptyValue`, `disabled`, `readOnly`, `minDate`,
+`maxDate`, `pickerProps` or `variant`. See the Date Input documentation for how each one works.
+
+The locale, including the `date-fns` locale used by the calendar, comes from the
+[I18nProvider](../?path=/docs/documentation-i18n--docs), as for Date Input.
+Do not pass a locale through `pickerProps`.
+
+## Accessibility
+
+- **Standard:** each date input is a text field with its own calendar button and its own label, set with `startLabel`
+  and `endLabel`. Each calendar dialog is named by its input's label. Only one calendar is open at a time.
+- **Combined:** the field is a combobox button named by `label`. Enter or Space opens a calendar dialog, named by the
+  same `label`, and moves focus to the start date or, with no value, today.
+  Tab moves through the day grid, Clear, Apply and the month and year selects. A status message is announced after
+  each date is picked, and Apply returns focus to the button.
 
 ## Props
 
 ### Date Range
+
+Props that apply to one type only start with "Standard only." or "Combined only.".
 
 <ArgTypes of={DateRangeStories} />
 
@@ -101,7 +231,7 @@ The following keys are available to override the translations for this component
     {
       name: "date.dateFnsLocale",
       description:
-        "The locale object from date-fns, example of implementation can be found [here](#locale-override)",
+        "The locale object from date-fns, set through the [I18nProvider](../?path=/docs/documentation-i18n--docs)",
       type: "func",
       returnType: "date-fns locale object",
     },
@@ -116,6 +246,53 @@ The following keys are available to override the translations for this component
       name: "date.ariaLabels.nextMonthButton",
       description:
         "Aria label text for the next month navigation button in the date picker",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "date.dateFormatOverride",
+      description:
+        "Override the default date format for a specific locale, example of implementation can be found [here](#date-format-override)",
+      type: "string",
+      returnType: "string",
+    },
+    {
+      name: "date.rangeText",
+      description:
+        "Text of the combined type's button, built from the formatted start date and end date. Either date can be an empty string while the range is partial",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "date.ariaLabels.clearButton",
+      description: "Text of the Clear button in the combined type's calendar",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "date.ariaLabels.applyButton",
+      description: "Text of the Apply button in the combined type's calendar",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "date.ariaLabels.rangeCalendarDescription",
+      description:
+        "Screen reader instructions for selecting a range in the combined type's calendar",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "date.ariaLabels.startDateSelected",
+      description:
+        "Status message announced after the start date is picked. Receives the date in the locale's long format",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "date.ariaLabels.rangeSelected",
+      description:
+        "Status message announced after the end date is picked. Receives the start date, the end date and the number of days, both ends included",
       type: "func",
       returnType: "string",
     },

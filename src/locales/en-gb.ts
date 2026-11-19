@@ -58,7 +58,15 @@ const enGB: Locale = {
       openCalendarDescription: () =>
         "Use the arrow keys to move between dates and press Enter or Space to select a date.",
       chooseDate: () => "Choose a date",
+      clearButton: () => "Clear",
+      applyButton: () => "Apply",
+      rangeCalendarDescription: () =>
+        "Use the arrow keys to move between dates and press Enter or Space to select a start date and an end date.",
+      startDateSelected: (date) => `Start date ${date}. Choose an end date.`,
+      rangeSelected: (start, end, days) =>
+        `Selected ${start} to ${end}, ${days} ${days === 1 ? "day" : "days"}.`,
     },
+    rangeText: (start, end) => `${start} to ${end}`,
     dateFormatOverride: undefined,
   },
   decimal: {

@@ -7,9 +7,6 @@ import Box from "../box";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import I18nProvider from "../i18n-provider";
-import { de as deLocale } from "date-fns/locale/de";
-import { enUS as enUSLocale } from "date-fns/locale/en-US";
 
 type Story = StoryObj<typeof DateRange>;
 
@@ -22,7 +19,7 @@ export default {
   decorators: [
     (StoryToRender: StoryFn) => (
       <DefaultDecorator>
-        <Box mb="150px">
+        <Box mb="400px">
           <StoryToRender />
         </Box>
       </DefaultDecorator>
@@ -30,13 +27,15 @@ export default {
   ],
 };
 
-const DateRangeWithState = ({ initialValue = ["", ""], ...props }) => {
-  const [dateRange, setDateRange] = useState(initialValue);
+const initialRange = ["15/07/2025", "28/07/2025"];
+
+const StandardDateRangeWithState = () => {
+  const [dateRange, setDateRange] = useState(initialRange);
 
   return (
     <DateRange
-      tooltipPosition="bottom"
-      {...props}
+      startLabel="Start date"
+      endLabel="End date"
       value={dateRange}
       onChange={(e) =>
         setDateRange([
@@ -48,76 +47,28 @@ const DateRangeWithState = ({ initialValue = ["", ""], ...props }) => {
   );
 };
 
-export const DefaultDateRange: Story = {
-  render: () => (
-    <DateRangeWithState
-      startLabel="Start Date"
-      endLabel="End Date"
-      name="date-range"
-    />
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-    const canvas = within(canvasElement);
+const CombinedDateRangeWithState = () => {
+  const [dateRange, setDateRange] = useState(initialRange);
 
-    const startInput = canvas.getByRole("textbox", { name: /start date/i });
-    const endInput = canvas.getByRole("textbox", { name: /end date/i });
-
-    await userEvent.click(startInput);
-    await userEvent.keyboard("04/15/2024");
-
-    await userEvent.click(endInput);
-    await userEvent.keyboard("04/30/2024");
-
-    await expect(startInput).toHaveValue("04/15/2024");
-    await expect(endInput).toHaveValue("04/30/2024");
-  },
-};
-DefaultDateRange.parameters = {
-  chromatic: { disableSnapshot: true },
+  return (
+    <Box>
+      <DateRange
+        rangeType="combined"
+        label="Date range"
+        value={dateRange}
+        onChange={(e) =>
+          setDateRange([
+            e.target.value[0].formattedValue,
+            e.target.value[1].formattedValue,
+          ])
+        }
+      />
+    </Box>
+  );
 };
 
-export const InlineLabelsDateRange: Story = {
-  render: () => (
-    <DateRangeWithState
-      startLabel="From"
-      endLabel="To"
-      name="date-range"
-      labelsInline
-    />
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-    const canvas = within(canvasElement);
-
-    const startInput = canvas.getByRole("textbox", { name: /from/i });
-    const endInput = canvas.getByRole("textbox", { name: /to/i });
-
-    await userEvent.click(startInput);
-    await userEvent.keyboard("05/01/2025");
-
-    await userEvent.click(endInput);
-    await userEvent.keyboard("05/12/2025");
-
-    await expect(startInput).toHaveValue("05/01/2025");
-    await expect(endInput).toHaveValue("05/12/2025");
-  },
-};
-InlineLabelsDateRange.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const MinMaxDateRange: Story = {
-  render: () => (
-    <DateRangeWithState
-      startLabel="Start Date"
-      endLabel="End Date"
-      name="date-range"
-      initialValue={["17/07/2025", "20/07/2025"]}
-      startDateProps={{ minDate: "2025-07-14", maxDate: "2025-07-25" }}
-      endDateProps={{ minDate: "2025-07-14", maxDate: "2025-07-30" }}
-    />
-  ),
+export const StandardOneCalendarAtATime: Story = {
+  render: () => <StandardDateRangeWithState />,
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
@@ -125,270 +76,97 @@ export const MinMaxDateRange: Story = {
       "button",
       { name: "Open calendar" },
     );
-    const startInput = canvas.getByRole("textbox", { name: /start date/i });
-    const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
     await userEvent.click(startCalendarButton);
-    const dateBeforeMinimum = canvas.getByRole("button", {
-      name: /Sunday, July 13th, 2025/i,
-    });
-    await expect(dateBeforeMinimum).toBeDisabled();
-    await userEvent.click(dateBeforeMinimum);
-    await expect(startInput).toHaveValue("17/07/2025");
-    await userEvent.click(startCalendarButton);
+    await expect(
+      canvas.getByRole("button", { name: /Tuesday, 15 July 2025/ }),
+    ).toBeVisible();
 
     await userEvent.click(endCalendarButton);
-    const dateAfterMaximum = canvas.getByRole("button", {
-      name: /Thursday, July 31st, 2025/i,
-    });
-    await expect(dateAfterMaximum).toBeDisabled();
-    await userEvent.click(dateAfterMaximum);
-    await expect(endInput).toHaveValue("20/07/2025");
+    await expect(canvas.getAllByRole("grid")).toHaveLength(1);
+    await expect(
+      canvas.getByRole("button", { name: /Monday, 28 July 2025/ }),
+    ).toHaveFocus();
   },
 };
-
-export const DisabledDaysDateRange: Story = {
-  render: () => {
-    const isWeekend = (day: Date) => [0, 6].includes(day.getDay());
-    const disabledRules = [
-      isWeekend,
-      { from: new Date(2025, 6, 15), to: new Date(2025, 6, 18) },
-      { before: new Date(2025, 6, 3) },
-      { after: new Date(2025, 6, 29) },
-    ];
-    return (
-      <DateRangeWithState
-        startLabel="Start Date"
-        endLabel="End Date"
-        name="date-range"
-        initialValue={["10/07/2025", "25/07/2025"]}
-        startDateProps={{ pickerProps: { disabled: disabledRules } }}
-        endDateProps={{ pickerProps: { disabled: disabledRules } }}
-      />
-    );
-  },
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-    const canvas = within(canvasElement);
-    const [startCalendarButton, endCalendarButton] = canvas.getAllByRole(
-      "button",
-      { name: "Open calendar" },
-    );
-    const startInput = canvas.getByRole("textbox", { name: /start date/i });
-    const endInput = canvas.getByRole("textbox", { name: /end date/i });
-
-    await userEvent.click(startCalendarButton);
-    const disabledRangeDate = canvas.getByRole("button", {
-      name: /Wednesday, July 16th, 2025/i,
-    });
-    await expect(disabledRangeDate).toBeDisabled();
-    await userEvent.click(disabledRangeDate);
-    await expect(startInput).toHaveValue("10/07/2025");
-    await userEvent.click(startCalendarButton);
-
-    await userEvent.click(endCalendarButton);
-    const disabledWeekendDate = canvas.getByRole("button", {
-      name: /Saturday, July 26th, 2025/i,
-    });
-    await expect(disabledWeekendDate).toBeDisabled();
-    await userEvent.click(disabledWeekendDate);
-    await expect(endInput).toHaveValue("25/07/2025");
-  },
-};
-
-export const FocusStateDateRange: Story = {
-  render: () => (
-    <DateRangeWithState
-      startLabel="Start Date"
-      endLabel="End Date"
-      name="date-range"
-      initialValue={["15/07/2025", "22/07/2025"]}
-    />
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-    const canvas = within(canvasElement);
-
-    const [startCalendarButton] = canvas.getAllByRole("button", {
-      name: "Open calendar",
-    });
-    await userEvent.click(startCalendarButton);
-
-    const selectedDayBtn = canvas.getByRole("button", { name: /selected$/i });
-
-    await expect(selectedDayBtn).toHaveFocus();
-  },
-};
-
-export const LocaleEnUSDateRange: Story = {
-  render: () => (
-    <I18nProvider
-      locale={{
-        locale: () => "en-US",
-        date: {
-          dateFnsLocale: () => enUSLocale,
-          ariaLabels: {
-            previousMonthButton: () => "en-US-previous",
-            nextMonthButton: () => "en-US-next",
-          },
-        },
-      }}
-    >
-      <DateRangeWithState
-        startLabel="Start Date (en-US)"
-        endLabel="End Date (en-US)"
-        initialValue={["07/17/2025", "07/24/2025"]}
-        data-role="enUsDateRange"
-      />
-    </I18nProvider>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
-    const canvas = within(canvasElement);
-
-    const startInput = canvas.getByRole("textbox", {
-      name: /start date \(en-us\)/i,
-    });
-    const endInput = canvas.getByRole("textbox", {
-      name: /end date \(en-us\)/i,
-    });
-
-    await userEvent.clear(startInput);
-    await userEvent.keyboard("08/05/2025");
-
-    await userEvent.clear(endInput);
-    await userEvent.keyboard("08/12/2025");
-
-    await expect(startInput).toHaveValue("08/05/2025");
-    await expect(endInput).toHaveValue("08/12/2025");
-  },
-};
-LocaleEnUSDateRange.parameters = {
+StandardOneCalendarAtATime.storyName = "Standard - One Calendar at a Time";
+StandardOneCalendarAtATime.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const LocaleDeDateRange: Story = {
-  render: () => (
-    <I18nProvider
-      locale={{
-        locale: () => "de",
-        date: {
-          dateFnsLocale: () => deLocale,
-          ariaLabels: {
-            previousMonthButton: () => "de-DE-previous",
-            nextMonthButton: () => "de-DE-next",
-            chooseMonth: () => "de-DE-month",
-          },
-        },
-      }}
-    >
-      <DateRangeWithState
-        startLabel="Start Date (de-DE)"
-        endLabel="End Date (de-DE)"
-        initialValue={["17/07/2025", "24/07/2025"]}
-        data-role="deDateRange"
-      />
-    </I18nProvider>
-  ),
+export const CombinedApplyRange: Story = {
+  render: () => <CombinedDateRangeWithState />,
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
-
     const canvas = within(canvasElement);
-    const [startCalendarButton] = canvas.getAllByRole("button", {
-      name: "Open calendar",
-    });
-    await userEvent.click(startCalendarButton);
+    const trigger = canvas.getByRole("combobox", { name: /^Date range/ });
 
-    const monthSelect = canvas.getByRole("combobox", {
-      name: /de-DE-month/i,
-    });
-    await userEvent.selectOptions(monthSelect, "5");
-    await expect(monthSelect).toHaveValue("5");
-    await expect(monthSelect).toHaveDisplayValue("Juni");
-    await expect(monthSelect).toHaveFocus();
+    await userEvent.click(trigger);
+    await userEvent.click(canvas.getByRole("button", { name: /\b3 July\b/ }));
+    await expect(trigger).toHaveTextContent(/^03\/07\/2025 to$/);
+    await expect(canvas.getByRole("dialog")).toBeVisible();
+
+    await userEvent.click(canvas.getByRole("button", { name: /\b9 July\b/ }));
+    await expect(trigger).toHaveTextContent("03/07/2025 to 09/07/2025");
+
+    await userEvent.click(canvas.getByRole("button", { name: "Apply" }));
+    await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
+    await expect(trigger).toHaveTextContent("03/07/2025 to 09/07/2025");
   },
 };
-
-export const TypingSyncDateRange: Story = {
-  render: () => (
-    <DateRangeWithState
-      startLabel="Start Date"
-      endLabel="End Date"
-      name="date-range"
-      initialValue={["15/07/2025", "22/07/2025"]}
-    />
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
-    const canvas = within(canvasElement);
-
-    const [startCalendarButton] = canvas.getAllByRole("button", {
-      name: "Open calendar",
-    });
-    await userEvent.click(startCalendarButton);
-
-    const startInput = canvas.getByRole("textbox", { name: /start date/i });
-    await userEvent.clear(startInput);
-    await userEvent.type(startInput, "05/05/2022");
-
-    const caption = canvas.getByRole("status");
-    await expect(caption).toHaveTextContent(/May 2022/i);
-  },
-};
-TypingSyncDateRange.parameters = {
+CombinedApplyRange.storyName = "Combined - Apply Range";
+CombinedApplyRange.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const MonthYearNavigationDateRange: Story = {
-  render: () => (
-    <DateRangeWithState
-      startLabel="Start"
-      endLabel="End"
-      initialValue={["15/07/2025", "22/07/2025"]}
-    />
-  ),
+export const CombinedClearAndDiscard: Story = {
+  render: () => <CombinedDateRangeWithState />,
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const [startCalendarButton] = canvas.getAllByRole("button", {
-      name: "Open calendar",
-    });
-    await userEvent.click(startCalendarButton);
-    const monthSelect = canvas.getByRole("combobox", {
-      name: "Choose the month",
-    });
-    await userEvent.selectOptions(monthSelect, "7");
-    await expect(monthSelect).toHaveValue("7");
-    await expect(monthSelect).toHaveFocus();
+    const trigger = canvas.getByRole("combobox", { name: /^Date range/ });
+
+    await userEvent.click(trigger);
+    await userEvent.click(canvas.getByRole("button", { name: "Clear" }));
+    await expect(canvas.getByRole("dialog")).toBeVisible();
+    await expect(trigger).not.toHaveTextContent("15/07/2025");
+
+    await userEvent.keyboard("{Escape}");
+    await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
+    await expect(trigger).toHaveTextContent("15/07/2025 to 28/07/2025");
   },
 };
-MonthYearNavigationDateRange.parameters = {
+CombinedClearAndDiscard.storyName = "Combined - Clear and Discard";
+CombinedClearAndDiscard.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const AllowEmptyDateRange: Story = {
-  render: () => (
-    <DateRangeWithState
-      startLabel="Start Date"
-      endLabel="End Date"
-      name="date-range"
-      initialValue={["", ""]}
-      startDateProps={{ allowEmptyValue: true }}
-      endDateProps={{ allowEmptyValue: true }}
-    />
-  ),
+export const CombinedRangeRules: Story = {
+  render: () => <CombinedDateRangeWithState />,
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
-    const c = within(canvasElement);
-    const start = c.getByRole("textbox", { name: /start date/i });
-    const end = c.getByRole("textbox", { name: /end date/i });
-    await userEvent.click(start);
-    await userEvent.clear(start);
-    await userEvent.click(end);
-    await userEvent.clear(end);
-    await expect(start).toHaveValue("");
-    await expect(end).toHaveValue("");
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("combobox", { name: /^Date range/ });
+    const day = (name: RegExp) => canvas.getByRole("button", { name });
+
+    await userEvent.click(trigger);
+
+    // Clicking the start date again completes a one-day range.
+    await userEvent.click(day(/20 July/));
+    await userEvent.click(day(/20 July/));
+    await expect(trigger).toHaveTextContent("20/07/2025 to 20/07/2025");
+
+    // A click on a complete range starts a new range.
+    await userEvent.click(day(/25 July/));
+    await expect(trigger).toHaveTextContent(/^25\/07\/2025 to$/);
+
+    // A second date before the start becomes the start, and the first date the end.
+    await userEvent.click(day(/\b12 July\b/));
+    await expect(trigger).toHaveTextContent("12/07/2025 to 25/07/2025");
+    await expect(canvas.getByRole("dialog")).toBeVisible();
   },
+};
+CombinedRangeRules.storyName = "Combined - Range Rules";
+CombinedRangeRules.parameters = {
+  chromatic: { disableSnapshot: true },
 };

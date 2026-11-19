@@ -10,6 +10,17 @@ export const DatePickerDescription = styled.span`
   ${visuallyHidden}
 `;
 
+export const DatePickerFooter = styled.div`
+  display: flex;
+  align-self: center;
+  width: min(100%, var(--date-picker-grid-width));
+  justify-content: flex-end;
+`;
+
+export const DatePickerRangeFooter = styled(DatePickerFooter)`
+  gap: var(--global-space-comp-s);
+`;
+
 const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
   --date-picker-day-cell-size: var(--global-size-m);
   --date-picker-grid-width: calc(7 * var(--date-picker-day-cell-size));
@@ -158,7 +169,7 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
     color: var(--input-calendar-txt-hover);
   }
 
-  .rdp-selected .rdp-day_button {
+  .rdp-selected:not(.rdp-range_middle) .rdp-day_button {
     z-index: 2;
     background: var(--input-calendar-bg-active);
     color: var(--input-calendar-txt-active);
@@ -195,7 +206,8 @@ const DatePickerPopover = styled.div.attrs(applyBaseTheme)`
       var(--global-radius-action-circle);
   }
 
-  .rdp-range_middle.rdp-outside {
+  .rdp-range_middle.rdp-outside,
+  .rdp-range_middle .rdp-day_button {
     color: var(--input-calendar-txt-duration);
   }
 

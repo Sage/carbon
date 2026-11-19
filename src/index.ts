@@ -91,6 +91,7 @@ export type {
   DateRangeContextProps,
   DateRangeChangeEvent,
   DateRangeProps,
+  CombinedDateRangeProps,
 } from "./components/date-range";
 
 export { default as DateInput } from "./components/date";

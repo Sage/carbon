@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DateRange, {
+  CombinedDateRangeProps,
   DateRangeChangeEvent,
   DateRangeProps,
 } from "./date-range.component";
@@ -122,3 +123,70 @@ export const DateRangeNewValidation = () => {
     </CarbonProvider>
   );
 };
+
+export const DateRangeCombined = ({
+  initialValue = ["", ""],
+  onChange,
+  ...props
+}: Partial<Omit<CombinedDateRangeProps, "rangeType">> & {
+  initialValue?: string[];
+}) => {
+  const [state, setState] = useState(initialValue);
+
+  return (
+    <DateRange
+      rangeType="combined"
+      label="Date range"
+      inputHint="Select a start date and an end date"
+      value={state}
+      onChange={(evt) => {
+        setState([
+          evt.target.value[0].formattedValue,
+          evt.target.value[1].formattedValue,
+        ]);
+        onChange?.(evt);
+      }}
+      {...props}
+    />
+  );
+};
+
+export const DateRangeCombinedInForm = ({
+  onSubmit,
+}: {
+  onSubmit: (start: string, end: string) => void;
+}) => (
+  <form
+    onSubmit={(ev) => {
+      ev.preventDefault();
+      const data = new FormData(ev.currentTarget);
+      onSubmit(
+        String(data.get("booking-start")),
+        String(data.get("booking-end")),
+      );
+    }}
+    style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}
+  >
+    <div style={{ width: "320px" }}>
+      <DateRangeCombined name="booking" />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+);
+
+export const DateRangeSizes = () => (
+  <>
+    {(["small", "large"] as const).map((size) => (
+      <DateRange
+        key={size}
+        data-role={`date-range-${size}`}
+        size={size}
+        startLabel="Start"
+        endLabel="End"
+        value={["15/07/2025", "28/07/2025"]}
+        onChange={() => {}}
+        endDateProps={{ size: "medium" }}
+      />
+    ))}
+  </>
+);
