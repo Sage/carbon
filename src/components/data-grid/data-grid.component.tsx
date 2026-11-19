@@ -345,6 +345,7 @@ const DataGridInner = <T extends object>(
                   onActivate={activateCell}
                   onFocusPosition={focusCell}
                   onBeginEdit={beginEdit}
+                  onFocusAction={focusAction}
                   onDraftChange={setDraftValue}
                   onCommitEdit={commitEdit}
                   onBlurEdit={commitEditOnBlur}

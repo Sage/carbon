@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useRef } from "react";
 
 import DataGridCellContent from "./data-grid-cell-content.component";
 import DataGridCellEditor from "./data-grid-cell-editor.component";
@@ -27,6 +27,7 @@ interface DataGridCellProps<T extends object> {
   editorRef: React.RefObject<HTMLInputElement>;
   onActivate: (position: DataGridCellPosition) => void;
   onFocusPosition: (position: DataGridCellPosition) => void;
+  onFocusAction: (position: DataGridCellPosition) => void;
   onBeginEdit: (position: DataGridCellPosition) => void;
   onDraftChange: (value: unknown) => void;
   onCommitEdit: (shouldRestoreFocus?: boolean, value?: unknown) => void;
@@ -57,6 +58,7 @@ const DataGridCellInner = <T extends object>(
     editorRef,
     onActivate,
     onFocusPosition,
+    onFocusAction,
     onBeginEdit,
     onDraftChange,
     onCommitEdit,
@@ -66,6 +68,7 @@ const DataGridCellInner = <T extends object>(
   }: DataGridCellProps<T>,
   ref: React.ForwardedRef<HTMLDivElement>,
 ) => {
+  const touchActivation = useRef(false);
   const { column, rowId } = params;
   const type = column.type ?? "text";
   const errorText = typeof errorValue === "string" ? errorValue : undefined;
@@ -153,12 +156,19 @@ const DataGridCellInner = <T extends object>(
       $weight={column.weight ?? "regular"}
       $hideInlineEndBorder={hideInlineEndBorder}
       onFocus={() => onActivate(position)}
+      onPointerDown={(event) => {
+        touchActivation.current = event.pointerType === "touch";
+      }}
+      onPointerCancel={() => {
+        touchActivation.current = false;
+      }}
       onClick={(event) => {
+        const isTouchActivation = touchActivation.current;
+        touchActivation.current = false;
+
         if (!editing && type === "checkbox") {
-          // A double click dispatches two click events. Toggle on the first so
-          // checkbox cells retain normal single-click behaviour without being
-          // immediately toggled back.
-          if (event.detail > 1) return;
+          // Ignore the second mouse click, but allow repeated touch activation.
+          if (event.detail > 1 && !isTouchActivation) return;
           onFocusPosition(position);
           if (!readOnly) onBeginEdit(position);
           return;
@@ -181,6 +191,10 @@ const DataGridCellInner = <T extends object>(
           onFocusPosition(position);
           if (type === "text" && !readOnly) {
             onBeginEdit(position);
+          }
+          if (type === "action") {
+            event.stopPropagation();
+            onFocusAction(position);
           }
         }
       }}

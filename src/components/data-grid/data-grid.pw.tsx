@@ -85,6 +85,67 @@ test("opens a text editor with zero-detail activation", async ({
 test.describe("touch activation", () => {
   test.use({ hasTouch: true });
 
+  test("toggles the full-cell checkbox with one tap", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridComponent />);
+    const checkboxCell = cell(page, 1, "selected");
+    const checkbox = checkboxCell.getByRole("checkbox", {
+      name: "Selected, row 1",
+    });
+
+    await checkbox.tap({ position: { x: 4, y: 4 } });
+
+    await expect(checkbox).toBeChecked();
+    await expect(checkboxCell).toBeFocused();
+
+    await checkbox.tap({ position: { x: 4, y: 4 } });
+
+    await expect(checkbox).not.toBeChecked();
+  });
+
+  test("does not toggle a read-only checkbox on tap", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridComponent />);
+    const checkbox = cell(page, 3, "selected").getByRole("checkbox");
+
+    await checkbox.tap();
+
+    await expect(checkbox).not.toBeChecked();
+    await expect(checkbox).toHaveAttribute("aria-readonly", "true");
+  });
+
+  test("opens the action popover from a tap outside its button", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridComponent />);
+
+    await cell(page, 1, "actions").tap({ position: { x: 4, y: 4 } });
+
+    await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+    await expect(
+      page.getByRole("button", { name: "Actions for row 1" }),
+    ).toHaveAttribute("aria-expanded", "true");
+  });
+
+  test("opens a read-only row's actions with a direct trigger tap", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridComponent />);
+
+    await page.getByRole("button", { name: "Actions for row 3" }).tap();
+
+    await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+    await expect(
+      page.getByRole("button", { name: "Actions for row 3" }),
+    ).toHaveAttribute("aria-expanded", "true");
+  });
+
   test("opens a text editor with one tap and commits the edited value", async ({
     mount,
     page,
@@ -103,6 +164,52 @@ test.describe("touch activation", () => {
     await expect(nameCell).toBeFocused();
   });
 });
+
+test("toggles the full-cell checkbox with zero-detail activation", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+  const checkboxCell = cell(page, 1, "selected");
+  const checkbox = checkboxCell.getByRole("checkbox");
+
+  await checkbox.dispatchEvent("click", { detail: 0 });
+  await expect(checkbox).toBeChecked();
+
+  await checkboxCell.dispatchEvent("click", { detail: 0 });
+  await expect(checkbox).not.toBeChecked();
+});
+
+test("opens a read-only row's actions with one cell click", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+
+  await cell(page, 3, "actions").click({ position: { x: 4, y: 4 } });
+
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+  await expect(
+    page.getByRole("button", { name: "Actions for row 3" }),
+  ).toHaveAttribute("aria-expanded", "true");
+});
+
+for (const detail of [0, 1]) {
+  test(`opens the action popover without pointer events (detail=${detail})`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridComponent />);
+
+    await cell(page, 1, "actions").dispatchEvent("click", { detail });
+
+    await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(
+      page.getByRole("button", { name: "Actions for row 1" }),
+    ).toBeFocused();
+  });
+}
 
 test("supports row and grid edge navigation with Home and End", async ({
   mount,
@@ -346,7 +453,7 @@ test("opens an action popover with Space without scrolling vertically", async ({
   await grid.evaluate((element) => {
     element.scrollTop = 40;
   });
-  await actionCell.click({ position: { x: 4, y: 4 } });
+  await actionCell.focus();
   const trigger = page.getByRole("button", { name: "Actions for row 2" });
   await page.keyboard.press("Space");
 
@@ -401,7 +508,10 @@ test("applies read-only behavior to each cell variation", async ({
   await expect(typeCell).toHaveAttribute("aria-readonly", "true");
   await expect(checkboxCell).toHaveAttribute("aria-readonly", "true");
   await expect(actionCell).toHaveAttribute("aria-readonly", "true");
-  await expect(checkboxCell.getByRole("checkbox")).toBeDisabled();
+  await expect(checkboxCell.getByRole("checkbox")).toHaveAttribute(
+    "aria-readonly",
+    "true",
+  );
   await expect(typeCell.locator('[data-element="dropdown"]')).toHaveCount(0);
 
   await nameCell.click();
@@ -414,7 +524,7 @@ test("applies read-only behavior to each cell variation", async ({
     0,
   );
 
-  await actionCell.click({ position: { x: 4, y: 4 } });
+  await actionCell.focus();
   await page.keyboard.press("Enter");
   await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
 });
@@ -501,7 +611,7 @@ test("does not navigate away from an open action popover", async ({
 
   const actionCell = cell(page, 1, "actions");
   const selectedCell = cell(page, 1, "selected");
-  await actionCell.click({ position: { x: 4, y: 4 } });
+  await actionCell.focus();
   await page.keyboard.press("Enter");
 
   const duplicate = page.getByRole("button", { name: "Duplicate" });
@@ -621,7 +731,7 @@ test("tabs from an open action popover to the first cell of the next row", async
   await mount(<DataGridComponent />);
 
   const actionCell = cell(page, 1, "actions");
-  await actionCell.click({ position: { x: 4, y: 4 } });
+  await actionCell.focus();
   await page.keyboard.press("Enter");
   await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
 
