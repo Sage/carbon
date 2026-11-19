@@ -130,7 +130,7 @@ export const MinMaxDateRange: Story = {
 
     await userEvent.click(startCalendarButton);
     const dateBeforeMinimum = canvas.getByRole("button", {
-      name: /Sunday, July 13th, 2025/i,
+      name: /Sunday, 13 July 2025/i,
     });
     await expect(dateBeforeMinimum).toBeDisabled();
     await userEvent.click(dateBeforeMinimum);
@@ -139,7 +139,7 @@ export const MinMaxDateRange: Story = {
 
     await userEvent.click(endCalendarButton);
     const dateAfterMaximum = canvas.getByRole("button", {
-      name: /Thursday, July 31st, 2025/i,
+      name: /Thursday, 31 July 2025/i,
     });
     await expect(dateAfterMaximum).toBeDisabled();
     await userEvent.click(dateAfterMaximum);
@@ -179,7 +179,7 @@ export const DisabledDaysDateRange: Story = {
 
     await userEvent.click(startCalendarButton);
     const disabledRangeDate = canvas.getByRole("button", {
-      name: /Wednesday, July 16th, 2025/i,
+      name: /Wednesday, 16 July 2025/i,
     });
     await expect(disabledRangeDate).toBeDisabled();
     await userEvent.click(disabledRangeDate);
@@ -188,7 +188,7 @@ export const DisabledDaysDateRange: Story = {
 
     await userEvent.click(endCalendarButton);
     const disabledWeekendDate = canvas.getByRole("button", {
-      name: /Saturday, July 26th, 2025/i,
+      name: /Saturday, 26 July 2025/i,
     });
     await expect(disabledWeekendDate).toBeDisabled();
     await userEvent.click(disabledWeekendDate);

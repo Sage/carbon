@@ -6,6 +6,7 @@ import guid from "../../../../__internal__/utils/helpers/guid";
 import Logger from "../../../../__internal__/utils/logger";
 import StyledDatePickerDialog, {
   DatePickerDescription,
+  DatePickerFooter,
 } from "./date-picker.style";
 import Calendar from "../calendar/calendar.component";
 import CalendarCloseButton from "../calendar/calendar-close-button.component";
@@ -57,11 +58,12 @@ export const DatePicker = ({
     datePickerDialogAriaLabel,
     datePickerDescription,
     closeButtonLabel,
+    dayPickerLocale,
     localize,
     weekStartsOn,
     weekdaysLong,
     weekdaysShort,
-  } = useDatePickerLocale();
+  } = useDatePickerLocale(dayPickerProps?.locale);
 
   const pickerRef = useRef<HTMLDivElement>(null);
   const [{ monthSelectId, yearSelectId, pickerDescriptionId }] = useState(
@@ -187,14 +189,17 @@ export const DatePicker = ({
           minDate={minDate}
           maxDate={maxDate}
           weekStartsOn={weekStartsOn}
+          locale={dayPickerLocale}
           weekdaysLong={weekdaysLong}
           weekdaysShort={weekdaysShort}
           setFocusedMonth={setFocusedMonth}
           onDayClick={handleDayClick}
         />
-        <CalendarCloseButton onClick={closePickerAndRestoreFocus}>
-          {closeButtonLabel}
-        </CalendarCloseButton>
+        <DatePickerFooter>
+          <CalendarCloseButton onClick={closePickerAndRestoreFocus}>
+            {closeButtonLabel}
+          </CalendarCloseButton>
+        </DatePickerFooter>
       </StyledDatePickerDialog>
     </Popover>
   );
