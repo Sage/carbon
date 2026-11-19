@@ -72,7 +72,7 @@
 - [GridItem](components/grid-item.md) (deprecated)
 - [GroupedCharacter](components/grouped-character.md) (deprecated)
 - [Heading](components/heading.md) (deprecated)
-- [Help](components/help.md)
+- [Help](components/help.md) (deprecated)
 - [Hr](components/hr.md) (deprecated)
 - [I18nProvider](components/i18n-provider.md)
 - [Icon](components/icon.md) — Displays a visual symbol from Carbon's bundled icon set.
