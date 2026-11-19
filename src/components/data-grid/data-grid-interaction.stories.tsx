@@ -135,7 +135,6 @@ export const EditTextAndNavigate: Story = {
     const cells = canvas.getAllByRole("gridcell");
 
     await userEvent.click(cells[0]);
-    await userEvent.keyboard("{Enter}");
     await userEvent.type(canvas.getByRole("textbox"), " services{Tab}");
 
     await expect(cells[0]).toHaveTextContent("Consulting services");
