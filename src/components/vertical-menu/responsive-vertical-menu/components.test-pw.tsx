@@ -281,3 +281,14 @@ export const WithSiblingControl = () => (
     </label>
   </Box>
 );
+
+export const WithAdjacentItemsAndDivider = () => (
+  <Box height="100vh">
+    <ResponsiveVerticalMenu height="100%" responsiveBreakpoint={3200}>
+      <ResponsiveVerticalMenuItem id="item-1" label="Item 1" />
+      <ResponsiveVerticalMenuItem id="item-2" label="Item 2" />
+      <ResponsiveVerticalMenuDivider />
+      <ResponsiveVerticalMenuItem id="item-3" label="Item 3" />
+    </ResponsiveVerticalMenu>
+  </Box>
+);
