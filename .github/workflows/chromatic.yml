@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: ">=24.11.0 24"
+          node-version-file: .nvmrc
           check-latest: true
 
       - name: Update npm to 11.21.1
