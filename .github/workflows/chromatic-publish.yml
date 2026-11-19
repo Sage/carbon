@@ -1,0 +1,49 @@
+name: Chromatic Publish
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Serialize publications without cancelling an upload already in progress.
+concurrency:
+  group: chromatic-publish-master
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    env:
+      CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PUBLISH_PROJECT_TOKEN }}
+    steps:
+      - name: Check publishing token
+        run: |
+          if [ -z "$CHROMATIC_PROJECT_TOKEN" ]; then
+            echo "::error::Add the CHROMATIC_PUBLISH_PROJECT_TOKEN repository secret for the publishing project."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ">=24.11.0 24"
+          check-latest: true
+
+      - name: Update npm to 11.21.1
+        run: npm install -g npm@11.21.1
+
+      - name: Install dependencies
+        run: npm ci
+
+      # UI Tests and UI Review is disabled in this project's Chromatic settings.
+      # Keep TurboSnap off here so documentation-only changes are published too.
+      - name: Publish Storybook
+        run: npx chromatic --branch-name=master --force-rebuild
