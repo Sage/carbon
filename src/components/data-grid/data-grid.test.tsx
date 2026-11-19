@@ -8,6 +8,8 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import I18nProvider from "../i18n-provider";
+import { useVirtualizer } from "@tanstack/react-virtual";
 
 import { ActionPopover } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
@@ -884,6 +886,38 @@ test("leaves keyboard handling with nested controls in non-action cells", async 
   expect(screen.getAllByRole("gridcell")[1]).not.toHaveFocus();
 });
 
+test("keeps resting action controls out of sequential tab order after rerenders", async () => {
+  const user = userEvent.setup();
+  const actionColumns: DataGridColumn<Row>[] = [
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "action",
+      renderCell: () => (
+        <button type="button" tabIndex={0}>
+          Action
+        </button>
+      ),
+    },
+  ];
+  render(
+    <>
+      <DataGrid aria-label="Items" rows={rows} columns={actionColumns} />
+      <button type="button">After</button>
+    </>,
+  );
+  const buttons = screen.getAllByRole("button", { name: "Action" });
+  buttons.forEach((button) => expect(button).toHaveAttribute("tabindex", "-1"));
+  act(() => screen.getAllByRole("gridcell")[0].focus());
+  await user.tab();
+  expect(screen.getByRole("button", { name: "After" })).toHaveFocus();
+  act(() => buttons[0].setAttribute("tabindex", "0"));
+  await waitFor(() => expect(buttons[0]).toHaveAttribute("tabindex", "-1"));
+  act(() => screen.getAllByRole("gridcell")[0].focus());
+  await user.keyboard("{Enter}");
+  expect(buttons[0]).toHaveFocus();
+});
+
 test("leaves keyboard handling with secondary controls in action cells", async () => {
   const user = userEvent.setup();
   const interactiveColumns: DataGridColumn<Row>[] = [
@@ -1099,6 +1133,171 @@ test("space focuses the dropdown editor without scrolling the grid", async () =>
   expect(grid.scrollTop).toBe(40);
 });
 
+test.each(["Enter", "Escape", "Tab"])(
+  "does not finish an edit on %s during IME composition",
+  async (key) => {
+    const user = userEvent.setup();
+    const onRowsChange = jest.fn();
+    render(
+      <DataGrid
+        aria-label="Items"
+        rows={rows}
+        columns={columns}
+        onRowsChange={onRowsChange}
+        enableTabNavigation
+      />,
+    );
+    await user.click(screen.getAllByRole("gridcell")[0]);
+    await user.keyboard(" updated");
+    const editor = screen.getByRole("textbox");
+    fireEvent.keyDown(editor, { key, isComposing: true });
+    fireEvent.compositionStart(editor);
+    fireEvent.keyDown(editor, { key });
+    expect(editor).toHaveFocus();
+    expect(onRowsChange).not.toHaveBeenCalled();
+    fireEvent.compositionEnd(editor);
+    await user.keyboard("{Enter}");
+    expect(onRowsChange).toHaveBeenCalledTimes(1);
+  },
+);
+
+test("uses localized header labels for editors and checkboxes", async () => {
+  const user = userEvent.setup();
+  const labelColumns = columns.map((column) => ({
+    ...column,
+    headerName: "",
+    headerAriaLabel: String(column.field),
+  }));
+  render(
+    <I18nProvider
+      locale={{
+        dataGrid: {
+          cellLabel: (header, rowNumber) => `${header}, ligne ${rowNumber}`,
+        },
+      }}
+    >
+      <DataGrid aria-label="Items" rows={rows} columns={labelColumns} />
+    </I18nProvider>,
+  );
+  expect(
+    screen.getByRole("checkbox", { name: "selected, ligne 1" }),
+  ).toBeVisible();
+  await user.click(screen.getAllByRole("gridcell")[0]);
+  expect(screen.getByRole("textbox", { name: "name, ligne 1" })).toHaveFocus();
+  await user.keyboard("{Escape}");
+  await user.click(screen.getAllByRole("gridcell")[1]);
+  expect(screen.getByRole("combobox", { name: "type, ligne 1" })).toHaveFocus();
+});
+
+test("keeps validation descriptions unique across grids and stable while editing", async () => {
+  const user = userEvent.setup();
+  const errorColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name", error: "First grid error" },
+  ];
+  render(
+    <>
+      <DataGrid
+        aria-label="First"
+        rows={rows.slice(0, 1)}
+        columns={errorColumns}
+      />
+      <DataGrid
+        aria-label="Second"
+        rows={rows.slice(0, 1)}
+        columns={[
+          { field: "name", headerName: "Name", error: "Second grid error" },
+        ]}
+      />
+    </>,
+  );
+  const cells = screen.getAllByRole("gridcell");
+  const firstId = cells[0].getAttribute("aria-describedby");
+  expect(firstId).not.toBe(cells[1].getAttribute("aria-describedby"));
+  expect(cells[0]).toHaveAccessibleDescription("First grid error");
+  expect(cells[1]).toHaveAccessibleDescription("Second grid error");
+  await user.click(cells[0]);
+  expect(screen.getByRole("textbox")).toHaveAttribute(
+    "aria-describedby",
+    firstId,
+  );
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "First grid error",
+  );
+});
+
+test.each([false, true])(
+  "restores a suspended editor without stealing external focus (%s)",
+  async (externalFocus) => {
+    const user = userEvent.setup();
+    const outside = document.createElement("button");
+    document.body.append(outside);
+    const virtualizer = jest.mocked(useVirtualizer);
+    const original =
+      virtualizer.getMockImplementation() as typeof useVirtualizer;
+    let indexes = [0, 1];
+    virtualizer.mockImplementation((options) => {
+      const instance = original(options);
+      instance.getVirtualItems = Object.assign(
+        () =>
+          indexes.map((index) => ({
+            index,
+            key: index,
+            start: index * 40 + 40,
+            end: index * 40 + 80,
+            size: 40,
+            lane: 0,
+          })),
+        { updateDeps: jest.fn() },
+      );
+      return instance;
+    });
+    try {
+      const manyRows = Array.from({ length: 100 }, (_, index) => ({
+        ...rows[0],
+        id: index,
+      }));
+      const grid = (
+        <DataGrid
+          aria-label="Items"
+          rows={manyRows}
+          columns={[columns[0]]}
+          maxHeight={240}
+        />
+      );
+      const { rerender } = render(grid);
+      await user.click(screen.getAllByRole("gridcell")[0]);
+      await user.keyboard(" draft");
+      indexes = [50, 51];
+      rerender(React.cloneElement(grid));
+      expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+      if (externalFocus) outside.focus();
+      indexes = Array.from({ length: 52 }, (_, index) => index);
+      rerender(React.cloneElement(grid));
+      const editor = screen.getByRole("textbox");
+      expect(editor).toHaveValue("One draft");
+      expect(editor).toHaveAttribute("tabindex", externalFocus ? "-1" : "0");
+      expect(externalFocus ? outside : editor).toHaveFocus();
+    } finally {
+      virtualizer.mockImplementation(original);
+      outside.remove();
+    }
+  },
+);
+
+test("preserves editor selection across grid rerenders", async () => {
+  const user = userEvent.setup();
+  const { rerender } = render(
+    <DataGrid aria-label="Items" rows={rows} columns={columns} />,
+  );
+  await user.click(screen.getAllByRole("gridcell")[0]);
+  const editor = screen.getByRole("textbox") as HTMLInputElement;
+  editor.setSelectionRange(0, 2);
+  rerender(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
+  expect(editor).toHaveFocus();
+  expect(editor.selectionStart).toBe(0);
+  expect(editor.selectionEnd).toBe(2);
+});
+
 test("tab commits once and moves to the next cell when enabled", async () => {
   const user = userEvent.setup();
   const onRowsChange = jest.fn();
@@ -1148,6 +1347,66 @@ test("Tab and Shift+Tab navigate linearly across row boundaries", async () => {
   await user.keyboard("{Shift>}{Tab}{/Shift}");
   expect(cells[2]).toHaveFocus();
 });
+
+test.each([false, true])(
+  "Tab leaves the grid at a boundary (backwards: %s)",
+  async (backwards) => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <button type="button">Before</button>
+        <DataGrid
+          aria-label="Items"
+          rows={rows}
+          columns={columns}
+          enableTabNavigation
+        />
+        <button type="button">After</button>
+      </>,
+    );
+    const cells = screen.getAllByRole("gridcell");
+    act(() => cells[backwards ? 0 : cells.length - 1].focus());
+    await user.tab({ shift: backwards });
+    expect(
+      screen.getByRole("button", { name: backwards ? "Before" : "After" }),
+    ).toHaveFocus();
+  },
+);
+
+test.each([false, true])(
+  "Tab commits an editor when leaving the grid (backwards: %s)",
+  async (backwards) => {
+    const user = userEvent.setup();
+    const onRowsChange = jest.fn();
+    render(
+      <>
+        <button type="button">Before</button>
+        <DataGrid
+          aria-label="Items"
+          rows={rows}
+          columns={[columns[0]]}
+          enableTabNavigation
+          onRowsChange={onRowsChange}
+        />
+        <button type="button">After</button>
+      </>,
+    );
+    const cells = screen.getAllByRole("gridcell");
+    await user.click(cells[backwards ? 0 : cells.length - 1]);
+    await user.keyboard(" updated");
+    await user.tab({ shift: backwards });
+    expect(
+      screen.getByRole("button", { name: backwards ? "Before" : "After" }),
+    ).toHaveFocus();
+    expect(onRowsChange).toHaveBeenCalledTimes(1);
+    expect(onRowsChange).toHaveBeenCalledWith(
+      expect.any(Array),
+      expect.objectContaining({
+        value: backwards ? "One updated" : "Two updated",
+      }),
+    );
+  },
+);
 
 test("commits a dropdown selection and restores focus", async () => {
   const user = userEvent.setup();

@@ -5,7 +5,7 @@ import Locale from "./locale";
 const isSingular = (count: string | number): boolean =>
   (typeof count === "string" ? parseInt(count) : count) === 1;
 
-const enGB: Locale = {
+const enGB: Locale & { dataGrid: NonNullable<Locale["dataGrid"]> } = {
   locale: () => "en-GB",
   actions: {
     edit: () => "Edit",
@@ -33,6 +33,9 @@ const enGB: Locale = {
   confirm: {
     no: () => "No",
     yes: () => "Yes",
+  },
+  dataGrid: {
+    cellLabel: (header, rowNumber) => `${header}, row ${rowNumber}`,
   },
   characterCount: {
     tooManyCharacters: (count, formattedCount) =>

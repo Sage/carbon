@@ -207,6 +207,7 @@ const DataGridInner = <T extends object>(
     focusAction,
   } = useDataGridNavigation({
     rowCount: rows.length,
+    renderedRowIndexes: virtualization.renderedRowIndexes,
     columns,
     columnModel,
     scrollElementRef: viewportRef,

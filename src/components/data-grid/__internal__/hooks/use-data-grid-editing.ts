@@ -39,6 +39,7 @@ const useDataGridEditing = <T extends object>({
   const editorRef = useRef<HTMLInputElement>(null);
   const restoreFocus = useRef<DataGridCellIdentity | null>(null);
   const finishingEdit = useRef(false);
+  const initializedEditor = useRef<HTMLInputElement | null>(null);
 
   const beginEdit = useCallback(
     (position: DataGridCellPosition, appendedText?: string) => {
@@ -50,6 +51,7 @@ const useDataGridEditing = <T extends object>({
       }
 
       finishingEdit.current = false;
+      initializedEditor.current = null;
       activateCell(position);
       ensureCellVisible(position);
       setDraftValue(
@@ -111,8 +113,20 @@ const useDataGridEditing = <T extends object>({
   useEffect(() => {
     if (!editingIdentity) return;
     const editor = editorRef.current;
-    editor?.focus();
-    if (editor instanceof HTMLInputElement) {
+    if (!editor || initializedEditor.current === editor) return;
+    const previousEditor = initializedEditor.current;
+    initializedEditor.current = editor;
+    if (previousEditor) {
+      if (document.activeElement === document.body) {
+        editor.focus({ preventScroll: true });
+      }
+      editor.setSelectionRange(
+        previousEditor.selectionStart,
+        previousEditor.selectionEnd,
+        previousEditor.selectionDirection ?? undefined,
+      );
+    } else {
+      editor.focus();
       const end = editor.value.length;
       editor.setSelectionRange(end, end);
     }

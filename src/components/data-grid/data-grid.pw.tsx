@@ -4,6 +4,183 @@ import type { Page } from "@playwright/test";
 import { expect, test } from "../../../playwright/helpers/base-test";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import DataGridComponent from "./components.test-pw";
+import { DataGrid } from ".";
+
+test("Tab exits both grid boundaries in navigation and edit modes", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <>
+      <button type="button">Before grid</button>
+      <DataGrid
+        aria-label="Boundary grid"
+        rows={[{ id: 1, name: "One" }]}
+        columns={[{ field: "name", headerName: "Name" }]}
+        enableTabNavigation
+      />
+      <button type="button">After grid</button>
+    </>,
+  );
+  const gridCell = page.getByRole("gridcell");
+  for (const { key, destination } of [
+    { key: "Tab", destination: "After grid" },
+    { key: "Shift+Tab", destination: "Before grid" },
+  ]) {
+    const outside = page.getByRole("button", { name: destination });
+    await gridCell.focus();
+    await page.keyboard.press(key);
+    await expect(outside).toBeFocused();
+
+    await gridCell.focus();
+    await page.keyboard.press("Enter");
+    await page.getByRole("textbox").fill("Updated");
+    await page.keyboard.press(key);
+    await expect(outside).toBeFocused();
+    await expect(page.getByRole("textbox")).toHaveCount(0);
+  }
+});
+
+test("scrolling preserves the text editor caret and selection", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent rowCount={100} />);
+  await page.locator('[data-element="data-grid-cell-1-name"]').click();
+  const editor = page.getByRole("textbox", { name: "Name, row 1" });
+  await editor.evaluate((element: HTMLInputElement) =>
+    element.setSelectionRange(1, 3),
+  );
+  await page.getByRole("grid").evaluate((element) => {
+    element.scrollTop = 80;
+  });
+  await expect
+    .poll(() =>
+      editor.evaluate((element: HTMLInputElement) => [
+        element.selectionStart,
+        element.selectionEnd,
+      ]),
+    )
+    .toEqual([1, 3]);
+  await expect(editor).toBeFocused();
+});
+
+test("virtualizing an editor preserves its draft and selection without committing", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent rowCount={100} />);
+  const nameCell = page.locator('[data-element="data-grid-cell-1-name"]');
+  await nameCell.click();
+  const editor = page.getByRole("textbox", { name: "Name, row 1" });
+  await editor.fill("Uncommitted draft");
+  await editor.evaluate((element: HTMLInputElement) =>
+    element.setSelectionRange(1, 4),
+  );
+  const grid = page.getByRole("grid");
+  await grid.evaluate((element) => {
+    element.scrollTop = 2000;
+  });
+  await expect(editor).toHaveCount(0);
+  await grid.evaluate((element) => {
+    element.scrollTop = 0;
+  });
+  await expect(editor).toHaveValue("Uncommitted draft");
+  await expect(editor).toHaveAttribute("tabindex", "0");
+  await expect(editor).toBeFocused();
+  await expect
+    .poll(() =>
+      editor.evaluate((element: HTMLInputElement) => [
+        element.selectionStart,
+        element.selectionEnd,
+      ]),
+    )
+    .toEqual([1, 4]);
+  await page.keyboard.press("Escape");
+  await expect(nameCell).toHaveText("Line 1");
+});
+
+test("wheel scrolling down and back does not commit a suspended edit", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <DataGridComponent rowCount={1000} maxHeight="520px" rowOverscan={6} />,
+  );
+  const nameCell = page.locator('[data-element="data-grid-cell-1-name"]');
+  await nameCell.click();
+  const editor = page.getByRole("textbox", { name: "Name, row 1" });
+  await editor.fill("Uncommitted draft");
+  await editor.evaluate((element: HTMLInputElement) =>
+    element.setSelectionRange(2, 5),
+  );
+  const grid = page.getByRole("grid");
+  await grid.hover();
+  for (const delta of [
+    600, 600, 600, 600, 600, 600, 600, -80, -520, -600, -600, -600, -600, -600,
+    -600,
+  ]) {
+    const previous = await grid.evaluate((element) => element.scrollTop);
+    await page.mouse.wheel(0, delta);
+    await expect
+      .poll(() => grid.evaluate((element) => element.scrollTop))
+      .toBe(previous + delta);
+  }
+  await expect(editor).toBeFocused();
+  await expect(editor).toHaveValue("Uncommitted draft");
+  await expect
+    .poll(() =>
+      editor.evaluate((element: HTMLInputElement) => [
+        element.selectionStart,
+        element.selectionEnd,
+      ]),
+    )
+    .toEqual([2, 5]);
+  await page.keyboard.type("X");
+  await expect(editor).toHaveValue("UnXmitted draft");
+  await page.keyboard.press("Escape");
+  await expect(nameCell).toHaveText("Line 1");
+});
+
+test("virtualized text grids retain a tab stop without stealing external focus", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <>
+      <DataGrid
+        aria-label="Virtual text"
+        rows={Array.from({ length: 100 }, (_, index) => ({
+          id: index,
+          name: `Row ${index}`,
+        }))}
+        columns={[{ field: "name", headerName: "Name" }]}
+        maxHeight={240}
+      />
+      <button type="button">Outside grid</button>
+    </>,
+  );
+  const grid = page.getByRole("grid");
+  await grid.getByRole("gridcell").first().focus();
+  await grid.evaluate((element) => {
+    element.scrollTop = 2000;
+  });
+  const tabStop = grid.locator('[role="gridcell"][tabindex="0"]');
+  await expect(tabStop).toHaveCount(1);
+  await expect(tabStop).toBeFocused();
+  await page.getByRole("button", { name: "Outside grid" }).focus();
+  await grid.evaluate((element) => {
+    element.scrollTop = 0;
+  });
+  await expect(grid.getByRole("gridcell").first()).toHaveAttribute(
+    "data-element",
+    "data-grid-cell-0-name",
+  );
+  await expect(tabStop).toHaveCount(1);
+  await expect(
+    page.getByRole("button", { name: "Outside grid" }),
+  ).toBeFocused();
+});
 
 const cell = (page: Page, rowId: number, field: string) =>
   page.locator(`[data-element="data-grid-cell-${String(rowId)}-${field}"]`);

@@ -57,6 +57,7 @@ const toCssSize = (value?: number | string) =>
   typeof value === "number" ? `${value}px` : value;
 
 export const StyledDataGridWrapper = styled.div.attrs(applyBaseTheme)`
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   width: 100%;
