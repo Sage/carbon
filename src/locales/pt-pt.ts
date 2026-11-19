@@ -13,6 +13,7 @@ const ptPT: Partial<Locale> = {
   },
   actionPopover: {
     ariaLabel: () => "ações",
+    buttonLabel: () => "Ações",
   },
   advancedColorPicker: {
     ariaLabel: () => "Alterar cor",

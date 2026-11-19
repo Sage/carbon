@@ -13,6 +13,7 @@ const deDE: Partial<Locale> = {
   },
   actionPopover: {
     ariaLabel: () => "Aktionen",
+    buttonLabel: () => "Aktionen",
   },
   advancedColorPicker: {
     ariaLabel: () => "Farbe ändern",
