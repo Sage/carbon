@@ -33,7 +33,7 @@ const meta: Meta<typeof FileInput> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof FileInput>;
+type Story = StoryObj<typeof meta>;
 
 const ParentContainer = styled.div<{ $width: string }>`
   box-sizing: border-box;
@@ -72,35 +72,44 @@ const SelectedFileInput = (props: SelectedFileInputProps) => {
   );
 };
 
-export const Default: Story = () => {
-  const [uploadStatus, setUploadStatus] = useState<
-    FileUploadStatusProps | undefined
-  >();
-  const [error, setError] = useState<string | undefined>();
-  const onChange = (files: FileList) => {
-    action("onChange")(files);
-    if (files.length > 1) {
-      setError("Select only one file");
-      return;
-    }
-    const file = files[0];
-    if (!file) return;
-    setError(undefined);
-    setUploadStatus({
-      status: "completed",
-      filename: file.name,
-      onDelete: () => setUploadStatus(undefined),
-    });
-  };
+export const Default: Story = {
+  args: {
+    label: "File input",
+    multiple: false,
+  },
+  argTypes: {
+    multiple: { control: false },
+  },
+  render: (args) => {
+    const [uploadStatus, setUploadStatus] = useState<
+      FileUploadStatusProps | undefined
+    >();
+    const [error, setError] = useState<string | undefined>();
+    const onChange = (files: FileList) => {
+      action("onChange")(files);
+      if (files.length > 1) {
+        setError("Select only one file");
+        return;
+      }
+      const file = files[0];
+      if (!file) return;
+      setError(undefined);
+      setUploadStatus({
+        status: "completed",
+        filename: file.name,
+        onDelete: () => setUploadStatus(undefined),
+      });
+    };
 
-  return (
-    <FileInput
-      label="File input"
-      onChange={onChange}
-      uploadStatus={uploadStatus}
-      error={error}
-    />
-  );
+    return (
+      <FileInput
+        {...args}
+        onChange={onChange}
+        uploadStatus={args.uploadStatus ?? uploadStatus}
+        error={args.error ?? error}
+      />
+    );
+  },
 };
 Default.storyName = "Default";
 

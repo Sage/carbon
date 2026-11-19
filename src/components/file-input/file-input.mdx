@@ -25,6 +25,7 @@ Allows one or more files to be selected or dropped and presents their controlled
 - [Examples](#examples)
 - [Validation states](#validation-states)
 - [Props](#props)
+- [Migrating upload item props (`uploadStatus` entries)](#migrating-upload-item-props-uploadstatus-entries)
 - [Translation keys](#translation-keys)
 
 ## Quick Start
@@ -280,15 +281,60 @@ By default, the input error message appears below the label set, after the hint 
 
 Props for `uploadStatus` are discriminated by `status`. Use `onCancel` for uploading, `onDelete` for completed files, and `onRemove` plus optional `onRetry` for failures. In single-file mode, a previously uploaded file shows Delete when given `onDelete`; previously uploaded files are read-only in multiple-file mode, where `onDelete` is ignored. The deprecated `onAction` remains a primary-action fallback. Completed and previous files accept optional `href`; filenames remain text. Every status accepts an optional decorative `thumbnailSrc`.
 
-#### Migrating status props
+#### Migrating upload item props (`uploadStatus` entries)
 
-- Use `href` to provide the Preview link for completed and previously uploaded files.
-- Replace the deprecated `onAction` with `onCancel` for uploading files, `onDelete` for completed and previously uploaded files, and `onRemove` for failed files.
-- Remove Link-only props from completed and previously uploaded statuses; the Preview action is now a button-styled link and no longer
-  accepts `download`, `icon`, `iconAlign`, `underline`, `tooltipMessage`, `tooltipPosition`, `ariaLabel`, `removeAriaLabelOnIcon`,
-  `isSkipLink`, `onMouseDown`, or ARIA attributes other than `aria-describedby` and `aria-labelledby`. Its accessible name is set
-  internally from the localized Preview text and the filename.
-- `message` is now displayed for `status: "previously"`, so remove any value you do not want shown.
+`onAction` still works as a deprecated fallback, but new code should use the callback that matches each status:
+
+| `status` value | Preferred callback(s) | Legacy fallback |
+| -------------- | --------------------- | --------------- |
+| `uploading` | `onCancel` | `onAction` |
+| `completed` | `onDelete` (+ optional `href` for Preview) | `onAction` |
+| `error` | `onRemove` (+ optional `onRetry`) | `onAction` |
+| `previously` | optional `onDelete` (+ optional `href` for Preview) | `onAction` |
+
+Status-by-status examples:
+
+```tsx
+// uploading
+{ status: "uploading", filename: "invoice.pdf", onAction: cancelUpload }; // before
+{ status: "uploading", filename: "invoice.pdf", onCancel: cancelUpload }; // after
+
+// completed
+{ status: "completed", filename: "invoice.pdf", onAction: deleteUpload }; // before
+{
+  status: "completed",
+  filename: "invoice.pdf",
+  onDelete: deleteUpload,
+  href: "/invoices/invoice.pdf",
+}; // after
+
+// error
+{ status: "error", filename: "invoice.pdf", onAction: removeFailedUpload }; // before
+{
+  status: "error",
+  filename: "invoice.pdf",
+  onRemove: removeFailedUpload,
+  onRetry: retryUpload,
+}; // after
+
+// previously
+{ status: "previously", filename: "invoice.pdf", onAction: deleteUpload }; // before
+{
+  status: "previously",
+  filename: "invoice.pdf",
+  onDelete: deleteUpload,
+  href: "/invoices/invoice.pdf",
+}; // after
+```
+
+- For completed and previously uploaded files, Preview is now rendered as a button-styled link with a fixed accessible name format:
+  "`Preview` + filename" (localized). Do not pass link-only props such as `download`, `icon`, `iconAlign`, `underline`,
+  `tooltipMessage`, `tooltipPosition`, `ariaLabel`, `removeAriaLabelOnIcon`, `isSkipLink`, or `onMouseDown`.
+- For `status: "previously"`, `message` is now shown in the UI. If you do not want extra text under the filename, omit `message`.
+- `onDelete` for `status: "previously"` behaves differently by mode:
+  in single-file mode, Delete is shown so users can replace the current file;
+  in `multiple` mode, previously uploaded items are treated as historical read-only entries, so passing `onDelete` has no effect and no Delete action is shown.
+  Users can still delete current uploaded files in `multiple` mode via `status: "completed"` with `onDelete`.
 
 <ArgTypes of={FileUploadStatusStories} />
 
