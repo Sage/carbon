@@ -113,6 +113,53 @@ test("begins, commits, and cancels text editing while restoring focus", () => {
   input.remove();
 });
 
+test("keeps draft and commit callbacks stable while the draft changes", () => {
+  const { result } = setup();
+  act(() => result.current.beginEdit(position));
+  const { commitEdit, commitEditOnBlur, setDraftValue } = result.current;
+  act(() => setDraftValue("Updated"));
+  expect(result.current.draftValue).toBe("Updated");
+  expect(result.current.setDraftValue).toBe(setDraftValue);
+  expect(result.current.commitEdit).toBe(commitEdit);
+  expect(result.current.commitEditOnBlur).toBe(commitEditOnBlur);
+});
+
+test("commits the latest draft when updates and commit occur before rerendering", () => {
+  const { result, onCellCommit } = setup();
+  act(() => result.current.beginEdit(position));
+  const { setDraftValue, commitEdit } = result.current;
+  act(() => {
+    setDraftValue("Intermediate");
+    setDraftValue("Latest");
+    commitEdit();
+  });
+  expect(onCellCommit).toHaveBeenCalledTimes(1);
+  expect(onCellCommit).toHaveBeenCalledWith(
+    expect.objectContaining({ value: "Latest" }),
+  );
+});
+
+test("starts a fresh draft after cancelling a previous edit", () => {
+  const { result, onCellCommit } = setup();
+  act(() => result.current.beginEdit(position));
+  act(() => result.current.setDraftValue("Discarded"));
+  act(() => result.current.cancelEdit());
+  act(() => result.current.beginEdit(position, "!"));
+  act(() => result.current.commitEdit());
+  expect(onCellCommit).toHaveBeenCalledTimes(1);
+  expect(onCellCommit).toHaveBeenCalledWith(
+    expect.objectContaining({ value: "Alpha!" }),
+  );
+});
+
+test("does not commit when the edited row disappears before a rerender", () => {
+  const { result, onCellCommit, positionForIdentity } = setup();
+  act(() => result.current.beginEdit(position));
+  positionForIdentity.mockReturnValue(null);
+  act(() => result.current.commitEdit());
+  expect(onCellCommit).not.toHaveBeenCalled();
+});
+
 test.each([
   { direction: "backward", externalFocus: false },
   { direction: null, externalFocus: false },
