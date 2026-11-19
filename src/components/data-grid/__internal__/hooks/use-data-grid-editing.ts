@@ -35,11 +35,17 @@ const useDataGridEditing = <T extends object>({
   const [editingIdentity, setEditingIdentity] =
     useState<DataGridCellIdentity | null>(null);
   const editing = editingIdentity ? positionForIdentity(editingIdentity) : null;
-  const [draftValue, setDraftValue] = useState<unknown>("");
+  const [draftValue, setDraftState] = useState<unknown>("");
+  const draftValueRef = useRef<unknown>("");
   const editorRef = useRef<HTMLInputElement>(null);
   const restoreFocus = useRef<DataGridCellIdentity | null>(null);
   const finishingEdit = useRef(false);
   const initializedEditor = useRef<HTMLInputElement | null>(null);
+
+  const setDraftValue = useCallback((value: unknown) => {
+    draftValueRef.current = value;
+    setDraftState(value);
+  }, []);
 
   const beginEdit = useCallback(
     (position: DataGridCellPosition, appendedText?: string) => {
@@ -68,11 +74,12 @@ const useDataGridEditing = <T extends object>({
       identityFor,
       isCellReadOnly,
       onCellCommit,
+      setDraftValue,
     ],
   );
 
   const commitEdit = useCallback(
-    (shouldRestoreFocus = false, value = draftValue) => {
+    (shouldRestoreFocus = false, value = draftValueRef.current) => {
       if (finishingEdit.current) {
         // A native editor may blur immediately before its keydown handler
         // commits. Keep the first data commit, but allow the keyboard commit
@@ -82,13 +89,16 @@ const useDataGridEditing = <T extends object>({
         }
         return;
       }
-      if (!editing) return;
+      const position = editingIdentity
+        ? positionForIdentity(editingIdentity)
+        : null;
+      if (!position) return;
       finishingEdit.current = true;
-      onCellCommit({ ...getCellParams(editing), value });
+      onCellCommit({ ...getCellParams(position), value });
       restoreFocus.current = shouldRestoreFocus ? editingIdentity : null;
       setEditingIdentity(null);
     },
-    [draftValue, editing, editingIdentity, getCellParams, onCellCommit],
+    [editingIdentity, getCellParams, onCellCommit, positionForIdentity],
   );
 
   const commitEditOnBlur = useCallback(

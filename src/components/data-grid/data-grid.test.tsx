@@ -1103,6 +1103,26 @@ test("Enter enters edit mode, commits a value, and returns focus to the cell", a
   expect(cell).toHaveFocus();
 });
 
+test("typing does not rerender unrelated rows", async () => {
+  const user = userEvent.setup();
+  const renderValue = jest.fn(({ value }: DataGridCellParams<Row>) =>
+    String(value),
+  );
+  const renderColumns: DataGridColumn<Row>[] = [
+    { field: "name", headerName: "Name" },
+    { field: "type", headerName: "Type", renderCell: renderValue },
+  ];
+  render(<DataGrid aria-label="Items" rows={rows} columns={renderColumns} />);
+  await user.click(screen.getAllByRole("gridcell")[0]);
+  renderValue.mockClear();
+  await user.keyboard(" updated");
+  expect(screen.getByRole("textbox")).toHaveValue("One updated");
+  expect(renderValue).toHaveBeenCalled();
+  expect(renderValue).not.toHaveBeenCalledWith(
+    expect.objectContaining({ rowId: 2 }),
+  );
+});
+
 test("enter focuses the dropdown editor", async () => {
   const user = userEvent.setup();
   render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
