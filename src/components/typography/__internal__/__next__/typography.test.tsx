@@ -1500,6 +1500,27 @@ it.each([
 });
 
 describe("Attributes (id, aria-hidden, aria-live, role)", () => {
+  it.each([true, false, "true", "false"] as const)(
+    "forwards aria-atomic=%s to a screen-reader live region",
+    (atomic) => {
+      render(
+        <Typography
+          as="div"
+          screenReaderOnly
+          role="status"
+          aria-live="polite"
+          aria-atomic={atomic}
+        >
+          Moved item
+        </Typography>,
+      );
+      expect(screen.getByRole("status")).toHaveAttribute(
+        "aria-atomic",
+        String(atomic),
+      );
+    },
+  );
+
   it("should set id attribute when provided", () => {
     render(<Typography id="test-id">Text with ID</Typography>);
 

@@ -1,5 +1,7 @@
 /* istanbul ignore file: Test with Playwright for better reliability */
 
+import type { DragPreview } from "./drop-placement";
+
 /** Helper functions for safer type checking. */
 
 const PRIVATE_DRAGGABLE_KEY = Symbol("drag");
@@ -11,18 +13,26 @@ export type Draggable = {
   id: string;
   /** The index of the draggable item when dragging was initiated */
   initialIndex: number;
-  /** Bounding rectangle of the draggable item  */
-  rect: DOMRect;
   /** Unique identifier of the context instance the item belongs to */
   contextId: symbol;
+  /** Optional group linking otherwise independent containers. */
+  groupId?: symbol;
+  /** Native drag preview dimensions and pointer offset, captured at drag start. */
+  preview?: DragPreview;
 };
 
 export type DropTarget = {
   [PRIVATE_DROP_TARGET_KEY]: true;
   /** Unique identifier of the drop target */
-  id: string;
+  id: string | null;
   /** Unique identifier of the context instance the drop target belongs to */
   contextId: symbol;
+  /** Optional group linking otherwise independent containers. */
+  groupId?: symbol;
+  /** Visual edge of the resolved item. Empty containers have no edge. */
+  position?: "top" | "bottom" | "left" | "right";
+  /** Logical insertion side, independent of layout direction. */
+  placement?: "before" | "after";
 };
 
 export function getDraggable(

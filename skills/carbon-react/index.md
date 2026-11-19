@@ -46,6 +46,7 @@
 - [Divider](components/divider.md) — A vertical or horizontal line that visually separates adjacent content.
 - [Dl](components/dl.md)
 - [DraggableContainer](components/draggable-container.md)
+- [DraggableContainerGroup](components/draggable-container-group.md)
 - [DraggableItem](components/draggable-item.md)
 - [Drawer](components/drawer.md) — Displays sidebar content alongside a main content area.
 - [Dropdown](components/dropdown.md)

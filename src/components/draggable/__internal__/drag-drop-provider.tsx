@@ -3,6 +3,7 @@
 import React, { createContext, useEffect } from "react";
 import { Draggable, DropTarget, isDraggable, isDropTarget } from "./data";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import type { RegisteredDropItem } from "./drop-placement";
 
 export interface DragDropProviderProps {
   children: React.ReactNode;
@@ -12,11 +13,19 @@ export interface DragDropProviderProps {
    * Provides data about the dragged item and the drop target (if any) as arguments.
    */
   onDrop?: (args: { dragged: Draggable; target: DropTarget | null }) => void;
+  /** Context identifier for the drag and drop instance. */
+  contextId?: symbol;
+  /** Group identifier for the drag and drop instance. */
+  groupId?: symbol;
+  registerItem?: (item: RegisteredDropItem) => () => void;
 }
 
 type DragDropContextType = {
   /** Identifier of the context instance. */
   contextId: symbol;
+  /** Identifier of the group instance. */
+  groupId?: symbol;
+  registerItem?: (item: RegisteredDropItem) => () => void;
 };
 
 const Context = createContext<DragDropContextType | null>(null);
@@ -28,9 +37,13 @@ export function useDragDropContext() {
 export const DragDropProvider = ({
   children,
   onDrop,
+  contextId: providedContextId,
+  groupId,
+  registerItem,
 }: DragDropProviderProps) => {
   // Symbol guarantees a unique id for each DragDropProvider instance
-  const [contextId] = React.useState(() => Symbol("draggable-context"));
+  const [localContextId] = React.useState(() => Symbol("draggable-context"));
+  const contextId = providedContextId ?? localContextId;
 
   useEffect(() => {
     return monitorForElements({
@@ -61,5 +74,9 @@ export const DragDropProvider = ({
     });
   }, [contextId, onDrop]);
 
-  return <Context.Provider value={{ contextId }}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={{ contextId, groupId, registerItem }}>
+      {children}
+    </Context.Provider>
+  );
 };
