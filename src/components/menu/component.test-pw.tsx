@@ -325,10 +325,12 @@ export const ClosedMenuFullScreenWithButtons = () => {
       <button type="button" id="button-1">
         Button 1
       </button>
-      <MenuFullscreen isOpen={false} onClose={() => {}}>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-      </MenuFullscreen>
+      <Menu>
+        <MenuFullscreen isOpen={false} onClose={() => {}}>
+          <MenuItem href="#">Menu Item One</MenuItem>
+          <MenuItem href="#">Menu Item Two</MenuItem>
+        </MenuFullscreen>
+      </Menu>
       <button type="button" id="button-2">
         Button 2
       </button>

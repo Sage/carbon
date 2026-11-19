@@ -13,7 +13,6 @@ const [StepFlowProvider, useStepFlowContext] =
     name: "StepFlowContext",
     errorMessage:
       "Carbon StepFlow: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    defaultValue: {},
   });
 
 export { StepFlowProvider, useStepFlowContext };

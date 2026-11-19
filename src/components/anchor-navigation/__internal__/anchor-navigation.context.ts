@@ -6,7 +6,6 @@ export interface AnchorNavigationItemEntry {
 }
 
 export interface AnchorNavigationContextProps {
-  isInAnchorNavigation: boolean;
   selectedItem: HTMLAnchorElement | null;
   registerItem: (
     element: HTMLAnchorElement,
@@ -23,12 +22,6 @@ const [AnchorNavigationProvider, useAnchorNavigationContext] =
     name: "AnchorNavigationContext",
     errorMessage:
       "Carbon AnchorNavigation: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    defaultValue: {
-      isInAnchorNavigation: false,
-      selectedItem: null,
-      registerItem: () => () => {},
-      activateItem: /* istanbul ignore next */ () => {},
-    },
   });
 
 export { AnchorNavigationProvider, useAnchorNavigationContext };

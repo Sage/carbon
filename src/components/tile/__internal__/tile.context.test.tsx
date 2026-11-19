@@ -1,16 +1,14 @@
 import { renderHook } from "@testing-library/react";
-import Logger from "../../../__internal__/utils/logger";
 import { useTileContext } from "./tile.context";
 
-test("default context setters are safe no-ops outside provider", () => {
-  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+test("throws when used outside provider", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
 
-  const { result } = renderHook(() => useTileContext());
+  expect(() => renderHook(() => useTileContext())).toThrow(
+    "Carbon Tile: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  );
 
-  expect(result.current.hasFooter).toBe(false);
-  expect(result.current.footerVariant).toBeUndefined();
-  expect(() => result.current.setHasFooter(true)).not.toThrow();
-  expect(() => result.current.setFooterVariant("selected")).not.toThrow();
-
-  loggerSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
 });

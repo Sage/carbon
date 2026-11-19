@@ -200,7 +200,6 @@ const AnchorNavigation = ({
 
   const contextValue = useMemo(
     () => ({
-      isInAnchorNavigation: true,
       selectedItem,
       registerItem,
       activateItem,
