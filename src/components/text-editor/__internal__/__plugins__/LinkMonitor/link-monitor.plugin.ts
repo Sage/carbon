@@ -30,8 +30,21 @@ const LinkMonitorPlugin = () => {
         const isEditable = editor.isEditable();
         if (!isEditable) return;
 
+        /*
+         * Since the Lexical 0.38.2 to 0.53.0 upgrade, editing an AutoLinkNode
+         * can replace it with a new node. The mutation batch may list the new
+         * node as created before the previous node as destroyed. Reporting
+         * them in that order leaves onLinkAdded with the previous URL as its
+         * latest value (for example, google.co after typing google.com).
+         * Report destroyed nodes first so the replacement URL comes last.
+         */
+        const orderedMutations = [...mutatedNodes].sort(
+          ([, first], [, second]) =>
+            Number(second === "destroyed") - Number(first === "destroyed"),
+        );
+
         // For each AutoLinkNode, check if the text content is present and also a valid URL
-        for (const [nodeKey, mutation] of mutatedNodes) {
+        for (const [nodeKey, mutation] of orderedMutations) {
           const node = editor.getElementByKey(nodeKey);
           const textContent = node?.innerText;
 

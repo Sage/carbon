@@ -75,8 +75,14 @@ export class MentionNode extends TextNode {
     };
   }
 
-  static importJSON(serializedNode: SerializedMentionNode): MentionNode {
-    return new MentionNode(serializedNode.mention, serializedNode.text);
+  static importJSON(
+    serializedNode:
+      | SerializedMentionNode
+      | Parameters<typeof TextNode.importJSON>[0],
+  ): MentionNode {
+    const { mention, text } =
+      serializedNode as unknown as SerializedMentionNode;
+    return new MentionNode(mention, text);
   }
 
   // Ignored from coverage as this just prevents
