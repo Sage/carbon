@@ -208,8 +208,8 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         {...marginProps}
         tabIndex={-1}
       >
-        <MessageWrapper data-element="message-wrapper">
-          {!isSubtle && renderVariantIcon()}
+        {!isSubtle && renderVariantIcon()}
+        <MessageWrapper>
           <MessageContent
             data-role="message-content"
             size={size}
