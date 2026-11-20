@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 
 import {
   DataGridApi,
@@ -29,9 +29,18 @@ const useDataGridRows = <T extends object>({
   onRowsChange,
   onRowsChangeResult,
 }: UseDataGridRowsOptions<T>) => {
+  const pending = useRef({ source: rows, rows });
+  const getRows = useCallback(() => {
+    if (pending.current.source !== rows) {
+      pending.current = { source: rows, rows };
+    }
+    return pending.current.rows;
+  }, [rows]);
+
   const emit = useCallback(
     (result: DataGridRowsChangeResult<T> | null) => {
       if (!result) return;
+      pending.current.rows = result.rows;
       onRowsChange?.(result.rows, result.change);
       onRowsChangeResult?.(result);
     },
@@ -40,23 +49,25 @@ const useDataGridRows = <T extends object>({
 
   const commitCellChange = useCallback(
     (params: DataGridCellCommitParams<T>) => {
-      emit(updateDataGridCell(rows, params, getRowId));
+      emit(updateDataGridCell(getRows(), params, getRowId));
     },
-    [emit, getRowId, rows],
+    [emit, getRowId, getRows],
   );
 
   const api = useMemo<DataGridApi<T>>(
     () => ({
-      addRow: (row) => emit(addDataGridRow(rows, row, getRowId)),
+      addRow: (row) => emit(addDataGridRow(getRows(), row, getRowId)),
       insertRow: (row, insertion) =>
-        emit(insertDataGridRow(rows, row, insertion, getRowId)),
+        emit(insertDataGridRow(getRows(), row, insertion, getRowId)),
       duplicateRow: (sourceRowId, row, position = "after") =>
-        emit(duplicateDataGridRow(rows, sourceRowId, row, position, getRowId)),
-      deleteRow: (rowId) => emit(deleteDataGridRow(rows, rowId, getRowId)),
+        emit(
+          duplicateDataGridRow(getRows(), sourceRowId, row, position, getRowId),
+        ),
+      deleteRow: (rowId) => emit(deleteDataGridRow(getRows(), rowId, getRowId)),
       moveRow: (rowId, toIndex) =>
-        emit(moveDataGridRow(rows, rowId, toIndex, getRowId)),
+        emit(moveDataGridRow(getRows(), rowId, toIndex, getRowId)),
     }),
-    [emit, getRowId, rows],
+    [emit, getRowId, getRows],
   );
 
   return { api, commitCellChange };
