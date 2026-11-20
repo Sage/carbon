@@ -1,46 +1,84 @@
-import { render, screen, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import Tabs, { Tab, TabList, TabPanel } from "./tabs.component";
-import Icon from "../../icon";
-import Typography from "../../typography";
-import { assertLoggerComponentMessage } from "../../../__spec_helper__/__internal__/test-utils";
+import { Tabs, Tab, TabList, TabPanel } from ".";
+import type { TabsHandle, TabsProps } from ".";
 import Textbox from "../../textbox";
-import { TabsHandle } from "./tabs.types";
-import Button from "../../button";
-import { StyledTabList, TAB_LIST_FOCUS_PADDING } from "./tabs.style";
+import I18nProvider from "../../i18n-provider";
+import { enGB } from "../../../locales";
+import { assertLoggerComponentMessage } from "../../../__spec_helper__/__internal__/test-utils";
 
-const TestComponent = ({ ...args }) => {
-  return (
-    <Tabs {...args}>
-      <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
-        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
-        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
-      </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-        <button data-role="test-button">Test button</button>
-      </TabPanel>
-      <TabPanel id="tab-panel-2" tabId="tab-2">
-        <Typography>Content 2</Typography>
-      </TabPanel>
-      <TabPanel id="tab-panel-3" tabId="tab-3">
-        <Typography>Content 3</Typography>
-      </TabPanel>
-    </Tabs>
-  );
-};
+const TestComponent = (props: Omit<TabsProps, "children">) => (
+  <Tabs {...props}>
+    <TabList ariaLabel="Sample Tabs">
+      <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+      <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+      <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
+    </TabList>
+    <TabPanel id="tab-panel-1" tabId="tab-1">
+      Content 1
+    </TabPanel>
+    <TabPanel id="tab-panel-2" tabId="tab-2">
+      Content 2
+    </TabPanel>
+    <TabPanel id="tab-panel-3" tabId="tab-3">
+      Content 3
+    </TabPanel>
+  </Tabs>
+);
 
-beforeEach(() => {
+beforeAll(() => {
   // scrollIntoView is not implemented in jsdom but hasn't been marked as such
   Element.prototype.scrollIntoView = jest.fn();
 });
 
-test("shows a warning when slots are used with a non-string label", () => {
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
+// jsdom has no layout, so mock the tab list dimensions to make the tabs overflow
+const mockTabListOverflow = (scrollLeft = 0) => {
+  jest.spyOn(Element.prototype, "scrollWidth", "get").mockReturnValue(1000);
+  jest.spyOn(Element.prototype, "clientWidth", "get").mockReturnValue(300);
+  jest
+    .spyOn(Element.prototype, "scrollLeft", "get")
+    .mockReturnValue(scrollLeft);
+};
+
+test("selects the first tab and shows its panel by default", () => {
+  render(<TestComponent />);
+
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  expect(screen.getByRole("tab", { name: "Tab Two" })).toHaveAttribute(
+    "aria-selected",
+    "false",
+  );
+  expect(screen.getByRole("tabpanel", { name: "Tab One" })).toHaveTextContent(
+    "Content 1",
+  );
+  expect(
+    screen.queryByRole("tabpanel", { name: "Tab Two" }),
+  ).not.toBeInTheDocument();
+});
+
+test("selects the tab specified by `selectedTabId` and shows its panel", () => {
+  render(<TestComponent selectedTabId="tab-3" />);
+
+  expect(screen.getByRole("tab", { name: "Tab Three" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  expect(screen.getByRole("tabpanel", { name: "Tab Three" })).toHaveTextContent(
+    "Content 3",
+  );
+});
+
+test("logs a warning when `leftSlot` or `rightSlot` is used with a non-string `label`", () => {
   const jestWarnSpy = jest.spyOn(console, "warn").mockImplementation();
-  const slotContent = <Icon type="blocked_square" />;
 
   assertLoggerComponentMessage({
     component: (
@@ -49,65 +87,21 @@ test("shows a warning when slots are used with a non-string label", () => {
           <Tab
             id="tab-1"
             controls="tab-panel-1"
-            label={<div>Bad example</div>}
-            leftSlot={slotContent}
-            rightSlot={slotContent}
+            label={<span>Tab One</span>}
+            leftSlot="Left slot"
           />
         </TabList>
-        <TabPanel id="tab-panel-1" tabId="tab-1">
-          <Typography>Content 1</Typography>
-        </TabPanel>
       </Tabs>
     ),
     message:
       "[WARNING] Using `leftSlot` and/or `rightSlot` is not supported when `label` is not a string. Please use `leftSlot` and/or `rightSlot` alongside a string `label`, or use the `label` prop exclusively.",
     method: "warn",
   });
+
   jestWarnSpy.mockRestore();
 });
 
-test("renders correctly with defaults", () => {
-  render(<TestComponent />);
-  const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tabPanel1 = screen.getByRole("tabpanel");
-
-  expect(tab1).toBeInTheDocument();
-  expect(tabPanel1).toBeInTheDocument();
-  expect(tabPanel1).toHaveTextContent("Content 1");
-});
-
-test("renders correctly when `size` prop set to `large`", () => {
-  render(<TestComponent size="large" />);
-  const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tabPanel1 = screen.getByRole("tabpanel");
-
-  expect(tab1).toBeInTheDocument();
-  expect(tabPanel1).toBeInTheDocument();
-  expect(tabPanel1).toHaveTextContent("Content 1");
-});
-
-test("renders correctly when `orientation` prop set to `vertical`", () => {
-  render(<TestComponent orientation="vertical" />);
-  const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tabPanel1 = screen.getByRole("tabpanel");
-
-  expect(tab1).toBeInTheDocument();
-  expect(tabPanel1).toBeInTheDocument();
-  expect(tabPanel1).toHaveTextContent("Content 1");
-});
-
-test("renders correctly when `orientation` prop set to `vertical` and `size` is set to `large`", () => {
-  render(<TestComponent orientation="vertical" size="large" />);
-  const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tabPanel1 = screen.getByRole("tabpanel");
-
-  expect(tab1).toBeInTheDocument();
-  expect(tabPanel1).toBeInTheDocument();
-  expect(tabPanel1).toHaveTextContent("Content 1");
-});
-
-test("renders correctly when `leftSlot` prop set to a valid React element", () => {
-  const leftSlotContent = <Icon data-element="icon" type="blocked_square" />;
+test("renders `leftSlot` and `rightSlot` content alongside a string `label`", () => {
   render(
     <Tabs>
       <TabList ariaLabel="Sample Tabs">
@@ -115,373 +109,285 @@ test("renders correctly when `leftSlot` prop set to a valid React element", () =
           id="tab-1"
           controls="tab-panel-1"
           label="Tab One"
-          leftSlot={leftSlotContent}
+          leftSlot="Left slot"
+          rightSlot="Right slot"
         />
       </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
     </Tabs>,
   );
 
-  const tab1 = screen.getByRole("tab");
-  expect(tab1).toBeInTheDocument();
-
-  const icon = screen.getByTestId("icon");
-  expect(icon).toBeInTheDocument();
+  expect(screen.getByRole("tab")).toHaveAccessibleName(
+    "Left slot Tab One Right slot",
+  );
 });
 
-test("renders correctly when `rightSlot` prop set to a valid React element", () => {
-  const rightSlotContent = <Icon type="blocked_square" />;
-  render(
-    <Tabs>
-      <TabList ariaLabel="Sample Tabs">
-        <Tab
-          id="tab-1"
-          controls="tab-panel-1"
-          label="Tab One"
-          rightSlot={rightSlotContent}
-        />
-      </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
-    </Tabs>,
+test("moves focus between tabs with the ArrowLeft and ArrowRight keys, wrapping at either end", async () => {
+  const user = userEvent.setup();
+  render(<TestComponent />);
+
+  await user.tab();
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveFocus();
+
+  await user.keyboard("{ArrowLeft}");
+  expect(screen.getByRole("tab", { name: "Tab Three" })).toHaveFocus();
+
+  await user.keyboard("{ArrowRight}");
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveFocus();
+
+  await user.keyboard("{ArrowRight}");
+  expect(screen.getByRole("tab", { name: "Tab Two" })).toHaveFocus();
+});
+
+test("moves focus to the first and last tabs with the Home and End keys", async () => {
+  const user = userEvent.setup();
+  render(<TestComponent />);
+
+  await user.tab();
+  await user.keyboard("{End}");
+  expect(screen.getByRole("tab", { name: "Tab Three" })).toHaveFocus();
+
+  await user.keyboard("{Home}");
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveFocus();
+});
+
+test("moves focus between tabs with the ArrowUp and ArrowDown keys, wrapping at either end, when `orientation` is 'vertical'", async () => {
+  const user = userEvent.setup();
+  render(<TestComponent orientation="vertical" />);
+
+  await user.tab();
+  await user.keyboard("{ArrowUp}");
+  expect(screen.getByRole("tab", { name: "Tab Three" })).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  expect(screen.getByRole("tab", { name: "Tab Two" })).toHaveFocus();
+});
+
+test("selects the focused tab and shows its panel when Enter or Space is pressed", async () => {
+  const user = userEvent.setup();
+  render(<TestComponent />);
+
+  await user.tab();
+  await user.keyboard("{ArrowRight}");
+  await user.keyboard("{Enter}");
+
+  expect(screen.getByRole("tab", { name: "Tab Two" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  expect(screen.getByRole("tabpanel", { name: "Tab Two" })).toHaveTextContent(
+    "Content 2",
   );
 
-  const tab1 = screen.getByRole("tab");
-  expect(tab1).toBeInTheDocument();
+  await user.keyboard("{ArrowRight}");
+  await user.keyboard(" ");
 
-  const icon = screen.getByTestId("icon");
-  expect(icon).toBeInTheDocument();
+  expect(screen.getByRole("tab", { name: "Tab Three" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  expect(screen.getByRole("tabpanel", { name: "Tab Three" })).toHaveTextContent(
+    "Content 3",
+  );
 });
 
-test("responds to horizontal keyboard interactions", async () => {
-  const user = userEvent.setup();
-
-  render(<TestComponent />);
-
-  const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
-  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
-
-  await user.keyboard("{Tab}");
-  expect(tab1).toHaveFocus();
-
-  const button = screen.getByTestId("test-button");
-
-  await user.keyboard("{Tab}");
-  expect(button).toHaveFocus();
-
-  await user.keyboard("{Shift>}{Tab}");
-  expect(tab1).toHaveFocus();
-
-  await user.keyboard("{End}");
-  expect(tab3).toHaveFocus();
-
-  await user.keyboard("{Home}");
-  expect(tab1).toHaveFocus();
-  expect(screen.getByRole("tabpanel")).toHaveTextContent(/Content 1/gi);
-
-  await user.keyboard("{ArrowRight}");
-  expect(tab2).toHaveFocus();
-
-  await user.keyboard(" ");
-  expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 2");
-
-  await user.keyboard("{ArrowRight}");
-  expect(tab3).toHaveFocus();
-
-  await user.keyboard("{Enter}");
-  expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 3");
-
-  await user.keyboard("{ArrowRight}");
-  expect(tab1).toHaveFocus();
-
-  await user.keyboard("{ArrowLeft}");
-  expect(tab3).toHaveFocus();
-
-  await user.keyboard("{ArrowLeft}");
-  expect(tab2).toHaveFocus();
-
-  await user.keyboard("{ArrowLeft}");
-  expect(tab1).toHaveFocus();
-
-  await user.keyboard(" ");
-  expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 1");
-});
-
-test("updates the focus index when a user presses 'tab' key", async () => {
+test("resets arrow key navigation to the selected tab when the user tabs out of the tab list", async () => {
   const user = userEvent.setup();
   render(<TestComponent />);
 
-  const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
-  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
-
-  await user.click(tab2);
+  await user.tab();
   await user.keyboard("{ArrowRight}");
-  expect(tab3).toHaveFocus();
-
-  await user.keyboard("{Tab}");
-  expect(document.body).toHaveFocus();
-
-  await user.keyboard("{Tab}");
-  expect(tab2).toHaveFocus();
+  await user.tab();
+  await user.tab();
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveFocus();
 
   await user.keyboard("{ArrowRight}");
-  expect(tab3).toHaveFocus();
-
-  await user.keyboard("{ArrowRight}");
-  expect(tab1).toHaveFocus();
+  expect(screen.getByRole("tab", { name: "Tab Two" })).toHaveFocus();
 });
 
-test("responds to vertical keyboard interactions", async () => {
+test("does not move focus when ArrowUp, ArrowDown or an unrelated key is pressed and `orientation` is 'horizontal'", async () => {
   const user = userEvent.setup();
+  render(<TestComponent />);
 
-  render(<TestComponent orientation="vertical" />);
-
-  const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
-  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
-
-  await user.keyboard("{Tab}");
-  expect(tab1).toHaveFocus();
-
-  const button = screen.getByTestId("test-button");
-
-  await user.keyboard("{Tab}");
-  expect(button).toHaveFocus();
-
-  await user.keyboard("{Shift>}{Tab}");
-  expect(tab1).toHaveFocus();
-
-  await user.keyboard("{End}");
-  expect(tab3).toHaveFocus();
-
-  await user.keyboard("{Home}");
-  expect(tab1).toHaveFocus();
-  expect(screen.getByRole("tabpanel")).toHaveTextContent(/Content 1/gi);
-
+  await user.tab();
   await user.keyboard("{ArrowDown}");
-  expect(tab2).toHaveFocus();
-
-  await user.keyboard(" ");
-  expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 2");
-
-  await user.keyboard("{ArrowDown}");
-  expect(tab3).toHaveFocus();
-
-  await user.keyboard("{Enter}");
-  expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 3");
-
-  await user.keyboard("{ArrowDown}");
-  expect(tab1).toHaveFocus();
-
   await user.keyboard("{ArrowUp}");
-  expect(tab3).toHaveFocus();
+  await user.keyboard("a");
 
-  await user.keyboard("{ArrowUp}");
-  expect(tab2).toHaveFocus();
-
-  await user.keyboard("{ArrowUp}");
-  expect(tab1).toHaveFocus();
-
-  await user.keyboard(" ");
-  expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 1");
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveFocus();
 });
 
-test("updates the focus index when a user presses 'tab' key and `orientation` is 'vertical'", async () => {
+test("does not move focus with arrow keys when `selectedTabId` does not match any tab", async () => {
   const user = userEvent.setup();
-  render(<TestComponent orientation="vertical" />);
+  const { rerender } = render(<TestComponent selectedTabId="tab-1" />);
 
-  const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
-  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
+  await user.tab();
+  rerender(<TestComponent selectedTabId="missing-tab" />);
+  await user.keyboard("{ArrowRight}");
 
-  await user.click(tab2);
-  await user.keyboard("{ArrowDown}");
-  expect(tab3).toHaveFocus();
-
-  await user.keyboard("{Tab}");
-  expect(document.body).toHaveFocus();
-
-  await user.keyboard("{Tab}");
-  expect(tab2).toHaveFocus();
-
-  await user.keyboard("{ArrowDown}");
-  expect(tab3).toHaveFocus();
-
-  await user.keyboard("{ArrowDown}");
-  expect(tab1).toHaveFocus();
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveFocus();
 });
 
-test("shows an error icon when the `error` prop is specified", async () => {
+test("includes error description in the tab's accessible name when `error` is true", () => {
   render(
     <Tabs>
       <TabList ariaLabel="Sample Tabs">
         <Tab id="tab-1" controls="tab-panel-1" label="Tab One" error />
       </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
     </Tabs>,
   );
 
-  const icon = screen.getByTestId("icon-error");
-  expect(icon).toBeInTheDocument();
-  expect(icon).toHaveStyle("color: var(--page-content-negative-icon)");
-});
-
-test("includes error description in tab accessible name when `error` prop is specified", () => {
-  render(
-    <Tabs>
-      <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" error />
-      </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
-    </Tabs>,
+  expect(screen.getByRole("tab")).toHaveAccessibleName(
+    "Tab One The Tab One tab contains errors",
   );
-
-  const tab = screen.getByRole("tab");
-  expect(tab).toHaveAccessibleName(/contains errors/i);
 });
 
-test("shows a warning icon when the `warning` prop is specified", async () => {
+test("includes warning description in the tab's accessible name when `warning` is true", () => {
   render(
     <Tabs>
       <TabList ariaLabel="Sample Tabs">
         <Tab id="tab-1" controls="tab-panel-1" label="Tab One" warning />
       </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
     </Tabs>,
   );
 
-  const icon = screen.getByTestId("icon-warning");
-  expect(icon).toBeInTheDocument();
-  expect(icon).toHaveStyle("color: var(--page-content-caution-icon)");
-});
-
-test("includes warning description in tab accessible name when `warning` prop is specified", () => {
-  render(
-    <Tabs>
-      <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" warning />
-      </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
-    </Tabs>,
+  expect(screen.getByRole("tab")).toHaveAccessibleName(
+    "Tab One The Tab One tab contains warnings",
   );
-
-  const tab = screen.getByRole("tab");
-  expect(tab).toHaveAccessibleName(/contains warnings/i);
 });
 
-test("shows an info icon when the `info` prop is specified", async () => {
-  render(
-    <Tabs>
-      <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" info />
-      </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
-    </Tabs>,
-  );
-
-  const icon = screen.getByTestId("icon-info");
-  expect(icon).toBeInTheDocument();
-  expect(icon).toHaveStyle("color: var(--page-content-info-icon)");
-});
-
-test("includes info description in tab accessible name when `info` prop is specified", () => {
-  render(
-    <Tabs>
-      <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" info />
-      </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
-    </Tabs>,
-  );
-
-  const tab = screen.getByRole("tab");
-  expect(tab).toHaveAccessibleName(/contains information/i);
-});
-
-test("renders tablist with expected accessible name when `ariaLabel` prop is provided", () => {
-  const ariaLabel = "Custom Tab List Label";
-
-  render(
-    <Tabs>
-      <TabList ariaLabel={ariaLabel}>
-        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
-      </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
-    </Tabs>,
-  );
-
-  const tabList = screen.getByRole("tablist");
-  expect(tabList).toHaveAccessibleName(ariaLabel);
-});
-
-test("shows the validation icons regardless of whether tab panels are active", async () => {
+test("shows the validation status of fields within inactive tab panels on their tabs", () => {
   render(
     <Tabs>
       <TabList ariaLabel="Sample Tabs">
         <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
         <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
         <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
-        <Tab id="tab-4" controls="tab-panel-4" label="Tab Four" />
       </TabList>
       <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
+        Content 1
       </TabPanel>
       <TabPanel id="tab-panel-2" tabId="tab-2">
-        <Textbox onChange={() => {}} value="" error />
+        <Textbox label="Error field" value="" onChange={() => {}} error />
       </TabPanel>
       <TabPanel id="tab-panel-3" tabId="tab-3">
-        <Textbox onChange={() => {}} value="" warning />
+        <Textbox label="Warning field" value="" onChange={() => {}} warning />
       </TabPanel>
     </Tabs>,
   );
 
-  const tab2 = screen.getByRole("tab", {
-    name: "Tab Two The Tab Two tab contains errors",
-  });
-  const tab3 = screen.getByRole("tab", {
-    name: "Tab Three The Tab Three tab contains warnings",
-  });
-
-  const errorIcon = within(tab2).getByTestId("icon-error");
-  expect(errorIcon).toBeInTheDocument();
-  expect(errorIcon).toHaveStyle("color: var(--page-content-negative-icon)");
-
-  const warningIcon = within(tab3).getByTestId("icon-warning");
-  expect(warningIcon).toBeInTheDocument();
-  expect(warningIcon).toHaveStyle("color: var(--page-content-caution-icon)");
+  expect(
+    screen.getByRole("tab", {
+      name: "Tab Two The Tab Two tab contains errors",
+    }),
+  ).toBeVisible();
+  expect(
+    screen.getByRole("tab", {
+      name: "Tab Three The Tab Three tab contains warnings",
+    }),
+  ).toBeVisible();
 });
 
-test("renders correctly when a default tab is specified", () => {
-  render(<TestComponent selectedTabId="tab-3" />);
-  const tab = screen.getByRole("tab", { name: "Tab Three" });
-  const tabPanel = screen.getByRole("tabpanel");
+test("updates the tab's validation status when `error` or `warning` props are set after mount", () => {
+  const TestComponent = ({
+    error,
+    warning,
+  }: {
+    error?: boolean;
+    warning?: boolean;
+  }) => (
+    <Tabs>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab
+          id="tab-1"
+          controls="tab-panel-1"
+          label="Tab One"
+          error={error}
+          warning={warning}
+        />
+      </TabList>
+    </Tabs>
+  );
+  const { rerender } = render(<TestComponent />);
+  const tab = screen.getByRole("tab");
+  expect(tab).toHaveAccessibleName("Tab One");
 
-  expect(tab).toBeInTheDocument();
-  expect(tab).toHaveAttribute("aria-selected", "true");
-  expect(tabPanel).toBeInTheDocument();
-  expect(tabPanel).toHaveTextContent("Content 3");
+  rerender(<TestComponent warning />);
+  expect(tab).toHaveAccessibleName("Tab One The Tab One tab contains warnings");
+
+  rerender(<TestComponent error warning />);
+  expect(tab).toHaveAccessibleName("Tab One The Tab One tab contains errors");
+
+  rerender(<TestComponent />);
+  expect(tab).toHaveAccessibleName("Tab One");
 });
 
-test("calling exposed focusTab method with correct tabId focuses chosen tab", async () => {
+test("removes the validation status of fields from their tabs when the fields are unmounted", async () => {
+  const user = userEvent.setup();
+  const MockComponent = () => {
+    const [showFields, setShowFields] = React.useState(true);
+
+    return (
+      <>
+        <button type="button" onClick={() => setShowFields(false)}>
+          Remove fields
+        </button>
+        <Tabs>
+          <TabList ariaLabel="Sample Tabs">
+            <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+            <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+          </TabList>
+          <TabPanel id="tab-panel-1" tabId="tab-1">
+            {showFields && (
+              <Textbox label="Error field" value="" onChange={() => {}} error />
+            )}
+          </TabPanel>
+          <TabPanel id="tab-panel-2" tabId="tab-2">
+            {showFields && (
+              <Textbox
+                label="Warning field"
+                value=""
+                onChange={() => {}}
+                warning
+              />
+            )}
+          </TabPanel>
+        </Tabs>
+      </>
+    );
+  };
+  render(<MockComponent />);
+
+  const tab1 = screen.getByRole("tab", { name: /Tab One/ });
+  const tab2 = screen.getByRole("tab", { name: /Tab Two/ });
+  expect(tab1).toHaveAccessibleName("Tab One The Tab One tab contains errors");
+  expect(tab2).toHaveAccessibleName(
+    "Tab Two The Tab Two tab contains warnings",
+  );
+
+  await user.click(screen.getByRole("button", { name: "Remove fields" }));
+
+  expect(tab1).toHaveAccessibleName("Tab One");
+  expect(tab2).toHaveAccessibleName("Tab Two");
+});
+
+test("sets the accessible name of the tab list via the `ariaLabel` prop", () => {
+  render(
+    <Tabs>
+      <TabList ariaLabel="Custom Tab List Label">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+      </TabList>
+    </Tabs>,
+  );
+
+  expect(
+    screen.getByRole("tablist", { name: "Custom Tab List Label" }),
+  ).toBeInTheDocument();
+});
+
+test("focuses and selects the specified tab when the exposed `focusTab` method is called", async () => {
   const user = userEvent.setup();
   const MockComponent = () => {
     const tabsHandle = React.useRef<TabsHandle>(null);
@@ -494,78 +400,95 @@ test("calling exposed focusTab method with correct tabId focuses chosen tab", as
             <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
             <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
           </TabList>
-          <TabPanel id="tab-panel-1" tabId="tab-1">
-            <Typography>Content 1</Typography>
-            <button data-role="test-button">Test button</button>
-          </TabPanel>
-          <TabPanel id="tab-panel-2" tabId="tab-2">
-            <Typography>Content 2</Typography>
-          </TabPanel>
-          <TabPanel id="tab-panel-3" tabId="tab-3">
-            <Typography>Content 3</Typography>
-          </TabPanel>
         </Tabs>
-        <Button onClick={() => tabsHandle.current?.focusTab("tab-3")}>
+        <button
+          type="button"
+          onClick={() => tabsHandle.current?.focusTab("tab-3")}
+        >
           Focus Tab 3
-        </Button>
+        </button>
       </>
     );
   };
-
   render(<MockComponent />);
 
-  const thirdTab = screen.getByRole("tab", {
-    name: "Tab Three",
-  });
-  const button = screen.getByRole("button", {
-    name: "Focus Tab 3",
-  });
+  await user.click(screen.getByRole("button", { name: "Focus Tab 3" }));
 
-  await user.click(button);
-
-  expect(thirdTab).toHaveFocus();
+  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
+  expect(tab3).toHaveFocus();
+  expect(tab3).toHaveAttribute("aria-selected", "true");
 });
 
-test("invokes the onTabChange handler the active tab changes", async () => {
+test("does not change the selected or focused tab when `focusTab` is called with an id that matches no tab", async () => {
   const user = userEvent.setup();
-  const mockTabChangeFn = jest.fn();
+  const MockComponent = () => {
+    const tabsHandle = React.useRef<TabsHandle>(null);
 
+    return (
+      <>
+        <Tabs>
+          <TabList ariaLabel="Sample Tabs" ref={tabsHandle}>
+            <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+            <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+          </TabList>
+        </Tabs>
+        <button
+          type="button"
+          onClick={() => tabsHandle.current?.focusTab("missing-tab")}
+        >
+          Focus missing tab
+        </button>
+      </>
+    );
+  };
+  render(<MockComponent />);
+
+  const button = screen.getByRole("button", { name: "Focus missing tab" });
+  await user.click(button);
+
+  expect(button).toHaveFocus();
+  expect(screen.getByRole("tab", { name: "Tab One" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+});
+
+test("calls `onTabChange` with the tab id when a different tab is selected", async () => {
+  const user = userEvent.setup();
+  const onTabChange = jest.fn();
   render(
     <Tabs>
-      <TabList ariaLabel="Sample Tabs" onTabChange={mockTabChangeFn}>
+      <TabList ariaLabel="Sample Tabs" onTabChange={onTabChange}>
         <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
         <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
-        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
       </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1">
-        <Typography>Content 1</Typography>
-      </TabPanel>
-      <TabPanel id="tab-panel-2" tabId="tab-2">
-        <Typography>Content 2</Typography>
-      </TabPanel>
-      <TabPanel id="tab-panel-3" tabId="tab-3">
-        <Typography>Content 3</Typography>
-      </TabPanel>
     </Tabs>,
   );
 
-  const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
-  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
+  await user.click(screen.getByRole("tab", { name: "Tab Two" }));
 
-  // Clicking the active tab should not fire the change event
-  await user.click(tab1);
-  expect(mockTabChangeFn).not.toHaveBeenCalled();
-
-  await user.click(tab2);
-  expect(mockTabChangeFn).toHaveBeenCalledWith("tab-2");
-  await user.click(tab3);
-  expect(mockTabChangeFn).toHaveBeenCalledWith("tab-3");
-  await user.click(tab1);
-  expect(mockTabChangeFn).toHaveBeenCalledWith("tab-1");
+  expect(onTabChange).toHaveBeenCalledTimes(1);
+  expect(onTabChange).toHaveBeenCalledWith("tab-2");
 });
 
-test("applies the `data-element` and `data-role` props to expected elements", () => {
+test("does not call `onTabChange` when the already selected tab is clicked", async () => {
+  const user = userEvent.setup();
+  const onTabChange = jest.fn();
+  render(
+    <Tabs>
+      <TabList ariaLabel="Sample Tabs" onTabChange={onTabChange}>
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+      </TabList>
+    </Tabs>,
+  );
+
+  await user.click(screen.getByRole("tab", { name: "Tab One" }));
+
+  expect(onTabChange).not.toHaveBeenCalled();
+});
+
+test("renders with provided data- attributes", () => {
   render(
     <Tabs data-element="tabs-foo" data-role="tabs-bar">
       <TabList
@@ -587,14 +510,15 @@ test("applies the `data-element` and `data-role` props to expected elements", ()
         id="tab-panel-1"
         tabId="tab-1"
       >
-        <Typography>Content 1</Typography>
+        Content 1
       </TabPanel>
     </Tabs>,
   );
+
   const tabs = screen.getByTestId("tabs-bar");
   const tabsList = screen.getByRole("tablist");
   const tab1 = screen.getByRole("tab", { name: "Tab One" });
-  const tabPanel1 = screen.getByRole("tabpanel");
+  const tabPanel1 = screen.getByRole("tabpanel", { name: "Tab One" });
 
   expect(tabs).toHaveAttribute("data-component", "tabs");
   expect(tabs).toHaveAttribute("data-element", "tabs-foo");
@@ -609,28 +533,88 @@ test("applies the `data-element` and `data-role` props to expected elements", ()
   expect(tabPanel1).toHaveAttribute("data-role", "tabpanel-bar");
 });
 
-test("applies negative inline margin only when horizontal scrolling is required", () => {
-  render(
-    <StyledTabList $orientation="horizontal" $scrollRequired>
-      Scrollable tabs
-    </StyledTabList>,
-  );
+test("sets 'aria-orientation' to horizontal by default", () => {
+  render(<TestComponent />);
 
-  expect(screen.getByText("Scrollable tabs")).toHaveStyleRule(
-    "margin-inline",
-    `-${TAB_LIST_FOCUS_PADDING}px`,
-  );
+  const tabList = screen.getByRole("tablist");
+  expect(tabList).toHaveAttribute("aria-orientation", "horizontal");
 });
 
-test("does not apply negative inline margin only when horizontal scrolling is not required", () => {
+test("sets 'aria-orientation' to vertical when `orientation` is vertical", () => {
+  render(<TestComponent orientation="vertical" />);
+
+  const tabList = screen.getByRole("tablist");
+  expect(tabList).toHaveAttribute("aria-orientation", "vertical");
+});
+
+test("shows scroll buttons that scroll the tab list when the tabs overflow horizontally", async () => {
+  const user = userEvent.setup();
+  let scrollLeft = 0;
+  mockTabListOverflow();
+  jest
+    .spyOn(Element.prototype, "scrollLeft", "get")
+    .mockImplementation(() => scrollLeft);
+  jest
+    .spyOn(Element.prototype, "scrollLeft", "set")
+    .mockImplementation((value) => {
+      scrollLeft = value;
+    });
+  render(<TestComponent />);
+
+  expect(
+    screen.queryByRole("button", { name: "Scroll Tabs Left" }),
+  ).not.toBeInTheDocument();
+
+  const scrollRightButton = screen.getByRole("button", {
+    name: "Scroll Tabs Right",
+  });
+  await user.click(scrollRightButton);
+
+  expect(scrollLeft).toBe(200);
+  expect(
+    screen.getByRole("button", { name: "Scroll Tabs Left" }),
+  ).toBeVisible();
+
+  await user.click(scrollRightButton);
+  await user.click(scrollRightButton);
+  await user.click(scrollRightButton);
+
+  expect(scrollLeft).toBe(800);
+  expect(
+    screen.queryByRole("button", { name: "Scroll Tabs Right" }),
+  ).not.toBeInTheDocument();
+
+  await user.click(screen.getByRole("button", { name: "Scroll Tabs Left" }));
+
+  expect(scrollLeft).toBe(600);
+  expect(
+    screen.getByRole("button", { name: "Scroll Tabs Right" }),
+  ).toBeVisible();
+});
+
+test("renders the scroll button titles from the `I18nProvider` locale", () => {
+  mockTabListOverflow(100);
   render(
-    <StyledTabList $orientation="horizontal" $scrollRequired={false}>
-      Non-scrollable tabs
-    </StyledTabList>,
+    <I18nProvider
+      locale={{
+        tabs: {
+          ...enGB.tabs,
+          scrollLeftText: () => "Custom left",
+          scrollRightText: () => "Custom right",
+        },
+      }}
+    >
+      <TestComponent />
+    </I18nProvider>,
   );
 
-  expect(screen.getByText("Non-scrollable tabs")).not.toHaveStyleRule(
-    "margin-inline",
-    `-${TAB_LIST_FOCUS_PADDING}px`,
-  );
+  expect(screen.getByRole("button", { name: "Custom left" })).toBeVisible();
+  expect(screen.getByRole("button", { name: "Custom right" })).toBeVisible();
+});
+
+test("does not render scroll buttons when `orientation` is 'vertical' and the tabs overflow", () => {
+  mockTabListOverflow(100);
+  render(<TestComponent orientation="vertical" />);
+
+  expect(screen.queryByRole("button")).not.toBeInTheDocument();
 });

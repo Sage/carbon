@@ -1,10 +1,12 @@
 import { useContext, useEffect, useLayoutEffect, useRef } from "react";
-import type {
-  TabsContextProps,
-  TabContextProps,
-} from "../../../components/tabs/__next__/tabs.types";
-import { TabsContext } from "../../../components/tabs/__next__/tabs.context";
-import { TabContext } from "../../../components/tabs/__next__/tab.context";
+import {
+  TabsContext,
+  type TabsContextProps,
+} from "../../../components/tabs/__next__/__internal__/contexts/tabs.context";
+import {
+  TabContext,
+  type TabContextProps,
+} from "../../../components/tabs/__next__/__internal__/contexts/tab.context";
 
 const useRegisterValidationToTabs = (
   error: boolean,

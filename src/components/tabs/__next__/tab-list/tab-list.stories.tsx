@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { TabList } from "../tabs.component";
+import TabList from "./tab-list.component";
 
 /**
  * This file is used primarily as a means to generate the props table.
