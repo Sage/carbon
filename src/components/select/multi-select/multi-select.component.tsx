@@ -25,7 +25,7 @@ import NextSelectList, {
 import combineRefs from "../../../__internal__/utils/helpers/combine-refs";
 import {
   StyledSelectMultiSelect,
-  StyledAccessibilityLabelContainer,
+  StyledSelectedValuesDescription,
 } from "./multi-select.style";
 import Pill, { PillProps } from "../../pill";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
@@ -199,7 +199,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     ref,
   ) => {
     const selectListId = useRef(guid());
-    const accessibilityLabelId = useRef(guid());
+    const selectedValuesDescriptionId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
     const isInputFocused = useRef(false);
     const isMouseDownReported = useRef(false);
@@ -347,35 +347,34 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       ],
     );
 
-    const accessibilityLabel = useMemo(() => {
-      return value && value.length
-        ? React.Children.map(children, (child) => {
-            return React.isValidElement(child) &&
-              value.includes(child.props.value)
-              ? child.props.text
-              : false;
-          })
-            ?.filter((child) => child)
-            .reduce((acc, item) => {
-              return acc ? `${acc}, ${item}` : item;
-            }, "")
-        : null;
+    const selectedOptions = useMemo(() => {
+      const options = React.Children.toArray(children);
+      return (value ?? []).map((singleValue) =>
+        options.find(
+          (child) =>
+            React.isValidElement(child) && isExpectedOption(child, singleValue),
+        ),
+      );
     }, [children, value]);
+
+    const selectedValuesDescription = selectedOptions
+      .map((option) =>
+        React.isValidElement<{ text?: string }>(option)
+          ? option.props.text
+          : undefined,
+      )
+      .filter((text): text is string => typeof text === "string" && !!text)
+      .join(", ");
 
     const mapValuesToPills = useMemo(() => {
       const canDelete = !disabled && !readOnly;
       let matchingOptionValue: string;
 
-      if (!value?.length) {
+      if (!selectedOptions.length) {
         return "";
       }
 
-      return value.map((singleValue, index) => {
-        const matchingOption = React.Children.toArray(children).find(
-          (child) =>
-            React.isValidElement(child) && isExpectedOption(child, singleValue),
-        );
-
+      return selectedOptions.map((matchingOption, index) => {
         let pillProps: Omit<PillProps, "children"> = {};
 
         if (!matchingOption) {
@@ -422,10 +421,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
-      children,
       disabled,
       readOnly,
-      value,
+      selectedOptions,
       wrapPillText,
       pillButtonsInTabOrder,
       textboxRef,
@@ -713,16 +711,16 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           onClose={onSelectListClose}
           popoverControl={(controlRef, controlProps) => (
             <>
-              <StyledAccessibilityLabelContainer
-                data-element="accessibility-label"
-                id={accessibilityLabelId.current}
-              >
-                {accessibilityLabel}
-              </StyledAccessibilityLabelContainer>
+              {selectedValuesDescription && (
+                <StyledSelectedValuesDescription
+                  id={selectedValuesDescriptionId.current}
+                >
+                  {selectedValuesDescription}
+                </StyledSelectedValuesDescription>
+              )}
               <SelectTextbox
                 ref={combineRefs(assignInput, controlRef)}
                 containerRef={containerRef}
-                accessibilityLabelId={accessibilityLabelId.current}
                 ariaLabel={ariaLabel}
                 ariaLabelledby={ariaLabelledby}
                 labelId={labelId}
@@ -731,6 +729,15 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
                 selectType="multi"
                 {...getTextboxProps()}
                 {...controlProps}
+                aria-describedby={
+                  [
+                    selectedValuesDescription &&
+                      selectedValuesDescriptionId.current,
+                    textboxProps["aria-describedby"],
+                  ]
+                    .filter(Boolean)
+                    .join(" ") || undefined
+                }
                 role={readOnly ? undefined : controlProps.role}
                 aria-expanded={
                   readOnly ? undefined : controlProps["aria-expanded"]
