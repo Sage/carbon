@@ -10,6 +10,7 @@ export const menuItemLayout = css<MenuItemLayoutProps>`
   width: 100%;
   position: relative;
   box-sizing: border-box;
+  border-radius: var(--global-radius-action-m);
   ${({ $size, $isButtonMenu }) => css`
     ${$size === "small" &&
     `
