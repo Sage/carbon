@@ -1,5 +1,6 @@
 import React, {
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -28,6 +29,7 @@ import Icon from "../../../../icon";
 import Loader from "../../../../loader/__next__";
 import ResultsAnnouncement from "../../../../../__internal__/results-announcement/results-announcement.component";
 import useLocale from "../../../../../hooks/__internal__/useLocale";
+import SelectPortalContext from "../../select-portal.context";
 import useModalManager from "../../../../../hooks/__internal__/useModalManager";
 import isExpectedOption from "../../utils/is-expected-option";
 import guid from "../../../../../__internal__/utils/helpers/guid";
@@ -269,6 +271,7 @@ const SelectList = ({
   }, []);
   const resolvedMaxHeight =
     maxHeight ?? `calc(5.5 * var(--global-size-${size.charAt(0)}))`;
+  const { renderInPortal } = useContext(SelectPortalContext);
 
   const handleEscapeKey = useCallback(
     (event: KeyboardEvent) => {
@@ -605,6 +608,7 @@ const SelectList = ({
 
   return (
     <StyledSelectPopoverMenu
+      disablePortal={!renderInPortal}
       data-role="select-list-popover-menu"
       open={open}
       size={size}

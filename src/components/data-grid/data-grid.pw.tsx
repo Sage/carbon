@@ -635,6 +635,39 @@ test("supports all edge navigation keys from a closed action trigger", async ({
   }
 });
 
+for (const filterableDropdown of [false, true]) {
+  test(`portals dropdown options beyond the grid scroll boundary (filterable=${filterableDropdown})`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <DataGridComponent
+        maxHeight="80px"
+        filterableDropdown={filterableDropdown}
+      />,
+    );
+    const typeCell = cell(page, 1, "type");
+    await typeCell.click();
+    const list = page.getByRole("listbox");
+    await expect(list).toBeVisible();
+    expect(
+      await list.evaluate(
+        (element) => element.closest('[data-component="data-grid"]') === null,
+      ),
+    ).toBe(true);
+    const gridBounds = await page.getByRole("grid").boundingBox();
+    const product = page.getByRole("option", { name: "Product" });
+    const optionBounds = await product.boundingBox();
+    expect(optionBounds?.y).toBeGreaterThan(
+      (gridBounds?.y ?? 0) + (gridBounds?.height ?? 0),
+    );
+    await product.click();
+    await expect(typeCell).toContainText("Product");
+    await expect(typeCell).toBeFocused();
+    await expect(list).toHaveCount(0);
+  });
+}
+
 test("filters and commits a FilterableSelect dropdown", async ({
   mount,
   page,
