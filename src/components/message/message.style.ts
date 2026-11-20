@@ -46,7 +46,7 @@ export const MessageStyle = styled.div.attrs(applyBaseTheme)<
         variant as Exclude<InternalMessageVariant, "callout">
       ]};
   background-color: var(--message-contextual-bg);
-  max-width: 720px;
+  width: 100%;
 
   :focus {
     outline: none;
@@ -84,6 +84,7 @@ export const MessageContent = styled.div<{
 }>`
   display: flex;
   flex: 1 0 0;
+  max-width: 720px;
 
   ${({ size, isSubtle }) => css`
     padding: ${sizeMap[size].padding};
@@ -116,6 +117,8 @@ export const MessageTitle = styled.p<{ size: "medium" | "large" }>`
 `;
 
 export const CloseButtonWrapper = styled.div<{ size: "medium" | "large" }>`
+  margin-left: auto;
+
   ${({ size }) => css`
     padding: ${sizeMap[size].closeButtonPadding};
   `}

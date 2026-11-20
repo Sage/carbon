@@ -45,7 +45,7 @@ A static inline message that stays on screen and conveys its type through a vari
 | size | "medium" \| "large" \| undefined | No | medium \| large |  |  | Set the component's size. | "medium" |
 | title | React.ReactNode | No |  |  |  | Set message title. |  |
 | variant | MessageVariant \| undefined | No | error \| info \| warning \| ai \| success \| neutral \| error-subtle \| info-subtle \| success-subtle \| warning-subtle \| ai-subtle \| callout-subtle |  |  | Set the component's variant. | "info" |
-| width | string \| undefined | No |  |  |  | Set the component's width, accepts any valid css string. Please note the component has a max-width of 720px. |  |
+| width | string \| undefined | No |  |  |  | Set the component's width. Accepts any valid CSS string. The message fills its parent by default; its content has a maximum width of 720px. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | showCloseIcon | boolean \| undefined | No |  | Yes | Please use the `onDismiss` prop to determine whether the close button is rendered instead. | Flag to determine if the close button is rendered. | true |

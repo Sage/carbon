@@ -150,7 +150,7 @@ export const ErrorSummary: Story = {
 
 export const Variant: Story = {
   render: (args) => (
-    <>
+    <Box maxWidth="720px">
       <Message onDismiss={() => {}} variant="success" title="Success" {...args}>
         Some custom message
       </Message>
@@ -166,7 +166,7 @@ export const Variant: Story = {
       <Message onDismiss={() => {}} variant="ai" title="AI" {...args}>
         Some custom message
       </Message>
-    </>
+    </Box>
   ),
   args: {
     mb: 2,

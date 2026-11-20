@@ -202,6 +202,22 @@ test("renders with provided width when `width` is provided", () => {
   });
 });
 
+test("fills the parent width by default", () => {
+  render(<Message data-role="my-message">Message</Message>);
+
+  expect(screen.getByTestId("my-message")).toHaveStyle({
+    width: "100%",
+  });
+});
+
+test("caps the message content at 720px", () => {
+  render(<Message data-role="my-message">Message</Message>);
+
+  const content = screen.getByTestId("message-content");
+
+  expect(content).toHaveStyleRule("max-width", "720px");
+});
+
 test.each([
   ["success-subtle", "var(--message-contextual-success-border-alt)"],
   ["warning-subtle", "var(--message-contextual-warning-border-alt)"],
