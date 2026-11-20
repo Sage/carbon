@@ -22,8 +22,8 @@ const StyledSelectMultiSelect = styled(
   }
 `;
 
-const StyledAccessibilityLabelContainer = styled.div`
+const StyledSelectedValuesDescription = styled.div`
   display: none;
 `;
 
-export { StyledSelectMultiSelect, StyledAccessibilityLabelContainer };
+export { StyledSelectMultiSelect, StyledSelectedValuesDescription };

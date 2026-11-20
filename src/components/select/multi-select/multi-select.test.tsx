@@ -332,6 +332,73 @@ describe("when value prop is provided", () => {
 });
 
 describe("accessible name of the input", () => {
+  it("announces the label, hint, and selected values once in selection order", () => {
+    render(
+      <InteractiveComponent
+        label="Colour"
+        inputHint="Select an option"
+        value={["orange", "black"]}
+        onChange={() => {}}
+      >
+        <Option text="Black" value="black" />
+        <Option text="Orange" value="orange" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    expect(input).toHaveAccessibleName("Colour");
+    expect(input).toHaveAccessibleDescription("Select an option Orange, Black");
+  });
+
+  it("updates the selected values description in the order options are chosen", async () => {
+    const user = userEvent.setup();
+    render(
+      <InteractiveComponent
+        label="Colour"
+        inputHint="Select an option"
+        value={[]}
+        onChange={() => {}}
+      >
+        <Option text="Black" value="black" />
+        <Option text="Orange" value="orange" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    await user.click(screen.getByRole("option", { name: "Orange" }));
+    await user.click(screen.getByRole("option", { name: "Black" }));
+
+    expect(input).toHaveAccessibleName("Colour");
+    expect(input).toHaveAccessibleDescription("Select an option Orange, Black");
+  });
+
+  it("announces object-valued selections after the hint and before an external description", () => {
+    const black = { id: "black", value: "Black" };
+    const orange = { id: "orange", value: "Orange" };
+    render(
+      <>
+        <span id="extra-description">Choose more colours</span>
+        <InteractiveComponent
+          label="Colour"
+          inputHint="Select an option"
+          aria-describedby="extra-description"
+          value={[orange, black]}
+          onChange={() => {}}
+        >
+          <Option text="Black" value={black} />
+          <Option text="Orange" value={orange} />
+        </InteractiveComponent>
+      </>,
+    );
+
+    const input = screen.getByRole("combobox");
+    expect(input).toHaveAccessibleName("Colour");
+    expect(input).toHaveAccessibleDescription(
+      "Select an option Orange, Black Choose more colours",
+    );
+  });
+
   it("is set to the label prop when provided", () => {
     render(
       <InteractiveComponent label="Colour" onChange={() => {}} value={[]}>
