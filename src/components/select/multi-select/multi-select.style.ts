@@ -1,20 +1,6 @@
 import styled from "styled-components";
 import StyledPill from "../../pill/pill.style";
-import applyBaseTheme from "../../../style/themes/apply-base-theme";
-import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledSelect, { type StyledSelectProps } from "../select.style";
-
-const StyledSelectPillContainer = styled.div.attrs(applyBaseTheme)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 3px 2px 3px 0;
-  max-width: 100%;
-
-  && ${StyledPill} {
-    text-overflow: ellipsis;
-  }
-`;
 
 interface StyledSelectMultiSelectProps extends StyledSelectProps {
   size: string;
@@ -23,19 +9,21 @@ interface StyledSelectMultiSelectProps extends StyledSelectProps {
 const StyledSelectMultiSelect = styled(
   StyledSelect,
 )<StyledSelectMultiSelectProps>`
-  ${InputIconToggleStyle} {
-    position: absolute;
-    right: 0;
-    height: 100%;
+  && [data-role="input-text-container"] {
+    ${StyledPill} {
+      max-width: 100%;
+
+      [data-element="multi-select-pill-text"] {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
 `;
 
-const StyledAccessibilityLabelContainer = styled.div`
+const StyledSelectedValuesDescription = styled.div`
   display: none;
 `;
 
-export {
-  StyledSelectPillContainer,
-  StyledSelectMultiSelect,
-  StyledAccessibilityLabelContainer,
-};
+export { StyledSelectMultiSelect, StyledSelectedValuesDescription };

@@ -31,6 +31,7 @@ interface UseSelectListVirtualizationProps {
   listId: string;
   selectOnSpaceAndTab?: boolean;
   onClose: (ev?: Event) => void;
+  multiselect?: boolean;
 }
 
 const browserWindow = getWindow();
@@ -46,6 +47,7 @@ const useSelectListVirtualization = ({
   listId,
   selectOnSpaceAndTab,
   onClose,
+  multiselect,
 }: UseSelectListVirtualizationProps) => {
   const optionCount = rows.filter((row) => !row.isLoader).length;
   const initialScrollIndex = rows.findIndex((row) => row.selected);
@@ -155,9 +157,16 @@ const useSelectListVirtualization = ({
   }, [open, enabled, initialScrollIndex]);
 
   useEffect(() => {
-    if (open && enabled)
-      setActiveItemKey(selectedItemEnabled ? selectedItemKey : null);
-  }, [open, enabled, selectedItemKey, selectedItemEnabled]);
+    if (open && enabled) {
+      setActiveItemKey((current) =>
+        multiselect && current !== null
+          ? current
+          : selectedItemEnabled
+            ? selectedItemKey
+            : null,
+      );
+    }
+  }, [open, enabled, multiselect, selectedItemKey, selectedItemEnabled]);
 
   useEffect(() => {
     if (

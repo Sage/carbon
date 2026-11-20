@@ -165,6 +165,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   listboxAriaLabelledBy?: string;
   /** Aria label for the listbox */
   listboxAriaLabel?: string;
+  /** Whether the listbox allows multiple selected options. */
+  listboxAriaMultiselectable?: boolean;
   /** Controls the keyboard navigation behavior and sets roles to `list` and `listitem` */
   isButtonMenu?: boolean;
   /** Flag to notify that the menu is a submenu */
@@ -257,6 +259,7 @@ interface MenuProps {
   disablePortal?: boolean;
   portalTarget?: HTMLElement | null;
   listboxAriaLabel?: string;
+  listboxAriaMultiselectable?: boolean;
   maxHeight?: string;
   popoverStrategy?: PopoverProps["popoverStrategy"];
   listStyle?: React.CSSProperties;
@@ -272,6 +275,7 @@ const Menu = ({
   listRef,
   listboxAriaLabelledBy,
   listboxAriaLabel,
+  listboxAriaMultiselectable,
   isButtonMenu,
   children,
   onKeyDown,
@@ -319,6 +323,7 @@ const Menu = ({
             aria-labelledby={listboxAriaLabelledBy}
             $isButtonMenu={isButtonMenu}
             aria-label={listboxAriaLabel}
+            aria-multiselectable={listboxAriaMultiselectable || undefined}
             $maxHeight={maxHeight}
             style={listStyle}
             tabIndex={listTabIndex}
@@ -400,6 +405,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     popoverStrategy = "absolute",
     listboxAriaLabelledBy,
     listboxAriaLabel,
+    listboxAriaMultiselectable,
     isButtonMenu = false,
     isSubmenu = false,
     menuTreeId: parentMenuTreeId,
@@ -520,6 +526,12 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       return;
     }
     const listbox = internalListRef.current;
+    if (
+      listboxAriaMultiselectable &&
+      listbox?.querySelector('[role="option"][data-has-focus="true"]')
+    ) {
+      return;
+    }
     const selectedOption = listbox?.querySelector<HTMLElement>(
       '[role="option"][aria-selected="true"]:not([aria-disabled="true"])',
     );
@@ -534,7 +546,13 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     setAriaActivedescendant(
       selectedOption?.id ?? /* istanbul ignore next */ "",
     );
-  }, [open, highlightSelectedOption, onListKeyDown, wrappedChildren]);
+  }, [
+    open,
+    highlightSelectedOption,
+    onListKeyDown,
+    wrappedChildren,
+    listboxAriaMultiselectable,
+  ]);
 
   const resolvedActivedescendant = activeDescendant ?? ariaActivedescendant;
 
@@ -680,14 +698,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           }
         }
       },
-      [
-        open,
-        handleDropdownMenuKeyDown,
-        isButtonMenu,
-        isInTable,
-        onOpen,
-        isSubmenu,
-      ],
+      [open, handleMenuKeyDown, isButtonMenu, isInTable, onOpen, isSubmenu],
     );
 
   useEffect(() => {
@@ -797,6 +808,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             listRef={combinedListRef}
             listboxAriaLabelledBy={listboxAriaLabelledBy}
             listboxAriaLabel={listboxAriaLabel}
+            listboxAriaMultiselectable={listboxAriaMultiselectable}
             isButtonMenu={isButtonMenu}
             onKeyDown={handleMenuKeyDown}
             middleware={computedMiddleware}

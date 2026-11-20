@@ -140,7 +140,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         data-role="input-container"
         $error={error}
         $size={size}
-        $isSimpleSelect={selectType === "simple"}
+        $selectType={selectType}
         $isDisabled={disabled}
         $isReadOnly={readOnly}
         data-is-subtle={dataIsSubtle}

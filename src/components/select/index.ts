@@ -13,6 +13,6 @@ export type {
 } from "./simple-select";
 export { default as FilterableSelect } from "./filterable-select";
 export type { FilterableSelectProps } from "./filterable-select";
-export { default as MultiSelect } from "./multi-select";
+export { default as MultiSelect, MultiSelectDropdown } from "./multi-select";
 export type { MultiSelectProps } from "./multi-select";
 export { default as setupSelectMocks } from "./setup-select-mocks";

@@ -365,6 +365,7 @@ export type {
 export {
   FilterableSelect,
   MultiSelect,
+  MultiSelectDropdown,
   Select,
   Select as Dropdown,
   Option,

@@ -29,16 +29,10 @@ import {
 import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import ResultsAnnouncement from "../../__internal__/results-announcement/results-announcement.component";
 import guid from "../../__internal__/utils/helpers/guid";
+import highlightMatchingText from "../../__internal__/highlight-matching-text/highlight-matching-text.component";
 
 const AssistiveHint = styled.span`
   display: none;
-`;
-
-const HighlightedMatch = styled.strong<{ $size?: SearchProps["size"] }>`
-  &&&& {
-    ${({ $size }) =>
-      `font: var(--global-font-static-comp-medium-${$size?.charAt(0) || "m"});`}
-  }
 `;
 
 const DEFAULT_MIN_QUERY_LENGTH = 3;
@@ -435,28 +429,6 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
 
     const searchInput = renderSearchInput();
 
-    const renderHighlightedLabel = (labelText: string, query: string) => {
-      if (!query) return labelText;
-
-      const lowerLabel = labelText.toLowerCase();
-      const lowerQuery = query.toLowerCase();
-      const matchStartIndex = lowerLabel.indexOf(lowerQuery);
-
-      if (matchStartIndex === -1) return labelText;
-
-      const matchEndIndex = matchStartIndex + query.length;
-
-      return (
-        <>
-          {labelText.slice(0, matchStartIndex)}
-          <HighlightedMatch $size={size}>
-            {labelText.slice(matchStartIndex, matchEndIndex)}
-          </HighlightedMatch>
-          {labelText.slice(matchEndIndex)}
-        </>
-      );
-    };
-
     const renderListData = () =>
       listData?.map((group, groupIndex) => (
         <React.Fragment key={group.heading}>
@@ -495,7 +467,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
                   </MenuItemLeading>
 
                   <MenuItemLabel prefix={labelPrefix}>
-                    {renderHighlightedLabel(label, value)}
+                    {highlightMatchingText(label, value, size)}
                   </MenuItemLabel>
                   {subtext && <MenuItemSubtext>{subtext}</MenuItemSubtext>}
                 </MenuItem>

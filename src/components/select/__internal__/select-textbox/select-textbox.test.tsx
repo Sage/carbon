@@ -284,29 +284,6 @@ describe.each(["filterable", "multi"] as const)(
       expect(screen.queryByTestId("select-text")).not.toBeInTheDocument();
     });
 
-    it("combobox has placeholder text when it has no value", () => {
-      render(<ControlledSelectTextbox selectType={selectType} />);
-
-      expect(screen.getByRole("combobox")).toHaveAttribute(
-        "placeholder",
-        "Please Select...",
-      );
-    });
-
-    it("combobox has custom placeholder text when it has no value and a custom placeholder is provided", () => {
-      render(
-        <ControlledSelectTextbox
-          selectType={selectType}
-          placeholder="foobar"
-        />,
-      );
-
-      expect(screen.getByRole("combobox")).toHaveAttribute(
-        "placeholder",
-        "foobar",
-      );
-    });
-
     it("renders combobox without autocomplete", () => {
       render(<ControlledSelectTextbox label="Textbox" />);
 
@@ -325,6 +302,29 @@ describe.each(["filterable", "multi"] as const)(
     });
   },
 );
+
+test("filterable select displays the default placeholder", () => {
+  render(<ControlledSelectTextbox selectType="filterable" />);
+
+  expect(screen.getByRole("combobox")).toHaveAttribute(
+    "placeholder",
+    "Please Select...",
+  );
+});
+
+test("filterable select displays a custom placeholder", () => {
+  render(
+    <ControlledSelectTextbox selectType="filterable" placeholder="foobar" />,
+  );
+
+  expect(screen.getByRole("combobox")).toHaveAttribute("placeholder", "foobar");
+});
+
+test("multi select does not display the deprecated placeholder", () => {
+  render(<ControlledSelectTextbox selectType="multi" placeholder="foobar" />);
+
+  expect(screen.getByRole("combobox")).not.toHaveAttribute("placeholder");
+});
 
 test("calls onIconClick callback when the dropdown icon is clicked", () => {
   const onIconClick = jest.fn();

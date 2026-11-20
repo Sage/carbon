@@ -8,7 +8,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface PillProps extends StyledPillProps, TagProps {
   /** The content to display inside of the pill.  */
-  children: string;
+  children: string | React.ReactElement<{ children: string }>;
   /**
    * Determines the colour variant of the pill.
    * @deprecated Use `variant` prop instead.
@@ -64,6 +64,8 @@ export interface PillProps extends StyledPillProps, TagProps {
   pillRole?: "tag" | "status";
   /** Sets custom aria-label attribute on the remove button */
   ariaLabelOfRemoveButton?: string;
+  /** @private @ignore Tab order of the remove button when used inside another control. */
+  removeButtonTabIndex?: number;
   /** @private @ignore title attribute passed down to underlying element */
   title?: string;
 }
@@ -106,6 +108,7 @@ export const Pill = ({
   pillRole,
   size = "M",
   ariaLabelOfRemoveButton,
+  removeButtonTabIndex,
   ...rest
 }: PillProps) => {
   const locale = useLocale();
@@ -132,9 +135,15 @@ export const Pill = ({
       {onDelete && (
         <StyledDeleteButton
           type="button"
+          tabIndex={removeButtonTabIndex}
           onClick={(ev) => onDelete(ev)}
           data-element="close"
-          aria-label={ariaLabelOfRemoveButton || locale.pill.remove(children)}
+          aria-label={
+            ariaLabelOfRemoveButton ||
+            locale.pill.remove(
+              typeof children === "string" ? children : children.props.children,
+            )
+          }
         >
           <Icon type="cross" />
         </StyledDeleteButton>
