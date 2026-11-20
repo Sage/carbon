@@ -359,7 +359,7 @@ export const StyledButton = styled.button<
     justify-content: flex-start;
     background-color: transparent;
     color: currentColor;
-    border-radius: 0;
+    border-radius: var(--global-radius-action-m);
     border: none;
 
     &:focus {

@@ -103,6 +103,28 @@ test("menu and submenu buttons expand to fit their content", async ({
   ).toBe(true);
 });
 
+test("positions the submenu flush against the edge of the parent menu", async ({
+  mount,
+  page,
+}) => {
+  await mount(<ActionPopoverWithDifferentSubmenus />);
+
+  await page.getByRole("button", { name: "Actions" }).click();
+  await page.getByRole("button", { name: /Business/ }).click();
+  await expect(
+    page.getByRole("button", { name: "Business Sub Menu Item" }),
+  ).toBeVisible();
+
+  const menus = page.locator('[data-role="menu-wrapper"]');
+  const parentMenu = await menus.nth(0).boundingBox();
+  const submenu = await menus.nth(1).boundingBox();
+
+  expect(submenu?.x).toBeCloseTo(
+    (parentMenu?.x ?? 0) + (parentMenu?.width ?? 0),
+    0,
+  );
+});
+
 test.describe("check functionality for ActionPopover component", () => {
   test("should render component", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
