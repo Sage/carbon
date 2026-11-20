@@ -302,11 +302,16 @@ const DataGridInner = <T extends object>(
           $maxHeight={maxHeight}
           $maxWidth={maxWidth}
           role="grid"
+          onKeyDownCapture={keyboard.handleKeyDownCapture}
+          onKeyUpCapture={keyboard.handleKeyUp}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           aria-describedby={ariaDescribedBy}
           aria-rowcount={rows.length + 1}
           aria-colcount={columns.length}
+          aria-multiselectable={
+            columns.some(({ type }) => type === "checkbox") || undefined
+          }
           data-component="data-grid"
           data-role="data-grid"
           data-element="data-grid-scroll-container"
@@ -327,7 +332,10 @@ const DataGridInner = <T extends object>(
               )}
               {virtualization.renderedRowIndexes.map((rowIndex) => (
                 <DataGridRow
-                  key={rowId(rows[rowIndex])}
+                  key={JSON.stringify([
+                    typeof rowId(rows[rowIndex]),
+                    rowId(rows[rowIndex]),
+                  ])}
                   rowIndex={rowIndex}
                   columns={columns}
                   activeColumn={active.row === rowIndex ? active.column : -1}

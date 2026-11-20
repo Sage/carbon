@@ -3,7 +3,7 @@ import type { Page } from "@playwright/test";
 
 import { expect, test } from "../../../playwright/helpers/base-test";
 import { checkAccessibility } from "../../../playwright/support/helper";
-import DataGridComponent from "./components.test-pw";
+import DataGridComponent, { DataGridInDialog } from "./components.test-pw";
 import { DataGrid } from ".";
 
 test("Tab exits both grid boundaries in navigation and edit modes", async ({
@@ -575,6 +575,64 @@ test("returns focus to the cell when an open dropdown is dismissed with Escape",
   );
   await expect(typeCell).toBeFocused();
   await expect(typeCell).toContainText("Product");
+});
+
+for (const { field, role, label } of [
+  { field: "name", role: "textbox", label: "Name, row 1" },
+  { field: "type", role: "combobox", label: "Type, row 1" },
+] as const) {
+  test(`Escape cancels the ${field} editor without cancelling its Dialog`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridInDialog />);
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeFocused();
+    const editedCell = cell(page, 1, field);
+    await editedCell.click();
+    const editor = page.getByRole(role, { name: label });
+    await expect(editor).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(editor).toHaveCount(0);
+    await expect(dialog).toBeVisible();
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          window.__CARBON_INTERNALS_MODAL_LIST?.map(({ modal }) => ({
+            component: modal.getAttribute("data-component"),
+            connected: modal.isConnected,
+          })),
+        ),
+      )
+      .toEqual([{ component: "dialog", connected: true }]);
+    await editedCell.focus();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+  });
+}
+
+test("supports all edge navigation keys from a closed action trigger", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent />);
+  for (const [key, row, field] of [
+    ["Home", 2, "name"],
+    ["End", 2, "actions"],
+    ["Control+Home", 1, "name"],
+    ["Control+End", 6, "actions"],
+  ] as const) {
+    await cell(page, 2, "actions").focus();
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(
+      page.getByRole("button", { name: "Actions for row 2" }),
+    ).toBeFocused();
+    await page.keyboard.press(key);
+    await expect(cell(page, row, field)).toBeFocused();
+    await expect(page.getByRole("list")).toHaveCount(0);
+  }
 });
 
 test("filters and commits a FilterableSelect dropdown", async ({

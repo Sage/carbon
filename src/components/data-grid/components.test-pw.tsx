@@ -4,6 +4,7 @@ import { ActionPopover, ActionPopoverProps } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import Button from "../button/__next__";
 import Icon from "../icon";
+import Dialog from "../dialog";
 import { DataGrid, DataGridColumn, DataGridHandle, DataGridProps } from ".";
 
 const renderSmallActionPopoverButton: NonNullable<
@@ -165,6 +166,15 @@ const DataGridComponent = ({
         onRowsChange={(nextRows) => setRows(nextRows)}
       />
     </div>
+  );
+};
+
+export const DataGridInDialog = () => {
+  const [open, setOpen] = useState(true);
+  return (
+    <Dialog open={open} title="Grid dialog" onCancel={() => setOpen(false)}>
+      <DataGridComponent />
+    </Dialog>
   );
 };
 

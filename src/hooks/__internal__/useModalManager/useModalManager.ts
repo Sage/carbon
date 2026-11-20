@@ -22,6 +22,7 @@ const useModalManager = ({
 }: UseModalManagerArgs) => {
   const listenerAdded = useRef(false);
   const modalRegistered = useRef(false);
+  const registeredModal = useRef<HTMLElement | null>(null);
   const lastFocusedElement = useRef<HTMLElement | null>(null);
 
   const handleClose = useCallback(
@@ -76,6 +77,7 @@ const useModalManager = ({
     (ref: HTMLElement | null) => {
       /* istanbul ignore else */
       if (!modalRegistered.current) {
+        registeredModal.current = ref;
         ModalManager.addModal(ref, setTriggerRefocusFlag, topModalOverride);
 
         modalRegistered.current = true;
@@ -84,37 +86,34 @@ const useModalManager = ({
     [setTriggerRefocusFlag, topModalOverride],
   );
 
-  const unregisterModal = useCallback(
-    (ref: HTMLElement | null) => {
-      if (modalRegistered.current) {
-        ModalManager.removeModal(ref, triggerRefocusOnClose);
+  const unregisterModal = useCallback(() => {
+    if (modalRegistered.current) {
+      ModalManager.removeModal(registeredModal.current, triggerRefocusOnClose);
 
-        if (lastFocusedElement.current) {
-          setTimeout(() => {
-            lastFocusedElement.current?.focus();
-            lastFocusedElement.current = null;
-          }, 0);
-        }
-
-        modalRegistered.current = false;
+      if (lastFocusedElement.current) {
+        setTimeout(() => {
+          lastFocusedElement.current?.focus();
+          lastFocusedElement.current = null;
+        }, 0);
       }
-    },
-    [triggerRefocusOnClose],
-  );
+
+      modalRegistered.current = false;
+      registeredModal.current = null;
+    }
+  }, [triggerRefocusOnClose]);
 
   useEffect(() => {
     const ref = modalRef.current;
     if (open) {
       registerModal(ref);
     } else {
-      unregisterModal(ref);
+      unregisterModal();
     }
   }, [modalRef, open, registerModal, unregisterModal]);
 
   useEffect(() => {
-    const ref = modalRef.current;
     return () => {
-      unregisterModal(ref);
+      unregisterModal();
     };
   }, [modalRef, unregisterModal]);
 };

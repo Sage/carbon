@@ -132,6 +132,8 @@ const DataGridCellInner = <T extends object>(
         event.key === "ArrowRight" ||
         event.key === "ArrowUp" ||
         event.key === "ArrowDown" ||
+        event.key === "Home" ||
+        event.key === "End" ||
         event.key === "Tab";
 
       // Nested controls own their keyboard interaction. Once a closed action

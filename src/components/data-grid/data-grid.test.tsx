@@ -1304,6 +1304,55 @@ test.each([false, true])(
   },
 );
 
+test.each([false, true])(
+  "exposes multi-selection only with checkbox columns (%s)",
+  (hasCheckbox) => {
+    render(
+      <DataGrid
+        aria-label="Items"
+        rows={rows}
+        columns={hasCheckbox ? columns : [columns[0]]}
+      />,
+    );
+    expect(screen.getByRole("grid").getAttribute("aria-multiselectable")).toBe(
+      hasCheckbox ? "true" : null,
+    );
+  },
+);
+
+test("preserves distinct numeric and string row identities when reordering and removing rows", () => {
+  const mixedRows = [
+    { id: 1, name: "Numeric" },
+    { id: "1", name: "String" },
+  ];
+  const mixedColumns = [{ field: "name" as const, headerName: "Name" }];
+  const { rerender } = render(
+    <DataGrid aria-label="Items" rows={mixedRows} columns={mixedColumns} />,
+  );
+  const numericRow = screen.getByRole("row", { name: "Numeric" });
+  const stringRow = screen.getByRole("row", { name: "String" });
+  rerender(
+    <DataGrid
+      aria-label="Items"
+      rows={[mixedRows[1], mixedRows[0]]}
+      columns={mixedColumns}
+    />,
+  );
+  expect(screen.getByRole("row", { name: "Numeric" })).toBe(numericRow);
+  expect(screen.getByRole("row", { name: "String" })).toBe(stringRow);
+  rerender(
+    <DataGrid
+      aria-label="Items"
+      rows={[mixedRows[1]]}
+      columns={mixedColumns}
+    />,
+  );
+  expect(screen.getByRole("row", { name: "String" })).toBe(stringRow);
+  expect(
+    screen.queryByRole("row", { name: "Numeric" }),
+  ).not.toBeInTheDocument();
+});
+
 test("preserves editor selection across grid rerenders", async () => {
   const user = userEvent.setup();
   const { rerender } = render(

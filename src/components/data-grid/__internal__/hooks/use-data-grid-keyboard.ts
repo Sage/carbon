@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 
 import {
   DataGridCellParams,
@@ -34,6 +34,10 @@ const useDataGridKeyboard = <T extends object>({
   commitEdit,
   cancelEdit,
 }: UseDataGridKeyboardOptions<T>) => {
+  const consumedEscape = useRef(false);
+  const handleKeyDownCapture = useCallback(() => {
+    consumedEscape.current = false;
+  }, []);
   const handleCellKeyDown = useCallback(
     (event: React.KeyboardEvent, position: DataGridCellPosition) => {
       const cellType = getCellParams(position).column.type ?? "text";
@@ -120,6 +124,7 @@ const useDataGridKeyboard = <T extends object>({
       event.preventDefault();
       switch (action.type) {
         case "cancel":
+          consumedEscape.current = true;
           cancelEdit(true);
           break;
         case "commit":
@@ -141,7 +146,19 @@ const useDataGridKeyboard = <T extends object>({
     ],
   );
 
-  return { handleCellKeyDown, handleEditorKeyDown };
+  const handleKeyUp = useCallback((event: React.KeyboardEvent) => {
+    if (event.key === "Escape" && consumedEscape.current) {
+      consumedEscape.current = false;
+      event.stopPropagation();
+    }
+  }, []);
+
+  return {
+    handleCellKeyDown,
+    handleEditorKeyDown,
+    handleKeyDownCapture,
+    handleKeyUp,
+  };
 };
 
 export default useDataGridKeyboard;
