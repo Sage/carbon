@@ -9,6 +9,7 @@ import React, {
 
 import ActionPopoverFocusContext from "../action-popover/__internal__/action-popover-focus.context";
 import ActionPopoverPortalContext from "../action-popover/__internal__/action-popover-portal.context";
+import SelectPortalContext from "../select/__internal__/select-portal.context";
 import { createDataGridColumnModel } from "./__internal__/layout/data-grid-column-model";
 import DataGridHeader from "./__internal__/data-grid-header";
 import DataGridRow from "./__internal__/data-grid-row";
@@ -70,7 +71,9 @@ const DataGridActionPopoverProviders = ({
     <ActionPopoverFocusContext.Provider
       value={dataGridActionPopoverFocusContext}
     >
-      {children}
+      <SelectPortalContext.Provider value={dataGridActionPopoverPortalContext}>
+        {children}
+      </SelectPortalContext.Provider>
     </ActionPopoverFocusContext.Provider>
   </ActionPopoverPortalContext.Provider>
 );
