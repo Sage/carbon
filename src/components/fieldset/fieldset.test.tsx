@@ -79,9 +79,7 @@ test("should set Carbon child inputs as required when `required` is set", () => 
   expect(
     screen.getByRole("combobox", { name: "Simple Select" }),
   ).toBeRequired();
-  expect(
-    screen.getByRole("combobox", { name: "Multi Select Amber" }),
-  ).toBeRequired();
+  expect(screen.getByRole("combobox", { name: "Multi Select" })).toBeRequired();
   expect(
     screen.getByRole("combobox", { name: "Filterable Select" }),
   ).toBeRequired();
