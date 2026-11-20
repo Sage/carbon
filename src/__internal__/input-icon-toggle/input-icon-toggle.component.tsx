@@ -110,7 +110,11 @@ const InputIconToggle = ({
         tabIndex={blockFocusStyling ? undefined : -1}
         $blockFocusStyling={blockFocusStyling}
       >
-        <Icon disabled={disabled || readOnly} type={type} />
+        <Icon
+          disabled={disabled || readOnly}
+          type={type}
+          size={size === "small" ? "extra-small" : "small"}
+        />
       </InputIconToggleStyle>
     );
   }

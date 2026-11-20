@@ -82,7 +82,10 @@ const PopoverMenuWithState = ({
             disabled={hasDisabledItem && item === "Gamma"}
           >
             <MenuItemLeading selectedIcon={value === item}>
-              <Icon type="home" />
+              <Icon
+                type="home"
+                size={size === "small" ? "extra-small" : "small"}
+              />
             </MenuItemLeading>
             <MenuItemLabel prefix={`${i + 1}: `}>{item}</MenuItemLabel>
             {i % 3 === 0 && <MenuItemSubtext>Subtext</MenuItemSubtext>}
@@ -98,7 +101,10 @@ const PopoverMenuWithState = ({
             selected={value === "Extra"}
           >
             <MenuItemLeading selectedIcon={value === "Extra"}>
-              <Icon type="home" />
+              <Icon
+                type="home"
+                size={size === "small" ? "extra-small" : "small"}
+              />
             </MenuItemLeading>
             <MenuItemLabel>Extra</MenuItemLabel>
           </MenuItem>

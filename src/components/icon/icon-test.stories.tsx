@@ -66,19 +66,19 @@ export const Default = ({ ...args }) => {
 export const All = () => (
   <>
     {ICONS.map((type) =>
-      ICON_FONT_SIZES.map((fontSize) => (
-        <Icon type={type} fontSize={fontSize} key={`${type}_${fontSize}`} />
+      ICON_FONT_SIZES.map((size) => (
+        <Icon type={type} size={size} key={`${type}_${size}`} />
       )),
     )}
     {[true, false].map((disabled) =>
-      ICON_FONT_SIZES.map((fontSize) => {
+      ICON_FONT_SIZES.map((size) => {
         return ICON_SHAPES.map((bgShape) => {
           return ICON_SIZES.map((bgSize) => (
             <Icon
               type="add"
               disabled={disabled}
-              key={`${fontSize}_${disabled}_${bgShape}_${bgSize}`}
-              fontSize={fontSize}
+              key={`${size}_${disabled}_${bgShape}_${bgSize}`}
+              size={size}
               bgShape={bgShape}
               bgSize={bgSize}
               bg="#00b000"

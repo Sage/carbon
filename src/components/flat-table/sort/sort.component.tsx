@@ -62,6 +62,7 @@ export const Sort = ({
         aria-hidden
         data-element="sort-icon"
         type={sortType === "ascending" ? "sort_up" : "sort_down"}
+        size="extra-small"
       />
     ) : (
       <span data-role="sort-placeholder" />

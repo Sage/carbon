@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+
 import useLocale from "../../../hooks/__internal__/useLocale";
 
 import {
@@ -9,89 +10,142 @@ import {
 } from "./pagination-navigation.style";
 
 import Textbox from "../../textbox";
+
 import Button from "../../button/__next__";
+
 import Icon from "../../icon";
+
 import Typography from "../../typography";
+
 import guid from "../../../__internal__/utils/helpers/guid";
 
 type PaginationButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
 /**
- * Renders navigation Buttons and current page input
- */
+
+* Renders navigation Buttons and current page input
+
+*/
+
 export interface PaginationNavigationProps {
   /** Current visible page */
+
   currentPage: number;
+
   /** Page size, number of elements on the current page */
+
   pageSize: number;
+
   /** Total number of pages */
+
   totalPages: number;
+
   /** Sets the current page being shown */
+
   setCurrentPage: (page: number) => void;
+
   /** Callback function for next link */
+
   onNext?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
+
   /** Callback function for first link */
+
   onFirst?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
+
   /** Callback function for previous link */
+
   onPrevious?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
+
   /** Callback function for last link */
+
   onLast?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
+
   /** onPagination Callback triggered when a change is triggered */
+
   onPagination: (currentPage: number, pageSize: number, origin: string) => void;
+
   /** Should the `First` and `Last` navigation buttons be shown */
+
   showFirstAndLastButtons?: boolean;
+
   /** If true, page number navigation will be changed to a non-interactive label */
+
   interactivePageNumber?: boolean;
+
   /** Size of the button */
+
   size?: "small" | "medium";
+
   /** Alignment of the content. */
+
   alignment?: "fill" | "centred";
 }
 
 const PaginationNavigation = ({
   currentPage,
+
   pageSize,
+
   totalPages,
+
   setCurrentPage,
+
   onNext,
+
   onFirst,
+
   onPrevious,
+
   onLast,
+
   onPagination,
+
   showFirstAndLastButtons,
+
   interactivePageNumber,
+
   size,
+
   alignment,
 }: PaginationNavigationProps) => {
   const locale = useLocale();
 
+  const iconSize = size === "small" ? "extra-small" : "small";
+
   const [currentPageInputValue, setCurrentPageInputValue] = useState<
     string | number
   >(currentPage);
+
   const previousRef = useRef<PaginationButtonRef>(null);
+
   const nextRef = useRef<PaginationButtonRef>(null);
+
   const { current: currentPageDescriptionId } = useRef(guid());
 
   const hasNavigationButtons = totalPages > 1;
+
   const showFirst = currentPage > 1 && showFirstAndLastButtons;
+
   const showPrevious = currentPage > 1;
+
   const showNext = currentPage < totalPages;
+
   const showLast = currentPage < totalPages && showFirstAndLastButtons;
 
   useEffect(() => {
@@ -106,9 +160,12 @@ const PaginationNavigation = ({
     switch (buttonFocusRef.current) {
       case "next":
         nextRef.current?.focus();
+
         break;
+
       case "previous":
         previousRef.current?.focus();
+
         break;
     }
 
@@ -121,8 +178,11 @@ const PaginationNavigation = ({
       | React.MouseEvent<HTMLButtonElement>,
   ) => {
     buttonFocusRef.current = "next";
+
     setCurrentPage(1);
+
     onFirst?.(ev as React.MouseEvent<HTMLButtonElement>);
+
     onPagination(1, pageSize, "first");
   };
 
@@ -132,12 +192,15 @@ const PaginationNavigation = ({
       | React.MouseEvent<HTMLButtonElement>,
   ) => {
     const page = currentPage - 1;
+
     if (page === 1) {
       buttonFocusRef.current = "next";
     }
 
     setCurrentPage(page);
+
     onPrevious?.(ev as React.MouseEvent<HTMLButtonElement>);
+
     onPagination(page, pageSize, "previous");
   };
 
@@ -153,7 +216,9 @@ const PaginationNavigation = ({
     }
 
     setCurrentPage(page);
+
     onNext?.(ev as React.MouseEvent<HTMLButtonElement>);
+
     onPagination(page, pageSize, "next");
   };
 
@@ -163,8 +228,11 @@ const PaginationNavigation = ({
       | React.MouseEvent<HTMLButtonElement>,
   ) => {
     buttonFocusRef.current = "previous";
+
     setCurrentPage(totalPages);
+
     onLast?.(ev as React.MouseEvent<HTMLButtonElement>);
+
     onPagination(totalPages, pageSize, "last");
   };
 
@@ -178,13 +246,14 @@ const PaginationNavigation = ({
           onClick={handleFirstButtonClick}
           disabled={!showFirst}
         >
-          <Icon type="chevron_first_pagination" />
+          <Icon type="chevron_first_pagination" size={iconSize} />
         </Button>
       )}
       <Button
         variantType="subtle"
         aria-label={locale.pager.previousAriaLabel?.(
           showPrevious ? currentPage - 1 : 0,
+
           totalPages,
         )}
         size={size}
@@ -192,7 +261,7 @@ const PaginationNavigation = ({
         ref={previousRef}
         disabled={!showPrevious}
       >
-        <Icon type="chevron_left_thick" />
+        <Icon type="chevron_left_thick" size={iconSize} />
       </Button>
     </>
   );
@@ -203,6 +272,7 @@ const PaginationNavigation = ({
         variantType="subtle"
         aria-label={locale.pager.nextAriaLabel?.(
           showNext ? currentPage + 1 : 0,
+
           totalPages,
         )}
         size={size}
@@ -210,8 +280,9 @@ const PaginationNavigation = ({
         ref={nextRef}
         disabled={!showNext}
       >
-        <Icon type="chevron_right_thick" />
+        <Icon type="chevron_right_thick" size={iconSize} />
       </Button>
+
       {showFirstAndLastButtons && (
         <Button
           variantType="subtle"
@@ -220,7 +291,7 @@ const PaginationNavigation = ({
           onClick={handleLastButtonClick}
           disabled={!showLast}
         >
-          <Icon type="chevron_last_pagination" />
+          <Icon type="chevron_last_pagination" size={iconSize} />
         </Button>
       )}
     </>
@@ -234,28 +305,39 @@ const PaginationNavigation = ({
     const parsedPage = Number(currentPageInputValue);
 
     // reset current page when NaN
+
     if (!Number.isInteger(parsedPage)) {
       setCurrentPageInputValue(currentPage);
+
       return;
     }
 
     // set current page to 1 when lower than 1
+
     if (parsedPage < 1) {
       setCurrentPageInputValue(1);
+
       setCurrentPage(1);
+
       onPagination(1, pageSize, "input");
+
       return;
     }
 
     // set current to last page when more than total
+
     if (parsedPage > totalPages) {
       setCurrentPageInputValue(totalPages);
+
       setCurrentPage(totalPages);
+
       onPagination(totalPages, pageSize, "input");
+
       return;
     }
 
     setCurrentPage(parsedPage);
+
     onPagination(parsedPage, pageSize, "input");
   };
 
@@ -302,7 +384,9 @@ const PaginationNavigation = ({
   return (
     <StyledPaginationNavigation $alignment={alignment}>
       {hasNavigationButtons && renderNavigationButtonsBefore()}
+
       {renderCurrentPage()}
+
       {hasNavigationButtons && renderNavigationButtonsAfter()}
     </StyledPaginationNavigation>
   );

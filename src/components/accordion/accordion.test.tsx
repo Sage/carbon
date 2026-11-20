@@ -324,6 +324,23 @@ describe("Accordion", () => {
     expect(icon).toHaveStyle({ transition: "transform 0.4s" });
   });
 
+  it.each([
+    ["small", "var(--global-size-3-xs)"],
+    ["medium", "var(--global-size-2-xs)"],
+    ["large", "var(--global-size-2-xs)"],
+  ] as const)(
+    "renders the icon at the correct size when `size` is %s",
+    (size, token) => {
+      render(<Accordion title="Title" size={size} />);
+
+      expect(screen.getByTestId("accordion-icon")).toHaveStyleRule(
+        "font-size",
+        token,
+        { modifier: "&::before" },
+      );
+    },
+  );
+
   // coverage
   it("has no border when `borders` prop is 'none'", () => {
     render(

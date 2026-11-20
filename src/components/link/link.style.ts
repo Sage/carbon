@@ -191,14 +191,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
           css`
             color: ${color};
             ${StyledIcon} {
-              width: 20px;
-              height: 20px;
               color: ${color};
-
-              ::before {
-                font-size: 18px;
-                line-height: 18px;
-              }
 
               ${$iconAlign === "left" &&
               css`

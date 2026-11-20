@@ -3,7 +3,6 @@ import { margin, padding, PaddingProps } from "styled-system";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
 
 export const StyledList = styled.ul`
@@ -73,10 +72,6 @@ export const StyledVerticalMenuItem = styled.div.attrs(
         }
       }
     `}
-
-  ${StyledIcon} {
-    width: 20px;
-  }
 `;
 
 export const StyledTitle = styled.span`
@@ -97,7 +92,6 @@ export const StyledAdornment = styled.div`
 
 export const StyledTitleIcon = styled(Icon)`
   margin-right: 12px;
-  width: 20px;
   color: var(--colorsComponentsLeftnavWinterStandardContent);
 `;
 
@@ -109,7 +103,6 @@ export const StyledCustomIconWrapper = styled.div`
 export const StyledChevronIcon = styled(Icon)`
   margin-left: auto;
   padding-left: 12px;
-  width: 20px;
   color: var(--colorsComponentsLeftnavWinterStandardContent);
 `;
 

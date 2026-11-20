@@ -147,7 +147,12 @@ export const ActionPopover = forwardRef<
       buttonLabel === undefined ? (
         <>
           {l.actionPopover.buttonLabel?.()}
-          {!isInTable && <Icon type="ellipsis_vertical" />}
+          {!isInTable && (
+            <Icon
+              type="ellipsis_vertical"
+              size={size === "small" ? "extra-small" : "small"}
+            />
+          )}
         </>
       ) : (
         buttonLabel

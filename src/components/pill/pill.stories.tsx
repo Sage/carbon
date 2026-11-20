@@ -56,10 +56,11 @@ const meta: Meta<typeof Pill> = {
       control: { type: "radio" },
     },
     icon: {
-      options: ["none", "info"],
+      options: ["none", "info", "info-extra-small"],
       mapping: {
         none: undefined,
         info: <Icon type="info" />,
+        "info-extra-small": <Icon type="info" size="extra-small" />,
       },
       control: { type: "radio" },
     },

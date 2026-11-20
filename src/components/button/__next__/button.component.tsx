@@ -229,7 +229,10 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
 
       const iconProps = {
         "aria-hidden": true,
-        bg: "transparent",
+        size:
+          computedSize === "xs" || computedSize === "small"
+            ? ("extra-small" as const)
+            : undefined,
       };
 
       if (!hasChildren) {

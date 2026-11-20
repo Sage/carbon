@@ -261,7 +261,10 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
                     onClick={handleToggleClick}
                     isWhite={shouldRenderIsWhiteVariant}
                   >
-                    <Icon type="dropdown" />
+                    <Icon
+                      type="dropdown"
+                      size={size === "small" ? "extra-small" : "small"}
+                    />
                   </StyledSplitButtonToggle>
                 );
               }}

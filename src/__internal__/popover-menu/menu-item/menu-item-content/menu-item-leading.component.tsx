@@ -6,11 +6,6 @@ import Icon from "../../../../components/icon";
 const StyledMenuItemLeading = styled.span`
   display: flex;
   grid-row: 1;
-
-  [data-component="icon"] {
-    width: 20px;
-    height: 20px;
-  }
 `;
 
 const StyledSelectedIconWrapper = styled.span<{ $hasIcon: boolean }>`
@@ -27,7 +22,7 @@ const MenuItemLeading = ({
   children?: React.ReactNode;
   selectedIcon?: boolean;
 }) => {
-  const { isButtonMenu } = useContext(PopoverMenuContext);
+  const { isButtonMenu, size } = useContext(PopoverMenuContext);
   return (
     <StyledMenuItemLeading className="menu-item-leading" data-element="leading">
       {!isButtonMenu && (
@@ -36,7 +31,12 @@ const MenuItemLeading = ({
           $hasIcon={selectedIcon}
         >
           {/* Selection is exposed via aria-selected on the option, so the tick is decorative. */}
-          <Icon type="tick_thick" data-role="selected-icon" aria-hidden />
+          <Icon
+            type="tick_thick"
+            data-role="selected-icon"
+            size={size === "small" ? "extra-small" : "small"}
+            aria-hidden
+          />
         </StyledSelectedIconWrapper>
       )}
       {children}

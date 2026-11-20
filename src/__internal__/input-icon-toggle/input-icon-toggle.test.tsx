@@ -214,6 +214,20 @@ test("renders only an input icon when the `readOnly` prop is true and no `valida
   expect(icon).toHaveAttribute("type", "settings");
 });
 
+test.each([
+  ["small", "var(--global-size-3-xs)"],
+  ["medium", "var(--global-size-2-xs)"],
+] as const)(
+  "renders the input icon at the correct size when the `size` prop is %s",
+  (size, token) => {
+    render(<InputIconToggle size={size} inputIcon="settings" />);
+
+    expect(screen.getByTestId("icon")).toHaveStyleRule("font-size", token, {
+      modifier: "&::before",
+    });
+  },
+);
+
 test("renders only an input icon when both `readOnly` and `disabled` props are true and `useValidationIcon` is false", () => {
   render(
     <InputIconToggle

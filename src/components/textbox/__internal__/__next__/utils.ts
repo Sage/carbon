@@ -5,6 +5,7 @@ export interface CommonTextInputArgs {
   label: string;
   placeholder: string;
   inputIcon?: IconType;
+  size?: "small" | "medium" | "large";
 }
 
 export const getCommonTextInputArgsWithSpecialCharacters = (

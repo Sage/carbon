@@ -317,11 +317,16 @@ export const MenuItem = forwardRef<
       const submenuTitle = (
         <>
           <StyledMenuItemContent $hasMaxWidth={!!itemMaxWidth}>
-            {icon && <Icon type={icon} />}
+            {icon && <Icon type={icon} size="extra-small" />}
             {submenu}
           </StyledMenuItemContent>
           {showDropdownArrow && !inFullscreenView && (
-            <Icon ml="4px" type="dropdown" />
+            <Icon
+              ml="4px"
+              type="dropdown"
+              size="extra-small"
+              data-element="submenu-dropdown-arrow"
+            />
           )}
         </>
       );
@@ -399,7 +404,7 @@ export const MenuItem = forwardRef<
           $selected={selected}
         >
           <StyledMenuItemContent $hasMaxWidth={!!itemMaxWidth}>
-            {icon && <Icon type={icon} />}
+            {icon && <Icon type={icon} size="extra-small" />}
             {children}
           </StyledMenuItemContent>
         </StyledMenuItemWrapper>

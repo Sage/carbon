@@ -261,6 +261,7 @@ export const Accordion = React.forwardRef<
         data-element="accordion-icon"
         data-role="accordion-icon"
         type={iconType || getIconType()}
+        size={size === "small" ? "extra-small" : "small"}
         $isExpanded={isExpanded}
         $allowMotion={allowMotion}
       />

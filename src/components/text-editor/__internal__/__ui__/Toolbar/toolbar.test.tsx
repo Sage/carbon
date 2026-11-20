@@ -1230,3 +1230,21 @@ describe("Hyperlink dialog validation", () => {
     });
   });
 });
+
+test.each([
+  ["small", "var(--global-size-3-xs)"],
+  ["medium", "var(--global-size-2-xs)"],
+] as const)(
+  "renders the formatting button icons at the correct size when size is %s",
+  (size, token) => {
+    render(<TextEditor labelText="Test Editor" namespace="test" size={size} />);
+
+    const boldButton = screen.getByTestId("test-bold-button");
+    const icon = within(boldButton).getByTestId("icon");
+
+    expect(icon).toHaveAttribute("type", "bold");
+    expect(icon).toHaveStyleRule("font-size", token, {
+      modifier: "&::before",
+    });
+  },
+);

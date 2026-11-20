@@ -22,6 +22,10 @@ export type BgSize = "small" | "medium" | "large" | "extra-large";
 
 export type FontSize = "small" | "medium" | "large" | "extra-large";
 
+export type IconSize = "extra-small" | "small" | "medium" | "large";
+
+type GlyphSize = IconSize | FontSize;
+
 export const ICON_COLOR_TYPES = [
   "neutral",
   "subtle",
@@ -64,7 +68,7 @@ export interface StyledIconProps {
   /** Background shape */
   bgShape?: BackgroundShape;
   /** Background size */
-  bgSize?: BgSize;
+  bgSize?: BgSize | "extra-small";
   /**
    * @private
    * @ignore
@@ -78,7 +82,7 @@ export interface StyledIconProps {
   /** Sets the icon in the disabled state */
   disabled?: boolean;
   /** Icon font size */
-  fontSize?: FontSize;
+  fontSize?: GlyphSize;
   /**
    * Icon type
    *
@@ -132,8 +136,6 @@ const styleOverrides = css`
   [data-element="menu-item-wrapper"] &&,
   [data-element="submenu-parent-item"] && {
     color: currentColor;
-    width: var(--global-size-2-xs);
-    height: var(--global-size-2-xs);
 
     &:hover {
       color: currentColor;
@@ -190,8 +192,11 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       align-items: center;
       display: inline-flex;
       justify-content: center;
-      height: ${backgroundSize};
-      width: ${backgroundSize};
+      ${bg &&
+      css`
+        height: ${backgroundSize};
+        width: ${backgroundSize};
+      `}
       ${bgShape ? `border-radius: ${iconConfig.backgroundShape[bgShape]}` : ""};
 
       ${isInteractive &&

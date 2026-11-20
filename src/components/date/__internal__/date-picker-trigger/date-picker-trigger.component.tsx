@@ -47,7 +47,10 @@ const DatePickerTrigger = ({
         onClick={onClick}
         onMouseDown={onMouseDown}
       >
-        <Icon type="calendar_today" />
+        <Icon
+          type="calendar_today"
+          size={size === "small" ? "extra-small" : "small"}
+        />
       </LegacyDatePickerTrigger>
     );
   }
