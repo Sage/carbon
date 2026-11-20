@@ -22,6 +22,29 @@ for (const menuType of [
   "multi-action-button",
   "action-popover",
 ] as const) {
+  test(`keeps a top-layer ${menuType} beside its trigger in the DOM`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TableMenuFocusComponent menuType={menuType} />);
+    const trigger = page.getByRole("button", {
+      name: "Menu actions",
+      exact: true,
+    });
+    const cell = trigger.locator("xpath=ancestor::td");
+    await trigger.click();
+    const menu = page.getByRole("list");
+    // Top-layer rendering escapes clipping without relocating the menu to the page.
+    await expect(cell.locator("ul")).toHaveCount(1);
+    await expect(cell.locator(":popover-open")).toHaveCount(1);
+    await expect
+      .poll(() => cell.ariaSnapshot())
+      .toContain('button "First action"');
+    await page.keyboard.press("Escape");
+    await expect(menu).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+  });
+
   for (const followingControls of ["hidden", "collapsed-subrow"] as const) {
     test(`Tab skips ${followingControls} controls after a portalled ${menuType}`, async ({
       mount,
@@ -72,6 +95,30 @@ for (const menuType of [
   }
 }
 
+test("falls back to a portal when native popovers are unavailable", async ({
+  mount,
+  page,
+}) => {
+  await page.evaluate(() => {
+    delete (HTMLElement.prototype as Partial<HTMLElement>).showPopover;
+  });
+  await mount(<TableMenuFocusComponent menuType="action-popover" />);
+  const trigger = page.getByRole("button", {
+    name: "Menu actions",
+    exact: true,
+  });
+  await trigger.click();
+  await expect(
+    page.getByRole("button", { name: "First action", exact: true }),
+  ).toBeFocused();
+  await expect(trigger.locator("xpath=ancestor::td").locator("ul")).toHaveCount(
+    0,
+  );
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("list")).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
 for (const customTrigger of [false, true]) {
   test(`Tab wraps within a dialog when its last control opens a portalled submenu (custom trigger=${customTrigger})`, async ({
     mount,
@@ -97,6 +144,14 @@ for (const customTrigger of [false, true]) {
     await expect(
       page.getByRole("button", { name: "Nested action", exact: true }),
     ).toBeFocused();
+    await expect
+      .poll(() =>
+        page
+          .getByRole("button", { name: "Menu actions", exact: true })
+          .locator("xpath=ancestor::td")
+          .ariaSnapshot(),
+      )
+      .toContain('button "Nested action"');
     await page.keyboard.press("Tab");
     await expect(page.getByRole("list")).toHaveCount(0);
     await expect(dialog.getByRole("button").first()).toBeFocused();

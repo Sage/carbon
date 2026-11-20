@@ -99,6 +99,22 @@ const ScrollWrapper = styled.div`
   width: 100%;
 `;
 
+const MenuExitGuard = styled.button`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 export type FocusableHandle =
   | HTMLElement
   | HTMLButtonElement
@@ -262,6 +278,7 @@ interface MenuProps {
   listStyle?: React.CSSProperties;
   menuWrapperDataElement?: string;
   listTabIndex?: number;
+  onExitFocus?: React.FocusEventHandler<HTMLButtonElement>;
 }
 
 const Menu = ({
@@ -286,6 +303,7 @@ const Menu = ({
   listStyle,
   menuWrapperDataElement,
   listTabIndex,
+  onExitFocus,
 }: MenuProps) => {
   return (
     <Popover
@@ -295,6 +313,7 @@ const Menu = ({
       data-component="popover-menu"
       middleware={middleware}
       disablePortal={disablePortal}
+      useTopLayer={isButtonMenu && !disablePortal}
       portalTarget={portalTarget}
       popoverStrategy={popoverStrategy}
     >
@@ -326,6 +345,11 @@ const Menu = ({
             {children}
           </List>
         </ScrollWrapper>
+        {onExitFocus && (
+          <MenuExitGuard type="button" data-focus-guard onFocus={onExitFocus}>
+            End of menu
+          </MenuExitGuard>
+        )}
       </MenuWrapper>
     </Popover>
   );
@@ -365,6 +389,7 @@ const Control = <TRef extends FocusableHandle = HTMLElement>({
     })
   ) : (
     <PopoverControlWrapper
+      id={isButtonMenu ? `${listId}-control` : undefined}
       ref={controlWrapperRef}
       onKeyDown={onKeyDown}
       data-component="popover-menu-control"
@@ -443,6 +468,96 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
 
+  const handleMenuExitFocus = useCallback(
+    (event: React.FocusEvent<HTMLButtonElement>) => {
+      const owner = wrapperRef.current;
+      const control = controlRef.current ?? controlWrapperRef.current;
+      const trigger =
+        control?.querySelector<HTMLElement>(
+          "button, a[href], input, select, textarea",
+        ) ?? control;
+      if (!owner || !trigger) return;
+
+      const next = nextElementToFocus(
+        trigger,
+        owner,
+        Array.from(
+          owner.ownerDocument.querySelectorAll<HTMLElement>(
+            `[data-menu-tree-id="${menuTreeId}"]`,
+          ),
+        ),
+      );
+      let destination = trigger;
+
+      if (next) {
+        const between = owner.ownerDocument.createRange();
+        between.setStartAfter(owner);
+        between.setEndBefore(next);
+        const content = between.cloneContents();
+        // Be conservative: return to the trigger rather than skip text or
+        // non-text content that VoiceOver should encounter next.
+        const hasContent =
+          content.textContent?.trim() ||
+          content.querySelector(
+            "img, svg, canvas, hr, iframe, audio, video, input, select, textarea, button, a[href], [role], [aria-label], [aria-labelledby], [tabindex]",
+          );
+        if (!hasContent) destination = next;
+      }
+
+      onCloseRef.current(event.nativeEvent);
+      destination.focus({ preventScroll: true });
+    },
+    [menuTreeId],
+  );
+
+  useEffect(() => {
+    if (!open || !isButtonMenu || isSubmenu) return;
+
+    const ownerDocument = wrapperRef.current?.ownerDocument;
+    const ownerWindow = ownerDocument?.defaultView;
+    if (!ownerDocument || !ownerWindow) return;
+
+    let frame = 0;
+    const isWithinMenu = (target: EventTarget | null) =>
+      target instanceof Element &&
+      target
+        .closest("[data-menu-tree-id]")
+        ?.getAttribute("data-menu-tree-id") === menuTreeId;
+
+    let hasFocusedMenu = isWithinMenu(ownerDocument.activeElement);
+
+    const checkFocusAfterMove = (event: FocusEvent) => {
+      ownerWindow.cancelAnimationFrame(frame);
+      // Wait for focus to settle, including moves into a portalled submenu.
+      frame = ownerWindow.requestAnimationFrame(() => {
+        if (!isWithinMenu(ownerDocument.activeElement)) {
+          onCloseRef.current(event);
+        }
+      });
+    };
+
+    const handleFocusIn = (event: FocusEvent) => {
+      const withinMenu = isWithinMenu(event.target);
+      if (withinMenu) {
+        hasFocusedMenu = true;
+      } else if (hasFocusedMenu) {
+        checkFocusAfterMove(event);
+      }
+    };
+
+    const handleFocusOut = (event: FocusEvent) => {
+      if (isWithinMenu(event.target)) checkFocusAfterMove(event);
+    };
+
+    ownerDocument.addEventListener("focusin", handleFocusIn, true);
+    ownerDocument.addEventListener("focusout", handleFocusOut, true);
+    return () => {
+      ownerWindow.cancelAnimationFrame(frame);
+      ownerDocument.removeEventListener("focusin", handleFocusIn, true);
+      ownerDocument.removeEventListener("focusout", handleFocusOut, true);
+    };
+  }, [open, isButtonMenu, isSubmenu, menuTreeId]);
+
   const handleMenuClose = useCallback(
     (ev?: Event) => {
       const shouldRestoreTabOrder =
@@ -477,6 +592,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             : undefined;
         onClose(ev);
         const destination = (next ?? trigger) as HTMLElement | undefined;
+
         if (
           destination &&
           destination.ownerDocument.activeElement !== destination
@@ -485,6 +601,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         }
         return;
       }
+
       onClose(ev);
     },
     [isButtonMenu, isSubmenu, onClose, menuTreeId],
@@ -680,14 +797,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           }
         }
       },
-      [
-        open,
-        handleDropdownMenuKeyDown,
-        isButtonMenu,
-        isInTable,
-        onOpen,
-        isSubmenu,
-      ],
+      [open, isButtonMenu, isInTable, onOpen, isSubmenu, handleMenuKeyDown],
     );
 
   useEffect(() => {
@@ -810,6 +920,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             listStyle={listStyle}
             menuWrapperDataElement={menuWrapperDataElement}
             listTabIndex={listTabIndex}
+            onExitFocus={
+              isButtonMenu && !isSubmenu ? handleMenuExitFocus : undefined
+            }
           >
             {wrappedChildren}
           </Menu>
