@@ -10,7 +10,8 @@ export const StyledSidebarTitle = styled.div<{ stickyHeader?: boolean }>`
     css`
       position: sticky;
       top: 0;
-      border-bottom: var(--sizing010) solid #a0a0a0;
+      border-bottom: var(--sizing010) solid
+        var(--container-modal-border-default);
     `}
 `;
 
