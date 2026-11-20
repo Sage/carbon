@@ -44,7 +44,7 @@ description: Carbon Tab component props and usage examples.
 | customLayout | React.ReactNode | No |  | Yes | Support for customLayout will be removed in a future release, it is recommended to use the `label` prop instead. | Overrides default layout with a one defined in this prop |  |
 | errorMessage | string \| undefined | No |  | Yes | Message displayed when Tab has error The legacy validation pattern is being removed in a future release. |  |  |
 | href | string \| undefined | No |  | Yes | Using tabs as links is inaccessible; this prop will be deprecated in a future release. | Allows Tab to be a link |  |
-| info | string \| boolean \| undefined | No |  | Yes | to be removed when legacy `Tabs` and `Tab` are removed | The info state of the tab |  |
+| info | string \| boolean \| undefined | No |  | Yes | the info validation is no longer supported. | The info state of the tab |  |
 | infoMessage | string \| undefined | No |  | Yes | Message displayed when Tab has info The legacy validation pattern is being removed in a future release. |  |  |
 | position | "left" \| "top" \| undefined | No | left \| top | Yes | Support will be removed in a future release. | The position of the Tab. |  |
 | siblings | React.ReactNode | No |  | Yes | Support for siblings will be removed in a future release. It is recommended to use `label` prop to compose what you want. | Additional content to display with title |  |

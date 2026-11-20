@@ -25,7 +25,7 @@ description: Carbon TabNext component props and usage examples.
 | warning | string \| boolean \| undefined | No |  |  |  | The warning state of the tab | false |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| info | string \| boolean \| undefined | No |  | Yes | to be removed when legacy `Tabs` and `Tab` are removed | The info state of the tab | false |
+| info | string \| boolean \| undefined | No |  | Yes | the info validation is no longer supported. | The info state of the tab |  |
 
 ## Examples
 No Storybook examples found.

@@ -13,6 +13,12 @@ const lightGreyBackground: React.CSSProperties = {
   backgroundColor: "rgb(244, 245, 246)",
 };
 
+const whiteBackground: React.CSSProperties = {
+  padding: "var(--global-space-layout-xs)",
+  backgroundColor: "rgb(255, 255, 255)",
+  height: "300px",
+};
+
 const meta: Meta<typeof Tabs> = {
   title: "Tabs/Test",
   component: Tabs,
@@ -55,7 +61,9 @@ const TabsExample = ({
         id={`${idPrefix}-panel-${index + 1}`}
         tabId={`${idPrefix}-tab-${index + 1}`}
       >
-        <Typography m={2}>{`Content ${index + 1}`}</Typography>
+        <div style={whiteBackground}>
+          <Typography>{`Content ${index + 1}`}</Typography>
+        </div>
       </TabPanel>
     ))}
   </Tabs>

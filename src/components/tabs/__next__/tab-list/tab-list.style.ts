@@ -23,7 +23,6 @@ export const StyledTabList = styled.div<StyledTabListProps>`
 export const StyledTabListWrapper = styled.div<{ $headerWidth?: string }>`
   display: flex;
   z-index: 6;
-  align-items: end;
 
   ${({ $headerWidth }) =>
     $headerWidth &&
@@ -49,14 +48,15 @@ export const StyledScrollButton = styled.button<StyledScrollButtonProps>`
     min-height: ${sizes[$size].minHeight};
     min-width: ${sizes[$size].minHeight};
     background: var(--tab-nav-bg-default);
-    border-radius: var(--global-radius-action-m) var(--global-radius-action-m) 0
-      0;
+    border-radius: var(--global-radius-action-m) var(--global-radius-action-m)
+      var(--global-radius-none) var(--global-radius-none);
     border: none;
     position: relative;
     z-index: 2;
 
     ::before {
       content: "";
+      pointer-events: none;
       position: absolute;
       inset: 0;
       border-radius: inherit;
@@ -73,6 +73,7 @@ export const StyledScrollButtonPlaceholder = styled.div<StyledScrollButtonProps>
 
     ::before {
       content: "";
+      pointer-events: none;
       position: absolute;
       inset: 0;
       border-radius: inherit;

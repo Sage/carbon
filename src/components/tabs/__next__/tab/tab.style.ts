@@ -25,11 +25,9 @@ export const sizes = {
 const getActiveLineBgColor = (
   error?: string | boolean,
   warning?: string | boolean,
-  info?: string | boolean,
 ) => {
   if (error) return "var(--tab-validation-border-error)";
   if (warning) return "var(--tab-validation-border-warning)";
-  if (info) return "#0060a7ff";
   return "var(--tab-border-active)";
 };
 
@@ -76,7 +74,6 @@ interface StyledTabProps {
   $activeTab: boolean;
   $error?: string | boolean;
   $warning?: string | boolean;
-  $info?: string | boolean;
   $orientation: "horizontal" | "vertical";
   $size: "medium" | "large";
   $hasCustomLayout?: boolean;
@@ -90,7 +87,6 @@ export const StyledTab = styled.button<StyledTabProps>`
     $size,
     $error,
     $warning,
-    $info,
     $hasCustomLayout,
     $headerWidth,
   }) => css`
@@ -106,12 +102,13 @@ export const StyledTab = styled.button<StyledTabProps>`
     font: ${sizes[$size].labelFont};
     min-height: ${sizes[$size].minHeight};
     padding: var(--global-space-comp-s) ${sizes[$size].paddingX};
-    border-radius: var(--global-radius-action-m) var(--global-radius-action-m) 0
-      0;
+    border-radius: var(--global-radius-action-m) var(--global-radius-action-m)
+      var(--global-radius-none) var(--global-radius-none);
 
     // overlay border to prevent layout shifts when state changes
     ::before {
       content: "";
+      pointer-events: none;
       position: absolute;
       inset: 0;
       border-radius: inherit;
@@ -132,6 +129,7 @@ export const StyledTab = styled.button<StyledTabProps>`
         // active line
         ::after {
           content: "";
+          pointer-events: none;
           position: absolute;
           bottom: 0;
           // padding + outline border
@@ -139,7 +137,7 @@ export const StyledTab = styled.button<StyledTabProps>`
           right: calc(${sizes[$size].paddingX} + var(--global-borderwidth-s));
           width: stretch;
           height: var(--global-size-5-xs);
-          background-color: ${getActiveLineBgColor($error, $warning, $info)};
+          background-color: ${getActiveLineBgColor($error, $warning)};
           border-radius: var(--global-radius-action-xs);
           box-shadow:
             calc(-1 * var(--global-borderwidth-xl)) 0 0 0
@@ -151,8 +149,8 @@ export const StyledTab = styled.button<StyledTabProps>`
 
     ${$orientation === "vertical" &&
     css`
-      border-radius: var(--global-radius-action-m) 0 0
-        var(--global-radius-action-m);
+      border-radius: var(--global-radius-action-m) var(--global-radius-none)
+        var(--global-radius-none) var(--global-radius-action-m);
       max-width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
       width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
       padding: ${sizes[$size].paddingY} ${sizes[$size].paddingX};
@@ -173,6 +171,7 @@ export const StyledTab = styled.button<StyledTabProps>`
         // active line
         ::after {
           content: "";
+          pointer-events: none;
           position: absolute;
           right: 0;
           // padding + outline border
@@ -180,7 +179,7 @@ export const StyledTab = styled.button<StyledTabProps>`
           bottom: calc(${sizes[$size].paddingY} + var(--global-borderwidth-s));
           height: stretch;
           width: var(--global-size-5-xs);
-          background-color: ${getActiveLineBgColor($error, $warning, $info)};
+          background-color: ${getActiveLineBgColor($error, $warning)};
           border-radius: var(--global-radius-action-xs);
           box-shadow:
             0 calc(-1 * var(--global-borderwidth-xl)) 0 0

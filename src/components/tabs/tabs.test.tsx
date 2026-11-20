@@ -313,32 +313,24 @@ test("renders full-width tabs without panels when inside a drawer sidebar", () =
 test("includes the status from `validationStatusOverride` in each tab's accessible name", () => {
   render(
     <Tabs>
-      <Tab tabId="foo" title="Tab 1" validationStatusOverride={{ info: true }}>
+      <Tab tabId="bar" title="Tab 1" validationStatusOverride={{ error: true }}>
         Content 1
-      </Tab>
-      <Tab tabId="bar" title="Tab 2" validationStatusOverride={{ error: true }}>
-        Content 2
       </Tab>
       <Tab
         tabId="baz"
-        title="Tab 3"
+        title="Tab 2"
         validationStatusOverride={{ warning: true }}
       >
-        Content 3
+        Content 2
       </Tab>
     </Tabs>,
   );
 
   expect(
-    screen.getByRole("tab", {
-      name: "Tab 1 The Tab 1 tab contains information",
-    }),
+    screen.getByRole("tab", { name: "Tab 1 The Tab 1 tab contains errors" }),
   ).toBeVisible();
   expect(
-    screen.getByRole("tab", { name: "Tab 2 The Tab 2 tab contains errors" }),
-  ).toBeVisible();
-  expect(
-    screen.getByRole("tab", { name: "Tab 3 The Tab 3 tab contains warnings" }),
+    screen.getByRole("tab", { name: "Tab 2 The Tab 2 tab contains warnings" }),
   ).toBeVisible();
 });
 

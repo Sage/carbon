@@ -37,7 +37,7 @@ export interface TabProps extends TagProps {
   warning?: boolean | string;
   /**
    * The info state of the tab
-   * @deprecated to be removed when legacy `Tabs` and `Tab` are removed
+   * @deprecated the info validation is no longer supported.
    * */
   info?: boolean | string;
 
@@ -64,7 +64,7 @@ export const Tab = ({
   leftSlot,
   rightSlot,
   warning = false,
-  info = false,
+  info,
   hasCustomLayout,
   headerWidth,
   href,
@@ -144,17 +144,6 @@ export const Tab = ({
       );
     }
 
-    if (info) {
-      return (
-        <Icon
-          data-role="icon-info"
-          type="info"
-          ariaLabel={locale.tabs.info(labelText)}
-          color="info"
-        />
-      );
-    }
-
     return null;
   };
 
@@ -167,7 +156,6 @@ export const Tab = ({
         aria-selected={selected ? "true" : "false"}
         $error={internalError}
         $warning={internalWarning}
-        $info={info}
         id={id}
         onClick={() => {
           setActiveTab(id);
