@@ -5,7 +5,9 @@ import React, {
   useLayoutEffect,
   useRef,
   useMemo,
+  useContext,
 } from "react";
+import SelectPortalContext from "../select-portal.context";
 import { flip, offset, size } from "@floating-ui/dom";
 import {
   useVirtualizer,
@@ -148,6 +150,7 @@ const SelectList = React.forwardRef(
     listContainerRef: React.ForwardedRef<HTMLDivElement>,
   ) => {
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
+    const { renderInPortal } = useContext(SelectPortalContext);
     const currentOptionsListIndexRef = useRef(-1);
     const [scrollbarWidth, setScrollbarWidth] = useState(0);
     const lastFilter = useRef("");
@@ -741,7 +744,7 @@ const SelectList = React.forwardRef(
       >
         <Popover
           placement={listPlacement}
-          disablePortal
+          disablePortal={!renderInPortal}
           reference={anchorRef}
           middleware={popoverMiddleware}
           isOpen={isOpen}

@@ -21,6 +21,8 @@ import iconUnicodes from "../icon/icon-unicodes";
 import guid from "../../__internal__/utils/helpers/guid";
 import TokensWrapper from "../tokens-wrapper";
 import Dialog from "../dialog";
+import ActionPopoverFocusContext from "./__internal__/action-popover-focus.context";
+import ActionPopoverPortalContext from "./__internal__/action-popover-portal.context";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -680,6 +682,27 @@ test.each([false, true])(
     expect(onClose).toHaveBeenCalledTimes(1);
   },
 );
+
+test("preserves click-away focus when focus restoration is disabled by context", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopoverFocusContext.Provider
+      value={{ restoreFocusOnClickAway: false }}
+    >
+      <ActionPopover>
+        <ActionPopoverItem>example item</ActionPopoverItem>
+      </ActionPopover>
+      <button type="button">Next control</button>
+    </ActionPopoverFocusContext.Provider>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Actions" }));
+  await user.click(screen.getByRole("button", { name: "Next control" }));
+
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Next control" })).toHaveFocus();
+});
 
 test.each(["ArrowDown", "Space", "Enter", "ArrowUp"] as const)(
   "pressing %s key when focused on the menu button opens the menu and calls the onOpen callback",
@@ -1749,6 +1772,23 @@ test("renders action popover menu under the action popover wrapper tree", async 
   const anchor = screen.getByTestId("anchor");
 
   expect(anchor).toContainElement(menu);
+});
+
+test("renders the menu in a portal when requested by a containing component", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopoverPortalContext.Provider value={{ renderInPortal: true }}>
+      <ActionPopover data-role="anchor">
+        <ActionPopoverItem>Item 1</ActionPopoverItem>
+      </ActionPopover>
+    </ActionPopoverPortalContext.Provider>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  const menu = await screen.findByRole("list");
+
+  expect(screen.getByTestId("anchor")).not.toContainElement(menu);
 });
 
 test("renders the PopoverMenu inline within a TokensWrapper", async () => {
