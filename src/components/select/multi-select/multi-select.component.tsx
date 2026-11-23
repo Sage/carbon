@@ -549,6 +549,10 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       const triggerFocus = () => onFocus?.(event);
 
       if (isMouseDownReported.current && !isMouseDownOnInput.current) {
+        if (onFocus && !isInputFocused.current) {
+          triggerFocus();
+          isInputFocused.current = true;
+        }
         return;
       }
 

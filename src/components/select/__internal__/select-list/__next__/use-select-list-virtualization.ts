@@ -53,6 +53,9 @@ const useSelectListVirtualization = ({
 }: UseSelectListVirtualizationProps) => {
   const optionCount = rows.filter((row) => !row.isLoader).length;
   const initialScrollIndex = rows.findIndex((row) => row.selected);
+  const initialScrollIndexRef = useRef(initialScrollIndex);
+  initialScrollIndexRef.current = initialScrollIndex;
+  const selectionScrollTrigger = multiselect ? null : initialScrollIndex;
   const selectedItemKey =
     initialScrollIndex >= 0 ? rows[initialScrollIndex].key : null;
   const selectedItemEnabled =
@@ -151,12 +154,13 @@ const useSelectListVirtualization = ({
     if (!open) {
       setActiveItemKey(null);
       virtualizer.measure();
-    } else if (initialScrollIndex >= 0) {
-      scrollToOption(initialScrollIndex, "center");
+    } else if (initialScrollIndexRef.current >= 0) {
+      scrollToOption(initialScrollIndexRef.current, "center");
     }
     return cancelPendingScroll;
-    // The virtualizer instance is stable; scroll only when opening or changing selection.
-  }, [open, enabled, initialScrollIndex]);
+    // Multi Select keeps its active option when selection changes; only a new
+    // opening or enabled virtual list should recenter its first selection.
+  }, [open, enabled, selectionScrollTrigger]);
 
   useEffect(() => {
     if (open && enabled) {
