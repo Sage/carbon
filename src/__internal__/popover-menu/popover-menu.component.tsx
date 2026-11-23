@@ -31,12 +31,12 @@ import combineRefs from "../utils/helpers/combine-refs";
 import { TableBodyContext } from "../../components/table/__internal__/contexts";
 import { nextElementToFocus } from "../../hooks/__internal__/useFocusPortalContent";
 import { getWindow } from "../dom/globals";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 
 const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
 
-const PopoverControlWrapper = styled.div<{
-  $controlWrapperStyle?: CSSObject;
-}>`
+const PopoverControlWrapper = styled.div<{ $controlWrapperStyle?: CSSObject }>`
   display: inline-block;
   ${({ $controlWrapperStyle }) => $controlWrapperStyle}
 `;
@@ -73,17 +73,56 @@ const paddingSize = {
   large: "var(--global-space-comp-m)",
 };
 
-const MenuWrapper = styled.div<ListProps>`
+interface MenuWrapperProps extends Pick<ListProps, "$size"> {
+  $contentHeight?: number;
+}
+
+// set full height on outer wrapper - prevents menu from flipping during reveal animation
+const MenuWrapper = styled.div<MenuWrapperProps>`
+  width: max-content;
+  z-index: calc(var(--carbon-zindex-overlay) + 2);
+
+  ${({ $contentHeight, $size }) =>
+    $contentHeight !== undefined &&
+    css`
+      // MenuContent is content-box, so include top and bottom padding
+      height: calc(${$contentHeight}px + 2 * ${paddingSize[$size]});
+    `}
+`;
+
+interface MenuContentProps extends Pick<ListProps, "$size" | "$isButtonMenu"> {
+  $contentHeight?: number;
+  $isRevealing?: boolean;
+}
+
+const REVEAL_DURATION = 200;
+const revealEasing = `${REVEAL_DURATION}ms cubic-bezier(0.22, 0.61, 0.36, 1)`;
+
+const MenuContent = styled.div<MenuContentProps>`
   box-shadow: var(--global-depth-lvl1);
   border-radius: var(--global-radius-container-m);
   background-color: var(--popover-bg-default);
-  width: max-content;
   position: relative;
-  z-index: calc(var(--carbon-zindex-overlay) + 2);
+  padding: ${({ $size }) => paddingSize[$size]} var(--global-space-none);
 
-  padding: ${({ $size }) => css`
-    ${paddingSize[$size]} var(--global-space-none)
-  `};
+  ${({ $isRevealing, $contentHeight }) =>
+    $isRevealing &&
+    css`
+      box-sizing: content-box;
+      overflow: clip;
+      transition:
+        height ${revealEasing},
+        padding ${revealEasing};
+
+      ${$contentHeight === undefined
+        ? css`
+            height: 0;
+            padding: 0;
+          `
+        : css`
+            height: ${$contentHeight}px;
+          `}
+    `}
 
   ${({ $isButtonMenu }) =>
     !$isButtonMenu &&
@@ -246,12 +285,14 @@ interface MenuProps {
   controlWrapperRef: React.RefObject<HTMLDivElement | HTMLLIElement>;
   size: PopoverMenuContextProps["size"];
   listRef: React.Ref<HTMLUListElement>;
+  internalListRef: React.RefObject<HTMLUListElement>;
   listboxAriaLabelledBy?: string;
   isButtonMenu?: boolean;
   children: React.ReactNode;
   onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void;
   middleware: PopoverProps["middleware"];
   scrollRef: React.RefObject<HTMLDivElement>;
+  menuWrapperRef: React.MutableRefObject<HTMLDivElement | null>;
   menuTreeId: string;
   listId: string;
   disablePortal?: boolean;
@@ -270,6 +311,7 @@ const Menu = ({
   controlWrapperRef,
   size,
   listRef,
+  internalListRef,
   listboxAriaLabelledBy,
   listboxAriaLabel,
   isButtonMenu,
@@ -277,6 +319,7 @@ const Menu = ({
   onKeyDown,
   middleware,
   scrollRef,
+  menuWrapperRef,
   menuTreeId,
   listId,
   disablePortal,
@@ -287,6 +330,41 @@ const Menu = ({
   menuWrapperDataElement,
   listTabIndex,
 }: MenuProps) => {
+  const [contentHeight, setContentHeight] = useState<number>();
+  const [isRevealing, setIsRevealing] = useState(true);
+
+  const allowMotion = useMediaQuery(
+    "screen and (prefers-reduced-motion: no-preference)",
+  );
+  const isRevealingActive = allowMotion && isRevealing;
+
+  const handleTransitionEnd = (e: React.TransitionEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget && e.propertyName === "height") {
+      setIsRevealing(false);
+    }
+  };
+
+  const updateContentHeight = useCallback(() => {
+    setContentHeight(
+      (internalListRef.current as HTMLUListElement).getBoundingClientRect()
+        .height,
+    );
+  }, [internalListRef]);
+
+  useResizeObserver(internalListRef, updateContentHeight, !isRevealingActive);
+
+  // transitionEnd won't fire if the height doesn't change/is interrupted
+  useEffect(() => {
+    if (!isRevealingActive || contentHeight === undefined) return undefined;
+
+    const timeoutId = setTimeout(
+      () => setIsRevealing(false),
+      REVEAL_DURATION + 50,
+    );
+
+    return () => clearTimeout(timeoutId);
+  }, [isRevealingActive, contentHeight]);
+
   return (
     <Popover
       placement={placement}
@@ -299,33 +377,43 @@ const Menu = ({
       popoverStrategy={popoverStrategy}
     >
       <MenuWrapper
+        ref={menuWrapperRef}
+        $contentHeight={isRevealingActive ? contentHeight : undefined}
         $size={size}
         onKeyDown={onKeyDown}
         data-role="menu-wrapper"
         data-element={menuWrapperDataElement}
         onMouseDown={(e) => e.preventDefault()}
-        $isButtonMenu={isButtonMenu}
       >
-        <ScrollWrapper
-          ref={scrollRef}
-          data-component="scroll-wrapper"
-          data-menu-tree-id={menuTreeId}
+        <MenuContent
+          $size={size}
+          $isRevealing={isRevealingActive}
+          $contentHeight={contentHeight}
+          onTransitionEnd={handleTransitionEnd}
+          $isButtonMenu={isButtonMenu}
+          data-role="menu-content"
         >
-          <List
-            $size={size}
-            ref={listRef}
-            role={isButtonMenu ? "list" : "listbox"}
-            id={listId}
-            aria-labelledby={listboxAriaLabelledBy}
-            $isButtonMenu={isButtonMenu}
-            aria-label={listboxAriaLabel}
-            $maxHeight={maxHeight}
-            style={listStyle}
-            tabIndex={listTabIndex}
+          <ScrollWrapper
+            ref={scrollRef}
+            data-component="scroll-wrapper"
+            data-menu-tree-id={menuTreeId}
           >
-            {children}
-          </List>
-        </ScrollWrapper>
+            <List
+              $size={size}
+              ref={listRef}
+              role={isButtonMenu ? "list" : "listbox"}
+              id={listId}
+              aria-labelledby={listboxAriaLabelledBy}
+              $isButtonMenu={isButtonMenu}
+              aria-label={listboxAriaLabel}
+              $maxHeight={maxHeight}
+              style={listStyle}
+              tabIndex={listTabIndex}
+            >
+              {children}
+            </List>
+          </ScrollWrapper>
+        </MenuContent>
       </MenuWrapper>
     </Popover>
   );
@@ -429,6 +517,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const popoverReference: React.RefObject<HTMLDivElement | HTMLLIElement> =
     controlReference ?? controlWrapperRef;
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const menuWrapperRef = useRef<HTMLDivElement | null>(null);
   const internalListRef = useRef<HTMLUListElement | null>(null);
   const combinedListRef = combineRefs(listRef, internalListRef);
   const listId = useRef(id ?? `popover-menu-wrapper-${guid()}`);
@@ -597,7 +686,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       !isSubmenu && !disablePortal ? scrollRef.current : null;
     const clickEl = clickAwayWithinReference ? popoverReference.current : el;
     const menuEl = clickAwayWithinReference
-      ? scrollRef.current?.parentElement
+      ? menuWrapperRef.current
       : portalledMenuEl;
 
     clickEl?.addEventListener("click", handleClickInside, { passive: true });
@@ -795,12 +884,14 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             controlWrapperRef={popoverReference}
             size={size}
             listRef={combinedListRef}
+            internalListRef={internalListRef}
             listboxAriaLabelledBy={listboxAriaLabelledBy}
             listboxAriaLabel={listboxAriaLabel}
             isButtonMenu={isButtonMenu}
             onKeyDown={handleMenuKeyDown}
             middleware={computedMiddleware}
             scrollRef={scrollRef}
+            menuWrapperRef={menuWrapperRef}
             menuTreeId={menuTreeId}
             listId={listId.current}
             disablePortal={disablePortal && !isSubmenu}

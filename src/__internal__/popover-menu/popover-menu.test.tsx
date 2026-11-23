@@ -1,6 +1,7 @@
 import React from "react";
 import { flushSync } from "react-dom";
 import {
+  act,
   render,
   renderHook,
   screen,
@@ -26,6 +27,7 @@ import Icon from "../../components/icon";
 import { PopoverControlProps } from "./contexts";
 import * as floatingUi from "@floating-ui/dom";
 import { useHandleDropdownMenuKeyDown } from "./hooks";
+import { mockMatchMedia } from "../../__spec_helper__/__internal__/test-utils";
 
 interface AdditionalControlProps extends PopoverControlProps {
   onClick?: () => void;
@@ -1983,4 +1985,77 @@ test("menu width falls back to control wrapper width when controlReference is no
   });
 
   rectSpy.mockRestore();
+});
+
+describe("when animating the menu", () => {
+  let rectSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    mockMatchMedia(true);
+    rectSpy = jest
+      .spyOn(HTMLUListElement.prototype, "getBoundingClientRect")
+      .mockReturnValue(createRect(200, 100));
+  });
+
+  afterEach(() => {
+    rectSpy.mockRestore();
+    mockMatchMedia(false);
+    sessionStorage.clear();
+  });
+
+  it("animates the menu to the height of its content when reduced motion is not preferred", () => {
+    renderPopoverMenu({ open: true });
+
+    expect(screen.getByTestId("menu-content")).toHaveStyle({
+      boxSizing: "content-box",
+      height: "100px",
+    });
+    expect(screen.getByTestId("menu-wrapper")).toHaveStyleRule(
+      "height",
+      "calc(100px + 2 * var(--global-space-comp-s))",
+    );
+  });
+
+  it("does not animate the menu when reduced motion is preferred", () => {
+    mockMatchMedia(false);
+    renderPopoverMenu({ open: true });
+
+    expect(screen.getByTestId("menu-content")).not.toHaveStyleRule(
+      "transition",
+    );
+    expect(screen.getByTestId("menu-wrapper")).not.toHaveStyleRule("height");
+  });
+
+  it("ends the reveal only when the menu content's own height transition ends", () => {
+    renderPopoverMenu({ open: true });
+    const menuContent = screen.getByTestId("menu-content");
+
+    fireEvent.transitionEnd(menuContent, { propertyName: "padding" });
+    fireEvent.transitionEnd(screen.getByRole("option", { name: "Item 3" }), {
+      propertyName: "height",
+    });
+
+    expect(menuContent).toHaveStyle({ height: "100px" });
+
+    fireEvent.transitionEnd(menuContent, { propertyName: "height" });
+
+    expect(menuContent).not.toHaveStyleRule("transition");
+    expect(screen.getByTestId("menu-wrapper")).not.toHaveStyleRule("height");
+  });
+
+  it("ends the reveal after the animation duration when no transition end event fires", () => {
+    jest.useFakeTimers();
+    renderPopoverMenu({ open: true });
+
+    act(() => {
+      jest.advanceTimersByTime(250);
+    });
+
+    expect(screen.getByTestId("menu-content")).not.toHaveStyleRule(
+      "transition",
+    );
+    expect(screen.getByTestId("menu-wrapper")).not.toHaveStyleRule("height");
+
+    jest.useRealTimers();
+  });
 });
