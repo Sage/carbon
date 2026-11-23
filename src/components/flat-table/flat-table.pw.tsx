@@ -1251,8 +1251,14 @@ test.describe("Scrollable tests", () => {
     await expect
       .poll(() => wrapper.evaluate((element) => element.scrollTop))
       .toBeGreaterThan(initialScrollTop);
-    await expect(buttonList).toBeAttached();
     await expect(buttonList).toBeHidden();
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        ),
+    );
+    await expect(buttonList).toBeAttached();
     await expect(actionPopover).toHaveAttribute("aria-expanded", "true");
 
     await wrapper.evaluate((element, scrollTop) => {
@@ -1264,6 +1270,33 @@ test.describe("Scrollable tests", () => {
     await expect
       .poll(() => wrapper.evaluate((element) => element.scrollTop))
       .toBe(initialScrollTop);
+  });
+
+  test("dismisses a temporarily hidden ActionPopover when focus moves to an outside control", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <FlatTableStickyFooterActionPopoverComponent withOutsideControl />,
+    );
+    const trigger = page.getByRole("button", { name: "Actions", exact: true });
+    await trigger.click();
+    await expect(
+      page.getByRole("button", { name: "Action item", exact: true }),
+    ).toBeFocused();
+    const wrapper = flatTableWrapper(page);
+    await wrapper.evaluate((element) => {
+      element.scrollTop += 400;
+    });
+    const menu = page.getByRole("list", { includeHidden: true });
+    await expect(menu).toBeHidden();
+    await expect(menu).toBeAttached();
+    const outside = page.getByRole("button", { name: "Outside table action" });
+    await outside.evaluate((element) => element.focus({ preventScroll: true }));
+
+    await expect(menu).toHaveCount(0);
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(outside).toBeFocused();
   });
 });
 
