@@ -293,6 +293,12 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       [updateValue],
     );
 
+    const onSelectListClose = useCallback(() => {
+      setOpenState(false);
+      setFilterText("");
+      setTextValue("");
+    }, []);
+
     const handleTextboxKeydown = useCallback(
       (event: React.KeyboardEvent<HTMLInputElement>) => {
         const { key } = event;
@@ -302,18 +308,17 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           onKeyDown(event);
         }
 
-        if (
-          key === "Tab" &&
-          !event.shiftKey &&
-          !event.defaultPrevented &&
-          !isOpen
-        ) {
+        if (key === "Tab" && !event.shiftKey && !event.defaultPrevented) {
           const firstPillButton =
             containerRef.current?.querySelector<HTMLButtonElement>(
               '[data-element="close"]',
             );
           if (firstPillButton) {
             event.preventDefault();
+            if (isOpen) {
+              event.stopPropagation();
+              onSelectListClose();
+            }
             setPillButtonsInTabOrder(true);
             firstPillButton.focus();
           }
@@ -344,6 +349,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         textValue,
         setOpen,
         removeSelectedValue,
+        onSelectListClose,
       ],
     );
 
@@ -600,12 +606,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       },
       [textboxRef, updateValue],
     );
-
-    const onSelectListClose = useCallback(() => {
-      setOpenState(false);
-      setFilterText("");
-      setTextValue("");
-    }, []);
 
     const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
       (element) => {

@@ -62,6 +62,44 @@ test.describe("MultiSelect component", () => {
     await expect(page.getByRole("button", { name: "After" })).toBeFocused();
   });
 
+  test("tabs to selected pills when openOnFocus opens the list", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <>
+        <button type="button">Before</button>
+        <MultiSelect
+          label="Colour"
+          onChange={() => {}}
+          value={["Amber", "Black"]}
+          openOnFocus
+        >
+          <Option text="Amber" value="Amber" />
+          <Option text="Black" value="Black" />
+        </MultiSelect>
+        <button type="button">After</button>
+      </>,
+    );
+
+    await page.getByRole("button", { name: "Before" }).focus();
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("combobox")).toBeFocused();
+    await expect(page.getByRole("listbox")).toBeVisible();
+
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("listbox")).toBeHidden();
+    await expect(
+      page.getByRole("button", { name: "Remove Amber pill" }),
+    ).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("button", { name: "Remove Black pill" }),
+    ).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("button", { name: "After" })).toBeFocused();
+  });
+
   test("scroll position of option list doesn't change, if the component's options are dynamically changed", async ({
     mount,
     page,
@@ -307,8 +345,6 @@ test("should not select a disabled option when a filter is typed", async ({
   await expect(
     page.locator('[data-element="confirmed-selection-2"]'),
   ).toBeHidden();
-  await inputElement.press("ArrowDown");
-  await inputElement.press("Enter");
   await expect(
     page.locator('[data-element="confirmed-selection-3"]'),
   ).toBeVisible();

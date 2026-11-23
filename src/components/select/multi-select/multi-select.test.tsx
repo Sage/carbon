@@ -1158,6 +1158,31 @@ test("tabs to the input before the selected pill remove buttons", async () => {
   expect(screen.getByRole("button", { name: "Next control" })).toHaveFocus();
 });
 
+test("tabs to the first selected pill when openOnFocus has opened the list", async () => {
+  const user = userEvent.setup();
+  render(
+    <InteractiveComponent
+      label="Colour"
+      onChange={() => {}}
+      value={["amber", "black"]}
+      openOnFocus
+    >
+      <Option text="amber" value="amber" />
+      <Option text="black" value="black" />
+    </InteractiveComponent>,
+  );
+
+  await user.tab();
+  expect(screen.getByRole("combobox")).toHaveFocus();
+  await screen.findByRole("listbox");
+
+  await user.tab();
+  expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "Remove amber pill" }),
+  ).toHaveFocus();
+});
+
 test("tabs from an empty MultiSelect to the next control", async () => {
   const user = userEvent.setup();
   render(

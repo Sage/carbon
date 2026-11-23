@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { render, screen, fireEvent, act, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { Virtualizer } from "@tanstack/react-virtual";
 import SelectList, { NextSelectListProps } from "./select-list.component";
@@ -190,6 +190,53 @@ test("does not activate a disabled selected option", () => {
   );
 });
 
+test("moves virtual focus to the first enabled filter match and clears it for no results", async () => {
+  const user = userEvent.setup();
+  const onSelect = jest.fn();
+  const children = [
+    <Option key="amber" id="amber" text="Amber" value="amber" />,
+    <Option
+      key="disabled-blue"
+      id="disabled-blue"
+      text="Blue ice"
+      value="ice"
+      disabled
+    />,
+    <Option key="blue" id="blue" text="Blue" value="blue" />,
+  ];
+  const filteredList = (filterText: string) =>
+    list({ selectedValues: [], filterText, onSelect, children });
+  const { rerender } = render(filteredList(""));
+  const input = screen.getByRole("combobox");
+  input.focus();
+  await user.keyboard("{ArrowDown}");
+  expect(input).toHaveAttribute("aria-activedescendant", "amber");
+
+  rerender(filteredList("blu"));
+  expect(input).toHaveAttribute("aria-activedescendant", "blue");
+  expect(screen.getByRole("option", { name: "Blue" })).toHaveAttribute(
+    "data-has-focus",
+    "true",
+  );
+  await user.keyboard("{Enter}");
+  expect(onSelect).toHaveBeenCalledWith({
+    id: "blue",
+    text: "Blue",
+    value: "blue",
+  });
+
+  rerender(filteredList("purple"));
+  expect(input).not.toHaveAttribute("aria-activedescendant");
+  rerender(filteredList("ice"));
+  expect(screen.getByRole("option", { name: "Blue ice" })).toHaveAttribute(
+    "aria-disabled",
+    "true",
+  );
+  expect(input).not.toHaveAttribute("aria-activedescendant");
+  rerender(filteredList("blu"));
+  expect(input).toHaveAttribute("aria-activedescendant", "blue");
+});
+
 test.each([true, false])(
   "Tab closes without selection when no option is active (confirm=%s)",
   async (selectOnSpaceAndTab) => {
@@ -335,6 +382,35 @@ test("renders and measures groups and dividers with one option per virtual row",
   expect(mockMeasureElement).toHaveBeenCalled();
   await user.keyboard("{ArrowUp}");
   expect(screen.getAllByTestId("divider")).toHaveLength(2);
+});
+
+test("shows the group heading for its first remaining virtual option after filtering", () => {
+  const children = [
+    <OptionGroupHeader key="header" label="Colours" />,
+    <Option key="amber" text="Amber" value="amber" />,
+    <Option key="blue" text="Blue" value="blue" />,
+  ];
+  const { rerender } = render(list({ children, filterText: "Blue" }));
+
+  const group = screen.getByRole("group", { name: "Colours" });
+  expect(group).toContainElement(screen.getByRole("option", { name: "Blue" }));
+  expect(
+    within(group).queryByText("Colours", {
+      selector: '[data-role="visually-hidden-heading"] [data-element="text"]',
+    }),
+  ).not.toBeInTheDocument();
+
+  mockVirtualIndexes = [1];
+  rerender(list({ children }));
+  const secondRowGroup = screen.getByRole("group", { name: "Colours" });
+  expect(secondRowGroup).toContainElement(
+    screen.getByRole("option", { name: "Blue" }),
+  );
+  expect(
+    within(secondRowGroup).getByText("Colours", {
+      selector: '[data-role="visually-hidden-heading"] [data-element="text"]',
+    }),
+  ).toBeInTheDocument();
 });
 
 test("preserves option styles while applying virtual positioning", () => {

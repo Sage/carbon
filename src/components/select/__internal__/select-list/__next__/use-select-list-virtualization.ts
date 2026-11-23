@@ -26,6 +26,7 @@ interface UseSelectListVirtualizationProps {
   rows: SelectVirtualRow[];
   open: boolean;
   enabled: boolean;
+  filterText?: string;
   overscan: number;
   listRef: React.RefObject<HTMLUListElement>;
   listId: string;
@@ -42,6 +43,7 @@ const useSelectListVirtualization = ({
   rows,
   open,
   enabled,
+  filterText,
   overscan,
   listRef,
   listId,
@@ -176,6 +178,28 @@ const useSelectListVirtualization = ({
       setActiveItemKey(null);
     }
   }, [activeItemKey, enabledIndexes, rows]);
+
+  const previousFilterText = useRef<string | null>(null);
+  useEffect(() => {
+    if (!open || filterText === undefined) {
+      previousFilterText.current = null;
+      return;
+    }
+
+    const previous = previousFilterText.current;
+    previousFilterText.current = filterText;
+    if (!enabled) {
+      setActiveItemKey(null);
+      return;
+    }
+    if (previous === filterText || (previous === null && filterText === "")) {
+      return;
+    }
+    const firstEnabledIndex = enabledIndexes[0];
+    setActiveItemKey(
+      firstEnabledIndex === undefined ? null : rows[firstEnabledIndex].key,
+    );
+  }, [open, enabled, filterText, enabledIndexes, rows]);
 
   useIsomorphicLayoutEffect(() => {
     if (open && enabled && resolvedActiveIndex !== undefined) {

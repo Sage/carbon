@@ -346,8 +346,9 @@ const SelectList = ({
                 ?.toLowerCase()
                 .includes(filterText.toLowerCase()),
         )
-        .map((row) => ({
+        .map((row, groupIndex) => ({
           ...row,
+          groupIndex,
           selected: selectedValues
             ? selectedValues.some(
                 (value) =>
@@ -444,6 +445,7 @@ const SelectList = ({
     rows,
     open,
     enabled: virtualizationEnabled,
+    filterText,
     overscan: virtualScrollOverscan,
     listRef,
     listId,
@@ -713,6 +715,7 @@ const SelectList = ({
       enablePageNavigation
       focusSelectedOnOpen
       highlightSelectedOption
+      activeOptionFilterText={virtualizationEnabled ? undefined : filterText}
       // The legacy SelectList was positioned beneath a fixed backdrop, so its
       // flip boundary was the viewport rather than an overflowing parent such
       // as FlatTable. Preserve that behaviour for SimpleSelect.

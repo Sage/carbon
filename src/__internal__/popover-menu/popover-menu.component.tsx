@@ -206,6 +206,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   focusSelectedOnOpen?: boolean;
   /** When set, highlights the selected option on open and when selection changes. */
   highlightSelectedOption?: boolean;
+  /** @internal Highlight the first enabled option when the supplied filter changes. */
+  activeOptionFilterText?: string;
 }
 
 const OFFSET = 8;
@@ -446,6 +448,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     selectOnSpaceAndTab = false,
     focusSelectedOnOpen = false,
     highlightSelectedOption = false,
+    activeOptionFilterText,
     flipEnabled = true,
     menuWrapperDataElement,
     listTabIndex,
@@ -695,6 +698,34 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     wrappedChildren,
     listboxAriaMultiselectable,
   ]);
+
+  const previousActiveOptionFilterText = useRef<string | null>(null);
+  useEffect(() => {
+    if (!open || activeOptionFilterText === undefined) {
+      previousActiveOptionFilterText.current = null;
+      return;
+    }
+
+    const previous = previousActiveOptionFilterText.current;
+    previousActiveOptionFilterText.current = activeOptionFilterText;
+    if (
+      previous === activeOptionFilterText ||
+      (previous === null && activeOptionFilterText === "")
+    ) {
+      return;
+    }
+
+    const listbox = internalListRef.current;
+    const highlightedOption = listbox?.querySelector<HTMLElement>(
+      '[role="option"][data-has-focus="true"]',
+    );
+    const firstEnabledOption = listbox?.querySelector<HTMLElement>(
+      '[role="option"]:not([aria-disabled="true"])',
+    );
+    setFocus(firstEnabledOption ?? undefined, highlightedOption ?? undefined);
+    highlightedSelection.current = firstEnabledOption ?? null;
+    setAriaActivedescendant(firstEnabledOption?.id ?? "");
+  }, [open, activeOptionFilterText]);
 
   const resolvedActivedescendant = activeDescendant ?? ariaActivedescendant;
 

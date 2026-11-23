@@ -250,6 +250,59 @@ test("filters multi-select options and shows the custom empty message", () => {
   );
 });
 
+test("moves non-virtual focus to the first enabled filter match and clears it for no results", async () => {
+  const user = userEvent.setup();
+  const onSelect = jest.fn();
+  const children = [
+    <Option key="amber" id="amber" text="Amber" value="amber" />,
+    <Option
+      key="disabled-blue"
+      id="disabled-blue"
+      text="Blue ice"
+      value="ice"
+      disabled
+    />,
+    <Option key="blue" id="blue" text="Blue" value="blue" />,
+  ];
+  const filteredList = (filterText: string) => (
+    <NextSelectList
+      open
+      selectedValues={[]}
+      filterText={filterText}
+      onSelect={onSelect}
+      onClose={() => {}}
+      popoverControl={(ref, controlProps) => (
+        <input aria-label="Select options" ref={ref} {...controlProps} />
+      )}
+    >
+      {children}
+    </NextSelectList>
+  );
+  const { rerender } = render(filteredList(""));
+  const input = screen.getByRole("combobox");
+  input.focus();
+  await user.keyboard("{ArrowDown}");
+  expect(input).toHaveAttribute("aria-activedescendant", "amber");
+
+  rerender(filteredList("blu"));
+  expect(input).toHaveAttribute("aria-activedescendant", "blue");
+  expect(screen.getByRole("option", { name: "Blue" })).toHaveAttribute(
+    "data-has-focus",
+    "true",
+  );
+  await user.keyboard("{Enter}");
+  expect(onSelect).toHaveBeenCalledWith({
+    id: "blue",
+    text: "Blue",
+    value: "blue",
+  });
+
+  rerender(filteredList("purple"));
+  expect(input).not.toHaveAttribute("aria-activedescendant");
+  rerender(filteredList("blu"));
+  expect(input).toHaveAttribute("aria-activedescendant", "blue");
+});
+
 test.each([
   [
     "small",
