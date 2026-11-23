@@ -57,6 +57,31 @@ interface ViewportProps {
 const toCssSize = (value?: number | string) =>
   typeof value === "number" ? `${value}px` : value;
 
+const getJustifyContent = (
+  align: DataGridAlignment,
+  leftAlignment: "flex-start" | "space-between",
+) => {
+  if (align === "right") return "flex-end";
+  if (align === "center") return "center";
+  return leftAlignment;
+};
+
+const getCellContentPadding = (cellType: DataGridCellType) => {
+  switch (cellType) {
+    case "checkbox":
+      return "var(--global-space-none) var(--global-space-comp-s)";
+    case "action":
+      return "var(--global-space-none) var(--global-space-comp-xs)";
+    default:
+      return "var(--global-space-none) var(--global-space-comp-l)";
+  }
+};
+
+const getCellBorderColor = (readOnly: boolean) =>
+  readOnly
+    ? "var(--input-typical-border-default)"
+    : "var(--table-row-border-default)";
+
 export const StyledDataGridWrapper = styled.div.attrs(applyBaseTheme)`
   isolation: isolate;
   display: flex;
@@ -120,12 +145,7 @@ export const StyledHeader = styled.div<
   ${stickyCell}
   display: flex;
   align-items: center;
-  justify-content: ${({ $align }) =>
-    $align === "right"
-      ? "flex-end"
-      : $align === "center"
-        ? "center"
-        : "flex-start"};
+  justify-content: ${({ $align }) => getJustifyContent($align, "flex-start")};
   box-sizing: border-box;
   height: var(--global-size-m);
   padding: var(--global-space-none) var(--global-space-comp-l);
@@ -169,18 +189,11 @@ export const StyledCell = styled.div<
       ? "linear-gradient(var(--input-typical-bg-read-only), var(--input-typical-bg-read-only))"
       : "none"};
   border-block-end: var(--global-borderwidth-xs) solid
-    ${({ $readOnly }) =>
-      $readOnly
-        ? "var(--input-typical-border-default)"
-        : "var(--table-row-border-default)"};
+    ${({ $readOnly }) => getCellBorderColor($readOnly)};
   border-inline-end: ${({ $hideInlineEndBorder, $readOnly }) =>
     $hideInlineEndBorder
       ? "none"
-      : `var(--global-borderwidth-xs) solid ${
-          $readOnly
-            ? "var(--input-typical-border-default)"
-            : "var(--table-row-border-default)"
-        }`};
+      : `var(--global-borderwidth-xs) solid ${getCellBorderColor($readOnly)}`};
   color: ${({ $readOnly }) =>
     $readOnly
       ? "var(--input-typical-txt-read-only)"
@@ -194,10 +207,7 @@ export const StyledCell = styled.div<
 
   &:first-child {
     border-inline-start: var(--global-borderwidth-xs) solid
-      ${({ $readOnly }) =>
-        $readOnly
-          ? "var(--input-typical-border-default)"
-          : "var(--table-row-border-default)"};
+      ${({ $readOnly }) => getCellBorderColor($readOnly)};
   }
 
   &:hover {
@@ -271,23 +281,14 @@ export const StyledCellContent = styled.div<CellLayoutProps>`
   display: flex;
   align-items: center;
   justify-content: ${({ $align }) =>
-    $align === "right"
-      ? "flex-end"
-      : $align === "center"
-        ? "center"
-        : "space-between"};
+    getJustifyContent($align, "space-between")};
   box-sizing: border-box;
   gap: var(--global-space-comp-s);
   height: var(--global-size-m);
   min-width: 0;
   overflow: ${({ $cellType }) =>
     $cellType === "action" ? "visible" : "hidden"};
-  padding: ${({ $cellType }) =>
-    $cellType === "checkbox"
-      ? "var(--global-space-none) var(--global-space-comp-s)"
-      : $cellType === "action"
-        ? "var(--global-space-none) var(--global-space-comp-xs)"
-        : "var(--global-space-none) var(--global-space-comp-l)"};
+  padding: ${({ $cellType }) => getCellContentPadding($cellType)};
   text-align: ${({ $align }) => $align};
   text-overflow: ellipsis;
   white-space: nowrap;
