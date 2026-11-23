@@ -1021,6 +1021,36 @@ describe("when dropdown list is opened", () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
+  test.each([false, true])(
+    "selects a filtered option with Enter when virtual scrolling is %s",
+    async (enableVirtualScroll) => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      render(
+        <InteractiveComponent
+          label="Colour"
+          value={[]}
+          onChange={onChange}
+          enableVirtualScroll={enableVirtualScroll}
+        >
+          <Option text="Amber" value="amber" />
+          <Option text="Blue" value="blue" />
+        </InteractiveComponent>,
+      );
+
+      const input = screen.getByRole("combobox");
+      await user.type(input, "amb");
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["amber"] }),
+        }),
+      );
+      expect(screen.getByTitle("Amber")).toBeVisible();
+    },
+  );
+
   test("keeps the filter text and does not select an option when Enter is pressed with no results", async () => {
     const user = userEvent.setup();
     const onChange = jest.fn();
@@ -1448,6 +1478,41 @@ test("calls onFocus prop when input is focused", async () => {
   expect(onFocus).toHaveBeenCalledTimes(1);
 });
 
+test.each([false, true])(
+  "calls onFocus before onBlur when the icon focuses the input with openOnFocus=%s",
+  async (openOnFocus) => {
+    const user = userEvent.setup();
+    const callbacks: string[] = [];
+    const onFocus = jest.fn(() => callbacks.push("focus"));
+    const onBlur = jest.fn(() => callbacks.push("blur"));
+    render(
+      <>
+        <InteractiveComponent
+          label="Colour"
+          onChange={() => {}}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          openOnFocus={openOnFocus}
+        >
+          <Option text="amber" value="amber" />
+        </InteractiveComponent>
+        <button type="button">Outside</button>
+      </>,
+    );
+
+    await user.click(screen.getByTestId("input-icon-toggle"));
+    expect(screen.getByRole("combobox")).toHaveFocus();
+    expect(onFocus).toHaveBeenCalledTimes(1);
+
+    await user.click(screen.getByTestId("input-icon-toggle"));
+    expect(onFocus).toHaveBeenCalledTimes(1);
+
+    await user.click(screen.getByRole("button", { name: "Outside" }));
+    expect(onBlur).toHaveBeenCalledTimes(1);
+    expect(callbacks).toEqual(["focus", "blur"]);
+  },
+);
+
 test("calls onBlur prop when input loses focus", async () => {
   const user = userEvent.setup();
   const onBlur = jest.fn();
@@ -1697,9 +1762,17 @@ test("dropdown list is open on initial render, when autoFocus and openOnFocus pr
 
 test("should not display the list when `openOnFocus` is set and mousedown is detected on icon", async () => {
   const user = userEvent.setup();
+  const onFocus = jest.fn();
+  const onOpen = jest.fn();
 
   render(
-    <InteractiveComponent openOnFocus label="multi-select" onChange={() => {}}>
+    <InteractiveComponent
+      openOnFocus
+      label="multi-select"
+      onChange={() => {}}
+      onFocus={onFocus}
+      onOpen={onOpen}
+    >
       <Option value="opt1" text="red" />
     </InteractiveComponent>,
   );
@@ -1708,6 +1781,8 @@ test("should not display the list when `openOnFocus` is set and mousedown is det
   await user.pointer({ keys: "[MouseLeft>]", target: icon });
 
   expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  expect(onFocus).toHaveBeenCalledTimes(1);
+  expect(onOpen).not.toHaveBeenCalled();
 });
 
 test("should display the list when `openOnFocus` is not set", async () => {

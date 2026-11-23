@@ -301,6 +301,32 @@ test("preserves the active option when a virtual Multi Select deselects it", () 
   );
 });
 
+test("does not scroll away from an active deselected option when another selection remains", () => {
+  const { rerender } = render(list({ selectedValues: ["1", "12"] }));
+  const input = screen.getByRole("combobox");
+
+  expect(input).toHaveAttribute("aria-activedescendant", "item-1");
+  expect(mockGetOffsetForIndex).toHaveBeenCalledWith(1, "center");
+  mockGetOffsetForIndex.mockClear();
+  mockScrollToOffset.mockClear();
+
+  rerender(list({ selectedValues: ["12"] }));
+
+  expect(input).toHaveAttribute("aria-activedescendant", "item-1");
+  expect(mockGetOffsetForIndex).not.toHaveBeenCalledWith(12, "center");
+  expect(mockScrollToOffset).not.toHaveBeenCalled();
+
+  rerender(list({ open: false, selectedValues: ["12"] }));
+  mockGetOffsetForIndex.mockClear();
+  rerender(list({ selectedValues: ["12"] }));
+  expect(mockGetOffsetForIndex).toHaveBeenCalledWith(12, "center");
+
+  rerender(list({ enableVirtualScroll: false, selectedValues: ["12"] }));
+  mockGetOffsetForIndex.mockClear();
+  rerender(list({ selectedValues: ["12"] }));
+  expect(mockGetOffsetForIndex).toHaveBeenCalledWith(12, "center");
+});
+
 test.each(["disabled", "removed"])(
   "clears focus when the active option is %s",
   async (update) => {
