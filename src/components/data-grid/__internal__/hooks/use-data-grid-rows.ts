@@ -17,9 +17,13 @@ import {
 } from "../rows/data-grid-row-operations";
 
 interface UseDataGridRowsOptions<T extends object> {
+  /** The controlled row collection supplied by the consumer. */
   rows: T[];
+  /** Resolves the stable identity used to locate rows during updates. */
   getRowId: (row: T) => DataGridRowId;
+  /** Receives proposed rows and change metadata for the consumer to accept or reject. */
   onRowsChange?: DataGridProps<T>["onRowsChange"];
+  /** Notifies grid internals of an emitted result so navigation can follow row operations. */
   onRowsChangeResult?: (result: DataGridRowsChangeResult<T>) => void;
 }
 
@@ -40,11 +44,17 @@ const useDataGridRows = <T extends object>({
   const emit = useCallback(
     (result: DataGridRowsChangeResult<T> | null) => {
       if (!result) return;
-      pending.current.rows = result.rows;
+      const proposal = { source: rows, rows: result.rows };
+      pending.current = proposal;
+      void Promise.resolve().then(() => {
+        if (pending.current === proposal) {
+          pending.current = { source: rows, rows };
+        }
+      });
       onRowsChange?.(result.rows, result.change);
       onRowsChangeResult?.(result);
     },
-    [onRowsChange, onRowsChangeResult],
+    [rows, onRowsChange, onRowsChangeResult],
   );
 
   const commitCellChange = useCallback(

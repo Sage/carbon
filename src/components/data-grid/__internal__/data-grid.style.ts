@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
+import visuallyHidden from "../../../style/utils/visually-hidden";
 import { DataGridCellType, DataGridCellWeight } from "../data-grid.types";
 
 type DataGridAlignment = "left" | "center" | "right";
@@ -262,15 +263,8 @@ export const StyledValidationBar = styled.span`
 `;
 
 export const StyledVisuallyHidden = styled.span`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
+  ${visuallyHidden}
   clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 `;
 
 export const StyledCellContent = styled.div<CellLayoutProps>`

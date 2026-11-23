@@ -8,11 +8,17 @@ import {
 import { DataGridRowId } from "../../data-grid.types";
 
 interface UseDataGridVirtualizationOptions {
+  /** The total number of rows in the controlled collection. */
   rowCount: number;
+  /** Returns a stable row identity so virtual items survive reordering. */
   getRowKey: (index: number) => DataGridRowId;
+  /** The viewport observed for scrolling and visible row measurements. */
   scrollElementRef: RefObject<HTMLDivElement>;
+  /** The viewport height constraint; virtualisation requires a defined height. */
   height?: number | string;
+  /** Disables virtualisation even when the row count and height would enable it. */
   disabled: boolean;
+  /** The number of additional rows rendered beyond each end of the visible range. */
   overscan: number;
 }
 

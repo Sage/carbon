@@ -12,17 +12,27 @@ import {
 } from "../layout/data-grid.utils";
 
 interface UseDataGridNavigationOptions<T extends object> {
+  /** The total number of rows, including rows outside the rendered range. */
   rowCount: number;
+  /** The zero-based indexes of mounted rows available as navigation entry points. */
   renderedRowIndexes: number[];
+  /** The column definitions in their displayed order. */
   columns: DataGridColumn<T>[];
+  /** The column geometry used to scroll cells into view. */
   columnModel: DataGridColumnModel;
+  /** The grid viewport whose scroll position is adjusted during navigation. */
   scrollElementRef: RefObject<HTMLDivElement>;
+  /** Converts positional coordinates to a row ID and column field identity. */
   identityFor: (position: DataGridCellPosition) => DataGridCellIdentity;
+  /** Finds an identity's current position, or null if its row or column was removed. */
   positionForIdentity: (
     identity: DataGridCellIdentity,
   ) => DataGridCellPosition | null;
+  /** Produces the identity-based key used to register and retrieve mounted cells. */
   keyFor: (position: DataGridCellPosition) => string;
+  /** Changes when the rendered row range changes so pending focus can be restored. */
   renderToken: unknown;
+  /** Whether scrolling must leave room for the sticky header. */
   stickyHeader: boolean;
 }
 

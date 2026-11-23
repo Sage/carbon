@@ -11,17 +11,29 @@ import { StyledEditor, StyledSelectEditor } from "../data-grid.style";
 import useDataGridCellLabel from "../hooks/use-data-grid-cell-label";
 
 interface DataGridCellEditorProps<T extends object> {
+  /** The column definition that determines the editor type and available options. */
   column: DataGridColumn<T>;
+  /** The zero-based row index used to generate the editor's accessible label. */
   rowIndex: number;
+  /** The current draft value, which is not written to the row until committed. */
   value: unknown;
+  /** The ID of the validation message associated with the editor. */
   errorId?: string;
+  /** Whether to display the editor in its validation error state. */
   invalid?: boolean;
+  /** Controls whether the editor participates in the grid's roving tab order. */
   tabIndex?: number;
+  /** The font weight applied to the editor content. */
   weight: DataGridCellWeight;
+  /** The input ref used to restore focus and text selection when editing resumes. */
   editorRef: React.RefObject<HTMLInputElement>;
+  /** Updates the draft without committing the change to the row. */
   onChange: (value: unknown) => void;
+  /** Commits a confirmed dropdown option using its original, unencoded value. */
   onSelectionCommit: (value: unknown) => void;
+  /** Handles leaving the input, including the grid's commit-on-blur behaviour. */
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  /** Handles grid-level editor commands such as committing, cancelling and Tab navigation. */
   onKeyDown: (event: React.KeyboardEvent) => void;
 }
 

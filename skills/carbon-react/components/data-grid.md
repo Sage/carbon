@@ -43,10 +43,10 @@ An accessible, editable grid for navigating and updating structured tabular data
 | --- | --- | --- | --- | --- | --- |
 | columns | DataGridColumn<T>[] | Yes |  |  |  |
 | rows | T[] | Yes |  |  |  |
-| disableVirtualization | boolean \| undefined | No |  | Disables automatic row virtualization in a height-constrained grid. |  |
+| disableVirtualization | boolean \| undefined | No |  | Disables automatic row virtualisation in a height-constrained grid. |  |
 | enableTabNavigation | boolean \| undefined | No |  | Enables Tab and Shift+Tab cell navigation. |  |
 | getRowId | ((row: T) => DataGridRowId) \| undefined | No |  | Reads a stable row id. Defaults to the row's `id` property. |  |
-| maxHeight | string \| number \| undefined | No |  | Maximum viewport height. Enables row virtualization when constrained. |  |
+| maxHeight | string \| number \| undefined | No |  | Maximum viewport height. Enables row virtualisation when constrained. |  |
 | maxWidth | string \| number \| undefined | No |  | Maximum viewport width. Enables horizontal scrolling when constrained. |  |
 | onRowsChange | ((rows: T[], change: DataGridRowChange<T>) => void) \| undefined | No |  | Called with a new immutable row collection and the change that produced it. |  |
 | rowOverscan | number \| undefined | No |  | Number of additional rows mounted above and below the viewport. |  |

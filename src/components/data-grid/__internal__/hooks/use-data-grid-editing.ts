@@ -8,16 +8,25 @@ import {
 } from "../../data-grid.types";
 
 interface UseDataGridEditingOptions<T extends object> {
+  /** Resolves the latest row, column and committed value for a cell position. */
   getCellParams: (position: DataGridCellPosition) => DataGridCellParams<T>;
+  /** Determines whether a cell may enter edit mode. */
   isCellReadOnly: (params: DataGridCellParams<T>) => boolean;
+  /** Receives the completed edit to apply through the controlled row-update flow. */
   onCellCommit: (params: DataGridCellCommitParams<T>) => void;
+  /** Converts positional coordinates to a row ID and column field identity. */
   identityFor: (position: DataGridCellPosition) => DataGridCellIdentity;
+  /** Finds an identity's current position, or null if its row or column was removed. */
   positionForIdentity: (
     identity: DataGridCellIdentity,
   ) => DataGridCellPosition | null;
+  /** Updates the active cell without moving DOM focus. */
   activateCell: (position: DataGridCellPosition) => void;
+  /** Scrolls the viewport to reveal the cell before focusing its editor. */
   ensureCellVisible: (position: DataGridCellPosition) => void;
+  /** Restores navigation focus to a cell after editing finishes. */
   focusCell: (position: DataGridCellPosition) => void;
+  /** Changes when the rendered row range changes, allowing editor focus and selection to be restored. */
   renderToken: unknown;
 }
 

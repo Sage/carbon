@@ -133,11 +133,11 @@ export interface DataGridProps<T extends object> {
   enableTabNavigation?: boolean;
   /** Keeps the header visible while the grid scrolls vertically. */
   stickyHeader?: boolean;
-  /** Disables automatic row virtualization in a height-constrained grid. */
+  /** Disables automatic row virtualisation in a height-constrained grid. */
   disableVirtualization?: boolean;
   /** Number of additional rows mounted above and below the viewport. */
   rowOverscan?: number;
-  /** Maximum viewport height. Enables row virtualization when constrained. */
+  /** Maximum viewport height. Enables row virtualisation when constrained. */
   maxHeight?: number | string;
   /** Maximum viewport width. Enables horizontal scrolling when constrained. */
   maxWidth?: number | string;

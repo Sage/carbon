@@ -10,15 +10,25 @@ import {
 } from "../keyboard/data-grid-keyboard";
 
 interface UseDataGridKeyboardOptions<T extends object> {
+  /** Whether Tab moves between cells rather than leaving the grid immediately. */
   enableTabNavigation: boolean;
+  /** The total number of rows, including rows outside the rendered range. */
   rowCount: number;
+  /** The number of navigable columns. */
   columnCount: number;
+  /** Resolves cell metadata used to choose type-specific keyboard behaviour. */
   getCellParams: (position: DataGridCellPosition) => DataGridCellParams<T>;
+  /** Activates a cell, scrolls it into view and moves focus to it. */
   focusCell: (position: DataGridCellPosition) => void;
+  /** Moves focus by a signed cell offset, crossing row boundaries when needed. */
   moveLinear: (position: DataGridCellPosition, delta: number) => void;
+  /** Moves focus to the interactive control within an action cell. */
   focusAction: (position: DataGridCellPosition) => void;
+  /** Starts editing, optionally appending the character that initiated the edit. */
   beginEdit: (position: DataGridCellPosition, appendedText?: string) => void;
+  /** Saves the draft and exits edit mode, optionally restoring cell focus. */
   commitEdit: (restoreFocus?: boolean) => void;
+  /** Discards the draft and exits edit mode, optionally restoring cell focus. */
   cancelEdit: (restoreFocus?: boolean) => void;
 }
 

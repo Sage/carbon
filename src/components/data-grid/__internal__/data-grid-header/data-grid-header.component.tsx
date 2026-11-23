@@ -9,9 +9,13 @@ import {
 } from "../data-grid.style";
 
 interface DataGridHeaderProps<T extends object> {
+  /** The column definitions in their displayed order. */
   columns: DataGridColumn<T>[];
+  /** Sticky offsets in pixels, keyed by zero-based column index. */
   pinnedOffsets: Map<number, number>;
+  /** The CSS grid tracks shared by the header and body rows. */
   gridTemplateColumns: string;
+  /** Whether the header remains visible when the grid scrolls vertically. */
   stickyHeader: boolean;
 }
 

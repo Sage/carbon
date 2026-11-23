@@ -7,9 +7,13 @@ import { StyledCellContent } from "../data-grid.style";
 import useDataGridCellLabel from "../hooks/use-data-grid-cell-label";
 
 interface DataGridCellContentProps<T extends object> {
+  /** The row, column and value passed to built-in and custom cell renderers. */
   params: DataGridCellParams<T>;
+  /** The zero-based row index used to generate the checkbox's accessible label. */
   rowIndex: number;
+  /** The horizontal alignment of the resting cell content. */
   align: "left" | "center" | "right";
+  /** Whether the built-in checkbox is displayed as read-only. */
   readOnly: boolean;
 }
 

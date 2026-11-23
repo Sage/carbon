@@ -19,29 +19,50 @@ import {
 } from "../data-grid.style";
 
 interface DataGridCellProps<T extends object> {
+  /** The row, column and committed value represented by this cell. */
   params: DataGridCellParams<T>;
+  /** The zero-based row and column coordinates used for grid navigation. */
   position: DataGridCellPosition;
+  /** The zero-based row index used for accessible labels. */
   rowIndex: number;
+  /** The zero-based column index used for ARIA column numbering. */
   columnIndex: number;
+  /** Whether this cell is the grid's current roving tab stop. */
   active: boolean;
+  /** Whether to render the editor instead of resting cell content. */
   editing: boolean;
+  /** The resolved row and column read-only state for this cell. */
   readOnly: boolean;
+  /** The validation message, or a flag indicating an error without a message. */
   errorValue?: string | boolean;
+  /** The uncommitted value displayed by the active editor. */
   draftValue?: unknown;
+  /** The sticky offset in pixels from the column's pinned edge. */
   pinnedOffset?: number;
+  /** Whether to omit the inline-end border to avoid a doubled grid edge. */
   hideInlineEndBorder: boolean;
+  /** The active input ref used to manage editor focus and text selection. */
   editorRef: React.RefObject<HTMLInputElement>;
+  /** Marks a cell as active without moving DOM focus. */
   onActivate: (position: DataGridCellPosition) => void;
+  /** Activates a cell, scrolls it into view and moves focus to it. */
   onFocusPosition: (position: DataGridCellPosition) => void;
+  /** Moves focus to the interactive control within an action cell. */
   onFocusAction: (position: DataGridCellPosition) => void;
+  /** Starts editing the cell at the supplied position. */
   onBeginEdit: (position: DataGridCellPosition) => void;
+  /** Updates the active editor's draft without committing it. */
   onDraftChange: (value: unknown) => void;
+  /** Commits the draft or an explicit value, optionally restoring cell focus. */
   onCommitEdit: (shouldRestoreFocus?: boolean, value?: unknown) => void;
+  /** Applies the commit-on-blur policy, optionally restoring cell focus. */
   onBlurEdit: (shouldRestoreFocus?: boolean) => void;
+  /** Handles navigation and activation commands from a resting cell. */
   onCellKeyDown: (
     event: React.KeyboardEvent,
     position: DataGridCellPosition,
   ) => void;
+  /** Handles committing, cancelling and navigating from the active editor. */
   onEditorKeyDown: (
     event: React.KeyboardEvent,
     position: DataGridCellPosition,
