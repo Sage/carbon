@@ -31,6 +31,20 @@ const esES: Partial<Locale> = {
   breadcrumbs: {
     ariaLabel: () => "ruta de navegación",
   },
+  colorPicker: {
+    colors: {
+      blue: () => "Azul",
+      teal: () => "Verde azulado",
+      green: () => "Verde",
+      lime: () => "Lima",
+      orange: () => "Naranja",
+      red: () => "Rojo",
+      pink: () => "Rosa",
+      purple: () => "Morado",
+      gray: () => "Gris",
+      slate: () => "Pizarra",
+    },
+  },
   confirm: {
     no: () => "No",
     yes: () => "Sí",

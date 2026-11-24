@@ -29,6 +29,20 @@ const deDE: Partial<Locale> = {
   breadcrumbs: {
     ariaLabel: () => "Breadcrumbs",
   },
+  colorPicker: {
+    colors: {
+      blue: () => "Blau",
+      teal: () => "Petrol",
+      green: () => "Grün",
+      lime: () => "Limette",
+      orange: () => "Orange",
+      red: () => "Rot",
+      pink: () => "Pink",
+      purple: () => "Lila",
+      gray: () => "Grau",
+      slate: () => "Schiefergrau",
+    },
+  },
   confirm: {
     no: () => "Nein",
     yes: () => "Ja",

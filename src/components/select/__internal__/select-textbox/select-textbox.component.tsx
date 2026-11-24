@@ -102,6 +102,12 @@ export interface SelectTextboxProps
    * If "multi", the textbox allows typing and is used for multi-selects, displaying selected options as comma-separated values.
    */
   selectType?: "simple" | "filterable" | "multi";
+  /**
+   * @private
+   * @ignore
+   * Content rendered before the displayed value of a simple select, e.g. a colour swatch.
+   */
+  leadingContent?: React.ReactNode;
 }
 
 interface SelectTextProps {
@@ -111,6 +117,7 @@ interface SelectTextProps {
   variant: SelectTextboxProps["variant"];
   prefix: SelectTextboxProps["prefix"];
   prefixId: string;
+  leadingContent?: React.ReactNode;
   formattedValue: string;
   onClick: React.MouseEventHandler<HTMLSpanElement>;
 }
@@ -122,6 +129,7 @@ const SelectText = ({
   variant,
   prefix,
   prefixId,
+  leadingContent,
   formattedValue,
   onClick,
 }: SelectTextProps) => (
@@ -145,6 +153,9 @@ const SelectText = ({
       <span id={prefixId} data-element="textbox-prefix">
         {prefix}
       </span>
+    )}
+    {leadingContent && (
+      <span data-element="select-text-leading">{leadingContent}</span>
     )}
     <span
       className={[
@@ -187,6 +198,7 @@ const SelectTextbox = React.forwardRef(
       onKeyDown,
       onChange,
       prefix,
+      leadingContent,
       ...restProps
     }: SelectTextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -337,6 +349,7 @@ const SelectTextbox = React.forwardRef(
           variant={variant}
           prefix={prefix}
           prefixId={internalPrefixId.current}
+          leadingContent={leadingContent}
           formattedValue={formattedValue}
           onClick={handleTextboxClick}
         />

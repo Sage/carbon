@@ -317,6 +317,18 @@ const simpleSelectStyles = ($size?: string, $isSimpleSelect?: boolean) =>
       color: var(--simple-select-prefix-color);
     }
 
+    [data-element="select-text-leading"] {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      ${$size !== "small" &&
+      css`
+        margin-right: calc(
+          var(--global-space-comp-s) - var(--global-space-comp-xs)
+        );
+      `}
+    }
+
     .input-text-container [data-role="select-text"] ~ input {
       position: absolute;
       inset: 0;

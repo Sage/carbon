@@ -11,6 +11,8 @@ description: Carbon AdvancedColorPicker component props and usage examples.
 ## Source
 - Export: `./components/advanced-color-picker`
 - Props interface: `AdvancedColorPickerProps`
+- Deprecated: Yes
+- Deprecation reason: `AdvancedColorPicker` has been deprecated. Use `ColorPicker` instead. See the Carbon deprecation migration documentation for details.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |

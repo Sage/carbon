@@ -255,7 +255,7 @@ description: Carbon Option component props and usage examples.
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No | off \| on |  |  |  |  |
 | value | string \| Record<string, unknown> \| undefined | No |  |  |  | The option's invisible internal value, if this is not passed the option will not be treated as interactive or selectable |  |
-| variant | "grey" \| "blue" \| "green" \| "lime" \| "orange" \| "pink" \| "purple" \| "red" \| "teal" \| "slate" \| undefined | No | grey \| blue \| green \| lime \| orange \| pink \| purple \| red \| teal \| slate |  |  | MultiSelect only - set Pill color variant |  |
+| variant | "blue" \| "teal" \| "green" \| "lime" \| "orange" \| "red" \| "pink" \| "purple" \| "slate" \| "grey" \| undefined | No | blue \| teal \| green \| lime \| orange \| red \| pink \| purple \| slate \| grey |  |  | MultiSelect only - set Pill color variant |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

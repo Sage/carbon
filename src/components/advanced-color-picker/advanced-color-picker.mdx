@@ -1,4 +1,5 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as AdvancedColorPickerStories from "./advanced-color-picker.stories";
@@ -6,6 +7,21 @@ import * as AdvancedColorPickerStories from "./advanced-color-picker.stories";
 <Meta of={AdvancedColorPickerStories} />
 
 # Advanced Color Picker
+
+<DeprecationWarning>
+  Advanced Color Picker has been deprecated. Use{" "}
+  <a style={{ color: "white" }} href="../?path=/docs/color-picker--docs">
+    Color Picker
+  </a>{" "}
+  instead. See{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#advanced-color-picker"
+  >
+    the migration guidance
+  </a>{" "}
+  for details.
+</DeprecationWarning>
 
 Selects a single colour from a defined set.
 
@@ -35,7 +51,7 @@ Shows how the color picker can be used to select a color from a predefined set.
 ### Preventing focus from being restored when AdvancedColorPicker closes
 
 When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `AdvancedColorPicker` was opened.
-Focus can instead be programmatically applied to another element if appropriate. 
+Focus can instead be programmatically applied to another element if appropriate.
 
 <Canvas of={AdvancedColorPickerStories.RestoreFocusOnCloseStory} />
 

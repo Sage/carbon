@@ -1,4 +1,5 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 import * as SimpleColorStories from "./simple-color/simple-color.stories.tsx";
 import * as SimpleColorPickerStories from "./simple-color-picker.stories.tsx";
@@ -6,6 +7,21 @@ import * as SimpleColorPickerStories from "./simple-color-picker.stories.tsx";
 <Meta of={SimpleColorPickerStories} />
 
 # Simple Color Picker
+
+<DeprecationWarning>
+  Simple Color Picker has been deprecated. Use{" "}
+  <a style={{ color: "white" }} href="../?path=/docs/color-picker--docs">
+    Color Picker
+  </a>{" "}
+  instead. See{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#simple-color-picker"
+  >
+    the migration guidance
+  </a>{" "}
+  for details.
+</DeprecationWarning>
 
 <a
   target="_blank"

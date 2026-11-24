@@ -25,6 +25,9 @@ const colorToId = (value: string) =>
     .replace(/[^a-zA-Z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")}`;
 
+/**
+ * @deprecated `AdvancedColorPicker` has been deprecated. Use `ColorPicker` instead. See the Carbon deprecation migration documentation for details.
+ */
 export interface AdvancedColorPickerProps
   extends MarginProps,
     Pick<ModalProps, "restoreFocusOnClose">,
@@ -69,6 +72,9 @@ export interface AdvancedColorPickerProps
   selectedColor: string;
 }
 
+/**
+ * @deprecated `AdvancedColorPicker` has been deprecated. Use `ColorPicker` instead. See the Carbon deprecation migration documentation for details.
+ */
 export const AdvancedColorPicker = ({
   "aria-describedby": ariaDescribedBy,
   "aria-label": ariaLabel,

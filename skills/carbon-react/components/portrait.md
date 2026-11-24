@@ -36,7 +36,7 @@ description: Carbon Portrait component props and usage examples.
 | shape | PortraitShapes \| undefined | No | circle \| square |  |  | The shape of the Portrait. | "circle" |
 | size | PortraitSizes \| undefined | No | S \| M \| L \| XL \| XS \| ML \| XXL |  |  | The size of the Portrait. | "M" |
 | src | string \| undefined | No |  |  |  | A custom image URL. |  |
-| variant | PortraitVariant \| undefined | No | black \| blue \| gray \| green \| lime \| orange \| pink \| purple \| red \| teal \| slate |  |  | Color variant |  |
+| variant | PortraitVariant \| undefined | No | black \| blue \| teal \| green \| lime \| orange \| red \| pink \| purple \| gray \| slate |  |  | Color variant |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | backgroundColor | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | The hex code of the background colour |  |

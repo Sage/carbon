@@ -11,6 +11,8 @@ description: Carbon SimpleColor component props and usage examples.
 ## Source
 - Export: `./components/simple-color-picker`
 - Props interface: `SimpleColorProps`
+- Deprecated: Yes
+- Deprecation reason: `SimpleColor` has been deprecated along with `SimpleColorPicker`. Use `ColorPicker` instead. See the Carbon deprecation migration documentation for details.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |
