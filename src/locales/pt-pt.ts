@@ -352,6 +352,9 @@ const ptPT: Partial<Locale> = {
       close: () => "Fechar",
     },
   },
+  skeleton: {
+    loading: () => "A carregar",
+  },
   sort: {
     accessibleName: (sortContent, sortType) =>
       `Ordenar todos os ${sortContent || "itens"}${

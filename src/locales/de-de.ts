@@ -325,6 +325,9 @@ const deDE: Partial<Locale> = {
       close: () => "Schließen",
     },
   },
+  skeleton: {
+    loading: () => "Laden",
+  },
   sort: {
     accessibleName: (sortContent, sortType) =>
       `Alle ${sortContent || "inhalte"}${
