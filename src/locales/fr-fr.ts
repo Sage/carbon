@@ -327,6 +327,9 @@ const frFR: Partial<Locale> = {
       close: () => "Fermer",
     },
   },
+  skeleton: {
+    loading: () => "Chargement en cours",
+  },
   sort: {
     accessibleName: (sortContent, sortType) =>
       `Trier tous les contenus ${sortContent && `de type ${sortContent}`}${
