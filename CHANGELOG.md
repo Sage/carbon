@@ -1,3 +1,9 @@
+## [163.4.1](https://github.com/Sage/carbon/compare/v163.4.0...v163.4.1) (2026-11-24)
+
+### Bug Fixes
+
+* **dialog:** update dialog, drawer and sidebar header borders ([ff21aac](https://github.com/Sage/carbon/commit/ff21aacc11170cf2f7c1bc92a54f474ae207460f))
+
 ## [163.4.0](https://github.com/Sage/carbon/compare/v163.3.0...v163.4.0) (2026-11-19)
 
 ### Features
