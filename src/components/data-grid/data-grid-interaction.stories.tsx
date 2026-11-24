@@ -57,6 +57,7 @@ const InteractionGrid = () => {
         field: "category",
         headerName: "Category",
         type: "dropdown",
+        weight: "regular",
         width: 160,
         options: [
           { label: "Services", value: "Services" },
@@ -65,7 +66,7 @@ const InteractionGrid = () => {
       },
       {
         field: "selected",
-        headerName: "Selected",
+        headerName: "Included",
         type: "checkbox",
         width: 100,
       },

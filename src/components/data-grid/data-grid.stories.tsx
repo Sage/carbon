@@ -221,8 +221,9 @@ const createPlaygroundColumns = (
 ): DataGridColumn<PlaygroundInvoiceLine>[] => [
   {
     field: "vatRate",
-    headerName: "VAT rate *",
+    headerName: "VAT rate",
     type: "dropdown",
+    weight: "regular",
     minWidth: 220,
     flex: 1,
     error: ({ value }) => !value && "Choose a VAT rate",
@@ -244,14 +245,14 @@ const createPlaygroundColumns = (
   },
   {
     field: "description",
-    headerName: "Description *",
+    headerName: "Description",
     minWidth: 240,
     flex: 2,
     error: ({ value }) => !String(value ?? "").trim() && "Enter a description",
   },
   {
     field: "quantity",
-    headerName: "Quantity / Hours *",
+    headerName: "Quantity / Hours",
     align: "right",
     minWidth: 190,
     flex: 1,
@@ -259,7 +260,7 @@ const createPlaygroundColumns = (
   },
   {
     field: "rate",
-    headerName: "Rate (£) *",
+    headerName: "Rate (£)",
     align: "right",
     minWidth: 150,
     flex: 1,
@@ -319,7 +320,7 @@ const createInvoiceColumns = (
     type: "dropdown",
     flex: 1,
     minWidth: 220,
-    weight: "medium",
+    weight: "regular",
     options: [
       { label: "Services", value: "Services" },
       { label: "Software", value: "Software" },
@@ -328,7 +329,7 @@ const createInvoiceColumns = (
   },
   {
     field: "selected",
-    headerName: "Selected",
+    headerName: "Included",
     type: "checkbox",
     width: 100,
   },
@@ -606,9 +607,6 @@ export const ValidationAndErrorSummary: Story = {
         <DataGrid
           ref={gridRef}
           aria-label="Invoice lines with validation"
-          aria-describedby={
-            invalidRows.length > 0 ? "invoice-errors" : undefined
-          }
           rows={rows}
           columns={storyColumns}
           maxWidth="100%"
@@ -770,6 +768,7 @@ const createLargeColumns = ({
     field: "category",
     headerName: "Category",
     type: "dropdown",
+    weight: "regular",
     width: 160,
     options: categories.map((value) => ({ label: value, value })),
   },
@@ -798,8 +797,8 @@ const createLargeColumns = ({
     field: "taxRate",
     headerName: "Tax rate",
     type: "dropdown",
+    weight: "regular",
     width: 130,
-    align: "right",
     options: ["0", "5", "20"].map((value) => ({
       label: `${value}%`,
       value,
@@ -807,7 +806,7 @@ const createLargeColumns = ({
   },
   {
     field: "selected",
-    headerName: "Selected",
+    headerName: "Included",
     type: "checkbox",
     width: 100,
   },

@@ -81,7 +81,12 @@ const columns: DataGridColumn<Row>[] = [
       { label: "B", value: "B" },
     ],
   },
-  { field: "selected", headerName: "Selected", type: "checkbox" },
+  {
+    field: "selected",
+    headerName: "Selected",
+    type: "checkbox",
+    selectsRow: true,
+  },
 ];
 
 test("renders object rows with accessible grid semantics", () => {
@@ -102,6 +107,25 @@ test("renders object rows with accessible grid semantics", () => {
     "aria-selected",
     "true",
   );
+});
+
+test("Boolean checkbox columns do not select rows without an explicit opt-in", () => {
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={[
+        columns[0],
+        { field: "selected", headerName: "Enabled", type: "checkbox" },
+      ]}
+    />,
+  );
+
+  expect(screen.getByRole("grid")).not.toHaveAttribute("aria-multiselectable");
+  screen.getAllByRole("row").forEach((row) => {
+    expect(row).not.toHaveAttribute("aria-selected");
+  });
+  expect(screen.getAllByRole("checkbox")[1]).toBeChecked();
 });
 
 test("gives an intentionally empty action header discernible text", () => {
@@ -540,7 +564,7 @@ test("uses opaque cells and only makes non-sticky headers transparent", () => {
   expect(scrollingCell).toHaveStyleRule(
     "box-shadow",
     "inset 0 0 0 var(--global-borderwidth-s) var(--focus-borderalt)",
-    { modifier: ":focus" },
+    { modifier: ":focus::before" },
   );
   expect(scrollingCell).toHaveStyleRule("z-index", "1", {
     modifier: ":focus",

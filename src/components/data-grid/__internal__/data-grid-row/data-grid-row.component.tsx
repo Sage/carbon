@@ -84,7 +84,7 @@ const DataGridRowInner = <T extends object>({
   onEditorKeyDown,
 }: DataGridRowProps<T>) => {
   const selectionColumnIndex = columns.findIndex(
-    ({ type }) => type === "checkbox",
+    (column) => column.type === "checkbox" && column.selectsRow,
   );
   const isSelected =
     selectionColumnIndex >= 0 &&

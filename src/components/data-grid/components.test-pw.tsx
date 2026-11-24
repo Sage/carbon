@@ -30,6 +30,20 @@ interface TestRow {
   actions: null;
 }
 
+export const AdjacentErrors = () => (
+  <DataGrid
+    aria-label="Adjacent errors"
+    rows={[
+      { id: 1, first: "", second: "" },
+      { id: 2, first: "", second: "" },
+    ]}
+    columns={[
+      { field: "first", headerName: "First", error: () => "Required" },
+      { field: "second", headerName: "Second", error: () => "Required" },
+    ]}
+  />
+);
+
 const createRows = (count: number): TestRow[] =>
   Array.from({ length: count }, (_, index) => ({
     id: index + 1,
@@ -81,7 +95,7 @@ const DataGridComponent = ({
         headerName: "Type",
         type: "dropdown",
         filterable: filterableDropdown,
-        weight: "medium",
+        weight: "regular",
         width: 160,
         readOnly: ({ row }) => row.id === 3,
         options: [

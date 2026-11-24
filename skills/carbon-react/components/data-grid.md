@@ -152,6 +152,7 @@ export interface DataGridDropdownColumn<T extends object>
 export interface DataGridCheckboxColumn<T extends object>
   extends DataGridColumnBase<T> {
   type: "checkbox";
+  selectsRow?: boolean;
   options?: never;
   /** Checkbox cells do not support an error treatment. */
   error?: never;

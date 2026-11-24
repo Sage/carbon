@@ -313,7 +313,9 @@ const DataGridInner = <T extends object>(
           aria-rowcount={rows.length + 1}
           aria-colcount={columns.length}
           aria-multiselectable={
-            columns.some(({ type }) => type === "checkbox") || undefined
+            columns.some(
+              (column) => column.type === "checkbox" && column.selectsRow,
+            ) || undefined
           }
           data-component="data-grid"
           data-role="data-grid"

@@ -3,8 +3,287 @@ import type { Page } from "@playwright/test";
 
 import { expect, test } from "../../../playwright/helpers/base-test";
 import { checkAccessibility } from "../../../playwright/support/helper";
-import DataGridComponent, { DataGridInDialog } from "./components.test-pw";
+import DataGridComponent, {
+  AdjacentErrors,
+  DataGridInDialog,
+} from "./components.test-pw";
 import { DataGrid } from ".";
+
+const cell = (page: Page, rowId: number, field: string) =>
+  page.locator(`[data-element="data-grid-cell-${String(rowId)}-${field}"]`);
+
+for (const zoom of [1, 1.25, 1.5, 2]) {
+  test(`insets state edges without moving content at ${zoom * 100}% CSS zoom`, async ({
+    mount,
+    page,
+  }, testInfo) => {
+    await mount(<AdjacentErrors />);
+    await page.getByRole("grid").evaluate((element, value) => {
+      element.style.zoom = String(value);
+    }, zoom);
+    const firstCell = page.getByRole("gridcell").first();
+    const readGeometry = () =>
+      firstCell.evaluate((element) => {
+        const style = getComputedStyle(element);
+        const overlay = getComputedStyle(element, "::before");
+        const marker = (
+          element.querySelector('span[aria-hidden="true"]') as HTMLSpanElement
+        ).getBoundingClientRect();
+        return {
+          top: parseFloat(overlay.top),
+          bottom: parseFloat(overlay.bottom),
+          left: parseFloat(overlay.left),
+          right: parseFloat(overlay.right),
+          height: element.getBoundingClientRect().height,
+          font: style.font,
+          padding: style.padding,
+          markerX: marker.x,
+          markerY: marker.y,
+        };
+      });
+    const resting = await readGeometry();
+    expect(resting.top).toBe(-1);
+    expect(resting.bottom).toBe(-1);
+    expect(resting.left).toBe(-1);
+    expect(resting.right).toBe(-1);
+    await firstCell.focus();
+    expect(await readGeometry()).toEqual(resting);
+    await page.screenshot({
+      path: testInfo.outputPath("navigation-focus.png"),
+    });
+    await firstCell.click();
+    await expect(firstCell.getByRole("textbox")).toBeFocused();
+    expect(await readGeometry()).toEqual(resting);
+    await page.screenshot({ path: testInfo.outputPath("editor-focus.png") });
+  });
+}
+
+test("adjacent error rings cover the shared grid line and centre the keyline", async ({
+  mount,
+  page,
+}, testInfo) => {
+  await mount(<AdjacentErrors />);
+  const cells = page.getByRole("gridcell");
+  const edges = await cells.evaluateAll((elements) =>
+    elements.map((element) => {
+      const rect = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      const overlay = getComputedStyle(element, "::before");
+      const top =
+        rect.top + parseFloat(style.borderTopWidth) + parseFloat(overlay.top);
+      const left =
+        rect.left +
+        parseFloat(style.borderLeftWidth) +
+        parseFloat(overlay.left);
+      const marker = (
+        element.querySelector('span[aria-hidden="true"]') as HTMLSpanElement
+      ).getBoundingClientRect();
+      return {
+        top,
+        left,
+        bottom: top + parseFloat(overlay.height),
+        right: left + parseFloat(overlay.width),
+        markerTop: marker.top,
+        markerBottom: marker.bottom,
+      };
+    }),
+  );
+  expect(edges[0].right - edges[1].left).toBe(1);
+  expect(edges[0].bottom - edges[2].top).toBe(1);
+  for (const edge of edges) {
+    expect(edge.markerTop - edge.top - 2).toBe(
+      edge.bottom - 2 - edge.markerBottom,
+    );
+  }
+  await page.screenshot({ path: testInfo.outputPath("adjacent-errors.png") });
+  await cells.first().focus();
+  const bounds = await cells.first().evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    return { x: rect.x + 20, y: rect.y, bottom: rect.bottom };
+  });
+  const topEdge = { x: bounds.x, y: bounds.y - 1, width: 20, height: 2 };
+  const bottomEdge = {
+    x: bounds.x,
+    y: bounds.bottom - 2,
+    width: 20,
+    height: 2,
+  };
+  expect(await page.screenshot({ clip: bottomEdge })).toEqual(
+    await page.screenshot({ clip: topEdge }),
+  );
+  await cells.first().click();
+  await expect(cells.first().getByRole("textbox")).toBeFocused();
+  expect(await page.screenshot({ clip: bottomEdge })).toEqual(
+    await page.screenshot({ clip: topEdge }),
+  );
+  await page.screenshot({
+    path: testInfo.outputPath("adjacent-error-focused.png"),
+  });
+});
+
+for (const viewport of [
+  { width: 1280, height: 800 },
+  { width: 390, height: 844 },
+]) {
+  test(`error and focus overlays cover cell edges at ${viewport.width}px`, async ({
+    mount,
+    page,
+  }, testInfo) => {
+    await page.setViewportSize(viewport);
+    await mount(<DataGridComponent />);
+    const invalidCell = cell(page, 2, "name");
+    const marker = invalidCell.locator(':scope > span[aria-hidden="true"]');
+    const cellX = await invalidCell.evaluate(
+      (element) => element.getBoundingClientRect().x,
+    );
+    const markerBounds = await marker.evaluate((element) => ({
+      x: element.getBoundingClientRect().x,
+      width: element.getBoundingClientRect().width,
+    }));
+    expect(markerBounds.x - cellX).toBe(10);
+    expect(markerBounds.width).toBe(2);
+    const errorShadow = await invalidCell.evaluate(
+      (element) => getComputedStyle(element, "::before").boxShadow,
+    );
+    expect(errorShadow).not.toBe("none");
+    await page.screenshot({ path: testInfo.outputPath("error-keyline.png") });
+    for (const { field, left } of [
+      { field: "name", left: 0 },
+      { field: "type", left: -1 },
+      { field: "actions", left: -1 },
+    ]) {
+      const target = cell(page, 2, field);
+      await target.focus();
+      const geometry = await target.evaluate((element) => {
+        const overlay = getComputedStyle(element, "::before");
+        const style = getComputedStyle(element);
+        const size = element.getBoundingClientRect();
+        return {
+          left: parseFloat(style.borderLeftWidth) + parseFloat(overlay.left),
+          top: parseFloat(style.borderTopWidth) + parseFloat(overlay.top),
+          width: parseFloat(overlay.width),
+          height: parseFloat(overlay.height),
+          cellWidth: size.width,
+          cellHeight: size.height,
+        };
+      });
+      expect(geometry.left).toBe(left);
+      expect(geometry.top).toBe(-1);
+      expect(geometry.width).toBeCloseTo(geometry.cellWidth - left, 1);
+      expect(geometry.height).toBeCloseTo(geometry.cellHeight + 1, 1);
+    }
+    await invalidCell.focus();
+    const focusShadow = await invalidCell.evaluate(
+      (element) => getComputedStyle(element, "::before").boxShadow,
+    );
+    expect(focusShadow).not.toBe(errorShadow);
+    await invalidCell.click();
+    await expect(invalidCell.getByRole("textbox")).toBeFocused();
+    const editShadow = await invalidCell.evaluate(
+      (element) => getComputedStyle(element, "::before").boxShadow,
+    );
+    expect(editShadow).not.toBe(errorShadow);
+    await page.screenshot({ path: testInfo.outputPath("editor-focus.png") });
+  });
+}
+
+for (const filterableDropdown of [false, true]) {
+  const controlSelector = filterableDropdown
+    ? '[role="combobox"]'
+    : ".select-text-children-wrapper";
+
+  test(`preserves regular dropdown typography (filterable=${filterableDropdown})`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridComponent filterableDropdown={filterableDropdown} />);
+    const typeCell = cell(page, 1, "type");
+    const restingText = typeCell
+      .locator('[data-component="data-grid-cell-content"], :scope > div')
+      .first();
+    await expect
+      .poll(() =>
+        restingText.evaluate((element) => getComputedStyle(element).fontWeight),
+      )
+      .toBe("400");
+    await typeCell.click();
+    const controlText = typeCell.locator(controlSelector);
+    await expect
+      .poll(() =>
+        controlText.evaluate((element) => getComputedStyle(element).fontWeight),
+      )
+      .toBe("400");
+    const option = page.getByRole("option", { name: "Product" });
+    await option.click();
+    await expect(typeCell).toContainText("Product");
+    await expect(typeCell).toBeFocused();
+  });
+}
+
+for (const rowId of [1, 3]) {
+  test(`action cells own the active surface while triggers retain their hover surface (row=${rowId})`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridComponent />);
+    const actionCell = cell(page, rowId, "actions");
+    const trigger = actionCell.getByRole("button", {
+      name: `Actions for row ${rowId}`,
+      exact: true,
+    });
+    const baseColor = await actionCell.evaluate(
+      (element) => getComputedStyle(element).backgroundColor,
+    );
+    const activeBackground =
+      "linear-gradient(rgba(12, 34, 56, 0.2), rgba(12, 34, 56, 0.2))";
+    await actionCell.evaluate((element) => {
+      element.style.setProperty(
+        "--button-typical-subtle-bg-active",
+        "rgba(12, 34, 56, 0.2)",
+      );
+    });
+    await trigger.hover();
+    await expect
+      .poll(() =>
+        trigger.evaluate(
+          (element) => getComputedStyle(element).backgroundColor,
+        ),
+      )
+      .not.toBe("rgba(0, 0, 0, 0)");
+    await page.mouse.down();
+    await expect(actionCell).toHaveCSS("background-color", baseColor);
+    await expect(actionCell).toHaveCSS("background-image", activeBackground);
+    await expect
+      .poll(() =>
+        trigger.evaluate(
+          (element) => getComputedStyle(element).backgroundColor,
+        ),
+      )
+      .toBe("rgba(0, 0, 0, 0)");
+    await page.mouse.up();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(actionCell).toHaveCSS("background-color", baseColor);
+    await expect(actionCell).toHaveCSS("background-image", activeBackground);
+    await expect(trigger).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+    await page.keyboard.press("Escape");
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(actionCell).not.toHaveCSS(
+      "background-image",
+      activeBackground,
+    );
+    await trigger.focus();
+    await page.keyboard.press("Space");
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(actionCell).toHaveCSS("background-color", baseColor);
+    await expect(actionCell).toHaveCSS("background-image", activeBackground);
+    await expect(trigger).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+    await page.keyboard.press("Escape");
+    await expect(actionCell).not.toHaveCSS(
+      "background-image",
+      activeBackground,
+    );
+  });
+}
 
 test("Tab exits both grid boundaries in navigation and edit modes", async ({
   mount,
@@ -182,9 +461,6 @@ test("virtualized text grids retain a tab stop without stealing external focus",
   ).toBeFocused();
 });
 
-const cell = (page: Page, rowId: number, field: string) =>
-  page.locator(`[data-element="data-grid-cell-${String(rowId)}-${field}"]`);
-
 test("passes accessibility checks with mixed cell states and types", async ({
   mount,
   page,
@@ -228,7 +504,9 @@ test("focusing a text cell preserves navigation mode", async ({
   );
   await expect
     .poll(() =>
-      nameCell.evaluate((element) => getComputedStyle(element).boxShadow),
+      nameCell.evaluate(
+        (element) => getComputedStyle(element, "::before").boxShadow,
+      ),
     )
     .not.toBe("none");
 });
@@ -537,7 +815,9 @@ test("opens and commits a dropdown with Space without scrolling vertically", asy
   );
   await expect
     .poll(() =>
-      typeCell.evaluate((element) => getComputedStyle(element).boxShadow),
+      typeCell.evaluate(
+        (element) => getComputedStyle(element, "::before").boxShadow,
+      ),
     )
     .toBe("none");
 });
@@ -702,7 +982,9 @@ test("toggles a checkbox with one click and with Space", async ({
   await expect(checkboxCell).toBeFocused();
   await expect
     .poll(() =>
-      checkboxCell.evaluate((element) => getComputedStyle(element).boxShadow),
+      checkboxCell.evaluate(
+        (element) => getComputedStyle(element, "::before").boxShadow,
+      ),
     )
     .not.toBe("none");
 
@@ -911,7 +1193,9 @@ test("does not navigate away from an open action popover", async ({
   await expect(actionTrigger).toBeFocused();
   await expect
     .poll(() =>
-      actionCell.evaluate((element) => getComputedStyle(element).boxShadow),
+      actionCell.evaluate(
+        (element) => getComputedStyle(element, "::before").boxShadow,
+      ),
     )
     .not.toBe("none");
   await expect
@@ -987,10 +1271,26 @@ test("shows a pinned action popover beyond the grid scroll container", async ({
     </div>,
   );
 
+  const actionCell = cell(page, 5, "actions");
+  const initialX = await actionCell.evaluate(
+    (element) => element.getBoundingClientRect().x,
+  );
   const trigger = page.getByRole("button", { name: "Actions for row 5" });
   await trigger.click();
 
   const menu = page.getByRole("list");
+  await expect(menu).toBeVisible();
+  await page.getByRole("grid").evaluate((element) => {
+    element.scrollLeft = 100;
+  });
+  await expect
+    .poll(() =>
+      actionCell.evaluate((element) => element.getBoundingClientRect().x),
+    )
+    .toBe(initialX);
+  await expect(actionCell).toHaveCSS("position", "sticky");
+  await expect(actionCell).toHaveCSS("background-color", /^rgb\(/);
+  await expect(actionCell).not.toHaveCSS("background-image", "none");
   await expect(menu).toBeVisible();
   const triggerBounds = await trigger.evaluate((element) => {
     const { left, right, top, bottom } = element.getBoundingClientRect();
@@ -1038,6 +1338,60 @@ test("tabs from an open action popover to the first cell of the next row", async
 
   await expect(page.getByRole("list")).toHaveCount(0);
   await expect(cell(page, 2, "name")).toBeFocused();
+});
+
+test("restores the action cell after virtualizing its focused menu", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent rowCount={100} maxHeight="200px" />);
+
+  const grid = page.getByRole("grid");
+  await cell(page, 1, "actions").focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+
+  await grid.evaluate((element) => {
+    element.scrollTop = 2000;
+  });
+  await expect(cell(page, 1, "actions")).toHaveCount(0);
+  await grid.evaluate((element) => {
+    element.scrollTop = 0;
+  });
+
+  await expect(cell(page, 1, "actions")).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(cell(page, 2, "name")).toBeFocused();
+});
+
+test("preserves external focus after virtualizing an action menu", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <>
+      <DataGridComponent rowCount={100} maxHeight="200px" />
+      <button type="button">Outside grid</button>
+    </>,
+  );
+
+  const grid = page.getByRole("grid");
+  const outside = page.getByRole("button", { name: "Outside grid" });
+  await cell(page, 1, "actions").focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("button", { name: "Duplicate" })).toBeFocused();
+
+  await grid.evaluate((element) => {
+    element.scrollTop = 2000;
+  });
+  await expect(cell(page, 1, "actions")).toHaveCount(0);
+  await outside.focus();
+  await grid.evaluate((element) => {
+    element.scrollTop = 0;
+  });
+
+  await expect(cell(page, 1, "actions")).toBeAttached();
+  await expect(outside).toBeFocused();
 });
 
 test("virtualizes a constrained large grid and keeps its header sticky", async ({

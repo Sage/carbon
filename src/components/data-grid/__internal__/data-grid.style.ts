@@ -182,6 +182,7 @@ export const StyledCell = styled.div<
   min-width: 0;
   height: var(--global-size-m);
   padding: 0;
+  isolation: isolate;
   position: ${({ $sticky }) => ($sticky ? "sticky" : "relative")};
   background-color: var(--table-row-bg-default);
   background-image: ${({ $readOnly }) =>
@@ -205,7 +206,19 @@ export const StyledCell = styled.div<
       : "var(--global-font-static-comp-medium-m)"};
   outline: none;
 
+  &::before {
+    position: absolute;
+    inset-block-start: calc(-1 * var(--global-borderwidth-xs));
+    inset-block-end: calc(-1 * var(--global-borderwidth-xs));
+    inset-inline-start: calc(-1 * var(--global-borderwidth-xs));
+    inset-inline-end: ${({ $hideInlineEndBorder }) =>
+      $hideInlineEndBorder ? "0" : "calc(-1 * var(--global-borderwidth-xs))"};
+    pointer-events: none;
+    z-index: 1;
+  }
+
   &:first-child {
+    --data-grid-cell-start-border: var(--global-borderwidth-xs);
     border-inline-start: var(--global-borderwidth-xs) solid
       ${({ $readOnly }) => getCellBorderColor($readOnly)};
   }
@@ -218,12 +231,18 @@ export const StyledCell = styled.div<
   ${({ $hasError }) =>
     $hasError &&
     css`
-      box-shadow: inset 0 0 0 var(--global-borderwidth-s)
-        var(--input-validation-border-error);
+      &::before {
+        content: "";
+        box-shadow: inset 0 0 0 var(--global-borderwidth-s)
+          var(--input-validation-border-error);
+      }
     `}
 
   &:focus {
-    box-shadow: inset 0 0 0 var(--global-borderwidth-s) var(--focus-borderalt);
+    &::before {
+      content: "";
+      box-shadow: inset 0 0 0 var(--global-borderwidth-s) var(--focus-borderalt);
+    }
     z-index: ${({ $sticky }) => ($sticky ? 3 : 1)};
   }
 
@@ -231,7 +250,10 @@ export const StyledCell = styled.div<
     $editing &&
     css`
       &:focus-within {
-        ${addFocusStyling(true)}
+        &::before {
+          content: "";
+          ${addFocusStyling(true)}
+        }
         z-index: ${$sticky ? 3 : 1};
       }
     `}
@@ -240,8 +262,11 @@ export const StyledCell = styled.div<
     ($cellType === "action" || $cellType === "checkbox") &&
     css`
       &:focus-within {
-        box-shadow: inset 0 0 0 var(--global-borderwidth-s)
-          var(--focus-borderalt);
+        &::before {
+          content: "";
+          box-shadow: inset 0 0 0 var(--global-borderwidth-s)
+            var(--focus-borderalt);
+        }
         z-index: ${$sticky ? 3 : 1};
       }
 
@@ -257,6 +282,24 @@ export const StyledCell = styled.div<
   ${({ $cellType }) =>
     $cellType === "action" &&
     css`
+      [data-element="action-popover-button"] {
+        --button-typical-subtle-bg-active: transparent;
+      }
+
+      &:active,
+      &:has([data-element="action-popover-button"]:active),
+      &:has([data-element="action-popover-button"][aria-expanded="true"]) {
+        background-color: var(--table-row-bg-default);
+        background-image: linear-gradient(
+          var(--button-typical-subtle-bg-active),
+          var(--button-typical-subtle-bg-active)
+        );
+
+        [data-element="action-popover-button"] {
+          --button-typical-subtle-bg-hover: transparent;
+        }
+      }
+
       &:has([data-element="action-popover-button"][aria-expanded="true"]) {
         z-index: 5;
       }
@@ -266,9 +309,15 @@ export const StyledCell = styled.div<
 export const StyledValidationBar = styled.span`
   position: absolute;
   inset-block: var(--global-space-comp-xs);
-  inset-inline-start: var(--global-space-comp-xs);
-  width: var(--global-borderwidth-m);
-  background-color: var(--input-validation-bar-error);
+  inset-inline-start: calc(
+    var(--global-space-comp-s) + var(--global-borderwidth-s) - var(
+        --data-grid-cell-start-border,
+        0px
+      )
+  );
+  width: var(--global-borderwidth-s);
+  background-color: var(--input-validation-border-error);
+  z-index: 2;
   pointer-events: none;
 `;
 

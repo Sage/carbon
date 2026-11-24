@@ -150,6 +150,75 @@ test("clears deferred focus when its row identity no longer exists", () => {
   expect(cell).not.toHaveFocus();
 });
 
+test.each([
+  { externalFocus: false, removed: false },
+  { externalFocus: true, removed: false },
+  { externalFocus: false, removed: true },
+])(
+  "restores suspended action focus safely: %o",
+  ({ externalFocus, removed }) => {
+    const actionColumns: DataGridColumn<Row>[] = [
+      columns[0],
+      {
+        field: "type",
+        headerName: "Actions",
+        type: "action",
+        renderCell: () => null,
+      },
+    ];
+    const cell = document.createElement("div");
+    const action = document.createElement("button");
+    const outside = document.createElement("button");
+    cell.tabIndex = -1;
+    cell.append(action);
+    document.body.append(cell, outside);
+    const { result, rerender, unmount } = renderHook(
+      ({ indexes, exists }) =>
+        useDataGridNavigation({
+          rowCount: 2,
+          renderedRowIndexes: indexes,
+          columns: actionColumns,
+          columnModel: createDataGridColumnModel(actionColumns),
+          scrollElementRef: { current: document.createElement("div") },
+          identityFor,
+          positionForIdentity: (identity) =>
+            !exists && identity.rowId === 0
+              ? null
+              : positionForIdentity(identity),
+          keyFor,
+          renderToken: indexes,
+          stickyHeader: false,
+        }),
+      { initialProps: { indexes: [0, 1], exists: true } },
+    );
+
+    act(() => {
+      result.current.registerCell(0, 1, cell);
+      result.current.activateCell({ row: 0, column: 1 });
+      action.focus();
+    });
+    act(() => result.current.registerCell(0, 1, null));
+    cell.remove();
+    document.body.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+    if (externalFocus) outside.focus();
+    rerender({ indexes: [1], exists: !removed });
+
+    document.body.append(cell);
+    act(() => result.current.registerCell(0, 1, cell));
+    rerender({ indexes: [0, 1], exists: !removed });
+
+    const expectedFocus = externalFocus
+      ? outside
+      : removed
+        ? document.body
+        : cell;
+    expect(expectedFocus).toHaveFocus();
+    unmount();
+    cell.remove();
+    outside.remove();
+  },
+);
+
 test("does not focus when the grid has no rows", () => {
   const { result } = setup(0);
 

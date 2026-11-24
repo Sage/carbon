@@ -119,7 +119,8 @@ built-in Data Grid calculations.
 
 Data Grid supports text, dropdown, checkbox, and action cells. Text is the
 default cell type, so its `type` can be omitted. Use `weight: "medium"` to give
-cell content additional emphasis when it is not being edited.
+text cell content additional emphasis when it is not being edited. Dropdowns
+use regular-weight text by default.
 
 This example includes an empty cell with an error and a read-only row. Click or
 tap an editable text or dropdown cell once to open its editor. When a cell has
@@ -162,9 +163,9 @@ scrolling content from showing through.
 
 Set `error` on a text or dropdown column to display an error and provide an
 accessible description for both the cell and its editor. Error-summary layout
-is owned by the consuming application. Use `aria-describedby` to associate the
-grid with external summary or guidance content, and use the forwarded ref to
-connect each summary link to a cell. `focusCell` moves navigation focus to the
+is owned by the consuming application. Keep the error summary separate from the
+grid's accessible description to avoid repeating every error during navigation.
+Use the forwarded ref to connect each summary link to a cell. `focusCell` moves navigation focus to the
 cell. `editCell` opens the editor and moves focus to it.
 
 <Canvas of={DataGridStories.ValidationAndErrorSummary} />
@@ -248,7 +249,7 @@ navigation after a cell has focus. Other screen readers provide their own
 equivalent commands for navigating interactive grids.
 
 Provide either `aria-label` or `aria-labelledby`. Use `aria-describedby` for
-additional keyboard guidance or an error summary. Custom controls supplied to
+additional keyboard guidance. Custom controls supplied to
 action cells must provide their own accessible names and keyboard behaviour.
 
 ## Props

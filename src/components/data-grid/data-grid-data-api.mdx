@@ -90,7 +90,7 @@ const columns: DataGridColumn<InvoiceLine>[] = [
   },
   {
     field: "selected",
-    headerName: "Selected",
+    headerName: "Included",
     type: "checkbox",
     width: 100,
   },
@@ -239,9 +239,10 @@ are required for focus, virtualization, and row operations.
 ## Validation
 
 An `error` string is exposed as the accessible description of the cell and its
-editor. The error-summary layout remains application-owned. Set
-`aria-describedby` on Data Grid to associate it with external summary or
-guidance content, then use `focusCell` or `editCell` from the forwarded ref for
+editor. The error-summary layout remains application-owned. Do not associate the
+whole error summary with the grid's `aria-describedby`, as this can repeat every
+error during navigation. Reserve this attribute for general grid guidance.
+Use `focusCell` or `editCell` from the forwarded ref for
 links that take users to a specific error.
 
 Data Grid preserves the supplied row shape. The consuming application remains

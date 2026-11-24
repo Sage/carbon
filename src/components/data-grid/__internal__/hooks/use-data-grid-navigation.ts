@@ -52,6 +52,8 @@ const useDataGridNavigation = <T extends object>({
     useState<DataGridCellIdentity | null>(null);
   const cellRefs = useRef(new Map<string, HTMLDivElement>());
   const pendingFocus = useRef<DataGridCellIdentity | null>(null);
+  const suspendedActionFocus = useRef<DataGridCellIdentity | null>(null);
+  const focusedAction = useRef<DataGridCellIdentity | null>(null);
   const removedFocusedCell = useRef(false);
   const active = activeIdentity
     ? (positionForIdentity(activeIdentity) ?? { row: 0, column: 0 })
@@ -59,9 +61,12 @@ const useDataGridNavigation = <T extends object>({
 
   const activateCell = useCallback(
     (position: DataGridCellPosition) => {
-      setActiveIdentity(identityFor(position));
+      const identity = identityFor(position);
+      focusedAction.current =
+        columns[position.column]?.type === "action" ? identity : null;
+      setActiveIdentity(identity);
     },
-    [identityFor],
+    [columns, identityFor],
   );
 
   const registerCell = useCallback(
@@ -72,12 +77,37 @@ const useDataGridNavigation = <T extends object>({
         const previous = cellRefs.current.get(key);
         if (previous === document.activeElement) {
           removedFocusedCell.current = true;
+        } else if (
+          focusedAction.current &&
+          positionForIdentity(focusedAction.current)?.row === rowIndex &&
+          focusedAction.current.field === columns[columnIndex]?.field
+        ) {
+          suspendedActionFocus.current = identityFor({
+            row: rowIndex,
+            column: columnIndex,
+          });
         }
         cellRefs.current.delete(key);
       }
     },
-    [keyFor],
+    [columns, identityFor, keyFor, positionForIdentity],
   );
+
+  useEffect(() => {
+    const handleFocus = (event: FocusEvent) => {
+      if (event.target === document.body) return;
+      const identity = focusedAction.current ?? suspendedActionFocus.current;
+      if (!identity) return;
+      const position = positionForIdentity(identity);
+      const cell = position && cellRefs.current.get(keyFor(position));
+      if (!(event.target instanceof Node) || !cell?.contains(event.target)) {
+        focusedAction.current = null;
+        suspendedActionFocus.current = null;
+      }
+    };
+    document.addEventListener("focusin", handleFocus);
+    return () => document.removeEventListener("focusin", handleFocus);
+  }, [keyFor, positionForIdentity]);
 
   const ensureCellVisible = useCallback(
     (position: DataGridCellPosition) => {
@@ -157,6 +187,21 @@ const useDataGridNavigation = <T extends object>({
   }, [keyFor, positionForIdentity, renderToken]);
 
   useEffect(() => {
+    const suspended = suspendedActionFocus.current;
+    if (suspended) {
+      const position = positionForIdentity(suspended);
+      if (!position || document.activeElement !== document.body) {
+        suspendedActionFocus.current = null;
+      } else {
+        const cell = cellRefs.current.get(keyFor(position));
+        if (cell) {
+          suspendedActionFocus.current = null;
+          setActiveIdentity(suspended);
+          cell.focus({ preventScroll: true });
+          return;
+        }
+      }
+    }
     if (pendingFocus.current || !renderedRowIndexes.length || !columns.length)
       return;
     if (!renderedRowIndexes.includes(active.row)) {
@@ -183,6 +228,7 @@ const useDataGridNavigation = <T extends object>({
     columns.length,
     identityFor,
     keyFor,
+    positionForIdentity,
     renderedRowIndexes,
   ]);
 

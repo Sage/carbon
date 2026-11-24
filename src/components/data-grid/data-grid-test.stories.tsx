@@ -86,7 +86,7 @@ const VisualGrid = ({
         headerName: "Category",
         type: "dropdown",
         width: 180,
-        weight: "medium",
+        weight: "regular",
         error: ({ row }) => row.id === 2 && "Select a category",
         readOnly: ({ row }) => row.id === 3,
         options: [
