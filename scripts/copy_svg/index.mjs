@@ -1,11 +1,13 @@
-const fs = require("fs");
-const path = require("path");
-const glob = require("glob");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import glob from "glob";
 
-const SRC_DIR = path.join(__dirname, "../../src/components");
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const SRC_DIR = path.join(scriptDir, "../../src/components");
 const DIST_DIRS = [
-  path.join(__dirname, "../../lib/components"),
-  path.join(__dirname, "../../esm/components"),
+  path.join(scriptDir, "../../lib/components"),
+  path.join(scriptDir, "../../esm/components"),
 ];
 
 // Find all SVG files in `src/components`

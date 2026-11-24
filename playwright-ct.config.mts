@@ -1,14 +1,16 @@
 import { defineConfig, devices } from "@playwright/experimental-ct-react";
 
-import { resolve } from "path";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const playwrightDir = resolve(__dirname, "./playwright");
+const projectDir = dirname(fileURLToPath(import.meta.url));
+const playwrightDir = resolve(projectDir, "./playwright");
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: resolve(__dirname, "./src"),
+  testDir: resolve(projectDir, "./src"),
 
   testMatch: /.*\.pw\.tsx/,
 
@@ -29,7 +31,7 @@ export default defineConfig({
     : [
         ["list"],
         ["html", { outputFolder: resolve(playwrightDir, "./test-report") }],
-        [resolve(playwrightDir, "./support/accessibility-reporter.ts")],
+        [resolve(playwrightDir, "./support/accessibility-reporter.mts")],
       ],
 
   use: {
@@ -41,7 +43,7 @@ export default defineConfig({
       resolve: {
         alias: {
           // Required to load font assets correctly from @sage/design-tokens package
-          "~@sage": resolve(__dirname, "./node_modules/@sage/"),
+          "~@sage": resolve(projectDir, "./node_modules/@sage/"),
         },
       },
     },
@@ -58,5 +60,5 @@ export default defineConfig({
     },
   ],
 
-  globalTeardown: resolve(__dirname, "./playwright/global-teardown.js"),
+  globalTeardown: resolve(projectDir, "./playwright/global-teardown.js"),
 });

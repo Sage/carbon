@@ -30,7 +30,7 @@
     "playwright/**/*",
     ".storybook/**/*",
     "docs/**/*",
-    "jest.config.ts",
-    "playwright-ct.config.ts"
+    "jest.config.mjs",
+    "playwright-ct.config.mts"
   ]
 }

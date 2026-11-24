@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
 // Base directory for compiled output
 const libDir = path.resolve("lib");
@@ -38,7 +38,7 @@ function writePackageJson(componentPath) {
   if (hasIndexFile) {
     const packageJsonPath = path.join(componentPath, "package.json");
     const componentName = path.relative(libDir, componentPath);
-    
+
     // Skip generating package.json for lib root and esm root - only for subdirectories
     if (componentName !== "" && componentName !== ".") {
       const packageJsonContent = JSON.stringify(
