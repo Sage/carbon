@@ -2,9 +2,18 @@ import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 
 import * as HelpStories from "./help.stories";
 
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
+
 <Meta of={HelpStories} />
 
 # Help
+
+<DeprecationWarning>
+  The `Help` component has been deprecated and will be removed in a future
+  release. There is no like-for-like replacement. Consider semantic heading
+  structures for long and complex forms, or fieldsets for shorter forms that
+  require grouping and hierarchy.
+</DeprecationWarning>
 
 Typically triggered by the user hovering on an icon, displaying a single, short sentence.
 Useful for explaining the difference between commands represented with icons, for example, batch table actions.

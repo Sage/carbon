@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Help> = {
-  title: "Help",
+  title: "Deprecated/Help",
   component: Help,
   argTypes: {
     ...styledSystemProps,
