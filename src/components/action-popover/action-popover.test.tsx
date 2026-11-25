@@ -169,14 +169,14 @@ test.each([
     );
 
     await user.click(screen.getByRole("button", { name: "Actions" }));
-    expect(screen.getByTestId("menu-wrapper")).toHaveStyleRule(
+    expect(screen.getByTestId("menu-content")).toHaveStyleRule(
       "padding",
       `var(--global-space-comp-${paddingSize}) var(--global-space-none)`,
     );
 
     await user.click(screen.getByRole("button", { name: "Print options" }));
 
-    const menus = screen.getAllByTestId("menu-wrapper");
+    const menus = screen.getAllByTestId("menu-content");
     expect(menus).toHaveLength(2);
     menus.forEach((menu) => {
       expect(menu).toHaveStyleRule(
