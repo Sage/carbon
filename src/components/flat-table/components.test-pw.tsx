@@ -2477,15 +2477,22 @@ export const FlatTableStickyFooterMultiActionButtonComponent = () => {
   );
 };
 
-export const FlatTableStickyFooterActionPopoverComponent = () => {
+export const FlatTableStickyFooterActionPopoverComponent = ({
+  withOutsideControl = false,
+}: { withOutsideControl?: boolean } = {}) => {
   return (
-    <StickyFooterTable
-      content={
-        <ActionPopover>
-          <ActionPopoverItem onClick={() => {}}>Action item</ActionPopoverItem>
-        </ActionPopover>
-      }
-    />
+    <>
+      <StickyFooterTable
+        content={
+          <ActionPopover>
+            <ActionPopoverItem onClick={() => {}}>
+              Action item
+            </ActionPopoverItem>
+          </ActionPopover>
+        }
+      />
+      {withOutsideControl && <Button>Outside table action</Button>}
+    </>
   );
 };
 
