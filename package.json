@@ -15,7 +15,6 @@
     "start:strict-mode": "npm run generate-tokens && node ./scripts/check_node_version.mjs && dotenvx run --env ENABLE_REACT_STRICT_MODE=true -- storybook dev -p 9001 -c .storybook",
     "test": "npm run generate-tokens && jest --config=./jest.config.ts",
     "test-update": "jest --config=./jest.config.ts --updateSnapshot",
-    "test-storybook": "test-storybook --url http://127.0.0.1:9001",
     "format": "prettier --write './{src,playwright}/**/*.{js,jsx,ts,tsx}'",
     "lint": "npm run generate-tokens && eslint ./src ./playwright --max-warnings=636 --report-unused-disable-directives",
     "build-storybook": "npm run generate-tokens && dotenvx run -- storybook build -c .storybook",
