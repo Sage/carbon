@@ -29,6 +29,8 @@ Carbon is available as an [npm package](https://www.npmjs.com/package/carbon-rea
 npm install carbon-react
 ```
 
+Carbon publishes ESM JavaScript in the existing `carbon-react/lib/...` paths. Use an ESM-capable bundler for these imports.
+
 ### Peer dependencies
 
 You will need to install the following dependencies in your project, as they are required for Carbon to work:

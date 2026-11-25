@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
-import * as DesignTokens from "@sage/design-tokens/js/base/common";
+import DesignTokens from "@sage/design-tokens/js/base/es6.js";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { CardContextProps } from "./__internal__/card.context";
 import { CardProps } from "./card.component";

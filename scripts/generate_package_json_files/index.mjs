@@ -1,56 +1,28 @@
 import fs from "node:fs";
 import path from "node:path";
 
-// Base directory for compiled output
 const libDir = path.resolve("lib");
 
-function generatePackageJson(componentPath) {
-  const relativePath = path.relative(libDir, componentPath);
+function writePackageJson(directory) {
+  const hasIndexJs = fs.existsSync(path.join(directory, "index.js"));
+  const hasIndexTypes = fs.existsSync(path.join(directory, "index.d.ts"));
 
-  let esmBaseDir;
-  if (relativePath === "") {
-    // lib/ root — go up 1 to package root, then into esm/
-    esmBaseDir = "../../esm";
-  } else {
-    // depth = number of path segments + 1 (for lib/ itself)
-    const depth = relativePath.split(path.sep).length + 1;
-    esmBaseDir = "../".repeat(depth) + "esm";
-  }
+  if (!hasIndexJs && !hasIndexTypes) return;
 
-  const esmPath =
-    relativePath === ""
-      ? `${esmBaseDir}/index.js`
-      : path.join(esmBaseDir, relativePath, "index.js").replace(/\\/g, "/");
+  const isLibRoot = directory === libDir;
+  const packageJson = isLibRoot
+    ? { type: "module" }
+    : {
+        type: "module",
+        sideEffects: false,
+        ...(hasIndexJs && { module: "./index.js" }),
+        ...(hasIndexTypes && { types: "./index.d.ts" }),
+      };
 
-  return {
-    sideEffects: false,
-    module: esmPath,
-    types: "./index.d.ts",
-  };
-}
-
-function writePackageJson(componentPath) {
-  // Check for index.js or index.d.ts file
-  const hasIndexFile =
-    fs.existsSync(path.join(componentPath, "index.js")) ||
-    fs.existsSync(path.join(componentPath, "index.d.ts"));
-
-  if (hasIndexFile) {
-    const packageJsonPath = path.join(componentPath, "package.json");
-    const componentName = path.relative(libDir, componentPath);
-
-    // Skip generating package.json for lib root and esm root - only for subdirectories
-    if (componentName !== "" && componentName !== ".") {
-      const packageJsonContent = JSON.stringify(
-        generatePackageJson(componentPath),
-        null,
-        2,
-      );
-
-      fs.writeFileSync(packageJsonPath, packageJsonContent);
-      console.log(`Generated package.json for ${componentName}`);
-    }
-  }
+  fs.writeFileSync(
+    path.join(directory, "package.json"),
+    `${JSON.stringify(packageJson, null, 2)}\n`,
+  );
 }
 
 function processDirectoryRecursively(directory) {
@@ -59,18 +31,14 @@ function processDirectoryRecursively(directory) {
     return;
   }
 
-  // Process current directory
   writePackageJson(directory);
 
-  // Process all subdirectories
   fs.readdirSync(directory, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .forEach((entry) => {
-      const subdirPath = path.join(directory, entry.name);
-      processDirectoryRecursively(subdirPath);
+      processDirectoryRecursively(path.join(directory, entry.name));
     });
 }
 
-// Process all directories recursively starting from lib
-if (fs.existsSync(libDir)) processDirectoryRecursively(libDir);
+processDirectoryRecursively(libDir);
 console.log("Package.json generation completed.");

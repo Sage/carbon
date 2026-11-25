@@ -1,5 +1,5 @@
 import { color as styledColor } from "styled-system";
-import tokens from "@sage/design-tokens/js/base/common";
+import tokens from "@sage/design-tokens/js/base/es6.js";
 import type { ThemeObject } from "../themes/theme.types";
 
 /*

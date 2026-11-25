@@ -1,5 +1,5 @@
 import React from "react";
-import * as DesignTokens from "@sage/design-tokens/js/base/common";
+import DesignTokens from "@sage/design-tokens/js/base/es6.js";
 import { SpaceProps, WidthProps } from "styled-system";
 
 import { StyledTile, StyledTileWrapper, StyledTileKeyline } from "./tile.style";

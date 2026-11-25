@@ -13,7 +13,7 @@ const coverageThresholds = JSON.parse(
 const rootDir = dirname(fileURLToPath(import.meta.url));
 const isCI = process.env.CI === "true";
 
-const esmOnlyPackages = ["react-error-boundary"];
+const esmOnlyPackages = ["react-error-boundary", "@sage/design-tokens"];
 
 /** @type {JestConfig} */
 const baseProjectConfig = {
@@ -29,14 +29,12 @@ const baseProjectConfig = {
     "<rootDir>/src/__spec_helper__",
     "<rootDir>/src/locales",
     "<rootDir>/lib",
-    "<rootDir>/esm",
     "<rootDir>/playwright",
   ],
   coverageDirectory: "<rootDir>/coverage",
   testPathIgnorePatterns: [
     "<rootDir>/node_modules",
     "<rootDir>/lib",
-    "<rootDir>/esm",
     "<rootDir>/.storybook",
     "<rootDir>/scripts",
   ],

@@ -1,4 +1,4 @@
-import tokens from "@sage/design-tokens/js/base/common";
+import tokens from "@sage/design-tokens/js/base/es6.js";
 import { mergeWithBase } from "../base";
 import { BasePalette } from "../theme.types";
 
