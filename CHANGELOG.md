@@ -1,3 +1,9 @@
+## [163.5.2](https://github.com/Sage/carbon/compare/v163.5.1...v163.5.2) (2026-11-25)
+
+### Bug Fixes
+
+* ensure popover based components are accessible by voiceover controls ([32ac5c7](https://github.com/Sage/carbon/commit/32ac5c7c6e849c0577e75c72bf88c02956a459e8))
+
 ## [163.5.1](https://github.com/Sage/carbon/compare/v163.5.0...v163.5.1) (2026-11-25)
 
 ### Bug Fixes
