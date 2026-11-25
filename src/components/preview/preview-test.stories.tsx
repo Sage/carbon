@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import Preview from "./preview.component";
 import Box from "../box";
-import Button from "../button";
 
 const meta: Meta<typeof Preview> = {
-  title: "Preview/Test",
+  title: "Deprecated/Preview/Test",
   component: Preview,
   parameters: {
     info: { disable: true },
@@ -31,21 +30,3 @@ export const PreviewChromaticSnapshots: Story = {
   ),
 };
 PreviewChromaticSnapshots.storyName = "Preview Chromatic Snapshots";
-
-export const SnapshotWithChildren: Story = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const handleOnClick = () => {
-    setIsLoading(!isLoading);
-  };
-  return (
-    <>
-      <Preview loading={isLoading} lines={3}>
-        This the where the children are rendered
-      </Preview>
-      <Button mt={2} onClick={handleOnClick}>
-        {isLoading ? "Click to preview children" : "Click to see loading state"}
-      </Button>
-    </>
-  );
-};
-SnapshotWithChildren.storyName = "Snapshot With Children";

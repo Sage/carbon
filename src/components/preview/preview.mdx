@@ -1,10 +1,26 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 import * as PreviewStories from "./preview.stories";
 
 <Meta of={PreviewStories} />
 
 # Preview
+
+<DeprecationWarning>
+  Preview has been deprecated. Use the{" "}
+  <a style={{ color: "white" }} href="../?path=/docs/skeleton--docs">
+    Skeleton component
+  </a>{" "}
+  for new loading placeholders and see the{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#preview"
+  >
+    migration guidance
+  </a>{" "}
+  for the API differences.
+</DeprecationWarning>
 
 Applies a preview loading state animation.
 
@@ -50,7 +66,7 @@ You can use the `height` prop to specify the height of the Preview.
 
 <Canvas of={PreviewStories.WithHeight} />
 
-### Shapes 
+### Shapes
 
 By default, the shape of the Preview is "text", however you can use the `shape` prop to change this.
 You may also use the `lines` prop to render multiple Previews with the specified shape and the `width` and `height` props to change the default dimensions.

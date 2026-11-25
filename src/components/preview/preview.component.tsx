@@ -7,8 +7,10 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 
+/** @deprecated `Preview` has been deprecated. Please use `Skeleton` instead. */
 export type Shapes = "text" | "rectangle" | "rectangle-round" | "circle";
 
+/** @deprecated `Preview` has been deprecated. Please use `Skeleton` instead. */
 export interface PreviewProps extends MarginProps, TagProps {
   /** Children content to render in the component. */
   children?: React.ReactNode;
@@ -26,6 +28,7 @@ export interface PreviewProps extends MarginProps, TagProps {
   disableAnimation?: boolean;
 }
 
+/** @deprecated `Preview` has been deprecated. Please use `Skeleton` instead. */
 export const Preview = ({
   children,
   loading,

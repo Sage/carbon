@@ -80,8 +80,8 @@ export interface MessageProps extends MarginProps, TagProps {
   /** Set the component's variant. */
   variant?: MessageVariant;
   /**
-   * Set the component's width, accepts any valid css string.
-   * Please note the component has a max-width of 720px.
+   * Set the component's width. Accepts any valid CSS string.
+   * The message fills its parent by default; its content has a maximum width of 720px.
    */
   width?: string;
   /** Set the component's size. */
