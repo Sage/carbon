@@ -24,12 +24,25 @@ import DragHandle from "./drag-handle";
 export default {
   title: "Draggable/Test",
   parameters: {
+    controls: { disable: true },
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
     },
   },
 };
+
+export const LargeList = () => (
+  <Box height="480px" overflowY="auto" data-role="large-list-scroll-area">
+    <DraggableContainer data-role="large-list">
+      {Array.from({ length: 120 }, (_, index) => (
+        <DraggableItem key={index} id={`item-${index + 1}`}>
+          Item {index + 1}
+        </DraggableItem>
+      ))}
+    </DraggableContainer>
+  </Box>
+);
 
 const testItemLabels: Record<string, string> = {
   1: "Draggable Label One",

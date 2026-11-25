@@ -125,11 +125,15 @@ export {
   DraggableContainer,
   DraggableContainerGroup,
   DraggableItem,
+  DragHandle,
+  useDraggableItemContext,
 } from "./components/draggable";
 export type {
   DraggableContainerProps,
   DraggableContainerGroupProps,
   DraggableItemProps,
+  DragHandleProps,
+  DraggableItemContextValue,
 } from "./components/draggable";
 
 export { default as Drawer } from "./components/drawer";

@@ -48,6 +48,7 @@
 - [DraggableContainer](components/draggable-container.md)
 - [DraggableContainerGroup](components/draggable-container-group.md)
 - [DraggableItem](components/draggable-item.md)
+- [DragHandle](components/drag-handle.md)
 - [Drawer](components/drawer.md) — Displays sidebar content alongside a main content area.
 - [Dropdown](components/dropdown.md)
 - [Dt](components/dt.md)

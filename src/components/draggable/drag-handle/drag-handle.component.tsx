@@ -6,9 +6,13 @@ import tagComponent, {
 import Icon from "../../icon";
 import DraggableItemContext from "../__internal__/draggable-item.context";
 import { StyledDragHandle } from "../draggable-item/draggable-item.style";
+import {
+  DraggableHTMLAttributes,
+  filterDragAttributes,
+} from "../__internal__/html-attributes";
 
 export interface DragHandleProps
-  extends Omit<React.HTMLAttributes<HTMLSpanElement>, "children" | "draggable">,
+  extends Omit<DraggableHTMLAttributes<HTMLSpanElement>, "children">,
     TagProps {}
 
 /** The shared drag handle. Drag behaviour is supplied by the surrounding DraggableItem. */
@@ -32,7 +36,7 @@ const DragHandle = React.forwardRef<HTMLSpanElement, DragHandleProps>(
 
     return (
       <StyledDragHandle
-        {...props}
+        {...filterDragAttributes(props)}
         {...tagComponent("drag-handle", {
           "data-element": dataElement,
           "data-role": dataRole,

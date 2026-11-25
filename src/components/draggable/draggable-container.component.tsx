@@ -22,6 +22,7 @@ import {
 import arrayMove from "../../__internal__/utils/helpers/array-move";
 import {
   dropTargetForElements,
+  monitorForElements,
   ElementDropTargetEventBasePayload,
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { getDropTarget, isDraggable, isDropTarget } from "./__internal__/data";
@@ -31,13 +32,19 @@ import {
   RegisteredDropItem,
 } from "./__internal__/drop-placement";
 import { getDropIndicator } from "./__internal__/drop-indicator";
+import createDropGeometry from "./__internal__/drop-geometry";
+import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
 import { useDraggableContainerGroup } from "./draggable-container-group.component";
+import {
+  DraggableHTMLAttributes,
+  filterDragAttributes,
+} from "./__internal__/html-attributes";
 
 export interface DraggableContainerProps
   extends MarginProps,
     PaddingProps,
     TagProps,
-    React.HTMLAttributes<HTMLElement> {
+    DraggableHTMLAttributes {
   /** Callback fired when an item is reordered by dragging or moveTo. */
   getOrder?: (
     draggableItemIds?: (string | number | undefined)[],
@@ -123,6 +130,12 @@ const DraggableContainer = ({
   );
   const previousItems = useRef(React.Children.toArray(itemChildren));
   const focusAfterMove = useRef<HTMLElement | null>(null);
+  const latestItems = useRef(draggableItems);
+  latestItems.current = draggableItems;
+  const latestGetOrder = useRef(getOrder);
+  latestGetOrder.current = getOrder;
+  const invalidateGeometry = useRef(() => {});
+  const registeredItems = useRef(new Map<string, RegisteredDropItem>());
 
   useIsomorphicEffect(() => {
     focusAfterMove.current?.focus({ preventScroll: true });
@@ -172,15 +185,16 @@ const DraggableContainer = ({
     `\`${DraggableContainer.displayName}\` only accepts children of type \`${DraggableItem.displayName}\`.`,
   );
 
-  const latestItems = useRef(draggableItems);
-  latestItems.current = draggableItems;
-  const latestGetOrder = useRef(getOrder);
-  latestGetOrder.current = getOrder;
-  const registeredItems = useRef(new Map<string, RegisteredDropItem>());
+  useIsomorphicEffect(() => {
+    invalidateGeometry.current();
+  });
+
   const registerItem = useCallback((item: RegisteredDropItem) => {
     registeredItems.current.set(item.id, item);
+    invalidateGeometry.current();
     return () => {
       registeredItems.current.delete(item.id);
+      invalidateGeometry.current();
     };
   }, []);
 
@@ -202,10 +216,28 @@ const DraggableContainer = ({
   useEffect(() => {
     const element = containerRef.current;
     if (!element) return;
+    const geometry = createDropGeometry(element, () =>
+      latestItems.current.flatMap((item) => {
+        /* istanbul ignore else */
+        if (React.isValidElement(item)) {
+          const registration = registeredItems.current.get(
+            String(item.props.id),
+          );
+          return registration ? [registration] : [];
+        }
+
+        return [];
+      }),
+    );
+    invalidateGeometry.current = geometry.invalidate;
     let indicatedItem: RegisteredDropItem | undefined;
+    let indicatedGeometry: ReturnType<typeof geometry.get> | undefined;
+    let indicatedPosition: string | undefined;
     const clearIndicator = () => {
       indicatedItem?.onIndicatorChange(null);
       indicatedItem = undefined;
+      indicatedGeometry = undefined;
+      indicatedPosition = undefined;
     };
     const updateIndicator = ({
       self,
@@ -240,109 +272,108 @@ const DraggableContainer = ({
         clearIndicator();
         return;
       }
+      const snapshot = geometry.get();
+      if (
+        indicatedItem === item &&
+        indicatedPosition === target.position &&
+        indicatedGeometry === snapshot
+      )
+        return;
       if (indicatedItem !== item) clearIndicator();
       indicatedItem = item;
+      indicatedPosition = target.position;
+      indicatedGeometry = snapshot;
       item.onIndicatorChange(
         getDropIndicator({
           element: item.element,
           dragHandle: item.dragHandle,
-          surface: item.getSurface(),
+          surface: snapshot.items.find((entry) => entry.id === item.id)
+            ?.surface,
           position: target.position,
-          neighbouringBounds: [...registeredItems.current.values()]
-            .filter((neighbour) => neighbour !== item)
-            .map((neighbour) => neighbour.getSurface().getBoundingClientRect())
-            .filter((bounds) => bounds.width > 0 && bounds.height > 0),
+          neighbouringBounds: snapshot.items
+            .filter((neighbour) => neighbour.id !== item.id)
+            .map((neighbour) => neighbour.bounds),
         }),
       );
     };
-    return dropTargetForElements({
-      element,
-      canDrop: ({ source }) =>
-        isDraggable(source.data) &&
-        (source.data.contextId === contextId ||
-          (group !== null && source.data.groupId === group.groupId)),
-      getData: ({ input, source }) => {
-        const items = latestItems.current
-          .filter(isDraggableItem)
-          .flatMap((item) => {
-            const registration = registeredItems.current.get(
-              String(item.props.id),
-            );
-            return registration
-              ? [
-                  {
-                    ...registration,
-                    bounds: registration.getSurface().getBoundingClientRect(),
-                  },
-                ]
-              : [];
-          })
-          .filter(({ bounds }) => bounds.width > 0 && bounds.height > 0);
-        const layout = getComputedStyle(
-          items[0]?.element.parentElement ?? element,
-        );
-        const horizontal =
-          (layout.display.includes("flex") &&
-            layout.flexDirection.startsWith("row")) ||
-          (layout.display.includes("grid") &&
-            layout.gridTemplateColumns.split(/\s+/).length > 1);
-        const reverse = horizontal
-          ? (layout.direction === "rtl") !==
-            (layout.flexDirection === "row-reverse")
-          : layout.flexDirection === "column-reverse";
-        const location = getDropLocation(
-          items,
-          input,
-          { horizontal, reverse },
-          isDraggable(source.data) ? source.data.preview : undefined,
-          isDraggable(source.data) && source.data.contextId === contextId
-            ? source.data.id
-            : undefined,
-        );
-        return getDropTarget({
-          id: null,
-          ...location,
-          contextId,
-          groupId: group?.groupId,
-        });
-      },
-      onDragEnter: updateIndicator,
-      onDrag: updateIndicator,
-      onDragLeave: clearIndicator,
-      onDrop: clearIndicator,
-    });
+    const canDrop = ({
+      source,
+    }: {
+      source: { data: Record<string, unknown> };
+    }) =>
+      isDraggable(source.data) &&
+      (source.data.contextId === contextId ||
+        (group !== null && source.data.groupId === group.groupId));
+    return combine(
+      geometry.cleanup,
+      monitorForElements({
+        canMonitor: canDrop,
+        onGenerateDragPreview: geometry.invalidate,
+        onDrop: geometry.invalidate,
+      }),
+      dropTargetForElements({
+        element,
+        canDrop,
+        getData: ({ input, source }) => {
+          const { items, layout } = geometry.get();
+          const location = getDropLocation(
+            items,
+            input,
+            layout,
+            isDraggable(source.data) ? source.data.preview : undefined,
+            isDraggable(source.data) && source.data.contextId === contextId
+              ? source.data.id
+              : undefined,
+          );
+          return getDropTarget({
+            id: null,
+            ...location,
+            contextId,
+            groupId: group?.groupId,
+          });
+        },
+        onDragEnter: updateIndicator,
+        onDrag: updateIndicator,
+        onDragLeave: clearIndicator,
+        onDrop: clearIndicator,
+      }),
+    );
   }, [group, contextId]);
 
-  const reorder = useCallback(
-    (id: string, endIndex: number) => {
-      const startIndex = draggableItems.findIndex(
-        (child) => isDraggableItem(child) && String(child.props.id) === id,
-      );
+  const reorder = useCallback((id: string, endIndex: number) => {
+    const items = latestItems.current;
+    const startIndex = items.findIndex(
+      (child) => isDraggableItem(child) && String(child.props.id) === id,
+    );
 
-      if (
-        startIndex === -1 ||
-        !Number.isInteger(endIndex) ||
-        endIndex < 0 ||
-        endIndex >= draggableItems.length ||
-        startIndex === endIndex
-      )
-        return false;
+    if (
+      startIndex === -1 ||
+      !Number.isInteger(endIndex) ||
+      endIndex < 0 ||
+      endIndex >= items.length ||
+      startIndex === endIndex
+    )
+      return false;
 
-      const reorderedItems = arrayMove({
-        array: draggableItems,
-        startIndex,
-        endIndex,
-      });
+    const reorderedItems = arrayMove({
+      array: items,
+      startIndex,
+      endIndex,
+    });
 
-      setDraggableItems(reorderedItems);
-      getOrder?.(
-        reorderedItems.map((child) => child.props.id),
-        id,
-      );
-      return true;
-    },
-    [draggableItems, getOrder],
-  );
+    setDraggableItems(reorderedItems);
+    latestGetOrder.current?.(
+      reorderedItems.map((child) => {
+        /* istanbul ignore else */
+        if (React.isValidElement(child)) {
+          return String(child.props.id);
+        }
+        return "";
+      }),
+      id,
+    );
+    return true;
+  }, []);
 
   const handleMove = useCallback(
     (id: string, index: number) => {
@@ -359,27 +390,44 @@ const DraggableContainer = ({
     [reorder],
   );
 
-  const handleDrop: DragDropProviderProps["onDrop"] = ({ dragged, target }) => {
-    if (!target) return;
-    if (target.contextId !== contextId) {
-      group?.transfer(dragged, target);
-      return;
-    }
-    const sourceIndex = draggableItems.findIndex(
-      (child) => String(child.props.id) === dragged.id,
-    );
-    const targetIndex =
-      target.id === null
-        ? draggableItems.length
-        : draggableItems.findIndex(
-            (child) => String(child.props.id) === target.id,
-          );
-    if (targetIndex < 0 || sourceIndex < 0) return;
-    reorder(
-      dragged.id,
-      getInsertionIndex(sourceIndex, targetIndex, target.placement ?? "before"),
-    );
-  };
+  const handleDrop = useCallback<NonNullable<DragDropProviderProps["onDrop"]>>(
+    ({ dragged, target }) => {
+      if (!target) return;
+
+      if (target.contextId !== contextId) {
+        group?.transfer(dragged, target);
+        return;
+      }
+
+      const items = latestItems.current;
+      const sourceIndex = items.findIndex(
+        (child) =>
+          React.isValidElement(child) && String(child.props.id) === dragged.id,
+      );
+      const targetIndex =
+        target.id === null
+          ? items.length
+          : items.findIndex(
+              (child) =>
+                React.isValidElement(child) &&
+                String(child.props.id) === target.id,
+            );
+
+      if (targetIndex < 0 || sourceIndex < 0) {
+        return;
+      }
+
+      reorder(
+        dragged.id,
+        getInsertionIndex(
+          sourceIndex,
+          targetIndex,
+          target.placement ?? "before",
+        ),
+      );
+    },
+    [contextId, group, reorder],
+  );
 
   const decoratedItems = draggableItems.map((item, index) =>
     React.cloneElement(item, {
@@ -395,7 +443,7 @@ const DraggableContainer = ({
     <StyledDraggableContainer
       ref={containerRef}
       $isLinked={Boolean(group)}
-      {...rest}
+      {...filterDragAttributes(rest)}
       data-component="draggable-container"
       data-element={dataElement}
       data-role={dataRole}

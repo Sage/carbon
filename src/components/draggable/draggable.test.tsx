@@ -20,6 +20,71 @@ import {
 import Box from "../box";
 import Card from "../card";
 import { Tile } from "../tile";
+import { useDragDropContext } from "./__internal__/drag-drop-provider";
+
+test.each(["container", "item", "handle"])(
+  "%s forwards ordinary HTML attributes and handlers but reserves native drag props",
+  (component) => {
+    const onDrag = jest.fn();
+    const onClick = jest.fn();
+    const attributes = {
+      draggable: true,
+      onDrag,
+      onDragCapture: onDrag,
+      onDragStart: onDrag,
+      onDragStartCapture: onDrag,
+      onDragEnd: onDrag,
+      onDragEndCapture: onDrag,
+      onDragOver: onDrag,
+      onDragOverCapture: onDrag,
+      onDragEnter: onDrag,
+      onDragEnterCapture: onDrag,
+      onDragLeave: onDrag,
+      onDragLeaveCapture: onDrag,
+      onDrop: onDrag,
+      onDropCapture: onDrag,
+      onClick,
+      title: "Draggable content",
+      "aria-label": "Example",
+    };
+    render(
+      component === "handle" ? (
+        <DragHandle {...attributes} />
+      ) : (
+        <DraggableContainer {...(component === "container" ? attributes : {})}>
+          <DraggableItem id="one" {...(component === "item" ? attributes : {})}>
+            Content
+          </DraggableItem>
+        </DraggableContainer>
+      ),
+    );
+    const element = screen.getByTestId(
+      component === "handle" ? "drag-handle" : `draggable-${component}`,
+    );
+
+    expect(element).toHaveAttribute("aria-label", "Example");
+    expect(element).toHaveAttribute("title", "Draggable content");
+    expect(element).not.toHaveAttribute("draggable");
+
+    fireEvent.click(element);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+
+    for (const event of [
+      "drag",
+      "dragstart",
+      "dragend",
+      "dragover",
+      "dragenter",
+      "dragleave",
+      "drop",
+    ]) {
+      fireEvent(element, new Event(event, { bubbles: true, cancelable: true }));
+    }
+
+    expect(onDrag).not.toHaveBeenCalled();
+  },
+);
 
 test("supports bounded drop-area sizing and padding without rendering sizing attributes", () => {
   render(
@@ -72,6 +137,71 @@ const MoveControl = ({
     </button>
   );
 };
+
+test("keeps contexts stable on parent updates and only updates items whose positions change", () => {
+  const onRender = jest.fn();
+  const getOrder = jest.fn();
+  const nextGetOrder = jest.fn();
+  const Control = React.memo(({ label }: { label: string }) => {
+    const { index, itemCount, moveTo } = useDraggableItemContext();
+    useDragDropContext();
+    onRender(label);
+    return (
+      <button type="button" onClick={() => moveTo(index === 0 ? 1 : 0)}>
+        {label} ({index + 1}/{itemCount})
+      </button>
+    );
+  });
+  const renderItems = (onOrder: typeof getOrder) => (
+    <DraggableContainer getOrder={onOrder}>
+      {["one", "two", "three"].map((id) => (
+        <DraggableItem key={id} id={id}>
+          <Control label={id} />
+        </DraggableItem>
+      ))}
+    </DraggableContainer>
+  );
+  const { rerender } = render(renderItems(getOrder));
+  onRender.mockClear();
+
+  rerender(renderItems(nextGetOrder));
+
+  expect(onRender).not.toHaveBeenCalled();
+
+  fireEvent.click(screen.getByRole("button", { name: "one (1/3)" }));
+
+  expect(nextGetOrder).toHaveBeenLastCalledWith(["two", "one", "three"], "one");
+  expect(getOrder).not.toHaveBeenCalled();
+  expect(onRender.mock.calls.map(([label]) => label)).toEqual(["two", "one"]);
+  onRender.mockClear();
+
+  fireEvent.click(screen.getByRole("button", { name: "one (2/3)" }));
+
+  expect(nextGetOrder).toHaveBeenLastCalledWith(["one", "two", "three"], "one");
+  expect(onRender.mock.calls.map(([label]) => label)).toEqual(["one", "two"]);
+});
+
+test("stable move controls use the latest children and notify consumers when the item count changes", () => {
+  const getOrder = jest.fn();
+  const renderItems = (ids: string[], label: string) => (
+    <DraggableContainer getOrder={getOrder}>
+      {ids.map((id) => (
+        <DraggableItem key={id} id={id}>
+          <MoveControl label={`${label} ${id}`} position={ids.length - 1} />
+        </DraggableItem>
+      ))}
+    </DraggableContainer>
+  );
+  const { rerender } = render(renderItems(["one", "two"], "Original"));
+
+  rerender(renderItems(["three", "one", "two"], "Updated"));
+  fireEvent.click(screen.getByRole("button", { name: "Updated one (2/3)" }));
+
+  expect(getOrder).toHaveBeenCalledWith(["three", "two", "one"], "one");
+  expect(
+    screen.getAllByRole("button").map((button) => button.textContent),
+  ).toEqual(["Updated three (1/3)", "Updated two (2/3)", "Updated one (3/3)"]);
+});
 
 test("manual controls share ordering and getOrder without remounting their item or creating a live region", () => {
   const getOrder = jest.fn();
@@ -139,6 +269,7 @@ const IntegratedPanel = ({
 
 test("the public integration works independently outside a DraggableItem", () => {
   render(<IntegratedPanel />);
+
   expect(screen.getByRole("article")).toBeVisible();
   expect(screen.queryByTestId("drag-handle")).not.toBeInTheDocument();
 
@@ -176,6 +307,7 @@ test("registers an internal handle, forwards its ref and preserves registration 
 
 test("renders DragHandle independently with custom attributes without enabling native dragging", () => {
   render(<DragHandle data-role="custom-handle" aria-label="Move" />);
+
   expect(screen.getByTestId("custom-handle")).toHaveAttribute(
     "aria-label",
     "Move",
@@ -429,7 +561,9 @@ test("switches between Card, Tile and fallback handles when the child changes", 
   rerender(renderItem(<div>Fallback content</div>));
 
   expect(screen.queryByTestId("drag-handle")).not.toBeInTheDocument();
+
   const oldFallbackHandle = screen.getByTestId("draggable-item-drag-handle");
+
   expect(oldFallbackHandle).toHaveAttribute("draggable", "true");
   expect(oldTileHandle).not.toHaveAttribute("draggable");
 

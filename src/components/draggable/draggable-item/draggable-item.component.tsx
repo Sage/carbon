@@ -11,11 +11,15 @@ import { StyledDraggableItem, StyledItemContent } from "./draggable-item.style";
 import DragHandle from "../drag-handle";
 import DraggableItemContext from "../__internal__/draggable-item.context";
 import useDraggableItem from "../__internal__/use-draggable-item";
+import {
+  DraggableHTMLAttributes,
+  filterDragAttributes,
+} from "../__internal__/html-attributes";
 
 export interface DraggableItemProps
   extends PaddingProps,
     TagProps,
-    Omit<React.HTMLAttributes<HTMLElement>, "id"> {
+    Omit<DraggableHTMLAttributes, "id"> {
   /** Unique identifier of the draggable item within its container. */
   id: number | string;
   /** The content of the component. */
@@ -80,7 +84,7 @@ const DraggableItem = ({
 
   return (
     <StyledDraggableItem
-      {...elementProps}
+      {...filterDragAttributes(elementProps)}
       ref={ref}
       $dragGhost={dragGhost}
       $dropIndicator={dropIndicator}

@@ -1,6 +1,6 @@
 /* istanbul ignore file: Test with Playwright for better reliability */
 
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useEffect, useMemo } from "react";
 import { Draggable, DropTarget, isDraggable, isDropTarget } from "./data";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import type { RegisteredDropItem } from "./drop-placement";
@@ -74,9 +74,10 @@ export const DragDropProvider = ({
     });
   }, [contextId, onDrop]);
 
-  return (
-    <Context.Provider value={{ contextId, groupId, registerItem }}>
-      {children}
-    </Context.Provider>
+  const contextValue = useMemo(
+    () => ({ contextId, groupId, registerItem }),
+    [contextId, groupId, registerItem],
   );
+
+  return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };

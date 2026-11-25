@@ -22,7 +22,7 @@ with possibility to change their order with drag and drop mechanics
 
 To use the Draggable component you have to import two components: `<DraggableContainer />` and `<DraggableItem />`.
 
-```javascript
+```tsx
 import {
   DraggableContainer,
   DraggableItem,
@@ -65,6 +65,16 @@ Item IDs must be unique across a group. Containers outside the group, or in anot
 Use `width`, `height`, `minWidth`, `maxWidth`, `minHeight`, `maxHeight` and padding props such as `p` to size the drop area. Put decorative backgrounds on a surrounding element. Keep the sizing and padding on `DraggableContainer` so the entire visible area accepts drops, including when empty.
 
 For interactive content, use the callbacks to update parent-owned item lists and keep input values in parent state. Moving content into another container remounts it. The `moveTo` API continues to reorder within the item's current container.
+
+**Keep both lists controlled when transferred items receive changing props.** Each `getOrder` callback must update that container's list of IDs, and each container must render its children from that list. Without this, a transferred item retains the React element from the source container at the time of the transfer: later changes to the source's children do not update it in the destination. Static content can use the containers' internal ordering alone.
+
+The following example keeps both lists and the checkbox value in parent state. Transfer Apple to the second container, then change its checkbox to check that prop updates still reach it:
+
+<Canvas of={DraggableStories.WithControlledLinkedContainersStory} />
+
+### HTML attributes and events
+
+`DraggableContainer`, `DraggableItem`, and `DragHandle` accept HTML attributes, including ARIA attributes, `role`, `className`, and ordinary interaction handlers. Native drag events (`onDrag*`, `onDrop*`, including capture handlers) and the HTML `draggable` attribute are reserved for the drag implementation and are not forwarded. Use `getOrder` to react to completed moves, including moves made through `moveTo`.
 
 ## Examples
 

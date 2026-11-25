@@ -33,7 +33,6 @@ description: Carbon DraggableItem component props and usage examples.
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
 | defaultValue | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
-| draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No | go \| send \| search \| enter \| done \| next \| previous |  |  |  |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
@@ -83,22 +82,6 @@ description: Carbon DraggableItem component props and usage examples.
 | onCutCapture | ClipboardEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onDoubleClick | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onDoubleClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDrag | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragCapture | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragEnd | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragEndCapture | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragEnter | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragEnterCapture | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragExit | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragExitCapture | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragLeave | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragLeaveCapture | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragOver | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragOverCapture | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragStart | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDragStartCapture | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDrop | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onDropCapture | DragEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onDurationChange | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onDurationChangeCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onEmptied | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |

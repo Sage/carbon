@@ -9,7 +9,11 @@ import Box from "../box";
 import Card from "../card";
 import { Tile } from "../tile";
 import { Checkbox } from "../checkbox";
-import { WithCardsStory, WithTilesStory } from "./draggable.stories";
+import {
+  WithCardsStory,
+  WithTilesStory,
+  WithControlledLinkedContainersStory,
+} from "./draggable.stories";
 import {
   Default,
   DraggableFlexDirection,
@@ -100,36 +104,9 @@ export const WithLinkedContainers = ({ getOrder }: DraggableContainerProps) => (
   </DraggableContainerGroup>
 );
 
-export const WithControlledLinkedContainers = () => {
-  const [first, setFirst] = useState(["Apple"]);
-  const [second, setSecond] = useState(["Venus"]);
-  const [checked, setChecked] = useState(true);
-  const item = (id: string) => (
-    <DraggableItem key={id} id={id}>
-      <Checkbox
-        label={id}
-        checked={id === "Apple" && checked}
-        onChange={() => setChecked((value) => !value)}
-      />
-    </DraggableItem>
-  );
-  return (
-    <DraggableContainerGroup>
-      <DraggableContainer
-        data-role="controlled-first"
-        getOrder={(ids) => setFirst(ids as string[])}
-      >
-        {first.map(item)}
-      </DraggableContainer>
-      <DraggableContainer
-        data-role="controlled-second"
-        getOrder={(ids) => setSecond(ids as string[])}
-      >
-        {second.map(item)}
-      </DraggableContainer>
-    </DraggableContainerGroup>
-  );
-};
+export const WithControlledLinkedContainers = () => (
+  <WithControlledLinkedContainersStory />
+);
 
 export const WithBoxCardsAndTiles = ({ getOrder }: DraggableContainerProps) => {
   const [checked, setChecked] = useState(false);

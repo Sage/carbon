@@ -5,11 +5,13 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 
 import {
   DraggableContainer,
+  DraggableContainerGroup,
   DraggableContainerProps,
   DraggableItem,
   useDraggableItemContext,
 } from ".";
 import Box from "../box";
+import { Checkbox } from "../checkbox";
 import Card from "../card";
 import { Tile } from "../tile";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
@@ -28,6 +30,7 @@ const meta: Meta<typeof DraggableContainer> = {
     ...styledSystemProps,
   },
   parameters: {
+    controls: { disable: true },
     themeProvider: {
       chromatic: {
         theme: "sage",
@@ -227,3 +230,68 @@ export const WithTilesStory = () => (
   </AnnouncedDraggableContainer>
 );
 WithTilesStory.storyName = "With Tiles";
+
+export const WithControlledLinkedContainersStory = () => {
+  const [first, setFirst] = React.useState(["Apple"]);
+  const [second, setSecond] = React.useState(["Venus"]);
+  const [checked, setChecked] = React.useState<Record<string, boolean>>({
+    Apple: true,
+    Venus: false,
+  });
+  const transfer = (id: string) => {
+    const inFirst = first.includes(id);
+    setFirst((ids) =>
+      inFirst ? ids.filter((item) => item !== id) : [...ids, id],
+    );
+    setSecond((ids) =>
+      inFirst ? [...ids, id] : ids.filter((item) => item !== id),
+    );
+  };
+  const item = (id: string) => (
+    <DraggableItem key={id} id={id}>
+      <Box display="flex" flexWrap="wrap" alignItems="center" gap={2}>
+        <Checkbox
+          label={id}
+          checked={checked[id]}
+          onChange={() =>
+            setChecked((values) => ({ ...values, [id]: !values[id] }))
+          }
+        />
+        <Button size="small" onClick={() => transfer(id)}>
+          Move {id} to {first.includes(id) ? "second" : "first"} container
+        </Button>
+      </Box>
+    </DraggableItem>
+  );
+  return (
+    <DraggableContainerGroup>
+      <Box display="flex" flexWrap="wrap" gap={3}>
+        <DraggableContainer
+          minWidth="260px"
+          minHeight="160px"
+          p={2}
+          aria-label="First container"
+          role="group"
+          data-role="controlled-first"
+          getOrder={(ids) => setFirst(ids as string[])}
+        >
+          {first.map(item)}
+        </DraggableContainer>
+        <DraggableContainer
+          minWidth="260px"
+          minHeight="160px"
+          p={2}
+          aria-label="Second container"
+          role="group"
+          data-role="controlled-second"
+          getOrder={(ids) => setSecond(ids as string[])}
+        >
+          {second.map(item)}
+        </DraggableContainer>
+      </Box>
+    </DraggableContainerGroup>
+  );
+};
+
+WithControlledLinkedContainersStory.storyName =
+  "With Controlled Linked Containers";

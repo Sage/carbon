@@ -111,7 +111,7 @@ const Card = ({
     <StyledCard
       ref={surfaceRef}
       $cardWidth={width}
-      $interactive={interactive}
+      $interactive={interactive || draggable}
       $spacing={spacing}
       $boxShadow={boxShadow}
       $hoverBoxShadow={hoverBoxShadow}
