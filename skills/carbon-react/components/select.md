@@ -16,36 +16,6 @@ description: Carbon Select component props and usage examples.
 No props metadata found.
 
 ## Examples
-### Playground
-
-**Args**
-
-```tsx
-{
-    label: "Color",
-    size: "medium",
-    variant: "typical",
-    disabled: false,
-    readOnly: false,
-    required: false,
-    isLoading: false,
-    openOnFocus: false,
-    labelInline: false,
-    flipEnabled: true,
-    enableVirtualScroll: false,
-    virtualScrollOverscan: 5,
-    typeaheadTimeout: 1500,
-    value: "select",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => <PlaygroundStory {...args} />
-```
-
-
 ### Lazy Loading
 
 **Render**

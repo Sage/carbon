@@ -36,36 +36,6 @@ description: Carbon Skeleton component props and usage examples.
 | aria-label | string \| undefined | No |  | Accessible name used to communicate the loading state. |  |
 
 ## Examples
-### Playground
-
-**Args**
-
-```tsx
-{
-    lines: [
-      [
-        { height: "48px", shape: "circle" },
-        {
-          height: "24px",
-          width: "40%",
-          shape: "rectangle-curved",
-        },
-      ],
-      { preset: "paragraph", width: "100%" },
-      { preset: "paragraph", width: "85%" },
-      { preset: "paragraph", width: "65%" },
-    ],
-    disableAnimation: false,
-  }
-```
-
-**Render**
-
-```tsx
-(args) => <Skeleton {...args} />
-```
-
-
 ### Disable Animation
 
 **Args**
