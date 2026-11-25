@@ -362,6 +362,15 @@ export type {
   SearchHandle,
 } from "./components/search/search.component";
 
+export { default as Skeleton } from "./components/skeleton";
+export type {
+  PresetHeight as SkeletonPresetHeight,
+  Shapes as SkeletonShape,
+  SkeletonLine,
+  SkeletonProps,
+  SkeletonRow,
+} from "./components/skeleton";
+
 export {
   FilterableSelect,
   MultiSelect,

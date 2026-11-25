@@ -11,6 +11,11 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import guid from "../../__internal__/utils/helpers/guid";
 
+/**
+ * @deprecated The `Help` component has been deprecated and will be removed in a future release. There is no
+ * like-for-like replacement. Consider semantic heading structures for long and complex forms,
+ * or fieldsets for shorter forms that require grouping and hierarchy.
+ */
 export interface HelpProps extends MarginProps, TagProps {
   /** Overrides the default 'as' attribute of the Help component */
   as?: keyof JSX.IntrinsicElements;
@@ -46,6 +51,11 @@ export interface HelpProps extends MarginProps, TagProps {
   [key: string]: any;
 }
 
+/**
+ * @deprecated The `Help` component has been deprecated and will be removed in a future release. There is no
+ * like-for-like replacement. Consider semantic heading structures for long and complex forms,
+ * or fieldsets for shorter forms that require grouping and hierarchy.
+ */
 export const Help = ({
   as,
   ariaLabel = "help",
