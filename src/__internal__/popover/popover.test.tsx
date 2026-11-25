@@ -103,12 +103,13 @@ test("renders popup within the component's ancestor as normal when disablePortal
   expect(screen.getByRole("main")).toHaveTextContent(/I float!/);
 });
 
-test("falls back to a body portal when the native popover API is unavailable", () => {
+test("falls back to a body portal when the native popover API is unavailable", async () => {
   render(
     <main>
       <PopoverWithButton useTopLayer />
     </main>,
   );
+  await waitForPosition();
 
   expect(screen.getByText("I float!")).toBeVisible();
   expect(screen.getByRole("main")).not.toHaveTextContent("I float!");
