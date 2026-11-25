@@ -4,6 +4,7 @@ import React, {
   useRef,
   RefObject,
   useEffect,
+  useLayoutEffect,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
@@ -65,6 +66,8 @@ export interface PopoverProps {
   childRefOverride?: MutableRefObject<HTMLDivElement | null>;
   /** Optional custom portal container. Defaults to document.body (or the closest dialog in a modal). */
   portalTarget?: HTMLElement | null;
+  /** Prefer the browser's top layer to preserve DOM order without ancestor clipping. Falls back to a portal when unsupported. */
+  useTopLayer?: boolean;
 }
 
 const defaultMiddleware = [
@@ -84,7 +87,9 @@ const PopoverRoot = ({
   animationFrame,
   popoverStrategy = "absolute",
   childRefOverride,
+  useTopLayer = false,
 }: Omit<PopoverProps, "disablePortal">) => {
+  const contentRef = useRef<HTMLDivElement>(null);
   const childRef =
     childRefOverride ||
     (React.Children.only(children) as React.FunctionComponentElement<unknown>)
@@ -99,6 +104,19 @@ const PopoverRoot = ({
     content = React.cloneElement(children, { ref: floatingReference });
   }
 
+  useLayoutEffect(() => {
+    const element = contentRef.current;
+    if (!useTopLayer || !element) return;
+
+    element.setAttribute("popover", "manual");
+    if (isOpen) element.showPopover();
+
+    return () => {
+      if (element.matches(":popover-open")) element.hidePopover();
+      element.removeAttribute("popover");
+    };
+  }, [useTopLayer, isOpen]);
+
   useFloating({
     isOpen,
     reference,
@@ -106,11 +124,11 @@ const PopoverRoot = ({
     placement,
     middleware,
     animationFrame,
-    strategy: popoverStrategy,
+    strategy: useTopLayer ? "fixed" : popoverStrategy,
   });
 
   return (
-    <StyledPopoverContent hide={hide}>
+    <StyledPopoverContent ref={contentRef} hide={hide} $topLayer={useTopLayer}>
       {disableBackgroundUI ? (
         <StyledBackdrop data-role="popup-backdrop">{content}</StyledBackdrop>
       ) : (
@@ -120,7 +138,12 @@ const PopoverRoot = ({
   );
 };
 
-const Popover = ({ disablePortal, portalTarget, ...props }: PopoverProps) => {
+const Popover = ({
+  disablePortal,
+  portalTarget,
+  useTopLayer,
+  ...props
+}: PopoverProps) => {
   const { isBrowser } = useIsBrowser();
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
   const { wrapperId } = useContext(TokensWrapperContext);
@@ -151,6 +174,15 @@ const Popover = ({ disablePortal, portalTarget, ...props }: PopoverProps) => {
       setMode(undefined);
     };
   }, [props.reference]);
+
+  const canUseTopLayer =
+    useTopLayer && isBrowser && "showPopover" in HTMLElement.prototype;
+
+  if (canUseTopLayer) {
+    const content = <PopoverRoot {...props} useTopLayer />;
+    // Submenus belong inside their parent list item, including inside dialogs.
+    return portalTarget ? createPortal(content, portalTarget) : content;
+  }
 
   if (disablePortal) {
     return <PopoverRoot {...props} />;

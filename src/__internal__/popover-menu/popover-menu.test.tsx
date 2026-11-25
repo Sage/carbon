@@ -6,6 +6,7 @@ import {
   screen,
   waitFor,
   fireEvent,
+  act,
 } from "@testing-library/react";
 import PopoverMenu, {
   FocusableHandle,
@@ -1127,6 +1128,273 @@ describe("PopoverMenu - Select configuration", () => {
 });
 
 describe("PopoverMenu - button menu", () => {
+  it("does not request dismissal again when a click follows focus loss before the parent closes the menu", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    render(<button>Outside control</button>);
+    renderPopoverMenu<HTMLButtonElement>({
+      open: true,
+      isButtonMenu: true,
+      popoverControl: popoverControlButton,
+      children: buttonChildren,
+      onClose,
+    });
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Item 1" })).toHaveFocus(),
+    );
+
+    const outside = screen.getByRole("button", { name: "Outside control" });
+    act(() => outside.focus());
+    await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
+
+    await user.click(outside);
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it.each([
+    { pointerEnd: "pointerUp", destination: "trigger" },
+    { pointerEnd: "pointerCancel", destination: "trigger" },
+    { pointerEnd: "pointerUp", destination: "body" },
+  ] as const)(
+    "defers trigger pointer dismissal until $pointerEnd when focus moves to $destination",
+    async ({ pointerEnd, destination }) => {
+      const user = userEvent.setup();
+      const onClose = jest.fn();
+      render(
+        <PopoverMenuWithState<HTMLButtonElement>
+          isButtonMenu
+          disablePortal={false}
+          popoverControl={popoverControlButton}
+          onClose={onClose}
+        >
+          {buttonChildren}
+        </PopoverMenuWithState>,
+      );
+      const trigger = screen.getByRole("button", { name: "Button label" });
+      await user.click(trigger);
+      const item = screen.getByRole("button", { name: "Item 1" });
+      await waitFor(() => expect(item).toHaveFocus());
+
+      fireEvent.pointerDown(trigger);
+      const target = destination === "body" ? document.body : trigger;
+      act(() => {
+        item.blur();
+        target.focus();
+      });
+      await act(async () => {
+        await new Promise<void>((resolve) =>
+          requestAnimationFrame(() => resolve()),
+        );
+      });
+
+      expect(onClose).not.toHaveBeenCalled();
+      expect(screen.getByRole("list")).toBeVisible();
+
+      fireEvent[pointerEnd](trigger);
+
+      await waitFor(() =>
+        expect(screen.queryByRole("list")).not.toBeInTheDocument(),
+      );
+      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(target).toHaveFocus();
+    },
+  );
+
+  it("preserves a hidden menu after body focus loss but dismisses it for an outside control", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    render(
+      <>
+        <PopoverMenuWithState<HTMLButtonElement>
+          isButtonMenu
+          disablePortal={false}
+          popoverControl={popoverControlButton}
+          onClose={onClose}
+        >
+          {buttonChildren}
+        </PopoverMenuWithState>
+        <button>Outside control</button>
+      </>,
+    );
+    const trigger = screen.getByRole("button", { name: "Button label" });
+    await user.click(trigger);
+    const item = screen.getByRole("button", { name: "Item 1" });
+    await waitFor(() => expect(item).toHaveFocus());
+    const wrapper = screen.getByTestId("menu-wrapper");
+    act(() => {
+      wrapper.style.visibility = "hidden";
+      item.blur();
+    });
+    await act(async () => {
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => resolve()),
+      );
+    });
+
+    expect(document.body).toHaveFocus();
+    expect(onClose).not.toHaveBeenCalled();
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("list", { hidden: true })).not.toBeVisible();
+
+    const outside = screen.getByRole("button", { name: "Outside control" });
+    act(() => outside.focus());
+
+    await waitFor(() =>
+      expect(
+        screen.queryByRole("list", { hidden: true }),
+      ).not.toBeInTheDocument(),
+    );
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(outside).toHaveFocus();
+  });
+
+  it("dismisses a visible menu when its focused item blurs to the body", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    render(
+      <PopoverMenuWithState<HTMLButtonElement>
+        isButtonMenu
+        popoverControl={popoverControlButton}
+        onClose={onClose}
+      >
+        {buttonChildren}
+      </PopoverMenuWithState>,
+    );
+    await user.click(screen.getByRole("button", { name: "Button label" }));
+    const item = screen.getByRole("button", { name: "Item 1" });
+    await waitFor(() => expect(item).toHaveFocus());
+    act(() => item.blur());
+
+    await waitFor(() =>
+      expect(screen.queryByRole("list")).not.toBeInTheDocument(),
+    );
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(document.body).toHaveFocus();
+  });
+
+  it("does not dismiss during initial focus setup before a menu item has received focus", async () => {
+    const onClose = jest.fn();
+    render(<button>Outside control</button>);
+    renderPopoverMenu<HTMLButtonElement>({
+      open: true,
+      isButtonMenu: true,
+      popoverControl: popoverControlButton,
+      children: buttonChildren,
+      onClose,
+    });
+    act(() => screen.getByRole("button", { name: "Outside control" }).focus());
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Item 1" })).toHaveFocus(),
+    );
+
+    expect(onClose).not.toHaveBeenCalled();
+    expect(screen.getByRole("list")).toBeVisible();
+  });
+
+  it("does not focus the Tab destination twice when onClose has already focused it", async () => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <PopoverMenuWithState<HTMLButtonElement>
+          isButtonMenu
+          disablePortal={false}
+          popoverControl={popoverControlButton}
+          onClose={() =>
+            screen.getByRole("button", { name: "After menu" }).focus()
+          }
+        >
+          {buttonChildren}
+        </PopoverMenuWithState>
+        <button>After menu</button>
+      </>,
+    );
+    await user.click(screen.getByRole("button", { name: "Button label" }));
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Item 1" })).toHaveFocus(),
+    );
+    const destination = screen.getByRole("button", { name: "After menu" });
+    const focusSpy = jest.spyOn(destination, "focus");
+    try {
+      await user.tab();
+
+      expect(destination).toHaveFocus();
+      expect(focusSpy).toHaveBeenCalledTimes(1);
+      expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    } finally {
+      focusSpy.mockRestore();
+    }
+  });
+
+  it.each(["trigger", "outside control"])(
+    "closes after focus leaves the menu for the %s without moving focus back",
+    async (destination) => {
+      const user = userEvent.setup();
+      const onClose = jest.fn();
+      render(
+        <>
+          <PopoverMenuWithState<HTMLButtonElement>
+            isButtonMenu
+            disablePortal={false}
+            popoverControl={popoverControlButton}
+            onClose={onClose}
+          >
+            {buttonChildren}
+          </PopoverMenuWithState>
+          <button>Outside control</button>
+        </>,
+      );
+      const trigger = screen.getByRole("button", { name: "Button label" });
+      await user.click(trigger);
+      await waitFor(() =>
+        expect(screen.getByRole("button", { name: "Item 1" })).toHaveFocus(),
+      );
+      const target =
+        destination === "trigger"
+          ? trigger
+          : screen.getByRole("button", { name: "Outside control" });
+
+      act(() => target.focus());
+
+      await waitFor(() =>
+        expect(screen.queryByRole("list")).not.toBeInTheDocument(),
+      );
+      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(onClose).toHaveBeenCalledWith(expect.any(FocusEvent));
+      expect(target).toHaveFocus();
+      expect(trigger).toHaveAttribute("aria-expanded", "false");
+    },
+  );
+
+  it("keeps the root menu open while focus moves between items and into its portalled submenu", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    render(
+      <PopoverMenuWithState<HTMLButtonElement>
+        isButtonMenu
+        disablePortal={false}
+        popoverControl={popoverControlButton}
+        onClose={onClose}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: "Button label" }));
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: "Item 1" })).toHaveFocus(),
+    );
+    await user.keyboard("{ArrowDown}{ArrowRight}");
+    await act(async () => {
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => resolve()),
+      );
+    });
+
+    expect(screen.getByRole("button", { name: "Subitem 1" })).toHaveFocus();
+    expect(screen.getAllByRole("list")).toHaveLength(2);
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
   it.each([false, true])(
     "preserves Tab order when a custom control does not attach its ref (shift=%s)",
     async (shift) => {
@@ -1583,6 +1851,7 @@ describe("PopoverMenu - button menu", () => {
         screen.queryByRole("button", { name: "Subitem 1" }),
       ).not.toBeInTheDocument();
       expect(screen.getByRole("button", { name: "Item 1" })).toBeVisible();
+      expect(screen.getByRole("button", { name: "Item 2" })).toHaveFocus();
       expect(onClose).not.toHaveBeenCalled();
 
       await user.click(document.body);
@@ -1932,6 +2201,40 @@ test("wraps any non-option children in list item with role of option", () => {
   );
 
   expect(screen.getByRole("option", { name: "Not an option" })).toBeVisible();
+});
+
+test("preserves caller-managed options and treats the reference and portalled menu as inside clicks", async () => {
+  const user = userEvent.setup();
+  const onClose = jest.fn();
+  const reference = React.createRef<HTMLDivElement>();
+  render(
+    <>
+      <div ref={reference}>
+        <PopoverMenu<HTMLInputElement>
+          open
+          disablePortal={false}
+          wrapItems={false}
+          clickAwayWithinReference
+          controlReference={reference}
+          onClose={onClose}
+          popoverControl={popoverControlInput}
+        >
+          <li role="option" aria-selected="false">
+            Caller option
+          </li>
+        </PopoverMenu>
+        <button>Reference action</button>
+      </div>
+      <button>Outside action</button>
+    </>,
+  );
+
+  expect(screen.getAllByRole("option")).toHaveLength(1);
+  await user.click(screen.getByRole("button", { name: "Reference action" }));
+  await user.click(screen.getByRole("option", { name: "Caller option" }));
+  expect(onClose).not.toHaveBeenCalled();
+  await user.click(screen.getByRole("button", { name: "Outside action" }));
+  expect(onClose).toHaveBeenCalledTimes(1);
 });
 
 test("clicking the menu wrapper does not close the menu", async () => {

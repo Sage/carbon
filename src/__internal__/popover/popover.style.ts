@@ -18,8 +18,23 @@ export const StyledBackdrop = styled.div.attrs(applyBaseTheme)`
 
 type StyledPopoverContentProps = {
   hide?: boolean;
+  $topLayer?: boolean;
 };
 
 export const StyledPopoverContent = styled.div<StyledPopoverContentProps>`
+  ${({ $topLayer }) =>
+    $topLayer &&
+    `
+      position: fixed;
+      inset: 0 auto auto 0;
+      width: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      overflow: visible;
+      background: transparent;
+      color: inherit;
+    `}
   ${({ hide }) => hide && "display: none;"}
 `;
