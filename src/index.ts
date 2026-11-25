@@ -90,6 +90,7 @@ export { DataGrid } from "./components/data-grid";
 export type {
   DataGridActionColumn,
   DataGridApi,
+  DataGridCellError,
   DataGridCellParams,
   DataGridCellType,
   DataGridCellWeight,

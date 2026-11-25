@@ -14,6 +14,7 @@ import Link from "../link";
 import Message from "../message";
 import {
   DataGrid,
+  DataGridCellError,
   DataGridColumn,
   DataGridHandle,
   DataGridProps,
@@ -174,6 +175,33 @@ const createPlaygroundRows = (): PlaygroundInvoiceLine[] =>
     id: index + 1,
   }));
 
+const getDescriptionErrors = (
+  rows: { id: number; description: string }[],
+): DataGridCellError[] =>
+  rows
+    .filter((row) => !row.description)
+    .map((row) => ({
+      rowId: row.id,
+      field: "description",
+      message: "Enter a description",
+    }));
+
+const getPlaygroundErrors = (
+  rows: PlaygroundInvoiceLine[],
+): DataGridCellError[] => {
+  const fields = [
+    { field: "vatRate", message: "Choose a VAT rate" },
+    { field: "description", message: "Enter a description" },
+    { field: "quantity", message: "Enter a quantity" },
+    { field: "rate", message: "Enter a rate" },
+  ] as const;
+  return rows.flatMap((row) =>
+    fields.flatMap(({ field, message }) =>
+      row[field].trim() ? [] : [{ rowId: row.id, field, message }],
+    ),
+  );
+};
+
 const vatPercentages: Record<string, number> = {
   "Standard 20.00%": 0.2,
   "Lower Rate 5.00%": 0.05,
@@ -226,7 +254,6 @@ const createPlaygroundColumns = (
     weight: "regular",
     minWidth: 220,
     flex: 1,
-    error: ({ value }) => !value && "Choose a VAT rate",
     options: [
       { label: "Standard 20.00%", value: "Standard 20.00%" },
       { label: "Lower Rate 5.00%", value: "Lower Rate 5.00%" },
@@ -248,7 +275,6 @@ const createPlaygroundColumns = (
     headerName: "Description",
     minWidth: 240,
     flex: 2,
-    error: ({ value }) => !String(value ?? "").trim() && "Enter a description",
   },
   {
     field: "quantity",
@@ -256,7 +282,6 @@ const createPlaygroundColumns = (
     align: "right",
     minWidth: 190,
     flex: 1,
-    error: ({ value }) => !String(value ?? "").trim() && "Enter a quantity",
   },
   {
     field: "rate",
@@ -264,7 +289,6 @@ const createPlaygroundColumns = (
     align: "right",
     minWidth: 150,
     flex: 1,
-    error: ({ value }) => !String(value ?? "").trim() && "Enter a rate",
   },
   {
     field: "net",
@@ -311,7 +335,6 @@ const createInvoiceColumns = (
     headerName: "Description",
     flex: 1,
     minWidth: 220,
-    error: ({ value }) => !value && "Enter a description",
     readOnly: ({ row }) => row.id === 5,
   },
   {
@@ -455,6 +478,7 @@ export const Playground: StoryObj<PlaygroundArgs> = {
         {...dataGridProps}
         aria-label="Invoice lines playground"
         rows={rows}
+        errors={getPlaygroundErrors(rows)}
         columns={storyColumns}
         onRowsChange={(nextRows) => setRows(calculatePlaygroundRows(nextRows))}
       />
@@ -475,6 +499,7 @@ export const EditableInvoiceLines: Story = {
           ref={gridRef}
           aria-label="Invoice lines"
           rows={rows}
+          errors={getDescriptionErrors(rows)}
           columns={storyColumns}
           maxWidth="100%"
           enableTabNavigation
@@ -518,6 +543,7 @@ export const ControlledRows: Story = {
           ref={gridRef}
           aria-label="Controlled invoice lines"
           rows={rows}
+          errors={getDescriptionErrors(rows)}
           columns={storyColumns}
           maxWidth="100%"
           enableTabNavigation
@@ -570,11 +596,11 @@ export const ValidationAndErrorSummary: Story = {
       })),
     );
     const storyColumns = useInvoiceColumns(rows);
-    const invalidRows = rows.filter((row) => !row.description);
+    const errors = getDescriptionErrors(rows);
 
     return (
       <Box id="invoice-validation-grid" maxWidth="760px">
-        {invalidRows.length > 0 && (
+        {errors.length > 0 && (
           <Box mb={3} minWidth="min(400px, 100%)" width="fit-content">
             <Message
               id="invoice-errors"
@@ -588,16 +614,16 @@ export const ValidationAndErrorSummary: Story = {
                 flexDirection="column"
                 gap={1}
               >
-                {invalidRows.map((row) => (
+                {errors.map((error) => (
                   <Link
                     href="#invoice-validation-grid"
-                    key={row.id}
+                    key={error.rowId}
                     onClick={(event) => {
                       event.preventDefault();
-                      gridRef.current?.editCell(row.id, "description");
+                      gridRef.current?.editCell(error.rowId, error.field);
                     }}
                   >
-                    Enter a description on row {row.id}
+                    {error.message} on row {error.rowId}
                   </Link>
                 ))}
               </Box>
@@ -608,6 +634,7 @@ export const ValidationAndErrorSummary: Story = {
           ref={gridRef}
           aria-label="Invoice lines with validation"
           rows={rows}
+          errors={errors}
           columns={storyColumns}
           maxWidth="100%"
           onRowsChange={(nextRows) => setRows(nextRows)}
@@ -760,7 +787,6 @@ const createLargeColumns = ({
     field: "description",
     headerName: "Description",
     width: 240,
-    error: ({ value }) => !value && "Enter a description",
     readOnly: ({ row }) => row.id % 20 === 0,
   },
   { field: "sku", headerName: "SKU", width: 130 },
@@ -779,7 +805,6 @@ const createLargeColumns = ({
     headerName: "Quantity",
     width: 110,
     align: "right",
-    error: ({ value }) => !value && "Enter a quantity",
   },
   {
     field: "unitPrice",
@@ -889,6 +914,17 @@ const useLargeColumns = (
   );
 };
 
+const getLargeErrors = (rows: LargeInvoiceLine[]): DataGridCellError[] => [
+  ...getDescriptionErrors(rows),
+  ...rows
+    .filter((row) => !row.quantity)
+    .map((row) => ({
+      rowId: row.id,
+      field: "quantity",
+      message: "Enter a quantity",
+    })),
+];
+
 export const PinnedColumns: Story = {
   render: () => {
     const [rows, setRows] = useState(() => createLargeRows(12));
@@ -899,6 +935,7 @@ export const PinnedColumns: Story = {
         <DataGrid
           aria-label="Invoice lines with pinned columns"
           rows={rows}
+          errors={getLargeErrors(rows)}
           columns={storyColumns}
           maxHeight="360px"
           maxWidth="100%"
@@ -931,6 +968,7 @@ export const LargeScrollableGrid: Story = {
       <DataGrid
         aria-label="Large invoice lines"
         rows={rows}
+        errors={getLargeErrors(rows)}
         columns={storyColumns}
         maxHeight="520px"
         maxWidth="100%"

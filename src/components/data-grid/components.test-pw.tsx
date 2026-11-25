@@ -38,8 +38,14 @@ export const AdjacentErrors = () => (
       { id: 2, first: "", second: "" },
     ]}
     columns={[
-      { field: "first", headerName: "First", error: () => "Required" },
-      { field: "second", headerName: "Second", error: () => "Required" },
+      { field: "first", headerName: "First" },
+      { field: "second", headerName: "Second" },
+    ]}
+    errors={[
+      { rowId: 1, field: "first", message: "Required" },
+      { rowId: 1, field: "second", message: "Required" },
+      { rowId: 2, field: "first", message: "Required" },
+      { rowId: 2, field: "second", message: "Required" },
     ]}
   />
 );
@@ -87,7 +93,6 @@ const DataGridComponent = ({
         headerName: "Name",
         width: 180,
         pinned: "left",
-        error: ({ value }) => !value && "Enter a name",
         readOnly: ({ row }) => row.id === 3,
       },
       {
@@ -170,6 +175,13 @@ const DataGridComponent = ({
         ref={gridRef}
         aria-label="Invoice lines"
         rows={rows}
+        errors={rows
+          .filter((row) => !row.name)
+          .map((row) => ({
+            rowId: row.id,
+            field: "name",
+            message: "Enter a name",
+          }))}
         columns={columns}
         disableVirtualization={disableVirtualization}
         enableTabNavigation={enableTabNavigation}

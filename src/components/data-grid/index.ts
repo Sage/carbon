@@ -2,6 +2,7 @@ export { default as DataGrid } from "./data-grid.component";
 export type {
   DataGridActionColumn,
   DataGridApi,
+  DataGridCellError,
   DataGridCellParams,
   DataGridCellType,
   DataGridCellWeight,

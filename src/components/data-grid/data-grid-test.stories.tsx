@@ -78,7 +78,6 @@ const VisualGrid = ({
         headerName: "Description",
         width: 220,
         pinned: pinnedColumns ? "left" : undefined,
-        error: ({ value }) => !value && "Enter a description",
         readOnly: ({ row }) => row.id === 3,
       },
       {
@@ -87,7 +86,6 @@ const VisualGrid = ({
         type: "dropdown",
         width: 180,
         weight: "regular",
-        error: ({ row }) => row.id === 2 && "Select a category",
         readOnly: ({ row }) => row.id === 3,
         options: [
           { label: "Services", value: "Services" },
@@ -137,6 +135,16 @@ const VisualGrid = ({
       <DataGrid
         aria-label="Visual regression invoice lines"
         rows={rows}
+        errors={[
+          ...rows
+            .filter((row) => !row.description)
+            .map((row) => ({
+              rowId: row.id,
+              field: "description",
+              message: "Enter a description",
+            })),
+          { rowId: 2, field: "category", message: "Select a category" },
+        ]}
         columns={columns}
         maxWidth="100%"
         stickyHeader

@@ -4,6 +4,7 @@ import { StyledRow } from "../data-grid.style";
 import DataGridCell from "../data-grid-cell";
 import {
   DataGridCellParams,
+  DataGridCellError,
   DataGridCellPosition,
   DataGridColumn,
 } from "../../data-grid.types";
@@ -13,6 +14,8 @@ interface DataGridRowProps<T extends object> {
   rowIndex: number;
   /** The column definitions in their displayed order. */
   columns: DataGridColumn<T>[];
+  /** Cell errors keyed by the JSON-encoded row ID and field pair. */
+  errorsByCell: Map<string, DataGridCellError[]>;
   /** The active column index in this row, or -1 when another row is active. */
   activeColumn: number;
   /** The edited column index in this row, or -1 when this row is not being edited. */
@@ -64,6 +67,7 @@ interface DataGridRowProps<T extends object> {
 const DataGridRowInner = <T extends object>({
   rowIndex,
   columns,
+  errorsByCell,
   activeColumn,
   editingColumn,
   draftValue,
@@ -105,11 +109,16 @@ const DataGridRowInner = <T extends object>({
         const params = getParams(position);
         const supportsError =
           column.type !== "checkbox" && column.type !== "action";
-        const errorValue = supportsError
-          ? typeof column.error === "function"
-            ? column.error(params)
-            : column.error
-          : undefined;
+        const cellErrors = errorsByCell.get(
+          JSON.stringify([params.rowId, params.field]),
+        );
+        const errorValue =
+          supportsError && cellErrors
+            ? cellErrors
+                .map((error) => error.message)
+                .filter(Boolean)
+                .join("\n") || true
+            : undefined;
 
         return (
           <DataGridCell

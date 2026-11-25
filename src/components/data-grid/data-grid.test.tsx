@@ -15,6 +15,7 @@ import { ActionPopover } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import {
   DataGrid,
+  DataGridCellError,
   DataGridCellParams,
   DataGridColumn,
   DataGridHandle,
@@ -88,6 +89,115 @@ const columns: DataGridColumn<Row>[] = [
     selectsRow: true,
   },
 ];
+
+test("updates consumer-owned cell errors without changing column definitions", () => {
+  const { rerender } = render(
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      errors={[
+        { rowId: 1, field: "name", message: "Enter a name", code: "required" },
+        { rowId: 1, field: "name", message: "Use a unique name" },
+        { rowId: 2, field: "type" },
+      ]}
+    />,
+  );
+  expect(screen.getAllByRole("gridcell")[0]).toHaveAccessibleDescription(
+    "Enter a name\nUse a unique name",
+  );
+  expect(screen.getAllByRole("gridcell")[4]).toHaveAttribute(
+    "aria-invalid",
+    "true",
+  );
+  rerender(<DataGrid rows={rows} columns={columns} errors={[]} />);
+  screen.getAllByRole("gridcell").forEach((cell) => {
+    expect(cell).not.toHaveAttribute("aria-invalid");
+  });
+});
+
+test("keeps errors attached to custom row identities after reordering", () => {
+  const customRows = [
+    { key: 1, name: "Numeric" },
+    { key: "1", name: "String" },
+  ];
+  const errors: readonly DataGridCellError[] = [
+    { rowId: "1", field: "name", message: "Fix the string row" },
+  ];
+  const props = {
+    columns: [{ field: "name", headerName: "Name" }] as DataGridColumn<
+      (typeof customRows)[number]
+    >[],
+    getRowId: (row: (typeof customRows)[number]) => row.key,
+    errors,
+  };
+  const { rerender } = render(<DataGrid {...props} rows={customRows} />);
+  expect(screen.getAllByRole("gridcell")[0]).not.toHaveAttribute(
+    "aria-invalid",
+  );
+  expect(screen.getAllByRole("gridcell")[1]).toHaveAccessibleDescription(
+    "Fix the string row",
+  );
+  rerender(<DataGrid {...props} rows={[customRows[1], customRows[0]]} />);
+  expect(screen.getAllByRole("gridcell")[0]).toHaveAccessibleDescription(
+    "Fix the string row",
+  );
+  expect(screen.getAllByRole("gridcell")[1]).not.toHaveAttribute(
+    "aria-invalid",
+  );
+  rerender(<DataGrid {...props} rows={[customRows[0]]} />);
+  expect(screen.getByRole("gridcell")).not.toHaveAttribute("aria-invalid");
+});
+
+test("ignores errors for missing cells and unsupported cell types", () => {
+  render(
+    <DataGrid
+      rows={rows}
+      columns={[
+        ...columns,
+        {
+          field: "actions",
+          headerName: "Actions",
+          type: "action",
+          renderCell: () => <button>More</button>,
+        },
+      ]}
+      errors={[
+        { rowId: 99, field: "name", message: "Missing row" },
+        { rowId: 1, field: "missing", message: "Missing field" },
+        { rowId: 1, field: "selected", message: "Checkbox" },
+        { rowId: 1, field: "actions", message: "Action" },
+      ]}
+    />,
+  );
+  screen.getAllByRole("gridcell").forEach((cell) => {
+    expect(cell).not.toHaveAttribute("aria-invalid");
+  });
+});
+
+test("does not block local edits or navigation or clear consumer-owned errors", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  render(
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      onRowsChange={onRowsChange}
+      errors={[{ rowId: 1, field: "name", message: "Check this name" }]}
+    />,
+  );
+  await user.click(screen.getAllByRole("gridcell")[0]);
+  await user.clear(screen.getByRole("textbox"));
+  await user.type(screen.getByRole("textbox"), "Updated{Enter}");
+  expect(onRowsChange).toHaveBeenCalledWith(
+    [{ ...rows[0], name: "Updated" }, rows[1]],
+    expect.objectContaining({ rowId: 1, field: "name", value: "Updated" }),
+  );
+  expect(screen.getAllByRole("gridcell")[0]).toHaveAccessibleDescription(
+    "Check this name",
+  );
+  await user.keyboard("{ArrowDown}");
+  expect(screen.getAllByRole("gridcell")[3]).toHaveFocus();
+});
 
 test("renders object rows with accessible grid semantics", () => {
   render(<DataGrid aria-label="Items" rows={rows} columns={columns} />);
@@ -177,7 +287,6 @@ test("exposes error and read-only cell state accessibly", () => {
     {
       field: "name",
       headerName: "Name",
-      error: "Enter a name",
       readOnly: true,
     },
   ];
@@ -186,6 +295,7 @@ test("exposes error and read-only cell state accessibly", () => {
       aria-label="Items"
       rows={rows.slice(0, 1)}
       columns={stateColumns}
+      errors={[{ rowId: 1, field: "name", message: "Enter a name" }]}
     />,
   );
 
@@ -215,7 +325,6 @@ test("keeps the error description on the focused cell editor", async () => {
     {
       field: "name",
       headerName: "Name",
-      error: "Enter a name",
     },
   ];
   render(
@@ -223,6 +332,7 @@ test("keeps the error description on the focused cell editor", async () => {
       aria-label="Items"
       rows={rows.slice(0, 1)}
       columns={stateColumns}
+      errors={[{ rowId: 1, field: "name", message: "Enter a name" }]}
     />,
   );
 
@@ -233,26 +343,29 @@ test("keeps the error description on the focused cell editor", async () => {
   expect(editor).toHaveAccessibleDescription("Enter a name");
 });
 
-test("derives error and read-only states from the complete cell context", () => {
-  const error = jest.fn(
-    ({ rowId, field, value }: DataGridCellParams<Row>) =>
-      rowId === 2 && field === "name" && value === "Two" && "Fix row two",
-  );
+test("combines supplied errors with read-only state derived from cell context", () => {
   const readOnly = jest.fn(
     ({ row }: DataGridCellParams<Row>) => row.type === "A",
   );
   const stateColumns: DataGridColumn<Row>[] = [
-    { field: "name", headerName: "Name", error, readOnly },
+    { field: "name", headerName: "Name", readOnly },
   ];
 
-  render(<DataGrid aria-label="Items" rows={rows} columns={stateColumns} />);
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows}
+      columns={stateColumns}
+      errors={[{ rowId: 2, field: "name", message: "Fix row two" }]}
+    />,
+  );
 
   const cells = screen.getAllByRole("gridcell");
   expect(cells[0]).toHaveAttribute("aria-readonly", "true");
   expect(cells[0]).not.toHaveAttribute("aria-invalid");
   expect(cells[1]).toHaveAttribute("aria-invalid", "true");
   expect(cells[1]).toHaveAccessibleDescription("Fix row two");
-  expect(error).toHaveBeenCalledWith(
+  expect(readOnly).toHaveBeenCalledWith(
     expect.objectContaining({ row: rows[1], rowId: 2, field: "name" }),
   );
 });
@@ -1236,7 +1349,7 @@ test("uses localized header labels for editors and checkboxes", async () => {
 test("keeps validation descriptions unique across grids and stable while editing", async () => {
   const user = userEvent.setup();
   const errorColumns: DataGridColumn<Row>[] = [
-    { field: "name", headerName: "Name", error: "First grid error" },
+    { field: "name", headerName: "Name" },
   ];
   render(
     <>
@@ -1244,13 +1357,13 @@ test("keeps validation descriptions unique across grids and stable while editing
         aria-label="First"
         rows={rows.slice(0, 1)}
         columns={errorColumns}
+        errors={[{ rowId: 1, field: "name", message: "First grid error" }]}
       />
       <DataGrid
         aria-label="Second"
         rows={rows.slice(0, 1)}
-        columns={[
-          { field: "name", headerName: "Name", error: "Second grid error" },
-        ]}
+        columns={[{ field: "name", headerName: "Name" }]}
+        errors={[{ rowId: 1, field: "name", message: "Second grid error" }]}
       />
     </>,
   );

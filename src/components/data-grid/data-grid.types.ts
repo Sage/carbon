@@ -66,11 +66,6 @@ interface DataGridColumnBase<
   weight?: DataGridCellWeight;
   /** Makes every cell in the column read-only, or derives it per row. */
   readOnly?: boolean | ((params: DataGridCellParams<T>) => boolean);
-  /** Error text/state for a cell. */
-  error?:
-    | string
-    | boolean
-    | ((params: DataGridCellParams<T>) => string | boolean);
   /** Custom content, primarily intended for action popovers. */
   renderCell?: (params: DataGridCellParams<T>) => React.ReactNode;
 }
@@ -96,16 +91,12 @@ export interface DataGridCheckboxColumn<T extends object>
   type: "checkbox";
   selectsRow?: boolean;
   options?: never;
-  /** Checkbox cells do not support an error treatment. */
-  error?: never;
 }
 
 export interface DataGridActionColumn<T extends object>
   extends DataGridColumnBase<T, string> {
   type: "action";
   options?: never;
-  /** Action cells do not support an error treatment. */
-  error?: never;
   /** Action content is required because action cells have no built-in UI. */
   renderCell: (params: DataGridCellParams<T>) => React.ReactNode;
 }
@@ -117,9 +108,22 @@ export type DataGridColumn<T extends object> =
   | DataGridCheckboxColumn<T>
   | DataGridActionColumn<T>;
 
+export interface DataGridCellError {
+  /** Stable row identity, resolved using getRowId. */
+  rowId: DataGridRowId;
+  /** Field of the text or dropdown cell in error. */
+  field: string;
+  /** Accessible error message. Omit for an error indicator without a message. */
+  message?: string;
+  /** Optional application-defined identifier for the error. */
+  code?: string;
+}
+
 export interface DataGridProps<T extends object> {
   rows: T[];
   columns: DataGridColumn<T>[];
+  /** Consumer-owned cell errors. These do not prevent editing or navigation. */
+  errors?: readonly DataGridCellError[];
   /** Accessible name for the grid. */
   "aria-label"?: string;
   /** ID of an element that provides the grid's accessible name. */

@@ -73,8 +73,6 @@ const columns: DataGridColumn<InvoiceLine>[] = [
     headerName: "Description",
     minWidth: 220,
     flex: 1,
-    error: ({ value }) =>
-      String(value ?? "").trim() ? false : "Enter a description",
     readOnly: ({ row }) => row.locked,
   },
   {
@@ -139,7 +137,7 @@ Shared column properties configure cells without changing row data:
 | Sizing           | `width`, or `flex` with an optional `minWidth` |
 | Position         | `pinned: "left"` or `pinned: "right"`          |
 | Content          | `align`, `weight`, `headerAriaLabel`           |
-| State            | `readOnly`, `error`                            |
+| State            | `readOnly`                                     |
 | Custom rendering | `renderCell`                                   |
 
 Set `width` for a fixed pixel width. Use `flex` to share the available space
@@ -147,10 +145,11 @@ between flexible columns, with `minWidth` as the lower limit. Columns without
 sizing use the default width, while action columns use their compact default.
 Prefer a fixed `width` when a column must remain a predictable size.
 
-`readOnly`, `error`, and `renderCell` receive the current `row`, `rowId`,
-`field`, `value`, and `column`. They also receive the row-operation `api`. Use
-fixed values when every row behaves in the same way, or functions when the
-behaviour depends on row data.
+The `readOnly` callback and `renderCell` receive the current `row`, `rowId`,
+`field`, `value`, and `column`. They also receive the row-operation `api`.
+Use a fixed `readOnly` value when every row behaves in the same way, or a
+function when the behaviour depends on row data. Supply cell errors separately
+through the grid's `errors` prop.
 
 ## Receive updated rows
 
@@ -238,14 +237,45 @@ are required for focus, virtualization, and row operations.
 
 ## Validation
 
-An `error` string is exposed as the accessible description of the cell and its
-editor. The error-summary layout remains application-owned. Do not associate the
-whole error summary with the grid's `aria-describedby`, as this can repeat every
-error during navigation. Reserve this attribute for general grid guidance.
-Use `focusCell` or `editCell` from the forwarded ref for
-links that take users to a specific error.
+Pass an array of `DataGridCellError` objects to `errors` to mark text or dropdown
+cells as invalid. Your application controls validation and saving; errors do not
+prevent editing or navigation.
 
-Data Grid preserves the supplied row shape. The consuming application remains
-responsible for business rules, generated IDs, and converting rows to an API
-payload. Use the application's existing schema library, such as Yup, Zod, or
-JSON Schema, to validate rows before saving when required.
+```tsx
+const errors: DataGridCellError[] = rows
+  .filter((row) => !row.description.trim())
+  .map((row) => ({
+    rowId: row.id,
+    field: "description",
+    code: "required",
+    message: "Enter a description",
+  }));
+
+<DataGrid
+  rows={rows}
+  columns={columns}
+  errors={errors}
+  onRowsChange={setRows}
+/>;
+```
+
+Identify each cell by its column `field` and stable `rowId`, matching `getRowId`
+or `row.id` by default. Numeric and string IDs are distinct. Errors stay with
+their rows when reordered or virtualised. Errors for missing cells, checkbox
+cells or action cells are ignored. Read-only text and dropdown cells can show errors.
+
+The optional `message` describes the error to assistive technology for both the
+cell and its editor. Messages for the same cell are combined in array order.
+Omit `message` to show only the error state. Use the optional `code` to identify
+errors in your application; Data Grid does not display or interpret it.
+
+Replace the `errors` array when errors change. Editing a cell does not clear its
+errors automatically. Omit `errors` or pass an empty array to clear all errors.
+You can use the same format for local validation and server errors.
+
+Keep error summaries separate from the grid's `aria-describedby` to avoid
+repeating every error during navigation. Use this attribute for general grid
+guidance. Connect summary links to `focusCell` or `editCell` on the forwarded ref.
+
+`onRowsChange` reports local changes, not successful validation or saving. Use
+your application's validation rules or schema library to check rows before saving.

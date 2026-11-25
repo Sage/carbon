@@ -27,6 +27,7 @@ import useDataGridVirtualization from "./__internal__/hooks/use-data-grid-virtua
 import { DataGridRowsChangeResult } from "./__internal__/rows/data-grid-row-operations";
 import {
   DataGridCellIdentity,
+  DataGridCellError,
   DataGridCellParams,
   DataGridCellPosition,
   DataGridHandle,
@@ -37,6 +38,7 @@ import {
 export type {
   DataGridActionColumn,
   DataGridApi,
+  DataGridCellError,
   DataGridCellParams,
   DataGridCellType,
   DataGridCellWeight,
@@ -82,6 +84,7 @@ const DataGridInner = <T extends object>(
   {
     rows,
     columns,
+    errors,
     "aria-label": ariaLabel,
     getRowId,
     onRowsChange,
@@ -97,6 +100,16 @@ const DataGridInner = <T extends object>(
   ref: React.ForwardedRef<DataGridHandle<T>>,
 ) => {
   const viewportRef = useRef<HTMLDivElement>(null);
+  const errorsByCell = useMemo(() => {
+    const result = new Map<string, DataGridCellError[]>();
+    errors?.forEach((error) => {
+      const key = JSON.stringify([error.rowId, error.field]);
+      const cellErrors = result.get(key) ?? [];
+      cellErrors.push(error);
+      result.set(key, cellErrors);
+    });
+    return result;
+  }, [errors]);
   const pendingRowOperationFocus = useRef<DataGridCellIdentity | null>(null);
   const rowId = useCallback(
     (row: T) =>
@@ -343,6 +356,7 @@ const DataGridInner = <T extends object>(
                   ])}
                   rowIndex={rowIndex}
                   columns={columns}
+                  errorsByCell={errorsByCell}
                   activeColumn={active.row === rowIndex ? active.column : -1}
                   editingColumn={
                     editing?.row === rowIndex ? editing.column : -1

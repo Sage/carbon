@@ -45,6 +45,7 @@ An accessible, editable grid for navigating and updating structured tabular data
 | rows | T[] | Yes |  |  |  |
 | disableVirtualization | boolean \| undefined | No |  | Disables automatic row virtualisation in a height-constrained grid. |  |
 | enableTabNavigation | boolean \| undefined | No |  | Enables Tab and Shift+Tab cell navigation. |  |
+| errors | readonly DataGridCellError[] \| undefined | No |  | Consumer-owned cell errors. These do not prevent editing or navigation. |  |
 | getRowId | ((row: T) => DataGridRowId) \| undefined | No |  | Reads a stable row id. Defaults to the row's `id` property. |  |
 | maxHeight | string \| number \| undefined | No |  | Maximum viewport height. Enables row virtualisation when constrained. |  |
 | maxWidth | string \| number \| undefined | No |  | Maximum viewport width. Enables horizontal scrolling when constrained. |  |
@@ -117,11 +118,6 @@ interface DataGridColumnBase<
   weight?: DataGridCellWeight;
   /** Makes every cell in the column read-only, or derives it per row. */
   readOnly?: boolean | ((params: DataGridCellParams<T>) => boolean);
-  /** Error text/state for a cell. */
-  error?:
-    | string
-    | boolean
-    | ((params: DataGridCellParams<T>) => string | boolean);
   /** Custom content, primarily intended for action popovers. */
   renderCell?: (params: DataGridCellParams<T>) => React.ReactNode;
 }
@@ -154,16 +150,12 @@ export interface DataGridCheckboxColumn<T extends object>
   type: "checkbox";
   selectsRow?: boolean;
   options?: never;
-  /** Checkbox cells do not support an error treatment. */
-  error?: never;
 }
 
 export interface DataGridActionColumn<T extends object>
   extends DataGridColumnBase<T, string> {
   type: "action";
   options?: never;
-  /** Action cells do not support an error treatment. */
-  error?: never;
   /** Action content is required because action cells have no built-in UI. */
   renderCell: (params: DataGridCellParams<T>) => React.ReactNode;
 }

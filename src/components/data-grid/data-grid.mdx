@@ -130,9 +130,10 @@ focused dropdown or action popover.
 
 <Canvas of={DataGridStories.EditableInvoiceLines} />
 
-Use `readOnly` and `error` as fixed values or functions when the state depends
-on row data. Checkbox and action columns do not support the error state. Action
-cells use `renderCell` to display controls such as an action popover.
+Use `readOnly` as a fixed value or function when the state depends on row data.
+Pass cell errors through the grid's `errors` prop, not column definitions.
+Checkbox and action columns do not support the error state. Action cells use
+`renderCell` to display controls such as an action popover.
 
 Read-only dropdown cells display their selected label as text, and read-only
 checkboxes cannot be changed. Action controls remain available because they do
@@ -161,12 +162,16 @@ scrolling content from showing through.
 
 ### Validation and error summaries
 
-Set `error` on a text or dropdown column to display an error and provide an
-accessible description for both the cell and its editor. Error-summary layout
-is owned by the consuming application. Keep the error summary separate from the
-grid's accessible description to avoid repeating every error during navigation.
-Use the forwarded ref to connect each summary link to a cell. `focusCell` moves navigation focus to the
-cell. `editCell` opens the editor and moves focus to it.
+Pass an array of `DataGridCellError` objects to `errors`, using `rowId` and
+`field` to identify each cell. Include a `message` to describe the error to
+assistive technology for both the cell and its editor. Your application controls
+validation and clearing errors; editing and navigation remain available. See the
+[data and API guide](?path=/docs/data-grid-data-and-api-guide--docs#validation)
+for the full error format and an example.
+
+Keep error summaries separate from the grid's accessible description to avoid
+repeating every error during navigation. Connect summary links using the
+forwarded ref: `focusCell` moves focus to the cell, while `editCell` opens its editor.
 
 <Canvas of={DataGridStories.ValidationAndErrorSummary} />
 
