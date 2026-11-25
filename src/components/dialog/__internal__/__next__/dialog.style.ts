@@ -277,7 +277,7 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   background: var(--container-standard-bg-default);
   padding: var(--global-space-comp-xl);
   gap: var(--global-space-comp-l);
-  border-bottom: 1px solid #a3adb5;
+  border-bottom: 1px solid var(--container-modal-border-default);
   border-top-right-radius: var(--global-radius-container-xl);
   border-top-left-radius: var(--global-radius-container-xl);
 

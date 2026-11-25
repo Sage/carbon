@@ -1,3 +1,16 @@
+## [163.5.0](https://github.com/Sage/carbon/compare/v163.4.1...v163.5.0) (2026-11-24)
+
+### Features
+
+* **preview:** deprecate in favour of skeleton ([1de8a33](https://github.com/Sage/carbon/commit/1de8a33e413182721ed3284e68816e25f088c6b7))
+* **skeleton:** add skeleton component ([68c58bf](https://github.com/Sage/carbon/commit/68c58bf4c3ae84a197eb3285b4b33d88cb25b4ab))
+
+## [163.4.1](https://github.com/Sage/carbon/compare/v163.4.0...v163.4.1) (2026-11-24)
+
+### Bug Fixes
+
+* **dialog:** update dialog, drawer and sidebar header borders ([ff21aac](https://github.com/Sage/carbon/commit/ff21aacc11170cf2f7c1bc92a54f474ae207460f))
+
 ## [163.4.0](https://github.com/Sage/carbon/compare/v163.3.0...v163.4.0) (2026-11-19)
 
 ### Features
