@@ -1,3 +1,9 @@
+## [163.5.1](https://github.com/Sage/carbon/compare/v163.5.0...v163.5.1) (2026-11-25)
+
+### Bug Fixes
+
+* **message:** update message width behaviour ([b05f8bd](https://github.com/Sage/carbon/commit/b05f8bdb1c94c41077354dab1338079f4e31638c))
+
 ## [163.5.0](https://github.com/Sage/carbon/compare/v163.4.1...v163.5.0) (2026-11-24)
 
 ### Features
