@@ -103,11 +103,18 @@ const useDataGridEditing = <T extends object>({
         : null;
       if (!position) return;
       finishingEdit.current = true;
-      onCellCommit({ ...getCellParams(position), value });
+      const params = getCellParams(position);
+      if (!isCellReadOnly(params)) onCellCommit({ ...params, value });
       restoreFocus.current = shouldRestoreFocus ? editingIdentity : null;
       setEditingIdentity(null);
     },
-    [editingIdentity, getCellParams, onCellCommit, positionForIdentity],
+    [
+      editingIdentity,
+      getCellParams,
+      isCellReadOnly,
+      onCellCommit,
+      positionForIdentity,
+    ],
   );
 
   const commitEditOnBlur = useCallback(

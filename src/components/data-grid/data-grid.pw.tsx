@@ -13,6 +13,61 @@ import { DataGrid } from ".";
 const cell = (page: Page, rowId: number, field: string) =>
   page.locator(`[data-element="data-grid-cell-${String(rowId)}-${field}"]`);
 
+for (const key of ["Tab", "Shift+Tab"]) {
+  test(`confirms the highlighted dropdown option before ${key} navigation`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridComponent rowCount={2} />);
+    const typeCell = cell(page, 1, "type");
+    await typeCell.click();
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press(key);
+    await expect(typeCell).toHaveText("Product");
+    await expect(
+      cell(page, 1, key === "Tab" ? "quantity" : "name"),
+    ).toBeFocused();
+  });
+}
+
+test("dropdown Tab confirmation preserves native exits at both grid boundaries", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <>
+      <button type="button">Before grid</button>
+      <DataGrid
+        aria-label="Dropdown boundary grid"
+        rows={[{ id: 1, type: "service" }]}
+        columns={[
+          {
+            field: "type",
+            headerName: "Type",
+            type: "dropdown",
+            options: [
+              { label: "Service", value: "service" },
+              { label: "Product", value: "product" },
+            ],
+          },
+        ]}
+        enableTabNavigation
+      />
+      <button type="button">After grid</button>
+    </>,
+  );
+  for (const { key, destination } of [
+    { key: "Tab", destination: "After grid" },
+    { key: "Shift+Tab", destination: "Before grid" },
+  ]) {
+    await page.getByRole("gridcell").click();
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press(key);
+    await expect(page.getByRole("button", { name: destination })).toBeFocused();
+    await expect(page.getByRole("combobox")).toHaveCount(0);
+  }
+});
+
 test("the Playground recalculates VAT and net amounts after editing invoice values", async ({
   mount,
   page,

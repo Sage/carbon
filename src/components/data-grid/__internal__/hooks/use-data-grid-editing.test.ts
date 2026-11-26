@@ -54,11 +54,15 @@ const setup = (
   const positionForIdentity = jest.fn(
     (): DataGridCellPosition | null => position,
   );
+  const isCellReadOnly = (params: DataGridCellParams<Row>) =>
+    typeof params.column.readOnly === "function"
+      ? params.column.readOnly(params)
+      : !!params.column.readOnly;
   const view = renderHook(
     ({ renderToken }) =>
       useDataGridEditing({
         getCellParams,
-        isCellReadOnly: (params) => !!params.column.readOnly,
+        isCellReadOnly,
         onCellCommit,
         identityFor: () => ({ rowId: row.id, field: String(column.field) }),
         positionForIdentity,
@@ -77,8 +81,27 @@ const setup = (
     ensureCellVisible,
     focusCell,
     positionForIdentity,
+    getCellParams,
   };
 };
+
+test.each([true, (params: DataGridCellParams<Row>) => !!params.row.selected])(
+  "discards an active edit when the latest column becomes read-only: %p",
+  (readOnly) => {
+    const { result, getCellParams, onCellCommit, focusCell } = setup();
+    act(() => result.current.beginEdit(position));
+    act(() => result.current.setDraftValue("Discarded"));
+    getCellParams.mockReturnValue({
+      ...getCellParams.mock.results[0].value,
+      column: { ...textColumn, readOnly },
+      row: { ...row, selected: true },
+    });
+    act(() => result.current.commitEdit(true));
+    expect(onCellCommit).not.toHaveBeenCalled();
+    expect(result.current.editing).toBeNull();
+    expect(focusCell).toHaveBeenCalledWith(position);
+  },
+);
 
 test("begins, commits, and cancels text editing while restoring focus", () => {
   const view = setup();

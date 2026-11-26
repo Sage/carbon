@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
+
+import { getWindow } from "../../../../__internal__/dom/globals";
 
 import {
   DataGridApi,
@@ -16,6 +24,8 @@ import {
   updateDataGridCell,
 } from "../rows/data-grid-row-operations";
 
+const useIsomorphicLayoutEffect = getWindow() ? useLayoutEffect : useEffect;
+
 interface UseDataGridRowsOptions<T extends object> {
   /** The controlled row collection supplied by the consumer. */
   rows: T[];
@@ -31,7 +41,7 @@ interface UseDataGridRowsOptions<T extends object> {
 
 const useDataGridRows = <T extends object>({
   rows,
-  getRowId,
+  getRowId: resolveRowId,
   onBeforeRowChange,
   onRowsChange,
   onRowsChangeResult,
@@ -43,7 +53,25 @@ const useDataGridRows = <T extends object>({
     version: 0,
     acknowledgedVersion: 0,
   });
+  const options = useRef({
+    rows,
+    getRowId: resolveRowId,
+    onBeforeRowChange,
+    onRowsChange,
+    onRowsChangeResult,
+  });
+  useIsomorphicLayoutEffect(() => {
+    options.current = {
+      rows,
+      getRowId: resolveRowId,
+      onBeforeRowChange,
+      onRowsChange,
+      onRowsChangeResult,
+    };
+  }, [rows, resolveRowId, onBeforeRowChange, onRowsChange, onRowsChangeResult]);
+  const getRowId = useCallback((row: T) => options.current.getRowId(row), []);
   const getRows = useCallback(() => {
+    const { rows } = options.current;
     if (pending.current.source !== rows) {
       const version = pending.current.proposals.get(rows);
       if (
@@ -60,15 +88,17 @@ const useDataGridRows = <T extends object>({
       pending.current.source = rows;
     }
     return pending.current.latest;
-  }, [rows]);
+  }, []);
 
   useEffect(() => {
     getRows();
-  }, [getRows]);
+  }, [getRows, rows]);
 
   const emit = useCallback(
     (result: DataGridRowsChangeResult<T> | null) => {
       if (!result) return;
+      const { onBeforeRowChange, onRowsChange, onRowsChangeResult } =
+        options.current;
       const decision = onBeforeRowChange?.({
         previousRows: getRows(),
         proposedRows: result.rows,
@@ -104,7 +134,7 @@ const useDataGridRows = <T extends object>({
       onRowsChange?.(approvedResult.rows, approvedResult.change);
       onRowsChangeResult?.(approvedResult);
     },
-    [getRowId, getRows, onBeforeRowChange, onRowsChange, onRowsChangeResult],
+    [getRowId, getRows],
   );
 
   const commitCellChange = useCallback(

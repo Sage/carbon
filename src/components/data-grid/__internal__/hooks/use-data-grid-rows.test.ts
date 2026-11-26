@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { act, renderHook } from "@testing-library/react";
 
 import {
@@ -20,6 +20,126 @@ const rows: Row[] = [
   { id: "b", name: "Beta" },
 ];
 const getRowId = (row: Row) => row.id;
+
+test("supports server rendering without a browser window", () => {
+  jest.doMock("../../../../__internal__/dom/globals", () => ({
+    getWindow: () => undefined,
+  }));
+  try {
+    jest.isolateModules(() => {
+      const serverReact = jest.requireActual<typeof React>("react");
+      const { renderToString } = jest.requireActual<
+        typeof import("react-dom/server")
+      >("react-dom/server.node");
+      const useRows = jest.requireActual<typeof import("./use-data-grid-rows")>(
+        "./use-data-grid-rows",
+      ).default;
+      const ServerGrid = () => {
+        useRows({ rows, getRowId });
+        return serverReact.createElement("span", null, "Rows");
+      };
+      expect(renderToString(serverReact.createElement(ServerGrid))).toBe(
+        "<span>Rows</span>",
+      );
+    });
+  } finally {
+    jest.dontMock("../../../../__internal__/dom/globals");
+  }
+});
+
+test("uses current rows and callbacks for stable API calls during layout effects", () => {
+  const originalHandler = jest.fn();
+  const originalBeforeChange = jest.fn();
+  const originalResultHandler = jest.fn();
+  const currentHandler = jest.fn();
+  const beforeChange = jest.fn(
+    ({ proposedRows }: DataGridBeforeRowChangeParams<Row>) => [...proposedRows],
+  );
+  const onRowsChangeResult = jest.fn();
+  const currentGetRowId = jest.fn(getRowId);
+  const addedRow = { id: "c", name: "Gamma" };
+  const updatedRows = [...rows, { id: "d", name: "Delta" }];
+  const { result, rerender } = renderHook(
+    (options) => {
+      const state = useDataGridRows(options);
+      useLayoutEffect(() => {
+        state.api.addRow(addedRow);
+      }, [options.rows, state.api]);
+      return state;
+    },
+    {
+      initialProps: {
+        rows,
+        getRowId,
+        onRowsChange: originalHandler,
+        onBeforeRowChange: originalBeforeChange,
+        onRowsChangeResult: originalResultHandler,
+      },
+    },
+  );
+  const retainedApi = result.current.api;
+  rerender({
+    rows: updatedRows,
+    getRowId: currentGetRowId,
+    onRowsChange: currentHandler,
+    onBeforeRowChange: beforeChange,
+    onRowsChangeResult,
+  });
+  expect(result.current.api).toBe(retainedApi);
+  expect(currentHandler).toHaveBeenCalledWith(
+    [...updatedRows, addedRow],
+    expect.objectContaining({ type: "row-add" }),
+  );
+  expect(beforeChange).toHaveBeenCalledWith(
+    expect.objectContaining({ previousRows: updatedRows }),
+  );
+  expect(currentGetRowId).toHaveBeenCalled();
+  expect(onRowsChangeResult).toHaveBeenCalledTimes(1);
+  expect(originalHandler).toHaveBeenCalledTimes(1);
+  expect(originalBeforeChange).toHaveBeenCalledTimes(1);
+  expect(originalResultHandler).toHaveBeenCalledTimes(1);
+});
+
+test("retained API methods use the latest controlled rows and callbacks", () => {
+  const originalHandler = jest.fn();
+  const currentHandler = jest.fn();
+  const originalBeforeChange = jest.fn();
+  const originalResultHandler = jest.fn();
+  const beforeChange = jest.fn(({ proposedRows }) => [...proposedRows]);
+  const onRowsChangeResult = jest.fn();
+  const currentGetRowId = jest.fn(getRowId);
+  const { result, rerender } = renderHook(
+    (options) => useDataGridRows(options),
+    {
+      initialProps: {
+        rows,
+        getRowId,
+        onRowsChange: originalHandler,
+        onBeforeRowChange: originalBeforeChange,
+        onRowsChangeResult: originalResultHandler,
+      },
+    },
+  );
+  const retainedDelete = result.current.api.deleteRow;
+  rerender({
+    rows: [...rows, { id: "c", name: "Gamma" }],
+    getRowId: currentGetRowId,
+    onRowsChange: currentHandler,
+    onBeforeRowChange: beforeChange,
+    onRowsChangeResult,
+  });
+  act(() => retainedDelete("a"));
+  expect(currentHandler).toHaveBeenCalledWith(
+    [rows[1], { id: "c", name: "Gamma" }],
+    expect.objectContaining({ type: "row-delete" }),
+  );
+  expect(originalHandler).not.toHaveBeenCalled();
+  expect(originalBeforeChange).not.toHaveBeenCalled();
+  expect(originalResultHandler).not.toHaveBeenCalled();
+  expect(currentGetRowId).toHaveBeenCalled();
+  expect(beforeChange).toHaveBeenCalledTimes(1);
+  expect(onRowsChangeResult).toHaveBeenCalledTimes(1);
+});
 
 test("exposes every immutable row operation through the grid API", () => {
   const onRowsChange = jest.fn();

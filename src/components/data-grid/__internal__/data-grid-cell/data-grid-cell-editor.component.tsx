@@ -57,6 +57,7 @@ const DataGridCellEditor = <T extends object>({
     rowIndex,
   );
   const composing = useRef(false);
+  const tabbing = useRef(false);
   const compositionProps = {
     onCompositionStart: () => {
       composing.current = true;
@@ -90,7 +91,7 @@ const DataGridCellEditor = <T extends object>({
 
       const option = column.options[Number(event.target.value)];
       onChange(option.value);
-      onSelectionCommit(option.value);
+      if (!tabbing.current) onSelectionCommit(option.value);
     };
     const options = column.options.map((option, index) => {
       const optionId =
@@ -115,11 +116,6 @@ const DataGridCellEditor = <T extends object>({
       openOnFocus: true,
       onBlur,
       onChange: handleSelectChange,
-      onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
-        // Carbon Select owns selection, filtering and option navigation. The
-        // grid only owns leaving or cancelling the active cell editor.
-        if (event.key === "Tab") onKeyDown(event);
-      },
       ref: editorRef as React.RefObject<HTMLInputElement>,
       value: selectedValue,
     };
@@ -129,8 +125,12 @@ const DataGridCellEditor = <T extends object>({
         {...compositionProps}
         $weight={weight}
         data-role="data-grid-select-editor"
+        onKeyDown={(event) => {
+          if (event.key === "Tab") onKeyDown(event);
+        }}
         onKeyDownCapture={(event) => {
           if (handleCompositionKeyDown(event)) return;
+          tabbing.current = event.key === "Tab";
           // The open list handles Escape before the textbox receives it. Use
           // capture so one press both dismisses the list and exits edit mode.
           if (event.key === "Escape") onKeyDown(event);
