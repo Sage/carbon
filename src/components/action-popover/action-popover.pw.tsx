@@ -40,6 +40,33 @@ import {
   ActionPopoverWithDifferentSubmenus,
 } from "../../../src/components/action-popover/components.test-pw";
 
+test("holding the open trigger across animation frames closes the menu on release", async ({
+  mount,
+  page,
+}) => {
+  await mount(<Default />);
+  const trigger = actionPopoverButton(page).first();
+  await trigger.click();
+  const menu = page.getByRole("list");
+  await expect(
+    menu.getByRole("button", { disabled: false }).first(),
+  ).toBeFocused();
+
+  await trigger.hover();
+  await page.mouse.down();
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+      ),
+  );
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+  await page.mouse.up();
+
+  await expect(menu).toHaveCount(0);
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
+});
+
 test("should close opened submenu by keyboard event when another submenu is opened by click event", async ({
   mount,
   page,
@@ -101,6 +128,28 @@ test("menu and submenu buttons expand to fit their content", async ({
       (element) => element.clientWidth >= element.scrollWidth,
     ),
   ).toBe(true);
+});
+
+test("positions the submenu flush against the edge of the parent menu", async ({
+  mount,
+  page,
+}) => {
+  await mount(<ActionPopoverWithDifferentSubmenus />);
+
+  await page.getByRole("button", { name: "Actions" }).click();
+  await page.getByRole("button", { name: /Business/ }).click();
+  await expect(
+    page.getByRole("button", { name: "Business Sub Menu Item" }),
+  ).toBeVisible();
+
+  const menus = page.locator('[data-role="menu-wrapper"]');
+  const parentMenu = await menus.nth(0).boundingBox();
+  const submenu = await menus.nth(1).boundingBox();
+
+  expect(submenu?.x).toBeCloseTo(
+    (parentMenu?.x ?? 0) + (parentMenu?.width ?? 0),
+    0,
+  );
 });
 
 test.describe("check functionality for ActionPopover component", () => {
@@ -174,7 +223,7 @@ test.describe("check functionality for ActionPopover component", () => {
     );
   });
 
-  test("should show list is positioned properly in large viewport", async ({
+  test("hides and restores the menu when page scrolling clips its trigger", async ({
     mount,
     page,
   }) => {
@@ -183,7 +232,7 @@ test.describe("check functionality for ActionPopover component", () => {
       height: 300,
     });
     await mount(
-      <Accordion mt="150px" title="Heading">
+      <Accordion mt="300px" title="Heading">
         <ActionPopoverCustom />
       </Accordion>,
     );
@@ -193,11 +242,19 @@ test.describe("check functionality for ActionPopover component", () => {
     await accordionDefaultTitleElement.press("Enter");
     const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    await page.evaluate(() => window.scrollTo(0, 1000));
     const actionPopoverElement = actionPopover(page).first();
-
+    await actionPopoverButtonElement.scrollIntoViewIfNeeded();
     await expect(actionPopoverElement).toBeVisible();
     await page.evaluate(() => window.scrollTo(0, 0));
+
+    await expect(actionPopoverButtonElement).not.toBeInViewport();
+    await expect(actionPopoverElement).toBeHidden();
+    await expect(actionPopoverElement).toBeAttached();
+    await expect(actionPopoverButtonElement).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    await actionPopoverButtonElement.scrollIntoViewIfNeeded();
 
     await expect(actionPopoverElement).toBeVisible();
   });

@@ -236,7 +236,7 @@ description: Carbon Dialog component props and usage examples.
             </Button>
           }
           saveButton={
-            <Button buttonType="primary" type="submit">
+            <Button variantType="primary" type="submit">
               Save
             </Button>
           }
@@ -399,7 +399,7 @@ function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
               </Button>
             }
             saveButton={
-              <Button buttonType="primary" type="submit">
+              <Button variantType="primary" type="submit">
                 Save
               </Button>
             }
@@ -476,7 +476,7 @@ function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
             </Button>
           }
           saveButton={
-            <Button buttonType="primary" type="submit">
+            <Button variantType="primary" type="submit">
               Save
             </Button>
           }
@@ -633,7 +633,7 @@ function ResponsiveBehaviorRender({
               </Button>
             }
             saveButton={
-              <Button buttonType="primary" type="submit">
+              <Button variantType="primary" type="submit">
                 Save
               </Button>
             }
@@ -706,7 +706,7 @@ function SmallScreenBehaviorRender({
               </Button>
             }
             saveButton={
-              <Button buttonType="primary" type="submit">
+              <Button variantType="primary" type="submit">
                 Save
               </Button>
             }
@@ -842,7 +842,7 @@ function StickyFooterWithFormRender({
               </Button>
             }
             saveButton={
-              <Button buttonType="primary" type="submit">
+              <Button variantType="primary" type="submit">
                 Save
               </Button>
             }

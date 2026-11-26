@@ -345,6 +345,9 @@ const enGB: Locale = {
       close: () => "Close",
     },
   },
+  skeleton: {
+    loading: () => "Loading",
+  },
   sort: {
     accessibleName: (sortContent, sortType) =>
       `Sort all ${sortContent || "contents"}${

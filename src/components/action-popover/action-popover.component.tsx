@@ -404,14 +404,19 @@ export const ActionPopover = forwardRef<
                 getComputedStyle(menuWrapper).visibility === "hidden";
               setOpen(false);
 
-              // Avoid moving focus twice on Shift+Tab or scrolling a hidden control into view.
-              if (!hasBackTabbed && !isMenuHidden) {
+              // Preserve the destination when focus has already left the menu.
+              if (
+                !hasBackTabbed &&
+                !isMenuHidden &&
+                e?.type !== "focusout" &&
+                e?.type !== "focusin"
+              ) {
                 focusButton();
               }
             }}
             placement={mappedPlacement}
             id={menuID}
-            listboxAriaLabelledBy={parentID}
+            listboxAriaLabelledBy={`${menuID}-control`}
             isButtonMenu
             disablePortal={!isInTable}
             hideWhenReferenceHidden

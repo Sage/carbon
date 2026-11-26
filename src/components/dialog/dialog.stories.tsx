@@ -54,7 +54,7 @@ const Buttons = () => (
   <Box display="flex" flexDirection="column" alignItems="flex-end">
     <Box display="flex" gap={1}>
       <Button variantType="subtle">Cancel</Button>
-      <Button buttonType="primary">Save</Button>
+      <Button variantType="primary">Save</Button>
     </Box>
   </Box>
 );
@@ -239,7 +239,7 @@ export const OtherFocusableContainers: Story = () => {
             </Button>
           }
           saveButton={
-            <Button buttonType="primary" type="submit">
+            <Button variantType="primary" type="submit">
               Save
             </Button>
           }
@@ -391,7 +391,7 @@ export const DefaultWithForm: Story = {
               </Button>
             }
             saveButton={
-              <Button buttonType="primary" type="submit">
+              <Button variantType="primary" type="submit">
                 Save
               </Button>
             }
@@ -462,7 +462,7 @@ export const RestoreFocusOnClose: Story = () => {
             </Button>
           }
           saveButton={
-            <Button buttonType="primary" type="submit">
+            <Button variantType="primary" type="submit">
               Save
             </Button>
           }
@@ -594,7 +594,7 @@ export const ResponsiveBehavior: Story = {
               </Button>
             }
             saveButton={
-              <Button buttonType="primary" type="submit">
+              <Button variantType="primary" type="submit">
                 Save
               </Button>
             }
@@ -668,7 +668,7 @@ export const SmallScreenBehavior: Story = {
               </Button>
             }
             saveButton={
-              <Button buttonType="primary" type="submit">
+              <Button variantType="primary" type="submit">
                 Save
               </Button>
             }
@@ -794,7 +794,7 @@ export const StickyFooterWithForm: Story = {
               </Button>
             }
             saveButton={
-              <Button buttonType="primary" type="submit">
+              <Button variantType="primary" type="submit">
                 Save
               </Button>
             }

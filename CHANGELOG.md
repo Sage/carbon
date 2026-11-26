@@ -1,3 +1,40 @@
+## [163.6.0](https://github.com/Sage/carbon/compare/v163.5.2...v163.6.0) (2026-11-26)
+
+### Features
+
+* **popover-menu:** add container padding and action radius to menu ([81cd6fa](https://github.com/Sage/carbon/commit/81cd6fa9855092184dc1d3192ecedce6fc97ac38))
+
+## [163.5.2](https://github.com/Sage/carbon/compare/v163.5.1...v163.5.2) (2026-11-25)
+
+### Bug Fixes
+
+* ensure popover based components are accessible by voiceover controls ([32ac5c7](https://github.com/Sage/carbon/commit/32ac5c7c6e849c0577e75c72bf88c02956a459e8))
+
+## [163.5.1](https://github.com/Sage/carbon/compare/v163.5.0...v163.5.1) (2026-11-25)
+
+### Bug Fixes
+
+* **message:** update message width behaviour ([b05f8bd](https://github.com/Sage/carbon/commit/b05f8bdb1c94c41077354dab1338079f4e31638c))
+
+## [163.5.0](https://github.com/Sage/carbon/compare/v163.4.1...v163.5.0) (2026-11-24)
+
+### Features
+
+* **preview:** deprecate in favour of skeleton ([1de8a33](https://github.com/Sage/carbon/commit/1de8a33e413182721ed3284e68816e25f088c6b7))
+* **skeleton:** add skeleton component ([68c58bf](https://github.com/Sage/carbon/commit/68c58bf4c3ae84a197eb3285b4b33d88cb25b4ab))
+
+## [163.4.1](https://github.com/Sage/carbon/compare/v163.4.0...v163.4.1) (2026-11-24)
+
+### Bug Fixes
+
+* **dialog:** update dialog, drawer and sidebar header borders ([ff21aac](https://github.com/Sage/carbon/commit/ff21aacc11170cf2f7c1bc92a54f474ae207460f))
+
+## [163.4.0](https://github.com/Sage/carbon/compare/v163.3.0...v163.4.0) (2026-11-19)
+
+### Features
+
+* **form:** deprecate stickyFooter, align with fusion ds ([74f45d2](https://github.com/Sage/carbon/commit/74f45d2feccf50917acd93c05ee7dec145ab57b9))
+
 ## [163.3.0](https://github.com/Sage/carbon/compare/v163.2.1...v163.3.0) (2026-11-18)
 
 ### Features

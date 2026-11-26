@@ -20,6 +20,7 @@ The following section provides migration guidance for deprecated components that
 - For `InlineInput`, using inputs which are placed next to each other horizontally is recommended as the preferred alternative - **however** ensure labels are clearly associated with the relevant input for accessibility.
 - For `Pages`, [`StepFlow`](?path=/docs/step-flow--docs) is recommended as the preferred alternative.
 - For `Pod`, [`Tile`](?path=/docs/tile--docs) is recommended as the preferred alternative. Any additional button's for save/edit functionality can be added via [`Button`](?path=/docs/button--docs) with an [`Icon`](?path=/docs/icon--docs) passed as a child.
+- For `Preview`, use [`Skeleton`](?path=/docs/skeleton--docs). Skeleton replaces Preview's numeric line count with a data-driven `lines` array and does not manage loaded children.
 - For `Toast`, [`Message`](?path=/docs/message--docs) is recommended as the preferred alternative.
 - For `Tooltip`, using visible input hints are recommended as the preferred alternative. Relying on a tooltip can lead to discoverability issues, it's better to provide context directly which is instantly available.
 - For `Hr`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
@@ -43,11 +44,38 @@ The following sections provide migration guidance for deprecated components that
 - [Grouped Character](#grouped-character)
 - [Heading](#heading)
 - [Number](#number)
+- [Preview](#preview)
 - [Setting sRow](#settings-row)
 - [Hr](#hr)
 - [VerticalDivider](#vertical-divider)
 - [Tile Select](#tile-select)
 - [FlatTable](#flat-table)
+
+## Preview
+
+The `Preview` component is deprecated. Use [`Skeleton`](?path=/docs/skeleton--docs) for new loading placeholders.
+
+Skeleton describes the placeholder layout through its `lines` array rather than using a numeric line count. Each line can define its own dimensions, preset, and shape. Map Preview's `rectangle-round` shape to `rectangle-curved`; `circle` remains `circle`; and use `rectangle-moderate` for text or moderately rounded rectangles.
+
+```jsx
+<Skeleton
+  lines={[
+    { preset: "paragraph", width: "100%" },
+    { preset: "paragraph", width: "100%" },
+    { preset: "paragraph", width: "80%" },
+  ]}
+/>
+```
+
+Skeleton does not accept children or a `loading` prop. When migrating a Preview that manages loaded content, render the Skeleton or real content conditionally:
+
+```jsx
+const loadingContent = isLoading ? (
+  <Skeleton lines={[{ preset: "paragraph" }, { preset: "paragraph" }]} />
+) : (
+  children
+);
+```
 
 ## Alert
 

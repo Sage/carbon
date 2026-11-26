@@ -67,13 +67,20 @@ export const List = styled.ul<ListProps>`
     `}
 `;
 
-const paddingSize = {
+const verticalPaddingSize = {
   small: "var(--global-space-comp-xs)",
   medium: "var(--global-space-comp-s)",
   large: "var(--global-space-comp-m)",
 };
 
+const horizontalPaddingSize = {
+  small: "var(--global-space-comp-xs)",
+  medium: "var(--global-space-comp-s)",
+  large: "var(--global-space-comp-s)",
+};
+
 const MenuWrapper = styled.div<ListProps>`
+  box-sizing: border-box;
   box-shadow: var(--global-depth-lvl1);
   border-radius: var(--global-radius-container-m);
   background-color: var(--popover-bg-default);
@@ -82,7 +89,7 @@ const MenuWrapper = styled.div<ListProps>`
   z-index: calc(var(--carbon-zindex-overlay) + 2);
 
   padding: ${({ $size }) => css`
-    ${paddingSize[$size]} var(--global-space-none)
+    ${verticalPaddingSize[$size]} ${horizontalPaddingSize[$size]}
   `};
 
   ${({ $isButtonMenu }) =>
@@ -200,7 +207,20 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
 }
 
 const OFFSET = 8;
-const SUBMENU_OFFSET = 0;
+
+export const getSubmenuOffset = ({
+  elements,
+}: {
+  elements: { reference: unknown };
+}) => {
+  const parentMenu = (elements.reference as Element).closest(
+    '[data-role="menu-wrapper"]',
+  );
+
+  if (!parentMenu) return 0;
+
+  return parseFloat(getComputedStyle(parentMenu).paddingRight) || 0;
+};
 
 interface MenuPopoverMiddlewareOptions {
   width?: string;
@@ -219,7 +239,7 @@ export const menuPopoverMiddleware = ({
   hideWhenReferenceHidden,
   flipEnabled = true,
 }: MenuPopoverMiddlewareOptions = {}) => [
-  offset(isSubmenu ? SUBMENU_OFFSET : OFFSET),
+  offset(isSubmenu ? getSubmenuOffset : OFFSET),
   ...(flipEnabled
     ? [
         flip({
@@ -295,6 +315,7 @@ const Menu = ({
       data-component="popover-menu"
       middleware={middleware}
       disablePortal={disablePortal}
+      useTopLayer={isButtonMenu && !disablePortal}
       portalTarget={portalTarget}
       popoverStrategy={popoverStrategy}
     >
@@ -365,6 +386,7 @@ const Control = <TRef extends FocusableHandle = HTMLElement>({
     })
   ) : (
     <PopoverControlWrapper
+      id={isButtonMenu ? `${listId}-control` : undefined}
       ref={controlWrapperRef}
       onKeyDown={onKeyDown}
       data-component="popover-menu-control"
@@ -441,7 +463,116 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   );
   const controlRef = useRef<TRef>(null);
   const onCloseRef = useRef(onClose);
+  const focusDismissalRequested = useRef(false);
+  const lastClickAwayEvent = useRef<Event | null>(null);
+  const highlightedSelection = useRef<HTMLElement | null>(null);
+  const direction = useRef<"up" | "down" | null>(null);
+  const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
   onCloseRef.current = onClose;
+
+  useEffect(() => {
+    if (!open || !isButtonMenu || isSubmenu) return;
+    focusDismissalRequested.current = false;
+
+    const ownerDocument = wrapperRef.current?.ownerDocument;
+    const ownerWindow = ownerDocument?.defaultView;
+
+    /* istanbul ignore if */
+    if (!ownerDocument || !ownerWindow) return;
+
+    let frame = 0;
+    let pointerOnControl = false;
+    let deferredFocusEvent: FocusEvent | undefined;
+
+    const isWithinMenu = (target: EventTarget | null) =>
+      target instanceof Element &&
+      target
+        .closest("[data-menu-tree-id]")
+        ?.getAttribute("data-menu-tree-id") === menuTreeId;
+
+    let hasFocusedMenu = isWithinMenu(ownerDocument.activeElement);
+
+    const checkFocusAfterMove = (event: FocusEvent) => {
+      ownerWindow.cancelAnimationFrame(frame);
+      // Wait for focus to settle, including moves into a portalled submenu.
+      frame = ownerWindow.requestAnimationFrame(() => {
+        const { activeElement } = ownerDocument;
+
+        if (focusDismissalRequested.current || isWithinMenu(activeElement)) {
+          return;
+        }
+
+        // Hiding a clipped menu can blur its focused item. Keep it mounted so
+        // useFloating can restore that item when the reference is visible again.
+        if (
+          activeElement === ownerDocument.body &&
+          scrollRef.current &&
+          ownerWindow.getComputedStyle(scrollRef.current).visibility ===
+            "hidden"
+        ) {
+          return;
+        }
+
+        // Let the trigger's click toggle the open menu. Pointer-up reschedules
+        // dismissal if the gesture finishes without a click on the trigger.
+        if (pointerOnControl) {
+          deferredFocusEvent = event;
+          return;
+        }
+
+        // Click-away may arrive before the parent commits this close request.
+        focusDismissalRequested.current = true;
+        onCloseRef.current(event);
+      });
+    };
+
+    const handlePointerDown = (event: PointerEvent) => {
+      pointerOnControl =
+        event.target instanceof Node &&
+        !!controlWrapperRef.current?.contains(event.target);
+    };
+
+    const handlePointerEnd = () => {
+      pointerOnControl = false;
+      if (deferredFocusEvent) {
+        checkFocusAfterMove(deferredFocusEvent);
+        deferredFocusEvent = undefined;
+      }
+    };
+
+    const handleFocusIn = (event: FocusEvent) => {
+      const withinMenu = isWithinMenu(event.target);
+      if (withinMenu) {
+        hasFocusedMenu = true;
+      } else if (hasFocusedMenu) {
+        checkFocusAfterMove(event);
+      }
+    };
+
+    const handleFocusOut = (event: FocusEvent) => {
+      if (isWithinMenu(event.target)) checkFocusAfterMove(event);
+    };
+
+    ownerDocument.addEventListener("focusin", handleFocusIn, true);
+    ownerDocument.addEventListener("focusout", handleFocusOut, true);
+    ownerDocument.addEventListener("pointerdown", handlePointerDown, true);
+    ownerDocument.addEventListener("pointerup", handlePointerEnd, true);
+    ownerDocument.addEventListener("pointercancel", handlePointerEnd, true);
+    ownerWindow.addEventListener("blur", handlePointerEnd);
+    return () => {
+      ownerWindow.cancelAnimationFrame(frame);
+      ownerDocument.removeEventListener("focusin", handleFocusIn, true);
+      ownerDocument.removeEventListener("focusout", handleFocusOut, true);
+      ownerDocument.removeEventListener("pointerdown", handlePointerDown, true);
+      ownerDocument.removeEventListener("pointerup", handlePointerEnd, true);
+      ownerDocument.removeEventListener(
+        "pointercancel",
+        handlePointerEnd,
+        true,
+      );
+      ownerWindow.removeEventListener("blur", handlePointerEnd);
+    };
+  }, [open, isButtonMenu, isSubmenu, menuTreeId]);
 
   const handleMenuClose = useCallback(
     (ev?: Event) => {
@@ -477,6 +608,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             : undefined;
         onClose(ev);
         const destination = (next ?? trigger) as HTMLElement | undefined;
+
         if (
           destination &&
           destination.ownerDocument.activeElement !== destination
@@ -485,14 +617,22 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         }
         return;
       }
+
       onClose(ev);
     },
     [isButtonMenu, isSubmenu, onClose, menuTreeId],
   );
-  const lastClickAwayEvent = useRef<Event | null>(null);
+
   const handleClickAway = useCallback(
     (ev: Event) => {
-      if (!open || lastClickAwayEvent.current === ev) return;
+      if (
+        !open ||
+        focusDismissalRequested.current ||
+        lastClickAwayEvent.current === ev
+      ) {
+        return;
+      }
+
       lastClickAwayEvent.current = ev;
       // Keep the document listener attached while closing a submenu during
       // click bubbling, so its inside-click marker is consumed by this event.
@@ -500,8 +640,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     },
     [open],
   );
+
   const handleClickInside = useClickAwayListener(handleClickAway);
-  const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
 
   useIsomorphicLayoutEffect(() => {
     if (!open) {
@@ -513,7 +653,6 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
     }
   }, [open, focusSelectedOnOpen, onListKeyDown]);
 
-  const highlightedSelection = useRef<HTMLElement | null>(null);
   useEffect(() => {
     if (!open || !highlightSelectedOption || onListKeyDown) {
       highlightedSelection.current = null;
@@ -524,7 +663,10 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       '[role="option"][aria-selected="true"]:not([aria-disabled="true"])',
     );
     // Appending options or a loader must preserve the user's current highlight.
-    if (selectedOption === highlightedSelection.current) return;
+    if (selectedOption === highlightedSelection.current) {
+      return;
+    }
+
     highlightedSelection.current =
       selectedOption ?? /* istanbul ignore next */ null;
     listbox
@@ -557,7 +699,6 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       flipEnabled,
     ],
   );
-  const direction = useRef<"up" | "down" | null>(null);
 
   const handleSubmenuParentFocus = useCallback(() => {
     /* istanbul ignore else */
@@ -680,14 +821,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
           }
         }
       },
-      [
-        open,
-        handleDropdownMenuKeyDown,
-        isButtonMenu,
-        isInTable,
-        onOpen,
-        isSubmenu,
-      ],
+      [open, isButtonMenu, isInTable, onOpen, isSubmenu, handleMenuKeyDown],
     );
 
   useEffect(() => {
@@ -720,6 +854,18 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         <PopoverMenu
           open={props.open}
           onClose={(ev) => {
+            // A background click in the parent menu removes the focused
+            // submenu. Keep focus in the root menu before it unmounts.
+            if (
+              ev?.type === "click" &&
+              ev.target instanceof Element &&
+              scrollRef.current?.parentElement?.contains(ev.target) &&
+              !ev.target.closest("button, a[href], input, select, textarea")
+            ) {
+              props.triggerRef.current
+                ?.querySelector<HTMLElement>("button, a")
+                ?.focus({ preventScroll: true });
+            }
             props.onClose();
 
             // A portalled submenu has its own click-away listener. Forward

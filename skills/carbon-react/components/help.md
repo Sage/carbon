@@ -11,6 +11,10 @@ description: Carbon Help component props and usage examples.
 ## Source
 - Export: `./components/help`
 - Props interface: `HelpProps`
+- Deprecated: Yes
+- Deprecation reason: The `Help` component has been deprecated and will be removed in a future release. There is no
+like-for-like replacement. Consider semantic heading structures for long and complex forms,
+or fieldsets for shorter forms that require grouping and hierarchy.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |
