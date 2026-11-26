@@ -25,6 +25,18 @@ type DocgenComponent = {
   };
 };
 
+type ArgTypeTable = {
+  category?: string;
+  subcategory?: string;
+  jsDocTags?: Record<string, unknown>;
+} & Record<string, unknown>;
+
+type EnhancedArgType = {
+  table?: ArgTypeTable;
+} & Record<string, unknown>;
+
+const DEPRECATED_PROPS_CATEGORY = "Deprecated Props";
+
 // Temporary workaround for Storybook docs not rendering JSDoc @deprecated tag text
 // from extracted argTypes in this repo's current Storybook version line.
 // Applied to both the main story's argTypes (via argTypesEnhancers) and each
@@ -49,14 +61,19 @@ const applyDeprecatedJsDocTags = <T extends Record<string, unknown>>(
       return acc;
     }
 
-    const typedArgType = argType as {
-      table?: { jsDocTags?: Record<string, unknown> } & Record<string, unknown>;
-    };
+    const typedArgType = argType as EnhancedArgType;
+    const existingCategory = typedArgType.table?.category;
+    const shouldMoveExistingCategoryToSubcategory =
+      existingCategory && existingCategory !== DEPRECATED_PROPS_CATEGORY;
 
     (acc as Record<string, unknown>)[argName] = {
       ...typedArgType,
       table: {
         ...typedArgType.table,
+        category: DEPRECATED_PROPS_CATEGORY,
+        subcategory: shouldMoveExistingCategoryToSubcategory
+          ? existingCategory
+          : typedArgType.table?.subcategory,
         jsDocTags: {
           ...typedArgType.table?.jsDocTags,
           deprecated: deprecationMessage,
