@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Box from "../box";
+import Dialog from "../dialog";
 import { Select, Option } from "../select";
 import AdaptiveSidebar from "../adaptive-sidebar";
 import { GlobalHeaderProvider } from "../global-header/__internal__/global-header.context";
@@ -78,3 +79,22 @@ export const DisableAnimation = () => (
     </PopoverContainer>
   </Box>
 );
+
+export const PopoverContainerOpenInDialog = () => {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <Dialog open title="Dialog" onCancel={() => undefined}>
+      <PopoverContainer
+        title="Popover title"
+        containerAriaLabel="popover-in-dialog"
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+      >
+        Popover content
+      </PopoverContainer>
+      <Box height="1200px" />
+    </Dialog>
+  );
+};

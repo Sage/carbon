@@ -38,7 +38,7 @@ export const useHandleDropdownMenuKeyDown = (
   submenuOptions: {
     isButtonMenu?: boolean;
     isSubmenu?: boolean;
-    controlReference?: React.RefObject<HTMLLIElement>;
+    controlElement?: HTMLLIElement | null;
     enablePageNavigation?: boolean;
     selectOnSpaceAndTab?: boolean;
   },

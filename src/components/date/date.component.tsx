@@ -175,7 +175,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     ref,
   ) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const parentRef = useRef<HTMLElement | null>(null);
+    const [inputContainer, setInputContainer] = useState<HTMLElement | null>(
+      null,
+    );
     const internalInputRef = useRef<HTMLInputElement | null>(null);
     const datePickerTriggerRef = useRef<HTMLButtonElement>(null);
     const alreadyFocused = useRef(false);
@@ -362,7 +364,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const assignInput = useCallback(
       (inputElement: HTMLInputElement) => {
         internalInputRef.current = inputElement;
-        parentRef.current = inputElement?.parentElement;
+        setInputContainer(inputElement?.parentElement ?? null);
 
         if (ref) {
           if (typeof ref === "function") {
@@ -450,7 +452,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         />
         <DatePicker
           disablePortal={disablePortal}
-          inputContainerRef={parentRef}
+          inputContainer={inputContainer}
           datePickerTriggerRef={datePickerTriggerRef}
           dayPickerProps={pickerProps}
           selectedDate={selectedDate}

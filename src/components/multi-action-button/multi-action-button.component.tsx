@@ -5,6 +5,8 @@ import React, {
   useContext,
   useEffect,
   useCallback,
+  useState,
+  useMemo,
 } from "react";
 import { WidthProps } from "styled-system";
 
@@ -115,6 +117,14 @@ export const MultiActionButton = forwardRef<
       handleToggleButtonKeyDown,
     } = useChildButtons(buttonRef);
 
+    const [buttonElement, setButtonElement] = useState<HTMLDivElement | null>(
+      null,
+    );
+    const attachButton = useMemo(
+      () => combineRefs(buttonNode, setButtonElement),
+      [buttonNode],
+    );
+
     const handleInsideClick = useClickAwayListener(hideButtons);
 
     const handleChildButtonClick = useCallback(
@@ -169,7 +179,7 @@ export const MultiActionButton = forwardRef<
 
     return (
       <StyledMultiActionButton
-        ref={buttonNode}
+        ref={attachButton}
         data-component="multi-action-button"
         data-element={dataElement}
         data-role={dataRole}
@@ -196,7 +206,7 @@ export const MultiActionButton = forwardRef<
               isButtonMenu
               disablePortal={!isInTable}
               id={submenuId.current}
-              controlReference={buttonNode}
+              controlElement={buttonElement}
               matchReferenceWidth={fullWidth}
               popoverStrategy="fixed"
               width={menuWidth}

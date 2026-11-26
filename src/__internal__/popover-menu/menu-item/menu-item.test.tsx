@@ -194,3 +194,16 @@ test("should not render the selected icon when selectedIcon on MenuItemLeading i
     "visibility: hidden",
   );
 });
+
+test("calls measureElement with the list item when rendered inside a button menu", () => {
+  const measureElement = jest.fn();
+  render(
+    <PopoverMenuContext.Provider value={{ size: "medium", isButtonMenu: true }}>
+      <ul>
+        <MenuItem measureElement={measureElement}>Menu item</MenuItem>
+      </ul>
+    </PopoverMenuContext.Provider>,
+  );
+
+  expect(measureElement).toHaveBeenCalledWith(screen.getByRole("listitem"));
+});

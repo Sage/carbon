@@ -109,7 +109,9 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
 
     const mainButtonRef = useRef<HTMLButtonElement>(null);
     const toggleButtonRef = useRef<HTMLButtonElement>(null);
-    const buttonNode = useRef<HTMLDivElement>(null);
+    const [buttonElement, setButtonElement] = useState<HTMLDivElement | null>(
+      null,
+    );
     const toggleWrapperRef = useRef<HTMLDivElement>(null);
 
     const { isInTable } = useContext(TableBodyContext);
@@ -203,7 +205,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
         data-element={dataElement}
         data-role={dataRole}
         $variantType={actualVariant}
-        ref={buttonNode}
+        ref={setButtonElement}
         {...filterStyledSystemMarginProps(rest)}
       >
         {isInTable && showAdditionalButtons && (
@@ -240,7 +242,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
               }
               isButtonMenu
               disablePortal={!isInTable}
-              controlReference={buttonNode}
+              controlElement={buttonElement}
               matchReferenceWidth
               popoverStrategy="fixed"
               width={menuWidth}
