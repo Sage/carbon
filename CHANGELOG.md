@@ -1,3 +1,15 @@
+## [164.0.0](https://github.com/Sage/carbon/compare/v163.6.0...v164.0.0) (2026-11-26)
+
+### ⚠ BREAKING CHANGES
+
+* Node.js 22 is no longer supported. Use Node.js
+24.15.0 or newer within 24.x, or Node.js 26.x. Node.js 26 is now
+the default development and release runtime.
+
+### Build System
+
+* upgrade to Node 26 and drop Node 22 support ([d993150](https://github.com/Sage/carbon/commit/d993150a2fc8b8874c8d5228bbf00cf4a084bd64))
+
 ## [163.6.0](https://github.com/Sage/carbon/compare/v163.5.2...v163.6.0) (2026-11-26)
 
 ### Features
