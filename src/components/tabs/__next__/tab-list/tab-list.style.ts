@@ -20,24 +20,38 @@ export const StyledTabList = styled.div<StyledTabListProps>`
   `}
 `;
 
-export const StyledTabListWrapper = styled.div<{ $headerWidth?: string }>`
+interface StyledTabListWrapperProps {
+  $orientation?: "horizontal" | "vertical";
+  $headerWidth?: string;
+}
+
+export const StyledTabListWrapper = styled.div<StyledTabListWrapperProps>`
   display: flex;
   z-index: 6;
+  position: relative;
 
-  ${({ $headerWidth }) =>
-    $headerWidth &&
+  ${({ $headerWidth, $orientation }) => css`
+    ${$headerWidth && `width: ${$headerWidth};`}
+
+    // bottom keyline
+    ::after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      border-bottom: var(--global-borderwidth-s) solid var(--tab-border-default);
+    }
+
+    ${$orientation === "vertical" &&
     css`
-      width: ${$headerWidth};
-    `};
+      ::after {
+        border-right: var(--global-borderwidth-s) solid
+          var(--tab-border-default);
+        border-bottom: none;
+      }
+    `}
+  `};
 `;
-
-export const Spacer = styled.div`
-  align-self: flex-end;
-  background: var(--tab-border-default);
-  flex-grow: 1;
-  height: var(--global-borderwidth-s);
-`;
-
 interface StyledScrollButtonProps {
   $size: "medium" | "large";
 }

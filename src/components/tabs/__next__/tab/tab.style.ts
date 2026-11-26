@@ -105,19 +105,19 @@ export const StyledTab = styled.button<StyledTabProps>`
     border-radius: var(--global-radius-action-m) var(--global-radius-action-m)
       var(--global-radius-none) var(--global-radius-none);
 
-    // overlay border to prevent layout shifts when state changes
+    // overlay active border to prevent layout shifts when state changes
     ::before {
       content: "";
       pointer-events: none;
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      border-bottom: var(--global-borderwidth-s) solid var(--tab-border-default);
     }
 
     ${$activeTab &&
     css`
       background-color: var(--tab-bg-active);
+      z-index: 1;
 
       ${$orientation === "horizontal" &&
       css`
@@ -154,12 +154,6 @@ export const StyledTab = styled.button<StyledTabProps>`
       max-width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
       width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
       padding: ${sizes[$size].paddingY} ${sizes[$size].paddingX};
-
-      ::before {
-        border: none;
-        border-right: var(--global-borderwidth-s) solid
-          var(--tab-border-active-alt);
-      }
 
       ${$activeTab &&
       css`

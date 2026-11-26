@@ -16,7 +16,6 @@ import usePrevious from "../../../../hooks/__internal__/usePrevious";
 import Icon from "../../../icon";
 import { useTabs } from "../__internal__/contexts/tabs.context";
 import {
-  Spacer,
   StyledScrollButton,
   StyledScrollButtonPlaceholder,
   StyledTabList,
@@ -232,6 +231,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
       <>
         <StyledTabListWrapper
           $headerWidth={headerWidth}
+          $orientation={orientation}
           data-role="tab-list-wrapper"
         >
           {renderLeftScroll()}
@@ -250,7 +250,6 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
             {...tagComponent("tab-list", rest)}
           >
             {children}
-            <Spacer />
           </StyledTabList>
           {renderRightScroll()}
         </StyledTabListWrapper>
