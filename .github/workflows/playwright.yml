@@ -27,7 +27,7 @@ jobs:
           check-latest: true
       
       - name: Cache central NPM modules
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
