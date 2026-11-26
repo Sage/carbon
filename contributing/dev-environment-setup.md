@@ -16,14 +16,25 @@ This guide will provide you with the information you need to be able to get star
 
 ### Node.js & NPM
 
-Carbon is developed against a specific version of Node.js specified in the `.nvmrc` file. We recommend using [nvm](https://github.com/nvm-sh/nvm) for installing the correct version of Node.js and npm, this will allow you to install the correct version by running the following command:
+Carbon uses Node.js 26 for development and releases, as specified in `.nvmrc`. We support Node.js 24.15.0 or newer within the 24.x line and Node.js 26.x, and test and build against both majors in CI. Node.js 22 is no longer supported.
+
+Use npm 11.21.1 or newer, as required by `package.json#engines`. CI pins npm to 11.21.1 on both supported Node.js versions.
+
+We recommend using [nvm](https://github.com/nvm-sh/nvm) to install and select the default Node.js version:
 
 ```sh
 # Check node version you're currently using:
 node --version
 
-# Switch to version required for Carbon:
+# Install and select the default version for Carbon:
+nvm install
 nvm use
+
+# Install the npm version used in CI:
+npm install --global npm@11.21.1
+
+# Verify the npm version:
+npm --version
 ```
 
 If you are a Windows user, you'll need to [enable the Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) to allow you to execute our scripts.
