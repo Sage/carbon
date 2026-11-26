@@ -1,3 +1,9 @@
+## [163.6.0](https://github.com/Sage/carbon/compare/v163.5.2...v163.6.0) (2026-11-26)
+
+### Features
+
+* **popover-menu:** add container padding and action radius to menu ([81cd6fa](https://github.com/Sage/carbon/commit/81cd6fa9855092184dc1d3192ecedce6fc97ac38))
+
 ## [163.5.2](https://github.com/Sage/carbon/compare/v163.5.1...v163.5.2) (2026-11-25)
 
 ### Bug Fixes
