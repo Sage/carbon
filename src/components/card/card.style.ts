@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
-import DesignTokens from "@sage/design-tokens/js/base/es6.js";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { CardContextProps } from "./__internal__/card.context";
 import { CardProps } from "./card.component";
@@ -23,7 +22,8 @@ export const marginSizes = {
   large: "var(--global-size-none) calc(-1 * var(--global-space-comp-2-xl))",
 };
 
-type DesignTokensType = keyof typeof DesignTokens;
+type DesignTokensType =
+  keyof typeof import("@sage/design-tokens/js/base/es6.js").default;
 export type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
 export interface StyledCardProps

@@ -5,6 +5,29 @@
   "files": [
     "lib"
   ],
+  "exports": {
+    "./package.json": "./package.json",
+    "./lib": "./lib/index.js",
+    "./lib/index": "./lib/index.js",
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*.css": "./lib/*.css",
+    "./lib/*.json": "./lib/*.json",
+    "./lib/*.svg": "./lib/*.svg",
+    "./lib/*.woff": "./lib/*.woff",
+    "./lib/*.woff2": "./lib/*.woff2",
+    "./lib/*.ttf": "./lib/*.ttf",
+    "./lib/*.component": "./lib/*.component.js",
+    "./lib/*.style": "./lib/*.style.js",
+    "./lib/*.context": "./lib/*.context.js",
+    "./lib/*.config": "./lib/*.config.js",
+    "./lib/*.utils": "./lib/*.utils.js",
+    "./lib/*.plugin": "./lib/*.plugin.js",
+    "./lib/*.node": "./lib/*.node.js",
+    "./lib/*.util": "./lib/*.util.js",
+    "./lib/*.hoc": "./lib/*.hoc.js",
+    "./lib/*.class": "./lib/*.class.js",
+    "./lib/*": "./lib/*/index.js"
+  },
   "engines": {
     "npm": ">=11.21.1"
   },
@@ -25,7 +48,7 @@
     "generate-metadata": "node ./scripts/generate_metadata/index.mjs",
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch",
-    "build:types": "tsc -p tsconfig-build.json --outDir ./lib",
+    "build:types": "tsc -p tsconfig-build.json --outDir ./lib && node ./scripts/types/rewrite-declaration-imports.mjs",
     "prepare": "husky install",
     "test:ct": "npm run generate-tokens && NODE_OPTIONS=--import=./playwright/support/styled-components-loader.mjs playwright test -c playwright-ct.config.mts",
     "test:ct:ui": "npm run generate-tokens && playwright test --ui -c playwright-ct.config.mts",
@@ -42,6 +65,7 @@
     "build:skills": "node ./scripts/skills/build_skills.mjs",
     "skills:status": "node ./scripts/skills/build_skills.mjs --metadata-status",
     "test:skills": "node --test ./scripts/skills/*.test.mjs",
+    "test:types": "node --test ./scripts/types/*.test.mjs",
     "generate-tokens": "node ./scripts/generate_tokens/generate_tokens.mjs --include-dark"
   },
   "repository": {

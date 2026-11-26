@@ -1,5 +1,4 @@
 import React from "react";
-import DesignTokens from "@sage/design-tokens/js/base/es6.js";
 import { SpaceProps, WidthProps } from "styled-system";
 
 import { StyledTile, StyledTileWrapper, StyledTileKeyline } from "./tile.style";
@@ -18,7 +17,8 @@ import Logger from "../../__internal__/utils/logger";
 
 export type Roundness = "curved" | "moderate";
 export type LegacyRoundness = "default" | "large" | "small";
-type DesignTokensType = keyof typeof DesignTokens;
+type DesignTokensType =
+  keyof typeof import("@sage/design-tokens/js/base/es6.js").default;
 type HighlightVariantType = (typeof TILE_HIGHLIGHT_VARIANTS)[number];
 export type DeprecatedTileVariants = "tile" | "transparent" | "active" | "grey";
 export type TileVariants =

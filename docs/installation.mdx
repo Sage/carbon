@@ -31,6 +31,14 @@ npm install carbon-react
 
 Carbon publishes ESM JavaScript in the existing `carbon-react/lib/...` paths. Use an ESM-capable bundler for these imports.
 
+If you use Jest with Babel, include Carbon and its ESM dependencies in your existing `transformIgnorePatterns` allowlist. For an npm installation, the pattern is:
+
+```js
+transformIgnorePatterns: [
+  "/node_modules/(?!(carbon-react|@sage/design-tokens|@atlaskit/pragmatic-drag-and-drop|react-error-boundary)/)",
+];
+```
+
 ### Peer dependencies
 
 You will need to install the following dependencies in your project, as they are required for Carbon to work:

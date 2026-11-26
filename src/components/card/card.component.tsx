@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { MarginProps } from "styled-system";
-import DesignTokens from "@sage/design-tokens/js/base/es6.js";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { CardProvider, CardContextProps } from "./__internal__/card.context";
 import {
@@ -15,7 +14,8 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import Logger from "../../__internal__/utils/logger";
 
-type DesignTokensType = keyof typeof DesignTokens;
+type DesignTokensType =
+  keyof typeof import("@sage/design-tokens/js/base/es6.js").default;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
 export interface CardProps extends MarginProps, TagProps {

@@ -1,6 +1,8 @@
 import resolve from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json";
+import url from "@rollup/plugin-url";
 import terser from "@rollup/plugin-terser";
+import fs from "node:fs";
 import path from "path";
 import glob from "glob";
 import postcss from "rollup-plugin-postcss";
@@ -11,6 +13,21 @@ import packageJson from "./package.json" with { type: "json" };
 
 const isDevelopment = process.env.NODE_ENV === "development";
 const sanitizeForCSS = (str) => str.replace(/[^a-zA-Z0-9]/g, "_");
+const explicitExternalPath = (id) => {
+  if (/^lodash\/[^/]+$/.test(id) && !id.endsWith(".js")) {
+    return `${id}.js`;
+  }
+
+  const match = id.match(
+    /^(@atlaskit\/pragmatic-drag-and-drop(?:-hitbox)?)\/(.+)$/,
+  );
+  if (!match) return id;
+
+  const [, packageName, subpath] = match;
+  const entryPackageJson = path.resolve("node_modules", id, "package.json");
+  const { module } = JSON.parse(fs.readFileSync(entryPackageJson, "utf8"));
+  return `${packageName}/${path.posix.normalize(path.posix.join(subpath, module))}`;
+};
 
 export default {
   input: Object.fromEntries(
@@ -66,11 +83,6 @@ export default {
       }),
   ),
   external: (id) => {
-    // Externalise SVGs
-    if (id.endsWith(".svg")) {
-      return true;
-    }
-
     // Don't externalise entry modules (resolved absolute paths)
     if (path.isAbsolute(id)) {
       return false;
@@ -110,6 +122,7 @@ export default {
       exportConditions: ["node", "default"],
     }),
     json(),
+    url({ include: "**/*.svg" }),
     postcss({
       extract: true,
       minimize: !isDevelopment,
@@ -191,5 +204,6 @@ export default {
     entryFileNames: "[name].js",
     /* Preserves the folder structure of the source files */
     chunkFileNames: ({ name }) => `${name}.js`,
+    paths: explicitExternalPath,
   },
 };
