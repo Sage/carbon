@@ -6,11 +6,100 @@ import { checkAccessibility } from "../../../playwright/support/helper";
 import DataGridComponent, {
   AdjacentErrors,
   DataGridInDialog,
+  PlaygroundExample,
 } from "./components.test-pw";
 import { DataGrid } from ".";
 
 const cell = (page: Page, rowId: number, field: string) =>
   page.locator(`[data-element="data-grid-cell-${String(rowId)}-${field}"]`);
+
+test("the Playground recalculates VAT and net amounts after editing invoice values", async ({
+  mount,
+  page,
+}) => {
+  await mount(<PlaygroundExample />);
+  await expect(cell(page, 1, "vatAmount")).toHaveText("600.00");
+  await expect(cell(page, 1, "net")).toHaveText("3,000.00");
+
+  await cell(page, 1, "vatRate").click();
+  await page
+    .getByRole("option", { name: "Lower Rate 5.00%", exact: true })
+    .click();
+  await expect(cell(page, 1, "vatAmount")).toHaveText("150.00");
+  await expect(cell(page, 1, "net")).toHaveText("3,000.00");
+
+  await cell(page, 1, "quantity").click();
+  await cell(page, 1, "quantity").getByRole("textbox").fill("2");
+  await page.keyboard.press("Enter");
+  await expect(cell(page, 1, "vatAmount")).toHaveText("300.00");
+  await expect(cell(page, 1, "net")).toHaveText("6,000.00");
+
+  await cell(page, 1, "rate").click();
+  await cell(page, 1, "rate").getByRole("textbox").fill("100.00");
+  await page.keyboard.press("Enter");
+  await expect(cell(page, 1, "vatAmount")).toHaveText("10.00");
+  await expect(cell(page, 1, "net")).toHaveText("200.00");
+});
+
+for (const interception of ["transform", "discard"] as const) {
+  const expectedText = interception === "transform" ? "UPDATED" : "Line 1";
+  for (const { completion, finish, focusTarget } of [
+    {
+      completion: "Enter",
+      finish: (page: Page) => page.keyboard.press("Enter"),
+      focusTarget: (page: Page) => cell(page, 1, "name"),
+    },
+    {
+      completion: "Tab",
+      finish: (page: Page) => page.keyboard.press("Tab"),
+      focusTarget: (page: Page) => cell(page, 1, "type"),
+    },
+    {
+      completion: "blur",
+      finish: (page: Page) =>
+        page.getByRole("button", { name: "Add line", exact: true }).focus(),
+      focusTarget: (page: Page) =>
+        page.getByRole("button", { name: "Add line", exact: true }),
+    },
+  ]) {
+    test(`${interception} interception preserves ${completion} edit completion`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <DataGridComponent interception={interception} rowCount={2} />,
+      );
+      const firstCell = cell(page, 1, "name");
+      await firstCell.click();
+      await firstCell.getByRole("textbox").fill(" updated ");
+      await finish(page);
+      await expect(firstCell.getByRole("textbox")).toHaveCount(0);
+      await expect(firstCell).toHaveText(expectedText);
+      await expect(focusTarget(page)).toBeFocused();
+    });
+  }
+}
+
+test("discarding structural, dropdown and checkbox operations retains controlled values and focus", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <DataGridComponent interception="discard" rowCount={2} maxWidth="900px" />,
+  );
+  const addButton = page.getByRole("button", { name: "Add line", exact: true });
+  await addButton.click();
+  await expect(page.getByRole("row")).toHaveCount(3);
+  await expect(addButton).toBeFocused();
+  const typeCell = cell(page, 1, "type");
+  await typeCell.click();
+  await page.getByRole("option", { name: "Product", exact: true }).click();
+  await expect(typeCell).toHaveText("Service");
+  await expect(typeCell).toBeFocused();
+  const checkbox = cell(page, 1, "selected").getByRole("checkbox");
+  await checkbox.click();
+  await expect(checkbox).not.toBeChecked();
+});
 
 for (const zoom of [1, 1.25, 1.5, 2]) {
   test(`insets state edges without moving content at ${zoom * 100}% CSS zoom`, async ({

@@ -227,6 +227,50 @@ test("does not focus when the grid has no rows", () => {
   }).not.toThrow();
 });
 
+test("does not resolve row positions while unregistering cells with a focused action", () => {
+  const actionColumns: DataGridColumn<Row>[] = [
+    columns[0],
+    {
+      field: "type",
+      headerName: "Actions",
+      type: "action",
+      renderCell: () => null,
+    },
+  ];
+  const renderedRowIndexes = Array.from(
+    { length: 50 },
+    (_, index) => 99950 + index,
+  );
+  const resolvePosition = jest.fn(positionForIdentity);
+  const { result } = renderHook(() =>
+    useDataGridNavigation({
+      rowCount: 100000,
+      renderedRowIndexes,
+      columns: actionColumns,
+      columnModel: createDataGridColumnModel(actionColumns),
+      scrollElementRef: { current: null },
+      identityFor,
+      positionForIdentity: resolvePosition,
+      keyFor,
+      renderToken: renderedRowIndexes,
+      stickyHeader: false,
+    }),
+  );
+  act(() => result.current.activateCell({ row: 99999, column: 1 }));
+  resolvePosition.mockClear();
+
+  act(() => {
+    renderedRowIndexes.forEach((row) => {
+      actionColumns.forEach((_, column) => {
+        result.current.registerCell(row, column, document.createElement("div"));
+        result.current.registerCell(row, column, null);
+      });
+    });
+  });
+
+  expect(resolvePosition).not.toHaveBeenCalled();
+});
+
 test("does not focus when the grid has no columns", () => {
   const { result } = setup(2, []);
   act(() => result.current.focusCell({ row: 0, column: 0 }));

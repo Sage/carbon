@@ -119,8 +119,24 @@ export interface DataGridCellError {
   code?: string;
 }
 
+export interface DataGridBeforeRowChangeParams<T extends object> {
+  /** Latest rows, including earlier changes waiting for controlled rows to update. Treat as immutable. */
+  previousRows: T[];
+  /** Proposed rows. Treat these rows and their objects as immutable. */
+  proposedRows: T[];
+  /** Original requested operation, before any consumer transformation. */
+  change: DataGridRowChange<T>;
+}
+
+export type DataGridBeforeRowChangeResult<T extends object> =
+  | void
+  | false
+  | T[];
+
 export interface DataGridProps<T extends object> {
+  /** Rows to display. Data Grid does not change this array; pass a new array when updating rows. */
   rows: T[];
+  /** Column definitions controlling display order, headers, cell types, and editing behaviour. */
   columns: DataGridColumn<T>[];
   /** Consumer-owned cell errors. These do not prevent editing or navigation. */
   errors?: readonly DataGridCellError[];
@@ -132,7 +148,11 @@ export interface DataGridProps<T extends object> {
   "aria-describedby"?: string;
   /** Reads a stable row id. Defaults to the row's `id` property. */
   getRowId?: (row: T) => DataGridRowId;
-  /** Called with a new immutable row collection and the change that produced it. */
+  /** Synchronously approve with no return, discard with false, or return transformed rows preserving the proposed row IDs and order. */
+  onBeforeRowChange?: (
+    params: DataGridBeforeRowChangeParams<T>,
+  ) => DataGridBeforeRowChangeResult<T>;
+  /** Called with updated rows and change details. Pass these rows back through `rows` to keep the changes. */
   onRowsChange?: (rows: T[], change: DataGridRowChange<T>) => void;
   /** Enables Tab and Shift+Tab cell navigation. */
   enableTabNavigation?: boolean;

@@ -15,6 +15,7 @@ for the Playground, examples, keyboard behaviour, accessibility, and props.
 - [Define rows](#define-rows)
 - [Define columns](#define-columns)
 - [Receive updated rows](#receive-updated-rows)
+- [Intercept changes](#intercept-changes)
 - [Row operations](#row-operations)
 - [Validation](#validation)
 
@@ -157,6 +158,14 @@ A committed text edit, dropdown selection, or checkbox toggle creates a new row
 array and passes it to `onRowsChange`. Store the new array and pass it back to
 Data Grid.
 
+Data Grid keeps changes together while it waits for updated `rows`, even across
+`await` calls. Pass the array from `onRowsChange` back as `rows` to keep those
+changes. A new array you create yourself replaces any waiting changes.
+
+To discard changes, pass a new copy of the rows you want to keep. Ignoring the
+callback or keeping the same array does not discard changes. Data Grid does not
+wait for an async `onRowsChange` callback to finish.
+
 ```tsx
 const [rows, setRows] = React.useState(initialRows);
 
@@ -192,14 +201,57 @@ Cell changes include the previous and next value and row. Structural changes
 include the affected row and indexes where relevant. Data Grid does not call
 `onRowsChange` when a committed value has not changed.
 
-`onRowsChange` is also the appropriate place to apply application rules such
-as calculated totals. Update the affected read-only fields in `nextRows`, then
-store and pass the resulting array back to Data Grid.
+Use `onBeforeRowChange` to apply application rules, such as calculated totals,
+before the grid notifies `onRowsChange`.
 
 Edit a cell, add a row, or use a row action in this example to inspect the
 current rows and most recent change:
 
 <Canvas of={DataGridStories.ControlledRows} />
+
+## Intercept changes
+
+The optional `onBeforeRowChange` callback runs before each cell edit or row
+operation, including operations called through the ref. It receives
+`previousRows`, `proposedRows`, and the original `change` details. `previousRows`
+includes earlier approved changes waiting for the parent to update `rows`, so
+you can compare the latest values with the proposal.
+
+- Return nothing to approve the proposal unchanged.
+- Return `false` to discard this operation without calling `onRowsChange`.
+- Return a new row array to approve transformed values, such as normalised text
+  or calculated totals.
+
+Treat the supplied arrays and row objects as immutable. Transformed rows must
+keep the proposed row IDs, membership, and order. To prevent a structural
+operation, return `false` rather than returning an earlier row array.
+
+```tsx
+<DataGrid
+  aria-label="Invoice lines"
+  rows={rows}
+  columns={columns}
+  onBeforeRowChange={({ previousRows, proposedRows, change }) => {
+    if (change.type === "row-delete" && previousRows.length === 1) {
+      return false;
+    }
+    return proposedRows.map((row) => ({
+      ...row,
+      description: row.description.trim(),
+    }));
+  }}
+  onRowsChange={(nextRows) => setRows(nextRows)}
+/>
+```
+
+The controlled example above trims descriptions and prevents deleting the last
+row. `onRowsChange` receives the approved rows, but its `change` argument still
+describes the original request, before any transformation.
+
+Interception is synchronous; promises are not supported. Discarding an edit
+does not keep its editor open or change normal keyboard navigation. Incoming
+`rows` updates and operations that make no change do not trigger interception.
+Omitting the callback keeps the default behaviour.
 
 ## Row operations
 

@@ -2,6 +2,8 @@ export { default as DataGrid } from "./data-grid.component";
 export type {
   DataGridActionColumn,
   DataGridApi,
+  DataGridBeforeRowChangeParams,
+  DataGridBeforeRowChangeResult,
   DataGridCellError,
   DataGridCellParams,
   DataGridCellType,

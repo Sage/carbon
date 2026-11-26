@@ -79,18 +79,16 @@ const useDataGridNavigation = <T extends object>({
           removedFocusedCell.current = true;
         } else if (
           focusedAction.current &&
-          positionForIdentity(focusedAction.current)?.row === rowIndex &&
-          focusedAction.current.field === columns[columnIndex]?.field
+          focusedAction.current.field === columns[columnIndex]?.field &&
+          focusedAction.current.rowId ===
+            identityFor({ row: rowIndex, column: columnIndex }).rowId
         ) {
-          suspendedActionFocus.current = identityFor({
-            row: rowIndex,
-            column: columnIndex,
-          });
+          suspendedActionFocus.current = focusedAction.current;
         }
         cellRefs.current.delete(key);
       }
     },
-    [columns, identityFor, keyFor, positionForIdentity],
+    [columns, identityFor, keyFor],
   );
 
   useEffect(() => {

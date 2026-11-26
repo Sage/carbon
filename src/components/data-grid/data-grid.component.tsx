@@ -38,6 +38,8 @@ import {
 export type {
   DataGridActionColumn,
   DataGridApi,
+  DataGridBeforeRowChangeParams,
+  DataGridBeforeRowChangeResult,
   DataGridCellError,
   DataGridCellParams,
   DataGridCellType,
@@ -87,6 +89,7 @@ const DataGridInner = <T extends object>(
     errors,
     "aria-label": ariaLabel,
     getRowId,
+    onBeforeRowChange,
     onRowsChange,
     enableTabNavigation = false,
     stickyHeader = false,
@@ -173,6 +176,7 @@ const DataGridInner = <T extends object>(
   const { api, commitCellChange } = useDataGridRows({
     rows,
     getRowId: rowId,
+    onBeforeRowChange,
     onRowsChange,
     onRowsChangeResult: handleRowsChangeResult,
   });

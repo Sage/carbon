@@ -480,7 +480,10 @@ export const Playground: StoryObj<PlaygroundArgs> = {
         rows={rows}
         errors={getPlaygroundErrors(rows)}
         columns={storyColumns}
-        onRowsChange={(nextRows) => setRows(calculatePlaygroundRows(nextRows))}
+        onBeforeRowChange={({ proposedRows }) =>
+          calculatePlaygroundRows(proposedRows)
+        }
+        onRowsChange={(nextRows) => setRows(nextRows)}
       />
     );
   },
@@ -547,6 +550,15 @@ export const ControlledRows: Story = {
           columns={storyColumns}
           maxWidth="100%"
           enableTabNavigation
+          onBeforeRowChange={({ previousRows, proposedRows, change }) => {
+            if (change.type === "row-delete" && previousRows.length === 1) {
+              return false;
+            }
+            return proposedRows.map((row) => ({
+              ...row,
+              description: row.description.trim(),
+            }));
+          }}
           onRowsChange={(nextRows, change) => {
             setRows(nextRows);
             setLastChange(change);

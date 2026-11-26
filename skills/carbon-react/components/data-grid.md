@@ -41,15 +41,16 @@ An accessible, editable grid for navigating and updating structured tabular data
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| columns | DataGridColumn<T>[] | Yes |  |  |  |
-| rows | T[] | Yes |  |  |  |
+| columns | DataGridColumn<T>[] | Yes |  | Column definitions controlling display order, headers, cell types, and editing behaviour. |  |
+| rows | T[] | Yes |  | Rows to display. Data Grid does not change this array; pass a new array when updating rows. |  |
 | disableVirtualization | boolean \| undefined | No |  | Disables automatic row virtualisation in a height-constrained grid. |  |
 | enableTabNavigation | boolean \| undefined | No |  | Enables Tab and Shift+Tab cell navigation. |  |
 | errors | readonly DataGridCellError[] \| undefined | No |  | Consumer-owned cell errors. These do not prevent editing or navigation. |  |
 | getRowId | ((row: T) => DataGridRowId) \| undefined | No |  | Reads a stable row id. Defaults to the row's `id` property. |  |
 | maxHeight | string \| number \| undefined | No |  | Maximum viewport height. Enables row virtualisation when constrained. |  |
 | maxWidth | string \| number \| undefined | No |  | Maximum viewport width. Enables horizontal scrolling when constrained. |  |
-| onRowsChange | ((rows: T[], change: DataGridRowChange<T>) => void) \| undefined | No |  | Called with a new immutable row collection and the change that produced it. |  |
+| onBeforeRowChange | ((params: DataGridBeforeRowChangeParams<T>) => DataGridBeforeRowChangeResult<T>) \| undefined | No |  | Synchronously approve with no return, discard with false, or return transformed rows preserving the proposed row IDs and order. |  |
+| onRowsChange | ((rows: T[], change: DataGridRowChange<T>) => void) \| undefined | No |  | Called with updated rows and change details. Pass these rows back through `rows` to keep the changes. |  |
 | rowOverscan | number \| undefined | No |  | Number of additional rows mounted above and below the viewport. |  |
 | stickyHeader | boolean \| undefined | No |  | Keeps the header visible while the grid scrolls vertically. |  |
 | aria-describedby | string \| undefined | No |  | ID of an element that provides additional grid guidance. |  |

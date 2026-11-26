@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 import {
   DataGridApi,
@@ -21,6 +21,8 @@ interface UseDataGridRowsOptions<T extends object> {
   rows: T[];
   /** Resolves the stable identity used to locate rows during updates. */
   getRowId: (row: T) => DataGridRowId;
+  /** Synchronously approves, transforms, or discards a proposal before it is queued or emitted. */
+  onBeforeRowChange?: DataGridProps<T>["onBeforeRowChange"];
   /** Receives proposed rows and change metadata for the consumer to accept or reject. */
   onRowsChange?: DataGridProps<T>["onRowsChange"];
   /** Notifies grid internals of an emitted result so navigation can follow row operations. */
@@ -30,31 +32,79 @@ interface UseDataGridRowsOptions<T extends object> {
 const useDataGridRows = <T extends object>({
   rows,
   getRowId,
+  onBeforeRowChange,
   onRowsChange,
   onRowsChangeResult,
 }: UseDataGridRowsOptions<T>) => {
-  const pending = useRef({ source: rows, rows });
+  const pending = useRef({
+    source: rows,
+    latest: rows,
+    proposals: new WeakMap<T[], number>(),
+    version: 0,
+    acknowledgedVersion: 0,
+  });
   const getRows = useCallback(() => {
     if (pending.current.source !== rows) {
-      pending.current = { source: rows, rows };
+      const version = pending.current.proposals.get(rows);
+      if (
+        version === undefined ||
+        version <= pending.current.acknowledgedVersion
+      ) {
+        pending.current.latest = rows;
+        pending.current.proposals = new WeakMap();
+        pending.current.version = 0;
+        pending.current.acknowledgedVersion = 0;
+      } else {
+        pending.current.acknowledgedVersion = version;
+      }
+      pending.current.source = rows;
     }
-    return pending.current.rows;
+    return pending.current.latest;
   }, [rows]);
+
+  useEffect(() => {
+    getRows();
+  }, [getRows]);
 
   const emit = useCallback(
     (result: DataGridRowsChangeResult<T> | null) => {
       if (!result) return;
-      const proposal = { source: rows, rows: result.rows };
-      pending.current = proposal;
-      void Promise.resolve().then(() => {
-        if (pending.current === proposal) {
-          pending.current = { source: rows, rows };
-        }
+      const decision = onBeforeRowChange?.({
+        previousRows: getRows(),
+        proposedRows: result.rows,
+        change: result.change,
       });
-      onRowsChange?.(result.rows, result.change);
-      onRowsChangeResult?.(result);
+      if (decision === false) return;
+      if (decision !== undefined) {
+        if (!Array.isArray(decision)) {
+          throw new Error(
+            "DataGrid onBeforeRowChange must synchronously return undefined, false, or a row array.",
+          );
+        }
+        if (
+          decision.length !== result.rows.length ||
+          decision.some(
+            (row, index) => getRowId(row) !== getRowId(result.rows[index]),
+          )
+        ) {
+          throw new Error(
+            "DataGrid onBeforeRowChange must preserve the proposed row IDs and order. Return false to discard the operation.",
+          );
+        }
+      }
+      const approvedResult = { ...result, rows: decision ?? result.rows };
+      if (onRowsChange) {
+        pending.current.latest = approvedResult.rows;
+        pending.current.version += 1;
+        pending.current.proposals.set(
+          approvedResult.rows,
+          pending.current.version,
+        );
+      }
+      onRowsChange?.(approvedResult.rows, approvedResult.change);
+      onRowsChangeResult?.(approvedResult);
     },
-    [rows, onRowsChange, onRowsChangeResult],
+    [getRowId, getRows, onBeforeRowChange, onRowsChange, onRowsChangeResult],
   );
 
   const commitCellChange = useCallback(

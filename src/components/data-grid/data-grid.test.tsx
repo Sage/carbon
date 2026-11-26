@@ -90,6 +90,185 @@ const columns: DataGridColumn<Row>[] = [
   },
 ];
 
+test("renders transformed ref operations only after parent acceptance and preserves original metadata", () => {
+  const ref = createRef<DataGridHandle<Row>>();
+  const onRowsChange = jest.fn();
+  const Parent = () => {
+    const [controlledRows, setControlledRows] = React.useState(rows);
+    const [acceptedRows, setAcceptedRows] = React.useState(rows);
+    return (
+      <>
+        <DataGrid
+          ref={ref}
+          rows={controlledRows}
+          columns={columns}
+          onBeforeRowChange={({ proposedRows, change }) =>
+            change.type === "row-delete"
+              ? false
+              : proposedRows.map((row) => ({
+                  ...row,
+                  name: row.name.toUpperCase(),
+                }))
+          }
+          onRowsChange={(nextRows, change) => {
+            setAcceptedRows(nextRows);
+            onRowsChange(nextRows, change);
+          }}
+        />
+        <button type="button" onClick={() => setControlledRows(acceptedRows)}>
+          Render accepted rows
+        </button>
+      </>
+    );
+  };
+  render(<Parent />);
+  act(() => {
+    ref.current?.addRow({ ...rows[0], id: 3, name: "Three" });
+    ref.current?.deleteRow(1);
+  });
+  expect(onRowsChange).toHaveBeenCalledTimes(1);
+  expect(onRowsChange.mock.calls[0][1].row.name).toBe("Three");
+  expect(
+    screen.queryByRole("gridcell", { name: "THREE" }),
+  ).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: "Render accepted rows" }));
+  expect(screen.getByRole("gridcell", { name: "THREE" })).toHaveFocus();
+  expect(screen.getByRole("gridcell", { name: "ONE" })).toBeVisible();
+});
+
+test("renders transformed cell values through the public interception hook", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  const Parent = () => {
+    const [controlledRows, setRows] = React.useState(rows);
+    return (
+      <DataGrid
+        rows={controlledRows}
+        columns={columns}
+        onBeforeRowChange={({ previousRows, proposedRows }) => {
+          expect(previousRows[0].name).toBe("One");
+          return proposedRows.map((row) => ({
+            ...row,
+            name: row.name.trim().toUpperCase(),
+          }));
+        }}
+        onRowsChange={(nextRows, change) => {
+          setRows(nextRows);
+          onRowsChange(nextRows, change);
+        }}
+      />
+    );
+  };
+  render(<Parent />);
+  await user.click(screen.getByRole("gridcell", { name: "One" }));
+  await user.clear(screen.getByRole("textbox"));
+  await user.type(screen.getByRole("textbox"), " updated {Enter}");
+  expect(screen.getByRole("gridcell", { name: "UPDATED" })).toHaveFocus();
+  expect(onRowsChange.mock.calls[0][1]).toEqual(
+    expect.objectContaining({ previousValue: "One", value: " updated " }),
+  );
+});
+
+test.each(["Enter", "Tab", "blur"] as const)(
+  "discards a text edit without changing %s completion behaviour",
+  async (completion) => {
+    const user = userEvent.setup();
+    const onRowsChange = jest.fn();
+    const onBeforeRowChange = jest.fn(() => false as const);
+    render(
+      <>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          enableTabNavigation
+          onBeforeRowChange={onBeforeRowChange}
+          onRowsChange={onRowsChange}
+        />
+        <button type="button">Outside</button>
+      </>,
+    );
+    const firstCell = screen.getByRole("gridcell", { name: "One" });
+    await user.click(firstCell);
+    await user.clear(screen.getByRole("textbox"));
+    await user.type(screen.getByRole("textbox"), "Discarded");
+    if (completion === "blur")
+      await user.click(screen.getByRole("button", { name: "Outside" }));
+    else await user.keyboard(`{${completion}}`);
+    expect(onBeforeRowChange).toHaveBeenCalledTimes(1);
+    expect(onRowsChange).not.toHaveBeenCalled();
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+    expect(firstCell).toHaveTextContent("One");
+    const focusTargets = {
+      Enter: firstCell,
+      Tab: screen.getAllByRole("gridcell")[1],
+      blur: screen.getByRole("button", { name: "Outside" }),
+    };
+    expect(focusTargets[completion]).toHaveFocus();
+  },
+);
+
+test("discards dropdown and checkbox changes without updating their values", async () => {
+  const user = userEvent.setup();
+  const onRowsChange = jest.fn();
+  const onBeforeRowChange = jest.fn(() => false as const);
+  render(
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      onBeforeRowChange={onBeforeRowChange}
+      onRowsChange={onRowsChange}
+    />,
+  );
+  const dropdownCell = screen.getAllByRole("gridcell")[1];
+  await user.click(dropdownCell);
+  await screen.findByRole("option", { name: "B" });
+  await user.keyboard("{ArrowDown}{Enter}");
+  expect(dropdownCell).toHaveTextContent("A");
+  expect(dropdownCell).toHaveFocus();
+  await user.click(screen.getAllByRole("checkbox")[0]);
+  expect(screen.getAllByRole("checkbox")[0]).not.toBeChecked();
+  expect(onBeforeRowChange.mock.calls).toHaveLength(2);
+  expect(onRowsChange).not.toHaveBeenCalled();
+});
+
+test("renders all asynchronously accepted additions when a stateful parent delays supplying rows", async () => {
+  const ref = createRef<DataGridHandle<Row>>();
+  const Parent = () => {
+    const [controlledRows, setControlledRows] = React.useState(rows);
+    const [acceptedRows, setAcceptedRows] = React.useState(rows);
+    return (
+      <>
+        <DataGrid
+          ref={ref}
+          rows={controlledRows}
+          columns={columns}
+          onRowsChange={async (nextRows) => {
+            await Promise.resolve();
+            setAcceptedRows(nextRows);
+          }}
+        />
+        <button type="button" onClick={() => setControlledRows(acceptedRows)}>
+          Render accepted rows
+        </button>
+      </>
+    );
+  };
+  render(<Parent />);
+
+  await act(async () => {
+    ref.current?.addRow({ ...rows[0], id: 3, name: "Three" });
+    await Promise.resolve();
+    ref.current?.addRow({ ...rows[0], id: 4, name: "Four" });
+  });
+  expect(
+    screen.queryByRole("gridcell", { name: "Three" }),
+  ).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: "Render accepted rows" }));
+
+  expect(screen.getByRole("gridcell", { name: "Three" })).toBeVisible();
+  expect(screen.getByRole("gridcell", { name: "Four" })).toHaveFocus();
+});
+
 test("updates consumer-owned cell errors without changing column definitions", () => {
   const { rerender } = render(
     <DataGrid

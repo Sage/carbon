@@ -1,11 +1,15 @@
 import React, { useMemo, useRef, useState } from "react";
+import { composeStories } from "@storybook/react-vite";
 
+import * as stories from "./data-grid.stories";
 import { ActionPopover, ActionPopoverProps } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import Button from "../button/__next__";
 import Icon from "../icon";
 import Dialog from "../dialog";
 import { DataGrid, DataGridColumn, DataGridHandle, DataGridProps } from ".";
+
+export const { Playground: PlaygroundExample } = composeStories(stories);
 
 const renderSmallActionPopoverButton: NonNullable<
   ActionPopoverProps["renderButton"]
@@ -71,6 +75,7 @@ interface DataGridComponentProps
     | "stickyHeader"
   > {
   filterableDropdown?: boolean;
+  interception?: "transform" | "discard";
   rowCount?: number;
 }
 
@@ -78,6 +83,7 @@ const DataGridComponent = ({
   disableVirtualization,
   enableTabNavigation = true,
   filterableDropdown = false,
+  interception,
   maxHeight = "240px",
   maxWidth = "420px",
   rowCount = 6,
@@ -189,6 +195,17 @@ const DataGridComponent = ({
         maxWidth={maxWidth}
         rowOverscan={rowOverscan}
         stickyHeader={stickyHeader}
+        onBeforeRowChange={
+          interception
+            ? ({ proposedRows }) =>
+                interception === "discard"
+                  ? false
+                  : proposedRows.map((row) => ({
+                      ...row,
+                      name: row.name.trim().toUpperCase(),
+                    }))
+            : undefined
+        }
         onRowsChange={(nextRows) => setRows(nextRows)}
       />
     </div>
