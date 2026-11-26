@@ -7,6 +7,7 @@ import Image from "../image";
 import collaborateSvg from "../../../.assets/collaborate.svg";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Button from "../button/__next__";
 
 const styledSystemProps = generateStyledSystemProps({
   spacing: true,
@@ -81,6 +82,26 @@ WithCustomTitle.storyName = "Custom Title";
 export const SimpleVariant: Story = {
   render: (args) => (
     <Accordion {...args}>
+      <Box>Content</Box>
+      <Box>Content</Box>
+      <Box mb={1}>Content</Box>
+    </Accordion>
+  ),
+  args: {
+    ...Default.args,
+    title: "Accordion label",
+    variant: "simple",
+  },
+};
+
+export const SimpleVariantWithSubtleButton: Story = {
+  render: (args) => (
+    <Accordion
+      {...args}
+      renderButton={(buttonProps) => (
+        <Button variantType="subtle" {...buttonProps} />
+      )}
+    >
       <Box>Content</Box>
       <Box>Content</Box>
       <Box mb={1}>Content</Box>

@@ -19,7 +19,20 @@ import {
 
 import Button from "../button/__next__";
 import useMediaQuery from "../../hooks/useMediaQuery";
-
+export interface RenderButtonProps {
+  id: string;
+  "aria-expanded": boolean;
+  "aria-controls": string;
+  onClick: (
+    ev:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLButtonElement>,
+  ) => void;
+  type: "button";
+  size: "small" | "medium" | "large";
+  className: string;
+  children: React.ReactNode;
+}
 export interface AccordionProps extends SpaceProps, TagProps {
   /* Unique identifier for the Accordion */
   id?: string;
@@ -63,6 +76,8 @@ export interface AccordionProps extends SpaceProps, TagProps {
    * **Deprecation Warning:** The "subtle" variant is deprecated, please use "simple" instead.
    */
   variant?: "standard" | "simple" | "subtle";
+  /** Render a custom button for the simple Accordion variant. */
+  renderButton?: (buttonProps: RenderButtonProps) => React.ReactNode;
   /**
    * Sets icon type
    * @deprecated Custom icon types on accordions are deprecated and will be removed in a future release.
@@ -129,6 +144,7 @@ export const Accordion = React.forwardRef<
       info,
       openTitle,
       variant = "standard",
+      renderButton,
       ...rest
     }: AccordionProps & AccordionInternalProps,
     ref,
@@ -278,19 +294,37 @@ export const Accordion = React.forwardRef<
         {...tagComponent("accordion", rest)}
       >
         {actualVariant === "simple" ? (
-          <Button
-            data-role="accordion-simple-button"
-            id={headerId}
-            aria-expanded={isExpanded}
-            aria-controls={contentId}
-            onClick={toggleAccordion}
-            variantType="tertiary"
-            size={size}
-            className={isExpanded ? "active" : ""}
-          >
-            {renderIcon()}
-            {getTitle()}
-          </Button>
+          renderButton ? (
+            renderButton({
+              id: headerId,
+              "aria-expanded": isExpanded,
+              "aria-controls": contentId,
+              onClick: toggleAccordion,
+              type: "button",
+              size,
+              className: isExpanded ? "active" : "",
+              children: (
+                <>
+                  {renderIcon()}
+                  {getTitle()}
+                </>
+              ),
+            })
+          ) : (
+            <Button
+              data-role="accordion-simple-button"
+              id={headerId}
+              aria-expanded={isExpanded}
+              aria-controls={contentId}
+              onClick={toggleAccordion}
+              variantType="tertiary"
+              size={size}
+              className={isExpanded ? "active" : ""}
+            >
+              {renderIcon()}
+              {getTitle()}
+            </Button>
+          )
         ) : (
           <StyledAccordionTitleContainer
             data-element="accordion-title-container"

@@ -52,6 +52,7 @@ description: Carbon Accordion component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
+| renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  |  |  | Render a custom button for the simple Accordion variant. |  |
 | size | "small" \| "medium" \| "large" \| undefined | No | small \| medium \| large |  |  | Sets Accordion size | "medium" |
 | subTitle | string \| undefined | No |  |  |  | Sets accordion sub title |  |
 | variant | "subtle" \| "standard" \| "simple" \| undefined | No | subtle \| standard \| simple |  |  | Sets Accordion variant. **Deprecation Warning:** The "subtle" variant is deprecated, please use "simple" instead. | "standard" |
@@ -155,6 +156,36 @@ description: Carbon Accordion component props and usage examples.
 ```tsx
 (args) => (
     <Accordion {...args}>
+      <Box>Content</Box>
+      <Box>Content</Box>
+      <Box mb={1}>Content</Box>
+    </Accordion>
+  )
+```
+
+
+### SimpleVariantWithSubtleButton
+
+**Args**
+
+```tsx
+{
+    ...Default.args,
+    title: "Accordion label",
+    variant: "simple",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <Accordion
+      {...args}
+      renderButton={(buttonProps) => (
+        <Button variantType="subtle" {...buttonProps} />
+      )}
+    >
       <Box>Content</Box>
       <Box>Content</Box>
       <Box mb={1}>Content</Box>
