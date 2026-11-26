@@ -196,14 +196,17 @@ const useSelectListVirtualization = ({
       setActiveItemKey(null);
       return;
     }
-    if (previous === filterText || (previous === null && filterText === "")) {
+    const filterChanged =
+      previous !== filterText && !(previous === null && filterText === "");
+    // Results can arrive without another filter change. Preserve a valid active
+    // option, but initialize focus when the previous result has disappeared.
+    if (!filterChanged && (!filterText || resolvedActiveIndex !== undefined))
       return;
-    }
     const firstEnabledIndex = enabledIndexes[0];
     setActiveItemKey(
       firstEnabledIndex === undefined ? null : rows[firstEnabledIndex].key,
     );
-  }, [open, enabled, filterText, enabledIndexes, rows]);
+  }, [open, enabled, filterText, enabledIndexes, rows, resolvedActiveIndex]);
 
   useIsomorphicLayoutEffect(() => {
     if (open && enabled && resolvedActiveIndex !== undefined) {

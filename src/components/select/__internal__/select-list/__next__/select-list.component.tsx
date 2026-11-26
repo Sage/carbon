@@ -31,7 +31,8 @@ import useLocale from "../../../../../hooks/__internal__/useLocale";
 import useModalManager from "../../../../../hooks/__internal__/useModalManager";
 import isExpectedOption from "../../utils/is-expected-option";
 import guid from "../../../../../__internal__/utils/helpers/guid";
-import isExpectedValue from "../../utils/is-expected-value";
+import createSelectedValueMatcher from "../../utils/create-selected-value-matcher";
+import useSelectListFilterNavigation from "./use-select-list-filter-navigation";
 import highlightMatchingText from "../../../../../__internal__/highlight-matching-text/highlight-matching-text.component";
 import useSelectListVirtualization, {
   type SelectVirtualRow,
@@ -335,6 +336,11 @@ const SelectList = ({
   }, [open, onListScrollBottom]);
 
   const listId = useRef(id ?? `select-list-${guid()}`).current;
+  const matchesSelectedValue = useMemo(
+    () =>
+      selectedValues ? createSelectedValueMatcher(selectedValues) : undefined,
+    [selectedValues],
+  );
   const groups = useMemo(() => {
     const result = buildOptionGroups(children, selectedValue);
     for (const group of result) {
@@ -349,17 +355,14 @@ const SelectList = ({
         .map((row, groupIndex) => ({
           ...row,
           groupIndex,
-          selected: selectedValues
-            ? selectedValues.some(
-                (value) =>
-                  row.option?.props.value !== undefined &&
-                  isExpectedValue(row.option.props.value, value),
-              )
+          selected: matchesSelectedValue
+            ? row.option?.props.value !== undefined &&
+              matchesSelectedValue(row.option.props.value)
             : row.selected,
         }));
     }
     return result;
-  }, [children, selectedValue, selectedValues, filterText, isLoading]);
+  }, [children, selectedValue, matchesSelectedValue, filterText, isLoading]);
   const optionCount = groups.reduce(
     (count, group) => count + group.rows.length,
     0,
@@ -452,6 +455,20 @@ const SelectList = ({
     selectOnSpaceAndTab,
     onClose,
     multiselect: !!selectedValues,
+  });
+
+  const filterNavigationEnabled =
+    !virtualizationEnabled &&
+    (filterText !== undefined || selectedValues !== undefined);
+  const filterNavigation = useSelectListFilterNavigation({
+    enabled: filterNavigationEnabled,
+    open,
+    filterText,
+    rows,
+    listRef,
+    multiselect: !!selectedValues,
+    selectOnSpaceAndTab,
+    onClose: handlePopoverClose,
   });
 
   const renderOption = (
@@ -695,10 +712,18 @@ const SelectList = ({
       )}
       wrapItems={false}
       onListKeyDown={
-        virtualizationEnabled ? virtualization.handleVirtualKeyDown : undefined
+        virtualizationEnabled
+          ? virtualization.handleVirtualKeyDown
+          : filterNavigationEnabled
+            ? filterNavigation.handleKeyDown
+            : undefined
       }
       activeDescendant={
-        virtualizationEnabled ? virtualization.activeDescendant : undefined
+        virtualizationEnabled
+          ? virtualization.activeDescendant
+          : filterNavigationEnabled
+            ? filterNavigation.activeDescendant
+            : undefined
       }
       listStyle={
         virtualizationEnabled
@@ -715,7 +740,6 @@ const SelectList = ({
       enablePageNavigation
       focusSelectedOnOpen
       highlightSelectedOption
-      activeOptionFilterText={virtualizationEnabled ? undefined : filterText}
       // The legacy SelectList was positioned beneath a fixed backdrop, so its
       // flip boundary was the viewport rather than an overflowing parent such
       // as FlatTable. Preserve that behaviour for SimpleSelect.

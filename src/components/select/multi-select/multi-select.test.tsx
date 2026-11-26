@@ -2008,3 +2008,97 @@ testStyledSystemMargin(
   ),
   () => screen.getByTestId("my-select"),
 );
+
+describe.each([false, true])(
+  "async filtering with virtual scrolling %s",
+  (enableVirtualScroll) => {
+    const view = (
+      children: React.ReactNode,
+      onChange: jest.Mock,
+      isLoading = false,
+    ) => (
+      <MultiSelect
+        label="Colour"
+        value={[]}
+        onChange={onChange}
+        isLoading={isLoading}
+        enableVirtualScroll={enableVirtualScroll}
+      >
+        {children}
+      </MultiSelect>
+    );
+
+    test("Enter selects the first enabled arriving result after loading", async () => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      const { rerender } = render(
+        view(<Option key="amber" text="amber" value="amber" />, onChange, true),
+      );
+      await user.type(screen.getByRole("combobox"), "bl");
+      rerender(
+        view(
+          [
+            <Option key="blue" text="blue" value="blue" disabled />,
+            <Option key="black" text="black" value="black" />,
+          ],
+          onChange,
+        ),
+      );
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["black"] }),
+        }),
+      );
+    });
+
+    test("Enter selects results arriving after no matches", async () => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      const { rerender } = render(
+        view(<Option key="amber" text="amber" value="amber" />, onChange),
+      );
+      await user.type(screen.getByRole("combobox"), "bl");
+      await user.keyboard("{Enter}");
+
+      expect(onChange).not.toHaveBeenCalled();
+
+      rerender(
+        view(<Option key="black" text="black" value="black" />, onChange),
+      );
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["black"] }),
+        }),
+      );
+    });
+
+    test("appending results preserves the option reached with the keyboard", async () => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      const options = [
+        <Option key="black" text="black" value="black" />,
+        <Option key="blue" text="blue" value="blue" />,
+      ];
+      const { rerender } = render(view(options, onChange));
+      await user.type(screen.getByRole("combobox"), "bl");
+      await user.keyboard("{ArrowDown}");
+      rerender(
+        view(
+          [...options, <Option key="blush" text="blush" value="blush" />],
+          onChange,
+        ),
+      );
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["blue"] }),
+        }),
+      );
+    });
+  },
+);
