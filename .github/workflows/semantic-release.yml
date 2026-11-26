@@ -19,7 +19,7 @@ jobs:
     outputs:
       version: ${{ steps.versionNumber.outputs.version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -53,7 +53,7 @@ jobs:
     needs: release
     if: ${{ needs.release.outputs.version != null }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           persist-credentials: false
