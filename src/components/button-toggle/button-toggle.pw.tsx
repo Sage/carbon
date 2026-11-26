@@ -95,5 +95,11 @@ test.describe("mouse focus", () => {
       .dispatchEvent("transitionend");
 
     await expect(destination).not.toHaveCSS("box-shadow", "none");
+
+    await page
+      .getByTestId("button-toggle-active-indicator")
+      .dispatchEvent("transitionend");
+
+    await expect(destination).not.toHaveCSS("box-shadow", "none");
   });
 });

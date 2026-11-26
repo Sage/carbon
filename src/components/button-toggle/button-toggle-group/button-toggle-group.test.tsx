@@ -392,6 +392,28 @@ describe("active indicator", () => {
       </ButtonToggleGroup>,
     );
 
+  const ControlledGroup = ({
+    initialValue = "foo",
+    allowDeselect = false,
+  }: {
+    initialValue?: string;
+    allowDeselect?: boolean;
+  }) => {
+    const [value, setValue] = React.useState(initialValue);
+
+    return (
+      <ButtonToggleGroup
+        allowDeselect={allowDeselect}
+        id="button-toggle-group-id"
+        onChange={(_, nextValue) => setValue(nextValue || "")}
+        value={value}
+      >
+        <ButtonToggle value="foo">Foo</ButtonToggle>
+        <ButtonToggle value="bar">Bar</ButtonToggle>
+      </ButtonToggleGroup>
+    );
+  };
+
   test("renders an animated indicator behind the pressed button", () => {
     renderGroup({ value: "foo" });
 
@@ -491,21 +513,6 @@ describe("active indicator", () => {
   });
 
   test("shows mouse focus styling after the indicator finishes sliding", () => {
-    const ControlledGroup = () => {
-      const [value, setValue] = React.useState("foo");
-
-      return (
-        <ButtonToggleGroup
-          id="button-toggle-group-id"
-          onChange={(_, nextValue) => setValue(nextValue || "")}
-          value={value}
-        >
-          <ButtonToggle value="foo">Foo</ButtonToggle>
-          <ButtonToggle value="bar">Bar</ButtonToggle>
-        </ButtonToggleGroup>
-      );
-    };
-
     render(<ControlledGroup />);
 
     const bar = screen.getByRole("button", { name: "Bar" });
@@ -525,6 +532,91 @@ describe("active indicator", () => {
     expect(bar).toHaveStyleRule("box-shadow", "var(--focus-shadow-default)", {
       modifier: ":focus",
     });
+
+    fireEvent.transitionEnd(
+      screen.getByTestId("button-toggle-active-indicator"),
+    );
+
+    expect(bar).toHaveStyleRule("box-shadow", "var(--focus-shadow-default)", {
+      modifier: ":focus",
+    });
+  });
+
+  test("shows mouse focus immediately when reduced motion prevents sliding", () => {
+    mockUseMediaQuery.mockReturnValue(true);
+    render(<ControlledGroup />);
+
+    const bar = screen.getByRole("button", { name: "Bar" });
+    bar.focus();
+    fireEvent.click(bar, { detail: 1 });
+
+    expect(bar).toHaveStyleRule("box-shadow", "var(--focus-shadow-default)", {
+      modifier: ":focus",
+    });
+  });
+
+  test("shows mouse focus immediately for an initial selection and a repeated selection", () => {
+    const { rerender } = render(<ControlledGroup initialValue="" />);
+
+    const foo = screen.getByRole("button", { name: "Foo" });
+    foo.focus();
+    fireEvent.click(foo, { detail: 1 });
+
+    expect(foo).toHaveStyleRule("box-shadow", "var(--focus-shadow-default)", {
+      modifier: ":focus",
+    });
+
+    rerender(<ControlledGroup />);
+
+    const selectedFoo = screen.getByRole("button", { name: "Foo" });
+    selectedFoo.focus();
+    fireEvent.click(selectedFoo, { detail: 1 });
+
+    expect(selectedFoo).toHaveStyleRule(
+      "box-shadow",
+      "var(--focus-shadow-default)",
+      { modifier: ":focus" },
+    );
+  });
+
+  test("settles pending mouse focus when reduced motion cancels a slide", () => {
+    const { rerender } = render(<ControlledGroup />);
+    const bar = screen.getByRole("button", { name: "Bar" });
+    bar.focus();
+    fireEvent.click(bar, { detail: 1 });
+
+    mockUseMediaQuery.mockReturnValue(true);
+    rerender(<ControlledGroup />);
+
+    expect(
+      screen.getByTestId("button-toggle-active-indicator"),
+    ).toHaveStyleRule("opacity", "0");
+    expect(bar).toHaveStyleRule("box-shadow", "var(--focus-shadow-default)", {
+      modifier: ":focus",
+    });
+  });
+
+  test("resets sliding state when a selection is cleared mid-slide", () => {
+    render(<ControlledGroup allowDeselect />);
+
+    const bar = screen.getByRole("button", { name: "Bar" });
+    fireEvent.click(bar, { detail: 1 });
+    fireEvent.click(bar, { detail: 1 });
+
+    expect(
+      screen.queryByTestId("button-toggle-active-indicator"),
+    ).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Foo" }), {
+      detail: 1,
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Bar" }), {
+      detail: 1,
+    });
+
+    expect(
+      screen.getByTestId("button-toggle-active-indicator"),
+    ).toHaveStyleRule("opacity", "1");
   });
 
   test("does not show the indicator when the user prefers reduced motion", () => {

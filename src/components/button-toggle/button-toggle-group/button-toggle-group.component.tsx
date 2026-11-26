@@ -141,24 +141,56 @@ const ButtonToggleGroup = ({
 
   const clearMouseFocus = () => setShowMouseFocus(false);
 
+  const finishIndicatorSlide = () => {
+    setIsIndicatorSliding(false);
+
+    if (showMouseFocusAfterSlide.current) {
+      setShowMouseFocus(true);
+      showMouseFocusAfterSlide.current = false;
+    }
+  };
+
   const registerSelectionInteraction = (
     nextValue: string | undefined,
     isMouseClick: boolean,
   ) => {
     selectionInteraction.current = { value: nextValue, isMouseClick };
-    if (isMouseClick) clearMouseFocus();
+    if (isMouseClick) {
+      if (nextValue === previousValue.current) {
+        setShowMouseFocus(true);
+      } else {
+        clearMouseFocus();
+      }
+    }
   };
 
   useIsomorphicLayoutEffect(() => {
-    if (value && previousValue.current && value !== previousValue.current) {
-      const isSliding = !prefersReducedMotion;
-      setIsIndicatorSliding(isSliding);
-      clearMouseFocus();
-      showMouseFocusAfterSlide.current =
-        isSliding &&
-        selectionInteraction.current?.value === value &&
-        selectionInteraction.current.isMouseClick;
+    const isMouseSelection =
+      selectionInteraction.current?.value === value &&
+      selectionInteraction.current.isMouseClick;
+    const hasValueChanged = value !== previousValue.current;
+    const canSlide =
+      !!value && !!previousValue.current && !prefersReducedMotion;
+
+    if (prefersReducedMotion && isIndicatorSliding) {
+      finishIndicatorSlide();
     }
+
+    if (!value && hasValueChanged) {
+      setIsIndicatorSliding(false);
+      showMouseFocusAfterSlide.current = false;
+      clearMouseFocus();
+    } else if (hasValueChanged) {
+      setIsIndicatorSliding(canSlide);
+      showMouseFocusAfterSlide.current = canSlide && !!isMouseSelection;
+
+      if (canSlide || !isMouseSelection) {
+        clearMouseFocus();
+      } else {
+        setShowMouseFocus(true);
+      }
+    }
+
     selectionInteraction.current = undefined;
     previousValue.current = value;
   }, [value, prefersReducedMotion]);
@@ -295,11 +327,7 @@ const ButtonToggleGroup = ({
             $isSliding={isIndicatorSliding}
             $disableTransitions={!!prefersReducedMotion}
             $rect={indicator.rect}
-            onTransitionEnd={() => {
-              setIsIndicatorSliding(false);
-              setShowMouseFocus(showMouseFocusAfterSlide.current);
-              showMouseFocusAfterSlide.current = false;
-            }}
+            onTransitionEnd={finishIndicatorSlide}
           />
         )}
         <ButtonToggleGroupContext.Provider
