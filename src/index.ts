@@ -518,3 +518,10 @@ export { default as useCharacterCount } from "./hooks/useCharacterCount/useChara
 export { default as useMediaQuery } from "./hooks/useMediaQuery/useMediaQuery";
 
 export { default as GlobalStyle } from "./style/global-style";
+
+export {
+  TreeView,
+  type TreeViewProps,
+} from "./components/tree-view/tree-view.component";
+export { default as TreeViewItem } from "./components/tree-view/tree-view-item";
+export type { TreeViewItemProps } from "./components/tree-view/tree-view-item";

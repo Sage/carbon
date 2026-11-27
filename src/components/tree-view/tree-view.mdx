@@ -1,0 +1,40 @@
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as TreeViewItemStories from "./tree-view-item/tree-view-item.stories";
+import * as TreeViewStories from "./tree-view.stories";
+
+<Meta of={TreeViewStories} />
+
+# TreeView
+
+A component that displays a hierarchical list of items, allowing users to expand and collapse branches to navigate through the tree structure.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```js
+import { TreeView, TreeViewItem } from "carbon-react/lib/components/tree-view";
+```
+
+## Examples
+
+### Default TreeView
+
+<Canvas of={TreeViewStories.DefaultStory} />
+
+## Props
+
+### TreeView
+
+<ArgTypes of={TreeViewStories} />
+
+### TreeViewItem
+
+<ArgTypes of={TreeViewItemStories} />
