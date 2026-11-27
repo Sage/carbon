@@ -469,6 +469,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const controlRef = useRef<TRef>(null);
   const onCloseRef = useRef(onClose);
   const focusDismissalRequested = useRef(false);
+  const initialFocusHandled = useRef(false);
   const lastClickAwayEvent = useRef<Event | null>(null);
   const highlightedSelection = useRef<HTMLElement | null>(null);
   const direction = useRef<"up" | "down" | null>(null);
@@ -496,6 +497,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         ?.getAttribute("data-menu-tree-id") === menuTreeId;
 
     let hasFocusedMenu = isWithinMenu(ownerDocument.activeElement);
+    initialFocusHandled.current = hasFocusedMenu;
 
     const checkFocusAfterMove = (event: FocusEvent) => {
       ownerWindow.cancelAnimationFrame(frame);
@@ -549,6 +551,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       const withinMenu = isWithinMenu(event.target);
       if (withinMenu) {
         hasFocusedMenu = true;
+        initialFocusHandled.current = true;
       } else if (hasFocusedMenu) {
         checkFocusAfterMove(event);
       }
@@ -581,6 +584,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
 
   const handleMenuClose = useCallback(
     (ev?: Event) => {
+      initialFocusHandled.current = true;
+      if (isButtonMenu && !isSubmenu) focusDismissalRequested.current = true;
       const shouldRestoreTabOrder =
         isButtonMenu &&
         !isSubmenu &&
@@ -639,11 +644,13 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
       }
 
       lastClickAwayEvent.current = ev;
+      initialFocusHandled.current = true;
+      if (isButtonMenu && !isSubmenu) focusDismissalRequested.current = true;
       // Keep the document listener attached while closing a submenu during
       // click bubbling, so its inside-click marker is consumed by this event.
       onCloseRef.current(ev);
     },
-    [open],
+    [open, isButtonMenu, isSubmenu],
   );
 
   const handleClickInside = useClickAwayListener(handleClickAway);
@@ -722,6 +729,8 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const handleMainWrapperKeyDown = useCallback(
     (ev: KeyboardEvent) => {
       if (open && ev.key === "Escape") {
+        initialFocusHandled.current = true;
+        if (isButtonMenu && !isSubmenu) focusDismissalRequested.current = true;
         ev.preventDefault();
         ev.stopPropagation();
         if (isSubmenu) {
@@ -733,7 +742,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         }
       }
     },
-    [open, onClose, isSubmenu, handleSubmenuParentFocus],
+    [open, onClose, isButtonMenu, isSubmenu, handleSubmenuParentFocus],
   );
 
   useEffect(() => {
@@ -834,12 +843,20 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
 
     if (open && isButtonMenu && !isSubmenu) {
       rafId = requestAnimationFrame(() => {
+        const openingDirection = direction.current;
+        direction.current = null;
+
+        // Focus may already have entered this menu tree (including a portalled
+        // submenu), or closing may have restored it elsewhere. Do not let this
+        // delayed initial focus override that newer destination.
+        if (initialFocusHandled.current) return;
+        initialFocusHandled.current = true;
+
         const items = scrollRef.current?.querySelectorAll(
           buttonMenuItemQuerySelector(false),
         );
         const itemToFocus =
-          direction.current === "up" ? items?.[items.length - 1] : items?.[0];
-        direction.current = null;
+          openingDirection === "up" ? items?.[items.length - 1] : items?.[0];
 
         /* istanbul ignore else */
         if (itemToFocus) {

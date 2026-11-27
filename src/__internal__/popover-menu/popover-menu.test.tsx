@@ -1127,6 +1127,265 @@ describe("PopoverMenu - Select configuration", () => {
   });
 });
 
+describe("pending initial button-menu focus", () => {
+  let frames: Map<number, FrameRequestCallback>;
+  let requestFrame: jest.SpyInstance<number, [FrameRequestCallback]>;
+  let cancelFrame: jest.SpyInstance<void, [number]>;
+
+  beforeEach(() => {
+    frames = new Map();
+    let nextId = 0;
+    requestFrame = jest
+      .spyOn(window, "requestAnimationFrame")
+      .mockImplementation((callback: FrameRequestCallback) => {
+        nextId += 1;
+        frames.set(nextId, callback);
+        return nextId;
+      });
+    cancelFrame = jest
+      .spyOn(window, "cancelAnimationFrame")
+      .mockImplementation((id: number) => {
+        frames.delete(id);
+      });
+  });
+
+  afterEach(() => {
+    requestFrame.mockRestore();
+    cancelFrame.mockRestore();
+  });
+
+  const runFrame = () => {
+    act(() => {
+      for (const [id, callback] of Array.from(frames)) {
+        if (frames.delete(id)) callback(performance.now());
+      }
+    });
+  };
+
+  it.each([true, false])(
+    "preserves pointer-opened submenu focus before the first frame with disablePortal=%s",
+    async (disablePortal) => {
+      const user = userEvent.setup();
+      render(
+        <PopoverMenuWithState<HTMLButtonElement>
+          isButtonMenu
+          disablePortal={disablePortal}
+          popoverControl={popoverControlButton}
+        />,
+      );
+      await user.click(screen.getByRole("button", { name: "Button label" }));
+      await user.click(screen.getByRole("button", { name: "Item 2" }));
+      const submenuItem = screen.getByRole("button", { name: "Subitem 1" });
+      expect(submenuItem).toHaveFocus();
+
+      runFrame();
+
+      expect(submenuItem).toHaveFocus();
+      expect(screen.getAllByRole("list")).toHaveLength(2);
+    },
+  );
+
+  it.each([true, false])(
+    "preserves keyboard-opened submenu focus before the first frame with disablePortal=%s",
+    async (disablePortal) => {
+      const user = userEvent.setup();
+      render(
+        <PopoverMenuWithState<HTMLButtonElement>
+          isButtonMenu
+          disablePortal={disablePortal}
+          popoverControl={popoverControlButton}
+        />,
+      );
+      await user.click(screen.getByRole("button", { name: "Button label" }));
+      // With the opening frame held, the first ArrowDown enters the menu.
+      await user.keyboard("{ArrowDown}{ArrowDown}{ArrowRight}");
+      const submenuItem = screen.getByRole("button", { name: "Subitem 1" });
+      expect(submenuItem).toHaveFocus();
+
+      runFrame();
+
+      expect(submenuItem).toHaveFocus();
+    },
+  );
+
+  it("preserves keyboard navigation within the root menu before the first frame", async () => {
+    const user = userEvent.setup();
+    render(
+      <PopoverMenuWithState<HTMLButtonElement>
+        isButtonMenu
+        popoverControl={popoverControlButton}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: "Button label" }));
+    await user.keyboard("{ArrowDown}{ArrowDown}");
+    const item = screen.getByRole("button", { name: "Item 2" });
+    expect(item).toHaveFocus();
+
+    runFrame();
+
+    expect(item).toHaveFocus();
+  });
+
+  it("preserves an item's autofocus established before the opening effect", () => {
+    renderPopoverMenu<HTMLButtonElement>({
+      open: true,
+      isButtonMenu: true,
+      popoverControl: popoverControlButton,
+      children: (
+        <>
+          <Button>First item</Button>
+          <button autoFocus>Autofocused item</button>
+        </>
+      ),
+    });
+    const item = screen.getByRole("button", { name: "Autofocused item" });
+    expect(item).toHaveFocus();
+
+    runFrame();
+
+    expect(item).toHaveFocus();
+  });
+
+  it("preserves Escape restoration when the controlled parent has not closed yet", async () => {
+    const user = userEvent.setup();
+    const onClose = jest.fn();
+    renderPopoverMenu<HTMLButtonElement>({
+      open: true,
+      isButtonMenu: true,
+      popoverControl: popoverControlButton,
+      children: buttonChildren,
+      onClose,
+    });
+    act(() => screen.getByRole("button", { name: "Item 1" }).focus());
+    await user.keyboard("{Escape}");
+    const trigger = screen.getByRole("button", { name: "Button label" });
+    expect(trigger).toHaveFocus();
+
+    runFrame();
+
+    expect(trigger).toHaveFocus();
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("preserves Tab's destination when the controlled parent has not closed yet", () => {
+    const onClose = jest.fn();
+    renderPopoverMenu<HTMLButtonElement>({
+      open: true,
+      isButtonMenu: true,
+      popoverControl: popoverControlButton,
+      children: buttonChildren,
+      onClose,
+    });
+    render(<button>After</button>);
+    const first = screen.getByRole("button", { name: "Item 1" });
+    act(() => first.focus());
+    fireEvent.keyDown(first, { key: "Tab" });
+    const after = screen.getByRole("button", { name: "After" });
+    expect(after).toHaveFocus();
+
+    runFrame();
+
+    expect(after).toHaveFocus();
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it.each([false, true])(
+    "does not focus a menu after a click-away close request (previously focused=%s)",
+    async (previouslyFocused) => {
+      const user = userEvent.setup();
+      const onClose = jest.fn();
+      renderPopoverMenu<HTMLButtonElement>({
+        open: true,
+        isButtonMenu: true,
+        popoverControl: popoverControlButton,
+        children: buttonChildren,
+        onClose,
+      });
+      render(<button>Outside</button>);
+      const outside = screen.getByRole("button", { name: "Outside" });
+      if (previouslyFocused)
+        act(() => screen.getByRole("button", { name: "Item 1" }).focus());
+      await user.click(outside);
+      expect(outside).toHaveFocus();
+
+      runFrame();
+
+      expect(outside).toHaveFocus();
+      expect(onClose).toHaveBeenCalledTimes(1);
+    },
+  );
+
+  it("allows focus dismissal after a menu item was focused before the initial frame", () => {
+    const onClose = jest.fn();
+    renderPopoverMenu<HTMLButtonElement>({
+      open: true,
+      isButtonMenu: true,
+      popoverControl: popoverControlButton,
+      children: buttonChildren,
+      onClose,
+    });
+    render(<button>Outside</button>);
+    const outside = screen.getByRole("button", { name: "Outside" });
+    act(() => {
+      screen.getByRole("button", { name: "Item 1" }).focus();
+      outside.focus();
+    });
+
+    runFrame();
+
+    expect(outside).toHaveFocus();
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it.each([
+    { opening: "click", expected: "Item 1" },
+    { opening: "ArrowDown", expected: "Item 1" },
+    { opening: "ArrowUp", expected: "Item 3" },
+  ])(
+    "still performs initial focus when opened with $opening and focus has not moved",
+    async ({ opening, expected }) => {
+      const user = userEvent.setup();
+      render(
+        <PopoverMenuWithState<HTMLButtonElement>
+          isButtonMenu
+          popoverControl={popoverControlButton}
+        />,
+      );
+      const trigger = screen.getByRole("button", { name: "Button label" });
+      if (opening === "click") {
+        await user.click(trigger);
+      } else {
+        act(() => trigger.focus());
+        await user.keyboard(`{${opening}}`);
+      }
+      expect(trigger).toHaveFocus();
+
+      runFrame();
+
+      expect(screen.getByRole("button", { name: expected })).toHaveFocus();
+    },
+  );
+
+  it("cancels pending initial focus when the menu unmounts", async () => {
+    const user = userEvent.setup();
+    render(<button>Outside</button>);
+    const { unmount } = render(
+      <PopoverMenuWithState<HTMLButtonElement>
+        isButtonMenu
+        popoverControl={popoverControlButton}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: "Button label" }));
+    const outside = screen.getByRole("button", { name: "Outside" });
+    act(() => outside.focus());
+    unmount();
+
+    runFrame();
+
+    expect(outside).toHaveFocus();
+  });
+});
+
 describe("PopoverMenu - button menu", () => {
   it("does not request dismissal again when a click follows focus loss before the parent closes the menu", async () => {
     const user = userEvent.setup();
@@ -1842,7 +2101,9 @@ describe("PopoverMenu - button menu", () => {
       );
 
       await user.click(screen.getByRole("button", { name: "Button label" }));
-      await user.click(screen.getByRole("button", { name: "Item 1" }));
+      await waitFor(() =>
+        expect(screen.getByRole("button", { name: "Item 1" })).toHaveFocus(),
+      );
       await user.keyboard("{ArrowDown}{ArrowRight}");
       expect(screen.getByRole("button", { name: "Subitem 1" })).toHaveFocus();
 
