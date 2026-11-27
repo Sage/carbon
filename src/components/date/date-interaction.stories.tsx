@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { action } from "storybook/actions";
 import { StoryObj } from "@storybook/react-vite";
 import { format } from "date-fns";
-import { enUS } from "date-fns/locale";
+import { enGB, enUS } from "date-fns/locale";
 import { expect, userEvent, within } from "storybook/test";
 
 import DateInput from "./date.component";
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof DateInput>;
 const initialDate = new Date(2026, 9, 7);
 const initialDateValue = "07/10/2026";
 const initialDateName = new RegExp(
-  `^${format(initialDate, "EEEE, MMMM do, yyyy")}`,
+  `^${format(initialDate, "PPPP", { locale: enGB })}`,
 );
 
 interface NavigationExampleProps {
