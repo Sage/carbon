@@ -78,6 +78,4 @@ A control that turns a single setting on or off, with the change taking effect a
 | warning | string \| boolean \| undefined | No |  | Yes | This prop is no longer supported. |  |  |
 
 ## Examples
-Load only the example needed for the current task; playground stories are intentionally omitted.
-
-- [Default](../examples/switch/default.md) — Control checked state from onChange, with a label and hint text.
+No examples have been curated for agent use.

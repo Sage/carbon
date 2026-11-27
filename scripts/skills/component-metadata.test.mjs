@@ -326,6 +326,27 @@ test("generated props tables keep each prop on one row", () => {
   }
 });
 
+test("generated skills exclude playgrounds and retain curated Checkbox examples", () => {
+  const badgeSkill = fs.readFileSync(
+    path.join(repoRoot, "skills", "carbon-react", "components", "badge.md"),
+    "utf8",
+  );
+  const checkboxExample = fs.readFileSync(
+    path.join(
+      repoRoot,
+      "skills",
+      "carbon-react",
+      "examples",
+      "checkbox",
+      "indeterminate-state.md",
+    ),
+    "utf8",
+  );
+
+  assert.doesNotMatch(badgeSkill, /### Playground/);
+  assert.match(checkboxExample, /# Checkbox: Indeterminate State/);
+});
+
 test("generated curated examples contain valid TSX", () => {
   const exampleFiles = fg.sync("skills/carbon-react/examples/**/*.md", {
     cwd: repoRoot,

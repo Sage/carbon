@@ -1,4 +1,5 @@
 import React from "react";
+import { StoryObj } from "@storybook/react-vite";
 import ProgressTracker from ".";
 import Box from "../box";
 import {
@@ -86,3 +87,105 @@ export const SnapshotCapture = () => {
 };
 
 SnapshotCapture.storyName = "Snapshot Capture";
+
+type Story = StoryObj<typeof ProgressTracker>;
+
+// Documentation regression stories moved from the public docs.
+
+export const Default: Story = {
+  render: (args) => <ProgressTracker {...args} />,
+  args: {
+    progress: 50,
+  },
+};
+
+export const WithDescription: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    description: "Description",
+  },
+};
+
+export const CustomLabelValues: Story = {
+  render: (args) => <ProgressTracker {...args} />,
+  args: {
+    currentProgressLabel: "£75",
+    maxProgressLabel: "£200",
+    customValuePreposition: "out of",
+    progress: Math.round((75 / 200) * 100),
+  },
+};
+
+export const CustomLength: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    length: "500px",
+  },
+};
+
+export const LabelsPosition: Story = {
+  render: (args) => (
+    <>
+      <ProgressTracker labelsPosition="top" description="Top" {...args} />
+      <ProgressTracker labelsPosition="bottom" description="Bottom" {...args} />
+      <ProgressTracker labelsPosition="left" description="Left" {...args} />
+    </>
+  ),
+  args: {
+    progress: 50,
+    currentProgressLabel: "50%",
+  },
+};
+
+export const Sizes: Story = {
+  render: (args) => (
+    <>
+      <ProgressTracker size="small" description="Small" {...args} />
+      <ProgressTracker size="medium" description="Medium" {...args} />
+      <ProgressTracker size="large" description="Large" {...args} />
+    </>
+  ),
+  args: {
+    progress: 50,
+  },
+};
+
+export const Variants: Story = {
+  render: (args) => (
+    <>
+      <ProgressTracker variant="neutral" description="Neutral" {...args} />
+      <ProgressTracker variant="warning" description="Warning" {...args} />
+      <ProgressTracker
+        variant="information"
+        description="Information"
+        {...args}
+      />
+      <ProgressTracker variant="error" description="Error" {...args} />
+      <ProgressTracker variant="success" description="Success" {...args} />
+    </>
+  ),
+  args: {
+    progress: 50,
+  },
+};
+
+const documentationDecorator = (StoryToRender: React.ComponentType) => (
+  <Box display="flex" flexDirection="column" alignItems="center">
+    <StoryToRender />
+  </Box>
+);
+
+[
+  Default,
+  WithDescription,
+  CustomLabelValues,
+  CustomLength,
+  LabelsPosition,
+  Sizes,
+  Variants,
+].forEach((story) => {
+  story.parameters = { chromatic: { disableSnapshot: true } };
+  story.decorators = [documentationDecorator];
+});

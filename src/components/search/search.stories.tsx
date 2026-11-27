@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -32,6 +33,46 @@ const meta: Meta<typeof Search> = {
 
 export default meta;
 type Story = StoryObj<typeof Search>;
+
+export const Playground: Story = {
+  render: (args) => {
+    const [value, setValue] = useState("");
+    return (
+      <Search
+        {...args}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        onClick={action("onClick")}
+      />
+    );
+  },
+  args: {
+    label: "Search",
+    inputHint: "Enter a search term",
+    size: "medium",
+    inputWidth: 100,
+    maxWidth: "100%",
+    required: false,
+    triggerOnClear: false,
+    inverse: false,
+    error: "",
+  },
+  decorators: [
+    (Story, { args }) => (
+      <Box
+        p={2}
+        backgroundColor={
+          args.inverse
+            ? "var(--mode-color-generic-bg-inverse-nought)"
+            : "var(--mode-color-generic-bg-nought)"
+        }
+      >
+        <Story />
+      </Box>
+    ),
+  ],
+};
+Playground.storyName = "Playground";
 
 export const Default: Story = () => {
   const [value, setValue] = useState("");

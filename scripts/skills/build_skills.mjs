@@ -1064,6 +1064,10 @@ async function extractStoryData(projectInstance, rootDir) {
 
     const existing = storyMap.get(componentName) ?? [];
     for (const story of stories) {
+      // Playground is an interactive configuration aid, not a reusable example.
+      if (story.exportName === "Playground") {
+        continue;
+      }
       existing.push({
         ...story,
         source: path.relative(rootDir, filePath),

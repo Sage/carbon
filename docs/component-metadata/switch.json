@@ -13,11 +13,5 @@
     "The input is disabled while loading is true.",
     "error, warning and info are deprecated and ignored; Switch does not display validation states.",
     "The On/Off state text and default processing label come from the switch.on, switch.off and switch.processingLabel locale keys; translate them through I18nProvider."
-  ],
-  "examples": [
-    {
-      "story": "Default",
-      "description": "Control checked state from onChange, with a label and hint text."
-    }
   ]
 }
