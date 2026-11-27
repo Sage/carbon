@@ -35,7 +35,7 @@ If you use Jest with Babel, include Carbon and its ESM dependencies in your exis
 
 ```js
 transformIgnorePatterns: [
-  "/node_modules/(?!(carbon-react|@sage/design-tokens|@atlaskit/pragmatic-drag-and-drop|react-error-boundary)/)",
+  "/node_modules/(?!(carbon-react|@sage/design-tokens|@atlaskit/pragmatic-drag-and-drop|@atlaskit/pragmatic-drag-and-drop-hitbox|react-error-boundary)/)",
 ];
 ```
 
