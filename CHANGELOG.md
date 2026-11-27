@@ -1,3 +1,9 @@
+## [164.1.0](https://github.com/Sage/carbon/compare/v164.0.0...v164.1.0) (2026-11-27)
+
+### Features
+
+* **vertical-menu:** align vertical-menu and responsive-vertical-menu with Fusion DS ([379c41e](https://github.com/Sage/carbon/commit/379c41eab2022e4184252ec86c2fd8fadb26560d))
+
 ## [164.0.0](https://github.com/Sage/carbon/compare/v163.6.0...v164.0.0) (2026-11-26)
 
 ### ⚠ BREAKING CHANGES
