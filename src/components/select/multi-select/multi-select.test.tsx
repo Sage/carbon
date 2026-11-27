@@ -174,6 +174,26 @@ test("accepts deprecated textbox props without applying or forwarding them", asy
 });
 
 describe("when value prop is provided", () => {
+  it("displays selected pills from nested fragments in value order", () => {
+    render(
+      <MultiSelect label="Colour" onChange={() => {}} value={["blue", "amber"]}>
+        {null}
+        <React.Fragment>
+          <Option text="amber" value="amber" />
+          <React.Fragment>
+            <Option text="blue" value="blue" />
+          </React.Fragment>
+        </React.Fragment>
+      </MultiSelect>,
+    );
+
+    expect(
+      screen
+        .getAllByRole("button", { name: /Remove .* pill/ })
+        .map((button) => button.getAttribute("aria-label")),
+    ).toEqual(["Remove blue pill", "Remove amber pill"]);
+  });
+
   it("displays a pill for a matching option", () => {
     render(
       <InteractiveComponent
@@ -1569,6 +1589,28 @@ test("replaces a pending open-on-focus timer when focus fires again", () => {
   jest.useRealTimers();
 });
 
+test("clears a pending open-on-focus timer on unmount", () => {
+  jest.useFakeTimers();
+  const onOpen = jest.fn();
+  const { unmount } = render(
+    <InteractiveComponent
+      label="Colour"
+      onChange={() => {}}
+      onOpen={onOpen}
+      openOnFocus
+    >
+      <Option text="amber" value="amber" />
+    </InteractiveComponent>,
+  );
+
+  fireEvent.focus(screen.getByRole("combobox"));
+  unmount();
+  act(() => jest.runOnlyPendingTimers());
+
+  expect(onOpen).not.toHaveBeenCalled();
+  jest.useRealTimers();
+});
+
 test("does not call onBlur, when input temporarily loses focus due to an option being clicked in the dropdown list", async () => {
   const user = userEvent.setup();
   const onBlur = jest.fn();
@@ -1652,24 +1694,28 @@ describe("when typing into the input", () => {
 describe("forwarded ref", () => {
   it("allows access to the input element through a forwarded callback ref", () => {
     const mockRef = jest.fn((element) => element);
-    render(
+    const { unmount } = render(
       <MultiSelect value={[]} label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
       </MultiSelect>,
     );
 
     expect(mockRef).toHaveBeenNthCalledWith(1, screen.getByRole("combobox"));
+    unmount();
+    expect(mockRef).toHaveBeenLastCalledWith(null);
   });
 
   it("allows access to the input element through a forwarded ref object", () => {
     const mockRef = { current: null };
-    render(
+    const { unmount } = render(
       <MultiSelect value={[]} label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
       </MultiSelect>,
     );
 
     expect(mockRef.current).toBe(screen.getByRole("combobox"));
+    unmount();
+    expect(mockRef.current).toBeNull();
   });
 });
 
@@ -2007,4 +2053,98 @@ testStyledSystemMargin(
     </InteractiveComponent>
   ),
   () => screen.getByTestId("my-select"),
+);
+
+describe.each([false, true])(
+  "async filtering with virtual scrolling %s",
+  (enableVirtualScroll) => {
+    const view = (
+      children: React.ReactNode,
+      onChange: jest.Mock,
+      isLoading = false,
+    ) => (
+      <MultiSelect
+        label="Colour"
+        value={[]}
+        onChange={onChange}
+        isLoading={isLoading}
+        enableVirtualScroll={enableVirtualScroll}
+      >
+        {children}
+      </MultiSelect>
+    );
+
+    test("Enter selects the first enabled arriving result after loading", async () => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      const { rerender } = render(
+        view(<Option key="amber" text="amber" value="amber" />, onChange, true),
+      );
+      await user.type(screen.getByRole("combobox"), "bl");
+      rerender(
+        view(
+          [
+            <Option key="blue" text="blue" value="blue" disabled />,
+            <Option key="black" text="black" value="black" />,
+          ],
+          onChange,
+        ),
+      );
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["black"] }),
+        }),
+      );
+    });
+
+    test("Enter selects results arriving after no matches", async () => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      const { rerender } = render(
+        view(<Option key="amber" text="amber" value="amber" />, onChange),
+      );
+      await user.type(screen.getByRole("combobox"), "bl");
+      await user.keyboard("{Enter}");
+
+      expect(onChange).not.toHaveBeenCalled();
+
+      rerender(
+        view(<Option key="black" text="black" value="black" />, onChange),
+      );
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["black"] }),
+        }),
+      );
+    });
+
+    test("appending results preserves the option reached with the keyboard", async () => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      const options = [
+        <Option key="black" text="black" value="black" />,
+        <Option key="blue" text="blue" value="blue" />,
+      ];
+      const { rerender } = render(view(options, onChange));
+      await user.type(screen.getByRole("combobox"), "bl");
+      await user.keyboard("{ArrowDown}");
+      rerender(
+        view(
+          [...options, <Option key="blush" text="blush" value="blush" />],
+          onChange,
+        ),
+      );
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["blue"] }),
+        }),
+      );
+    });
+  },
 );

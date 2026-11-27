@@ -303,6 +303,39 @@ test("moves non-virtual focus to the first enabled filter match and clears it fo
   expect(input).toHaveAttribute("aria-activedescendant", "blue");
 });
 
+test("moves focus when a filtered option becomes disabled", () => {
+  const filteredList = (amberDisabled: boolean) => (
+    <NextSelectList
+      open
+      selectedValues={[]}
+      filterText="e"
+      onSelect={() => {}}
+      onClose={() => {}}
+      popoverControl={(ref, controlProps) => (
+        <input aria-label="Select options" ref={ref} {...controlProps} />
+      )}
+    >
+      <Option id="amber" text="Amber" value="amber" disabled={amberDisabled} />
+      <Option id="blue" text="Blue" value="blue" />
+    </NextSelectList>
+  );
+  const { rerender } = render(filteredList(false));
+  const input = screen.getByRole("combobox");
+  expect(input).toHaveAttribute("aria-activedescendant", "amber");
+
+  rerender(filteredList(true));
+
+  expect(screen.getByRole("option", { name: "Amber" })).toHaveAttribute(
+    "aria-disabled",
+    "true",
+  );
+  expect(input).toHaveAttribute("aria-activedescendant", "blue");
+  expect(screen.getByRole("option", { name: "Blue" })).toHaveAttribute(
+    "data-has-focus",
+    "true",
+  );
+});
+
 test.each([
   [
     "small",

@@ -205,7 +205,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const isMouseDownReported = useRef(false);
     const isMouseDownOnInput = useRef(false);
     const isOpenedByFocus = useRef(false);
-    const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
+    const textboxRef = useRef<HTMLInputElement | null>(null);
     const [isOpen, setOpenState] = useState(false);
     const [pillButtonsInTabOrder, setPillButtonsInTabOrder] = useState(false);
     const [textValue, setTextValue] = useState("");
@@ -216,6 +216,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       label,
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
+    useEffect(() => {
+      return () => clearTimeout(focusTimer.current ?? undefined);
+    }, []);
     const setOpen = useCallback(() => {
       setOpenState((isAlreadyOpen) => {
         if (!isAlreadyOpen && onOpen) {
@@ -354,7 +357,18 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     );
 
     const selectedOptions = useMemo(() => {
-      const options = React.Children.toArray(children);
+      const options: ReturnType<typeof React.Children.toArray> = [];
+      const collectOptions = (nodes: React.ReactNode) => {
+        React.Children.toArray(nodes).forEach((child) => {
+          if (React.isValidElement(child) && child.type === React.Fragment) {
+            collectOptions(child.props.children);
+            return;
+          }
+
+          options.push(child);
+        });
+      };
+      collectOptions(children);
       return (value ?? []).map((singleValue) =>
         options.find(
           (child) =>
@@ -432,7 +446,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       selectedOptions,
       wrapPillText,
       pillButtonsInTabOrder,
-      textboxRef,
     ]);
 
     const onFilterChange = useStableCallback(
@@ -510,7 +523,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         return;
       }
 
-      textboxRef?.focus();
+      textboxRef.current?.focus();
       handleTextboxClick(event);
     }
 
@@ -533,15 +546,11 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     function handleTextboxMouseDown(event: React.MouseEvent<HTMLElement>) {
       isMouseDownReported.current = true;
 
-      const targetElement = event.target as HTMLElement;
-
       // prevent text selection on rapid clicks of non-input elements (e.g. the dropdown icon)
-      if (targetElement.dataset?.element !== "input") {
-        event.preventDefault();
-      }
-
-      if (targetElement.dataset.element === "input") {
+      if (event.target === textboxRef.current) {
         isMouseDownOnInput.current = true;
+      } else {
+        event.preventDefault();
       }
     }
 
@@ -594,7 +603,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         setTextValue("");
         setFilterText("");
 
-        textboxRef?.focus();
+        textboxRef.current?.focus();
         isMouseDownReported.current = false;
 
         updateValue((previousValue) => {
@@ -608,14 +617,12 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           return [...previousValue, newValue];
         }, true);
       },
-      [textboxRef, updateValue],
+      [updateValue],
     );
 
     const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
       (element) => {
-        if (!element) return;
-
-        setTextboxRef(element);
+        textboxRef.current = element;
 
         if (!ref) return;
         if (typeof ref === "function") {
@@ -674,7 +681,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           ) {
             event.preventDefault();
             setPillButtonsInTabOrder(false);
-            textboxRef?.focus();
+            textboxRef.current?.focus();
           }
         }}
         onBlurCapture={(event) => {
