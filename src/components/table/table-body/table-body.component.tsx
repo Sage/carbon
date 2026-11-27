@@ -115,7 +115,7 @@ const DraggableTableBody = ({
 
 const TableBody = ({ children, getOrder, ...props }: TableBodyProps) => {
   const { isDraggable } = useContext(TableContext);
-  const [draggableItems, setDraggableItems] = useState(
+  const [draggableItems, setDraggableItems] = useState<React.ReactNode[]>(
     flattenChildren(children),
   );
   const isFirstRender = useRef(true);

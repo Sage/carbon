@@ -6,7 +6,7 @@ const checkChildrenForString = (children: React.ReactNode): boolean => {
       return true;
     }
 
-    return React.isValidElement(child)
+    return React.isValidElement<React.PropsWithChildren>(child)
       ? checkChildrenForString(child.props.children)
       : false;
   });

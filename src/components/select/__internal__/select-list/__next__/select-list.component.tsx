@@ -170,13 +170,14 @@ export interface NextSelectListProps {
 const isOptionElement = (
   child: React.ReactNode,
 ): child is React.ReactElement<OptionProps> =>
-  React.isValidElement(child) &&
+  React.isValidElement<React.PropsWithChildren>(child) &&
   (child.type === Option || child.type === ActionOption);
 
 const isOptionGroupHeaderElement = (
   child: React.ReactNode,
 ): child is React.ReactElement<OptionGroupHeaderProps> =>
-  React.isValidElement(child) && child.type === OptionGroupHeader;
+  React.isValidElement<React.PropsWithChildren>(child) &&
+  child.type === OptionGroupHeader;
 
 interface OptionRow extends SelectVirtualRow {
   option?: React.ReactElement<OptionProps>;
@@ -204,7 +205,7 @@ const buildOptionGroups = (
       return;
     }
     React.Children.forEach(nodes, (child) => {
-      if (!React.isValidElement(child)) return;
+      if (!React.isValidElement<React.PropsWithChildren>(child)) return;
       const key = `${prefix}${child.key === null ? fallbackIndex : `$${child.key}`}`;
       if (child.type === React.Fragment) {
         visit(child.props.children, `${key}/`);

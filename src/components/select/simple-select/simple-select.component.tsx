@@ -1,3 +1,7 @@
+import type {
+  SelectOptionElement,
+  SelectOptionProps,
+} from "../__internal__/utils/option-element.types";
 import useCombinedRefs from "../../../hooks/__internal__/useCombinedRefs";
 import React, {
   useState,
@@ -241,7 +245,7 @@ export const SimpleSelect = React.forwardRef<
     const childOptions = useMemo(
       () => React.Children.toArray(children),
       [children],
-    ) as React.ReactElement[];
+    ) as SelectOptionElement[];
 
     const typeaheadOptions = useMemo(
       () =>
@@ -275,7 +279,7 @@ export const SimpleSelect = React.forwardRef<
       (newFilterText: string) => {
         const previousIndex = typeaheadOptions.findIndex(
           (child) =>
-            React.isValidElement(child) &&
+            React.isValidElement<SelectOptionProps>(child) &&
             isExpectedOption(child, selectedValue),
         );
         const match = getNextChildByText(
@@ -370,7 +374,7 @@ export const SimpleSelect = React.forwardRef<
       const matchingOption = childOptions.find((child) =>
         isExpectedOption(child, selectedValue),
       );
-      let newText = "";
+      let newText: string | undefined = "";
 
       if (matchingOption) {
         newText = matchingOption.props.text;

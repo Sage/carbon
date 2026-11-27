@@ -1,8 +1,10 @@
 import React from "react";
 
-const flattenChildren = (children: React.ReactNode): React.ReactNode[] => {
+const flattenChildren = (
+  children: React.ReactNode,
+): React.ReactElement<React.PropsWithChildren>[] => {
   return React.Children.toArray(children).flatMap((child) => {
-    if (!React.isValidElement(child)) {
+    if (!React.isValidElement<React.PropsWithChildren>(child)) {
       return [];
     }
 

@@ -12,7 +12,7 @@ const isIconOnly = (children: ReactNode): boolean => {
 
   return childArray.every((child) => {
     // Check if it's a React element
-    if (!isValidElement(child)) {
+    if (!isValidElement<React.PropsWithChildren>(child)) {
       // If it's a string, check if it's only whitespace
       if (typeof child === "string") {
         return !child.trim().length;

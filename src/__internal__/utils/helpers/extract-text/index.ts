@@ -43,7 +43,7 @@ function extractTextFromNode(node: React.ReactNode): string {
       .join(" ");
   }
 
-  if (React.isValidElement(node)) {
+  if (React.isValidElement<React.PropsWithChildren>(node)) {
     return extractTextFromNode(node.props.children);
   }
 

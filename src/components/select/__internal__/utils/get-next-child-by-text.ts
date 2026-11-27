@@ -1,8 +1,8 @@
 import React from "react";
 
-function findElementStartingWithText(
+function findElementStartingWithText<Props extends { text?: string }>(
   textToMatch: string,
-  list: React.ReactElement[],
+  list: React.ReactElement<Props>[],
 ) {
   return list.findIndex((child) => {
     return child.props.text
@@ -11,8 +11,8 @@ function findElementStartingWithText(
   });
 }
 
-function getListOfMatches(
-  arrayOfChildren: React.ReactElement[],
+function getListOfMatches<Props extends { text?: string }>(
+  arrayOfChildren: React.ReactElement<Props>[],
   lastCharacter: string,
 ) {
   return arrayOfChildren.reduce((acc: number[], child, index) => {
@@ -40,9 +40,9 @@ function getIndexOfNextElement(listOfMatches: number[], previousIndex: number) {
 /**
  * Recreates HTML Select element functionality of finding first match based on typed characters
  * */
-export default function getNextChildByText(
+export default function getNextChildByText<Props extends { text?: string }>(
   textToMatch: string,
-  arrayOfChildren: React.ReactElement[],
+  arrayOfChildren: React.ReactElement<Props>[],
   previousIndex = -1,
 ) {
   const lastCharacter = textToMatch.slice(-1);

@@ -288,7 +288,7 @@ const updateRows = (
 ) => {
   setter((prevRows) => {
     const rowIndex = prevRows.findIndex((row) => {
-      if (!React.isValidElement(row)) return false;
+      if (!React.isValidElement<TableRowProps>(row)) return false;
       return row.props.id === rowToMove;
     });
 
@@ -504,7 +504,9 @@ export const Draggable = () => {
 
       return orderedIds
         .map((id) => rowsById.get(String(id)))
-        .filter((row): row is React.ReactElement => Boolean(row));
+        .filter((row): row is React.ReactElement<TableRowProps> =>
+          Boolean(row),
+        );
     });
   };
 

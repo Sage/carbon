@@ -54,7 +54,16 @@ const Pages = ({
     const visiblePage = React.Children.toArray(children)[pageIndex];
 
     /* istanbul ignore if */
-    if (!React.isValidElement(visiblePage)) return visiblePage;
+    if (
+      !React.isValidElement<{
+        className?: string;
+        transitionName?: () => string;
+        timeout?: number;
+        "data-element"?: string;
+        "data-role"?: string;
+      }>(visiblePage)
+    )
+      return visiblePage;
 
     const additionalProps = {
       transitionName,

@@ -1,3 +1,7 @@
+import type {
+  SelectOptionElement,
+  SelectOptionProps,
+} from "../__internal__/utils/option-element.types";
 import useCombinedRefs from "../../../hooks/__internal__/useCombinedRefs";
 import React, {
   useState,
@@ -148,7 +152,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const [isOpen, setOpenState] = useState(false);
     const [textValue, setTextValue] = useState("");
     const [highlightedValue, setHighlightedValue] = useState<
-      string | Record<string, unknown>
+      string | Record<string, unknown> | undefined
     >("");
     const [filterText, setFilterText] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState<string>();
@@ -215,7 +219,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       list: React.ReactNode,
     ) {
       return React.Children.toArray(list).find((child) => {
-        const { text } = (child as React.ReactElement).props;
+        const { text } = (child as SelectOptionElement).props;
 
         return text?.toLowerCase().indexOf(textToMatch?.toLowerCase()) !== -1;
       });
@@ -227,7 +231,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         const match = findElementWithMatchingText(
           newValue,
           children,
-        ) as React.ReactElement;
+        ) as SelectOptionElement;
 
         if (match) {
           setHighlightedValue(match.props.value);
@@ -292,8 +296,8 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const accessibilityLabel = useMemo(() => {
       return value && value.length
         ? React.Children.map(children, (child) => {
-            return React.isValidElement(child) &&
-              value.includes(child.props.value)
+            return React.isValidElement<SelectOptionProps>(child) &&
+              value.some((selectedValue) => selectedValue === child.props.value)
               ? child.props.text
               : false;
           })
@@ -334,7 +338,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
     const mapValuesToPills = useMemo(() => {
       const canDelete = !disabled && !readOnly;
-      let matchingOptionValue: string;
+      let matchingOptionValue: unknown;
 
       if (!value?.length) {
         return "";
@@ -342,8 +346,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
       return value.map((singleValue, index) => {
         const matchingOption = React.Children.toArray(children).find(
-          (child) =>
-            React.isValidElement(child) && isExpectedOption(child, singleValue),
+          (child): child is SelectOptionElement =>
+            React.isValidElement<SelectOptionProps>(child) &&
+            isExpectedOption(child, singleValue),
         );
 
         let pillProps: Omit<PillProps, "children"> = {};
@@ -353,11 +358,12 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         }
 
         /* istanbul ignore else */
-        if (React.isValidElement(matchingOption)) {
+        if (React.isValidElement<SelectOptionProps>(matchingOption)) {
+          const optionValue = matchingOption.props.value;
           matchingOptionValue =
-            matchingOption?.props.value?.value !== undefined
-              ? matchingOption?.props.value?.value
-              : matchingOption?.props.value;
+            typeof optionValue === "object" && optionValue.value !== undefined
+              ? optionValue.value
+              : optionValue;
 
           pillProps = {
             title: matchingOption.props.text,
@@ -369,7 +375,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
         const title = pillProps.title || /* istanbul ignore next */ "";
         const key =
-          title + matchingOptionValue || /* istanbul ignore next */ index;
+          `${title}${matchingOptionValue}` || /* istanbul ignore next */ index;
 
         return (
           <StyledSelectPillContainer key={key}>

@@ -7,15 +7,18 @@ export const flattenChildren = (
   parentKey = "",
 ): React.ReactNode[] =>
   React.Children.toArray(children).flatMap((child) => {
-    const childKey = React.isValidElement(child)
+    const childKey = React.isValidElement<React.PropsWithChildren>(child)
       ? `${parentKey}${child.key ?? ""}`
       : parentKey;
 
-    if (React.isValidElement(child) && child.type === React.Fragment) {
+    if (
+      React.isValidElement<React.PropsWithChildren>(child) &&
+      child.type === React.Fragment
+    ) {
       return flattenChildren(child.props.children, `${childKey}.`);
     }
 
-    return React.isValidElement(child)
+    return React.isValidElement<React.PropsWithChildren>(child)
       ? React.cloneElement(child, { key: childKey })
       : child;
   });
@@ -23,7 +26,9 @@ export const flattenChildren = (
 export const isComponent = (
   child: React.ReactNode,
   component: React.ElementType,
-) => React.isValidElement(child) && child.type === component;
+) =>
+  React.isValidElement<React.PropsWithChildren>(child) &&
+  child.type === component;
 
 export const groupPairs = (children: React.ReactNode) => {
   const groupedChildren: React.ReactNode[][] = [];

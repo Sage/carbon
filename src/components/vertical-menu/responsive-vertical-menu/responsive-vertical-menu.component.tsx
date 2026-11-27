@@ -197,7 +197,7 @@ const BaseMenu = forwardRef<
       }
 
       // If the content of children is a single React element, count it and check its children
-      if (React.isValidElement(currentChildren)) {
+      if (React.isValidElement<React.PropsWithChildren>(currentChildren)) {
         const nodeChildren: number = countChildren(
           currentChildren.props.children,
         );
@@ -212,7 +212,7 @@ const BaseMenu = forwardRef<
         const reducedChildren: number = childrenAsArray.reduce(
           (acc: number, child: React.ReactNode) => {
             /* istanbul ignore else */
-            if (React.isValidElement(child)) {
+            if (React.isValidElement<React.PropsWithChildren>(child)) {
               const total = acc + 1;
               const childrenCount = countChildren(child.props.children);
               return total + childrenCount;

@@ -1,14 +1,16 @@
+import type { SelectOptionProps } from "./option-element.types";
 import Option from "../../option";
 import OptionRow from "../../option-row/option-row.component";
 import ActionOption from "../../action-option";
 import isExpectedValue from "./is-expected-value";
 
 export default function isExpectedOption(
-  element: React.ReactElement,
+  element: React.ReactElement<unknown>,
   expectedValue?: string | Record<string, unknown> | null,
 ) {
+  const props = element.props as SelectOptionProps;
   const isSelectableActionOption =
-    element.type === ActionOption && !element.props.onClick;
+    element.type === ActionOption && !props.onClick;
 
   if (
     element.type !== Option &&
@@ -31,5 +33,5 @@ export default function isExpectedOption(
     return false;
   }
 
-  return isExpectedValue(element.props.value, expectedValue);
+  return isExpectedValue(props.value, expectedValue);
 }

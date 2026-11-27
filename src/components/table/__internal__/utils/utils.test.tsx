@@ -1,10 +1,12 @@
 import React from "react";
 import flattenChildren from "./index";
 
-const getElementSummary = (node: React.ReactNode) => {
+const getElementSummary = (
+  node: React.ReactElement<React.PropsWithChildren>,
+) => {
   return {
-    type: (node as React.ReactElement).type,
-    children: (node as React.ReactElement).props.children,
+    type: node.type,
+    children: node.props.children,
   };
 };
 

@@ -1,5 +1,5 @@
 export default function isExpectedValue(
-  currentValue: string | Record<string, unknown>,
+  currentValue: string | Record<string, unknown> | undefined,
   expectedValue: string | Record<string, unknown>,
 ) {
   if (

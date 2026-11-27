@@ -1,3 +1,7 @@
+import type {
+  SelectOptionElement,
+  SelectOptionProps,
+} from "../__internal__/utils/option-element.types";
 import useCombinedRefs from "../../../hooks/__internal__/useCombinedRefs";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import invariant from "invariant";
@@ -162,7 +166,7 @@ export const FilterableSelect = React.forwardRef<
 
     const createCustomEvent = useCallback(
       (
-        newValue: string | Record<string, unknown>,
+        newValue: string | Record<string, unknown> | undefined,
         selectionConfirmed?: boolean,
       ) => {
         const customEvent = {
@@ -181,7 +185,7 @@ export const FilterableSelect = React.forwardRef<
 
     const triggerChange = useCallback(
       (
-        newValue: string | Record<string, unknown>,
+        newValue: string | Record<string, unknown> | undefined,
         selectionConfirmed: boolean,
       ) => {
         /* istanbul ignore else */
@@ -197,7 +201,7 @@ export const FilterableSelect = React.forwardRef<
       list: React.ReactNode,
     ) {
       return React.Children.toArray(list).find((child) => {
-        const option = child as React.ReactElement;
+        const option = child as SelectOptionElement;
 
         if (option.type === ActionOption && option.props.onClick) return false;
 
@@ -214,7 +218,7 @@ export const FilterableSelect = React.forwardRef<
           const match = findElementWithMatchingText(
             trimmed,
             children,
-          ) as React.ReactElement;
+          ) as SelectOptionElement;
           const isFilterCleared = isDeleteEvent && !newFilterText.length;
 
           if (!match || isFilterCleared || match.props.disabled) {
@@ -254,10 +258,11 @@ export const FilterableSelect = React.forwardRef<
     const setMatchingText = useCallback(
       (newValue?: string | Record<string, unknown>, isClosing = false) => {
         const matchingOption = (
-          React.Children.toArray(children) as React.ReactElement[]
+          React.Children.toArray(children) as SelectOptionElement[]
         ).find(
           (child) =>
-            React.isValidElement(child) && isExpectedOption(child, newValue),
+            React.isValidElement<SelectOptionProps>(child) &&
+            isExpectedOption(child, newValue),
         );
 
         if (!matchingOption || matchingOption.props.text === undefined) {

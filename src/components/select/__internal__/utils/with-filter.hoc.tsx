@@ -8,24 +8,27 @@ import OptionRow, {
 } from "../../option-row/option-row.component";
 import highlightPartOfText from "./highlight-part-of-text";
 
-const filterOptions = (option: React.ReactElement, filterText: string) => {
+const filterOptions = (
+  option: React.ReactElement<Pick<OptionProps, "text">>,
+  filterText: string,
+) => {
   const processedText = option.props.text?.toLowerCase();
   const processedValue = filterText.toLowerCase();
-  if (processedText.includes(processedValue)) {
+  if (processedText?.includes(processedValue)) {
     return option;
   }
   return null;
 };
 
 const filterOptionRows = (
-  optionRow: React.ReactElement,
+  optionRow: React.ReactElement<React.PropsWithChildren>,
   filterText: string,
 ) => {
   const cells = React.Children.toArray(optionRow.props.children);
 
   const hasText = cells.find((cell) => {
     /* istanbul ignore if */
-    if (!React.isValidElement(cell)) {
+    if (!React.isValidElement<React.PropsWithChildren>(cell)) {
       return false;
     }
     if (typeof cell.props.children === "string") {
@@ -46,7 +49,7 @@ const filterOptionRows = (
 const filterChildren = (filterText: string) => (children: React.ReactNode) => {
   const filteredChildren = React.Children.map(children, (child) => {
     /* istanbul ignore if */
-    if (!React.isValidElement(child)) {
+    if (!React.isValidElement<OptionProps | OptionRowProps>(child)) {
       return null;
     }
     if (child.type === Option) {
@@ -138,7 +141,9 @@ const withFilter = <T extends WrappedComponentProps>(
             const noResultsText = l.select.noResultsForTerm(filterText);
 
             if (multiColumn) {
-              const colSpan = React.isValidElement(tableHeader)
+              const colSpan = React.isValidElement<React.PropsWithChildren>(
+                tableHeader,
+              )
                 ? /* istanbul ignore next */ React.Children.count(
                     tableHeader?.props?.children,
                   )

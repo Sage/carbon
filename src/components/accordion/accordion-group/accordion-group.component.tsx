@@ -3,10 +3,7 @@ import { MarginProps } from "styled-system";
 import invariant from "invariant";
 
 import Events from "../../../__internal__/utils/helpers/events";
-import Accordion, {
-  AccordionInternalProps,
-  AccordionProps,
-} from "../accordion.component";
+import Accordion from "../accordion.component";
 import { StyledAccordionGroup } from "../accordion.style";
 import tagComponent, {
   TagProps,
@@ -65,9 +62,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
     () =>
       React.Children.toArray(children).filter((child) => {
         return React.isValidElement(child);
-      }) as React.FunctionComponentElement<
-        AccordionProps & AccordionInternalProps
-      >[],
+      }) as React.ReactElement<React.ComponentPropsWithRef<typeof Accordion>>[],
     [children],
   );
 
@@ -119,11 +114,11 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   return (
     <StyledAccordionGroup {...rest} {...tagComponent("accordion-group", rest)}>
       {filteredChildren.map((child, index) =>
-        // casted to ReactElement as there is no overload for an FunctionComponentElement in cloneElement
-        React.cloneElement(child as React.ReactElement, {
+        React.cloneElement(child, {
           ref: combinedRefs[index],
           index,
-          handleKeyboardAccessibility,
+          handleKeyboardAccessibility: (event) =>
+            handleKeyboardAccessibility(event, index),
         }),
       )}
     </StyledAccordionGroup>

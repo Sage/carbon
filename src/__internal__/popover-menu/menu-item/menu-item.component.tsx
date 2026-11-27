@@ -34,6 +34,10 @@ interface SubmenuControlProps extends PopoverControlProps {
   disabled?: boolean;
 }
 
+type SubmenuParentProps = React.PropsWithChildren<
+  Partial<SubmenuControlProps> & { "data-element"?: string }
+>;
+
 const StyledMenuItem = styled.li<StyledMenuItemProps>`
   ${menuItemLayout}
 
@@ -88,15 +92,18 @@ const cloneSubmenuParent = (
   submenuControlProps: SubmenuControlProps,
 ) => {
   /* istanbul ignore if */
-  if (!React.isValidElement(children) || React.Children.count(children) !== 1) {
+  if (
+    !React.isValidElement<SubmenuParentProps>(children) ||
+    React.Children.count(children) !== 1
+  ) {
     return children;
   }
 
-  return React.cloneElement(children as React.ReactElement, {
+  return React.cloneElement(children, {
     "data-element": "submenu-parent",
     children: (
       <SubmenuParentWrapper data-element="submenu-parent-wrapper">
-        {(children as React.ReactElement).props.children}
+        {children.props.children}
         <Icon type="caret_right" data-element="submenu-icon" ml="auto" />
       </SubmenuParentWrapper>
     ),

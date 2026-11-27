@@ -10,7 +10,10 @@ import {
   StyledGroupDescription,
 } from "../tile-select.style";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
-import { TileSelectDeselectEvent } from "../tile-select.component";
+import {
+  TileSelectDeselectEvent,
+  TileSelectProps,
+} from "../tile-select.component";
 
 /**
  * @deprecated `TileSelectGroup` is deprecated with `TileSelect`. No
@@ -70,8 +73,8 @@ export const TileSelectGroup = ({
         data-role="tile-select-group-radio-button-mapper"
       >
         {React.Children.map(children, (child) => {
-          if (React.isValidElement(child)) {
-            return React.cloneElement(child as React.ReactElement, {
+          if (React.isValidElement<Pick<TileSelectProps, "type">>(child)) {
+            return React.cloneElement(child, {
               type: "radio",
             });
           }

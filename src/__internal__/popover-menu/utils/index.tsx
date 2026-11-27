@@ -12,7 +12,7 @@ export const wrapChildrenInItem = (
 ): React.ReactNode[] | undefined => {
   return React.Children.map(children, (child) => {
     /* istanbul ignore if */
-    if (!React.isValidElement(child)) {
+    if (!React.isValidElement<React.PropsWithChildren>(child)) {
       return null;
     }
 

@@ -171,3 +171,17 @@ test("renders correct option row that matches the filterText prop, even when it 
 
   expect(screen.getByRole("option")).toHaveTextContent("GreenLight");
 });
+
+test("ignores options without text when filtering", () => {
+  const Wrapper = withFilter(({ children }) => <ul>{children}</ul>);
+  render(
+    <Wrapper filterText="gre">
+      <Option value="without-text">Custom content</Option>
+      <Option text="green" value="green" />
+    </Wrapper>,
+  );
+
+  expect(screen.getAllByRole("option")).toHaveLength(1);
+  expect(screen.getByRole("option", { name: /green/i })).toBeVisible();
+  expect(screen.queryByText("Custom content")).not.toBeInTheDocument();
+});

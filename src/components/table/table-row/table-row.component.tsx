@@ -98,10 +98,10 @@ const decorateFirstCell = (
   }: DecorateFirstCellProps,
 ) => {
   /* istanbul ignore if */
-  if (!React.isValidElement(cell)) return [];
+  if (!React.isValidElement<TableCellProps>(cell)) return [];
 
   return [
-    React.cloneElement(cell as React.ReactElement<TableCellProps>, {
+    React.cloneElement(cell, {
       dragHandleRef: isDraggable ? dragHandleRef : undefined,
       isDraggable,
       isExpandable,

@@ -43,7 +43,9 @@ const RadioButtonMapper = ({
     let result = false;
     filteredChildren.forEach((child) => {
       if (
-        React.isValidElement(child) &&
+        React.isValidElement<
+          Partial<MappedChildProps & InputEvents> & { value?: string }
+        >(child) &&
         Object.prototype.hasOwnProperty.call(child.props, "defaultChecked")
       ) {
         result = true;
@@ -68,7 +70,11 @@ const RadioButtonMapper = ({
   const buttons = filteredChildren.map((child) => {
     let checked;
 
-    if (!React.isValidElement(child)) {
+    if (
+      !React.isValidElement<
+        Partial<MappedChildProps & InputEvents> & { value?: string }
+      >(child)
+    ) {
       return child;
     }
 
