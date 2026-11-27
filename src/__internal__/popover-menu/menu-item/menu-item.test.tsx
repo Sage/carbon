@@ -169,8 +169,9 @@ test("should render the selected icon when selectedIcon on MenuItemLeading is tr
   );
 
   expect(screen.getByTestId("selected-icon")).toBeVisible();
-  expect(screen.getByTestId("selected-icon-wrapper")).toHaveStyle(
-    "visibility: visible",
+  expect(screen.getByTestId("selected-icon-wrapper")).toHaveStyleRule(
+    "visibility",
+    "inherit",
   );
 });
 

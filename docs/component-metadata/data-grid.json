@@ -1,0 +1,33 @@
+{
+  "component": "DataGrid",
+  "summary": "An accessible, editable grid for navigating and updating structured tabular data.",
+  "useWhen": [
+    "Users need to edit structured data across multiple related rows and columns.",
+    "Users need spreadsheet-style keyboard navigation between editable cells.",
+    "A large editable data set benefits from row virtualization, pinned columns or a sticky header."
+  ],
+  "avoidWhen": [
+    "Users only need to read or compare tabular data without editing it.",
+    "The data-entry workflow is better represented as a short conventional form."
+  ],
+  "alternatives": [
+    {
+      "component": "Table",
+      "when": "Users primarily need to read and compare tabular data rather than edit it."
+    }
+  ],
+  "pitfalls": [
+    "Treat rows as controlled data and pass the collection received by onRowsChange back to DataGrid.",
+    "Provide stable row identifiers through each row's id property or getRowId.",
+    "Give the grid an accessible name with aria-label or aria-labelledby.",
+    "Keep pinned columns in contiguous groups at the corresponding edge and give them predictable widths.",
+    "Give custom controls rendered in action cells accessible names and appropriate keyboard behaviour.",
+    "Keep application-level calculations, error-summary layout and row-operation business rules outside DataGrid."
+  ],
+  "relatedTypes": [
+    "DataGridColumn",
+    "DataGridCellType",
+    "DataGridRowChange",
+    "DataGridHandle"
+  ]
+}

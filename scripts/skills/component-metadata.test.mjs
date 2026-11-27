@@ -18,6 +18,7 @@ import {
   hasNamespaceImportFrom,
   hasStorybookImport,
 } from "./example-imports.mjs";
+import { extractRelatedTypeDeclarations } from "./related-types.mjs";
 
 const repoRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -58,6 +59,7 @@ test("accepts concise authored component guidance", () => {
     avoidWhen: ["The element performs an action."],
     alternatives: [{ component: "Badge", when: "Showing a count." }],
     pitfalls: ["Label removable pills."],
+    relatedTypes: ["PillProps"],
     examples: [{ story: "Wrapped", description: "Allow long labels to wrap." }],
   });
 
@@ -130,6 +132,63 @@ test("rejects empty optional sections", () => {
         pitfalls: [],
       }),
     /field "pitfalls" must be a non-empty array when provided/,
+  );
+});
+
+test("rejects duplicate related API types", () => {
+  assert.throws(
+    () =>
+      validateComponentMetadata({
+        component: "Pill",
+        summary: "Compact visual indicator.",
+        relatedTypes: ["PillProps", "PillProps"],
+      }),
+    /field "relatedTypes" must not contain duplicate values/,
+  );
+});
+
+test("extracts selected public API types and their local dependencies", () => {
+  const project = new Project({ useInMemoryFileSystem: true });
+  const typesFile = project.createSourceFile(
+    "/component/types.ts",
+    `
+      interface InternalOption { label: string; value: string }
+      export interface PublicConfig { options: InternalOption[] }
+      export type PublicChange = { config: PublicConfig; reason: "edit" };
+    `,
+  );
+  const entryFile = project.createSourceFile(
+    "/component/index.ts",
+    `export type { PublicChange } from "./types";`,
+  );
+
+  const declarations = extractRelatedTypeDeclarations(
+    entryFile,
+    ["PublicChange"],
+    new Set([typesFile.getFilePath(), entryFile.getFilePath()]),
+  );
+
+  assert.equal(declarations.length, 3);
+  assert.match(declarations[0], /interface InternalOption/);
+  assert.match(declarations[1], /interface PublicConfig/);
+  assert.match(declarations[2], /type PublicChange/);
+});
+
+test("rejects related API types that are not publicly exported", () => {
+  const project = new Project({ useInMemoryFileSystem: true });
+  const entryFile = project.createSourceFile(
+    "/component/index.ts",
+    `interface InternalConfig { value: string }`,
+  );
+
+  assert.throws(
+    () =>
+      extractRelatedTypeDeclarations(
+        entryFile,
+        ["InternalConfig"],
+        new Set([entryFile.getFilePath()]),
+      ),
+    /Related type InternalConfig is not a public interface, type alias or enum/,
   );
 });
 

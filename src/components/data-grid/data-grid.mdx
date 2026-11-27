@@ -1,0 +1,242 @@
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as DataGridStories from "./data-grid.stories";
+
+<Meta of={DataGridStories} />
+
+# Data Grid
+
+<a
+  target="_blank"
+  href="https://designsystem.sage.com/fusion/latest/pages/components/data-grid/"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+A Data Grid captures and manages editable line-item data in rows and columns.
+Use [Table](?path=/docs/table--docs) when users only need to compare or read
+data.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Playground](#playground)
+- [Examples](#examples)
+- [Keyboard behavior](#keyboard-behavior)
+- [Accessibility](#accessibility)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+Provide an array of row objects and a column definition for each value displayed
+in the grid. Data Grid is controlled. Store the rows received by `onRowsChange`
+and pass them back to the component.
+
+```tsx
+import React from "react";
+import {
+  DataGrid,
+  DataGridColumn,
+} from "carbon-react/lib/components/data-grid";
+
+interface InvoiceLine {
+  id: number;
+  description: string;
+  category: "Services" | "Software";
+}
+
+const columns: DataGridColumn<InvoiceLine>[] = [
+  {
+    field: "description",
+    headerName: "Description",
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    type: "dropdown",
+    options: [
+      { label: "Services", value: "Services" },
+      { label: "Software", value: "Software" },
+    ],
+  },
+];
+
+export default function InvoiceLines() {
+  const [rows, setRows] = React.useState<InvoiceLine[]>([
+    { id: 1, description: "Consulting", category: "Services" },
+  ]);
+
+  return (
+    <DataGrid
+      aria-label="Invoice lines"
+      rows={rows}
+      columns={columns}
+      onRowsChange={(nextRows) => setRows(nextRows)}
+    />
+  );
+}
+```
+
+Each row requires a stable ID. Data Grid reads the `id` property by default.
+Use `getRowId` when your row uses a different property.
+
+See the [Data and API guide](?path=/docs/data-grid-data-and-api-guide--docs) for
+detailed row and column definitions, change events, validation, and row
+operations.
+
+## Playground
+
+Use this interactive example to explore Data Grid props and behaviours with
+Storybook controls.
+
+The example validates its required fields and calculates the read-only VAT and
+net values in `onBeforeRowChange`. Validation and calculations are supplied by
+the example, not built into Data Grid.
+
+<Canvas of={DataGridStories.Playground} />
+
+<Controls
+  of={DataGridStories.Playground}
+  include={[
+    "enableTabNavigation",
+    "stickyHeader",
+    "maxHeight",
+    "maxWidth",
+    "disableVirtualization",
+    "rowOverscan",
+    "playgroundPinnedColumns",
+  ]}
+/>
+
+## Examples
+
+### Cell types and states
+
+Data Grid supports text, dropdown, checkbox, and action cells. Text is the
+default cell type, so its `type` can be omitted. Use `weight: "medium"` to give
+text cell content additional emphasis when it is not being edited. Dropdowns
+use regular-weight text by default.
+
+Click or tap an editable text or dropdown cell to open its editor. Checkboxes
+toggle with one click. See [Keyboard behavior](#keyboard-behavior) for keyboard
+controls.
+
+<Canvas of={DataGridStories.EditableInvoiceLines} />
+
+Set `readOnly: true` on a column to prevent editing its values.
+Pass cell errors through the grid's `errors` prop. Only text and dropdown cells
+support errors. Use `renderCell` to supply controls for action cells.
+
+Read-only dropdown columns display their selected labels as text, and read-only
+checkbox columns cannot be changed. `readOnly` does not disable action controls;
+disable individual actions in `renderCell` when required. Clicking another cell dismisses an open
+action popover and moves focus to the clicked cell or its editor. Keyboard
+dismissal still returns focus to the action trigger.
+
+### Pinned columns and optional sticky header
+
+Columns are not pinned by default. Set `pinned: "left"` or `pinned: "right"`
+on the relevant column definition. In this example, the
+line number and action columns remain visible while the other columns scroll
+beneath them.
+
+Set `stickyHeader` to keep the header visible while the grid scrolls vertically.
+Headers scroll with the grid by default.
+
+<Canvas of={DataGridStories.PinnedColumns} />
+
+### Validation and error summaries
+
+Pass an array of `DataGridCellError` objects to `errors`, using `rowId` and
+`field` to identify each cell. Include a `message` to describe the error to
+assistive technology for both the cell and its editor. Your application controls
+validation and clearing errors; editing and navigation remain available. See the
+[data and API guide](?path=/docs/data-grid-data-and-api-guide--docs#validation)
+for the full error format and an example.
+
+Use the grid's `aria-describedby` for general guidance, not the full error
+summary, to avoid repeated error announcements. Make summary links call
+`focusCell(rowId, field)` to focus a cell or `editCell(rowId, field)` to open its
+editor through the grid ref.
+
+<Canvas of={DataGridStories.ValidationAndErrorSummary} />
+
+### Large data sets
+
+Set `maxHeight` to create a vertical scroll area. Data Grid renders large data
+sets using row virtualization.
+`rowOverscan` controls how many additional rows remain mounted above and below
+the visible rows.
+
+Use `disableVirtualization` only when an integration requires every row to
+remain in the DOM.
+
+<Canvas of={DataGridStories.LargeScrollableGrid} />
+
+## Keyboard behavior
+
+Data Grid follows the
+[WAI-ARIA Grid Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/).
+Users navigate between cells before entering edit mode:
+
+- Arrow keys move between cells.
+- **Home** and **End** move to the first or last cell in the current row.
+- **Ctrl+Home** and **Ctrl+End** move to the first or last cell in the grid.
+- **Enter** edits text and dropdown cells, or opens an action cell.
+- **Space** opens a focused dropdown or action popover, or toggles a focused
+  checkbox.
+- Typing on a text cell starts editing and appends the typed character to its
+  current value.
+- **Escape** cancels an edit and returns to navigation mode.
+- Set `enableTabNavigation` to move through cells with **Tab** and
+  **Shift+Tab**. In edit mode, Tab commits the value before moving. Tab from
+  the last cell and Shift+Tab from the first cell leave the grid.
+
+Text editors place the cursor at the end of the current value. Opening a
+dropdown moves focus to its Select control and displays the options.
+
+Scrolling does not save an edit. Text drafts and cursor selections are preserved
+when users scroll away and return.
+
+## Accessibility
+
+Provide either `aria-label` or `aria-labelledby` to name the grid. Use
+`aria-describedby` for additional guidance. Custom controls supplied to action
+cells must provide their own accessible names and keyboard behaviour.
+
+Data Grid has one tab stop. Users move between cells with arrow keys before
+editing. Checkbox and action cells support clicking or tapping anywhere in the
+cell. Activating a nested action control uses that control's own behaviour.
+
+When testing with VoiceOver on macOS, interact with the grid and use VoiceOver
+commands such as **Control+Option+Arrow keys** to inspect its semantic structure
+and hear row and column context. Unmodified arrow keys operate Data Grid's focus
+navigation after a cell has focus.
+
+Test editing, focus, and the software keyboard with VoiceOver on iOS and
+TalkBack on Android. Browser touch emulation does not replace these checks.
+
+## Props
+
+<ArgTypes of={DataGridStories} exclude={/^(playgroundPinnedColumns)$/} />
+
+## Translation keys
+
+Override these translations with a custom locale object passed to
+[I18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "dataGrid.cellLabel",
+      description:
+        "Accessible name for built-in editors and checkbox cells. Receives `header` (`headerAriaLabel` when supplied, otherwise `headerName`) and `rowNumber` (one-based within the supplied rows). The default en-GB label is, for example, `Name, row 1`.",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
