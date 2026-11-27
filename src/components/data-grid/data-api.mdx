@@ -6,8 +6,7 @@ import * as DataGridStories from "./data-grid.stories";
 
 # Data Grid: data and API guide
 
-This guide explains how to structure Data Grid rows and columns, receive change
-events, use the row API, and validate data. See the [Data Grid Docs](?path=/docs/data-grid--docs)
+See the [Data Grid Docs](?path=/docs/data-grid--docs)
 for the Playground, examples, keyboard behaviour, accessibility, and props.
 
 ## Contents
@@ -15,6 +14,7 @@ for the Playground, examples, keyboard behaviour, accessibility, and props.
 - [Define rows](#define-rows)
 - [Define columns](#define-columns)
 - [Receive updated rows](#receive-updated-rows)
+- [Save or export data](#save-or-export-data)
 - [Intercept changes](#intercept-changes)
 - [Row operations](#row-operations)
 - [Validation](#validation)
@@ -36,8 +36,7 @@ interface InvoiceLine {
   id: number;
   description: string;
   category: "Services" | "Software" | "Expenses";
-  selected: boolean;
-  locked: boolean;
+  included: boolean;
 }
 
 const initialRows: InvoiceLine[] = [
@@ -45,8 +44,7 @@ const initialRows: InvoiceLine[] = [
     id: 1,
     description: "Consulting services",
     category: "Services",
-    selected: false,
-    locked: false,
+    included: false,
   },
 ];
 ```
@@ -57,8 +55,7 @@ Every column requires a unique `field` and a visible `headerName`. Use
 `headerAriaLabel` when the visible heading is intentionally empty.
 
 Text, dropdown, and checkbox fields must refer to a property on the row. Action
-columns may use a synthetic field because they do not write a value. Text is
-the default cell type.
+columns may use a field that is not present on the row.
 
 | Cell type | Configuration                      | Use                                        |
 | --------- | ---------------------------------- | ------------------------------------------ |
@@ -88,7 +85,7 @@ const columns: DataGridColumn<InvoiceLine>[] = [
     ],
   },
   {
-    field: "selected",
+    field: "included",
     headerName: "Included",
     type: "checkbox",
     width: 100,
@@ -131,7 +128,10 @@ const columns: DataGridColumn<InvoiceLine>[] = [
 ];
 ```
 
-Shared column properties configure cells without changing row data:
+`createInvoiceLineId` is supplied by your application and must return a unique
+ID for each duplicated row.
+
+### Column properties
 
 | Purpose          | Properties                                     |
 | ---------------- | ---------------------------------------------- |
@@ -144,24 +144,17 @@ Shared column properties configure cells without changing row data:
 Set `width` for a fixed pixel width. Use `flex` to share the available space
 between flexible columns, with `minWidth` as the lower limit. Columns without
 sizing use the default width, while action columns use their compact default.
-Prefer a fixed `width` when a column must remain a predictable size.
 
 The `renderCell` callback receives the current `row`, `rowId`,
 `field`, `value`, and `column`. It also receives the row-operation `api`.
-Set `readOnly: true` to make a column's values non-editable. Supply cell errors separately
-through the grid's `errors` prop.
+
+Set `readOnly: true` on the column definition to make its values non-editable.
 
 ## Receive updated rows
 
 A committed text edit, dropdown selection, or checkbox toggle creates a new row
 array and passes it to `onRowsChange`. Store the new array and pass it back to
 Data Grid.
-
-Data Grid keeps changes together while it waits for updated `rows`. Pass the array from `onRowsChange` back as `rows` to keep those
-changes. A new array you create yourself replaces any waiting changes.
-
-To discard changes, pass a new copy of the rows you want to keep. Ignoring the
-callback or keeping the same array does not discard changes.
 
 ```tsx
 const [rows, setRows] = React.useState(initialRows);
@@ -182,6 +175,16 @@ const handleRowsChange = (
 />;
 ```
 
+`auditInvoiceChange` is an optional application-provided function for recording
+changes. If you only need to update local state, use `onRowsChange={setRows}`.
+
+Changes made before the parent updates `rows` are combined. Pass the array from
+`onRowsChange` back as `rows` to accept them. Passing a different array replaces
+pending changes.
+
+To discard changes, pass a new copy of the rows you want to keep. Ignoring the
+callback or keeping the same array does not discard changes.
+
 The optional second argument describes the change that produced the array. Its
 `type` is one of:
 
@@ -201,10 +204,78 @@ include the affected row and indexes where relevant. Data Grid does not call
 Use `onBeforeRowChange` to apply application rules, such as calculated totals,
 before the grid notifies `onRowsChange`.
 
-Edit a cell, add a row, or use a row action in this example to inspect the
-current rows and most recent change:
+### Example: current rows and changes
+
+This example shows the current rows and most recent change.
 
 <Canvas of={DataGridStories.ControlledRows} />
+
+## Save or export data
+
+Your application already holds the grid's committed data in `rows`. Use that
+state to save changes to your backend or generate an export, such as a PDF.
+Only committed edits are included; text still being edited is not yet in `rows`.
+
+### Save on an action
+
+Update local state when rows change, then use that state when the user chooses
+to save or export.
+
+<details>
+<summary>View example: save or export on a button action</summary>
+
+```tsx
+const [rows, setRows] = React.useState(initialRows);
+
+<>
+  <DataGrid
+    aria-label="Invoice lines"
+    rows={rows}
+    columns={columns}
+    onRowsChange={setRows}
+  />
+  <Button onClick={() => saveInvoice(rows)}>Save</Button>
+  <Button onClick={() => createInvoicePdf(rows)}>Export PDF</Button>
+</>;
+```
+
+`saveInvoice` and `createInvoicePdf` are functions supplied by your application.
+
+</details>
+
+### Save as data changes
+
+To save without a separate button, update local state and validate the rows
+received by `onRowsChange` before saving them.
+
+<details>
+<summary>View example: save as data changes</summary>
+
+```tsx
+const [rows, setRows] = React.useState(initialRows);
+
+<DataGrid
+  aria-label="Invoice lines"
+  rows={rows}
+  columns={columns}
+  onRowsChange={(nextRows) => {
+    setRows(nextRows);
+
+    if (isValid(nextRows)) {
+      saveInvoice(nextRows);
+    }
+  }}
+/>;
+```
+
+`isValid` and `saveInvoice` are functions supplied by your application. Use
+`nextRows` for validation and saving because `rows` does not update immediately
+after `setRows`.
+
+</details>
+
+Your application handles save timing and failures; Data Grid does not wait for
+the save to finish.
 
 ## Intercept changes
 
@@ -222,6 +293,9 @@ you can compare the latest values with the proposal.
 Treat the supplied arrays and row objects as immutable. Transformed rows must
 keep the proposed row IDs, membership, and order. To prevent a structural
 operation, return `false` rather than returning an earlier row array.
+
+<details>
+<summary>View example: trim descriptions and prevent deleting the last row</summary>
 
 ```tsx
 <DataGrid
@@ -241,34 +315,59 @@ operation, return `false` rather than returning an earlier row array.
 />
 ```
 
-The controlled example above trims descriptions and prevents deleting the last
-row. `onRowsChange` receives the approved rows, but its `change` argument still
+</details>
+
+`onRowsChange` receives the approved rows, but its `change` argument still
 describes the original request, before any transformation.
 
 Interception is synchronous; promises are not supported. Discarding an edit
 does not keep its editor open or change normal keyboard navigation. Incoming
 `rows` updates and operations that make no change do not trigger interception.
-Omitting the callback keeps the default behaviour.
 
 ## Row operations
 
 Action cells receive the row API through `renderCell`. Controls outside the
 grid can use the same API through the forwarded ref. The consuming application
-creates each row, including its unique ID and business defaults. Data Grid
-applies the operation and calls `onRowsChange`.
+creates each row, including its unique ID and default values. Each operation
+passes through `onBeforeRowChange`, when supplied, before calling `onRowsChange`.
+
+<details>
+<summary>View examples: add and manage rows using a ref</summary>
+
+Attach the ref to Data Grid, then call its methods from your controls.
 
 ```tsx
+const [rows, setRows] = React.useState(initialRows);
 const gridRef = React.useRef<DataGridHandle<InvoiceLine>>(null);
 
-<Button onClick={() => gridRef.current?.addRow(createEmptyInvoiceLine())}>
-  Add line
-</Button>;
+<>
+  <DataGrid
+    ref={gridRef}
+    aria-label="Invoice lines"
+    rows={rows}
+    columns={columns}
+    onRowsChange={setRows}
+  />
+  <Button onClick={() => gridRef.current?.addRow(createEmptyInvoiceLine())}>
+    Add line
+  </Button>
+</>;
+```
 
+`createEmptyInvoiceLine` is supplied by your application. It must return a row
+with a unique ID and default values for each field.
+
+Other controls can call these methods from their event handlers. Supply your
+own row objects and IDs:
+
+```tsx
 gridRef.current?.insertRow(newLine, { beforeRowId: existingLineId });
 gridRef.current?.duplicateRow(sourceLineId, duplicatedLine);
 gridRef.current?.deleteRow(lineId);
 gridRef.current?.moveRow(lineId, 3);
 ```
+
+</details>
 
 `moveRow` receives the final zero-based index. `insertRow` accepts an absolute
 index, `beforeRowId`, or `afterRowId`. An operation with an unknown row ID does
@@ -281,14 +380,18 @@ applies when the updated rows are passed back through `onRowsChange`.
 Applications using their own row mutation controls should restore focus after
 removing the focused element.
 
-Adding or inserting a row whose ID already exists throws an error. Unique IDs
-are required for focus, virtualization, and row operations.
+Adding, inserting, or duplicating a row with an ID already in the grid throws
+an error.
 
 ## Validation
 
 Pass an array of `DataGridCellError` objects to `errors` to mark text or dropdown
 cells as invalid. Your application controls validation and saving; errors do not
-prevent editing or navigation.
+prevent editing, navigation, or saving. Check your application's validation rules
+before calling its save function.
+
+<details>
+<summary>View example: mark missing descriptions as invalid</summary>
 
 ```tsx
 const errors: DataGridCellError[] = rows
@@ -301,6 +404,7 @@ const errors: DataGridCellError[] = rows
   }));
 
 <DataGrid
+  aria-label="Invoice lines"
   rows={rows}
   columns={columns}
   errors={errors}
@@ -308,10 +412,13 @@ const errors: DataGridCellError[] = rows
 />;
 ```
 
+</details>
+
 Identify each cell by its column `field` and stable `rowId`, matching `getRowId`
 or `row.id` by default. Numeric and string IDs are distinct. Errors stay with
 their rows when reordered or virtualised. Errors for missing cells, checkbox
-cells or action cells are ignored. Read-only text and dropdown columns can show errors.
+cells or action cells are ignored. Read-only text and dropdown columns can show
+errors.
 
 The optional `message` describes the error to assistive technology for both the
 cell and its editor. Messages for the same cell are combined in array order.
@@ -320,11 +427,10 @@ errors in your application; Data Grid does not display or interpret it.
 
 Replace the `errors` array when errors change. Editing a cell does not clear its
 errors automatically. Omit `errors` or pass an empty array to clear all errors.
-You can use the same format for local validation and server errors.
 
-Keep error summaries separate from the grid's `aria-describedby` to avoid
-repeating every error during navigation. Use this attribute for general grid
-guidance. Connect summary links to `focusCell` or `editCell` on the forwarded ref.
+Use the grid's `aria-describedby` for general guidance rather than the full
+error summary. Make summary links call `gridRef.current?.focusCell(rowId, field)`
+or `gridRef.current?.editCell(rowId, field)` to focus the relevant cell or editor.
 
 `onRowsChange` reports local changes, not successful validation or saving. Use
 your application's validation rules or schema library to check rows before saving.

@@ -91,11 +91,11 @@ operations.
 ## Playground
 
 Use this interactive example to explore Data Grid props and behaviours with
-Storybook controls. The action column remains pinned on the right.
+Storybook controls.
 
 The example validates its required fields and calculates the read-only VAT and
-net values in `onRowsChange`. These are application behaviours rather than
-built-in Data Grid calculations.
+net values in `onBeforeRowChange`. Validation and calculations are supplied by
+the example, not built into Data Grid.
 
 <Canvas of={DataGridStories.Playground} />
 
@@ -121,31 +121,26 @@ default cell type, so its `type` can be omitted. Use `weight: "medium"` to give
 text cell content additional emphasis when it is not being edited. Dropdowns
 use regular-weight text by default.
 
-This example includes an empty cell with an error. Click or
-tap an editable text or dropdown cell once to open its editor. When a cell has
-navigation focus, use the arrow keys to move between cells and press **Enter**
-to edit. Checkboxes toggle with one click or **Space**. **Space** also opens a
-focused dropdown or action popover.
+Click or tap an editable text or dropdown cell to open its editor. Checkboxes
+toggle with one click. See [Keyboard behavior](#keyboard-behavior) for keyboard
+controls.
 
 <Canvas of={DataGridStories.EditableInvoiceLines} />
 
 Set `readOnly: true` on a column to prevent editing its values.
-Pass cell errors through the grid's `errors` prop, not column definitions.
-Checkbox and action columns do not support the error state. Action cells use
-`renderCell` to display controls such as an action popover.
+Pass cell errors through the grid's `errors` prop. Only text and dropdown cells
+support errors. Use `renderCell` to supply controls for action cells.
 
 Read-only dropdown columns display their selected labels as text, and read-only
-checkbox columns cannot be changed. Action controls remain available because they do
-not edit the cell value. Disable individual actions in `renderCell` when the
-product's business rules require it. Clicking another cell dismisses an open
+checkbox columns cannot be changed. `readOnly` does not disable action controls;
+disable individual actions in `renderCell` when required. Clicking another cell dismisses an open
 action popover and moves focus to the clicked cell or its editor. Keyboard
 dismissal still returns focus to the action trigger.
 
 ### Pinned columns and optional sticky header
 
 Columns are not pinned by default. Set `pinned: "left"` or `pinned: "right"`
-on the relevant column definition. Pinned columns should form contiguous groups
-at the corresponding edge and use predictable widths. In this example, the
+on the relevant column definition. In this example, the
 line number and action columns remain visible while the other columns scroll
 beneath them.
 
@@ -163,28 +158,22 @@ validation and clearing errors; editing and navigation remain available. See the
 [data and API guide](?path=/docs/data-grid-data-and-api-guide--docs#validation)
 for the full error format and an example.
 
-Keep error summaries separate from the grid's accessible description to avoid
-repeating every error during navigation. Connect summary links using the
-forwarded ref: `focusCell` moves focus to the cell, while `editCell` opens its editor.
+Use the grid's `aria-describedby` for general guidance, not the full error
+summary, to avoid repeated error announcements. Make summary links call
+`focusCell(rowId, field)` to focus a cell or `editCell(rowId, field)` to open its
+editor through the grid ref.
 
 <Canvas of={DataGridStories.ValidationAndErrorSummary} />
 
-```tsx
-const gridRef = React.createRef<DataGridHandle<InvoiceLine>>();
-
-gridRef.current?.editCell(invoiceLineId, "description");
-```
-
 ### Large data sets
 
-Set `maxHeight` to create a vertical scroll area. Data Grid automatically
-virtualizes rows when a constrained grid contains more than 20 rows.
+Set `maxHeight` to create a vertical scroll area. Data Grid renders large data
+sets using row virtualization.
 `rowOverscan` controls how many additional rows remain mounted above and below
 the visible rows.
 
 Use `disableVirtualization` only when an integration requires every row to
-remain in the DOM. Columns remain mounted so horizontal keyboard navigation,
-editing, and pinned positioning remain predictable.
+remain in the DOM.
 
 <Canvas of={DataGridStories.LargeScrollableGrid} />
 
@@ -192,11 +181,7 @@ editing, and pinned positioning remain predictable.
 
 Data Grid follows the
 [WAI-ARIA Grid Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/).
-The `grid`, `row`, `columnheader`, and `gridcell` roles expose the tabular
-structure to assistive technologies. ARIA roles do not add keyboard behaviour
-by themselves; Data Grid implements the supported interactions listed below.
-
-Data Grid has separate navigation and edit modes:
+Users navigate between cells before entering edit mode:
 
 - Arrow keys move between cells.
 - **Home** and **End** move to the first or last cell in the current row.
@@ -211,46 +196,29 @@ Data Grid has separate navigation and edit modes:
   **Shift+Tab**. In edit mode, Tab commits the value before moving. Tab from
   the last cell and Shift+Tab from the first cell leave the grid.
 
-Navigation focus uses a single high-contrast border. Edit mode uses Carbon's
-dual inset focus treatment. Text editors place the cursor at the end of the
-current value. Dropdown cells use Carbon Select. Opening a dropdown moves focus
-to the Select and displays its options for keyboard or pointer selection.
+Text editors place the cursor at the end of the current value. Opening a
+dropdown moves focus to its Select control and displays the options.
 
-Scrolling does not save an edit. If virtualisation removes a text editor from
-view, its draft and selection are kept so the user can continue editing or
-cancel when they return.
+Scrolling does not save an edit. Text drafts and cursor selections are preserved
+when users scroll away and return.
 
 ## Accessibility
 
-Data Grid uses ARIA grid semantics and a single roving tab stop. Navigation and
-edit modes allow users to move through cells before entering interactive
-content.
+Provide either `aria-label` or `aria-labelledby` to name the grid. Use
+`aria-describedby` for additional guidance. Custom controls supplied to action
+cells must provide their own accessible names and keyboard behaviour.
 
-Editable text cells open on a single click or tap, including click activation
-generated by assistive technologies. No touch or screen-reader detection is
-required. Verify editing, focus, and software-keyboard behaviour with VoiceOver
-on iOS and TalkBack on Android; browser touch emulation does not reproduce those
-interactions.
-
-Built-in checkbox cells expose a full-cell checkbox target with its accessible
-name and checked state. Read-only checkbox columns also expose their read-only
-state. The checkbox graphic is decorative;
-the cell handles toggling. A click or tap anywhere in an action cell opens its
-first interactive control, just as Enter or Space does. This includes
-assistive-technology click activation, regardless of click count or preceding
-pointer events.
-Direct activation of a nested action control still uses that control's own
-behaviour.
+Data Grid has one tab stop. Users move between cells with arrow keys before
+editing. Checkbox and action cells support clicking or tapping anywhere in the
+cell. Activating a nested action control uses that control's own behaviour.
 
 When testing with VoiceOver on macOS, interact with the grid and use VoiceOver
 commands such as **Control+Option+Arrow keys** to inspect its semantic structure
 and hear row and column context. Unmodified arrow keys operate Data Grid's focus
-navigation after a cell has focus. Other screen readers provide their own
-equivalent commands for navigating interactive grids.
+navigation after a cell has focus.
 
-Provide either `aria-label` or `aria-labelledby`. Use `aria-describedby` for
-additional keyboard guidance. Custom controls supplied to
-action cells must provide their own accessible names and keyboard behaviour.
+Test editing, focus, and the software keyboard with VoiceOver on iOS and
+TalkBack on Android. Browser touch emulation does not replace these checks.
 
 ## Props
 
@@ -258,8 +226,8 @@ action cells must provide their own accessible names and keyboard behaviour.
 
 ## Translation keys
 
-The following keys are available to override the translations for this component by passing in a custom locale object
-to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+Override these translations with a custom locale object passed to
+[I18nProvider](../?path=/docs/documentation-i18n--docs).
 
 <TranslationKeysTable
   translationData={[
