@@ -4,6 +4,7 @@ import { Select, Option } from "../select";
 import AdaptiveSidebar from "../adaptive-sidebar";
 import { GlobalHeaderProvider } from "../global-header/__internal__/global-header.context";
 import PopoverContainer from "./popover-container.component";
+import { Menu, MenuItem } from "../menu";
 
 export const Default = ({ title, open }: { title?: string; open: boolean }) => (
   <PopoverContainer title={title} open={open} />
@@ -77,4 +78,47 @@ export const DisableAnimation = () => (
       Contents
     </PopoverContainer>
   </Box>
+);
+
+export const MenuItemAsOpenComponent = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <nav>
+      <Menu menuType="black">
+        <MenuItem href="#">Home</MenuItem>
+        <MenuItem href="#">About Me</MenuItem>
+        <MenuItem href="#">My todolist</MenuItem>
+        <PopoverContainer
+          containerAriaLabel="notifications"
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderOpenComponent={({ onClick }) => (
+            <MenuItem onClick={onClick}>Notifications</MenuItem>
+          )}
+        >
+          You are all caught up!
+        </PopoverContainer>
+      </Menu>
+    </nav>
+  );
+};
+
+export const MenuItemAsOpenComponentInSubmenu = () => (
+  <nav>
+    <Menu menuType="black">
+      <MenuItem clickToOpen submenu="More">
+        <MenuItem href="#">Submenu item</MenuItem>
+        <PopoverContainer
+          containerAriaLabel="notifications"
+          renderOpenComponent={({ onClick }) => (
+            <MenuItem onClick={onClick}>Notifications</MenuItem>
+          )}
+        >
+          You are all caught up!
+        </PopoverContainer>
+      </MenuItem>
+    </Menu>
+  </nav>
 );
