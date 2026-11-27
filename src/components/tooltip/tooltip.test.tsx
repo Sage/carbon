@@ -17,16 +17,16 @@ function renderTooltip(props: Partial<TooltipProps> = {}) {
 describe("Tooltip", () => {
   describe("controlled", () => {
     it("renders with generated data-portal-entrance when isVisible is true", () => {
-      const { container } = renderTooltip({ isVisible: true });
-      const portalEntrance = container.querySelector('[data-portal-entrance]');
-      expect(portalEntrance).toBeTruthy();
-      expect(portalEntrance?.getAttribute("data-portal-entrance")).toBeTruthy();
+      renderTooltip({ isVisible: true });
+      const portalEntrance = screen.getByTestId("data-portal-entrance");
+      expect(portalEntrance).toBeInTheDocument();
+      expect(portalEntrance.getAttribute("data-portal-entrance")).toBeTruthy();
     });
 
     it("does not render portal entrance when isVisible is false", () => {
-      const { container } = renderTooltip({ isVisible: false });
-      const portalEntrance = container.querySelector('[data-portal-entrance]');
-      expect(portalEntrance).toBeNull();
+      renderTooltip({ isVisible: false });
+      const portalEntrance = screen.queryByTestId("data-portal-entrance");
+      expect(portalEntrance).not.toBeInTheDocument();
     });
   });
 
