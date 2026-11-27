@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React, { createRef, useContext } from "react";
 import {
   act,
   fireEvent,
@@ -15,6 +15,7 @@ import {
   StrictMenuProvider,
 } from "../__internal__/strict-menu.context";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
+import MenuContext from "../__internal__/menu.context";
 
 import {
   testStyledSystemFlexBox,
@@ -1576,4 +1577,58 @@ test("should throw when `children` passed and `submenu` is an empty string", () 
   );
 
   consoleSpy.mockRestore();
+});
+
+test("marks its content, but not its submenu items, as being inside a MenuItem", async () => {
+  const user = userEvent.setup();
+  const ContextProbe = ({ name }: { name: string }) => {
+    const { inMenu, inMenuItem } = useContext(MenuContext);
+
+    return (
+      <span
+        data-role={name}
+        data-in-menu={String(!!inMenu)}
+        data-in-menu-item={String(!!inMenuItem)}
+      />
+    );
+  };
+
+  render(
+    <Menu>
+      <MenuItem href="#">
+        <ContextProbe name="content" />
+      </MenuItem>
+      <MenuItem
+        clickToOpen
+        submenu={
+          <>
+            More
+            <ContextProbe name="submenu-title" />
+          </>
+        }
+      >
+        <ContextProbe name="submenu-item" />
+      </MenuItem>
+    </Menu>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "More" }));
+
+  expect(screen.getByTestId("content")).toHaveAttribute(
+    "data-in-menu-item",
+    "true",
+  );
+  expect(screen.getByTestId("content")).toHaveAttribute("data-in-menu", "true");
+  expect(screen.getByTestId("submenu-title")).toHaveAttribute(
+    "data-in-menu-item",
+    "true",
+  );
+  expect(screen.getByTestId("submenu-title")).toHaveAttribute(
+    "data-in-menu",
+    "true",
+  );
+  expect(screen.getByTestId("submenu-item")).toHaveAttribute(
+    "data-in-menu-item",
+    "false",
+  );
 });

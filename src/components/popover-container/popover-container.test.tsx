@@ -5,6 +5,7 @@ import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test
 
 import PopoverContainer, {
   PopoverContainerHandle,
+  RenderOpenProps,
 } from "./popover-container.component";
 import { Select, Option } from "../select";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -15,9 +16,11 @@ import Button from "../button/__next__";
 
 import RadioButton, { RadioButtonGroup } from "../radio-button";
 import GlobalHeader from "../global-header";
-import { Menu, MenuItem } from "../menu";
+import { Menu, MenuItem, MenuFullscreen } from "../menu";
 import TokensWrapper from "../tokens-wrapper";
 import I18nProvider from "../i18n-provider";
+import { TableBodyContext } from "../table/__internal__/contexts";
+import MenuContext from "../menu/__internal__/menu.context";
 
 jest.mock("../../hooks/useMediaQuery");
 jest.mock("../global-header/__internal__/global-header.context", () => {
@@ -43,6 +46,11 @@ afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });
+
+const expectDirectChild = (child: HTMLElement, parent: HTMLElement) => {
+  // eslint-disable-next-line testing-library/no-node-access
+  expect(child.parentElement).toBe(parent);
+};
 
 const PopoverInNavigation = ({ withNav = true }) => {
   const [open, setOpen] = React.useState(false);
@@ -1018,8 +1026,7 @@ test("uses the TokensWrapper as the popover portal target when present", async (
     "carbon-portal-scoped-tokens-provider",
   );
 
-  // eslint-disable-next-line testing-library/no-node-access
-  expect(portalProvider.parentElement).toBe(tokensWrapper);
+  expectDirectChild(portalProvider, tokensWrapper);
 });
 
 test("renders popover content under the global header tree instead of mounting to body root", async () => {
@@ -1194,4 +1201,706 @@ test("should focus the legacy open button when the user tabs until the popover c
   await user.tab(); // closes popover and should focus back on open button
 
   expect(openButton).toHaveFocus();
+});
+
+const menuItemOpenComponent = ({ onClick }: RenderOpenProps) => (
+  <MenuItem data-role="notifications-item" onClick={onClick}>
+    Notifications
+  </MenuItem>
+);
+
+const buttonOpenComponent = ({ ref, onClick }: RenderOpenProps) => (
+  <button type="button" ref={ref} onClick={onClick}>
+    Open
+  </button>
+);
+
+// asserts the wrapper elements rendered outside of a menu list item placement
+const expectWrapperElements = () => {
+  const button = screen.getByRole("button", { name: "Open" });
+
+  expect(screen.getByTestId("pc")).toContainElement(button);
+  // the class is the only identifier of the open component's wrapper element
+  // eslint-disable-next-line testing-library/no-node-access
+  expect(button.parentElement).toHaveClass("popover-open-component");
+};
+
+describe("when rendered as a list item of a Menu", () => {
+  it("renders the open component's list item as a direct child of the list", () => {
+    render(
+      <Menu>
+        <MenuItem href="/home">Home</MenuItem>
+        <PopoverContainer renderOpenComponent={menuItemOpenComponent}>
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    expectDirectChild(
+      screen.getByTestId("notifications-item"),
+      screen.getByRole("list"),
+    );
+  });
+
+  it("opens the popup outside of the list, under the menu's parent", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <div data-role="menu-parent">
+        <Menu>
+          <PopoverContainer renderOpenComponent={menuItemOpenComponent}>
+            Content
+          </PopoverContainer>
+        </Menu>
+      </div>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Notifications" }));
+
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toBeVisible();
+    expect(screen.getByRole("list")).not.toContainElement(dialog);
+    expect(screen.getByTestId("menu-parent")).toContainElement(dialog);
+  });
+
+  it("closes the popup when the open component is clicked twice", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
+    render(
+      <Menu>
+        <PopoverContainer
+          onClose={onClose}
+          renderOpenComponent={menuItemOpenComponent}
+        >
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    const openButton = screen.getByRole("button", { name: "Notifications" });
+    await user.click(openButton);
+    await screen.findByRole("dialog");
+    await user.click(openButton);
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("closes the popup when outside content is clicked", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
+    render(
+      <>
+        <Menu>
+          <PopoverContainer
+            onClose={onClose}
+            renderOpenComponent={menuItemOpenComponent}
+          >
+            Content
+          </PopoverContainer>
+        </Menu>
+        <p>Outside</p>
+      </>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Notifications" }));
+    await screen.findByRole("dialog");
+
+    await user.click(screen.getByText("Outside"));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not close the popup when its content is clicked", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
+    render(
+      <Menu>
+        <PopoverContainer
+          onClose={onClose}
+          renderOpenComponent={menuItemOpenComponent}
+        >
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Notifications" }));
+    await screen.findByRole("dialog");
+
+    await user.click(screen.getByText("Content"));
+
+    expect(screen.getByRole("dialog")).toBeVisible();
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("does not close the popup when an option of a nested Select is clicked", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
+    render(
+      <Menu>
+        <PopoverContainer
+          title="Settings"
+          onClose={onClose}
+          renderOpenComponent={menuItemOpenComponent}
+        >
+          <Select
+            name="colour"
+            id="colour"
+            label="Select colour"
+            value="1"
+            onChange={() => {}}
+          >
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+          </Select>
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Notifications" }));
+    await user.click(await screen.findByRole("combobox"));
+    await user.click(await screen.findByRole("option", { name: "Black" }));
+
+    expect(screen.getByRole("dialog")).toBeVisible();
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("does not close the popup when its backdrop is clicked within a table body", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
+    render(
+      <TableBodyContext.Provider value={{ isInTable: true }}>
+        <Menu>
+          <PopoverContainer
+            onClose={onClose}
+            renderOpenComponent={menuItemOpenComponent}
+          >
+            Content
+          </PopoverContainer>
+        </Menu>
+      </TableBodyContext.Provider>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Notifications" }));
+    await screen.findByRole("dialog");
+
+    await user.click(screen.getByTestId("popup-backdrop"));
+
+    expect(screen.getByRole("dialog")).toBeVisible();
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("ignores the hasFullWidth prop", () => {
+    render(
+      <Menu>
+        <PopoverContainer
+          hasFullWidth
+          renderOpenComponent={menuItemOpenComponent}
+        >
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    const listItem = screen.getByTestId("notifications-item");
+
+    expectDirectChild(listItem, screen.getByRole("list"));
+    expect(listItem).not.toHaveStyle({ width: "100%" });
+  });
+
+  it("closes the popup and refocuses the open component when Escape is pressed", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <Menu>
+        <PopoverContainer renderOpenComponent={buttonOpenComponent}>
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    const openButton = screen.getByRole("button", { name: "Open" });
+    await user.click(openButton);
+    await screen.findByRole("dialog");
+
+    await user.keyboard("{Escape}");
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+    expect(openButton).toHaveFocus();
+  });
+
+  it("renders the popup under the global header tree", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <GlobalHeader>
+        <Menu>
+          <PopoverContainer renderOpenComponent={menuItemOpenComponent}>
+            Content
+          </PopoverContainer>
+        </Menu>
+      </GlobalHeader>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Notifications" }));
+
+    const dialog = await screen.findByRole("dialog");
+    expect(
+      screen.getByRole("navigation", { name: "Global Header" }),
+    ).toContainElement(dialog);
+  });
+
+  it("renders the popup when the open component renders nothing", async () => {
+    render(
+      <Menu>
+        <PopoverContainer open renderOpenComponent={() => <></>}>
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    expect(await screen.findByRole("dialog")).toBeVisible();
+  });
+});
+
+describe("when rendered as a list item of a submenu", () => {
+  const SubmenuWithPopover = () => (
+    <Menu>
+      <MenuItem clickToOpen submenu="More">
+        <MenuItem href="#">Sub one</MenuItem>
+        <PopoverContainer renderOpenComponent={menuItemOpenComponent}>
+          Content
+        </PopoverContainer>
+      </MenuItem>
+    </Menu>
+  );
+
+  it("renders the open component's list item as a direct child of the submenu list", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(<SubmenuWithPopover />);
+
+    await user.click(screen.getByRole("button", { name: "More" }));
+
+    const [, submenuList] = screen.getAllByRole("list");
+
+    expect(submenuList).toHaveAttribute("data-component", "submenu");
+    expectDirectChild(screen.getByTestId("notifications-item"), submenuList);
+  });
+
+  it("does not affect submenu keyboard navigation", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(<SubmenuWithPopover />);
+
+    act(() => {
+      screen.getByRole("button", { name: "More" }).focus();
+    });
+    await user.keyboard("{Enter}");
+    await user.keyboard("{ArrowDown}");
+
+    expect(screen.getByRole("link", { name: "Sub one" })).toHaveFocus();
+
+    await user.keyboard("{ArrowDown}");
+
+    expect(screen.getByRole("button", { name: "Notifications" })).toHaveFocus();
+  });
+});
+
+describe("when nested inside a MenuItem's content", () => {
+  it("renders the wrapper elements within a Menu", () => {
+    render(
+      <Menu>
+        <MenuItem>
+          <PopoverContainer
+            data-role="pc"
+            renderOpenComponent={buttonOpenComponent}
+          />
+        </MenuItem>
+      </Menu>,
+    );
+
+    expectWrapperElements();
+    expect(screen.getByRole("listitem")).toContainElement(
+      screen.getByTestId("pc"),
+    );
+  });
+
+  it("renders the wrapper elements within a submenu", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <Menu>
+        <MenuItem clickToOpen submenu="More">
+          <MenuItem>
+            <PopoverContainer
+              data-role="pc"
+              renderOpenComponent={buttonOpenComponent}
+            />
+          </MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "More" }));
+
+    expectWrapperElements();
+    const [, submenuList] = screen.getAllByRole("list");
+    expect(submenuList).toContainElement(screen.getByTestId("pc"));
+  });
+});
+
+describe("when not rendered inside a Menu", () => {
+  it("renders the wrapper elements", () => {
+    render(
+      <PopoverContainer
+        data-role="pc"
+        renderOpenComponent={buttonOpenComponent}
+      />,
+    );
+
+    expectWrapperElements();
+  });
+
+  it("does not close the popup when its content is clicked", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onClose = jest.fn();
+    render(<PopoverContainer onClose={onClose}>Content</PopoverContainer>);
+
+    await user.click(screen.getByRole("button"));
+    await screen.findByRole("dialog");
+
+    await user.click(screen.getByText("Content"));
+
+    expect(screen.getByRole("dialog")).toBeVisible();
+    expect(onClose).not.toHaveBeenCalled();
+  });
+});
+
+const listItemOpenComponent = ({ onClick }: RenderOpenProps) => (
+  <li>
+    <button type="button" onClick={onClick}>
+      Notifications
+    </button>
+  </li>
+);
+
+describe("behaviour as a menu list item", () => {
+  const setup = () =>
+    userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  it("does not call onClose on an outside click while a controlled popup is closed", async () => {
+    const user = setup();
+    const onClose = jest.fn();
+    render(
+      <>
+        <Menu>
+          <PopoverContainer
+            open={false}
+            onClose={onClose}
+            renderOpenComponent={menuItemOpenComponent}
+          >
+            Content
+          </PopoverContainer>
+        </Menu>
+        <p>Outside</p>
+      </>,
+    );
+
+    await user.click(screen.getByText("Outside"));
+
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("requests closing, but stays open, when a controlled popup is clicked away from", async () => {
+    const user = setup();
+    const onClose = jest.fn();
+    render(
+      <>
+        <Menu>
+          <PopoverContainer
+            open
+            onClose={onClose}
+            renderOpenComponent={menuItemOpenComponent}
+          >
+            Content
+          </PopoverContainer>
+        </Menu>
+        <p>Outside</p>
+      </>,
+    );
+
+    await user.click(screen.getByText("Outside"));
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("dialog")).toBeVisible();
+  });
+
+  it("closes the popup when another item of the menu is clicked", async () => {
+    const user = setup();
+    render(
+      <Menu>
+        <MenuItem onClick={() => {}}>Other</MenuItem>
+        <PopoverContainer renderOpenComponent={menuItemOpenComponent}>
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Notifications" }));
+    await screen.findByRole("dialog");
+    await user.click(screen.getByRole("button", { name: "Other" }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
+
+  it("closes the first popup when the open component of a second one is clicked", async () => {
+    const user = setup();
+    render(
+      <Menu>
+        <PopoverContainer
+          containerAriaLabel="first"
+          renderOpenComponent={menuItemOpenComponent}
+        >
+          First content
+        </PopoverContainer>
+        <PopoverContainer
+          containerAriaLabel="second"
+          renderOpenComponent={buttonOpenComponent}
+        >
+          Second content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Notifications" }));
+    await screen.findByRole("dialog", { name: "first" });
+    await user.click(screen.getByRole("button", { name: "Open" }));
+
+    expect(await screen.findByRole("dialog", { name: "second" })).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.queryByRole("dialog", { name: "first" }),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it("closes the popup and refocuses the open component when the close button is clicked", async () => {
+    const user = setup();
+    render(
+      <Menu>
+        <PopoverContainer renderOpenComponent={buttonOpenComponent}>
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    const openButton = screen.getByRole("button", { name: "Open" });
+    await user.click(openButton);
+    await screen.findByRole("dialog");
+    await user.click(screen.getByRole("button", { name: "close" }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+    expect(openButton).toHaveFocus();
+  });
+
+  it("closes the popup and refocuses the open component when shift+tab is pressed on the close button", async () => {
+    const user = setup();
+    render(
+      <Menu>
+        <PopoverContainer
+          title="Title"
+          renderOpenComponent={buttonOpenComponent}
+        >
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    const openButton = screen.getByRole("button", { name: "Open" });
+    await user.click(openButton);
+    await screen.findByRole("dialog");
+    act(() => {
+      screen.getByRole("button", { name: "close" }).focus();
+    });
+    await user.tab({ shift: true });
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+    expect(openButton).toHaveFocus();
+  });
+
+  it("focuses the open component through the focusButton method", async () => {
+    const user = setup();
+    const Component = () => {
+      const ref = useRef<PopoverContainerHandle>(null);
+
+      return (
+        <>
+          <button type="button" onClick={() => ref.current?.focusButton()}>
+            Focus it
+          </button>
+          <Menu>
+            <PopoverContainer
+              ref={ref}
+              renderOpenComponent={buttonOpenComponent}
+            />
+          </Menu>
+        </>
+      );
+    };
+    render(<Component />);
+
+    await user.click(screen.getByRole("button", { name: "Focus it" }));
+
+    expect(screen.getByRole("button", { name: "Open" })).toHaveFocus();
+  });
+
+  it("places an initially open popup under the menu's parent", async () => {
+    render(
+      <div data-role="menu-parent">
+        <Menu>
+          <PopoverContainer open renderOpenComponent={menuItemOpenComponent}>
+            Content
+          </PopoverContainer>
+        </Menu>
+      </div>,
+    );
+
+    const dialog = await screen.findByRole("dialog");
+    expect(screen.getByTestId("menu-parent")).toContainElement(dialog);
+    expect(screen.getByRole("list")).not.toContainElement(dialog);
+  });
+
+  it("still treats the open component as inside after its root element changes", async () => {
+    const user = setup();
+    const onClose = jest.fn();
+    const Component = ({ variant }: { variant: "a" | "b" }) => (
+      <Menu>
+        <PopoverContainer
+          onClose={onClose}
+          renderOpenComponent={({ onClick }) =>
+            variant === "a" ? (
+              <li key="a">
+                <button type="button" onClick={onClick}>
+                  First
+                </button>
+              </li>
+            ) : (
+              <li key="b">
+                <button type="button" onClick={onClick}>
+                  Second
+                </button>
+              </li>
+            )
+          }
+        >
+          Content
+        </PopoverContainer>
+      </Menu>
+    );
+    const { rerender } = render(<Component variant="a" />);
+    rerender(<Component variant="b" />);
+
+    const openButton = screen.getByRole("button", { name: "Second" });
+    await user.click(openButton);
+    await screen.findByRole("dialog");
+    await user.click(openButton);
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses a TokensWrapper as the portal target when there is no menu element", async () => {
+    render(
+      <TokensWrapper>
+        <MenuContext.Provider value={{ inMenu: true }}>
+          <ul>
+            <PopoverContainer open renderOpenComponent={listItemOpenComponent}>
+              Content
+            </PopoverContainer>
+          </ul>
+        </MenuContext.Provider>
+      </TokensWrapper>,
+    );
+
+    const dialog = await screen.findByRole("dialog");
+    expect(screen.getByTestId("tokens-wrapper")).toContainElement(dialog);
+    expect(screen.getByRole("list")).not.toContainElement(dialog);
+  });
+
+  it("falls back to the parent list as the portal target when there is no better one", async () => {
+    render(
+      <MenuContext.Provider value={{ inMenu: true }}>
+        <ul>
+          <PopoverContainer open renderOpenComponent={listItemOpenComponent}>
+            Content
+          </PopoverContainer>
+        </ul>
+      </MenuContext.Provider>,
+    );
+
+    const dialog = await screen.findByRole("dialog");
+    expect(screen.getByRole("list")).toContainElement(dialog);
+    expect(screen.getByRole("listitem")).not.toContainElement(dialog);
+  });
+
+  it("applies the provided data- attributes", () => {
+    render(
+      <Menu>
+        <PopoverContainer
+          data-element="bar"
+          data-role="baz"
+          renderOpenComponent={menuItemOpenComponent}
+        >
+          Content
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+  });
+  it("renders no wrapper elements within a fullscreen menu", async () => {
+    render(
+      <Menu>
+        <MenuFullscreen isOpen onClose={() => {}}>
+          <PopoverContainer renderOpenComponent={menuItemOpenComponent}>
+            Content
+          </PopoverContainer>
+        </MenuFullscreen>
+      </Menu>,
+    );
+
+    const listItem = await screen.findByTestId("notifications-item");
+    const [, fullscreenList] = screen.getAllByRole("list");
+
+    expectDirectChild(listItem, fullscreenList);
+  });
+
+  it("renders the wrapper elements for content nested in the popup of a list item", async () => {
+    render(
+      <Menu>
+        <PopoverContainer open renderOpenComponent={menuItemOpenComponent}>
+          <PopoverContainer
+            data-role="pc"
+            renderOpenComponent={buttonOpenComponent}
+          />
+        </PopoverContainer>
+      </Menu>,
+    );
+
+    await screen.findByRole("dialog");
+
+    expectWrapperElements();
+  });
 });

@@ -32,6 +32,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import Icon, { IconType } from "../../icon";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import MenuItemVariantContext from "../__internal__/menu-item-variant.context";
+import MenuContext from "../__internal__/menu.context";
 
 export type VariantType = "default" | "alternate";
 
@@ -207,6 +208,7 @@ export const MenuItem = forwardRef<
     const { menuItemVariant: contextVariant } = useContext(
       MenuItemVariantContext,
     );
+    const { inMenu } = useContext(MenuContext);
 
     const focusFromMenu = focusId === menuItemId.current;
     const focusFromSubmenu = submenuFocusId
@@ -318,7 +320,9 @@ export const MenuItem = forwardRef<
         <>
           <StyledMenuItemContent $hasMaxWidth={!!itemMaxWidth}>
             {icon && <Icon type={icon} />}
-            {submenu}
+            <MenuContext.Provider value={{ inMenu, inMenuItem: true }}>
+              {submenu}
+            </MenuContext.Provider>
           </StyledMenuItemContent>
           {showDropdownArrow && !inFullscreenView && (
             <Icon ml="4px" type="dropdown" />
@@ -400,7 +404,9 @@ export const MenuItem = forwardRef<
         >
           <StyledMenuItemContent $hasMaxWidth={!!itemMaxWidth}>
             {icon && <Icon type={icon} />}
-            {children}
+            <MenuContext.Provider value={{ inMenu, inMenuItem: true }}>
+              {children}
+            </MenuContext.Provider>
           </StyledMenuItemContent>
         </StyledMenuItemWrapper>
       </StyledMenuItem>

@@ -284,14 +284,17 @@ export const PopoverContainer = forwardRef<
     const closeButtonRef = useRef<HTMLButtonElement>(null);
     const openButtonRef = useRef<HTMLButtonElement>(null);
     const [popoverReference, setPopoverReference] =
-      useState<HTMLDivElement | null>(null);
+      useState<HTMLElement | null>(null);
+    const [markerElement, setMarkerElement] =
+      useState<HTMLTemplateElement | null>(null);
     const [altTarget, setAltTarget] = useState<HTMLElement | null>(null);
     const guid = useRef(createGuid());
     const popoverContentNodeRef = useRef<HTMLDivElement>(null);
     const popoverContainerId = title
       ? `PopoverContainer_${guid.current}`
       : undefined;
-    const { inMenu } = useContext(MenuContext);
+    const { inMenu, inMenuItem } = useContext(MenuContext);
+    const isMenuListItem = !!inMenu && !inMenuItem;
     const locale = useLocale();
     const isOpen = isControlled ? open : isOpenInternal;
 
@@ -416,6 +419,19 @@ export const PopoverContainer = forwardRef<
     };
 
     const handleClickAway = (e: Event) => {
+      if (isMenuListItem) {
+        const target = e.target as Node;
+        const backdrop = popoverContentNodeRef.current?.closest(
+          '[data-role="popup-backdrop"]',
+        );
+        if (
+          popoverReference?.contains(target) ||
+          (backdrop && backdrop === target)
+        ) {
+          return;
+        }
+      }
+
       if (!isControlled) setIsOpenInternal(false);
       if (isOpen) onClose?.(e);
     };
@@ -451,6 +467,7 @@ export const PopoverContainer = forwardRef<
         disableAnimation={disableAnimation || reduceMotion}
         zIndex={isWithinGlobalHeader ? 10000 : 2000}
         $inMenu={inMenu}
+        onMouseDown={isMenuListItem ? handleClick : undefined}
         {...filterStyledSystemPaddingProps(rest)}
       >
         <MenuContext.Provider value={{ inMenu: false }}>
@@ -522,16 +539,27 @@ export const PopoverContainer = forwardRef<
       );
 
     useIsomorphicLayoutEffect(() => {
+      if (!isMenuListItem) return;
+
+      const element =
+        (markerElement?.previousElementSibling as HTMLElement | null) ?? null;
+      if (element !== popoverReference) {
+        setPopoverReference(element);
+      }
+    });
+
+    useIsomorphicLayoutEffect(() => {
+      const anchor = isMenuListItem ? markerElement : popoverReference;
       const closestHeader = inMenu
-        ? (popoverReference?.closest(
+        ? (anchor?.closest(
             "[data-component='global-header']",
           ) as HTMLElement | null)
         : null;
       const closestMenu = inMenu
-        ? (popoverReference?.closest("[data-component='menu']")
+        ? (anchor?.closest("[data-component='menu']")
             ?.parentElement as HTMLElement | null)
         : null;
-      const tokensWrapper = popoverReference?.closest(
+      const tokensWrapper = anchor?.closest(
         "[data-component='tokens-wrapper']",
       ) as HTMLElement | null;
 
@@ -541,11 +569,62 @@ export const PopoverContainer = forwardRef<
           tokensWrapper ??
           /* istanbul ignore next */ null,
       );
-    }, [inMenu, popoverReference]);
+    }, [inMenu, isMenuListItem, markerElement, popoverReference]);
 
     // Prefer the closest global header or menu, then a tokens wrapper, before
-    // falling back to the popover reference itself.
-    const popoverTarget = altTarget ?? popoverReference;
+    // falling back to the popover reference itself. As a menu list item, the
+    // fallback is the list, so the popup is not placed inside the open component.
+    const popoverTarget =
+      altTarget ??
+      (isMenuListItem
+        ? (markerElement?.parentElement ?? null)
+        : popoverReference);
+
+    const popoverElement = (
+      <CSSTransition
+        nodeRef={popoverContentNodeRef}
+        timeout={{ exit: disableAnimation ? 0 : 300 }}
+        in={isOpen}
+        unmountOnExit
+        onEntered={
+          shouldCoverButton
+            ? /* istanbul ignore next */ () => setIsAnimationComplete(true)
+            : undefined
+        }
+        onExiting={
+          shouldCoverButton
+            ? /* istanbul ignore next */ () => setIsAnimationComplete(false)
+            : undefined
+        }
+      >
+        <Popover
+          reference={{ current: popoverReference }}
+          placement={getPlacement()}
+          popoverStrategy={
+            disableAnimation || reduceMotion ? "fixed" : "absolute"
+          }
+          middleware={popoverMiddleware}
+          childRefOverride={popoverContentNodeRef}
+          disableBackgroundUI={isInTable}
+          portalTarget={popoverTarget}
+        >
+          {childrenToRender()}
+        </Popover>
+      </CSSTransition>
+    );
+
+    if (isMenuListItem) {
+      return (
+        <>
+          {renderOpenComponent(renderOpenComponentProps)}
+          <template
+            ref={setMarkerElement}
+            {...tagComponent("popover-container", rest)}
+          />
+          {popoverElement}
+        </>
+      );
+    }
 
     return (
       <PopoverContainerWrapperStyle
@@ -556,36 +635,7 @@ export const PopoverContainer = forwardRef<
         <div className="popover-open-component" ref={setPopoverReference}>
           {renderOpenComponent(renderOpenComponentProps)}
         </div>
-        <CSSTransition
-          nodeRef={popoverContentNodeRef}
-          timeout={{ exit: disableAnimation ? 0 : 300 }}
-          in={isOpen}
-          unmountOnExit
-          onEntered={
-            shouldCoverButton
-              ? /* istanbul ignore next */ () => setIsAnimationComplete(true)
-              : undefined
-          }
-          onExiting={
-            shouldCoverButton
-              ? /* istanbul ignore next */ () => setIsAnimationComplete(false)
-              : undefined
-          }
-        >
-          <Popover
-            reference={{ current: popoverReference }}
-            placement={getPlacement()}
-            popoverStrategy={
-              disableAnimation || reduceMotion ? "fixed" : "absolute"
-            }
-            middleware={popoverMiddleware}
-            childRefOverride={popoverContentNodeRef}
-            disableBackgroundUI={isInTable}
-            portalTarget={popoverTarget}
-          >
-            {childrenToRender()}
-          </Popover>
-        </CSSTransition>
+        {popoverElement}
       </PopoverContainerWrapperStyle>
     );
   },
