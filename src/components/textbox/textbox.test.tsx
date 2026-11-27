@@ -13,6 +13,8 @@ jest.mock("react", () => ({
   useId: jest.fn(() => "mocked-use-id-123"),
 }));
 
+const mockedGuid = "mocked-use-id-123";
+
 let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
 
 beforeEach(() => {
@@ -69,28 +71,20 @@ describe(`when the characterLimit prop is passed`, () => {
     ).toBeInTheDocument();
   });
 
-  it("should render a visually hidden hint with a generated id", () => {
+  it("should render a visually hidden hint with id generated via guid", () => {
     render(<Textbox value="foo" onChange={() => {}} characterLimit={73} />);
     expect(
-      screen
-        .getByText("You can enter up to 73 characters", {
-          selector: '[data-element="visually-hidden-hint"]',
-        })
-        .getAttribute("id"),
-    ).toBeTruthy();
+      screen.getByText("You can enter up to 73 characters", {
+        selector: '[data-element="visually-hidden-hint"]',
+      }),
+    ).toHaveAttribute("id", mockedGuid);
   });
 
   it("should reference the visually hidden hint id in the input's aria-describedby", () => {
     render(<Textbox value="foo" onChange={() => {}} characterLimit={73} />);
-    const hintId = screen
-      .getByText("You can enter up to 73 characters", {
-        selector: '[data-element="visually-hidden-hint"]',
-      })
-      .getAttribute("id");
-
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      hintId,
+      mockedGuid,
     );
   });
 
@@ -421,12 +415,13 @@ test("when fieldHelp is present and id is not present, the id of the field help 
     <Textbox label="bar" fieldHelp="baz" value="foo" onChange={() => {}} />,
   );
 
-  const fieldHelpId = screen.getByText("baz").getAttribute("id");
-
-  expect(fieldHelpId).toMatch(/-field-help$/);
+  expect(screen.getByText("baz")).toHaveAttribute(
+    "id",
+    `${mockedGuid}-field-help`,
+  );
   expect(screen.getByRole("textbox")).toHaveAttribute(
     "aria-describedby",
-    fieldHelpId,
+    `${mockedGuid}-field-help`,
   );
 });
 
@@ -543,10 +538,10 @@ describe("when inputHint prop is present", () => {
     );
     const hintId = screen.getByText("bar").getAttribute("id");
 
-    expect(hintId).toBeTruthy();
+    expect(hintId).toBe(mockedGuid);
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      hintId,
+      mockedGuid,
     );
   });
 });
