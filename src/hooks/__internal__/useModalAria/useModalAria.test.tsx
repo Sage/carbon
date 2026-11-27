@@ -312,7 +312,14 @@ it("overrides any pre-existing aria-hidden and inert properties when modal is op
     <>
       <div data-role="old-aria-hidden" aria-hidden="false" />
       <ModalComponent openButtonText="open" closeButtonText="close" />
-      <div data-role="old-inert" inert="foo" />
+      <div
+        data-role="old-inert"
+        ref={(element) => {
+          // The hook must restore the exact original DOM attribute value,
+          // including values React 19 no longer accepts as JSX props.
+          element?.setAttribute("inert", "foo");
+        }}
+      />
     </>,
     { wrapper: CarbonProvider },
   );
@@ -336,7 +343,14 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
     <>
       <div data-role="old-aria-hidden" aria-hidden="false" />
       <ModalComponent openButtonText="open" closeButtonText="close" />
-      <div data-role="old-inert" inert="foo" />
+      <div
+        data-role="old-inert"
+        ref={(element) => {
+          // The hook must restore the exact original DOM attribute value,
+          // including values React 19 no longer accepts as JSX props.
+          element?.setAttribute("inert", "foo");
+        }}
+      />
     </>,
     { wrapper: CarbonProvider },
   );
@@ -361,7 +375,14 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
     <>
       <div data-role="old-aria-hidden" aria-hidden="false" />
       <HiddenModal />
-      <div data-role="old-inert" inert="foo" />
+      <div
+        data-role="old-inert"
+        ref={(element) => {
+          // The hook must restore the exact original DOM attribute value,
+          // including values React 19 no longer accepts as JSX props.
+          element?.setAttribute("inert", "foo");
+        }}
+      />
     </>,
     { wrapper: CarbonProvider },
   );

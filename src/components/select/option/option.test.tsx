@@ -277,3 +277,23 @@ describe("when the `multiSelectValues` list is passed via context", () => {
     );
   });
 });
+
+test.each([true, "", "true", "false", "custom"])(
+  "preserves inert attribute presence for the deprecated value %p",
+  (inert) => {
+    const { rerender } = render(
+      <ul>
+        <Option inert={inert} text="Legacy option" value="one" />
+      </ul>,
+    );
+    const option = screen.getByText("Legacy option");
+    expect(option).toHaveAttribute("inert", "");
+
+    rerender(
+      <ul>
+        <Option inert={false} text="Legacy option" value="one" />
+      </ul>,
+    );
+    expect(option).not.toHaveAttribute("inert");
+  },
+);

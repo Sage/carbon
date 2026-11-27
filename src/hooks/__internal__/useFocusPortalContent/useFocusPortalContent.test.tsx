@@ -1,3 +1,4 @@
+import getInertProps from "../../../__internal__/utils/helpers/get-inert-props";
 import React, { useState } from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -128,7 +129,7 @@ test.each([
   ],
   [
     "inert ancestor",
-    <div {...{ inert: "" }}>
+    <div {...getInertProps(true)}>
       <button>Skipped</button>
     </div>,
   ],

@@ -1,3 +1,4 @@
+import getInertProps from "../../../__internal__/utils/helpers/get-inert-props";
 import React, { useContext, useRef } from "react";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
@@ -50,7 +51,7 @@ export interface OptionProps
   /**
    * @deprecated `inert` has been deprecated.
    */
-  inert?: React.HTMLAttributes<HTMLLIElement>["inert"];
+  inert?: boolean | string;
   /**
    * @private
    * @ignore
@@ -79,6 +80,7 @@ const Option = React.forwardRef(
       id,
       index,
       hidden,
+      inert,
       onClick,
       style,
       ...rest
@@ -129,6 +131,7 @@ const Option = React.forwardRef(
         style={style}
         isInteractive={!!value}
         {...restForLi}
+        {...getInertProps(inert === true || typeof inert === "string")}
         data-component="option"
       >
         {children || text}

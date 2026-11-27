@@ -2,9 +2,6 @@ import { type ModalList } from "./__internal__/modal/modal-manager";
 import { type QueryEntry } from "./hooks/useMediaQuery/useMediaQuery";
 
 declare global {
-  module "*.png";
-  module "*.svg";
-  module "*.txt";
   interface Window {
     __CARBON_INTERNALS_MODAL_LIST?: ModalList;
     __CARBON_INTERNALS_MODAL_SETTER_LIST?: ((
@@ -18,11 +15,5 @@ declare global {
       restoreValues?: (() => void) | null;
     };
     __CARBON_INTERNALS_MEDIA_QUERY_CACHE?: Map<string, QueryEntry>;
-  }
-}
-
-declare module "react" {
-  interface HTMLAttributes {
-    inert?: "" | "true" | string;
   }
 }

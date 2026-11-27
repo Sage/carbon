@@ -1,3 +1,4 @@
+import getInertProps from "../../../__internal__/utils/helpers/get-inert-props";
 import React, {
   ReactNode,
   useState,
@@ -215,7 +216,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
           $isSubRowVisible={isSubRow ? isSubRowVisible : undefined}
           $shouldClipSubRow={isSubRow ? shouldClipSubRow : undefined}
           aria-hidden={isSubRow && !isSubRowVisible ? "true" : undefined}
-          inert={isSubRow && !isSubRowVisible ? "true" : undefined}
+          {...getInertProps(isSubRow && !isSubRowVisible)}
         >
           {decoratedChildren}
         </StyledTableRow>

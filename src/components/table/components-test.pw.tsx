@@ -1,3 +1,4 @@
+import getInertProps from "../../__internal__/utils/helpers/get-inert-props";
 import React, { useState } from "react";
 import {
   Table,
@@ -134,7 +135,7 @@ export const TableMenuFocusComponent = ({
                   <div style={{ visibility: "collapse" }}>
                     <button type="button">Collapsed action</button>
                   </div>
-                  <div {...{ inert: "" }}>
+                  <div {...getInertProps(true)}>
                     <button type="button">Inert action</button>
                   </div>
                   <fieldset disabled>

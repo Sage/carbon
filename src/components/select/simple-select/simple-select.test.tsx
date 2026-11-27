@@ -1708,3 +1708,15 @@ testStyledSystemMargin(
   ),
   () => screen.getByTestId("my-select"),
 );
+
+test.each([true, false, "", "true", "false"])(
+  "continues to ignore the deprecated inert prop when passed %p",
+  (inert) => {
+    render(
+      <SimpleSelect label="Colour" inert={inert} onChange={() => {}} value="">
+        <Option text="Amber" value="amber" />
+      </SimpleSelect>,
+    );
+    expect(screen.getByRole("combobox")).not.toHaveAttribute("inert");
+  },
+);

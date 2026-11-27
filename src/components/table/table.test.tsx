@@ -345,7 +345,9 @@ describe("expandable rows", () => {
 
     await user.click(expandableButton);
 
-    expect(screen.getByRole("row", { name: "Child row" })).toBeVisible();
+    const childRow = screen.getByRole("row", { name: "Child row" });
+    expect(childRow).toBeVisible();
+    expect(childRow).not.toHaveAttribute("inert");
     expect(expandableButton).toHaveAttribute("aria-expanded", "true");
     expect(expandableButton).toHaveAttribute("aria-controls", "one-child");
     expect(onExpansionChange).toHaveBeenLastCalledWith(true);
@@ -356,6 +358,7 @@ describe("expandable rows", () => {
       screen.queryByRole("row", { name: "Child row" }),
     ).not.toBeInTheDocument();
     expect(onExpansionChange).toHaveBeenLastCalledWith(false);
+    expect(childRow).toHaveAttribute("inert", "");
   });
 
   it("keeps isExpanded authoritative and reports requested changes", async () => {
@@ -378,6 +381,9 @@ describe("expandable rows", () => {
     expect(onExpansionChange).toHaveBeenCalledWith(false);
     expect(expandableButton).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("row", { name: "Child row" })).toBeVisible();
+    expect(screen.getByRole("row", { name: "Child row" })).not.toHaveAttribute(
+      "inert",
+    );
   });
 
   it.each([
@@ -406,6 +412,9 @@ describe("expandable rows", () => {
       await user.keyboard(key);
 
       expect(screen.getByRole("row", { name: "Child row" })).toBeVisible();
+      expect(
+        screen.getByRole("row", { name: "Child row" }),
+      ).not.toHaveAttribute("inert");
 
       await user.keyboard(key);
 
@@ -424,6 +433,9 @@ describe("expandable rows", () => {
     });
 
     expect(screen.getByRole("row", { name: "Child row" })).toBeVisible();
+    expect(screen.getByRole("row", { name: "Child row" })).not.toHaveAttribute(
+      "inert",
+    );
   });
 
   it("allows content to overflow when a sub row is fully expanded", () => {

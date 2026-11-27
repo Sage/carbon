@@ -10,7 +10,6 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import type { HTMLAttributes } from "react";
 
 import {
   filterOutStyledSystemSpacingProps,
@@ -102,7 +101,7 @@ export interface SimpleSelectProps
   /** @deprecated `leftChildren` no longer has any effect in SimpleSelect. */
   leftChildren?: TextInputProps["leftChildren"];
   /** @deprecated `inert` is no longer applied by SimpleSelect. */
-  inert?: HTMLAttributes<HTMLInputElement>["inert"];
+  inert?: boolean | string;
   /** @deprecated `multiColumn` no longer enables multi-column options in SimpleSelect. */
   multiColumn?: boolean;
   /** A callback that is triggered when a user scrolls to the bottom of the list */
