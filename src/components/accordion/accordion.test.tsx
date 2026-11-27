@@ -9,6 +9,7 @@ import {
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import { Accordion } from ".";
 import AccordionGroup from "./accordion-group/accordion-group.component";
+
 import Logger from "../../__internal__/utils/logger";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
@@ -530,4 +531,34 @@ describe("AccordionGroup", () => {
     loggerSpy.mockRestore();
     loggerSpy.mockClear();
   });
+});
+
+test("AccordionGroup preserves callback cleanup refs and keyboard navigation", async () => {
+  const user = userEvent.setup();
+  const cleanupRef = jest.fn();
+  const firstRef = jest.fn<() => void, [HTMLDivElement | null]>(
+    () => cleanupRef,
+  );
+  const secondRef = React.createRef<HTMLDivElement>();
+  const { unmount } = render(
+    <AccordionGroup>
+      <Accordion title="First" ref={firstRef}>
+        First content
+      </Accordion>
+      <Accordion title="Second" ref={secondRef}>
+        Second content
+      </Accordion>
+    </AccordionGroup>,
+  );
+
+  const first = screen.getByRole("button", { name: "First" });
+  expect(firstRef).toHaveBeenCalledWith(first);
+  await user.click(first);
+  await user.keyboard("{ArrowDown}");
+  expect(screen.getByRole("button", { name: "Second" })).toHaveFocus();
+
+  unmount();
+  expect(cleanupRef).toHaveBeenCalledTimes(1);
+  expect(firstRef).not.toHaveBeenCalledWith(null);
+  expect(secondRef.current).toBeNull();
 });

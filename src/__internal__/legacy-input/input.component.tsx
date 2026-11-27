@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
 import React, { useEffect, useContext, useRef, useCallback } from "react";
 import StyledInput from "./input.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
@@ -125,14 +126,8 @@ const Input = React.forwardRef<
       input = ref;
     }
 
-    const callbackRef = useCallback(
-      (element: HTMLInputElement) => {
-        input.current = element;
-
-        if (typeof ref === "function") {
-          ref(element);
-        }
-
+    const configureInput = useCallback(
+      (element: HTMLInputElement | null) => {
         if (autoFocus && element) {
           element.focus();
         }
@@ -141,8 +136,10 @@ const Input = React.forwardRef<
           element.setAttribute("enterkeyhint", enterKeyHint);
         }
       },
-      [autoFocus, ref, enterKeyHint],
+      [autoFocus, enterKeyHint],
     );
+
+    const callbackRef = useCombinedRefs(input, ref, configureInput);
 
     useEffect(() => {
       if (context.inputRef) {

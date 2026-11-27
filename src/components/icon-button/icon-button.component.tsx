@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from "react";
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
+import React, { useState } from "react";
 import { SpaceProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
@@ -57,15 +58,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       onClick?.(event);
     };
 
-    const setRefs = useCallback(
-      (reference: HTMLButtonElement) => {
-        setInternalRef(reference);
-        if (!ref) return;
-        if (typeof ref === "object") ref.current = reference;
-        if (typeof ref === "function") ref(reference);
-      },
-      [ref],
-    );
+    const setRefs = useCombinedRefs(ref, setInternalRef);
 
     return (
       <StyledIconButton

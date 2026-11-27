@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../../hooks/__internal__/useCombinedRefs";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import invariant from "invariant";
 
@@ -587,21 +588,7 @@ export const FilterableSelect = React.forwardRef<
       onListAction?.();
     }
 
-    const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
-      (element) => {
-        if (!element) return;
-
-        setTextboxRef(element);
-
-        if (!ref) return;
-        if (typeof ref === "function") {
-          ref(element);
-        } else {
-          ref.current = element;
-        }
-      },
-      [ref],
-    );
+    const assignInput = useCombinedRefs(ref, setTextboxRef);
 
     function getTextboxProps() {
       return {

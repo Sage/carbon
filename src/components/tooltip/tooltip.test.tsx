@@ -285,6 +285,33 @@ describe("Tooltip", () => {
   });
 
   describe("Ref forwarding", () => {
+    it("preserves cleanup callbacks for both the child and floating element", () => {
+      const targetCleanup = jest.fn();
+      const floatingCleanup = jest.fn();
+      const targetRef = jest.fn<() => void, [HTMLButtonElement | null]>(
+        () => targetCleanup,
+      );
+      const floatingRef = jest.fn<() => void, [HTMLDivElement | null]>(
+        () => floatingCleanup,
+      );
+      const { unmount } = render(
+        <Tooltip message="Details" isVisible ref={floatingRef}>
+          <button ref={targetRef}>Target</button>
+        </Tooltip>,
+      );
+
+      expect(targetRef).toHaveBeenCalledWith(screen.getByRole("button"));
+      expect(floatingRef).toHaveBeenCalledWith(screen.getByRole("tooltip"));
+      expect(targetCleanup).not.toHaveBeenCalled();
+      expect(floatingCleanup).not.toHaveBeenCalled();
+
+      unmount();
+      expect(targetCleanup).toHaveBeenCalledTimes(1);
+      expect(floatingCleanup).toHaveBeenCalledTimes(1);
+      expect(targetRef).not.toHaveBeenCalledWith(null);
+      expect(floatingRef).not.toHaveBeenCalledWith(null);
+    });
+
     it("should forward a ref object correctly", async () => {
       const testRef = { current: null };
       render(

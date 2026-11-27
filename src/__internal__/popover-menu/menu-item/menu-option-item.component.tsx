@@ -80,7 +80,6 @@ export const MenuOptionItemBase = ({
 
   return (
     <StyledMenuOptionItem
-      ref={combineRefs(ref, measureElement)}
       id={itemId}
       data-component={`popover-${isSubmenu ? "submenu" : "menu"}-item`}
       className={[`popover-menu-item${disabled ? "-disabled" : ""}`, className]
@@ -94,6 +93,7 @@ export const MenuOptionItemBase = ({
       aria-selected={selected && !disabled}
       aria-disabled={disabled}
       {...rest}
+      ref={combineRefs(ref, measureElement)}
       aria-describedby={describedBy || undefined}
     >
       <MenuItemContext.Provider value={{ isDisabled: !!disabled }}>

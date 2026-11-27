@@ -1,4 +1,5 @@
-import React, { useCallback, useState, useContext } from "react";
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
+import React, { useState, useContext } from "react";
 import { SpaceProps } from "styled-system";
 import invariant from "invariant";
 
@@ -286,15 +287,7 @@ const Button = React.forwardRef<
         paddingX = 3;
     }
 
-    const setRefs = useCallback(
-      (reference: HTMLButtonElement | HTMLAnchorElement | null) => {
-        setInternalRef(reference);
-        if (!ref) return;
-        if (typeof ref === "object") ref.current = reference;
-        if (typeof ref === "function") ref(reference);
-      },
-      [ref],
-    );
+    const setRefs = useCombinedRefs(ref, setInternalRef);
 
     const isValidChildren = children !== undefined && children !== false;
 

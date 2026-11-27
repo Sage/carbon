@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../../hooks/__internal__/useCombinedRefs";
 import React, {
   useContext,
   useEffect,
@@ -294,15 +295,7 @@ export const FlatTableRow = React.forwardRef<
       ref: !!draggableProps ? rowRef : null,
     });
 
-    const assignRefs = (node: HTMLTableRowElement | null) => {
-      if (typeof ref === "function") {
-        ref(node);
-      } else if (ref) {
-        ref.current = node;
-      }
-
-      rowRef.current = node;
-    };
+    const assignRefs = useCombinedRefs(rowRef, ref);
 
     return (
       <>

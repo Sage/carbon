@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
 import React, { useContext, useRef, useEffect, ReactNode } from "react";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
@@ -172,15 +173,7 @@ export const Checkbox = React.forwardRef(
     const actualSize = fieldsetSize || contextSize || size;
     const actualError = contextError || fieldsetError || !!error;
 
-    const setInputRef = (node: HTMLInputElement | null) => {
-      internalInputRef.current = node;
-
-      if (typeof ref === "function") {
-        ref(node);
-      } else if (ref) {
-        ref.current = node;
-      }
-    };
+    const setInputRef = useCombinedRefs(internalInputRef, ref);
 
     const isIndeterminate = !!indeterminate;
 

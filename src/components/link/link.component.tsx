@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
 import React, {
   useEffect,
   useMemo,
@@ -173,22 +174,7 @@ export const Link = React.forwardRef<
     const effectiveInverse = inverse ?? isDarkBackground;
     const effectiveVariant = variantAlias[variant] ?? variant;
 
-    const setRefs = useCallback(
-      (reference: HTMLAnchorElement | HTMLButtonElement | null) => {
-        linkRef.current = reference;
-        if (!ref) return;
-        if (typeof ref === "function") {
-          ref(reference);
-          return;
-        }
-        /* istanbul ignore else */
-        if (typeof ref === "object") {
-          ref.current = reference;
-          return;
-        }
-      },
-      [ref],
-    );
+    const setRefs = useCombinedRefs(linkRef, ref);
 
     const handleClick = useCallback(
       (

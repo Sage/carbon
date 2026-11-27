@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../../hooks/__internal__/useCombinedRefs";
 import React, { forwardRef, ReactNode, useContext } from "react";
 import { SpaceProps } from "styled-system";
 
@@ -214,13 +215,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
       }
     };
 
-    const setForwardedRef = (node: ButtonRef | null) => {
-      if (typeof ref === "function") {
-        ref(node);
-      } else if (ref) {
-        ref.current = node;
-      }
-    };
+    const setForwardedRef = useCombinedRefs(ref);
 
     const renderChildren = () => {
       if (!iconType) {

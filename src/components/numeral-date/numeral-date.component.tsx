@@ -1,3 +1,4 @@
+import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import React, {
   useState,
   useRef,
@@ -445,22 +446,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       ? internalMessage + warning
       : warning;
 
-    const handleRef = (
-      element: HTMLInputElement | null,
-      index: number,
-      inputRef: React.ForwardedRef<HTMLInputElement> | undefined,
-    ) => {
-      refs.current[index] = element;
-      if (!inputRef) {
-        return;
-      }
-      if (typeof inputRef === "function") {
-        inputRef(element);
-      } else {
-        inputRef.current = element;
-      }
-    };
-
     const renderInputs = () => {
       return (
         <StyledNumeralDate $size={size}>
@@ -482,6 +467,10 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
                 break;
             }
 
+            const combinedRef = combineRefs<HTMLInputElement>((element) => {
+              refs.current[index] = element;
+            }, inputRef);
+
             const maxWidth =
               datePart === "yyyy" ? WIDTHS.year[size] : WIDTHS.default[size];
 
@@ -502,7 +491,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
                   inputMode="numeric"
                   onChange={(e) => handleChange(e, datePart)}
                   onBlur={handleBlur}
-                  ref={(element) => handleRef(element, index, inputRef)}
+                  ref={combinedRef}
                   maxWidth={maxWidth}
                   required={required}
                   my={0} // prevents any form spacing being applied

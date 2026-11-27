@@ -1,4 +1,5 @@
-import React, { useCallback, useRef, RefObject } from "react";
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
+import React, { useRef, RefObject } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
 import type { ModalProps } from "../../__internal__/modal";
@@ -191,15 +192,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
 
     const sidebarRef = useRef<HTMLDivElement | null>(null);
 
-    const setRefs = useCallback(
-      (reference: HTMLDivElement) => {
-        sidebarRef.current = reference;
-        if (!ref) return;
-        if (typeof ref === "object") ref.current = reference;
-        if (typeof ref === "function") ref(reference);
-      },
-      [ref],
-    );
+    const setRefs = useCombinedRefs(sidebarRef, ref);
 
     const isTopModal = useModalAria(sidebarRef, hidden);
 

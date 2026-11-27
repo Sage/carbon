@@ -12,6 +12,8 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 import Logger from "../../../__internal__/utils/logger";
+import getElementRef from "../../../__internal__/utils/helpers/get-element-ref";
+import combineRefs from "../../../__internal__/utils/helpers/combine-refs";
 
 type AccordionGroupChild =
   | React.ReactElement
@@ -69,12 +71,16 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
     [children],
   );
 
-  const refs = useMemo<React.RefObject<HTMLDivElement>[]>(
-    () =>
-      filteredChildren.map(
-        (child) => child.ref || React.createRef<HTMLDivElement>(),
-      ),
+  const refs = useMemo(
+    () => filteredChildren.map(() => React.createRef<HTMLDivElement>()),
     [filteredChildren],
+  );
+  const combinedRefs = useMemo(
+    () =>
+      filteredChildren.map((child, index) =>
+        combineRefs(refs[index], getElementRef<HTMLDivElement>(child)),
+      ),
+    [filteredChildren, refs],
   );
 
   const focusAccordion = useCallback(
@@ -115,7 +121,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
       {filteredChildren.map((child, index) =>
         // casted to ReactElement as there is no overload for an FunctionComponentElement in cloneElement
         React.cloneElement(child as React.ReactElement, {
-          ref: refs[index],
+          ref: combinedRefs[index],
           index,
           handleKeyboardAccessibility,
         }),

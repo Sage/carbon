@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../../hooks/__internal__/useCombinedRefs";
 import React, {
   useState,
   useEffect,
@@ -586,21 +587,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       setFilterText("");
     }, []);
 
-    const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
-      (element) => {
-        if (!element) return;
-
-        setTextboxRef(element);
-
-        if (!ref) return;
-        if (typeof ref === "function") {
-          ref(element);
-        } else {
-          ref.current = element;
-        }
-      },
-      [ref],
-    );
+    const assignInput = useCombinedRefs(ref, setTextboxRef);
 
     function getTextboxProps() {
       return {

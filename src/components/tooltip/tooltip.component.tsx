@@ -24,19 +24,8 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import Portal from "../portal";
-
-function preserveRef<ElementType>(
-  ref: React.ForwardedRef<ElementType | null>,
-  node: ElementType,
-) {
-  if (!ref) return;
-  if (typeof ref === "function") {
-    ref(node);
-  }
-  if (typeof ref === "object" && "current" in ref) {
-    ref.current = node;
-  }
-}
+import getElementRef from "../../__internal__/utils/helpers/get-element-ref";
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
 
 const TOOLTIP_DELAY = 100;
 
@@ -224,26 +213,16 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
       left: x ?? 0,
     };
 
-    const handleTargetRef = useCallback(
-      (node: HTMLElement) => {
-        reference(target || node);
-        targetInternalRef.current = node;
-        preserveRef(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (children as any).ref as React.ForwardedRef<HTMLElement | null>,
-          node,
-        );
-      },
-      [reference, children, target],
+    const setReference = useCallback(
+      (node: HTMLElement | null) => reference(node ? target || node : null),
+      [reference, target],
     );
-
-    const handleFloatingRef = useCallback(
-      (node: HTMLDivElement) => {
-        floating(node);
-        preserveRef(ref, node);
-      },
-      [floating, ref],
+    const handleTargetRef = useCombinedRefs(
+      setReference,
+      targetInternalRef,
+      getElementRef<HTMLElement>(children),
     );
+    const handleFloatingRef = useCombinedRefs(floating, ref);
 
     const staticSide = {
       top: "bottom",
@@ -273,9 +252,12 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
 
     return (
       <>
-        {React.cloneElement(children, {
-          ref: handleTargetRef,
-        })}
+        {React.cloneElement(
+          children as React.ReactElement<{ ref?: React.Ref<HTMLElement> }>,
+          {
+            ref: handleTargetRef,
+          },
+        )}
 
         {showTooltip ? (
           <Portal>

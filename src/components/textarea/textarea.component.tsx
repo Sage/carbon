@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
 import React, {
   useRef,
   useEffect,
@@ -292,22 +293,7 @@ export const Textarea = React.forwardRef(
 
     const internalRef = useRef<HTMLTextAreaElement | null>(null);
 
-    const callbackRef = useCallback(
-      (inputElement: HTMLTextAreaElement | null) => {
-        internalRef.current = inputElement;
-
-        if (!ref) {
-          return;
-        }
-
-        if ("current" in ref) {
-          ref.current = inputElement;
-        } else {
-          ref(inputElement);
-        }
-      },
-      [ref],
-    );
+    const callbackRef = useCombinedRefs(internalRef, ref);
 
     const [characterCountAriaLive, setCharacterCountAriaLive] = useState<
       "off" | "polite"

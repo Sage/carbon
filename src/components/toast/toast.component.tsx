@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
 import React, {
   forwardRef,
   useCallback,
@@ -129,10 +130,7 @@ const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
       toastContentId.current
     }`;
 
-    let refToPass = toastRef;
-    if (ref && typeof ref === "object" && "current" in ref) {
-      refToPass = ref;
-    }
+    const refToPass = useCombinedRefs(toastRef, ref);
 
     const dismissToast = useCallback(
       (ev: KeyboardEvent) => {
@@ -147,7 +145,7 @@ const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
     useModalManager({
       open,
       closeModal: dismissToast,
-      modalRef: refToPass,
+      modalRef: toastRef,
       topModalOverride: true,
     });
 

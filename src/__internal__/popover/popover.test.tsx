@@ -4,6 +4,7 @@ import React from "react";
 import { render, screen, act, waitFor, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Popover, { PopoverProps } from "./popover.component";
+
 import Dialog from "../../components/dialog";
 import ModalContext from "../modal/modal.context";
 
@@ -365,4 +366,28 @@ test("updates the theme when the ancestor's data-carbon-theme changes, and clear
   await waitFor(() =>
     expect(provider).not.toHaveAttribute("data-carbon-theme"),
   );
+});
+
+test("preserves a child callback cleanup while maintaining its positioning ref", async () => {
+  const cleanupRef = jest.fn();
+  const childRef = jest.fn<() => void, [HTMLDivElement | null]>(
+    () => cleanupRef,
+  );
+  const reference = React.createRef<HTMLButtonElement>();
+  const { unmount } = render(
+    <>
+      <button ref={reference}>Anchor</button>
+      <Popover reference={reference}>
+        <div ref={childRef}>Floating content</div>
+      </Popover>
+    </>,
+  );
+
+  const floating = screen.getByText("Floating content");
+  await waitFor(() => expect(floating).toHaveStyle({ position: "absolute" }));
+  expect(childRef).toHaveBeenCalledWith(floating);
+  unmount();
+
+  expect(cleanupRef).toHaveBeenCalledTimes(1);
+  expect(childRef).not.toHaveBeenCalledWith(null);
 });

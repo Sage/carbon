@@ -267,7 +267,6 @@ const ButtonMenuItem = ({
 
   return (
     <StyledMenuItem
-      ref={combinedRef}
       id={itemId}
       data-component={`popover-${isSubmenu ? "submenu" : "menu"}-item`}
       className={`popover-menu-item${isDisabled ? "-disabled" : ""}`}
@@ -278,6 +277,7 @@ const ButtonMenuItem = ({
       $disabled={isDisabled}
       $isButtonMenu={isButtonMenu}
       {...rest}
+      ref={combinedRef}
       aria-describedby={resolvedAriaDescribedBy || undefined}
     >
       <MenuItemContext.Provider value={{ isDisabled: !!isDisabled }}>

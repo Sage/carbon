@@ -16,6 +16,8 @@ import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-
 import ModalContext, { ModalContextProps } from "../modal/modal.context";
 import useIsBrowser from "../../hooks/__internal__/useIsBrowser";
 import TokensWrapperContext from "../../components/tokens-wrapper/__internal__/context";
+import getElementRef from "../utils/helpers/get-element-ref";
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
 
 export interface PopoverProps {
   /**
@@ -42,7 +44,7 @@ export interface PopoverProps {
   /**
    * Reference element, children will be positioned in relation to this element - should be a ref shaped object.
    */
-  reference: RefObject<HTMLElement>;
+  reference: RefObject<HTMLElement | null>;
   /**
    * Whether the Popover is open, determines if autoUpdate runs in useFloating.
    */
@@ -90,19 +92,17 @@ const PopoverRoot = ({
   useTopLayer = false,
 }: Omit<PopoverProps, "disablePortal">) => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const childRef =
-    childRefOverride ||
-    (React.Children.only(children) as React.FunctionComponentElement<unknown>)
-      .ref;
   const innerRef = useRef<HTMLElement | null>(null);
-  const floatingReference = childRef || innerRef;
-
-  let content;
-  if (childRef) {
-    content = children;
-  } else {
-    content = React.cloneElement(children, { ref: floatingReference });
-  }
+  const child = React.Children.only(children) as React.ReactElement<{
+    ref?: React.Ref<HTMLElement>;
+  }>;
+  const childRef = getElementRef<HTMLElement>(child);
+  const combinedRef = useCombinedRefs(innerRef, childRef);
+  const floatingReference = childRefOverride || innerRef;
+  // An override can identify a nested element rather than the direct child.
+  const content = childRefOverride
+    ? children
+    : React.cloneElement(child, { ref: combinedRef });
 
   useLayoutEffect(() => {
     const element = contentRef.current;

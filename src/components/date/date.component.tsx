@@ -1,3 +1,4 @@
+import useCombinedRefs from "../../hooks/__internal__/useCombinedRefs";
 import React, {
   useCallback,
   useContext,
@@ -359,18 +360,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       isBlurBlocked.current = true;
     };
 
-    const assignInput = useCallback(
-      (inputElement: HTMLInputElement) => {
+    const assignInternalInput = useCallback(
+      (inputElement: HTMLInputElement | null) => {
         internalInputRef.current = inputElement;
-        parentRef.current = inputElement?.parentElement;
-
-        if (ref) {
-          if (typeof ref === "function") {
-            ref(inputElement);
-          } else {
-            ref.current = inputElement;
-          }
-        }
+        parentRef.current = inputElement?.parentElement ?? null;
 
         if (
           inputName &&
@@ -382,8 +375,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           });
         }
       },
-      [inputName, inputRefMap, setInputRefMap, ref, setOpen],
+      [inputName, inputRefMap, setInputRefMap, setOpen],
     );
+
+    const assignInput = useCombinedRefs(assignInternalInput, ref);
 
     const marginProps = filterStyledSystemMarginProps(rest);
 

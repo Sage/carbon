@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import useCombinedRefs from "../../../../../hooks/__internal__/useCombinedRefs";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 
 import { getWindow } from "../../../../../__internal__/dom/globals";
 
@@ -9,18 +10,7 @@ const useCustomizableSelectMarkup = (
 ) => {
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
-  const setSelectRef = useCallback(
-    (select: HTMLSelectElement | null) => {
-      selectRef.current = select;
-
-      if (typeof forwardedRef === "function") {
-        forwardedRef(select);
-      } else if (forwardedRef) {
-        forwardedRef.current = select;
-      }
-    },
-    [forwardedRef],
-  );
+  const setSelectRef = useCombinedRefs(selectRef, forwardedRef);
 
   useIsomorphicLayoutEffect(() => {
     const select = selectRef.current;
