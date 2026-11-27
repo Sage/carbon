@@ -106,10 +106,11 @@ interface StyledFlatTableWrapperProps
       | "hasStickyFooter"
       | "colorTheme"
       | "hasStickyHead"
-      | "footer"
       | "hasOuterVerticalBorders"
     >,
     Partial<DrawerSidebarContextProps> {
+  // FlatTable passes !!footer; this is a style flag, not the footer content.
+  footer: boolean;
   hasHorizontalScrollbar: boolean;
   hasVerticalScrollbar: boolean;
   lastColRowSpanIndex: number;
