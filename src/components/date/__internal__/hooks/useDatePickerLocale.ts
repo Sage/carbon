@@ -4,7 +4,7 @@ import type { Day } from "date-fns";
 import useLocale from "../../../../hooks/__internal__/useLocale";
 
 /** Derives localized picker labels and weekday names. */
-const useDatePickerLocale = () => {
+const useDatePickerLocale = (mode: "single" | "range" = "single") => {
   const locale = useLocale();
   const dateFnsLocale = locale.date.dateFnsLocale();
   const { localize, options } = dateFnsLocale;
@@ -26,10 +26,19 @@ const useDatePickerLocale = () => {
     };
   }, [localeLanguage, localize]);
 
+  const { ariaLabels } = locale.date;
+
   return {
-    datePickerDialogAriaLabel: locale.date.ariaLabels.chooseDate?.(),
-    datePickerDescription: locale.date.ariaLabels.openCalendarDescription?.(),
-    closeButtonLabel: locale.date.ariaLabels.closeButton?.(),
+    datePickerDialogAriaLabel: ariaLabels.chooseDate?.(),
+    datePickerDescription:
+      mode === "range"
+        ? ariaLabels.rangeCalendarDescription?.()
+        : ariaLabels.openCalendarDescription?.(),
+    closeButtonLabel: ariaLabels.closeButton?.(),
+    clearButtonLabel: ariaLabels.clearButton?.(),
+    applyButtonLabel: ariaLabels.applyButton?.(),
+    // Do not fall back to react-day-picker's en-US default for standalone DateInput calendars.
+    dayPickerLocale: dateFnsLocale,
     localize,
     weekStartsOn: options?.weekStartsOn,
     weekdaysLong,

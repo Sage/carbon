@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { enGB as enGBDateLocale } from "date-fns/locale/en-GB";
+import { enUS as enUSDateLocale } from "date-fns/locale/en-US";
 
 import Logger from "../../../../__internal__/utils/logger";
 import deDE from "../../../../locales/de-de";
@@ -49,7 +50,6 @@ test("renders localized weekday headers", () => {
       <DatePickerWithInput
         onRequestPickerClose={() => {}}
         open
-        disablePortal
         selectedDate={new Date(2019, 3, 4)}
       />
     </I18nProvider>,
@@ -59,6 +59,94 @@ test("renders localized weekday headers", () => {
   expect(screen.getByText("Sonntag")).toBeInTheDocument();
 });
 
+test("uses the active locale for range date button names", () => {
+  render(
+    <I18nProvider locale={deDE}>
+      <DatePickerWithInput
+        mode="range"
+        onRequestPickerClose={() => {}}
+        open
+        selectedRange={{
+          from: new Date(2019, 3, 4),
+          to: new Date(2019, 3, 4),
+        }}
+      />
+    </I18nProvider>,
+  );
+
+  expect(
+    screen.getByRole("button", { name: /Donnerstag, 4\. April 2019/ }),
+  ).toBeInTheDocument();
+});
+
+test("uses the active locale for single-date button names", () => {
+  render(
+    <I18nProvider locale={deDE}>
+      <DatePickerWithInput
+        onRequestPickerClose={() => {}}
+        open
+        selectedDate={new Date(2019, 3, 4)}
+      />
+    </I18nProvider>,
+  );
+
+  expect(
+    screen.getByRole("button", { name: /Donnerstag, 4\. April 2019/ }),
+  ).toBeInTheDocument();
+});
+
+test("does not allow picker props to override the provider locale", () => {
+  render(
+    <I18nProvider locale={deDE}>
+      <DatePickerWithInput
+        onRequestPickerClose={() => {}}
+        open
+        selectedDate={new Date(2019, 3, 4)}
+        dayPickerProps={{
+          // @ts-expect-error locale is controlled by I18nProvider.
+          locale: enUSDateLocale,
+        }}
+      />
+    </I18nProvider>,
+  );
+
+  expect(
+    screen.getByRole("button", { name: /Donnerstag, 4\. April 2019/ }),
+  ).toBeInTheDocument();
+});
+
+test("uses the en-GB provider locale for range day names by default", () => {
+  render(
+    <DatePickerWithInput
+      mode="range"
+      onRequestPickerClose={() => {}}
+      open
+      selectedRange={{
+        from: new Date(2019, 6, 4),
+        to: new Date(2019, 6, 4),
+      }}
+    />,
+  );
+
+  expect(
+    screen.getByRole("button", { name: /Thursday, 4 July 2019/ }),
+  ).toBeInTheDocument();
+});
+
+test("uses the en-GB provider locale for single-date names by default", () => {
+  render(
+    <DatePickerWithInput
+      onRequestPickerClose={() => {}}
+      open
+      selectedDate={new Date(2019, 6, 4)}
+    />,
+  );
+
+  expect(
+    screen.getByRole("button", { name: /Thursday, 4 July 2019/ }),
+  ).toBeInTheDocument();
+});
+
 test("does not render when closed", () => {
   render(<DatePickerWithInput onRequestPickerClose={() => {}} open={false} />);
 
@@ -66,9 +154,7 @@ test("does not render when closed", () => {
 });
 
 test("renders month and year selects instead of navigation buttons", () => {
-  render(
-    <DatePickerWithInput onRequestPickerClose={() => {}} open disablePortal />,
-  );
+  render(<DatePickerWithInput onRequestPickerClose={() => {}} open />);
 
   expect(
     screen.getByRole("combobox", { name: "Choose the month" }),
@@ -85,9 +171,7 @@ test("renders month and year selects instead of navigation buttons", () => {
 });
 
 test("renders the calendar dialog with a static aria-label from locale", () => {
-  render(
-    <DatePickerWithInput onRequestPickerClose={() => {}} open disablePortal />,
-  );
+  render(<DatePickerWithInput onRequestPickerClose={() => {}} open />);
 
   expect(screen.getByRole("dialog")).toHaveAttribute(
     "aria-label",
@@ -95,10 +179,24 @@ test("renders the calendar dialog with a static aria-label from locale", () => {
   );
 });
 
-test("describes the calendar dialog with keyboard instructions from locale", () => {
+test("names the calendar dialog by `ariaLabelledBy` instead of the locale in range mode", () => {
   render(
-    <DatePickerWithInput onRequestPickerClose={() => {}} open disablePortal />,
+    <>
+      <span id="field-label">Start date</span>
+      <DatePickerWithInput
+        onRequestPickerClose={() => {}}
+        open
+        ariaLabelledBy="field-label"
+      />
+    </>,
   );
+
+  const dialog = screen.getByRole("dialog", { name: "Start date" });
+  expect(dialog).not.toHaveAttribute("aria-label");
+});
+
+test("describes the calendar dialog with keyboard instructions from locale", () => {
+  render(<DatePickerWithInput onRequestPickerClose={() => {}} open />);
 
   const dialog = screen.getByRole("dialog");
   const description = screen.getByText(
@@ -129,7 +227,7 @@ test("describes the calendar dialog with a locale override", () => {
         },
       }}
     >
-      <DatePickerWithInput onRequestPickerClose={() => {}} open disablePortal />
+      <DatePickerWithInput onRequestPickerClose={() => {}} open />
     </I18nProvider>,
   );
 
@@ -142,11 +240,7 @@ test("renders a Close button that closes the picker and refocuses the input", as
   const user = userEvent.setup();
   const onRequestPickerClose = jest.fn();
   render(
-    <DatePickerWithInput
-      onRequestPickerClose={onRequestPickerClose}
-      open
-      disablePortal
-    />,
+    <DatePickerWithInput onRequestPickerClose={onRequestPickerClose} open />,
   );
 
   await user.click(screen.getByRole("button", { name: "Close" }));
@@ -160,7 +254,6 @@ test("disables dates outside the configured range", () => {
     <DatePickerWithInput
       onRequestPickerClose={() => {}}
       open
-      disablePortal
       selectedDate={new Date(2019, 3, 4)}
       minDate="2019-04-04"
       maxDate="2019-04-30"
@@ -168,11 +261,11 @@ test("disables dates outside the configured range", () => {
   );
 
   expect(
-    screen.getByRole("button", { name: "Wednesday, April 3rd, 2019" }),
+    screen.getByRole("button", { name: "Wednesday, 3 April 2019" }),
   ).toBeDisabled();
   expect(
     screen.getByRole("button", {
-      name: "Thursday, April 4th, 2019, selected",
+      name: "Thursday, 4 April 2019, selected",
     }),
   ).toBeEnabled();
 });
@@ -183,7 +276,6 @@ test("allows navigating to, and viewing, a month outside minDate/maxDate via the
     <DatePickerWithInput
       onRequestPickerClose={() => {}}
       open
-      disablePortal
       selectedDate={new Date(2024, 5, 15)}
       minDate="2024-06-10"
       maxDate="2024-06-20"
@@ -199,7 +291,7 @@ test("allows navigating to, and viewing, a month outside minDate/maxDate via the
     "2025",
   );
   expect(
-    screen.getByRole("button", { name: "Monday, June 30th, 2025" }),
+    screen.getByRole("button", { name: "Monday, 30 June 2025" }),
   ).toBeDisabled();
 });
 
@@ -208,7 +300,6 @@ test("supports a custom yearRangeOffset to narrow the year selector options", ()
     <DatePickerWithInput
       onRequestPickerClose={() => {}}
       open
-      disablePortal
       selectedDate={new Date(2025, 5, 15)}
       yearRangeOffset={1}
     />,

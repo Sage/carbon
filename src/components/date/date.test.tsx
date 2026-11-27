@@ -547,11 +547,36 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
   await user.click(calendarIcon);
 
   await user.click(
-    screen.getByRole("button", { name: "Wednesday, April 3rd, 2019" }),
+    screen.getByRole("button", { name: "Wednesday, 3 April 2019" }),
   );
 
   expect(screen.queryByRole("grid")).toBeVisible();
   expect(onChange).not.toHaveBeenCalled();
+});
+
+test("combines pickerProps.disabled with minDate and maxDate in a DateInput", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <LegacyDateInput
+      onChange={() => {}}
+      value="04/04/2019"
+      minDate="2019-04-04"
+      maxDate="2019-05-31"
+      pickerProps={{ disabled: new Date(2019, 3, 5) }}
+    />,
+  );
+
+  await user.click(screen.getByTestId("input-icon-toggle"));
+
+  expect(
+    screen.getByRole("button", { name: "Wednesday, 3 April 2019" }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole("button", { name: "Friday, 5 April 2019" }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole("button", { name: /Thursday, 4 April 2019/ }),
+  ).toBeEnabled();
 });
 
 test("should close the open picker when the user presses the 'Escape' key and focus is within the picker", async () => {

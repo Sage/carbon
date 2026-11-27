@@ -119,6 +119,8 @@ keys fall back to British English. Applications serving users in another languag
 
 Required locales can be imported from date-fns like so: `import { de, zhCN } from 'date-fns/locale';`
 
+Set the calendar locale through `I18nProvider`; `pickerProps.locale` is not supported. This keeps the calendar aligned with the input's parsing, formatting, and translated labels.
+
 <Canvas of={DateStories.LocaleOverrideExampleImplementation} />
 
 ### Locale format override

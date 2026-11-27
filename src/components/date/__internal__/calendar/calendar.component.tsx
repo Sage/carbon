@@ -1,9 +1,10 @@
 import React from "react";
 import {
   DayPicker,
-  defaultLocale,
   getDefaultClassNames,
+  type DateRange,
   type DayPickerProps,
+  type Matcher,
 } from "react-day-picker";
 
 import { getDisabledDays } from "../utils/utils";
@@ -21,6 +22,11 @@ const weekdayIndexes = {
 } as const;
 
 const defaultClassNames = getDefaultClassNames();
+
+const toMatcherArray = (matchers: Matcher | Matcher[] | undefined) => {
+  if (!matchers) return [];
+  return Array.isArray(matchers) ? matchers : [matchers];
+};
 
 interface CalendarWeekdayLabels {
   long: (string | undefined)[];
@@ -41,7 +47,10 @@ export const CalendarWeekdayRenderer = ({
   children,
 }: DayPickerWeekdayProps) => {
   const weekdays = React.useContext(CalendarWeekdayLabelsContext);
-  const dayIndex = weekdayIndexes[ariaLabel as keyof typeof weekdayIndexes];
+  const localizedDayIndex = weekdays.long.indexOf(ariaLabel);
+  const dayIndex =
+    weekdayIndexes[ariaLabel as keyof typeof weekdayIndexes] ??
+    (localizedDayIndex >= 0 ? localizedDayIndex : undefined);
 
   return (
     <CalendarWeekday
@@ -70,11 +79,14 @@ export const mergeClassNames = (classNames: DayPickerProps["classNames"]) =>
   );
 
 interface CalendarProps {
-  dayPickerProps?: Omit<DayPickerProps, "mode" | "selected">;
+  dayPickerProps?: Omit<DayPickerProps, "mode" | "selected" | "locale">;
   focusedMonth?: Date;
   selectedDays?: Date;
+  mode: "single" | "range";
+  selectedRange?: DateRange;
   minDate?: string;
   maxDate?: string;
+  locale: DayPickerProps["locale"];
   weekStartsOn?: DayPickerProps["weekStartsOn"];
   weekdaysLong: (string | undefined)[];
   weekdaysShort: (string | undefined)[];
@@ -86,8 +98,11 @@ const Calendar = ({
   dayPickerProps,
   focusedMonth,
   selectedDays,
+  mode,
+  selectedRange,
   minDate,
   maxDate,
+  locale,
   weekStartsOn,
   weekdaysLong,
   weekdaysShort,
@@ -95,6 +110,22 @@ const Calendar = ({
   onDayClick,
 }: CalendarProps) => {
   const classNames = mergeClassNames(dayPickerProps?.classNames);
+  const selectionProps =
+    mode === "range"
+      ? {
+          mode: "range" as const,
+          selected: selectedRange,
+          // Keep range selection controlled by `selectedRange`.
+          onSelect: () => {},
+          required: false as const,
+        }
+      : { mode: "single" as const };
+  const minMaxDisabledDays = getDisabledDays(minDate, maxDate);
+  const customDisabledDays = dayPickerProps?.disabled;
+  const disabledDays = [
+    ...toMatcherArray(minMaxDisabledDays),
+    ...toMatcherArray(customDisabledDays),
+  ];
 
   return (
     <CalendarWeekdayLabelsContext.Provider
@@ -105,14 +136,12 @@ const Calendar = ({
         required={false}
         weekStartsOn={weekStartsOn}
         onMonthChange={setFocusedMonth}
-        disabled={getDisabledDays(minDate, maxDate)}
-        locale={{ localize: { ...defaultLocale.localize } }}
-        selected={selectedDays}
+        selected={mode === "range" ? undefined : selectedDays}
         month={focusedMonth || /* istanbul ignore next */ new Date()}
-        onDayClick={(date, _, event) => onDayClick(date, event)}
         fixedWeeks
         defaultMonth={selectedDays}
         {...dayPickerProps}
+        locale={locale}
         classNames={classNames}
         components={{
           ...dayPickerProps?.components,
@@ -121,7 +150,12 @@ const Calendar = ({
             dayPickerProps?.components?.Weekday ?? CalendarWeekdayRenderer,
         }}
         showOutsideDays
-        mode="single"
+        {...selectionProps}
+        disabled={disabledDays.length ? disabledDays : undefined}
+        onDayClick={(date, modifiers, event) => {
+          onDayClick(date, event);
+          dayPickerProps?.onDayClick?.(date, modifiers, event);
+        }}
       />
     </CalendarWeekdayLabelsContext.Provider>
   );

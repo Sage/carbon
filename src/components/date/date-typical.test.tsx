@@ -113,12 +113,14 @@ test("updates the displayed value when the controlled value changes", () => {
 test("allows consumers to override DayPicker renderers", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
+  const onDayClick = jest.fn();
 
   render(
     <TypicalDateInput
       onChange={onChange}
       value=""
       pickerProps={{
+        onDayClick,
         footer: "Custom footer content",
         classNames: { month_grid: "custom-calendar", day: undefined },
         components: {
@@ -154,6 +156,7 @@ test("allows consumers to override DayPicker renderers", async () => {
   await user.click(customDayButton);
 
   expect(onChange).toHaveBeenCalled();
+  expect(onDayClick).toHaveBeenCalledTimes(1);
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 });
 

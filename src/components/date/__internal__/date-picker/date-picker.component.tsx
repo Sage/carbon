@@ -6,7 +6,10 @@ import guid from "../../../../__internal__/utils/helpers/guid";
 import Logger from "../../../../__internal__/utils/logger";
 import StyledDatePickerDialog, {
   DatePickerDescription,
+  DatePickerFooter,
+  DatePickerRangeFooter,
 } from "./date-picker.style";
+import Button from "../../../button/__next__";
 import Calendar from "../calendar/calendar.component";
 import CalendarCloseButton from "../calendar/calendar-close-button.component";
 import CalendarNavigation from "../calendar/calendar-navigation.component";
@@ -42,6 +45,12 @@ export const DatePicker = ({
   pickerTabGuardId,
   pickerId,
   yearRangeOffset,
+  mode = "single",
+  selectedRange,
+  onClear,
+  onApply,
+  statusMessage,
+  ariaLabelledBy,
 }: DatePickerProps) => {
   if (!deprecateDisablePortalWarnTriggered && disablePortal) {
     deprecateDisablePortalWarnTriggered = true;
@@ -50,18 +59,31 @@ export const DatePicker = ({
     );
   }
 
+  // In range mode the start date (or the only valid date) decides the month shown.
+  const anchorDate =
+    mode === "range" ? selectedRange?.from || selectedRange?.to : selectedDate;
+
   const [focusedMonth, setFocusedMonth] = useState<Date | undefined>(
-    selectedDate || new Date(),
+    anchorDate || new Date(),
   );
+
+  const [wasOpen, setWasOpen] = useState(open);
+  if (wasOpen !== open) {
+    setWasOpen(open);
+    if (mode === "range" && open) setFocusedMonth(anchorDate);
+  }
   const {
     datePickerDialogAriaLabel,
     datePickerDescription,
     closeButtonLabel,
+    clearButtonLabel,
+    applyButtonLabel,
+    dayPickerLocale,
     localize,
     weekStartsOn,
     weekdaysLong,
     weekdaysShort,
-  } = useDatePickerLocale();
+  } = useDatePickerLocale(mode);
 
   const pickerRef = useRef<HTMLDivElement>(null);
   const [{ monthSelectId, yearSelectId, pickerDescriptionId }] = useState(
@@ -84,13 +106,17 @@ export const DatePicker = ({
   ) => {
     if (!date) return;
     onDayClick?.(date, event as React.MouseEvent<HTMLDivElement>);
-    closePickerAndRestoreFocus();
+    if (mode === "single") {
+      closePickerAndRestoreFocus();
+    }
   };
 
   const handleEscape = useCallback(() => {
-    setFocusedMonth(selectedDate);
+    if (mode === "single") {
+      setFocusedMonth(selectedDate);
+    }
     closePickerAndRestoreFocus();
-  }, [closePickerAndRestoreFocus, selectedDate]);
+  }, [closePickerAndRestoreFocus, mode, selectedDate]);
   const {
     getPickerDayFocusTarget,
     handleBlur,
@@ -101,6 +127,7 @@ export const DatePicker = ({
   } = useDatePickerKeyboardNavigation({
     ref: pickerRef,
     open,
+    mode,
     monthSelectId,
     yearSelectId,
     onEscape: handleEscape,
@@ -117,7 +144,7 @@ export const DatePicker = ({
     });
   useDatePickerMonthSync({
     open,
-    selectedDate,
+    selectedDate: mode === "range" ? undefined : selectedDate,
     focusedMonth,
     setFocusedMonth,
   });
@@ -153,7 +180,8 @@ export const DatePicker = ({
         onKeyUp={handleKeyUp}
         onKeyDown={handleKeyDown}
         role="dialog"
-        aria-label={datePickerDialogAriaLabel}
+        aria-label={ariaLabelledBy ? undefined : datePickerDialogAriaLabel}
+        aria-labelledby={ariaLabelledBy}
         aria-describedby={pickerDescriptionId}
       >
         <DatePickerDescription id={pickerDescriptionId}>
@@ -184,17 +212,56 @@ export const DatePicker = ({
           dayPickerProps={{ ...dayPickerProps, autoFocus: false }}
           focusedMonth={displayedMonth}
           selectedDays={selectedDate}
+          mode={mode}
+          selectedRange={selectedRange}
           minDate={minDate}
           maxDate={maxDate}
           weekStartsOn={weekStartsOn}
+          locale={dayPickerLocale}
           weekdaysLong={weekdaysLong}
           weekdaysShort={weekdaysShort}
           setFocusedMonth={setFocusedMonth}
           onDayClick={handleDayClick}
         />
-        <CalendarCloseButton onClick={closePickerAndRestoreFocus}>
-          {closeButtonLabel}
-        </CalendarCloseButton>
+        {mode === "range" ? (
+          <>
+            <DatePickerRangeFooter>
+              <Button
+                data-role="date-picker-clear"
+                data-element="clear"
+                variant="default"
+                variantType="secondary"
+                size="small"
+                onClick={onClear}
+              >
+                {clearButtonLabel}
+              </Button>
+              <Button
+                data-role="date-picker-apply"
+                data-element="apply"
+                variant="default"
+                variantType="primary"
+                size="small"
+                onClick={onApply}
+              >
+                {applyButtonLabel}
+              </Button>
+            </DatePickerRangeFooter>
+            <DatePickerDescription
+              role="status"
+              aria-live="polite"
+              data-role="date-picker-status"
+            >
+              {statusMessage}
+            </DatePickerDescription>
+          </>
+        ) : (
+          <DatePickerFooter>
+            <CalendarCloseButton onClick={closePickerAndRestoreFocus}>
+              {closeButtonLabel}
+            </CalendarCloseButton>
+          </DatePickerFooter>
+        )}
       </StyledDatePickerDialog>
     </Popover>
   );
