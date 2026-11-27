@@ -5,7 +5,7 @@ import {
   Tabs as NextTabs,
   TabList as NextTabList,
   TabPanel as NextTabPanel,
-} from "./__next__/tabs.component";
+} from "./__next__";
 import Tab, { TabProps } from "./tab";
 import Logger from "../../__internal__/utils/logger";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";

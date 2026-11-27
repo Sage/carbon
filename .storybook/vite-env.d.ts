@@ -13,6 +13,7 @@ declare const __APP_ENV__: string;
 interface ImportMetaEnv {
   // add types of custom env variables here:
   readonly STORYBOOK_VIEW_MODE: "docs" | "story";
+  readonly STORYBOOK_ENABLE_MODERNISATION?: "true" | "false";
 }
 
 // Storybook does not ship a .d.ts for this subpath, but preview.ts imports the

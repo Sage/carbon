@@ -1,6 +1,9 @@
 import React, { createContext } from "react";
-import { TabContextProps } from "./tabs.types";
-import { StyledTabProvider } from "./tabs.style";
+import { StyledTabProvider } from "../../tabs.style";
+
+export interface TabContextProps {
+  tabId?: string;
+}
 
 export const TabContext = createContext<TabContextProps>({
   tabId: "",
@@ -19,7 +22,7 @@ export const TabProvider = ({ children, tabId, visible }: TabProviderProps) => {
         tabId,
       }}
     >
-      <StyledTabProvider visible={visible} role="presentation">
+      <StyledTabProvider $visible={visible} role="presentation">
         {children}
       </StyledTabProvider>
     </TabContext.Provider>

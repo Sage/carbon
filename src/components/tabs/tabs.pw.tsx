@@ -1,84 +1,25 @@
 import React from "react";
-import { test, expect } from "../../../playwright/helpers/base-test";
+import { test } from "../../../playwright/helpers/base-test";
 
-import { tabById } from "../../../playwright/components/tabs";
-import {
-  TabsComponent,
-  TabsComponentValidations,
-  TabsComponentValidationsUnregistering,
-  WithUpdatingChild,
-} from "./components.test-pw";
-import { getDataElementByValue } from "../../../playwright/components";
-import { ICON } from "../../../playwright/components/locators";
+import { TabsWithLink, TabsWithTitleSiblings } from "./components.test-pw";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
-const validationTypes = ["error", "warning"] as const;
-
-test.describe("Tabs component", () => {
-  test("when the children of a Tab update, the selected tab does not change", async ({
+test.describe("Accessibility tests for legacy Tabs component", () => {
+  test("should pass accessibility tests with a link as a tab", async ({
     mount,
     page,
   }) => {
-    await mount(<WithUpdatingChild />);
+    await mount(<TabsWithLink />);
 
-    await page.getByRole("button").click();
-
-    await expect(page.getByText("Content for tab 2")).toBeVisible();
-    await expect(page.getByText("Content for tab 1")).toBeHidden();
+    await checkAccessibility(page);
   });
 
-  validationTypes.forEach((validation) => {
-    test(`should no longer report ${validation} validation of children no longer mounted`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TabsComponentValidationsUnregistering validationType={validation} />,
-      );
+  test("should pass accessibility tests with title siblings", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TabsWithTitleSiblings />);
 
-      const icon = tabById(page, 1).locator(ICON);
-      await expect(icon).toBeVisible();
-
-      await getDataElementByValue(page, "foo-button").click();
-      await expect(icon).toBeHidden();
-    });
-  });
-
-  test.describe("Accessibility tests for Tabs component", () => {
-    test("should pass accessibility tests with link as a tab", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TabsComponent href="https://carbon.sage.com/" />);
-
-      await checkAccessibility(page);
-    });
-
-    test("should pass accessibility tests with selectedTabId", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TabsComponent selectedTabId="tab-2" />);
-
-      await checkAccessibility(page);
-    });
-
-    test("should pass accessibility tests when position is top and validations", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TabsComponentValidations position="top" />);
-
-      await checkAccessibility(page);
-    });
-
-    test("should pass accessibility tests when position is left and validations", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TabsComponentValidations position="left" />);
-
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
   });
 });

@@ -127,7 +127,25 @@ const parameters = {
   viewMode: import.meta.env.STORYBOOK_VIEW_MODE,
 };
 
+const isModernisationEnabled =
+  import.meta.env.STORYBOOK_ENABLE_MODERNISATION === "true";
+
 const globalTypes = {
+  ...(isModernisationEnabled && {
+    modernisation: {
+      name: "Modernisation",
+      description: "Apply modernisation token overrides to story content",
+      toolbar: {
+        title: "Modernisation",
+        icon: "paintbrush",
+        dynamicTitle: true,
+        items: [
+          { value: "off", title: "Modernisation: Off" },
+          { value: "on", title: "Modernisation: On" },
+        ],
+      },
+    },
+  }),
   locale: {
     name: "Locale",
     description: "Internationalization locale",
@@ -170,6 +188,7 @@ const loaders =
     : [];
 
 const preview: Preview = {
+  initialGlobals: { modernisation: "off" },
   parameters,
   decorators,
   argTypesEnhancers: [deprecatedJsDocArgTypesEnhancer],

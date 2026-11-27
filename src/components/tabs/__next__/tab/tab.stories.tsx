@@ -1,14 +1,14 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { TabPanel } from "../tabs.component";
+import Tab from "./tab.component";
 
 /**
  * This file is used primarily as a means to generate the props table.
  * It contains the tag: ["dev"] so that it is not included in the sidebar.
  */
 
-const meta: Meta<typeof TabPanel> = {
-  title: "TabPanel",
-  component: TabPanel,
+const meta: Meta<typeof Tab> = {
+  title: "Tab",
+  component: Tab,
   tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
@@ -16,10 +16,8 @@ const meta: Meta<typeof TabPanel> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof TabPanel>;
+type Story = StoryObj<typeof Tab>;
 
 export const Default: Story = {
-  args: {
-    children: [],
-  },
+  args: {},
 };

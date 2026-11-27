@@ -4,30 +4,47 @@ import React, {
   useContext,
   useCallback,
   useEffect,
+  Dispatch,
+  SetStateAction,
 } from "react";
-import { TabsContextProps, ValidationRecord } from "./tabs.types";
-import usePrevious from "../../../hooks/__internal__/usePrevious";
+import usePrevious from "../../../../../hooks/__internal__/usePrevious";
+
+export type TabValidationRecord = Record<string, string | boolean>;
+export type ValidationRecord = Record<string, TabValidationRecord>;
+
+export interface TabsContextProps {
+  activeTab: string;
+  focusIndex: string;
+  isInTab?: boolean;
+  labelledBy?: string;
+  orientation: "horizontal" | "vertical";
+  setActiveTab: Dispatch<SetStateAction<string>>;
+  setFocusIndex: Dispatch<SetStateAction<string>>;
+  setErrors: (childId: string, tabId: string, error: string | boolean) => void;
+  setWarnings: (
+    childId: string,
+    tabId: string,
+    warning: string | boolean,
+  ) => void;
+  errors: ValidationRecord;
+  warnings: ValidationRecord;
+  size: "medium" | "large";
+}
 
 /* istanbul ignore next */
 const initialContext: TabsContextProps = {
   activeTab: "",
-  currentTabId: "",
   focusIndex: "",
   isInTab: false,
   labelledBy: "",
   orientation: "horizontal",
-  selectedTabId: "",
   setActiveTab: () => {},
   setFocusIndex: () => {},
-  setCurrentTabId: () => {},
   setErrors: () => {},
   setWarnings: () => {},
   size: "medium",
   errors: {},
   warnings: {},
-  // DEPRECATED - to be removed when legacy tabs removed
-  infos: {},
-  setInfos: () => {},
 };
 
 export const TabsContext = createContext<TabsContextProps>(initialContext);
@@ -55,16 +72,10 @@ export const TabsProvider = ({
   size,
 }: TabsProviderProps) => {
   const [activeTab, setActiveTab] = useState<string>(selectedTabId);
-  const [currentTabId, setCurrentTabId] = useState<string>(selectedTabId);
   const [focusIndex, setFocusIndex] = useState<string>("");
   const [tabErrors, setTabErrors] = useState<ValidationRecord>({});
   const [tabWarnings, setTabWarnings] = useState<ValidationRecord>({});
-  // DEPRECATED - to be removed when legacy tabs removed
-  const [tabInfos, setTabInfos] = useState<ValidationRecord>({});
 
-  // This callback is difficult to test in Jest environments and
-  // is tested in Playwright
-  /* istanbul ignore next */
   const setErrors = useCallback(
     (childId: string, tabId: string, error: string | boolean) => {
       const validationEntry = {
@@ -84,9 +95,6 @@ export const TabsProvider = ({
     [],
   );
 
-  // This callback is difficult to test in Jest environments and
-  // is tested in Playwright
-  /* istanbul ignore next */
   const setWarnings = useCallback(
     (childId: string, tabId: string, warning: string | boolean) => {
       const validationEntry = {
@@ -105,34 +113,11 @@ export const TabsProvider = ({
     [],
   );
 
-  // DEPRECATED - to be removed when legacy tabs removed
-  // This callback is difficult to test in Jest environments and
-  // is tested in Playwright
-  /* istanbul ignore next */
-  const setInfos = useCallback(
-    (childId: string, tabId: string, info: string | boolean) => {
-      const validationEntry = {
-        [tabId]: {
-          [childId]: info,
-        },
-      };
-
-      setTabInfos((state) => {
-        if (!state[tabId]) state[tabId] = {};
-        return state[tabId][childId] !== info
-          ? { ...state, ...validationEntry }
-          : state;
-      });
-    },
-    [],
-  );
-
   const previousSelectedTabId = usePrevious(selectedTabId);
 
   useEffect(() => {
     if (selectedTabId && selectedTabId !== previousSelectedTabId) {
       setActiveTab(selectedTabId);
-      setCurrentTabId(selectedTabId);
     }
   }, [selectedTabId, previousSelectedTabId]);
 
@@ -140,22 +125,17 @@ export const TabsProvider = ({
     <TabsContext.Provider
       value={{
         activeTab,
-        currentTabId,
         focusIndex,
         isInTab,
         labelledBy,
         orientation,
         setActiveTab,
-        setCurrentTabId,
         setFocusIndex,
         setErrors,
         setWarnings,
         size,
         errors: tabErrors,
         warnings: tabWarnings,
-        // DEPRECATED - to be removed when legacy tabs removed
-        infos: tabInfos,
-        setInfos,
       }}
     >
       {children}
