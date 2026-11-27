@@ -1,3 +1,4 @@
+import type React from "react";
 import { render } from "@testing-library/react";
 import {
   LayoutProps,
@@ -157,7 +158,7 @@ export const getDefaultValue = (value?: string | number) => {
 };
 
 const testStyledSystemGrid = (
-  component: (gridProperties?: GridProps) => JSX.Element,
+  component: (gridProperties?: GridProps) => React.JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
   describe.each(gridProps)(
@@ -174,7 +175,7 @@ const testStyledSystemGrid = (
 };
 
 const testStyledSystemBackground = (
-  component: (backgroundProperties?: BackgroundProps) => JSX.Element,
+  component: (backgroundProperties?: BackgroundProps) => React.JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
   describe.each(backgroundProps)(
@@ -191,7 +192,7 @@ const testStyledSystemBackground = (
 };
 
 const testStyledSystemPosition = (
-  component: (positionProperties?: PositionProps) => JSX.Element,
+  component: (positionProperties?: PositionProps) => React.JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
   describe.each(positionProps)(
@@ -208,7 +209,7 @@ const testStyledSystemPosition = (
 };
 
 const testStyledSystemMargin = (
-  component: (spacingProps?: MarginProps) => JSX.Element,
+  component: (spacingProps?: MarginProps) => React.JSX.Element,
   elementQuery: () => HTMLElement,
   assertOpts?: jest.Options,
 ) => {
@@ -230,7 +231,7 @@ const testStyledSystemMargin = (
 };
 
 const testStyledSystemPadding = (
-  component: (spacingProps?: PaddingProps) => JSX.Element,
+  component: (spacingProps?: PaddingProps) => React.JSX.Element,
   elementQuery: () => HTMLElement,
   assertOpts?: jest.Options,
 ) => {
@@ -252,7 +253,7 @@ const testStyledSystemPadding = (
 };
 
 const testStyledSystemSpacing = (
-  component: (spacingProps?: MarginProps | PaddingProps) => JSX.Element,
+  component: (spacingProps?: MarginProps | PaddingProps) => React.JSX.Element,
   elementQuery: () => HTMLElement,
   assertOpts?: jest.Options,
 ) => {
@@ -263,7 +264,7 @@ const testStyledSystemSpacing = (
 const testStyledSystemColor = (
   // https://stackoverflow.com/questions/53711454/styled-system-props-typing-with-typescript
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: (colorProperties?: any) => JSX.Element,
+  component: (colorProperties?: any) => React.JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
   describe.each(colorProps)(
@@ -281,7 +282,7 @@ const testStyledSystemColor = (
 };
 
 const testStyledSystemWidth = (
-  component: (widthProperties?: { width: string }) => JSX.Element,
+  component: (widthProperties?: { width: string }) => React.JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
   describe("when a width prop is specified using styled system props", () => {
@@ -296,7 +297,7 @@ const testStyledSystemWidth = (
 };
 
 const testStyledSystemHeight = (
-  component: (heightProperties?: { height: string }) => JSX.Element,
+  component: (heightProperties?: { height: string }) => React.JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
   describe("when a height prop is specified using styled system props", () => {
@@ -311,7 +312,7 @@ const testStyledSystemHeight = (
 };
 
 const testStyledSystemLayout = (
-  component: (layoutProperties?: LayoutProps) => JSX.Element,
+  component: (layoutProperties?: LayoutProps) => React.JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
   describe.each(layoutProps)(
@@ -329,7 +330,7 @@ const testStyledSystemLayout = (
 };
 
 const testStyledSystemFlexBox = (
-  component: (flexboxProperties?: FlexboxProps) => JSX.Element,
+  component: (flexboxProperties?: FlexboxProps) => React.JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
   describe.each(flexBoxProps)(

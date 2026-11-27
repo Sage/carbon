@@ -266,7 +266,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       if (onClick && !href) {
         return (
           <StyledResponsiveMenuActionButton
-            ref={ref as RefObject<HTMLButtonElement>}
+            ref={ref as Readonly<RefObject<HTMLButtonElement | null>>}
             {...sharedProps}
           >
             {menuItemContent}
@@ -276,7 +276,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
 
       return (
         <StyledResponsiveMenuActionLink
-          ref={ref as RefObject<HTMLAnchorElement>}
+          ref={ref as Readonly<RefObject<HTMLAnchorElement | null>>}
           {...sharedProps}
         >
           {menuItemContent}
@@ -307,7 +307,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
                   handleKeyDown(e);
                 }
               }}
-              ref={ref as RefObject<HTMLButtonElement>}
+              ref={ref as Readonly<RefObject<HTMLButtonElement | null>>}
               responsive={responsiveMode}
               tabIndex={responsiveDisplay ? -1 : 0}
               type="button"

@@ -56,7 +56,7 @@ const DraggableItem = ({
   "data-element": dataElement,
   "data-role": dataRole = "draggable-item",
   ...rest
-}: DraggableItemProps): JSX.Element => {
+}: DraggableItemProps): React.JSX.Element => {
   const id = String(idProp);
   const index = indexProp as number;
 

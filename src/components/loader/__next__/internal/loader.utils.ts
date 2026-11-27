@@ -10,7 +10,7 @@ export const getAnimationTime = (
 ) => animationTime || fallback;
 
 export const useGeneratedId = () => {
-  const generatedId = useRef<string>();
+  const generatedId = useRef<string>(undefined);
 
   if (!generatedId.current) {
     generatedId.current = guid();

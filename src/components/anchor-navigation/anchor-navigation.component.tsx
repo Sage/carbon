@@ -45,7 +45,7 @@ const AnchorNavigation = ({
   "aria-labelledby": ariaLabelledby,
   "data-element": dataElement,
   "data-role": dataRole,
-}: AnchorNavigationProps): JSX.Element => {
+}: AnchorNavigationProps): React.JSX.Element => {
   const [selectedItem, setSelectedItem] = useState<HTMLAnchorElement | null>(
     null,
   );
@@ -60,7 +60,7 @@ const AnchorNavigation = ({
 
   const isUserScroll = useRef(true);
 
-  const isUserScrollTimer = useRef<NodeJS.Timeout>();
+  const isUserScrollTimer = useRef<NodeJS.Timeout>(undefined);
 
   // Items are ordered by their position in the DOM rather than by registration order,
   // so conditionally added or reordered items follow the rendered order.
@@ -175,7 +175,10 @@ const AnchorNavigation = ({
   };
 
   const activateItem = useCallback(
-    (element: HTMLAnchorElement, target?: React.RefObject<HTMLElement>) => {
+    (
+      element: HTMLAnchorElement,
+      target?: Readonly<React.RefObject<HTMLElement | null>>,
+    ) => {
       const sectionToScroll = target?.current;
 
       if (!sectionToScroll) return;

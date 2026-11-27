@@ -39,7 +39,7 @@ description: Carbon Confirm component props and usage examples.
 | disableConfirm | boolean \| undefined | No |  |  |  | Makes confirm button disabled |  |
 | disableEscKey | boolean \| undefined | No |  |  |  | Determines if the Esc Key closes the modal |  |
 | disableStickyOnSmallScreen | boolean \| undefined | No |  |  |  | When true, header and sticky footer become unstickied for accessibility on small screen devices. On small screen devices, the dialog becomes full width and has no dimmer. |  |
-| focusFirstElement | HTMLElement \| React.RefObject<HTMLElement> \| null \| undefined | No |  |  |  | Optional reference to an element meant to be focused on open |  |
+| focusFirstElement | HTMLElement \| Readonly<React.RefObject<HTMLElement \| null>> \| null \| undefined | No |  |  |  | Optional reference to an element meant to be focused on open |  |
 | footer | React.ReactNode | No |  |  |  | Footer content to be rendered at the bottom of the dialog |  |
 | gradientKeyLine | boolean \| undefined | No |  |  |  | Adds a gradient keyline to the dialog header |  |
 | greyBackground | boolean \| undefined | No |  |  |  | Change the background color of the content to grey |  |

@@ -11,7 +11,7 @@ export const FlexTileContainer = ({
   children,
   columnGap = 2,
   overflow = "hidden",
-}: FlexTileContainerProps): JSX.Element => {
+}: FlexTileContainerProps): React.JSX.Element => {
   if (!children) {
     return <></>;
   }

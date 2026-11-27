@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryFn, StoryObj } from "@storybook/react-vite";
+import { Decorator, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, expect, waitFor } from "storybook/test";
 
 import TextEditor, { createFromHTML, Mention, MentionsPlugin } from ".";
@@ -14,7 +14,7 @@ export default {
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },
-  decorators: [(StoryToRender: StoryFn) => <StoryToRender />],
+  decorators: [(StoryToRender: Parameters<Decorator>[0]) => <StoryToRender />],
 };
 
 const mentionsData: Mention[] = [

@@ -16,7 +16,7 @@ interface DatePickerTriggerProps {
   pickerId: string;
   readOnly?: boolean;
   size: "small" | "medium" | "large";
-  datePickerTriggerRef?: React.RefObject<HTMLButtonElement>;
+  datePickerTriggerRef?: Readonly<React.RefObject<HTMLButtonElement | null>>;
   variant: "legacy" | "typical";
   onClick: (ev: React.MouseEvent<HTMLElement>) => void;
   onMouseDown?: (ev: React.MouseEvent<HTMLElement>) => void;

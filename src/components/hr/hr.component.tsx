@@ -35,7 +35,7 @@ export const Hr = ({
   type = "typical",
   height = "small",
   ...rest
-}: HrProps): JSX.Element => {
+}: HrProps): React.JSX.Element => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
     Logger.deprecate(

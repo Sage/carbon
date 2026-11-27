@@ -15,7 +15,7 @@ export const FlexTileCell = ({
   flexBasis = "160px",
   flexShrink = 0,
   ...rest
-}: FlexTileCellProps): JSX.Element => {
+}: FlexTileCellProps): React.JSX.Element => {
   if (!children) {
     return <></>;
   }

@@ -15,7 +15,7 @@ interface StarProps {
 const Star = ({
   starContainerClassName,
   gradientId,
-}: StarProps): JSX.Element => {
+}: StarProps): React.JSX.Element => {
   return (
     <StyledLoaderStarContainer
       data-component="star"

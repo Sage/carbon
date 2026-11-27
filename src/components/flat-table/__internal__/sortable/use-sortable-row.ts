@@ -14,7 +14,7 @@ interface UseSortableRowArgs {
   /** Index of the referenced element in a list. */
   index: number;
   /** Ref of the element to be made draggable and a drop target. */
-  ref: React.RefObject<HTMLElement> | null;
+  ref: Readonly<React.RefObject<HTMLElement | null>> | null;
 }
 
 interface UseSortableRowReturn {

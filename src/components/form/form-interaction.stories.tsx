@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj, StoryFn, composeStory } from "@storybook/react-vite";
+import { StoryObj, Decorator, composeStory } from "@storybook/react-vite";
 import { userEvent, within, expect } from "storybook/test";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
@@ -203,7 +203,7 @@ export const TabOrderThroughFieldsAndFooterButtons: Story = {
     await expect(fourthInput).toHaveFocus();
   },
   decorators: [
-    (StoryToRender: StoryFn) => (
+    (StoryToRender: Parameters<Decorator>[0]) => (
       <CarbonProvider>
         <StoryToRender />
       </CarbonProvider>

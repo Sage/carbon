@@ -14,7 +14,7 @@ const useDatePickerMonthSync = ({
   focusedMonth,
   setFocusedMonth,
 }: UseDatePickerMonthSyncProps) => {
-  const previousSelectedDate = useRef<number>();
+  const previousSelectedDate = useRef<number>(undefined);
 
   // Keep the selected date's day and time when synchronizing. Consumers use the
   // month and year for display, while preserving the complete selected value.

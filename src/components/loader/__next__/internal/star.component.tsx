@@ -61,7 +61,7 @@ const Star = ({
   animationTime,
   gradientId,
   hasMotion,
-}: StarProps): JSX.Element => {
+}: StarProps): React.JSX.Element => {
   const star2GradientId = `${gradientId}-2`;
   const star3GradientId = `${gradientId}-3`;
   const star4GradientId = `${gradientId}-4`;

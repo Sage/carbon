@@ -5,8 +5,8 @@ import focusNextAction, {
 } from "../utils/focus-next-action";
 
 interface UseMoveFocusAfterFileRemovalProps {
-  statusListRef: RefObject<HTMLElement>;
-  fallbackRef: RefObject<HTMLElement | null>;
+  statusListRef: Readonly<RefObject<HTMLElement | null>>;
+  fallbackRef: Readonly<RefObject<HTMLElement | null>>;
   /** Runs just before the removal announcement is shown, e.g. to clear the live region. */
   onRemovalAnnouncement: () => void;
 }

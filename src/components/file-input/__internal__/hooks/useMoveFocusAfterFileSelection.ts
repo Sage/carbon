@@ -4,7 +4,7 @@ import { getStatusFocusTarget } from "../utils/focus-next-action";
 interface UseMoveFocusAfterFileSelectionProps {
   multiple?: boolean;
   hasFiles: boolean;
-  fallbackRef: RefObject<HTMLButtonElement | null>;
+  fallbackRef: Readonly<RefObject<HTMLButtonElement | null>>;
 }
 
 /**
@@ -19,7 +19,7 @@ export default function useMoveFocusAfterFileSelection({
   hasFiles,
   fallbackRef,
 }: UseMoveFocusAfterFileSelectionProps): {
-  statusListRef: RefObject<HTMLDivElement>;
+  statusListRef: Readonly<RefObject<HTMLDivElement | null>>;
   requestFileStatusFocus: () => void;
   cancelFileStatusFocus: () => void;
 } {

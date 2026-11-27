@@ -25,9 +25,9 @@ export interface ResponsiveVerticalMenuButtonItem {
 export interface MenuContextType {
   active: boolean;
   activeMenuItem: ResponsiveVerticalMenuButtonItem | null;
-  buttonRef: RefObject<HTMLButtonElement>;
-  containerRef: RefObject<HTMLDivElement>;
-  menuRef: RefObject<HTMLUListElement>;
+  buttonRef: Readonly<RefObject<HTMLButtonElement | null>>;
+  containerRef: Readonly<RefObject<HTMLDivElement | null>>;
+  menuRef: Readonly<RefObject<HTMLUListElement | null>>;
   reducedMotion?: boolean;
   responsiveMode?: boolean;
   left: string;

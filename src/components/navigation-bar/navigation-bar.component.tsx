@@ -46,7 +46,7 @@ export const NavigationBar = ({
   orientation,
   "data-component": dataComponent,
   ...props
-}: NavigationBarProps): JSX.Element => {
+}: NavigationBarProps): React.JSX.Element => {
   const navbarRef = useRef(null);
 
   const isBlackNavigationType =

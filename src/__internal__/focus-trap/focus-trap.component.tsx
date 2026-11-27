@@ -25,7 +25,10 @@ export interface FocusTrapProps {
   children: React.ReactNode;
   autoFocus?: boolean;
   /** provide a custom first element to focus */
-  focusFirstElement?: RefObject<HTMLElement> | HTMLElement | null;
+  focusFirstElement?:
+    | Readonly<RefObject<HTMLElement | null>>
+    | HTMLElement
+    | null;
   /** a custom callback that will override the default focus trap behaviour */
   bespokeTrap?: (
     ev: KeyboardEvent,
@@ -35,11 +38,11 @@ export interface FocusTrapProps {
   /** optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** a ref to the container wrapping the focusable elements */
-  wrapperRef: RefObject<HTMLElement>;
+  wrapperRef: Readonly<RefObject<HTMLElement | null>>;
   /* whether the modal (etc.) component that the focus trap is inside is open or not */
   isOpen?: boolean;
   /** an optional array of refs to containers whose content should also be reachable from the FocusTrap */
-  additionalWrapperRefs?: RefObject<HTMLElement>[];
+  additionalWrapperRefs?: Readonly<RefObject<HTMLElement | null>>[];
 }
 
 const FocusTrap = ({

@@ -28,9 +28,9 @@ description: Carbon Alert component props and usage examples.
 | disableFocusTrap | boolean \| undefined | No |  |  |  |  |  |
 | disableStickyOnSmallScreen | boolean \| undefined | No |  |  |  | When true, header and sticky footer become unstickied for accessibility on small screen devices. On small screen devices, the dialog becomes full width and has no dimmer. |  |
 | enableBackgroundUI | boolean \| undefined | No |  |  |  | Determines if the background is disabled when the modal is open |  |
-| focusableContainers | React.RefObject<HTMLElement>[] \| undefined | No |  |  |  | an optional array of refs to containers whose content should also be reachable by tabbing from the dialog |  |
+| focusableContainers | Readonly<React.RefObject<HTMLElement \| null>>[] \| undefined | No |  |  |  | an optional array of refs to containers whose content should also be reachable by tabbing from the dialog |  |
 | focusableSelectors | string \| undefined | No |  |  |  | Optional selector to identify the focusable elements, if not provided a default selector is used |  |
-| focusFirstElement | HTMLElement \| React.RefObject<HTMLElement> \| null \| undefined | No |  |  |  | Optional reference to an element meant to be focused on open |  |
+| focusFirstElement | HTMLElement \| Readonly<React.RefObject<HTMLElement \| null>> \| null \| undefined | No |  |  |  | Optional reference to an element meant to be focused on open |  |
 | footer | React.ReactNode | No |  |  |  | Footer content to be rendered at the bottom of the dialog |  |
 | gradientKeyLine | boolean \| undefined | No |  |  |  | Adds a gradient keyline to the dialog header |  |
 | greyBackground | boolean \| undefined | No |  |  |  | Change the background color of the content to grey |  |

@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj, StoryFn, composeStory } from "@storybook/react-vite";
+import { StoryObj, Decorator, composeStory } from "@storybook/react-vite";
 import { userEvent, within, expect, waitFor } from "storybook/test";
 
 import AnchorNavigation from "./anchor-navigation.component";
@@ -34,7 +34,7 @@ export const NavFocusManagement: Story = {
     await waitFor(() => expect(links[1]).toHaveFocus());
   },
   decorators: [
-    (StoryToRender: StoryFn) => (
+    (StoryToRender: Parameters<Decorator>[0]) => (
       <DefaultDecorator>
         <StoryToRender />
       </DefaultDecorator>
@@ -80,7 +80,7 @@ export const ScrollAndFocusInput: Story = {
     await waitFor(() => expect(secondInput).toHaveFocus());
   },
   decorators: [
-    (StoryToRender: StoryFn) => (
+    (StoryToRender: Parameters<Decorator>[0]) => (
       <DefaultDecorator>
         <StoryToRender />
       </DefaultDecorator>

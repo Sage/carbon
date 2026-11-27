@@ -4,7 +4,7 @@ import ModalManager from "../../../__internal__/modal/modal-manager";
 type UseModalManagerArgs = {
   open: boolean;
   closeModal: (e: KeyboardEvent) => void;
-  modalRef: React.RefObject<HTMLElement>;
+  modalRef: Readonly<React.RefObject<HTMLElement | null>>;
   setTriggerRefocusFlag?: (flag: boolean) => void;
   triggerRefocusOnClose?: boolean;
   topModalOverride?: boolean;

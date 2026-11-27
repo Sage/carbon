@@ -15,7 +15,7 @@ export interface FixedNavigationBarContextProviderProps
     NavigationBarProps,
     "position" | "orientation" | "offset" | "children"
   > {
-  navbarRef: React.RefObject<HTMLElement>;
+  navbarRef: Readonly<React.RefObject<HTMLElement | null>>;
 }
 
 export const FixedNavigationBarContextProvider = ({

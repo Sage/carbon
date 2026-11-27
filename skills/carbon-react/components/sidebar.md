@@ -22,7 +22,7 @@ description: Carbon Sidebar component props and usage examples.
 | disableEscKey | boolean \| undefined | No |  |  |  | Determines if the Esc Key closes the modal | false |
 | disableStickyOnSmallScreen | boolean \| undefined | No |  |  |  | When true, header and footer become non-sticky and scroll with content for accessibility on small screen devices. | false |
 | enableBackgroundUI | boolean \| undefined | No |  |  |  | Set this prop to false to hide the translucent background when the dialog is open. | false |
-| focusableContainers | React.RefObject<HTMLElement>[] \| undefined | No |  |  |  | an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar |  |
+| focusableContainers | Readonly<React.RefObject<HTMLElement \| null>>[] \| undefined | No |  |  |  | an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar |  |
 | focusableSelectors | string \| undefined | No |  |  |  | Optional selector to identify the focusable elements, if not provided a default selector is used |  |
 | focusFirstElement | React.MutableRefObject<HTMLElement \| null> \| undefined | No |  |  |  | Optional reference to an element meant to be focused on open |  |
 | footer | React.ReactNode | No |  |  |  | Footer content to be rendered at the bottom of the Sidebar. |  |

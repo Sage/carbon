@@ -41,8 +41,8 @@ description: Carbon PopoverContainer component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| renderCloseComponent | ((args: RenderCloseProps) => JSX.Element) \| undefined | No |  |  |  | A function that will render the close component. Please note that tabIndex is deprecated and no longer required for the close button. `({data-element, tabIndex, onClick, ref, aria-label}) => ()` | renderClose |
-| renderOpenComponent | ((args: RenderOpenProps) => JSX.Element) \| undefined | No |  |  |  | A function that will render the open component. Please note that tabIndex is deprecated and no longer required for the open button. `({isOpen, data-element, onClick, ref, aria-label}) => ()` | renderOpen |
+| renderCloseComponent | ((args: RenderCloseProps) => React.JSX.Element) \| undefined | No |  |  |  | A function that will render the close component. Please note that tabIndex is deprecated and no longer required for the close button. `({data-element, tabIndex, onClick, ref, aria-label}) => ()` | renderClose |
+| renderOpenComponent | ((args: RenderOpenProps) => React.JSX.Element) \| undefined | No |  |  |  | A function that will render the open component. Please note that tabIndex is deprecated and no longer required for the open button. `({isOpen, data-element, onClick, ref, aria-label}) => ()` | renderOpen |
 | roundness | "moderate" \| "curved" \| undefined | No | moderate \| curved |  |  | Sets the roundness of the popover container corners | "moderate" |
 | shouldCoverButton | boolean \| undefined | No |  |  |  | if `true` the popover-container will cover open button | false |
 | size | Size \| undefined | No | small \| medium \| large |  |  | Sets the size of the popover container. | "medium" |

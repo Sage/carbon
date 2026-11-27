@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StoryObj, StoryFn } from "@storybook/react-vite";
+import { StoryObj, Decorator } from "@storybook/react-vite";
 import { userEvent, within } from "storybook/test";
 
 import Box from "../box";
@@ -24,7 +24,7 @@ export default {
     },
   },
   decorators: [
-    (StoryToRender: StoryFn) => (
+    (StoryToRender: Parameters<Decorator>[0]) => (
       <DefaultDecorator>
         <StoryToRender />
       </DefaultDecorator>

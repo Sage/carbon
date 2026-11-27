@@ -8,7 +8,9 @@ const renderKeyboardNavigation = (
   { open = true, onEscape = jest.fn() } = {},
 ) => {
   document.body.appendChild(picker);
-  const ref = { current: picker } as React.RefObject<HTMLDivElement>;
+  const ref = { current: picker } as Readonly<
+    React.RefObject<HTMLDivElement | null>
+  >;
 
   return renderHook(() =>
     useDatePickerKeyboardNavigation({
@@ -529,7 +531,9 @@ test("does not handle Tab when there is no active element", () => {
 });
 
 test("returns no controls while the picker ref is empty", () => {
-  const ref = { current: null } as React.RefObject<HTMLDivElement>;
+  const ref = { current: null } as Readonly<
+    React.RefObject<HTMLDivElement | null>
+  >;
   const { result } = renderHook(() =>
     useDatePickerKeyboardNavigation({
       ref,

@@ -57,7 +57,7 @@ const InputPresentation = ({
   readOnly,
   size = "medium",
   warning,
-}: InputPresentationProps): JSX.Element => {
+}: InputPresentationProps): React.JSX.Element => {
   const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } =
     useContext(InputContext);
   const { validationRedesignOptIn } = useContext(NewValidationContext);

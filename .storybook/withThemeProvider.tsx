@@ -1,6 +1,6 @@
 import isChromatic from "./isChromatic";
 import React from "react";
-import { Decorator, StoryFn } from "@storybook/react";
+import { Decorator } from "@storybook/react";
 import styled from "styled-components";
 import CarbonProvider from "../src/components/carbon-provider";
 import { noTheme, sageTheme } from "../src/style/themes";
@@ -18,7 +18,7 @@ const themes = [noTheme, sageTheme].reduce<Record<string, Theme>>(
   {},
 );
 
-const render = (Story: StoryFn, themeName: string) => (
+const render = (Story: Parameters<Decorator>[0], themeName: string) => (
   <CarbonProvider theme={themes[themeName]}>
     <Story themeName={themeName} />
   </CarbonProvider>

@@ -74,7 +74,7 @@ export interface TileSelectProps extends MarginProps, TagProps {
   /** Type of the TileSelect input */
   type?: "radio" | "checkbox";
   /** Render prop that allows overriding the default action button. */
-  customActionButton?: (onClick: () => void) => JSX.Element;
+  customActionButton?: (onClick: () => void) => React.JSX.Element;
   /** An additional help info icon rendered next to the action button */
   actionButtonAdornment?: React.ReactNode;
   /** footer of the TileSelect */
@@ -86,7 +86,10 @@ export interface TileSelectProps extends MarginProps, TagProps {
   /** Components to render in the TileSelect Accordion */
   accordionContent?: React.ReactNode;
   /** Callback to toggle expanded state of TileSelect Accordion */
-  accordionControl?: (controlId: string, contentId: string) => JSX.Element;
+  accordionControl?: (
+    controlId: string,
+    contentId: string,
+  ) => React.JSX.Element;
   /** Flag to control the open state of TileSelect Accordion */
   accordionExpanded?: boolean;
 }

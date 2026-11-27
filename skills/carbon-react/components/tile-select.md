@@ -21,12 +21,12 @@ documentation for consumer-specific guidance.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | accordionContent | React.ReactNode | No |  | Components to render in the TileSelect Accordion |  |
-| accordionControl | ((controlId: string, contentId: string) => JSX.Element) \| undefined | No |  | Callback to toggle expanded state of TileSelect Accordion |  |
+| accordionControl | ((controlId: string, contentId: string) => React.JSX.Element) \| undefined | No |  | Callback to toggle expanded state of TileSelect Accordion |  |
 | accordionExpanded | boolean \| undefined | No |  | Flag to control the open state of TileSelect Accordion |  |
 | actionButtonAdornment | React.ReactNode | No |  | An additional help info icon rendered next to the action button |  |
 | additionalInformation | React.ReactNode | No |  | Component to render additional information row between title and description |  |
 | checked | boolean \| undefined | No |  | determines if this tile is selected or unselected | false |
-| customActionButton | ((onClick: () => void) => JSX.Element) \| undefined | No |  | Render prop that allows overriding the default action button. |  |
+| customActionButton | ((onClick: () => void) => React.JSX.Element) \| undefined | No |  | Render prop that allows overriding the default action button. |  |
 | description | React.ReactNode | No |  | description of the TileSelect |  |
 | disabled | boolean \| undefined | No |  | disables the TileSelect input |  |
 | footer | React.ReactNode | No |  | footer of the TileSelect |  |

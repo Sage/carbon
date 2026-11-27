@@ -50,8 +50,8 @@ export const nextElementToFocus = (
 };
 
 export default (
-  container?: RefObject<HTMLElement>,
-  target?: RefObject<HTMLElement>,
+  container?: Readonly<RefObject<HTMLElement | null>>,
+  target?: Readonly<RefObject<HTMLElement | null>>,
   focusCallback?: (ev: KeyboardEvent) => void,
 ) => {
   useEffect(() => {

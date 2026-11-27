@@ -149,7 +149,7 @@ description: Carbon DuellingPicklist component props and usage examples.
         );
       }
       return items;
-    }, [] as JSX.Element[]);
+    }, [] as React.JSX.Element[]);
 
   return (
     <>
@@ -306,7 +306,7 @@ description: Carbon DuellingPicklist component props and usage examples.
         );
       }
       return items;
-    }, [] as JSX.Element[]);
+    }, [] as React.JSX.Element[]);
 
   return (
     <>

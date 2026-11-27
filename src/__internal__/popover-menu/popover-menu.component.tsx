@@ -120,7 +120,7 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   open: boolean;
   /** The element that the popover menu is anchored to */
   popoverControl: (
-    ref: React.RefObject<TRef>,
+    ref: Readonly<React.RefObject<TRef | null>>,
     props: PopoverControlProps,
   ) => React.ReactNode;
   size?: PopoverMenuContextProps["size"];
@@ -161,7 +161,9 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   /** Strategy used to position the popover */
   popoverStrategy?: PopoverProps["popoverStrategy"];
   /** Override default control reference for popover */
-  controlReference?: React.RefObject<HTMLDivElement | HTMLLIElement>;
+  controlReference?: Readonly<
+    React.RefObject<HTMLDivElement | HTMLLIElement | null>
+  >;
   /** Treat only the reference and menu as inside for click-away handling. */
   clickAwayWithinReference?: boolean;
   /** Set the custom max-height of the menu list */
@@ -263,7 +265,9 @@ const focusControl = (handle: FocusableHandle | HTMLElement | null) => {
 interface MenuProps {
   open: boolean;
   placement: PopoverMenuProps["placement"];
-  controlWrapperRef: React.RefObject<HTMLDivElement | HTMLLIElement>;
+  controlWrapperRef: Readonly<
+    React.RefObject<HTMLDivElement | HTMLLIElement | null>
+  >;
   size: PopoverMenuContextProps["size"];
   listRef: React.Ref<HTMLUListElement>;
   listboxAriaLabelledBy?: string;
@@ -271,7 +275,7 @@ interface MenuProps {
   children: React.ReactNode;
   onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void;
   middleware: PopoverProps["middleware"];
-  scrollRef: React.RefObject<HTMLDivElement>;
+  scrollRef: Readonly<React.RefObject<HTMLDivElement | null>>;
   menuTreeId: string;
   listId: string;
   disablePortal?: boolean;
@@ -357,8 +361,8 @@ interface ControlProps<TRef extends FocusableHandle = HTMLElement> {
   isButtonMenu?: boolean;
   isSubmenu?: boolean;
   popoverControl: PopoverMenuProps<TRef>["popoverControl"];
-  controlRef: React.RefObject<TRef>;
-  controlWrapperRef: React.RefObject<HTMLDivElement>;
+  controlRef: Readonly<React.RefObject<TRef | null>>;
+  controlWrapperRef: Readonly<React.RefObject<HTMLDivElement | null>>;
   onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void;
   listId: string;
   "aria-activedescendant"?: string;
@@ -448,8 +452,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   ref: React.ForwardedRef<HTMLDivElement>,
 ) => {
   const controlWrapperRef = useRef<HTMLDivElement | null>(null);
-  const popoverReference: React.RefObject<HTMLDivElement | HTMLLIElement> =
-    controlReference ?? controlWrapperRef;
+  const popoverReference: Readonly<
+    React.RefObject<HTMLDivElement | HTMLLIElement | null>
+  > = controlReference ?? controlWrapperRef;
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const internalListRef = useRef<HTMLUListElement | null>(null);
   const combinedListRef = combineRefs(listRef, internalListRef);

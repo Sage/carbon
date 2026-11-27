@@ -307,7 +307,7 @@ export const ActionPopover = forwardRef<
     );
 
     const renderControl = (
-      controlRef: React.RefObject<HTMLElement>,
+      controlRef: Readonly<React.RefObject<HTMLElement | null>>,
       controlProps: PopoverControlProps,
     ) => {
       const commonProps: RenderButtonProps = {
@@ -342,7 +342,9 @@ export const ActionPopover = forwardRef<
       return (
         <Button
           {...controlProps}
-          ref={controlRef as React.RefObject<HTMLButtonElement>}
+          ref={
+            controlRef as Readonly<React.RefObject<HTMLButtonElement | null>>
+          }
           aria-label={
             ariaLabel ||
             (checkChildrenForString(resolvedButtonLabel)

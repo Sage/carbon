@@ -35,7 +35,7 @@ interface AdditionalControlProps extends PopoverControlProps {
 }
 
 const popoverControlButton = (
-  ref: React.RefObject<HTMLButtonElement>,
+  ref: Readonly<React.RefObject<HTMLButtonElement | null>>,
   props: AdditionalControlProps,
 ) => (
   <Button {...props} ref={ref}>
@@ -44,7 +44,7 @@ const popoverControlButton = (
 );
 
 const popoverControlInput = (
-  ref: React.RefObject<HTMLInputElement>,
+  ref: Readonly<React.RefObject<HTMLInputElement | null>>,
   props: AdditionalControlProps,
 ) => <input aria-label="combobox-label" {...props} ref={ref} />;
 

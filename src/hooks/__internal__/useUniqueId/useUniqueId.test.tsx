@@ -16,7 +16,7 @@ interface Props {
   name?: string;
 }
 
-const MockComponent = (props: Props = {}): JSX.Element => {
+const MockComponent = (props: Props = {}): React.JSX.Element => {
   const [id, name] = useUniqueId(props.id, props.name);
   return <input id={id} name={name} />;
 };

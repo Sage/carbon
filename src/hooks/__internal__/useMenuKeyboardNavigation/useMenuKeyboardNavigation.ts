@@ -3,7 +3,7 @@ import Events from "../../../__internal__/utils/helpers/events";
 import useModalManager from "../useModalManager";
 
 export default (
-  mainControlRef: React.RefObject<HTMLButtonElement>,
+  mainControlRef: Readonly<React.RefObject<HTMLButtonElement | null>>,
   getButtonChildren: () => NodeListOf<HTMLButtonElement>,
   hide: () => void,
   isOpen: boolean,

@@ -113,7 +113,7 @@ export interface SidebarProps
   /** Makes the footer stick to the bottom of the Sidebar when content scrolls. */
   stickyFooter?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
-  focusableContainers?: RefObject<HTMLElement>[];
+  focusableContainers?: Readonly<RefObject<HTMLElement | null>>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** Padding to be set on the Sidebar header */

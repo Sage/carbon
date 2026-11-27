@@ -5,7 +5,9 @@ import useChildButtons from "./useChildButtons";
 const getToggleButtonRef = () => {
   const button = document.createElement("button");
   document.body.appendChild(button);
-  return { current: button } as React.RefObject<HTMLButtonElement>;
+  return { current: button } as Readonly<
+    React.RefObject<HTMLButtonElement | null>
+  >;
 };
 
 test("hides the additional buttons when blur occurs and focus does not move to a related target contained within the current target", () => {

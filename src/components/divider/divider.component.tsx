@@ -57,7 +57,7 @@ export const Divider = ({
   mr,
   as,
   ...rest
-}: DividerProps): JSX.Element => {
+}: DividerProps): React.JSX.Element => {
   const { inMenu } = useContext(MenuContext);
   const largeScreen = useIsAboveBreakpoint(adaptiveMxBreakpoint);
 

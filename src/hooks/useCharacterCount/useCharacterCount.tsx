@@ -9,7 +9,7 @@ const useCharacterCount = (
   characterCountAriaLive?: "off" | "polite",
   size?: "small" | "medium" | "large",
   disabled?: boolean,
-): [JSX.Element | null, string | undefined] => {
+): [React.JSX.Element | null, string | undefined] => {
   const isCharacterLimitValid =
     typeof characterLimit === "number" && !Number.isNaN(characterLimit);
 

@@ -135,11 +135,13 @@ export interface NextSelectListProps {
   selectedValue?: string | Record<string, unknown>;
   /** Renders the control (e.g. the Select textbox) that the list is anchored to */
   popoverControl: (
-    ref: React.RefObject<HTMLInputElement>,
+    ref: Readonly<React.RefObject<HTMLInputElement | null>>,
     props: PopoverControlProps,
   ) => React.ReactNode;
   /** Override the default control reference used for positioning */
-  controlReference?: React.RefObject<HTMLDivElement | HTMLLIElement>;
+  controlReference?: Readonly<
+    React.RefObject<HTMLDivElement | HTMLLIElement | null>
+  >;
   /** Custom styles applied to the control wrapper element */
   controlWrapperStyle?: CSSObject;
   /** Accessible label for the listbox */

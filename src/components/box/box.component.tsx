@@ -42,7 +42,7 @@ export interface BoxProps
     TagProps {
   /** Set the element rendered by the Box component. Only `div` and `span` will be supported in the future. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  as?: keyof React.JSX.IntrinsicElements | React.ComponentType<any>;
   /** Set the ID attribute of the Box component */
   id?: string;
   /** Content to be rendered inside the Box component */

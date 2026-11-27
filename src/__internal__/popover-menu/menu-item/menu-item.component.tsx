@@ -126,7 +126,7 @@ const getChildDisabledState = (node: React.ReactNode): boolean => {
 };
 
 const focusFirstSubmenuItem = (
-  submenuRef: React.RefObject<HTMLUListElement>,
+  submenuRef: Readonly<React.RefObject<HTMLUListElement | null>>,
 ) => {
   const firstSubmenuItem = submenuRef.current?.querySelector(
     buttonMenuItemQuerySelector(true),

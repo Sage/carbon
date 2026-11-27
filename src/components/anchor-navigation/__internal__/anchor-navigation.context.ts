@@ -2,7 +2,7 @@ import React from "react";
 import createStrictContext from "../../../__internal__/utils/createStrictContext";
 
 export interface AnchorNavigationItemEntry {
-  getTarget: () => React.RefObject<HTMLElement> | undefined;
+  getTarget: () => Readonly<React.RefObject<HTMLElement | null>> | undefined;
 }
 
 export interface AnchorNavigationContextProps {
@@ -14,7 +14,7 @@ export interface AnchorNavigationContextProps {
   ) => () => void;
   activateItem: (
     element: HTMLAnchorElement,
-    target?: React.RefObject<HTMLElement>,
+    target?: Readonly<React.RefObject<HTMLElement | null>>,
   ) => void;
 }
 

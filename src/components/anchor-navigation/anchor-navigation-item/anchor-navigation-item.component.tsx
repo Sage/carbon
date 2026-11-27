@@ -7,7 +7,7 @@ import StyledNavigationItem from "./anchor-navigation-item.style";
 
 export interface AnchorNavigationItemProps {
   /** Reference to the section html element meant to be shown   */
-  target?: React.RefObject<HTMLElement>;
+  target?: Readonly<React.RefObject<HTMLElement | null>>;
   /** href to be passed to the anchor element, can be linked with id passed to the scrollable section */
   href?: string;
   /**

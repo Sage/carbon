@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import TopModalContext from "../../../components/carbon-provider/__internal__/top-modal.context";
 
 export default function useModalAria(
-  containerRef: React.RefObject<HTMLDivElement>,
+  containerRef: Readonly<React.RefObject<HTMLDivElement | null>>,
   hidden?: boolean,
 ) {
   const { topModal } = useContext(TopModalContext);

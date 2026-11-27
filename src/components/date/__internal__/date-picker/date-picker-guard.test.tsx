@@ -18,7 +18,7 @@ test("ignores a day click when the calendar supplies no date", async () => {
   const onRequestPickerClose = jest.fn();
   const inputContainerRef = {
     current: document.createElement("div"),
-  } as React.RefObject<HTMLDivElement>;
+  } as Readonly<React.RefObject<HTMLDivElement | null>>;
 
   render(
     <DatePicker

@@ -155,7 +155,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       ...rest
     }: IconProps,
     ref,
-  ): JSX.Element => {
+  ): React.JSX.Element => {
     /** Return Icon type with overrides */
     const iconType = useMemo(() => {
       // switch tweaks icon names for actual icons in the set

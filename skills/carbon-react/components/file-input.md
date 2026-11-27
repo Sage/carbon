@@ -301,13 +301,13 @@ description: Carbon FileInput component props and usage examples.
   const [customHeightUploadStatus, setCustomHeightUploadStatus] = useState<
     FileUploadStatusProps | undefined
   >();
-  const objectUrlRef = useRef<string>();
-  const customHeightObjectUrlRef = useRef<string>();
-  const existingUploadObjectUrlRef = useRef<string>();
+  const objectUrlRef = useRef<string>(undefined);
+  const customHeightObjectUrlRef = useRef<string>(undefined);
+  const existingUploadObjectUrlRef = useRef<string>(undefined);
   const [existingUpload, setExistingUpload] = useState<
     { filename: string; href: string } | undefined
   >();
-  const intervalRef = useRef<ReturnType<typeof setInterval>>();
+  const intervalRef = useRef<ReturnType<typeof setInterval>>(undefined);
 
   useEffect(() => {
     const previewFile = new File(
@@ -711,7 +711,7 @@ description: Carbon FileInput component props and usage examples.
     message: "Loaded 56%",
     onCancel: () => setUploadStatus(undefined),
   });
-  const reader = useRef<FileReader>();
+  const reader = useRef<FileReader>(undefined);
 
   const getReader = () => {
     if (!reader.current) {

@@ -3,7 +3,7 @@ import Events from "../../../__internal__/utils/helpers/events";
 import useMenuKeyboardNavigation from "../useMenuKeyboardNavigation";
 
 const useChildButtons = (
-  toggleButtonRef: React.RefObject<HTMLButtonElement>,
+  toggleButtonRef: Readonly<React.RefObject<HTMLButtonElement | null>>,
   widthRatio = 1,
 ) => {
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);

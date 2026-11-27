@@ -67,7 +67,9 @@ export interface InputProps extends CommonInputProps {
 }
 
 function selectTextOnFocus(
-  input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>,
+  input: Readonly<
+    React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>
+  >,
 ) {
   // setTimeout is required so the dom has a chance to place the cursor in the input
   setTimeout(() => {
@@ -116,7 +118,7 @@ const Input = React.forwardRef<
       ...rest
     }: InputProps,
     ref,
-  ): JSX.Element => {
+  ): React.JSX.Element => {
     const context = useContext(InputContext);
     const groupContext = useContext(InputGroupContext);
     const deferredTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);

@@ -5,7 +5,7 @@ export type StepFlowContextType = {
   totalSteps?: number;
   titleVariant?: "h1" | "h2";
   category?: string;
-  titleRef?: React.RefObject<HTMLDivElement>;
+  titleRef?: Readonly<React.RefObject<HTMLDivElement | null>>;
 };
 
 const [StepFlowProvider, useStepFlowContext] =

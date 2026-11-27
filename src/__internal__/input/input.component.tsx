@@ -59,7 +59,9 @@ export interface InputProps
 }
 
 const selectTextOnFocus = (
-  input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>,
+  input: Readonly<
+    React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>
+  >,
 ) => {
   // setTimeout is required so the dom has a chance to place the cursor in the input
   setTimeout(() => {

@@ -23,7 +23,7 @@ export interface LoaderStarProps extends TagProps {
 const LoaderStar = ({
   loaderStarLabel,
   ...rest
-}: LoaderStarProps): JSX.Element | null => {
+}: LoaderStarProps): React.JSX.Element | null => {
   const locale = useLocale();
 
   const allowMotion = useMediaQuery(

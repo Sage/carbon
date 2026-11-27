@@ -123,11 +123,11 @@ const getNextElement = (
 
 const onTabGuardFocus =
   (
-    trapWrappers: RefObject<HTMLElement>[],
+    trapWrappers: Readonly<RefObject<HTMLElement | null>>[],
     focusableSelectors: string | undefined,
     position: "top" | "bottom",
   ) =>
-  (guardWrapperRef: RefObject<HTMLElement>) =>
+  (guardWrapperRef: Readonly<RefObject<HTMLElement | null>>) =>
   () => {
     const isTop = position === "top";
     const currentIndex = trapWrappers.indexOf(guardWrapperRef);

@@ -44,7 +44,7 @@ export interface PopoverProps {
   /**
    * Reference element, children will be positioned in relation to this element - should be a ref shaped object.
    */
-  reference: RefObject<HTMLElement | null>;
+  reference: Readonly<RefObject<HTMLElement | null>>;
   /**
    * Whether the Popover is open, determines if autoUpdate runs in useFloating.
    */

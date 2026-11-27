@@ -180,7 +180,11 @@ const SelectList = React.forwardRef(
         .length,
       getScrollElement: () =>
         isOpen
-          ? (listContainerRef as React.RefObject<HTMLDivElement>).current
+          ? (
+              listContainerRef as Readonly<
+                React.RefObject<HTMLDivElement | null>
+              >
+            ).current
           : null,
       estimateSize: () => 40, // value doesn't really seem to matter since we're dynamically measuring, but 40px is the height of a single-line option
       overscan,
@@ -573,8 +577,9 @@ const SelectList = React.forwardRef(
     });
 
     useEffect(() => {
-      const listElement = (listContainerRef as React.RefObject<HTMLDivElement>)
-        .current;
+      const listElement = (
+        listContainerRef as Readonly<React.RefObject<HTMLDivElement | null>>
+      ).current;
 
       const handleListScroll = debounce((event: Event) => {
         const element = event.target as HTMLElement;

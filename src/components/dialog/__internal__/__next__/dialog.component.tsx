@@ -83,11 +83,14 @@ export interface DialogProps extends ModalProps, TagProps {
   /* Disables the focus trap when the dialog is open */
   disableFocusTrap?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers?: RefObject<HTMLElement>[];
+  focusableContainers?: Readonly<RefObject<HTMLElement | null>>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** Optional reference to an element meant to be focused on open */
-  focusFirstElement?: RefObject<HTMLElement> | HTMLElement | null;
+  focusFirstElement?:
+    | Readonly<RefObject<HTMLElement | null>>
+    | HTMLElement
+    | null;
   /** Footer content to be rendered at the bottom of the dialog */
   footer?: React.ReactNode;
   /** Change the background color of the content to grey */

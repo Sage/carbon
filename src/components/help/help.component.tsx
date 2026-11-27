@@ -18,7 +18,7 @@ import guid from "../../__internal__/utils/helpers/guid";
  */
 export interface HelpProps extends MarginProps, TagProps {
   /** Overrides the default 'as' attribute of the Help component */
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof React.JSX.IntrinsicElements;
   /** Aria label */
   ariaLabel?: string;
   /** The message to be displayed within the tooltip */
@@ -71,7 +71,7 @@ export const Help = ({
   tooltipPosition = "top",
   type = "help",
   ...rest
-}: HelpProps): JSX.Element => {
+}: HelpProps): React.JSX.Element => {
   const defaultTooltipId = useRef(guid());
   const helpElement = useRef<HTMLDivElement>(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);

@@ -147,7 +147,7 @@ export const Default = () => {
         );
       }
       return items;
-    }, [] as JSX.Element[]);
+    }, [] as React.JSX.Element[]);
 
   return (
     <>
@@ -299,7 +299,7 @@ export const AlternativeSearch: Story = () => {
         );
       }
       return items;
-    }, [] as JSX.Element[]);
+    }, [] as React.JSX.Element[]);
 
   return (
     <>

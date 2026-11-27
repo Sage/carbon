@@ -14,9 +14,9 @@ export interface SubmenuRenderProps {
   submenuWidth?: string;
   size: "small" | "medium" | "large";
   onClose: () => void;
-  ref: React.RefObject<HTMLUListElement>;
+  ref: Readonly<React.RefObject<HTMLUListElement | null>>;
   control: (props: PopoverControlProps) => React.ReactNode;
-  triggerRef: React.RefObject<HTMLLIElement>;
+  triggerRef: Readonly<React.RefObject<HTMLLIElement | null>>;
 }
 
 export interface PopoverMenuContextProps {

@@ -136,7 +136,7 @@ export interface FocusCommandPayload {
 
 export interface ToolbarProps {
   /** Reference to the editor for the toolbar to consume */
-  contentEditorRef: RefObject<HTMLDivElement>;
+  contentEditorRef: Readonly<RefObject<HTMLDivElement | null>>;
   /** The namespace of the editor that this toolbar belongs to */
   namespace: string;
   /** Determines if the Text Editor has a header */

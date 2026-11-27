@@ -14,9 +14,9 @@ interface UseDraggableRowArgs {
   /** Index of the referenced element in a list. */
   index: number;
   /** Ref of the element to be made draggable and a drop target. */
-  ref: React.RefObject<HTMLElement> | null;
+  ref: Readonly<React.RefObject<HTMLElement | null>> | null;
   /** Ref of the element that should be used as the drag handle. */
-  dragHandleRef: React.RefObject<HTMLElement> | null;
+  dragHandleRef: Readonly<React.RefObject<HTMLElement | null>> | null;
 }
 
 interface UseDraggableRowReturn {

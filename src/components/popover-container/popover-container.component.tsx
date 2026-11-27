@@ -57,7 +57,7 @@ export interface RenderOpenProps {
   onClick: (
     ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
   ) => void;
-  ref: React.RefObject<HTMLButtonElement>;
+  ref: Readonly<React.RefObject<HTMLButtonElement | null>>;
   "aria-label"?: string;
   id?: string;
   "aria-expanded": boolean;
@@ -105,7 +105,7 @@ export interface RenderCloseProps {
   onClick: (
     ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
   ) => void;
-  ref: React.RefObject<HTMLButtonElement>;
+  ref: Readonly<React.RefObject<HTMLButtonElement | null>>;
   "aria-label": string;
   closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
 }
@@ -154,7 +154,7 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
    * `({isOpen, data-element, onClick, ref, aria-label}) => ()`
    *
    */
-  renderOpenComponent?: (args: RenderOpenProps) => JSX.Element;
+  renderOpenComponent?: (args: RenderOpenProps) => React.JSX.Element;
   /**
    * A function that will render the close component.
    *
@@ -162,7 +162,7 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
    *
    * `({data-element, tabIndex, onClick, ref, aria-label}) => ()`
    */
-  renderCloseComponent?: (args: RenderCloseProps) => JSX.Element;
+  renderCloseComponent?: (args: RenderCloseProps) => React.JSX.Element;
   /** The content of the popover-container */
   children?: React.ReactNode;
   /**

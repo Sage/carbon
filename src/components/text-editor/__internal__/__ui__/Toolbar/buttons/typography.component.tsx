@@ -29,7 +29,7 @@ export type TypographyKey =
 
 export type TypographySelectorProps = {
   /** Reference to the editor for the toolbar to consume */
-  contentEditorRef: RefObject<HTMLDivElement>;
+  contentEditorRef: Readonly<RefObject<HTMLDivElement | null>>;
   /** The namespace of the editor that this dropdown belongs to */
   namespace: string;
   /** Whether the button is the first in a group of buttons */

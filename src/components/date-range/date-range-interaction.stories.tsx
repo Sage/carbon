@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StoryObj, StoryFn } from "@storybook/react-vite";
+import { StoryObj, Decorator } from "@storybook/react-vite";
 import { userEvent, within, expect } from "storybook/test";
 
 import DateRange from "./date-range.component";
@@ -20,7 +20,7 @@ export default {
     themeProvider: { chromatic: { theme: "sage" } },
   },
   decorators: [
-    (StoryToRender: StoryFn) => (
+    (StoryToRender: Parameters<Decorator>[0]) => (
       <DefaultDecorator>
         <Box mb="150px">
           <StoryToRender />

@@ -138,7 +138,7 @@ export const DuellingPicklistComponent = (
         );
       }
       return items;
-    }, [] as JSX.Element[]);
+    }, [] as React.JSX.Element[]);
 
   return (
     <div>
@@ -312,7 +312,7 @@ export const DuellingPicklistComponentAssigned = (
         );
       }
       return items;
-    }, [] as JSX.Element[]);
+    }, [] as React.JSX.Element[]);
 
   return (
     <div>
@@ -470,7 +470,7 @@ export const AlternativeSearch = () => {
         );
       }
       return items;
-    }, [] as JSX.Element[]);
+    }, [] as React.JSX.Element[]);
 
   return (
     <>

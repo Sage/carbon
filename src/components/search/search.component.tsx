@@ -371,7 +371,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       inputWidthOverride,
     }: {
       ref?: React.Ref<HTMLInputElement>;
-      containerRef?: React.RefObject<HTMLDivElement>;
+      containerRef?: Readonly<React.RefObject<HTMLDivElement | null>>;
       popoverControlProps?: PopoverControlProps;
       inputWidthOverride?: number;
     } = {}) => (

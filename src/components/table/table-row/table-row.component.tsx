@@ -80,7 +80,7 @@ interface DecorateFirstCellProps {
   /**
    * The ref object for the drag handle within the table cell.
    */
-  dragHandleRef: React.RefObject<HTMLSpanElement>;
+  dragHandleRef: Readonly<React.RefObject<HTMLSpanElement | null>>;
   /**
    * The IDs of the sub-rows controlled by this table cell when it is expandable.
    */

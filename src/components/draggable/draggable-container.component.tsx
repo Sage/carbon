@@ -54,7 +54,7 @@ const DraggableContainer = ({
   getOrder,
   flexDirection = "row",
   ...rest
-}: DraggableContainerProps): JSX.Element => {
+}: DraggableContainerProps): React.JSX.Element => {
   const [draggableItems, setDraggableItems] = useState(
     React.Children.toArray(children),
   );

@@ -13,7 +13,7 @@ export default function useStatusAnnouncement(): {
 } {
   const [statusAnnouncement, setStatusAnnouncement] = useState("");
   const lastMessageRef = useRef("");
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number>(undefined);
 
   const cancelPendingFrame = useCallback(() => {
     if (frameRef.current !== undefined) {

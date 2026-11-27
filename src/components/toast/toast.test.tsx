@@ -530,7 +530,7 @@ test.each<[ToastProps["variant"], string]>([
 test("should not throw when ref is a function", () => {
   expect(() => {
     render(
-      <Toast onDismiss={() => {}} ref={(ref) => ref}>
+      <Toast onDismiss={() => {}} ref={() => {}}>
         foobar
       </Toast>,
     );

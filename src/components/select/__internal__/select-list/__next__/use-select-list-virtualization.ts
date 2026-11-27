@@ -27,7 +27,7 @@ interface UseSelectListVirtualizationProps {
   open: boolean;
   enabled: boolean;
   overscan: number;
-  listRef: React.RefObject<HTMLUListElement>;
+  listRef: Readonly<React.RefObject<HTMLUListElement | null>>;
   listId: string;
   selectOnSpaceAndTab?: boolean;
   onClose: (ev?: Event) => void;
@@ -95,7 +95,7 @@ const useSelectListVirtualization = ({
     },
   });
 
-  const scrollFrame = useRef<number>();
+  const scrollFrame = useRef<number>(undefined);
   const cancelPendingScroll = useCallback(() => {
     if (scrollFrame.current !== undefined) {
       browserWindow?.cancelAnimationFrame(scrollFrame.current);

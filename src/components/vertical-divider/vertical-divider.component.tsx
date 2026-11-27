@@ -144,7 +144,7 @@ export const VerticalDivider = ({
   tint = 80,
   "aria-hidden": ariaHidden,
   ...props
-}: VerticalDividerProps): JSX.Element => {
+}: VerticalDividerProps): React.JSX.Element => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
     Logger.deprecate(

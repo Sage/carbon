@@ -70,7 +70,7 @@ const getAdditionalFocusableControls = (
   );
 
 interface UseDatePickerKeyboardNavigationProps {
-  ref: React.RefObject<HTMLDivElement>;
+  ref: Readonly<React.RefObject<HTMLDivElement | null>>;
   open?: boolean;
   monthSelectId: string;
   yearSelectId: string;
