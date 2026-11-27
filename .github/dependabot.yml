@@ -6,19 +6,99 @@ updates:
   # npm packages (package.json and package-lock.json).
   - package-ecosystem: npm
     directory: /
-    # Dependabot needs a schedule here, even though version updates are turned off below.
+    # Version updates ("a newer version is out") run once a month.
+    # Security updates ("this version has a known vulnerability") do not wait for this schedule.
     schedule:
-      interval: weekly
-    # 0 turns off normal version updates ("a newer version is out").
-    # Security updates ("this version has a known vulnerability") still run,
-    # and they still use the settings below.
-    open-pull-requests-limit: 0
-    # Commit titles look like "chore(deps): ..." or "chore(deps-dev): ...".
-    # "chore" does not create a new Carbon release.
+      interval: monthly
+    # Only suggest a version after it has been public for 3 days.
+    # 3 matches "min-release-age=3" in .npmrc. If you change one, change both.
+    # Cooldown only affects version updates, not security updates.
+    cooldown:
+      default-days: 3
+      # Matches "min-release-age-exclude[]" in .npmrc.
+      exclude: ["@sage/design-tokens*"]
+    # Keep "^" ranges in package.json when the new version already fits them.
+    # Then only package-lock.json changes.
+    # Exact-pinned versions (for example "@storybook/icons", "@types/styled-components", "jest-canvas-mock")
+    # never fit a newer version, so their package.json entry changes too.
+    versioning-strategy: increase-if-necessary
+    # Do not suggest major updates (for example v10 to v11). They can break things, so do them by hand.
+    # An "ignore" rule with only update-types does not block security updates.
+    # Not in GitHub docs; see IgnoreCondition#ignored_versions in dependabot-core:
+    # https://github.com/dependabot/dependabot-core/blob/main/common/lib/dependabot/config/ignore_condition.rb
+    # Do not use "allow" to limit version updates: it also filters security updates.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      # Runtime dependencies pinned on purpose. Upgrade them by hand with a feat/fix commit.
+      # Lexical is pinned to an exact 0.x version, so even a patch update changes package.json.
+      - dependency-name: "lexical"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+      - dependency-name: "@lexical/*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+      # "~" ranges: patch updates fit the range, so only package-lock.json changes.
+      - dependency-name: "react-day-picker"
+        update-types: ["version-update:semver-minor"]
+      - dependency-name: "@floating-ui/*"
+        update-types: ["version-update:semver-minor"]
+      # Dev tools whose minor updates can fail CI. Upgrade them by hand.
+      # @playwright/experimental-ct-react stops at 1.62, so @playwright/* must move by hand.
+      - dependency-name: "@playwright/*"
+        update-types: ["version-update:semver-minor"]
+      # New Prettier minor versions change formatting.
+      - dependency-name: "prettier"
+        update-types: ["version-update:semver-minor"]
+      # New axe-core minor versions add accessibility rules.
+      - dependency-name: "@axe-core/playwright"
+        update-types: ["version-update:semver-minor"]
+      # SWC plugins only work with the @swc/core versions they were built for.
+      # Update @swc/core together with @swc/plugin-styled-components by hand.
+      - dependency-name: "@swc/core"
+        update-types: ["version-update:semver-minor"]
+      - dependency-name: "@swc/plugin-styled-components"
+        update-types: ["version-update:semver-minor"]
+      # TypeScript does not follow semver, so a minor version can add type errors.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-minor"]
+    # Runtime dependencies ship to consumers, so their updates use "fix(deps): ..." and create a release.
+    # Dev dependencies use "chore(deps-dev): ...", which does not create a new Carbon release.
+    # If a runtime update only changes package-lock.json, consumers get nothing new,
+    # so change the pull request title to "chore(deps): ..." before merging.
     commit-message:
-      prefix: chore
+      prefix: fix
+      prefix-development: chore
       include: scope
     groups:
+      # All Storybook packages share one version and must move together.
+      # A dependency goes into the first group it matches, so keep this group, design-tokens and runtime-minor-patch before npm-minor-patch.
+      storybook:
+        applies-to: version-updates
+        patterns:
+          - "storybook"
+          - "storybook-addon-pseudo-states"
+          - "@storybook/*"
+          - "eslint-plugin-storybook"
+        # Released on its own version numbers, so it goes in the group below.
+        exclude-patterns: ["@storybook/icons"]
+      # Design tokens change how components look, so review their visual changes on their own.
+      design-tokens:
+        applies-to: version-updates
+        patterns: ["@sage/design-tokens*"]
+      # Runtime dependencies get their own pull request so it can use the "fix" prefix.
+      runtime-minor-patch:
+        applies-to: version-updates
+        dependency-type: production
+        update-types: [minor, patch]
+        patterns: ["*"]
+      # Put all other (dev) minor and patch updates into one pull request.
+      npm-minor-patch:
+        applies-to: version-updates
+        update-types: [minor, patch]
+        patterns: ["*"]
       # Put all npm security fixes into one pull request instead of one per package.
       npm-security:
         applies-to: security-updates
