@@ -46,8 +46,8 @@ jobs:
           node-version-file: .nvmrc
           check-latest: true
 
-      - name: Update npm to 11.21.1
-        run: npm install -g npm@11.21.1
+      - name: Update npm to 11.21.3
+        run: npm install -g npm@11.21.3
       - name: Install dependencies
         run: npm ci
 

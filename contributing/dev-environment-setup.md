@@ -18,7 +18,7 @@ This guide will provide you with the information you need to be able to get star
 
 Carbon uses Node.js 26 for development and releases, as specified in `.nvmrc`. We support Node.js 24.15.0 or newer within the 24.x line and Node.js 26.x, and test and build against both majors in CI. Node.js 22 is no longer supported.
 
-Use npm 11.21.1 or newer, as required by `package.json#engines`. CI pins npm to 11.21.1 on both supported Node.js versions.
+Use npm 11.21.3 or newer, as required by `package.json#engines`. CI pins npm to 11.21.3 on both supported Node.js versions.
 
 We recommend using [nvm](https://github.com/nvm-sh/nvm) to install and select the default Node.js version:
 
@@ -31,7 +31,7 @@ nvm install
 nvm use
 
 # Install the npm version used in CI:
-npm install --global npm@11.21.1
+npm install --global npm@11.21.3
 
 # Verify the npm version:
 npm --version
