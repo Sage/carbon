@@ -93,7 +93,7 @@ description: Carbon AnchorNavigation component props and usage examples.
 ```tsx
 - Create `refs` which will be used internally in `AnchorNavigation` to measure positions of the elements.
 
-- Pass `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop. Items can be rendered conditionally or from within your own components.
+- Pass `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop. Items can be rendered conditionally or from within your own components, but `AnchorNavigationItem` must always be rendered inside `AnchorNavigation`; rendering it elsewhere throws an error.
 
 - Pass children where elements which are meant to serve as sections have `refs` assigned.
 

@@ -10,10 +10,6 @@ const [StepSequenceProvider, useStepSequenceContext] =
     name: "StepSequenceContext",
     errorMessage:
       "Carbon StepSequence: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
-    defaultValue: {
-      orientation: "horizontal",
-      size: "medium",
-    },
   });
 
 export { StepSequenceProvider, useStepSequenceContext };

@@ -31,8 +31,8 @@ const AnchorNavigationItem = React.forwardRef<
   HTMLAnchorElement,
   AnchorNavigationItemProps
 >(({ target, ...props }: AnchorNavigationItemProps, ref) => {
-  const { children, onKeyDown, onClick, href, tabIndex, isSelected } = props;
-  const { isInAnchorNavigation, selectedItem, registerItem, activateItem } =
+  const { children, onKeyDown, onClick, href, tabIndex } = props;
+  const { selectedItem, registerItem, activateItem } =
     useAnchorNavigationContext();
   const anchorRef = useRef<HTMLAnchorElement | null>(null);
   const combinedRef = useMemo(
@@ -53,16 +53,10 @@ const AnchorNavigationItem = React.forwardRef<
     });
   }, [registerItem]);
 
-  // Inside AnchorNavigation the selection is managed by the navigation, as before.
-  const selected = isInAnchorNavigation
-    ? selectedItem !== null && selectedItem === anchorRef.current
-    : isSelected;
+  const selected = selectedItem !== null && selectedItem === anchorRef.current;
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     onClick?.(event);
-
-    if (!isInAnchorNavigation) return;
-
     event.preventDefault();
     activateItem(event.currentTarget, target);
   };
@@ -75,7 +69,7 @@ const AnchorNavigationItem = React.forwardRef<
         tabIndex={tabIndex}
         ref={combinedRef}
         // need to pass an href to ensure the link is tabbable by default
-        href={isInAnchorNavigation ? href || "#" : href}
+        href={href || "#"}
         aria-current={selected ? "location" : undefined}
         data-element="anchor-navigation-item"
       >
