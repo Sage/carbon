@@ -1,7 +1,14 @@
 import React, { useRef } from "react";
-import { render, screen, within, fireEvent, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  act,
+  within,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as floatingUi from "@floating-ui/dom";
+import * as floatingUi from "@floating-ui/react-dom";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -21,6 +28,20 @@ import iconUnicodes from "../icon/icon-unicodes";
 import guid from "../../__internal__/utils/helpers/guid";
 import TokensWrapper from "../tokens-wrapper";
 import Dialog from "../dialog";
+
+jest.mock("@floating-ui/react-dom", () => {
+  const actual = jest.requireActual("@floating-ui/react-dom");
+
+  return {
+    ...actual,
+    autoUpdate: jest.fn(() => () => {}),
+    hide: jest.fn(actual.hide),
+    useFloating: jest.fn((options) => ({
+      ...actual.useFloating(options),
+      isPositioned: true,
+    })),
+  };
+});
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -169,6 +190,11 @@ test.each([
     );
 
     await user.click(screen.getByRole("button", { name: "Actions" }));
+    await waitFor(() =>
+      expect(screen.getByTestId("menu-wrapper")).toHaveAttribute(
+        "data-floating-placement",
+      ),
+    );
     expect(screen.getByTestId("menu-wrapper")).toHaveStyleRule(
       "padding",
       `var(--global-space-comp-${verticalPadding}) var(--global-space-comp-${horizontalPadding})`,
@@ -176,6 +202,9 @@ test.each([
 
     await user.click(screen.getByRole("button", { name: "Print options" }));
 
+    await waitFor(() =>
+      expect(screen.getAllByTestId("menu-wrapper")).toHaveLength(2),
+    );
     const menus = screen.getAllByTestId("menu-wrapper");
     expect(menus).toHaveLength(2);
     menus.forEach((menu) => {
@@ -349,8 +378,6 @@ test.each<["top" | "bottom", boolean, string]>([
 ])(
   "applies proper %s prop to Popover component when rightAlignMenu is %s",
   async (placement, rightAlignMenu, result) => {
-    const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
-
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -359,14 +386,12 @@ test.each<["top" | "bottom", boolean, string]>([
 
     await user.click(screen.getByRole("button"));
 
-    const placements = computePositionSpy.mock.calls.map(
-      (call) => call[2]?.placement,
+    await waitFor(() =>
+      expect(screen.getByTestId("menu-wrapper")).toHaveAttribute(
+        "data-floating-placement",
+        result,
+      ),
     );
-
-    expect(placements.length).toBeGreaterThan(0);
-    expect(placements.every((p) => p === result)).toBe(true);
-
-    computePositionSpy.mockRestore();
   },
 );
 
@@ -789,7 +814,8 @@ test("pressing ArrowUp key when focused on the menu button selects the last focu
 test("keeps a hidden menu open until another menu opens without restoring focus to the hidden control", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onClose = jest.fn();
-  const hideSpy = jest.spyOn(floatingUi, "hide");
+  const hideMock = jest.mocked(floatingUi.hide);
+  hideMock.mockClear();
   render(
     <>
       <ActionPopover buttonLabel="First actions" onClose={onClose}>
@@ -821,7 +847,7 @@ test("keeps a hidden menu open until another menu opens without restoring focus 
   firstMenu.style.visibility = "hidden";
   const focusSpy = jest.spyOn(firstControl, "focus");
   try {
-    expect(hideSpy).toHaveBeenCalledWith({ strategy: "referenceHidden" });
+    expect(hideMock).toHaveBeenCalledWith({ strategy: "referenceHidden" });
     const secondControl = screen.getByRole("button", {
       name: "Second actions",
     });
@@ -838,7 +864,7 @@ test("keeps a hidden menu open until another menu opens without restoring focus 
     ).toHaveFocus();
   } finally {
     focusSpy.mockRestore();
-    hideSpy.mockRestore();
+    hideMock.mockClear();
   }
 });
 
@@ -1148,6 +1174,11 @@ test("moves focus to the first item that matches the typed character", async () 
     </ActionPopover>,
   );
   await user.click(screen.getByRole("button"));
+  await waitFor(() =>
+    expect(screen.getByTestId("menu-wrapper")).toHaveAttribute(
+      "data-floating-placement",
+    ),
+  );
   jest.runOnlyPendingTimers();
 
   await user.keyboard("p");
@@ -1859,11 +1890,19 @@ test("closes an open submenu when another one is opened", async () => {
 
   const menuButton = screen.getByRole("button");
   await user.click(menuButton);
+  await waitFor(() =>
+    expect(screen.getByTestId("menu-wrapper")).toHaveAttribute(
+      "data-floating-placement",
+    ),
+  );
 
   const item1 = await screen.findByRole("button", { name: "Item 1" });
   await user.click(item1);
   const submenu1 = await screen.findByRole("button", { name: "Submenu 1" });
 
+  await waitFor(() =>
+    expect(screen.getAllByTestId("menu-wrapper")).toHaveLength(2),
+  );
   expect(submenu1).toBeVisible();
   expect(item1).toHaveAttribute("aria-expanded", "true");
 
@@ -1871,6 +1910,9 @@ test("closes an open submenu when another one is opened", async () => {
   await user.click(item2);
   const submenu2 = await screen.findByRole("button", { name: "Submenu 2" });
 
+  await waitFor(() =>
+    expect(screen.getAllByTestId("menu-wrapper")).toHaveLength(2),
+  );
   expect(submenu2).toBeVisible();
   expect(submenu1).not.toBeInTheDocument();
   expect(item1).toHaveAttribute("aria-expanded", "false");

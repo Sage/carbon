@@ -25,6 +25,19 @@ jest.mock("../../../hooks/useMediaQuery", () => ({
   default: jest.fn(() => true),
 }));
 
+jest.mock("@floating-ui/react-dom", () => {
+  const actual = jest.requireActual("@floating-ui/react-dom");
+
+  return {
+    ...actual,
+    autoUpdate: jest.fn(() => () => {}),
+    useFloating: jest.fn((options) => ({
+      ...actual.useFloating(options),
+      isPositioned: true,
+    })),
+  };
+});
+
 beforeEach(() => {
   setupSelectMocks();
 });
