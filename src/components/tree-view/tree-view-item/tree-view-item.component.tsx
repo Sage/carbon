@@ -43,6 +43,7 @@ export const TreeViewItem = ({
         <>
           <StyledTreeNodeToggle
             type="button"
+            id={`${id}-toggle`}
             aria-controls={id}
             aria-expanded={expanded}
             onClick={() => setExpanded(!expanded)}
@@ -55,7 +56,11 @@ export const TreeViewItem = ({
           </StyledTreeNodeToggle>
 
           {expanded && children && (
-            <TreeView ariaLabelledBy={id} id={id} items={children} />
+            <TreeView
+              ariaLabelledBy={`${id}-toggle`}
+              id={id}
+              items={children}
+            />
           )}
         </>
       ) : href ? (
