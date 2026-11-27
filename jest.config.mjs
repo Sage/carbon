@@ -1,14 +1,22 @@
-import { Config } from "jest";
-import { resolve } from "path";
+// @ts-check
 
-import coverageThresholds from "./coverage-thresholds.json";
+/** @typedef {import("jest").Config} JestConfig */
 
-const rootDir = resolve(__dirname, ".");
+import { readFileSync } from "node:fs";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const coverageThresholds = JSON.parse(
+  readFileSync(new URL("./coverage-thresholds.json", import.meta.url), "utf8"),
+);
+
+const rootDir = dirname(fileURLToPath(import.meta.url));
 const isCI = process.env.CI === "true";
 
-const esmOnlyPackages = ["react-error-boundary"];
+const esmOnlyPackages = ["react-error-boundary", "@sage/design-tokens"];
 
-const baseProjectConfig: Config = {
+/** @type {JestConfig} */
+const baseProjectConfig = {
   rootDir,
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "mjs"],
   transform: {
@@ -16,24 +24,17 @@ const baseProjectConfig: Config = {
     "^.+\\.svg$": "<rootDir>/svgTransform.mjs",
   },
   moduleDirectories: ["src", "node_modules"],
-  moduleNameMapper: {
-    "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
-    "^@sage/design-tokens-fusion/js/es6/(.*)$":
-      "@sage/design-tokens-fusion/js/common/$1",
-  },
   coveragePathIgnorePatterns: [
     "<rootDir>/node_modules",
     "<rootDir>/src/__spec_helper__",
     "<rootDir>/src/locales",
     "<rootDir>/lib",
-    "<rootDir>/esm",
     "<rootDir>/playwright",
   ],
   coverageDirectory: "<rootDir>/coverage",
   testPathIgnorePatterns: [
     "<rootDir>/node_modules",
     "<rootDir>/lib",
-    "<rootDir>/esm",
     "<rootDir>/.storybook",
     "<rootDir>/scripts",
   ],
@@ -42,7 +43,8 @@ const baseProjectConfig: Config = {
   ],
 };
 
-const clientConfig: Config = {
+/** @type {JestConfig} */
+const clientConfig = {
   displayName: "Client",
   testMatch: ["**/!(*.server).+(spec|test).[jt]s?(x)"],
   testEnvironment: "jsdom",
@@ -53,7 +55,8 @@ const clientConfig: Config = {
   ...baseProjectConfig,
 };
 
-const serverConfig: Config = {
+/** @type {JestConfig} */
+const serverConfig = {
   displayName: { name: "Server", color: "blue" },
   testMatch: ["**/*.server.(spec|test).[jt]s?(x)"],
   testEnvironment: "node",
@@ -62,7 +65,8 @@ const serverConfig: Config = {
 };
 
 // Runs specific script unit tests, which the main projects ignore.
-const scriptsConfig: Config = {
+/** @type {JestConfig} */
+const scriptsConfig = {
   ...serverConfig,
   displayName: { name: "Scripts", color: "magenta" },
   setupFilesAfterEnv: [],
@@ -71,7 +75,8 @@ const scriptsConfig: Config = {
   coveragePathIgnorePatterns: ["<rootDir>/node_modules", "<rootDir>/scripts"],
 };
 
-const globalConfig: Config = {
+/** @type {JestConfig} */
+const globalConfig = {
   projects: [clientConfig, serverConfig, scriptsConfig],
   notify: false,
   collectCoverage: true,

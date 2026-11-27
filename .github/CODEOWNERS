@@ -13,7 +13,7 @@
 *.pw.tsx                 @Sage/carbon-qa
 *.test-pw.tsx            @Sage/carbon-qa
 /playwright/             @Sage/carbon-qa
-playwright-ct.config.ts  @Sage/carbon-qa
+playwright-ct.config.mts  @Sage/carbon-qa
 
 # Skills files must be approved by a Carbon Admin because they inject content into the agent's context and responses,
 # so we want to ensure they are carefully reviewed.

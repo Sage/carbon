@@ -43,6 +43,8 @@ Snapshots are left up to the developer to be used where there is value. If you d
 
 > Further information on snapshots can be found on [Jest's official docs](https://jestjs.io/docs/snapshot-testing).
 
+Jest 29 generates external `.snap` files using CommonJS `exports[...]` syntax. We retain `toMatchSnapshot()` and these generated files for now: converting the large existing snapshots to inline snapshots makes the tests difficult to maintain, and manually editing `.snap` files would be undone by Jest. Revisit ESM snapshot storage when the test tooling supports it.
+
 ### Continuous Integration (CI)
 
 GitHub Actions runs component tests for a particular Pull Request when it is created and on every commit push. You can manually run these steps with:
@@ -83,7 +85,7 @@ All Playwright tests must go within `*.pw.tsx` for the relevant component.
 │   ├── index.tsx
 │   └── README.md
 │
-└── playwright-ct.config.ts
+└── playwright-ct.config.mts
 ```
 
 A typical `*.pw.tsx` file may look like the following:

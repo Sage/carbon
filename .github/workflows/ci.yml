@@ -25,6 +25,9 @@ jobs:
       - name: Test the Carbon skill metadata validation
         run: npm run test:skills
 
+      - name: Test declaration import rewriting
+        run: npm run test:types
+
   test:
     name: Test with Node ${{ matrix.node }} (${{ matrix.shard }}, 4)
     runs-on: ubuntu-latest

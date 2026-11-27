@@ -7,7 +7,6 @@ import React, {
   useMemo,
 } from "react";
 import { MarginProps } from "styled-system";
-import * as DesignTokens from "@sage/design-tokens/js/base/common";
 
 import {
   StyledFlatTableWrapper,
@@ -51,7 +50,7 @@ export interface FlatTableProps extends MarginProps, TagProps {
   hasOuterVerticalBorders?: boolean;
   /** Sets the border radius of the first and last cells in the last row. */
   bottomBorderRadius?: Extract<
-    keyof typeof DesignTokens,
+    keyof typeof import("@sage/design-tokens/js/base/es6.js").default,
     `borderRadius${number}`
   >;
   /** Set the overflow X of the table wrapper. Any valid CSS string */

@@ -5,8 +5,9 @@ import type {
   TestResult,
   FullResult,
 } from "@playwright/test/reporter";
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 
 interface A11yIssue {
   id: string;
@@ -36,7 +37,7 @@ class AccessibilityReporter implements Reporter {
   private outputDir: string;
 
   constructor() {
-    this.outputDir = path.resolve(__dirname, "../test-report");
+    this.outputDir = fileURLToPath(new URL("../test-report", import.meta.url));
   }
 
   onTestEnd(test: TestCase, result: TestResult): void {

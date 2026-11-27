@@ -23,7 +23,7 @@
       "request": "launch",
       "name": "Run Current Spec",
       "program": "${workspaceRoot}/node_modules/.bin/jest",
-      "args": ["--config=./jest.config.ts", "${file}"],
+      "args": ["--config=./jest.config.mjs", "${file}"],
       "stopOnEntry": false,
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,

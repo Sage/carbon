@@ -2,7 +2,7 @@
 
 ## Project context
 
-- Carbon is Sage's public TypeScript React component library. It supports React 17 and 18 and uses styled-components v5 and Sage design tokens.
+- Carbon is Sage's public TypeScript React component library. It supports React 18 and uses styled-components v5 and Sage design tokens.
 - Public API is defined by exports from component `index.ts` files and `src/index.ts`, not source location. Unexported code, including code under `__internal__/`, is private. Components live under `src/components/`; hooks, locales, and shared styles live under `src/hooks/`, `src/locales/`, and `src/style/`.
 - Jest and Testing Library cover component behavior with 100% branch, function, line, and statement thresholds. Playwright covers real-browser behavior; Storybook 10 and Chromatic cover documentation and visual states.
 
@@ -16,7 +16,7 @@
 
 - **Public API and deprecations:** Adding a deprecation notice is non-breaking. Removing or renaming a public API remains breaking even when it was previously deprecated, as do newly required props, narrowed types, removed union members, and changed defaults or behavior. Require a `BREAKING CHANGE:` commit footer with clear migration guidance for those breaking changes. Ignore APIs not exported from supported public entry points.
 - **Next and deprecated APIs:** Public-ready `__next__/` exports use a `Next` prefix. Legacy wrappers must delegate to `__next__` and preserve behavior while mapping legacy props. New deprecations need `/** @deprecated ... */` naming the replacement or migration, plus updated MDX, stories, and generated skills where relevant; do not use runtime logging.
-- **React behavior:** Preserve React 17/18 compatibility. Check for unsafe render side effects, Strict Mode regressions, hydration or SSR-unsafe browser globals, controlled/uncontrolled state changes, stale closures, and missing effect cleanup.
+- **React behavior:** Preserve React 18 compatibility. Check for unsafe render side effects, Strict Mode regressions, hydration or SSR-unsafe browser globals, controlled/uncontrolled state changes, stale closures, and missing effect cleanup.
 - **Accessibility:** Check semantics, accessible names and labels, ARIA relationships, keyboard behavior, focus movement/restoration, escape and dismissal behavior, disabled states, and reduced motion. Browser-dependent interactions need Playwright coverage.
 - **Styles and themes:** Check supported themes and dark mode when relevant. Prefer Sage tokens over hard-coded visual values. Import `color` from `src/style/utils/color`, never `styled-system`. Avoid `:has()` in jsdom-tested styles.
 - **Selectors and tests:** Roots use `data-component`, sub-elements use `data-element`, and test IDs use `data-role`; `data-testid` is only for Storybook interaction stories. Prefer role, label, or visible-text queries. Put unit behavior in `<name>.test.tsx`, browser behavior in `<name>.pw.tsx`, and visual states in stories. Require coverage for new branches and avoid broad snapshots.

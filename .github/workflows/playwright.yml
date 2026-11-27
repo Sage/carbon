@@ -79,7 +79,7 @@ jobs:
           merge-multiple: true
 
       - name: Merge into HTML Report
-        run: npx playwright merge-reports --config=playwright-ct.config.ts --reporter=html --reporter=./playwright/support/accessibility-reporter.ts ./all-blob-reports
+        run: npx playwright merge-reports --config=playwright-ct.config.mts --reporter=html --reporter=./playwright/support/accessibility-reporter.mts ./all-blob-reports
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v6

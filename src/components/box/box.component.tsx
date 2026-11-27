@@ -6,7 +6,6 @@ import {
   PositionProps,
   GridProps,
 } from "styled-system";
-import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { type Gap } from "../../style/utils/box-gap";
 import {
   filterStyledSystemMarginProps,
@@ -23,7 +22,8 @@ export type OverflowWrap = "break-word" | "anywhere";
 export type ScrollVariant = "light" | "dark";
 export type BoxSizing = "content-box" | "border-box";
 
-type DesignTokensType = keyof typeof DesignTokens;
+type DesignTokensType =
+  keyof typeof import("@sage/design-tokens/js/base/es6.js").default;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 type BorderRadiusToken = Extract<DesignTokensType, `borderRadius${string}`>;
 
