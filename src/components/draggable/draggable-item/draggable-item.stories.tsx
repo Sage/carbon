@@ -22,6 +22,7 @@ const meta: Meta<typeof DraggableItem> = {
     ...styledSystemProps,
   },
   parameters: {
+    controls: { disable: true },
     chromatic: { disableSnapshot: true },
   },
 };

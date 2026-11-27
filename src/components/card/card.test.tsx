@@ -2,7 +2,9 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Card, CardProps, CardFooter } from ".";
-import { StyledCard, StyledDragHandle } from "./card.style";
+import { StyledCard } from "./card.style";
+import { StyledDragHandle } from "../draggable/draggable-item/draggable-item.style";
+import { DraggableContainer, DraggableItem } from "../draggable";
 
 test("renders with correct data attributes", () => {
   render(
@@ -125,6 +127,40 @@ test("when draggable prop is true, card element does not have move cursor", () =
 
   expect(cardElement).not.toHaveStyle({ cursor: "move" });
   expect(screen.getByTestId("icon")).toBeInTheDocument();
+});
+
+test.each([
+  ["standard", "var(--global-depth-lvl2)"],
+  ["outlined", "none"],
+] as const)(
+  "applies the %s hover shadow when draggable without onClick or href",
+  (variant, shadow) => {
+    render(
+      <Card draggable variant={variant} data-role="card">
+        Content
+      </Card>,
+    );
+
+    expect(screen.getByTestId("card")).toHaveStyleRule("box-shadow", shadow, {
+      modifier: ":hover",
+    });
+  },
+);
+
+test("applies the draggable hover shadow when integrated through DraggableItem", () => {
+  render(
+    <DraggableContainer>
+      <DraggableItem id="card">
+        <Card data-role="card">Content</Card>
+      </DraggableItem>
+    </DraggableContainer>,
+  );
+
+  expect(screen.getByTestId("card")).toHaveStyleRule(
+    "box-shadow",
+    "var(--global-depth-lvl2)",
+    { modifier: ":hover" },
+  );
 });
 
 test("renders rightChildren content when draggable is true", () => {

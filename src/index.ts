@@ -121,10 +121,19 @@ export type {
 export { default as DismissibleBox } from "./components/dismissible-box";
 export type { DismissibleBoxProps } from "./components/dismissible-box";
 
-export { DraggableContainer, DraggableItem } from "./components/draggable";
+export {
+  DraggableContainer,
+  DraggableContainerGroup,
+  DraggableItem,
+  DragHandle,
+  useDraggableItemContext,
+} from "./components/draggable";
 export type {
   DraggableContainerProps,
+  DraggableContainerGroupProps,
   DraggableItemProps,
+  DragHandleProps,
+  DraggableItemContextValue,
 } from "./components/draggable";
 
 export { default as Drawer } from "./components/drawer";

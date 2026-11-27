@@ -65,6 +65,7 @@ description: Carbon Typography component props and usage examples.
 | wordWrap | string \| undefined | No |  |  |  | Override the word-wrap |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-atomic | (boolean \| "true" \| "false") \| undefined | No |  |  |  | Whether assistive technologies announce the entire live region when it changes. |  |
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No | off \| assertive \| polite |  |  | Make the element an aria-live region |  |
 | backgroundColor | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the backgroundColor style |  |  |
 | bg | string \| undefined | No |  | Yes | This prop no longer has any effect. This prop will eventually be removed. Override the bg value shorthand for backgroundColor |  |  |

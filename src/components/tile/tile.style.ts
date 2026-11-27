@@ -17,6 +17,7 @@ type StyledTileProps = Pick<
   | "statusKeyline"
 > &
   SpaceProps & {
+    $isDraggable?: boolean;
     $hasFooter?: boolean;
     $footerVariant?: "selected" | "active";
   };
@@ -133,6 +134,28 @@ const getTileBorder = ({
   return `var(--global-borderwidth-xs) solid ${hasOutline ? getColorMappingByVariant({ variant, inverse }).border : "transparent"}`;
 };
 
+// Keep the content's horizontal layout and child styling when a handle row is present.
+const tileContentStyles = (roundness: TileProps["roundness"]) => css`
+  > *:first-child:not([data-role="tile-content"]) {
+    border-top-left-radius: calc(${getBorderRadius(roundness)} - 1px);
+    border-bottom-left-radius: calc(${getBorderRadius(roundness)} - 1px);
+  }
+
+  > *:last-child:not([data-role="tile-content"]) {
+    border-top-right-radius: calc(${getBorderRadius(roundness)} - 1px);
+    border-bottom-right-radius: calc(${getBorderRadius(roundness)} - 1px);
+  }
+  > [data-role="tile-content"]:not(:last-of-type) {
+    margin-right: var(--global-space-comp-s);
+    border-right: solid 1px var(--container-standard-border-default);
+  }
+
+  [data-component="tile-header"] {
+    border-radius: ${getBorderRadius(roundness)} ${getBorderRadius(roundness)} 0
+      0;
+  }
+`;
+
 const StyledTile = styled.div.attrs(applyBaseTheme)<StyledTileProps>`
   ${({
     hasOutline,
@@ -141,6 +164,7 @@ const StyledTile = styled.div.attrs(applyBaseTheme)<StyledTileProps>`
     roundness,
     $hasFooter,
     $footerVariant,
+    $isDraggable,
   }) => css`
     padding: var(--global-space-comp-xl);
     ${space}
@@ -158,30 +182,12 @@ const StyledTile = styled.div.attrs(applyBaseTheme)<StyledTileProps>`
     background-color: ${getColorMappingByVariant({ variant, inverse }).bg};
     color: ${getColorMappingByVariant({ variant, inverse }).color};
 
-    > *:first-child:not([data-role="tile-content"]) {
-      border-top-left-radius: calc(${getBorderRadius(roundness)} - 1px);
-      border-bottom-left-radius: calc(${getBorderRadius(roundness)} - 1px);
-    }
-
-    > *:last-child:not([data-role="tile-content"]) {
-      border-top-right-radius: calc(${getBorderRadius(roundness)} - 1px);
-      border-bottom-right-radius: calc(${getBorderRadius(roundness)} - 1px);
-    }
+    ${tileContentStyles(roundness)}
 
     display: flex;
-    flex-direction: row;
+    flex-direction: ${$isDraggable ? "column" : "row"};
     position: relative;
     height: 100%;
-
-    > [data-role="tile-content"]:not(:last-of-type) {
-      margin-right: var(--global-space-comp-s);
-      border-right: solid 1px var(--container-standard-border-default);
-    }
-
-    [data-component="tile-header"] {
-      border-radius: ${getBorderRadius(roundness)} ${getBorderRadius(roundness)}
-        0 0;
-    }
   `}
 `;
 
@@ -222,4 +228,27 @@ const StyledTileKeyline = styled.div<{
     `}
 `;
 
-export { StyledTile, StyledTileWrapper, StyledTileKeyline };
+const StyledTileContent = styled.div<{ roundness?: TileProps["roundness"] }>`
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  ${({ roundness }) => tileContentStyles(roundness)}
+`;
+
+const StyledTileDragRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: var(--global-space-comp-s);
+  align-items: center;
+  margin-bottom: var(--global-space-comp-s);
+`;
+
+export {
+  StyledTile,
+  StyledTileWrapper,
+  StyledTileKeyline,
+  StyledTileContent,
+  StyledTileDragRow,
+};
