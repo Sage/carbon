@@ -137,6 +137,10 @@ const useDataGridEditing = <T extends object>({
   );
 
   useEffect(() => {
+    if (editingIdentity && !positionForIdentity(editingIdentity)) cancelEdit();
+  }, [cancelEdit, editingIdentity, positionForIdentity, renderToken]);
+
+  useEffect(() => {
     if (!editingIdentity) return;
     const editor = editorRef.current;
     if (!editor || initializedEditor.current === editor) return;

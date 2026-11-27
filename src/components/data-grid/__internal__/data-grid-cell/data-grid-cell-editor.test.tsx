@@ -111,6 +111,42 @@ test("keeps dropdown selection keys within an IME composition", () => {
   expect(onKeyDown).toHaveBeenCalledTimes(1);
 });
 
+test.each([
+  { dropdown: false, endBeforeRelease: false },
+  { dropdown: false, endBeforeRelease: true },
+  { dropdown: true, endBeforeRelease: false },
+  { dropdown: true, endBeforeRelease: true },
+])(
+  "consumes only the composition Escape keyup (%o)",
+  ({ dropdown, endBeforeRelease }) => {
+    const onKeyUp = jest.fn();
+    const column: DataGridColumn<Row> = dropdown
+      ? {
+          field: "type",
+          headerName: "Type",
+          type: "dropdown",
+          options: [{ label: "Service", value: "service" }],
+        }
+      : { field: "name", headerName: "Name" };
+    render(
+      <DataGridCellEditor {...commonProps} column={column} value="service" />,
+    );
+    document.addEventListener("keyup", onKeyUp);
+    const editor = screen.getByRole(dropdown ? "combobox" : "textbox");
+    fireEvent.compositionStart(editor);
+    fireEvent.keyDown(editor, { key: "Escape" });
+    if (endBeforeRelease) fireEvent.compositionEnd(editor);
+    fireEvent.keyUp(editor, { key: "Enter" });
+    expect(onKeyUp).toHaveBeenCalledTimes(1);
+    fireEvent.keyUp(editor, { key: "Escape" });
+    expect(onKeyUp).toHaveBeenCalledTimes(1);
+    fireEvent.compositionEnd(editor);
+    fireEvent.keyUp(editor, { key: "Escape" });
+    expect(onKeyUp).toHaveBeenCalledTimes(2);
+    document.removeEventListener("keyup", onKeyUp);
+  },
+);
+
 test("preserves medium weight while editing a dropdown", () => {
   const column: DataGridColumn<Row> = {
     field: "type",

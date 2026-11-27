@@ -183,6 +183,19 @@ test("does not commit when the edited row disappears before a rerender", () => {
   expect(onCellCommit).not.toHaveBeenCalled();
 });
 
+test("discards a draft when its row or column disappears rather than reviving it", () => {
+  const { result, rerender, positionForIdentity, onCellCommit } = setup();
+  act(() => result.current.beginEdit(position));
+  act(() => result.current.setDraftValue("Stale draft"));
+  positionForIdentity.mockReturnValue(null);
+  rerender({ renderToken: 1 });
+  positionForIdentity.mockReturnValue(position);
+  rerender({ renderToken: 2 });
+  expect(result.current.editing).toBeNull();
+  act(() => result.current.commitEdit());
+  expect(onCellCommit).not.toHaveBeenCalled();
+});
+
 test.each([
   { direction: "backward", externalFocus: false },
   { direction: null, externalFocus: false },

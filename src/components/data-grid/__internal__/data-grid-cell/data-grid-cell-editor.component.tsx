@@ -58,6 +58,7 @@ const DataGridCellEditor = <T extends object>({
   );
   const composing = useRef(false);
   const tabbing = useRef(false);
+  const compositionEscape = useRef(false);
   const compositionProps = {
     onCompositionStart: () => {
       composing.current = true;
@@ -65,9 +66,16 @@ const DataGridCellEditor = <T extends object>({
     onCompositionEnd: () => {
       composing.current = false;
     },
+    onKeyUpCapture: (event: React.KeyboardEvent) => {
+      if (event.key === "Escape" && compositionEscape.current) {
+        compositionEscape.current = false;
+        event.stopPropagation();
+      }
+    },
   };
   const handleCompositionKeyDown = (event: React.KeyboardEvent) => {
     if (!composing.current && !event.nativeEvent.isComposing) return false;
+    if (event.key === "Escape") compositionEscape.current = true;
     event.stopPropagation();
     return true;
   };

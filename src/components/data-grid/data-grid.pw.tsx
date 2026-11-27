@@ -1025,6 +1025,31 @@ for (const { field, role, label } of [
   { field: "name", role: "textbox", label: "Name, row 1" },
   { field: "type", role: "combobox", label: "Type, row 1" },
 ] as const) {
+  test(`composition Escape preserves the ${field} editor and its Dialog`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DataGridInDialog />);
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeFocused();
+    await cell(page, 1, field).click();
+    const editor = page.getByRole(role, { name: label });
+    await editor.dispatchEvent("compositionstart");
+    await editor.press("Escape", { delay: 0 });
+    await expect(dialog).toBeVisible();
+    await expect(editor).toBeFocused();
+    await editor.dispatchEvent("keydown", { key: "Escape", bubbles: true });
+    await editor.dispatchEvent("compositionend");
+    await editor.dispatchEvent("keyup", { key: "Escape", bubbles: true });
+    await expect(dialog).toBeVisible();
+    await expect(editor).toBeFocused();
+    await editor.press("Escape");
+    await expect(editor).toHaveCount(0);
+    await expect(dialog).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+  });
+
   test(`Escape cancels the ${field} editor without cancelling its Dialog`, async ({
     mount,
     page,
