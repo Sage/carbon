@@ -171,9 +171,9 @@ export const Tabs = forwardRef<TabsHandle, TabsProps>(
 
             return (
               <Tab
+                key={idToUse}
                 headerWidth={isInSidebar ? "100%" : headerWidth}
                 {...props}
-                key={idToUse}
               />
             );
           })}
