@@ -4,6 +4,10 @@ import Locale from "./locale";
 
 const enCA: Partial<Locale> = {
   locale: () => "en-CA",
+  actionPopover: {
+    ariaLabel: () => "actions",
+    buttonLabel: () => "Actions",
+  },
   date: {
     dateFnsLocale: () => enCADateLocale,
     ariaLabels: {
