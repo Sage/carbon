@@ -18,6 +18,10 @@ import { StyledResponsiveMenuItem } from "./responsive-vertical-menu-item/respon
 
 jest.mock("../../../hooks/__internal__/useIsAboveBreakpoint");
 jest.mock("../../../hooks/useMediaQuery");
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
 
 const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
   typeof useMediaQuery

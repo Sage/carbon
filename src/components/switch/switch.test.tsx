@@ -11,6 +11,13 @@ jest.mock("../../hooks/useMediaQuery", () => ({
   default: jest.fn(),
 }));
 
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
+
+const mockedGuid = "mocked-use-id-123";
+
 const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
   typeof useMediaQuery
 >;
@@ -485,8 +492,8 @@ describe("Switch", () => {
 
     it("sets the hint text id to a generated value", () => {
       renderSwitch({ inputHint: "Hint" });
-      expect(screen.getByTestId("hint-text").getAttribute("id")).toMatch(
-        /-hint$/,
+      expect(screen.getByTestId("hint-text").getAttribute("id")).toBe(
+        `${mockedGuid}-hint`,
       );
     });
 

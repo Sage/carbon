@@ -6,6 +6,12 @@ import TextInput from ".";
 import { testStyledSystemMargin } from "../../../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../../../__internal__/utils/logger");
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
+
+const mockedGuid = "mocked-use-id-123";
 
 testStyledSystemMargin(
   (props) => (
@@ -38,7 +44,7 @@ test("should render with an id attribute via the `id` prop", () => {
 test("should render with a generated id if the `id` prop is not provided", () => {
   render(<TextInput label="label" value="foo" onChange={() => {}} />);
 
-  expect(screen.getByRole("textbox").getAttribute("id")).toBeTruthy();
+  expect(screen.getByRole("textbox").getAttribute("id")).toBe(mockedGuid);
 });
 
 test("should render with data attributes via the `data-element` and `data-role` props", () => {

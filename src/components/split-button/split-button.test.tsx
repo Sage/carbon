@@ -14,6 +14,11 @@ import {
   FlatTableCell,
 } from "../flat-table";
 
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
+
 testStyledSystemMargin(
   (props) => (
     <SplitButton data-role="split-button-container" text="Test" {...props}>

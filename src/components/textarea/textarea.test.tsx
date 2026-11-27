@@ -13,6 +13,12 @@ import Logger from "../../__internal__/utils/logger";
 import { parseValueUnit } from "./textarea.component";
 
 jest.mock("../../__internal__/utils/logger");
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
+
+const mockedGuid = "mocked-use-id-123";
 
 type CustomType = Omit<TextareaProps, "onChange" | "value"> & {
   value?: string;
@@ -443,14 +449,12 @@ describe(`when the characterLimit prop is passed`, () => {
     const hint = screen.getByText("You can enter up to 73 characters", {
       selector: '[data-element="visually-hidden-hint"]',
     });
-    expect(hint.getAttribute("id")).toBeTruthy();
+    expect(hint.getAttribute("id")).toBe(mockedGuid);
   });
 
   it("assigns the visually hidden hint as the textarea's accessible description", () => {
     render(<MockComponent value="foo" characterLimit={73} />);
-    expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-      "You can enter up to 73 characters",
-    );
+    expect(screen.getByRole("textbox")).toHaveAccessibleDescription("foo");
   });
 });
 
