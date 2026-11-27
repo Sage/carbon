@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ButtonToggle,
   ButtonToggleGroup,
@@ -21,6 +21,22 @@ export const ButtonToggleGroupComponent = (
     <ButtonToggle value="baz">Baz</ButtonToggle>
   </ButtonToggleGroup>
 );
+
+export const ControlledButtonToggleGroup = () => {
+  const [value, setValue] = useState("foo");
+
+  return (
+    <ButtonToggleGroup
+      id="button-toggle-group-id"
+      aria-label="Button Toggle Group"
+      value={value}
+      onChange={(_, nextValue) => setValue(nextValue || "")}
+    >
+      <ButtonToggle value="foo">Foo</ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+    </ButtonToggleGroup>
+  );
+};
 
 export const ButtonToggleIconOnly = ({ ...props }: ButtonToggleProps) => {
   return (

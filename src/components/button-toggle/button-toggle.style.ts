@@ -36,12 +36,26 @@ interface StyledButtonToggleProps {
   $active?: boolean;
   $iconOnly?: boolean;
   $fullWidth?: boolean;
+  $indicatorSliding?: boolean;
+  $showMouseFocus?: boolean;
+  $disableTransitions?: boolean;
 }
 
 const StyledButtonToggle = styled.button.attrs(
   applyBaseTheme,
 )<StyledButtonToggleProps>`
-  ${({ $active, $size, disabled, $iconOnly, $fullWidth }) => css`
+  ${({
+    $active,
+    $size,
+    disabled,
+    $iconOnly,
+    $fullWidth,
+    $indicatorSliding,
+    $showMouseFocus,
+    $disableTransitions,
+  }) => css`
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -70,14 +84,25 @@ const StyledButtonToggle = styled.button.attrs(
     border-radius: ${sizeMap[$size].borderRadius};
     border: none;
     background-color: transparent;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 
     color: var(--button-typical-toggle-label-default);
     font: ${sizeMap[$size].font};
     text-align: center;
+    transition: ${$disableTransitions ? "none" : "color 200ms ease"} !important;
+
+    * {
+      transition: ${$disableTransitions
+        ? "none"
+        : "color 200ms ease"} !important;
+    }
 
     ${$active &&
     css`
-      background: var(--button-typical-toggle-bg-active);
+      ${!$indicatorSliding &&
+      "background: var(--button-typical-toggle-bg-active);"}
       color: var(--button-typical-toggle-label-active);
     `}
 
@@ -88,21 +113,36 @@ const StyledButtonToggle = styled.button.attrs(
 
       ${$active &&
       css`
-        background: var(--button-typical-toggle-bg-active-disabled);
+        ${!$indicatorSliding &&
+        "background: var(--button-typical-toggle-bg-active-disabled);"}
         color: var(--button-typical-toggle-label-active-disabled);
       `}
     `}
 
     ${!disabled &&
     css`
-      &:focus {
+      &:focus-visible {
         ${addFocusStyling()}
       }
 
-      &:hover {
-        background: var(--button-typical-toggle-bg-hover);
-        color: var(--button-typical-toggle-label-hover);
-      }
+      ${$showMouseFocus &&
+      css`
+        &:focus {
+          ${addFocusStyling()}
+        }
+      `}
+
+      ${!($active && $indicatorSliding) &&
+      css`
+        &:hover {
+          background: ${$active
+            ? "var(--button-typical-toggle-bg-active-hover)"
+            : "var(--button-typical-toggle-bg-hover)"};
+          color: ${$active
+            ? "var(--button-typical-toggle-label-active-hover)"
+            : "var(--button-typical-toggle-label-hover)"};
+        }
+      `}
     `}
   `}
 `;

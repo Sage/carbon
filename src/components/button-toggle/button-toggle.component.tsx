@@ -6,6 +6,7 @@ import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import Icon, { IconType } from "../icon";
 import isIconOnly from "../button/__next__/__internal__/utils/is-icon-only";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 export interface ButtonToggleProps extends TagProps {
   /** Prop to specify the aria-label of the component */
@@ -69,6 +70,9 @@ export const ButtonToggle = ({
 }: ButtonToggleProps) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const inputGuid = useRef(guid());
+  const prefersReducedMotion = useMediaQuery(
+    "(prefers-reduced-motion: reduce)",
+  );
 
   const {
     handleKeyDown,
@@ -81,6 +85,10 @@ export const ButtonToggle = ({
     hintTextId,
     size: contextSize,
     fullWidth,
+    isIndicatorSliding,
+    showMouseFocus,
+    registerSelectionInteraction,
+    clearMouseFocus,
   } = useContext(ButtonToggleGroupContext);
 
   const callbackRef = (element: HTMLButtonElement | null) => {
@@ -93,7 +101,12 @@ export const ButtonToggle = ({
 
     const newValue =
       allowDeselect && pressedButtonValue === value ? undefined : value;
+    registerSelectionInteraction?.(newValue, ev.detail > 0);
     onChange?.(ev, newValue);
+  }
+
+  function handleMouseDown() {
+    clearMouseFocus?.();
   }
 
   const isInGroup = Boolean(onChange);
@@ -138,10 +151,14 @@ export const ButtonToggle = ({
       $active={!!isPressed}
       $iconOnly={iconOnly}
       $fullWidth={fullWidth}
+      $indicatorSliding={isIndicatorSliding}
+      $showMouseFocus={!isInGroup || showMouseFocus}
+      $disableTransitions={!!prefersReducedMotion}
       value={value}
       onFocus={onFocus}
       onBlur={onBlur}
       onClick={handleClick}
+      onMouseDown={handleMouseDown}
       onKeyDown={handleKeyDown}
       {...(isInGroup && { tabIndex: tabbable ? 0 : -1 })}
       ref={callbackRef}
