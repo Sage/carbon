@@ -1,7 +1,7 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { PopoverMenuContext, MenuHeadingContext } from "../../contexts";
-import guid from "../../../utils/helpers/guid";
+import useIdPolyfill from "../../../../hooks/__internal__/useIdPolyfill";
 import type { TagProps } from "../../../utils/helpers/tags";
 
 const StyledMenuHeadingWithIcon = styled.div<{ $size: string }>`
@@ -72,9 +72,10 @@ const MenuItemHeading = ({
   "data-role": dataRole,
 }: MenuItemHeadingProps) => {
   const { size } = useContext(PopoverMenuContext);
-  const headingId = useRef(`popover-menu-heading-${guid()}`);
+  const generatedHeadingId = useIdPolyfill();
+  const headingId = `popover-menu-heading-${generatedHeadingId}`;
 
-  const textProps = { "data-element": "text", id: headingId.current };
+  const textProps = { "data-element": "text", id: headingId };
 
   const heading =
     headingContent || icon ? (
@@ -91,7 +92,7 @@ const MenuItemHeading = ({
     );
 
   const items = (
-    <MenuHeadingContext.Provider value={{ headingId: headingId.current }}>
+    <MenuHeadingContext.Provider value={{ headingId }}>
       <ul
         role={semanticGroup ? "presentation" : "listbox"}
         aria-label={semanticGroup ? undefined : text}
@@ -111,7 +112,7 @@ const MenuItemHeading = ({
       style={style}
       $size={size}
       role={semanticGroup ? "group" : "option"}
-      aria-labelledby={semanticGroup ? headingId.current : undefined}
+      aria-labelledby={semanticGroup ? headingId : undefined}
     >
       {visuallyHiddenHeading ? (
         <VisuallyHiddenHeading data-role="visually-hidden-heading">

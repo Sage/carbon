@@ -16,7 +16,7 @@ import StyledFlatTableRow from "./flat-table-row.style";
 import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 import FlatTableRowHeader from "../flat-table-row-header";
 import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.context";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import FlatTableRowContext from "./__internal__/flat-table-row.context";
 import SubRowProvider, { SubRowContext } from "./__internal__/sub-row-provider";
 import { buildPositionMap } from "../__internal__";
@@ -78,7 +78,8 @@ export const FlatTableRow = React.forwardRef<
     }: FlatTableRowProps,
     ref,
   ) => {
-    const internalId = useRef(id ? String(id) : guid());
+    const generatedId = useIdPolyfill();
+    const internalId = id ? String(id) : generatedId;
     const [isExpanded, setIsExpanded] = useState(expanded);
     const rowRef = useRef<HTMLTableRowElement | null>(null);
     const firstColumnExpandable = expandableArea === "firstColumn";
@@ -265,14 +266,14 @@ export const FlatTableRow = React.forwardRef<
     }, [expanded]);
 
     useEffect(() => {
-      setTabIndex(getTabStopElementId() === internalId.current ? 0 : -1);
+      setTabIndex(getTabStopElementId() === internalId ? 0 : -1);
     }, [getTabStopElementId]);
 
     const { isSubRow, firstRowId, addRow, removeRow } =
       useContext(SubRowContext);
 
     useEffect(() => {
-      const rowId = internalId.current;
+      const rowId = internalId;
       addRow(rowId);
 
       return () => {
@@ -280,7 +281,7 @@ export const FlatTableRow = React.forwardRef<
       };
     }, [addRow, removeRow]);
 
-    const isFirstSubRow = firstRowId === internalId.current;
+    const isFirstSubRow = firstRowId === internalId;
 
     const getDataElement = useCallback(() => {
       if (dataElement) return dataElement;
@@ -289,7 +290,7 @@ export const FlatTableRow = React.forwardRef<
     }, [dataElement, isSubRow]);
 
     const { isDragging } = useSortableRow({
-      id: internalId.current,
+      id: internalId,
       index: draggableProps?.index as number,
       ref: !!draggableProps ? rowRef : null,
     });
@@ -322,14 +323,14 @@ export const FlatTableRow = React.forwardRef<
           rhsRowHeaderIndex={rhsRowHeaderIndex}
           colorTheme={colorTheme}
           size={size}
-          stickyOffset={stickyOffsets[internalId.current]}
+          stickyOffset={stickyOffsets[internalId]}
           bgColor={bgColor}
           horizontalBorderColor={horizontalBorderColor}
           horizontalBorderSize={horizontalBorderSize}
           draggable={!!draggableProps}
           isDragging={isDragging}
           totalChildren={cellsArray.length}
-          id={internalId.current}
+          id={internalId}
           data-selected={selected && expandableArea === "wholeRow"}
           data-highlighted={highlighted && expandableArea === "wholeRow"}
           rowHeight={rowRef?.current?.offsetHeight}

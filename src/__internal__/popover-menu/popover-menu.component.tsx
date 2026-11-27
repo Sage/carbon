@@ -19,7 +19,7 @@ import {
   setFocus,
   type TypeaheadHandler,
 } from "./hooks";
-import guid from "../utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import {
   PopoverMenuContext,
   PopoverMenuContextProps,
@@ -453,8 +453,9 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const internalListRef = useRef<HTMLUListElement | null>(null);
   const combinedListRef = combineRefs(listRef, internalListRef);
-  const listId = useRef(id ?? `popover-menu-wrapper-${guid()}`);
-  const menuTreeId = parentMenuTreeId ?? listId.current;
+  const generatedListId = useIdPolyfill();
+  const listId = id ?? `popover-menu-wrapper-${generatedListId}`;
+  const menuTreeId = parentMenuTreeId ?? listId;
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const combinedWrapperRef = combineRefs(wrapperRef, ref);
   const wrappedChildren = useMemo(
@@ -917,7 +918,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
         controlWrapperRef={controlWrapperRef}
         controlWrapperStyle={controlWrapperStyle}
         onKeyDown={handleControlKeyDown}
-        listId={listId.current}
+        listId={listId}
         aria-activedescendant={
           open && resolvedActivedescendant
             ? resolvedActivedescendant
@@ -948,7 +949,7 @@ const PopoverMenuInner = <TRef extends FocusableHandle = HTMLElement>(
             middleware={computedMiddleware}
             scrollRef={scrollRef}
             menuTreeId={menuTreeId}
-            listId={listId.current}
+            listId={listId}
             disablePortal={disablePortal && !isSubmenu}
             portalTarget={isSubmenu ? controlReference?.current : undefined}
             maxHeight={maxHeight}

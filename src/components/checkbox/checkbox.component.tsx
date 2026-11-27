@@ -11,7 +11,7 @@ import CheckboxGroupContext from "./__internal__/checkbox-group.context";
 
 import ErrorBorder from "../../__internal__/error-border/error-border.style";
 import ValidationMessage from "../../__internal__/validation-message/__next__";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import FieldsetContext from "../fieldset/__internal__/fieldset.context";
 import type { CheckboxSizes } from "./checkbox-group/checkbox-group.component";
@@ -145,9 +145,9 @@ export const Checkbox = React.forwardRef(
     }: CheckboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    const internalId = useRef(guid());
+    const internalId = useIdPolyfill();
     const internalInputRef = useRef<HTMLInputElement | null>(null);
-    const uniqueId = id || internalId.current;
+    const uniqueId = id || internalId;
 
     const validationId =
       error || warning ? `${uniqueId}-validation-message` : undefined;

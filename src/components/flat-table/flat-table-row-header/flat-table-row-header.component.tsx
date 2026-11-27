@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback } from "react";
 import { PaddingProps } from "styled-system";
 import { TableBorderSize, TableCellAlign } from "..";
 
@@ -7,7 +7,7 @@ import {
   StyledFlatTableRowHeader,
   StyledFlatTableRowHeaderContent,
 } from "./flat-table-row-header.style";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
@@ -52,7 +52,8 @@ export const FlatTableRowHeader = ({
   id,
   ...rest
 }: FlatTableRowHeaderProps) => {
-  const internalId = useRef(id || guid());
+  const generatedInternalId = useIdPolyfill();
+  const internalId = id || generatedInternalId;
 
   const {
     leftPosition,
@@ -66,7 +67,7 @@ export const FlatTableRowHeader = ({
     isInHighlightedRow,
     isInSelectedRow,
     bringToFront,
-  } = useTableCell(internalId.current);
+  } = useTableCell(internalId);
 
   const handleOnClick = useCallback(
     (ev: React.MouseEvent<HTMLElement>) => {
@@ -115,7 +116,7 @@ export const FlatTableRowHeader = ({
         "data-element": "flat-table-row-header",
         ...rest,
       })}
-      id={internalId.current}
+      id={internalId}
     >
       <StyledFlatTableRowHeaderContent
         title={

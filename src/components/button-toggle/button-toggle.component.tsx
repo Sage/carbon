@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from "react";
 import invariant from "invariant";
 import StyledButtonToggle from "./button-toggle.style";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-toggle-group.context";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import Icon, { IconType } from "../icon";
@@ -68,7 +68,7 @@ export const ButtonToggle = ({
   ...rest
 }: ButtonToggleProps) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const inputGuid = useRef(guid());
+  const inputGuid = useIdPolyfill();
 
   const {
     handleKeyDown,
@@ -148,7 +148,7 @@ export const ButtonToggle = ({
       {...rest}
       {...tagComponent(dataComponent || "button-toggle", rest)}
       className={["button-toggle", className].filter(Boolean).join(" ")}
-      id={id ?? inputGuid.current}
+      id={id ?? inputGuid}
     >
       {buttonIcon && displaySize !== "extraSmall" && (
         <Icon aria-hidden type={buttonIcon} />

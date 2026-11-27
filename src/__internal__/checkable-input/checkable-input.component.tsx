@@ -20,7 +20,7 @@ import {
 import HiddenCheckableInput, {
   CommonHiddenCheckableInputProps,
 } from "./hidden-checkable-input.component";
-import guid from "../utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import Label from "../label";
 import HintText from "../hint-text";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -85,7 +85,8 @@ const CheckableInput = React.forwardRef(
     }: CheckableInputProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    const { current: id } = useRef(inputId || guid());
+    const generatedId = useIdPolyfill();
+    const id = inputId || generatedId;
     const inputHintId = inputHint ? `${id}-hint` : undefined;
 
     const progressiveDisclosureId = progressiveDisclosure

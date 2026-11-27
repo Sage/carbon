@@ -1,5 +1,4 @@
 import React, {
-  useRef,
   useEffect,
   useContext,
   useState,
@@ -28,7 +27,7 @@ import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext, {
   SubmenuContextProps,
 } from "../__internal__/submenu/submenu.context";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import Icon, { IconType } from "../../icon";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import MenuItemVariantContext from "../__internal__/menu-item-variant.context";
@@ -184,7 +183,7 @@ export const MenuItem = forwardRef<
       "You should not pass `children` when `submenu` is an empty string",
     );
 
-    const menuItemId = useRef(guid());
+    const menuItemId = useIdPolyfill();
 
     const {
       inFullscreenView,
@@ -208,9 +207,9 @@ export const MenuItem = forwardRef<
       MenuItemVariantContext,
     );
 
-    const focusFromMenu = focusId === menuItemId.current;
+    const focusFromMenu = focusId === menuItemId;
     const focusFromSubmenu = submenuFocusId
-      ? submenuFocusId === menuItemId.current
+      ? submenuFocusId === menuItemId
       : undefined;
 
     const [ref, setRef] = useState<HTMLAnchorElement | null>(null);
@@ -226,7 +225,7 @@ export const MenuItem = forwardRef<
     }, [firstFocusableChild, ref]);
 
     useEffect(() => {
-      const id = menuItemId.current;
+      const id = menuItemId;
 
       /* istanbul ignore else */
       if (registerItem) {
@@ -267,9 +266,9 @@ export const MenuItem = forwardRef<
     ) => {
       if (isInSubmenu) {
         event.stopPropagation();
-        updateSubmenuFocusId?.(menuItemId.current);
+        updateSubmenuFocusId?.(menuItemId);
       } else {
-        updateFocusId?.(menuItemId.current);
+        updateFocusId?.(menuItemId);
       }
     };
 
@@ -335,7 +334,7 @@ export const MenuItem = forwardRef<
           $maxWidth={itemMaxWidth}
           {...rest}
           $inFullscreenView={inFullscreenView}
-          id={menuItemId.current}
+          id={menuItemId}
           as={as}
           onFocus={handleFocus}
         >
@@ -376,7 +375,7 @@ export const MenuItem = forwardRef<
         $maxWidth={itemMaxWidth}
         {...rest}
         $inFullscreenView={inFullscreenView}
-        id={menuItemId.current}
+        id={menuItemId}
         as={as}
         onFocus={handleFocus}
       >

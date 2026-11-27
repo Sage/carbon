@@ -5,7 +5,7 @@ import { TableBorderSize, TableCellAlign } from "..";
 
 import StyledFlatTableHeader from "./flat-table-header.style";
 import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.context";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import useTableCell from "../__internal__/use-table-cell";
 
 type SortType = "ascending" | "descending" | "none";
@@ -45,11 +45,11 @@ export const FlatTableHeader = ({
   ...rest
 }: FlatTableHeaderProps) => {
   const ref = useRef<HTMLTableCellElement>(null);
-  const internalId = useRef(id || guid());
+  const generatedInternalId = useIdPolyfill();
+  const internalId = id || generatedInternalId;
   const { colorTheme } = useStrictFlatTableContext();
-  const { leftPosition, rightPosition, makeCellSticky } = useTableCell(
-    internalId.current,
-  );
+  const { leftPosition, rightPosition, makeCellSticky } =
+    useTableCell(internalId);
 
   const getSortElementDirection = () => {
     const sortElement = ref.current?.querySelector("[data-component='sort']");
@@ -79,7 +79,7 @@ export const FlatTableHeader = ({
       data-component="flat-table-header"
       data-element={dataElement || "flat-table-header"}
       data-role={dataRole}
-      id={internalId.current}
+      id={internalId}
       aria-sort={getSortElementDirection()}
     >
       <div data-role="flat-table-header-content">{children}</div>

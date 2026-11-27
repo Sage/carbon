@@ -22,7 +22,7 @@ import IconButton from "../icon-button";
 import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalManager from "../../hooks/__internal__/useModalManager";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import Typography from "../typography";
 
 /**
@@ -114,8 +114,8 @@ const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
     const isNotice = variant === "notice";
     const isNotification = variant === "notification";
     const locale = useLocale();
-    const toastIconId = useRef(guid());
-    const toastContentId = useRef(guid());
+    const toastIconId = useIdPolyfill();
+    const toastContentId = useIdPolyfill();
 
     const toastRef = useRef<HTMLDivElement | null>(null);
     const timer = useRef<null | ReturnType<typeof setTimeout>>(null);
@@ -125,9 +125,7 @@ const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
     const focusedElementBeforeOpening = useRef<HTMLElement | null>(null);
 
     const [tabIndex, setTabIndex] = useState<number | undefined>(0);
-    const ariaLabelledBy = `${!isNotice && toastIconId.current} ${
-      toastContentId.current
-    }`;
+    const ariaLabelledBy = `${!isNotice && toastIconId} ${toastContentId}`;
 
     let refToPass = toastRef;
     if (ref && typeof ref === "object" && "current" in ref) {
@@ -251,7 +249,7 @@ const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
                 data-role="toast-type-icon"
               >
                 <Icon type={toastIcon} />
-                <Typography screenReaderOnly id={toastIconId.current}>
+                <Typography screenReaderOnly id={toastIconId}>
                   {locale.toast[variant]()}
                 </Typography>
               </TypeIcon>
@@ -260,7 +258,7 @@ const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
               isNotice={isNotice}
               isDismiss={!!onDismiss}
               data-role="toast-content"
-              id={toastContentId.current}
+              id={toastContentId}
             >
               {children}
             </StyledToastContent>

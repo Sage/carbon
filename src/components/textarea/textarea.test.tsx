@@ -8,16 +8,11 @@ import {
 } from "../../__spec_helper__/__internal__/test-utils";
 import Textarea, { TextareaProps } from ".";
 import { EnterKeyHintTypes } from "../../__internal__/legacy-input";
-import guid from "../../__internal__/utils/helpers/guid";
 import StyledHintText from "../../__internal__/hint-text/hint-text.style";
 import Logger from "../../__internal__/utils/logger";
 import { parseValueUnit } from "./textarea.component";
 
 jest.mock("../../__internal__/utils/logger");
-
-jest.mock("../../__internal__/utils/helpers/guid");
-const mockedGuid = "guid-12345";
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 type CustomType = Omit<TextareaProps, "onChange" | "value"> & {
   value?: string;
@@ -445,11 +440,10 @@ describe(`when the characterLimit prop is passed`, () => {
 
   it("renders a visually hidden hint with id generated via guid", () => {
     render(<MockComponent value="foo" characterLimit={73} />);
-    expect(
-      screen.getByText("You can enter up to 73 characters", {
-        selector: '[data-element="visually-hidden-hint"]',
-      }),
-    ).toHaveAttribute("id", mockedGuid);
+    const hint = screen.getByText("You can enter up to 73 characters", {
+      selector: '[data-element="visually-hidden-hint"]',
+    });
+    expect(hint.getAttribute("id")).toBeTruthy();
   });
 
   it("assigns the visually hidden hint as the textarea's accessible description", () => {

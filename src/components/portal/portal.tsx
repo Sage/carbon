@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import SafePortal from "./__internal__/safe-portal";
 import StyledPortalEntrance from "./portal.style";
 
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import TokensWrapperContext from "../tokens-wrapper/__internal__/context/tokens-wrapper.context";
@@ -46,7 +46,7 @@ export const Portal = ({
   onReposition,
   inertOptOut,
 }: PortalProps) => {
-  const { current: internalId } = useRef(guid());
+  const internalId = useIdPolyfill();
   const id = externalId ?? internalId;
   const entranceRef = useRef<HTMLDivElement>(null);
   const { wrapperId } = useContext(TokensWrapperContext);

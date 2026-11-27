@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { MarginProps } from "styled-system";
 import tagComponent, {
   TagProps,
@@ -7,7 +7,7 @@ import Fieldset from "../../../__internal__/fieldset/__next__/fieldset.component
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import CheckboxGroupContext from "../__internal__/checkbox-group.context";
 import StyledCheckboxGroupContent from "./checkbox-group.style";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 
 export type CheckboxSizes = "small" | "medium" | "large";
 export interface CheckboxGroupProps extends MarginProps, TagProps {
@@ -106,8 +106,8 @@ export const CheckboxGroup = ({
   validationMessagePositionTop = true,
   ...rest
 }: CheckboxGroupProps) => {
-  const internalId = useRef(guid());
-  const uniqueId = id || internalId.current;
+  const internalId = useIdPolyfill();
+  const uniqueId = id || internalId;
 
   return (
     <Fieldset

@@ -2,13 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Password from "./password.component";
-import guid from "../../__internal__/utils/helpers/guid";
 import { CHARACTERS } from "../../../playwright/support/constants";
-
-const mockedGuid = "guid-12345";
-jest.mock("../../__internal__/utils/helpers/guid");
-
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 test("should render a text input with type 'password'", () => {
   render(<Password label="password" value="" onChange={() => {}} />);
@@ -111,7 +105,7 @@ test("should generate the text input's 'id' attribute via a guid when the `id` p
   render(<Password label="password" value="" onChange={() => {}} />);
 
   const passwordInput = screen.getByLabelText("password");
-  expect(passwordInput).toHaveAttribute("id", mockedGuid);
+  expect(passwordInput).toHaveAttribute("id", expect.any(String));
 });
 
 test("should render with provided data- attributes", () => {

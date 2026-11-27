@@ -15,7 +15,7 @@ import Events from "../../../../__internal__/utils/helpers/events";
 import { useStrictMenuContext } from "../strict-menu.context";
 import { characterNavigation } from "../keyboard-navigation";
 import SubmenuContext from "./submenu.context";
-import guid from "../../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../../hooks/__internal__/useIdPolyfill";
 import {
   SCROLLABLE_BLOCK,
   SCROLLABLE_BLOCK_PARENT,
@@ -96,7 +96,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
     const [submenuRef, setSubmenuRef] = useState<
       HTMLUListElement | HTMLDivElement | null
     >(null);
-    const submenuId = useRef(guid());
+    const submenuId = useIdPolyfill();
 
     const { inFullscreenView, openSubmenuId, setOpenSubmenuId, menuVariant } =
       useStrictMenuContext();
@@ -162,7 +162,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
 
     const openSubmenu = useCallback(() => {
       setSubmenuOpen(true);
-      setOpenSubmenuId(submenuId.current);
+      setOpenSubmenuId(submenuId);
     }, [setOpenSubmenuId]);
 
     useEffect(() => {
@@ -181,7 +181,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
     }, [onSubmenuClose]);
 
     useEffect(() => {
-      if (openSubmenuId && openSubmenuId !== submenuId.current) {
+      if (openSubmenuId && openSubmenuId !== submenuId) {
         closeSubmenu();
       }
     }, [openSubmenuId, closeSubmenu]);

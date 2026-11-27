@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
 import { Select, Option, CustomSelectChangeEvent } from "../select";
 import PaginationNavigation from "./__internal__/pagination-navigation.component";
 import useLocale from "../../hooks/__internal__/useLocale";
-import createGuid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import {
   StyledPagination,
   StyledPageInfo,
@@ -143,8 +143,8 @@ export const Pagination = ({
 }: PagerProps) => {
   const locale = useLocale();
 
-  const guid = useRef(createGuid());
-  const pageSizeSelectId = `Pager_size_selector_${guid.current}`;
+  const guid = useIdPolyfill();
+  const pageSizeSelectId = `Pager_size_selector_${guid}`;
 
   const [internalCurrentPage, setInternalCurrentPage] =
     useState<number>(+currentPage);

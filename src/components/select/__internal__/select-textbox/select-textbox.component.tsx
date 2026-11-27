@@ -7,7 +7,7 @@ import useLocale from "../../../../hooks/__internal__/useLocale";
 import { ValidationProps } from "../../../../__internal__/validations";
 import combineRefs from "../../../../__internal__/utils/helpers/combine-refs";
 import SelectTextboxContext from "./__internal__/select-textbox.context";
-import guid from "../../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../../hooks/__internal__/useIdPolyfill";
 import type { SimpleSelectProps } from "../../simple-select";
 
 export interface FormInputPropTypes
@@ -294,9 +294,9 @@ const SelectTextbox = React.forwardRef(
       .join(" ");
 
     const isSimpleSelect = selectType === "simple";
-    const internalPrefixId = useRef(guid());
+    const internalPrefixId = useIdPolyfill();
     const contextPrefixId =
-      isSimpleSelect && prefix ? internalPrefixId.current : undefined;
+      isSimpleSelect && prefix ? internalPrefixId : undefined;
 
     const dropdwonIcon = (
       <InputIconToggle
@@ -336,7 +336,7 @@ const SelectTextbox = React.forwardRef(
           size={size}
           variant={variant}
           prefix={prefix}
-          prefixId={internalPrefixId.current}
+          prefixId={internalPrefixId}
           formattedValue={formattedValue}
           onClick={handleTextboxClick}
         />

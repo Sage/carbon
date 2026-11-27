@@ -21,7 +21,7 @@ import {
 } from "../../style/utils";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import { PopoverMenu } from "../../__internal__/popover-menu";
 import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import MultiActionButtonContext from "./__internal__/multi-action-button.context";
@@ -95,7 +95,7 @@ export const MultiActionButton = forwardRef<
   ) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const { isInTable } = useContext(TableBodyContext);
-    const submenuId = useRef(guid());
+    const submenuId = useIdPolyfill();
 
     useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
       ref,
@@ -195,7 +195,7 @@ export const MultiActionButton = forwardRef<
               placement={position === "left" ? "bottom-start" : "bottom-end"}
               isButtonMenu
               disablePortal={!isInTable}
-              id={submenuId.current}
+              id={submenuId}
               controlReference={buttonNode}
               matchReferenceWidth={fullWidth}
               popoverStrategy="fixed"

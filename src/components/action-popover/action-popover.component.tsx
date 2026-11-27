@@ -17,7 +17,7 @@ import {
   PopoverControlProps,
   PopoverMenuProps,
 } from "../../__internal__/popover-menu";
-import createGuid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import Events from "../../__internal__/utils/helpers/events";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
@@ -137,7 +137,7 @@ export const ActionPopover = forwardRef<
     const l = useLocale();
     const [isOpen, setOpenState] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-    const [guid] = useState(createGuid());
+    const guid = useIdPolyfill();
     const buttonRef = useRef<HTMLDivElement>(null);
     const { isInTable } = useContext(TableBodyContext);
 

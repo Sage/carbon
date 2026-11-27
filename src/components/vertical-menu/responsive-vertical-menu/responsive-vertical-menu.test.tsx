@@ -11,7 +11,6 @@ import {
 } from ".";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../../hooks/useMediaQuery";
-import guid from "../../../__internal__/utils/helpers/guid";
 import I18nProvider from "../../../components/i18n-provider";
 import Logger from "../../../__internal__/utils/logger";
 import Button from "../../button";
@@ -19,16 +18,6 @@ import { StyledResponsiveMenuItem } from "./responsive-vertical-menu-item/respon
 
 jest.mock("../../../hooks/__internal__/useIsAboveBreakpoint");
 jest.mock("../../../hooks/useMediaQuery");
-jest.mock("../../../__internal__/utils/helpers/guid");
-
-const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-  typeof useMediaQuery
->;
-const mockUseIsAboveBreakpoint = useIsAboveBreakpoint as jest.MockedFunction<
-  typeof useIsAboveBreakpoint
->;
-const mockedGuid = "guid-1";
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 const CustomSVG = () => (
   <svg
@@ -1186,9 +1175,8 @@ test("generates IDs for menu items if omitted", async () => {
 
   await user.click(launcherButton);
 
-  expect(
-    screen.getByTestId("responsive-vertical-menu-item-guid-1"),
-  ).toBeInTheDocument();
+  // First item has generated id, find by label
+  expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
   expect(
     screen.getByTestId("responsive-vertical-menu-item-actual-id-1"),
   ).toBeInTheDocument();

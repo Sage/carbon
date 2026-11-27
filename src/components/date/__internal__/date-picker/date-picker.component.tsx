@@ -2,7 +2,7 @@ import { flip, offset } from "@floating-ui/dom";
 import React, { useCallback, useRef, useState } from "react";
 
 import Popover from "../../../../__internal__/popover";
-import guid from "../../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../../hooks/__internal__/useIdPolyfill";
 import Logger from "../../../../__internal__/utils/logger";
 import StyledDatePickerDialog, {
   DatePickerDescription,
@@ -64,13 +64,12 @@ export const DatePicker = ({
   } = useDatePickerLocale();
 
   const pickerRef = useRef<HTMLDivElement>(null);
-  const [{ monthSelectId, yearSelectId, pickerDescriptionId }] = useState(
-    () => ({
-      monthSelectId: `date-picker-month-${guid()}`,
-      yearSelectId: `date-picker-year-${guid()}`,
-      pickerDescriptionId: `date-picker-description-${guid()}`,
-    }),
-  );
+  const generatedMonthSelectId = useIdPolyfill();
+  const generatedYearSelectId = useIdPolyfill();
+  const generatedPickerDescriptionId = useIdPolyfill();
+  const monthSelectId = `date-picker-month-${generatedMonthSelectId}`;
+  const yearSelectId = `date-picker-year-${generatedYearSelectId}`;
+  const pickerDescriptionId = `date-picker-description-${generatedPickerDescriptionId}`;
 
   const closePickerAndRestoreFocus = useCallback(() => {
     const input = inputContainerRef.current?.querySelector("input");

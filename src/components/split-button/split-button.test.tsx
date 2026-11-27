@@ -14,8 +14,6 @@ import {
   FlatTableCell,
 } from "../flat-table";
 
-jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
-
 testStyledSystemMargin(
   (props) => (
     <SplitButton data-role="split-button-container" text="Test" {...props}>

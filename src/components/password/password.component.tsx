@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import HiddenAriaLive from "./password.style";
 import Button from "../button/__next__/button.component";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Divider from "../divider";
@@ -27,7 +27,8 @@ export const Password = ({
 }: PasswordProps) => {
   void characterLimit;
 
-  const internalInputId = useRef(id || guid());
+  const generatedInternalInputId = useIdPolyfill();
+  const internalInputId = id || generatedInternalInputId;
   const l = useLocale();
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -37,7 +38,7 @@ export const Password = ({
     <>
       <TextInput
         data-element="styled-password-container"
-        id={internalInputId.current}
+        id={internalInputId}
         autoComplete="off"
         type={visibleInput ? "text" : "password"}
         disabled={disabled}
@@ -59,7 +60,7 @@ export const Password = ({
                   ? l.password?.ariaLabelHide?.()
                   : l.password?.ariaLabelShow?.()
               }
-              aria-controls={internalInputId.current}
+              aria-controls={internalInputId}
               onClick={() => setPasswordShown(!passwordShown)}
               variantType="subtle"
               iconType={visibleInput ? "hide" : "view"}

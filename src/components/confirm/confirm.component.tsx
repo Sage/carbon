@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React from "react";
 
-import createGuid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import Dialog, { DialogProps } from "../dialog";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
 import Button from "../button/button.component";
@@ -102,8 +102,8 @@ export const Confirm = ({
 }: ConfirmProps) => {
   const l = useLocale();
 
-  const { current: titleId } = useRef(createGuid());
-  const { current: subtitleId } = useRef(createGuid());
+  const titleId = useIdPolyfill();
+  const subtitleId = useIdPolyfill();
   const ariaProps = {
     "aria-labelledby": ariaLabelledBy,
     "aria-describedby": ariaDescribedBy,

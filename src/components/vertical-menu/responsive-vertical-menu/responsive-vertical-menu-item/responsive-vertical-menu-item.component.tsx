@@ -24,7 +24,7 @@ import { IncreaseDepth, useDepth } from "../__internal__/depth.context";
 import { useResponsiveVerticalMenu } from "../responsive-vertical-menu.context";
 
 import Icon, { IconType } from "../../../icon";
-import guid from "../../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../../hooks/__internal__/useIdPolyfill";
 import Events from "../../../../__internal__/utils/helpers/events";
 
 type AriaCurrent = Pick<
@@ -394,11 +394,12 @@ export const ResponsiveVerticalMenuItem = ({
   const depth = useDepth();
   const itemRef = useRef<HTMLElement>(null);
 
-  const uniqueId = useRef(id || guid());
+  const generatedUniqueId = useIdPolyfill();
+  const uniqueId = id || generatedUniqueId;
 
   return (
     <BaseItem
-      id={uniqueId.current}
+      id={uniqueId}
       label={label}
       {...props}
       data-depth={depth}

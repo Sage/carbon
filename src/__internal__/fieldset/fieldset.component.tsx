@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MarginProps } from "styled-system";
 
 import {
@@ -17,7 +17,7 @@ import ErrorBorder from "../legacy-error-border/error-border.style";
 import ValidationMessage from "../validation-message";
 import HintText from "../legacy-hint-text";
 import FieldHelp from "../field-help";
-import guid from "../utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -104,8 +104,8 @@ const Fieldset = ({
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
   const [isFocused, setFocus] = useState(false);
 
-  const internalId = useRef(guid());
-  const uniqueId = id || internalId.current;
+  const internalId = useIdPolyfill();
+  const uniqueId = id || internalId;
   const inputHintId = inputHint ? `${uniqueId}-hint` : undefined;
 
   useEffect(() => {

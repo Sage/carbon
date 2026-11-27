@@ -11,13 +11,9 @@ import {
   setupSelectMocks,
 } from "..";
 import OptionRow from "../option-row/option-row.component";
-import guid from "../../../__internal__/utils/helpers/guid";
 import { CHARACTERS } from "../../../../playwright/support/constants";
 
-const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/logger");
-jest.mock("../../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
 
 beforeAll(() => {
   setupSelectMocks();
@@ -383,7 +379,8 @@ describe("when the `id` prop is not set", () => {
       </FilterableSelect>,
     );
 
-    expect(screen.getByRole("combobox")).toHaveAttribute("id", mockedGuid);
+    const combobox = screen.getByRole("combobox");
+    expect(combobox.getAttribute("id")).toBeTruthy();
   });
 
   it("should use the uniquely generated string to create an id for the label element", () => {
@@ -393,9 +390,12 @@ describe("when the `id` prop is not set", () => {
       </FilterableSelect>,
     );
 
+    const combobox = screen.getByRole("combobox");
+    const id = combobox.getAttribute("id");
+    expect(id).toBeTruthy();
     expect(screen.getByText("filterable-select")).toHaveAttribute(
       "id",
-      `${mockedGuid}-label`,
+      `${id}-label`,
     );
   });
 

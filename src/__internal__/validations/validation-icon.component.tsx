@@ -1,7 +1,7 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
-import guid from "../utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import Icon from "../../components/icon";
 import Tooltip from "../../components/tooltip";
 import ValidationIconStyle from "./validation-icon.style";
@@ -76,7 +76,8 @@ export const ValidationIcon = ({
   tooltipFlipOverrides,
   ...rest
 }: ValidationIconProps) => {
-  const validationTooltipId = useRef(tooltipId || guid());
+  const generatedTooltipId = useIdPolyfill();
+  const validationTooltipId = tooltipId || generatedTooltipId;
   const flipBehaviourCheck =
     Array.isArray(tooltipFlipOverrides) &&
     tooltipFlipOverrides.every((override) =>
@@ -136,7 +137,7 @@ export const ValidationIcon = ({
           triggeredByIcon
         }
         position={resolvedTooltipPosition}
-        id={validationTooltipId.current}
+        id={validationTooltipId}
         flipOverrides={
           isPartOfInput && !tooltipFlipOverrides
             ? ["top", "bottom"]
@@ -146,7 +147,7 @@ export const ValidationIcon = ({
         inputSize={size}
       >
         <Icon
-          aria-describedby={validationTooltipId.current}
+          aria-describedby={validationTooltipId}
           key={`${validationType}-icon`}
           type={validationType}
           tabIndex={tabIndex}

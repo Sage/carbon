@@ -13,7 +13,7 @@ import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import StyledNumeralDate from "./numeral-date.style";
 import TextInput from "../textbox/__internal__/__next__";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Locale from "../../locales/locale";
 import Fieldset from "../../__internal__/fieldset/__next__/fieldset.component";
@@ -348,13 +348,21 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   ) => {
     const locale = useLocale();
 
-    const { current: uniqueId } = useRef(id || guid());
-    const defaultInputIds = useRef({ dd: guid(), mm: guid(), yyyy: guid() });
+    const generatedId = useIdPolyfill();
+    const uniqueId = id || generatedId;
+    const generatedDayId = useIdPolyfill();
+    const generatedMonthId = useIdPolyfill();
+    const generatedYearId = useIdPolyfill();
+    const defaultInputIds = {
+      dd: generatedDayId,
+      mm: generatedMonthId,
+      yyyy: generatedYearId,
+    };
 
     const actualInputIds = {
-      dd: inputIds?.day ?? defaultInputIds.current.dd,
-      mm: inputIds?.month ?? defaultInputIds.current.mm,
-      yyyy: inputIds?.year ?? defaultInputIds.current.yyyy,
+      dd: inputIds?.day ?? defaultInputIds.dd,
+      mm: inputIds?.month ?? defaultInputIds.mm,
+      yyyy: inputIds?.year ?? defaultInputIds.yyyy,
     };
 
     const refs = useRef<(HTMLInputElement | null)[]>(

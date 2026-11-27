@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { MarginProps } from "styled-system";
 import tagComponent, {
   TagProps,
@@ -7,7 +7,7 @@ import Fieldset from "../../../__internal__/fieldset/__next__/fieldset.component
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { RadioButtonGroupProvider } from "../___internal___/radio-button-group.context";
 import StyledRadioButtonGroupContent from "./radio-button-group.style";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 
 export interface RadioButtonGroupProps extends MarginProps, TagProps {
   /**
@@ -130,8 +130,8 @@ export const RadioButtonGroup = ({
   info,
   ...rest
 }: RadioButtonGroupProps) => {
-  const internalId = useRef(guid());
-  const uniqueId = id || internalId.current;
+  const internalId = useIdPolyfill();
+  const uniqueId = id || internalId;
 
   return (
     <Fieldset

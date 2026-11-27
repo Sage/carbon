@@ -10,7 +10,7 @@ import {
 import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
 import Events from "../../__internal__/utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { Dt, Dd } from "../definition-list";
 import { ModalProps } from "../../__internal__/modal";
@@ -89,7 +89,7 @@ export const AdvancedColorPicker = ({
   const [selectedColorRef, setSelectedColorRef] =
     useState<HTMLInputElement | null>(null);
 
-  const descriptionId = useRef(guid());
+  const descriptionId = useIdPolyfill();
   const l = useLocale();
 
   const simpleColorPickerData = useRef<{
@@ -231,14 +231,14 @@ export const AdvancedColorPicker = ({
       <StyledAdvancedColorPickerCell
         data-element="color-picker-cell"
         aria-label={l.advancedColorPicker.ariaLabel()}
-        aria-describedby={descriptionId.current}
+        aria-describedby={descriptionId}
         onClick={handleOnOpen}
         onKeyDown={handleOnKeyDown}
         color={selectedColor}
         tabIndex={0}
       />
       <HiddenCurrentColorList
-        id={descriptionId.current}
+        id={descriptionId}
         data-element="current-color-description"
       >
         <Dt>

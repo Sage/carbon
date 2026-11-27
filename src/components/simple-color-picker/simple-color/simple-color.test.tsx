@@ -2,11 +2,6 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import SimpleColor from "./simple-color.component";
-import guid from "../../../__internal__/utils/helpers/guid";
-
-const mockedGuid = "guid-12345";
-jest.mock("../../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 test("has the correct data-component tag", () => {
   render(<SimpleColor value="#0073C2" data-role="test-example" />);
@@ -58,5 +53,5 @@ test("renders a black icon when the background color is light", () => {
 test("assigns a guid as id to the input element when the `id` prop is not passed", () => {
   render(<SimpleColor value="#0073C2" />);
 
-  expect(screen.getByRole("radio")).toHaveAttribute("id", mockedGuid);
+  expect(screen.getByRole("radio").getAttribute("id")).toBeTruthy();
 });

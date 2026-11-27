@@ -3,7 +3,7 @@ import { SpaceProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import createGuid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import Events from "../../__internal__/utils/helpers/events";
 import {
   StyledAccordionContainer,
@@ -224,10 +224,10 @@ export const Accordion = React.forwardRef<
       [handleKeyboardAccessibility, index, toggleAccordion],
     );
 
-    const guid = useRef(createGuid());
-    const accordionId = id || `Accordion_${guid.current}`;
-    const headerId = `AccordionHeader_${guid.current}`;
-    const contentId = `AccordionContent_${guid.current}`;
+    const guid = useIdPolyfill();
+    const accordionId = id || `Accordion_${guid}`;
+    const headerId = `AccordionHeader_${guid}`;
+    const contentId = `AccordionContent_${guid}`;
 
     // standard accordion only supports small and medium size
     const standardSize: "small" | "medium" = size === "large" ? "medium" : size;

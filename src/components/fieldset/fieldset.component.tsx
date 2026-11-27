@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
@@ -12,7 +12,7 @@ import FieldsetContext from "./__internal__/fieldset.context";
 import ErrorBorder from "../../__internal__/error-border/error-border.style";
 import ValidationMessage from "../../__internal__/validation-message/__next__";
 import HintText from "../../__internal__/hint-text";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import useRegisterValidationToTabs from "../../hooks/__internal__/useRegisterValidationToTabs/useRegisterValidationToTabs";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -55,8 +55,8 @@ export const Fieldset = ({
   orientation = "vertical",
   ...rest
 }: FieldsetProps) => {
-  const internalId = useRef(guid());
-  const uniqueId = id || internalId.current;
+  const internalId = useIdPolyfill();
+  const uniqueId = id || internalId;
 
   const legendHintId = legendHint ? `${uniqueId}-hint` : undefined;
   const validationId = (error || warning) && `${uniqueId}-validation-message`;

@@ -3,11 +3,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import OptionRow from "./option-row.component";
 import SelectListContext from "../__internal__/select-list/select-list.context";
-import guid from "../../../__internal__/utils/helpers/guid";
-
-const mockedGuid = "guid-12345";
-jest.mock("../../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 test("renders with children content visible", () => {
   render(
@@ -48,10 +43,9 @@ test("should set guid as `id` on the element when none passed", () => {
     </table>,
   );
 
-  expect(screen.getByRole("option", { name: "bar" })).toHaveAttribute(
-    "id",
-    mockedGuid,
-  );
+  const option = screen.getByRole("option", { name: "bar" });
+
+  expect(option.getAttribute("id")).toBeTruthy();
 });
 
 test("should set custom `id` on the element when passed", () => {
@@ -195,7 +189,7 @@ describe("when `disabled` prop is not set", () => {
     await user.click(optionRow);
 
     expect(onSelect).toHaveBeenCalledWith({
-      id: mockedGuid,
+      id: expect.any(String),
       text: "bar",
       value: "baz",
     });

@@ -25,7 +25,7 @@ import {
 } from "./popover-container.style";
 import Icon from "../icon";
 import Popover from "../../__internal__/popover";
-import createGuid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Events from "../../__internal__/utils/helpers/events";
@@ -286,11 +286,9 @@ export const PopoverContainer = forwardRef<
     const [popoverReference, setPopoverReference] =
       useState<HTMLDivElement | null>(null);
     const [altTarget, setAltTarget] = useState<HTMLElement | null>(null);
-    const guid = useRef(createGuid());
+    const guid = useIdPolyfill();
     const popoverContentNodeRef = useRef<HTMLDivElement>(null);
-    const popoverContainerId = title
-      ? `PopoverContainer_${guid.current}`
-      : undefined;
+    const popoverContainerId = title ? `PopoverContainer_${guid}` : undefined;
     const { inMenu } = useContext(MenuContext);
     const locale = useLocale();
     const isOpen = isControlled ? open : isOpenInternal;

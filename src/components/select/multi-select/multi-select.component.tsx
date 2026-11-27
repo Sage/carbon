@@ -12,7 +12,7 @@ import {
 import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import withFilter from "../__internal__/utils/with-filter.hoc";
 import SelectList, {
   ListPlacement,
@@ -134,8 +134,8 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     ref,
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState<string>("");
-    const selectListId = useRef(guid());
-    const accessibilityLabelId = useRef(guid());
+    const selectListId = useIdPolyfill();
+    const accessibilityLabelId = useIdPolyfill();
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
     const isInputFocused = useRef(false);
@@ -151,9 +151,10 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     >("");
     const [filterText, setFilterText] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState<string>();
-    const inputId = useRef(id || guid());
+    const generatedInputId = useIdPolyfill();
+    const inputId = id || generatedInputId;
     const { labelId } = useInputAccessibility({
-      id: inputId.current,
+      id: inputId,
       label,
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
@@ -604,7 +605,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
     function getTextboxProps() {
       return {
-        id: inputId.current,
+        id: inputId,
         name,
         disabled,
         label,
@@ -645,7 +646,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const selectList = (
       <FilterableSelectList
         ref={listboxRef}
-        id={selectListId.current}
+        id={selectListId}
         labelId={labelId}
         anchorElement={textboxRef?.parentElement || undefined}
         onSelect={onSelectOption}
@@ -690,16 +691,16 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         <div ref={containerRef}>
           <StyledAccessibilityLabelContainer
             data-element="accessibility-label"
-            id={accessibilityLabelId.current}
+            id={accessibilityLabelId}
           >
             {accessibilityLabel}
           </StyledAccessibilityLabelContainer>
 
           <SelectTextbox
             ref={assignInput}
-            accessibilityLabelId={accessibilityLabelId.current}
+            accessibilityLabelId={accessibilityLabelId}
             activeDescendantId={activeDescendantId}
-            aria-controls={selectListId.current}
+            aria-controls={selectListId}
             ariaLabel={ariaLabel}
             ariaLabelledby={ariaLabelledby}
             isOpen={isOpen}

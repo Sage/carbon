@@ -7,7 +7,7 @@ import {
   type PopoverMenuContextProps,
   type PopoverControlProps,
 } from "../contexts";
-import guid from "../../utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import Icon from "../../../components/icon";
 import { buttonMenuItemQuerySelector } from "../utils";
 import combineRefs from "../../utils/helpers/combine-refs";
@@ -173,7 +173,8 @@ const ButtonMenuItem = ({
   const resolvedAriaDescribedBy = [ariaDescribedBy, headingId]
     .filter(Boolean)
     .join(" ");
-  const itemId = useRef(id ?? `popover-menu-item-${guid()}`).current;
+  const generatedItemId = useIdPolyfill();
+  const itemId = id ?? `popover-menu-item-${generatedItemId}`;
 
   const handleKeydown = useCallback(
     (ev: React.KeyboardEvent<HTMLLIElement>) => {

@@ -9,7 +9,7 @@ import Events from "../../__internal__/utils/helpers/events";
 import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipPositions } from "../tooltip/tooltip.config";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 
 /**
  * @deprecated The `Help` component has been deprecated and will be removed in a future release. There is no
@@ -72,7 +72,7 @@ export const Help = ({
   type = "help",
   ...rest
 }: HelpProps): JSX.Element => {
-  const defaultTooltipId = useRef(guid());
+  const defaultTooltipId = useIdPolyfill();
   const helpElement = useRef<HTMLDivElement>(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
   const { helpAriaLabel } = useContext(TooltipContext);
@@ -104,7 +104,7 @@ export const Help = ({
     <StyledHelp
       aria-describedby={
         isFocused || isTooltipVisible
-          ? tooltipId || defaultTooltipId.current
+          ? tooltipId || defaultTooltipId
           : undefined
       }
       aria-label={helpAriaLabel || ariaLabel}
@@ -137,7 +137,7 @@ export const Help = ({
           message={children}
           isVisible={isFocused || isTooltipVisible}
           position={tooltipPosition}
-          id={tooltipId || defaultTooltipId.current}
+          id={tooltipId || defaultTooltipId}
           bgColor={tooltipBgColor}
           fontColor={tooltipFontColor}
           flipOverrides={tooltipFlipOverrides}

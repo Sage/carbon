@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-restricted-imports -- runtime-guarded useId fallback for React 17
 import * as React from "react";
 import createGuid from "../../../__internal__/utils/helpers/guid";
 

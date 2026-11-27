@@ -5,7 +5,7 @@ import Events from "../../../__internal__/utils/helpers/events/events";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row.context";
 
 export interface FlatTableCheckboxProps extends TagProps {
@@ -39,11 +39,12 @@ export const FlatTableCheckbox = ({
   ...rest
 }: FlatTableCheckboxProps) => {
   const ref = useRef<HTMLTableCellElement>(null);
-  const internalId = useRef(id || guid());
+  const generatedInternalId = useIdPolyfill();
+  const internalId = id || generatedInternalId;
   const { leftPositions, rightPositions } = useContext(FlatTableRowContext);
 
-  const leftPosition = leftPositions[internalId.current];
-  const rightPosition = rightPositions[internalId.current];
+  const leftPosition = leftPositions[internalId];
+  const rightPosition = rightPositions[internalId];
   const makeCellSticky =
     leftPosition !== undefined || rightPosition !== undefined;
 
@@ -78,7 +79,7 @@ export const FlatTableCheckbox = ({
         "data-element": dataElement,
         ...rest,
       })}
-      id={internalId.current}
+      id={internalId}
     >
       {selectable && (
         <Checkbox
