@@ -164,6 +164,54 @@ describe("Accordion", () => {
     );
   });
 
+  it("renders a custom button when `renderButton` is provided to the simple variant", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+
+    render(
+      <Accordion
+        title="Title"
+        variant="simple"
+        onChange={onChange}
+        renderButton={(buttonProps) => (
+          <button {...buttonProps} data-role="custom-button" />
+        )}
+      />,
+    );
+
+    const button = screen.getByTestId("custom-button");
+
+    expect(button).toBeVisible();
+    expect(button).toHaveTextContent("Title");
+
+    await user.click(button);
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ target: button }),
+      true,
+    );
+  });
+
+  it("does not submit a form when a custom button is clicked", async () => {
+    const user = userEvent.setup();
+    const onSubmit = jest.fn();
+
+    render(
+      <form onSubmit={onSubmit}>
+        <Accordion
+          title="Title"
+          variant="simple"
+          renderButton={(buttonProps) => <button {...buttonProps} />}
+        />
+      </form>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Title" }));
+
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
   it.each([
     ["Enter", "{Enter}"],
     ["Space", " "],
