@@ -4,6 +4,13 @@ import userEvent from "@testing-library/user-event";
 import Password from "./password.component";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
+
+const mockedGuid = "mocked-use-id-123";
+
 test("should render a text input with type 'password'", () => {
   render(<Password label="password" value="" onChange={() => {}} />);
 
@@ -105,7 +112,7 @@ test("should generate the text input's 'id' attribute via a guid when the `id` p
   render(<Password label="password" value="" onChange={() => {}} />);
 
   const passwordInput = screen.getByLabelText("password");
-  expect(passwordInput).toHaveAttribute("id", expect.any(String));
+  expect(passwordInput).toHaveAttribute("id", mockedGuid);
 });
 
 test("should render with provided data- attributes", () => {
@@ -169,7 +176,6 @@ describe("Show/Hide password Button", () => {
       name: "Show password",
     });
     await user.click(showPasswordButton);
-
     expect(showPasswordButton).toHaveTextContent("Hide");
   });
 
@@ -190,7 +196,6 @@ describe("Show/Hide password Button", () => {
       name: "Show password",
     });
     await user.click(showPasswordButton);
-
     expect(showPasswordButton).toHaveAccessibleName("Hide password");
   });
 

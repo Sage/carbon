@@ -6,6 +6,11 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Tooltip, { TooltipProps, InputSizes } from "./tooltip.component";
 import { TooltipPositions } from "./tooltip.config";
 
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "guid-12345"),
+}));
+
 function renderTooltip(props: Partial<TooltipProps> = {}) {
   return render(
     <Tooltip {...props} message={props.message || "foo"}>
@@ -16,6 +21,16 @@ function renderTooltip(props: Partial<TooltipProps> = {}) {
 
 describe("Tooltip", () => {
   describe("controlled", () => {
+    it("matches snapshot when isVisible is true", () => {
+      const { container } = renderTooltip({ isVisible: true });
+      expect(container).toMatchSnapshot();
+    });
+
+    it("matches snapshot when isVisible is false", () => {
+      const { container } = renderTooltip({ isVisible: false });
+      expect(container).toMatchSnapshot();
+    });
+
     it("renders with generated data-portal-entrance when isVisible is true", () => {
       renderTooltip({ isVisible: true });
       const portalEntrance = screen.getByTestId("data-portal-entrance");

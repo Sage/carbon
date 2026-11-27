@@ -8,15 +8,21 @@ import {
 } from "@testing-library/react";
 import Portal from ".";
 
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
+
+const mockedGuid = "mocked-use-id-123";
+
 test("renders a portal entrance and exit with a unique matching ID", () => {
   render(<Portal />);
 
   const portalEntrance = screen.getByTestId("data-portal-entrance");
   const portalExit = screen.getByTestId("carbon-portal-exit");
-  const id = portalEntrance.getAttribute("data-portal-entrance");
 
-  expect(id).toBeTruthy();
-  expect(portalExit).toHaveAttribute("data-portal-exit", id);
+  expect(portalEntrance).toHaveAttribute("data-portal-entrance", mockedGuid);
+  expect(portalExit).toHaveAttribute("data-portal-exit", mockedGuid);
 });
 
 test("renders children within portal exit", () => {

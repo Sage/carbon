@@ -1,7 +1,7 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { hydrateRoot } from "react-dom/client";
-import { act } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import useUniqueId from ".";
 
 const MockComponent = () => {
@@ -9,17 +9,15 @@ const MockComponent = () => {
   return <input id={id} name={name} />;
 };
 
-afterEach(() => {
-  jest.restoreAllMocks();
-});
-
 test("server and first client render use the same generated id and name", () => {
-  const html = renderToString(<MockComponent />);
+  const view = renderToString(<MockComponent />);
   const container = document.createElement("div");
-  container.innerHTML = html;
+  container.innerHTML = view; // eslint-disable-line no-unsanitized/property
+  document.body.appendChild(container);
 
-  const serverId = container.querySelector("input")?.getAttribute("id");
-  const serverName = container.querySelector("input")?.getAttribute("name");
+  const serverInput = screen.getByRole("textbox");
+  const serverId = serverInput.getAttribute("id");
+  const serverName = serverInput.getAttribute("name");
 
   expect(serverId).toBeTruthy();
   expect(serverName).toBeTruthy();
@@ -41,8 +39,11 @@ test("server and first client render use the same generated id and name", () => 
   expect(recoverableErrors).toEqual([]);
   expect(consoleError).not.toHaveBeenCalled();
   expect(consoleWarn).not.toHaveBeenCalled();
-  expect(container.querySelector("input")).toHaveAttribute("id", serverId);
-  expect(container.querySelector("input")).toHaveAttribute("name", serverName);
+
+  const clientInput = screen.getByRole("textbox");
+  expect(clientInput).toHaveAttribute("id", serverId);
+  expect(clientInput).toHaveAttribute("name", serverName);
 
   act(() => root.unmount());
+  document.body.removeChild(container);
 });
