@@ -1,6 +1,6 @@
 // For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
 import storybook from "eslint-plugin-storybook";
-
+ 
 import { defineConfig } from "eslint/config";
 import { fixupPluginRules, includeIgnoreFile } from "@eslint/compat";
 import { fileURLToPath } from "url";
@@ -20,15 +20,15 @@ import testingLibrary from "eslint-plugin-testing-library";
 import jestDom from "eslint-plugin-jest-dom";
 import playwright from "eslint-plugin-playwright";
 import js from "@eslint/js";
-
+ 
 const cleanGlobals = (globalObj) =>
   Object.entries(globalObj).reduce((cleaned, [key, value]) => {
     cleaned[key.trim()] = value;
     return cleaned;
   }, {});
-
+ 
 const gitIgnorePath = fileURLToPath(new URL(".gitignore", import.meta.url));
-
+ 
 export default defineConfig([includeIgnoreFile(gitIgnorePath), {
   ...js.configs.recommended,
   plugins: {
@@ -215,7 +215,7 @@ export default defineConfig([includeIgnoreFile(gitIgnorePath), {
   },
 }, {
   files: ["**/*.mdx"],
-
+ 
   ...mdx.flat,
   plugins: {
     mdx: fixupPluginRules(mdx),
@@ -228,7 +228,7 @@ export default defineConfig([includeIgnoreFile(gitIgnorePath), {
   },
 }, {
   files: ["**/*.ts", "**/*.tsx"],
-
+ 
   plugins: {
     "@typescript-eslint": fixupPluginRules(typescriptEslint),
   },
@@ -305,6 +305,7 @@ export default defineConfig([includeIgnoreFile(gitIgnorePath), {
       },
     ],
     "react/prop-types": "off",
+    "react/jsx-key": ["error", { checkKeyMustBeforeSpread: true }],
   },
 }, {
   files: ["**/*.stories.tsx"],

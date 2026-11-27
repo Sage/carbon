@@ -565,8 +565,8 @@ export const Responsive: Story = () => {
   return (
     <Box p="4px">
       <Tabs align="left" position="top">
-        {tabsData.map((tabData) => (
-          <Tab role="tab" {...tabData} key={tabData.key}>
+        {tabsData.map(({ key, ...tabData }) => (
+          <Tab key={key} role="tab" {...tabData}>
             {tabData.content}
           </Tab>
         ))}
@@ -589,8 +589,8 @@ export const ResponsiveVertical: Story = () => {
   return (
     <Box p="4px">
       <Tabs align="left" position="left">
-        {tabsData.map((tabData) => (
-          <Tab role="tab" {...tabData} key={tabData.key}>
+        {tabsData.map(({ key, ...tabData }) => (
+          <Tab key={key} role="tab" {...tabData}>
             {tabData.content}
           </Tab>
         ))}

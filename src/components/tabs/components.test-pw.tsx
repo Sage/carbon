@@ -357,8 +357,8 @@ export const Responsive = () => {
   return (
     <Box p="4px">
       <Tabs align="left" position={position}>
-        {tabsData.map((tabData) => (
-          <Tab {...tabData} key={tabData.key} />
+        {tabsData.map(({ key, ...tabData }) => (
+          <Tab key={key} {...tabData} />
         ))}
       </Tabs>
     </Box>
