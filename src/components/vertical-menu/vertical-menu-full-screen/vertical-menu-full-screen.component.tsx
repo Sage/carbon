@@ -6,12 +6,13 @@ import tagComponent, {
 import useLocale from "../../../hooks/__internal__/useLocale";
 import Portal from "../../portal";
 import FocusTrap from "../../../__internal__/focus-trap/focus-trap.component";
-import IconButton from "../../icon-button";
 import Icon from "../../icon";
-import Box from "../../box";
 import {
-  StyledList,
+  StyledFullScreenList,
+  StyledListWrapper,
   StyledVerticalMenuFullScreen,
+  StyledVerticalMenuCloseBar,
+  StyledCloseButton,
 } from "../vertical-menu.style";
 import { VerticalMenuProvider } from "../__internal__/vertical-menu.context";
 import { getDocument } from "../../../__internal__/dom/globals";
@@ -84,28 +85,23 @@ export const VerticalMenuFullScreen = ({
           aria-labelledby={ariaLabelledBy}
           {...tagComponent("vertical-menu-full-screen", rest)}
         >
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            height="60px"
-            alignItems="flex-start"
-            px="20px"
-            pt="20px"
-            boxSizing="border-box"
-          >
-            <IconButton
+          <StyledVerticalMenuCloseBar>
+            <StyledCloseButton
               aria-label={l.verticalMenuFullScreen.ariaLabels.close()}
-              onClick={onClose}
+              onClick={(event) =>
+                onClose(event as React.MouseEvent<HTMLButtonElement>)
+              }
               data-element="close"
+              size="xs"
+              variantType="tertiary"
             >
-              <Icon
-                type="close"
-                color="var(--colorsComponentsLeftnavWinterStandardContent)"
-              />
-            </IconButton>
-          </Box>
+              <Icon size="small" type="close" />
+            </StyledCloseButton>
+          </StyledVerticalMenuCloseBar>
           <VerticalMenuProvider value={{ isFullScreen: true }}>
-            <StyledList>{children}</StyledList>
+            <StyledListWrapper>
+              <StyledFullScreenList>{children}</StyledFullScreenList>
+            </StyledListWrapper>
           </VerticalMenuProvider>
         </StyledVerticalMenuFullScreen>
       </FocusTrap>

@@ -311,6 +311,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
               responsive={responsiveMode}
               tabIndex={responsiveDisplay ? -1 : 0}
               type="button"
+              hasChildren={!!children}
               {...rest}
             >
               <MenuItemContent
@@ -328,9 +329,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
                   depth={depth}
                   expanded={expanded || isActive}
                   reduceMotion={!!reducedMotion}
-                  type={
-                    depth >= 1 ? "chevron_down_thick" : "chevron_right_thick"
-                  }
+                  type={depth >= 1 ? "chevron_down_thick" : "caret_right"}
                 />
               )}
             </StyledResponsiveMenuItem>

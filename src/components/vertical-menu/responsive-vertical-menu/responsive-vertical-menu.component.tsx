@@ -21,6 +21,7 @@ import {
   StyledCloseButton,
   StyledGlobalVerticalMenuWrapper,
   StyledResponsiveMenu,
+  StyledCloseButtonWrapper,
 } from "./responsive-vertical-menu.style";
 
 import Modal from "../../../__internal__/modal";
@@ -271,7 +272,7 @@ const BaseMenu = forwardRef<
         )}
         <StyledButton
           active={active}
-          buttonType="tertiary"
+          variantType="tertiary"
           iconType="squares_nine"
           id="responsive-vertical-menu-launcher"
           onClick={handleButtonClick}
@@ -292,29 +293,20 @@ const BaseMenu = forwardRef<
                 id="responsive-vertical-menu-dialog"
                 {...modalAriaProps()}
               >
-                <div
-                  style={{
-                    backgroundColor: "rgb(38, 38, 38)",
-                    boxSizing: "border-box",
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    padding: "var(--global-space-layout-3-xs)",
-                    width: "100%",
-                  }}
-                >
+                <StyledCloseButtonWrapper>
                   <StyledCloseButton
                     aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuCloseButton()}
                     data-component="responsive-vertical-menu-close"
                     data-role="responsive-vertical-menu-close"
                     iconType="close"
-                    size="small"
-                    buttonType="tertiary"
+                    size="xs"
+                    variantType="tertiary"
                     onClick={() => {
                       setActive(false);
                       setActiveMenuItem(null);
                     }}
                   />
-                </div>
+                </StyledCloseButtonWrapper>
                 <StyledResponsiveMenu
                   height={height}
                   id="responsive-vertical-menu-primary"
@@ -323,7 +315,7 @@ const BaseMenu = forwardRef<
                   ref={menuRef}
                   responsive
                   tabIndex={-1}
-                  top="48px"
+                  top="40px"
                   width={width}
                 >
                   {children}
