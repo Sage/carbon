@@ -136,7 +136,10 @@ export const Pill = ({
           data-element="close"
           aria-label={ariaLabelOfRemoveButton || locale.pill.remove(children)}
         >
-          <Icon type="cross" />
+          <Icon
+            type="cross"
+            size={size === "L" || size === "XL" ? "small" : "extra-small"}
+          />
         </StyledDeleteButton>
       )}
     </StyledPill>

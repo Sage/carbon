@@ -192,7 +192,7 @@ const CreatePopoverInMenu = () => {
                   variantType="subtle"
                   size="small"
                 >
-                  <Icon type="close" />
+                  <Icon type="close" size="extra-small" />
                 </Button>
               </Box>
             )}

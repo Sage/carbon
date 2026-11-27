@@ -152,6 +152,7 @@ export const ValidationIcon = ({
           tabIndex={tabIndex}
           isPartOfInput={isPartOfInput}
           inputSize={size}
+          size={isPartOfInput && size === "small" ? "extra-small" : "small"}
           id={iconId}
           focusable={tabIndex !== -1}
           data-role={`icon-${validationType}`}

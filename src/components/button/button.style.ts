@@ -10,9 +10,11 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 import buttonTypes from "./button-types.style";
 import { ButtonProps, SizeOptions } from "./button.component";
 
-function additionalIconStyle(iconType?: IconType) {
+function additionalIconStyle(iconType?: IconType, size?: SizeOptions) {
   if (iconType === "services") return "6px";
-  return "20px";
+  return size === "small"
+    ? "var(--global-size-3-xs)"
+    : "var(--global-size-2-xs)";
 }
 
 function stylingForIconOnly(size?: SizeOptions) {
@@ -105,7 +107,7 @@ const StyledButton = styled.button.attrs(applyBaseTheme)<StyledButtonProps>`
       width: 100%;
     `}
 
-  ${({ iconOnly, iconPosition, iconType }) => css`
+  ${({ iconOnly, iconPosition, iconType, size }) => css`
     ${StyledIcon} {
       ${iconOnly &&
       css`
@@ -128,8 +130,10 @@ const StyledButton = styled.button.attrs(applyBaseTheme)<StyledButtonProps>`
         `}
       `}
 
-      height: ${additionalIconStyle(iconType)};
-      width: 20px;
+      height: ${additionalIconStyle(iconType, size)};
+      width: ${size === "small"
+        ? "var(--global-size-3-xs)"
+        : "var(--global-size-2-xs)"};
       svg {
         margin-top: 0;
       }

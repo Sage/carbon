@@ -43,7 +43,7 @@ export const MenuFullScreenWhite: Story = {
           Menu Item Two - Selected
         </MenuItem>
         <MenuItem href="#">
-          <Icon type="placeholder" />
+          <Icon type="placeholder" size="extra-small" />
           Menu Item Three - With Icon
         </MenuItem>
         <MenuItem href="#" maxWidth="100px">
@@ -196,16 +196,16 @@ export const Chromatic: Story = {
         </MenuItem>
         <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem onClick={() => {}}>
-          <Icon type="placeholder" />
+          <Icon type="placeholder" size="extra-small" />
           Menu Item Three
         </MenuItem>
         <MenuItem onClick={() => {}}>
-          <Icon type="placeholder" />
+          <Icon type="placeholder" size="extra-small" />
           Menu Item Four
         </MenuItem>
         <MenuItem href="#" icon="placeholder" ariaLabel="aria-label" />
         <MenuItem href="#" ariaLabel="aria-label">
-          <Icon type="placeholder" />
+          <Icon type="placeholder" size="extra-small" />
         </MenuItem>
       </Menu>
       <Menu variant="black">
@@ -214,16 +214,16 @@ export const Chromatic: Story = {
         </MenuItem>
         <MenuItem href="#">Menu Item Two</MenuItem>
         <MenuItem onClick={() => {}}>
-          <Icon type="placeholder" />
+          <Icon type="placeholder" size="extra-small" />
           Menu Item Three
         </MenuItem>
         <MenuItem onClick={() => {}}>
-          <Icon type="placeholder" />
+          <Icon type="placeholder" size="extra-small" />
           Menu Item Four
         </MenuItem>
         <MenuItem href="#" icon="placeholder" ariaLabel="aria-label" />
         <MenuItem href="#" ariaLabel="aria-label">
-          <Icon type="placeholder" />
+          <Icon type="placeholder" size="extra-small" />
         </MenuItem>
       </Menu>
       <Menu>
@@ -247,7 +247,10 @@ export const Chromatic: Story = {
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
-        <MenuItem submenu={<Icon type="placeholder" />} ariaLabel="aria-label">
+        <MenuItem
+          submenu={<Icon type="placeholder" size="extra-small" />}
+          ariaLabel="aria-label"
+        >
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
@@ -273,7 +276,10 @@ export const Chromatic: Story = {
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
-        <MenuItem submenu={<Icon type="placeholder" />} ariaLabel="aria-label">
+        <MenuItem
+          submenu={<Icon type="placeholder" size="extra-small" />}
+          ariaLabel="aria-label"
+        >
           <MenuItem href="#">Item Submenu One</MenuItem>
           <MenuItem href="#">Item Submenu Two</MenuItem>
         </MenuItem>
@@ -283,11 +289,11 @@ export const Chromatic: Story = {
           <MenuItem href="#">Menu Item One</MenuItem>
           <MenuItem href="#">Menu Item Two</MenuItem>
           <MenuItem onClick={() => {}}>
-            <Icon type="placeholder" />
+            <Icon type="placeholder" size="extra-small" />
             Menu Item Three
           </MenuItem>
           <MenuItem onClick={() => {}}>
-            <Icon type="placeholder" />
+            <Icon type="placeholder" size="extra-small" />
             Menu Item Four
           </MenuItem>
           <MenuItem submenu="With Submenu">
@@ -297,7 +303,7 @@ export const Chromatic: Story = {
           <MenuItem
             submenu={
               <>
-                <Icon type="placeholder" />
+                <Icon type="placeholder" size="extra-small" />
                 Menu Item Three
               </>
             }

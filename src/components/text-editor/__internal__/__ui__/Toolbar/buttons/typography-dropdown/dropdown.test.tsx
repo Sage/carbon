@@ -1,4 +1,4 @@
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
@@ -199,6 +199,22 @@ describe("ToolbarDropdown", () => {
 
     expect(dropdown).toHaveStyle({ minWidth: "180px" });
   });
+
+  it.each([
+    ["small", "var(--global-size-3-xs)"],
+    ["medium", "var(--global-size-2-xs)"],
+  ] as const)(
+    "renders the caret icon at the correct size when size is %s",
+    (size, token) => {
+      render(
+        <TextEditor labelText="Test Editor" namespace="test" size={size} />,
+      );
+
+      expect(
+        within(screen.getByRole("combobox")).getByTestId("icon"),
+      ).toHaveStyleRule("font-size", token, { modifier: "&::before" });
+    },
+  );
 
   it("defaults isFirstButton to false when rendered with LexicalComposer", () => {
     const initialConfig = {

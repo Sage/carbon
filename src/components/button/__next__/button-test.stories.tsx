@@ -435,7 +435,7 @@ export const AllSizesVariantsTypes: Story = () => {
             >
               <Button variant="default" variantType="primary" size="small">
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   Primary Small
                 </>
               </Button>
@@ -460,7 +460,7 @@ export const AllSizesVariantsTypes: Story = () => {
             >
               <Button variant="default" variantType="secondary" size="small">
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   Secondary Small
                 </>
               </Button>
@@ -485,7 +485,7 @@ export const AllSizesVariantsTypes: Story = () => {
             >
               <Button variant="default" variantType="tertiary" size="small">
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   Tertiary Small
                 </>
               </Button>
@@ -510,7 +510,7 @@ export const AllSizesVariantsTypes: Story = () => {
             >
               <Button variant="default" variantType="subtle" size="small">
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   Subtle Small
                 </>
               </Button>
@@ -537,7 +537,7 @@ export const AllSizesVariantsTypes: Story = () => {
             >
               <Button variant="destructive" variantType="primary" size="small">
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   Primary Small
                 </>
               </Button>
@@ -566,7 +566,7 @@ export const AllSizesVariantsTypes: Story = () => {
                 size="small"
               >
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   Secondary Small
                 </>
               </Button>
@@ -601,7 +601,7 @@ export const AllSizesVariantsTypes: Story = () => {
             >
               <Button variant="gradient" variantType="secondary" size="small">
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   Secondary Small
                 </>
               </Button>
@@ -628,19 +628,19 @@ export const AllSizesVariantsTypes: Story = () => {
             >
               <Button variant="default" variantType="secondary" size="xs">
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   XS Secondary
                 </>
               </Button>
               <Button variant="default" variantType="tertiary" size="xs">
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   XS Tertiary
                 </>
               </Button>
               <Button variant="default" variantType="subtle" size="xs">
                 <>
-                  <Icon type="alert" />
+                  <Icon type="alert" size="extra-small" />
                   XS Subtle
                 </>
               </Button>
@@ -665,7 +665,7 @@ export const AllSizesVariantsTypes: Story = () => {
                 size="small"
                 aria-label="default primary small alert"
               >
-                <Icon type="alert" />
+                <Icon type="alert" size="extra-small" />
               </Button>
               <Button
                 variant="default"
@@ -696,7 +696,7 @@ export const AllSizesVariantsTypes: Story = () => {
                 size="small"
                 aria-label="default secondary small alert"
               >
-                <Icon type="alert" />
+                <Icon type="alert" size="extra-small" />
               </Button>
               <Button
                 variant="default"
@@ -727,7 +727,7 @@ export const AllSizesVariantsTypes: Story = () => {
                 size="small"
                 aria-label="default tertiary small alert"
               >
-                <Icon type="alert" />
+                <Icon type="alert" size="extra-small" />
               </Button>
               <Button
                 variant="default"
@@ -758,7 +758,7 @@ export const AllSizesVariantsTypes: Story = () => {
                 size="small"
                 aria-label="default subtle small alert"
               >
-                <Icon type="alert" />
+                <Icon type="alert" size="extra-small" />
               </Button>
               <Button
                 variant="default"
@@ -791,7 +791,7 @@ export const AllSizesVariantsTypes: Story = () => {
                 size="small"
                 aria-label="destructive primary small alert"
               >
-                <Icon type="alert" />
+                <Icon type="alert" size="extra-small" />
               </Button>
               <Button
                 variant="destructive"
@@ -822,7 +822,7 @@ export const AllSizesVariantsTypes: Story = () => {
                 size="small"
                 aria-label="destructive secondary small alert"
               >
-                <Icon type="alert" />
+                <Icon type="alert" size="extra-small" />
               </Button>
               <Button
                 variant="destructive"
@@ -855,7 +855,7 @@ export const AllSizesVariantsTypes: Story = () => {
                 size="small"
                 aria-label="gradient secondary small alert"
               >
-                <Icon type="alert" />
+                <Icon type="alert" size="extra-small" />
               </Button>
               <Button
                 variant="gradient"

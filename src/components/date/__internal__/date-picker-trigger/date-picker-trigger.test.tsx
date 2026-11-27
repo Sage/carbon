@@ -30,3 +30,21 @@ describe("typical variant", () => {
     expect(button).toHaveAttribute("aria-controls", "test-picker");
   });
 });
+
+describe("legacy variant", () => {
+  test.each([
+    ["small", "var(--global-size-3-xs)"],
+    ["medium", "var(--global-size-2-xs)"],
+  ] as const)(
+    "renders the calendar icon at the correct size when `size` is %s",
+    (size, token) => {
+      render(
+        <DatePickerTrigger {...defaultProps} size={size} variant="legacy" />,
+      );
+
+      expect(screen.getByTestId("icon")).toHaveStyleRule("font-size", token, {
+        modifier: "&::before",
+      });
+    },
+  );
+});

@@ -46,22 +46,41 @@ Default.storyName = "Default";
 
 export const ButtonContent: Story = () => {
   return (
-    <Box display={"flex"} gap={2}>
-      <Button aria-label="Return to the home page">
-        <Icon type="home" />
-      </Button>
-      <Button>
-        <>
+    <Box display="flex" flexDirection="column" gap={2}>
+      <Box display="flex" gap={2}>
+        <Button aria-label="Return to the home page">
           <Icon type="home" />
-          Return to the home page
-        </>
-      </Button>
-      <Button>
-        <>
-          Return to the home page
-          <Icon type="home" />
-        </>
-      </Button>
+        </Button>
+        <Button>
+          <>
+            <Icon type="home" />
+            Return to the home page
+          </>
+        </Button>
+        <Button>
+          <>
+            Return to the home page
+            <Icon type="home" />
+          </>
+        </Button>
+      </Box>
+      <Box display="flex" gap={2}>
+        <Button size="small" aria-label="Return to the home page">
+          <Icon type="home" size="extra-small" />
+        </Button>
+        <Button size="small">
+          <>
+            <Icon type="home" size="extra-small" />
+            Return to the home page
+          </>
+        </Button>
+        <Button size="small">
+          <>
+            Return to the home page
+            <Icon type="home" size="extra-small" />
+          </>
+        </Button>
+      </Box>
     </Box>
   );
 };

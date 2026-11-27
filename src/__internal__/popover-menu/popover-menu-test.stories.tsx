@@ -98,7 +98,7 @@ export const Small = () => {
             selected={value === "One"}
           >
             <MenuItemLeading selectedIcon={value === "One"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
@@ -111,7 +111,7 @@ export const Small = () => {
             selected={value === "Two"}
           >
             <MenuItemLeading selectedIcon={value === "Two"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
@@ -123,7 +123,7 @@ export const Small = () => {
             selected={value === "Three"}
           >
             <MenuItemLeading selectedIcon={value === "Three"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
           </MenuItem>
@@ -135,7 +135,7 @@ export const Small = () => {
             selected={value === "Four"}
           >
             <MenuItemLeading selectedIcon={value === "Four"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
           </MenuItem>
@@ -147,7 +147,7 @@ export const Small = () => {
             selected={value === "Five"}
           >
             <MenuItemLeading selectedIcon={value === "Five"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
@@ -213,7 +213,7 @@ export const SmallWithDisabledItems = () => {
             disabled
           >
             <MenuItemLeading>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
@@ -226,7 +226,7 @@ export const SmallWithDisabledItems = () => {
             selected={value === "Two"}
           >
             <MenuItemLeading selectedIcon={value === "Two"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
@@ -238,7 +238,7 @@ export const SmallWithDisabledItems = () => {
             selected={value === "Three"}
           >
             <MenuItemLeading selectedIcon={value === "Three"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
           </MenuItem>
@@ -250,7 +250,7 @@ export const SmallWithDisabledItems = () => {
             selected={value === "Four"}
           >
             <MenuItemLeading selectedIcon={value === "Four"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
           </MenuItem>
@@ -262,7 +262,7 @@ export const SmallWithDisabledItems = () => {
             selected={value === "Five"}
           >
             <MenuItemLeading selectedIcon={value === "Five"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
@@ -277,7 +277,7 @@ export const SmallWithDisabledItems = () => {
             disabled
           >
             <MenuItemLeading>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">six</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
@@ -290,7 +290,7 @@ export const SmallWithDisabledItems = () => {
             selected={value === "Seven"}
           >
             <MenuItemLeading selectedIcon={value === "Seven"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">seven</MenuItemLabel>
           </MenuItem>
@@ -302,7 +302,7 @@ export const SmallWithDisabledItems = () => {
             selected={value === "Eight"}
           >
             <MenuItemLeading selectedIcon={value === "Eight"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">eight</MenuItemLabel>
           </MenuItem>
@@ -368,7 +368,7 @@ export const SmallWithCustomWidth = () => {
             selected={value === "One"}
           >
             <MenuItemLeading selectedIcon={value === "One"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
@@ -381,7 +381,7 @@ export const SmallWithCustomWidth = () => {
             selected={value === "Two"}
           >
             <MenuItemLeading selectedIcon={value === "Two"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
@@ -393,7 +393,7 @@ export const SmallWithCustomWidth = () => {
             selected={value === "Three"}
           >
             <MenuItemLeading selectedIcon={value === "Three"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
           </MenuItem>
@@ -405,7 +405,7 @@ export const SmallWithCustomWidth = () => {
             selected={value === "Four"}
           >
             <MenuItemLeading selectedIcon={value === "Four"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
           </MenuItem>
@@ -417,7 +417,7 @@ export const SmallWithCustomWidth = () => {
             selected={value === "Five"}
           >
             <MenuItemLeading selectedIcon={value === "Five"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
@@ -473,7 +473,10 @@ export const SmallWithHeadingIcons = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading" icon={<Icon type="clock" />}>
+        <MenuItemHeading
+          text="Heading"
+          icon={<Icon type="clock" size="extra-small" />}
+        >
           <MenuItem
             onClick={() => {
               setOpen(false);
@@ -482,7 +485,7 @@ export const SmallWithHeadingIcons = () => {
             selected={value === "One"}
           >
             <MenuItemLeading selectedIcon={value === "One"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
@@ -495,7 +498,7 @@ export const SmallWithHeadingIcons = () => {
             selected={value === "Two"}
           >
             <MenuItemLeading selectedIcon={value === "Two"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
@@ -507,7 +510,7 @@ export const SmallWithHeadingIcons = () => {
             selected={value === "Three"}
           >
             <MenuItemLeading selectedIcon={value === "Three"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
           </MenuItem>
@@ -519,7 +522,7 @@ export const SmallWithHeadingIcons = () => {
             selected={value === "Four"}
           >
             <MenuItemLeading selectedIcon={value === "Four"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
           </MenuItem>
@@ -531,7 +534,7 @@ export const SmallWithHeadingIcons = () => {
             selected={value === "Five"}
           >
             <MenuItemLeading selectedIcon={value === "Five"}>
-              <Icon type="home" />
+              <Icon type="home" size="extra-small" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
@@ -1659,7 +1662,7 @@ export const PopoverMenuButtonSmall = () => {
       >
         <MenuItem>
           <ButtonNext>
-            <Icon type="home" />
+            <Icon type="home" size="extra-small" />
             Action 1
           </ButtonNext>
         </MenuItem>
@@ -1673,24 +1676,24 @@ export const PopoverMenuButtonSmall = () => {
           submenu={
             <>
               <ButtonNext onClick={() => alert("clicked submenu 1")}>
-                <Icon type="home" />
+                <Icon type="home" size="extra-small" />
                 Subaction 1
               </ButtonNext>
               <ButtonNext onClick={() => alert("clicked submenu 2")}>
-                <Icon type="home" />
+                <Icon type="home" size="extra-small" />
                 Subaction 2
               </ButtonNext>
             </>
           }
         >
           <ButtonNext onClick={() => {}}>
-            <Icon type="home" />
+            <Icon type="home" size="extra-small" />
             Action 2
           </ButtonNext>
         </MenuItem>
         <MenuItem>
           <ButtonNext>
-            <Icon type="home" />
+            <Icon type="home" size="extra-small" />
             Action 3
           </ButtonNext>
         </MenuItem>
@@ -1733,7 +1736,7 @@ export const PopoverMenuButtonSmallDisabledItems = () => {
       >
         <MenuItem>
           <ButtonNext>
-            <Icon type="home" />
+            <Icon type="home" size="extra-small" />
             Action 1
           </ButtonNext>
         </MenuItem>
@@ -1748,24 +1751,24 @@ export const PopoverMenuButtonSmallDisabledItems = () => {
           submenu={
             <>
               <ButtonNext onClick={() => alert("clicked submenu 1")}>
-                <Icon type="home" />
+                <Icon type="home" size="extra-small" />
                 Subaction 1
               </ButtonNext>
               <ButtonNext onClick={() => alert("clicked submenu 2")}>
-                <Icon type="home" />
+                <Icon type="home" size="extra-small" />
                 Subaction 2
               </ButtonNext>
             </>
           }
         >
           <ButtonNext onClick={() => {}}>
-            <Icon type="home" />
+            <Icon type="home" size="extra-small" />
             Action 2
           </ButtonNext>
         </MenuItem>
         <MenuItem>
           <ButtonNext>
-            <Icon type="home" />
+            <Icon type="home" size="extra-small" />
             Action 3
           </ButtonNext>
         </MenuItem>

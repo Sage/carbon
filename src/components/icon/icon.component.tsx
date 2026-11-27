@@ -8,11 +8,14 @@ import StyledIcon, {
   BgSize,
   FontSize,
   IconColor,
+  IconSize,
   StyledIconProps,
 } from "./icon.style";
 import { isLegacyWhiteColor, resolveSemanticColor } from "./icon.utils";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
+
+export type { IconSize };
 
 export type LegacyIconTypes =
   | "help"
@@ -20,11 +23,6 @@ export type LegacyIconTypes =
   | "new"
   | "success"
   | "messages";
-
-/**
- * The size of the Icon.
- */
-export type IconSize = "small" | "medium" | "large";
 
 export interface IconProps
   extends Pick<StyledIconProps, "className" | "inverse">,
@@ -85,9 +83,10 @@ export interface IconProps
   /**
    * Size of the Icon.
    *
-   * - `small` — 24px (default)
-   * - `medium` — 32px
-   * - `large` — 40px
+   * - `extra-small` — 16px
+   * - `small` — 20px (default)
+   * - `medium` — 24px
+   * - `large` — 32px
    */
   size?: IconSize;
   /** Whether to apply inverse styling. */
@@ -176,7 +175,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       }
     }, [type]);
 
-    const resolvedSize = useMemo((): "small" | "medium" | "large" => {
+    const resolvedSize = useMemo((): IconSize => {
       if (fontSize) {
         if (fontSize === "extra-large") {
           Logger.warn(

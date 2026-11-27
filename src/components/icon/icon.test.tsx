@@ -153,6 +153,40 @@ test('maps the `fontSize` value "extra-large" to "large" and logs a warning', ()
   loggerSpy.mockRestore();
 });
 
+test.each([
+  ["extra-small", "var(--global-size-3-xs)"],
+  ["small", "var(--global-size-2-xs)"],
+  ["medium", "var(--global-size-xs)"],
+  ["large", "var(--global-size-s)"],
+] as const)(
+  "renders the glyph with the correct size when the `size` prop is %s",
+  (size, token) => {
+    render(<Icon type="home" size={size} />);
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toHaveStyleRule("font-size", token, { modifier: "&::before" });
+    expect(icon).toHaveStyleRule("line-height", token, {
+      modifier: "&::before",
+    });
+  },
+);
+
+test("does not set a fixed width or height on the wrapper, so it matches the glyph size", () => {
+  render(<Icon type="home" size="extra-small" />);
+
+  const icon = screen.getByTestId("icon");
+  expect(icon).not.toHaveStyleRule("width", expect.any(String));
+  expect(icon).not.toHaveStyleRule("height", expect.any(String));
+});
+
+test("sets the wrapper width and height from the background size when the deprecated `bg` prop is set", () => {
+  render(<Icon type="home" bg="#00b000" bgSize="large" />);
+
+  const icon = screen.getByTestId("icon");
+  expect(icon).toHaveStyleRule("width", "var(--global-size-m)");
+  expect(icon).toHaveStyleRule("height", "var(--global-size-m)");
+});
+
 /* styling test for coverage */
 test.each(["circle", "rounded-rect", "square"] as BackgroundShape[])(
   "renders with the correct border radius on the icon background when the `bgShape` is %s",

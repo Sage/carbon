@@ -380,7 +380,7 @@ export const ItemWithCustomLabel: Story = () => {
             label={
               <Box display="flex" width="100%" alignItems="center" gap={1}>
                 <span>Primary Menu Item</span>
-                <Icon type="link" />
+                <Icon type="link" size="extra-small" />
               </Box>
             }
           />

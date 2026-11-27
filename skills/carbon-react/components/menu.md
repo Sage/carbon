@@ -51,11 +51,11 @@ description: Carbon Menu component props and usage examples.
       <MenuItem href="#">Menu Item One</MenuItem>
       <MenuItem href="#">Menu Item Two</MenuItem>
       <MenuItem onClick={() => {}}>
-        <Icon type="placeholder" />
+        <Icon type="placeholder" size="extra-small" />
         Menu Item Three
       </MenuItem>
       <MenuItem onClick={() => {}}>
-        <Icon type="placeholder" />
+        <Icon type="placeholder" size="extra-small" />
         Menu Item Four
       </MenuItem>
     </Menu>

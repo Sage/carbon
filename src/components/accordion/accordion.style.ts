@@ -103,8 +103,6 @@ export const StyledAccordionSubTitle = styled.span<StyledAccordionProps>`
 `;
 
 export const StyledAccordionIcon = styled(Icon)<StyledAccordionProps>`
-  width: var(--global-size-2-xs);
-  height: var(--global-size-2-xs);
   color: var(--container-action-icon-default);
 
   ${({ $isExpanded, $allowMotion }) => css`

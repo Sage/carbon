@@ -153,10 +153,10 @@ function renderChildren({
   children,
   disabled,
 }: RenderChildrenProps) {
-  const iconProps: Pick<IconProps, "aria-hidden" | "disabled" | "bg"> = {
+  const iconProps: Pick<IconProps, "aria-hidden" | "disabled" | "size"> = {
     "aria-hidden": true,
     disabled,
-    bg: "transparent",
+    size: size === "small" ? "extra-small" : "small",
   };
 
   const isValidChildren = children !== undefined && children !== false;
