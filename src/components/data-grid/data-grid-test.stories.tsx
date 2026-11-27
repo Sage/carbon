@@ -1,4 +1,4 @@
-import React, { Profiler, useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
@@ -7,8 +7,7 @@ import ActionPopoverItem from "../action-popover/action-popover-item/action-popo
 import Box from "../box";
 import Button from "../button/__next__";
 import Icon from "../icon";
-import Pager from "../pager";
-import { DataGrid, DataGridCellParams, DataGridColumn } from ".";
+import { DataGrid, DataGridColumn } from ".";
 
 const renderSmallActionPopoverButton: NonNullable<
   ActionPopoverProps["renderButton"]
@@ -255,161 +254,6 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof DataGrid>;
-
-const PaginatedGrid = () => {
-  const [rows, setRows] = useState(initialRows);
-  const [page, setPage] = useState(1);
-  const pageSize = 2;
-  const pageRows = rows.slice((page - 1) * pageSize, page * pageSize);
-  return (
-    <>
-      <DataGrid
-        aria-label="Paginated lines"
-        rows={pageRows}
-        columns={[
-          { field: "description", headerName: "Description", width: 300 },
-        ]}
-        onRowsChange={(nextRows) =>
-          setRows((current) =>
-            current.map(
-              (row) => nextRows.find(({ id }) => id === row.id) ?? row,
-            ),
-          )
-        }
-      />
-      <Pager
-        currentPage={page}
-        pageSize={pageSize}
-        totalRecords={rows.length}
-        onPagination={setPage}
-      />
-    </>
-  );
-};
-
-export const PaginationComposition: Story = {
-  render: () => <PaginatedGrid />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getAllByRole("gridcell")[0]);
-    const editor = canvas.getByRole("textbox", { name: "Description, row 1" });
-    await userEvent.clear(editor);
-    await userEvent.type(editor, "Updated service{Enter}");
-    await userEvent.click(
-      canvas.getByRole("button", { name: /Go to next page/ }),
-    );
-    await expect(canvas.getByText("Read-only line")).toBeVisible();
-    await expect(canvas.queryByText("Updated service")).not.toBeInTheDocument();
-    await userEvent.click(
-      canvas.getByRole("button", { name: /Go to previous page/ }),
-    );
-    await expect(canvas.getByText("Updated service")).toBeVisible();
-  },
-};
-
-const createRenderMeasurements = () => ({
-  cellRenders: 0,
-  rows: new Set<number>(),
-  commits: 0,
-  totalDuration: 0,
-  maxDuration: 0,
-});
-
-const RenderBenchmark = ({ virtualized }: { virtualized: boolean }) => {
-  const [rows, setRows] = useState(() =>
-    Array.from({ length: virtualized ? 1000 : 100 }, (_, index) => ({
-      id: index + 1,
-      description: `Line ${index + 1}`,
-      quantity: "1",
-      amount: "100.00",
-    })),
-  );
-  const measurements = useRef(createRenderMeasurements());
-  const [report, setReport] = useState("");
-  const columns = useMemo<DataGridColumn<(typeof rows)[number]>[]>(
-    () => [
-      { field: "description", headerName: "Description", width: 240 },
-      ...(["quantity", "amount"] as const).map((field) => ({
-        field,
-        headerName: field,
-        width: 140,
-        renderCell: ({
-          row,
-          value,
-        }: DataGridCellParams<(typeof rows)[number]>) => {
-          measurements.current.cellRenders += 1;
-          measurements.current.rows.add(row.id);
-          return String(value);
-        },
-      })),
-    ],
-    [],
-  );
-  return (
-    <>
-      <button
-        type="button"
-        onMouseDown={(event) => event.preventDefault()}
-        onClick={() => {
-          measurements.current = createRenderMeasurements();
-        }}
-      >
-        Reset measurements
-      </button>
-      <button
-        type="button"
-        onMouseDown={(event) => event.preventDefault()}
-        onClick={() => {
-          const { current } = measurements;
-          setReport(
-            JSON.stringify({
-              cellRenders: current.cellRenders,
-              rowsRendered: current.rows.size,
-              unrelatedRowsRendered: [...current.rows].filter((id) => id !== 1)
-                .length,
-              commits: current.commits,
-              totalDuration: current.totalDuration,
-              maxDuration: current.maxDuration,
-            }),
-          );
-        }}
-      >
-        Read measurements
-      </button>
-      <output aria-label="Render measurements">{report}</output>
-      <Profiler
-        id="data-grid-typing"
-        onRender={(_id, _phase, actualDuration) => {
-          measurements.current.commits += 1;
-          measurements.current.totalDuration += actualDuration;
-          measurements.current.maxDuration = Math.max(
-            measurements.current.maxDuration,
-            actualDuration,
-          );
-        }}
-      >
-        <DataGrid
-          aria-label="Render benchmark"
-          rows={rows}
-          columns={columns}
-          onRowsChange={setRows}
-          disableVirtualization={!virtualized}
-          maxHeight={virtualized ? 240 : undefined}
-        />
-      </Profiler>
-    </>
-  );
-};
-
-export const TypingRenderBenchmark: Story = {
-  render: () => <RenderBenchmark virtualized={false} />,
-  parameters: { chromatic: { disableSnapshot: true } },
-};
-
-export const VirtualizedTypingRenderBenchmark: Story = {
-  render: () => <RenderBenchmark virtualized />,
-  parameters: { chromatic: { disableSnapshot: true } },
-};
 
 export const CellStatesAndNavigationFocus: Story = {
   render: () => <VisualGrid />,

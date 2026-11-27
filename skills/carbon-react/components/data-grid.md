@@ -117,7 +117,7 @@ interface DataGridColumnBase<
   align?: "left" | "center" | "right";
   /** Font weight used while the cell is not being edited. */
   weight?: DataGridCellWeight;
-  /** Makes every cell in the column read-only, or derives it per row. */
+  /** Controls whether the column's values are read-only. */
   readOnly?: boolean | ((params: DataGridCellParams<T>) => boolean);
   /** Custom content, primarily intended for action popovers. */
   renderCell?: (params: DataGridCellParams<T>) => React.ReactNode;

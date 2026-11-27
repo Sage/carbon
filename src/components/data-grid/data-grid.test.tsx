@@ -461,6 +461,40 @@ test("can be named and described by external content", () => {
   );
 });
 
+test("uses input tokens for editable cell borders, text and hover", () => {
+  render(
+    <DataGrid
+      aria-label="Items"
+      rows={rows.slice(0, 1)}
+      columns={[{ field: "name", headerName: "Name" }]}
+    />,
+  );
+
+  const cell = screen.getByRole("gridcell");
+  expect(cell).toHaveStyleRule("color", "var(--input-typical-txt-default)");
+  expect(cell).toHaveStyleRule(
+    "border-block-end",
+    "var(--global-borderwidth-xs) solid var(--input-typical-border-default)",
+  );
+  expect(cell).toHaveStyleRule(
+    "border-inline-end",
+    "var(--global-borderwidth-xs) solid var(--input-typical-border-default)",
+  );
+  expect(cell).toHaveStyleRule(
+    "border-inline-start",
+    "var(--global-borderwidth-xs) solid var(--input-typical-border-default)",
+    { modifier: ":first-child" },
+  );
+  expect(cell).toHaveStyleRule(
+    "background-color",
+    "var(--input-typical-bg-hover)",
+    { modifier: ":hover" },
+  );
+  expect(cell).toHaveStyleRule("color", "var(--input-typical-txt-hover)", {
+    modifier: ":hover",
+  });
+});
+
 test("exposes error and read-only cell state accessibly", () => {
   const stateColumns: DataGridColumn<Row>[] = [
     {
@@ -491,6 +525,9 @@ test("exposes error and read-only cell state accessibly", () => {
     "linear-gradient(var(--input-typical-bg-read-only),var(--input-typical-bg-read-only))",
   );
   expect(cell).toHaveStyleRule("color", "var(--input-typical-txt-read-only)");
+  expect(cell).toHaveStyleRule("color", "var(--input-typical-txt-read-only)", {
+    modifier: ":hover",
+  });
   expect(cell).toHaveStyleRule(
     "border-block-end",
     "var(--global-borderwidth-xs) solid var(--input-typical-border-default)",

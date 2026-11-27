@@ -114,7 +114,7 @@ const initialRows: InvoiceLine[] = [
   },
   {
     id: 5,
-    description: "Readonly item",
+    description: "Software licence",
     category: "Software",
     selected: false,
     actions: null,
@@ -335,7 +335,6 @@ const createInvoiceColumns = (
     headerName: "Description",
     flex: 1,
     minWidth: 220,
-    readOnly: ({ row }) => row.id === 5,
   },
   {
     field: "category",
@@ -799,7 +798,6 @@ const createLargeColumns = ({
     field: "description",
     headerName: "Description",
     width: 240,
-    readOnly: ({ row }) => row.id % 20 === 0,
   },
   { field: "sku", headerName: "SKU", width: 130 },
   {

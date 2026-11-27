@@ -77,11 +77,6 @@ const getCellContentPadding = (cellType: DataGridCellType) => {
   }
 };
 
-const getCellBorderColor = (readOnly: boolean) =>
-  readOnly
-    ? "var(--input-typical-border-default)"
-    : "var(--table-row-border-default)";
-
 export const StyledDataGridWrapper = styled.div.attrs(applyBaseTheme)`
   isolation: isolate;
   display: flex;
@@ -190,15 +185,15 @@ export const StyledCell = styled.div<
       ? "linear-gradient(var(--input-typical-bg-read-only), var(--input-typical-bg-read-only))"
       : "none"};
   border-block-end: var(--global-borderwidth-xs) solid
-    ${({ $readOnly }) => getCellBorderColor($readOnly)};
-  border-inline-end: ${({ $hideInlineEndBorder, $readOnly }) =>
+    var(--input-typical-border-default);
+  border-inline-end: ${({ $hideInlineEndBorder }) =>
     $hideInlineEndBorder
       ? "none"
-      : `var(--global-borderwidth-xs) solid ${getCellBorderColor($readOnly)}`};
+      : "var(--global-borderwidth-xs) solid var(--input-typical-border-default)"};
   color: ${({ $readOnly }) =>
     $readOnly
       ? "var(--input-typical-txt-read-only)"
-      : "var(--table-row-label-default)"};
+      : "var(--input-typical-txt-default)"};
   cursor: ${({ $editing }) => ($editing ? "text" : "default")};
   font: ${({ $weight, $editing, $cellType }) =>
     ($editing && $cellType === "text") || $weight === "regular"
@@ -220,12 +215,18 @@ export const StyledCell = styled.div<
   &:first-child {
     --data-grid-cell-start-border: var(--global-borderwidth-xs);
     border-inline-start: var(--global-borderwidth-xs) solid
-      ${({ $readOnly }) => getCellBorderColor($readOnly)};
+      var(--input-typical-border-default);
   }
 
   &:hover {
     background-color: ${({ $readOnly }) =>
-      $readOnly ? "var(--table-row-bg-default)" : "var(--table-row-bg-alt)"};
+      $readOnly
+        ? "var(--table-row-bg-default)"
+        : "var(--input-typical-bg-hover)"};
+    color: ${({ $readOnly }) =>
+      $readOnly
+        ? "var(--input-typical-txt-read-only)"
+        : "var(--input-typical-txt-hover)"};
   }
 
   ${({ $hasError }) =>
@@ -284,6 +285,7 @@ export const StyledCell = styled.div<
     css`
       [data-element="action-popover-button"] {
         --button-typical-subtle-bg-active: transparent;
+        --button-typical-subtle-bg-hover: transparent;
       }
 
       &:active,

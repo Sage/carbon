@@ -7,6 +7,7 @@ import { ActionPopover, ActionPopoverProps } from "../action-popover";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import Button from "../button/__next__";
 import Icon from "../icon";
+import Pager from "../pager";
 import { DataGrid, DataGridColumn } from ".";
 
 const renderSmallActionPopoverButton: NonNullable<
@@ -140,6 +141,64 @@ export const EditTextAndNavigate: Story = {
 
     await expect(cells[0]).toHaveTextContent("Consulting services");
     await expect(cells[1]).toHaveFocus();
+  },
+};
+
+const PaginatedGrid = () => {
+  const [rows, setRows] = useState([
+    { id: 1, description: "Consulting" },
+    { id: 2, description: "Software licence" },
+    { id: 3, description: "Support" },
+    { id: 4, description: "Training" },
+  ]);
+  const [page, setPage] = useState(1);
+  const pageSize = 2;
+  const pageRows = rows.slice((page - 1) * pageSize, page * pageSize);
+  return (
+    <>
+      <DataGrid
+        aria-label="Paginated lines"
+        rows={pageRows}
+        columns={[
+          { field: "description", headerName: "Description", width: 300 },
+        ]}
+        onRowsChange={(nextRows) =>
+          setRows((current) =>
+            current.map(
+              (row) => nextRows.find(({ id }) => id === row.id) ?? row,
+            ),
+          )
+        }
+      />
+      <Pager
+        currentPage={page}
+        pageSize={pageSize}
+        totalRecords={rows.length}
+        onPagination={setPage}
+      />
+    </>
+  );
+};
+
+export const PaginationComposition: Story = {
+  render: () => <PaginatedGrid />,
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) return;
+
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getAllByRole("gridcell")[0]);
+    const editor = canvas.getByRole("textbox", { name: "Description, row 1" });
+    await userEvent.clear(editor);
+    await userEvent.type(editor, "Updated service{Enter}");
+    await userEvent.click(
+      canvas.getByRole("button", { name: /Go to next page/ }),
+    );
+    await expect(canvas.getByText("Support")).toBeVisible();
+    await expect(canvas.queryByText("Updated service")).not.toBeInTheDocument();
+    await userEvent.click(
+      canvas.getByRole("button", { name: /Go to previous page/ }),
+    );
+    await expect(canvas.getByText("Updated service")).toBeVisible();
   },
 };
 

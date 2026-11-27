@@ -74,7 +74,7 @@ const columns: DataGridColumn<InvoiceLine>[] = [
     headerName: "Description",
     minWidth: 220,
     flex: 1,
-    readOnly: ({ row }) => row.locked,
+    readOnly: true,
   },
   {
     field: "category",
@@ -146,10 +146,9 @@ between flexible columns, with `minWidth` as the lower limit. Columns without
 sizing use the default width, while action columns use their compact default.
 Prefer a fixed `width` when a column must remain a predictable size.
 
-The `readOnly` callback and `renderCell` receive the current `row`, `rowId`,
-`field`, `value`, and `column`. They also receive the row-operation `api`.
-Use a fixed `readOnly` value when every row behaves in the same way, or a
-function when the behaviour depends on row data. Supply cell errors separately
+The `renderCell` callback receives the current `row`, `rowId`,
+`field`, `value`, and `column`. It also receives the row-operation `api`.
+Set `readOnly: true` to make a column's values non-editable. Supply cell errors separately
 through the grid's `errors` prop.
 
 ## Receive updated rows
@@ -158,13 +157,11 @@ A committed text edit, dropdown selection, or checkbox toggle creates a new row
 array and passes it to `onRowsChange`. Store the new array and pass it back to
 Data Grid.
 
-Data Grid keeps changes together while it waits for updated `rows`, even across
-`await` calls. Pass the array from `onRowsChange` back as `rows` to keep those
+Data Grid keeps changes together while it waits for updated `rows`. Pass the array from `onRowsChange` back as `rows` to keep those
 changes. A new array you create yourself replaces any waiting changes.
 
 To discard changes, pass a new copy of the rows you want to keep. Ignoring the
-callback or keeping the same array does not discard changes. Data Grid does not
-wait for an async `onRowsChange` callback to finish.
+callback or keeping the same array does not discard changes.
 
 ```tsx
 const [rows, setRows] = React.useState(initialRows);
@@ -314,7 +311,7 @@ const errors: DataGridCellError[] = rows
 Identify each cell by its column `field` and stable `rowId`, matching `getRowId`
 or `row.id` by default. Numeric and string IDs are distinct. Errors stay with
 their rows when reordered or virtualised. Errors for missing cells, checkbox
-cells or action cells are ignored. Read-only text and dropdown cells can show errors.
+cells or action cells are ignored. Read-only text and dropdown columns can show errors.
 
 The optional `message` describes the error to assistive technology for both the
 cell and its editor. Messages for the same cell are combined in array order.

@@ -365,7 +365,7 @@ for (const filterableDropdown of [false, true]) {
 }
 
 for (const rowId of [1, 3]) {
-  test(`action cells own the active surface while triggers retain their hover surface (row=${rowId})`, async ({
+  test(`action cells own the hover and active surfaces (row=${rowId})`, async ({
     mount,
     page,
   }) => {
@@ -393,7 +393,7 @@ for (const rowId of [1, 3]) {
           (element) => getComputedStyle(element).backgroundColor,
         ),
       )
-      .not.toBe("rgba(0, 0, 0, 0)");
+      .toBe("rgba(0, 0, 0, 0)");
     await page.mouse.down();
     await expect(actionCell).toHaveCSS("background-color", baseColor);
     await expect(actionCell).toHaveCSS("background-image", activeBackground);
@@ -868,6 +868,26 @@ test("opens a dropdown with one click without changing its typography or padding
       ]),
     )
     .toEqual(restingStyles);
+});
+
+test("hides the selected dropdown tick when its reference scrolls out of view", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DataGridComponent rowCount={30} disableVirtualization />);
+  await cell(page, 1, "type").click();
+  const selectedTick = page.locator(
+    '[aria-selected="true"] [data-role="selected-icon-wrapper"]',
+  );
+  await expect(selectedTick).toBeVisible();
+  await page.getByRole("grid").evaluate((element) => {
+    element.scrollTop = 500;
+  });
+  await expect(selectedTick).toBeHidden();
+  await page.getByRole("grid").evaluate((element) => {
+    element.scrollTop = 0;
+  });
+  await expect(selectedTick).toBeVisible();
 });
 
 test("opens and commits a dropdown with Space without scrolling vertically", async ({

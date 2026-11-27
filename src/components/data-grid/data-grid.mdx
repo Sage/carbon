@@ -91,8 +91,7 @@ operations.
 ## Playground
 
 Use this interactive example to explore Data Grid props and behaviours with
-Storybook controls. The action column remains pinned on the right. Use the
-**pinned columns** control to also pin the first column.
+Storybook controls. The action column remains pinned on the right.
 
 The example validates its required fields and calculates the read-only VAT and
 net values in `onRowsChange`. These are application behaviours rather than
@@ -122,7 +121,7 @@ default cell type, so its `type` can be omitted. Use `weight: "medium"` to give
 text cell content additional emphasis when it is not being edited. Dropdowns
 use regular-weight text by default.
 
-This example includes an empty cell with an error and a read-only row. Click or
+This example includes an empty cell with an error. Click or
 tap an editable text or dropdown cell once to open its editor. When a cell has
 navigation focus, use the arrow keys to move between cells and press **Enter**
 to edit. Checkboxes toggle with one click or **Space**. **Space** also opens a
@@ -130,13 +129,13 @@ focused dropdown or action popover.
 
 <Canvas of={DataGridStories.EditableInvoiceLines} />
 
-Use `readOnly` as a fixed value or function when the state depends on row data.
+Set `readOnly: true` on a column to prevent editing its values.
 Pass cell errors through the grid's `errors` prop, not column definitions.
 Checkbox and action columns do not support the error state. Action cells use
 `renderCell` to display controls such as an action popover.
 
-Read-only dropdown cells display their selected label as text, and read-only
-checkboxes cannot be changed. Action controls remain available because they do
+Read-only dropdown columns display their selected labels as text, and read-only
+checkbox columns cannot be changed. Action controls remain available because they do
 not edit the cell value. Disable individual actions in `renderCell` when the
 product's business rules require it. Clicking another cell dismisses an open
 action popover and moves focus to the clicked cell or its editor. Keyboard
@@ -154,11 +153,6 @@ Set `stickyHeader` to keep the header visible while the grid scrolls vertically.
 Headers scroll with the grid by default.
 
 <Canvas of={DataGridStories.PinnedColumns} />
-
-Body cells use the opaque `--table-row-bg-default` surface. Non-sticky headers
-use `--table-header-subtle-bg-default` so they blend into their containing
-surface. Pinned columns and sticky headers use the opaque row surface to stop
-scrolling content from showing through.
 
 ### Validation and error summaries
 
@@ -239,13 +233,14 @@ on iOS and TalkBack on Android; browser touch emulation does not reproduce those
 interactions.
 
 Built-in checkbox cells expose a full-cell checkbox target with its accessible
-name, checked state, and read-only state. The checkbox graphic is decorative;
+name and checked state. Read-only checkbox columns also expose their read-only
+state. The checkbox graphic is decorative;
 the cell handles toggling. A click or tap anywhere in an action cell opens its
 first interactive control, just as Enter or Space does. This includes
 assistive-technology click activation, regardless of click count or preceding
 pointer events.
 Direct activation of a nested action control still uses that control's own
-behaviour. Actions remain available in read-only rows.
+behaviour.
 
 When testing with VoiceOver on macOS, interact with the grid and use VoiceOver
 commands such as **Control+Option+Arrow keys** to inspect its semantic structure

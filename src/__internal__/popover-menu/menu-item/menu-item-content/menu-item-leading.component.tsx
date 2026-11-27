@@ -16,7 +16,7 @@ const StyledMenuItemLeading = styled.span`
 const StyledSelectedIconWrapper = styled.span<{ $hasIcon: boolean }>`
   ${({ $hasIcon }) => `
     padding: 0 var(--global-space-comp-2-xs);
-    visibility: ${$hasIcon ? "visible" : "hidden"};
+    visibility: ${$hasIcon ? "inherit" : "hidden"};
   `}
 `;
 
