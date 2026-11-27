@@ -212,6 +212,9 @@
     "storybook": "$storybook",
     "rollup-plugin-postcss": {
       "postcss-selector-parser": "^7.1.6"
+    },
+    "@lexical/headless": {
+      "happy-dom": "21.0.4"
     }
   },
   "lint-staged": {
