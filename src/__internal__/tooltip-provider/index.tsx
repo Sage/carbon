@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import guid from "../utils/helpers/guid";
+import React from "react";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 
 interface TooltipProviderProps {
   /** The position to display the tooltip */
@@ -14,9 +14,7 @@ interface TooltipProviderProps {
   target?: HTMLElement;
 }
 interface ToolbarContextProps extends Omit<TooltipProviderProps, "children"> {
-  tooltipId?: {
-    current: string;
-  };
+  tooltipId?: string;
 }
 
 export const TooltipContext: React.Context<ToolbarContextProps> =
@@ -31,7 +29,7 @@ export const TooltipProvider = ({
   disabled,
   target,
 }: TooltipProviderProps) => {
-  const tooltipId = useRef(guid());
+  const tooltipId = useIdPolyfill();
 
   return (
     <TooltipContext.Provider

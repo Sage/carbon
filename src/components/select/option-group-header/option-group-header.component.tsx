@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React from "react";
 import { type CSSProperties } from "styled-components";
 import { type TagProps } from "../../../__internal__/utils/helpers/tags";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import Logger from "../../../__internal__/utils/logger";
 import StyledOptionGroupHeader from "./option-group-header.style";
 import Icon, { IconProps } from "../../icon";
@@ -33,7 +33,8 @@ const OptionGroupHeader = React.forwardRef(
     { label, icon, style, id, children, ...rest }: OptionGroupHeaderProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ) => {
-    const internalIdRef = useRef(id || guid());
+    const generatedInternalIdRef = useIdPolyfill();
+    const internalIdRef = id || generatedInternalIdRef;
 
     if (!(children || label)) {
       Logger.warn(
@@ -44,7 +45,7 @@ const OptionGroupHeader = React.forwardRef(
     return (
       <StyledOptionGroupHeader
         style={style}
-        id={internalIdRef.current}
+        id={internalIdRef}
         {...rest}
         ref={ref}
         data-component="option-group-header"

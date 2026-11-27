@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import guid from "../../../../__internal__/utils/helpers/guid";
+import React from "react";
+import useIdPolyfill from "../../../../hooks/__internal__/useIdPolyfill";
 import FileUploadStatus, {
   type FileUploadStatusProps,
 } from "../file-upload-status";
@@ -41,16 +41,16 @@ const FileUploadStatusList = ({
   onPreviewActivate,
   announceInitialErrors,
 }: FileUploadStatusListProps) => {
-  const labelId = useRef(guid());
-  const statusSummaryId = useRef(guid());
-  const errorSummaryId = useRef(guid());
+  const labelId = useIdPolyfill();
+  const statusSummaryId = useIdPolyfill();
+  const errorSummaryId = useIdPolyfill();
 
   return (
     <StyledFileUploadStatusListContainer $multiple={multiple}>
       <StyledFileUploadStatusListLabelSet>
         <StyledFileUploadStatusListLabel
           variant="p"
-          id={labelId.current}
+          id={labelId}
           $visuallyHidden={!multiple}
         >
           {label}
@@ -58,7 +58,7 @@ const FileUploadStatusList = ({
         {statusSummary && (
           <StyledFileUploadStatusListLabel
             variant="p"
-            id={statusSummaryId.current}
+            id={statusSummaryId}
             $visuallyHidden={!multiple}
           >
             {statusSummary}
@@ -67,7 +67,7 @@ const FileUploadStatusList = ({
         {errorSummary && (
           <StyledFileUploadStatusListErrorSummary
             variant="p"
-            id={errorSummaryId.current}
+            id={errorSummaryId}
           >
             {errorSummary}
           </StyledFileUploadStatusListErrorSummary>
@@ -79,9 +79,9 @@ const FileUploadStatusList = ({
         // The summary joins the list name, which screen readers announce on
         // entering the list; a list description is rarely read from its items.
         aria-labelledby={[
-          labelId.current,
-          statusSummary ? statusSummaryId.current : undefined,
-          errorSummary ? errorSummaryId.current : undefined,
+          labelId,
+          statusSummary ? statusSummaryId : undefined,
+          errorSummary ? errorSummaryId : undefined,
         ]
           .filter(Boolean)
           .join(" ")}

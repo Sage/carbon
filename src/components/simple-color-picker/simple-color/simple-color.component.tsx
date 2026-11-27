@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React from "react";
 
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import {
   StyledSimpleColor,
@@ -53,7 +53,8 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
       ...rest
     } = props;
 
-    const { current: inputId } = useRef(id || guid());
+    const generatedInputId = useIdPolyfill();
+    const inputId = id || generatedInputId;
 
     return (
       <StyledSimpleColor

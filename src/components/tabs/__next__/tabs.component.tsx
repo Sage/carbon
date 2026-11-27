@@ -30,7 +30,7 @@ import useLocale from "../../../hooks/__internal__/useLocale";
 import Icon from "../../icon";
 import { TabProvider } from "./tab.context";
 import usePrevious from "../../../hooks/__internal__/usePrevious";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import tagComponent from "../../../__internal__/utils/helpers/tags";
 import extractTextFromNode from "../../../__internal__/utils/helpers/extract-text";
 
@@ -280,9 +280,9 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
       setActiveTab,
       size,
     } = useTabs();
-    const idLeftNav = useRef(guid());
-    const idRightNav = useRef(guid());
-    const idTabList = useRef(guid());
+    const idLeftNav = useIdPolyfill();
+    const idRightNav = useIdPolyfill();
+    const idTabList = useIdPolyfill();
     const locale = useLocale();
 
     useImperativeHandle(ref, () => ({
@@ -435,7 +435,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
       return leftVisible ? (
         <StyledScrollButton
           data-role="tab-navigation-button-left"
-          id={`tab-navigation-button-left-${idLeftNav.current}`}
+          id={`tab-navigation-button-left-${idLeftNav}`}
           onClick={() => onClickHandler("left")}
           $size={size}
           tabIndex={-1}
@@ -456,7 +456,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
       return rightVisible ? (
         <StyledScrollButton
           data-role="tab-navigation-button-right"
-          id={`tab-navigation-button-right-${idRightNav.current}`}
+          id={`tab-navigation-button-right-${idRightNav}`}
           onClick={() => onClickHandler("right")}
           $size={size}
           tabIndex={-1}
@@ -479,7 +479,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
           {renderLeftScroll()}
           <StyledTabList
             aria-label={ariaLabel}
-            id={`tablist-${idTabList.current}`}
+            id={`tablist-${idTabList}`}
             onKeyDown={handleKeyDown}
             onScroll={updateUI}
             $orientation={orientation}
@@ -507,7 +507,7 @@ export const Tabs = ({
   size = "medium",
   ...rest
 }: TabsProps) => {
-  const id = useRef(guid());
+  const id = useIdPolyfill();
 
   return (
     <TabsProvider
@@ -517,7 +517,7 @@ export const Tabs = ({
       size={size}
     >
       <StyledTabs
-        id={`tabs-container-${id.current}`}
+        id={`tabs-container-${id}`}
         $orientation={orientation}
         {...tagComponent("tabs", rest)}
       >

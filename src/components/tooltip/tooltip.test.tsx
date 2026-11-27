@@ -5,11 +5,11 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
 import Tooltip, { TooltipProps, InputSizes } from "./tooltip.component";
 import { TooltipPositions } from "./tooltip.config";
-import guid from "../../__internal__/utils/helpers/guid";
 
-const mockedGuid = "guid-12345";
-jest.mock("../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "guid-12345"),
+}));
 
 function renderTooltip(props: Partial<TooltipProps> = {}) {
   return render(
@@ -23,14 +23,25 @@ describe("Tooltip", () => {
   describe("controlled", () => {
     it("matches snapshot when isVisible is true", () => {
       const { container } = renderTooltip({ isVisible: true });
-
       expect(container).toMatchSnapshot();
     });
 
     it("matches snapshot when isVisible is false", () => {
       const { container } = renderTooltip({ isVisible: false });
-
       expect(container).toMatchSnapshot();
+    });
+
+    it("renders with generated data-portal-entrance when isVisible is true", () => {
+      renderTooltip({ isVisible: true });
+      const portalEntrance = screen.getByTestId("data-portal-entrance");
+      expect(portalEntrance).toBeInTheDocument();
+      expect(portalEntrance.getAttribute("data-portal-entrance")).toBeTruthy();
+    });
+
+    it("does not render portal entrance when isVisible is false", () => {
+      renderTooltip({ isVisible: false });
+      const portalEntrance = screen.queryByTestId("data-portal-entrance");
+      expect(portalEntrance).not.toBeInTheDocument();
     });
   });
 

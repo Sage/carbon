@@ -9,7 +9,7 @@ import {
 import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import withFilter from "../__internal__/utils/with-filter.hoc";
 import StyledSelect from "../select.style";
 import SelectList, {
@@ -135,7 +135,7 @@ export const FilterableSelect = React.forwardRef<
     ref,
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState<string>("");
-    const selectListId = useRef(guid());
+    const selectListId = useIdPolyfill();
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
     const isMouseDownReported = useRef(false);
@@ -151,9 +151,10 @@ export const FilterableSelect = React.forwardRef<
       string | Record<string, unknown> | undefined
     >("");
     const [filterText, setFilterText] = useState("");
-    const inputId = useRef(id || guid());
+    const generatedInputId = useIdPolyfill();
+    const inputId = id || generatedInputId;
     const { labelId } = useInputAccessibility({
-      id: inputId.current,
+      id: inputId,
       label,
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
@@ -605,7 +606,7 @@ export const FilterableSelect = React.forwardRef<
 
     function getTextboxProps() {
       return {
-        id: inputId.current,
+        id: inputId,
         name,
         label,
         disabled,
@@ -642,7 +643,7 @@ export const FilterableSelect = React.forwardRef<
 
     const selectListProps = {
       ref: listboxRef,
-      id: selectListId.current,
+      id: selectListId,
       labelId,
       anchorElement: textboxRef?.parentElement || undefined,
       onSelect: onSelectOption,
@@ -696,7 +697,7 @@ export const FilterableSelect = React.forwardRef<
             ariaLabel={ariaLabel}
             ariaLabelledby={ariaLabelledby}
             labelId={label ? labelId : undefined}
-            aria-controls={selectListId.current}
+            aria-controls={selectListId}
             isOpen={isOpen}
             selectType="filterable"
             {...getTextboxProps()}

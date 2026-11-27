@@ -2,13 +2,14 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Password from "./password.component";
-import guid from "../../__internal__/utils/helpers/guid";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
-const mockedGuid = "guid-12345";
-jest.mock("../../__internal__/utils/helpers/guid");
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
 
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+const mockedGuid = "mocked-use-id-123";
 
 test("should render a text input with type 'password'", () => {
   render(<Password label="password" value="" onChange={() => {}} />);
@@ -175,7 +176,6 @@ describe("Show/Hide password Button", () => {
       name: "Show password",
     });
     await user.click(showPasswordButton);
-
     expect(showPasswordButton).toHaveTextContent("Hide");
   });
 
@@ -196,7 +196,6 @@ describe("Show/Hide password Button", () => {
       name: "Show password",
     });
     await user.click(showPasswordButton);
-
     expect(showPasswordButton).toHaveAccessibleName("Hide password");
   });
 

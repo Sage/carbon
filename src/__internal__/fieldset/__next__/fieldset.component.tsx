@@ -5,7 +5,7 @@
  * the display of validation messages for grouped inputs.
  */
 
-import React, { useRef } from "react";
+import React from "react";
 import { MarginProps } from "styled-system";
 
 import {
@@ -16,7 +16,7 @@ import {
 import ErrorBorder from "../../error-border/error-border.style";
 import ValidationMessage from "../../validation-message/__next__";
 import HintText from "../../hint-text";
-import guid from "../../utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 
 export interface FieldsetProps extends MarginProps {
@@ -61,8 +61,8 @@ const Fieldset = ({
   size = "medium",
   ...rest
 }: FieldsetProps) => {
-  const internalId = useRef(guid());
-  const uniqueId = id || internalId.current;
+  const internalId = useIdPolyfill();
+  const uniqueId = id || internalId;
 
   const legendHintId = legendHint ? `${uniqueId}-hint` : undefined;
   const validationId = (error || warning) && `${uniqueId}-validation-message`;

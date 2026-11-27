@@ -4,8 +4,6 @@ import { ThemeProvider } from "styled-components";
 import { noTheme, sageTheme } from "../../themes";
 import CarbonScopedTokensProvider from "./carbon-scoped-tokens-provider.component";
 
-jest.mock("../../../__internal__/utils/helpers/guid", () => () => "guid");
-
 describe("CarbonScopedTokensProvider", () => {
   it("should render css variables for all themes", () => {
     render(

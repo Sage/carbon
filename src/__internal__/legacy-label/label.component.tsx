@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { TooltipPositions } from "../../components/tooltip/tooltip.config";
 import Help from "../../components/help";
 import StyledLabel, {
@@ -11,7 +11,7 @@ import StyledIconWrapper from "./icon-wrapper.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import { ValidationProps } from "../validations";
 import { IconType } from "../../components/icon";
-import createGuid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 
 export interface LabelProps
   extends ValidationProps,
@@ -96,7 +96,7 @@ export const Label = ({
   const { onMouseEnter, onMouseLeave } = useContext(InputContext);
   const { onMouseEnter: onGroupMouseEnter, onMouseLeave: onGroupMouseLeave } =
     useContext(InputGroupContext);
-  const guid = useRef(createGuid());
+  const guid = useIdPolyfill();
 
   const handleMouseEnter = () => {
     if (onMouseEnter) onMouseEnter();
@@ -166,7 +166,7 @@ export const Label = ({
   return (
     <StyledLabelContainer
       data-role="label-container"
-      id={`label-container-${labelId ?? guid.current}`}
+      id={`label-container-${labelId ?? guid}`}
       align={alignment}
       inline={inline}
       width={width}

@@ -19,7 +19,7 @@ import {
   InputGroupContext,
 } from "../../__internal__/input-behaviour";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import StyledTextarea, {
   StyledTextareaFieldLine,
   StyledTextareaInput,
@@ -288,7 +288,8 @@ export const Textarea = React.forwardRef(
       getDefaultMinHeightBySize(size),
     );
 
-    const { current: id } = useRef(idProp || guid());
+    const generatedId = useIdPolyfill();
+    const id = idProp || generatedId;
 
     const internalRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -471,8 +472,8 @@ export const Textarea = React.forwardRef(
 
     const hasIconInside = !!(inputIcon || (validationId && !validationOnLabel));
 
-    const hintId = useRef(guid());
-    const inputHintId = inputHint ? hintId.current : undefined;
+    const hintId = useIdPolyfill();
+    const inputHintId = inputHint ? hintId : undefined;
 
     const describedByArray = validationMessagePositionTop
       ? [ariaDescribedBy, inputHintId]

@@ -1,6 +1,6 @@
-import React, { useMemo, useRef, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import CharacterCount from "../../__internal__/character-count";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../__internal__/useIdPolyfill";
 import useDebounce from "../__internal__/useDebounce";
 
 const useCharacterCount = (
@@ -26,7 +26,7 @@ const useCharacterCount = (
     }
   }, [value, characterLimit, updateDebouncedValue]);
 
-  const hintId = useRef(guid());
+  const hintId = useIdPolyfill();
   const isOverLimit = useMemo(() => {
     if (value && isCharacterLimitValid) {
       return value.length > characterLimit;
@@ -50,12 +50,12 @@ const useCharacterCount = (
         value={value.length}
         debouncedValue={debouncedValue.length}
         limit={characterLimit}
-        visuallyHiddenHintId={hintId.current}
+        visuallyHiddenHintId={hintId}
         size={size}
         disabled={disabled}
       />
     ) : null,
-    isCharacterLimitValid ? hintId.current : undefined,
+    isCharacterLimitValid ? hintId : undefined,
   ];
 };
 

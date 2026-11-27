@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { MarginProps } from "styled-system";
 
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
-import createGuid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import Button from "../button";
 import Box from "../box";
 import Accordion from "./__internal__/accordion";
@@ -165,9 +165,9 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
       }
     }, [disabled, hasFocus]);
 
-    const guid = useRef(createGuid());
-    const contentId = `AccordionContent_${guid.current}`;
-    const controlId = `AccordionControl_${guid.current}`;
+    const guid = useIdPolyfill();
+    const contentId = `AccordionContent_${guid}`;
+    const controlId = `AccordionControl_${guid}`;
 
     return (
       <StyledTileSelectContainer

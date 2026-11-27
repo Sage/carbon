@@ -4,18 +4,16 @@ import userEvent from "@testing-library/user-event";
 import Textbox, { TextboxProps } from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { EnterKeyHintTypes } from "../../__internal__/legacy-input";
-import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
 
-const mockedGuid = "mocked-guid";
-jest.mock("../../__internal__/utils/helpers/guid");
-
-(createGuid as jest.MockedFunction<typeof createGuid>).mockReturnValue(
-  mockedGuid,
-);
+const mockedGuid = "mocked-use-id-123";
 
 let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
 
@@ -538,7 +536,9 @@ describe("when inputHint prop is present", () => {
         inputHint="bar"
       />,
     );
-    expect(screen.getByText("bar")).toHaveAttribute("id", mockedGuid);
+    const hintId = screen.getByText("bar").getAttribute("id");
+
+    expect(hintId).toBe(mockedGuid);
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
       mockedGuid,

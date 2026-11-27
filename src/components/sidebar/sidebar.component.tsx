@@ -7,7 +7,7 @@ import Button from "../button/__next__";
 import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader, { SidebarSubHeader } from "./__internal__/sidebar-header";
 import SidebarContent from "./__internal__/sidebar-content";
-import createGuid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 import tagComponent, {
@@ -186,8 +186,8 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       useMediaQuery(`screen and (max-width: ${smallScreenBreakpoint})`),
     );
 
-    const { current: headerId } = useRef<string>(createGuid());
-    const { current: subHeaderId } = useRef<string>(createGuid());
+    const headerId = useIdPolyfill();
+    const subHeaderId = useIdPolyfill();
 
     const sidebarRef = useRef<HTMLDivElement | null>(null);
 

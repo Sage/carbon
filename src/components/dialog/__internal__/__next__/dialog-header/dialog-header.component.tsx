@@ -1,10 +1,10 @@
-import React, { forwardRef, useRef, useContext } from "react";
+import React, { forwardRef, useContext } from "react";
 import { StyledSubtitle } from "../dialog.style";
 import Box from "../../../../box";
 import Icon, { IconColor } from "../../../../icon";
 import { IconType } from "../../../../icon/icon-type";
 import Typography from "../../../../typography";
-import createGuid from "../../../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../../../hooks/__internal__/useIdPolyfill";
 
 /** @internal Context for passing IDs from Dialog to DialogHeader */
 export const DialogHeadingStatusContext = React.createContext<{
@@ -67,12 +67,12 @@ const DialogHeadingStatus: DialogHeadingStatusComponent = forwardRef<
   const context = useContext(DialogHeadingStatusContext);
 
   // Always call hooks unconditionally at the top level
-  const generatedTitleId = useRef(context?.titleId || createGuid()).current;
-  const generatedSubtitleId = useRef(createGuid()).current;
+  const fallbackTitleId = useIdPolyfill();
+  const fallbackSubtitleId = useIdPolyfill();
 
   // Use context IDs if available, otherwise use generated ones
-  const titleId = context?.titleId || generatedTitleId;
-  const subtitleId = context?.subtitleId || generatedSubtitleId;
+  const titleId = context?.titleId || fallbackTitleId;
+  const subtitleId = context?.subtitleId || fallbackSubtitleId;
 
   return (
     <Box

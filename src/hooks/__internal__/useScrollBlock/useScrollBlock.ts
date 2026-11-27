@@ -1,6 +1,6 @@
 import { useRef, useCallback } from "react";
 
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../useIdPolyfill";
 import ScrollBlockManager from "./scroll-block-manager";
 
 // TODO: This component can be refactored to remove redundant code after
@@ -55,7 +55,7 @@ const useScrollBlock = (): {
   blockScroll: () => void;
   allowScroll: () => void;
 } => {
-  const { current: containerGuid } = useRef(guid());
+  const containerGuid = useIdPolyfill();
   const originalValuesRef = useRef<string[]>([]);
 
   const restoreValues = useCallback(() => {

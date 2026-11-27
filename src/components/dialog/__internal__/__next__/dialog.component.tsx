@@ -25,7 +25,7 @@ import Modal, { ModalProps } from "../../../../__internal__/modal";
 import FullScreenHeading from "../../../../__internal__/full-screen-heading";
 
 import FocusTrap from "../../../../__internal__/focus-trap";
-import createGuid from "../../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../../hooks/__internal__/useIdPolyfill";
 import tagComponent, {
   TagProps,
 } from "../../../../__internal__/utils/helpers/tags";
@@ -199,8 +199,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const headingRef = useRef(null);
     const titleRef = useRef(null);
     const footerRef = useRef<HTMLDivElement>(null);
-    const { current: titleId } = useRef(createGuid());
-    const { current: subtitleId } = useRef(createGuid());
+    const titleId = useIdPolyfill();
+    const subtitleId = useIdPolyfill();
 
     const isTopModal = useModalAria(containerRef);
 

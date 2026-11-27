@@ -12,7 +12,7 @@ import Textbox from "../../textbox";
 import Button from "../../button/__next__";
 import Icon from "../../icon";
 import Typography from "../../typography";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 
 type PaginationButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
@@ -86,7 +86,7 @@ const PaginationNavigation = ({
   >(currentPage);
   const previousRef = useRef<PaginationButtonRef>(null);
   const nextRef = useRef<PaginationButtonRef>(null);
-  const { current: currentPageDescriptionId } = useRef(guid());
+  const currentPageDescriptionId = useIdPolyfill();
 
   const hasNavigationButtons = totalPages > 1;
   const showFirst = currentPage > 1 && showFirstAndLastButtons;

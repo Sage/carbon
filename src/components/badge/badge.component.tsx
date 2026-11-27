@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { MarginProps } from "styled-system";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { StyledBadgeWrapper, StyledCounter, StyledBadge } from "./badge.style";
@@ -6,7 +6,7 @@ import Icon from "../icon";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import Logger from "../../__internal__/utils/logger";
 
 let deprecateOnClickTriggered = false;
@@ -69,7 +69,8 @@ export const Badge = ({
 
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const { current: uniqueId } = useRef(id || guid());
+  const generatedUniqueId = useIdPolyfill();
+  const uniqueId = id || generatedUniqueId;
 
   let shouldDisplayBadge = true;
   const isButton = onClick && size !== "small";

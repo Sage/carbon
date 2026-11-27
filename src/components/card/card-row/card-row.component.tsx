@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { PaddingProps } from "styled-system";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import StyledCardRow from "./card-row.style";
@@ -6,7 +6,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
 import { useCardContext } from "../__internal__/card.context";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 
 export interface CardRowProps extends PaddingProps, TagProps {
   /** Child nodes */
@@ -16,11 +16,11 @@ export interface CardRowProps extends PaddingProps, TagProps {
 /** @deprecated `CardRow` has been deprecated. */
 const CardRow = ({ children, ...rest }: CardRowProps) => {
   const { spacing } = useCardContext();
-  const id = useRef(guid());
+  const id = useIdPolyfill();
 
   return (
     <StyledCardRow
-      id={id.current}
+      id={id}
       spacing={spacing}
       {...filterStyledSystemPaddingProps(rest)}
       {...tagComponent("card-row", { "data-element": "card-row", ...rest })}

@@ -1,9 +1,8 @@
-import { useRef } from "react";
-import createGuid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../useIdPolyfill";
 
 export default (id?: string, name?: string): string[] => {
-  const createdId = useRef<string>(createGuid());
-  const createdName = useRef<string>(createGuid());
+  const createdId = useIdPolyfill();
+  const createdName = useIdPolyfill();
 
-  return [id || createdId.current, name || createdName.current];
+  return [id || createdId, name || createdName];
 };

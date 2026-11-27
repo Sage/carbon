@@ -8,12 +8,12 @@ import {
 } from "@testing-library/react";
 import Portal from ".";
 
-import guid from "../../__internal__/utils/helpers/guid";
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
 
-const mockedGuid = "guid-12345";
-jest.mock("../../__internal__/utils/helpers/guid");
-
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+const mockedGuid = "mocked-use-id-123";
 
 test("renders a portal entrance and exit with a unique matching ID", () => {
   render(<Portal />);

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import invariant from "invariant";
 
-import createGuid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import usePrevious from "../../hooks/__internal__/usePrevious";
 import Icon from "../icon";
 import {
@@ -107,9 +107,9 @@ export const Drawer = ({
     deprecatedDefaultExpandedWarn = true;
   }
 
-  const guid = useRef(createGuid());
-  const sidebarId = `DrawerSidebar_${guid.current}`;
-  const titleId = `DrawerTitle_${guid.current}`;
+  const guid = useIdPolyfill();
+  const sidebarId = `DrawerSidebar_${guid}`;
+  const titleId = `DrawerTitle_${guid}`;
   const drawerSidebarContentRef = useRef<HTMLDivElement | null>(null);
   const scrollableContentRef = useRef<HTMLDivElement | null>(null);
 

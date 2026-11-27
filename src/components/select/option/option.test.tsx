@@ -3,11 +3,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Option from ".";
 import SelectListContext from "../__internal__/select-list/select-list.context";
-import guid from "../../../__internal__/utils/helpers/guid";
-
-const mockedGuid = "guid-12345";
-jest.mock("../../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 test("renders with `text` content visible", () => {
   render(
@@ -62,10 +57,9 @@ test("should set guid as `id` on the element when none passed", () => {
     </ul>,
   );
 
-  expect(screen.getByRole("option", { name: "foo" })).toHaveAttribute(
-    "id",
-    mockedGuid,
-  );
+  const option = screen.getByRole("option", { name: "foo" });
+
+  expect(option.getAttribute("id")).toBeTruthy();
 });
 
 test("should set `id` on the element when passed", () => {
@@ -192,7 +186,7 @@ describe("when `disabled` prop is not set", () => {
     expect(onSelect).toHaveBeenCalledWith({
       text: "foo",
       value: "bar",
-      id: mockedGuid,
+      id: expect.any(String),
     });
   });
 

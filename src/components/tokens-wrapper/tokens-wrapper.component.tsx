@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import TokensWrapperContext from "./__internal__/context";
 import STATIC_TOKENS_CSS from "./__internal__/static-tokens";
 import useModeSwitcher from "./__internal__/hooks/useModeSwitcher";
@@ -49,9 +49,8 @@ export const TokensWrapper = ({
   modeOverride,
   overrides,
 }: TokenWrapperProps) => {
-  const wrapperId = useRef<string>(guid());
+  const wrapperIdValue = useIdPolyfill();
   const modePreference = useModeSwitcher(modeOverride);
-  const { current: wrapperIdValue } = wrapperId;
 
   const modeProps = modeSupportOptIn
     ? {

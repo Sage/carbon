@@ -24,7 +24,7 @@ import NextSelectList, {
   SelectListOnSelectData,
 } from "../__internal__/select-list/__next__";
 import combineRefs from "../../../__internal__/utils/helpers/combine-refs";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
@@ -216,7 +216,7 @@ export const SimpleSelect = React.forwardRef<
     },
     ref,
   ) => {
-    const selectListId = useRef(guid());
+    const selectListId = useIdPolyfill();
     const containerRef = useRef<HTMLDivElement>(null);
     const filterTimer = useRef<number | undefined>(undefined);
     const isMouseDownReported = useRef<boolean>();
@@ -229,9 +229,10 @@ export const SimpleSelect = React.forwardRef<
     const [selectedValue, setSelectedValue] = useState<
       string | Record<string, unknown> | undefined
     >(value);
-    const inputId = useRef(id || guid());
+    const generatedInputId = useIdPolyfill();
+    const inputId = id || generatedInputId;
     const { labelId } = useInputAccessibility({
-      id: inputId.current,
+      id: inputId,
       label,
     });
     const focusTimer = useRef<number | undefined>(undefined);
@@ -495,7 +496,7 @@ export const SimpleSelect = React.forwardRef<
 
     function getTextboxProps() {
       return {
-        id: inputId.current,
+        id: inputId,
         name,
         disabled,
         readOnly,
@@ -537,7 +538,7 @@ export const SimpleSelect = React.forwardRef<
       >
         <NextSelectList
           open={isOpen}
-          id={selectListId.current}
+          id={selectListId}
           labelId={labelId}
           size={size}
           maxHeight={

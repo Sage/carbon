@@ -18,14 +18,8 @@ import Button from "../button/__next__";
 import { Table, TableBody, TableRow, TableCell } from "../table";
 import Icon from "../icon";
 import iconUnicodes from "../icon/icon-unicodes";
-import guid from "../../__internal__/utils/helpers/guid";
 import TokensWrapper from "../tokens-wrapper";
 import Dialog from "../dialog";
-
-jest.mock("../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345",
-);
 
 beforeAll(() => {
   jest.useFakeTimers();

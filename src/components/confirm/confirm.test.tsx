@@ -3,8 +3,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Confirm from "../confirm";
 
-jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
-
 test("should render the component with expected title and subtitle", () => {
   render(
     <Confirm open title="Title" subtitle="Subtitle" onConfirm={() => {}} />,
@@ -211,10 +209,11 @@ test("should render with aria-labelledby set to the title's id when title and ic
   render(
     <Confirm open title="Title" iconType="warning" onConfirm={() => {}} />,
   );
-  expect(screen.getByText("Title")).toHaveAttribute("id", "guid-12345");
+  const title = screen.getByText("Title");
+  expect(title.getAttribute("id")).toBeTruthy();
   expect(screen.getByRole("alertdialog")).toHaveAttribute(
     "aria-labelledby",
-    "guid-12345",
+    title.getAttribute("id"),
   );
 });
 
@@ -229,9 +228,10 @@ test("should render with aria-describedby set to the subtitle's id when subtitle
     />,
   );
 
-  expect(screen.getByText("Subtitle")).toHaveAttribute("id", "guid-12345");
+  const subtitle = screen.getByText("Subtitle");
+  expect(subtitle.getAttribute("id")).toBeTruthy();
   expect(screen.getByRole("alertdialog")).toHaveAttribute(
     "aria-describedby",
-    "guid-12345",
+    subtitle.getAttribute("id"),
   );
 });

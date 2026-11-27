@@ -5,7 +5,7 @@ import {
   MenuItemContext,
   PopoverMenuContext,
 } from "../contexts";
-import guid from "../../utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import combineRefs from "../../utils/helpers/combine-refs";
 import {
   menuItemLayout,
@@ -74,7 +74,8 @@ export const MenuOptionItemBase = ({
 }: MenuOptionItemProps) => {
   const { size, isSubmenu } = useContext(PopoverMenuContext);
   const { headingId } = useContext(MenuHeadingContext) ?? {};
-  const itemId = useRef(id ?? `popover-menu-item-${guid()}`).current;
+  const generatedItemId = useIdPolyfill();
+  const itemId = id ?? `popover-menu-item-${generatedItemId}`;
   const ref = useRef<HTMLLIElement | null>(null);
   const describedBy = [ariaDescribedBy, headingId].filter(Boolean).join(" ");
 

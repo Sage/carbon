@@ -5,12 +5,6 @@ import userEvent from "@testing-library/user-event";
 import FlatTableCheckbox, {
   FlatTableCheckboxProps,
 } from "./flat-table-checkbox.component";
-import guid from "../../../__internal__/utils/helpers/guid";
-
-jest.mock("../../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345",
-);
 
 interface ControlledCheckboxProps
   extends Omit<FlatTableCheckboxProps, "checked"> {

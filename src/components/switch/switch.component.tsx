@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 import { MarginProps } from "styled-system";
 
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -162,11 +162,13 @@ export const SwitchComponent = React.forwardRef<HTMLInputElement, SwitchProps>(
     const effectiveProcessingLabel =
       processingLabel ?? locale.switch.processingLabel();
 
-    const internalId = useRef(guid());
-    const inputId = id || internalId.current;
+    const internalId = useIdPolyfill();
+    const inputId = id || internalId;
 
-    const labelId = useRef(`${guid()}-label`);
-    const inputHintId = useRef(`${guid()}-hint`);
+    const generatedLabelId = useIdPolyfill();
+    const labelId = `${generatedLabelId}-label`;
+    const generatedInputHintId = useIdPolyfill();
+    const inputHintId = `${generatedInputHintId}-hint`;
 
     const effectiveInputHint = inputHint ?? labelHelp;
 
@@ -204,7 +206,7 @@ export const SwitchComponent = React.forwardRef<HTMLInputElement, SwitchProps>(
                 $labelSpacing={labelInline ? labelSpacing : undefined}
                 $required={required}
                 $size={size}
-                id={labelId.current}
+                id={labelId}
               >
                 {label}
               </StyledSwitchLabel>
@@ -213,7 +215,7 @@ export const SwitchComponent = React.forwardRef<HTMLInputElement, SwitchProps>(
             {effectiveInputHint && (
               <HintText
                 data-element="input-hint"
-                id={inputHintId.current}
+                id={inputHintId}
                 isLarge={size === "large"}
                 marginTop="2px"
               >
@@ -250,9 +252,7 @@ export const SwitchComponent = React.forwardRef<HTMLInputElement, SwitchProps>(
               onChange={onChange}
               onBlur={onBlur}
               onFocus={onFocus}
-              aria-describedby={
-                effectiveInputHint ? inputHintId.current : undefined
-              }
+              aria-describedby={effectiveInputHint ? inputHintId : undefined}
               required={required}
             />
             {loading ? (

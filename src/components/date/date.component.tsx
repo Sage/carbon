@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useMemo, useRef } from "react";
 
 import { formattedValue, isDateValid } from "./__internal__/utils/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -22,7 +16,7 @@ import DateRangeContext, {
   InputName,
 } from "../date-range/__internal__/date-range.context";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import FieldsetContext from "../fieldset/__internal__/fieldset.context";
 import DatePickerTrigger from "./__internal__/date-picker-trigger/date-picker-trigger.component";
@@ -211,8 +205,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       formats,
       value,
     });
-    const [pickerTabGuardId] = useState(() => guid());
-    const [pickerId] = useState(() => `date-picker-${guid()}`);
+    const pickerTabGuardId = useIdPolyfill();
+    const generatedPickerId = useIdPolyfill();
+    const pickerId = `date-picker-${generatedPickerId}`;
     const showValidationMessageOnTop =
       validationMessagePositionTopContext ?? validationMessagePositionTop;
 

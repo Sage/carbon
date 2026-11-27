@@ -3,11 +3,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import OptionRow from "./option-row.component";
 import SelectListContext from "../__internal__/select-list/select-list.context";
-import guid from "../../../__internal__/utils/helpers/guid";
 
-const mockedGuid = "guid-12345";
-jest.mock("../../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
+
+const mockedGuid = "mocked-use-id-123";
 
 test("renders with children content visible", () => {
   render(
@@ -48,10 +50,9 @@ test("should set guid as `id` on the element when none passed", () => {
     </table>,
   );
 
-  expect(screen.getByRole("option", { name: "bar" })).toHaveAttribute(
-    "id",
-    mockedGuid,
-  );
+  const option = screen.getByRole("option", { name: "bar" });
+
+  expect(option.getAttribute("id")).toBe(mockedGuid);
 });
 
 test("should set custom `id` on the element when passed", () => {

@@ -1,5 +1,5 @@
-import React, { useContext, useRef } from "react";
-import guid from "../../../__internal__/utils/helpers/guid";
+import React, { useContext } from "react";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import StyledOption from "./option.style";
 import SelectListContext from "../__internal__/select-list/select-list.context";
@@ -87,7 +87,8 @@ const Option = React.forwardRef(
   ) => {
     const selectListContext = useContext(SelectListContext);
     let isSelected = selectListContext.currentOptionsListIndex === index;
-    const internalIdRef = useRef(id || guid());
+    const generatedInternalIdRef = useIdPolyfill();
+    const internalIdRef = id || generatedInternalIdRef;
     const {
       variant: _variant,
       borderColor: _borderColor,
@@ -108,7 +109,7 @@ const Option = React.forwardRef(
         return;
       }
       if (!onClick) {
-        onSelect?.({ text, value, id: internalIdRef.current });
+        onSelect?.({ text, value, id: internalIdRef });
       } else {
         onSelect?.({});
         onClick(value);
@@ -117,7 +118,7 @@ const Option = React.forwardRef(
 
     return (
       <StyledOption
-        id={internalIdRef.current}
+        id={internalIdRef}
         ref={ref}
         aria-selected={isSelected}
         aria-disabled={disabled}

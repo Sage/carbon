@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { PaddingProps } from "styled-system";
 
 import { TableBorderSize, TableCellAlign } from "..";
@@ -8,7 +8,7 @@ import {
   StyledCellContent,
 } from "./flat-table-cell.style";
 import Icon from "../../icon";
-import guid from "../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../hooks/__internal__/useIdPolyfill";
 import useTableCell from "../__internal__/use-table-cell";
 
 export interface FlatTableCellProps extends PaddingProps, TagProps {
@@ -48,7 +48,8 @@ export const FlatTableCell = ({
   "data-role": dataRole,
   ...rest
 }: FlatTableCellProps) => {
-  const internalId = useRef(id || guid());
+  const generatedInternalId = useIdPolyfill();
+  const internalId = id || generatedInternalId;
 
   const {
     leftPosition,
@@ -63,7 +64,7 @@ export const FlatTableCell = ({
     isInSelectedRow,
     tabIndex,
     bringToFront,
-  } = useTableCell(internalId.current);
+  } = useTableCell(internalId);
 
   const handleOnFocus = (ev: React.FocusEvent<HTMLElement>) => {
     bringToFront(ev, "TD");
@@ -91,7 +92,7 @@ export const FlatTableCell = ({
       data-selected={isInSelectedRow && isExpandableCell}
       data-highlighted={isInHighlightedRow && isExpandableCell}
       {...rest}
-      id={internalId.current}
+      id={internalId}
       onFocus={handleOnFocus}
     >
       <StyledCellContent

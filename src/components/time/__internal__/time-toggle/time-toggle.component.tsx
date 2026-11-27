@@ -1,5 +1,5 @@
-import React, { useRef, useCallback } from "react";
-import guid from "../../../../__internal__/utils/helpers/guid";
+import React, { useCallback } from "react";
+import useIdPolyfill from "../../../../hooks/__internal__/useIdPolyfill";
 import { TagProps } from "../../../../__internal__/utils/helpers/tags";
 import { ToggleValue } from "../../time.component";
 import useLocale from "../../../../hooks/__internal__/useLocale";
@@ -30,7 +30,7 @@ const Toggle = ({
   const locale = useLocale();
   const amText = locale.time.amText();
   const pmText = locale.time.pmText();
-  const internalId = useRef(guid());
+  const internalId = useIdPolyfill();
   const { wrapperProps, amToggleProps, pmToggleProps } =
     toggleProps || /* istanbul ignore next */ {};
 
@@ -50,7 +50,7 @@ const Toggle = ({
       {...wrapperProps}
       data-component="time-button-toggle-group"
       m="0px"
-      id={internalId.current}
+      id={internalId}
       onChange={handleChange}
       value={toggleValue}
       disabled={disabled}

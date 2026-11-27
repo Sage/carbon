@@ -9,7 +9,7 @@ import { MarginProps } from "styled-system";
 import { ValidationProps } from "../../__internal__/validations";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { Sizes } from "../../__internal__/legacy-input/input-presentation.component";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -151,11 +151,11 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       error: minutesError,
       warning: minutesWarning,
     } = minutesInputProps;
-    const internalHrsId = useRef(hoursInputId || guid());
-    const internalMinsId = useRef(minutesInputId || guid());
-    const internalId = useRef(
-      `${internalHrsId.current}-${internalMinsId.current}`,
-    );
+    const generatedHrsId = useIdPolyfill();
+    const internalHrsId = hoursInputId || generatedHrsId;
+    const generatedMinsId = useIdPolyfill();
+    const internalMinsId = minutesInputId || generatedMinsId;
+    const internalId = `${internalHrsId}-${internalMinsId}`;
     const {
       hours: hourValue,
       minutes: minuteValue,
@@ -264,7 +264,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       onChange({
         target: {
           name,
-          id: internalId.current,
+          id: internalId,
           value: { hours, minutes, period, formattedHours, formattedMinutes },
         },
       });
@@ -277,7 +277,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       onChange({
         target: {
           name,
-          id: internalId.current,
+          id: internalId,
           value: {
             hours,
             minutes,
@@ -315,7 +315,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
 
     return (
       <Fieldset
-        id={internalId.current}
+        id={internalId}
         legend={legend || label}
         legendHint={legendHint || inputHint}
         size={size}
@@ -341,7 +341,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 $isReadOnly={readOnly}
               >
                 <Label
-                  htmlFor={internalHrsId.current}
+                  htmlFor={internalHrsId}
                   size={size}
                   disabled={disabled}
                   readOnly={readOnly}
@@ -356,7 +356,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                   value={hourValue}
                   onChange={(ev) => handleChange(ev, "hrs")}
                   onBlur={handleBlur}
-                  id={internalHrsId.current}
+                  id={internalHrsId}
                   size={size}
                   error={!!hoursError}
                   warning={!!hoursWarning}
@@ -395,7 +395,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 $isReadOnly={readOnly}
               >
                 <Label
-                  htmlFor={internalMinsId.current}
+                  htmlFor={internalMinsId}
                   size={size}
                   disabled={disabled}
                   readOnly={readOnly}
@@ -410,7 +410,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                   value={minuteValue}
                   onChange={(ev) => handleChange(ev, "mins")}
                   onBlur={handleBlur}
-                  id={internalMinsId.current}
+                  id={internalMinsId}
                   size={size}
                   error={!!minutesError}
                   warning={!!minutesWarning}

@@ -1,15 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import useUniqueId from ".";
-import createGuid from "../../../__internal__/utils/helpers/guid";
-
-const guid = "guid-12345";
-
-jest.mock("../../../__internal__/utils/helpers/guid");
-
-(createGuid as jest.MockedFunction<typeof createGuid>).mockImplementation(
-  () => guid,
-);
 
 interface Props {
   id?: string;
@@ -24,21 +15,29 @@ const MockComponent = (props: Props = {}): JSX.Element => {
 test("provides unique id and name when no values passed in", () => {
   render(<MockComponent />);
   const inputElement = screen.getByRole("textbox");
-  expect(inputElement).toHaveAttribute("id", guid);
-  expect(inputElement).toHaveAttribute("name", guid);
+  expect(inputElement.getAttribute("id")).toBeTruthy();
+  expect(inputElement.getAttribute("name")).toBeTruthy();
+});
+
+test("provides distinct id and name values", () => {
+  render(<MockComponent />);
+  const inputElement = screen.getByRole("textbox");
+  expect(inputElement.getAttribute("id")).not.toBe(
+    inputElement.getAttribute("name"),
+  );
 });
 
 test("does not provide unique id when id is passed in", () => {
   render(<MockComponent id="foo" />);
   const inputElement = screen.getByRole("textbox");
   expect(inputElement).toHaveAttribute("id", "foo");
-  expect(inputElement).toHaveAttribute("name", guid);
+  expect(inputElement.getAttribute("name")).toBeTruthy();
 });
 
 test("does not provide unique name when name is passed in", () => {
   render(<MockComponent name="foo" />);
   const inputElement = screen.getByRole("textbox");
-  expect(inputElement).toHaveAttribute("id", guid);
+  expect(inputElement.getAttribute("id")).toBeTruthy();
   expect(inputElement).toHaveAttribute("name", "foo");
 });
 

@@ -10,7 +10,7 @@ import {
   filterStyledSystemMarginProps,
 } from "../../../../style/utils";
 import useUniqueId from "../../../../hooks/__internal__/useUniqueId";
-import guid from "../../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../../hooks/__internal__/useIdPolyfill";
 import useInputAccessibility from "../../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import ErrorBorder from "../../../../__internal__/error-border/error-border.style";
 import { TagProps } from "../../../../__internal__/utils/helpers/tags";
@@ -177,8 +177,8 @@ export const TextInput = React.forwardRef(
       warning,
       label,
     });
-    const hintId = useRef(guid());
-    const inputHintId = inputHint ? hintId.current : undefined;
+    const hintId = useIdPolyfill();
+    const inputHintId = inputHint ? hintId : undefined;
     const { prefixId: contextPrefixId } = useContext(selectTextboxContext);
     // If SelectTextbox provides a prefix id (from simple select currently), use that, otherwise generate one when a prefix is rendered by the input.
     const inputPrefixId =

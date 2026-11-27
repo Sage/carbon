@@ -30,7 +30,7 @@ import ResultsAnnouncement from "../../../../../__internal__/results-announcemen
 import useLocale from "../../../../../hooks/__internal__/useLocale";
 import useModalManager from "../../../../../hooks/__internal__/useModalManager";
 import isExpectedOption from "../../utils/is-expected-option";
-import guid from "../../../../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../../../../hooks/__internal__/useIdPolyfill";
 import useSelectListVirtualization, {
   type SelectVirtualRow,
 } from "./use-select-list-virtualization";
@@ -314,7 +314,8 @@ const SelectList = ({
     return () => list.removeEventListener("scroll", handleScroll);
   }, [open, onListScrollBottom]);
 
-  const listId = useRef(id ?? `select-list-${guid()}`).current;
+  const generatedListId = useIdPolyfill();
+  const listId = id ?? `select-list-${generatedListId}`;
   const groups = useMemo(
     () => buildOptionGroups(children, selectedValue),
     [children, selectedValue],

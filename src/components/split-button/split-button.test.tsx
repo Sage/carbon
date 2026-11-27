@@ -14,7 +14,10 @@ import {
   FlatTableCell,
 } from "../flat-table";
 
-jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
 
 testStyledSystemMargin(
   (props) => (

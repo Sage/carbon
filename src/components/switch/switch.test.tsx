@@ -6,12 +6,17 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
-jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-123");
-
 jest.mock("../../hooks/useMediaQuery", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
+
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useId: jest.fn(() => "mocked-use-id-123"),
+}));
+
+const mockedGuid = "mocked-use-id-123";
 
 const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
   typeof useMediaQuery
@@ -485,21 +490,18 @@ describe("Switch", () => {
       expect(screen.queryByTestId("hint-text")).not.toBeInTheDocument();
     });
 
-    it("sets the hint text id to inputHintId.current", () => {
-      // guid mock returns "guid-123" for every call;
-      // internalId = "guid-123", labelId = "guid-123-label", inputHintId = "guid-123-hint"
+    it("sets the hint text id to a generated value", () => {
       renderSwitch({ inputHint: "Hint" });
-      expect(screen.getByTestId("hint-text")).toHaveAttribute(
-        "id",
-        "guid-123-hint",
+      expect(screen.getByTestId("hint-text").getAttribute("id")).toBe(
+        `${mockedGuid}-hint`,
       );
     });
 
-    it("sets aria-describedby on the input to inputHintId.current when inputHint is provided", () => {
+    it("sets aria-describedby on the input to the hint text id when inputHint is provided", () => {
       renderSwitch({ inputHint: "Hint" });
       expect(screen.getByRole("switch")).toHaveAttribute(
         "aria-describedby",
-        "guid-123-hint",
+        screen.getByTestId("hint-text").getAttribute("id"),
       );
     });
 

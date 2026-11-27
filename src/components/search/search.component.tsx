@@ -28,7 +28,7 @@ import {
 } from "../../__internal__/popover-menu";
 import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import ResultsAnnouncement from "../../__internal__/results-announcement/results-announcement.component";
-import guid from "../../__internal__/utils/helpers/guid";
+import useIdPolyfill from "../../hooks/__internal__/useIdPolyfill";
 
 const AssistiveHint = styled.span`
   display: none;
@@ -214,7 +214,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     ref,
   ) => {
     const locale = useLocale();
-    const assistiveHintId = useRef(guid());
+    const assistiveHintId = useIdPolyfill();
     const inputRef = useRef<HTMLInputElement | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
@@ -399,7 +399,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         {...popoverControlProps}
         // only pass the aria-describedby prop to the input when the popoverControlProps are present, as this indicates that the input is being rendered within a popover menu
         {...(popoverControlProps && {
-          "aria-describedby": assistiveHintId.current,
+          "aria-describedby": assistiveHintId,
         })}
         inputIcon={
           <>
@@ -555,7 +555,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
               popoverControlProps,
               inputWidthOverride: 100,
             })}
-            <AssistiveHint id={assistiveHintId.current}>
+            <AssistiveHint id={assistiveHintId}>
               {locale.search.assistiveHint?.()}
             </AssistiveHint>
             <ResultsAnnouncement
