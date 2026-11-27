@@ -1,20 +1,29 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
 
 import * as OptionStories from "../option/option.stories";
-import * as SelectTextboxStories from "../__internal__/select-textbox/select-textbox.stories";
 import * as MultiSelectStories from "./multi-select.stories";
 
 <Meta of={MultiSelectStories} />
 
-# MultiSelect
+# Multi Select
 
-Select multiple options from the drop-down menu. MultiSelect is a component that allows to choose multiple options from the drop-down list.
+<a
+  target="_blank"
+  href="https://designsystem.sage.com/fusion/pages/components/dropdowns/multi-dropdown"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Select multiple options from the drop-down menu. Selected values appear as removable pills.
 
 ## Contents
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Keyboard interaction](#keyboard-interaction)
 - [Validation states](#validation-states)
 - [Testing](#testing)
 - [Props](#props)
@@ -23,95 +32,39 @@ Select multiple options from the drop-down menu. MultiSelect is a component that
 ## Quick Start
 
 ```javascript
-import { MultiSelect, Option } from "carbon-react/lib/components/select";
+import {
+  MultiSelect,
+  Option,
+  ActionOption,
+  OptionGroupHeader,
+} from "carbon-react/lib/components/select";
 ```
 
-Always insert `Option` Components inside the `MultiSelect`, analogous to the `<select>` and `<option>` HTML Elements.
+`MultiSelect` is controlled: pass an array of selected `value`s and update it from `onChange`. Use `Option` children to build the list,
+`OptionGroupHeader` to create labelled sections, and `ActionOption` for an action that does not change the selected values.
+Give dynamically generated options stable React keys so their identity and accessible IDs remain stable when the list changes.
 
-If you type printable characters in the Textbox, you can filter through the existing options leaving only those that match the text you typed.
+Typing in the input filters the available options by their `text` value.
+
+Use `inputHint` to tell people what to do when no option is selected. 
 
 ## Examples
 
-### Default
+### Playground
 
-<Canvas of={MultiSelectStories.Default} />
+Use the controls to explore supported sizes, validation states, loading, positioning and virtualisation.
 
-### List placement
+<Canvas of={MultiSelectStories.Playground} />
 
-By default, the placement of the select list is below the input element and will automatically adjust its position if there is not enough space.
-However, you can use `listPlacement` prop to manually set the initial position of the select list relative to the input element.
-
-<Canvas of={MultiSelectStories.ListPlacement} />
-
-### List height
-
-You can use `listMaxHeight` prop to override default max height value of select list.
-
-<Canvas of={MultiSelectStories.ListHeight} />
-
-### List width
-
-You can use `listWidth` prop to override the width of the select list. By default the list
-will have the same width as the input.
-
-<Canvas of={MultiSelectStories.ListWidth} />
-
-### Open on focus
-
-<Canvas of={MultiSelectStories.OpenOnFocus} />
-
-### Disabled
-
-<Canvas of={MultiSelectStories.Disabled} />
-
-### Read Only
-
-<Canvas of={MultiSelectStories.Readonly} />
-
-### With multiple columns:
-
-<Canvas of={MultiSelectStories.WithMultipleColumns} />
-
-### Required
-
-You can use the `required` prop to indicate if the field is mandatory.
-
-<Canvas of={MultiSelectStories.Required} />
-
-### With object as value
-
-Option values could be passed as objects, useful when custom data is associated with an option.
-When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
-If there is no `id` prop specified on an object, then the exact objects will be compared.
-
-<Canvas of={MultiSelectStories.WithObjectAsValue} />
-
-### With isLoading prop
-
-When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
-
-<Canvas of={MultiSelectStories.WithIsLoadingProp} />
+<Controls of={MultiSelectStories.Playground} />
 
 ### Custom colored Pills
 
-It's possible to change the appearance of the selected Pills by using the `borderColor` and `fill` props on `Option` components.
+Change the appearance of selected pills with the `variant` and `fill` props on `Option` components.
 
 See [Colors](../?path=/docs/documentation-colors--docs) for more information on usable colors
 
 <Canvas of={MultiSelectStories.WithCustomColoredPills} />
-
-### Infinite scroll example
-
-The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
-This prop will be called every time a user scrolls to the bottom of the list.
-
-<Canvas of={MultiSelectStories.WithInfiniteScroll} />
-
-### With custom maxWidth
-
-In this example the `maxWidth` prop is 50%.
-
-<Canvas of={MultiSelectStories.WithCustomMaxWidth} />
 
 ### Pills with long text strings
 
@@ -119,6 +72,23 @@ By default the Pill text will wrap when it overflows the input width, you can ov
 setting the `wrapPillText` prop to false.
 
 <Canvas of={MultiSelectStories.PillsWithLongText} />
+
+### Lazy loading
+
+`isLoading` displays a loader at the end of the list while options are fetched. An open list announces loading and newly added
+options to screen readers. The component does not infer whether a request succeeded or failed when loading ends.
+
+<Canvas of={MultiSelectStories.LazyLoading} />
+
+### Infinite scroll example
+
+The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
+The callback is invoked whenever the open list is scrolled to its bottom. Guard against starting duplicate requests while a request
+is already in progress.
+While the list is open, screen readers are informed when loading starts and when additional options are added. MultiSelect does not infer
+whether a request succeeded or failed when loading ends.
+
+<Canvas of={MultiSelectStories.WithInfiniteScroll} />
 
 ### Virtual scrolling
 
@@ -129,6 +99,48 @@ By default this will render 5 not-currently-visible options into the DOM on eith
 be customised if desired using the `virtualScrollOverscan` prop. Higher values will make scrolling smoother but may negatively impact performance.
 
 <Canvas of={MultiSelectStories.Virtualised} />
+
+### Selection confirmed
+
+The `onChange` event includes `selectionConfirmed`, so a consumer can distinguish explicit selection from changes during navigation.
+
+<Canvas of={MultiSelectStories.SelectionConfirmedStory} />
+
+### Dynamically adding options, and the importance of the `key` property
+
+Provide stable keys when dynamically adding or reordering `Option` children. The component uses the
+[aria-activedescendant attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant)
+to expose the active option to assistive technologies. Stable React keys allow each rendered option to retain that identity as the
+list changes. An explicit `id` can also be supplied when a stable DOM ID is required by an integration.
+
+<Canvas
+  name="dynamically adding options"
+  of={MultiSelectStories.SelectWithDynamicallyAddedOption}
+/>
+
+### Adding an option from a dialog
+
+`ActionOption` accepts the same props and renders the same option element as `Option`, with a distinct action treatment. Its `onClick`
+callback runs without changing the selected values. This example opens a dialog, adds the submitted value with a stable key, and uses
+the MultiSelect's forwarded input ref to restore focus when the dialog closes. The flow can be repeated to add multiple options.
+
+<Canvas of={MultiSelectStories.AddOptionFromDialog} />
+
+### Complex compositions
+
+`Option`s support rich content such as leading icons, prefixes, subtext and portraits, as well as dividers between
+items. You can also pass a composed layout to the `OptionGroupHeader` via its `children` prop, which overrides any
+values passed to the `icon` and `label` props.
+
+<Canvas of={MultiSelectStories.ComplexCompositions} />
+
+## Keyboard interaction
+
+- Enter, Arrow Up, Arrow Down, Home and End open a closed MultiSelect.
+- Arrow keys move through enabled options. Home and End move to the first and last enabled options.
+- Enter selects the active option. Selected values can also be removed using their pill controls.
+- Escape closes the list and returns focus to the input.
+- Typing, including spaces, filters options using each Option's `text` value.
 
 ## Validation States
 
@@ -153,7 +165,7 @@ describe("Select tests", () => {
   test("should render", () => {
     // your test code here
   });
-})
+});
 ```
 
 ## Props
@@ -162,27 +174,51 @@ describe("Select tests", () => {
 
 <ArgTypes of={MultiSelectStories} />
 
-Due to the `Textbox` component being used internally by the `MultiSelect` component, most of the `Textbox` props are applicable to `MultiSelect`
-
-<ArgTypes of={SelectTextboxStories} />
-
-**Any other supplied props will be provided to the underlying HTML input element**
+Standard supported input attributes are forwarded to the underlying input. Deprecated props remain type compatible for migration
+but have no effect.
 
 ### Props of the Option Component
 
-<ArgTypes of={OptionStories} />
+<ArgTypes
+  of={OptionStories}
+  include={[
+    "children",
+    "disabled",
+    "divider",
+    "id",
+    "leading",
+    "prefix",
+    "subtext",
+    "text",
+    "value",
+  ]}
+/>
 
 ## Translation keys
 
-The following keys are available to override the translations for this component by passing in a custom locale object to the
-[i18nProvider](../?path=/docs/documentation-i18n--docs).
+The following keys can be overridden through the [i18nProvider](../?path=/docs/documentation-i18n--docs).
 
 <TranslationKeysTable
   translationData={[
     {
-      name: "select.placeholder",
-      description: "The text for the input component placeholder",
+      name: "select.loadingOptions",
+      description:
+        "Screen reader announcement when MultiSelect starts loading an empty list.",
       type: "func",
+      returnType: "string",
+    },
+    {
+      name: "select.loadingMoreOptions",
+      description:
+        "Screen reader announcement when MultiSelect starts loading more options into a list that already has options.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "select.newOptions",
+      description:
+        "Screen reader announcement when options are added to an open list. Receives the number added so singular and plural forms can be translated.",
+      type: "func(count: number)",
       returnType: "string",
     },
   ]}

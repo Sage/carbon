@@ -21,7 +21,6 @@ description: Carbon MultiSelect component props and usage examples.
 | about | string \| undefined | No |  |  |  |  |  |
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| align | "left" \| "right" \| undefined | No | left \| right |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
 | ariaLabel | string \| undefined | No |  |  |  | Prop to specify the aria-label attribute of the component input |  |
 | ariaLabelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the component input |  |
@@ -41,7 +40,6 @@ description: Carbon MultiSelect component props and usage examples.
 | dangerouslySetInnerHTML | { __html: string \| TrustedHTML; } \| undefined | No |  |  |  |  |  |
 | datatype | string \| undefined | No |  |  |  |  |  |
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
-| deferTimeout | number \| undefined | No |  |  |  | Integer to determine a timeout for the deferred callback |  |
 | dir | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
@@ -59,14 +57,9 @@ description: Carbon MultiSelect component props and usage examples.
 | formTarget | string \| undefined | No |  |  |  |  |  |
 | height | string \| number \| undefined | No |  |  |  |  |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
-| iconOnClick | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Optional handler for click event on Textbox icon |  |
-| iconOnMouseDown | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Optional handler for mouse down event on Textbox icon |  |
-| iconTabIndex | number \| undefined | No |  |  |  | Overrides the default tabindex of the component |  |
 | id | string \| undefined | No |  |  |  | Id attribute of the input element |  |
-| info | string \| boolean \| undefined | No |  |  |  | [Legacy] Indicate additional information. |  |
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
-| inputIcon | string \| number \| boolean \| React.ReactElement<any, string \| React.JSXElementConstructor<any>> \| Iterable<React.ReactNode> \| React.ReactPortal \| null \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No | email \| none \| search \| text \| tel \| url \| numeric \| decimal |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
@@ -77,15 +70,10 @@ description: Carbon MultiSelect component props and usage examples.
 | itemScope | boolean \| undefined | No |  |  |  |  |  |
 | itemType | string \| undefined | No |  |  |  |  |  |
 | label | string \| undefined | No |  |  |  | Label content |  |
-| labelHelp | React.ReactNode | No |  |  |  | [Legacy] A message that the Help component will display |  |
 | labelInline | boolean \| undefined | No |  |  |  | [Legacy] When true label is inline |  |
-| labelWidth | number \| undefined | No |  |  |  | [Legacy] Label width |  |
 | lang | string \| undefined | No |  |  |  |  |  |
-| leftChildren | React.ReactNode | No |  |  |  | Additional child elements to display before the input |  |
 | list | string \| undefined | No |  |  |  |  |  |
-| listMaxHeight | number \| undefined | No |  |  |  | Maximum list height - defaults to 180 |  |
-| listPlacement | ListPlacement \| undefined | No | bottom \| top \| top-start \| bottom-start \| top-end \| bottom-end |  |  | Placement of the select list in relation to the input element | "bottom" |
-| listWidth | number \| undefined | No |  |  |  | Override the default width of the list element. Number passed is converted into pixel value |  |
+| listMaxHeight | number \| undefined | No |  |  |  | Maximum list height in pixels. Defaults to five and a half options for the selected size. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
@@ -103,7 +91,6 @@ description: Carbon MultiSelect component props and usage examples.
 | ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
 | mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| multiColumn | boolean \| undefined | No |  |  |  | When true component will work in multi column mode. Children should consist of OptionRow components in this mode |  |
 | multiple | boolean \| undefined | No |  |  |  |  |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
@@ -129,7 +116,6 @@ description: Carbon MultiSelect component props and usage examples.
 | onCanPlayThrough | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayThroughCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onChangeCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onChangeDeferred | ((ev: React.ChangeEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Deferred callback to be called after the onChange event |  |
 | onClick | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on click |  |
 | onClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEnd | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -272,7 +258,6 @@ description: Carbon MultiSelect component props and usage examples.
 | openOnFocus | boolean \| undefined | No |  |  |  | If true the Component opens on focus | false |
 | part | string \| undefined | No |  |  |  |  |  |
 | pattern | string \| undefined | No |  |  |  |  |  |
-| placeholder | string \| undefined | No |  |  |  | Placeholder string to be displayed in input |  |
 | prefix | string \| undefined | No |  |  |  | Emphasized part of the displayed text |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |
@@ -293,9 +278,7 @@ description: Carbon MultiSelect component props and usage examples.
 | suppressContentEditableWarning | boolean \| undefined | No |  |  |  |  |  |
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
-| tableHeader | React.ReactNode | No |  |  |  | SelectList table header, should consist of multiple th elements. Works only in multiColumn mode |  |
 | title | string \| undefined | No |  |  |  |  |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top |  |  | [Legacy] Overrides the default tooltip position |  |
 | translate | "yes" \| "no" \| undefined | No | yes \| no |  |  |  |  |
 | type | HTMLInputTypeAttribute \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
@@ -361,543 +344,65 @@ description: Carbon MultiSelect component props and usage examples.
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | adaptiveLabelBreakpoint | number \| undefined | No |  | Yes | `adaptiveLabelBreakpoint` has been deprecated. It is recommended to use `useMediaQuery` hook to implement adaptive behaviour. Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set |  |  |
-| fieldHelp | React.ReactNode | No |  | Yes | `fieldHelp` has been deprecated, `inputHint` should be used instead. [Legacy] Help content to be displayed under an input. |  |  |
+| align | "left" \| "right" \| undefined | No | left \| right | Yes | `align` no longer has any effect in MultiSelect. |  |  |
+| deferTimeout | number \| undefined | No |  | Yes | `deferTimeout` no longer has any effect in MultiSelect. |  |  |
+| fieldHelp | React.ReactNode | No |  | Yes | `fieldHelp` no longer has any effect in MultiSelect. Use `inputHint` instead. |  |  |
 | helpAriaLabel | string \| undefined | No |  | Yes | `helpAriaLabel` has been deprecated, the functionality will no longer work. |  |  |
+| iconOnClick | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Yes | `iconOnClick` is no longer called by MultiSelect. |  |  |
+| iconOnMouseDown | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | Yes | `iconOnMouseDown` is no longer called by MultiSelect. |  |  |
+| iconTabIndex | number \| undefined | No |  | Yes | `iconTabIndex` no longer has any effect in MultiSelect. |  |  |
+| inert | any | No |  | Yes | `inert` is no longer applied by MultiSelect. |  |  |
+| info | string \| boolean \| undefined | No |  | Yes | `info` no longer has any effect in MultiSelect. |  |  |
+| inputIcon | string \| number \| boolean \| React.ReactElement<any, string \| React.JSXElementConstructor<any>> \| Iterable<React.ReactNode> \| React.ReactPortal \| null \| undefined | No |  | Yes | `inputIcon` no longer has any effect in MultiSelect. |  |  |
+| isRequired | boolean \| undefined | No |  | Yes | `isRequired` no longer has any effect in MultiSelect. Use `required` instead. |  |  |
 | labelAlign | "left" \| "right" \| undefined | No | left \| right | Yes | `labelAlign` has been deprecated, the functionality will no longer work. |  |  |
+| labelHelp | React.ReactNode | No |  | Yes | `labelHelp` no longer has any effect in MultiSelect. Use `inputHint` instead. |  |  |
 | labelSpacing | 1 \| 2 \| undefined | No | 1 \| 2 | Yes | `labelSpacing` has been deprecated, the functionality will no longer work. |  |  |
+| labelWidth | number \| undefined | No |  | Yes | `labelWidth` no longer has any effect in MultiSelect. |  |  |
+| leftChildren | React.ReactNode | No |  | Yes | `leftChildren` no longer has any effect in MultiSelect. |  |  |
+| listPlacement | ListPlacement \| undefined | No | bottom \| top \| top-start \| bottom-start \| top-end \| bottom-end | Yes | `listPlacement` no longer has any effect; the list is positioned automatically. |  |  |
+| listWidth | number \| undefined | No |  | Yes | `listWidth` no longer has any effect in MultiSelect. |  |  |
+| multiColumn | boolean \| undefined | No |  | Yes | `multiColumn` no longer enables multi-column options in MultiSelect. |  |  |
+| onChangeDeferred | ((ev: React.ChangeEvent<HTMLInputElement>) => void) \| undefined | No |  | Yes | `onChangeDeferred` is no longer called by MultiSelect. |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
+| placeholder | string \| undefined | No |  | Yes | `placeholder` no longer has any effect in MultiSelect. |  |  |
 | reverse | boolean \| undefined | No |  | Yes | `reverse` has been deprecated, the functionality will no longer work. |  |  |
+| tableHeader | React.ReactNode | No |  | Yes | `tableHeader` is no longer rendered by MultiSelect. |  |  |
 | tooltipId | string \| undefined | No |  | Yes | `tooltipId` has been deprecated, the functionality will no longer work. |  |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No | left \| right \| bottom \| top | Yes | `tooltipPosition` no longer has any effect in MultiSelect. |  |  |
+| transparent | boolean \| undefined | No |  | Yes | `transparent` no longer has any effect in MultiSelect. |  |  |
 | validationOnLabel | boolean \| undefined | No |  | Yes | `validationOnLabel` has been deprecated, the functionality will no longer work. |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No | copy \| link \| none \| execute \| move \| popup | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### Default
+### Playground
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
+{
+    label: "Color",
+    inputHint: "Select an option",
+    size: "medium",
+    disabled: false,
+    readOnly: false,
+    required: false,
+    isLoading: false,
+    openOnFocus: false,
+    labelInline: false,
+    flipEnabled: true,
+    enableVirtualScroll: false,
+    virtualScrollOverscan: 5,
+    value: [],
   }
-
-  return (
-    <Box height={220}>
-      <MultiSelect
-        name="simple"
-        id="simple"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-}
 ```
 
-
-### List Placement
-
 **Render**
 
 ```tsx
-() => {
-  const [listPlacement, setListPlacement] =
-    useState<MultiSelectProps["listPlacement"]>("bottom-end");
-  const [value, setValue] = useState<string[]>([]);
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: updatedValue } = ev.target;
-
-    if (Array.isArray(updatedValue)) {
-      setValue(updatedValue);
-    }
-  };
-  return (
-    <>
-      <Button mr={1} onClick={() => setListPlacement("top-end")}>
-        Top end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("bottom-end")}>
-        Bottom end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("top-start")}>
-        Top start
-      </Button>
-      <Button onClick={() => setListPlacement("bottom-start")}>
-        Bottom start
-      </Button>
-      <Box my="150px" ml="200px" width="200px">
-        <MultiSelect
-          name="listWidth"
-          id="listWidth"
-          label="color"
-          labelInline
-          listWidth={350}
-          listPlacement={listPlacement}
-          value={value}
-          onChange={handleChange}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-        </MultiSelect>
-      </Box>
-    </>
-  );
-}
-```
-
-
-### List Height
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={500}>
-      <MultiSelect
-        listMaxHeight={2000}
-        name="list height"
-        id="list-height"
-        label="List height"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### List Width
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: updatedValue } = ev.target;
-
-    if (Array.isArray(updatedValue)) {
-      setValue(updatedValue);
-    }
-  };
-  return (
-    <Box height={200} width={200}>
-      <MultiSelect
-        name="listWidth"
-        id="listWidth"
-        label="color"
-        listWidth={350}
-        listPlacement="bottom-start"
-        value={value}
-        onChange={handleChange}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Controlled
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  function clearValue() {
-    setValue([]);
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearValue} mb={2}>
-        clear
-      </Button>
-      <MultiSelect
-        id="controlled"
-        name="controlled"
-        value={value}
-        onChange={onChangeHandler}
-        label="color"
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Open on Focus
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="openOnFocus"
-        id="openOnFocus"
-        openOnFocus
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Disabled
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>(["1", "3"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  return (
-    <MultiSelect
-      aria-label="disabled"
-      name="disabled"
-      id="select-disabled"
-      value={value}
-      onChange={onChangeHandler}
-      disabled
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-}
-```
-
-
-### Read Only
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>(["1", "3"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  return (
-    <MultiSelect
-      aria-label="readonly"
-      name="readonly"
-      id="readonly"
-      value={value}
-      onChange={onChangeHandler}
-      readOnly
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-}
-```
-
-
-### With Multiple Columns
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="withMultipleColumns"
-        id="withMultipleColumns"
-        multiColumn
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
-        }
-        label="With multiple columns"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <OptionRow id="1" value="1" text="John Doe">
-          <td>John</td>
-          <td>Doe</td>
-          <td>Welder</td>
-        </OptionRow>
-        <OptionRow id="2" value="2" text="Joe Vick">
-          <td>Joe</td>
-          <td>Vick</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="3" value="3" text="Jane Poe">
-          <td>Jane</td>
-          <td>Poe</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="4" value="4" text="Jill Moe">
-          <td>Jill</td>
-          <td>Moe</td>
-          <td>Engineer</td>
-        </OptionRow>
-        <OptionRow id="5" value="5" text="Bill Zoe">
-          <td>Bill</td>
-          <td>Zoe</td>
-          <td>Astronaut</td>
-        </OptionRow>
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Required
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="required-select"
-        id="required-select"
-        label="Foreground Color"
-        required
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### With Object as Value
-
-**Render**
-
-```tsx
-() => {
-  const optionListValues = [
-    { id: "Amber", value: 1, text: "Amber" },
-    { id: "Black", value: 2, text: "Black" },
-    { id: "Blue", value: 3, text: "Blue" },
-    { id: "Brown", value: 4, text: "Brown" },
-    { id: "Green", value: 5, text: "Green" },
-    { id: "Orange", value: 6, text: "Orange" },
-    { id: "Pink", value: 7, text: "Pink" },
-    { id: "Purple", value: 8, text: "Purple" },
-    { id: "Red", value: 9, text: "Red" },
-    { id: "White", value: 10, text: "White" },
-    { id: "Yellow", value: 11, text: "Yellow" },
-  ];
-
-  const [value, setValue] = useState<Record<string, unknown>[]>([
-    optionListValues[4],
-  ]);
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    if (typeof event.target.value === "object") {
-      setValue(event.target.value);
-    }
-  }
-  function clearValue() {
-    setValue([]);
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearValue} mb={2}>
-        clear
-      </Button>
-      <MultiSelect
-        id="with-object"
-        name="with-object"
-        value={value}
-        onChange={onChangeHandler}
-        label="color"
-      >
-        {optionListValues.map((option) => (
-          <Option key={option.id} text={option.text} value={option} />
-        ))}
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### With isLoading prop
-
-**Render**
-
-```tsx
-() => {
-  const preventLoading = useRef(false);
-  const [value, setValue] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-  function clearData() {
-    setOptionList([]);
-    setValue([]);
-    preventLoading.current = false;
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearData} mb={2}>
-        reset
-      </Button>
-      <MultiSelect
-        name="isLoading"
-        id="isLoading"
-        label="color"
-        value={value}
-        onChange={(event) =>
-          setValue(event.target.value as unknown as string[])
-        }
-        onOpen={() => loadList()}
-        isLoading={isLoading}
-      >
-        {optionList}
-      </MultiSelect>
-    </Box>
-  );
-}
+(args) => <PlaygroundStory {...args} />
 ```
 
 
@@ -938,139 +443,6 @@ description: Carbon MultiSelect component props and usage examples.
 ```
 
 
-### With infinite scroll
-
-**Render**
-
-```tsx
-() => {
-  const preventLoading = useRef(false);
-  const preventLazyLoading = useRef(false);
-  const lazyLoadingCounter = useRef(0);
-
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const getLazyLoaded = () => {
-    const counter = lazyLoadingCounter.current;
-    return [
-      <Option
-        text={`Lazy Loaded A${counter}`}
-        value={`lazyA${counter}`}
-        key={`lazyA${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded B${counter}`}
-        value={`lazyB${counter}`}
-        key={`lazyB${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded C${counter}`}
-        value={`lazyC${counter}`}
-        key={`lazyC${counter}`}
-      />,
-    ];
-  };
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setOptionList(asyncList);
-      setIsLoading(false);
-    }, 2000);
-  }
-  function onLazyLoading() {
-    if (preventLazyLoading.current) {
-      return;
-    }
-    preventLazyLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      preventLazyLoading.current = false;
-      lazyLoadingCounter.current += 1;
-      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
-      setIsLoading(false);
-    }, 2000);
-  }
-  function clearData() {
-    setOptionList([]);
-    setValue([]);
-    preventLoading.current = false;
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearData} mb={2}>
-        reset
-      </Button>
-      <MultiSelect
-        name="infiniteScroll"
-        id="infiniteScroll"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-        onOpen={() => loadList()}
-        isLoading={isLoading}
-        onListScrollBottom={onLazyLoading}
-      >
-        {optionList}
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### With Custom Max Width
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="simple"
-        id="simple"
-        maxWidth="50%"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Grey" value="1" variant="grey" />
-        <Option text="Green" value="2" variant="green" />
-        <Option text="Red" value="3" variant="red" />
-        <Option text="Orange" value="4" variant="orange" />
-        <Option text="Blue" value="5" variant="blue" />
-        <Option text="Purple" value="6" variant="purple" />
-        <Option text="Teal" value="7" variant="teal" />
-        <Option text="Lime" value="8" variant="lime" />
-        <Option text="Pink" value="9" variant="pink" />
-        <Option text="Slate" value="10" variant="slate" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
 ### Pills with Long Text
 
 **Render**
@@ -1104,41 +476,162 @@ description: Carbon MultiSelect component props and usage examples.
 ```
 
 
+### Lazy Loading
+
+**Render**
+
+```tsx
+() => {
+  const preventLoading = useRef(false);
+  const loadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [value, setValue] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+
+  useEffect(
+    () => () => {
+      if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    },
+    [],
+  );
+
+  function loadList() {
+    if (preventLoading.current) {
+      return;
+    }
+
+    preventLoading.current = true;
+    setIsLoading(true);
+    loadTimer.current = setTimeout(() => {
+      setOptionList([
+        <Option text="Amber" value="amber" key="Amber" />,
+        <Option text="Black" value="black" key="Black" />,
+        <Option text="Blue" value="blue" key="Blue" />,
+        <Option text="Brown" value="brown" key="Brown" />,
+        <Option text="Green" value="green" key="Green" />,
+      ]);
+      setIsLoading(false);
+      loadTimer.current = null;
+    }, DEMO_LOADING_DELAY);
+  }
+
+  function reset() {
+    if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    loadTimer.current = null;
+    setOptionList([]);
+    setValue([]);
+    setIsLoading(true);
+    preventLoading.current = false;
+  }
+
+  return (
+    <Box height={300}>
+      <Button onClick={reset} mb={2}>
+        Reset
+      </Button>
+      <MultiSelect
+        name="lazyLoading"
+        id="lazyLoading"
+        label="Color"
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
+        onOpen={loadList}
+        isLoading={isLoading}
+      >
+        {optionList}
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### With infinite scroll
+
+**Render**
+
+```tsx
+() => {
+  const loadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [value, setValue] = useState<string[]>(["1"]);
+  const [optionCount, setOptionCount] = useState(INFINITE_SCROLL_BATCH_SIZE);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(
+    () => () => {
+      if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    },
+    [],
+  );
+
+  function loadMoreOptions() {
+    if (loadTimer.current !== null) return;
+
+    setIsLoading(true);
+    loadTimer.current = setTimeout(() => {
+      setOptionCount((count) => count + INFINITE_SCROLL_BATCH_SIZE);
+      setIsLoading(false);
+      loadTimer.current = null;
+    }, DEMO_LOADING_DELAY);
+  }
+
+  function reset() {
+    if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    loadTimer.current = null;
+    setOptionCount(INFINITE_SCROLL_BATCH_SIZE);
+    setValue(["1"]);
+    setIsLoading(false);
+  }
+
+  return (
+    <Box height={400}>
+      <Typography mb={2}>
+        Scroll to the bottom to load {INFINITE_SCROLL_BATCH_SIZE} more options.
+        Currently {optionCount} options loaded.
+      </Typography>
+      <Button onClick={reset} mb={2}>
+        Reset
+      </Button>
+      <MultiSelect
+        name="infiniteScroll"
+        id="infiniteScroll"
+        label="Options"
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
+        enableVirtualScroll={false}
+        isLoading={isLoading}
+        onListScrollBottom={loadMoreOptions}
+      >
+        {Array.from({ length: optionCount }, (_, index) => {
+          const optionNumber = index + 1;
+          return (
+            <Option
+              key={optionNumber}
+              text={`Option ${optionNumber}`}
+              value={String(optionNumber)}
+            />
+          );
+        })}
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
 ### Virtualised
 
 **Render**
 
 ```tsx
 () => {
-  const colors = [
-    "Amber",
-    "Black",
-    "Blue",
-    "Brown",
-    "Green",
-    "Orange",
-    "Pink",
-    "Purple",
-    "Red",
-    "White",
-    "Yellow",
-  ];
-  const options = Array(10000)
-    .fill(undefined)
-    .map((_, index) => (
-      <Option
-        key={`option-${index + 1}`}
-        value={`${index}`}
-        text={`${colors[index % colors.length]} - option ${index + 1}`}
-      />
-    ));
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
+  const [value, setValue] = useState<string[]>(["0"]);
   return (
-    <Box height={220}>
+    <Box height={320}>
       <MultiSelect
         name="virtualised"
         id="virtualised"
@@ -1147,9 +640,262 @@ description: Carbon MultiSelect component props and usage examples.
         enableVirtualScroll
         virtualScrollOverscan={20}
         value={value}
-        onChange={onChangeHandler}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
       >
-        {options}
+        {Array(10000)
+          .fill(undefined)
+          .map((_, index) => (
+            <Option
+              key={`option-${index + 1}`}
+              value={`${index}`}
+              text={`Option ${index + 1}`}
+            />
+          ))}
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### Selection Confirmed
+
+**Render**
+
+```tsx
+() => {
+  const [selectionConfirmed, setSelectionConfirmed] = useState(false);
+  const [value, setValue] = useState<string[]>(["1"]);
+  return (
+    <Box height={380}>
+      <Typography variant="strong">
+        Selection Confirmed:{" "}
+        {selectionConfirmed ? (
+          <Icon type="tick" bg="primary" color="white" />
+        ) : (
+          <Icon type="cross" bg="red" color="white" />
+        )}
+      </Typography>
+      <MultiSelect
+        value={value}
+        onChange={(event: CustomSelectChangeEvent) => {
+          setSelectionConfirmed(!!event.selectionConfirmed);
+          setValue(event.target.value as unknown as string[]);
+        }}
+        name="selection confirmed"
+        id="selection confirmed"
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### Dynamically Adding Options
+
+**Render**
+
+```tsx
+() => {
+  const [optionsList, setOptionsList] = useState(options);
+  const [currentOptions, setCurrentOptions] = useState<string[]>(["A"]);
+  useEffect(() => {
+    if (currentOptions.some((option) => option !== "A")) {
+      setOptionsList([...allOptions, ...options]);
+    }
+  }, [currentOptions]);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentOptions(event.target.value as unknown as string[]);
+  };
+  return (
+    <Box height={320}>
+      <MultiSelect
+        label="Choose your option"
+        data-role="selector"
+        onChange={handleChange}
+        value={currentOptions}
+      >
+        {optionsList.map((opt) => (
+          <Option
+            data-role={`option-${opt}`}
+            text={opt}
+            value={opt}
+            key={opt}
+          />
+        ))}
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### Add Option From Dialog
+
+**Render**
+
+```tsx
+() => {
+  const selectRef = useRef<HTMLInputElement>(null);
+  const nextOptionId = useRef(4);
+  const shouldRestoreSelectFocus = useRef(false);
+  const [value, setValue] = useState<string[]>(["option-1"]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [newOptionLabel, setNewOptionLabel] = useState("");
+  const [optionLabelError, setOptionLabelError] = useState("");
+  const [optionList, setOptionList] = useState([
+    { value: "option-1", text: "Dropdown item 1" },
+    { value: "option-2", text: "Dropdown item 2" },
+    { value: "option-3", text: "Dropdown item 3" },
+  ]);
+
+  useEffect(() => {
+    if (dialogOpen || !shouldRestoreSelectFocus.current) return;
+
+    shouldRestoreSelectFocus.current = false;
+    const focusTimer = window.setTimeout(
+      () => selectRef.current?.focus(),
+      DIALOG_CLOSE_FOCUS_DELAY,
+    );
+
+    return () => window.clearTimeout(focusTimer);
+  }, [dialogOpen]);
+
+  const closeDialogAndFocusSelect = () => {
+    setOptionLabelError("");
+    shouldRestoreSelectFocus.current = true;
+    setDialogOpen(false);
+  };
+
+  const addOption = () => {
+    const text = newOptionLabel.trim();
+    if (!text) {
+      setOptionLabelError("Enter an option label.");
+      return;
+    }
+
+    const optionValue = `option-${nextOptionId.current}`;
+    nextOptionId.current += 1;
+    setOptionList((currentOptions) => [
+      ...currentOptions,
+      { value: optionValue, text },
+    ]);
+    setNewOptionLabel("");
+    closeDialogAndFocusSelect();
+  };
+
+  return (
+    <Box height={300}>
+      <MultiSelect
+        ref={selectRef}
+        name="addOption"
+        id="addOption"
+        label="Object"
+        required
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
+      >
+        <ActionOption
+          value="add-option"
+          text="Add an option"
+          leading={<Icon type="add" />}
+          onClick={() => setDialogOpen(true)}
+        />
+        {optionList.map((option) => (
+          <Option key={option.value} {...option} />
+        ))}
+      </MultiSelect>
+
+      <Dialog
+        open={dialogOpen}
+        onCancel={closeDialogAndFocusSelect}
+        restoreFocusOnClose={false}
+        title="Add an option"
+        footer={
+          <Box display="flex" justifyContent="flex-end" gap={1}>
+            <Button variantType="subtle" onClick={closeDialogAndFocusSelect}>
+              Cancel
+            </Button>
+            <Button onClick={addOption}>Add</Button>
+          </Box>
+        }
+      >
+        <Textbox
+          autoFocus
+          label="Option label"
+          value={newOptionLabel}
+          error={optionLabelError || undefined}
+          onChange={(event) => {
+            setNewOptionLabel(event.target.value);
+            setOptionLabelError("");
+          }}
+        />
+      </Dialog>
+    </Box>
+  );
+}
+```
+
+
+### Complex Compositions
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>(["1"]);
+  return (
+    <Box height={500}>
+      <MultiSelect
+        name="complexCompositions"
+        id="complexCompositions"
+        label="Option compositions"
+        listMaxHeight={400}
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
+      >
+        <Option
+          text="Option with an icon"
+          value="1"
+          leading={<Icon type="favourite" />}
+        />
+        <Option text="Option with a divider" value="2" divider />
+        <OptionGroupHeader label="Option heading" />
+        <Option text="Option with a prefix" value="3" prefix="New " />
+        <Option
+          text="Option with subtext"
+          value="4"
+          subtext="Some helpful subtext"
+        />
+        <Option
+          text="Option with an icon and portrait"
+          value="5"
+          leading={
+            <>
+              <Icon type="individual" />
+              <Portrait initials="JD" size="XS" />
+            </>
+          }
+        />
       </MultiSelect>
     </Box>
   );
@@ -1162,92 +908,31 @@ description: Carbon MultiSelect component props and usage examples.
 **Args**
 
 ```tsx
-Always insert `Option` Components inside the `MultiSelect`, analogous to the `<select>` and `<option>` HTML Elements.
+`MultiSelect` is controlled: pass an array of selected `value`s and update it from `onChange`. Use `Option` children to build the list,
+`OptionGroupHeader` to create labelled sections, and `ActionOption` for an action that does not change the selected values.
+Give dynamically generated options stable React keys so their identity and accessible IDs remain stable when the list changes.
 
-If you type printable characters in the Textbox, you can filter through the existing options leaving only those that match the text you typed.
+Typing in the input filters the available options by their `text` value.
+
+Use `inputHint` to tell people what to do when no option is selected. 
 
 ## Examples
 
-### Default
+### Playground
 
-<Canvas of={MultiSelectStories.Default} />
+Use the controls to explore supported sizes, validation states, loading, positioning and virtualisation.
 
-### List placement
+<Canvas of={MultiSelectStories.Playground} />
 
-By default, the placement of the select list is below the input element and will automatically adjust its position if there is not enough space.
-However, you can use `listPlacement` prop to manually set the initial position of the select list relative to the input element.
-
-<Canvas of={MultiSelectStories.ListPlacement} />
-
-### List height
-
-You can use `listMaxHeight` prop to override default max height value of select list.
-
-<Canvas of={MultiSelectStories.ListHeight} />
-
-### List width
-
-You can use `listWidth` prop to override the width of the select list. By default the list
-will have the same width as the input.
-
-<Canvas of={MultiSelectStories.ListWidth} />
-
-### Open on focus
-
-<Canvas of={MultiSelectStories.OpenOnFocus} />
-
-### Disabled
-
-<Canvas of={MultiSelectStories.Disabled} />
-
-### Read Only
-
-<Canvas of={MultiSelectStories.Readonly} />
-
-### With multiple columns:
-
-<Canvas of={MultiSelectStories.WithMultipleColumns} />
-
-### Required
-
-You can use the `required` prop to indicate if the field is mandatory.
-
-<Canvas of={MultiSelectStories.Required} />
-
-### With object as value
-
-Option values could be passed as objects, useful when custom data is associated with an option.
-When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
-If there is no `id` prop specified on an object, then the exact objects will be compared.
-
-<Canvas of={MultiSelectStories.WithObjectAsValue} />
-
-### With isLoading prop
-
-When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
-
-<Canvas of={MultiSelectStories.WithIsLoadingProp} />
+<Controls of={MultiSelectStories.Playground} />
 
 ### Custom colored Pills
 
-It's possible to change the appearance of the selected Pills by using the `borderColor` and `fill` props on `Option` components.
+Change the appearance of selected pills with the `variant` and `fill` props on `Option` components.
 
 See [Colors](../?path=/docs/documentation-colors--docs) for more information on usable colors
 
 <Canvas of={MultiSelectStories.WithCustomColoredPills} />
-
-### Infinite scroll example
-
-The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
-This prop will be called every time a user scrolls to the bottom of the list.
-
-<Canvas of={MultiSelectStories.WithInfiniteScroll} />
-
-### With custom maxWidth
-
-In this example the `maxWidth` prop is 50%.
-
-<Canvas of={MultiSelectStories.WithCustomMaxWidth} />
 
 ### Pills with long text strings
 
@@ -1255,6 +940,23 @@ By default the Pill text will wrap when it overflows the input width, you can ov
 setting the `wrapPillText` prop to false.
 
 <Canvas of={MultiSelectStories.PillsWithLongText} />
+
+### Lazy loading
+
+`isLoading` displays a loader at the end of the list while options are fetched. An open list announces loading and newly added
+options to screen readers. The component does not infer whether a request succeeded or failed when loading ends.
+
+<Canvas of={MultiSelectStories.LazyLoading} />
+
+### Infinite scroll example
+
+The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
+The callback is invoked whenever the open list is scrolled to its bottom. Guard against starting duplicate requests while a request
+is already in progress.
+While the list is open, screen readers are informed when loading starts and when additional options are added. MultiSelect does not infer
+whether a request succeeded or failed when loading ends.
+
+<Canvas of={MultiSelectStories.WithInfiniteScroll} />
 
 ### Virtual scrolling
 
@@ -1265,6 +967,48 @@ By default this will render 5 not-currently-visible options into the DOM on eith
 be customised if desired using the `virtualScrollOverscan` prop. Higher values will make scrolling smoother but may negatively impact performance.
 
 <Canvas of={MultiSelectStories.Virtualised} />
+
+### Selection confirmed
+
+The `onChange` event includes `selectionConfirmed`, so a consumer can distinguish explicit selection from changes during navigation.
+
+<Canvas of={MultiSelectStories.SelectionConfirmedStory} />
+
+### Dynamically adding options, and the importance of the `key` property
+
+Provide stable keys when dynamically adding or reordering `Option` children. The component uses the
+[aria-activedescendant attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant)
+to expose the active option to assistive technologies. Stable React keys allow each rendered option to retain that identity as the
+list changes. An explicit `id` can also be supplied when a stable DOM ID is required by an integration.
+
+<Canvas
+  name="dynamically adding options"
+  of={MultiSelectStories.SelectWithDynamicallyAddedOption}
+/>
+
+### Adding an option from a dialog
+
+`ActionOption` accepts the same props and renders the same option element as `Option`, with a distinct action treatment. Its `onClick`
+callback runs without changing the selected values. This example opens a dialog, adds the submitted value with a stable key, and uses
+the MultiSelect's forwarded input ref to restore focus when the dialog closes. The flow can be repeated to add multiple options.
+
+<Canvas of={MultiSelectStories.AddOptionFromDialog} />
+
+### Complex compositions
+
+`Option`s support rich content such as leading icons, prefixes, subtext and portraits, as well as dividers between
+items. You can also pass a composed layout to the `OptionGroupHeader` via its `children` prop, which overrides any
+values passed to the `icon` and `label` props.
+
+<Canvas of={MultiSelectStories.ComplexCompositions} />
+
+## Keyboard interaction
+
+- Enter, Arrow Up, Arrow Down, Home and End open a closed MultiSelect.
+- Arrow keys move through enabled options. Home and End move to the first and last enabled options.
+- Enter selects the active option. Selected values can also be removed using their pill controls.
+- Escape closes the list and returns focus to the input.
+- Typing, including spaces, filters options using each Option's `text` value.
 
 ## Validation States
 

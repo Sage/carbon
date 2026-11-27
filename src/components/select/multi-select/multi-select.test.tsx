@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { act, render, screen, waitFor, within } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
@@ -58,20 +65,56 @@ const InteractiveComponent = ({
   );
 };
 
-test("displays default placeholder text when no value is selected", () => {
+test("does not display placeholder text when no value is selected", () => {
   render(
     <InteractiveComponent label="Colour" onChange={() => {}} value={[]}>
       <Option text="amber" value="amber" />
     </InteractiveComponent>,
   );
 
-  expect(screen.getByRole("combobox")).toHaveAttribute(
-    "placeholder",
-    "Please Select...",
-  );
+  expect(screen.getByRole("combobox")).not.toHaveAttribute("placeholder");
 });
 
-test("displays custom text when placeholder prop is provided and no value is selected", () => {
+test.each([
+  ["small", "var(--global-space-comp-l)"],
+  ["large", "var(--global-space-comp-xl)"],
+] as const)("uses the inline label gap for %s MultiSelect", (size, gap) => {
+  render(
+    <MultiSelect
+      label="Colour"
+      labelInline
+      size={size}
+      data-role="inline-multiselect"
+      value={[]}
+      onChange={() => {}}
+    >
+      <Option text="amber" value="amber" />
+    </MultiSelect>,
+  );
+
+  expect(screen.getByTestId("inline-multiselect")).toHaveStyleRule("gap", gap, {
+    modifier: '& [data-role="select-textbox"]',
+  });
+});
+
+test("applies listMaxHeight to the open list", async () => {
+  const user = userEvent.setup();
+  render(
+    <InteractiveComponent
+      label="Colour"
+      onChange={() => {}}
+      listMaxHeight={240}
+    >
+      <Option text="amber" value="amber" />
+    </InteractiveComponent>,
+  );
+
+  await user.click(screen.getByRole("combobox"));
+
+  expect(await screen.findByRole("listbox")).toHaveStyle("max-height: 240px");
+});
+
+test("ignores the deprecated placeholder prop", () => {
   render(
     <InteractiveComponent
       label="Colour"
@@ -83,13 +126,74 @@ test("displays custom text when placeholder prop is provided and no value is sel
     </InteractiveComponent>,
   );
 
-  expect(screen.getByRole("combobox")).toHaveAttribute(
-    "placeholder",
-    "Select a colour",
+  expect(screen.getByRole("combobox")).not.toHaveAttribute("placeholder");
+});
+
+test("accepts deprecated textbox props without applying or forwarding them", async () => {
+  const user = userEvent.setup();
+  const deprecatedCallback = jest.fn();
+
+  render(
+    <InteractiveComponent
+      align="right"
+      deferTimeout={1}
+      fieldHelp="Deprecated field help"
+      iconOnClick={deprecatedCallback}
+      iconOnMouseDown={deprecatedCallback}
+      iconTabIndex={0}
+      inert=""
+      info="Deprecated info"
+      inputIcon="home"
+      isRequired
+      label="Colour"
+      labelHelp="Deprecated label help"
+      labelWidth={50}
+      leftChildren={<span>Deprecated leading content</span>}
+      onChange={() => {}}
+      onChangeDeferred={deprecatedCallback}
+      tooltipPosition="left"
+      transparent
+      value={[]}
+    >
+      <Option text="amber" value="amber" />
+    </InteractiveComponent>,
   );
+
+  const input = screen.getByRole("combobox");
+  expect(input).not.toHaveAttribute("align");
+  expect(input).not.toHaveAttribute("inert");
+  expect(input).not.toBeRequired();
+  expect(screen.queryByText("Deprecated field help")).not.toBeInTheDocument();
+  expect(screen.queryByText("Deprecated label help")).not.toBeInTheDocument();
+  expect(
+    screen.queryByText("Deprecated leading content"),
+  ).not.toBeInTheDocument();
+
+  await user.click(screen.getByTestId("input-icon-toggle"));
+  expect(deprecatedCallback).not.toHaveBeenCalled();
 });
 
 describe("when value prop is provided", () => {
+  it("displays selected pills from nested fragments in value order", () => {
+    render(
+      <MultiSelect label="Colour" onChange={() => {}} value={["blue", "amber"]}>
+        {null}
+        <React.Fragment>
+          <Option text="amber" value="amber" />
+          <React.Fragment>
+            <Option text="blue" value="blue" />
+          </React.Fragment>
+        </React.Fragment>
+      </MultiSelect>,
+    );
+
+    expect(
+      screen
+        .getAllByRole("button", { name: /Remove .* pill/ })
+        .map((button) => button.getAttribute("aria-label")),
+    ).toEqual(["Remove blue pill", "Remove amber pill"]);
+  });
+
   it("displays a pill for a matching option", () => {
     render(
       <InteractiveComponent
@@ -243,10 +347,95 @@ describe("when value prop is provided", () => {
     expect(
       within(amberPill).queryByRole("button", { name: "remove pill" }),
     ).not.toBeInTheDocument();
+    expect(screen.getByRole("textbox")).not.toHaveAttribute("aria-expanded");
   });
 });
 
 describe("accessible name of the input", () => {
+  it("handles a missing value from an untyped consumer as an empty selection", () => {
+    render(
+      <MultiSelect
+        label="Colour"
+        inputHint="Select an option"
+        value={undefined as unknown as string[]}
+        onChange={() => {}}
+      >
+        <Option text="Black" value="black" />
+      </MultiSelect>,
+    );
+
+    const input = screen.getByRole("combobox", { name: "Colour" });
+    expect(input).toHaveAccessibleDescription("Select an option");
+    expect(screen.queryByTitle("Black")).not.toBeInTheDocument();
+  });
+
+  it("announces the label, hint, and selected values once in selection order", () => {
+    render(
+      <InteractiveComponent
+        label="Colour"
+        inputHint="Select an option"
+        value={["orange", "black"]}
+        onChange={() => {}}
+      >
+        <Option text="Black" value="black" />
+        <Option text="Orange" value="orange" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    expect(input).toHaveAccessibleName("Colour");
+    expect(input).toHaveAccessibleDescription("Select an option Orange, Black");
+  });
+
+  it("updates the selected values description in the order options are chosen", async () => {
+    const user = userEvent.setup();
+    render(
+      <InteractiveComponent
+        label="Colour"
+        inputHint="Select an option"
+        value={[]}
+        onChange={() => {}}
+      >
+        <Option text="Black" value="black" />
+        <Option text="Orange" value="orange" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    await user.click(screen.getByRole("option", { name: "Orange" }));
+    await user.click(screen.getByRole("option", { name: "Black" }));
+
+    expect(input).toHaveAccessibleName("Colour");
+    expect(input).toHaveAccessibleDescription("Select an option Orange, Black");
+  });
+
+  it("announces object-valued selections after the hint and before an external description", () => {
+    const black = { id: "black", value: "Black" };
+    const orange = { id: "orange", value: "Orange" };
+    render(
+      <>
+        <span id="extra-description">Choose more colours</span>
+        <InteractiveComponent
+          label="Colour"
+          inputHint="Select an option"
+          aria-describedby="extra-description"
+          value={[orange, black]}
+          onChange={() => {}}
+        >
+          <Option text="Black" value={black} />
+          <Option text="Orange" value={orange} />
+        </InteractiveComponent>
+      </>,
+    );
+
+    const input = screen.getByRole("combobox");
+    expect(input).toHaveAccessibleName("Colour");
+    expect(input).toHaveAccessibleDescription(
+      "Select an option Orange, Black Choose more colours",
+    );
+  });
+
   it("is set to the label prop when provided", () => {
     render(
       <InteractiveComponent label="Colour" onChange={() => {}} value={[]}>
@@ -306,52 +495,29 @@ test("associates the dropdown list with the correct accessible name from the lab
   expect(await screen.findByRole("listbox")).toHaveAccessibleName("Colour");
 });
 
-["top", "bottom"].forEach((placement) => {
-  test(`should override the data attribute on the list when listWidth is set and placement is ${placement}`, async () => {
-    const user = userEvent.setup();
-    render(
-      <InteractiveComponent
-        listPlacement={placement as "top" | "bottom"}
-        listWidth={100}
-        label="Colour"
-        onChange={() => {}}
-      >
-        <Option text="amber" value="amber" />
-      </InteractiveComponent>,
-    );
+test("ignores deprecated list placement, width, and table header props", async () => {
+  const user = userEvent.setup();
+  render(
+    <InteractiveComponent
+      listPlacement="top-end"
+      listWidth={100}
+      multiColumn
+      tableHeader={<span>Deprecated heading</span>}
+      label="Colour"
+      onChange={() => {}}
+    >
+      <Option text="amber" value="amber" />
+    </InteractiveComponent>,
+  );
 
-    await user.click(screen.getByRole("combobox"));
+  await user.click(screen.getByRole("combobox"));
 
-    expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
-      "data-floating-placement",
-      `${placement}-end`,
-    );
-  });
-});
-
-["top-end", "bottom-end", "top-start", "bottom-start"].forEach((placement) => {
-  test(`should not override the data attribute on the list when listWidth is set and placement is ${placement}`, async () => {
-    const user = userEvent.setup();
-    render(
-      <InteractiveComponent
-        listPlacement={
-          placement as "top-end" | "bottom-end" | "top-start" | "bottom-start"
-        }
-        listWidth={100}
-        label="Colour"
-        onChange={() => {}}
-      >
-        <Option text="amber" value="amber" />
-      </InteractiveComponent>,
-    );
-
-    await user.click(screen.getByRole("combobox"));
-
-    expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
-      "data-floating-placement",
-      placement,
-    );
-  });
+  expect(await screen.findByTestId("menu-wrapper")).toHaveAttribute(
+    "data-floating-placement",
+    "bottom",
+  );
+  expect(screen.getByRole("option", { name: "amber" })).toBeVisible();
+  expect(screen.queryByText("Deprecated heading")).not.toBeInTheDocument();
 });
 
 describe("dropdown list", () => {
@@ -366,6 +532,51 @@ describe("dropdown list", () => {
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByRole("listbox")).toBeVisible();
+  });
+
+  it("opens when the field is clicked outside the narrow typing input", async () => {
+    const user = userEvent.setup();
+    const onClick = jest.fn();
+    const onAncestorClick = jest.fn();
+    render(
+      <InteractiveComponent
+        label="Colour"
+        value={["amber"]}
+        onChange={() => {}}
+        onClick={onClick}
+      >
+        <Option text="amber" value="amber" />
+        <Option text="black" value="black" />
+      </InteractiveComponent>,
+    );
+
+    document.addEventListener("click", onAncestorClick);
+    try {
+      await user.click(screen.getByTestId("input-text-container"));
+    } finally {
+      document.removeEventListener("click", onAncestorClick);
+    }
+
+    expect(await screen.findByRole("listbox")).toBeVisible();
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onAncestorClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not open when a pill is removed", async () => {
+    const user = userEvent.setup();
+    render(
+      <InteractiveComponent
+        label="Colour"
+        value={["amber"]}
+        onChange={() => {}}
+      >
+        <Option text="amber" value="amber" />
+      </InteractiveComponent>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Remove amber pill" }));
+
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 
   it("opens when input's dropdown icon is clicked", async () => {
@@ -397,20 +608,34 @@ describe("dropdown list", () => {
     });
   });
 
-  ["Enter", "a"].forEach((key) => {
-    test(`does not open when ${key} key is pressed`, async () => {
-      const user = userEvent.setup();
-      render(
-        <InteractiveComponent label="Colour" onChange={() => {}}>
-          <Option text="amber" value="amber" />
-        </InteractiveComponent>,
-      );
+  test("opens when the focused input receives Enter", async () => {
+    const user = userEvent.setup();
+    const onOpen = jest.fn();
+    render(
+      <InteractiveComponent label="Colour" onChange={() => {}} onOpen={onOpen}>
+        <Option text="amber" value="amber" />
+      </InteractiveComponent>,
+    );
 
-      await user.tab();
-      await user.keyboard(`[${key}]`);
+    await user.tab();
+    await user.keyboard("{Enter}");
 
-      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    });
+    expect(await screen.findByRole("listbox")).toBeVisible();
+    expect(onOpen).toHaveBeenCalledTimes(1);
+  });
+
+  test("does not open when a key is pressed", async () => {
+    const user = userEvent.setup();
+    render(
+      <InteractiveComponent label="Colour" onChange={() => {}}>
+        <Option text="amber" value="amber" />
+      </InteractiveComponent>,
+    );
+
+    await user.tab();
+    await user.keyboard("[a]");
+
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 
   it("does not open, when input is disabled and is clicked", async () => {
@@ -509,6 +734,96 @@ describe("dropdown list", () => {
     await user.click(await screen.findByRole("option", { name: "amber" }));
 
     expect(screen.getByRole("listbox")).toBeVisible();
+  });
+
+  it("deselects only the clicked selected option", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    render(
+      <InteractiveComponent
+        label="Colour"
+        value={["amber", "black"]}
+        onChange={onChange}
+      >
+        <Option text="amber" value="amber" />
+        <Option text="black" value="black" />
+      </InteractiveComponent>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.click(screen.getByRole("option", { name: "amber" }));
+
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: ["black"] }),
+        selectionConfirmed: true,
+      }),
+    );
+    expect(screen.getByRole("option", { name: "amber" })).toHaveAttribute(
+      "aria-selected",
+      "false",
+    );
+    expect(screen.getByRole("option", { name: "black" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    expect(screen.getByRole("listbox")).toBeVisible();
+  });
+
+  it("deselects the highlighted selected option with Enter", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    render(
+      <InteractiveComponent
+        label="Colour"
+        value={["amber"]}
+        onChange={onChange}
+      >
+        <Option text="amber" value="amber" />
+        <Option text="black" value="black" />
+      </InteractiveComponent>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.keyboard("{Enter}");
+
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: [] }),
+        selectionConfirmed: true,
+      }),
+    );
+    expect(screen.getByRole("option", { name: "amber" })).toHaveAttribute(
+      "aria-selected",
+      "false",
+    );
+    expect(screen.getByRole("listbox")).toBeVisible();
+  });
+
+  it("deselects an object-valued option by its id", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    const black = { id: "black", value: "Black" };
+    render(
+      <InteractiveComponent
+        label="Colour"
+        value={[{ id: "amber", value: "Amber" }, black]}
+        onChange={onChange}
+      >
+        <Option text="amber" value={{ id: "amber", value: "Amber" }} />
+        <Option text="black" value={black} />
+      </InteractiveComponent>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.click(screen.getByRole("option", { name: "amber" }));
+
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({ value: [black] }),
+        selectionConfirmed: true,
+      }),
+    );
   });
 
   it("stays open after an option is focused and Enter key is pressed", async () => {
@@ -646,7 +961,7 @@ describe("when dropdown list is opened", () => {
 
     expect(
       await screen.findByRole("option", { name: "amber" }),
-    ).toHaveStyleRule("background-color", "var(--colorsUtilityMajor200)");
+    ).toHaveAttribute("data-has-focus", "true");
   });
 
   it("highlights the last option in list when ArrowUp key is pressed", async () => {
@@ -661,9 +976,9 @@ describe("when dropdown list is opened", () => {
     await user.tab();
     await user.keyboard("{ArrowUp}");
 
-    expect(await screen.findByRole("option", { name: "blue" })).toHaveStyleRule(
-      "background-color",
-      "var(--colorsUtilityMajor200)",
+    expect(await screen.findByRole("option", { name: "blue" })).toHaveAttribute(
+      "data-has-focus",
+      "true",
     );
   });
 
@@ -726,30 +1041,41 @@ describe("when dropdown list is opened", () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
-  it("does not call onChange after selecting an already selected option", async () => {
+  test.each([false, true])(
+    "selects a filtered option with Enter when virtual scrolling is %s",
+    async (enableVirtualScroll) => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      render(
+        <InteractiveComponent
+          label="Colour"
+          value={[]}
+          onChange={onChange}
+          enableVirtualScroll={enableVirtualScroll}
+        >
+          <Option text="Amber" value="amber" />
+          <Option text="Blue" value="blue" />
+        </InteractiveComponent>,
+      );
+
+      const input = screen.getByRole("combobox");
+      await user.type(input, "amb");
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["amber"] }),
+        }),
+      );
+      expect(screen.getByTitle("Amber")).toBeVisible();
+    },
+  );
+
+  test("keeps the filter text and does not select an option when Enter is pressed with no results", async () => {
     const user = userEvent.setup();
     const onChange = jest.fn();
     render(
-      <InteractiveComponent
-        label="Colour"
-        onChange={onChange}
-        value={["amber"]}
-      >
-        <Option text="amber" value="amber" />
-        <Option text="blue" value="blue" />
-      </InteractiveComponent>,
-    );
-
-    await user.click(screen.getByRole("combobox"));
-    await user.click(await screen.findByRole("option", { name: "amber" }));
-
-    expect(onChange).not.toHaveBeenCalled();
-  });
-
-  test("does not render an empty pill, when Enter key is pressed and input text does not match any option", async () => {
-    const user = userEvent.setup();
-    render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <InteractiveComponent label="Colour" onChange={onChange}>
         <Option text="amber" value="amber" />
       </InteractiveComponent>,
     );
@@ -758,7 +1084,9 @@ describe("when dropdown list is opened", () => {
 
     await user.keyboard("{Enter}");
 
-    expect(screen.getByRole("combobox")).toHaveValue("");
+    expect(screen.getByRole("combobox")).toHaveValue("x");
+    expect(screen.getByText('No results for "x"')).toBeVisible();
+    expect(onChange).not.toHaveBeenCalled();
   });
 
   test("does not call onChange when Enter key is pressed with no highlighted option after opening list by click", async () => {
@@ -837,6 +1165,89 @@ test("a selected option, that renders dismissible pill, can be removed by clicki
   await user.click(dismissButton);
 
   expect(amberPill).not.toBeInTheDocument();
+});
+
+test("tabs to the input before the selected pill remove buttons", async () => {
+  const user = userEvent.setup();
+  render(
+    <>
+      <InteractiveComponent
+        label="Colour"
+        onChange={() => {}}
+        value={["amber", "black"]}
+      >
+        <Option text="amber" value="amber" />
+        <Option text="black" value="black" />
+      </InteractiveComponent>
+      <button type="button">Next control</button>
+    </>,
+  );
+
+  await user.tab();
+  expect(screen.getByRole("combobox")).toHaveFocus();
+
+  await user.tab();
+  expect(
+    screen.getByRole("button", { name: "Remove amber pill" }),
+  ).toHaveFocus();
+
+  await user.tab({ shift: true });
+  expect(screen.getByRole("combobox")).toHaveFocus();
+
+  await user.tab();
+  expect(
+    screen.getByRole("button", { name: "Remove amber pill" }),
+  ).toHaveFocus();
+
+  await user.tab();
+  expect(
+    screen.getByRole("button", { name: "Remove black pill" }),
+  ).toHaveFocus();
+
+  await user.tab();
+  expect(screen.getByRole("button", { name: "Next control" })).toHaveFocus();
+});
+
+test("tabs to the first selected pill when openOnFocus has opened the list", async () => {
+  const user = userEvent.setup();
+  render(
+    <InteractiveComponent
+      label="Colour"
+      onChange={() => {}}
+      value={["amber", "black"]}
+      openOnFocus
+    >
+      <Option text="amber" value="amber" />
+      <Option text="black" value="black" />
+    </InteractiveComponent>,
+  );
+
+  await user.tab();
+  expect(screen.getByRole("combobox")).toHaveFocus();
+  await screen.findByRole("listbox");
+
+  await user.tab();
+  expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "Remove amber pill" }),
+  ).toHaveFocus();
+});
+
+test("tabs from an empty MultiSelect to the next control", async () => {
+  const user = userEvent.setup();
+  render(
+    <>
+      <InteractiveComponent label="Colour" onChange={() => {}} value={[]}>
+        <Option text="amber" value="amber" />
+      </InteractiveComponent>
+      <button type="button">Next control</button>
+    </>,
+  );
+
+  await user.tab();
+  expect(screen.getByRole("combobox")).toHaveFocus();
+  await user.tab();
+  expect(screen.getByRole("button", { name: "Next control" })).toHaveFocus();
 });
 
 test("calls onChange prop when a previously selected option is removed", async () => {
@@ -1087,6 +1498,41 @@ test("calls onFocus prop when input is focused", async () => {
   expect(onFocus).toHaveBeenCalledTimes(1);
 });
 
+test.each([false, true])(
+  "calls onFocus before onBlur when the icon focuses the input with openOnFocus=%s",
+  async (openOnFocus) => {
+    const user = userEvent.setup();
+    const callbacks: string[] = [];
+    const onFocus = jest.fn(() => callbacks.push("focus"));
+    const onBlur = jest.fn(() => callbacks.push("blur"));
+    render(
+      <>
+        <InteractiveComponent
+          label="Colour"
+          onChange={() => {}}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          openOnFocus={openOnFocus}
+        >
+          <Option text="amber" value="amber" />
+        </InteractiveComponent>
+        <button type="button">Outside</button>
+      </>,
+    );
+
+    await user.click(screen.getByTestId("input-icon-toggle"));
+    expect(screen.getByRole("combobox")).toHaveFocus();
+    expect(onFocus).toHaveBeenCalledTimes(1);
+
+    await user.click(screen.getByTestId("input-icon-toggle"));
+    expect(onFocus).toHaveBeenCalledTimes(1);
+
+    await user.click(screen.getByRole("button", { name: "Outside" }));
+    expect(onBlur).toHaveBeenCalledTimes(1);
+    expect(callbacks).toEqual(["focus", "blur"]);
+  },
+);
+
 test("calls onBlur prop when input loses focus", async () => {
   const user = userEvent.setup();
   const onBlur = jest.fn();
@@ -1100,6 +1546,69 @@ test("calls onBlur prop when input loses focus", async () => {
   await user.tab({ shift: true });
 
   expect(onBlur).toHaveBeenCalledTimes(1);
+});
+
+test("does not call onBlur for a temporary blur after mouse down on the input", () => {
+  const onBlur = jest.fn();
+  render(
+    <InteractiveComponent label="Colour" onChange={() => {}} onBlur={onBlur}>
+      <Option text="amber" value="amber" />
+    </InteractiveComponent>,
+  );
+
+  const input = screen.getByRole("combobox");
+  fireEvent.focus(input);
+  fireEvent.mouseDown(input);
+  fireEvent.blur(input);
+
+  expect(onBlur).not.toHaveBeenCalled();
+});
+
+test("replaces a pending open-on-focus timer when focus fires again", () => {
+  jest.useFakeTimers();
+  const onOpen = jest.fn();
+  render(
+    <InteractiveComponent
+      label="Colour"
+      onChange={() => {}}
+      onOpen={onOpen}
+      openOnFocus
+    >
+      <Option text="amber" value="amber" />
+    </InteractiveComponent>,
+  );
+
+  const input = screen.getByRole("combobox");
+  fireEvent.focus(input);
+  fireEvent.focus(input);
+
+  act(() => jest.advanceTimersByTime(1));
+
+  expect(onOpen).toHaveBeenCalledTimes(1);
+  expect(screen.getByRole("listbox")).toBeVisible();
+  jest.useRealTimers();
+});
+
+test("clears a pending open-on-focus timer on unmount", () => {
+  jest.useFakeTimers();
+  const onOpen = jest.fn();
+  const { unmount } = render(
+    <InteractiveComponent
+      label="Colour"
+      onChange={() => {}}
+      onOpen={onOpen}
+      openOnFocus
+    >
+      <Option text="amber" value="amber" />
+    </InteractiveComponent>,
+  );
+
+  fireEvent.focus(screen.getByRole("combobox"));
+  unmount();
+  act(() => jest.runOnlyPendingTimers());
+
+  expect(onOpen).not.toHaveBeenCalled();
+  jest.useRealTimers();
 });
 
 test("does not call onBlur, when input temporarily loses focus due to an option being clicked in the dropdown list", async () => {
@@ -1185,24 +1694,28 @@ describe("when typing into the input", () => {
 describe("forwarded ref", () => {
   it("allows access to the input element through a forwarded callback ref", () => {
     const mockRef = jest.fn((element) => element);
-    render(
+    const { unmount } = render(
       <MultiSelect value={[]} label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
       </MultiSelect>,
     );
 
     expect(mockRef).toHaveBeenNthCalledWith(1, screen.getByRole("combobox"));
+    unmount();
+    expect(mockRef).toHaveBeenLastCalledWith(null);
   });
 
   it("allows access to the input element through a forwarded ref object", () => {
     const mockRef = { current: null };
-    render(
+    const { unmount } = render(
       <MultiSelect value={[]} label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
       </MultiSelect>,
     );
 
     expect(mockRef.current).toBe(screen.getByRole("combobox"));
+    unmount();
+    expect(mockRef.current).toBeNull();
   });
 });
 
@@ -1295,9 +1808,17 @@ test("dropdown list is open on initial render, when autoFocus and openOnFocus pr
 
 test("should not display the list when `openOnFocus` is set and mousedown is detected on icon", async () => {
   const user = userEvent.setup();
+  const onFocus = jest.fn();
+  const onOpen = jest.fn();
 
   render(
-    <InteractiveComponent openOnFocus label="multi-select" onChange={() => {}}>
+    <InteractiveComponent
+      openOnFocus
+      label="multi-select"
+      onChange={() => {}}
+      onFocus={onFocus}
+      onOpen={onOpen}
+    >
       <Option value="opt1" text="red" />
     </InteractiveComponent>,
   );
@@ -1306,6 +1827,8 @@ test("should not display the list when `openOnFocus` is set and mousedown is det
   await user.pointer({ keys: "[MouseLeft>]", target: icon });
 
   expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  expect(onFocus).toHaveBeenCalledTimes(1);
+  expect(onOpen).not.toHaveBeenCalled();
 });
 
 test("should display the list when `openOnFocus` is not set", async () => {
@@ -1516,28 +2039,6 @@ describe("special character rendering", () => {
       });
     },
   );
-
-  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
-    (placeholderValue) => {
-      test(`renders placeholder with special characters: ${placeholderValue}`, () => {
-        render(
-          <MultiSelect
-            label="Colour"
-            onChange={() => {}}
-            value={[]}
-            placeholder={placeholderValue}
-          >
-            <Option text="Amber" value="amber" />
-          </MultiSelect>,
-        );
-
-        expect(screen.getByRole("combobox")).toHaveAttribute(
-          "placeholder",
-          placeholderValue,
-        );
-      });
-    },
-  );
 });
 
 testStyledSystemMargin(
@@ -1552,4 +2053,98 @@ testStyledSystemMargin(
     </InteractiveComponent>
   ),
   () => screen.getByTestId("my-select"),
+);
+
+describe.each([false, true])(
+  "async filtering with virtual scrolling %s",
+  (enableVirtualScroll) => {
+    const view = (
+      children: React.ReactNode,
+      onChange: jest.Mock,
+      isLoading = false,
+    ) => (
+      <MultiSelect
+        label="Colour"
+        value={[]}
+        onChange={onChange}
+        isLoading={isLoading}
+        enableVirtualScroll={enableVirtualScroll}
+      >
+        {children}
+      </MultiSelect>
+    );
+
+    test("Enter selects the first enabled arriving result after loading", async () => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      const { rerender } = render(
+        view(<Option key="amber" text="amber" value="amber" />, onChange, true),
+      );
+      await user.type(screen.getByRole("combobox"), "bl");
+      rerender(
+        view(
+          [
+            <Option key="blue" text="blue" value="blue" disabled />,
+            <Option key="black" text="black" value="black" />,
+          ],
+          onChange,
+        ),
+      );
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["black"] }),
+        }),
+      );
+    });
+
+    test("Enter selects results arriving after no matches", async () => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      const { rerender } = render(
+        view(<Option key="amber" text="amber" value="amber" />, onChange),
+      );
+      await user.type(screen.getByRole("combobox"), "bl");
+      await user.keyboard("{Enter}");
+
+      expect(onChange).not.toHaveBeenCalled();
+
+      rerender(
+        view(<Option key="black" text="black" value="black" />, onChange),
+      );
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["black"] }),
+        }),
+      );
+    });
+
+    test("appending results preserves the option reached with the keyboard", async () => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      const options = [
+        <Option key="black" text="black" value="black" />,
+        <Option key="blue" text="blue" value="blue" />,
+      ];
+      const { rerender } = render(view(options, onChange));
+      await user.type(screen.getByRole("combobox"), "bl");
+      await user.keyboard("{ArrowDown}");
+      rerender(
+        view(
+          [...options, <Option key="blush" text="blush" value="blush" />],
+          onChange,
+        ),
+      );
+      await user.keyboard("{Enter}");
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: ["blue"] }),
+        }),
+      );
+    });
+  },
 );

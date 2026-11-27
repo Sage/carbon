@@ -26,11 +26,13 @@ interface UseSelectListVirtualizationProps {
   rows: SelectVirtualRow[];
   open: boolean;
   enabled: boolean;
+  filterText?: string;
   overscan: number;
   listRef: React.RefObject<HTMLUListElement>;
   listId: string;
   selectOnSpaceAndTab?: boolean;
   onClose: (ev?: Event) => void;
+  multiselect?: boolean;
 }
 
 const browserWindow = getWindow();
@@ -41,14 +43,19 @@ const useSelectListVirtualization = ({
   rows,
   open,
   enabled,
+  filterText,
   overscan,
   listRef,
   listId,
   selectOnSpaceAndTab,
   onClose,
+  multiselect,
 }: UseSelectListVirtualizationProps) => {
   const optionCount = rows.filter((row) => !row.isLoader).length;
   const initialScrollIndex = rows.findIndex((row) => row.selected);
+  const initialScrollIndexRef = useRef(initialScrollIndex);
+  initialScrollIndexRef.current = initialScrollIndex;
+  const selectionScrollTrigger = multiselect ? null : initialScrollIndex;
   const selectedItemKey =
     initialScrollIndex >= 0 ? rows[initialScrollIndex].key : null;
   const selectedItemEnabled =
@@ -147,17 +154,25 @@ const useSelectListVirtualization = ({
     if (!open) {
       setActiveItemKey(null);
       virtualizer.measure();
-    } else if (initialScrollIndex >= 0) {
-      scrollToOption(initialScrollIndex, "center");
+    } else if (initialScrollIndexRef.current >= 0) {
+      scrollToOption(initialScrollIndexRef.current, "center");
     }
     return cancelPendingScroll;
-    // The virtualizer instance is stable; scroll only when opening or changing selection.
-  }, [open, enabled, initialScrollIndex]);
+    // Multi Select keeps its active option when selection changes; only a new
+    // opening or enabled virtual list should recenter its first selection.
+  }, [open, enabled, selectionScrollTrigger]);
 
   useEffect(() => {
-    if (open && enabled)
-      setActiveItemKey(selectedItemEnabled ? selectedItemKey : null);
-  }, [open, enabled, selectedItemKey, selectedItemEnabled]);
+    if (open && enabled) {
+      setActiveItemKey((current) =>
+        multiselect && current !== null
+          ? current
+          : selectedItemEnabled
+            ? selectedItemKey
+            : null,
+      );
+    }
+  }, [open, enabled, multiselect, selectedItemKey, selectedItemEnabled]);
 
   useEffect(() => {
     if (
@@ -167,6 +182,31 @@ const useSelectListVirtualization = ({
       setActiveItemKey(null);
     }
   }, [activeItemKey, enabledIndexes, rows]);
+
+  const previousFilterText = useRef<string | null>(null);
+  useEffect(() => {
+    if (!open || filterText === undefined) {
+      previousFilterText.current = null;
+      return;
+    }
+
+    const previous = previousFilterText.current;
+    previousFilterText.current = filterText;
+    if (!enabled) {
+      setActiveItemKey(null);
+      return;
+    }
+    const filterChanged =
+      previous !== filterText && !(previous === null && filterText === "");
+    // Results can arrive without another filter change. Preserve a valid active
+    // option, but initialize focus when the previous result has disappeared.
+    if (!filterChanged && (!filterText || resolvedActiveIndex !== undefined))
+      return;
+    const firstEnabledIndex = enabledIndexes[0];
+    setActiveItemKey(
+      firstEnabledIndex === undefined ? null : rows[firstEnabledIndex].key,
+    );
+  }, [open, enabled, filterText, enabledIndexes, rows, resolvedActiveIndex]);
 
   useIsomorphicLayoutEffect(() => {
     if (open && enabled && resolvedActiveIndex !== undefined) {

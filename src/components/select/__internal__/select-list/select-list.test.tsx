@@ -62,6 +62,19 @@ const SelectListWithInput = ({
 };
 
 describe("rendered content", () => {
+  it("marks the listbox as multiselectable when selected values are provided", () => {
+    render(
+      <SelectListWithInput multiselectValues={[]}>
+        <Option id="red" value="red" text="red" />
+      </SelectListWithInput>,
+    );
+
+    expect(screen.getByRole("listbox")).toHaveAttribute(
+      "aria-multiselectable",
+      "true",
+    );
+  });
+
   it("includes an ActionOption in the option set and preserves its `li` element", async () => {
     const onClick = jest.fn();
     const onSelect = jest.fn();

@@ -5,7 +5,6 @@ import {
   MultiSelectProps,
   CustomSelectChangeEvent,
 } from "..";
-import OptionRow from "../option-row/option-row.component";
 import Dialog from "../../dialog";
 import Box from "../../box";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
@@ -40,64 +39,6 @@ export const MultiSelectComponent = (props: Partial<MultiSelectProps>) => {
       <Option text="Red" value="9" />
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-};
-
-export const MultiSelectMultiColumnsComponent = (
-  props: Partial<MultiSelectProps>,
-) => {
-  const [values, setValues] = useState<string[]>(["2"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <MultiSelect
-      multiColumn
-      value={values}
-      onChange={onChangeHandler}
-      {...props}
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-    >
-      <OptionRow id="1" value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow id="2" value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow
-        id="3"
-        value="3"
-        text="Jane Poe"
-        data-component="option-row"
-        data-role="option-row"
-        data-element="option-row"
-      >
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow id="4" value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow id="5" value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
     </MultiSelect>
   );
 };

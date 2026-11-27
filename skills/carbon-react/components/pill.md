@@ -32,7 +32,7 @@ A compact visual indicator that highlights information or status.
 ## Props
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| children | string | Yes |  |  |  | The content to display inside of the pill. |  |
+| children | string \| React.ReactElement<{ children: string; }, string \| React.JSXElementConstructor<any>> | Yes |  |  |  | The content to display inside of the pill. |  |
 | ariaLabelOfRemoveButton | string \| undefined | No |  |  |  | Sets custom aria-label attribute on the remove button |  |
 | borderColor | string \| undefined | No |  |  |  | Override color variant, provide any color from palette or any valid css color value. |  |
 | fill | boolean \| undefined | No |  |  |  | Fills the pill background with colour. When fill is false only the border is coloured. | false |

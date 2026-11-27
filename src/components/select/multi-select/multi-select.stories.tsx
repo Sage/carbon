@@ -1,11 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
-import Button from "../../button";
+import Button from "../../button/__next__";
 import Box from "../../box";
-import { MultiSelect, MultiSelectProps, Option, OptionRow } from "..";
+import Dialog from "../../dialog";
+import Icon from "../../icon";
+import Portrait from "../../portrait";
+import Textbox from "../../textbox";
+import Typography from "../../typography";
+import { MultiSelect, Option, ActionOption, OptionGroupHeader } from "..";
+import type { CustomSelectChangeEvent } from "../simple-select";
+import type { MultiSelectProps } from "./multi-select.component";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -30,460 +37,125 @@ const meta: Meta<typeof MultiSelect> = {
 export default meta;
 type Story = StoryObj<typeof MultiSelect>;
 
-export const Default: Story = () => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
+const DIALOG_CLOSE_FOCUS_DELAY = 350;
 
-  return (
-    <Box height={220}>
-      <MultiSelect
-        name="simple"
-        id="simple"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-};
-Default.storyName = "Default";
+const PLAYGROUND_VIRTUAL_OPTION_COUNT = 10000;
 
-export const ListPlacement: Story = () => {
-  const [listPlacement, setListPlacement] =
-    useState<MultiSelectProps["listPlacement"]>("bottom-end");
-  const [value, setValue] = useState<string[]>([]);
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: updatedValue } = ev.target;
+const PlaygroundStory = (args: MultiSelectProps) => {
+  const [value, setValue] = useState(args.value ?? []);
 
-    if (Array.isArray(updatedValue)) {
-      setValue(updatedValue);
-    }
-  };
-  return (
-    <>
-      <Button mr={1} onClick={() => setListPlacement("top-end")}>
-        Top end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("bottom-end")}>
-        Bottom end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("top-start")}>
-        Top start
-      </Button>
-      <Button onClick={() => setListPlacement("bottom-start")}>
-        Bottom start
-      </Button>
-      <Box my="150px" ml="200px" width="200px">
-        <MultiSelect
-          name="listWidth"
-          id="listWidth"
-          label="color"
-          labelInline
-          listWidth={350}
-          listPlacement={listPlacement}
-          value={value}
-          onChange={handleChange}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-        </MultiSelect>
-      </Box>
-    </>
-  );
-};
-ListPlacement.storyName = "List Placement";
+  useEffect(() => {
+    setValue(args.value ?? []);
+  }, [args.value]);
 
-export const ListHeight: Story = () => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
+  const virtualOptions = useMemo(() => {
+    if (!args.enableVirtualScroll) return null;
+
+    return Array.from(
+      { length: PLAYGROUND_VIRTUAL_OPTION_COUNT - 5 },
+      (_, index) => {
+        const optionNumber = index + 6;
+        return (
+          <Option
+            key={optionNumber}
+            text={`Color ${optionNumber}`}
+            value={String(optionNumber)}
+          />
+        );
+      },
+    );
+  }, [args.enableVirtualScroll]);
 
   return (
     <Box height={500}>
+      {args.isLoading && (
+        <Typography mb={2}>
+          The loading spinner appears at the end of the option list. Scroll down
+          to see it.
+        </Typography>
+      )}
       <MultiSelect
-        listMaxHeight={2000}
-        name="list height"
-        id="list-height"
-        label="List height"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-};
-ListHeight.storyName = "List Height";
-
-export const ListWidth: Story = () => {
-  const [value, setValue] = useState<string[]>([]);
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: updatedValue } = ev.target;
-
-    if (Array.isArray(updatedValue)) {
-      setValue(updatedValue);
-    }
-  };
-  return (
-    <Box height={200} width={200}>
-      <MultiSelect
-        name="listWidth"
-        id="listWidth"
-        label="color"
-        listWidth={350}
-        listPlacement="bottom-start"
-        value={value}
-        onChange={handleChange}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </MultiSelect>
-    </Box>
-  );
-};
-ListWidth.storyName = "List Width";
-
-export const Controlled: Story = () => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  function clearValue() {
-    setValue([]);
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearValue} mb={2}>
-        clear
-      </Button>
-      <MultiSelect
-        id="controlled"
-        name="controlled"
-        value={value}
-        onChange={onChangeHandler}
-        label="color"
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-};
-Controlled.storyName = "Controlled";
-
-export const OpenOnFocus: Story = () => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="openOnFocus"
-        id="openOnFocus"
-        openOnFocus
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-};
-OpenOnFocus.storyName = "Open on Focus";
-
-export const Disabled: Story = () => {
-  const [value, setValue] = useState<string[]>(["1", "3"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  return (
-    <MultiSelect
-      aria-label="disabled"
-      name="disabled"
-      id="select-disabled"
-      value={value}
-      onChange={onChangeHandler}
-      disabled
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-};
-Disabled.storyName = "Disabled";
-
-export const Readonly: Story = () => {
-  const [value, setValue] = useState<string[]>(["1", "3"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  return (
-    <MultiSelect
-      aria-label="readonly"
-      name="readonly"
-      id="readonly"
-      value={value}
-      onChange={onChangeHandler}
-      readOnly
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-};
-Readonly.storyName = "Read Only";
-
-export const WithMultipleColumns: Story = () => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="withMultipleColumns"
-        id="withMultipleColumns"
-        multiColumn
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
-        }
-        label="With multiple columns"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <OptionRow id="1" value="1" text="John Doe">
-          <td>John</td>
-          <td>Doe</td>
-          <td>Welder</td>
-        </OptionRow>
-        <OptionRow id="2" value="2" text="Joe Vick">
-          <td>Joe</td>
-          <td>Vick</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="3" value="3" text="Jane Poe">
-          <td>Jane</td>
-          <td>Poe</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="4" value="4" text="Jill Moe">
-          <td>Jill</td>
-          <td>Moe</td>
-          <td>Engineer</td>
-        </OptionRow>
-        <OptionRow id="5" value="5" text="Bill Zoe">
-          <td>Bill</td>
-          <td>Zoe</td>
-          <td>Astronaut</td>
-        </OptionRow>
-      </MultiSelect>
-    </Box>
-  );
-};
-WithMultipleColumns.storyName = "With Multiple Columns";
-
-export const Required: Story = () => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="required-select"
-        id="required-select"
-        label="Foreground Color"
-        required
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-};
-Required.storyName = "Required";
-
-export const WithObjectAsValue: Story = () => {
-  const optionListValues = [
-    { id: "Amber", value: 1, text: "Amber" },
-    { id: "Black", value: 2, text: "Black" },
-    { id: "Blue", value: 3, text: "Blue" },
-    { id: "Brown", value: 4, text: "Brown" },
-    { id: "Green", value: 5, text: "Green" },
-    { id: "Orange", value: 6, text: "Orange" },
-    { id: "Pink", value: 7, text: "Pink" },
-    { id: "Purple", value: 8, text: "Purple" },
-    { id: "Red", value: 9, text: "Red" },
-    { id: "White", value: 10, text: "White" },
-    { id: "Yellow", value: 11, text: "Yellow" },
-  ];
-
-  const [value, setValue] = useState<Record<string, unknown>[]>([
-    optionListValues[4],
-  ]);
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    if (typeof event.target.value === "object") {
-      setValue(event.target.value);
-    }
-  }
-  function clearValue() {
-    setValue([]);
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearValue} mb={2}>
-        clear
-      </Button>
-      <MultiSelect
-        id="with-object"
-        name="with-object"
-        value={value}
-        onChange={onChangeHandler}
-        label="color"
-      >
-        {optionListValues.map((option) => (
-          <Option key={option.id} text={option.text} value={option} />
-        ))}
-      </MultiSelect>
-    </Box>
-  );
-};
-WithObjectAsValue.storyName = "With Object as Value";
-
-export const WithIsLoadingProp: Story = () => {
-  const preventLoading = useRef(false);
-  const [value, setValue] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-  function clearData() {
-    setOptionList([]);
-    setValue([]);
-    preventLoading.current = false;
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearData} mb={2}>
-        reset
-      </Button>
-      <MultiSelect
-        name="isLoading"
-        id="isLoading"
-        label="color"
+        {...args}
         value={value}
         onChange={(event) =>
           setValue(event.target.value as unknown as string[])
         }
-        onOpen={() => loadList()}
-        isLoading={isLoading}
       >
-        {optionList}
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Green" value="4" />
+        <Option text="Orange" value="5" />
+        {virtualOptions}
       </MultiSelect>
     </Box>
   );
 };
-WithIsLoadingProp.storyName = "With isLoading prop";
+
+export const Playground: Story = {
+  render: (args) => <PlaygroundStory {...args} />,
+  args: {
+    label: "Color",
+    inputHint: "Select an option",
+    size: "medium",
+    disabled: false,
+    readOnly: false,
+    required: false,
+    isLoading: false,
+    openOnFocus: false,
+    labelInline: false,
+    flipEnabled: true,
+    enableVirtualScroll: false,
+    virtualScrollOverscan: 5,
+    value: [],
+  },
+  parameters: {
+    controls: {
+      include: [
+        "validationMessagePositionTop",
+        "maxWidth",
+        "inputWidth",
+        "formattedValue",
+        "inputHint",
+        "prefix",
+        "autoFocus",
+        "warning",
+        "error",
+        "required",
+        "listMaxHeight",
+        "flipEnabled",
+        "virtualScrollOverscan",
+        "enableVirtualScroll",
+        "labelInline",
+        "openOnFocus",
+        "isLoading",
+        "readOnly",
+        "disabled",
+        "size",
+        "label",
+        "wrapPillText",
+      ],
+    },
+  },
+  argTypes: {
+    size: {
+      options: ["small", "medium", "large"],
+      control: { type: "radio" },
+    },
+    error: { control: { type: "text" } },
+    warning: { control: { type: "text" } },
+    inputWidth: {
+      control: { type: "range", min: 10, max: 100, step: 10 },
+    },
+    listMaxHeight: {
+      control: { type: "range", min: 80, max: 400, step: 20 },
+    },
+    virtualScrollOverscan: {
+      control: { type: "number", min: 0, step: 1 },
+    },
+  },
+};
+Playground.storyName = "Playground";
 
 export const WithCustomColoredPills: Story = () => {
   const [value, setValue] = useState<string[]>(["1", "3"]);
@@ -516,127 +188,6 @@ export const WithCustomColoredPills: Story = () => {
 };
 WithCustomColoredPills.storyName = "With Custom Colored Pills";
 
-export const WithInfiniteScroll: Story = () => {
-  const preventLoading = useRef(false);
-  const preventLazyLoading = useRef(false);
-  const lazyLoadingCounter = useRef(0);
-
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const getLazyLoaded = () => {
-    const counter = lazyLoadingCounter.current;
-    return [
-      <Option
-        text={`Lazy Loaded A${counter}`}
-        value={`lazyA${counter}`}
-        key={`lazyA${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded B${counter}`}
-        value={`lazyB${counter}`}
-        key={`lazyB${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded C${counter}`}
-        value={`lazyC${counter}`}
-        key={`lazyC${counter}`}
-      />,
-    ];
-  };
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setOptionList(asyncList);
-      setIsLoading(false);
-    }, 2000);
-  }
-  function onLazyLoading() {
-    if (preventLazyLoading.current) {
-      return;
-    }
-    preventLazyLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      preventLazyLoading.current = false;
-      lazyLoadingCounter.current += 1;
-      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
-      setIsLoading(false);
-    }, 2000);
-  }
-  function clearData() {
-    setOptionList([]);
-    setValue([]);
-    preventLoading.current = false;
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearData} mb={2}>
-        reset
-      </Button>
-      <MultiSelect
-        name="infiniteScroll"
-        id="infiniteScroll"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-        onOpen={() => loadList()}
-        isLoading={isLoading}
-        onListScrollBottom={onLazyLoading}
-      >
-        {optionList}
-      </MultiSelect>
-    </Box>
-  );
-};
-WithInfiniteScroll.storyName = "With infinite scroll";
-
-export const WithCustomMaxWidth: Story = () => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="simple"
-        id="simple"
-        maxWidth="50%"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Grey" value="1" variant="grey" />
-        <Option text="Green" value="2" variant="green" />
-        <Option text="Red" value="3" variant="red" />
-        <Option text="Orange" value="4" variant="orange" />
-        <Option text="Blue" value="5" variant="blue" />
-        <Option text="Purple" value="6" variant="purple" />
-        <Option text="Teal" value="7" variant="teal" />
-        <Option text="Lime" value="8" variant="lime" />
-        <Option text="Pink" value="9" variant="pink" />
-        <Option text="Slate" value="10" variant="slate" />
-      </MultiSelect>
-    </Box>
-  );
-};
-WithCustomMaxWidth.storyName = "With Custom Max Width";
-
 export const PillsWithLongText: Story = () => {
   const [value, setValue] = useState<string[]>(["1"]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -664,36 +215,149 @@ export const PillsWithLongText: Story = () => {
 };
 PillsWithLongText.storyName = "Pills with Long Text";
 
-export const Virtualised: Story = () => {
-  const colors = [
-    "Amber",
-    "Black",
-    "Blue",
-    "Brown",
-    "Green",
-    "Orange",
-    "Pink",
-    "Purple",
-    "Red",
-    "White",
-    "Yellow",
-  ];
-  const options = Array(10000)
-    .fill(undefined)
-    .map((_, index) => (
-      <Option
-        key={`option-${index + 1}`}
-        value={`${index}`}
-        text={`${colors[index % colors.length]} - option ${index + 1}`}
-      />
-    ));
+const DEMO_LOADING_DELAY = 6000;
+
+export const LazyLoading: Story = () => {
+  const preventLoading = useRef(false);
+  const loadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+
+  useEffect(
+    () => () => {
+      if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    },
+    [],
+  );
+
+  function loadList() {
+    if (preventLoading.current) {
+      return;
+    }
+
+    preventLoading.current = true;
+    setIsLoading(true);
+    loadTimer.current = setTimeout(() => {
+      setOptionList([
+        <Option text="Amber" value="amber" key="Amber" />,
+        <Option text="Black" value="black" key="Black" />,
+        <Option text="Blue" value="blue" key="Blue" />,
+        <Option text="Brown" value="brown" key="Brown" />,
+        <Option text="Green" value="green" key="Green" />,
+      ]);
+      setIsLoading(false);
+      loadTimer.current = null;
+    }, DEMO_LOADING_DELAY);
+  }
+
+  function reset() {
+    if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    loadTimer.current = null;
+    setOptionList([]);
+    setValue([]);
+    setIsLoading(true);
+    preventLoading.current = false;
   }
 
   return (
-    <Box height={220}>
+    <Box height={300}>
+      <Button onClick={reset} mb={2}>
+        Reset
+      </Button>
+      <MultiSelect
+        name="lazyLoading"
+        id="lazyLoading"
+        label="Color"
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
+        onOpen={loadList}
+        isLoading={isLoading}
+      >
+        {optionList}
+      </MultiSelect>
+    </Box>
+  );
+};
+LazyLoading.storyName = "Lazy Loading";
+
+const INFINITE_SCROLL_BATCH_SIZE = 20;
+
+export const WithInfiniteScroll: Story = () => {
+  const loadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [value, setValue] = useState<string[]>(["1"]);
+  const [optionCount, setOptionCount] = useState(INFINITE_SCROLL_BATCH_SIZE);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(
+    () => () => {
+      if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    },
+    [],
+  );
+
+  function loadMoreOptions() {
+    if (loadTimer.current !== null) return;
+
+    setIsLoading(true);
+    loadTimer.current = setTimeout(() => {
+      setOptionCount((count) => count + INFINITE_SCROLL_BATCH_SIZE);
+      setIsLoading(false);
+      loadTimer.current = null;
+    }, DEMO_LOADING_DELAY);
+  }
+
+  function reset() {
+    if (loadTimer.current !== null) clearTimeout(loadTimer.current);
+    loadTimer.current = null;
+    setOptionCount(INFINITE_SCROLL_BATCH_SIZE);
+    setValue(["1"]);
+    setIsLoading(false);
+  }
+
+  return (
+    <Box height={400}>
+      <Typography mb={2}>
+        Scroll to the bottom to load {INFINITE_SCROLL_BATCH_SIZE} more options.
+        Currently {optionCount} options loaded.
+      </Typography>
+      <Button onClick={reset} mb={2}>
+        Reset
+      </Button>
+      <MultiSelect
+        name="infiniteScroll"
+        id="infiniteScroll"
+        label="Options"
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
+        enableVirtualScroll={false}
+        isLoading={isLoading}
+        onListScrollBottom={loadMoreOptions}
+      >
+        {Array.from({ length: optionCount }, (_, index) => {
+          const optionNumber = index + 1;
+          return (
+            <Option
+              key={optionNumber}
+              text={`Option ${optionNumber}`}
+              value={String(optionNumber)}
+            />
+          );
+        })}
+      </MultiSelect>
+    </Box>
+  );
+};
+WithInfiniteScroll.storyName = "With infinite scroll";
+
+export const Virtualised: Story = () => {
+  const [value, setValue] = useState<string[]>(["0"]);
+  return (
+    <Box height={320}>
       <MultiSelect
         name="virtualised"
         id="virtualised"
@@ -702,11 +366,243 @@ export const Virtualised: Story = () => {
         enableVirtualScroll
         virtualScrollOverscan={20}
         value={value}
-        onChange={onChangeHandler}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
       >
-        {options}
+        {Array(10000)
+          .fill(undefined)
+          .map((_, index) => (
+            <Option
+              key={`option-${index + 1}`}
+              value={`${index}`}
+              text={`Option ${index + 1}`}
+            />
+          ))}
       </MultiSelect>
     </Box>
   );
 };
 Virtualised.storyName = "Virtualised";
+
+export const SelectionConfirmedStory: Story = () => {
+  const [selectionConfirmed, setSelectionConfirmed] = useState(false);
+  const [value, setValue] = useState<string[]>(["1"]);
+  return (
+    <Box height={380}>
+      <Typography variant="strong">
+        Selection Confirmed:{" "}
+        {selectionConfirmed ? (
+          <Icon type="tick" bg="primary" color="white" />
+        ) : (
+          <Icon type="cross" bg="red" color="white" />
+        )}
+      </Typography>
+      <MultiSelect
+        value={value}
+        onChange={(event: CustomSelectChangeEvent) => {
+          setSelectionConfirmed(!!event.selectionConfirmed);
+          setValue(event.target.value as unknown as string[]);
+        }}
+        name="selection confirmed"
+        id="selection confirmed"
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
+  );
+};
+SelectionConfirmedStory.storyName = "Selection Confirmed";
+
+const options = ["A", "B", "C", "D", "E"];
+const allOptions = ["All"];
+
+export const SelectWithDynamicallyAddedOption: Story = () => {
+  const [optionsList, setOptionsList] = useState(options);
+  const [currentOptions, setCurrentOptions] = useState<string[]>(["A"]);
+  useEffect(() => {
+    if (currentOptions.some((option) => option !== "A")) {
+      setOptionsList([...allOptions, ...options]);
+    }
+  }, [currentOptions]);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentOptions(event.target.value as unknown as string[]);
+  };
+  return (
+    <Box height={320}>
+      <MultiSelect
+        label="Choose your option"
+        data-role="selector"
+        onChange={handleChange}
+        value={currentOptions}
+      >
+        {optionsList.map((opt) => (
+          <Option
+            data-role={`option-${opt}`}
+            text={opt}
+            value={opt}
+            key={opt}
+          />
+        ))}
+      </MultiSelect>
+    </Box>
+  );
+};
+SelectWithDynamicallyAddedOption.storyName = "Dynamically Adding Options";
+
+export const AddOptionFromDialog: Story = () => {
+  const selectRef = useRef<HTMLInputElement>(null);
+  const nextOptionId = useRef(4);
+  const shouldRestoreSelectFocus = useRef(false);
+  const [value, setValue] = useState<string[]>(["option-1"]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [newOptionLabel, setNewOptionLabel] = useState("");
+  const [optionLabelError, setOptionLabelError] = useState("");
+  const [optionList, setOptionList] = useState([
+    { value: "option-1", text: "Dropdown item 1" },
+    { value: "option-2", text: "Dropdown item 2" },
+    { value: "option-3", text: "Dropdown item 3" },
+  ]);
+
+  useEffect(() => {
+    if (dialogOpen || !shouldRestoreSelectFocus.current) return;
+
+    shouldRestoreSelectFocus.current = false;
+    const focusTimer = window.setTimeout(
+      () => selectRef.current?.focus(),
+      DIALOG_CLOSE_FOCUS_DELAY,
+    );
+
+    return () => window.clearTimeout(focusTimer);
+  }, [dialogOpen]);
+
+  const closeDialogAndFocusSelect = () => {
+    setOptionLabelError("");
+    shouldRestoreSelectFocus.current = true;
+    setDialogOpen(false);
+  };
+
+  const addOption = () => {
+    const text = newOptionLabel.trim();
+    if (!text) {
+      setOptionLabelError("Enter an option label.");
+      return;
+    }
+
+    const optionValue = `option-${nextOptionId.current}`;
+    nextOptionId.current += 1;
+    setOptionList((currentOptions) => [
+      ...currentOptions,
+      { value: optionValue, text },
+    ]);
+    setNewOptionLabel("");
+    closeDialogAndFocusSelect();
+  };
+
+  return (
+    <Box height={300}>
+      <MultiSelect
+        ref={selectRef}
+        name="addOption"
+        id="addOption"
+        label="Object"
+        required
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
+      >
+        <ActionOption
+          value="add-option"
+          text="Add an option"
+          leading={<Icon type="add" />}
+          onClick={() => setDialogOpen(true)}
+        />
+        {optionList.map((option) => (
+          <Option key={option.value} {...option} />
+        ))}
+      </MultiSelect>
+
+      <Dialog
+        open={dialogOpen}
+        onCancel={closeDialogAndFocusSelect}
+        restoreFocusOnClose={false}
+        title="Add an option"
+        footer={
+          <Box display="flex" justifyContent="flex-end" gap={1}>
+            <Button variantType="subtle" onClick={closeDialogAndFocusSelect}>
+              Cancel
+            </Button>
+            <Button onClick={addOption}>Add</Button>
+          </Box>
+        }
+      >
+        <Textbox
+          autoFocus
+          label="Option label"
+          value={newOptionLabel}
+          error={optionLabelError || undefined}
+          onChange={(event) => {
+            setNewOptionLabel(event.target.value);
+            setOptionLabelError("");
+          }}
+        />
+      </Dialog>
+    </Box>
+  );
+};
+AddOptionFromDialog.storyName = "Add Option From Dialog";
+
+export const ComplexCompositions: Story = () => {
+  const [value, setValue] = useState<string[]>(["1"]);
+  return (
+    <Box height={500}>
+      <MultiSelect
+        name="complexCompositions"
+        id="complexCompositions"
+        label="Option compositions"
+        listMaxHeight={400}
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
+      >
+        <Option
+          text="Option with an icon"
+          value="1"
+          leading={<Icon type="favourite" />}
+        />
+        <Option text="Option with a divider" value="2" divider />
+        <OptionGroupHeader label="Option heading" />
+        <Option text="Option with a prefix" value="3" prefix="New " />
+        <Option
+          text="Option with subtext"
+          value="4"
+          subtext="Some helpful subtext"
+        />
+        <Option
+          text="Option with an icon and portrait"
+          value="5"
+          leading={
+            <>
+              <Icon type="individual" />
+              <Portrait initials="JD" size="XS" />
+            </>
+          }
+        />
+      </MultiSelect>
+    </Box>
+  );
+};
+ComplexCompositions.storyName = "Complex Compositions";

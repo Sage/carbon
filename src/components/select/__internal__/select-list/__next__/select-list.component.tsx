@@ -31,6 +31,9 @@ import useLocale from "../../../../../hooks/__internal__/useLocale";
 import useModalManager from "../../../../../hooks/__internal__/useModalManager";
 import isExpectedOption from "../../utils/is-expected-option";
 import guid from "../../../../../__internal__/utils/helpers/guid";
+import createSelectedValueMatcher from "../../utils/create-selected-value-matcher";
+import useSelectListFilterNavigation from "./use-select-list-filter-navigation";
+import highlightMatchingText from "../../../../../__internal__/highlight-matching-text/highlight-matching-text.component";
 import useSelectListVirtualization, {
   type SelectVirtualRow,
 } from "./use-select-list-virtualization";
@@ -69,6 +72,15 @@ const StyledSelectPopoverMenu = styled(SelectPopoverMenu)`
   [data-element="menu-item-label-prefix"] {
     padding-right: ${({ size }) =>
       `var(--global-space-comp-${size === "small" ? "2-xs" : "xs"})`};
+  }
+
+  [data-element="select-no-results"] {
+    padding-inline: var(--global-space-comp-m);
+    cursor: default;
+
+    [data-element="menu-item-label"] {
+      color: var(--input-dropdown-label-alt);
+    }
   }
 
   [data-component="popover-menu-divider"] {
@@ -113,7 +125,7 @@ export interface SelectListOnSelectData {
   /** The visible text of the selected option */
   text?: string;
   /** The internal value of the selected option */
-  value?: string | Record<string, unknown>;
+  value: string | Record<string, unknown>;
 }
 
 export interface NextSelectListProps {
@@ -133,6 +145,12 @@ export interface NextSelectListProps {
   placement?: React.ComponentProps<typeof PopoverMenu>["placement"];
   /** The currently selected value, used to render the selected tick */
   selectedValue?: string | Record<string, unknown>;
+  /** Selected values in a multi-select. Options remain open after selection. */
+  selectedValues?: (string | Record<string, unknown>)[];
+  /** Filter options by their visible text. */
+  filterText?: string;
+  /** Message shown when filtering leaves no options. */
+  noResultsMessage?: string;
   /** Renders the control (e.g. the Select textbox) that the list is anchored to */
   popoverControl: (
     ref: React.RefObject<HTMLInputElement>,
@@ -245,6 +263,9 @@ const SelectList = ({
   maxHeight,
   placement = "bottom",
   selectedValue,
+  selectedValues,
+  filterText,
+  noResultsMessage,
   popoverControl,
   controlReference,
   controlWrapperStyle,
@@ -315,10 +336,33 @@ const SelectList = ({
   }, [open, onListScrollBottom]);
 
   const listId = useRef(id ?? `select-list-${guid()}`).current;
-  const groups = useMemo(
-    () => buildOptionGroups(children, selectedValue),
-    [children, selectedValue],
+  const matchesSelectedValue = useMemo(
+    () =>
+      selectedValues ? createSelectedValueMatcher(selectedValues) : undefined,
+    [selectedValues],
   );
+  const groups = useMemo(() => {
+    const result = buildOptionGroups(children, selectedValue);
+    for (const group of result) {
+      group.rows = group.rows
+        .filter((row) =>
+          !filterText || isLoading
+            ? true
+            : row.option?.props.text
+                ?.toLowerCase()
+                .includes(filterText.toLowerCase()),
+        )
+        .map((row, groupIndex) => ({
+          ...row,
+          groupIndex,
+          selected: matchesSelectedValue
+            ? row.option?.props.value !== undefined &&
+              matchesSelectedValue(row.option.props.value)
+            : row.selected,
+        }));
+    }
+    return result;
+  }, [children, selectedValue, matchesSelectedValue, filterText, isLoading]);
   const optionCount = groups.reduce(
     (count, group) => count + group.rows.length,
     0,
@@ -399,15 +443,32 @@ const SelectList = ({
     ],
     [groups, isLoading],
   );
+  const virtualizationEnabled = enableVirtualScroll && rows.length > 0;
   const virtualization = useSelectListVirtualization({
     rows,
     open,
-    enabled: enableVirtualScroll,
+    enabled: virtualizationEnabled,
+    filterText,
     overscan: virtualScrollOverscan,
     listRef,
     listId,
     selectOnSpaceAndTab,
     onClose,
+    multiselect: !!selectedValues,
+  });
+
+  const filterNavigationEnabled =
+    !virtualizationEnabled &&
+    (filterText !== undefined || selectedValues !== undefined);
+  const filterNavigation = useSelectListFilterNavigation({
+    enabled: filterNavigationEnabled,
+    open,
+    filterText,
+    rows,
+    listRef,
+    multiselect: !!selectedValues,
+    selectOnSpaceAndTab,
+    onClose: handlePopoverClose,
   });
 
   const renderOption = (
@@ -464,6 +525,10 @@ const SelectList = ({
 
     const { selected } = row;
     const label = optionChildren ?? text;
+    const renderedLabel =
+      filterText && !isLoading && typeof label === "string"
+        ? highlightMatchingText(label, filterText, size)
+        : label;
 
     const Item = isAction ? MenuActionItem : MenuOptionItem;
     const menuItem = (
@@ -486,7 +551,9 @@ const SelectList = ({
           }
 
           onSelect({ id: optionId, text, value });
-          onClose(undefined, typeof value === "string" ? value : undefined);
+          if (!selectedValues) {
+            onClose(undefined, typeof value === "string" ? value : undefined);
+          }
         }}
       >
         <MenuItemLeading selectedIcon={selected}>
@@ -494,7 +561,7 @@ const SelectList = ({
             <StyledOptionLeading $size={size}>{leading}</StyledOptionLeading>
           )}
         </MenuItemLeading>
-        <MenuItemLabel prefix={prefix}>{label}</MenuItemLabel>
+        <MenuItemLabel prefix={prefix}>{renderedLabel}</MenuItemLabel>
         {subtext && <MenuItemSubtext>{subtext}</MenuItemSubtext>}
       </Item>
     );
@@ -539,7 +606,7 @@ const SelectList = ({
     );
   };
 
-  const listContent = enableVirtualScroll
+  const listContent = virtualizationEnabled
     ? [
         ...virtualization.virtualItems.map((item) => {
           const row = rows[item.index];
@@ -601,6 +668,20 @@ const SelectList = ({
             : options;
         }),
         ...(isLoading ? [renderOption(rows[rows.length - 1])] : []),
+        ...(filterText && !isLoading && optionCount === 0
+          ? [
+              <MenuOptionItem
+                key="no-results"
+                data-element="select-no-results"
+                disabled
+              >
+                <MenuItemLabel>
+                  {noResultsMessage ??
+                    locale.select.noResultsForTerm(filterText)}
+                </MenuItemLabel>
+              </MenuOptionItem>,
+            ]
+          : []),
       ];
 
   return (
@@ -616,6 +697,7 @@ const SelectList = ({
       controlWrapperStyle={controlWrapperStyle}
       listboxAriaLabelledBy={labelId}
       listboxAriaLabel={listboxAriaLabel}
+      listboxAriaMultiselectable={!!selectedValues}
       listRef={setListRef}
       onClose={handlePopoverClose}
       popoverControl={(ref, controlProps) => (
@@ -630,13 +712,21 @@ const SelectList = ({
       )}
       wrapItems={false}
       onListKeyDown={
-        enableVirtualScroll ? virtualization.handleVirtualKeyDown : undefined
+        virtualizationEnabled
+          ? virtualization.handleVirtualKeyDown
+          : filterNavigationEnabled
+            ? filterNavigation.handleKeyDown
+            : undefined
       }
       activeDescendant={
-        enableVirtualScroll ? virtualization.activeDescendant : undefined
+        virtualizationEnabled
+          ? virtualization.activeDescendant
+          : filterNavigationEnabled
+            ? filterNavigation.activeDescendant
+            : undefined
       }
       listStyle={
-        enableVirtualScroll
+        virtualizationEnabled
           ? {
               display: "block",
               position: "relative",

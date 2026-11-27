@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
+import type { HTMLAttributes } from "react";
 import {
   filterOutStyledSystemSpacingProps,
   filterStyledSystemMarginProps,
@@ -12,16 +13,19 @@ import {
 import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
+import { CommonTextboxProps } from "../../textbox";
+import { NON_FUNCTIONING_PROPS } from "../../textbox/textbox.component";
+import type { TextInputProps } from "../../textbox/__internal__/__next__/text-input.component";
+import filterPropsByName from "../../../__internal__/utils/helpers/filter-props";
 import guid from "../../../__internal__/utils/helpers/guid";
-import withFilter from "../__internal__/utils/with-filter.hoc";
-import SelectList, {
-  ListPlacement,
-  SelectListProps,
-} from "../__internal__/select-list/select-list.component";
+import { ListPlacement } from "../__internal__/select-list/select-list.component";
+import NextSelectList, {
+  SelectListOnSelectData,
+} from "../__internal__/select-list/__next__";
+import combineRefs from "../../../__internal__/utils/helpers/combine-refs";
 import {
-  StyledSelectPillContainer,
   StyledSelectMultiSelect,
-  StyledAccessibilityLabelContainer,
+  StyledSelectedValuesDescription,
 } from "./multi-select.style";
 import Pill, { PillProps } from "../../pill";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
@@ -32,10 +36,27 @@ import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibi
 import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import { CustomSelectChangeEvent } from "../simple-select";
 
-const FilterableSelectList = withFilter(SelectList);
-
 export interface MultiSelectProps
-  extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
+  extends Omit<
+    FormInputPropTypes,
+    | "defaultValue"
+    | "value"
+    | "info"
+    | "fieldHelp"
+    | "labelHelp"
+    | "labelWidth"
+    | "placeholder"
+    | "onChangeDeferred"
+    | "deferTimeout"
+    | "iconOnClick"
+    | "iconOnMouseDown"
+    | "iconTabIndex"
+    | "inputIcon"
+    | "align"
+    | "leftChildren"
+    | "inert"
+    | "tooltipPosition"
+  > {
   /** Prop to specify the aria-label attribute of the component input */
   "aria-label"?: string;
   /** Prop to specify the aria-labelledby property of the component input */
@@ -46,9 +67,35 @@ export interface MultiSelectProps
   children: React.ReactNode;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
-  /** When true component will work in multi column mode.
-   * Children should consist of OptionRow components in this mode
-   */
+  /** @deprecated `info` no longer has any effect in MultiSelect. */
+  info?: FormInputPropTypes["info"];
+  /** @deprecated `fieldHelp` no longer has any effect in MultiSelect. Use `inputHint` instead. */
+  fieldHelp?: CommonTextboxProps["fieldHelp"];
+  /** @deprecated `labelHelp` no longer has any effect in MultiSelect. Use `inputHint` instead. */
+  labelHelp?: CommonTextboxProps["labelHelp"];
+  /** @deprecated `labelWidth` no longer has any effect in MultiSelect. */
+  labelWidth?: FormInputPropTypes["labelWidth"];
+  /** @deprecated `placeholder` no longer has any effect in MultiSelect. */
+  placeholder?: FormInputPropTypes["placeholder"];
+  /** @deprecated `onChangeDeferred` is no longer called by MultiSelect. */
+  onChangeDeferred?: CommonTextboxProps["onChangeDeferred"];
+  /** @deprecated `deferTimeout` no longer has any effect in MultiSelect. */
+  deferTimeout?: CommonTextboxProps["deferTimeout"];
+  /** @deprecated `iconOnClick` is no longer called by MultiSelect. */
+  iconOnClick?: CommonTextboxProps["iconOnClick"];
+  /** @deprecated `iconOnMouseDown` is no longer called by MultiSelect. */
+  iconOnMouseDown?: CommonTextboxProps["iconOnMouseDown"];
+  /** @deprecated `iconTabIndex` no longer has any effect in MultiSelect. */
+  iconTabIndex?: CommonTextboxProps["iconTabIndex"];
+  /** @deprecated `inputIcon` no longer has any effect in MultiSelect. */
+  inputIcon?: CommonTextboxProps["inputIcon"];
+  /** @deprecated `align` no longer has any effect in MultiSelect. */
+  align?: TextInputProps["align"];
+  /** @deprecated `leftChildren` no longer has any effect in MultiSelect. */
+  leftChildren?: TextInputProps["leftChildren"];
+  /** @deprecated `inert` is no longer applied by MultiSelect. */
+  inert?: HTMLAttributes<HTMLInputElement>["inert"];
+  /** @deprecated `multiColumn` no longer enables multi-column options in MultiSelect. */
   multiColumn?: boolean;
   /** A custom message to be displayed when any option does not match the filter text */
   noResultsMessage?: string;
@@ -60,17 +107,17 @@ export interface MultiSelectProps
   onListScrollBottom?: () => void;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
-  /** SelectList table header, should consist of multiple th elements.
-   * Works only in multiColumn mode
-   */
+  /** @deprecated `tableHeader` is no longer rendered by MultiSelect. */
   tableHeader?: React.ReactNode;
+  /** @deprecated `transparent` no longer has any effect in MultiSelect. */
+  transparent?: boolean;
   /** The selected value(s) */
   value: string[] | Record<string, unknown>[];
-  /** [Legacy] Overrides the default tooltip position */
+  /** @deprecated `tooltipPosition` no longer has any effect in MultiSelect. */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** Maximum list height - defaults to 180 */
+  /** Maximum list height in pixels. Defaults to five and a half options for the selected size. */
   listMaxHeight?: number;
-  /** Placement of the select list in relation to the input element */
+  /** @deprecated `listPlacement` no longer has any effect; the list is positioned automatically. */
   listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
@@ -83,13 +130,37 @@ export interface MultiSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
+  /** @deprecated `isRequired` no longer has any effect in MultiSelect. Use `required` instead. */
+  isRequired?: boolean;
   /** Specify a callback triggered on change */
   onChange: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
-  /** Override the default width of the list element. Number passed is converted into pixel value */
+  /** @deprecated `listWidth` no longer has any effect in MultiSelect. */
   listWidth?: number;
 }
+
+const MULTI_SELECT_NON_FUNCTIONING_PROPS = new Set([
+  ...NON_FUNCTIONING_PROPS,
+  "align",
+  "onChangeDeferred",
+  "deferTimeout",
+  "iconOnClick",
+  "iconOnMouseDown",
+  "iconTabIndex",
+  "inputIcon",
+  "inert",
+  "multiColumn",
+  "tableHeader",
+  "transparent",
+  "isRequired",
+  "listPlacement",
+  "listWidth",
+  "fieldHelp",
+  "labelHelp",
+  "placeholder",
+  "leftChildren",
+]);
 
 export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
   (
@@ -112,51 +183,42 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       onKeyDown,
       openOnFocus = false,
       noResultsMessage,
-      placeholder,
       isLoading,
       onListScrollBottom,
-      tableHeader,
-      multiColumn,
-      tooltipPosition,
       size = "medium",
       "data-element": dataElement,
       "data-role": dataRole,
-      listPlacement = "bottom",
       listMaxHeight,
       flipEnabled = true,
       wrapPillText = true,
       enableVirtualScroll,
       virtualScrollOverscan,
       required,
-      listWidth,
       ...textboxProps
     },
     ref,
   ) => {
-    const [activeDescendantId, setActiveDescendantId] = useState<string>("");
     const selectListId = useRef(guid());
-    const accessibilityLabelId = useRef(guid());
+    const selectedValuesDescriptionId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
-    const listboxRef = useRef<HTMLDivElement>(null);
     const isInputFocused = useRef(false);
-    const isClickTriggeredBySelect = useRef(false);
     const isMouseDownReported = useRef(false);
     const isMouseDownOnInput = useRef(false);
     const isOpenedByFocus = useRef(false);
-    const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
+    const textboxRef = useRef<HTMLInputElement | null>(null);
     const [isOpen, setOpenState] = useState(false);
+    const [pillButtonsInTabOrder, setPillButtonsInTabOrder] = useState(false);
     const [textValue, setTextValue] = useState("");
-    const [highlightedValue, setHighlightedValue] = useState<
-      string | Record<string, unknown>
-    >("");
     const [filterText, setFilterText] = useState("");
-    const [placeholderOverride, setPlaceholderOverride] = useState<string>();
     const inputId = useRef(id || guid());
     const { labelId } = useInputAccessibility({
       id: inputId.current,
       label,
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
+    useEffect(() => {
+      return () => clearTimeout(focusTimer.current ?? undefined);
+    }, []);
     const setOpen = useCallback(() => {
       setOpenState((isAlreadyOpen) => {
         if (!isAlreadyOpen && onOpen) {
@@ -209,40 +271,18 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       [createCustomEvent, onChange, value],
     );
 
-    function findElementWithMatchingText(
-      textToMatch: string,
-      list: React.ReactNode,
-    ) {
-      return React.Children.toArray(list).find((child) => {
-        const { text } = (child as React.ReactElement).props;
-
-        return text?.toLowerCase().indexOf(textToMatch?.toLowerCase()) !== -1;
-      });
-    }
-
     const handleTextboxChange = useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
-        const match = findElementWithMatchingText(
-          newValue,
-          children,
-        ) as React.ReactElement;
-
-        if (match) {
-          setHighlightedValue(match.props.value);
-        }
-
         setFilterText(newValue);
         setTextValue(newValue);
         setOpen();
       },
-      [children, setOpen],
+      [setOpen],
     );
 
     const removeSelectedValue = useCallback(
       (index: number) => {
-        isClickTriggeredBySelect.current = true;
-
         updateValue((previousValue) => {
           if (!previousValue.length) {
             return previousValue;
@@ -256,6 +296,12 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       [updateValue],
     );
 
+    const onSelectListClose = useCallback(() => {
+      setOpenState(false);
+      setFilterText("");
+      setTextValue("");
+    }, []);
+
     const handleTextboxKeydown = useCallback(
       (event: React.KeyboardEvent<HTMLInputElement>) => {
         const { key } = event;
@@ -265,11 +311,31 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           onKeyDown(event);
         }
 
+        if (key === "Tab" && !event.shiftKey && !event.defaultPrevented) {
+          const firstPillButton =
+            containerRef.current?.querySelector<HTMLButtonElement>(
+              '[data-element="close"]',
+            );
+          if (firstPillButton) {
+            event.preventDefault();
+            if (isOpen) {
+              event.stopPropagation();
+              onSelectListClose();
+            }
+            setPillButtonsInTabOrder(true);
+            firstPillButton.focus();
+          }
+          return;
+        }
+
         if (readOnly) {
           return;
         }
 
-        if (!event.defaultPrevented && isNavigationKey(key)) {
+        if (
+          !event.defaultPrevented &&
+          (isNavigationKey(key) || (key === "Enter" && !isOpen))
+        ) {
           event.preventDefault();
           setOpen();
         }
@@ -281,70 +347,54 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       [
         onKeyDown,
         readOnly,
+        isOpen,
         filterText,
         textValue,
         setOpen,
         removeSelectedValue,
+        onSelectListClose,
       ],
     );
 
-    const accessibilityLabel = useMemo(() => {
-      return value && value.length
-        ? React.Children.map(children, (child) => {
-            return React.isValidElement(child) &&
-              value.includes(child.props.value)
-              ? child.props.text
-              : false;
-          })
-            ?.filter((child) => child)
-            .reduce((acc, item) => {
-              return acc ? `${acc}, ${item}` : item;
-            }, "")
-        : null;
+    const selectedOptions = useMemo(() => {
+      const options: ReturnType<typeof React.Children.toArray> = [];
+      const collectOptions = (nodes: React.ReactNode) => {
+        React.Children.toArray(nodes).forEach((child) => {
+          if (React.isValidElement(child) && child.type === React.Fragment) {
+            collectOptions(child.props.children);
+            return;
+          }
+
+          options.push(child);
+        });
+      };
+      collectOptions(children);
+      return (value ?? []).map((singleValue) =>
+        options.find(
+          (child) =>
+            React.isValidElement(child) && isExpectedOption(child, singleValue),
+        ),
+      );
     }, [children, value]);
 
-    const handleGlobalClick = useCallback(
-      (event: MouseEvent) => {
-        isMouseDownReported.current = false;
-
-        if (!isOpen) {
-          return;
-        }
-
-        const notInContainer =
-          containerRef.current &&
-          !containerRef.current.contains(event.target as Node);
-
-        const notInList =
-          listboxRef.current &&
-          !listboxRef.current.contains(event.target as Node);
-
-        if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
-          setTextValue("");
-          setFilterText("");
-          setHighlightedValue("");
-          setOpenState(false);
-        }
-
-        isClickTriggeredBySelect.current = false;
-      },
-      [isOpen],
-    );
+    const selectedValuesDescription = selectedOptions
+      .map((option) =>
+        React.isValidElement<{ text?: string }>(option)
+          ? option.props.text
+          : undefined,
+      )
+      .filter((text): text is string => typeof text === "string" && !!text)
+      .join(", ");
 
     const mapValuesToPills = useMemo(() => {
       const canDelete = !disabled && !readOnly;
       let matchingOptionValue: string;
 
-      if (!value?.length) {
+      if (!selectedOptions.length) {
         return "";
       }
 
-      return value.map((singleValue, index) => {
-        const matchingOption = React.Children.toArray(children).find(
-          (child) =>
-            React.isValidElement(child) && isExpectedOption(child, singleValue),
-        );
-
+      return selectedOptions.map((matchingOption, index) => {
         let pillProps: Omit<PillProps, "children"> = {};
 
         if (!matchingOption) {
@@ -371,42 +421,32 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           title + matchingOptionValue || /* istanbul ignore next */ index;
 
         return (
-          <StyledSelectPillContainer key={key}>
-            <Pill
-              onDelete={
-                canDelete ? () => removeSelectedValue(index) : undefined
-              }
-              wrapText={wrapPillText}
-              {...pillProps}
-            >
-              {title}
-            </Pill>
-          </StyledSelectPillContainer>
+          <Pill
+            key={key}
+            onDelete={
+              canDelete
+                ? () => {
+                    setPillButtonsInTabOrder(false);
+                    removeSelectedValue(index);
+                  }
+                : undefined
+            }
+            removeButtonTabIndex={pillButtonsInTabOrder ? 0 : -1}
+            wrapText={wrapPillText}
+            {...pillProps}
+          >
+            <span data-element="multi-select-pill-text">{title}</span>
+          </Pill>
         );
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [children, disabled, readOnly, value]);
-
-    // removes placeholder when a value is present
-    useEffect(() => {
-      const hasValue = value?.length;
-
-      if (hasValue) {
-        setPlaceholderOverride(" ");
-      } else {
-        setPlaceholderOverride(placeholder);
-      }
-    }, [value, placeholder]);
-
-    useEffect(() => {
-      const clickEvent = "click";
-
-      window.addEventListener(clickEvent, handleGlobalClick);
-
-      return function cleanup() {
-        window.removeEventListener(clickEvent, handleGlobalClick);
-      };
-    }, [handleGlobalClick]);
+    }, [
+      disabled,
+      readOnly,
+      selectedOptions,
+      wrapPillText,
+      pillButtonsInTabOrder,
+    ]);
 
     const onFilterChange = useStableCallback(
       onFilterChangeProp as (filterTextArg: unknown) => void,
@@ -422,11 +462,11 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       isFirstRender.current = false;
     }, []);
 
-    function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
+    function handleTextboxClick(event: React.MouseEvent<HTMLElement>) {
       isMouseDownReported.current = false;
 
       if (onClick) {
-        onClick(event);
+        onClick(event as React.MouseEvent<HTMLInputElement>);
       }
 
       /* istanbul ignore else */
@@ -471,6 +511,22 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       });
     }
 
+    function handleFieldClick(event: React.MouseEvent<HTMLDivElement>) {
+      const target = event.target as HTMLElement;
+
+      if (
+        disabled ||
+        readOnly ||
+        !containerRef.current?.contains(target) ||
+        target.closest('input, button, [data-element="input-icon-toggle"]')
+      ) {
+        return;
+      }
+
+      textboxRef.current?.focus();
+      handleTextboxClick(event);
+    }
+
     function handleTextboxBlur(event: React.FocusEvent<HTMLInputElement>) {
       isMouseDownOnInput.current = false;
 
@@ -490,24 +546,24 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     function handleTextboxMouseDown(event: React.MouseEvent<HTMLElement>) {
       isMouseDownReported.current = true;
 
-      const targetElement = event.target as HTMLElement;
-
       // prevent text selection on rapid clicks of non-input elements (e.g. the dropdown icon)
-      if (targetElement.dataset?.element !== "input") {
+      if (event.target === textboxRef.current) {
+        isMouseDownOnInput.current = true;
+      } else {
         event.preventDefault();
       }
-
-      if (targetElement.dataset.element === "input") {
-        isMouseDownOnInput.current = true;
-      }
-    }
-
-    function handleListMouseDown() {
-      isMouseDownReported.current = true;
     }
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
       const triggerFocus = () => onFocus?.(event);
+
+      if (isMouseDownReported.current && !isMouseDownOnInput.current) {
+        if (onFocus && !isInputFocused.current) {
+          triggerFocus();
+          isInputFocused.current = true;
+        }
+        return;
+      }
 
       if (openOnFocus) {
         if (focusTimer.current) {
@@ -541,56 +597,32 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       }
     }
 
-    const onSelectOption = useCallback<
-      NonNullable<SelectListProps["onSelect"]>
-    >(
-      (optionData) => {
-        const {
-          value: newValue,
-          selectionType,
-          id: selectedOptionId,
-          selectionConfirmed,
-        } = optionData;
-
-        if (selectionType === "navigationKey") {
-          setHighlightedValue(newValue);
-          setActiveDescendantId(selectedOptionId);
-          return;
-        }
-
-        if (selectionType === "click") {
-          isClickTriggeredBySelect.current = true;
-        }
-
+    const onSelectOption = useCallback(
+      (optionData: SelectListOnSelectData) => {
+        const { value: newValue } = optionData;
         setTextValue("");
+        setFilterText("");
 
-        const isAlreadySelected =
-          value?.findIndex((val) => isExpectedValue(val, newValue)) !== -1;
-
-        textboxRef?.focus();
+        textboxRef.current?.focus();
         isMouseDownReported.current = false;
 
         updateValue((previousValue) => {
-          if (isAlreadySelected) {
-            return previousValue;
+          const selectedIndex = previousValue.findIndex((val) =>
+            isExpectedValue(val, newValue),
+          );
+          if (selectedIndex !== -1) {
+            return previousValue.filter((_, index) => index !== selectedIndex);
           }
 
           return [...previousValue, newValue];
-        }, selectionConfirmed);
+        }, true);
       },
-      [textboxRef, value, updateValue],
+      [updateValue],
     );
-
-    const onSelectListClose = useCallback(() => {
-      setOpenState(false);
-      setFilterText("");
-    }, []);
 
     const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
       (element) => {
-        if (!element) return;
-
-        setTextboxRef(element);
+        textboxRef.current = element;
 
         if (!ref) return;
         if (typeof ref === "function") {
@@ -609,7 +641,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         disabled,
         label,
         readOnly,
-        placeholder: placeholderOverride,
         leftChildren: mapValuesToPills,
         formattedValue: textValue,
         selectedValue: value,
@@ -617,65 +648,47 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
         onBlur: handleTextboxBlur,
-        iconOnClick: handleDropdownIconClick,
-        iconOnMouseDown: handleTextboxMouseDown,
+        onIconClick: handleDropdownIconClick,
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
-        tooltipPosition,
         size,
         required,
-        ...filterOutStyledSystemSpacingProps(textboxProps),
+        ...filterPropsByName(
+          filterOutStyledSystemSpacingProps(textboxProps) as Record<
+            string,
+            unknown
+          >,
+          MULTI_SELECT_NON_FUNCTIONING_PROPS,
+        ),
         "data-component": undefined,
+        tabIndex: pillButtonsInTabOrder ? -1 : textboxProps.tabIndex,
       };
     }
-
-    let placement: ListPlacement;
-
-    switch (listPlacement) {
-      case "top":
-        placement = "top-end";
-        break;
-      case "bottom":
-        placement = "bottom-end";
-        break;
-      default:
-        placement = listPlacement;
-    }
-
-    const selectList = (
-      <FilterableSelectList
-        ref={listboxRef}
-        id={selectListId.current}
-        labelId={labelId}
-        anchorElement={textboxRef?.parentElement || undefined}
-        onSelect={onSelectOption}
-        onHighlight={setActiveDescendantId}
-        onSelectListClose={onSelectListClose}
-        onMouseDown={handleListMouseDown}
-        filterText={filterText.trim()}
-        highlightedValue={highlightedValue}
-        noResultsMessage={noResultsMessage}
-        isLoading={isLoading}
-        onListScrollBottom={onListScrollBottom}
-        tableHeader={tableHeader}
-        multiColumn={multiColumn}
-        listPlacement={listWidth !== undefined ? placement : listPlacement}
-        listMaxHeight={listMaxHeight}
-        flipEnabled={flipEnabled}
-        multiselectValues={value}
-        isOpen={isOpen}
-        enableVirtualScroll={enableVirtualScroll}
-        virtualScrollOverscan={virtualScrollOverscan}
-        listWidth={listWidth}
-      >
-        {children}
-      </FilterableSelectList>
-    );
 
     const marginProps = filterStyledSystemMarginProps(textboxProps);
 
     return (
       <StyledSelectMultiSelect
+        $labelInline={textboxProps.labelInline}
+        $size={size}
+        onClick={handleFieldClick}
+        onKeyDownCapture={(event) => {
+          if (
+            event.key === "Tab" &&
+            event.shiftKey &&
+            event.target ===
+              containerRef.current?.querySelector('[data-element="close"]')
+          ) {
+            event.preventDefault();
+            setPillButtonsInTabOrder(false);
+            textboxRef.current?.focus();
+          }
+        }}
+        onBlurCapture={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget)) {
+            setPillButtonsInTabOrder(false);
+          }
+        }}
         disabled={disabled}
         readOnly={readOnly}
         hasTextCursor
@@ -687,29 +700,65 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         className="multi-select"
         {...marginProps}
       >
-        <div ref={containerRef}>
-          <StyledAccessibilityLabelContainer
-            data-element="accessibility-label"
-            id={accessibilityLabelId.current}
-          >
-            {accessibilityLabel}
-          </StyledAccessibilityLabelContainer>
-
-          <SelectTextbox
-            ref={assignInput}
-            accessibilityLabelId={accessibilityLabelId.current}
-            activeDescendantId={activeDescendantId}
-            aria-controls={selectListId.current}
-            ariaLabel={ariaLabel}
-            ariaLabelledby={ariaLabelledby}
-            isOpen={isOpen}
-            labelId={labelId}
-            value={getTextboxProps().formattedValue}
-            selectType="multi"
-            {...getTextboxProps()}
-          />
-        </div>
-        {selectList}
+        <NextSelectList
+          open={isOpen}
+          id={selectListId.current}
+          labelId={labelId}
+          size={size}
+          maxHeight={
+            listMaxHeight !== undefined ? `${listMaxHeight}px` : undefined
+          }
+          selectedValues={value}
+          filterText={filterText.trim()}
+          noResultsMessage={noResultsMessage}
+          controlReference={containerRef}
+          controlWrapperStyle={{ width: "100%" }}
+          enableVirtualScroll={enableVirtualScroll}
+          virtualScrollOverscan={virtualScrollOverscan}
+          flipEnabled={flipEnabled}
+          onListScrollBottom={onListScrollBottom}
+          isLoading={isLoading}
+          onSelect={onSelectOption}
+          onClose={onSelectListClose}
+          popoverControl={(controlRef, controlProps) => (
+            <>
+              {selectedValuesDescription && (
+                <StyledSelectedValuesDescription
+                  id={selectedValuesDescriptionId.current}
+                >
+                  {selectedValuesDescription}
+                </StyledSelectedValuesDescription>
+              )}
+              <SelectTextbox
+                ref={combineRefs(assignInput, controlRef)}
+                containerRef={containerRef}
+                ariaLabel={ariaLabel}
+                ariaLabelledby={ariaLabelledby}
+                labelId={labelId}
+                isOpen={isOpen}
+                value={textValue}
+                selectType="multi"
+                {...getTextboxProps()}
+                {...controlProps}
+                aria-describedby={
+                  [
+                    selectedValuesDescription &&
+                      selectedValuesDescriptionId.current,
+                    textboxProps["aria-describedby"],
+                  ]
+                    .filter(Boolean)
+                    .join(" ") || undefined
+                }
+                role={readOnly ? undefined : controlProps.role}
+                aria-expanded={
+                  readOnly ? undefined : controlProps["aria-expanded"]
+                }
+              />
+            </>
+          )}
+        >
+          {children}
+        </NextSelectList>
       </StyledSelectMultiSelect>
     );
   },
