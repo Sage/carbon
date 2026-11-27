@@ -1,0 +1,2458 @@
+{
+  "repository": "Sage/carbon",
+  "sha": "6b3626c6ea16a5051d621b58e8a2666e469408dc",
+  "date": "2026-11-27",
+  "scope": "Tracked src JS/TS files; production excludes tests, stories and spec helpers. AST syntax counts are review candidates, not React 19 compiler diagnostics.",
+  "sourceFiles": 1787,
+  "productionFiles": 966,
+  "summary": {
+    "hook call": {
+      "occurrences": 1391,
+      "files": 261
+    },
+    "forwardRef": {
+      "occurrences": 80,
+      "files": 78
+    },
+    "RefObject type review": {
+      "occurrences": 68,
+      "files": 42
+    },
+    "ReactElement without props type": {
+      "occurrences": 22,
+      "files": 14
+    },
+    "cloneElement": {
+      "occurrences": 24,
+      "files": 23
+    },
+    "combineRefs caller": {
+      "occurrences": 15,
+      "files": 14
+    },
+    "global JSX namespace": {
+      "occurrences": 24,
+      "files": 21
+    },
+    "ref dispatch review": {
+      "occurrences": 18,
+      "files": 17
+    },
+    "transition nodeRef": {
+      "occurrences": 9,
+      "files": 8
+    },
+    "useImperativeHandle": {
+      "occurrences": 14,
+      "files": 14
+    },
+    "useRef without initial value": {
+      "occurrences": 11,
+      "files": 9
+    },
+    "expression ref callback review": {
+      "occurrences": 1,
+      "files": 1
+    }
+  },
+  "hookCallCounts": {
+    "useLocale": 72,
+    "useRef": 301,
+    "useContext": 112,
+    "useMediaQuery": 18,
+    "useRegisterValidationToTabs": 3,
+    "useState": 217,
+    "useEffect": 178,
+    "useInputAccessibility": 7,
+    "useMemo": 73,
+    "usePrevious": 9,
+    "useCallback": 231,
+    "useIsAboveBreakpoint": 6,
+    "useLayoutEffect": 12,
+    "useInputBehaviour": 2,
+    "useScrollBlock": 2,
+    "useModalManager": 7,
+    "useFloating": 2,
+    "useIsBrowser": 1,
+    "useClickAwayListener": 4,
+    "useIsomorphicLayoutEffect": 9,
+    "useHandleDropdownMenuKeyDown": 1,
+    "useDebounce": 3,
+    "useResizeObserver": 4,
+    "useActionPopoverContext": 1,
+    "useImperativeHandle": 14,
+    "useAdaptiveSidebarModalFocus": 6,
+    "useAnchorNavigationContext": 1,
+    "useBreadcrumbsContext": 1,
+    "useCardContext": 2,
+    "useCustomizableSelectMarkup": 1,
+    "useDatePickerLocale": 1,
+    "useDatePickerKeyboardNavigation": 1,
+    "useDatePickerMonthYearSelection": 1,
+    "useDatePickerMonthSync": 1,
+    "useDatePickerFocus": 1,
+    "useDatePickerInFlatTable": 1,
+    "useDatePickerState": 1,
+    "useDateInputState": 1,
+    "useUniqueId": 4,
+    "useDlContext": 2,
+    "useModalAria": 3,
+    "useDragDropContext": 3,
+    "useIsFileDraggedOverDocument": 1,
+    "useStatusAnnouncement": 1,
+    "useUploadCompletionAnnouncement": 1,
+    "useMoveFocusAfterFileSelection": 1,
+    "useMoveFocusAfterFileRemoval": 1,
+    "useFileDropZone": 1,
+    "useStrictFlatTableContext": 4,
+    "useTableCell": 3,
+    "useSortableRow": 1,
+    "useGeneratedId": 2,
+    "useStrictMenuContext": 5,
+    "useStableCallback": 4,
+    "useChildButtons": 1,
+    "usePopoverMiddleware": 1,
+    "useFocusPortalContent": 1,
+    "useGlobalHeader": 1,
+    "useRadioButtonGroupContext": 1,
+    "useSelectListVirtualization": 1,
+    "useVirtualizer": 2,
+    "useStepFlowContext": 1,
+    "useStepSequenceContext": 1,
+    "useIsomorphicEffect": 3,
+    "useDraggableRow": 1,
+    "useTabs": 3,
+    "useLexicalComposerContext": 14,
+    "useCursorAtEnd": 1,
+    "usePluginContext": 1,
+    "useCharacterCount": 2,
+    "useTileContext": 1,
+    "useModeSwitcher": 1,
+    "useDepth": 4,
+    "useResponsiveVerticalMenu": 3,
+    "useVerticalMenuContext": 1,
+    "useMenuKeyboardNavigation": 1
+  },
+  "peerRangeExclusionsFor19_0_0": [
+    {
+      "name": "carbon-react",
+      "version": "164.1.0",
+      "peer": "react",
+      "range": "^17.0.2 || ^18.0.0"
+    },
+    {
+      "name": "carbon-react",
+      "version": "164.1.0",
+      "peer": "react-dom",
+      "range": "^17.0.2 || ^18.0.0"
+    },
+    {
+      "name": "node_modules/@types/react-dom",
+      "version": "18.3.7",
+      "peer": "@types/react",
+      "range": "^18.0.0"
+    },
+    {
+      "name": "node_modules/react-dom",
+      "version": "18.3.1",
+      "peer": "react",
+      "range": "^18.3.1"
+    }
+  ],
+  "findings": [
+    {
+      "category": "forwardRef",
+      "file": "src/__internal__/checkable-input/checkable-input.component.tsx",
+      "line": 64,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/checkable-input/checkable-input.component.tsx#L64"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/__internal__/checkable-input/hidden-checkable-input.component.tsx",
+      "line": 38,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/checkable-input/hidden-checkable-input.component.tsx#L38"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/focus-trap/focus-trap-utils.ts",
+      "line": 126,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/focus-trap/focus-trap-utils.ts#L126"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/focus-trap/focus-trap-utils.ts",
+      "line": 130,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/focus-trap/focus-trap-utils.ts#L130"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/focus-trap/focus-trap.component.tsx",
+      "line": 28,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/focus-trap/focus-trap.component.tsx#L28"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/focus-trap/focus-trap.component.tsx",
+      "line": 38,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/focus-trap/focus-trap.component.tsx#L38"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/focus-trap/focus-trap.component.tsx",
+      "line": 42,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/focus-trap/focus-trap.component.tsx#L42"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/__internal__/focus-trap/focus-trap.component.tsx",
+      "line": 283,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/focus-trap/focus-trap.component.tsx#L283"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/__internal__/focus-trap/focus-trap.component.tsx",
+      "line": 284,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/focus-trap/focus-trap.component.tsx#L284"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/__internal__/full-screen-heading/full-screen-heading.component.tsx",
+      "line": 12,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/full-screen-heading/full-screen-heading.component.tsx#L12"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/input/input.component.tsx",
+      "line": 62,
+      "detail": "React.RefObject<HTMLInputElement | HTMLTextAreaElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/input/input.component.tsx#L62"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/__internal__/input/input.component.tsx",
+      "line": 82,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/input/input.component.tsx#L82"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/__internal__/input/input.component.tsx",
+      "line": 111,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/input/input.component.tsx#L111"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/__internal__/legacy-input/input-presentation.component.tsx",
+      "line": 60,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/legacy-input/input-presentation.component.tsx#L60"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/legacy-input/input.component.tsx",
+      "line": 69,
+      "detail": "React.RefObject<HTMLInputElement | HTMLTextAreaElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/legacy-input/input.component.tsx#L69"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/__internal__/legacy-input/input.component.tsx",
+      "line": 90,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/legacy-input/input.component.tsx#L90"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/__internal__/legacy-input/input.component.tsx",
+      "line": 118,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/legacy-input/input.component.tsx#L118"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/__internal__/legacy-input/input.component.tsx",
+      "line": 133,
+      "detail": "ref(element)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/legacy-input/input.component.tsx#L133"
+    },
+    {
+      "category": "transition nodeRef",
+      "file": "src/__internal__/modal/modal.component.tsx",
+      "line": 140,
+      "detail": {
+        "name": "CSSTransition",
+        "nodeRef": true
+      },
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/modal/modal.component.tsx#L140"
+    },
+    {
+      "category": "transition nodeRef",
+      "file": "src/__internal__/modal/modal.component.tsx",
+      "line": 155,
+      "detail": {
+        "name": "CSSTransition",
+        "nodeRef": true
+      },
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/modal/modal.component.tsx#L155"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/__internal__/popover/popover.component.tsx",
+      "line": 24,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover/popover.component.tsx#L24"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover/popover.component.tsx",
+      "line": 45,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover/popover.component.tsx#L45"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/__internal__/popover/popover.component.tsx",
+      "line": 104,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover/popover.component.tsx#L104"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/contexts/popover-menu.context.ts",
+      "line": 17,
+      "detail": "React.RefObject<HTMLUListElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/contexts/popover-menu.context.ts#L17"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/contexts/popover-menu.context.ts",
+      "line": 19,
+      "detail": "React.RefObject<HTMLLIElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/contexts/popover-menu.context.ts#L19"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/hooks/useHandleDropdownMenuKeyDown.ts",
+      "line": 41,
+      "detail": "React.RefObject<HTMLLIElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/hooks/useHandleDropdownMenuKeyDown.ts#L41"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/__internal__/popover-menu/menu-item/menu-item.component.tsx",
+      "line": 95,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/menu-item/menu-item.component.tsx#L95"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/__internal__/popover-menu/menu-item/menu-item.component.tsx",
+      "line": 95,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/menu-item/menu-item.component.tsx#L95"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/__internal__/popover-menu/menu-item/menu-item.component.tsx",
+      "line": 99,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/menu-item/menu-item.component.tsx#L99"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/menu-item/menu-item.component.tsx",
+      "line": 129,
+      "detail": "React.RefObject<HTMLUListElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/menu-item/menu-item.component.tsx#L129"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/__internal__/popover-menu/menu-item/menu-item.component.tsx",
+      "line": 153,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/menu-item/menu-item.component.tsx#L153"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/__internal__/popover-menu/menu-item/menu-option-item.component.tsx",
+      "line": 83,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/menu-item/menu-option-item.component.tsx#L83"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 123,
+      "detail": "React.RefObject<TRef>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L123"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 164,
+      "detail": "React.RefObject<HTMLDivElement | HTMLLIElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L164"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 266,
+      "detail": "React.RefObject<HTMLDivElement | HTMLLIElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L266"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 274,
+      "detail": "React.RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L274"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 360,
+      "detail": "React.RefObject<TRef>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L360"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 361,
+      "detail": "React.RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L361"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 451,
+      "detail": "React.RefObject<HTMLDivElement | HTMLLIElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L451"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 455,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L455"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 459,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L459"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 976,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L976"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/__internal__/popover-menu/popover-menu.component.tsx",
+      "line": 982,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover-menu/popover-menu.component.tsx#L982"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/__internal__/radio-button-mapper/radio-button-mapper.component.tsx",
+      "line": 96,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/radio-button-mapper/radio-button-mapper.component.tsx#L96"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/__internal__/utils/helpers/combine-refs/index.ts",
+      "line": 11,
+      "detail": "ref(node)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/utils/helpers/combine-refs/index.ts#L11"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/accordion/accordion-group/accordion-group.component.tsx",
+      "line": 17,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/accordion/accordion-group/accordion-group.component.tsx#L17"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/accordion/accordion-group/accordion-group.component.tsx",
+      "line": 72,
+      "detail": "React.RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/accordion/accordion-group/accordion-group.component.tsx#L72"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/accordion/accordion-group/accordion-group.component.tsx",
+      "line": 117,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/accordion/accordion-group/accordion-group.component.tsx#L117"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/accordion/accordion-group/accordion-group.component.tsx",
+      "line": 117,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/accordion/accordion-group/accordion-group.component.tsx#L117"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/accordion/accordion.component.tsx",
+      "line": 105,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/accordion/accordion.component.tsx#L105"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/action-popover/action-popover-menu/action-popover-menu.component.tsx",
+      "line": 27,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/action-popover/action-popover-menu/action-popover-menu.component.tsx#L27"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/action-popover/action-popover-menu-button/action-popover-menu-button.component.tsx",
+      "line": 43,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/action-popover/action-popover-menu-button/action-popover-menu-button.component.tsx#L43"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/action-popover/action-popover.component.tsx",
+      "line": 113,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/action-popover/action-popover.component.tsx#L113"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/action-popover/action-popover.component.tsx",
+      "line": 175,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/action-popover/action-popover.component.tsx#L175"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/action-popover/action-popover.component.tsx",
+      "line": 294,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/action-popover/action-popover.component.tsx#L294"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/action-popover/action-popover.component.tsx",
+      "line": 310,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/action-popover/action-popover.component.tsx#L310"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/action-popover/action-popover.component.tsx",
+      "line": 345,
+      "detail": "React.RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/action-popover/action-popover.component.tsx#L345"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/anchor-navigation/__internal__/anchor-navigation.context.ts",
+      "line": 5,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/anchor-navigation/__internal__/anchor-navigation.context.ts#L5"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/anchor-navigation/__internal__/anchor-navigation.context.ts",
+      "line": 17,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/anchor-navigation/__internal__/anchor-navigation.context.ts#L17"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/anchor-navigation/anchor-navigation-item/anchor-navigation-item.component.tsx",
+      "line": 10,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/anchor-navigation/anchor-navigation-item/anchor-navigation-item.component.tsx#L10"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/anchor-navigation/anchor-navigation-item/anchor-navigation-item.component.tsx",
+      "line": 30,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/anchor-navigation/anchor-navigation-item/anchor-navigation-item.component.tsx#L30"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/anchor-navigation/anchor-navigation-item/anchor-navigation-item.component.tsx",
+      "line": 39,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/anchor-navigation/anchor-navigation-item/anchor-navigation-item.component.tsx#L39"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/anchor-navigation/anchor-navigation.component.tsx",
+      "line": 48,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/anchor-navigation/anchor-navigation.component.tsx#L48"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/components/anchor-navigation/anchor-navigation.component.tsx",
+      "line": 63,
+      "detail": "useRef<NodeJS.Timeout>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/anchor-navigation/anchor-navigation.component.tsx#L63"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/anchor-navigation/anchor-navigation.component.tsx",
+      "line": 178,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/anchor-navigation/anchor-navigation.component.tsx#L178"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/box/box.component.tsx",
+      "line": 45,
+      "detail": "JSX.IntrinsicElements",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/box/box.component.tsx#L45"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/box/box.component.tsx",
+      "line": 136,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/box/box.component.tsx#L136"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/breadcrumbs/breadcrumbs.component.tsx",
+      "line": 23,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/breadcrumbs/breadcrumbs.component.tsx#L23"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/breadcrumbs/crumb/crumb.component.tsx",
+      "line": 36,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/breadcrumbs/crumb/crumb.component.tsx#L36"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/button/__next__/button.component.tsx",
+      "line": 151,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/button/__next__/button.component.tsx#L151"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/button/__next__/button.component.tsx",
+      "line": 219,
+      "detail": "ref(node)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/button/__next__/button.component.tsx#L219"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/button/button.component.tsx",
+      "line": 192,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/button/button.component.tsx#L192"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/button/button.component.tsx",
+      "line": 294,
+      "detail": "ref(reference)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/button/button.component.tsx#L294"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/button-minor/button-minor.component.tsx",
+      "line": 17,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/button-minor/button-minor.component.tsx#L17"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/checkbox/checkbox.component.tsx",
+      "line": 112,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/checkbox/checkbox.component.tsx#L112"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/checkbox/checkbox.component.tsx",
+      "line": 179,
+      "detail": "ref(node)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/checkbox/checkbox.component.tsx#L179"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/date/__internal__/calendar/calendar-select/calendar-select.component.tsx",
+      "line": 30,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/__internal__/calendar/calendar-select/calendar-select.component.tsx#L30"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/date/__internal__/calendar/calendar-select/useCustomizableSelectMarkup.ts",
+      "line": 17,
+      "detail": "forwardedRef(select)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/__internal__/calendar/calendar-select/useCustomizableSelectMarkup.ts#L17"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/date/__internal__/date-picker/date-picker.types.ts",
+      "line": 21,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/__internal__/date-picker/date-picker.types.ts#L21"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/date/__internal__/date-picker/date-picker.types.ts",
+      "line": 23,
+      "detail": "RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/__internal__/date-picker/date-picker.types.ts#L23"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/date/__internal__/date-picker-trigger/date-picker-trigger.component.tsx",
+      "line": 19,
+      "detail": "React.RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/__internal__/date-picker-trigger/date-picker-trigger.component.tsx#L19"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/date/__internal__/hooks/useDatePickerKeyboardNavigation.ts",
+      "line": 73,
+      "detail": "React.RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/__internal__/hooks/useDatePickerKeyboardNavigation.ts#L73"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/components/date/__internal__/hooks/useDatePickerMonthSync.ts",
+      "line": 17,
+      "detail": "useRef<number>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/__internal__/hooks/useDatePickerMonthSync.ts#L17"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/components/date/__internal__/hooks/useDatePickerMonthYearSelection.ts",
+      "line": 49,
+      "detail": "useRef<{ min?: number; max?: number }>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/__internal__/hooks/useDatePickerMonthYearSelection.ts#L49"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/date/date.component.tsx",
+      "line": 117,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/date.component.tsx#L117"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/date/date.component.tsx",
+      "line": 369,
+      "detail": "ref(inputElement)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/date/date.component.tsx#L369"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/decimal/__internal__/decimal-popover-button.component.tsx",
+      "line": 19,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/decimal/__internal__/decimal-popover-button.component.tsx#L19"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/decimal/decimal.component.tsx",
+      "line": 79,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/decimal/decimal.component.tsx#L79"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/definition-list/__internal__/utils.ts",
+      "line": 19,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/definition-list/__internal__/utils.ts#L19"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/dialog/__internal__/__next__/dialog-header/dialog-header.component.tsx",
+      "line": 62,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/dialog/__internal__/__next__/dialog-header/dialog-header.component.tsx#L62"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/dialog/__internal__/__next__/dialog.component.tsx",
+      "line": 86,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/dialog/__internal__/__next__/dialog.component.tsx#L86"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/dialog/__internal__/__next__/dialog.component.tsx",
+      "line": 90,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/dialog/__internal__/__next__/dialog.component.tsx#L90"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/dialog/__internal__/__next__/dialog.component.tsx",
+      "line": 152,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/dialog/__internal__/__next__/dialog.component.tsx#L152"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/dialog/__internal__/__next__/dialog.component.tsx",
+      "line": 209,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/dialog/__internal__/__next__/dialog.component.tsx#L209"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/dialog/dialog.component.tsx",
+      "line": 71,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/dialog/dialog.component.tsx#L71"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/divider/divider.component.tsx",
+      "line": 60,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/divider/divider.component.tsx#L60"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/draggable/draggable-container.component.tsx",
+      "line": 57,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/draggable/draggable-container.component.tsx#L57"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/draggable/draggable-container.component.tsx",
+      "line": 131,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/draggable/draggable-container.component.tsx#L131"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/draggable/draggable-item/draggable-item.component.tsx",
+      "line": 59,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/draggable/draggable-item/draggable-item.component.tsx#L59"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/duelling-picklist/duelling-picklist.component.tsx",
+      "line": 75,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/duelling-picklist/duelling-picklist.component.tsx#L75"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/duelling-picklist/picklist/picklist.component.tsx",
+      "line": 89,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/duelling-picklist/picklist/picklist.component.tsx#L89"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/duelling-picklist/picklist-group/picklist-group.component.tsx",
+      "line": 42,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/duelling-picklist/picklist-group/picklist-group.component.tsx#L42"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/duelling-picklist/picklist-group/picklist-group.component.tsx",
+      "line": 107,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/duelling-picklist/picklist-group/picklist-group.component.tsx#L107"
+    },
+    {
+      "category": "transition nodeRef",
+      "file": "src/components/duelling-picklist/picklist-group/picklist-group.component.tsx",
+      "line": 130,
+      "detail": {
+        "name": "CSSTransition",
+        "nodeRef": true
+      },
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/duelling-picklist/picklist-group/picklist-group.component.tsx#L130"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/duelling-picklist/picklist-item/picklist-item.component.tsx",
+      "line": 45,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/duelling-picklist/picklist-item/picklist-item.component.tsx#L45"
+    },
+    {
+      "category": "transition nodeRef",
+      "file": "src/components/duelling-picklist/picklist-item/picklist-item.component.tsx",
+      "line": 110,
+      "detail": {
+        "name": "CSSTransition",
+        "nodeRef": true
+      },
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/duelling-picklist/picklist-item/picklist-item.component.tsx#L110"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/file-input/__internal__/hooks/useMoveFocusAfterFileRemoval.ts",
+      "line": 8,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/file-input/__internal__/hooks/useMoveFocusAfterFileRemoval.ts#L8"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/file-input/__internal__/hooks/useMoveFocusAfterFileRemoval.ts",
+      "line": 9,
+      "detail": "RefObject<HTMLElement | null>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/file-input/__internal__/hooks/useMoveFocusAfterFileRemoval.ts#L9"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/file-input/__internal__/hooks/useMoveFocusAfterFileSelection.ts",
+      "line": 7,
+      "detail": "RefObject<HTMLButtonElement | null>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/file-input/__internal__/hooks/useMoveFocusAfterFileSelection.ts#L7"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/file-input/__internal__/hooks/useMoveFocusAfterFileSelection.ts",
+      "line": 22,
+      "detail": "RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/file-input/__internal__/hooks/useMoveFocusAfterFileSelection.ts#L22"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/components/file-input/__internal__/hooks/useStatusAnnouncement.ts",
+      "line": 16,
+      "detail": "useRef<number>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/file-input/__internal__/hooks/useStatusAnnouncement.ts#L16"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/file-input/file-input.component.tsx",
+      "line": 146,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/file-input/file-input.component.tsx#L146"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/file-input/file-input.component.tsx",
+      "line": 374,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/file-input/file-input.component.tsx#L374"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/flat-table/__internal__/sortable/use-sortable-row.ts",
+      "line": 17,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/flat-table/__internal__/sortable/use-sortable-row.ts#L17"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/flat-table/flat-table-body/flat-table-body.component.tsx",
+      "line": 9,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/flat-table/flat-table-body/flat-table-body.component.tsx#L9"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/flat-table/flat-table-body-draggable/flat-table-body-draggable.component.tsx",
+      "line": 108,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/flat-table/flat-table-body-draggable/flat-table-body-draggable.component.tsx#L108"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/flat-table/flat-table-row/flat-table-row.component.tsx",
+      "line": 56,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/flat-table/flat-table-row/flat-table-row.component.tsx#L56"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/flat-table/flat-table-row/flat-table-row.component.tsx",
+      "line": 299,
+      "detail": "ref(node)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/flat-table/flat-table-row/flat-table-row.component.tsx#L299"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/grouped-character/grouped-character.component.tsx",
+      "line": 58,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/grouped-character/grouped-character.component.tsx#L58"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/help/help.component.tsx",
+      "line": 21,
+      "detail": "JSX.IntrinsicElements",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/help/help.component.tsx#L21"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/help/help.component.tsx",
+      "line": 74,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/help/help.component.tsx#L74"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/hr/hr.component.tsx",
+      "line": 38,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/hr/hr.component.tsx#L38"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/icon/icon.component.tsx",
+      "line": 125,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/icon/icon.component.tsx#L125"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/icon/icon.component.tsx",
+      "line": 158,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/icon/icon.component.tsx#L158"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/icon-button/icon-button.component.tsx",
+      "line": 36,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/icon-button/icon-button.component.tsx#L36"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/icon-button/icon-button.component.tsx",
+      "line": 65,
+      "detail": "ref(reference)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/icon-button/icon-button.component.tsx#L65"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/link/link.component.tsx",
+      "line": 101,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/link/link.component.tsx#L101"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/link/link.component.tsx",
+      "line": 181,
+      "detail": "ref(reference)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/link/link.component.tsx#L181"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/components/loader/__next__/internal/loader.utils.ts",
+      "line": 13,
+      "detail": "useRef<string>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/loader/__next__/internal/loader.utils.ts#L13"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/loader/__next__/internal/star.component.tsx",
+      "line": 64,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/loader/__next__/internal/star.component.tsx#L64"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/loader-star/internal/star.component.tsx",
+      "line": 18,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/loader-star/internal/star.component.tsx#L18"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/loader-star/loader-star.component.tsx",
+      "line": 26,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/loader-star/loader-star.component.tsx#L26"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/menu/__internal__/submenu/submenu.component.tsx",
+      "line": 73,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/menu/__internal__/submenu/submenu.component.tsx#L73"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/menu/menu-divider/menu-divider.component.tsx",
+      "line": 13,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/menu/menu-divider/menu-divider.component.tsx#L13"
+    },
+    {
+      "category": "transition nodeRef",
+      "file": "src/components/menu/menu-full-screen/menu-full-screen.component.tsx",
+      "line": 105,
+      "detail": {
+        "name": "CSSTransition",
+        "nodeRef": true
+      },
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/menu/menu-full-screen/menu-full-screen.component.tsx#L105"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/menu/menu-item/menu-item.component.tsx",
+      "line": 133,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/menu/menu-item/menu-item.component.tsx#L133"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/menu/menu-item/menu-item.component.tsx",
+      "line": 255,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/menu/menu-item/menu-item.component.tsx#L255"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/menu/menu-segment-title/menu-segment-title.component.tsx",
+      "line": 27,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/menu/menu-segment-title/menu-segment-title.component.tsx#L27"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/menu/scrollable-block/scrollable-block.component.tsx",
+      "line": 24,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/menu/scrollable-block/scrollable-block.component.tsx#L24"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/message/message.component.tsx",
+      "line": 91,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/message/message.component.tsx#L91"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/multi-action-button/multi-action-button.component.tsx",
+      "line": 71,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/multi-action-button/multi-action-button.component.tsx#L71"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/multi-action-button/multi-action-button.component.tsx",
+      "line": 100,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/multi-action-button/multi-action-button.component.tsx#L100"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/multi-action-button/multi-action-button.component.tsx",
+      "line": 207,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/multi-action-button/multi-action-button.component.tsx#L207"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/navigation-bar/__internal__/fixed-navigation-bar.context.tsx",
+      "line": 18,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/navigation-bar/__internal__/fixed-navigation-bar.context.tsx#L18"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/navigation-bar/navigation-bar.component.tsx",
+      "line": 49,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/navigation-bar/navigation-bar.component.tsx#L49"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/note/note.component.tsx",
+      "line": 99,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/note/note.component.tsx#L99"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/number/number.component.tsx",
+      "line": 28,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/number/number.component.tsx#L28"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/numeral-date/numeral-date.component.tsx",
+      "line": 309,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/numeral-date/numeral-date.component.tsx#L309"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/numeral-date/numeral-date.component.tsx",
+      "line": 366,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/numeral-date/numeral-date.component.tsx#L366"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/numeral-date/numeral-date.component.tsx",
+      "line": 458,
+      "detail": "inputRef(element)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/numeral-date/numeral-date.component.tsx#L458"
+    },
+    {
+      "category": "expression ref callback review",
+      "file": "src/components/numeral-date/numeral-date.component.tsx",
+      "line": 505,
+      "detail": "(element) => handleRef(element, index, inputRef)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/numeral-date/numeral-date.component.tsx#L505"
+    },
+    {
+      "category": "transition nodeRef",
+      "file": "src/components/pages/page/page.component.tsx",
+      "line": 33,
+      "detail": {
+        "name": "CSSTransition",
+        "nodeRef": true
+      },
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/pages/page/page.component.tsx#L33"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/pages/pages.component.tsx",
+      "line": 67,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/pages/pages.component.tsx#L67"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/pod/pod.component.tsx",
+      "line": 73,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/pod/pod.component.tsx#L73"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/popover-container/popover-container.component.tsx",
+      "line": 60,
+      "detail": "React.RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/popover-container/popover-container.component.tsx#L60"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/popover-container/popover-container.component.tsx",
+      "line": 108,
+      "detail": "React.RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/popover-container/popover-container.component.tsx#L108"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/popover-container/popover-container.component.tsx",
+      "line": 157,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/popover-container/popover-container.component.tsx#L157"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/popover-container/popover-container.component.tsx",
+      "line": 165,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/popover-container/popover-container.component.tsx#L165"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/popover-container/popover-container.component.tsx",
+      "line": 252,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/popover-container/popover-container.component.tsx#L252"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/popover-container/popover-container.component.tsx",
+      "line": 428,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/popover-container/popover-container.component.tsx#L428"
+    },
+    {
+      "category": "transition nodeRef",
+      "file": "src/components/popover-container/popover-container.component.tsx",
+      "line": 559,
+      "detail": {
+        "name": "CSSTransition",
+        "nodeRef": true
+      },
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/popover-container/popover-container.component.tsx#L559"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/radio-button/radio-button.component.tsx",
+      "line": 89,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/radio-button/radio-button.component.tsx#L89"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/search/search.component.tsx",
+      "line": 178,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/search/search.component.tsx#L178"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/search/search.component.tsx",
+      "line": 225,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/search/search.component.tsx#L225"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/search/search.component.tsx",
+      "line": 374,
+      "detail": "React.RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/search/search.component.tsx#L374"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/search/search.component.tsx",
+      "line": 397,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/search/search.component.tsx#L397"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/__internal__/list-action-button/list-action-button.component.tsx",
+      "line": 13,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/list-action-button/list-action-button.component.tsx#L13"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/select/__internal__/list-action-button/list-action-button.component.tsx",
+      "line": 39,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/list-action-button/list-action-button.component.tsx#L39"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/select/__internal__/select-list/__next__/select-list.component.tsx",
+      "line": 138,
+      "detail": "React.RefObject<HTMLInputElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-list/__next__/select-list.component.tsx#L138"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/select/__internal__/select-list/__next__/select-list.component.tsx",
+      "line": 142,
+      "detail": "React.RefObject<HTMLDivElement | HTMLLIElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-list/__next__/select-list.component.tsx#L142"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/select/__internal__/select-list/__next__/use-select-list-virtualization.ts",
+      "line": 30,
+      "detail": "React.RefObject<HTMLUListElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-list/__next__/use-select-list-virtualization.ts#L30"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/components/select/__internal__/select-list/__next__/use-select-list-virtualization.ts",
+      "line": 98,
+      "detail": "useRef<number>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-list/__next__/use-select-list-virtualization.ts#L98"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/__internal__/select-list/select-list.component.tsx",
+      "line": 120,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-list/select-list.component.tsx#L120"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/select/__internal__/select-list/select-list.component.tsx",
+      "line": 183,
+      "detail": "React.RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-list/select-list.component.tsx#L183"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/select/__internal__/select-list/select-list.component.tsx",
+      "line": 364,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-list/select-list.component.tsx#L364"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/select/__internal__/select-list/select-list.component.tsx",
+      "line": 576,
+      "detail": "React.RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-list/select-list.component.tsx#L576"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/__internal__/select-textbox/select-textbox.component.tsx",
+      "line": 163,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-textbox/select-textbox.component.tsx#L163"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/select/__internal__/select-textbox/select-textbox.component.tsx",
+      "line": 200,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/select-textbox/select-textbox.component.tsx#L200"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/__internal__/utils/get-next-child-by-text.ts",
+      "line": 5,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/get-next-child-by-text.ts#L5"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/__internal__/utils/get-next-child-by-text.ts",
+      "line": 15,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/get-next-child-by-text.ts#L15"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/__internal__/utils/get-next-child-by-text.ts",
+      "line": 45,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/get-next-child-by-text.ts#L45"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/select/__internal__/utils/highlight-part-of-text.tsx",
+      "line": 59,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/highlight-part-of-text.tsx#L59"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/__internal__/utils/is-expected-option.ts",
+      "line": 7,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/is-expected-option.ts#L7"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/__internal__/utils/with-filter.hoc.tsx",
+      "line": 11,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/with-filter.hoc.tsx#L11"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/__internal__/utils/with-filter.hoc.tsx",
+      "line": 21,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/with-filter.hoc.tsx#L21"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/select/__internal__/utils/with-filter.hoc.tsx",
+      "line": 87,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/with-filter.hoc.tsx#L87"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/select/__internal__/utils/with-filter.hoc.tsx",
+      "line": 93,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/with-filter.hoc.tsx#L93"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/__internal__/utils/with-filter.hoc.tsx",
+      "line": 113,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/__internal__/utils/with-filter.hoc.tsx#L113"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/action-option/action-option.component.tsx",
+      "line": 12,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/action-option/action-option.component.tsx#L12"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/filterable-select/filterable-select.component.tsx",
+      "line": 92,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/filterable-select/filterable-select.component.tsx#L92"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/filterable-select/filterable-select.component.tsx",
+      "line": 199,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/filterable-select/filterable-select.component.tsx#L199"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/filterable-select/filterable-select.component.tsx",
+      "line": 216,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/filterable-select/filterable-select.component.tsx#L216"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/filterable-select/filterable-select.component.tsx",
+      "line": 256,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/filterable-select/filterable-select.component.tsx#L256"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/select/filterable-select/filterable-select.component.tsx",
+      "line": 598,
+      "detail": "ref(element)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/filterable-select/filterable-select.component.tsx#L598"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/multi-select/multi-select.component.tsx",
+      "line": 94,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/multi-select/multi-select.component.tsx#L94"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/multi-select/multi-select.component.tsx",
+      "line": 217,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/multi-select/multi-select.component.tsx#L217"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/multi-select/multi-select.component.tsx",
+      "line": 229,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/multi-select/multi-select.component.tsx#L229"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/select/multi-select/multi-select.component.tsx",
+      "line": 597,
+      "detail": "ref(element)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/multi-select/multi-select.component.tsx#L597"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/option/option.component.tsx",
+      "line": 71,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/option/option.component.tsx#L71"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/option-group-header/option-group-header.component.tsx",
+      "line": 31,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/option-group-header/option-group-header.component.tsx#L31"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/option-row/option-row.component.tsx",
+      "line": 48,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/option-row/option-row.component.tsx#L48"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/select/simple-select/simple-select.component.tsx",
+      "line": 176,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/simple-select/simple-select.component.tsx#L176"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/components/select/simple-select/simple-select.component.tsx",
+      "line": 222,
+      "detail": "useRef<boolean>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/simple-select/simple-select.component.tsx#L222"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/components/select/simple-select/simple-select.component.tsx",
+      "line": 223,
+      "detail": "useRef<boolean>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/simple-select/simple-select.component.tsx#L223"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/components/select/simple-select/simple-select.component.tsx",
+      "line": 224,
+      "detail": "useRef<string>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/simple-select/simple-select.component.tsx#L224"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/select/simple-select/simple-select.component.tsx",
+      "line": 243,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/simple-select/simple-select.component.tsx#L243"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/select/simple-select/simple-select.component.tsx",
+      "line": 488,
+      "detail": "ref(element)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/simple-select/simple-select.component.tsx#L488"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/select/simple-select/simple-select.component.tsx",
+      "line": 560,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/select/simple-select/simple-select.component.tsx#L560"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/sidebar/sidebar.component.tsx",
+      "line": 115,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/sidebar/sidebar.component.tsx#L115"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/sidebar/sidebar.component.tsx",
+      "line": 137,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/sidebar/sidebar.component.tsx#L137"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/sidebar/sidebar.component.tsx",
+      "line": 199,
+      "detail": "ref(reference)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/sidebar/sidebar.component.tsx#L199"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/simple-color-picker/simple-color/simple-color.component.tsx",
+      "line": 41,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/simple-color-picker/simple-color/simple-color.component.tsx#L41"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/simple-color-picker/simple-color-picker.component.tsx",
+      "line": 58,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/simple-color-picker/simple-color-picker.component.tsx#L58"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/simple-color-picker/simple-color-picker.component.tsx",
+      "line": 164,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/simple-color-picker/simple-color-picker.component.tsx#L164"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/simple-color-picker/simple-color-picker.component.tsx",
+      "line": 167,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/simple-color-picker/simple-color-picker.component.tsx#L167"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/split-button/split-button.component.tsx",
+      "line": 83,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/split-button/split-button.component.tsx#L83"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/split-button/split-button.component.tsx",
+      "line": 121,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/split-button/split-button.component.tsx#L121"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/split-button/split-button.component.tsx",
+      "line": 248,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/split-button/split-button.component.tsx#L248"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/step-flow/__internal__/step-flow.context.ts",
+      "line": 8,
+      "detail": "React.RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/step-flow/__internal__/step-flow.context.ts#L8"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/step-flow/step-flow.component.tsx",
+      "line": 78,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/step-flow/step-flow.component.tsx#L78"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/step-flow/step-flow.component.tsx",
+      "line": 123,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/step-flow/step-flow.component.tsx#L123"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/switch/switch.component.tsx",
+      "line": 114,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/switch/switch.component.tsx#L114"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/table/__internal__/drag-drop/use-draggable-row.ts",
+      "line": 17,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/table/__internal__/drag-drop/use-draggable-row.ts#L17"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/table/__internal__/drag-drop/use-draggable-row.ts",
+      "line": 19,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/table/__internal__/drag-drop/use-draggable-row.ts#L19"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/table/table-body/table-body.component.tsx",
+      "line": 55,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/table/table-body/table-body.component.tsx#L55"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/table/table-cell/table-cell.component.tsx",
+      "line": 66,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/table/table-cell/table-cell.component.tsx#L66"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/table/table-row/table-row.component.tsx",
+      "line": 83,
+      "detail": "React.RefObject<HTMLSpanElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/table/table-row/table-row.component.tsx#L83"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/table/table-row/table-row.component.tsx",
+      "line": 104,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/table/table-row/table-row.component.tsx#L104"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/table/table-row/table-row.component.tsx",
+      "line": 127,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/table/table-row/table-row.component.tsx#L127"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/table/table-row/table-row.component.tsx",
+      "line": 144,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/table/table-row/table-row.component.tsx#L144"
+    },
+    {
+      "category": "transition nodeRef",
+      "file": "src/components/table/table-row/table-row.component.tsx",
+      "line": 222,
+      "detail": {
+        "name": "Transition",
+        "nodeRef": true
+      },
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/table/table-row/table-row.component.tsx#L222"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/tabs/__next__/tabs.component.tsx",
+      "line": 268,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tabs/__next__/tabs.component.tsx#L268"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/tabs/__next__/tabs.component.tsx",
+      "line": 288,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tabs/__next__/tabs.component.tsx#L288"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/tabs/tabs.component.tsx",
+      "line": 86,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tabs/tabs.component.tsx#L86"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/text-editor/__internal__/__ui__/ContentEditor/content-editor.component.tsx",
+      "line": 14,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/text-editor/__internal__/__ui__/ContentEditor/content-editor.component.tsx#L14"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/text-editor/__internal__/__ui__/Toolbar/buttons/typography.component.tsx",
+      "line": 32,
+      "detail": "RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/text-editor/__internal__/__ui__/Toolbar/buttons/typography.component.tsx#L32"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/text-editor/__internal__/__utils__/interfaces.types.ts",
+      "line": 139,
+      "detail": "RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/text-editor/__internal__/__utils__/interfaces.types.ts#L139"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/text-editor/text-editor.component.tsx",
+      "line": 78,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/text-editor/text-editor.component.tsx#L78"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/text-editor/text-editor.component.tsx",
+      "line": 148,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/text-editor/text-editor.component.tsx#L148"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/textarea/textarea.component.tsx",
+      "line": 219,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/textarea/textarea.component.tsx#L219"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/textarea/textarea.component.tsx",
+      "line": 306,
+      "detail": "ref(inputElement)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/textarea/textarea.component.tsx#L306"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/textarea/textarea.component.tsx",
+      "line": 515,
+      "detail": "inputRef?.({ current: element })",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/textarea/textarea.component.tsx#L515"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/textbox/__internal__/__next__/text-input.component.tsx",
+      "line": 127,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/textbox/__internal__/__next__/text-input.component.tsx#L127"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/textbox/__internal__/__next__/text-input.component.tsx",
+      "line": 169,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/textbox/__internal__/__next__/text-input.component.tsx#L169"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/textbox/textbox.component.tsx",
+      "line": 146,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/textbox/textbox.component.tsx#L146"
+    },
+    {
+      "category": "combineRefs caller",
+      "file": "src/components/textbox/textbox.component.tsx",
+      "line": 196,
+      "detail": "Shared ref composition",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/textbox/textbox.component.tsx#L196"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/tile/flex-tile-cell/flex-tile-cell.component.tsx",
+      "line": 18,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tile/flex-tile-cell/flex-tile-cell.component.tsx#L18"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/tile/flex-tile-container/flex-tile-container.component.tsx",
+      "line": 14,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tile/flex-tile-container/flex-tile-container.component.tsx#L14"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/tile/flex-tile-divider/flex-tile-divider.component.tsx",
+      "line": 5,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tile/flex-tile-divider/flex-tile-divider.component.tsx#L5"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/tile-select/tile-select-group/tile-select-group.component.tsx",
+      "line": 74,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tile-select/tile-select-group/tile-select-group.component.tsx#L74"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/tile-select/tile-select-group/tile-select-group.component.tsx",
+      "line": 74,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tile-select/tile-select-group/tile-select-group.component.tsx#L74"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/tile-select/tile-select.component.tsx",
+      "line": 77,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tile-select/tile-select.component.tsx#L77"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/tile-select/tile-select.component.tsx",
+      "line": 89,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tile-select/tile-select.component.tsx#L89"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/tile-select/tile-select.component.tsx",
+      "line": 100,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tile-select/tile-select.component.tsx#L100"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/time/time.component.tsx",
+      "line": 117,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/time/time.component.tsx#L117"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/time/time.component.tsx",
+      "line": 236,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/time/time.component.tsx#L236"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/toast/toast.component.tsx",
+      "line": 95,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/toast/toast.component.tsx#L95"
+    },
+    {
+      "category": "transition nodeRef",
+      "file": "src/components/toast/toast.component.tsx",
+      "line": 227,
+      "detail": {
+        "name": "CSSTransition",
+        "nodeRef": true
+      },
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/toast/toast.component.tsx#L227"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/toast/toast.component.tsx",
+      "line": 292,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/toast/toast.component.tsx#L292"
+    },
+    {
+      "category": "ref dispatch review",
+      "file": "src/components/tooltip/tooltip.component.tsx",
+      "line": 34,
+      "detail": "ref(node)",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tooltip/tooltip.component.tsx#L34"
+    },
+    {
+      "category": "ReactElement without props type",
+      "file": "src/components/tooltip/tooltip.component.tsx",
+      "line": 63,
+      "detail": "React.ReactElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tooltip/tooltip.component.tsx#L63"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/tooltip/tooltip.component.tsx",
+      "line": 87,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tooltip/tooltip.component.tsx#L87"
+    },
+    {
+      "category": "cloneElement",
+      "file": "src/components/tooltip/tooltip.component.tsx",
+      "line": 276,
+      "detail": "cloneElement",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tooltip/tooltip.component.tsx#L276"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/components/vertical-divider/vertical-divider.component.tsx",
+      "line": 147,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-divider/vertical-divider.component.tsx#L147"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu-item/responsive-vertical-menu-item.component.tsx",
+      "line": 122,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu-item/responsive-vertical-menu-item.component.tsx#L122"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu-item/responsive-vertical-menu-item.component.tsx",
+      "line": 269,
+      "detail": "RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu-item/responsive-vertical-menu-item.component.tsx#L269"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu-item/responsive-vertical-menu-item.component.tsx",
+      "line": 279,
+      "detail": "RefObject<HTMLAnchorElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu-item/responsive-vertical-menu-item.component.tsx#L279"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu-item/responsive-vertical-menu-item.component.tsx",
+      "line": 310,
+      "detail": "RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu-item/responsive-vertical-menu-item.component.tsx#L310"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.component.tsx",
+      "line": 56,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.component.tsx#L56"
+    },
+    {
+      "category": "useImperativeHandle",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.component.tsx",
+      "line": 99,
+      "detail": "useImperativeHandle",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.component.tsx#L99"
+    },
+    {
+      "category": "forwardRef",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.component.tsx",
+      "line": 357,
+      "detail": "forwardRef",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.component.tsx#L357"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.context.tsx",
+      "line": 28,
+      "detail": "RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.context.tsx#L28"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.context.tsx",
+      "line": 29,
+      "detail": "RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.context.tsx#L29"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.context.tsx",
+      "line": 30,
+      "detail": "RefObject<HTMLUListElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/vertical-menu/responsive-vertical-menu/responsive-vertical-menu.context.tsx#L30"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/hooks/__internal__/useChildButtons/useChildButtons.tsx",
+      "line": 6,
+      "detail": "React.RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useChildButtons/useChildButtons.tsx#L6"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/hooks/__internal__/useFloating/useFloating.ts",
+      "line": 13,
+      "detail": "RefObject<HTMLElement | null>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useFloating/useFloating.ts#L13"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/hooks/__internal__/useFloating/useFloating.ts",
+      "line": 14,
+      "detail": "React.RefObject<HTMLElement | null>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useFloating/useFloating.ts#L14"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/hooks/__internal__/useFocusPortalContent/useFocusPortalContent.tsx",
+      "line": 53,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useFocusPortalContent/useFocusPortalContent.tsx#L53"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/hooks/__internal__/useFocusPortalContent/useFocusPortalContent.tsx",
+      "line": 54,
+      "detail": "RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useFocusPortalContent/useFocusPortalContent.tsx#L54"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/hooks/__internal__/useMenuKeyboardNavigation/useMenuKeyboardNavigation.ts",
+      "line": 6,
+      "detail": "React.RefObject<HTMLButtonElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useMenuKeyboardNavigation/useMenuKeyboardNavigation.ts#L6"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/hooks/__internal__/useModalAria/useModalAria.tsx",
+      "line": 5,
+      "detail": "React.RefObject<HTMLDivElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useModalAria/useModalAria.tsx#L5"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/hooks/__internal__/useModalManager/useModalManager.ts",
+      "line": 7,
+      "detail": "React.RefObject<HTMLElement>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useModalManager/useModalManager.ts#L7"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/hooks/__internal__/usePrevious/index.ts",
+      "line": 4,
+      "detail": "useRef<T>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/usePrevious/index.ts#L4"
+    },
+    {
+      "category": "RefObject type review",
+      "file": "src/hooks/__internal__/useResizeObserver/useResizeObserver.ts",
+      "line": 5,
+      "detail": "RefObject<Element>",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useResizeObserver/useResizeObserver.ts#L5"
+    },
+    {
+      "category": "useRef without initial value",
+      "file": "src/hooks/__internal__/useResizeObserver/useResizeObserver.ts",
+      "line": 11,
+      "detail": "useRef<ResizeObserver>()",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/__internal__/useResizeObserver/useResizeObserver.ts#L11"
+    },
+    {
+      "category": "global JSX namespace",
+      "file": "src/hooks/useCharacterCount/useCharacterCount.tsx",
+      "line": 12,
+      "detail": "JSX.Element",
+      "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/hooks/useCharacterCount/useCharacterCount.tsx#L12"
+    }
+  ],
+  "dependencyPeers": [
+    {
+      "name": "carbon-react",
+      "version": "164.1.0",
+      "peers": {
+        "react": "^17.0.2 || ^18.0.0",
+        "react-dom": "^17.0.2 || ^18.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@floating-ui/react",
+      "version": "0.27.16",
+      "peers": {
+        "react": ">=17.0.0",
+        "react-dom": ">=17.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@floating-ui/react-dom",
+      "version": "1.3.0",
+      "peers": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+      }
+    },
+    {
+      "name": "node_modules/@floating-ui/react/node_modules/@floating-ui/react-dom",
+      "version": "2.1.6",
+      "peers": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+      }
+    },
+    {
+      "name": "node_modules/@lexical/devtools-core",
+      "version": "0.38.2",
+      "peers": {
+        "react": ">=17.x",
+        "react-dom": ">=17.x"
+      }
+    },
+    {
+      "name": "node_modules/@lexical/react",
+      "version": "0.38.2",
+      "peers": {
+        "react": ">=17.x",
+        "react-dom": ">=17.x"
+      }
+    },
+    {
+      "name": "node_modules/@mdx-js/react",
+      "version": "3.1.1",
+      "peers": {
+        "@types/react": ">=16",
+        "react": ">=16"
+      }
+    },
+    {
+      "name": "node_modules/@storybook/addon-docs",
+      "version": "10.6.2",
+      "peers": {
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@storybook/addon-docs/node_modules/@storybook/icons",
+      "version": "2.0.2",
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@storybook/icons",
+      "version": "1.4.0",
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta"
+      }
+    },
+    {
+      "name": "node_modules/@storybook/react",
+      "version": "10.6.2",
+      "peers": {
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@storybook/react-dom-shim",
+      "version": "10.6.2",
+      "peers": {
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@storybook/react-vite",
+      "version": "10.6.2",
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@tanstack/react-virtual",
+      "version": "3.13.12",
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@testing-library/react",
+      "version": "16.3.0",
+      "peers": {
+        "@types/react": "^18.0.0 || ^19.0.0",
+        "@types/react-dom": "^18.0.0 || ^19.0.0",
+        "react": "^18.0.0 || ^19.0.0",
+        "react-dom": "^18.0.0 || ^19.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@types/react-dom",
+      "version": "18.3.7",
+      "peers": {
+        "@types/react": "^18.0.0"
+      }
+    },
+    {
+      "name": "node_modules/@types/react-transition-group",
+      "version": "4.4.12",
+      "peers": {
+        "@types/react": "*"
+      }
+    },
+    {
+      "name": "node_modules/react-day-picker",
+      "version": "9.3.2",
+      "peers": {
+        "react": ">=16.8.0"
+      }
+    },
+    {
+      "name": "node_modules/react-dom",
+      "version": "18.3.1",
+      "peers": {
+        "react": "^18.3.1"
+      }
+    },
+    {
+      "name": "node_modules/react-error-boundary",
+      "version": "6.0.0",
+      "peers": {
+        "react": ">=16.13.1"
+      }
+    },
+    {
+      "name": "node_modules/react-markdown",
+      "version": "8.0.7",
+      "peers": {
+        "@types/react": ">=16",
+        "react": ">=16"
+      }
+    },
+    {
+      "name": "node_modules/react-transition-group",
+      "version": "4.4.5",
+      "peers": {
+        "react": ">=16.6.0",
+        "react-dom": ">=16.6.0"
+      }
+    },
+    {
+      "name": "node_modules/storybook",
+      "version": "10.6.2",
+      "peers": {
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    },
+    {
+      "name": "node_modules/storybook/node_modules/@storybook/icons",
+      "version": "2.0.2",
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    },
+    {
+      "name": "node_modules/styled-components",
+      "version": "5.3.11",
+      "peers": {
+        "react": ">= 16.8.0",
+        "react-dom": ">= 16.8.0"
+      }
+    },
+    {
+      "name": "node_modules/use-sync-external-store",
+      "version": "1.6.0",
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    }
+  ],
+  "runtimeFindings": [
+    {
+      "priority": 1,
+      "finding": "Element ref access",
+      "status": "Confirmed source pattern deprecated in React 19; no React 19 execution yet",
+      "locations": [
+        {
+          "file": "src/__internal__/popover/popover.component.tsx",
+          "line": 96,
+          "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/popover/popover.component.tsx#L96"
+        },
+        {
+          "file": "src/components/tooltip/tooltip.component.tsx",
+          "line": 233,
+          "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tooltip/tooltip.component.tsx#L233"
+        },
+        {
+          "file": "src/components/accordion/accordion-group/accordion-group.component.tsx",
+          "line": 75,
+          "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/accordion/accordion-group/accordion-group.component.tsx#L75"
+        }
+      ],
+      "action": "Use a reviewed dual-version element-ref accessor or remove introspection. A blanket replacement with props.ref would break React 18; inspect property descriptors to avoid development warning getters."
+    },
+    {
+      "priority": 1,
+      "finding": "Callback ref cleanup propagation",
+      "status": "Confirmed callback return values discarded; impact applies when a React 19 consumer supplies a cleanup-returning ref",
+      "locations": [
+        {
+          "file": "src/__internal__/utils/helpers/combine-refs/index.ts",
+          "line": 11,
+          "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/__internal__/utils/helpers/combine-refs/index.ts#L11"
+        },
+        {
+          "file": "src/components/tooltip/tooltip.component.tsx",
+          "line": 34,
+          "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/src/components/tooltip/tooltip.component.tsx#L34"
+        }
+      ],
+      "action": "Audit ref dispatch review rows, preserve consumer cleanup and object-ref nulling through unmount, replacement and Strict Mode remount. Shared combineRefs has 15 call sites in 14 production files. Review handwritten dispatchers too; not every inputRef-named callback is a React ref."
+    },
+    {
+      "priority": 1,
+      "finding": "Classic JSX transform in Jest",
+      "status": "Confirmed by transforming JSX using current Babel test configuration",
+      "locations": [
+        {
+          "file": "babel.config.cjs",
+          "line": 23,
+          "url": "https://github.com/Sage/carbon/blob/6b3626c6ea16a5051d621b58e8a2666e469408dc/babel.config.cjs#L23"
+        }
+      ],
+      "action": "Set Babel React preset runtime to automatic and rerun both versions. Production Rollup already uses automatic; TypeScript emits declarations only."
+    }
+  ],
+  "baselineFile": "baseline.json"
+}
