@@ -448,7 +448,9 @@ describe(`when the characterLimit prop is passed`, () => {
 
   it("assigns the visually hidden hint as the textarea's accessible description", () => {
     render(<MockComponent value="foo" characterLimit={73} />);
-    expect(screen.getByRole("textbox")).toHaveAccessibleDescription("foo");
+    expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+      "You can enter up to 73 characters",
+    );
   });
 });
 

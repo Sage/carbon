@@ -20,7 +20,7 @@ describe("Tooltip", () => {
       const { container } = renderTooltip({ isVisible: true });
       const portalEntrance = container.querySelector('[data-portal-entrance]');
       expect(portalEntrance).toBeTruthy();
-      expect(portalEntrance.getAttribute("data-portal-entrance")).toBeTruthy();
+      expect(portalEntrance?.getAttribute("data-portal-entrance")).toBeTruthy();
     });
 
     it("does not render portal entrance when isVisible is false", () => {

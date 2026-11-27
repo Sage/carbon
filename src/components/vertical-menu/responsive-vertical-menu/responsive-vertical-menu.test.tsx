@@ -19,6 +19,13 @@ import { StyledResponsiveMenuItem } from "./responsive-vertical-menu-item/respon
 jest.mock("../../../hooks/__internal__/useIsAboveBreakpoint");
 jest.mock("../../../hooks/useMediaQuery");
 
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+const mockUseIsAboveBreakpoint = useIsAboveBreakpoint as jest.MockedFunction<
+  typeof useIsAboveBreakpoint
+>;
+
 const CustomSVG = () => (
   <svg
     width="28"
