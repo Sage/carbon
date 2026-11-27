@@ -55,7 +55,7 @@ A compact visual indicator that highlights information or status.
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onClick | ((ev: React.MouseEvent<HTMLSpanElement>) => void) \| undefined | No |  |  |  | Callback function for when the pill is clicked. |  |
 | onDelete | ((ev?: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback fired when the remove button is activated. Receives the click event. |  |
-| variant | "grey" \| "blue" \| "green" \| "lime" \| "orange" \| "pink" \| "purple" \| "red" \| "teal" \| "slate" \| undefined | No | grey \| blue \| green \| lime \| orange \| pink \| purple \| red \| teal \| slate |  |  | Sets the colour variant of a status pill. |  |
+| variant | "blue" \| "teal" \| "green" \| "lime" \| "orange" \| "red" \| "pink" \| "purple" \| "slate" \| "grey" \| undefined | No | blue \| teal \| green \| lime \| orange \| red \| pink \| purple \| slate \| grey |  |  | Sets the colour variant of a status pill. |  |
 | wrapText | boolean \| undefined | No |  |  |  | Allow the text within pill to wrap. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

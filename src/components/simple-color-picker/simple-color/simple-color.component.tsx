@@ -9,6 +9,9 @@ import {
   StyledSimpleColorInput,
 } from "./simple-color.style";
 
+/**
+ * @deprecated `SimpleColor` has been deprecated along with `SimpleColorPicker`. Use `ColorPicker` instead. See the Carbon deprecation migration documentation for details.
+ */
 export interface SimpleColorProps {
   /** the value of the label to pass to screen reader software */
   "aria-label"?: string;
@@ -38,6 +41,9 @@ export interface SimpleColorProps {
   className?: string;
 }
 
+/**
+ * @deprecated `SimpleColor` has been deprecated along with `SimpleColorPicker`. Use `ColorPicker` instead. See the Carbon deprecation migration documentation for details.
+ */
 export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
   (props: SimpleColorProps, ref) => {
     const {

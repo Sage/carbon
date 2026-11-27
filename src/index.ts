@@ -80,6 +80,14 @@ export type {
 export { Checkbox, CheckboxGroup } from "./components/checkbox";
 export type { CheckboxProps, CheckboxGroupProps } from "./components/checkbox";
 
+export { default as ColorPicker } from "./components/color-picker";
+export type {
+  ColorPickerProps,
+  ColorPickerChangeEvent,
+  ColorPickerColor,
+  ColorPickerPalette,
+} from "./components/color-picker";
+
 export { default as Confirm } from "./components/confirm";
 export type { ConfirmProps } from "./components/confirm";
 

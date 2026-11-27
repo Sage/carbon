@@ -29,6 +29,7 @@ The following section provides migration guidance for deprecated components that
 - For `TileHeader` the `Box` is recommended as the preferred alternative.
 - For `TileContent` the `Box` is recommended as the preferred alternative.
 - For `TileSelect`, there is no direct replacement. For new work, use the most appropriate Fusion pattern for your product. For standard form choices, consider [`RadioButton`](?path=/docs/radio-button--docs) when users select one option, or [`Checkbox`](?path=/docs/checkbox--docs) when they can select multiple independent options.
+- For `SimpleColorPicker`, `SimpleColor` and `AdvancedColorPicker`, the new [`ColorPicker`](?path=/docs/color-picker--docs) is recommended as the preferred alternative. See [Simple Color Picker](#simple-color-picker) and [Advanced Color Picker](#advanced-color-picker) below.
 - For `FlatTable`, using the new [`Table`](?path=/docs/table--docs) component is recommended as the preferred alternative.
 
 ## Alternative Patterns
@@ -49,6 +50,8 @@ The following sections provide migration guidance for deprecated components that
 - [Hr](#hr)
 - [VerticalDivider](#vertical-divider)
 - [Tile Select](#tile-select)
+- [Simple Color Picker](#simple-color-picker)
+- [Advanced Color Picker](#advanced-color-picker)
 - [FlatTable](#flat-table)
 
 ## Preview
@@ -280,6 +283,32 @@ The `TileContent` component can be replaced by a `Box`. The `Box` component will
 - If the need is a conventional form choice, use `RadioButtonGroup` and `RadioButton` for mutually exclusive choices, or `CheckboxGroup` and `Checkbox` for independent choices. This is semantic guidance, not a replacement for Tile Select's card-like treatment.
 - Keep the existing Report implementation unchanged until its approved replacement is available. Do not introduce Tile Select into new Report work.
 - Migrate Client Management as part of its planned redesign; the redesign should use the approved Fusion pattern rather than a like-for-like Tile Select replacement.
+
+## Simple Color Picker
+
+`SimpleColorPicker` and `SimpleColor` are deprecated. Use `ColorPicker`, which offers a fixed set of design system colours in a dropdown.
+
+```js
+import ColorPicker from "carbon-react/lib/components/color-picker";
+```
+
+### Migration
+
+- Custom colours are not supported. Pick the closest of the ten design system colours (`blue`, `teal`, `green`, `lime`, `orange`, `red`, `pink`, `purple`, `gray`, `slate`).
+- Choose a `palette` of `"rich"` or `"muted"`. The two palettes cannot be combined in one picker.
+- Replace the `SimpleColor` children with the `colors` prop to limit the colours on offer. When `colors` is omitted, all ten are offered.
+- `value` and the `target.value` passed to `onChange` are colour names, such as `"blue"`, not hex values. Map any stored hex values to colour names.
+- `legend` becomes `label`, and validation props (`error`, `warning`) are applied to the input.
+
+## Advanced Color Picker
+
+`AdvancedColorPicker` is deprecated. Use `ColorPicker`.
+
+### Migration
+
+- Render `ColorPicker` in place of the swatch button and dialog. It opens its own dropdown, so the `open`, `onOpen`, `onClose` and `onBlur` handling for the dialog is no longer needed.
+- `availableColors` is replaced by the `palette` and `colors` props. Custom colours are not supported.
+- `selectedColor` becomes `value`, using a colour name such as `"blue"`.
 
 ## Flat Table
 

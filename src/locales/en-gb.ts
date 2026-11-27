@@ -30,6 +30,20 @@ const enGB: Locale = {
   breadcrumbs: {
     ariaLabel: () => "breadcrumbs",
   },
+  colorPicker: {
+    colors: {
+      blue: () => "Blue",
+      teal: () => "Teal",
+      green: () => "Green",
+      lime: () => "Lime",
+      orange: () => "Orange",
+      red: () => "Red",
+      pink: () => "Pink",
+      purple: () => "Purple",
+      gray: () => "Grey",
+      slate: () => "Slate",
+    },
+  },
   confirm: {
     no: () => "No",
     yes: () => "Yes",

@@ -142,6 +142,12 @@ export interface SimpleSelectProps
   ) => void;
   /** @deprecated `listWidth` no longer has any effect in SimpleSelect. */
   listWidth?: number;
+  /**
+   * @private
+   * @ignore
+   * Content rendered before the selected value in the input, e.g. a colour swatch.
+   */
+  selectedLeading?: React.ReactNode;
 }
 
 const LOCAL_NON_FUNCTIONING_PROPS = new Set([
@@ -212,6 +218,7 @@ export const SimpleSelect = React.forwardRef<
       required,
       listWidth,
       validationMessagePositionTop = true,
+      selectedLeading,
       ...props
     },
     ref,
@@ -570,6 +577,7 @@ export const SimpleSelect = React.forwardRef<
               {...controlProps}
               inputWidth={mappedInputWidth}
               validationMessagePositionTop={validationMessagePositionTop}
+              leadingContent={selectedLeading}
               onChange={() => {}}
             />
           )}

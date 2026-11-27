@@ -22,6 +22,9 @@ import { InputGroupContext } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { ValidationProps } from "../../__internal__/validations";
 
+/**
+ * @deprecated `SimpleColorPicker` has been deprecated. Use `ColorPicker` instead. See the Carbon deprecation migration documentation for details.
+ */
 export interface SimpleColorPickerProps
   extends ValidationProps,
     MarginProps,
@@ -55,6 +58,9 @@ export interface SimpleColorPickerRef {
   gridItemRefs: (HTMLInputElement | null)[];
 }
 
+/**
+ * @deprecated `SimpleColorPicker` has been deprecated. Use `ColorPicker` instead. See the Carbon deprecation migration documentation for details.
+ */
 export const SimpleColorPicker = React.forwardRef<
   SimpleColorPickerRef,
   SimpleColorPickerProps

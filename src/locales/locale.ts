@@ -36,6 +36,20 @@ interface Locale {
   breadcrumbs: {
     ariaLabel: () => string;
   };
+  colorPicker: {
+    colors: {
+      blue: () => string;
+      teal: () => string;
+      green: () => string;
+      lime: () => string;
+      orange: () => string;
+      red: () => string;
+      pink: () => string;
+      purple: () => string;
+      gray: () => string;
+      slate: () => string;
+    };
+  };
   characterCount: {
     tooManyCharacters: (count: number, formattedCount: string) => string;
     charactersLeft: (count: number, formattedCount: string) => string;

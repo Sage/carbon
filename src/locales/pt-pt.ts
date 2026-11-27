@@ -33,6 +33,20 @@ const ptPT: Partial<Locale> = {
   breadcrumbs: {
     ariaLabel: () => "caminho de navegação",
   },
+  colorPicker: {
+    colors: {
+      blue: () => "Azul",
+      teal: () => "Azul-petróleo",
+      green: () => "Verde",
+      lime: () => "Lima",
+      orange: () => "Laranja",
+      red: () => "Vermelho",
+      pink: () => "Rosa",
+      purple: () => "Roxo",
+      gray: () => "Cinzento",
+      slate: () => "Ardósia",
+    },
+  },
   confirm: {
     no: () => "Não",
     yes: () => "Sim",

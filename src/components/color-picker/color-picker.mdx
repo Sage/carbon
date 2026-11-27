@@ -1,0 +1,161 @@
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
+
+import * as ColorPickerStories from "./color-picker.stories";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+<Meta of={ColorPickerStories} />
+
+# Color Picker
+
+<a
+  target="_blank"
+  href="https://designsystem.sage.com/fusion/latest/pages/components/color-picker/"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Select a single colour from a preset design system palette.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Keyboard interaction](#keyboard-interaction)
+- [Testing](#testing)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```javascript
+import ColorPicker from "carbon-react/lib/components/color-picker";
+```
+
+`ColorPicker` is controlled: pass the selected colour as `value` and update it from `onChange`. Values are colour names
+(`"blue"`, `"teal"`, `"green"`, `"lime"`, `"orange"`, `"red"`, `"pink"`, `"purple"`, `"gray"` or `"slate"`). Pass an empty string
+when no colour is selected.
+
+The colours come from the design system and cannot be customised. Use `palette` to choose between the `"rich"` (default) and
+`"muted"` palettes; the two cannot be combined in one picker. Use `colors` to offer a subset of the palette.
+
+## Examples
+
+### Default
+
+<Canvas of={ColorPickerStories.Default} />
+
+<Controls of={ColorPickerStories.Default} />
+
+### Rich palette
+
+<Canvas of={ColorPickerStories.Rich} />
+
+### Muted palette
+
+<Canvas of={ColorPickerStories.Muted} />
+
+### Filtering the available colours
+
+Pass `colors` to offer only some of the palette's colours. They are always shown in the design system order.
+
+<Canvas of={ColorPickerStories.FilteredColors} />
+
+### Sizes
+
+<Canvas of={ColorPickerStories.Sizes} />
+
+### Validation
+
+<Canvas of={ColorPickerStories.Validation} />
+
+### Disabled and read only
+
+<Canvas of={ColorPickerStories.DisabledAndReadOnly} />
+
+## Keyboard interaction
+
+`ColorPicker` uses the same keyboard interaction as [Select](../?path=/docs/select--docs#keyboard-interaction). Typing a character
+selects the next colour whose name starts with it.
+
+## Testing
+
+`ColorPicker` is built on `Select`. If you test it in JSDOM, call `setupSelectMocks` from `carbon-react/lib/components/select`
+before rendering. See the [Select testing guidance](../?path=/docs/select--docs#testing).
+
+## Props
+
+### Color Picker
+
+<ArgTypes of={ColorPickerStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "colorPicker.colors.blue",
+      description: "The name of the blue colour option",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "colorPicker.colors.teal",
+      description: "The name of the teal colour option",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "colorPicker.colors.green",
+      description: "The name of the green colour option",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "colorPicker.colors.lime",
+      description: "The name of the lime colour option",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "colorPicker.colors.orange",
+      description: "The name of the orange colour option",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "colorPicker.colors.red",
+      description: "The name of the red colour option",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "colorPicker.colors.pink",
+      description: "The name of the pink colour option",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "colorPicker.colors.purple",
+      description: "The name of the purple colour option",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "colorPicker.colors.gray",
+      description: "The name of the gray colour option",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "colorPicker.colors.slate",
+      description: "The name of the slate colour option",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

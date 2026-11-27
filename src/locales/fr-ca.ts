@@ -31,6 +31,20 @@ const frCA: Partial<Locale> = {
   breadcrumbs: {
     ariaLabel: () => "chemins de navigation",
   },
+  colorPicker: {
+    colors: {
+      blue: () => "Bleu",
+      teal: () => "Sarcelle",
+      green: () => "Vert",
+      lime: () => "Citron vert",
+      orange: () => "Orange",
+      red: () => "Rouge",
+      pink: () => "Rose",
+      purple: () => "Violet",
+      gray: () => "Gris",
+      slate: () => "Ardoise",
+    },
+  },
   confirm: {
     no: () => "Non",
     yes: () => "Oui",
