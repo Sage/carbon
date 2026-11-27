@@ -4,18 +4,10 @@ import userEvent from "@testing-library/user-event";
 import Textbox, { TextboxProps } from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { EnterKeyHintTypes } from "../../__internal__/legacy-input";
-import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
-
-const mockedGuid = "mocked-guid";
-jest.mock("../../__internal__/utils/helpers/guid");
-
-(createGuid as jest.MockedFunction<typeof createGuid>).mockReturnValue(
-  mockedGuid,
-);
 
 let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
 
@@ -73,20 +65,28 @@ describe(`when the characterLimit prop is passed`, () => {
     ).toBeInTheDocument();
   });
 
-  it("should render a visually hidden hint with id generated via guid", () => {
+  it("should render a visually hidden hint with a generated id", () => {
     render(<Textbox value="foo" onChange={() => {}} characterLimit={73} />);
     expect(
-      screen.getByText("You can enter up to 73 characters", {
-        selector: '[data-element="visually-hidden-hint"]',
-      }),
-    ).toHaveAttribute("id", mockedGuid);
+      screen
+        .getByText("You can enter up to 73 characters", {
+          selector: '[data-element="visually-hidden-hint"]',
+        })
+        .getAttribute("id"),
+    ).toBeTruthy();
   });
 
   it("should reference the visually hidden hint id in the input's aria-describedby", () => {
     render(<Textbox value="foo" onChange={() => {}} characterLimit={73} />);
+    const hintId = screen
+      .getByText("You can enter up to 73 characters", {
+        selector: '[data-element="visually-hidden-hint"]',
+      })
+      .getAttribute("id");
+
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      mockedGuid,
+      hintId,
     );
   });
 
@@ -417,13 +417,12 @@ test("when fieldHelp is present and id is not present, the id of the field help 
     <Textbox label="bar" fieldHelp="baz" value="foo" onChange={() => {}} />,
   );
 
-  expect(screen.getByText("baz")).toHaveAttribute(
-    "id",
-    `${mockedGuid}-field-help`,
-  );
+  const fieldHelpId = screen.getByText("baz").getAttribute("id");
+
+  expect(fieldHelpId).toMatch(/-field-help$/);
   expect(screen.getByRole("textbox")).toHaveAttribute(
     "aria-describedby",
-    `${mockedGuid}-field-help`,
+    fieldHelpId,
   );
 });
 
@@ -538,10 +537,12 @@ describe("when inputHint prop is present", () => {
         inputHint="bar"
       />,
     );
-    expect(screen.getByText("bar")).toHaveAttribute("id", mockedGuid);
+    const hintId = screen.getByText("bar").getAttribute("id");
+
+    expect(hintId).toBeTruthy();
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      mockedGuid,
+      hintId,
     );
   });
 });

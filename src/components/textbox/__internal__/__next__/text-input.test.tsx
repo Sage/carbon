@@ -4,16 +4,8 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TextInput from ".";
 import { testStyledSystemMargin } from "../../../../__spec_helper__/__internal__/test-utils";
-import createGuid from "../../../../__internal__/utils/helpers/guid";
 
 jest.mock("../../../../__internal__/utils/logger");
-
-const mockedGuid = "mocked-guid";
-jest.mock("../../../../__internal__/utils/helpers/guid");
-
-(createGuid as jest.MockedFunction<typeof createGuid>).mockReturnValue(
-  mockedGuid,
-);
 
 testStyledSystemMargin(
   (props) => (
@@ -43,10 +35,10 @@ test("should render with an id attribute via the `id` prop", () => {
   expect(screen.getByRole("textbox")).toHaveAttribute("id", "id-123");
 });
 
-test("should render with an id attribute via a guid if the `id` prop is not provided", () => {
+test("should render with a generated id if the `id` prop is not provided", () => {
   render(<TextInput label="label" value="foo" onChange={() => {}} />);
 
-  expect(screen.getByRole("textbox")).toHaveAttribute("id", mockedGuid);
+  expect(screen.getByRole("textbox").getAttribute("id")).toBeTruthy();
 });
 
 test("should render with data attributes via the `data-element` and `data-role` props", () => {
