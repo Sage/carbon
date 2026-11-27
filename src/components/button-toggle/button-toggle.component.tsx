@@ -151,7 +151,6 @@ export const ButtonToggle = ({
       $active={!!isPressed}
       $iconOnly={iconOnly}
       $fullWidth={fullWidth}
-      $inGroup={isInGroup}
       $indicatorSliding={isIndicatorSliding}
       $showMouseFocus={!isInGroup || showMouseFocus}
       $disableTransitions={!!prefersReducedMotion}

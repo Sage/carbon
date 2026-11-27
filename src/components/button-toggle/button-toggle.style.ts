@@ -36,7 +36,6 @@ interface StyledButtonToggleProps {
   $active?: boolean;
   $iconOnly?: boolean;
   $fullWidth?: boolean;
-  $inGroup?: boolean;
   $indicatorSliding?: boolean;
   $showMouseFocus?: boolean;
   $disableTransitions?: boolean;
@@ -51,7 +50,6 @@ const StyledButtonToggle = styled.button.attrs(
     disabled,
     $iconOnly,
     $fullWidth,
-    $inGroup,
     $indicatorSliding,
     $showMouseFocus,
     $disableTransitions,
@@ -134,11 +132,15 @@ const StyledButtonToggle = styled.button.attrs(
         }
       `}
 
-      ${!($active && ($inGroup || $indicatorSliding)) &&
+      ${!($active && $indicatorSliding) &&
       css`
         &:hover {
-          background: var(--button-typical-toggle-bg-hover);
-          color: var(--button-typical-toggle-label-hover);
+          background: ${$active
+            ? "var(--button-typical-toggle-bg-active-hover)"
+            : "var(--button-typical-toggle-bg-hover)"};
+          color: ${$active
+            ? "var(--button-typical-toggle-label-active-hover)"
+            : "var(--button-typical-toggle-label-hover)"};
         }
       `}
     `}

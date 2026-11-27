@@ -470,7 +470,7 @@ describe("active indicator", () => {
 
     expect(screen.getByRole("button", { name: "Bar" })).not.toHaveStyleRule(
       "background",
-      "var(--button-typical-toggle-bg-hover)",
+      "var(--button-typical-toggle-bg-active-hover)",
       { modifier: ":hover" },
     );
 
@@ -481,14 +481,14 @@ describe("active indicator", () => {
       "background",
       "var(--button-typical-toggle-bg-active)",
     );
-    expect(screen.getByRole("button", { name: "Bar" })).not.toHaveStyleRule(
+    expect(screen.getByRole("button", { name: "Bar" })).toHaveStyleRule(
       "background",
-      "var(--button-typical-toggle-bg-hover)",
+      "var(--button-typical-toggle-bg-active-hover)",
       { modifier: ":hover" },
     );
-    expect(screen.getByRole("button", { name: "Bar" })).not.toHaveStyleRule(
+    expect(screen.getByRole("button", { name: "Bar" })).toHaveStyleRule(
       "color",
-      "var(--button-typical-toggle-label-hover)",
+      "var(--button-typical-toggle-label-active-hover)",
       { modifier: ":hover" },
     );
   });
@@ -637,6 +637,20 @@ describe("active indicator", () => {
     expect(
       screen.getByTestId("button-toggle-active-indicator"),
     ).toHaveStyleRule("opacity", "0");
+    expect(screen.getByRole("button", { name: "Bar" })).toHaveStyleRule(
+      "background",
+      "var(--button-typical-toggle-bg-active)",
+    );
+    expect(screen.getByRole("button", { name: "Bar" })).toHaveStyleRule(
+      "background",
+      "var(--button-typical-toggle-bg-active-hover)",
+      { modifier: ":hover" },
+    );
+    expect(screen.getByRole("button", { name: "Bar" })).toHaveStyleRule(
+      "color",
+      "var(--button-typical-toggle-label-active-hover)",
+      { modifier: ":hover" },
+    );
   });
 
   test("uses the disabled active background when the group is disabled", () => {

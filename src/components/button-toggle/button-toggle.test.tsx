@@ -76,17 +76,17 @@ test("should render disabled button with expected styles", () => {
   expect(screen.getByRole("button")).toHaveStyle({ cursor: "not-allowed" });
 });
 
-test("should retain hover styling when a pressed button is not in a group", () => {
+test("should apply active hover styling when a pressed button is not in a group", () => {
   render(<ButtonToggle pressed>Button</ButtonToggle>);
 
   expect(screen.getByRole("button")).toHaveStyleRule(
     "background",
-    "var(--button-typical-toggle-bg-hover)",
+    "var(--button-typical-toggle-bg-active-hover)",
     { modifier: ":hover" },
   );
   expect(screen.getByRole("button")).toHaveStyleRule(
     "color",
-    "var(--button-typical-toggle-label-hover)",
+    "var(--button-typical-toggle-label-active-hover)",
     { modifier: ":hover" },
   );
 });
