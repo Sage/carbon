@@ -489,7 +489,6 @@ export const Playground: StoryObj<PlaygroundArgs> = {
 };
 
 export const EditableInvoiceLines: Story = {
-  parameters: { chromatic: { disableSnapshot: false } },
   render: () => {
     const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
     const [rows, setRows] = useState(initialRows);
@@ -597,7 +596,6 @@ export const ControlledRows: Story = {
 ControlledRows.storyName = "Controlled rows and change output";
 
 export const ValidationAndErrorSummary: Story = {
-  parameters: { chromatic: { disableSnapshot: false } },
   render: () => {
     const gridRef = useRef<DataGridHandle<InvoiceLine>>(null);
     const [rows, setRows] = useState(() =>
@@ -957,7 +955,6 @@ export const PinnedColumns: Story = {
     );
   },
   parameters: {
-    chromatic: { disableSnapshot: false },
     docs: {
       description: {
         story:

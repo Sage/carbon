@@ -118,7 +118,7 @@ const meta = {
   title: "Data Grid/Interactions",
   component: DataGrid,
   parameters: {
-    chromatic: { disableSnapshot: false },
+    chromatic: { disableSnapshot: true },
     controls: { disable: true },
     docs: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },

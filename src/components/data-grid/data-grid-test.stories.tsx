@@ -245,10 +245,9 @@ const meta = {
   title: "Data Grid/Test",
   component: DataGrid,
   parameters: {
-    chromatic: { disableSnapshot: false },
+    chromatic: { disableSnapshot: false, theme: "sage" },
     controls: { disable: true },
     docs: { disable: true },
-    themeProvider: { chromatic: { theme: "sage" } },
   },
 } satisfies Meta<typeof DataGrid>;
 
@@ -269,7 +268,8 @@ export const HoverState: Story = {
   render: () => <VisualGrid />,
   parameters: {
     pseudo: {
-      hover: '[data-element="data-grid-cell-1-category"]',
+      hover:
+        '[data-element^="data-grid-cell-"], [data-element^="data-grid-cell-"] button, [data-element^="data-grid-cell-"] input',
     },
   },
 };
