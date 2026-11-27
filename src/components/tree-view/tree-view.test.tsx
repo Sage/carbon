@@ -17,7 +17,7 @@ test("renders a tree with the given 'id' and an item for each entry", () => {
   const tree = screen.getByRole("tree");
 
   expect(tree).toHaveAttribute("id", "root");
-  expect(screen.getByText("Item 1")).toBeVisible();
+  expect(screen.getByRole("treeitem", { name: "Item 1" })).toBeVisible();
   expect(screen.getByRole("link", { name: "Item 2" })).toBeVisible();
 });
 
@@ -60,7 +60,7 @@ test("does not render nested items until their parent item is expanded", async (
 
   expect(screen.queryByText("Item 1.1")).not.toBeInTheDocument();
 
-  await user.click(screen.getByRole("treeitem", { name: "Item 1" }));
+  await user.click(screen.getByRole("button", { name: "Item 1" }));
 
   expect(screen.getByText("Item 1.1")).toBeVisible();
 });

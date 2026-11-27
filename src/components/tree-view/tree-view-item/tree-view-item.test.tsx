@@ -3,12 +3,12 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TreeViewItem, { TreeViewItemProps } from "./tree-view-item.component";
 
-test("renders the label as plain text when there are no children or href", () => {
+test("renders the label as a treeitem without a toggle when there are no children or href", () => {
   render(<TreeViewItem id="item-1" label="Item 1" />);
 
-  expect(screen.getByText("Item 1")).toBeVisible();
+  expect(screen.getByRole("treeitem", { name: "Item 1" })).toBeVisible();
+  expect(screen.queryByRole("button")).not.toBeInTheDocument();
   expect(screen.queryByRole("link")).not.toBeInTheDocument();
-  expect(screen.queryByRole("treeitem")).not.toBeInTheDocument();
 });
 
 test("renders a link with the 'href' when there are no children", () => {
@@ -30,7 +30,7 @@ test("renders an empty children array as a leaf, using the 'href' when provided"
   render(<TreeViewItem {...props} />);
 
   expect(screen.getByRole("link", { name: "Item 1" })).toBeVisible();
-  expect(screen.queryByRole("treeitem")).not.toBeInTheDocument();
+  expect(screen.queryByRole("button")).not.toBeInTheDocument();
 });
 
 test("renders a collapsed toggle, and hides children, when children are provided", () => {
@@ -42,10 +42,12 @@ test("renders a collapsed toggle, and hides children, when children are provided
 
   render(<TreeViewItem {...props} />);
 
-  const toggle = screen.getByRole("treeitem", { name: "Item 1" });
+  const treeItem = screen.getByRole("treeitem", { name: "Item 1" });
+  const toggle = screen.getByRole("button", { name: "Item 1" });
 
-  expect(toggle).toHaveAttribute("aria-expanded", "false");
-  expect(toggle).toHaveAttribute("aria-controls", "item-1");
+  expect(treeItem).toHaveAttribute("aria-expanded", "false");
+  expect(toggle).not.toHaveAttribute("aria-controls");
+  expect(screen.queryByRole("group")).not.toBeInTheDocument();
   expect(screen.queryByText("Item 1.1")).not.toBeInTheDocument();
   expect(screen.queryByRole("link")).not.toBeInTheDocument();
 });
@@ -61,7 +63,7 @@ test("does not render the 'href' as a link when children are provided", () => {
   render(<TreeViewItem {...props} />);
 
   expect(screen.queryByRole("link")).not.toBeInTheDocument();
-  expect(screen.getByRole("treeitem", { name: "Item 1" })).toBeVisible();
+  expect(screen.getByRole("button", { name: "Item 1" })).toBeVisible();
 });
 
 test("expands and renders child items when the toggle is clicked", async () => {
@@ -77,14 +79,16 @@ test("expands and renders child items when the toggle is clicked", async () => {
 
   render(<TreeViewItem {...props} />);
 
-  const toggle = screen.getByRole("treeitem", { name: "Item 1" });
-  await user.click(toggle);
+  await user.click(screen.getByRole("button", { name: "Item 1" }));
 
-  expect(toggle).toHaveAttribute("aria-expanded", "true");
-  const tree = screen.getByRole("tree", { name: "Item 1" });
+  expect(screen.getByRole("treeitem", { name: "Item 1" })).toHaveAttribute(
+    "aria-expanded",
+    "true",
+  );
 
-  expect(tree).toHaveAttribute("id", "item-1");
-  expect(tree).toHaveAttribute("aria-labelledby", "item-1-toggle");
+  const group = screen.getByRole("group", { name: "Item 1" });
+  expect(group).toHaveAttribute("id", "item-1");
+  expect(group).toHaveAttribute("aria-labelledby", "item-1-toggle");
   expect(screen.getByText("Item 1.1")).toBeVisible();
   expect(screen.getByRole("link", { name: "Item 1.2" })).toHaveAttribute(
     "href",
@@ -102,11 +106,14 @@ test("collapses child items when the toggle is clicked again", async () => {
 
   render(<TreeViewItem {...props} />);
 
-  const toggle = screen.getByRole("treeitem", { name: "Item 1" });
+  const toggle = screen.getByRole("button", { name: "Item 1" });
   await user.click(toggle);
   await user.click(toggle);
 
-  expect(toggle).toHaveAttribute("aria-expanded", "false");
+  expect(screen.getByRole("treeitem", { name: "Item 1" })).toHaveAttribute(
+    "aria-expanded",
+    "false",
+  );
   expect(screen.queryByText("Item 1.1")).not.toBeInTheDocument();
 });
 
@@ -126,9 +133,9 @@ test("renders nested children recursively once expanded", async () => {
 
   render(<TreeViewItem {...props} />);
 
-  await user.click(screen.getByRole("treeitem", { name: "Item 1" }));
+  await user.click(screen.getByRole("button", { name: "Item 1" }));
   expect(screen.queryByText("Item 1.1.1")).not.toBeInTheDocument();
 
-  await user.click(screen.getByRole("treeitem", { name: "Item 1.1" }));
+  await user.click(screen.getByRole("button", { name: "Item 1.1" }));
   expect(screen.getByText("Item 1.1.1")).toBeVisible();
 });

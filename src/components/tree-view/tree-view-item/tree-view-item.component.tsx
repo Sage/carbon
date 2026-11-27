@@ -5,9 +5,9 @@ import {
   StyledTreeNodeIcon,
   StyledTreeNodeLink,
   StyledTreeNodeToggle,
+  StyledTreeView,
   StyledTreeViewItem,
 } from "../tree-view.style";
-import TreeView from "../tree-view.component";
 
 export type TreeViewItemProps = {
   /**
@@ -36,18 +36,21 @@ export const TreeViewItem = ({
 }: TreeViewItemProps) => {
   const [expanded, setExpanded] = useState(false);
   const hasChildren = Boolean(children?.length);
+  const toggleId = `${id}-toggle`;
 
   return (
-    <StyledTreeViewItem>
+    <StyledTreeViewItem
+      role="treeitem"
+      aria-expanded={hasChildren ? expanded : undefined}
+      aria-labelledby={hasChildren ? toggleId : undefined}
+    >
       {hasChildren ? (
         <>
           <StyledTreeNodeToggle
             type="button"
-            id={`${id}-toggle`}
-            aria-controls={id}
-            aria-expanded={expanded}
+            id={toggleId}
+            aria-controls={expanded ? id : undefined}
             onClick={() => setExpanded(!expanded)}
-            role="treeitem"
           >
             <StyledTreeNodeIcon aria-hidden="true">
               <Icon size="small" type="chevron_right" />
@@ -56,11 +59,11 @@ export const TreeViewItem = ({
           </StyledTreeNodeToggle>
 
           {expanded && children && (
-            <TreeView
-              ariaLabelledBy={`${id}-toggle`}
-              id={id}
-              items={children}
-            />
+            <StyledTreeView role="group" id={id} aria-labelledby={toggleId}>
+              {children.map((child) => (
+                <TreeViewItem key={child.id} {...child} />
+              ))}
+            </StyledTreeView>
           )}
         </>
       ) : href ? (
