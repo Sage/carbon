@@ -168,6 +168,8 @@
 - [Time](components/time.md)
 - [Toast](components/toast.md) (deprecated)
 - [Tooltip](components/tooltip.md) (deprecated)
+- [TreeView](components/tree-view.md)
+- [TreeViewItem](components/tree-view-item.md)
 - [Typography](components/typography.md)
 - [VerticalDivider](components/vertical-divider.md) (deprecated)
 - [VerticalMenu](components/vertical-menu.md)
