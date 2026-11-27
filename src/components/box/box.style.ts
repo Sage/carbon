@@ -12,7 +12,6 @@ import boxGap from "../../style/utils/box-gap";
 import styledColor from "../../style/utils/color";
 import { BoxProps } from "./box.component";
 import boxConfig from "./box.config";
-import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 // This is deliberately the only adapter between the engine-neutral utilities
 // and styled-components. The utilities themselves do not import this package.
@@ -52,7 +51,7 @@ const calculatePosition = (
   };
 };
 
-const StyledBox = styled.div.attrs(applyBaseTheme)<
+const StyledBox = styled.div<
   Omit<BoxProps, "borderRadius"> & {
     cssProps?: {
       color?: string;

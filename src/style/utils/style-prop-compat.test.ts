@@ -1,3 +1,4 @@
+import baseTheme from "../themes/base";
 import {
   flexbox as styledSystemFlexbox,
   grid as styledSystemGrid,
@@ -44,7 +45,11 @@ describe("style-prop compatibility utilities", () => {
       flexBasis: 2,
       justifyContent: "center",
     };
-    const gridProps = { gridColumn: "1 / span 2", gridGap: 2 };
+    const gridProps = {
+      gridColumn: "1 / span 2",
+      gridGap: 2,
+      theme: baseTheme,
+    };
 
     expect(layout(layoutProps)).toEqual(
       normalise(styledSystemLayout(layoutProps)),
@@ -62,11 +67,11 @@ describe("style-prop compatibility utilities", () => {
     });
     expect(grid({ gridColumn: "1 / span 2", gridGap: 2 })).toEqual({
       "grid-column": "1 / span 2",
-      "grid-gap": "8px",
+      "grid-gap": "var(--spacing200)",
     });
     expect(position({ position: "absolute", top: 2, zIndex: 3 })).toEqual({
       position: "absolute",
-      top: "8px",
+      top: "var(--spacing200)",
       "z-index": 3,
     });
   });
@@ -121,7 +126,7 @@ describe("style-prop compatibility utilities", () => {
 
   it("uses legacy grid-gap scales and raw pixel fallbacks", () => {
     expect(grid({ gridGap: 3, gridRowGap: 12 })).toEqual({
-      "grid-gap": "16px",
+      "grid-gap": "var(--spacing300)",
       "grid-row-gap": "12px",
     });
     expect(
@@ -199,7 +204,6 @@ describe("style-prop compatibility utilities", () => {
       "@media screen and (min-width: 40em)": { width: "100%" },
       "@media screen and (min-width: 52em)": { width: "2px" },
       "@media screen and (min-width: 64em)": { width: "3px" },
-      width: "4px",
     });
     expect(layout({ width: { unknown: 2, skipped: undefined } })).toEqual({
       width: "2px",
@@ -221,16 +225,16 @@ describe("style-prop compatibility utilities", () => {
   it("covers grid gap and standalone color compatibility branches", () => {
     expect(grid({ gridGap: 0, gridRowGap: "1rem", gridColumnGap: -2 })).toEqual(
       {
-        "grid-gap": 0,
+        "grid-gap": "var(--spacing000)",
         "grid-row-gap": "1rem",
-        "grid-column-gap": "-8px",
+        "grid-column-gap": "-2px",
       },
     );
     expect(grid({ gridGap: 2, theme: { space: [0, 4, 8] } })).toEqual({
       "grid-gap": "8px",
     });
     expect(grid({ gridGap: -1, theme: { space: [0, "4px"] } })).toEqual({
-      "grid-gap": "-4px",
+      "grid-gap": "-1px",
     });
     expect(
       color({

@@ -13,10 +13,10 @@ const cssCase = (property: string) =>
 
 describe("local spacing compatibility", () => {
   it("retains legacy theme-space, zero, negative and fallback numeric behaviour", () => {
-    expect(resolveSpacingValue(0, baseTheme)).toBe("0px");
+    expect(resolveSpacingValue(0, baseTheme)).toBe("var(--spacing000)");
     expect(resolveSpacingValue(8, baseTheme)).toBe("var(--spacing800)");
     expect(resolveSpacingValue(-2, baseTheme)).toBe("-var(--spacing200)");
-    expect(resolveSpacingValue(2)).toBe("8px");
+    expect(resolveSpacingValue(2)).toBe("var(--spacing200)");
   });
 
   it("adds token aliases without changing CSS string values", () => {
@@ -47,12 +47,12 @@ describe("local spacing compatibility", () => {
 
   it("returns plain rules for shorthands and responsive values", () => {
     expect(space({ p: [1, null, 2], mx: "s" })).toEqual({
-      padding: "4px",
-      "@media screen and (min-width: 52em)": { padding: "8px" },
+      padding: "var(--spacing100)",
+      "@media screen and (min-width: 52em)": { padding: "var(--spacing200)" },
       "margin-left": spacingTokenValues.s,
       "margin-right": spacingTokenValues.s,
     });
-    expect(margin({ m: 1, p: 2 })).toEqual({ margin: "4px" });
+    expect(margin({ m: 1, p: 2 })).toEqual({ margin: "var(--spacing100)" });
   });
 
   it("uses named breakpoint and media-query responsive objects", () => {
@@ -65,9 +65,9 @@ describe("local spacing compatibility", () => {
         },
       }),
     ).toEqual({
-      padding: "4px",
-      "@media print": { padding: "8px" },
-      "@media screen and (min-width: 64em)": { padding: "16px" },
+      padding: "var(--spacing100)",
+      "@media print": { padding: "var(--spacing200)" },
+      "@media screen and (min-width: 64em)": { padding: "var(--spacing300)" },
     });
   });
 
@@ -80,9 +80,9 @@ describe("local spacing compatibility", () => {
         theme: { breakpoints },
       }),
     ).toEqual({
-      padding: "4px",
-      "@media screen and (min-width: 40em)": { padding: "8px" },
-      "@media screen and (min-width: 64em)": { padding: "16px" },
+      padding: "var(--spacing100)",
+      "@media screen and (min-width: 40em)": { padding: "var(--spacing200)" },
+      "@media screen and (min-width: 64em)": { padding: "var(--spacing300)" },
     });
   });
 
@@ -103,13 +103,12 @@ describe("local spacing compatibility", () => {
       "unknown",
     );
     expect(space({ p: null, m: [null, 1, 2, 3, 4] })).toEqual({
-      "@media screen and (min-width: 40em)": { margin: "4px" },
-      "@media screen and (min-width: 52em)": { margin: "8px" },
-      "@media screen and (min-width: 64em)": { margin: "16px" },
-      margin: "32px",
+      "@media screen and (min-width: 40em)": { margin: "var(--spacing100)" },
+      "@media screen and (min-width: 52em)": { margin: "var(--spacing200)" },
+      "@media screen and (min-width: 64em)": { margin: "var(--spacing300)" },
     });
     expect(space({ p: { unknown: 1, skipped: undefined } })).toEqual({
-      padding: "4px",
+      padding: "var(--spacing100)",
     });
     expect(
       space({
@@ -117,12 +116,12 @@ describe("local spacing compatibility", () => {
         theme: { breakpoints: { tablet: "50em" } },
       }),
     ).toEqual({
-      padding: "4px",
-      "@media screen and (min-width: 50em)": { padding: "8px" },
+      padding: "var(--spacing100)",
+      "@media screen and (min-width: 50em)": { padding: "var(--spacing200)" },
     });
     expect(space({ p: [1, 2], theme: { breakpoints: ["30em"] } })).toEqual({
-      padding: "4px",
-      "@media screen and (min-width: 30em)": { padding: "8px" },
+      padding: "var(--spacing100)",
+      "@media screen and (min-width: 30em)": { padding: "var(--spacing200)" },
     });
     expect(
       space({
@@ -132,11 +131,11 @@ describe("local spacing compatibility", () => {
       }),
     ).toEqual({
       "@media screen and (min-width: 64em)": {
-        padding: "4px",
-        margin: "8px",
+        padding: "var(--spacing100)",
+        margin: "var(--spacing200)",
       },
     });
-    expect(padding({ p: 1, m: 2 })).toEqual({ padding: "4px" });
-    expect(margin({ m: 1, p: 2 })).toEqual({ margin: "4px" });
+    expect(padding({ p: 1, m: 2 })).toEqual({ padding: "var(--spacing100)" });
+    expect(margin({ m: 1, p: 2 })).toEqual({ margin: "var(--spacing100)" });
   });
 });

@@ -24,11 +24,20 @@ Each phase is a separately reviewable and releasable pull request.
 ## Compatibility rules
 
 - Existing component APIs keep legacy numeric spacing semantics: numbers index
-  `theme.space`, with the established fallback when no theme is supplied.
+  a supplied `theme.space`, or Carbon's explicit token-backed spacing mapping
+  when that scale is absent. Box no longer injects the legacy base theme.
+- Consumer theme scales, palette overrides and breakpoint configuration remain
+  supported. CarbonProvider is unchanged for components still using the theme.
+- Legacy color aliases retain their existing values through standalone defaults;
+  they do not require construction or injection of a legacy theme. New APIs
+  should use design tokens directly.
 - Token aliases (`none`, `3xs` through `4xl`) are additive and resolve to the
   corresponding global-space CSS variables.
 - Responsive arrays, responsive objects, custom scales, zero and negative
   spacing remain supported where `styled-system` supported them.
+- Responsive arrays use the existing default breakpoints when none are supplied,
+  preserve null slots, and ignore entries beyond the configured breakpoints.
+  Responsive-object rules retain styled-system's ordering after props are merged.
 - The compatibility utilities return Carbon-owned plain style objects and must
   not import `styled-components`.
 

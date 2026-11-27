@@ -1,9 +1,14 @@
 import {
-  isUnsafeStyleObjectKey,
+  getScaleValue,
+  isResponsiveObject,
+  responsiveStyle,
+  sortResponsiveRules,
+  type StylePropTheme,
   mergeStyleObjects,
   type ResponsiveValue,
   type StyleObject,
 } from "./style-prop-compat";
+import { defaultSpace } from "./style-prop-defaults";
 
 export const spacingTokenValues = {
   none: "var(--global-space-none)",
@@ -58,13 +63,8 @@ export interface PaddingProps {
 }
 export type SpaceProps = MarginProps & PaddingProps;
 
-type SpacingTheme = {
-  space?: Array<string | number> | Record<string, string | number>;
-  breakpoints?: Array<string | number> | Record<string, string | number>;
-  mediaQueries?: Record<string, string>;
-};
+type SpacingTheme = StylePropTheme;
 type PropsWithTheme = { theme?: SpacingTheme };
-const defaultSpace = [0, 4, 8, 16, 32, 64, 128, 256, 512];
 const properties: Record<string, string | string[]> = {
   m: "margin",
   margin: "margin",
@@ -101,95 +101,62 @@ export const resolveSpacingValue = (
   theme?: SpacingTheme,
 ): string | number => {
   if (typeof value === "symbol") return String(value);
-  if (value === 0) return "0px";
   const negative = typeof value === "number" && value < 0;
   const lookup = negative ? Math.abs(value) : value;
   const space = theme?.space ?? defaultSpace;
-  const resolved = Array.isArray(space)
-    ? space[typeof lookup === "number" ? lookup : Number(lookup)]
-    : space[String(lookup)];
+  const resolved = getScaleValue(lookup, space);
   if (resolved !== undefined) {
     if (!negative)
       return typeof resolved === "number" ? `${resolved}px` : resolved;
-    return typeof resolved === "number" ? `-${resolved}px` : `-${resolved}`;
+    return typeof resolved === "number" ? `${-resolved}px` : `-${resolved}`;
   }
   if (typeof value === "string")
-    return value in spacingTokenValues
+    return Object.prototype.hasOwnProperty.call(spacingTokenValues, value)
       ? spacingTokenValues[value as SpacingToken]
       : value;
   return `${value}px`;
 };
 
-const merge = mergeStyleObjects;
-const declarations = (
-  property: string | string[],
-  value: SpacingValue,
-  theme?: SpacingTheme,
-): StyleObject =>
-  (Array.isArray(property) ? property : [property]).reduce<StyleObject>(
-    (result, name) => ({
-      ...result,
-      [name]: resolveSpacingValue(value, theme),
-    }),
-    {},
-  );
-const breakpoint = (theme: SpacingTheme | undefined, index: number) =>
-  Array.isArray(theme?.breakpoints)
-    ? theme.breakpoints[index - 1]
-    : theme?.breakpoints
-      ? Object.values(theme.breakpoints)[index - 1]
-      : ["40em", "52em", "64em"][index - 1];
-
-const responsive = (
-  property: string | string[],
-  value: ResponsiveSpacingValue,
-  theme?: SpacingTheme,
-): StyleObject => {
-  if (value === null) return {};
-  if (Array.isArray(value))
-    return value.reduce<StyleObject>((result, item, index) => {
-      if (item === null || item === undefined) return result;
-      const rule = declarations(property, item, theme);
-      if (index === 0) return merge(result, rule);
-      const point = breakpoint(theme, index);
-      return point
-        ? merge(result, { [`@media screen and (min-width: ${point})`]: rule })
-        : merge(result, rule);
-    }, {});
-  if (typeof value === "object")
-    return Object.entries(value).reduce<StyleObject>((result, [key, item]) => {
-      if (item === undefined || isUnsafeStyleObjectKey(key)) return result;
-      const rule = declarations(property, item, theme);
-      if (key === "_") return merge(result, rule);
-      const query = theme?.mediaQueries?.[key];
-      const point = Array.isArray(theme?.breakpoints)
-        ? (theme.breakpoints as unknown as Record<string, string | number>)[key]
-        : theme?.breakpoints?.[key];
-      if (query)
-        return merge(result, {
-          [`@media ${query.replace(/^@media\s+/, "")}`]: rule,
-        });
-      return point
-        ? merge(result, { [`@media screen and (min-width: ${point})`]: rule })
-        : merge(result, rule);
-    }, {});
-  return declarations(property, value, theme);
-};
-
 const create = <T extends object & PropsWithTheme>(
   props: T,
   supported?: string[],
-): StyleObject =>
-  Object.entries(
-    props as Record<string, ResponsiveSpacingValue | undefined>,
-  ).reduce<StyleObject>((result, [prop, value]) => {
-    const property = properties[prop];
-    return !property ||
-      value === undefined ||
-      (supported && !supported.includes(prop))
-      ? result
-      : merge(result, responsive(property, value, props.theme));
-  }, {});
+): StyleObject => {
+  let hasResponsiveObject = false;
+  const rules = Object.entries(props).reduce<StyleObject>(
+    (result, [prop, raw]) => {
+      if (
+        !Object.prototype.hasOwnProperty.call(properties, prop) ||
+        raw === undefined ||
+        (supported && !supported.includes(prop))
+      )
+        return result;
+      const value = raw as ResponsiveSpacingValue;
+      hasResponsiveObject ||= isResponsiveObject(value);
+      const outputs = properties[prop];
+      (Array.isArray(outputs) ? outputs : [outputs]).forEach((property) => {
+        mergeStyleObjects(
+          result,
+          responsiveStyle(property, value, props.theme, (item) => {
+            // Negative scale indexing is a margin transform, not a padding transform.
+            if (
+              property.startsWith("padding") &&
+              typeof item === "number" &&
+              item < 0
+            ) {
+              const resolved =
+                getScaleValue(item, props.theme?.space ?? defaultSpace) ?? item;
+              return typeof resolved === "number" ? `${resolved}px` : resolved;
+            }
+            return resolveSpacingValue(item, props.theme);
+          }),
+        );
+      });
+      return result;
+    },
+    {},
+  );
+  return hasResponsiveObject ? sortResponsiveRules(rules) : rules;
+};
 export const spacingCss = <T extends object & PropsWithTheme>(props: T) =>
   create(props);
 export const space = spacingCss;

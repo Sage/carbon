@@ -1,4 +1,11 @@
 /** Styling-engine-neutral equivalents for the subset of styled-system Carbon uses. */
+import { defaultBreakpoints, defaultSpace } from "./style-prop-defaults";
+
+export type Scale =
+  | Array<string | number>
+  | {
+      [key: string]: string | number | Scale;
+    };
 
 export type CSSValue = string | number | symbol;
 export type StyleObject = {
@@ -82,18 +89,17 @@ export interface ColorProps {
   opacity?: ResponsiveValue;
 }
 
-type Theme = {
+export type StylePropTheme = {
+  [scale: string]: unknown;
   breakpoints?: Array<string | number> | Record<string, string | number>;
   mediaQueries?: Record<string, string>;
-  colors?: Record<string, CSSValue>;
-  space?: Array<string | number> | Record<string, string | number>;
-  sizes?: Array<string | number> | Record<string, string | number>;
-  zIndices?: Array<string | number> | Record<string, string | number>;
+  colors?: Scale;
+  space?: Scale;
+  sizes?: Scale;
+  zIndices?: Scale;
 };
+type Theme = StylePropTheme;
 type Props = { theme?: Theme } & Record<string, unknown>;
-const defaultBreakpoints = ["40em", "52em", "64em"];
-const defaultSpace = [0, 4, 8, 16, 32, 64, 128, 256, 512];
-type Scale = Array<string | number> | Record<string, string | number>;
 const unsafeStyleObjectKeys = new Set([
   "__proto__",
   "constructor",
@@ -103,20 +109,39 @@ const unsafeStyleObjectKeys = new Set([
 export const isUnsafeStyleObjectKey = (key: string) =>
   unsafeStyleObjectKeys.has(key);
 
-const scaleValue = (value: CSSValue, scale?: Scale): CSSValue => {
-  if (typeof value === "symbol" || !scale) return value;
-  const key = String(value);
-  const direct = Array.isArray(scale) ? scale[Number(key)] : scale[key];
-  if (direct !== undefined) return direct;
-  if (typeof value !== "string") return value;
-  return (
-    (value.split(".").reduce<unknown>((result, part) => {
-      if (result && typeof result === "object")
-        return (result as Record<string, unknown>)[part];
+export const getScaleValue = (
+  value: CSSValue,
+  scale?: Scale,
+): string | number | undefined => {
+  if (typeof value === "symbol" || !scale) return undefined;
+  const keys = typeof value === "number" ? [String(value)] : value.split(".");
+  const resolved = keys.reduce<unknown>((result, part) => {
+    if (
+      isUnsafeStyleObjectKey(part) ||
+      !result ||
+      typeof result !== "object" ||
+      !Object.prototype.hasOwnProperty.call(result, part)
+    )
       return undefined;
-    }, scale) as CSSValue | undefined) ?? value
-  );
+    return (result as Record<string, unknown>)[part];
+  }, scale);
+  return typeof resolved === "string" || typeof resolved === "number"
+    ? resolved
+    : undefined;
 };
+
+const scaleValue = (value: CSSValue, scale?: Scale): CSSValue =>
+  getScaleValue(value, scale) ?? value;
+
+export const sortResponsiveRules = (rules: StyleObject): StyleObject =>
+  Object.fromEntries(
+    Object.entries(rules).sort(([a], [b]) =>
+      a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }),
+    ),
+  );
+
+export const isResponsiveObject = (value: unknown) =>
+  value !== null && typeof value === "object" && !Array.isArray(value);
 
 const valueFor = (value: CSSValue, property: string): CSSValue => {
   if (typeof value === "symbol") return String(value);
@@ -132,15 +157,10 @@ const valueFor = (value: CSSValue, property: string): CSSValue => {
 };
 
 const widthValue = (value: CSSValue, _property: string, theme?: Theme) => {
-  const resolved = scaleValue(value, theme?.sizes);
-  if (
-    resolved === value &&
-    typeof value === "number" &&
-    value > 0 &&
-    value <= 1
-  )
+  const resolved = getScaleValue(value, theme?.sizes);
+  if (resolved === undefined && typeof value === "number" && value <= 1)
     return `${value * 100}%`;
-  return valueFor(resolved, "width");
+  return valueFor(resolved ?? value, "width");
 };
 
 const scaledValue =
@@ -175,7 +195,7 @@ const declaration = (
   [property]: resolver(value, property, theme),
 });
 
-const responsive = (
+export const responsiveStyle = (
   property: string,
   value: ResponsiveValue,
   theme?: Theme,
@@ -187,28 +207,33 @@ const responsive = (
 ): StyleObject => {
   if (value === null || value === undefined) return {};
   if (Array.isArray(value)) {
-    return value.reduce<StyleObject>((result, item, index) => {
-      if (item === null || item === undefined) return result;
-      const rule = declaration(property, item, resolver, theme);
-      if (index === 0) return mergeStyleObjects(result, rule);
-      const breakpoint = Array.isArray(theme?.breakpoints)
-        ? theme.breakpoints[index - 1]
-        : defaultBreakpoints[index - 1];
-      return breakpoint
-        ? mergeStyleObjects(result, {
-            [`@media screen and (min-width: ${breakpoint})`]: rule,
-          })
-        : mergeStyleObjects(result, rule);
-    }, {});
+    const breakpoints = theme?.breakpoints ?? defaultBreakpoints;
+    const points = Array.isArray(breakpoints)
+      ? breakpoints
+      : Object.values(breakpoints);
+    return value
+      .slice(0, points.length + 1)
+      .reduce<StyleObject>((result, item, index) => {
+        if (item === null || item === undefined) return result;
+        const rule = declaration(property, item, resolver, theme);
+        if (index === 0) return mergeStyleObjects(result, rule);
+        const breakpoint = points[index - 1];
+        return breakpoint
+          ? mergeStyleObjects(result, {
+              [`@media screen and (min-width: ${breakpoint})`]: rule,
+            })
+          : mergeStyleObjects(result, rule);
+      }, {});
   }
   if (typeof value === "object") {
+    const breakpoints = theme?.breakpoints ?? defaultBreakpoints;
     return Object.entries(value).reduce<StyleObject>((result, [key, item]) => {
       if (item === undefined || isUnsafeStyleObjectKey(key)) return result;
       const rule = declaration(property, item, resolver, theme);
       if (key === "_") return mergeStyleObjects(result, rule);
-      const namedBreakpoint = Array.isArray(theme?.breakpoints)
-        ? (theme.breakpoints as unknown as Record<string, string | number>)[key]
-        : theme?.breakpoints?.[key];
+      const namedBreakpoint = (
+        breakpoints as unknown as Record<string, string | number>
+      )[key];
       const query = theme?.mediaQueries?.[key];
       if (query)
         return mergeStyleObjects(result, {
@@ -234,20 +259,36 @@ const system =
   ) =>
   (props: object): StyleObject => {
     const values = props as Props;
-    return Object.entries(properties).reduce<StyleObject>(
-      (result, [prop, output]) => {
-        const value = values[prop] as ResponsiveValue | undefined;
+    let hasResponsiveObject = false;
+    const rules = Object.entries(values).reduce<StyleObject>(
+      (result, [prop, raw]) => {
+        if (!Object.prototype.hasOwnProperty.call(properties, prop))
+          return result;
+        const output = properties[prop];
+        const value = raw as ResponsiveValue | undefined;
         if (value === undefined) return result;
+        hasResponsiveObject ||= isResponsiveObject(value);
         (Array.isArray(output) ? output : [output]).forEach((property) =>
           mergeStyleObjects(
             result,
-            responsive(property, value, values.theme, resolvers[prop]),
+            responsiveStyle(
+              property,
+              value,
+              values.theme,
+              resolvers[prop] ??
+                ((item, name, theme) =>
+                  valueFor(
+                    scaleValue(item, theme?.[prop] as Scale | undefined),
+                    name,
+                  )),
+            ),
           ),
         );
         return result;
       },
       {},
     );
+    return hasResponsiveObject ? sortResponsiveRules(rules) : rules;
   };
 
 export const layout = system(
@@ -290,51 +331,27 @@ export const flexbox = system({
   alignSelf: "align-self",
   order: "order",
 });
-const gridBase = system({
-  gridColumn: "grid-column",
-  gridRow: "grid-row",
-  gridArea: "grid-area",
-  gridAutoFlow: "grid-auto-flow",
-  gridAutoRows: "grid-auto-rows",
-  gridAutoColumns: "grid-auto-columns",
-  gridTemplateRows: "grid-template-rows",
-  gridTemplateColumns: "grid-template-columns",
-  gridTemplateAreas: "grid-template-areas",
-});
-const gridGapValue = (
-  value: CSSValue,
-  _property: string,
-  theme?: Theme,
-): CSSValue => {
-  if (typeof value !== "number" || value === 0)
-    return valueFor(value, "grid-gap");
-  const scaled = scaleValue(Math.abs(value), theme?.space ?? defaultSpace);
-  if (scaled !== Math.abs(value)) {
-    if (value < 0)
-      return typeof scaled === "number" ? `-${scaled}px` : `-${String(scaled)}`;
-    return valueFor(scaled, "grid-gap");
-  }
-  return valueFor(value, "grid-gap");
-};
-export const grid = (props: object): StyleObject => {
-  const values = props as Props;
-  const result = gridBase(props);
-  (
-    [
-      ["gridGap", "grid-gap"],
-      ["gridRowGap", "grid-row-gap"],
-      ["gridColumnGap", "grid-column-gap"],
-    ] as const
-  ).forEach(([prop, property]) => {
-    const value = values[prop] as ResponsiveValue | undefined;
-    if (value !== undefined)
-      mergeStyleObjects(
-        result,
-        responsive(property, value, values.theme, gridGapValue),
-      );
-  });
-  return result;
-};
+export const grid = system(
+  {
+    gridColumn: "grid-column",
+    gridRow: "grid-row",
+    gridArea: "grid-area",
+    gridAutoFlow: "grid-auto-flow",
+    gridAutoRows: "grid-auto-rows",
+    gridAutoColumns: "grid-auto-columns",
+    gridTemplateRows: "grid-template-rows",
+    gridTemplateColumns: "grid-template-columns",
+    gridTemplateAreas: "grid-template-areas",
+    gridGap: "grid-gap",
+    gridRowGap: "grid-row-gap",
+    gridColumnGap: "grid-column-gap",
+  },
+  {
+    gridGap: scaledValue("space", defaultSpace),
+    gridRowGap: scaledValue("space", defaultSpace),
+    gridColumnGap: scaledValue("space", defaultSpace),
+  },
+);
 export const background = system({
   background: "background",
   backgroundColor: "background-color",
@@ -370,7 +387,9 @@ export const color = (props: {
   opacity?: CSSValue;
 }): StyleObject => {
   const resolve = (value: CSSValue) =>
-    typeof value === "string" ? (props.theme?.colors?.[value] ?? value) : value;
+    typeof value === "string"
+      ? (getScaleValue(value, props.theme?.colors) ?? value)
+      : value;
   return {
     color: props.color === undefined ? undefined : resolve(props.color),
     "background-color":

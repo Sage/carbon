@@ -1,4 +1,4 @@
-import { space } from "../../style/themes/base/base-theme.config";
+import { defaultSpace as space } from "./style-prop-defaults";
 
 export const GAP_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 export type AllowedNumericalValues = (typeof GAP_VALUES)[number];

@@ -1,5 +1,12 @@
 import tokens from "@sage/design-tokens/js/base/common";
-import type { ThemeObject } from "../themes/theme.types";
+import { defaultColors, defaultPalette } from "./legacy-color-defaults";
+import { getScaleValue, type Scale } from "./style-prop-compat";
+import type { PaletteFunction } from "../palette";
+
+type ColorTheme = {
+  colors?: Scale;
+  palette?: Record<string, string | PaletteFunction>;
+};
 
 /*
  * styled-system/color allows users to use a color from the theme, from the `colors` object.
@@ -21,12 +28,13 @@ import type { ThemeObject } from "../themes/theme.types";
  * This allows us to keep our themes as plain objects.
  */
 
-export const toColor = (theme: ThemeObject, color: string) => {
+export const toColor = (theme: ColorTheme | undefined, color: string) => {
   if (color.startsWith("--") && color.slice(2) in tokens) {
     return `var(${color})`;
   }
 
-  const { palette } = theme;
+  const palette: Record<string, string | PaletteFunction> =
+    theme?.palette ?? defaultPalette;
 
   const percentage = color.match(/\d+/);
   const method = color.match(/[a-zA-Z]+/)?.toString();
@@ -57,19 +65,12 @@ export default ({
   backgroundColor?: string;
   opacity?: string | number;
 } => {
-  const theme = rest.theme as ThemeObject;
+  const theme = rest.theme as ColorTheme | undefined;
   const resolveColor = (value: string) => {
-    const direct = theme.colors[value as keyof ThemeObject["colors"]];
-    const nested = value.split(".").reduce<unknown>((result, key) => {
-      if (result && typeof result === "object")
-        return (result as Record<string, unknown>)[key];
-      return undefined;
-    }, theme.colors);
-    return (
-      (typeof direct === "string" ? direct : undefined) ??
-      (typeof nested === "string" ? nested : undefined) ??
-      toColor(theme, value)
-    );
+    const resolved = toColor(theme, value);
+    // Preserve palette-first resolution, then the consumer's color scale.
+    const scaled = getScaleValue(resolved, theme?.colors ?? defaultColors);
+    return typeof scaled === "string" ? scaled : resolved;
   };
   const styles: {
     color?: string;
