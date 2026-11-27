@@ -18,7 +18,7 @@ export interface DatePickerProps {
   /** Legacy DayPicker configuration. DateInput remains single-select. */
   dayPickerProps?: PickerProps;
   /** Element that the DatePicker will be displayed under. */
-  inputContainerRef: RefObject<HTMLElement>;
+  inputContainer: HTMLElement | null;
   /** Focusable control that opened the picker, when one is available. */
   datePickerTriggerRef?: RefObject<HTMLButtonElement>;
   /** Currently selected date. */

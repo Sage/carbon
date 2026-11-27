@@ -1,4 +1,10 @@
-import React, { useContext, useRef, useCallback, useEffect } from "react";
+import React, {
+  useContext,
+  useRef,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import styled, { css } from "styled-components";
 import {
   PopoverMenuContext,
@@ -10,7 +16,6 @@ import {
 import guid from "../../utils/helpers/guid";
 import Icon from "../../../components/icon";
 import { buttonMenuItemQuerySelector } from "../utils";
-import combineRefs from "../../utils/helpers/combine-refs";
 import MenuOptionItem, {
   type MenuOptionItemProps,
 } from "./menu-option-item.component";
@@ -149,8 +154,16 @@ const ButtonMenuItem = ({
   "aria-describedby": ariaDescribedBy,
   ...rest
 }: MenuItemProps) => {
-  const ref = useRef<HTMLLIElement | null>(null);
-  const combinedRef = combineRefs(ref, measureElement);
+  const [triggerElement, setTriggerElement] = useState<HTMLLIElement | null>(
+    null,
+  );
+  const attachTrigger = useCallback(
+    (element: HTMLLIElement | null) => {
+      setTriggerElement(element);
+      if (typeof measureElement === "function") measureElement(element);
+    },
+    [measureElement],
+  );
   const {
     size,
     isButtonMenu,
@@ -199,7 +212,7 @@ const ButtonMenuItem = ({
     if (!submenuOpen) return;
 
     focusFirstSubmenuItem(submenuRef);
-  }, [submenuOpen]);
+  }, [submenuOpen, triggerElement]);
 
   const handleSubmenuClose = useCallback(
     (ev: React.KeyboardEvent<HTMLLIElement>) => {
@@ -240,11 +253,11 @@ const ButtonMenuItem = ({
       size,
       onClose: () => onSubmenuClose?.(),
       ref: submenuRef,
-      triggerRef: ref,
+      triggerElement,
       control: (controlProps: PopoverControlProps) => {
         return (
           <StyledMenuItem
-            ref={combinedRef}
+            ref={attachTrigger}
             id={itemId}
             data-component="popover-menu-item"
             className={`popover-menu-item${isDisabled ? "-disabled" : ""}`}
@@ -267,7 +280,7 @@ const ButtonMenuItem = ({
 
   return (
     <StyledMenuItem
-      ref={combinedRef}
+      ref={attachTrigger}
       id={itemId}
       data-component={`popover-${isSubmenu ? "submenu" : "menu"}-item`}
       className={`popover-menu-item${isDisabled ? "-disabled" : ""}`}

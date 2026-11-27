@@ -138,8 +138,8 @@ export interface NextSelectListProps {
     ref: React.RefObject<HTMLInputElement>,
     props: PopoverControlProps,
   ) => React.ReactNode;
-  /** Override the default control reference used for positioning */
-  controlReference?: React.RefObject<HTMLDivElement | HTMLLIElement>;
+  /** Override the default control element used for positioning */
+  controlElement?: HTMLDivElement | HTMLLIElement | null;
   /** Custom styles applied to the control wrapper element */
   controlWrapperStyle?: CSSObject;
   /** Accessible label for the listbox */
@@ -246,7 +246,7 @@ const SelectList = ({
   placement = "bottom",
   selectedValue,
   popoverControl,
-  controlReference,
+  controlElement,
   controlWrapperStyle,
   listboxAriaLabel,
   onSelect,
@@ -260,9 +260,11 @@ const SelectList = ({
 }: NextSelectListProps) => {
   const locale = useLocale();
   const listRef = useRef<HTMLUListElement | null>(null);
+  const [listElement, setListElement] = useState<HTMLUListElement | null>(null);
   const modalRef = useRef<HTMLUListElement | null>(null);
   const setListRef = useCallback((element: HTMLUListElement | null) => {
     listRef.current = element;
+    setListElement(element);
     // PopoverMenu unmounts the list on close. Retain its identity so the modal
     // manager can remove it from the stack after React clears the DOM ref.
     if (element) modalRef.current = element;
@@ -301,7 +303,7 @@ const SelectList = ({
   );
 
   useEffect(() => {
-    const list = listRef.current;
+    const list = listElement;
     if (!open || !list || !onListScrollBottom) return undefined;
 
     const handleScroll = () => {
@@ -312,7 +314,7 @@ const SelectList = ({
 
     list.addEventListener("scroll", handleScroll);
     return () => list.removeEventListener("scroll", handleScroll);
-  }, [open, onListScrollBottom]);
+  }, [open, onListScrollBottom, listElement]);
 
   const listId = useRef(id ?? `select-list-${guid()}`).current;
   const groups = useMemo(
@@ -611,8 +613,8 @@ const SelectList = ({
       maxHeight={resolvedMaxHeight}
       placement={placement}
       id={listId}
-      controlReference={controlReference}
-      clickAwayWithinReference={!!controlReference}
+      controlElement={controlElement}
+      clickAwayWithinReference={!!controlElement}
       controlWrapperStyle={controlWrapperStyle}
       listboxAriaLabelledBy={labelId}
       listboxAriaLabel={listboxAriaLabel}

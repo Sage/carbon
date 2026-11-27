@@ -28,7 +28,7 @@ const pickerPopoverMiddleware = [
 let deprecateDisablePortalWarnTriggered = false;
 
 export const DatePicker = ({
-  inputContainerRef,
+  inputContainer,
   datePickerTriggerRef,
   minDate,
   maxDate,
@@ -73,10 +73,10 @@ export const DatePicker = ({
   );
 
   const closePickerAndRestoreFocus = useCallback(() => {
-    const input = inputContainerRef.current?.querySelector("input");
+    const input = inputContainer?.querySelector("input");
     (datePickerTriggerRef?.current || input)?.focus();
     onRequestPickerClose();
-  }, [datePickerTriggerRef, inputContainerRef, onRequestPickerClose]);
+  }, [datePickerTriggerRef, inputContainer, onRequestPickerClose]);
 
   const handleDayClick = (
     date?: Date,
@@ -138,7 +138,7 @@ export const DatePicker = ({
   return (
     <Popover
       placement="bottom-start"
-      reference={inputContainerRef}
+      reference={inputContainer}
       middleware={pickerPopoverMiddleware}
       disablePortal={disablePortal}
       disableBackgroundUI={isInTable}

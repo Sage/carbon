@@ -149,6 +149,21 @@ describe("open button", () => {
   });
 });
 
+test("positions the popover relative to the open button when rendered controlled with open set to true on mount", async () => {
+  render(
+    <PopoverContainer open title="Title">
+      Content
+    </PopoverContainer>,
+  );
+
+  await waitFor(() =>
+    expect(screen.getByRole("dialog")).toHaveAttribute(
+      "data-floating-placement",
+      "bottom-start",
+    ),
+  );
+});
+
 test("popup has a title when title prop is passed", () => {
   render(
     <PopoverContainer title="Custom Title" open>

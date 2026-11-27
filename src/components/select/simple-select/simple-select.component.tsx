@@ -217,7 +217,8 @@ export const SimpleSelect = React.forwardRef<
     ref,
   ) => {
     const selectListId = useRef(guid());
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [containerElement, setContainerElement] =
+      useState<HTMLDivElement | null>(null);
     const filterTimer = useRef<number | undefined>(undefined);
     const isMouseDownReported = useRef<boolean>();
     const isTimerCounting = useRef<boolean>();
@@ -545,7 +546,7 @@ export const SimpleSelect = React.forwardRef<
           }
           selectedValue={selectedValue}
           listboxAriaLabel={ariaLabel}
-          controlReference={containerRef}
+          controlElement={containerElement}
           enableVirtualScroll={enableVirtualScroll}
           virtualScrollOverscan={virtualScrollOverscan}
           flipEnabled={flipEnabled}
@@ -558,7 +559,7 @@ export const SimpleSelect = React.forwardRef<
           popoverControl={(controlRef, controlProps) => (
             <SelectTextbox
               ref={combineRefs(assignInput, controlRef)}
-              containerRef={containerRef}
+              containerRef={setContainerElement}
               ariaLabel={ariaLabel}
               ariaLabelledby={ariaLabelledby}
               aria-describedby={ariaDescribedBy}

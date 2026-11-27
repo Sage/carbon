@@ -16,13 +16,11 @@ jest.mock("../calendar/calendar.component", () => ({
 test("ignores a day click when the calendar supplies no date", async () => {
   const user = userEvent.setup();
   const onRequestPickerClose = jest.fn();
-  const inputContainerRef = {
-    current: document.createElement("div"),
-  } as React.RefObject<HTMLDivElement>;
+  const inputContainer = document.createElement("div");
 
   render(
     <DatePicker
-      inputContainerRef={inputContainerRef}
+      inputContainer={inputContainer}
       onRequestPickerClose={onRequestPickerClose}
       open
       disablePortal
